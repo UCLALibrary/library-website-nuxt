@@ -9,3 +9,4 @@ A running todo list of things we need to do.
 - [x] Create todo.md
 - [x] Create components.md
 - [ ] Design urls to readme
+- [ ] Recommended packages (TODO show, Vetur etc...)

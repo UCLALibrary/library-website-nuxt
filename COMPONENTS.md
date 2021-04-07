@@ -1,3 +1,3 @@
 # Components
 
-TODO List of needed components for this website
+TODO List of needed components for this website.
