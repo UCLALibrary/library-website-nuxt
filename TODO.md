@@ -13,5 +13,6 @@ A running todo list of things we need to do.
 -   [ ] Default layout setup
 -   [ ] Basic page route templates created
 -   [ ] Basic CSS vars defined
--   [ ] Storybook installed
+-   [x] Storybook installed
 -   [ ] Components directory
+-   [ ] Document storybook in README

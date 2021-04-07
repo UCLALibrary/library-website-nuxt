@@ -4,12 +4,16 @@
         "dev": "nuxt",
         "build": "nuxt build",
         "generate": "nuxt generate",
-        "start": "nuxt start"
+        "start": "nuxt start",
+        "storybook": "nuxt storybook",
+        "storybook-build": "nuxt storybook build"
     },
     "dependencies": {
         "nuxt": "^2.15.4"
     },
     "devDependencies": {
+        "@nuxtjs/storybook": "^4.0.1",
+        "core-js": "^3.10.1",
         "eslint": "^7.23.0",
         "eslint-plugin-vue": "^7.8.0",
         "node-sass": "^5.0.0",
