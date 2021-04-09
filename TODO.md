@@ -2,10 +2,10 @@
 
 A running todo list of things we need to do.
 
--   [ ] Add Website Development Process to wiki
+-   [x] Add Website Development Process to wiki
 -   [x] Add project Roadmap to wiki
 -   [ ] Add recommended dev environment to wiki (IDE, Prettier etc)
--   [ ] Create defaults for .env.example
+-   [x] Create defaults for .env.example
 -   [x] Create todo.md
 -   [x] Create components.md
 -   [x] Design urls to readme
@@ -16,3 +16,4 @@ A running todo list of things we need to do.
 -   [x] Storybook installed
 -   [x] Components directory
 -   [ ] Document storybook in README
+-   [ ] Update wiki with Funkhaus best practices

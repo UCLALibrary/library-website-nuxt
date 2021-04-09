@@ -96,4 +96,4 @@ TODO List of needed components for this website.
 ## Search
 
 - SearchHome
-    - TODO whats props?    
+    - TODO what props?    

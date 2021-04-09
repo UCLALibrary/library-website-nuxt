@@ -1,16 +1,11 @@
 import ExampleComponent from "~/components/ExampleComponent"
 
+// Import mock api data
+import * as API from "~/stories/mock-api.json"
+
 // Storybook default settings
 export default {
     title: "ExampleComponent",
-}
-
-// Mock out an image
-const image = {
-    srcset: "",
-    sizes: "",
-    src: "https://via.placeholder.com/1920x1080",
-    alt: "Image alt text here",
 }
 
 // Variations of stories below
@@ -23,17 +18,18 @@ export const WithImage = () => ({
     components: { ExampleComponent },
     data() {
         return {
-            image,
+            image: API.image,
+            text: API.article.title,
         }
     },
-    template: `<example-component text="This one has an image" :image="image"/>`,
+    template: `<example-component :text="text" :image="image"/>`,
 })
 
 export const WithSlot = () => ({
     components: { ExampleComponent },
     data() {
         return {
-            image,
+            image: API.image,
         }
     },
     template: `
