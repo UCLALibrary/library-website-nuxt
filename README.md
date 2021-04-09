@@ -53,3 +53,4 @@ The 4 `devDependencies` installed in the package are "eslint", "eslint-plugin-vu
 ## Questions for Viget
 
 1.  Why does Figma show the body font weight as `600` when it clearly isn't?
+2.  Are the CSS color values P found correct? Lots of variations that are similar.
