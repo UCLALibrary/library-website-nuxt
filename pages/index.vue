@@ -3,6 +3,9 @@
         Home page here.
 
         <p>Test</p>
+
+        <dotted-line/>
+
     </div>
 </template>
 

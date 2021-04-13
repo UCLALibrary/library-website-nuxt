@@ -3,62 +3,68 @@
 TODO List of needed components for this website.
 
 ## Global
-- SiteBrandBar
+
+- [x] SiteBrandBar
     - (Contains SVG of logo that links)
 
-- NavSecondary
+- [x] NavSecondary
     - items: [{text, url, target}]
 
--   NavPrimary
-    - items: [{name = "", url = "", items = [{text, url, target}]]
+- [x] NavPrimary
+    - items: [{name = "", url = "", items = [{text, url, target}]], {}}
 
-- TODO Mobile Primary and Secondary?
+- [ ] SmartLink
+    - to
+    - target
+    - default slot: <smart-link>something </smart-link>
 
-- MastheadPrimary
+- [ ] MastheadPrimary
     - (Contains SearchHome)
 
-- MastheadSecondary
+- [ ] MastheadSecondary
     - hasMolecules: boolean
+    - title
+    - text
     - (slot: used for search form)
 
-- DividerHorizontal
+- [ ] DividerHorizontal
     - color: "yellow"
     - bold: boolean
 
-- DividerVertical
+- [ ] DividerVertical
 
-- FooterPrimary
+- [ ] FooterPrimary
     - social-items: [{text, url}]
     - press-items: [{text, url}]
     - (Uses form-mailing-list?)
 
-- SiteFooterSock
+- [ ] SiteFooterSock
     - items: [{text, url, target}]
 
-- SiteNotificationAlert
+- [ ] SiteNotificationAlert
     - title
     - text
 
 ## Home
 
-- SectionCards
+- [ ] SectionCards
     - title
     - text
     - items: [{see card props}] (uses CardVertical component)
     - to: ""
 
-- BlockCardVertical
+- [ ] BlockCardVertical
     - iconName: String
     - title
     - text
     - to
     - section: "" // get-help, visit, about
 
-- BlockCardMore
+- [ ] BlockCardMore
     - text
     - to
 
-- BannerFeatured
+- [ ] BannerFeatured
     - image
     - title
     - category: {name, to}
@@ -73,19 +79,19 @@ TODO List of needed components for this website.
     - (slot that replaces top breadcrumb)
     - alignment: "left" or "right"
 
-- SectionDualMasonry
+- [ ] SectionDualMasonry
     - items: [{image, category, title, prompt, dates, to}]
     - to
 
-- HeadingArrow
+- [ ] HeadingArrow
     - text
     - to
 
-- SectionPostSmall    
+- [ ] SectionPostSmall    
     - items: [{see BlockPostSmall}]
     - to
 
-- BlockPostSmall
+- [ ] BlockPostSmall
     - image
     - category: {name, to}
     - title
@@ -95,5 +101,9 @@ TODO List of needed components for this website.
 
 ## Search
 
-- SearchHome
+- [ ] SearchHome
     - TODO what props?    
+
+## TODO
+
+- TODO Mobile nav/menus Primary and Secondary?    

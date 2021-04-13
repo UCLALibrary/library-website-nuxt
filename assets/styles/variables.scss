@@ -12,10 +12,11 @@
     --color-dark-blue-02: #0055A6;
     --color-lightest-blue: #EAF2FB;
 
-    //Secondary colors
+    // Secondary colors
     --color-primary-yellow: #FFD600;
     --color-yellow-02: #FFDB20;
     --color-yellow-03: #FFE92E;
+    --color-blue-01: #3284BF;
     --color-blue-02: #1F75C5;
     --color-blue-03: #1678D0;
     --color-blue-04: #288FE8;
@@ -24,7 +25,7 @@
     --color-grey-03: #DCDCDB;
     --color-bkg-grey: #F2F2F2;
 
-    //Tertiary colors
+    // Tertiary colors
     --color-cyan-01: #0AA5FF;
     --color-cyan-02: #5CD9FF;
     --color-cyan-02: #C7F8FF;
@@ -39,13 +40,17 @@
     --color-purple-03: #EFE5FF;
 
 
-    // TODO setup section colors like this
-    --color-yellow: yellow;
-    --color-visit: var(--color-yellow);
-
+    // Section colors
+    --color-help: var(--color-green-01);
+    --color-visit: var(--color-fushia-01);
+    --color-about: var(--color-purple-01);
+    --color-section: var(--color-cyan-01);
 
     //--unit-100vh: 100vh;
-    //--unit-gap: 40px;
+    --unit-gutter: 72px;
+    --unit-vertical-gap: 100px;
+    --unit-content-width: 1048px;
+    --unit-sticky-header-height: 96px;
 
     --font-primary: "Karbon", sans-serif;
     //--font-secondary: "Proxima Nova", sans-serif;

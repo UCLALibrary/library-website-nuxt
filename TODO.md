@@ -20,7 +20,12 @@ A running todo list of things we need to do.
 
 ## Questions for Viget
 
+### Week 1
 1.  Why does Figma show the body font weight as `600` when it clearly isn't?
 2.  Are the CSS color values P found correct? Lots of variations that are similar.
 3.  Is the molecule missing from Research page
 4.  For dividing lines, where is yellow and blue used?
+
+### Week 2
+1. Can we be given export SVG permissions in Figma. Or better yet, give us all of them?
+1. When the main menu is open, is it overlay the whole screen? Or 522px heigh? Or does it push down the page?
