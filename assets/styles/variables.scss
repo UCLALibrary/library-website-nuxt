@@ -2,43 +2,42 @@
 :root {
     // TODO Add brand colors as vars here
     --color-white: #ffffff;
-    --color-black: #0F0F0F;
+    --color-black: #0f0f0f;
 
     // Primary colors
-    --color-primary-blue: #0B6AB7;
-    --color-dark-blue: #032D5B;
-    --color-primary-light-blue: #9ECFFA;
-    --color-yellow: #FFE800;
-    --color-dark-blue-02: #0055A6;
-    --color-lightest-blue: #EAF2FB;
+    --color-primary-blue: #0b6ab7;
+    --color-dark-blue: #032d5b;
+    --color-primary-light-blue: #9ecffa;
+    --color-yellow: #ffe800;
+    --color-dark-blue-02: #0055a6;
+    --color-lightest-blue: #eaf2fb;
 
     // Secondary colors
-    --color-primary-yellow: #FFD600;
-    --color-yellow-02: #FFDB20;
-    --color-yellow-03: #FFE92E;
-    --color-blue-01: #3284BF;
-    --color-blue-02: #1F75C5;
-    --color-blue-03: #1678D0;
-    --color-blue-04: #288FE8;
+    --color-primary-yellow: #ffd600;
+    --color-yellow-02: #ffdb20;
+    --color-yellow-03: #ffe92e;
+    --color-blue-01: #3284bf;
+    --color-blue-02: #1f75c5;
+    --color-blue-03: #1678d0;
+    --color-blue-04: #288fe8;
     --color-grey-01: #717171;
     --color-grey-02: #999999;
-    --color-grey-03: #DCDCDB;
-    --color-bkg-grey: #F2F2F2;
+    --color-grey-03: #dcdcdb;
+    --color-bkg-grey: #f2f2f2;
 
     // Tertiary colors
-    --color-cyan-01: #0AA5FF;
-    --color-cyan-02: #5CD9FF;
-    --color-cyan-02: #C7F8FF;
-    --color-green-01: #00E0E0;
-    --color-green-02: #87FBE8;
-    --color-green-03: #B9F8EE;
-    --color-fushia-01: #FF94DB;
-    --color-fushia-02: #FFBDF4;
-    --color-fushia-03: #FFDCFF;
-    --color-purple-01: #C099FF;
-    --color-purple-02: #E7DBFF;
-    --color-purple-03: #EFE5FF;
-
+    --color-cyan-01: #0aa5ff;
+    --color-cyan-02: #5cd9ff;
+    --color-cyan-02: #c7f8ff;
+    --color-green-01: #00e0e0;
+    --color-green-02: #87fbe8;
+    --color-green-03: #b9f8ee;
+    --color-fushia-01: #ff94db;
+    --color-fushia-02: #ffbdf4;
+    --color-fushia-03: #ffdcff;
+    --color-purple-01: #c099ff;
+    --color-purple-02: #e7dbff;
+    --color-purple-03: #efe5ff;
 
     // Section colors
     --color-help: var(--color-green-01);
@@ -53,5 +52,5 @@
     --unit-sticky-header-height: 96px;
 
     --font-primary: "Karbon", sans-serif;
-    //--font-secondary: "Proxima Nova", sans-serif;
+    --font-secondary: "proxima-nova", sans-serif;
 }

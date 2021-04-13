@@ -30,6 +30,8 @@
         900 - Black (Heavy)
 */
 
+/* NOTE: We load other fonts using typekit, you can see them all here: https://use.typekit.net/xso3wzv.css */
+
 @font-face {
     font-family: "Karbon";
     src: url("~assets/fonts/karbon-web-regular.eot");
