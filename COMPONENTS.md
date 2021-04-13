@@ -13,35 +13,35 @@ TODO List of needed components for this website.
 - [x] NavPrimary
     - items: [{name = "", url = "", items = [{text, url, target}]], {}}
 
-- [ ] SmartLink
+- [x] SmartLink
     - to
     - target
     - default slot: <smart-link>something </smart-link>
 
-- [ ] MastheadPrimary
+- [x] MastheadPrimary
     - (Contains SearchHome)
 
-- [ ] MastheadSecondary
+- [x] MastheadSecondary
     - hasMolecules: boolean
     - title
     - text
     - (slot: used for search form)
 
-- [ ] DividerHorizontal
-    - color: "yellow"
+- [x] DividerWayfinder
+    - color: "help"
     - bold: boolean
 
-- [ ] DividerVertical
+- [x] DividerVertical
 
-- [ ] FooterPrimary
+- [x] FooterPrimary
     - social-items: [{text, url}]
     - press-items: [{text, url}]
     - (Uses form-mailing-list?)
 
-- [ ] SiteFooterSock
+- [x] FooterSock
     - items: [{text, url, target}]
 
-- [ ] SiteNotificationAlert
+- [x] SiteNotificationAlert
     - title
     - text
 

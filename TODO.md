@@ -17,15 +17,20 @@ A running todo list of things we need to do.
 -   [x] Components directory
 -   [ ] Document storybook in README
 -   [ ] Update wiki with Funkhaus best practices
+-   [ ] Setup z-indexes for the site
 
 ## Questions for Viget
 
 ### Week 1
+
 1.  Why does Figma show the body font weight as `600` when it clearly isn't?
 2.  Are the CSS color values P found correct? Lots of variations that are similar.
 3.  Is the molecule missing from Research page
 4.  For dividing lines, where is yellow and blue used?
 
 ### Week 2
+
 1. Can we be given export SVG permissions in Figma. Or better yet, give us all of them?
 1. When the main menu is open, is it overlay the whole screen? Or 522px heigh? Or does it push down the page?
+1. Can we get the homepage header background molecule as one big full SVG. Is it the same one for the shorter headers too?
+1. What is the hover color for the FooterSock links?

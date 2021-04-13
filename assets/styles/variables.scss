@@ -39,17 +39,31 @@
     --color-purple-02: #e7dbff;
     --color-purple-03: #efe5ff;
 
+    // Gradients
+    --gradient-01: linear-gradient(
+        142.22deg,
+        #0b6ab7 0%,
+        #1f75c5 41.67%,
+        #0a98f0 93.36%
+    );
+    --gradient-03: linear-gradient(
+        144.09deg,
+        #0b6ab7 2.22%,
+        #1f75c5 50.99%,
+        #0a95eb 85.22%
+    );
+
     // Section colors
     --color-help: var(--color-green-01);
     --color-visit: var(--color-fushia-01);
     --color-about: var(--color-purple-01);
     --color-section: var(--color-cyan-01);
 
-    //--unit-100vh: 100vh;
     --unit-gutter: 72px;
     --unit-vertical-gap: 100px;
     --unit-content-width: 1048px;
     --unit-sticky-header-height: 96px;
+    --unit-footer-height: 377px;
 
     --font-primary: "Karbon", sans-serif;
     --font-secondary: "proxima-nova", sans-serif;
