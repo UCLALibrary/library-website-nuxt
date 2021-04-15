@@ -45,6 +45,8 @@ TODO List of needed components for this website.
     - title
     - text
 
+- [ ] ButtonSeeMore
+
 ## Home
 
 - [ ] SectionCards
