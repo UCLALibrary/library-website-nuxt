@@ -25,7 +25,7 @@ Name and description of any slots needed.
 
 ## Props
 
-```
+```js
 props: {
     exampleObject: {
         // Mock: api.page

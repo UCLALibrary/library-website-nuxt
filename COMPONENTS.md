@@ -4,6 +4,11 @@ TODO List of needed components for this website.
 
 ## Global
 
+- [x] ResponsiveImage
+
+- [x] ButtonMore
+    - text
+
 - [x] SiteBrandBar
     - (Contains SVG of logo that links)
 
@@ -47,24 +52,24 @@ TODO List of needed components for this website.
 
 ## Home
 
-- [ ] SectionCards
+- [x] SectionCards
     - title
     - text
     - items: [{see card props}] (uses CardVertical component)
     - to: ""
 
-- [ ] BlockCardVertical
+- [x] BlockCardVertical
     - iconName: String
     - title
     - text
     - to
     - section: "" // get-help, visit, about
 
-- [ ] BlockCardMore
+- [x] BlockCardMore
     - text
     - to
 
-- [ ] BannerFeatured
+- [x] BannerFeatured
     - image
     - title
     - category: {name, to}
@@ -79,25 +84,26 @@ TODO List of needed components for this website.
     - (slot that replaces top breadcrumb)
     - alignment: "left" or "right"
 
-- [ ] SectionDualMasonry
+- [x] SectionDualMasonry
     - items: [{image, category, title, prompt, dates, to}]
     - to
 
-- [ ] HeadingArrow
+- [x] HeadingArrow
     - text
     - to
 
-- [ ] SectionPostSmall    
+- [x] SectionPostSmall    
     - items: [{see BlockPostSmall}]
     - to
 
-- [ ] BlockPostSmall
+- [x] BlockPostSmall
     - image
     - category: {name, to}
     - title
     - author
     - to
     - theme
+
 
 ## Search
 

@@ -18,6 +18,8 @@ A running todo list of things we need to do.
 -   [ ] Document storybook in README
 -   [ ] Update wiki with Funkhaus best practices
 -   [ ] Setup z-indexes for the site
+-   [ ] Write Util function to get section name from URI.
+-   [ ] What are we doing about accessibility? Speak with Josh.
 
 ## Questions for Viget
 
