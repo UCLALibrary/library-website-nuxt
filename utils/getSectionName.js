@@ -1,7 +1,9 @@
-/*
+/**
  * Take a URI and figure out what "section" of the site it is pointing too
+ * @param {String} uri
+ * @returns {String}
  */
-export function getSectionName(uri = "") {
+function getSectionName(uri = "") {
     let output = "default"
 
     switch (true) {
@@ -20,3 +22,5 @@ export function getSectionName(uri = "") {
     }
     return output
 }
+
+export default getSectionName;

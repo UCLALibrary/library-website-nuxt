@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="example-component">
+    <div :class="classes">
         <slot name="before" />
 
         <div class="text" v-html="text" />
@@ -20,9 +20,15 @@
 </template>
 
 <script>
+import getSectionName from "~/utils/getSectionName"
+
 export default {
     props: {
         text: {
+            type: String,
+            default: "",
+        },
+        to: {
             type: String,
             default: "",
         },
@@ -31,6 +37,14 @@ export default {
             default: () => {},
         },
     },
+    computed: {
+        classes() {
+            return ["example-component", `section-${this.sectionName}`]
+        },
+        sectionName() {
+            return getSectionName(this.to)
+        }
+    }
 }
 </script>
 

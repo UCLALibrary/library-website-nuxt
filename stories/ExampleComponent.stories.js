@@ -20,6 +20,7 @@ export const WithImage = () => ({
         return {
             image: API.image,
             text: API.article.title,
+            to: "/help/foo/bar/"
         }
     },
     template: `<example-component :text="text" :image="image"/>`,
