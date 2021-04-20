@@ -4,10 +4,10 @@
             href="https://www.ucla.edu"
             target="_blank"
         >
-            <svg-logo-ucla 
+            <svg-logo-ucla
                 class="svg ucla-logo"
                 alt="UCLA logo"
-            >
+            />
         </a>
     </div>
 </template>
@@ -38,6 +38,9 @@ export default {
     .ucla-logo {
         height: 16px;
         width: auto;
+        path {
+            fill: var(--color-white);
+        }
     }
 }
 </style>
