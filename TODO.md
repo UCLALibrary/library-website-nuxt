@@ -2,26 +2,31 @@
 
 A running todo list of things we need to do.
 
+-   [ ] Default layout setup
+-   [ ] Basic page route templates created
+-   [ ] What are we doing about accessibility? Speak with Josh.
+-   [ ] Document storybook in README
+-   [ ] Update wiki with Funkhaus best practices
+-   [ ] Setup z-indexes for the site
+-   [ ] What is the QA process for a component?
 -   [x] Add Website Development Process to wiki
 -   [x] Add project Roadmap to wiki
--   [ ] Add recommended dev environment to wiki (IDE, Prettier etc)
+-   [x] Add recommended dev environment to wiki (IDE, Prettier etc)
 -   [x] Create defaults for .env.example
 -   [x] Create todo.md
 -   [x] Create components.md
 -   [x] Design urls to readme
--   [ ] Recommended packages (TODO show, Vetur (Vue snippets) etc...)
--   [ ] Default layout setup
--   [ ] Basic page route templates created
--   [ ] Basic CSS vars defined
+-   [x] Recommended packages (TODO show, Vetur (Vue snippets) etc...)
+-   [x] Basic CSS vars defined
 -   [x] Storybook installed
 -   [x] Components directory
--   [ ] Document storybook in README
--   [ ] Update wiki with Funkhaus best practices
--   [ ] Setup z-indexes for the site
--   [ ] Write Util function to get section name from URI.
--   [ ] What are we doing about accessibility? Speak with Josh.
+-   [x] Write Util function to get section name from URI.
 
 ## Questions for Viget
+
+Answers doc here: https://docs.google.com/document/d/1Oeas8l5lsykkf5H5ch-mVlgx8X3TYQ6VtK8rZ401X2U/edit#heading=h.j3lvkhke0qr
+
+You can reply in the doc, be sure to include an @ mention to notifications if you need further clarification.
 
 ### Week 1
 
@@ -32,7 +37,7 @@ A running todo list of things we need to do.
 
 ### Week 2
 
-1. Can we be given export SVG permissions in Figma. Or better yet, give us all of them?
-1. When the main menu is open, is it overlay the whole screen? Or 522px heigh? Or does it push down the page?
-1. Can we get the homepage header background molecule as one big full SVG. Is it the same one for the shorter headers too?
+1. Can we be given export SVG permissions in Figma. Or better yet, give us all SVGs in a ZIP?
+1. Can we get the homepage header background molecule as one big full SVG. We don't have the skill to assemble them into one SVG. Is it the same one for the shorter headers too?
+1. When the main menu is open, is it an overlay of the whole screen? Or 522px height? Or does it push down the page?
 1. What is the hover color for the FooterSock links?

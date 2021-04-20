@@ -52,9 +52,59 @@ export default {
         },
         webpackFinal(config, { configDir }) {
             // Allow webpack to auto-load .gql and .svg files
-            config.resolve.extensions.push(".gql", ".svg")
+            config.resolve.extensions.push(".svg")
 
             return config
+        },
+    },
+
+    /*
+     ** Nuxt build configuration
+     */
+    build: {
+        extend(config, ctx) {
+            // Remove SVG from default Nuxt webpack rules, add back in rule without SVGs
+            const svgRule = config.module.rules.find((rule) =>
+                rule.test.test(".svg")
+            )
+            svgRule.test = /\.(png|jpe?g|gif|webp)$/i
+
+            // Add custom loading of SVGs as Vue components
+            config.resolve.extensions.push(".svg")
+            config.module.rules.push({
+                test: /\.svg$/,
+                oneOf: [
+                    {
+                        // ?raw on import will give raw SVG with no optimizations.
+                        // Good if you need unaltered SVGs for animations.
+                        resourceQuery: /raw/,
+                        use: [
+                            "babel-loader",
+                            {
+                                loader: "vue-svg-loader",
+                                options: {
+                                    svgo: false,
+                                },
+                            },
+                        ],
+                    },
+                    {
+                        // ?url on import will give base64 encoded SVG.
+                        // Good for use in CSS.
+                        resourceQuery: /url/,
+                        use: ["url-loader"],
+                    },
+                    {
+                        // Default SVG loader, custo SVGO options
+                        loader: "vue-svg-loader",
+                        options: {
+                            svgo: {
+                                plugins: [{ removeViewBox: false }],
+                            },
+                        },
+                    },
+                ],
+            })
         },
     },
 }

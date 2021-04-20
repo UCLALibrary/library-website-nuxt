@@ -3,14 +3,13 @@
         Home page here.
 
         <p>Test</p>
-
-        <dotted-line/>
-
     </div>
 </template>
 
 <script>
-export default {}
+export default {
+    components: {},
+}
 </script>
 
 <style lang="scss" scoped>

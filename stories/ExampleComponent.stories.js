@@ -1,4 +1,4 @@
-import ExampleComponent from "~/components/ExampleComponent"
+import SvgLogoUcla from "~/assets/svg/logo-ucla"
 
 // Import mock api data
 import * as API from "~/stories/mock-api.json"
@@ -10,24 +10,21 @@ export default {
 
 // Variations of stories below
 export const Default = () => ({
-    components: { ExampleComponent },
     template: `<example-component text="Hello world"/>`,
 })
 
 export const WithImage = () => ({
-    components: { ExampleComponent },
     data() {
         return {
             image: API.image,
             text: API.article.title,
-            to: "/help/foo/bar/"
+            to: "/help/foo/bar/",
         }
     },
     template: `<example-component :text="text" :image="image"/>`,
 })
 
 export const WithSlot = () => ({
-    components: { ExampleComponent },
     data() {
         return {
             image: API.image,
@@ -47,6 +44,17 @@ export const WithSlot = () => ({
             </template>
 
             This is the default slot.
+        </example-component>
+    `,
+})
+
+export const WithSvg = () => ({
+    components: {
+        SvgLogoUcla,
+    },
+    template: `
+        <example-component text="Hello world">
+            <svg-logo-ucla/>
         </example-component>
     `,
 })
