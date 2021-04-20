@@ -4,14 +4,23 @@
             href="https://www.ucla.edu"
             target="_blank"
         >
-            <img
-                class="ucla-logo"
-                src="https://brand.ucla.edu/images/logo-ucla.svg"
+            <svg-logo-ucla 
+                class="svg ucla-logo"
                 alt="UCLA logo"
             >
         </a>
     </div>
 </template>
+
+<script>
+import SvgLogoUcla from "~/assets/svg/logo-ucla"
+
+export default {
+    components: {
+        SvgLogoUcla,
+    },
+}
+</script>
 
 <style lang="scss" scoped>
 .site-brand-bar {
