@@ -5,19 +5,12 @@
                 v-for="item in items"
                 class="list-item"
             >
-                <a
-                    v-if="item.target == '_blank'"
-                    class="list-item-link"
-                    :href="item.to"
+                <smart-link
+                    class="link underline-hover"
+                    :to="item.to"
+                    :target="item.target"
                     v-html="item.text"
                 />
-                <nuxt-link
-                    v-else
-                    class="list-item-link"
-                    :to="item.to"
-                >
-                    {{ item.text }}
-                </nuxt-link>
             </li>
         </ul>
     </nav>
@@ -28,25 +21,53 @@ export default {
     props: {
         items: {
             type: Array,
-            default: () => [{ text: "", to: "", target: "_self" }],
+            default: () => [],
         },
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.list {
+.nav-secondary {
+    background-color: var(--color-white);
+    height: 48px;
+    padding: 0 94px;
+
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: flex-end;
-    list-style-type: none;
-    margin: 10px 10px;
-    padding-bottom: 10px;
-}
-.list-item {
-    margin-right: 10px;
-}
-.list-item-link {
-    color: var(--color-black);
-    text-decoration: none;
+    align-content: center;
+    align-items: center;
+
+    .list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    .list-item {
+        display: inline-block;
+        margin-left: 50px;
+        font-size: 18px;
+        line-height: 1;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+    .link {
+        color: var(--color-black);
+        text-decoration: none;
+    }
+
+    // Hover states
+    @media (hover: hover) {
+        .link {
+            &:hover,
+            &:active {
+                color: var(--color-primary-blue);
+            }
+        }
+    }
 }
 </style>

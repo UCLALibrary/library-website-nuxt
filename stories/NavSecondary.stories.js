@@ -1,5 +1,3 @@
-import NavSecondary from "~/components/NavSecondary"
-
 // Import mock api data
 import * as API from "~/stories/mock-api.json"
 
@@ -10,11 +8,21 @@ export default {
 
 // Variations of stories below
 export const Default = () => ({
-  components: { NavSecondary },
   data() {
       return {
-          items: API.secondaryNavlinks,
+          items: [...API.links,{...API.links[0]}],
       }
   },
-  template: `<nav-secondary v-bind:items="items"/>`,
+  computed: {
+    parsedItems(){
+      // Restructuring item to support text key
+      return this.items.map(obj => {
+        return {
+          ...obj,
+          text: obj.name
+        }
+      })
+    }
+  },
+  template: `<nav-secondary :items="parsedItems"/>`,
 })
