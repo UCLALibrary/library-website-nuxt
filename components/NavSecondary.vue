@@ -45,6 +45,7 @@ export default {
         margin: 0;
         padding: 0;
     }
+
     .list-item {
         display: inline-block;
         margin-left: 50px;
@@ -55,18 +56,17 @@ export default {
             margin-left: 0;
         }
     }
+
     .link {
         color: var(--color-black);
         text-decoration: none;
     }
 
     // Hover states
-    @media (hover: hover) {
-        .link {
-            &:hover,
-            &:active {
-                color: var(--color-primary-blue);
-            }
+    @media #{$has-hover} {
+        .link:hover,
+        .link:active {
+            color: var(--color-primary-blue);
         }
     }
 }
