@@ -41,3 +41,7 @@ You can reply in the doc, be sure to include an @ mention to notifications if yo
 1. Can we get the homepage header background molecule as one big full SVG. We don't have the skill to assemble them into one SVG. Is it the same one for the shorter headers too?
 1. When the main menu is open, is it an overlay of the whole screen? Or 522px height? Or does it push down the page?
 1. What is the hover color for the FooterSock links?
+
+### Week 3
+
+1. Figma has letter spacing listed as percentage (eg: 1%). This isn't a valid CSS var, how do you want us to translate this to something CSS can work with?
