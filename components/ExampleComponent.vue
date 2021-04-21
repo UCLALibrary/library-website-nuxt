@@ -2,7 +2,10 @@
     <div :class="classes">
         <slot name="before" />
 
-        <div class="text" v-html="text" />
+        <div
+            class="text"
+            v-html="text"
+        />
 
         <slot />
 
@@ -13,7 +16,7 @@
             :sizes="image.sizes"
             :src="image.src"
             :alt="image.alt"
-        />
+        >
 
         <slot name="after" />
     </div>
@@ -43,8 +46,8 @@ export default {
         },
         sectionName() {
             return getSectionName(this.to)
-        }
-    }
+        },
+    },
 }
 </script>
 
@@ -58,6 +61,22 @@ export default {
         display: block;
         max-width: 800px;
         margin: 2em 0;
+    }
+
+    // Hover states
+    @media #{$has-hover} {
+        .text:hover {
+            color: green;
+            cursor: crosshair;
+        }
+    }
+
+    // Breakpoints
+    @media #{$lte-tablet} {
+        background: red;
+    }
+    @media #{$lte-phone} {
+        background: yellow;
     }
 }
 </style>

@@ -6,10 +6,17 @@ export default {
      ** Global CSS
      */
     css: [
-        "~/assets/styles/variables.scss",
+        "~/assets/styles/variables-css.scss",
         "~/assets/styles/global.scss",
         "~/assets/styles/fonts.css",
     ],
+
+    /*
+     ** Load SCSS into each component
+     */
+    styleResources: {
+        scss: ["~/assets/styles/variables-scss.scss"],
+    },
 
     /*
      ** Plugins to load before mounting the App
@@ -59,7 +66,12 @@ export default {
     },
 
     /*
-     ** Nuxt build configuration
+     * Nuxt build modules
+     */
+    buildModules: ["@nuxtjs/style-resources"],
+
+    /*
+     ** Nuxt webpack build configuration
      */
     build: {
         extend(config, ctx) {
