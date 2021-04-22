@@ -41,6 +41,16 @@
         url("~assets/fonts/karbon-web-regular.woff") format("woff");
     font-style: normal;
     font-weight: 400;
+  }
+@font-face {
+    font-family: "Karbon";
+    src: url("~assets/fonts/karbon-web-medium.eot");
+    src: url("~assets/fonts/karbon-web-medium.eot?#iefix")
+            format("embedded-opentype"),
+        url("~assets/fonts/karbon-web-medium.woff2") format("woff2"),
+        url("~assets/fonts/karbon-web-medium.woff") format("woff");
+    font-style: normal;
+    font-weight: 500;
 }
 /* @font-face {
     font-family: "Karbon";
