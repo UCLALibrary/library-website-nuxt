@@ -1,0 +1,58 @@
+<template>
+    <div :class="classes">
+        <div class="solid" />
+        <div class="dotted" />
+    </div>
+</template>
+
+<script>
+export default {
+    props: {
+        color: {
+            type: String,
+            default: "", // This will be "visit", "about", "help".
+        },
+    },
+    computed: {
+        classes() {
+            return ["divider-way-finder", `color-${this.color}`]
+        },
+    },
+}
+</script>
+
+<style lang="scss" scoped>
+.divider-way-finder {
+    &.color-visit {
+        --color-border: var(--color-visit);
+    }
+    &.color-about {
+        --color-border: var(--color-about);
+    }
+    &.color-help {
+        --color-border: var(--color-help);
+    }
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: space-between;
+    align-items: center;
+
+    .solid {
+        height: 1px;
+        width: 96px;
+        margin-right: 17px;
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        border-bottom-color: var(--color-border, var(--color-cyan-01));
+    }
+    .dotted {
+        border-bottom: 2px dotted var(--color-grey-03);
+        height: 1px;
+
+        flex: 1 1 auto;
+    }
+}
+</style>
