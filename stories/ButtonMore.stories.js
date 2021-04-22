@@ -1,6 +1,6 @@
 // Storybook default settings
 export default {
-    title: "Button / More",
+    title: "BUTTONS / More",
 }
 
 // Variations of stories below

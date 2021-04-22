@@ -3,7 +3,7 @@ import * as API from "~/stories/mock-api.json"
 
 // Storybook default settings
 export default {
-  title: "Secondary Navbar",
+  title: "HEADER / NavSecondary ",
 }
 
 // Variations of stories below

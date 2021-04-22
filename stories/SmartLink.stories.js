@@ -1,6 +1,6 @@
 // Storybook default settings
 export default {
-  title: "SmartLink",
+  title: "UTILITIES / SmartLink",
 }
 
 // Variations of stories below

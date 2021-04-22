@@ -1,6 +1,6 @@
 // Storybook default settings
 export default {
-  title: "Divider Way Finder",
+  title: "DIVIDERS / DividerWayFinder",
 }
 
 // Variations of stories below
