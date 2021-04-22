@@ -19,6 +19,17 @@ export default {
     components: {
         SvgLogoUcla,
     },
+
+    props: {
+        text: {
+            type: String,
+            default: "",
+        },
+        to: {
+            type: String,
+            default: "",
+        },
+    },
 }
 </script>
 
