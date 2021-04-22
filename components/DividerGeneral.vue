@@ -1,19 +1,18 @@
 <template lang="html">
-    <div
-        class="divider-general"
-        :bold="bold"
-    >
-        putting something in the div
-    </div>
+    <div :class="classes" />
 </template>
 
 <script>
 export default {
-    name: "DividerGeneral",
     props: {
         bold: {
             type: Boolean,
             default: true,
+        },
+    },
+    computed: {
+        classes() {
+            return ["divider-general", { "is-bold": this.bold }]
         },
     },
 }
@@ -21,6 +20,11 @@ export default {
 
 <style lang="scss" scoped>
 .divider-general {
-    border-bottom: 2px dashed var(--color-grey-03);
+    border-bottom: 2px dotted var(--color-grey-03);
+    height: 1px;
+
+    &.is-bold {
+        border-bottom-color: var(--color-grey-02);
+    }
 }
 </style>

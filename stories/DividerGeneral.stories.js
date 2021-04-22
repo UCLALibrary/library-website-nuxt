@@ -6,11 +6,6 @@ export const Default = () => ({
     template: `<divider-general/>`,
 })
 
-export const DividerGeneralLight = () => ({
-    data() {
-        return {
-            bold: False,
-        }
-    },
-    template: `<divider-general v-bind:style=bold />`,
+export const isBold = () => ({
+    template: `<divider-general bold="bold"/>`,
 })
