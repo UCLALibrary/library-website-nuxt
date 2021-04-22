@@ -79,4 +79,9 @@
     // Fonts
     --font-primary: "Karbon", sans-serif;
     --font-secondary: "proxima-nova", sans-serif;
+
+    // Breakponts
+    @media #{$lte-phone} {
+        --unit-gutter: 25px;
+    }
 }

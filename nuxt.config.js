@@ -107,7 +107,7 @@ export default {
                         use: ["url-loader"],
                     },
                     {
-                        // Default SVG loader, custo SVGO options
+                        // Default SVG loader, custom SVGO options
                         loader: "vue-svg-loader",
                         options: {
                             svgo: {

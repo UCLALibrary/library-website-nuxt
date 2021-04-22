@@ -1,22 +1,24 @@
 <template lang="html">
     <div class="masthead-primary">
         <div class="background" />
-        <div class="logo">
-            <svg-logo-ucla-library-underline class="svg" />
-        </div>
-        <div class="search-form">
-            <!-- searchform goes here -->
+
+        <div class="container">
+            <div class="logo">
+                <svg-logo-ucla-library-underline class="svg" />
+            </div>
+
+            <search-home />
         </div>
     </div>
 </template>
 
 <script>
 import SvgLogoUclaLibraryUnderline from "~/assets/svg/logo-ucla-library-underline"
+
 export default {
     components: {
         SvgLogoUclaLibraryUnderline,
     },
-    props: {},
 }
 </script>
 
@@ -24,27 +26,47 @@ export default {
 .masthead-primary {
     position: relative;
     z-index: 0;
+
     .background {
-        background-image: var(--gradient-01);
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        width: 100%;
         height: 560px;
+        overflow: hidden;
+
+        background: url(~/assets/svg/molecule-background.svg?url) center -100px,
+            var(--gradient-01);
+        background-size: cover;
+    }
+    .container {
+        max-width: 990px;
+        height: 100%;
+
+        position: relative;
+        z-index: 20;
+        margin: 0 auto;
+
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: center;
+        align-items: stretch;
     }
     .logo {
-        position: absolute;
-        bottom: 275px;
-        left: 0;
-        max-width: 990px;
-        margin: 0 auto;
-        right: 0;
-    }
-    .svg {
-        max-width: 100%;
-        height: auto;
-    }
-    .search-form {
-        height: 270px;
-        max-width: 990px;
-        background-color: white;
-        margin: -220px auto 0 auto;
+        flex: 1 1 auto;
+        height: 350px;
+
+        display: flex;
+        align-items: flex-end;
+
+        .svg {
+            max-width: 664px;
+            width: 100%;
+            height: auto;
+        }
     }
 
     // Breakpoints
@@ -53,19 +75,16 @@ export default {
             height: 230px;
         }
         .logo {
-            bottom: 150px;
-        }
-        .svg {
-            max-width: 325px;
-            width: 100%;
-            display: block;
-            margin: 0 auto;
-        }
-        .search-form {
-            margin-top: -50px;
-            height: 170px;
+            height: 185px;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            padding: 0 10px;
+
+            .svg {
+                max-width: 325px;
+            }
         }
     }
 }
 </style>
-

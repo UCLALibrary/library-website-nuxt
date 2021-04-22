@@ -1,8 +1,7 @@
 // Storybook default settings
 export default {
-    title: "MastheadPrimary",
+    title: "Masthead / Primary",
 }
 export const Default = () => ({
     template: `<masthead-primary/>`,
 })
-
