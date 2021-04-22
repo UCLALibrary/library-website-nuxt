@@ -5,14 +5,14 @@
 <script>
 export default {
     props: {
-        bold: {
+        isBold: {
             type: Boolean,
-            default: true,
+            default: false,
         },
     },
     computed: {
         classes() {
-            return ["divider-general", { "is-bold": this.bold }]
+            return ["divider-general", { "is-bold": this.isBold }]
         },
     },
 }
