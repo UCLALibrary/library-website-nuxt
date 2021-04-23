@@ -48,7 +48,6 @@ export default {
     line-height: 100%;
     text-transform: capitalize;
 }
-// styling for the home page where text is white and arrow is multi
 
 .color-visit {
     padding-right: 20px;

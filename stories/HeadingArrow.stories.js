@@ -6,7 +6,7 @@ export default {
 }
 
 export const Default = () => ({
-    template: `<heading-arrow text="Library News"/>`,
+    template: `<heading-arrow/>`,
 })
 
 export const Help = () => ({
