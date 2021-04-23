@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="heading-arrow">
-        <svg-heading-arrow-green class="heading-arrow-svg" />
+        <svg-heading-arrow-green :class="classes" />
         <slot>
             {{ this.text }}
         </slot>
@@ -9,6 +9,7 @@
 
 <script>
 import SvgHeadingArrowGreen from "~/assets/svg/heading-arrow-green"
+import getSectionName from "~/utils/getSectionName"
 
 export default {
     components: {
@@ -26,7 +27,7 @@ export default {
     },
     computed: {
         classes() {
-            return ["example-component", `section-${this.sectionName}`]
+            return [`color-${this.sectionName}`]
         },
         sectionName() {
             return getSectionName(this.to)
@@ -47,17 +48,19 @@ export default {
     line-height: 100%;
 }
 
-.heading-arrow-help-svg {
-    padding-right: 20px;
-    path {
-        stroke: var(--color-help);
-    }
-.heading-arrow-visit-svg {
+.color-visit {
     padding-right: 20px;
     path {
         stroke: var(--color-visit);
     }
-.heading-arrow-about-svg {
+}
+.color-help {
+    padding-right: 20px;
+    path {
+        stroke: var(--color-help);
+    }
+}
+.color-about {
     padding-right: 20px;
     path {
         stroke: var(--color-about);
