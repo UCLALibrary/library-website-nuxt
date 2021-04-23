@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="heading-arrow">
-        <svg-heading-arrow-green :class="classes" />
+        <svg-heading-arrow :class="classes" />
         <slot>
             {{ this.text }}
         </slot>
@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import SvgHeadingArrowGreen from "~/assets/svg/heading-arrow-green"
+import SvgHeadingArrow from "~/assets/svg/heading-arrow"
 import getSectionName from "~/utils/getSectionName"
 
 export default {
     components: {
-        SvgHeadingArrowGreen,
+        SvgHeadingArrow,
     },
     props: {
         text: {
@@ -44,25 +44,26 @@ export default {
 
     font-size: 44px;
     font-weight: 300;
-    color: var(--color-white);
+    color: var(--color-dark-blue);
     line-height: 100%;
 }
+// styling for the home page where text is white and arrow is multi
 
 .color-visit {
     padding-right: 20px;
-    path {
+    path.top {
         stroke: var(--color-visit);
     }
 }
 .color-help {
     padding-right: 20px;
-    path {
+    path.top {
         stroke: var(--color-help);
     }
 }
 .color-about {
     padding-right: 20px;
-    path {
+    path.top {
         stroke: var(--color-about);
     }
 }
