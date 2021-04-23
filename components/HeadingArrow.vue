@@ -43,9 +43,10 @@ export default {
     flex-direction: row;
 
     font-size: 44px;
-    font-weight: 300;
-    color: var(--color-dark-blue);
+    font-weight: 400;
+    color: var(--color-white);
     line-height: 100%;
+    text-transform: capitalize;
 }
 // styling for the home page where text is white and arrow is multi
 
