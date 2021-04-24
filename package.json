@@ -17,8 +17,8 @@
     "devDependencies": {
         "@nuxtjs/storybook": "^4.0.2",
         "@nuxtjs/style-resources": "^1.0.0",
-        "core-js": "^3.10.2",
-        "eslint": "^7.24.0",
+        "core-js": "^3.11.0",
+        "eslint": "^7.25.0",
         "eslint-plugin-vue": "^7.9.0",
         "node-sass": "^5.0.0",
         "prettier": "^2.2.1",
