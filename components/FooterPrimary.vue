@@ -4,7 +4,7 @@
 
             <div class="footer-links">
                 <div class="ucla-library-logo">
-                    <svg-logo-ucla-library-underline class="logo-svg" />
+                    <svg-logo-ucla-library class="logo-svg" />
                 </div>
                 <div class="socials">
                     <ul class="social-links">
@@ -45,14 +45,15 @@
 </template>
 
 <script>
-import SvgLogoUclaLibraryUnderline from "~/assets/svg/logo-ucla-library-underline"
-
+import SvgLogoUclaLibrary from "~/assets/svg/logo-ucla-library"
+import SvgMoleculeHalf from "~/assets/svg/molecule-half"
 import SvgArrowRight from "~/assets/svg/arrow-right"
 
 export default {
     name: "FooterPrimary",
     components: {
-        SvgLogoUclaLibraryUnderline,
+        SvgLogoUclaLibrary,
+        SvgMoleculeHalf,
         SvgArrowRight,
     },
     props: {
@@ -68,7 +69,10 @@ export default {
 <style lang="scss" scoped>
 .footer-primary {
     background-color: var(--color-primary-blue);
-    height: --unit-footer-height;
+    background: url(~/assets/svg/molecule-half.svg?url) bottom left fixed,
+            var(--gradient-01);
+    background-repeat: no-repeat;
+    height: var(--unit-footer-height);
     border-bottom: 40px solid var(--color-yelow);
 
     .container {
@@ -83,8 +87,11 @@ export default {
         align-items: center;
 
         .ucla-library-logo {
+            margin: -30px;
+            z-index: 0;
             flex: 1 1 auto;
-            height: 350px;
+
+            fill: var(--color-white);
 
             display: flex;
             align-items: flex-end;
@@ -97,6 +104,8 @@ export default {
         }
 
         .socials {
+            z-index: 10;
+            
             .social-links {
                 display: flex;
                 flex-direction: row;
@@ -105,12 +114,15 @@ export default {
                 align-content: flex-start;
                 align-items: flex-start;
 
+                border-right: 1px solid var(--color-white);
                 line-height: 1em;
                 color: var(--color-white);
                 padding-right: 10px;
                 padding-left: 10px;
-                border-right: 1px solid var(--color-white);
                 text-decoration: none;
+                // :last-child {
+                //     border-right: none;
+                // }
             }
         }
         .press-room-block {
