@@ -1,14 +1,20 @@
 <template lang="html">
     <nuxt-link :to="to">
-        <div class="block-post-small">
+        <div :class="classes">
             <responsive-image
                 :image="image"
                 class="block-post-image"
             />
             <div class="block-post-text">
-                {{ category }}
-                {{ title }}
-                {{ author }}
+                <div class="block-post-category">
+                    {{ category }}
+                </div>
+                <div class="block-post-title">
+                    {{ title }}
+                </div>
+                <div class="block-post-author">
+                    By {{ author }}
+                </div>
             </div>
         </div>
     </nuxt-link>
@@ -16,6 +22,7 @@
 
 <script>
 import ResponsiveImage from "~/components/ResponsiveImage"
+import getSectionName from "~/utils/getSectionName"
 
 export default {
     props: {
@@ -42,6 +49,14 @@ export default {
             default: "",
         },
     },
+    computed: {
+        classes() {
+            return ["block-post-small", `color-${this.sectionName}`]
+        },
+        sectionName() {
+            return getSectionName(this.to)
+        },
+    },
 }
 </script>
 
@@ -50,26 +65,59 @@ export default {
     display: flex;
     align-items: center;
     position: absolute;
-    width: 320px;
-    height: 140px;
 
+    width: 390px;
+    height: 175px;
+}
+
+.color-visit {
     &:hover {
-        background-color: var(--color-cyan-01);
+        background-color: var(--color-fushia-03);
+    }
+}
+.color-help {
+    &:hover {
+        background-color: var(--color-green-03);
+    }
+}
+.color-about {
+    &:hover {
+        background-color: var(--color-purple-03);
     }
 }
 
 .block-post-text {
     display: flex;
-    width: 200px;
-    align-items: center;
+    width: 180px;
+    flex-direction: column;
+}
+
+.block-post-category {
+    font-weight: bold;
+    font-size: 14.6705px;
+    line-height: 100%;
+    /* identical to box height, or 15px */
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    align-items: flex-end;
+    color: var(--color-dark-blue);
+}
+.block-post-title {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0.01em;
+    color: var(--color-primary-blue);
+}
+
+.block-post-author {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    color: #434343;
 }
 
 .block-post-image {
     height: 100px;
     width: 100px;
-    align-items: flex-start;
 }
 </style>
