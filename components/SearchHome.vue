@@ -2,13 +2,23 @@
     <div class="search-form">
         <!-- TODO Search form goes here -->
 
-        <div class="tabs" />
+        <div
+            v-if="hasTabs"
+            class="tabs"
+        />
         <div class="box" />
     </div>
 </template>
 
 <script>
-export default {}
+export default {
+    props: {
+        hasTabs: {
+            type: Boolean,
+            default: true,
+        },
+    },
+}
 </script>
 
 <style lang="scss" scoped>
