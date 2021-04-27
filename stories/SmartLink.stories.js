@@ -1,12 +1,12 @@
 // Storybook default settings
 export default {
-  title: "SmartLink",
+    title: "GLOBAL / SmartLink",
 }
 
 // Variations of stories below
 export const Default = () => ({
-  template: `
-    <smart-link 
+    template: `
+    <smart-link
       to="/"
     >
       This will render as a nuxt link
@@ -15,8 +15,8 @@ export const Default = () => ({
 })
 
 export const ExternalLink = () => ({
-  template: `
-    <smart-link 
+    template: `
+    <smart-link
       to="http://www.ucla.edu"
       target="_blank"
     >

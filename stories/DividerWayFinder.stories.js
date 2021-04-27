@@ -1,21 +1,21 @@
 // Storybook default settings
 export default {
-  title: "Divider Way Finder",
+    title: "DIVIDER / Way Finder",
 }
 
 // Variations of stories below
 export const Default = () => ({
-  template: `<divider-way-finder />`,
+    template: `<divider-way-finder />`,
 })
 
 export const Visit = () => ({
-  template: `<divider-way-finder color="visit"/>`,
+    template: `<divider-way-finder color="visit"/>`,
 })
 
 export const About = () => ({
-  template: `<divider-way-finder color="about" />`,
+    template: `<divider-way-finder color="about" />`,
 })
 
 export const Help = () => ({
-  template: `<divider-way-finder color="help"/>`,
+    template: `<divider-way-finder color="help"/>`,
 })

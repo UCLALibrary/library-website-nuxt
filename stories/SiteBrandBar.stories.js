@@ -1,7 +1,8 @@
 export default {
-    title: "SiteBrandBar",
+    title: "GLOBAL / SiteBrandBar",
 }
 
-export const Default = () => ({ // The first story should be called Default
+export const Default = () => ({
+    // The first story should be called Default
     template: `<site-brand-bar/>`,
 })
