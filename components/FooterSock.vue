@@ -2,9 +2,12 @@
     <footer class="footer-sock">
         <div class="container">
             <ul class="links">
-                <li v-for="item in items">
+                <li
+                    v-for="item in items"
+                    class="item"
+                >
                     <smart-link
-                        class="underline-link"
+                        class="link"
                         :to="item.to"
                         :target="item.target"
                         v-html="item.text"
@@ -40,22 +43,18 @@ export default {
 <style lang="scss" scoped>
 .footer-sock {
     background-color: var(--color-white);
-    height: 89px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+    padding: 0 var(--unit-gutter);
 
     .container {
-        max-width: 1080;
+        max-width: var(--unit-content-width);
+        min-height: 89px;
+        margin: 0 auto;
 
         display: flex;
         flex-direction: row;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         justify-content: space-between;
-        align-content: space-between;
+        align-content: center;
         align-items: center;
 
         .links {
@@ -66,68 +65,53 @@ export default {
             align-content: flex-start;
             align-items: flex-start;
 
-            li {
-                list-style-type: none;
-                padding-right: 48px;
-                &:last-child {
-                    padding-right: none;
-                }
-            }
-            a {
-                color: var(--color-black);
-                text-decoration: none;
-            }
+            list-style-type: none;
+            margin: 15px 0;
         }
-
-        .regents {
-            padding-left: 100px;
+        .item {
+            margin-right: 48px;
         }
-
-        .underline-link {
+        .link {
             border-bottom: 2px solid var(--color-cyan-01);
             display: inline-block;
             line-height: 1.25;
-            &:hover {
-                color: var(--color-primary-blue);
-            }
+            color: var(--color-black);
+        }
+        .regents {
+            color: var(--color-grey-01);
+            margin: 15px 0;
         }
     }
 
     // Hover states
     @media #{$has-hover} {
         &:hover {
-            .underline-link:hover {
+            .link:hover {
                 color: var(--color-primary-blue);
             }
         }
     }
 
+    // Breakpoints
     @media #{$lte-tablet} {
-        height: auto;
-        display: block;
-        background-color: var(--color-white);
+        padding-top: 40px;
+        padding-bottom: 40px;
 
         .container {
             display: block;
 
             .links {
                 display: block;
-                padding-top: 30px;
-
-                li {
-                    display: block;
-                    line-height: 2em;
-                    list-style-type: none;
-                    padding-left: 37px;
-                }
+                margin: 0;
+            }
+            .item {
+                display: block;
+                line-height: 2em;
             }
 
             .regents {
                 display: block;
-                padding-right: 0px;
-                padding-left: 37px;
-                margin-top: 50px;
-                padding-bottom: 49px;
+                margin: 50px 0 0 0;
             }
         }
     }

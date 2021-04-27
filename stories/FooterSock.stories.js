@@ -26,3 +26,28 @@ export const Default = () => ({
     },
     template: `<footer-sock :items="parsedItems"/>`,
 })
+export const LongLink = () => ({
+    data() {
+        return {
+            items: [...API.links, ...API.links],
+        }
+    },
+    computed: {
+        parsedItems() {
+            // Restructuring item to support text key
+            return this.items.map((obj, i) => {
+                let text = obj.name
+
+                if (i == 0) {
+                    text = "UCLA Library Copyright Policies"
+                }
+
+                return {
+                    ...obj,
+                    text,
+                }
+            })
+        },
+    },
+    template: `<footer-sock :items="parsedItems"/>`,
+})
