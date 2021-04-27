@@ -36,9 +36,9 @@
             </div>
 
             <div class="form">
-                <h1 class="stay-updated">Stay updated</h1>
+                <h2 class="stay-updated">Stay updated</h2>
 
-                <p class="stay-updated">
+                <p>
                     Subscribe to get the latest updates on what's happening
                     with UCLA Library.
                 </p>
@@ -168,18 +168,21 @@ export default {
         } // footer-links
 
         .form {
+            color: var(--color-white);
+
             input {
-                background-color: var(--color-primary-blue);
+                background-color: transparent;;
                 border: none;
                 }
 
             .stay-updated {
-                color: var(--color-white);
+
+                font-size: 2em;
                 font-weight: 200;
             }
 
             .stay-updated-form {
-                background-color: var(--color-primary-blue);
+                //background-color: var(--color-primary-blue);
 
                 border-bottom: 2px solid var(--color-green-01);
 
