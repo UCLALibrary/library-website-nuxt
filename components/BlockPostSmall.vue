@@ -1,5 +1,5 @@
 <template lang="html">
-    <nuxt-link :to="to">
+    <nuxt-link :to="category.to">
         <div :class="classes">
             <responsive-image
                 :image="image"
@@ -7,7 +7,7 @@
             />
             <div class="block-post-text">
                 <div class="block-post-category">
-                    {{ category }}
+                    {{ category.name }}
                 </div>
                 <div class="block-post-title">
                     {{ title }}
@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import ResponsiveImage from "~/components/ResponsiveImage"
 import getSectionName from "~/utils/getSectionName"
 
 export default {
