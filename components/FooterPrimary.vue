@@ -96,7 +96,7 @@ export default {
     border-bottom: 40px solid var(--color-yelow);
 
     .container {
-        max-width: 1077;
+        max-width: 1080; // change to content-width
         border-bottom: 40px solid var(--color-yelow);
 
     display: flex;
