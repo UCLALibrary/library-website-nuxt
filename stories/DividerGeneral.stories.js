@@ -1,5 +1,5 @@
 export default {
-    title: "DividerGeneral",
+    title: "DIVIDER / General",
 }
 
 export const Default = () => ({

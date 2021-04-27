@@ -5,7 +5,7 @@ import * as API from "~/stories/mock-api.json"
 
 // Storybook default settings
 export default {
-    title: "ExampleComponent",
+    title: "EXAMPLE / Component",
 }
 
 // Variations of stories below
