@@ -3,9 +3,8 @@
         <div class="container">
 
             <div class="footer-links">
-                <div class="ucla-library-logo">
-                    <svg-logo-ucla-library class="logo-svg" />
-                </div>
+
+                <svg-logo-ucla-library class="logo-svg" />
 
                 <ul class="socials">
                     <li
@@ -46,9 +45,10 @@
                         with UCLA Library.
                     </p>
                     <div  class="stay-updated-form">
-                        <input placeholder="Email Address"  class="stay-updated-email"></input><input class="submit-button " type="submit">
+                        <input placeholder="Email Address"  class="stay-updated-email"></input>
+                        <input class="submit-button " type="submit">
                         <svg-arrow-right class="arrow-svg" />
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -84,11 +84,9 @@ export default {
 
 <style lang="scss" scoped>
 .footer-primary {
-    background-color: var(--color-primary-blue);
-    background: url(~/assets/svg/molecule-half.svg?url) bottom left fixed,
-            var(--gradient-01);
-    background-repeat: no-repeat;
     height: var(--unit-footer-height);
+    background-color: var(--color-primary-blue);
+    background: url(~/assets/svg/molecule-half.svg?url) no-repeat top left fixed, var(--gradient-01), 50px;
     border-bottom: 40px solid var(--color-yelow);
 
     .container {
@@ -102,17 +100,12 @@ export default {
         align-content: center;
         align-items: center;
 
-        .ucla-library-logo {
-            margin: -30px;
-            z-index: 0;
-            flex: 1 1 auto;
-
-            fill: var(--color-white);
-
-            display: flex;
-            align-items: flex-end;
+        .footer-links {
+            padding-right: 50px;
 
             .logo-svg {
+                margin: -30px;
+                z-index: 10;
                 max-width: 300px;
                 width: 100%;
                 height: auto;
@@ -120,15 +113,14 @@ export default {
                     fill: var(--color-white);
                 }
             }
-        }
-
-        .socials {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: space-between;
-            align-content: flex-start;
-            align-items: flex-start;
+            .socials {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-content: flex-start;
+                align-items: flex-start;
+                margin-bottom: 30px;
 
                 .social-item {
                     z-index: 10;
@@ -147,60 +139,76 @@ export default {
                     }
                     .link {
                         color: var(--color-white);
+                        text-decoration: none;
                         &:hover {
                             color: var(--color-primary-yellow);
                         }
                     }
                 }
-            }
+            } // socials
 
             .press-room {
                 display: block;
-                color: var(--color-white);
-                border-bottom: 2px solid var(--color-primary-yellow);
                 text-transform: uppercase;
-            }
-
-        .stay-updated {
-            color: var(--color-white);
-            font-weight: 200;
-        }
-        .stay-updated-form {
-            background-color: var(--color-primary-blue);
-            border: none;
-            border-bottom: 2px solid var(--color-green-01);
-
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-            align-content: flex-end;
-            align-items: flex-start;
-
-            &:hover {
-                color: var(--color-white);
-                background-color: coral;
-                opacity: 0.1;
-            }
-        }
-        .stay-updated-email {
-            display: flex;
-            order: 0;
-            flex: 1 1 auto;
-            align-self: auto;
-        }
-        ::placeholder{
-            color: white;
-        }
-        .submit-button {
-            background-color: unset;
-            border: 0px;
-            color: var(--color-white)
-        }
-        .arrow-svg {
-            path {
-                    stroke: var(--color-white);
+                .link {
+                    color: var(--color-white);
+                    text-decoration: none;
+                    border-bottom: 2px solid var(--color-primary-yellow);
+                    &:hover {
+                        color: var(--color-primary-yellow);
+                    }
                 }
+            }
+        } // footer-links
+
+        .form {
+            .stay-updated {
+                color: var(--color-white);
+                font-weight: 200;
+            }
+
+            .stay-updated-form {
+                background-color: var(--color-primary-blue);
+                border: none;
+                border-bottom: 2px solid var(--color-green-01);
+
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                align-content: flex-end;
+                align-items: flex-start;
+
+                &:hover {
+                    color: var(--color-white);
+                    background-color: coral;
+                    opacity: 0.1;
+                }
+            }
+
+            .stay-updated-email {
+                display: flex;
+                order: 0;
+                flex: 1 1 auto;
+                align-self: auto;
+                background-color: none;
+            }
+
+            ::placeholder{
+                color: white;
+            }
+
+            .submit-button {
+                background-color: unset;
+                border: 0px;
+                color: var(--color-white)
+            }
+
+            .arrow-svg {
+                path {
+                        stroke: var(--color-white);
+                    }
+            }
         }
     }
 
