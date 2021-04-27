@@ -1,6 +1,36 @@
 body {
     font-family: var(--font-primary);
     font-weight: 400;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: 400;
+    margin: 0;
+}
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 400ms ease-in-out;
+}
+button {
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin: 0;
 }
 
 // Animations
@@ -26,4 +56,3 @@ body {
         }
     }
 }
-

@@ -72,9 +72,12 @@
     // Units
     --unit-gutter: 72px;
     --unit-vertical-gap: 100px;
-    --unit-content-width: 1048px;
     --unit-sticky-header-height: 96px;
     --unit-footer-height: 377px;
+
+    --unit-content-width: 1080px;
+    --unit-center-column-max: 930px;
+    --unit-center-text-max: 830px;
 
     // Fonts
     --font-primary: "Karbon", sans-serif;
