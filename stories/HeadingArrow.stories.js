@@ -10,7 +10,7 @@ export const Default = () => ({
 })
 
 export const Visit = () => ({
-    template: `<heading-arrow text="Visit the Library" to="/visit/foo/bar/"/>`,
+    template: `<heading-arrow text="Visit the Library" to="/visit/foo/bar/" section="visit"/>`,
 })
 
 export const About = () => ({

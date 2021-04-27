@@ -35,7 +35,7 @@ export default {
     },
     computed: {
         classes() {
-            return ["heading-arrow", "link-style", `color-${this.sectionName}`]
+            return ["heading-arrow", `color-${this.sectionName}`]
         },
         sectionName() {
             return this.section || getSectionName(this.to)
@@ -52,22 +52,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// --color-theme: var(--color-primary-blue);
+
+// .color-help {
+//      --color-theme: var(--color-about);
+// }
+
+// .top {
+//      stroke: var(--color-theme);
+// }
+
 .heading-arrow {
     display: flex;
     align-items: center;
     flex-direction: row;
 
-    &.link-style {
-        text-decoration: none;
-    }
-
-    .heading-arrow-text {
-        padding-left: 30px;
-        font-size: 44px;
-        color: var(--color-white);
-        line-height: 100%;
-        text-transform: capitalize;
-    }
+    text-decoration: none;
 
     &.color-visit {
         path.top {
@@ -84,5 +84,13 @@ export default {
             stroke: var(--color-about);
         }
     }
+}
+
+.heading-arrow-text {
+    padding-left: 30px;
+    font-size: 44px;
+    color: var(--color-white);
+    line-height: 100%;
+    text-transform: capitalize;
 }
 </style>
