@@ -65,23 +65,29 @@ export default {
     align-items: center;
     position: absolute;
 
-    width: 390px;
-    height: 175px;
+    width: 320px;
+    height: 150px;
 }
 
 .color-visit {
-    &:hover {
-        background-color: var(--color-fushia-03);
+    @media #{$has-hover} {
+        &:hover {
+            background-color: var(--color-fushia-03);
+        }
     }
 }
 .color-help {
-    &:hover {
-        background-color: var(--color-green-03);
+    @media #{$has-hover} {
+        &:hover {
+            background-color: var(--color-green-03);
+        }
     }
 }
 .color-about {
-    &:hover {
-        background-color: var(--color-purple-03);
+    @media #{$has-hover} {
+        &:hover {
+            background-color: var(--color-purple-03);
+        }
     }
 }
 
@@ -89,6 +95,7 @@ export default {
     display: flex;
     width: 180px;
     flex-direction: column;
+    padding-left: 24px;
 }
 
 .block-post-category {
@@ -106,6 +113,7 @@ export default {
     line-height: 120%;
     letter-spacing: 0.01em;
     color: var(--color-primary-blue);
+    margin-top: 20px;
 }
 
 .block-post-author {
@@ -113,6 +121,7 @@ export default {
     font-size: 14px;
     line-height: 100%;
     color: #434343;
+    margin-top: 15px;
 }
 
 .block-post-image {
