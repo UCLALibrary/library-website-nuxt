@@ -1,12 +1,12 @@
 <template lang="html">
     <figure :class="classes">
         <img
-            :src="src"
-            :height="width"
-            :width="height"
-            :alt="alt"
-            :srcset="srcset"
-            :sizes="sizes"
+            :src="image.src || src"
+            :height="image.width || width"
+            :width="image.height || height"
+            :alt="image.alt || alt"
+            :srcset="image.srcset || srcset"
+            :sizes="image.sizes || sizes"
             class="image"
         >
         <figcaption
@@ -59,10 +59,17 @@ export default {
             type: String,
             default: "cover",
         },
+        image: {
+            type: Object,
+            default: () => {},
+        },
     },
     computed: {
         parsedAspectRatio() {
-            return this.aspectRatio || (this.height / this.width) * 100
+            const height = this.image.height || this.height
+            const width = this.image.width || this.width
+
+            return this.aspectRatio || (height / width) * 100
         },
         styles() {
             return {

@@ -4,7 +4,7 @@
         :class="classes"
     >
         <responsive-image
-            v-bind="image"
+            :image="image"
             :aspect-ratio="100"
             class="image"
         />
@@ -78,23 +78,17 @@ export default {
     min-height: 150px;
     padding: 25px;
     box-sizing: border-box;
-    text-decoration: none;
     border-radius: 4px;
+
     transition-property: background-color, box-shadow;
     transition-duration: 400ms;
     transition-timing-function: ease-in-out;
 
     .image {
         width: 100px;
-        flex-basis: 100px;
-        flex-grow: 0;
-        flex-shrink: 0;
     }
     .meta {
         width: 150px;
-        flex-basis: 150px;
-        flex-grow: 0;
-        flex-shrink: 0;
     }
     .category {
         font-weight: 500;

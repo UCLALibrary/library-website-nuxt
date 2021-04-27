@@ -10,9 +10,27 @@ const mock = {
     image: API.image,
     to: "/visit/foo/bar/",
     categoryName: "featured",
+    author: "Ashton Prigge",
+    title: "New Library News You Should Read",
 }
 
 // Variations of stories below
+export const Default = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <block-post-small
+            :category-name="categoryName"
+            :author="author"
+            :title="title"
+            :image="image"
+            to="/legal/"
+        />
+    `,
+})
 export const Visit = () => ({
     data() {
         return {
@@ -22,15 +40,14 @@ export const Visit = () => ({
     template: `
         <block-post-small
             :category-name="categoryName"
-            author="Ashton Prigge"
-            title="New Library News You Should Read"
+            :author="author"
+            :title="title"
             :image="image"
             :to="to"
         />
     `,
 })
 
-// Variations of stories below
 export const About = () => ({
     data() {
         return {
@@ -41,15 +58,14 @@ export const About = () => ({
     template: `
         <block-post-small
             :category-name="categoryName"
-            author="Ashton Prigge"
-            title="New Library News You Should Read"
+            :author="author"
+            :title="title"
             :image="image"
             :to="to"
         />
     `,
 })
 
-// Variations of stories below
 export const Help = () => ({
     data() {
         return {
@@ -60,8 +76,26 @@ export const Help = () => ({
     template: `
         <block-post-small
             :category-name="categoryName"
-            author="Ashton Prigge"
-            title="New Library News You Should Read"
+            :author="author"
+            :title="title"
+            :image="image"
+            :to="to"
+        />
+    `,
+})
+
+export const LongText = () => ({
+    data() {
+        return {
+            ...mock,
+            to: "/help/foo/bar/",
+        }
+    },
+    template: `
+        <block-post-small
+            category-name="This is a long category name"
+            :author="author"
+            title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In egestas nisl eget tellus posuere, eu malesuada massa lobortis."
             :image="image"
             :to="to"
         />
