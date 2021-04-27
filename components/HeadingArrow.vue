@@ -92,5 +92,6 @@ export default {
     color: var(--color-white);
     line-height: 100%;
     text-transform: capitalize;
+    font-weight: normal;
 }
 </style>
