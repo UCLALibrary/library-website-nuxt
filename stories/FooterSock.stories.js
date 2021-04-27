@@ -3,7 +3,7 @@ import * as API from "~/stories/mock-api.json"
 
 // Storybook default settings
 export default {
-    title: "FOOTER / Footer Sock",
+    title: "FOOTER / Sock",
 }
 
 // Variations of stories below

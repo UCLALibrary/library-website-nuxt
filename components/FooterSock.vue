@@ -105,14 +105,15 @@ export default {
     @media #{$lte-tablet} {
         height: auto;
         display: block;
-        margin-top: 25px;
-        margin-bottom: 54px;
+        background-color: var(--color-white);
 
         .container {
             display: block;
 
             .links {
                 display: block;
+                padding-top: 30px;
+
                 li {
                     display: block;
                     line-height: 2em;
@@ -126,6 +127,7 @@ export default {
                 padding-right: 0px;
                 padding-left: 37px;
                 margin-top: 50px;
+                padding-bottom: 49px;
             }
         }
     }
