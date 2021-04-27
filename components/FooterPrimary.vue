@@ -51,7 +51,7 @@
                     </input>
 
                     <input
-                        class="submit-button "
+                        class="submit-button"
                         type="submit"
                     >
                     <svg-arrow-right class="arrow-svg" />
@@ -190,6 +190,8 @@ export default {
                 align-content: flex-end;
                 align-items: flex-start;
 
+                font-size: 20px;
+
                 &:hover {
                     color: var(--color-white);
                     background-color: coral;
@@ -203,6 +205,7 @@ export default {
                 flex: 1 1 auto;
                 align-self: auto;
                 background-color: none;
+                font-size: 20px;
             }
 
             ::placeholder{
@@ -212,7 +215,8 @@ export default {
             .submit-button {
                 background-color: unset;
                 border: 0px;
-                color: var(--color-white)
+                color: var(--color-white);
+                font-size: 20px;
             }
 
             .arrow-svg {
