@@ -11,6 +11,7 @@ export const Default = () => ({
   data() {
       return {
           items: [...API.links,...API.links],
+          pressItems: [{...API.links[0]}],
       }
   },
   computed: {
@@ -22,7 +23,16 @@ export const Default = () => ({
           text: obj.name
         }
       })
+    },
+    parsedPressItems(){
+      // Restructuring item to support text key
+      return this.pressItems.map(obj => {
+        return {
+          ...obj,
+          text: obj.name
+        }
+      })
     }
   },
-  template: `<footer-primary :items="parsedItems"/>`,
+  template: `<footer-primary :social-items="parsedItems" :press-items="parsedPressItems" />`,
 })

@@ -6,23 +6,34 @@
                 <div class="ucla-library-logo">
                     <svg-logo-ucla-library class="logo-svg" />
                 </div>
-                <div class="socials">
-                    <ul class="social-links">
-                        <li v-for="item in items">
-                            <smart-link
-                                class="social-links"
-                                :to="item.to"
-                                :target="item.target"
-                                v-html="item.text"
-                            />
-                        </li>
-                    </ul>
-                </div>
-                <div class="press-room-block">
-                    <ul>
-                        <li class="press-room">Press Room</li>
-                    </ul>
-                </div>
+
+                <ul class="socials">
+                    <li
+                        v-for="item in socialItems"
+                        class="social-item"
+                    >
+                        <smart-link
+                            class="link"
+                            :to="item.to"
+                            :target="item.target"
+                            v-html="item.text"
+                        />
+                    </li>
+                </ul>
+
+                <ul>
+                    <li
+                        v-for="item in pressItems"
+                        class="press-room"
+                    >
+                        <smart-link
+                            class="link"
+                            :to="item.to"
+                            :target="item.target"
+                            v-html="item.text"
+                        />
+                    </li>
+                </ul>
             </div>
 
             <div class="form">
@@ -57,12 +68,17 @@ export default {
         SvgArrowRight,
     },
     props: {
-        items: {
-            // Mock: api.links
+        socialItems: {
+            // Mock with api.links
             type: Array,
-            default: () => [{ text: "", url: "", target: "_self" }],
+            default: () => []
         },
-    },
+        pressItems: {
+            // Mock with api.links
+            type: Array,
+            default: () => []
+        }
+    }
 }
 </script>
 
@@ -100,42 +116,51 @@ export default {
                 max-width: 300px;
                 width: 100%;
                 height: auto;
+                path {
+                    fill: var(--color-white);
+                }
             }
         }
 
         .socials {
-            z-index: 10;
-            
-            .social-links {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                justify-content: space-between;
-                align-content: flex-start;
-                align-items: flex-start;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-content: flex-start;
+            align-items: flex-start;
 
-                border-right: 1px solid var(--color-white);
-                line-height: 1em;
-                color: var(--color-white);
-                padding-right: 10px;
-                padding-left: 10px;
-                text-decoration: none;
-                // :last-child {
-                //     border-right: none;
-                // }
+                .social-item {
+                    z-index: 10;
+                    border-right: 1px solid var(--color-white);
+                    line-height: 1em;
+                    border-right: 1px solid var(--color-white);
+                    padding-right: 10px;
+                    padding-left: 10px;
+                    text-decoration: none;
+                    list-style-type: none;
+                    &:first-child {
+                        padding-left: 0;
+                    }
+                    &:last-child {
+                        border-right: none;
+                    }
+                    .link {
+                        color: var(--color-white);
+                        &:hover {
+                            color: var(--color-primary-yellow);
+                        }
+                    }
+                }
             }
-        }
-        .press-room-block {
+
             .press-room {
                 display: block;
                 color: var(--color-white);
                 border-bottom: 2px solid var(--color-primary-yellow);
                 text-transform: uppercase;
-                &:hover {
-                    color: var(--color-primary-yellow);
-                }
             }
-        }
+
         .stay-updated {
             color: var(--color-white);
             font-weight: 200;
@@ -173,7 +198,9 @@ export default {
             color: var(--color-white)
         }
         .arrow-svg {
-            fill: var(--color-white);
+            path {
+                    stroke: var(--color-white);
+                }
         }
     }
 
