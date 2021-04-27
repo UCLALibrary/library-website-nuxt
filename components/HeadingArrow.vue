@@ -5,7 +5,7 @@
         :class="classes"
     >
         <svg-heading-arrow />
-        <h2 class="heading-arrow-text">
+        <h2 class="heading">
             {{ text }}
         </h2>
     </component>
@@ -52,16 +52,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// --color-theme: var(--color-primary-blue);
-
-// .color-help {
-//      --color-theme: var(--color-about);
-// }
-
-// .top {
-//      stroke: var(--color-theme);
-// }
-
 .heading-arrow {
     display: flex;
     align-items: center;
@@ -69,29 +59,28 @@ export default {
 
     text-decoration: none;
 
+    // themes
+    --color-theme: var(--color-primary-blue);
     &.color-visit {
-        path.top {
-            stroke: var(--color-visit);
-        }
+        --color-theme: var(--color-visit);
     }
     &.color-help {
-        path.top {
-            stroke: var(--color-help);
-        }
+        --color-theme: var(--color-help);
     }
     &.color-about {
-        path.top {
-            stroke: var(--color-about);
-        }
+        --color-theme: var(--color-about);
     }
-}
 
-.heading-arrow-text {
-    padding-left: 30px;
-    font-size: 44px;
-    color: var(--color-white);
-    line-height: 100%;
-    text-transform: capitalize;
-    font-weight: normal;
+    .top {
+        stroke: var(--color-theme);
+    }
+    .heading {
+        margin-left: 30px;
+        font-size: 44px;
+        color: var(--color-white);
+        line-height: 100%;
+        text-transform: capitalize;
+        font-weight: normal;
+    }
 }
 </style>
