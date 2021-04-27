@@ -41,7 +41,6 @@ export default {
     flex-direction: row;
 
     font-size: 44px;
-    font-weight: 400;
     color: var(--color-white);
     line-height: 100%;
     text-transform: capitalize;
