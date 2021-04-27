@@ -79,6 +79,7 @@ export default {
 <style lang="scss" scoped>
 .responsive-image {
     position: relative;
+    margin: 0;
 
     .image {
         position: absolute;
