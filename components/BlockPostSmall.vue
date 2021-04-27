@@ -2,7 +2,8 @@
     <nuxt-link :to="category.to">
         <div :class="classes">
             <responsive-image
-                :image="image"
+                v-bind="image"
+                :aspect-ratio="100"
                 class="block-post-image"
             />
             <div class="block-post-text">
@@ -62,11 +63,16 @@ export default {
 <style lang="scss" scoped>
 .block-post-small {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: space-between;
     align-items: center;
-    position: absolute;
 
     width: 320px;
     height: 150px;
+    padding: 25px;
+    box-sizing: border-box;
 
     &.color-visit {
         @media #{$has-hover} {
@@ -90,43 +96,44 @@ export default {
             }
         }
     }
-}
+    .block-post-text {
+        width: 150px;
+        flex-basis: 150px;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
 
-.block-post-text {
-    display: flex;
-    width: 180px;
-    flex-direction: column;
-    padding-left: 24px;
-}
+    .block-post-category {
+        font-weight: bold;
+        font-size: 14.6705px;
+        line-height: 100%;
+        /* identical to box height, or 15px */
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--color-dark-blue);
+    }
+    .block-post-title {
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 120%;
+        letter-spacing: 0.01em;
+        color: var(--color-primary-blue);
+        margin-top: 18px;
+    }
 
-.block-post-category {
-    font-weight: bold;
-    font-size: 14.6705px;
-    line-height: 100%;
-    /* identical to box height, or 15px */
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-dark-blue);
-}
-.block-post-title {
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 120%;
-    letter-spacing: 0.01em;
-    color: var(--color-primary-blue);
-    margin-top: 18px;
-}
+    .block-post-author {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 100%;
+        color: #434343;
+        margin-top: 15px;
+    }
 
-.block-post-author {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 100%;
-    color: #434343;
-    margin-top: 15px;
-}
-
-.block-post-image {
-    height: 100px;
-    width: 100px;
+    .block-post-image {
+        width: 100px;
+        flex-basis: 100px;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
 }
 </style>

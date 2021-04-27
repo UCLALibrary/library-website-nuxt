@@ -1,8 +1,5 @@
 <template lang="html">
-    <figure
-        :class="classes"
-        :style="styles"
-    >
+    <figure :class="classes">
         <img
             :src="src"
             :height="width"
@@ -15,6 +12,10 @@
         <figcaption
             class="caption"
             v-html="caption"
+        />
+        <div
+            class="sizer"
+            :style="styles"
         />
     </figure>
 </template>
