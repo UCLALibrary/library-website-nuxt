@@ -113,7 +113,7 @@ export default {
     line-height: 120%;
     letter-spacing: 0.01em;
     color: var(--color-primary-blue);
-    margin-top: 20px;
+    margin-top: 18px;
 }
 
 .block-post-author {
