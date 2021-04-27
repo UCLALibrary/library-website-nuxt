@@ -10,28 +10,17 @@ export const Default = () => ({
 })
 
 export const Visit = () => ({
-    data() {
-        return {
-            to: "/visit/foo/bar/",
-        }
-    },
-    template: `<heading-arrow text="Visit the Library" :to="to"/>`,
+    template: `<heading-arrow text="Visit the Library" to="/visit/foo/bar/"/>`,
 })
 
 export const About = () => ({
-    data() {
-        return {
-            to: "/about/foo/bar/",
-        }
-    },
-    template: `<heading-arrow text="Staff Directory" :to="to"/>`,
+    template: `<heading-arrow text="Staff Directory" to="/about/foo/bar/"/>`,
 })
 
 export const Help = () => ({
-    data() {
-        return {
-            to: "/help/foo/bar/",
-        }
-    },
-    template: `<heading-arrow text="Get Help With" :to="to"/>`,
+    template: `<heading-arrow text="Get Help With" to="/help/foo/bar/"/>`,
+})
+
+export const Section = () => ({
+    template: `<heading-arrow text="Visit the Library" to="" section="visit"/>`,
 })

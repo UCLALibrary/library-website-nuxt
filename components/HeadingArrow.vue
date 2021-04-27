@@ -1,8 +1,14 @@
 <template lang="html">
-    <div class="heading-arrow">
-        <svg-heading-arrow :class="classes" />
-        {{ text }}
-    </div>
+    <component
+        :is="componentType"
+        :to="to"
+        :class="classes"
+    >
+        <svg-heading-arrow />
+        <h2 class="heading-arrow-text">
+            {{ text }}
+        </h2>
+    </component>
 </template>
 
 <script>
@@ -22,13 +28,24 @@ export default {
             type: String,
             default: "",
         },
+        section: {
+            type: String,
+            default: "",
+        },
     },
     computed: {
         classes() {
-            return [`color-${this.sectionName}`]
+            return ["heading-arrow", "link-style", `color-${this.sectionName}`]
         },
         sectionName() {
-            return getSectionName(this.to)
+            return this.section || getSectionName(this.to)
+        },
+        componentType() {
+            let output = "div"
+            if (this.to) {
+                output = "nuxt-link"
+            }
+            return output
         },
     },
 }
@@ -40,28 +57,32 @@ export default {
     align-items: center;
     flex-direction: row;
 
-    font-size: 44px;
-    color: var(--color-white);
-    line-height: 100%;
-    text-transform: capitalize;
-}
+    &.link-style {
+        text-decoration: none;
+    }
 
-.color-visit {
-    padding-right: 30px;
-    path.top {
-        stroke: var(--color-visit);
+    .heading-arrow-text {
+        padding-left: 30px;
+        font-size: 44px;
+        color: var(--color-white);
+        line-height: 100%;
+        text-transform: capitalize;
     }
-}
-.color-help {
-    padding-right: 30px;
-    path.top {
-        stroke: var(--color-help);
+
+    &.color-visit {
+        path.top {
+            stroke: var(--color-visit);
+        }
     }
-}
-.color-about {
-    padding-right: 30px;
-    path.top {
-        stroke: var(--color-about);
+    &.color-help {
+        path.top {
+            stroke: var(--color-help);
+        }
+    }
+    &.color-about {
+        path.top {
+            stroke: var(--color-about);
+        }
     }
 }
 </style>
