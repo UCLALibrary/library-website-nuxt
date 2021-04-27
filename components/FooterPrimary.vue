@@ -36,19 +36,25 @@
             </div>
 
             <div class="form">
-                <div class="stay-updated-block">
-                    <h1 class="stay-updated">
-                        Stay updated
-                    </h1>
-                    <p class="stay-updated">
-                        Subscribe to get the latest updates on what's happening
-                        with UCLA Library.
-                    </p>
-                    <div  class="stay-updated-form">
-                        <input placeholder="Email Address"  class="stay-updated-email"></input>
-                        <input class="submit-button " type="submit">
-                        <svg-arrow-right class="arrow-svg" />
-                    </div>
+                <h1 class="stay-updated">Stay updated</h1>
+
+                <p class="stay-updated">
+                    Subscribe to get the latest updates on what's happening
+                    with UCLA Library.
+                </p>
+
+                <div  class="stay-updated-form">
+                    <input
+                        placeholder="Email Address"
+                        class="stay-updated-email"
+                    >
+                    </input>
+
+                    <input
+                        class="submit-button "
+                        type="submit"
+                    >
+                    <svg-arrow-right class="arrow-svg" />
                 </div>
             </div>
         </div>
@@ -93,12 +99,12 @@ export default {
         max-width: 1077;
         border-bottom: 40px solid var(--color-yelow);
 
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: stretch;
+    align-items: center;
 
         .footer-links {
             padding-right: 50px;
@@ -162,6 +168,11 @@ export default {
         } // footer-links
 
         .form {
+            input {
+                background-color: var(--color-primary-blue);
+                border: none;
+                }
+
             .stay-updated {
                 color: var(--color-white);
                 font-weight: 200;
@@ -169,7 +180,7 @@ export default {
 
             .stay-updated-form {
                 background-color: var(--color-primary-blue);
-                border: none;
+
                 border-bottom: 2px solid var(--color-green-01);
 
                 display: flex;
@@ -227,34 +238,6 @@ export default {
             align-items: flex-end;
 
             padding-left: 37px;
-
-            .social-links {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                justify-content: flex-end;
-                align-content: flex-end;
-                align-items: flex-end;
-
-
-                font-size: 12px;
-                line-height: 2em;
-
-                margin-block-start: unset;
-                margin-block-end: unset;
-                margin-inline-start: unset;
-                margin-inline-end: unset;
-                margin:0;
-                padding: 0;
-                text-indent: 0;
-
-            }
-            .press-room {
-                display: block;
-                margin-right: 0px;
-                margin-left: 40px;
-                margin-top: 50px;
-            }
         }
     }
 }
