@@ -1,9 +1,7 @@
 <template lang="html">
     <div class="heading-arrow">
         <svg-heading-arrow :class="classes" />
-        <slot>
-            {{ this.text }}
-        </slot>
+        {{ text }}
     </div>
 </template>
 
@@ -50,19 +48,19 @@ export default {
 }
 
 .color-visit {
-    padding-right: 20px;
+    padding-right: 30px;
     path.top {
         stroke: var(--color-visit);
     }
 }
 .color-help {
-    padding-right: 20px;
+    padding-right: 30px;
     path.top {
         stroke: var(--color-help);
     }
 }
 .color-about {
-    padding-right: 20px;
+    padding-right: 30px;
     path.top {
         stroke: var(--color-about);
     }
