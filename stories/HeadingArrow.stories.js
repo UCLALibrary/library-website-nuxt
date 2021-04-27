@@ -9,15 +9,6 @@ export const Default = () => ({
     template: `<heading-arrow/>`,
 })
 
-export const Help = () => ({
-    data() {
-        return {
-            to: "/help/foo/bar/",
-        }
-    },
-    template: `<heading-arrow text="Get Help With" :to="to"/>`,
-})
-
 export const Visit = () => ({
     data() {
         return {
@@ -34,4 +25,13 @@ export const About = () => ({
         }
     },
     template: `<heading-arrow text="Staff Directory" :to="to"/>`,
+})
+
+export const Help = () => ({
+    data() {
+        return {
+            to: "/help/foo/bar/",
+        }
+    },
+    template: `<heading-arrow text="Get Help With" :to="to"/>`,
 })
