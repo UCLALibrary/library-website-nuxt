@@ -67,26 +67,27 @@ export default {
 
     width: 320px;
     height: 150px;
-}
 
-.color-visit {
-    @media #{$has-hover} {
-        &:hover {
-            background-color: var(--color-fushia-03);
+    &.color-visit {
+        @media #{$has-hover} {
+            &:hover {
+                background-color: var(--color-fushia-03);
+            }
         }
     }
-}
-.color-help {
-    @media #{$has-hover} {
-        &:hover {
-            background-color: var(--color-green-03);
+    &.color-help {
+        @media #{$has-hover} {
+            &:hover {
+                background-color: var(--color-green-03);
+            }
         }
     }
-}
-.color-about {
-    @media #{$has-hover} {
-        &:hover {
-            background-color: var(--color-purple-03);
+
+    &.color-about {
+        @media #{$has-hover} {
+            &:hover {
+                background-color: var(--color-purple-03);
+            }
         }
     }
 }
