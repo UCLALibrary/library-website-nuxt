@@ -31,16 +31,7 @@
 */
 
 /* NOTE: We load other fonts using typekit, you can see them all here: https://use.typekit.net/xso3wzv.css */
-@font-face {
-    font-family: "Karbon";
-    src: url("~assets/fonts/karbon-web-light.eot");
-    src: url("~assets/fonts/karbon-web-light.eot?#iefix")
-            format("embedded-opentype"),
-        url("~assets/fonts/karbon-web-light.woff2") format("woff2"),
-        url("~assets/fonts/karbon-web-light.woff") format("woff");
-    font-style: normal;
-    font-weight: 300;
-}
+
 @font-face {
     font-family: "Karbon";
     src: url("~assets/fonts/karbon-web-regular.eot");
@@ -50,6 +41,16 @@
         url("~assets/fonts/karbon-web-regular.woff") format("woff");
     font-style: normal;
     font-weight: 400;
+}
+@font-face {
+    font-family: "Karbon";
+    src: url("~assets/fonts/karbon-web-light.eot");
+    src: url("~assets/fonts/karbon-web-light.eot?#iefix")
+            format("embedded-opentype"),
+        url("~assets/fonts/karbon-web-light.woff2") format("woff2"),
+        url("~assets/fonts/karbon-web-light.woff") format("woff");
+    font-style: normal;
+    font-weight: 300;
 }
 @font-face {
     font-family: "Karbon";

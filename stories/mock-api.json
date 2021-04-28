@@ -36,20 +36,6 @@
             "target": "_self"
         }
     ],
-    "BlkPostSmall": [
-        {
-            "title": "Feature",
-            "desc": "Letter from the University Librarian - Winter 2021"
-        },
-        {
-            "title": "Feature",
-            "desc": "Letter from the University Librarian - Winter 2021"
-        },
-        {
-            "title": "Feature",
-            "desc": "Letter from the University Librarian - Winter 2021"
-        }
-    ],
     "secondaryNavlinks": [
         {
             "text": "Location & Hours",
@@ -75,14 +61,6 @@
         {
             "name": "Aliquam porta",
             "to": "/example/uri/2"
-        }
-    ],
-    "blogPostSmall": [
-        {
-            "title": "Lorem ipsum"
-        },
-        {
-            "title": "Mauris finibus"
         }
     ],
     "article": {

@@ -3,41 +3,101 @@ import * as API from "~/stories/mock-api.json"
 
 // Storybook default settings
 export default {
-    title: "Block Post Small",
+    title: "BLOCK / Post Small",
+}
+
+const mock = {
+    image: API.image,
+    to: "/visit/foo/bar/",
+    categoryName: "featured",
+    author: "Ashton Prigge",
+    title: "New Library News You Should Read",
 }
 
 // Variations of stories below
+export const Default = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <block-post-small
+            :category-name="categoryName"
+            :author="author"
+            :title="title"
+            :image="image"
+            to="/legal/"
+        />
+    `,
+})
 export const Visit = () => ({
     data() {
         return {
-            image: API.image,
-            to: "/visit/foo/bar/",
-            category: { featured: "/visit/foo/bar/" },
+            ...mock,
         }
     },
-    template: `<block-post-small :category="category" author="Ashton Prigge" title="New Library News You Should Read" :image="image" :to="to" />`,
+    template: `
+        <block-post-small
+            :category-name="categoryName"
+            :author="author"
+            :title="title"
+            :image="image"
+            :to="to"
+        />
+    `,
 })
 
-// Variations of stories below
-export const Help = () => ({
-    data() {
-        return {
-            image: API.image,
-            to: "/help/foo/bar/",
-            category: { featured: "/visit/foo/bar/" },
-        }
-    },
-    template: `<block-post-small :category="category" author="Ashton Prigge" title="New Library News You Should Read" :image="image" :to="to" />`,
-})
-
-// Variations of stories below
 export const About = () => ({
     data() {
         return {
-            image: API.image,
+            ...mock,
             to: "/about/foo/bar/",
-            category: { featured: "/visit/foo/bar/" },
         }
     },
-    template: `<block-post-small :category="category" author="Ashton Prigge" title="New Library News You Should Read" :image="image" :to="to" />`,
+    template: `
+        <block-post-small
+            :category-name="categoryName"
+            :author="author"
+            :title="title"
+            :image="image"
+            :to="to"
+        />
+    `,
+})
+
+export const Help = () => ({
+    data() {
+        return {
+            ...mock,
+            to: "/help/foo/bar/",
+        }
+    },
+    template: `
+        <block-post-small
+            :category-name="categoryName"
+            :author="author"
+            :title="title"
+            :image="image"
+            :to="to"
+        />
+    `,
+})
+
+export const LongText = () => ({
+    data() {
+        return {
+            ...mock,
+            to: "/help/foo/bar/",
+        }
+    },
+    template: `
+        <block-post-small
+            category-name="This is a long category name"
+            :author="author"
+            title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In egestas nisl eget tellus posuere, eu malesuada massa lobortis."
+            :image="image"
+            :to="to"
+        />
+    `,
 })
