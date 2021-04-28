@@ -121,6 +121,9 @@ export default {
       &:hover {
         background-color: var(--color-theme);
         box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
+        .title {
+          text-decoration: underline;
+        }
       }
     }
   }
