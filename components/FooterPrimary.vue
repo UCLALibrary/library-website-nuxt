@@ -3,7 +3,7 @@
         <div class="container">
 
             <div class="footer-links">
-
+                <svg-molecule-half class="molecule-half-svg" />
                 <svg-logo-ucla-library class="logo-svg" />
 
                 <ul class="socials">
@@ -43,20 +43,19 @@
                     with UCLA Library.
                 </p>
 
-                <div  class="stay-updated-form">
+                <div class="stay-updated-form">
                     <input
                         placeholder="Email Address"
                         class="stay-updated-email"
                     >
                     </input>
-
-                    <input
-                        class="submit-button"
-                        type="submit"
-                    >
-                    <svg-arrow-right class="arrow-svg" />
+                    <div class="submit-button">
+                        <input type="submit">
+                        <svg-arrow-right class="arrow-svg" />
+                    </div>
                 </div>
             </div>
+
         </div>
     </footer>
 </template>
@@ -92,33 +91,46 @@ export default {
 .footer-primary {
     height: var(--unit-footer-height);
     background-color: var(--color-primary-blue);
-    background: url(~/assets/svg/molecule-half.svg?url) no-repeat top left fixed, var(--gradient-01), 50px;
-    border-bottom: 40px solid var(--color-yelow);
+    border-bottom: 4px solid var(--color-yellow);
+    position: relative;
+
+    .logo-svg {
+        width: 100%;
+        height: auto;
+        path {
+            fill: var(--color-white);
+        }
+    }
+
+    .molecule-half-svg {
+        z-index: 10;
+        opacity: 45%;
+        mix-blend-mode: screen;
+        position: absolute;
+        top: 30px;
+        left: -55px;
+        height: 287px;
+    }
 
     .container {
         max-width: 1080; // change to content-width
+        margin-top:  100px;
+        margin-bottom:  100px;
         border-bottom: 40px solid var(--color-yelow);
 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-content: stretch;
-    align-items: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: stretch;
+        align-items: center;
+
+
+
 
         .footer-links {
             padding-right: 50px;
-
-            .logo-svg {
-                margin: -30px;
-                z-index: 10;
-                max-width: 300px;
-                width: 100%;
-                height: auto;
-                path {
-                    fill: var(--color-white);
-                }
-            }
+            
             .socials {
                 display: flex;
                 flex-direction: row;
