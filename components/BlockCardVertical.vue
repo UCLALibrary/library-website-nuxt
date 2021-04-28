@@ -62,11 +62,11 @@ export default {
   border: 2px solid var(--color-lightest-blue);
   width: 300px;
   height: 400px;
-  // transition: transform 0.2s;
-  //
-  // :hover {
-  //   transform: scale(1.5);
-  // }
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 
   .svg {
     flex-grow: 0;
@@ -121,7 +121,6 @@ export default {
       &:hover {
         background-color: var(--color-theme);
         box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
-        transform: scale(1.5);
       }
     }
   }
