@@ -24,7 +24,15 @@
             "title": "Morbi quis tellus"
         }
     ],
-    "links": [
+    "image_people": {
+        "src": "https://www.ucla.edu/img/content-images/spotlight/gm421-Geriatric@2x.jpeg",
+        "srcset": "https://www.ucla.edu/img/content-images/spotlight/gm421-Geriatric@2x.jpeg",
+        "sizes": "100vw",
+        "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "title": "Lorem ipsum",
+        "height": 879,
+        "width": 1875
+    },    "links": [
         {
             "name": "Lorem ipsum",
             "to": "/example/uri/1",
@@ -34,6 +42,26 @@
             "name": "Mauris finibus",
             "to": "/example/uri/2",
             "target": "_self"
+        }
+    ],
+    "BlockPostSmall": [
+        {
+            "categoryName": "Feature",
+            "author": "Ginny Steel",
+            "title": "Letter from the University Librarian - Winter 2021",
+            "image": "http://placehold.it/1920x1080"
+        },
+        {
+            "categoryName": "Feature",
+            "author": "Library Staff",
+            "title": "Highlighting Black Authors and Creators",
+            "image": "{}"
+        },
+        {
+            "categoryName": "Feature",
+            "author": "Library Staff",
+            "title": "All-star panel examines race, politics, and activism in sports.",
+            "image": "{}"
         }
     ],
     "secondaryNavlinks": [
