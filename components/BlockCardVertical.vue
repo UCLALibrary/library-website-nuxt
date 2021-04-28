@@ -71,43 +71,46 @@ export default {
     justify-content: space-between;
     align-content: center;
     align-items: center;
-
+    border: 2px solid var(--color-lightest-blue);
     width: 300px;
     min-height: 400px;
-
-    // box-sizing: border-box;
-    // text-decoration: none;
-    // border-radius: 4px;
-    // transition-property: background-color, box-shadow;
-    // transition-duration: 400ms;
-    // transition-timing-function: ease-in-out;
 
     .svg {
         flex-grow: 0;
         flex-shrink: 0;
+        margin-top: 10px;
     }
 
     .title {
+        font-family: var(--font-primary);
         font-size: 24px;
         line-height: 110%;
         text-align: center;
         letter-spacing: 0.01em;
         font-weight: 500;
+        margin-top: 35px;
+        margin-bottom: 10px;
+        color: var(--color-dark-blue);
     }
 
     .text {
-        font-family: Proxima Nova;
-        font-style: normal;
-        font-weight: normal;
+        font-family: var(--font-secondary);
         font-size: 16px;
+        font-weight: normal;
         line-height: 150%;
         text-align: center;
+        padding-left: 40px;
+        padding-right: 40px;
+        color: var(--color-dark-blue);
     }
 }
 
 .meta {
     width: 300px;
     min-height: 200px;
+    transition-property: background-color, box-shadow;
+    transition-duration: 400ms;
+    transition-timing-function: ease-in-out;
     background-color: var(--color-lightest-blue);
 
     // Themes
