@@ -90,20 +90,27 @@ export default {
 
         .menu-item {
             list-style-type: none;
+            padding-right: 10px;
         }
     }
     @media #{$has-hover} {
         .menu:hover .submenu {
-            background-color: lightblue;
+            background-color: var(--color-primary-blue);
             display: block;
+        }
+        .menu-item:hover {
+            text-decoration: underline;
+            text-decoration-color: yellow;
         }
     }
     .submenu {
         flex: 1 1 auto;
         display: none;
         position: absolute;
-        width: 300px;
+        top: 50px;
+        max-width: 350px;
         height: 100px;
+        color: var(--color-white);
 
         .submenu-item {
             list-style-type: none;
