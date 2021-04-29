@@ -36,10 +36,10 @@
             "target": "_self"
         }
     ],
-    "primaryNavlinks": [ 
+    "primaryNavlinks": [
         {
             "name": "Get Help With",
-            "url": "",
+            "url": "/help/",
             "items": [
                 {
                     "text": "Location & Hours",
@@ -56,7 +56,6 @@
                     "to": "https://catalog.library.ucla.edu/",
                     "target": "_blank"
                 }
-        
             ]
         },
         {
