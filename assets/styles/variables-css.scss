@@ -73,7 +73,7 @@
     --unit-gutter: 72px;
     --unit-vertical-gap: 100px;
     --unit-sticky-header-height: 96px;
-    --unit-footer-height: 377px;
+    --unit-footer-height: 376px;
 
     --unit-content-width: 1080px;
     --unit-center-column-max: 930px;
@@ -84,6 +84,9 @@
     --font-secondary: "proxima-nova", sans-serif;
 
     // Breakponts
+    @media #{$lte-tablet} {
+        --unit-gutter: 36px;
+    }
     @media #{$lte-phone} {
         --unit-gutter: 25px;
     }
