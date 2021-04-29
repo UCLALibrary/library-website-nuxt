@@ -36,21 +36,33 @@
             "target": "_self"
         }
     ],
-    "secondaryNavlinks": [
+    "primaryNavlinks": [ 
         {
-            "text": "Location & Hours",
-            "to": "/example/uri/1",
-            "target": "_self"
+            "name": "Get Help With",
+            "url": "",
+            "items": [
+                {
+                    "text": "Location & Hours",
+                    "to": "/example/uri/1",
+                    "target": "_self"
+                },
+                {
+                    "text": "Exhibits & Upcomming Events",
+                    "to": "/example/uri/2",
+                    "target": "_self"
+                },
+                {
+                    "text": "Our Collections",
+                    "to": "https://catalog.library.ucla.edu/",
+                    "target": "_blank"
+                }
+        
+            ]
         },
         {
-            "text": "Ask a Librarian",
-            "to": "/example/uri/2",
-            "target": "_self"
-        },
-        {
-            "text": "My Account",
-            "to": "https://catalog.library.ucla.edu/",
-            "target": "_blank"
+            "name": "Support Us",
+            "url": "http://www.google.com",
+            "items": []
         }
     ],
     "categories": [
