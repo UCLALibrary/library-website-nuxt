@@ -12,7 +12,6 @@
                         class="social-item"
                     >
                         <smart-link
-                            class="link"
                             :to="item.to"
                             :target="item.target"
                             v-html="item.text"
@@ -26,7 +25,7 @@
                         class="press-room"
                     >
                         <smart-link
-                            class="link"
+                            :class="link"
                             :to="item.to"
                             :target="item.target"
                             v-html="item.text"
@@ -49,10 +48,12 @@
                         class="stay-updated-email"
                     >
                     </input>
-                    <div class="submit-button">
-                        <input type="submit">
-                        <svg-arrow-right class="arrow-svg" />
-                    </div>
+                    <input
+                        class="submit-button"
+                        type="button"
+                        value="Submit"
+                    >
+                        <svg-arrow-right  />
                 </div>
             </div>
 
@@ -89,18 +90,9 @@ export default {
 
 <style lang="scss" scoped>
 .footer-primary {
-    height: var(--unit-footer-height);
     background-color: var(--color-primary-blue);
     border-bottom: 4px solid var(--color-yellow);
     position: relative;
-
-    .logo-svg {
-        width: 100%;
-        height: auto;
-        path {
-            fill: var(--color-white);
-        }
-    }
 
     .molecule-half-svg {
         z-index: 10;
@@ -114,8 +106,8 @@ export default {
 
     .container {
         max-width: 1080; // change to content-width
-        margin-top:  100px;
-        margin-bottom:  100px;
+        margin-top: --unit-gutter;
+        margin-bottom: --unit-gutter;
         border-bottom: 40px solid var(--color-yelow);
 
         display: flex;
@@ -126,51 +118,57 @@ export default {
         align-items: center;
 
 
-
-
         .footer-links {
             padding-right: 50px;
-            
+            margin-bottom: var(--unit-vertical-gap);
+            overflow: hidden;
+            margin-right: 25px;
+
+            .logo-svg {
+                z-index: 20;
+                width: 100%;
+                height: auto;
+                margin-left: -40px;
+                path {
+                    fill: var(--color-white);
+                }
+            }
+
             .socials {
                 display: flex;
                 flex-direction: row;
-                flex-wrap: nowrap;
-                justify-content: space-between;
+                flex-wrap: wrap;
+                justify-content: center;
                 align-content: flex-start;
                 align-items: flex-start;
+
+                color: var(--color-white);
+                text-decoration: none;
+                list-style-type: none;
+                z-index: 10px;
                 margin-bottom: 30px;
 
                 .social-item {
-                    z-index: 10;
-                    border-right: 1px solid var(--color-white);
                     line-height: 1em;
-                    border-right: 1px solid var(--color-white);
                     padding-right: 10px;
                     padding-left: 10px;
-                    text-decoration: none;
-                    list-style-type: none;
                     &:first-child {
                         padding-left: 0;
                     }
+                    border-right: 1px solid var(--color-white);
                     &:last-child {
-                        border-right: none;
-                    }
-                    .link {
-                        color: var(--color-white);
-                        text-decoration: none;
-                        &:hover {
-                            color: var(--color-primary-yellow);
-                        }
+                        border-right: 0px;
                     }
                 }
             } // socials
 
             .press-room {
-                display: block;
                 text-transform: uppercase;
+                color: var(--color-white);
+                text-decoration: none;
+                border-bottom: 2px solid var(--color-primary-yellow);
+
                 .link {
-                    color: var(--color-white);
-                    text-decoration: none;
                     border-bottom: 2px solid var(--color-primary-yellow);
                     &:hover {
                         color: var(--color-primary-yellow);
@@ -181,6 +179,7 @@ export default {
 
         .form {
             color: var(--color-white);
+            margin-left: 25px;
 
             input {
                 background-color: transparent;;
@@ -194,18 +193,14 @@ export default {
             }
 
             .stay-updated-form {
-                //background-color: var(--color-primary-blue);
-
-                border-bottom: 2px solid var(--color-green-01);
-
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
                 justify-content: flex-start;
-                align-content: flex-end;
-                align-items: flex-start;
+                align-content: center;
+                align-items: center;
 
-                font-size: 20px;
+                font-size: 18px;
 
                 &:hover {
                     color: var(--color-white);
@@ -219,31 +214,63 @@ export default {
                 order: 0;
                 flex: 1 1 auto;
                 align-self: auto;
+
                 background-color: none;
-                font-size: 20px;
-            }
-
-            ::placeholder{
-                color: white;
-            }
-
-            .submit-button {
-                background-color: unset;
-                border: 0px;
                 color: var(--color-white);
                 font-size: 20px;
-            }
 
-            .arrow-svg {
-                path {
-                        stroke: var(--color-white);
+
+                ::placeholder{
+                    color: white;
+                }
+
+                .submit-button {
+                    background-color: unset;
+                    border: 0px;
+                    color: var(--color-white);
+                    font-size: 18px;
+                    background: url(~/assets/svg/arrow-right.svg?url);
+
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    align-content: center;
+                    align-items: center;
+
+                    .arrow-svg {
+                        path {
+                            stroke: var(--color-white);
+                            color: var(--color-white);
+                        }
                     }
+                }
             }
         }
     }
 
+    // Hover states
+    @media #{$has-hover} {
+        &:hover {
+            .social-item:hover {
+                color: var(--color-primary-yellow);
+            }
+
+            .press-room:hover {
+                color: var(--color-primary-yellow);
+                text-decoration: none;
+            }
+
+            .stay-updated-form:hover {
+                color: var(--color-white);
+                background-color: coral;
+                opacity: 0.1;
+            }
+        }
+    }
+
+    // Breakpoints
     @media #{$lte-tablet} {
-        height: 647px;
         display: block;
         padding-top: 25px;
         padding-bottom: 54px;
@@ -257,6 +284,35 @@ export default {
             align-items: flex-end;
 
             padding-left: 37px;
+
+            .footer-links {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                justify-content: center;
+                align-content: center;
+                align-items: flex-end;
+
+                .logo-svg {
+                    margin-right: -70px;
+                }
+
+                .socials {
+                    .social-item {
+                        &:last-child {
+                            margin-right: -45px;
+                        }
+                    }
+                }
+                .press-room {
+                    margin-right: -37px;
+                    list-style-type: none;
+                }
+            }
+
+            .form {
+                margin-right: 37px;
+            }
         }
     }
 }
