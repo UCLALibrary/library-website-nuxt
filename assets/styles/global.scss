@@ -32,6 +32,15 @@ button {
     cursor: pointer;
     margin: 0;
 }
+::selection {
+    background: var(--color-primary-blue);
+    color: var(--color-white);
+}
+
+// Z-indexs
+.header-main {
+    z-index: 100;
+}
 
 // Animations
 .underline-hover {

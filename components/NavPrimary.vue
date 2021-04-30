@@ -124,6 +124,8 @@ export default {
     --unit-height: 80px;
     padding: 0 var(--unit-gutter);
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: row;

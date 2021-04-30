@@ -10,7 +10,7 @@ export default {
 export const Default = () => ({
     data() {
         return {
-            items: [...API.links, ...API.links],
+            items: [...API.links],
         }
     },
     computed: {
@@ -24,12 +24,12 @@ export const Default = () => ({
             })
         },
     },
-    template: `<footer-sock :items="parsedItems"/>`,
+    template: `<footer-sock :items="items"/>`,
 })
 export const LongLink = () => ({
     data() {
         return {
-            items: [...API.links, ...API.links],
+            items: [...API.links],
         }
     },
     computed: {

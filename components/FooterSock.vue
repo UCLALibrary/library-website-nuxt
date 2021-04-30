@@ -4,6 +4,7 @@
             <ul class="links">
                 <li
                     v-for="item in items"
+                    :key="item.text"
                     class="item"
                 >
                     <smart-link
