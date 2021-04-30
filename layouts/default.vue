@@ -9,7 +9,11 @@
 </template>
 
 <script>
+// Mock data
 import * as MOCK_API from "~/stories/mock-api.json"
+
+// Helpers
+import kebabCase from "~/utils/kebabCase"
 
 export default {
     components: {},
@@ -29,6 +33,9 @@ export default {
         return {
             htmlAttrs: {
                 lang: "en",
+            },
+            bodyAttrs: {
+                class: this.bodyClasses,
             },
             titleTemplate: (pageTitle) => {
                 const siteTitle = this.pageMeta.title
@@ -75,6 +82,13 @@ export default {
                 },
             ],
         }
+    },
+    computed: {
+        bodyClasses() {
+            const classes = ["body", "theme-default"]
+            classes.push(`route-${kebabCase(this.$route.name || "error")}`)
+            return classes.join(" ")
+        },
     },
 }
 </script>
