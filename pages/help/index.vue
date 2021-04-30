@@ -1,12 +1,10 @@
 <template lang="html">
-    <div class="page page-home">
-        Home page goes here.
+    <div class="page page-help">
+        Help page goes here.
     </div>
 </template>
 
 <script>
-// import * as MOCK_API from "~/stories/mock-api.json"
-
 export default {
     components: {},
     async asyncData() {
@@ -18,7 +16,8 @@ export default {
     },
 }
 </script>
+
 <style lang="scss" scoped>
-.page-home {
+.page-help {
 }
 </style>

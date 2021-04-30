@@ -24,6 +24,15 @@ export default {
     plugins: [{ src: "~/plugins/web-font-loader.client.js", mode: "client" }],
 
     /*
+     ** Nuxt generate configuration. Used when generating a static site.
+     */
+    generate: {
+        fallback: "404.html",
+        interval: 500,
+        concurrency: 500,
+    },
+
+    /*
      ** Storybook
      ** SEE https://storybook.nuxtjs.org/options
      */

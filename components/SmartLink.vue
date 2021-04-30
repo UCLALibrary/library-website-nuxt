@@ -1,20 +1,17 @@
 <template>
-    <nuxt-link
-        v-if="this.target == '_self'"
-        class="smart-link is-nuxt-link"
+    <component
+        :is="elementType"
         :to="to"
-    >
-        <slot />
-    </nuxt-link>
-    <a
-        v-else
-        class="smart-link is-link"
         :href="to"
         :target="target"
-        rel="noopener"
+        :rel="rel"
+        :class="classes"
     >
-        <slot />
-    </a>
+        <!--
+            // TODO Figure out why if we have a slot here it gives node-mismatch error
+            <slot />
+        -->
+    </component>
 </template>
 
 <script>
@@ -29,7 +26,28 @@ export default {
             default: "_self",
         },
     },
+    computed: {
+        elementType() {
+            let output = "a"
+            if (this.target == "_self") {
+                output = "nuxt-link"
+            }
+            return output
+        },
+        rel() {
+            let output = false
+            if (this.elementType == "a") {
+                output = "noopener"
+            }
+            return output
+        },
+        classes() {
+            return [
+                "smart-link",
+                { "is-link": this.elementType == "a" },
+                { "is-nuxt-link": this.elementType == "nuxt-link" },
+            ]
+        },
+    },
 }
 </script>
-
-<style></style>

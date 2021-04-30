@@ -32,6 +32,7 @@ export default {
     background-color: var(--color-white);
     height: 48px;
     padding: 0 94px;
+    border-bottom: 1px solid var(--color-grey-03);
 
     display: flex;
     flex-direction: row;

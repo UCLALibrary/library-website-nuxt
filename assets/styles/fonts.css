@@ -62,7 +62,7 @@
     font-style: normal;
     font-weight: 500;
 }
-/* @font-face {
+@font-face {
     font-family: "Karbon";
     src: url("~assets/fonts/karbon-web-semibold.eot");
     src: url("~assets/fonts/karbon-web-semibold.eot?#iefix")
@@ -71,7 +71,7 @@
         url("~assets/fonts/karbon-web-semibold.woff") format("woff");
     font-style: normal;
     font-weight: 600;
-} */
+}
 @font-face {
     font-family: "Karbon";
     src: url("~assets/fonts/karbon-web-bold.eot");
