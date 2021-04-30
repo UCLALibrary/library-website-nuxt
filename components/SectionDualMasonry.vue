@@ -1,7 +1,79 @@
 <template lang="html">
-    <div class="section-dual-masonry">
-        Today is Friday!
-    </div>
+    <section class="section-dual-masonry">
+        <div class="background" />
+
+        <div class="masonry">
+            <div class="meta masonry-item">
+                <p class="category">
+                    DATA {{ items[0].category }}
+                </p>
+                <h2 class="title">
+                    {{ items[0].title }}
+                </h2>
+                <h3 class="dates">
+                    {{ items[0].dates }}
+                </h3>
+                <button class="button">
+                    Visit Exhibit
+                </button>
+            </div>
+
+            <div class="meta masonry-item">
+                <!-- <nuxt-link>
+                    <responsive-image image="items[0].image" />
+                </nuxt-link> -->
+                <p class="category">
+                    DATA {{ items[0].category }}
+                </p>
+                <h2 class="title">
+                    {{ items[0].title }}
+                </h2>
+                <h3 class="dates">
+                    {{ items[0].dates }}
+                </h3>
+                <button class="button">
+                    Visit Exhibit
+                </button>
+            </div>
+
+            <div class="meta masonry-item">
+                <p class="category">
+                    DATA {{ items[0].category }}
+                </p>
+                <h2 class="title">
+                    {{ items[0].title }}
+                </h2>
+                <h3 class="dates">
+                    {{ items[0].dates }}
+                </h3>
+                <button class="button">
+                    Visit Exhibit
+                </button>
+            </div>
+
+            <div class="meta masonry-item">
+                <!-- <nuxt-link>
+                    <responsive-image image="items[0].image" />
+                </nuxt-link> -->
+                <p class="category">
+                    DATA {{ items[0].category }}
+                </p>
+                <h2 class="title">
+                    {{ items[0].title }}
+                </h2>
+                <h3 class="dates">
+                    {{ items[0].dates }}
+                </h3>
+                <button class="button">
+                    Visit Exhibit
+                </button>
+            </div>
+        </div>
+
+        <nuxt-link :to="to">
+            <svg-see-more />
+        </nuxt-link>
+    </section>
 </template>
 
 <script>
@@ -22,16 +94,42 @@ export default {
 
 <style lang="scss" scoped>
 .section-dual-masonry {
-    background-color: coral;
-    height: 200px;
-    .background {
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        left: 0;
-        width: 100%;
+    .masonry-item {
+    }
+    .meta {
+        color: var(--color-white);
+        font-family: Karbon;
         height: var(--unit-height);
-        background: var(--gradient-03);
+        background-color: var(--color-primary-blue);
+        background: url(~/assets/svg/molecule-background.svg?url) center -100px,
+            var(--gradient-03);
+        background-size: cover;
+
+        .meta-title {
+            font-weight: bold;
+            font-size: 40px;
+            line-height: 44px;
+            letter-spacing: 0.01em;
+        }
+        masonsonry .category {
+            color: var(--color-yellow-03);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .title {
+        }
+        .dates {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 140%;
+        }
+        .button {
+            border: 1px solid var(--color-primary-light-blue);
+            background-color: var(--color-primary-blue);
+            padding: 16px 40px;
+            color: var(--color-white);
+        }
     }
     // Breakpoints
     //@media #{$lte-phone} {

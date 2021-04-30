@@ -50,6 +50,19 @@
             "target": "_self"
         }
     ],
+    "masonryItems": {
+        "to": "/visit",
+        "items": [
+            {
+                "image": {},
+                "category": "Etiam mollis",
+                "title": "Maecenas Leo Mauris,",
+                "prompt": "Praesent finibus fermentum ligula, nec tristique ex ornare at",
+                "dates": "Donec 12 -Donec 23 2021",
+                "to": "/visit/uri/1"
+            }
+        ]
+    },
     "primaryNavlinks": [
         {
             "name": "Get Help With...",
