@@ -2,8 +2,8 @@
   <nuxt-link :to="to" :class="classes">
     <component :is="parsedSvgName" class="svg" />
     <div :class="metaClasses">
-      <div class="title" v-html="title" />
-      <h3 class="text" v-html="text" />
+      <h3 class="title">{{ title }}</h3>
+      <div class="text">{{ text }}</div>
     </div>
   </nuxt-link>
 </template>
@@ -11,10 +11,13 @@
 <script>
 import getSectionName from "~/utils/getSectionName";
 import BookBindingIcon from "~/assets/svg/illustrations/book-binding-icon";
+import BorrowingBooksEquipmentIcon from "~/assets/svg/illustrations/borrowing-books-equipment-icon";
+
 
 export default {
   components: {
     BookBindingIcon,
+    BorrowingBooksEquipmentIcon,
   },
   props: {
     iconName: {
