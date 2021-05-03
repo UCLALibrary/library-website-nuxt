@@ -4,7 +4,7 @@
 
         <div class="brick">
             <p class="category">
-                DATA {{ items[0].category }}
+                {{ items[0].category }}
             </p>
             <h2 class="title">
                 {{ items[0].title }}
@@ -42,8 +42,8 @@ export default {
         font-family: Karbon;
         height: var(--unit-height);
         background-color: var(--color-primary-blue);
-        background: url(~/assets/svg/molecule-background.svg?url) center -100px,
-            var(--gradient-03);
+        background: url(~/assets/svg/molecule-background-pink-top.svg?url)
+            center -100px;
         background-size: cover;
 
         .category {

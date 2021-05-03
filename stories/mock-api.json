@@ -56,8 +56,8 @@
             {
                 "image": {},
                 "category": "Fermentu",
-                "prompt": "Praesent finibus fermentum ligula, nec tristique ex ornare at",
-                "dates": "Date 12 - Date 23, 2021",
+                "prompt": "Praesent finibus",
+                "dates": "Datum 12 - Datum 23, 2021",
                 "to": "/visit/uri/1"
             },
             {
@@ -65,7 +65,7 @@
                 "category": "Fermentu",
                 "title": "Maecenas Leo Mauris",
                 "prompt": "Praesent finibus fermentum ligula, nec tristique ex ornare at",
-                "dates": "Date 12 - Date 23, 2021",
+                "dates": "Datum 12 - Datum 23, 2021",
                 "to": "/visit/uri/1"
             }
         ]
