@@ -1,78 +1,20 @@
 <template lang="html">
-    <section class="section-dual-masonry">
-        <div class="background" />
-
-        <div class="masonry">
-            <div class="meta masonry-item">
-                <p class="category">
-                    DATA {{ items[0].category }}
-                </p>
-                <h2 class="title">
-                    {{ items[0].title }}
-                </h2>
-                <h3 class="dates">
-                    {{ items[0].dates }}
-                </h3>
-                <button class="button">
-                    Visit Exhibit
-                </button>
-            </div>
-
-            <div class="meta masonry-item">
-                <!-- <nuxt-link>
-                    <responsive-image image="items[0].image" />
-                </nuxt-link> -->
-                <p class="category">
-                    DATA {{ items[0].category }}
-                </p>
-                <h2 class="title">
-                    {{ items[0].title }}
-                </h2>
-                <h3 class="dates">
-                    {{ items[0].dates }}
-                </h3>
-                <button class="button">
-                    Visit Exhibit
-                </button>
-            </div>
-
-            <div class="meta masonry-item">
-                <p class="category">
-                    DATA {{ items[0].category }}
-                </p>
-                <h2 class="title">
-                    {{ items[0].title }}
-                </h2>
-                <h3 class="dates">
-                    {{ items[0].dates }}
-                </h3>
-                <button class="button">
-                    Visit Exhibit
-                </button>
-            </div>
-
-            <div class="meta masonry-item">
-                <!-- <nuxt-link>
-                    <responsive-image image="items[0].image" />
-                </nuxt-link> -->
-                <p class="category">
-                    DATA {{ items[0].category }}
-                </p>
-                <h2 class="title">
-                    {{ items[0].title }}
-                </h2>
-                <h3 class="dates">
-                    {{ items[0].dates }}
-                </h3>
-                <button class="button">
-                    Visit Exhibit
-                </button>
-            </div>
+    <section class="masonry-item">
+        <div class="molecule" />
+        <div class="meta">
+            <p class="category">
+                {{ items[0].category }}
+            </p>
+            <h2 class="title">
+                {{ items[0].title }}
+            </h2>
+            <h3 class="dates">
+                {{ items[0].dates }}
+            </h3>
+            <button class="button">
+                Visit Exhibit
+            </button>
         </div>
-
-        <nuxt-link :to="to">
-            <svg-see-more />
-        </nuxt-link>
     </section>
 </template>
 
@@ -93,36 +35,53 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section-dual-masonry {
-    .masonry-item {
-    }
-    .meta {
+.masonry-item {
+    position: absolute;
+    width: 640px;
+    background-color: var(--color-primary-blue);
+    z-index: 0;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-content: stretch;
+    align-items: flex-start;
+
+    .molecule {
+        position: relative;
+        z-index: 10;
+        width: 640px;
+        height: 440px;
         color: var(--color-white);
         font-family: Karbon;
-        height: var(--unit-height);
-        background-color: var(--color-primary-blue);
-        background: url(~/assets/svg/molecule-background.svg?url) center -100px,
-            var(--gradient-03);
+        background: url(~/assets/svg/molecule-background.svg?url) center 0px;
         background-size: cover;
-
-        .meta-title {
-            font-weight: bold;
+    }
+    .meta {
+        margin: 0 88px 100px;
+        color: var(--color-white);
+        height: 440px;
+        .title {
+            font-weight: 600;
             font-size: 40px;
             line-height: 44px;
             letter-spacing: 0.01em;
+            text-align: left;
+            margin-top: 50px;
         }
-        masonsonry .category {
+        .category {
             color: var(--color-yellow-03);
             letter-spacing: 0.06em;
             text-transform: uppercase;
-        }
-        .title {
+            font-weight: 600;
         }
         .dates {
             font-style: normal;
             font-weight: 600;
             font-size: 20px;
             line-height: 140%;
+            margin: 50px 0;
         }
         .button {
             border: 1px solid var(--color-primary-light-blue);
