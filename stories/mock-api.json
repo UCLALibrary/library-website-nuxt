@@ -56,6 +56,7 @@
             {
                 "image": {},
                 "category": "Fermentu",
+                "title": "Maecenas Leo Mauris",
                 "prompt": "Praesent finibus",
                 "dates": "Datum 12 - Datum 23, 2021",
                 "to": "/visit/uri/1"
@@ -63,8 +64,7 @@
             {
                 "image": {},
                 "category": "Fermentu",
-                "title": "Maecenas Leo Mauris",
-                "prompt": "Praesent finibus fermentum ligula, nec tristique ex ornare at",
+                "title": "Maecenas Leo Mauris Praesent finibus fermentum ligula, nec tristique",
                 "dates": "Datum 12 - Datum 23, 2021",
                 "to": "/visit/uri/1"
             }
