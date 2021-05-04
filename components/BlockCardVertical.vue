@@ -185,5 +185,14 @@ export default {
             }
         }
     }
+    &.more-button {
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    // Breakpoints
+
+    @media #{$lte-phone} {
+    }
 }
 </style>

@@ -1,27 +1,37 @@
 <template>
     <div class="section-cards">
         <div class="meta">
-            <h3 class="title" v-html="title" />
-            <div class="text" v-html="text" />
+            <h3
+                class="title"
+                v-html="title"
+            />
+            <div
+                class="text"
+                v-html="text"
+            />
         </div>
         <div class="cards">
             <block-card-vertical
                 v-for="item in items"
                 :key="item.to"
-                :iconName="item.iconName"
+                class="vertical-card"
+                :icon-name="item.iconName"
                 :to="item.to"
                 :title="item.title"
                 :text="item.text"
             />
+            <block-card-vertical
+                class="vertical-card more-button"
+                :to="to"
+            >
+                <button-more />
+            </block-card-vertical>
         </div>
     </div>
 </template>
 
 <script>
-import BlockCardVertical from "./BlockCardVertical.vue"
-
-export default
-    components: { BlockCardVertical },{
+export default {
     props: {
         title: {
             type: String,
@@ -46,5 +56,64 @@ export default
 
 <style lang="scss" scoped>
 .section-cards {
+    .meta {
+        margin-bottom: 60px;
+        padding-left: 15px;
+
+        .title {
+            margin-bottom: 24px;
+            font-weight: 400;
+            font-size: 44px;
+            line-height: 100%;
+            text-transform: capitalize;
+            color: var(--color-primary-blue);
+        }
+        .text {
+            max-width: 730px;
+            font-size: 24px;
+            line-height: 130%;
+            letter-spacing: 0.01em;
+            color: var(--color-black);
+        }
+    }
+    .cards {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: space-between;
+        align-items: center;
+
+        .vertical-card {
+            margin: 15px 15px;
+        }
+    }
+
+    // Breakpoints
+    @media #{$lte-tablet} {
+        .cards {
+            flex-wrap: nowrap;
+        }
+        .meta {
+            .title {
+                font-size: 40px;
+            }
+            .text {
+                max-width: 600px;
+                font-size: 22px;
+            }
+        }
+    }
+    @media #{$lte-phone} {
+        .meta {
+            .title {
+                font-size: 24px;
+            }
+            .text {
+                max-width: 330px;
+                font-size: 14px;
+            }
+        }
+    }
 }
 </style>
