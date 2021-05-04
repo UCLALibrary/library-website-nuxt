@@ -27,6 +27,22 @@ export const Default = () => ({
         :text="text" />`,
 });
 
+export const hasSlot = () => ({
+  data() {
+    return {
+      ...mock,
+    };
+  },
+  template: `
+        <block-card-vertical
+        class="more-button"
+        :to="to"
+        >
+            <button-more />
+        </block-card-vertical>
+  `,
+});
+
 export const Visit = () => ({
   data() {
     return {
