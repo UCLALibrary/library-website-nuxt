@@ -3,7 +3,7 @@
     <component :is="parsedSvgName" v-if="iconName && title" class="svg" />
     <div v-if="iconName && title" :class="metaClasses">
       <div class="title" v-html="title" />
-      <h3 class="text" v-html="text" />
+      <h3 class="text" v-html="truncateText" />
     </div>
 
     <slot />
@@ -63,6 +63,12 @@ export default {
     parsedSvgName() {
       return `${this.iconName}`;
     },
+    truncateText() {
+      if (this.text.length > 100) {
+        return `${this.text.slice(0, 99)}...`;
+      }
+      return `${this.text}`;
+    },
   },
 };
 </script>
@@ -116,8 +122,6 @@ export default {
       padding-left: 40px;
       padding-right: 40px;
       color: var(--color-dark-blue);
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     // Themes
