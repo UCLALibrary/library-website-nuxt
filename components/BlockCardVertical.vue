@@ -82,7 +82,7 @@ export default {
         },
         truncateText() {
             return this.text.length > 100
-                ? `${this.text.substring(0, 100)}...`
+                ? `${this.text.slice(0, 99)}...`
                 : this.text
         },
     },
