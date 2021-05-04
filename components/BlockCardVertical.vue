@@ -146,6 +146,7 @@ export default {
       }
       .title {
         text-decoration: underline;
+        text-decoration-color: #0aa5ff;
       }
     }
   }
