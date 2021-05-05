@@ -10,26 +10,26 @@ const mock = [{
     text: "Here is a decent amount of text to explain this get help with.",
 },
 {
-  iconName: "book-binding-icon",
+  iconName: "find-space-icon",
   to: "/help/foo/baz/",
   title: "Book Binding",
   text: "Here is a decent amount of text to explain this get help with.",
 },
 {
-  iconName: "book-binding-icon",
+  iconName: "digitized-resources-icon",
   to: "/help/foo/fred/",
   title: "Book Binding",
   text: "Here is a decent amount of text to explain this get help with.",
 },
 {
-  iconName: "book-binding-icon",
-  to: "/help/foo/thud/",
+  iconName: "databases-icon",
+  to: "/about/foo/thud/",
   title: "Book Binding",
-  text: "Here is a decent amount of text to explain this get help with.",
+  text: "Here is a decent amount of text to explain this get help with.Here is a decent amount of text to explain this get help with.Here is a decent amount of text to explain this get help with.",
 },
 {
-  iconName: "book-binding-icon",
-  to: "/help/foo/qux/",
+  iconName: "remote-access-icon",
+  to: "/visit/foo/qux/",
   title: "Book Binding",
   text: "Here is a decent amount of text to explain this get help with.",
 }

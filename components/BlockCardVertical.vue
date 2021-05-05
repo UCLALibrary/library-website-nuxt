@@ -94,7 +94,7 @@ export default {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: center;
     align-content: center;
     align-items: center;
     border: 2px solid var(--color-lightest-blue);
@@ -105,16 +105,15 @@ export default {
     .svg {
         flex-grow: 0;
         flex-shrink: 0;
-        margin-top: 10px;
+        padding: 20px 0;
     }
 
     .meta {
-        width: 300px;
-        height: 200px;
         transition-property: background-color, box-shadow;
         transition-duration: 400ms;
         transition-timing-function: ease-in-out;
         background-color: var(--color-lightest-blue);
+        height: 200px; // Add this so that background color overflows
 
         .title {
             font-family: var(--font-primary);
@@ -168,31 +167,17 @@ export default {
     }
     &.more-button {
         justify-content: center;
-        flex-direction: row;
     }
     // Breakpoints
     @media #{$lte-phone} {
-        width: 200px;
-        height: 300px;
         .meta {
-            width: 200px;
-            min-height: 175px;
             .title {
-                font-size: 20px;
+                font-size: 21px;
             }
             .text {
-                font-size: 12px;
+                font-size: 13px;
             }
         }
-    }
-    &.more-button {
-        justify-content: center;
-        flex-direction: row;
-    }
-
-    // Breakpoints
-
-    @media #{$lte-phone} {
     }
 }
 </style>

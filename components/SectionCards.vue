@@ -58,7 +58,7 @@ export default {
 .section-cards {
     .meta {
         margin-bottom: 60px;
-        padding-left: 15px;
+        padding-left: 25px;
 
         .title {
             margin-bottom: 24px;
@@ -80,12 +80,17 @@ export default {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: flex-start;
-        align-content: space-between;
+        justify-content: space-between;
+        align-content: center;
         align-items: center;
 
+        width: 100%; // DO WE NEED THIS?
+        max-width: 960px;
+        // TODO min-height?
+        padding-left: 25px;
+
         .vertical-card {
-            margin: 15px 15px;
+            margin-bottom: 25px;
         }
     }
 
@@ -93,6 +98,11 @@ export default {
     @media #{$lte-tablet} {
         .cards {
             flex-wrap: nowrap;
+
+            .vertical-card {
+                margin: 0 20px;
+                min-width: 300px;
+            }
         }
         .meta {
             .title {
@@ -105,6 +115,13 @@ export default {
         }
     }
     @media #{$lte-phone} {
+        .cards {
+            .vertical-card {
+                margin: 0 15px;
+                min-width: 200px;
+            }
+        }
+
         .meta {
             .title {
                 font-size: 24px;
