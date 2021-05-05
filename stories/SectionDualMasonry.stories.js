@@ -3,7 +3,7 @@ import * as API from "~/stories/mock-api.json"
 
 // Storybook default settings
 export default {
-    title: "SECTION / Dual Masonry",
+    title: "DUAL MASONRY / SECTION",
 }
 
 const mock = { ...API.masonryItems }
