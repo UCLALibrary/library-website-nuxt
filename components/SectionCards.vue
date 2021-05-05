@@ -42,7 +42,7 @@ export default {
             default: "",
         },
         items: {
-            // the Array of Objects will look like this [{iconName: "", title: "", text: "", to: "", section: ""}]
+            // The Array of Objects will look like this [{iconName: "", title: "", text: "", to: "", section: ""}]
             type: Array,
             default: () => [],
         },
@@ -119,9 +119,9 @@ export default {
             .vertical-card {
                 margin: 0 15px;
                 min-width: 200px;
+                min-height: 300px;
             }
         }
-
         .meta {
             .title {
                 font-size: 24px;
