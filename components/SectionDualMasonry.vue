@@ -64,6 +64,7 @@ export default {
 
 <style lang="scss" scoped>
 .section-dual-masonry {
+    max-width: 1600px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -109,6 +110,10 @@ export default {
     .button-more {
         justify-content: center;
         flex-direction: row;
+    }
+    // Breakpoints
+    @media #{$lte-phone} {
+        width: 50%;
     }
 }
 </style>
