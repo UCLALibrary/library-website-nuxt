@@ -113,7 +113,7 @@ export default {
         transition-duration: 400ms;
         transition-timing-function: ease-in-out;
         background-color: var(--color-lightest-blue);
-        height: 200px; // Add this so that background color overflows
+        flex: 1 1 auto;
 
         .title {
             font-family: var(--font-primary);
