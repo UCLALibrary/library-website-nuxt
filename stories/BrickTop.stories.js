@@ -3,44 +3,42 @@ import * as API from "~/stories/mock-api.json"
 
 // Storybook default settings
 export default {
-    title: "SECTION / Brick",
+    title: "DUAL MASONRY / BRICK / Top",
 }
 
-const mock = { ...API.masonryItems.items[0] }
+const mock1 = { ...API.masonryItems.items[0] }
 const mock2 = { ...API.masonryItems.items[1] }
 
-export const MoleculeTopShortText = () => ({
+export const ShortText = () => ({
     data() {
         return {
-            item: mock,
+            item: mock1,
         }
     },
     template: `
-          <text-and-graphic-brick
+          <brick-top
           :category="item.category"
           :title="item.title"
-          :prompt="item.promt"
+          :prompt="item.prompt"
           :dates="item.dates"
           :to="item.to"
-          class="molecule-top"
           />
       `,
 })
 
-export const MoleculeBottomLongText = () => ({
+export const LongText = () => ({
     data() {
         return {
             item: mock2,
         }
     },
     template: `
-          <text-and-graphic-brick
+          <brick-top
           :category="item.category"
           :title="item.title"
-          :prompt="item.promt"
+          :prompt="item.prompt"
           :dates="item.dates"
           :to="item.to"
-          class="molecule-bottom"
           />
       `,
 })
