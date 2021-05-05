@@ -114,23 +114,5 @@ export default {
             }
         }
     }
-    @media #{$lte-phone} {
-        .cards {
-            .vertical-card {
-                margin: 0 15px;
-                min-width: 200px;
-                min-height: 300px;
-            }
-        }
-        .meta {
-            .title {
-                font-size: 24px;
-            }
-            .text {
-                max-width: 330px;
-                font-size: 14px;
-            }
-        }
-    }
 }
 </style>

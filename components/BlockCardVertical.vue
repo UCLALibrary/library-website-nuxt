@@ -165,19 +165,5 @@ export default {
             }
         }
     }
-    &.more-button {
-        justify-content: center;
-    }
-    // Breakpoints
-    @media #{$lte-phone} {
-        .meta {
-            .title {
-                font-size: 21px;
-            }
-            .text {
-                font-size: 13px;
-            }
-        }
-    }
 }
 </style>
