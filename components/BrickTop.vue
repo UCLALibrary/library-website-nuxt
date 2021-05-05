@@ -3,20 +3,18 @@
         <div class="molecule-top" />
 
         <div class="text-bottom">
-            <div class="text">
-                <p class="category">
-                    {{ category }}
-                </p>
-                <h2 class="title">
-                    {{ title }}
-                </h2>
-                <h3 class="dates">
-                    {{ dates }}
-                </h3>
-                <button class="button">
-                    {{ prompt }}
-                </button>
-            </div>
+            <p class="category">
+                {{ category }}
+            </p>
+            <h2 class="title">
+                {{ title }}
+            </h2>
+            <h3 class="dates">
+                {{ dates }}
+            </h3>
+            <button class="button">
+                {{ prompt }}
+            </button>
         </div>
     </section>
 </template>
