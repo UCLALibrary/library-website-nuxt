@@ -126,9 +126,7 @@ export default {
 
             .logo-svg {
                 z-index: 20;
-                width: 100%;
                 height: auto;
-                margin-left: -40px;
                 path {
                     fill: var(--color-white);
                 }
@@ -201,29 +199,18 @@ export default {
                 align-items: center;
 
                 font-size: 18px;
+                ::placeholder{color: white};
 
-                &:hover {
+                .stay-updated-email {
+                    display: flex;
+                    order: 0;
+                    flex: 1 1 auto;
+                    align-self: auto;
+
+                    background-color: none;
                     color: var(--color-white);
-                    background-color: coral;
-                    opacity: 0.1;
+                    font-size: 20px;
                 }
-            }
-
-            .stay-updated-email {
-                display: flex;
-                order: 0;
-                flex: 1 1 auto;
-                align-self: auto;
-
-                background-color: none;
-                color: var(--color-white);
-                font-size: 20px;
-
-
-                ::placeholder{
-                    color: white;
-                }
-
                 .submit-button {
                     background-color: unset;
                     border: 0px;
@@ -237,12 +224,11 @@ export default {
                     justify-content: center;
                     align-content: center;
                     align-items: center;
-
-                    .arrow-svg {
-                        path {
-                            stroke: var(--color-white);
-                            color: var(--color-white);
-                        }
+                }
+                .arrow-svg {
+                    path {
+                        stroke: var(--color-white);
+                        color: var(--color-white);
                     }
                 }
             }
