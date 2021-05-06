@@ -24,102 +24,68 @@
             "title": "Morbi quis tellus"
         }
     ],
-    "links": [
+    "image_people": {
+        "src": "https://www.ucla.edu/img/content-images/spotlight/gm421-Geriatric@2x.jpeg",
+        "srcset": "https://www.ucla.edu/img/content-images/spotlight/gm421-Geriatric@2x.jpeg",
+        "sizes": "100vw",
+        "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "title": "Lorem ipsum",
+        "height": 879,
+        "width": 1875
+    },    "links": [
         {
             "name": "Lorem ipsum",
-            "text": "Lorem ipsum",
             "to": "/example/uri/1",
             "target": "_blank"
         },
         {
             "name": "Mauris finibus",
-            "text": "Mauris finibus",
+            "to": "/example/uri/2",
+            "target": "_self"
+        }
+    ],
+    "BlockPostSmall": [
+        {
+            "categoryName": "Feature",
+            "author": "Ginny Steel",
+            "title": "Letter from the University Librarian - Winter 2021",
+            "image": "http://placehold.it/1920x1080"
+        },
+        {
+            "categoryName": "Feature",
+            "author": "Library Staff",
+            "title": "Highlighting Black Authors and Creators",
+            "image": "{}"
+        },
+        {
+            "categoryName": "Feature",
+            "author": "Library Staff",
+            "title": "All-star panel examines race, politics, and activism in sports.",
+            "image": "{}"
+        }
+    ],
+    "secondaryNavlinks": [
+        {
+            "text": "Location & Hours",
+            "to": "/example/uri/1",
+            "target": "_self"
+        },
+        {
+            "text": "Ask a Librarian",
             "to": "/example/uri/2",
             "target": "_self"
         },
         {
-            "name": "Curabitur ac odio vulputate",
-            "text": "Curabitur ac odio vulputate",
-            "to": "/example/uri/3",
-            "target": "_self"
-        },
-        {
-            "name": "Morbi quis tellus vel turpis",
-            "text": "Morbi quis tellus vel turpis",
-            "to": "/example/uri/4",
-            "target": "_self"
+            "text": "My Account",
+            "to": "https://catalog.library.ucla.edu/",
+            "target": "_blank"
         }
     ],
-    "primaryNavlinks": [
-        {
-            "name": "Get Help With...",
-            "url": "/help/",
-            "items": [
-                {
-                    "text": "Lorem ipsum",
-                    "to": "/help/uri/1",
-                    "target": "_self"
-                },
-                {
-                    "text": "Mauris finibus",
-                    "to": "/help/uri/2",
-                    "target": "_self"
-                },
-                {
-                    "text": "Curabitur ac odio vulputate",
-                    "to": "https://catalog.library.ucla.edu/",
-                    "target": "_blank"
-                }
-            ]
-        },
-        {
-            "name": "Visit",
-            "url": "/visit/",
-            "items": [
-                {
-                    "text": "Lorem ipsum",
-                    "to": "/visit/uri/1",
-                    "target": "_self"
-                },
-                {
-                    "text": "Mauris finibus",
-                    "to": "/visit/uri/2",
-                    "target": "_self"
-                },
-                {
-                    "text": "Curabitur ac odio vulputate",
-                    "to": "https://catalog.library.ucla.edu/",
-                    "target": "_blank"
-                }
-            ]
-        },
-        {
-            "name": "About",
-            "url": "/about/",
-            "items": [
-                {
-                    "text": "Lorem ipsum",
-                    "to": "/about/uri/1",
-                    "target": "_self"
-                },
-                {
-                    "text": "Mauris finibus",
-                    "to": "/about/uri/2",
-                    "target": "_self"
-                },
-                {
-                    "text": "Curabitur ac odio vulputate",
-                    "to": "https://catalog.library.ucla.edu/",
-                    "target": "_blank"
-                }
-            ]
-        },
-        {
-            "name": "Support Us",
-            "url": "http://www.google.com",
-            "items": []
-        }
-    ],
+    "alert": {
+        "title": "Dropio, heroku",
+        "text": "Napster mozy sococo orkut convore scribd napster, twones diigo joukuu weebly. Sclipo jibjab scribd.",
+        "textLong": "Greplin prezi zillow zoosk orkut, zoosk gooru. Kiko xobni joukuu ideeli bitly joukuu, squidoo heroku hulu sifteo, zooomr jumo dropio chumby. Qeyno wikia oooooc jajah, ebay qeyno lala, jajah lijit. Etsy wufoo flickr movity sclipo heroku, oooooc etsy oooooc. Vimeo foodzie zoosk ebay, wesabe. Ebay doostang vuvox, xobni. Mozy joyent dropio gooru kippt, greplin skype. Kiko napster geni dogster yoono yammer disqus, hipmunk xobni odeo zynga loopt. Groupon klout divvyshot zinch elgg yoono airbnb, orkut zinch chartly squidoo."
+    },
     "categories": [
         {
             "name": "Lorem ipsum",
