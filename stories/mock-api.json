@@ -32,53 +32,101 @@
         "title": "Lorem ipsum",
         "height": 879,
         "width": 1875
-    },    "links": [
+    },
+    "links": [
         {
             "name": "Lorem ipsum",
+            "text": "Lorem ipsum",
             "to": "/example/uri/1",
             "target": "_blank"
         },
         {
             "name": "Mauris finibus",
-            "to": "/example/uri/2",
-            "target": "_self"
-        }
-    ],
-    "BlockPostSmall": [
-        {
-            "categoryName": "Feature",
-            "author": "Ginny Steel",
-            "title": "Letter from the University Librarian - Winter 2021",
-            "image": "http://placehold.it/1920x1080"
-        },
-        {
-            "categoryName": "Feature",
-            "author": "Library Staff",
-            "title": "Highlighting Black Authors and Creators",
-            "image": "{}"
-        },
-        {
-            "categoryName": "Feature",
-            "author": "Library Staff",
-            "title": "All-star panel examines race, politics, and activism in sports.",
-            "image": "{}"
-        }
-    ],
-    "secondaryNavlinks": [
-        {
-            "text": "Location & Hours",
-            "to": "/example/uri/1",
-            "target": "_self"
-        },
-        {
-            "text": "Ask a Librarian",
+            "text": "Mauris finibus",
             "to": "/example/uri/2",
             "target": "_self"
         },
         {
-            "text": "My Account",
-            "to": "https://catalog.library.ucla.edu/",
-            "target": "_blank"
+            "name": "Curabitur ac odio vulputate",
+            "text": "Curabitur ac odio vulputate",
+            "to": "/example/uri/3",
+            "target": "_self"
+        },
+        {
+            "name": "Morbi quis tellus vel turpis",
+            "text": "Morbi quis tellus vel turpis",
+            "to": "/example/uri/4",
+            "target": "_self"
+        }
+    ],
+    "primaryNavlinks": [
+        {
+            "name": "Get Help With...",
+            "url": "/help/",
+            "items": [
+                {
+                    "text": "Lorem ipsum",
+                    "to": "/help/uri/1",
+                    "target": "_self"
+                },
+                {
+                    "text": "Mauris finibus",
+                    "to": "/help/uri/2",
+                    "target": "_self"
+                },
+                {
+                    "text": "Curabitur ac odio vulputate",
+                    "to": "https://catalog.library.ucla.edu/",
+                    "target": "_blank"
+                }
+            ]
+        },
+        {
+            "name": "Visit",
+            "url": "/visit/",
+            "items": [
+                {
+                    "text": "Lorem ipsum",
+                    "to": "/visit/uri/1",
+                    "target": "_self"
+                },
+                {
+                    "text": "Mauris finibus",
+                    "to": "/visit/uri/2",
+                    "target": "_self"
+                },
+                {
+                    "text": "Curabitur ac odio vulputate",
+                    "to": "https://catalog.library.ucla.edu/",
+                    "target": "_blank"
+                }
+            ]
+        },
+        {
+            "name": "About",
+            "url": "/about/",
+            "items": [
+                {
+                    "text": "Lorem ipsum",
+                    "to": "/about/uri/1",
+                    "target": "_self"
+                },
+                {
+                    "text": "Mauris finibus",
+                    "to": "/about/uri/2",
+                    "target": "_self"
+                },
+                {
+                    "text": "Curabitur ac odio vulputate",
+                    "to": "https://catalog.library.ucla.edu/",
+                    "target": "_blank"
+                }
+            ]
+        },
+        {
+            "name": "Support Us",
+            "url": "http://www.google.com",
+            "items": []
         }
     ],
     "alert": {
