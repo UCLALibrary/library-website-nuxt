@@ -1,7 +1,10 @@
 <template lang="html">
     <div class="button-more">
-        <molecule-border class="molecule-border" />
-        <arrow-right class="arrow-right" />
+        <div class="icon">
+            <molecule-border class="molecule-border" />
+            <arrow-right class="arrow-right" />
+        </div>
+
         <div class="text">
             {{ text }}
         </div>
@@ -39,6 +42,9 @@ export default {
     position: relative;
     text-align: center;
 
+    .icon {
+        position: relative;
+    }
     .molecule-border {
         width: 83px;
         height: 83px;
@@ -46,15 +52,16 @@ export default {
         stroke: var(--color-cyan-01);
         stroke-width: 1.5px;
     }
-
     .arrow-right {
         position: absolute;
         z-index: 0;
         width: 49px;
         height: 49px;
         left: 50%;
-        top: 17px;
-        transform: translateX(-50%);
+
+        // Center this way so button can be streched and it still centers
+        top: 50%;
+        transform: translate(-50%, -50%);
 
         stroke-width: 1.5px;
         stroke: var(--color-primary-blue);
