@@ -10,7 +10,7 @@ export default {
 export const Default = () => ({
     data() {
         return {
-            items: [...API.socialLinks],
+            items: [...API.shortLinks],
             pressItems: [{ ...API.links[0] }],
         }
     },

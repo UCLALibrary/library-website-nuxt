@@ -53,10 +53,9 @@
                         type="button"
                         value="Submit"
                     >
-                        <svg-arrow-right  />
+                    <svg-arrow-right  />
                 </div>
             </div>
-
         </div>
     </footer>
 </template>
@@ -174,7 +173,12 @@ export default {
                 }
             }
         } // footer-links
-
+            .arrow-svg {
+                path {
+                    stroke: var(--color-white);
+                    color: var(--color-white);
+                }
+            }
         .form {
             color: var(--color-white);
             margin-left: 25px;
@@ -225,12 +229,7 @@ export default {
                     align-content: center;
                     align-items: center;
                 }
-                .arrow-svg {
-                    path {
-                        stroke: var(--color-white);
-                        color: var(--color-white);
-                    }
-                }
+
             }
         }
     }
@@ -280,7 +279,8 @@ export default {
                 align-items: flex-end;
 
                 .logo-svg {
-                    margin-right: -70px;
+                    margin-right: -35px;
+                    margin-bottom: 25px;
                 }
 
                 .socials {
@@ -291,7 +291,7 @@ export default {
                     }
                 }
                 .press-room {
-                    margin-right: -37px;
+                    margin-right: -35px;
                     list-style-type: none;
                 }
             }
