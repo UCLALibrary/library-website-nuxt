@@ -65,7 +65,7 @@ export default {
             return ["block-card-vertical", `color-${this.sectionName}`]
         },
         sectionName() {
-            return this.$slots.default ? "default" : getSectionName(this.to)
+            return getSectionName(this.to)
         },
         parsedSvgName() {
             return `${this.iconName}`
