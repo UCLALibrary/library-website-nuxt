@@ -82,13 +82,16 @@ export default {
     justify-content: center;
     align-content: center;
     align-items: center;
+
     border: 2px solid var(--color-lightest-blue);
     width: 300px;
     height: 400px;
     overflow: hidden;
-    transition: transform 400ms ease-in-out;
-    transition-property: box-shadow;
     border-radius: 4px;
+
+    transition-property: box-shadow, transform;
+    transition-duration: 400ms;
+    transition-timing-function: ease-in-out;
 
     // Themes
     --color-theme: var(--color-primary-light-blue);
@@ -107,11 +110,8 @@ export default {
         flex-shrink: 0;
         padding: 20px 0;
     }
-
     .meta {
-        transition-property: background-color;
-        transition-duration: 400ms;
-        transition-timing-function: ease-in-out;
+        transition: background-color 400ms ease-in-out;
         background-color: var(--color-lightest-blue);
         flex: 1 1 auto;
     }
@@ -153,10 +153,10 @@ export default {
     @media #{$has-hover} {
         &:hover {
             transform: scale(1.1);
+            box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
 
             .meta {
                 background-color: var(--color-theme);
-                box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
             }
             .title {
                 text-decoration: underline;
