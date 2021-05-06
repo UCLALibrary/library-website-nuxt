@@ -1,21 +1,25 @@
 <template lang="html">
-    <nav class="section-post-small">
-        <ul class="list">
-            <li
+    <section class="section-post-small">
+        <div class="grid">
+            <block-post-small
                 v-for="item in items"
-                class="list-item"
-            >
-                <div class="list">
-                    <div>
-                        <block-post-small class="button" />
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <div class="button">
-            <button-more class="button" />
+                :key="item.to"
+                :category-name="item.categoryName"
+                :author="item.author"
+                :title="item.title"
+                :image="item.image"
+                :to="item.to"
+                class="block"
+            />
         </div>
-    </nav>
+
+        <nuxt-link
+            class="more"
+            :to="to"
+        >
+            <button-more />
+        </nuxt-link>
+    </section>
 </template>
 
 <script>
@@ -25,56 +29,39 @@ export default {
             type: Array,
             default: () => [],
         },
+        to: {
+            type: String,
+            default: "",
+        },
     },
 }
 </script>
 
 <style lang="scss" scoped>
 .section-post-small {
-    padding: 0 94px;
+    background-color: var(--color-white);
+    padding: 0 var(--unit-gutter);
 
-    .list {
-        list-style-type: none;
+    .grid {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
 
-        justify-content: space-between;
-        align-content: flex-start;
-        align-items: flex-start;
-        background-color: turquoise;
+        max-width: var(--unit-content-width);
+        margin: 0 auto;
+    }
+    .block {
+        margin-bottom: 10px;
     }
 
-    .list-item {
-        height: 140px;
-        width: 320px;
-        padding: 25px;
-        order: 0;
-        flex: 0 1 auto;
-        align-self: center;
-
-        &:first-child {
-            margin-left: 0;
-        }
-    }
-
-    .link {
-        color: var(--color-black);
-        text-decoration: none;
-    }
-
-    .button {
+    .more {
         display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 40%;
-    }
-
-    // Hover states
-    @media #{$has-hover} {
-        .link:hover,
-        .link:active {
-            color: var(--color-primary-blue);
-        }
+        padding: 30px 40px;
+        margin: 0 auto;
+        width: max-content;
     }
 }
 </style>

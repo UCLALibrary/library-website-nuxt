@@ -86,9 +86,11 @@ export default {
 
     .image {
         width: 100px;
+        flex-shrink: 0;
     }
     .meta {
-        width: 150px;
+        max-width: 150px;
+        margin-left: 20px;
     }
     .category {
         font-weight: 500;
