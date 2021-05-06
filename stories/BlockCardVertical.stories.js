@@ -83,7 +83,7 @@ export const RemoteAccess = () => ({
     },
     template: `
         <block-card-vertical
-            icon-name=" illustration-remote-access"
+            icon-name= "illustration-remote-access"
             to="/visit/foo/bar"
             :title="title"
             :text="text"
