@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="site-notification-alert">
+    <section :class="classes">
         <div class="container">
             <div
                 class="alert"
@@ -14,10 +14,7 @@
                 />
             </div>
 
-            <div
-                v-if="message"
-                class="message"
-            >
+            <div class="message">
                 <div class="messageIcon">
                     <svg-glyph-close
                         class="svg"
@@ -51,26 +48,32 @@ export default {
             type: String,
             default: () => [],
         },
+        time: {
+            type: Number,
+            default: 10000,
+        },
     },
     data() {
         return {
-            message: true,
-            messageState: true,
+            isOpened: true,
         }
     },
+    computed: {
+        classes() {
+            return ["site-notification-alert", { "is-opened": this.isOpened }]
+        },
+    },
     mounted() {
-        this.callFunction(10)
+        this.delayedClose(10)
     },
     methods: {
-        toggleAlert: function () {
-            (this.messageState = !this.messageState),
-            (this.message = this.messageState)
+        toggleAlert() {
+            this.isOpened = !this.isOpened
         },
-        callFunction: function () {
-            var v = this
-            setTimeout(function () {
-                (v.message = false), (v.messageState = false)
-            }, 10000)
+        delayedClose() {
+            setTimeout(() => {
+                this.isOpened = false
+            }, this.time)
         },
     },
 }
@@ -79,6 +82,7 @@ export default {
 <style lang="scss" scoped>
 .site-notification-alert {
     width: 410px;
+
     .container {
         display: flex;
         align-items: flex-end;
@@ -89,9 +93,11 @@ export default {
     .alert {
         display: flex;
         justify-content: center;
+        user-select: none;
 
         background-color: var(--color-yellow);
-        border-radius: 4px 4px 0 0;
+        border-radius: 4px;
+        transition: border-radius 400ms ease-in-out;
         height: 48px;
         max-width: 196px;
     }
@@ -130,6 +136,8 @@ export default {
         width: 410px;
         transition-duration: 400ms;
         transition-timing-function: ease-in-out;
+
+        display: none;
     }
 
     .messageIcon {
@@ -156,6 +164,16 @@ export default {
         max-height: 128px;
         overflow-y: auto;
         padding: 10px 32px 0 32px;
+    }
+
+    // States
+    &.is-opened {
+        .alert {
+            border-radius: 4px 4px 0 0;
+        }
+        .message {
+            display: block;
+        }
     }
 
     // Breakpoints
