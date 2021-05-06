@@ -20,6 +20,9 @@ export const Default = () => ({
 export const LongMessage = () => ({
     data() {
         return {
+            title: API.alert.title,
+            text: API.alert.textLong
         }
     },
+    template: `<site-notification-alert :title="title" :text="text" />`,
 })
