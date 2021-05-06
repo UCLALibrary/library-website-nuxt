@@ -33,6 +33,47 @@
     </section>
 </template>
 
-<script></script>
+<script>
+import SvgGlyphClose from "~/assets/svg/glyph-close"
+import SvgAlertCircle from "~/assets/svg/alert-circle"
+
+export default {
+    components: {
+        SvgGlyphClose,
+        SvgAlertCircle,
+    },
+    props: {
+        title: {
+            type: String,
+            default: () => [],
+        },
+        text: {
+            type: String,
+            default: () => [],
+        },
+    },
+    data() {
+        return {
+            message: true,
+            messageState: true,
+        }
+    },
+    mounted() {
+        this.callFunction(10)
+    },
+    methods: {
+        toggleAlert: function () {
+            (this.messageState = !this.messageState),
+            (this.message = this.messageState)
+        },
+        callFunction: function () {
+            var v = this
+            setTimeout(function () {
+                (v.message = false), (v.messageState = false)
+            }, 10000)
+        },
+    },
+}
+</script>
 
 <style lang="scss" scoped></style>
