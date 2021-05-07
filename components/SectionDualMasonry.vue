@@ -56,6 +56,7 @@ export default {
 
         &:nth-child(1) {
             order: 1;
+            border-left: 0;
 
             /deep/ {
                 .molecule {
@@ -65,6 +66,7 @@ export default {
         }
         &:nth-child(2) {
             order: 4;
+            border-right: 0;
 
             // Half of 37.5
             margin-top: calc(-18.75% + 6.5px);
@@ -82,9 +84,11 @@ export default {
         }
         &:nth-child(3) {
             order: 2;
+            border-right: 0;
         }
         &:nth-child(4) {
             order: 3;
+            border-left: 0;
         }
     }
 
@@ -95,6 +99,7 @@ export default {
 
         .brick {
             width: 100%;
+            border: 0;
 
             &:nth-child(1) {
                 order: 1;
