@@ -2,7 +2,7 @@
 import * as API from "~/stories/mock-api.json"
 
 export default {
-    title: "HeadingArrow",
+    title: "Heading / Arrow",
 }
 
 export const Default = () => ({
