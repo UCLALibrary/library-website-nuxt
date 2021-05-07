@@ -50,39 +50,36 @@
             "target": "_self"
         }
     ],
-    "masonryItems": {
-        "to": "/visit",
-        "items": [
-            {
-                "image": {
-                    "src": "http://placehold.it/1920x1920",
-                    "srcset": "http://placehold.it/960x960 960w, http://placehold.it/1280x1280 1280w, http://placehold.it/1920x1920 1920w",
-                    "sizes": "100vw",
-                    "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                    "title": "Lorem ipsum"
-                },
-                "category": "Fermentu",
-                "title": "Maecenas Leo Mauris",
-                "prompt": "Velit Exceptur",
-                "dates": "Datum 12 - Datum 23, 2021",
-                "to": "/visit/uri/1"
+    "bricks": [
+        {
+            "image": {
+                "src": "http://placehold.it/1920x1920",
+                "srcset": "http://placehold.it/960x960 960w, http://placehold.it/1280x1280 1280w, http://placehold.it/1920x1920 1920w",
+                "sizes": "100vw",
+                "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "title": "Lorem ipsum"
             },
-            {
-                "image": {
-                    "src": "http://placehold.it/1920x1920",
-                    "srcset": "http://placehold.it/960x960 960w, http://placehold.it/1280x1280 1280w, http://placehold.it/1920x1920 1920w",
-                    "sizes": "100vw",
-                    "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                    "title": "Lorem ipsum"
-                },
-                "category": "Fermentu",
-                "title": "Maecenas Leo Mauris Praesent finibus fermentum ligula, nec tristique",
-                "prompt": "Velit Exceptur",
-                "dates": "Datum 12 - Datum 23, 2021",
-                "to": "/visit/uri/1"
-            }
-        ]
-    },
+            "category": "Fermentu",
+            "title": "Maecenas Leo Mauris",
+            "prompt": "Velit Exceptur",
+            "dates": "Datum 12 - Datum 23, 2021",
+            "to": "/visit/uri/1"
+        },
+        {
+            "image": {
+                "src": "http://placehold.it/1920x1920",
+                "srcset": "http://placehold.it/960x960 960w, http://placehold.it/1280x1280 1280w, http://placehold.it/1920x1920 1920w",
+                "sizes": "100vw",
+                "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "title": "Lorem ipsum"
+            },
+            "category": "Fermentu",
+            "title": "Maecenas Leo Mauris Praesent finibus fermentum ligula, nec tristique",
+            "prompt": "Velit Exceptur",
+            "dates": "Datum 1 - Datum 18, 2021",
+            "to": "/visit/uri/2"
+        }
+    ],
     "primaryNavlinks": [
         {
             "name": "Get Help With...",

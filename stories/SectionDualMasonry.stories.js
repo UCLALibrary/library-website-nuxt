@@ -3,22 +3,21 @@ import * as API from "~/stories/mock-api.json"
 
 // Storybook default settings
 export default {
-    title: "DUAL MASONRY / SECTION",
+    title: "SECTION / Dual Masonry",
 }
 
-const mock = { ...API.masonryItems }
+const items = API.bricks
 
 export const Default = () => ({
     data() {
         return {
-            items: mock.items,
-            to: mock.to,
+            items,
         }
     },
     template: `
-          <section-dual-masonry
+        <section-dual-masonry
             :items="items"
-            to="/visit/"
-          />
-      `,
+            to="/visit/foo"
+        />
+    `,
 })
