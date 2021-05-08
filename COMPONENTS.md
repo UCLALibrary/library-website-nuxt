@@ -126,7 +126,7 @@ TODO List of needed components for this website.
     -   actionUrl: String
         // search by keyword
         - exampleString: "https://ucla.on.worldcat.org/external-search"
-        _ exampleString: "https://ucla.summon.serialssolutions.com/#!/search?ho=t&l=en&"
+        - exampleString: "https://ucla.summon.serialssolutions.com/#!/search?ho=t&l=en&"
         - exampleString: "fromPrimo"
         - (build component out knowing where to submit the query string)
 
