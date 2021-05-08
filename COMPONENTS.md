@@ -193,9 +193,7 @@ data() {
 -   [ ] BlockTeaser
 
     -   items: {image: {}, to, category, title, dates, times, text}
-    -   displayImage: Boolean // default: true - only false on calendar page
-
-    note: displayImage --may be able to just filter this out
+    -   view: String // default: "list" other options are highlight,gallery or calendar 
 
 -   [ ] SectionTeaserHighlight
 
