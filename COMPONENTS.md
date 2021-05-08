@@ -195,11 +195,11 @@ data() {
     -   items: {image: {}, to, category, title, dates, times, text}
     -   view: String // default: "list" other options are highlight,gallery or calendar 
 
--   [ ] SectionTeaserHighlight
+-   [x] SectionTeaserHighlight
 
     -   items: [{see block props}] (uses BlockTeaser component)
 
--   [ ] SectionTeaserList
+-   [x] SectionTeaserList
 
     -   items: [{see block props}] (uses BlockTeaser component)
 
