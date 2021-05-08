@@ -99,17 +99,14 @@ TODO List of needed components for this website.
     -   alignment: "left" or "right"
 
 -   [x] SectionDualMasonry
-
     -   items: [{image, category, title, prompt, dates, to}]
     -   to
 
 -   [x] HeadingArrow
-
     -   text
     -   to
 
 -   [x] SectionPostSmall
-
     -   items: [{see BlockPostSmall}]
     -   to
 
@@ -123,16 +120,15 @@ TODO List of needed components for this website.
 
 ## Search
 
--   [x] SearchHome
-
+-   [ ] SearchHome
     -   tabs: [{title, isActive}]
     -   links: [{name, url, target}](Course Reserves etc)
     -   actionUrl: String
         // search by keyword
-        exampleString: "https://ucla.on.worldcat.org/external-search"
-        exampleString: "https://ucla.summon.serialssolutions.com/#!/search?ho=t&l=en&"
-        exampleString: "fromPrimo"
-        (build component out knowing where to submit the query string)
+        - exampleString: "https://ucla.on.worldcat.org/external-search"
+        _ exampleString: "https://ucla.summon.serialssolutions.com/#!/search?ho=t&l=en&"
+        - exampleString: "fromPrimo"
+        - (build component out knowing where to submit the query string)
 
 -   [ ] SearchGeneric
     -   actionUrl:"",
@@ -172,13 +168,13 @@ example:
     ]
 ```
 
-    - note: (each page will have its own list of filters available - from craft - content-types)
+- **note**: each page will have its own list of filters available - from craft - content-types
 
 ## Mobile Versions
 
 Mobile nav/menus combine the Primary and Secondary navs
-hard code menu items using data()
 
+hard code menu items using data()
 -   [ ] MobileNav
 
 ```
@@ -191,20 +187,19 @@ data() {
 ## Exhibits & Upcoming Events
 
 -   [ ] BlockTeaser
-
     -   items: {image: {}, to, category, title, dates, times, text}
     -   view: String // default: "list" other options are highlight,gallery or calendar 
 
--   [x] SectionTeaserHighlight
-
+-   [ ] SectionTeaserHighlight
     -   items: [{see block props}] (uses BlockTeaser component)
 
--   [x] SectionTeaserList
-
+-   [ ] SectionTeaserList
     -   items: [{see block props}] (uses BlockTeaser component)
 
 -   [ ] SectionTeaserGallery
+    -   items: [{see block props}] (uses BlockTeaser component)
 
+-   [ ] SectionTeaserCalendar
     -   items: [{see block props}] (uses BlockTeaser component)
 
 -   [ ] BlockCallToAction
@@ -214,16 +209,12 @@ data() {
     -   name //button
     -   to
 
--   [ ] SectionTeaserCalendar
-
-    -   items: [{see block props}] (uses BlockTeaser component)
-
 note: 2 sizes full width & half page
 
 ## Article Detail Page
 
-according to the data model, Articles will be used in "A blog post or other timely story from the UCLA library"
+According to the data model, `Articles` will be used in "A blog post or other timely story from the UCLA library"
 
-context: this is the only part of the data model in our CraftCMS that is close to being done (pending) approval
+**context**: this is the only part of the data model in our CraftCMS that is close to being done (pending) approval
 
-so, we can look at those designs and focus on making component request issues for the relevant components
+We can look at those designs and focus on making component request issues for the relevant components
