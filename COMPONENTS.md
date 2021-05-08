@@ -123,7 +123,7 @@ TODO List of needed components for this website.
 
 ## Search
 
--   [ ] SearchHome
+-   [x] SearchHome
 
     -   tabs: [{title, isActive}]
     -   links: [{name, url, target}](Course Reserves etc)
@@ -199,15 +199,15 @@ data() {
 
 -   [ ] SectionTeaserHighlight
 
-    -   items: [{see block props}] (uses BlockVisitVertical component)
+    -   items: [{see block props}] (uses BlockTeaser component)
 
 -   [ ] SectionTeaserList
 
-    -   items: [{see block props}] (uses BlockVisitHorizontal component)
+    -   items: [{see block props}] (uses BlockTeaser component)
 
 -   [ ] SectionTeaserGallery
 
-    -   items: [{see block props}] (uses BlockVisitHorizontal component)
+    -   items: [{see block props}] (uses BlockTeaser component)
 
 -   [ ] BlockCallToAction
     -   iconName: String
@@ -215,6 +215,10 @@ data() {
     -   text
     -   name //button
     -   to
+
+-   [ ] SectionTeaserCalendar
+
+    -   items: [{see block props}] (uses BlockTeaser component)
 
 note: 2 sizes full width & half page
 
