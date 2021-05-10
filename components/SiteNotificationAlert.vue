@@ -5,24 +5,24 @@
                 class="alert"
                 @click="toggleAlert()"
             >
-                <div class="alertBoxIcon">
-                    <svg-alert-circle />
+                <div class="alert-box-icon">
+                    <svg-alert-circle class="svg-alert-circle" />
                 </div>
                 <div
-                    class="alertText"
+                    class="alert-text"
                     v-html="title"
                 />
             </div>
 
             <div class="message">
-                <div class="messageIcon">
+                <div class="message-icon">
                     <svg-glyph-close
-                        class="svg"
+                        class="svg-glyph-close"
                         @click="toggleAlert()"
                     />
                 </div>
                 <div
-                    class="messageText"
+                    class="message-text"
                     v-html="text"
                 />
             </div>
@@ -106,13 +106,19 @@ export default {
         cursor: pointer;
     }
 
-    .alertBoxIcon {
+    .alert-box-icon {
         align-self: center;
 
         padding: 0 0 0 20px;
     }
 
-    .alertText {
+    .svg-alert-circle {
+        path {
+            stroke: var(--color-black);
+        }
+    }
+
+    .alert-text {
         align-self: center;
         flex-wrap: nowrap;
 
@@ -123,7 +129,7 @@ export default {
         letter-spacing: 0.01em;
         line-height: 14px;
         overflow: hidden;
-        padding: 0 20px 3px 0;
+        padding: 0 20px 3px 4px;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
@@ -132,15 +138,17 @@ export default {
         box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.04),
             0px 6px 32px rgba(0, 0, 0, 0.08);
         transition-property: background-color, box-shadow;
-        height: 190px;
+        max-height: 190px;
+        padding: 0 0 14px 0;
         width: 410px;
+        border-radius: 4px;
         transition-duration: 400ms;
         transition-timing-function: ease-in-out;
 
         display: none;
     }
 
-    .messageIcon {
+    .message-icon {
         display: flex;
         align-self: flex-start;
         justify-content: flex-end;
@@ -148,11 +156,17 @@ export default {
         padding: 24px 24px 0 0;
     }
 
-    .messageIcon:hover {
+    .svg-glyph-close {
+        path {
+            stroke: var(--color-black);
+        }
+    }
+
+    .message-icon:hover {
         cursor: pointer;
     }
 
-    .messageText {
+    .message-text {
         align-self: flex-end;
 
         color: var(--color-black);
@@ -163,7 +177,7 @@ export default {
         line-height: 22px;
         max-height: 128px;
         overflow-y: auto;
-        padding: 10px 32px 0 32px;
+        padding: 10px 32px 8px 32px;
     }
 
     // States
