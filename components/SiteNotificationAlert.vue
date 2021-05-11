@@ -64,7 +64,7 @@ export default {
         },
     },
     mounted() {
-        this.delayedClose(10)
+        this.delayedClose()
     },
     methods: {
         toggleAlert() {
