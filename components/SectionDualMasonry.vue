@@ -1,26 +1,34 @@
 <template lang="html">
     <section class="section-dual-masonry">
-        <block-event
-            v-for="(item, index) in items"
-            :key="item.to"
-            :title="item.title"
-            :category="item.category"
-            :dates="item.dates"
-            :prompt="item.prompt"
-            :to="item.to"
-            class="brick"
-        />
-
-        <nuxt-link
-            v-for="(item, index) in items"
-            :key="`image-${item.to}`"
-            :to="item.to"
-            class="brick brick-image"
-        >
-            <responsive-image
-                :image="item.image"
-                :aspect-ratio="100"
+        <div class="masonry">
+            <block-event
+                v-for="(item, index) in items"
+                :key="item.to"
+                :title="item.title"
+                :category="item.category"
+                :dates="item.dates"
+                :prompt="item.prompt"
+                :to="item.to"
+                class="brick"
             />
+
+            <nuxt-link
+                v-for="(item, index) in items"
+                :key="`image-${item.to}`"
+                :to="item.to"
+                class="brick brick-image"
+            >
+                <responsive-image
+                    :image="item.image"
+                    :aspect-ratio="100"
+                />
+            </nuxt-link>
+        </div>
+        <nuxt-link
+            class="more"
+            :to="to"
+        >
+            <button-more />
         </nuxt-link>
     </section>
 </template>
@@ -37,7 +45,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section-dual-masonry {
+.masonry {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -116,5 +124,11 @@ export default {
             }
         }
     }
+}
+.more {
+    display: block;
+    padding: 30px 0px;
+    margin: 0 auto;
+    width: max-content;
 }
 </style>
