@@ -39,3 +39,54 @@ export const LongText = () => ({
         />
     `,
 })
+
+export const Visit = () => ({
+    data() {
+        return {
+            item: { ...API.bricks[1] },
+        }
+    },
+    template: `
+        <block-event
+            :category="item.category"
+            :title="item.title"
+            :prompt="item.prompt"
+            :dates="item.dates"
+            to="/visit/foo/bar/"
+        />
+    `,
+})
+
+export const About = () => ({
+    data() {
+        return {
+            item: { ...API.bricks[1] },
+        }
+    },
+    template: `
+        <block-event
+            :category="item.category"
+            :title="item.title"
+            :prompt="item.prompt"
+            :dates="item.dates"
+            to="/about/foo/bar/"
+        />
+    `,
+})
+
+export const Help = () => ({
+    data() {
+        return {
+            item: { ...API.bricks[1] },
+        }
+    },
+    template: `
+        <block-event
+            :category="item.category"
+            :title="item.title"
+            :prompt="item.prompt"
+            :dates="item.dates"
+            to="/help/foo/bar/"
+        />
+    `,
+})

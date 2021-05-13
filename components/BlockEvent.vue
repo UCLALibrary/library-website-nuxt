@@ -19,7 +19,7 @@
             />
 
             <nuxt-link
-                class="button"
+                :class="classes"
                 :to="to"
                 v-html="prompt"
             />
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import getSectionName from "~/utils/getSectionName"
+
 export default {
     props: {
         title: {
@@ -55,8 +57,10 @@ export default {
     },
     computed: {
         classes() {
-            // NOTE Jen add the sectionName class name in here
-            return ["block-event"]
+            return ["block-event", `button color-${this.sectionName}`]
+        },
+        sectionName() {
+            return getSectionName(this.to)
         },
     },
 }
@@ -130,9 +134,18 @@ export default {
         font-weight: 400;
         line-height: 18px;
         box-sizing: border-box;
-        color: var(--color-fushia-03);
-
-        // TODO Jen to get the way finder colors work here (based of the to URL)
+        color: var(--color-theme);
+        // Themes
+        --color-theme: var(--color-primary-light-blue);
+        &.color-visit {
+            --color-theme: var(--color-fushia-03);
+        }
+        &.color-help {
+            --color-theme: var(--color-green-03);
+        }
+        &.color-about {
+            --color-theme: var(--color-purple-03);
+        }
         transition: color 400ms ease-in-out;
     }
 
