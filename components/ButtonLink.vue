@@ -18,14 +18,23 @@ export default {
         ArrowRight,
     },
     props: {
+        /**
+         * Determines what text the button should have.
+         */
         label: {
             type: String,
             default: "",
         },
+        /**
+         * Determines what icon should be used in button.
+         */
         iconName: {
             type: String,
             default: "",
         },
+        /**
+         * Determines if the button should be displayed with secondary styles.
+         */
         isSecondary: {
             type: Boolean,
             default: false,

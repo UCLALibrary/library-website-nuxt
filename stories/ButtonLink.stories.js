@@ -1,6 +1,26 @@
+import ButtonLink from '~/components/ButtonLink'
+
 // Storybook default settings
 export default {
   title: "BUTTON / Link",
+  component: ButtonLink,
+  argTypes: {
+    label: { type: 'string' },
+    iconName: { type: 'select', options: ['arrow-right-small']},
+    isSecondary: { type: 'boolean' },
+  }
+}
+
+const Template = (args, { argTypes }) => ({
+  components: { ButtonLink },
+  props: Object.keys(argTypes),
+  template: '<button-link v-bind="$props" />'
+})
+
+export const WithControls = Template.bind({})
+WithControls.args = {
+  label: 'Read full story',
+  isSecondary: false,
 }
 
 // Variations of stories below
