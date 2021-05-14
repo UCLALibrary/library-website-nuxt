@@ -1,33 +1,74 @@
 // Import mock api data
-import * as API from "~/stories/mock-api.json";
+import * as API from "~/stories/mock-api.json"
 
 export default {
-  title: "Banner Featured",
-};
+    title: "Banner Featured",
+}
 
 const mock = {
-  image: API.image,
-  to: "/visit/foo/bar/",
-  title: "New Director of Film and Television Archive",
-  category: "Featured",
-  breadcrumb: { text: "Title", to: "http://fake.url" },
-  dates: " July 1, 2020 - December 31, 2021",
-  isOnline: "true",
-};
+    image: API.image,
+    to: "/visit/foo/bar/",
+    title: "New Director of Film and Television Archive",
+    category: "Featured",
+    breadcrumb: { text: "Title", to: "http://fake.url" },
+    dates: " July 1, 2020 - December 31, 2021",
+    isOnline: true,
+    prompt: "Read More",
+    alignRight: true,
+}
 
 export const Default = () => ({
-  data() {
-    return {
-      ...mock,
-    };
-  },
-  template: `<banner-featured
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `<banner-featured
    :image="image"
    :to="to"
    :title="title"
    :category="category"
    :breadcrumb="breadcrumb"
    :dates="dates"
-   :isOnline="isOline"
+   :is-online="isOnline"
+   :prompt="prompt"
   /> `,
-});
+})
+
+export const NotOnline = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `<banner-featured
+   :image="image"
+   :to="to"
+   :title="title"
+   :category="category"
+   :breadcrumb="breadcrumb"
+   :dates="dates"
+   is-online=false
+   :prompt="prompt"
+   align-right=false
+  /> `,
+})
+
+export const Slot = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `<banner-featured
+   :image="image"
+   to="/about/foo/bar/"
+   :title="title"
+   :category="category"
+   :breadcrumb="breadcrumb"
+   :dates="dates"
+   is-online=false
+   :prompt="prompt"
+   align-right=false
+  /> `,
+})
