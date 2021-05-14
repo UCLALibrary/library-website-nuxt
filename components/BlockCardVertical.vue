@@ -97,13 +97,13 @@ export default {
     // Themes
     --color-theme: var(--color-primary-light-blue);
     &.color-visit {
-        --color-theme: var(--color-fushia-03);
+        --color-theme: var(--color-visit);
     }
     &.color-help {
-        --color-theme: var(--color-green-03);
+        --color-theme: var(--color-help);
     }
     &.color-about {
-        --color-theme: var(--color-purple-03);
+        --color-theme: var(--color-about);
     }
 
     .svg {
