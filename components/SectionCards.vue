@@ -135,11 +135,12 @@ export default {
             }
         }
         .cards {
+            width: auto;
             overflow-x: auto;
             overflow-y: visible;
             flex-wrap: nowrap;
             min-height: 420px;
-
+            margin-right: var(--unit-gutter);
             .card {
                 margin-top: 0;
                 margin-right: 0;
@@ -149,14 +150,6 @@ export default {
                 &:first-child {
                     margin-left: var(--unit-gutter);
                 }
-            }
-
-            // Hacky soultion to solve scroll-y padding-right issue
-            &::after {
-                content: "";
-                height: 1px;
-                width: var(--unit-gutter);
-                flex-shrink: 0;
             }
         }
     }
