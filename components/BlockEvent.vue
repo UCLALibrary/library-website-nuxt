@@ -135,18 +135,22 @@ export default {
         line-height: 18px;
         box-sizing: border-box;
         color: var(--color-theme);
+        transition: color 400ms ease-in-out;
+
         // Themes
         --color-theme: var(--color-primary-light-blue);
+
         &.color-visit {
-            --color-theme: var(--color-fushia-03);
+            --color-theme: var(--color-visit);
         }
+
         &.color-help {
-            --color-theme: var(--color-green-03);
+            --color-theme: var(--color-help);
         }
+
         &.color-about {
-            --color-theme: var(--color-purple-03);
+            --color-theme: var(--color-about);
         }
-        transition: color 400ms ease-in-out;
     }
 
     .sizer {
