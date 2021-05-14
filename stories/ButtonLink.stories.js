@@ -9,13 +9,13 @@ export const Default = () => ({
 })
 
 export const NotPrimary = () => ({
-  template: `<button-link label="Ask a Librarian" :isPrimary="false"/>`,
+  template: `<button-link label="Ask a Librarian" :isSecondary="true"/>`,
 })
 
 export const LongLabel = () => ({
-  template: `<button-link label="Lorem ipsum dolor sit amet."/>`,
+  template: `<button-link label="Lorem ipsum dolor sit amet." iconName="arrow-right-small"/>`,
 })
 
 export const HasGlyph = () => ({
-  template: `<button-link label="Ask a Librarian" :isPrimary="false" iconName=""/>`,
+  template: `<button-link label="Ask a Librarian" :isSecondary="true" iconName="arrow-right-small"/>`,
 })
