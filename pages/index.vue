@@ -1,16 +1,38 @@
 <template lang="html">
     <div class="page page-home">
-        <divider-way-finder color="help" />
+        <masthead-primary />
+        <divider-way-finder
+            class="divider divider-first"
+            color="help"
+        />
         <section-cards
+            class="section"
             :items="parsedSectionCards"
             title="Get Help with"
             text="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
             to="/help/foo/bar"
         />
-        <divider-way-finder color="visit" />
+        <divider-way-finder
+            class="divider"
+            color="visit"
+        />
         <section-dual-masonry
+            class="section"
             :items="page.sectionDualMasonry"
             to="/visit/foo"
+        />
+        <divider-way-finder
+            class="divider"
+            color="about"
+        />
+        <p class="section">
+            TO DO
+        </p>
+        <divider-general class="divider" />
+        <section-post-small
+            class="section"
+            :items="page.posts"
+            to="/news/"
         />
     </div>
 </template>
@@ -45,9 +67,27 @@ export default {
 
         const sectionDualMasonry = MOCK_API.bricks
 
+        const posts = [
+            {
+                ...MOCK_API.article,
+                image: MOCK_API.image,
+            },
+            {
+                ...MOCK_API.article,
+                image: MOCK_API.image,
+                to: "/about/foo/bar",
+            },
+            {
+                ...MOCK_API.article,
+                image: MOCK_API.image,
+                to: "/help/foo/bar",
+            },
+        ]
+
         const data = {
             sectionCardsData: sectionCardsData,
             sectionDualMasonry: sectionDualMasonry,
+            posts: posts,
         }
 
         return {
@@ -57,11 +97,13 @@ export default {
     computed: {
         parsedSectionCards() {
             return this.page.sectionCardsData.items.map((obj, i) => {
-                if (i == 0) {
-                    obj.iconName = "illustration-find-space"
-                }
-                if (i == 1) {
-                    obj.iconName = "illustration-digitized-resources"
+                switch (i) {
+                    case 0:
+                        obj.iconName = "illustration-digitized-resources"
+                        break
+                    case 1:
+                        obj.iconName = "illustration-find-space"
+                        break
                 }
                 return {
                     ...obj,
@@ -73,13 +115,5 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page-home {
-    .divider-way-finder {
-        padding-top: 83px;
-        margin: 0 auto;
-        max-width: 980px;
-    }
-    .section-cards {
-        padding-top: 75px;
-    }
 }
 </style>
