@@ -40,6 +40,10 @@ export default {
             type: Array,
             default: () => [],
         },
+        to: {
+            type: String,
+            default: "",
+        },
     },
 }
 </script>
