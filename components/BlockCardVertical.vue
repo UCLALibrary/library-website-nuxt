@@ -87,7 +87,7 @@ export default {
     width: 300px;
     height: 400px;
     overflow: hidden;
-    border-radius: 4px;
+    border-radius: var(--rounded-slightly-all);
     box-sizing: border-box;
 
     transition-property: box-shadow, transform;

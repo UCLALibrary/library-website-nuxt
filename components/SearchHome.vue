@@ -29,7 +29,7 @@ export default {
         background-color: white;
         opacity: 0.8;
         margin-left: auto;
-        border-radius: 4px 4px 0 0;
+        border-radius: var(--rounded-slightly-top);
     }
     .box {
         height: 220px;
