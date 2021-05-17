@@ -96,7 +96,7 @@ export default {
         user-select: none;
 
         background-color: var(--color-yellow);
-        border-radius: 4px;
+        border-radius: var(--rounded-slightly-all);
         transition: border-radius 400ms ease-in-out;
         height: 48px;
         max-width: 196px;
@@ -141,7 +141,7 @@ export default {
         max-height: 190px;
         padding: 0 0 14px 0;
         width: 410px;
-        border-radius: 4px;
+        border-radius: var(--rounded-slightly-all);
         transition-duration: 400ms;
         transition-timing-function: ease-in-out;
 
@@ -183,7 +183,7 @@ export default {
     // States
     &.is-opened {
         .alert {
-            border-radius: 4px 4px 0 0;
+            border-radius: var(--rounded-slightly-top);
         }
         .message {
             display: block;

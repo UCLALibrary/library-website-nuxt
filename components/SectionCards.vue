@@ -103,7 +103,7 @@ export default {
         border: 2px solid var(--color-lightest-blue);
         width: 300px;
         height: 400px;
-        border-radius: 4px;
+        border-radius: var(--rounded-slightly-all);
         box-sizing: border-box;
 
         display: flex;

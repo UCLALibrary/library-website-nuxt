@@ -83,6 +83,11 @@
     --font-primary: "Karbon", sans-serif;
     --font-secondary: "proxima-nova", sans-serif;
 
+    // Borders
+    // top-left | top-right | bottom-right | bottom-left
+    --rounded-slightly-all: 4px;
+    --rounded-slightly-top: 4px 4px 0 0;
+
     // Breakponts
     @media #{$lte-tablet} {
         --unit-gutter: 36px;
