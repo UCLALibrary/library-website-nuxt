@@ -31,9 +31,7 @@
                         {{ times }}
                         {{ onlineDisplay }}
                     </div>
-                    <nuxt-link :to="to">
-                        {{ prompt }}
-                    </nuxt-link>
+                    <button-link :label="prompt" />
                 </div>
             </div>
         </div>
