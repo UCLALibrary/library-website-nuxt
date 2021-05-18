@@ -1,23 +1,28 @@
 <template lang="html">
     <div class="banner-featured">
         <div class="container">
-            <heading-arrow
-                class="heading-arrow"
-                :text="breadcrumb.text"
-                :to="breadcrumb.to"
-            />
-            <!-- do i need to wrap this in a v-if, v-else? -->
-            <slot name="banner-text" />
+            <div v-if="breadcrumb.to">
+                <heading-arrow
+                    class="heading-arrow"
+                    :text="breadcrumb.text"
+                    :to="breadcrumb.to"
+                />
+            </div>
+            <div
+                v-else
+                class="slot"
+            >
+                <slot name="banner-text">
+                    {{ breadcrumb.text }}
+                </slot>
+            </div>
             <responsive-image
                 class="image"
                 :image="image"
             />
             <molecule-half-faceted class="molecule" />
             <div :class="classes">
-                <component
-                    :is="hatchMarks"
-                    class="hatch-marks"
-                />
+                <component :is="alignmentHatchmarks" />
 
                 <div class="text-area">
                     <div class="category">
@@ -31,7 +36,11 @@
                         {{ times }}
                         {{ onlineDisplay }}
                     </div>
-                    <button-link :label="prompt" />
+                    <button-link
+                        :label="prompt"
+                        :to="to"
+                        class="button"
+                    />
                 </div>
             </div>
         </div>
@@ -39,6 +48,8 @@
 </template>
 
 <script>
+import getSectionName from "~/utils/getSectionName"
+
 export default {
     components: {
         MoleculeHalfFaceted: () => import("~/assets/svg/molecule-half-faceted"),
@@ -97,12 +108,27 @@ export default {
     },
     computed: {
         onlineDisplay() {
-            return this.isOnline == true ? "| Online" : ""
+            let output = ""
+            if (this.isOnline == true) {
+                output = "| Online"
+            }
+            if (this.location) {
+                output = `| ${this.location}`
+            }
+            return output
+        },
+        sectionName() {
+            return this.section || getSectionName(this.to)
         },
         classes() {
-            return ["white-box", `hatchmarks-right-${this.alignRight}`]
+            return [
+                "white-box",
+                `hatchmarks-right-${this.alignRight}`,
+                "hatch-marks",
+                `color-${this.sectionName}`,
+            ]
         },
-        hatchMarks() {
+        alignmentHatchmarks() {
             return this.alignRight == true
                 ? "hatch-marks-right"
                 : "hatch-marks-left"
@@ -114,12 +140,12 @@ export default {
 <style lang="scss" scoped>
 .banner-featured {
     max-width: 1200px;
-    height: 600px;
     z-index: 1;
     position: relative;
 
     .container {
         z-index: 2;
+        max-width: 1200px;
     }
 
     .heading-arrow {
@@ -128,10 +154,24 @@ export default {
         padding-left: 110px;
         margin-top: 40px;
     }
+
+    .slot {
+        border: 1px solid var(--color-white);
+        color: var(--color-white);
+        position: absolute;
+        z-index: 4;
+        padding-left: 110px;
+        font-size: 44px;
+        margin-top: 40px;
+        line-height: 100%;
+        text-transform: capitalize;
+        font-weight: normal;
+    }
+
     .image {
         position: relative;
         z-index: 3;
-        max-width: 1200px;
+        max-width: 100%;
         height: 100%;
         background: var(gradient-image-01);
     }
@@ -155,22 +195,24 @@ export default {
         // );
     }
 
-    // Themes
-    --color-theme: var(--color-primary-blue);
-    &.color-visit {
-        --color-theme: var(--color-visit);
-    }
-    &.color-help {
-        --color-theme: var(--color-help);
-    }
-    &.color-about {
-        --color-theme: var(--color-about);
-    }
-
     .hatch-marks {
         z-index: 5;
-        height: 180px;
-        stroke: var(--color-theme);
+        padding-left: 10px;
+
+        // Themes
+        --color-theme: var(--color-primary-blue);
+        &.color-visit {
+            --color-theme: var(--color-visit);
+        }
+        &.color-help {
+            --color-theme: var(--color-help);
+        }
+        &.color-about {
+            --color-theme: var(--color-about);
+        }
+        .hatch {
+            stroke: var(--color-theme);
+        }
     }
 
     .hatchmarks-right-true {
@@ -186,9 +228,8 @@ export default {
     }
 
     .text-area {
-        width: 500px;
+        max-width: 500px;
         z-index: 5;
-        right: 10px;
         margin-top: 50px;
     }
 
@@ -220,6 +261,24 @@ export default {
         text-align: left;
         color: var(--color-dark-blue);
         margin-bottom: 5px;
+    }
+
+    .button {
+        width: 180px;
+        height: 50px;
+        padding: 0px 0px;
+        margin-top: 16px;
+    }
+
+    // Hovers
+    @media #{$has-hover} {
+        &:hover {
+            .title {
+                text-decoration: underline;
+                text-decoration-color: var(--color-cyan-01);
+                text-decoration-thickness: 1.5px;
+            }
+        }
     }
 }
 </style>

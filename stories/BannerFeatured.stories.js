@@ -7,10 +7,10 @@ export default {
 
 const mock = {
     image: API.image,
-    to: "/visit/foo/bar/",
+    to: "/help/foo/bar/",
     title: "New Director of Film and Television Archive",
     category: "Featured",
-    breadcrumb: { text: "Title", to: "http://fake.url" },
+    breadcrumb: { text: "Title", to: "http:///foo/about/bar" },
     dates: " July 1, 2020 - December 31, 2021",
     isOnline: true,
     prompt: "Read More",
@@ -57,7 +57,15 @@ export const NotOnline = () => ({
 export const Slot = () => ({
     data() {
         return {
-            ...mock,
+            image: API.image,
+            to: "/visit/foo/bar/",
+            title: "New Director of Film and Television Archive",
+            category: "Featured",
+            breadcrumb: { text: "Featured", to: "" },
+            dates: " July 1, 2020 - December 31, 2021",
+            isOnline: true,
+            prompt: "Read More",
+            alignRight: true,
         }
     },
     template: `<banner-featured
@@ -70,5 +78,7 @@ export const Slot = () => ({
    is-online=false
    :prompt="prompt"
    align-right=false
+   location="YRL"
+   v-slot:banner-text= "Featured"
   /> `,
 })
