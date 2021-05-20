@@ -1,9 +1,8 @@
 <template lang="html">
     <footer class="footer-primary">
+        <svg-molecule-half class="molecule-half-svg" />
         <div class="container">
-
             <div class="footer-links">
-                <svg-molecule-half class="molecule-half-svg" />
                 <svg-logo-ucla-library class="logo-svg" />
 
                 <ul class="socials">
@@ -24,12 +23,12 @@
                         v-for="item in pressItems"
                         class="press-room"
                     >
-                        <smart-link
+                        <span class="press-room-underline"><smart-link
                             :class="link"
                             :to="item.to"
                             :target="item.target"
                             v-html="item.text"
-                        />
+                        /></span>
                     </li>
                 </ul>
             </div>
@@ -53,7 +52,7 @@
                         type="button"
                         value="Submit"
                     >
-                    <svg-arrow-right  />
+                    <svg-arrow-right />
                 </div>
             </div>
         </div>
@@ -76,14 +75,14 @@ export default {
         socialItems: {
             // Mock with api.links
             type: Array,
-            default: () => []
+            default: () => [],
         },
         pressItems: {
             // Mock with api.links
             type: Array,
-            default: () => []
-        }
-    }
+            default: () => [],
+        },
+    },
 }
 </script>
 
@@ -91,36 +90,39 @@ export default {
 .footer-primary {
     background-color: var(--color-primary-blue);
     border-bottom: 4px solid var(--color-yellow);
-    position: relative;
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    min-height: 375px;
+    padding-top: 100px;
 
     .molecule-half-svg {
+        position: absolute;
         z-index: 10;
         opacity: 45%;
         mix-blend-mode: screen;
-        position: absolute;
+        
         top: 30px;
         left: -55px;
         height: 287px;
     }
 
     .container {
-        max-width: 1080; // change to content-width
-        margin-top: --unit-gutter;
-        margin-bottom: --unit-gutter;
-        border-bottom: 40px solid var(--color-yelow);
+        max-width: var(--unit-content-width);
+        position: relative;
+        z-index: 20;
 
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: center;
-        align-content: stretch;
+        align-content: center;
         align-items: center;
-
 
         .footer-links {
             padding-right: 50px;
-            margin-bottom: var(--unit-vertical-gap);
-            overflow: hidden;
+            //margin-bottom: var(--unit-vertical-gap);
+            //overflow: hidden;
             margin-right: 25px;
 
             .logo-svg {
@@ -162,34 +164,32 @@ export default {
             .press-room {
                 text-transform: uppercase;
                 color: var(--color-white);
-                text-decoration: none;
-                border-bottom: 2px solid var(--color-primary-yellow);
-
-                .link {
-                    border-bottom: 2px solid var(--color-primary-yellow);
-                    &:hover {
-                        color: var(--color-primary-yellow);
-                    }
-                }
+                
+                // text-decoration: 2px solid var(--color-primary-yellow);
+                list-style-type: none;
+                font-family: var(--font-secondary);
             }
-        } // footer-links
-            .arrow-svg {
-                path {
-                    stroke: var(--color-white);
-                    color: var(--color-white);
-                }
+            .press-room {
+                //border-bottom: 2px solid var(--color-primary-yellow);
+                text-decoration: 2px solid var(--color-primary-yellow);
             }
+        }
+        .arrow-svg {
+            path {
+                stroke: var(--color-white);
+                color: var(--color-white);
+            }
+        }
         .form {
             color: var(--color-white);
             margin-left: 25px;
 
             input {
-                background-color: transparent;;
+                background-color: transparent;
                 border: none;
-                }
+            }
 
             .stay-updated {
-
                 font-size: 2em;
                 font-weight: 200;
             }
@@ -203,7 +203,9 @@ export default {
                 align-items: center;
 
                 font-size: 18px;
-                ::placeholder{color: white};
+                ::placeholder {
+                    color: white;
+                }
 
                 .stay-updated-email {
                     display: flex;
@@ -220,7 +222,6 @@ export default {
                     border: 0px;
                     color: var(--color-white);
                     font-size: 18px;
-                    background: url(~/assets/svg/arrow-right.svg?url);
 
                     display: flex;
                     flex-direction: row;
@@ -229,7 +230,6 @@ export default {
                     align-content: center;
                     align-items: center;
                 }
-
             }
         }
     }
@@ -259,6 +259,7 @@ export default {
         display: block;
         padding-top: 25px;
         padding-bottom: 54px;
+        height: 646;
 
         .container {
             display: flex;
@@ -292,12 +293,19 @@ export default {
                 }
                 .press-room {
                     margin-right: -35px;
-                    list-style-type: none;
                 }
             }
 
             .form {
                 margin-right: 37px;
+            }
+        }
+    }
+    // Hover states
+    @media #{$has-hover} {
+        &:hover {
+            .press-room:hover {
+                color: var(--color-primary-yellow);
             }
         }
     }
