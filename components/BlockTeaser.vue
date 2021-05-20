@@ -1,6 +1,9 @@
 <template lang="html">
     <div :class="classes">
-        <nuxt-link class="image">
+        <nuxt-link
+            v-if="showImage"
+            class="image"
+        >
             <responsive-image
                 :image="item.image"
                 :aspect-ratio="100"
@@ -22,10 +25,24 @@
                 v-html="parsedDateTime"
             />
             <p
-                v-if="isList"
+                v-if="showText"
                 class="text"
                 v-html="item.text"
             />
+            <div
+                v-if="showLocation"
+                class="location"
+            >
+                <component
+                    :is="parsedSvgName"
+                    class="svg"
+                />
+
+                <span
+                    class="location-name"
+                    v-html="item.location"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -34,20 +51,28 @@
 import getSectionName from "~/utils/getSectionName"
 
 export default {
+    components: {
+        LocationIcon: () => import("~/assets/svg/location-icon"),
+        OnlineIcon: () => import("~/assets/svg/online-icon"),
+    },
     props: {
         view: {
             type: String,
             default: "list", // other options are highlight, gallery or calendar
         },
         item: {
-            // Mock: api.page {image: {}, to, category, title, author, dates, format, times, text}
+            // Mock: api.page {image: {}, to, category, title, location, dates, format, times, text}
             type: Object,
             default: () => {},
         },
     },
     computed: {
         classes() {
-            return ["block-teaser", { "is-gallery": this.view == "gallery" }]
+            return [
+                "block-teaser",
+                { "is-gallery": this.view == "gallery" },
+                { "is-calendar": this.view == "calendar" },
+            ]
         },
         sectionName() {
             return getSectionName(this.item.to)
@@ -55,8 +80,23 @@ export default {
         parsedDateTime() {
             return `${this.item.date} | ${this.item.time}`
         },
-        isList() {
+        showText() {
             return this.view == "list" || this.view == "highlight"
+        },
+        showImage() {
+            return (
+                this.view == "list" ||
+                this.view == "highlight" ||
+                this.view == "gallery"
+            )
+        },
+        parsedSvgName() {
+            return this.item.location == "online"
+                ? "online-icon"
+                : "location-icon"
+        },
+        showLocation() {
+            return this.view == "calendar"
         },
     },
 }
@@ -109,6 +149,15 @@ export default {
             margin-top: 50px;
         }
     }
+    &.is-calendar {
+        justify-content: flex-start;
+
+        .meta {
+            border-right: 1px dotted var(--color-grey-03);
+            max-width: 236px;
+            padding-right: 19px;
+        }
+    }
     .category {
         font-weight: 500;
         font-size: 16px;
@@ -126,10 +175,10 @@ export default {
         color: var(--color-blue-01);
         margin: 16px 0 0 0;
 
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
+        /*display: -webkit-box;
+        -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        overflow: hidden;
+        overflow: hidden;*/
     }
     .date-time {
         font-weight: 300;
@@ -149,6 +198,16 @@ export default {
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
         overflow: hidden;
+    }
+    .location {
+        display: flex;
+
+        color: var(--color-primary-blue);
+        margin-top: 11px;
+
+        .location-name {
+            align-self: center;
+        }
     }
     // Hovers
     @media #{$has-hover} {
