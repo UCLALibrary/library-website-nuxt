@@ -7,7 +7,7 @@
             :alt="image.alt || alt"
             :srcset="image.srcset || srcset"
             :sizes="image.sizes || sizes"
-            class="image"
+            class="media"
         >
         <figcaption
             class="caption"
@@ -17,6 +17,7 @@
             class="sizer"
             :style="styles"
         />
+        <slot />
     </figure>
 </template>
 
@@ -87,13 +88,15 @@ export default {
 .responsive-image {
     position: relative;
     margin: 0;
+    z-index: 0;
 
-    .image {
+    .media {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+        z-index: 0;
     }
     .caption {
         display: none;
@@ -101,12 +104,12 @@ export default {
 
     // Variants
     &.object-fit-cover {
-        .image {
+        .media {
             object-fit: cover;
         }
     }
     &.object-fit-contain {
-        .image {
+        .media {
             object-fit: contain;
         }
     }

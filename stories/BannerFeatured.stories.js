@@ -10,7 +10,7 @@ const mock = {
     to: "/help/foo/bar/",
     title: "New Director of Film and Television Archive",
     category: "Featured",
-    breadcrumb: { text: "Title", to: "http:///foo/about/bar" },
+    breadcrumb: { text: "Title", to: "http://foo/about/bar" },
     dates: " July 1, 2020 - December 31, 2021",
     isOnline: true,
     prompt: "Read More",
@@ -23,16 +23,39 @@ export const Default = () => ({
             ...mock,
         }
     },
-    template: `<banner-featured
-   :image="image"
-   :to="to"
-   :title="title"
-   :category="category"
-   :breadcrumb="breadcrumb"
-   :dates="dates"
-   :is-online="isOnline"
-   :prompt="prompt"
-  /> `,
+    template: `
+        <banner-featured
+           :image="image"
+           :to="to"
+           :title="title"
+           :category="category"
+           :breadcrumb="breadcrumb"
+           :dates="dates"
+           :is-online="isOnline"
+           :prompt="prompt"
+       />
+    `,
+})
+
+export const LeftAligned = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <banner-featured
+           :image="image"
+           :to="to"
+           :title="title"
+           :category="category"
+           :breadcrumb="breadcrumb"
+           :dates="dates"
+           :is-online="isOnline"
+           :prompt="prompt"
+           :align-right="false"
+       />
+    `,
 })
 
 export const NotOnline = () => ({
@@ -41,17 +64,19 @@ export const NotOnline = () => ({
             ...mock,
         }
     },
-    template: `<banner-featured
-   :image="image"
-   :to="to"
-   :title="title"
-   :category="category"
-   :breadcrumb="breadcrumb"
-   :dates="dates"
-   is-online=false
-   :prompt="prompt"
-   align-right=false
-  /> `,
+    template: `
+        <banner-featured
+           :image="image"
+           :to="to"
+           :title="title"
+           :category="category"
+           :breadcrumb="breadcrumb"
+           :dates="dates"
+           is-online=false
+           :prompt="prompt"
+           align-right=false
+        />
+    `,
 })
 
 export const Slot = () => ({
@@ -68,17 +93,24 @@ export const Slot = () => ({
             alignRight: true,
         }
     },
-    template: `<banner-featured
-   :image="image"
-   to="/about/foo/bar/"
-   :title="title"
-   :category="category"
-   :breadcrumb="breadcrumb"
-   :dates="dates"
-   is-online=false
-   :prompt="prompt"
-   align-right=false
-   location="YRL"
-   v-slot:banner-text= "Featured"
-  /> `,
+    template: `
+        <banner-featured
+           :image="image"
+           to="/about/foo/bar/"
+           :title="title"
+           :category="category"
+           :breadcrumb="breadcrumb"
+           :dates="dates"
+           is-online=false
+           :prompt="prompt"
+           align-right=false
+           location="YRL"
+        >
+            <heading-arrow
+                :text="breadcrumb.text"
+                :to="breadcrumb.to"
+                v-if="breadcrumb.to"
+            />
+        </banner-featured>
+    `,
 })

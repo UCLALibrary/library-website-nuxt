@@ -1,61 +1,74 @@
 <template lang="html">
-    <div class="banner-featured">
-        <div class="container">
-            <div v-if="breadcrumb.to">
-                <heading-arrow
-                    class="heading-arrow"
-                    :text="breadcrumb.text"
-                    :to="breadcrumb.to"
+    <div :class="classes">
+        <div class="slot">
+            <slot>
+                <div class="breadcrumb">
+                    <svg-vector-blue />
+                    <div class="text">
+                        {{ breadcrumb.text }}
+                    </div>
+                </div>
+            </slot>
+        </div>
+
+        <responsive-image
+            class="image"
+            :image="image"
+            :aspect-ratio="56.25"
+        >
+            <div class="gradient" />
+
+            <svg-molecule-half-faceted class="molecule" />
+        </responsive-image>
+
+        <div class="box">
+            <!-- <component :is="alignmentHatchmarks" /> -->
+
+            <div class="meta">
+                <div
+                    class="category"
+                    v-html="category"
                 />
-            </div>
-            <div
-                v-else
-                class="slot"
-            >
-                <vector-blue />
-                <slot name="banner-text">
-                    {{ breadcrumb.text }}
-                </slot>
-            </div>
-            <responsive-image
-                class="image"
-                :image="image"
-            />
-            <molecule-half-faceted class="molecule" />
-            <div :class="classes">
-                <component :is="alignmentHatchmarks" />
-                <div class="text-area">
-                    <div class="category">
-                        {{ category }}
-                    </div>
-                    <div class="title">
-                        {{ title }}
-                    </div>
-                    <div class="date-time">
-                        {{ dates }}
-                        {{ times }}
-                        {{ locationDisplay }}
-                    </div>
+                <h2
+                    class="title"
+                    v-html="title"
+                />
+                <div class="date-time">
+                    <!-- TODO probably want some HTML symantic elements here. Probably <datetime> -->
+                    {{ dates }}
+                    {{ times }}
+                    {{ locationDisplay }}
+                </div>
+
+                <nuxt-link :to="to">
                     <button-link
                         :label="prompt"
                         :to="to"
                         class="button"
                     />
-                </div>
+                </nuxt-link>
+            </div>
+
+            <div class="hatch">
+                <svg-hatch-right class="svg" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+// Helpers
 import getSectionName from "~/utils/getSectionName"
+
+// SVGs
+import SvgMoleculeHalfFaceted from "~/assets/svg/molecule-half-faceted"
+import SvgHatchRight from "~/assets/svg/hatch-right"
 
 export default {
     components: {
-        MoleculeHalfFaceted: () => import("~/assets/svg/molecule-half-faceted"),
-        HatchMarksLeft: () => import("~/assets/svg/hatch-marks-left"),
-        HatchMarksRight: () => import("~/assets/svg/hatch-marks-right"),
-        VectorBlue: () => import("~/assets/svg/vector-blue"),
+        SvgMoleculeHalfFaceted,
+        SvgHatchRight,
+        SvgVectorBlue: () => import("~/assets/svg/vector-blue"),
     },
     props: {
         image: {
@@ -108,6 +121,14 @@ export default {
         },
     },
     computed: {
+        classes() {
+            // TODO move this to component root element
+            return [
+                "banner-featured",
+                { "hatch-left": !this.alignRight },
+                `color-${this.sectionName}`,
+            ]
+        },
         locationDisplay() {
             let output = ""
             if (this.isOnline == true) {
@@ -121,117 +142,120 @@ export default {
         sectionName() {
             return this.section || getSectionName(this.to)
         },
-        classes() {
-            return [
-                "white-box",
-                `hatchmarks-right-${this.alignRight}`,
-                "hatch-marks",
-                `color-${this.sectionName}`,
-            ]
-        },
-        alignmentHatchmarks() {
-            return this.alignRight == true
-                ? "hatch-marks-right"
-                : "hatch-marks-left"
-        },
     },
 }
 </script>
 
 <style lang="scss" scoped>
 .banner-featured {
-    max-width: 1080px;
-    z-index: 1;
+    z-index: 0;
     position: relative;
-
-    .container {
-        z-index: 2;
-        max-width: 1080px;
-    }
-
-    .heading-arrow {
-        position: absolute;
-        z-index: 4;
-        padding-left: 110px;
-        margin-top: 40px;
-    }
+    overflow: hidden;
 
     .slot {
-        border: 1px solid var(--color-white);
+        position: absolute;
+        z-index: 20;
+        padding-left: 110px;
+        margin-top: 40px;
+    }
+    .breadcrumb {
         color: var(--color-white);
         position: absolute;
-        z-index: 4;
         padding-left: 110px;
-        font-size: 44px;
+        font-size: 26px;
         margin-top: 40px;
         text-transform: capitalize;
+
+        .text {
+            border: 1px solid var(--color-white);
+            padding: 15px 22px 10px 22px;
+            clip-path: polygon(26% 0, 100% 0, 100% 100%, 0% 100%);
+        }
     }
 
-    .image {
-        position: relative;
-        z-index: 3;
-        max-width: 100%;
-        height: 100%;
-        background: var(gradient-image-01);
+    .gradient {
+        // TODO add gradient to this div and position it.
+        //background-color: var(gradient-image-01);
+        z-index: 10;
     }
-
-    .white-box {
-        height: 280px;
-        width: 100%;
-        background-color: white;
-        z-index: 4;
+    .molecule {
+        right: 0;
+        top: 0;
+        bottom: 95px;
+        margin: auto;
         position: absolute;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        top: 400px;
-        // clip-path: polygon(
-        //     56% 50%,
-        //     71% 70%,
-        //     100% 70%,
-        //     100% 100%,
-        //     0 100%,
-        //     0% 50%
-        // );
+        opacity: 45%;
+        mix-blend-mode: screen;
+
+        height: 70%;
+        width: auto;
     }
 
-    .hatch-marks {
-        z-index: 5;
+    .box {
+        width: 100%;
+        position: relative;
+        z-index: 10;
+        margin-top: -95px;
+    }
+    .meta {
+        width: 65%;
+        background-color: white;
+        box-sizing: border-box;
+        position: relative;
+        z-index: 20;
+        padding: 50px 100px 0 50px;
 
-        // Themes
-        --color-theme: var(--color-primary-blue);
-        &.color-visit {
-            --color-theme: var(--color-visit);
-        }
-        &.color-help {
-            --color-theme: var(--color-help);
-        }
-        &.color-about {
-            --color-theme: var(--color-about);
+        clip-path: polygon(
+            0 0,
+            calc(100% - 39px) 0,
+            100% 95px,
+            100% 100%,
+            0 100%
+        );
+    }
+    .hatch {
+        height: 95px;
+        overflow: hidden;
+        position: relative;
+        z-index: 10;
+
+        position: absolute;
+        top: 0;
+        left: calc(65% - 99px);
+    }
+
+    &.hatch-left {
+        .meta {
+            margin-left: auto;
+            padding-right: 50px;
+            padding-left: 100px;
+            clip-path: polygon(39px 0, 100% 0, 100% 100%, 0 100%, 0% 95px);
         }
         .hatch {
-            stroke: var(--color-theme);
+            right: calc(65% - 99px);
+            left: auto;
+
+            .svg {
+                transform: scaleX(-1);
+            }
         }
     }
 
-    .hatchmarks-right-true {
-        flex-direction: row-reverse;
-        padding-left: 40px;
-    }
-
-    .molecule {
-        right: -30px;
-        top: 10px;
-        position: absolute;
-        z-index: 6;
-        height: 400px;
-    }
-
-    .text-area {
-        max-width: 500px;
-        z-index: 5;
-        margin-top: 50px;
-    }
+    // Themes
+    // TODO move this to component root element
+    // --color-theme: var(--color-primary-blue);
+    // &.color-visit {
+    //     --color-theme: var(--color-visit);
+    // }
+    // &.color-help {
+    //     --color-theme: var(--color-help);
+    // }
+    // &.color-about {
+    //     --color-theme: var(--color-about);
+    // }
+    // .hatch {
+    //     stroke: var(--color-theme);
+    // }
 
     .title {
         font-size: 40px;
