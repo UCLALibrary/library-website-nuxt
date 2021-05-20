@@ -12,6 +12,7 @@
                 v-else
                 class="slot"
             >
+                <vector-blue />
                 <slot name="banner-text">
                     {{ breadcrumb.text }}
                 </slot>
@@ -23,7 +24,6 @@
             <molecule-half-faceted class="molecule" />
             <div :class="classes">
                 <component :is="alignmentHatchmarks" />
-
                 <div class="text-area">
                     <div class="category">
                         {{ category }}
@@ -34,7 +34,7 @@
                     <div class="date-time">
                         {{ dates }}
                         {{ times }}
-                        {{ onlineDisplay }}
+                        {{ locationDisplay }}
                     </div>
                     <button-link
                         :label="prompt"
@@ -55,6 +55,7 @@ export default {
         MoleculeHalfFaceted: () => import("~/assets/svg/molecule-half-faceted"),
         HatchMarksLeft: () => import("~/assets/svg/hatch-marks-left"),
         HatchMarksRight: () => import("~/assets/svg/hatch-marks-right"),
+        VectorBlue: () => import("~/assets/svg/vector-blue"),
     },
     props: {
         image: {
@@ -107,7 +108,7 @@ export default {
         },
     },
     computed: {
-        onlineDisplay() {
+        locationDisplay() {
             let output = ""
             if (this.isOnline == true) {
                 output = "| Online"
@@ -139,13 +140,13 @@ export default {
 
 <style lang="scss" scoped>
 .banner-featured {
-    max-width: 1200px;
+    max-width: 1080px;
     z-index: 1;
     position: relative;
 
     .container {
         z-index: 2;
-        max-width: 1200px;
+        max-width: 1080px;
     }
 
     .heading-arrow {
@@ -163,9 +164,7 @@ export default {
         padding-left: 110px;
         font-size: 44px;
         margin-top: 40px;
-        line-height: 100%;
         text-transform: capitalize;
-        font-weight: normal;
     }
 
     .image {
@@ -184,6 +183,7 @@ export default {
         position: absolute;
         display: flex;
         flex-direction: row;
+        align-items: flex-start;
         top: 400px;
         // clip-path: polygon(
         //     56% 50%,
@@ -197,7 +197,6 @@ export default {
 
     .hatch-marks {
         z-index: 5;
-        padding-left: 10px;
 
         // Themes
         --color-theme: var(--color-primary-blue);
@@ -217,6 +216,7 @@ export default {
 
     .hatchmarks-right-true {
         flex-direction: row-reverse;
+        padding-left: 40px;
     }
 
     .molecule {
@@ -235,7 +235,6 @@ export default {
 
     .title {
         font-size: 40px;
-        font-style: normal;
         line-height: 44px;
         letter-spacing: 0.01em;
         text-align: left;
@@ -244,7 +243,6 @@ export default {
     }
     .date-time {
         font-size: 20px;
-        font-style: normal;
         font-weight: 400;
         line-height: 28px;
         letter-spacing: 0em;
@@ -254,7 +252,6 @@ export default {
 
     .category {
         font-size: 16px;
-        font-style: normal;
         font-weight: 500;
         line-height: 16px;
         letter-spacing: 0.06em;
