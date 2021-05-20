@@ -3,7 +3,7 @@
         <div class="slot">
             <slot>
                 <div class="breadcrumb">
-                    <svg-vector-blue />
+                    <svg-heading-vector class="heading-line" />
                     <div class="text">
                         {{ breadcrumb.text }}
                     </div>
@@ -22,8 +22,6 @@
         </responsive-image>
 
         <div class="box">
-            <!-- <component :is="alignmentHatchmarks" /> -->
-
             <div class="meta">
                 <div
                     class="category"
@@ -33,17 +31,22 @@
                     class="title"
                     v-html="title"
                 />
-                <div class="date-time">
+                <div class="detail-block">
                     <!-- TODO probably want some HTML symantic elements here. Probably <datetime> -->
-                    {{ dates }}
-                    {{ times }}
-                    {{ locationDisplay }}
+                    <datetime class="date-time">
+                        {{ dates }} {{ times }}
+                    </datetime>
+                    <div
+                        v-if="locationDisplay !== ''"
+                        class="location"
+                    >
+                        {{ locationDisplay }}
+                    </div>
                 </div>
 
                 <nuxt-link :to="to">
                     <button-link
                         :label="prompt"
-                        :to="to"
                         class="button"
                     />
                 </nuxt-link>
@@ -68,7 +71,7 @@ export default {
     components: {
         SvgMoleculeHalfFaceted,
         SvgHatchRight,
-        SvgVectorBlue: () => import("~/assets/svg/vector-blue"),
+        SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
     },
     props: {
         image: {
@@ -122,7 +125,6 @@ export default {
     },
     computed: {
         classes() {
-            // TODO move this to component root element
             return [
                 "banner-featured",
                 { "hatch-left": !this.alignRight },
@@ -132,10 +134,10 @@ export default {
         locationDisplay() {
             let output = ""
             if (this.isOnline == true) {
-                output = "| Online"
+                output = "Online"
             }
             if (this.location) {
-                output = `| ${this.location}`
+                output = this.location
             }
             return output
         },
@@ -152,30 +154,50 @@ export default {
     position: relative;
     overflow: hidden;
 
+    // Themes
+    --color-theme: var(--color-primary-blue);
+    &.color-visit {
+        --color-theme: var(--color-visit);
+    }
+    &.color-help {
+        --color-theme: var(--color-help);
+    }
+    &.color-about {
+        --color-theme: var(--color-about);
+    }
+    .hatch {
+        stroke: var(--color-theme);
+    }
+
     .slot {
         position: absolute;
         z-index: 20;
-        padding-left: 110px;
+        padding-left: 50px;
         margin-top: 40px;
     }
     .breadcrumb {
         color: var(--color-white);
-        position: absolute;
-        padding-left: 110px;
         font-size: 26px;
-        margin-top: 40px;
         text-transform: capitalize;
 
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        .heading-line {
+            flex-shrink: 0;
+            z-index: 30;
+        }
         .text {
             border: 1px solid var(--color-white);
-            padding: 15px 22px 10px 22px;
-            clip-path: polygon(26% 0, 100% 0, 100% 100%, 0% 100%);
+            padding: 15px 22px 10px 35px;
+            clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
         }
     }
 
     .gradient {
-        // TODO add gradient to this div and position it.
-        //background-color: var(gradient-image-01);
+        background-color: var(gradient-image-01);
         z-index: 10;
     }
     .molecule {
@@ -241,22 +263,6 @@ export default {
         }
     }
 
-    // Themes
-    // TODO move this to component root element
-    // --color-theme: var(--color-primary-blue);
-    // &.color-visit {
-    //     --color-theme: var(--color-visit);
-    // }
-    // &.color-help {
-    //     --color-theme: var(--color-help);
-    // }
-    // &.color-about {
-    //     --color-theme: var(--color-about);
-    // }
-    // .hatch {
-    //     stroke: var(--color-theme);
-    // }
-
     .title {
         font-size: 40px;
         line-height: 44px;
@@ -265,13 +271,15 @@ export default {
         margin-bottom: 5px;
         color: var(--color-primary-blue);
     }
-    .date-time {
+    .detail-block {
         font-size: 20px;
         font-weight: 400;
         line-height: 28px;
         letter-spacing: 0em;
         text-align: left;
         color: var(--color-grey-01);
+
+        display: flex;
     }
 
     .category {
@@ -282,6 +290,16 @@ export default {
         text-align: left;
         color: var(--color-dark-blue);
         margin-bottom: 5px;
+    }
+
+    .date-time {
+        padding-right: 10px;
+    }
+
+    .location {
+        border-left: 1px solid var(--color-grey-03);
+        padding: 0 10px;
+        height: 28px;
     }
 
     .button {
@@ -299,6 +317,19 @@ export default {
                 text-decoration-color: var(--color-cyan-01);
                 text-decoration-thickness: 1.5px;
             }
+        }
+    }
+    @media #{$lte-phone} {
+        .meta {
+            width: 85%;
+            text-align: center;
+        }
+        .title {
+            margin-top: 65px;
+            padding-right: 0px;
+        }
+        .image {
+            aspect-ratio: 1;
         }
     }
 }
