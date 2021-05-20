@@ -1,7 +1,7 @@
 {
     "image": {
-        "src": "http://placehold.it/1920x1080",
-        "srcset": "http://placehold.it/960x540 960w, http://placehold.it/1280x720 1280w, http://placehold.it/1920x1080 1920w",
+        "src": "https://via.placeholder.com/1920x1080",
+        "srcset": "https://via.placeholder.com/960x540 960w, https://via.placeholder.com/1280x720 1280w, https://via.placeholder.com/1920x1080 1920w",
         "sizes": "100vw",
         "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "title": "Lorem ipsum",
@@ -10,15 +10,15 @@
     },
     "images": [
         {
-            "src": "http://placehold.it/1920x1080",
-            "srcset": "http://placehold.it/960x540 960w, http://placehold.it/1280x720 1280w, http://placehold.it/1920x1080 1920w",
+            "src": "https://via.placeholder.com/1920x1080",
+            "srcset": "https://via.placeholder.com/960x540 960w, https://via.placeholder.com/1280x720 1280w, https://via.placeholder.com/1920x1080 1920w",
             "sizes": "100vw",
             "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "title": "Lorem ipsum"
         },
         {
-            "src": "http://placehold.it/960x540",
-            "srcset": "http://placehold.it/960x960",
+            "src": "https://via.placeholder.com/960x540",
+            "srcset": "https://via.placeholder.com/960x960",
             "sizes": "100vw",
             "alt": "Morbi quis tellus vel turpis auctor sagittis.",
             "title": "Morbi quis tellus"
@@ -62,8 +62,8 @@
     "bricks": [
         {
             "image": {
-                "src": "http://placehold.it/1920x1920",
-                "srcset": "http://placehold.it/960x960 960w, http://placehold.it/1280x1280 1280w, http://placehold.it/1920x1920 1920w",
+                "src": "https://via.placeholder.com/1920x1920",
+                "srcset": "https://via.placeholder.com/960x960 960w, https://via.placeholder.com/1280x1280 1280w, https://via.placeholder.com/1920x1920 1920w",
                 "sizes": "100vw",
                 "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 "title": "Lorem ipsum"
@@ -76,8 +76,8 @@
         },
         {
             "image": {
-                "src": "http://placehold.it/1920x1920",
-                "srcset": "http://placehold.it/960x960 960w, http://placehold.it/1280x1280 1280w, http://placehold.it/1920x1920 1920w",
+                "src": "https://via.placeholder.com/1920x1920",
+                "srcset": "https://via.placeholder.com/960x960 960w, https://via.placeholder.com/1280x1280 1280w, https://via.placeholder.com/1920x1920 1920w",
                 "sizes": "100vw",
                 "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 "title": "Lorem ipsum"
