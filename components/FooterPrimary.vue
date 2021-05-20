@@ -52,7 +52,9 @@
                         type="button"
                         value="Submit"
                     >
-                    <svg-arrow-right />
+                    <svg-arrow-right
+                    class="arrow-svg "
+                    />
                 </div>
             </div>
         </div>
@@ -93,7 +95,7 @@ export default {
     position: absolute;
     z-index: 0;
     width: 100%;
-    min-height: 375px;
+    min-height: 275px;
     padding-top: 100px;
 
     .molecule-half-svg {
@@ -121,16 +123,15 @@ export default {
 
         .footer-links {
             padding-right: 50px;
-            //margin-bottom: var(--unit-vertical-gap);
-            //overflow: hidden;
             margin-right: 25px;
 
             .logo-svg {
-                z-index: 20;
                 height: auto;
+                width: 100%;
                 path {
                     fill: var(--color-white);
                 }
+                margin-bottom: 35px;
             }
 
             .socials {
@@ -145,7 +146,7 @@ export default {
                 text-decoration: none;
                 list-style-type: none;
                 z-index: 10px;
-                margin-bottom: 30px;
+                margin-bottom: 45px;
 
                 .social-item {
                     line-height: 1em;
@@ -164,22 +165,18 @@ export default {
             .press-room {
                 text-transform: uppercase;
                 color: var(--color-white);
-                
-                // text-decoration: 2px solid var(--color-primary-yellow);
                 list-style-type: none;
                 font-family: var(--font-secondary);
-            }
-            .press-room {
-                //border-bottom: 2px solid var(--color-primary-yellow);
-                text-decoration: 2px solid var(--color-primary-yellow);
-            }
-        }
-        .arrow-svg {
-            path {
-                stroke: var(--color-white);
-                color: var(--color-white);
+               text-decoration: underline;
+                text-decoration-color: var(--color-cyan-01);
+                text-decoration-thickness: 1.5px;
+                // text-decoration: underline;
+                // text-decoration-color: var(--color-primary-yellow);
+                // text-decoration-thickness: 2px;
+                // padding-bottom: 2px;
             }
         }
+
         .form {
             color: var(--color-white);
             margin-left: 25px;
@@ -201,6 +198,8 @@ export default {
                 justify-content: flex-start;
                 align-content: center;
                 align-items: center;
+                padding-bottom: 2px;
+                border-bottom: 2px solid var(--color-green-01);
 
                 font-size: 18px;
                 ::placeholder {
@@ -212,10 +211,10 @@ export default {
                     order: 0;
                     flex: 1 1 auto;
                     align-self: auto;
-
                     background-color: none;
                     color: var(--color-white);
                     font-size: 20px;
+
                 }
                 .submit-button {
                     background-color: unset;
@@ -231,6 +230,12 @@ export default {
                     align-items: center;
                 }
             }
+            .arrow-svg {
+            path {
+                stroke: var(--color-white);
+                color: var(--color-white);
+            }
+        }
         }
     }
 
@@ -269,6 +274,7 @@ export default {
             align-content: flex-end;
             align-items: flex-end;
 
+            padding-top: 100px;
             padding-left: 37px;
 
             .footer-links {
@@ -293,11 +299,13 @@ export default {
                 }
                 .press-room {
                     margin-right: -35px;
+                    margin-bottom: 133px;
                 }
             }
 
             .form {
                 margin-right: 37px;
+                margin-bottom: 88px;
             }
         }
     }
