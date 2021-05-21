@@ -1,67 +1,108 @@
 <template lang="html">
     <div class="search-form">
         <div
-            v-if="tabs.length"
+            v-if="parsedTabs.length"
             class="tabs"
         >
-            <div 
-                v-for="(tab, index) in tabs"
-                :key="tab.id"
-                :ref="tab.id"
-                :class="`tab${index === activeTabIndex ? ' active' : ''}`"
-                @click="setActiveTab(tab.id)"
+            <div
+                v-for="(tab, index) in parsedTabs"
+                :key="tab.title"
+                :class="tab.classes"
+                @click="setActiveTab(index)"
             >
                 {{ tab.title }}
             </div>
         </div>
+
         <div class="box">
-            <form 
+            <form
                 name="searchHome"
-                :action="tabs[activeTabIndex].actionURL"
-                @submit="doSearch(searchWords)"
-                @submit.prevent
+                :action="actionUrl"
+                @submit.prevent="doSearch"
             >
                 <input
-                    v-model="searchWords" 
-                    type="text" 
-                    :placeholder="tabs[activeTabIndex].actionURL"
+                    v-model="searchWords"
+                    type="text"
+                    placeholder="Search by keyword"
                 >
             </form>
+
+            <div class="links">
+                // TODO Loop linkItems here in nav element
+                <br>
+                // TODO nuxt-link for advancedSearchLink
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+const tabs = [
+    {
+        title: "Search the Library Site",
+        actionURL: "/search",
+    },
+    {
+        title: "Search Materials",
+        actionURL: "https://www.google.com/search",
+    },
+]
+
 export default {
+    props: {
+        linkItems: {
+            type: Array,
+            default: () => [],
+        },
+        advancedSearchLink: {
+            type: String,
+            default: "",
+        },
+    },
     data() {
-        return { 
-            searchWords: '',
+        return {
+            searchWords: "",
             activeTabIndex: 1,
-            tabs: [
-                {
-                    id: 'searchLibrarySite',
-                    title: 'Search the Library Site',
-                    actionURL: 'https://yahoo.com/',
-                },
-                {
-                    id: 'searchMaterials',
-                    title: 'Search Materials',
-                    actionURL: 'https://duckduckgo.com/',
-                },
-            ]
         }
     },
+    computed: {
+        parsedTabs() {
+            return tabs.map((obj, index) => {
+                let classes = "tab"
+                if (index === this.activeTabIndex) {
+                    classes = "tab is-active"
+                }
+                return {
+                    ...obj,
+                    classes,
+                }
+            })
+        },
+        isMaterialsSearch() {
+            return this.activeTabIndex === 1
+        },
+        isSiteSearch() {
+            return this.activeTabIndex === 0
+        },
+        actionUrl() {
+            return tabs[this.activeTabIndex].actionURL
+        },
+    },
     methods: {
-        doSearch(searchWords) {
-            this.$emit('search', searchWords)
+        async doSearch() {
+            if (this.isSiteSearch) {
+                this.$router.push({
+                    path: this.actionUrl,
+                    query: { q: this.searchWords },
+                })
+            } else {
+                window.location = `${this.actionUrl}?site%3Alibrary.ucla.edu+${this.searchWords}`
+            }
         },
         setActiveTab(clickedTabId) {
-            this.activeTabIndex = this.tabs.findIndex(
-                tab => tab.id === clickedTabId
-            )
-            this.$emit('activeTabSet', clickedTabId)
-        }
-    }
+            this.activeTabIndex = clickedTabId
+        },
+    },
 }
 </script>
 
@@ -74,8 +115,9 @@ export default {
         opacity: 0.8;
         margin-left: auto;
         border-radius: 4px 4px 0 0;
+        cursor: pointer;
 
-        .tab.active {
+        .is-active {
             font-weight: bold;
         }
     }
