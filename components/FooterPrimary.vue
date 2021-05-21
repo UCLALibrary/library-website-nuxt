@@ -18,45 +18,44 @@
                     </li>
                 </ul>
 
-                <ul>
-                    <li
-                        v-for="item in pressItems"
-                        class="press-room"
-                    >
-                        <span class="press-room-underline"><smart-link
-                            :class="link"
+                <ul class="press-room">
+                    <li v-for="item in pressItems">
+                        <smart-link
                             :to="item.to"
                             :target="item.target"
                             v-html="item.text"
-                        /></span>
+                        />
                     </li>
                 </ul>
             </div>
 
-            <div class="form">
-                <h2 class="stay-updated">Stay updated</h2>
+            <form class="form">
+                <h2 class="title">
+                    Stay updated
+                </h2>
 
                 <p>
-                    Subscribe to get the latest updates on what's happening
-                    with UCLA Library.
+                    Subscribe to get the latest updates on what's happening with
+                    UCLA Library.
                 </p>
 
-                <div class="stay-updated-form">
-                    <input
-                        placeholder="Email Address"
-                        class="stay-updated-email"
+                <div class="input-block">
+                    <label class="label">
+                        <span class="description">Email Address *</span>
+                        <input
+                            placeholder="Email Address"
+                            class="input-email"
+                        >
+                    </label>
+                    <button
+                        class="button-submit"
+                        type="submit"
                     >
-                    </input>
-                    <input
-                        class="submit-button"
-                        type="button"
-                        value="Submit"
-                    >
-                    <svg-arrow-right
-                    class="arrow-svg "
-                    />
+                        Submit
+                        <svg-arrow-right class="arrow-svg" />
+                    </button>
                 </div>
-            </div>
+            </form>
         </div>
     </footer>
 </template>
@@ -92,31 +91,38 @@ export default {
 .footer-primary {
     background-color: var(--color-primary-blue);
     border-bottom: 4px solid var(--color-yellow);
-    position: absolute;
+    position: relative;
     z-index: 0;
-    width: 100%;
-    min-height: 275px;
-    padding-top: 100px;
+    min-height: 375px;
+    padding: 0 var(--unit-gutter);
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 
     .molecule-half-svg {
         position: absolute;
         z-index: 10;
         opacity: 45%;
         mix-blend-mode: screen;
-        
         top: 30px;
         left: -55px;
         height: 287px;
     }
 
     .container {
+        width: 100%;
         max-width: var(--unit-content-width);
         position: relative;
         z-index: 20;
+        margin: 0 auto;
 
         display: flex;
         flex-direction: row;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         justify-content: center;
         align-content: center;
         align-items: center;
@@ -167,60 +173,80 @@ export default {
                 color: var(--color-white);
                 list-style-type: none;
                 font-family: var(--font-secondary);
-               text-decoration: underline;
-                text-decoration-color: var(--color-cyan-01);
+                text-decoration: underline;
                 text-decoration-thickness: 1.5px;
                 // text-decoration: underline;
                 // text-decoration-color: var(--color-primary-yellow);
                 // text-decoration-thickness: 2px;
                 // padding-bottom: 2px;
+                // border-bottom: 2px solid var(--color-primary-yellow);
+                // display: inline-block;
             }
-        }
+        } // footer-links
 
         .form {
             color: var(--color-white);
             margin-left: 25px;
+
+            flex: 1 1 auto;
 
             input {
                 background-color: transparent;
                 border: none;
             }
 
-            .stay-updated {
+            .title {
                 font-size: 2em;
                 font-weight: 200;
             }
 
-            .stay-updated-form {
+            .input-block {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
                 justify-content: flex-start;
                 align-content: center;
                 align-items: center;
+
+                position: relative;
+                padding-top: 15px;
                 padding-bottom: 2px;
                 border-bottom: 2px solid var(--color-green-01);
 
                 font-size: 18px;
-                ::placeholder {
-                    color: white;
-                }
 
-                .stay-updated-email {
-                    display: flex;
-                    order: 0;
-                    flex: 1 1 auto;
-                    align-self: auto;
+                .label {
+                    width: 100%;
+                    &:focus-within {
+                        .description {
+                            opacity: 1;
+                        }
+                    }
+                }
+                .description {
+                    opacity: 0;
+                    position: absolute;
+                    top: 0;
+                    color: var(--color-green-01);
+                    font-size: 16px;
+                    transition: opacity 400ms ease-in-out;
+                }
+                .input-email {
                     background-color: none;
                     color: var(--color-white);
                     font-size: 20px;
-
+                    width: calc(100% - 20px);
+                    &::placeholder {
+                        color: white;
+                    }
+                    &:focus {
+                        background-color: aquamarine;
+                    }
                 }
-                .submit-button {
-                    background-color: unset;
-                    border: 0px;
+                .button-submit {
                     color: var(--color-white);
                     font-size: 18px;
+                    //background-color: aquamarine;
 
                     display: flex;
                     flex-direction: row;
@@ -229,13 +255,13 @@ export default {
                     align-content: center;
                     align-items: center;
                 }
+                .arrow-svg {
+                    path {
+                        stroke: var(--color-white);
+                        color: var(--color-white);
+                    }
+                }
             }
-            .arrow-svg {
-            path {
-                stroke: var(--color-white);
-                color: var(--color-white);
-            }
-        }
         }
     }
 
@@ -251,7 +277,7 @@ export default {
                 text-decoration: none;
             }
 
-            .stay-updated-form:hover {
+            .form-input-block:hover {
                 color: var(--color-white);
                 background-color: coral;
                 opacity: 0.1;
