@@ -59,8 +59,9 @@ export default {
 
 <style lang="scss" scoped>
 .section-cards {
-    max-width: 980px;
-    margin: 0 auto;
+    max-width: 924px;
+    margin-left: auto;
+    margin-right: auto;
 
     .meta {
         margin-bottom: 90px;
@@ -90,7 +91,8 @@ export default {
         align-items: flex-start;
     }
     .card {
-        margin: 0 40px 0 0;
+        margin: 0 30px 0 0;
+        width: 281px;
 
         &:nth-child(3n) {
             margin-right: 0;
