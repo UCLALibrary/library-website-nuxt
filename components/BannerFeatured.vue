@@ -344,6 +344,7 @@ export default {
             max-width: 100%;
             padding-left: 0px;
             padding-right: 0px;
+            text-align: center;
         }
 
         .category {
@@ -352,6 +353,11 @@ export default {
             text-transform: uppercase;
             padding-left: 40px;
             padding-right: 40px;
+            text-align: center;
+        }
+
+        .button {
+            padding: 0px 0px;
         }
 
         .image {
@@ -364,7 +370,7 @@ export default {
                 clip-path: polygon(
                     0 95px,
                     50% 95px,
-                    65% 0,
+                    62% 0,
                     100% 0,
                     100% 100%,
                     0% 100%
