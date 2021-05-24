@@ -4,7 +4,7 @@
         :to="to"
         :class="classes"
     >
-        <svg-heading-arrow />
+        <svg-heading-arrow class="svg" />
         <h2 :class="textClasses">
             {{ text }}
         </h2>
@@ -82,13 +82,21 @@ export default {
         font-size: 44px;
         line-height: 100%;
         text-transform: capitalize;
-        font-weight: normal;
 
         &.color-nuxt-link {
             color: var(--color-white);
         }
         &.color-div {
             color: var(--color-primary-blue);
+        }
+    }
+
+    @media #{$lte-phone} {
+        .svg {
+            height: 100px;
+        }
+        .heading {
+            font-size: 28px;
         }
     }
 }

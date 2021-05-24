@@ -32,7 +32,6 @@
                     v-html="title"
                 />
                 <div class="detail-block">
-                    <!-- TODO probably want some HTML symantic elements here. Probably <datetime> -->
                     <datetime class="date-time">
                         {{ dates }} {{ times }}
                     </datetime>
@@ -221,7 +220,7 @@ export default {
     }
     .meta {
         width: 65%;
-        background-color: white;
+        background-color: red;
         box-sizing: border-box;
         position: relative;
         z-index: 20;
@@ -235,6 +234,7 @@ export default {
             0 100%
         );
     }
+
     .hatch {
         height: 95px;
         overflow: hidden;
@@ -269,17 +269,17 @@ export default {
         letter-spacing: 0.01em;
         text-align: left;
         margin-bottom: 5px;
+        max-width: 500px;
         color: var(--color-primary-blue);
     }
     .detail-block {
         font-size: 20px;
-        font-weight: 400;
         line-height: 28px;
-        letter-spacing: 0em;
         text-align: left;
         color: var(--color-grey-01);
 
         display: flex;
+        flex-wrap: nowrap;
     }
 
     .category {
@@ -321,15 +321,55 @@ export default {
     }
     @media #{$lte-phone} {
         .meta {
-            width: 85%;
-            text-align: center;
+            width: 100%;
+
+            clip-path: polygon(
+                0% 0%,
+                calc(100% - 100px) 0,
+                80% 95px,
+                100% 95px,
+                100% 100%,
+                0 100%
+            );
         }
+
+        .slot {
+            font-size: 28px;
+            padding-left: 24px;
+            margin-top: 16px;
+        }
+
         .title {
             margin-top: 65px;
+            max-width: 100%;
+            padding-left: 0px;
             padding-right: 0px;
         }
+
+        .category {
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
         .image {
             aspect-ratio: 1;
+        }
+
+        &.hatch-left {
+            .meta {
+                width: 100%;
+                clip-path: polygon(
+                    0 95px,
+                    50% 95px,
+                    65% 0,
+                    100% 0,
+                    100% 100%,
+                    0% 100%
+                );
+            }
         }
     }
 }
