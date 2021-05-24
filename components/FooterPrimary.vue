@@ -312,7 +312,6 @@ export default {
             align-items: flex-end;
 
             padding-top: 100px;
-            padding-left: 37px;
 
             .footer-links {
                 display: flex;
