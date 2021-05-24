@@ -173,14 +173,9 @@ export default {
                 color: var(--color-white);
                 list-style-type: none;
                 font-family: var(--font-secondary);
-                text-decoration: underline;
-                text-decoration-thickness: 1.5px;
-                // text-decoration: underline;
-                // text-decoration-color: var(--color-primary-yellow);
-                // text-decoration-thickness: 2px;
-                // padding-bottom: 2px;
-                // border-bottom: 2px solid var(--color-primary-yellow);
-                // display: inline-block;
+                border-bottom: 2px solid var(--color-primary-yellow);
+                display: inline-block;
+                line-height: 1.25;
             }
         } // footer-links
 
@@ -236,11 +231,16 @@ export default {
                     color: var(--color-white);
                     font-size: 20px;
                     width: calc(100% - 20px);
+                    &:focus-visible {
+                        border: 0px;
+                    }
+                    border: 0px;
                     &::placeholder {
                         color: white;
                     }
                     &:focus {
-                        background-color: aquamarine;
+                        //background-color: white;
+                        //opacity: 10%;
                     }
                 }
                 .button-submit {
@@ -277,11 +277,11 @@ export default {
                 text-decoration: none;
             }
 
-            .form-input-block:hover {
-                color: var(--color-white);
-                background-color: coral;
-                opacity: 0.1;
-            }
+            // .form-input-block:hover {
+            //     color: var(--color-white);
+            //     background-color: coral;
+            //     opacity: 0.1;
+            // }
         }
     }
 
