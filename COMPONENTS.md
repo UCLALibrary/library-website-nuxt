@@ -99,14 +99,17 @@ TODO List of needed components for this website.
     -   alignment: "left" or "right"
 
 -   [x] SectionDualMasonry
+
     -   items: [{image, category, title, prompt, dates, to}]
     -   to
 
 -   [x] HeadingArrow
+
     -   text
     -   to
 
 -   [x] SectionPostSmall
+
     -   items: [{see BlockPostSmall}]
     -   to
 
@@ -121,14 +124,15 @@ TODO List of needed components for this website.
 ## Search
 
 -   [ ] SearchHome
+
     -   tabs: [{title, isActive}]
     -   links: [{name, url, target}](Course Reserves etc)
     -   actionUrl: String
         // search by keyword
-        - exampleString: "https://ucla.on.worldcat.org/external-search"
-        - exampleString: "https://ucla.summon.serialssolutions.com/#!/search?ho=t&l=en&"
-        - exampleString: "fromPrimo"
-        - (build component out knowing where to submit the query string)
+        -   exampleString: "https://ucla.on.worldcat.org/external-search"
+        -   exampleString: "https://ucla.summon.serialssolutions.com/#!/search?ho=t&l=en&"
+        -   exampleString: "fromPrimo"
+        -   (build component out knowing where to submit the query string)
 
 -   [ ] SearchGeneric
     -   actionUrl:"",
@@ -168,13 +172,14 @@ example:
     ]
 ```
 
-- **note**: each page will have its own list of filters available - from craft - content-types
+-   **note**: each page will have its own list of filters available - from craft - content-types
 
 ## Mobile Versions
 
 Mobile nav/menus combine the Primary and Secondary navs
 
 hard code menu items using data()
+
 -   [ ] MobileNav
 
 ```
@@ -186,28 +191,50 @@ data() {
 
 ## Exhibits & Upcoming Events
 
+-   [ ] BlockTeaserMeta
+
+    -   items: {to, category, title, dates, times, text, location}
+
 -   [ ] BlockTeaser
-    -   items: {image: {}, to, category, title, dates, times, text}
-    -   view: String // default: "list" other options are highlight,gallery or calendar 
+-   [ ] BlockTeaserHighlight
+-   [ ] BlockTeaserVertical
+        (All use props: image: {}, then BlockTeaserMeta props )
 
 -   [ ] SectionTeaserHighlight
-    -   items: [{see block props}] (uses BlockTeaser component)
 
--   [ ] SectionTeaserList
-    -   items: [{see block props}] (uses BlockTeaser component)
+    -   items: [{see block props}] (uses BlockTeaserX component)
 
--   [ ] SectionTeaserGallery
-    -   items: [{see block props}] (uses BlockTeaser component)
+-   [ ] SectionTeaserHorizontal
 
--   [ ] SectionTeaserCalendar
-    -   items: [{see block props}] (uses BlockTeaser component)
+    -   items: [{see block props}] (uses BlockTeaserX component)
+
+-   [ ] SectionTeaserVertical
+
+    -   items: [{see block props}] (uses BlockTeaserX component)
+
+-   [ ] SectionTeaserCalendar (should include the date and today navigation)
+
+    -   items: [{see block props}] (uses BlockTeaserMeta component)
 
 -   [ ] BlockCallToAction
+
     -   iconName: String
     -   title
     -   text
-    -   name //button
+    -   prompt // button
     -   to
+
+-   [ ] BlockDate
+
+    -   date
+
+-   [ ] CalendarLongEvents
+
+    -   events: [{startDate, endTime, name, to}]
+
+-   [ ] SectionPagination
+    -   nextTo
+    -   previousTo
 
 note: 2 sizes full width & half page
 
