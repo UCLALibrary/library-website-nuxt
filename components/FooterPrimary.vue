@@ -242,6 +242,13 @@ export default {
                         //background-color: white;
                         //opacity: 10%;
                     }
+                    &:focus-visible {
+                        color: white;
+                        outline: none;
+                        background-color: rgba(255, 255, 255, 0.1);
+                        padding: 5px;
+                        border-radius: ;
+                    }
                 }
                 .button-submit {
                     color: var(--color-white);
