@@ -47,6 +47,26 @@ button {
     z-index: 100;
 }
 
+// Page Structure
+.page {
+    .section {
+        margin: 100px auto;
+        padding-left: var(--unit-gutter);
+        padding-right: var(--unit-gutter);
+        max-width: 1300px;
+    }
+    .divider-first + .section {
+        margin-top: 75px;
+    }
+    .divider {
+        max-width: 960px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 var(--unit-gutter);
+        box-sizing: border-box;
+    }
+}
+
 // Animations
 .underline-hover {
     position: relative;

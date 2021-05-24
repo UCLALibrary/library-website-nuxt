@@ -5,7 +5,7 @@ import * as API from "~/stories/mock-api.json"
 
 // Storybook default settings
 export default {
-    title: "GLOBAL / ResponsiveImage",
+    title: "GLOBAL / Responsive Image",
 }
 
 // Variations of stories below

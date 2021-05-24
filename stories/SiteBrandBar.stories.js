@@ -1,5 +1,5 @@
 export default {
-    title: "GLOBAL / SiteBrandBar",
+    title: "GLOBAL / Site Brand Bar",
 }
 
 export const Default = () => ({
