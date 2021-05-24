@@ -34,7 +34,7 @@
                     Stay updated
                 </h2>
 
-                <p>
+                <p class="statement">
                     Subscribe to get the latest updates on what's happening with
                     UCLA Library.
                 </p>
@@ -195,6 +195,10 @@ export default {
                 font-weight: 200;
             }
 
+            .statement {
+                margin-bottom: 35px;
+            }
+
             .input-block {
                 display: flex;
                 flex-direction: row;
@@ -207,11 +211,12 @@ export default {
                 padding-top: 15px;
                 padding-bottom: 2px;
                 border-bottom: 2px solid var(--color-green-01);
-
                 font-size: 18px;
+                font-family: var(--font-primary);
 
                 .label {
                     width: 100%;
+                    font-family: var(--font-secondary);
                     &:focus-within {
                         .description {
                             opacity: 1;
@@ -229,7 +234,7 @@ export default {
                 .input-email {
                     background-color: none;
                     color: var(--color-white);
-                    font-size: 20px;
+                    font-size: 18px;
                     width: calc(100% - 20px);
                     &:focus-visible {
                         border: 0px;
@@ -246,14 +251,13 @@ export default {
                         color: white;
                         outline: none;
                         background-color: rgba(255, 255, 255, 0.1);
-                        padding: 5px;
-                        border-radius: ;
+                        padding: 10px;
+                        border-radius: 4px;
                     }
                 }
                 .button-submit {
                     color: var(--color-white);
                     font-size: 18px;
-                    //background-color: aquamarine;
 
                     display: flex;
                     flex-direction: row;
