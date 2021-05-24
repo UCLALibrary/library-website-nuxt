@@ -89,19 +89,19 @@ export default {
 
 <style lang="scss" scoped>
 .footer-primary {
-    background-color: var(--color-primary-blue);
-    border-bottom: 4px solid var(--color-yellow);
-    position: relative;
-    z-index: 0;
-    min-height: 375px;
-    padding: 0 var(--unit-gutter);
-
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
     align-items: center;
+
+    background-color: var(--color-primary-blue);
+    border-bottom: 4px solid var(--color-yellow);
+    position: relative;
+    z-index: 0;
+    min-height: 375px;
+    padding: 0 var(--unit-gutter);
 
     .molecule-half-svg {
         position: absolute;
@@ -114,12 +114,6 @@ export default {
     }
 
     .container {
-        width: 100%;
-        max-width: var(--unit-content-width);
-        position: relative;
-        z-index: 20;
-        margin: 0 auto;
-
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -127,6 +121,13 @@ export default {
         align-content: center;
         align-items: center;
 
+        width: 100%;
+        max-width: var(--unit-content-width);
+        position: relative;
+        z-index: 20;
+        margin: 0 auto;
+
+        // Footer Links - Left / Top
         .footer-links {
             padding-right: 50px;
             margin-right: 25px;
@@ -169,21 +170,23 @@ export default {
             } // socials
 
             .press-room {
+                display: inline-block;
+
                 text-transform: uppercase;
                 color: var(--color-white);
                 list-style-type: none;
                 font-family: var(--font-secondary);
                 border-bottom: 2px solid var(--color-primary-yellow);
-                display: inline-block;
                 line-height: 1.25;
             }
         } // footer-links
 
+        // Form - Right / Bottom
         .form {
+            flex: 1 1 auto;
+
             color: var(--color-white);
             margin-left: 25px;
-
-            flex: 1 1 auto;
 
             input {
                 background-color: transparent;
@@ -217,55 +220,54 @@ export default {
                 .label {
                     width: 100%;
                     font-family: var(--font-secondary);
+
                     &:focus-within {
                         .description {
                             opacity: 1;
                         }
                     }
                 }
+
                 .description {
-                    opacity: 0;
                     position: absolute;
                     top: 0;
                     color: var(--color-green-01);
                     font-size: 16px;
+                    opacity: 0;
                     transition: opacity 400ms ease-in-out;
                 }
+
                 .input-email {
-                    background-color: none;
-                    color: var(--color-white);
                     font-size: 18px;
+                    color: var(--color-white);
+                    background-color: none;
                     width: calc(100% - 20px);
-                    &:focus-visible {
-                        border: 0px;
-                    }
-                    border: 0px;
+
                     &::placeholder {
                         color: white;
                     }
-                    &:focus {
-                        //background-color: white;
-                        //opacity: 10%;
-                    }
+
                     &:focus-visible {
-                        color: white;
+                        color: var(--color-white);
                         outline: none;
                         background-color: rgba(255, 255, 255, 0.1);
                         padding: 10px;
                         border-radius: 4px;
                     }
                 }
-                .button-submit {
-                    color: var(--color-white);
-                    font-size: 18px;
 
+                .button-submit {
                     display: flex;
                     flex-direction: row;
                     flex-wrap: nowrap;
                     justify-content: center;
                     align-content: center;
                     align-items: center;
+
+                    color: var(--color-white);
+                    font-size: 18px;
                 }
+
                 .arrow-svg {
                     path {
                         stroke: var(--color-white);
@@ -287,12 +289,6 @@ export default {
                 color: var(--color-primary-yellow);
                 text-decoration: none;
             }
-
-            // .form-input-block:hover {
-            //     color: var(--color-white);
-            //     background-color: coral;
-            //     opacity: 0.1;
-            // }
         }
     }
 
