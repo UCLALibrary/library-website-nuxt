@@ -29,19 +29,21 @@
     --color-grey-03: #dcdcdb;
     --color-bkg-grey: #f2f2f2;
 
-    // Tertiary colors
-    --color-cyan-01: #0aa5ff;
-    --color-cyan-02: #5cd9ff;
-    --color-cyan-02: #c7f8ff;
-    --color-green-01: #00e0e0;
-    --color-green-02: #87fbe8;
-    --color-green-03: #b9f8ee;
-    --color-fushia-01: #ff94db;
-    --color-fushia-02: #ffbdf4;
-    --color-fushia-03: #ffdcff;
-    --color-purple-01: #c099ff;
-    --color-purple-02: #e7dbff;
-    --color-purple-03: #efe5ff;
+    // Way Finder - Tertiary colors
+    --color-help-green-base: #00e0e0; // --color-green-01
+    --color-visit-fushia-base: #ff94db; // --color-fushia-01 pink
+    --color-about-purple-base: #c099ff; // --color-purple-01
+    --color-section-cyan-base: #0aa5ff; // --color-cyan-01 blue
+
+    --color-help-green-lighter: #87fbe8; // --color-green-02
+    --color-visit-fushia-lighter: #ffbdf4; // --color-fushia-02 pink
+    --color-about-purple-lighter: #e7dbff; // --color-purple-02
+    --color-section-cyan-lighter: #5cd9ff; // --color-cyan-02 blue
+
+    --color-help-green-lightest: #b9f8ee; // --color-green-03
+    --color-visit-fushia-lightest: #ffdcff; // --color-fushia-03 pink
+    --color-about-purple-lightest: #efe5ff; // --color-purple-03
+    --color-section-cyan-lightest: #c7f8ff; // --color-cyan-03 blue
 
     // Gradients
     --gradient-01: linear-gradient(
