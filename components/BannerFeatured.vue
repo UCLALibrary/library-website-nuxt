@@ -22,38 +22,39 @@
         </responsive-image>
 
         <div class="box">
-            <div class="meta">
-                <div
-                    class="category"
-                    v-html="category"
-                />
-                <h2
-                    class="title"
-                    v-html="title"
-                />
-                <div class="detail-block">
-                    <datetime class="date-time">
-                        {{ dates }} {{ times }}
-                    </datetime>
-                    <div
-                        v-if="locationDisplay !== ''"
-                        class="location"
-                    >
-                        {{ locationDisplay }}
-                    </div>
-                </div>
-
-                <nuxt-link :to="to">
-                    <button-link
-                        :label="prompt"
-                        class="button"
-                    />
-                </nuxt-link>
-            </div>
-
+            <div class="meta" />
             <div class="hatch">
                 <svg-hatch-right class="svg" />
             </div>
+        </div>
+
+        <div class="text-box">
+            <div
+                class="category"
+                v-html="category"
+            />
+            <h2
+                class="title"
+                v-html="title"
+            />
+            <div class="detail-block">
+                <datetime class="date-time">
+                    {{ dates }} {{ times }}
+                </datetime>
+                <div
+                    v-if="locationDisplay !== ''"
+                    class="location"
+                >
+                    {{ locationDisplay }}
+                </div>
+            </div>
+
+            <nuxt-link :to="to">
+                <button-link
+                    :label="prompt"
+                    class="button"
+                />
+            </nuxt-link>
         </div>
     </div>
 </template>
@@ -215,16 +216,25 @@ export default {
     .box {
         width: 100%;
         position: relative;
-        z-index: 10;
+        z-index: 30;
         margin-top: -95px;
+    }
+    .text-box {
+        padding: 0px 0px 0 50px;
+        margin-top: -45px;
+        position: relative;
+        z-index: 40;
+        background-color: var(--color-white);
+        width: 45%;
     }
     .meta {
         width: 65%;
-        background-color: red;
+        background-color: var(--color-white);
         box-sizing: border-box;
         position: relative;
         z-index: 20;
-        padding: 50px 100px 0 50px;
+        // padding: 95px 100px 0 50px;
+        height: 95px;
 
         clip-path: polygon(
             0 0,
@@ -238,9 +248,7 @@ export default {
     .hatch {
         height: 95px;
         overflow: hidden;
-        position: relative;
         z-index: 10;
-
         position: absolute;
         top: 0;
         left: calc(65% - 99px);
@@ -252,6 +260,11 @@ export default {
             padding-right: 50px;
             padding-left: 100px;
             clip-path: polygon(39px 0, 100% 0, 100% 100%, 0 100%, 0% 95px);
+        }
+        .text-box {
+            margin-left: auto;
+            padding-right: 50px;
+            padding-left: 100px;
         }
         .hatch {
             right: calc(65% - 99px);
@@ -266,7 +279,6 @@ export default {
     .title {
         font-size: 40px;
         line-height: 44px;
-        letter-spacing: 0.01em;
         text-align: left;
         margin-bottom: 5px;
         max-width: 500px;
@@ -320,17 +332,15 @@ export default {
         }
     }
     @media #{$lte-phone} {
-        .meta {
-            width: 100%;
-
-            clip-path: polygon(
-                0% 0%,
-                calc(100% - 100px) 0,
-                80% 95px,
-                100% 95px,
-                100% 100%,
-                0 100%
-            );
+        // .hatch {
+        //     height: 55px;
+        // }
+        &.hatch-left {
+            .text-box {
+                width: 95%;
+                padding-left: 24px;
+                padding-right: 24px;
+            }
         }
 
         .slot {
@@ -339,12 +349,21 @@ export default {
             margin-top: 16px;
         }
 
+        .text-box {
+            width: 95%;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
         .title {
             margin-top: 65px;
-            max-width: 100%;
-            padding-left: 0px;
-            padding-right: 0px;
-            text-align: center;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .detail-block {
+            padding-left: 24px;
+            padding-right: 24px;
         }
 
         .category {
@@ -353,29 +372,16 @@ export default {
             text-transform: uppercase;
             padding-left: 40px;
             padding-right: 40px;
-            text-align: center;
         }
 
         .button {
             padding: 0px 0px;
+            width: 320px;
+            height: 40px;
         }
 
         .image {
             aspect-ratio: 1;
-        }
-
-        &.hatch-left {
-            .meta {
-                width: 100%;
-                clip-path: polygon(
-                    0 95px,
-                    50% 95px,
-                    62% 0,
-                    100% 0,
-                    100% 100%,
-                    0% 100%
-                );
-            }
         }
     }
 }
