@@ -24,7 +24,10 @@
         <div class="box">
             <div class="meta" />
             <div class="hatch">
-                <svg-hatch-right class="svg" />
+                <component
+                    :is="hatchSVG"
+                    class="svg"
+                />
             </div>
         </div>
 
@@ -72,6 +75,7 @@ export default {
         SvgMoleculeHalfFaceted,
         SvgHatchRight,
         SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
+        SvgHatchMobile: () => import("~/assets/svg/hatch-mobile"),
     },
     props: {
         image: {
@@ -143,6 +147,14 @@ export default {
         },
         sectionName() {
             return this.section || getSectionName(this.to)
+        },
+        isMobile() {
+            return screen.width <= 760 ? true : false
+        },
+        hatchSVG() {
+            return this.isMobile == true
+                ? "svg-hatch-mobile"
+                : "svg-hatch-right"
         },
     },
 }
@@ -233,7 +245,6 @@ export default {
         box-sizing: border-box;
         position: relative;
         z-index: 20;
-        // padding: 95px 100px 0 50px;
         height: 95px;
 
         clip-path: polygon(
@@ -361,7 +372,7 @@ export default {
         }
 
         .title {
-            margin-top: 65px;
+            margin-top: 55px;
             padding-left: 24px;
             padding-right: 24px;
         }
@@ -379,11 +390,14 @@ export default {
             padding-right: 40px;
         }
 
-        // .button {
-        //     padding: 0px 0px;
-        //     width: 240px;
-        //     height: 40px;
-        // }
+        .button {
+            padding-right: 10%;
+            padding-left: 10%;
+            width: 240px;
+            height: 40px;
+            margin-top: 40px;
+            text-align: center;
+        }
 
         .image {
             aspect-ratio: 1;
