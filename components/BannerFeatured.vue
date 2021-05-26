@@ -286,7 +286,7 @@ export default {
     }
     .detail-block {
         font-size: 20px;
-        line-height: 28px;
+        line-height: 24px;
         text-align: left;
         color: var(--color-grey-01);
 
@@ -311,7 +311,7 @@ export default {
     .location {
         border-left: 1px solid var(--color-grey-03);
         padding: 0 10px;
-        height: 28px;
+        height: 24px;
     }
 
     .button {
@@ -340,6 +340,11 @@ export default {
                 width: 95%;
                 padding-left: 24px;
                 padding-right: 24px;
+            }
+
+            .category {
+                padding-left: 55%;
+                margin-top: -55px;
             }
         }
 
@@ -374,11 +379,11 @@ export default {
             padding-right: 40px;
         }
 
-        .button {
-            padding: 0px 0px;
-            width: 320px;
-            height: 40px;
-        }
+        // .button {
+        //     padding: 0px 0px;
+        //     width: 240px;
+        //     height: 40px;
+        // }
 
         .image {
             aspect-ratio: 1;
