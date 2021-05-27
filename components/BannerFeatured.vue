@@ -22,7 +22,7 @@
         </responsive-image>
 
         <div class="box">
-            <div class="meta" />
+            <div class="box-clipped" />
             <div class="hatch">
                 <component
                     :is="hatchSVG"
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="text-box">
+        <div class="meta">
             <div
                 class="category"
                 v-html="category"
@@ -235,7 +235,7 @@ export default {
         z-index: 30;
         margin-top: -95px;
     }
-    .text-box {
+    .meta {
         padding: 0px 0px 0 50px;
         margin-top: -45px;
         position: relative;
@@ -243,7 +243,7 @@ export default {
         background-color: var(--color-white);
         width: 45%;
     }
-    .meta {
+    .box-clipped {
         width: 65%;
         background-color: var(--color-white);
         box-sizing: border-box;
@@ -270,13 +270,13 @@ export default {
     }
 
     &.hatch-left {
-        .meta {
+        .box-clipped {
             margin-left: auto;
             padding-right: 50px;
             padding-left: 100px;
             clip-path: polygon(39px 0, 100% 0, 100% 100%, 0 100%, 0% 95px);
         }
-        .text-box {
+        .meta {
             margin-left: auto;
             padding-right: 50px;
             padding-left: 100px;
@@ -351,7 +351,7 @@ export default {
         //     height: 55px;
         // }
         &.hatch-left {
-            .text-box {
+            .meta {
                 width: 95%;
                 padding-left: 24px;
                 padding-right: 24px;
@@ -369,7 +369,7 @@ export default {
             margin-top: 16px;
         }
 
-        .text-box {
+        .meta {
             width: 95%;
             padding-left: 24px;
             padding-right: 24px;
