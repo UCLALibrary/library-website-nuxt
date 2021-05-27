@@ -1,14 +1,5 @@
 <template lang="html">
     <div :class="classes">
-        <nuxt-link
-            v-if="showImage"
-            class="image"
-        >
-            <responsive-image
-                :image="item.image"
-                :aspect-ratio="100"
-            />
-        </nuxt-link>
         <div class="meta">
             <div
                 class="category"
@@ -69,9 +60,10 @@ export default {
     computed: {
         classes() {
             return [
-                "block-teaser",
+                "block-teaser-meta",
                 { "is-gallery": this.view == "gallery" },
                 { "is-calendar": this.view == "calendar" },
+                { "is-highlight": this.view == "highlight" },
             ]
         },
         sectionName() {
@@ -82,13 +74,6 @@ export default {
         },
         showText() {
             return this.view == "list" || this.view == "highlight"
-        },
-        showImage() {
-            return (
-                this.view == "list" ||
-                this.view == "highlight" ||
-                this.view == "gallery"
-            )
         },
         parsedSvgName() {
             return this.item.location == "online"
@@ -103,60 +88,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.block-teaser {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    width: 930px;
-    height: 270px;
-
-    // Themes
-    --color-theme: var(--color-primary-light-blue);
-    &.color-visit {
-        --color-theme: var(--color-visit);
-    }
-    &.color-help {
-        --color-theme: var(--color-help);
-    }
-    &.color-about {
-        --color-theme: var(--color-about);
-    }
-
-    .image {
-        //flex: 1 1 auto;
-        width: 456px;
-    }
+.block-teaser-meta {
+    // width: 420px;
+    // height: 230px;
 
     .meta {
         margin-left: 56px;
         max-width: 420px;
-    }
-    &.is-gallery {
-        width: 930px;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        align-content: center;
-        align-items: flex-start;
-        height: 323px;
-
-        .image {
-            // max-height: 180px;
-        }
-        .meta {
-            margin-left: 0;
-            margin-top: 50px;
-        }
-    }
-    &.is-calendar {
-        justify-content: flex-start;
-
-        .meta {
-            border-right: 1px dotted var(--color-grey-03);
-            max-width: 236px;
-            padding-right: 19px;
-        }
     }
     .category {
         font-weight: 500;
@@ -166,7 +104,6 @@ export default {
         text-transform: uppercase;
         color: var(--color-dark-blue);
     }
-
     .title {
         font-weight: 500;
         font-size: 26px;
@@ -175,10 +112,10 @@ export default {
         color: var(--color-blue-01);
         margin: 16px 0 0 0;
 
-        /*display: -webkit-box;
+        display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        overflow: hidden;*/
+        overflow: hidden;
     }
     .date-time {
         font-weight: 300;
@@ -209,6 +146,42 @@ export default {
             align-self: center;
         }
     }
+
+    &.is-gallery {
+        height: 323px;
+
+        .meta {
+            max-width: 300px;
+            margin-left: 15px;
+            margin-top: 50px;
+        }
+    }
+    &.is-calendar {
+        .meta {
+            border-right: 1px dotted var(--color-grey-03);
+            max-width: 236px;
+            padding-right: 19px;
+        }
+    }
+    &.is-highlight {
+        .meta {
+            max-width: 230px;
+            margin-left: 17px;
+        }
+    }
+
+    // Themes
+    --color-theme: var(--color-primary-light-blue);
+    &.color-visit {
+        --color-theme: var(--color-visit);
+    }
+    &.color-help {
+        --color-theme: var(--color-help);
+    }
+    &.color-about {
+        --color-theme: var(--color-about);
+    }
+
     // Hovers
     @media #{$has-hover} {
         &:hover {
@@ -221,8 +194,33 @@ export default {
     }
 
     @media #{$lte-phone} {
-        width: auto;
-        margin: 0 var(--unit-gutter);
+        .title {
+            font-size: 20px;
+        }
+        .text {
+            font-size: 12px;
+        }
+        .date-time {
+            font-size: 12px;
+        }
+
+        &.is-gallery {
+            .meta {
+                width: 150px;
+            }
+        }
+        &.is-highlight {
+            .meta {
+                width: 160px;
+            }
+        }
+        &.is-calendar {
+            .meta {
+                border-right: 1px dotted var(--color-grey-03);
+                max-width: 190px;
+                padding-right: 15px;
+            }
+        }
     }
 }
 </style>
