@@ -193,13 +193,16 @@ export default {
         text-transform: capitalize;
 
         position: absolute;
+        z-index: 20;
         display: flex;
         align-items: center;
         justify-content: flex-start;
 
         .heading-line {
             flex-shrink: 0;
+            position: relative;
             z-index: 30;
+            padding-right: 0;
         }
         .text {
             border: 1px solid var(--color-white);
@@ -211,6 +214,7 @@ export default {
     .gradient {
         background-color: var(gradient-image-01);
         z-index: 10;
+        position: relative;
     }
     .molecule {
         right: 0;
