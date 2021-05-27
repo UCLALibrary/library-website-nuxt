@@ -13,7 +13,6 @@ const mock = {
     date: "Thursday, January 28",
     time: "4:30 pm",
     title: "Intro to Oral History Research and Resources",
-    location: "online",
     text: "This event will introduce attendees to the field of oral history, what oral history research is, and how to locate oral history resources at UCLA and beyond.",
 }
 
@@ -24,7 +23,7 @@ export const Default = () => ({
   },
   template: `
       <block-teaser-meta
-          :item="item"
+          v-bind="item"
       />
   `,
 })
@@ -35,7 +34,25 @@ export const GalleryView = () => ({
     },
     template: `
         <block-teaser-meta
-            :item="item"
+            v-bind="item"
+            view="gallery"
+        />
+    `,
+})
+
+export const GalleryViewOnline = () => ({
+    data() {
+        return { 
+            item: {
+                ...mock,
+                time: "",
+                isOnline: true,
+            }   
+        }
+    },
+    template: `
+        <block-teaser-meta
+            v-bind="item"
             view="gallery"
         />
     `,
@@ -47,7 +64,25 @@ export const HighlightView = () => ({
     },
     template: `
         <block-teaser-meta
-            :item="item"
+            v-bind="item"
+            view="highlight"
+        />
+    `,
+})
+
+export const HighlightViewOnline = () => ({
+    data() {
+        return { 
+            item: {
+                ...mock,
+                time: "",
+                isOnline: true,
+            }
+        }
+    },
+    template: `
+        <block-teaser-meta
+            v-bind="item"
             view="highlight"
         />
     `,
@@ -66,7 +101,25 @@ export const CalendarView = () => ({
     },
     template: `
         <block-teaser-meta
-            :item="item"
+            v-bind="item"
+            view="calendar"
+        />
+    `,
+})
+
+export const CalendarViewOnline = () => ({
+    data() {
+        return { 
+            item: { 
+                ...mock,  
+                date: "February 11–May 31, 2019",
+                location: "online",
+            } 
+        }
+    },
+    template: `
+        <block-teaser-meta
+            v-bind="item"
             view="calendar"
         />
     `,

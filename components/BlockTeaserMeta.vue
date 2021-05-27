@@ -3,22 +3,31 @@
         <div class="meta">
             <div
                 class="category"
-                v-html="item.category"
+                v-html="category"
             />
-            <nuxt-link :to="item.to">
+            <nuxt-link :to="to">
                 <h3
                     class="title"
-                    v-html="item.title"
+                    v-html="title"
                 />
             </nuxt-link>
-            <div
-                class="date-time"
-                v-html="parsedDateTime"
-            />
+            <div class="date-time">
+                <span v-html="parsedDateTime" />
+                <span v-if="showPipe"> | </span>
+                <component
+                    :is="parsedSvgOnline"
+                    v-if="isOnline"
+                    class="svg svg-online"
+                />
+                <span
+                    v-if="isOnline"
+                    v-html="parseOnline"
+                />
+            </div>
             <p
                 v-if="showText"
                 class="text"
-                v-html="item.text"
+                v-html="text"
             />
             <div
                 v-if="showLocation"
@@ -31,7 +40,7 @@
 
                 <span
                     class="location-name"
-                    v-html="item.location"
+                    v-html="location"
                 />
             </div>
         </div>
@@ -51,10 +60,37 @@ export default {
             type: String,
             default: "list", // other options are highlight, gallery or calendar
         },
-        item: {
-            // Mock: api.page {image: {}, to, category, title, location, dates, format, times, text}
-            type: Object,
-            default: () => {},
+        to: {
+            type: String,
+            default: "",
+        },
+        category: {
+            type: String,
+            default: "",
+        },
+        title: {
+            type: String,
+            default: "",
+        },
+        text: {
+            type: String,
+            default: "",
+        },
+        date: {
+            type: String,
+            default: "",
+        },
+        time: {
+            type: String,
+            default: "",
+        },
+        location: {
+            type: String,
+            default: "",
+        },
+        isOnline: {
+            type: Boolean,
+            default: false,
         },
     },
     computed: {
@@ -67,21 +103,35 @@ export default {
             ]
         },
         sectionName() {
-            return getSectionName(this.item.to)
+            return getSectionName(this.to)
         },
         parsedDateTime() {
-            return `${this.item.date} | ${this.item.time}`
+            return `${this.date} | ${this.time}`
+        },
+        parseOnline() {
+            return this.isOnline ? " online" : ""
         },
         showText() {
             return this.view == "list" || this.view == "highlight"
         },
         parsedSvgName() {
-            return this.item.location == "online"
-                ? "online-icon"
-                : "location-icon"
+            return this.location == "online" ? "online-icon" : "location-icon"
+        },
+        parsedSvgOnline() {
+            if (this.view == "gallery") {
+                return "online-icon"
+            }
         },
         showLocation() {
+            // this is used only on Calendar View
             return this.view == "calendar"
+        },
+        showPipe() {
+            if (this.time && this.time != "" && this.isOnline) {
+                return true
+            }
+            // Reduce the extra Pipe Character
+            return false
         },
     },
 }
@@ -89,11 +139,8 @@ export default {
 
 <style lang="scss" scoped>
 .block-teaser-meta {
-    // width: 420px;
-    // height: 230px;
-
     .meta {
-        margin-left: 56px;
+        background-color: var(--color-white);
         max-width: 420px;
     }
     .category {
@@ -123,6 +170,10 @@ export default {
         line-height: 140%;
         color: var(color-grey-01);
         margin-top: 10px;
+
+        .svg-online {
+            margin-bottom: -5px;
+        }
     }
     .text {
         font-size: 18px;
@@ -152,8 +203,6 @@ export default {
 
         .meta {
             max-width: 300px;
-            margin-left: 15px;
-            margin-top: 50px;
         }
     }
     &.is-calendar {
@@ -166,7 +215,6 @@ export default {
     &.is-highlight {
         .meta {
             max-width: 230px;
-            margin-left: 17px;
         }
     }
 
