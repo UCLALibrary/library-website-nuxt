@@ -1,21 +1,149 @@
 <template lang="html">
     <div class="search-form">
-        <!-- TODO Search form goes here -->
-
         <div
-            v-if="hasTabs"
+            v-if="parsedTabs.length"
             class="tabs"
-        />
-        <div class="box" />
+        >
+            <div
+                v-for="(tab, index) in parsedTabs"
+                :key="tab.title"
+                :class="tab.classes"
+                @click="activeTabIndex = index"
+            >
+                {{ tab.title }}
+            </div>
+        </div>
+
+        <div class="box">
+            <form
+                name="searchHome"
+                :action="actionUrl"
+                @submit.prevent="doSearch"
+            >
+                <input
+                    v-model="searchWords"
+                    type="text"
+                    placeholder="Search by keyword"
+                >
+            </form>
+
+            <!-- <divider-general color="blue" mode="solid" /> TODO: extend GeneralDivider to take color and mode props -->
+            <div class="divider" />
+
+            <div
+                v-if="linkItems.length || advancedSearchLink"
+                class="links"
+            >
+                <div
+                    v-if="linkItems.length"
+                    class="regular-links"
+                >
+                    <div 
+                        v-for="link in linkItems" 
+                        :key="link.url"
+                        class="link"
+                    >
+                        <a
+                            :href="link.url"
+                            :target="link.target"
+                        >{{ link.text }}</a>
+                    </div>
+                </div>
+                <div
+                    v-if="Object.keys(advancedSearchLink).length"
+                    class="advanced-links"
+                >
+                    <a
+                        :href="advancedSearchLink.url"
+                        :target="advancedSearchLink.target"
+                    >{{ advancedSearchLink.text }}</a>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+const tabs = [
+    {
+        title: "Search the Library Site",
+        actionURL: "/search",
+        queryParam: "q",
+    },
+    {
+        title: "Search Materials",
+        actionURL: "https://www.google.com/search",
+        queryParam: "q",
+    },
+]
+
 export default {
     props: {
-        hasTabs: {
-            type: Boolean,
-            default: true,
+        /**
+         * List of links with the following properties: [{text, url, target}]
+         */
+        linkItems: {
+            type: Array,
+            default: () => [],
+        },
+        /**
+         * An advanced search link in this format: {text, url, target}
+         */
+        advancedSearchLink: {
+            type: Object,
+            default() {
+                return {}
+            }
+        },
+    },
+    data() {
+        return {
+            searchWords: "",
+            activeTabIndex: 1,
+        }
+    },
+    computed: {
+        parsedTabs() {
+            return tabs.map((obj, index) => {
+                let classes = "tab"
+                if (index === this.activeTabIndex) {
+                    classes = "tab is-active"
+                }
+                return {
+                    ...obj,
+                    classes,
+                }
+            })
+        },
+        isMaterialsSearch() {
+            return this.activeTabIndex === 1
+        },
+        isSiteSearch() {
+            return this.activeTabIndex === 0
+        },
+        actionUrl() {
+            return tabs[this.activeTabIndex].actionURL
+        },
+        queryParam() {
+            return tabs[this.activeTabIndex].queryParam
+        },
+        /**
+         * Replaces spaces with '+' for search words.
+         */
+        queryifySearchWords() {
+            return this.searchWords.split(' ').join('+')
+        },
+    },
+    methods: {
+        async doSearch() {
+            if (this.isSiteSearch) {
+                this.$router.push({
+                    path: this.actionUrl,
+                    query: { [this.queryParam]: this.searchWords },
+                })
+            } else {
+                window.location = `${this.actionUrl}?${this.queryParam}=${this.queryifySearchWords}`
+            }
         },
     },
 }
@@ -24,16 +152,83 @@ export default {
 <style lang="scss" scoped>
 .search-form {
     .tabs {
-        height: 50px;
-        max-width: 400px;
-        background-color: white;
-        opacity: 0.8;
-        margin-left: auto;
-        border-radius: var(--rounded-slightly-top);
+        display: flex;
+        justify-content: flex-end;
+        cursor: pointer;
+
+        .tab {
+            padding: 20px 25px;
+            background-color: var(--color-lightest-blue);
+            border: 1px solid transparent;
+            border-radius: 4px 4px 0 0;
+
+            &.is-active {
+                background-color: var(--color-white);
+                margin-right: 0;
+            }
+
+            &:not(.is-active) {
+                margin: 0 4px 4px 4px;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+        
     }
     .box {
-        height: 220px;
-        background-color: white;
+        background-color: var(--color-white);
+        padding: 30px 50px;
+        border: 1px solid transparent;
+        border-top-left-radius: 4px;
+
+        input {
+            background-color: var(--color-lightest-blue);
+            border-color: transparent;
+            padding: 30px;
+            width: 100%;
+            width: -moz-available;          /* WebKit-based browsers will ignore this. */
+            width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+            width: fill-available;
+
+            &::placeholder {
+                text-transform: uppercase;
+            }
+        }
+
+        .divider {
+            margin-top: 15px;
+            border-bottom: 2px solid var(--color-cyan-01);
+            height: 1px;
+        }
+
+        .links {
+            display: flex;
+            margin: 25px 0;
+
+            .regular-links {
+                display: flex;
+
+                .link {
+                    border-right: 2px solid var(--color-grey-02);
+                    padding: 0 25px;
+
+                    &:first-child {
+                        padding-left: 0;
+                    }
+                    &:last-child {
+                        border-right: unset;
+                    }
+                }
+            }
+
+            .advanced-links {
+                color: var(--color-primary-blue);
+                margin-left: auto;
+                text-transform: uppercase;
+            }
+        }
     }
 
     // Breakpoints
