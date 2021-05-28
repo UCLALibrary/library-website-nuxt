@@ -112,7 +112,7 @@ export default {
         font-weight: 300;
         font-size: 14px;
         line-height: 100%;
-        color: #434343;
+        color: var(color-grey-01);
         margin-top: 10px;
     }
 
