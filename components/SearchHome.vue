@@ -20,14 +20,20 @@
                 :action="actionUrl"
                 @submit.prevent="doSearch"
             >
-                <input
-                    v-model="searchWords"
-                    type="text"
-                    placeholder="Search by keyword"
-                >
+                <div class="input-container">
+                    <icon-search 
+                        class="icon" 
+                        width="28" 
+                        height="27"
+                    />
+                    <input
+                        v-model="searchWords"
+                        type="text"
+                        placeholder="Search by keyword"
+                    >
+                </div>
             </form>
 
-            <!-- <divider-general color="blue" mode="solid" /> TODO: extend GeneralDivider to take color and mode props -->
             <div class="divider" />
 
             <div
@@ -64,6 +70,8 @@
 </template>
 
 <script>
+import IconSearch from "~/assets/svg/icon-search"
+
 const tabs = [
     {
         title: "Search the Library Site",
@@ -78,6 +86,9 @@ const tabs = [
 ]
 
 export default {
+    components: {
+        IconSearch,
+    },
     props: {
         /**
          * List of links with the following properties: [{text, url, target}]
@@ -183,17 +194,32 @@ export default {
         border: 1px solid transparent;
         border-top-left-radius: 4px;
 
-        input {
-            background-color: var(--color-lightest-blue);
-            border-color: transparent;
-            padding: 30px;
-            width: 100%;
-            width: -moz-available;          /* WebKit-based browsers will ignore this. */
-            width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
-            width: fill-available;
+        .input-container {
 
-            &::placeholder {
-                text-transform: uppercase;
+            .icon {
+                padding: 25px 40px 25px 32px;
+                position: absolute;
+                z-index: 10;
+            }
+            
+            input {
+                font-family: Karbon;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 20px;
+                line-height: 100%;
+
+                background-color: var(--color-lightest-blue);
+                border-color: transparent;
+                padding: 27px 95px;
+                width: 100%;
+                width: -moz-available;          /* WebKit-based browsers will ignore this. */
+                width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+                width: fill-available;
+
+                &::placeholder {
+                    text-transform: uppercase;
+                }
             }
         }
 
