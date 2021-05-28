@@ -44,16 +44,21 @@
                     v-if="linkItems.length"
                     class="regular-links"
                 >
-                    <div 
-                        v-for="link in linkItems" 
-                        :key="link.url"
+                    <template 
+                        v-for="(link, i) in linkItems" 
                         class="link"
                     >
                         <a
+                            :key="link.url"
                             :href="link.url"
                             :target="link.target"
                         >{{ link.text }}</a>
-                    </div>
+                        <div 
+                            v-if="i !== linkItems.length - 1"
+                            :key="i"
+                            class="vertical-divider" 
+                        />
+                    </template>
                 </div>
                 <div
                     v-if="Object.keys(advancedSearchLink).length"
@@ -236,9 +241,9 @@ export default {
             .regular-links {
                 display: flex;
 
+                
                 .link {
-                    border-right: 2px solid var(--color-grey-02);
-                    padding: 0 25px;
+                    display: flex;
 
                     &:first-child {
                         padding-left: 0;
@@ -246,6 +251,11 @@ export default {
                     &:last-child {
                         border-right: unset;
                     }
+                }
+
+                .vertical-divider {
+                    border-right: 2px solid var(--color-grey-02);
+                    margin: 0 25px;
                 }
             }
 
@@ -259,8 +269,45 @@ export default {
 
     // Breakpoints
     @media #{$lte-phone} {
+        .tabs {
+            font-size: 13px;
+        }
+
         .box {
-            height: 170px;
+            padding: 18px 24px;
+
+            .input-container {
+
+                .icon {
+                    height: 21px;
+                    padding: 18px 24px 18px 18px;
+                    width: 22px;
+                }
+
+                input {
+                    font-size: 15px;
+                    padding: 20px 60px;
+                }
+            }
+
+            .links {
+                display: unset;
+                font-size: 12px;
+                
+                .regular-links {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 20px;
+
+                    .vertical-divider {
+                        margin: 0 4px;
+                    }
+                }
+
+                .advanced-links {
+                    margin-top: 30px;
+                }
+            }
         }
     }
 }
