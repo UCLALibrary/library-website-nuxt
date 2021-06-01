@@ -36,8 +36,6 @@ export default {
     height: 232px;
     border-radius: var(--rounded-slightly-all);
     background-color: var(--color-lightest-blue);
-    position: absolute;
-    z-index: 10;
 
     display: flex;
     flex-direction: column;
@@ -47,16 +45,13 @@ export default {
     align-items: center;
 
     .svg {
-        position: relative;
-        z-index: 20;
-        padding-left: 90px;
-        padding-right: 90px;
-        margin-top: 30px;
+        height: 60px;
     }
 
     .date {
         font-size: 80px;
         color: var(--color--black);
+        margin-bottom: 5px;
     }
 
     .day {
