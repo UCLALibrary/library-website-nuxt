@@ -32,7 +32,6 @@ export default {
 
     display: flex;
     flex-direction: row;
-    // align-items: center;
 
     .image {
         width: 456px;
@@ -61,6 +60,27 @@ export default {
                 -webkit-box-orient: vertical;
                 overflow: hidden;
             }
+        }
+    }
+}
+
+// Breakpoints
+@media #{$lte-phone} {
+    .block-teaser-horizontal {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+
+        max-height: 550px;
+        max-width: 100%;
+        padding-left: 5px;
+        padding-right: 5px;
+
+        .image {
+            max-width: 100%;
+        }
+        .block-teaser {
+            max-width: 100%;
         }
     }
 }
