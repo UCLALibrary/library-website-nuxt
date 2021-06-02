@@ -240,35 +240,5 @@ export default {
             }
         }
     }
-
-    @media #{$lte-phone} {
-        .title {
-            font-size: 20px;
-        }
-        .text {
-            font-size: 12px;
-        }
-        .date-time {
-            font-size: 12px;
-        }
-
-        &.is-gallery {
-            .meta {
-                width: 150px;
-            }
-        }
-        &.is-highlight {
-            .meta {
-                width: 160px;
-            }
-        }
-        &.is-calendar {
-            .meta {
-                border-right: 1px dotted var(--color-grey-03);
-                max-width: 190px;
-                padding-right: 15px;
-            }
-        }
-    }
 }
 </style>
