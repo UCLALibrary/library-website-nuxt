@@ -10,7 +10,7 @@ const mock = {
     image: API.image,
     to: "/visit/foo/bar/",
     category: "Ullamco",
-    title: "Fames ac turpis egestas sed tempus",
+    title: "Fames ac turpis egestas sed tempus lorem ipsum",
     date: "Pempti, Ocavia 14, 2021",
     time: "3 - 5 pm",
     text:
