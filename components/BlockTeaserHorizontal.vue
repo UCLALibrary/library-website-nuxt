@@ -41,7 +41,8 @@ export default {
     }
     .block-teaser-meta {
         width: 412px;
-        max-height: 240px;
+        max-height: 180px;
+        overflow: hidden;
     }
 }
 </style>
