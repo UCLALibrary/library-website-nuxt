@@ -7,8 +7,8 @@
         />
         <block-teaser-meta
             v-bind="item"
-            view="gallery"
-            class="meta"
+            view="list"
+            class="block-teaser-meta"
         />
     </section>
 </template>
@@ -26,10 +26,9 @@ export default {
 
 <style lang="scss" scoped>
 .block-teaser-horizontal {
-    // display: inline;
     max-width: 930px;
-    max-height: 360px;
-    // background-color: var(--color-white);
+    max-height: 274px;
+    background-color: var(--color-white);
 
     display: flex;
     flex-direction: row;
@@ -37,13 +36,12 @@ export default {
 
     .image {
         width: 456px;
-        height: 274px;
-
+        max-height: 274px;
         margin-right: 56px;
     }
-    .meta {
+    .block-teaser-meta {
         width: 412px;
-        max-height: 180px;
+        max-height: 240px;
     }
 }
 </style>

@@ -13,6 +13,8 @@ const mock = {
     title: "Fames ac turpis egestas sed tempus",
     date: "Pempti, Ocavia 14, 2021",
     time: "3 - 5 pm",
+    text:
+        "Version control is the lab notebook of the digital world. It’s what professionals use to keep track of what they’ve done and enables collaboration with others. Version control is what software developers use for their work. It is a cool tool.",
 }
 
 // Variations of stories below
