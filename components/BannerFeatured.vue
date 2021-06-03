@@ -244,7 +244,7 @@ export default {
         opacity: 45%;
         mix-blend-mode: screen;
 
-        height: 50%;
+        height: 70%;
         width: auto;
     }
 
