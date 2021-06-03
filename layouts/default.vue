@@ -1,9 +1,12 @@
 <template lang="html">
-    <main class="layout layout-default">
+    <main :class="classes">
         <header-main />
 
         <nuxt class="page" />
-
+        <footer-primary
+            :social-items="parsedItems"
+            :press-items="parsedPressItems"
+        />
         <footer-sock :items="footerSockItems" />
     </main>
 </template>
@@ -23,6 +26,8 @@ export default {
                 title: "UCLA Library",
             },
             footerSockItems: [],
+            footerPrimaryItems: [...MOCK_API.shortLinks],
+            pressItems: [{ ...MOCK_API.links[0] }],
         }
     },
     async fetch() {
@@ -88,6 +93,27 @@ export default {
             const classes = ["body", "theme-default"]
             classes.push(`route-${kebabCase(this.$route.name || "error")}`)
             return classes.join(" ")
+        },
+        parsedItems() {
+            // Restructuring item to support text key
+            return this.footerPrimaryItems.map((obj) => {
+                return {
+                    ...obj,
+                    text: obj.name,
+                }
+            })
+        },
+        parsedPressItems() {
+            // Restructuring item to support text key
+            return this.pressItems.map((obj) => {
+                return {
+                    ...obj,
+                    text: obj.name,
+                }
+            })
+        },
+        classes() {
+            return ["layout", "layout-default"]
         },
     },
 }

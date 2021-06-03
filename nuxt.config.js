@@ -21,7 +21,10 @@ export default {
     /*
      ** Plugins to load before mounting the App
      */
-    plugins: [{ src: "~/plugins/web-font-loader.client.js", mode: "client" }],
+    plugins: [
+        { src: "~/plugins/web-font-loader.client.js", mode: "client" },
+        { src: "~/plugins/browser-events.client.js", mode: "client" },
+    ],
 
     /*
      ** Nuxt generate configuration. Used when generating a static site.

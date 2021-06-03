@@ -320,6 +320,7 @@ export default {
         text-align: left;
         color: var(--color-dark-blue);
         margin-bottom: 5px;
+        text-transform: uppercase;
     }
 
     .date {

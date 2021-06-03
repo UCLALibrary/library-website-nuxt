@@ -191,26 +191,32 @@ data() {
 
 ## Exhibits & Upcoming Events
 
--   [ ] BlockTeaserMeta
+-   [ ] BlockTeaserMeta (All of the text for all of the other BlockTeaser components)
+    -   items: { to, category, title, dates, times, text, location }
 
-    -   items: {to, category, title, dates, times, text, location}
+-   [ ] BlockTeaserHorizontal
+    - image: {}
+    - items: { to, category, title, dates, times, text, location }
 
--   [ ] BlockTeaser
 -   [ ] BlockTeaserHighlight
+    - image: {}
+    - items: { to, category, title, dates, times, text, location }
+
 -   [ ] BlockTeaserVertical
-        (All use props: image: {}, then BlockTeaserMeta props )
+    - image: {}
+    - items: { to, category, title, dates, times, text, location }
 
 -   [ ] SectionTeaserHighlight
 
-    -   items: [{see block props}] (uses BlockTeaserX component)
+    -   items: [{see block props}] (uses BlockTeaserHighlight component)
 
 -   [ ] SectionTeaserHorizontal
 
-    -   items: [{see block props}] (uses BlockTeaserX component)
+    -   items: [{see block props}] (uses BlockTeaserHorizontal component)
 
 -   [ ] SectionTeaserVertical
 
-    -   items: [{see block props}] (uses BlockTeaserX component)
+    -   items: [{see block props}] (uses BlockTeaserVertical component)
 
 -   [ ] SectionTeaserCalendar (should include the date and today navigation)
 
