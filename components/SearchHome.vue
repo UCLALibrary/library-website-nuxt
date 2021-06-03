@@ -21,14 +21,11 @@
                 @submit.prevent="doSearch"
             >
                 <div class="input-container">
-                    <icon-search 
-                        class="icon" 
-                        width="28" 
-                        height="27"
-                    />
+                    <icon-search class="icon" />
                     <input
                         v-model="searchWords"
                         type="text"
+                        class="input-search"
                         placeholder="Search by keyword"
                     >
                 </div>
@@ -37,37 +34,31 @@
             <div class="divider" />
 
             <div
-                v-if="linkItems.length || advancedSearchLink"
+                v-if="linkItems.length || advancedSearchLink.url"
                 class="links"
             >
                 <div
                     v-if="linkItems.length"
                     class="regular-links"
                 >
-                    <template 
-                        v-for="(link, i) in linkItems" 
+                    <a
+                        v-for="(link, i) in linkItems"
+                        :key="link.url"
                         class="link"
-                    >
-                        <a
-                            :key="link.url"
-                            :href="link.url"
-                            :target="link.target"
-                        >{{ link.text }}</a>
-                        <div 
-                            v-if="i !== linkItems.length - 1"
-                            :key="i"
-                            class="vertical-divider" 
-                        />
-                    </template>
+                        :href="link.url"
+                        :target="link.target"
+                        v-text="link.text"
+                    />
                 </div>
                 <div
-                    v-if="Object.keys(advancedSearchLink).length"
+                    v-if="advancedSearchLink.url"
                     class="advanced-links"
                 >
                     <a
                         :href="advancedSearchLink.url"
                         :target="advancedSearchLink.target"
-                    >{{ advancedSearchLink.text }}</a>
+                        v-text="advancedSearchLink.text"
+                    />
                 </div>
             </div>
         </div>
@@ -107,9 +98,7 @@ export default {
          */
         advancedSearchLink: {
             type: Object,
-            default() {
-                return {}
-            }
+            default: () => {},
         },
     },
     data() {
@@ -147,7 +136,7 @@ export default {
          * Replaces spaces with '+' for search words.
          */
         queryifySearchWords() {
-            return this.searchWords.split(' ').join('+')
+            return this.searchWords.split(" ").join("+")
         },
     },
     methods: {
@@ -171,100 +160,93 @@ export default {
         display: flex;
         justify-content: flex-end;
         cursor: pointer;
+    }
+    .tab {
+        padding: 20px 25px;
+        background-color: var(--color-lightest-blue);
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+        transition: background-color 400ms ease-in-out;
 
-        .tab {
-            padding: 20px 25px;
-            background-color: var(--color-lightest-blue);
-            border: 1px solid transparent;
-            border-radius: 4px 4px 0 0;
-
-            &.is-active {
-                background-color: var(--color-white);
-                margin-right: 0;
-            }
-
-            &:not(.is-active) {
-                margin: 0 4px 4px 4px;
-            }
-
-            &:last-child {
-                margin-right: 0;
-            }
+        &.is-active {
+            background-color: var(--color-white);
+            margin-right: 0;
         }
-        
+
+        &:not(.is-active) {
+            margin: 0 4px 4px 4px;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
     }
     .box {
         background-color: var(--color-white);
         padding: 30px 50px;
         border: 1px solid transparent;
         border-top-left-radius: 4px;
+    }
+    .input-container {
+        position: relative;
+    }
+    .icon {
+        padding: 25px 40px 25px 32px;
+        position: absolute;
+        z-index: 10;
+        height: 27px;
+        width: auto;
+    }
 
-        .input-container {
+    .input-search {
+        font-family: var(--font-primary);
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 100%;
+        letter-spacing: 0.01em;
 
-            .icon {
-                padding: 25px 40px 25px 32px;
-                position: absolute;
-                z-index: 10;
-            }
-            
-            input {
-                font-family: Karbon;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 20px;
-                line-height: 100%;
+        background-color: var(--color-lightest-blue);
+        border-color: transparent;
+        padding: 27px 37px 27px 95px;
+        width: 100%;
+        box-sizing: border-box;
 
-                background-color: var(--color-lightest-blue);
-                border-color: transparent;
-                padding: 27px 95px;
-                width: 100%;
-                width: -moz-available;          /* WebKit-based browsers will ignore this. */
-                width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
-                width: fill-available;
-
-                &::placeholder {
-                    text-transform: uppercase;
-                }
-            }
+        &::placeholder {
+            text-transform: uppercase;
         }
+    }
 
-        .divider {
-            margin-top: 15px;
-            border-bottom: 2px solid var(--color-cyan-01);
-            height: 1px;
-        }
+    .divider {
+        margin-top: 15px;
+        border-bottom: 2px solid var(--color-cyan-01);
+        height: 1px;
+    }
 
-        .links {
+    .links {
+        display: flex;
+        margin: 25px 0;
+    }
+    .regular-links {
+        display: flex;
+
+        .link {
             display: flex;
-            margin: 25px 0;
 
-            .regular-links {
-                display: flex;
-
-                
-                .link {
-                    display: flex;
-
-                    &:first-child {
-                        padding-left: 0;
-                    }
-                    &:last-child {
-                        border-right: unset;
-                    }
-                }
-
-                .vertical-divider {
-                    border-right: 2px solid var(--color-grey-02);
-                    margin: 0 25px;
-                }
+            &:after {
+                content: "";
+                border-right: 2px solid #efefef;
+                margin: 0 25px;
             }
-
-            .advanced-links {
-                color: var(--color-primary-blue);
-                margin-left: auto;
-                text-transform: uppercase;
+            &:last-child:after {
+                display: none;
             }
         }
+    }
+    .advanced-links {
+        color: var(--color-primary-blue);
+        margin-left: auto;
+        text-transform: uppercase;
     }
 
     // Breakpoints
@@ -272,42 +254,34 @@ export default {
         .tabs {
             font-size: 13px;
         }
-
         .box {
             padding: 18px 24px;
-
-            .input-container {
-
-                .icon {
-                    height: 21px;
-                    padding: 18px 24px 18px 18px;
-                    width: 22px;
-                }
-
-                input {
-                    font-size: 15px;
-                    padding: 20px 60px;
-                }
+        }
+        .input-container {
+            .icon {
+                height: 21px;
+                padding: 18px 24px 18px 18px;
+                width: 22px;
             }
-
-            .links {
-                display: unset;
-                font-size: 12px;
-                
-                .regular-links {
-                    display: flex;
-                    justify-content: space-between;
-                    margin-top: 20px;
-
-                    .vertical-divider {
-                        margin: 0 4px;
-                    }
-                }
-
-                .advanced-links {
-                    margin-top: 30px;
-                }
+            .input-search {
+                font-size: 15px;
+                padding: 20px 60px;
             }
+        }
+
+        .links {
+            display: unset;
+            font-size: 12px;
+        }
+        .regular-links {
+            margin-top: 20px;
+
+            .vertical-divider {
+                margin: 0 4px;
+            }
+        }
+        .advanced-links {
+            margin-top: 30px;
         }
     }
 }
