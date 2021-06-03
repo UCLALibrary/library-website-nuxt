@@ -171,6 +171,7 @@ export const WideImage = () => ({
            :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
+           times="1:00pm"
        />
     `,
 })
@@ -193,6 +194,7 @@ export const WideImageLeftAligned = () => ({
            :prompt="prompt"
            :ratio="42"
            :align-right="false"
+           times="1:00pm"
        />
     `,
 })

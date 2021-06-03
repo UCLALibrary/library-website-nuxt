@@ -4,9 +4,9 @@
         <span
             v-if="iconName"
             class="icon"
-        ><arrow-right
-            class="arrow-right"
-        /></span>
+        >
+            <arrow-right class="arrow-right" />
+        </span>
     </div>
 </template>
 
@@ -62,11 +62,15 @@ export default {
 
     width: 133px;
     height: 50px;
-    background: var(--color-white);
+    background-color: var(--color-white);
     border: 1.5px solid var(--color-primary-light-blue);
     font-size: 18px;
     color: var(--color-black);
     padding: 14px 40px;
+
+    transition-property: color, background-color;
+    transition-duration: 400ms;
+    transition-timing-function: ease-in-out;
 
     .arrow-right {
         stroke: var(--color-cyan-01);
@@ -74,7 +78,7 @@ export default {
     }
 
     &.is-secondary {
-        background: var(--color-primary-blue);
+        background-color: var(--color-primary-blue);
         border: unset;
         color: var(--color-white);
         .arrow-right {
@@ -85,7 +89,7 @@ export default {
     // Hover states
     @media #{$has-hover} {
         &:hover {
-            background: var(--color-primary-blue);
+            background-color: var(--color-primary-blue);
             border: unset;
             color: var(--color-white);
             cursor: pointer;
@@ -93,7 +97,7 @@ export default {
                 stroke: var(--color-white);
             }
             &.is-secondary {
-                background: var(--color-white);
+                background-color: var(--color-white);
                 border: 1.5px solid var(--color-primary-light-blue);
                 color: var(--color-black);
                 .arrow-right {

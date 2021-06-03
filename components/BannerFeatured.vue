@@ -21,8 +21,8 @@
             <svg-molecule-half-faceted class="molecule" />
         </responsive-image>
 
-        <div class="box">
-            <div class="box-clipped">
+        <div class="hatch-box">
+            <div class="clipped-box">
                 <h3
                     v-if="category.name"
                     class="category category-mobile"
@@ -47,20 +47,21 @@
                 />
             </h2>
 
-            <div class="detail-block">
-                <time class="date">
-                    {{ dates }}
-                </time>
+            <div class="schedule">
+                <time
+                    v-if="dates"
+                    class="schedule-item"
+                    v-html="dates"
+                />
                 <time
                     v-if="parsedTime"
-                    class="time"
+                    class="schedule-item"
                     :datetime="times"
-                >
-                    {{ parsedTime }}
-                </time>
+                    v-html="parsedTime"
+                />
                 <div
                     v-if="locationDisplay"
-                    class="location"
+                    class="schedule-item"
                     v-html="locationDisplay"
                 />
             </div>
@@ -209,23 +210,19 @@ export default {
         font-size: 26px;
         text-transform: capitalize;
 
-        position: absolute;
-        z-index: 20;
         display: flex;
         align-items: center;
         justify-content: flex-start;
 
         .heading-line {
             flex-shrink: 0;
-            position: relative;
-            z-index: 30;
             padding-right: 0;
         }
         .text {
             border: 1px solid var(--color-white);
             padding: 15px 20px 13px 22px;
             margin-left: -10px;
-            clip-path: polygon(17px 0, 100% 0, 100% 100%, 0% 100%);
+            clip-path: polygon(17px 0, 100% 0, 100% 100%, 1px 100%);
         }
     }
 
@@ -252,13 +249,13 @@ export default {
         width: auto;
     }
 
-    .box {
+    .hatch-box {
         width: 100%;
         position: relative;
         z-index: 30;
         margin-top: -95px;
     }
-    .box-clipped {
+    .clipped-box {
         width: 65%;
         background-color: var(--color-white);
         box-sizing: border-box;
@@ -274,9 +271,6 @@ export default {
             0 100%
         );
     }
-    .category-mobile {
-        display: none;
-    }
     .hatch {
         height: 95px;
         overflow: hidden;
@@ -285,33 +279,30 @@ export default {
         top: 0;
         left: calc(65% - 99px);
     }
+    .category-mobile {
+        display: none;
+    }
 
     .meta {
-        padding: 0px 0px 0 50px;
-        margin-top: -45px;
+        padding: 0 50px;
+        margin: -45px 0 0 0;
         position: relative;
         z-index: 40;
-        background-color: var(--color-white);
-        width: 45%;
-    }
-    .title {
-        font-size: 40px;
-        line-height: 44px;
-        text-align: left;
-        margin-bottom: 5px;
-        max-width: 500px;
-        color: var(--color-primary-blue);
-    }
-    .detail-block {
-        font-size: 20px;
-        line-height: 24px;
-        text-align: left;
-        color: var(--color-grey-01);
+        width: 65%;
+        box-sizing: border-box;
 
         display: flex;
+        flex-direction: column;
         flex-wrap: nowrap;
-    }
+        justify-content: flex-start;
+        align-content: flex-end;
+        align-items: flex-end;
 
+        > * {
+            max-width: 550px;
+            width: 100%;
+        }
+    }
     .category {
         font-size: 16px;
         font-weight: 500;
@@ -322,21 +313,41 @@ export default {
         margin-bottom: 5px;
         text-transform: uppercase;
     }
-
-    .date {
-        padding-right: 10px;
+    .title {
+        font-size: 40px;
+        line-height: 44px;
+        text-align: left;
+        margin-bottom: 5px;
+        color: var(--color-primary-blue);
+        font-weight: 500;
     }
+    .schedule {
+        font-size: 20px;
+        line-height: 24px;
+        text-align: left;
+        color: var(--color-grey-01);
+        margin: 10px 0 8px 0;
 
-    .time {
-        border-left: 1px solid var(--color-grey-03);
+        display: flex;
+        flex-wrap: nowrap;
     }
-
-    .location {
-        border-left: 1px solid var(--color-grey-03);
-        padding: 0 10px;
-        height: 24px;
+    .schedule-item {
+        &:after {
+            content: "";
+            border-left: 1px solid var(--color-grey-03);
+            margin: 0 10px;
+            height: 18px;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+        &:last-child:after {
+            display: none;
+        }
     }
-
     .button {
         width: 180px;
         height: 50px;
@@ -346,16 +357,11 @@ export default {
 
     // Varient
     &.hatch-left {
-        .box-clipped {
+        .clipped-box {
             margin-left: auto;
             padding-right: 50px;
             padding-left: 100px;
             clip-path: polygon(39px 0, 100% 0, 100% 100%, 0 100%, 0% 95px);
-        }
-        .meta {
-            margin-left: auto;
-            padding-right: 50px;
-            padding-left: 100px;
         }
         .hatch {
             right: calc(65% - 99px);
@@ -365,16 +371,21 @@ export default {
                 transform: scaleX(-1);
             }
         }
+        .meta {
+            padding-left: 75px;
+            margin-left: auto;
+
+            align-content: flex-start;
+            align-items: flex-start;
+        }
     }
 
     // Hovers
     @media #{$has-hover} {
-        &:hover {
-            .title {
-                text-decoration: underline;
-                text-decoration-color: var(--color-cyan-01);
-                text-decoration-thickness: 1.5px;
-            }
+        .title:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-cyan-01);
+            text-decoration-thickness: 1.5px;
         }
     }
 
@@ -390,10 +401,10 @@ export default {
             height: 215px;
             width: auto;
         }
-        .box {
+        .hatch-box {
             margin-top: -40px;
         }
-        .box-clipped {
+        .clipped-box {
             height: 40px;
         }
         .hatch {
@@ -405,22 +416,13 @@ export default {
                 height: auto;
             }
         }
-        .meta {
-            width: 100%;
-            margin-top: 0;
-            padding-left: var(--unit-gutter);
-            padding-right: var(--unit-gutter);
-            box-sizing: border-box;
-            position: static;
-        }
-        .category-desktop {
-            display: none;
-        }
         .category-mobile {
             display: block;
             padding-right: calc(40px + var(--unit-gutter));
             padding-left: var(--unit-gutter);
             height: 40px;
+            padding-top: 7px;
+            box-sizing: border-box;
 
             display: flex;
             flex-direction: column;
@@ -428,6 +430,22 @@ export default {
             justify-content: center;
             align-content: flex-start;
             align-items: flex-start;
+        }
+
+        .meta {
+            width: 100%;
+            margin-top: 0;
+            padding-left: var(--unit-gutter);
+            padding-right: var(--unit-gutter);
+            box-sizing: border-box;
+            position: static;
+
+            > * {
+                max-width: 100%;
+            }
+        }
+        .category-desktop {
+            display: none;
         }
         .title {
             margin-top: 40px;
@@ -440,12 +458,16 @@ export default {
 
         // Variant
         &.hatch-left {
-            .box-clipped {
-                padding-left: calc(40px + var(--unit-gutter));
+            .clipped-box {
+                padding-left: var(--unit-gutter);
                 padding-right: var(--unit-gutter);
             }
             .hatch {
                 right: calc(65% - 44px);
+            }
+            .category-mobile {
+                align-content: center;
+                align-items: center;
             }
             .meta {
                 width: 100%;
