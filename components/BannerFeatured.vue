@@ -1,0 +1,483 @@
+<template lang="html">
+    <div :class="classes">
+        <div class="slot">
+            <slot>
+                <div class="breadcrumb">
+                    <svg-heading-vector class="heading-line" />
+                    <div class="text">
+                        {{ breadcrumb.text }}
+                    </div>
+                </div>
+            </slot>
+        </div>
+
+        <responsive-image
+            class="image"
+            :image="image"
+            :aspect-ratio="parsedRatio"
+        >
+            <div class="gradient" />
+
+            <svg-molecule-half-faceted class="molecule" />
+        </responsive-image>
+
+        <div class="hatch-box">
+            <div class="clipped-box">
+                <h3
+                    v-if="category.name"
+                    class="category category-mobile"
+                    v-html="category.name"
+                />
+            </div>
+            <div class="hatch">
+                <svg-hatch-right class="svg" />
+            </div>
+        </div>
+
+        <div class="meta">
+            <h3
+                v-if="category.name"
+                class="category category-desktop"
+                v-html="category.name"
+            />
+            <h2 class="title">
+                <nuxt-link
+                    :to="to"
+                    v-html="title"
+                />
+            </h2>
+
+            <div class="schedule">
+                <time
+                    v-if="dates"
+                    class="schedule-item"
+                    v-html="dates"
+                />
+                <time
+                    v-if="parsedTime"
+                    class="schedule-item"
+                    :datetime="times"
+                    v-html="parsedTime"
+                />
+                <div
+                    v-if="locationDisplay"
+                    class="schedule-item"
+                    v-html="locationDisplay"
+                />
+            </div>
+
+            <nuxt-link :to="to">
+                <button-link
+                    :label="prompt"
+                    class="button"
+                />
+            </nuxt-link>
+        </div>
+    </div>
+</template>
+
+<script>
+// Helpers
+import getSectionName from "~/utils/getSectionName"
+
+// SVGs
+import SvgMoleculeHalfFaceted from "~/assets/svg/molecule-half-faceted"
+import SvgHatchRight from "~/assets/svg/hatch-right"
+
+export default {
+    components: {
+        SvgMoleculeHalfFaceted,
+        SvgHatchRight,
+        SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
+    },
+    props: {
+        image: {
+            type: Object,
+            default: () => {},
+        },
+        title: {
+            type: String,
+            required: true,
+        },
+        category: {
+            // Mock as { name: 'Name', to: 'http://fake.url/link' }
+            type: Object,
+            default: () => {},
+        },
+        dates: {
+            type: String,
+            default: "",
+        },
+        times: {
+            type: String,
+            default: "",
+        },
+        location: {
+            type: String,
+            default: "",
+        },
+        isOnline: {
+            type: Boolean,
+            default: false,
+        },
+        to: {
+            // URL to link to, if blank won't link
+            type: String,
+            default: "",
+        },
+        breadcrumb: {
+            // mock as { text: 'Title', to: 'http://fake.url' }
+            type: Object,
+            default: () => {},
+        },
+        prompt: {
+            // text that displays on blue button, e.g. "View exhibit". Links to `props.to`
+            type: String,
+            default: "",
+        },
+        alignRight: {
+            type: Boolean,
+            default: true,
+        },
+        ratio: {
+            type: Number,
+            default: 56.25,
+        },
+    },
+    computed: {
+        classes() {
+            return [
+                "banner-featured",
+                { "hatch-left": !this.alignRight },
+                `color-${this.sectionName}`,
+            ]
+        },
+        parsedTime() {
+            //TODO make this human readable time
+            return this.times
+        },
+        locationDisplay() {
+            let output = this.location
+            if (this.isOnline) {
+                output = "Online"
+            }
+            return output
+        },
+        sectionName() {
+            return this.section || getSectionName(this.to)
+        },
+        parsedRatio() {
+            // If on mobile, change ratio of image
+            let output = this.ratio
+            if (this.$store.state.winWidth <= 750) {
+                output = 100
+            }
+            return output
+        },
+    },
+}
+</script>
+
+<style lang="scss" scoped>
+.banner-featured {
+    z-index: 0;
+    position: relative;
+    overflow: hidden;
+
+    // Themes
+    --color-theme: var(--color-primary-blue);
+    &.color-visit {
+        --color-theme: var(--color-visit);
+    }
+    &.color-help {
+        --color-theme: var(--color-help);
+    }
+    &.color-about {
+        --color-theme: var(--color-about);
+    }
+    .hatch {
+        stroke: var(--color-theme);
+    }
+
+    .slot {
+        position: absolute;
+        z-index: 20;
+        padding-left: 50px;
+        margin-top: 40px;
+    }
+    .breadcrumb {
+        color: var(--color-white);
+        font-size: 26px;
+        text-transform: capitalize;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        .heading-line {
+            flex-shrink: 0;
+            padding-right: 0;
+        }
+        .text {
+            border: 1px solid var(--color-white);
+            padding: 15px 20px 13px 22px;
+            margin-left: -10px;
+            clip-path: polygon(17px 0, 100% 0, 100% 100%, 1px 100%);
+        }
+    }
+
+    .gradient {
+        background-color: var(--gradient-image-01);
+        z-index: 10;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .molecule {
+        right: 0;
+        top: 0;
+        bottom: 95px;
+        margin: auto;
+        position: absolute;
+        z-index: 20;
+        opacity: 45%;
+        mix-blend-mode: screen;
+
+        height: 70%;
+        width: auto;
+    }
+
+    .hatch-box {
+        width: 100%;
+        position: relative;
+        z-index: 30;
+        margin-top: -95px;
+    }
+    .clipped-box {
+        width: 65%;
+        background-color: var(--color-white);
+        box-sizing: border-box;
+        position: relative;
+        z-index: 20;
+        height: 95px;
+
+        clip-path: polygon(
+            0 0,
+            calc(100% - 39px) 0,
+            100% 95px,
+            100% 100%,
+            0 100%
+        );
+    }
+    .hatch {
+        height: 95px;
+        overflow: hidden;
+        z-index: 10;
+        position: absolute;
+        top: 0;
+        left: calc(65% - 99px);
+    }
+    .category-mobile {
+        display: none;
+    }
+
+    .meta {
+        padding: 0 50px;
+        margin: -45px 0 0 0;
+        position: relative;
+        z-index: 40;
+        width: 65%;
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: flex-end;
+        align-items: flex-end;
+
+        > * {
+            max-width: 550px;
+            width: 100%;
+        }
+    }
+    .category {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0.06em;
+        text-align: left;
+        color: var(--color-dark-blue);
+        margin-bottom: 5px;
+        text-transform: uppercase;
+    }
+    .title {
+        font-size: 40px;
+        line-height: 44px;
+        text-align: left;
+        margin-bottom: 5px;
+        color: var(--color-primary-blue);
+        font-weight: 500;
+    }
+    .schedule {
+        font-size: 20px;
+        line-height: 24px;
+        text-align: left;
+        color: var(--color-grey-01);
+        margin: 10px 0 8px 0;
+
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    .schedule-item {
+        &:after {
+            content: "";
+            border-left: 1px solid var(--color-grey-03);
+            margin: 0 10px;
+            height: 18px;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+        &:last-child:after {
+            display: none;
+        }
+    }
+    .button {
+        width: 180px;
+        height: 50px;
+        padding: 0px 0px;
+        margin-top: 16px;
+    }
+
+    // Varient
+    &.hatch-left {
+        .clipped-box {
+            margin-left: auto;
+            padding-right: 50px;
+            padding-left: 100px;
+            clip-path: polygon(39px 0, 100% 0, 100% 100%, 0 100%, 0% 95px);
+        }
+        .hatch {
+            right: calc(65% - 99px);
+            left: auto;
+
+            .svg {
+                transform: scaleX(-1);
+            }
+        }
+        .meta {
+            padding-left: 75px;
+            margin-left: auto;
+
+            align-content: flex-start;
+            align-items: flex-start;
+        }
+    }
+
+    // Hovers
+    @media #{$has-hover} {
+        .title:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-cyan-01);
+            text-decoration-thickness: 1.5px;
+        }
+    }
+
+    // Breakpoints
+    @media #{$lte-phone} {
+        .slot {
+            font-size: 28px;
+            padding-left: 20px;
+            margin-top: 16px;
+        }
+        .molecule {
+            margin-bottom: -45px;
+            height: 215px;
+            width: auto;
+        }
+        .hatch-box {
+            margin-top: -40px;
+        }
+        .clipped-box {
+            height: 40px;
+        }
+        .hatch {
+            left: calc(65% - 44px);
+            height: 40px;
+
+            .svg {
+                width: 50vw;
+                height: auto;
+            }
+        }
+        .category-mobile {
+            display: block;
+            padding-right: calc(40px + var(--unit-gutter));
+            padding-left: var(--unit-gutter);
+            height: 40px;
+            padding-top: 7px;
+            box-sizing: border-box;
+
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .meta {
+            width: 100%;
+            margin-top: 0;
+            padding-left: var(--unit-gutter);
+            padding-right: var(--unit-gutter);
+            box-sizing: border-box;
+            position: static;
+
+            > * {
+                max-width: 100%;
+            }
+        }
+        .category-desktop {
+            display: none;
+        }
+        .title {
+            margin-top: 40px;
+        }
+        .button {
+            width: 100%;
+            height: 40px;
+            margin: 40px 0 0 0;
+        }
+
+        // Variant
+        &.hatch-left {
+            .clipped-box {
+                padding-left: var(--unit-gutter);
+                padding-right: var(--unit-gutter);
+            }
+            .hatch {
+                right: calc(65% - 44px);
+            }
+            .category-mobile {
+                align-content: center;
+                align-items: center;
+            }
+            .meta {
+                width: 100%;
+                margin-top: 0;
+                padding-left: var(--unit-gutter);
+                padding-right: var(--unit-gutter);
+                box-sizing: border-box;
+                position: static;
+            }
+        }
+    }
+}
+</style>

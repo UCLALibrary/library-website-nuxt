@@ -7,7 +7,8 @@
             :alt="image.alt || alt"
             :srcset="image.srcset || srcset"
             :sizes="image.sizes || sizes"
-            class="image"
+            class="media"
+            @load="onLoad"
         >
         <figcaption
             class="caption"
@@ -17,6 +18,7 @@
             class="sizer"
             :style="styles"
         />
+        <slot />
     </figure>
 </template>
 
@@ -64,11 +66,15 @@ export default {
             default: () => {},
         },
     },
+    data() {
+        return {
+            hasLoaded: false,
+        }
+    },
     computed: {
         parsedAspectRatio() {
             const height = this.image.height || this.height
             const width = this.image.width || this.width
-
             return this.aspectRatio || (height / width) * 100
         },
         styles() {
@@ -77,7 +83,16 @@ export default {
             }
         },
         classes() {
-            return ["responsive-image", `object-fit-${this.objectFit}`]
+            return [
+                "responsive-image",
+                `object-fit-${this.objectFit}`,
+                { "has-loaded": this.hasLoaded },
+            ]
+        },
+    },
+    methods: {
+        onLoad() {
+            this.hasLoaded = true
         },
     },
 }
@@ -87,28 +102,34 @@ export default {
 .responsive-image {
     position: relative;
     margin: 0;
-
-    .image {
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 400ms ease-in-out;
+    .media {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+        z-index: 0;
     }
     .caption {
         display: none;
     }
-
     // Variants
     &.object-fit-cover {
-        .image {
+        .media {
             object-fit: cover;
         }
     }
     &.object-fit-contain {
-        .image {
+        .media {
             object-fit: contain;
         }
+    }
+    // State
+    &.has-loaded {
+        opacity: 1;
     }
 }
 </style>
