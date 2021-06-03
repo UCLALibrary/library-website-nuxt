@@ -123,7 +123,7 @@ export const LongHeading = () => ({
             title: "New Director of Film and Television Archive",
             category: "Featured",
             breadcrumb: {
-                text: "New Featured Exhibitions",
+                text: "Featured Exhibitions",
                 to: "",
             },
             dates: " July 1, 2020 - December 31, 2021",
