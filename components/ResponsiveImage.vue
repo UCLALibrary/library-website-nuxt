@@ -8,6 +8,7 @@
             :srcset="image.srcset || srcset"
             :sizes="image.sizes || sizes"
             class="media"
+            @load="onLoad"
         >
         <figcaption
             class="caption"
@@ -65,11 +66,15 @@ export default {
             default: () => {},
         },
     },
+    data() {
+        return {
+            hasLoaded: false,
+        }
+    },
     computed: {
         parsedAspectRatio() {
             const height = this.image.height || this.height
             const width = this.image.width || this.width
-
             return this.aspectRatio || (height / width) * 100
         },
         styles() {
@@ -78,7 +83,16 @@ export default {
             }
         },
         classes() {
-            return ["responsive-image", `object-fit-${this.objectFit}`]
+            return [
+                "responsive-image",
+                `object-fit-${this.objectFit}`,
+                { "has-loaded": this.hasLoaded },
+            ]
+        },
+    },
+    methods: {
+        onLoad() {
+            this.hasLoaded = true
         },
     },
 }
@@ -89,7 +103,8 @@ export default {
     position: relative;
     margin: 0;
     z-index: 0;
-
+    opacity: 0;
+    transition: opacity 400ms ease-in-out;
     .media {
         position: absolute;
         top: 0;
@@ -101,7 +116,6 @@ export default {
     .caption {
         display: none;
     }
-
     // Variants
     &.object-fit-cover {
         .media {
@@ -112,6 +126,10 @@ export default {
         .media {
             object-fit: contain;
         }
+    }
+    // State
+    &.has-loaded {
+        opacity: 1;
     }
 }
 </style>
