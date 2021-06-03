@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="search-form">
+    <div class="search-home">
         <div
             v-if="parsedTabs.length"
             class="tabs"
@@ -8,10 +8,9 @@
                 v-for="(tab, index) in parsedTabs"
                 :key="tab.title"
                 :class="tab.classes"
-                @click="activeTabIndex = index"
-            >
-                {{ tab.title }}
-            </div>
+                @click="setActiveTab(index)"
+                v-text="tab.title"
+            />
         </div>
 
         <div class="box">
@@ -33,7 +32,7 @@
 
             <div class="divider" />
 
-            <div
+            <nav
                 v-if="linkItems.length || advancedSearchLink.url"
                 class="links"
             >
@@ -60,7 +59,7 @@
                         v-text="advancedSearchLink.text"
                     />
                 </div>
-            </div>
+            </nav>
         </div>
     </div>
 </template>
@@ -86,16 +85,12 @@ export default {
         IconSearch,
     },
     props: {
-        /**
-         * List of links with the following properties: [{text, url, target}]
-         */
+        // List of links with the following properties: [{text, url, target}]
         linkItems: {
             type: Array,
             default: () => [],
         },
-        /**
-         * An advanced search link in this format: {text, url, target}
-         */
+        // An advanced search link in this format: {text, url, target}
         advancedSearchLink: {
             type: Object,
             default: () => {},
@@ -132,15 +127,13 @@ export default {
         queryParam() {
             return tabs[this.activeTabIndex].queryParam
         },
-        /**
-         * Replaces spaces with '+' for search words.
-         */
         queryifySearchWords() {
+            // Replaces spaces with '+' for search words.
             return this.searchWords.split(" ").join("+")
         },
     },
     methods: {
-        async doSearch() {
+        doSearch() {
             if (this.isSiteSearch) {
                 this.$router.push({
                     path: this.actionUrl,
@@ -150,12 +143,15 @@ export default {
                 window.location = `${this.actionUrl}?${this.queryParam}=${this.queryifySearchWords}`
             }
         },
+        activeTabIndex(index) {
+            this.activeTabIndex = index
+        },
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.search-form {
+.search-home {
     .tabs {
         display: flex;
         justify-content: flex-end;
@@ -165,7 +161,7 @@ export default {
         padding: 20px 25px;
         background-color: var(--color-lightest-blue);
         border: 1px solid transparent;
-        border-radius: 4px 4px 0 0;
+        border-radius: var(--rounded-slightly-top);
         transition: background-color 400ms ease-in-out;
 
         &.is-active {
