@@ -11,7 +11,7 @@ const mock = {
     title: "New Director of Film and Television Archive",
     category: { name: "Featured", to: "/category/featured/" },
     breadcrumb: { text: "Title", to: "http://foo/about/bar" },
-    dates: " July 1, 2020 - December 31, 2021",
+    dates: "July 1, 2020 - December 31, 2021",
     isOnline: true,
     prompt: "Read More",
     alignRight: true,
