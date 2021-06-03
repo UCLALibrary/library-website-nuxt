@@ -1,5 +1,5 @@
 <template lang="html">
-    <main class="layout layout-default">
+    <main :class="classes">
         <header-main />
 
         <nuxt class="page" />
@@ -111,6 +111,9 @@ export default {
                     text: obj.name,
                 }
             })
+        },
+        classes() {
+            return ["layout", "layout-default"]
         },
     },
 }
