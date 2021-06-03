@@ -7,7 +7,10 @@
                 <svg-logo-ucla-library-underline class="svg" />
             </div>
 
-            <search-home />
+            <search-home
+                :link-items="linkItems"
+                :advanced-search-link="advancedSearchLink"
+            />
         </div>
     </div>
 </template>
@@ -15,9 +18,18 @@
 <script>
 import SvgLogoUclaLibraryUnderline from "~/assets/svg/logo-ucla-library-underline"
 
+// TODO Update this to not use mock data
+import * as API from "~/stories/mock-api.json"
+
 export default {
     components: {
         SvgLogoUclaLibraryUnderline,
+    },
+    data() {
+        return {
+            linkItems: [...API.searchHomeLinks.linkItems],
+            advancedSearchLink: { ...API.searchHomeLinks.advancedSearchLink },
+        }
     },
 }
 </script>

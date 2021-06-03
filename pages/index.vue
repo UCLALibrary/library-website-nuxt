@@ -16,6 +16,25 @@
             class="divider"
             color="visit"
         />
+
+        <banner-featured
+            class="section banner banner-visit"
+            :image="bannerVisit.image"
+            :to="bannerVisit.to"
+            :title="bannerVisit.title"
+            :category="bannerVisit.category"
+            :breadcrumb="bannerVisit.breadcrumb"
+            :dates="bannerVisit.dates"
+            :is-online="bannerVisit.isOnline"
+            :prompt="bannerVisit.prompt"
+            :ratio="bannerVisit.ratio"
+        >
+            <heading-arrow
+                :text="bannerVisit.breadcrumb.text"
+                :to="bannerVisit.breadcrumb.to"
+            />
+        </banner-featured>
+
         <section-dual-masonry
             class="section"
             :items="page.sectionDualMasonry"
@@ -25,9 +44,24 @@
             class="divider"
             color="about"
         />
-        <p class="section">
-            TO DO
-        </p>
+
+        <banner-featured
+            class="banner banner-about"
+            :image="bannerAbout.image"
+            :to="bannerAbout.to"
+            :title="bannerAbout.title"
+            :category="bannerAbout.category"
+            :breadcrumb="bannerAbout.breadcrumb"
+            :dates="bannerAbout.dates"
+            :is-online="bannerAbout.isOnline"
+            :prompt="bannerAbout.prompt"
+            :ratio="bannerAbout.ratio"
+        >
+            <heading-arrow
+                :text="bannerAbout.breadcrumb.text"
+                :to="bannerAbout.breadcrumb.to"
+            />
+        </banner-featured>
         <divider-general class="divider" />
         <section-post-small
             class="section"
@@ -48,8 +82,7 @@ export default {
         const mockCard = {
             to: "/help/foo/bar/",
             title: "Example Service",
-            text:
-                "Here is a decent amount of text to explain this get help with.",
+            text: "Here is a decent amount of text to explain this get help with.",
         }
         const sectionCardsData = {
             items: [
@@ -60,8 +93,7 @@ export default {
                 { ...mockCard, to: "/help/foo/fred/" },
             ],
             title: "Get Help with",
-            text:
-                "Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more.",
+            text: "Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more.",
             to: "/help/foo/bar",
         }
 
@@ -84,10 +116,26 @@ export default {
             },
         ]
 
+        const banner = {
+            image: MOCK_API.image,
+            to: "/help/foo/bar/",
+            title: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
+            category: { name: "Quisque", to: "/category/featured/" },
+            breadcrumb: {
+                text: "Lorem ipsum dolor sit amet",
+                to: "http://foo/about/bar",
+            },
+            dates: "July 1, 2020 - December 31, 2021",
+            isOnline: true,
+            prompt: "Read More",
+            alignRight: true,
+        }
+
         const data = {
             sectionCardsData: sectionCardsData,
             sectionDualMasonry: sectionDualMasonry,
             posts: posts,
+            banner,
         }
 
         return {
@@ -110,10 +158,26 @@ export default {
                 }
             })
         },
+        bannerVisit() {
+            return {
+                ...this.page.banner,
+                ratio: 56.25,
+            }
+        },
+        bannerAbout() {
+            return {
+                ...this.page.banner,
+                ratio: 40,
+                alignRight: false,
+            }
+        },
     },
 }
 </script>
 <style lang="scss" scoped>
 .page-home {
+    .banner {
+        margin: var(--unit-vertical-gap) 0;
+    }
 }
 </style>

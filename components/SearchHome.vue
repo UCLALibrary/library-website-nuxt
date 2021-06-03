@@ -33,7 +33,7 @@
             <div class="divider" />
 
             <nav
-                v-if="linkItems.length || advancedSearchLink.url"
+                v-if="linkItems.length || advancedSearchLink"
                 class="links"
             >
                 <div
@@ -50,7 +50,7 @@
                     />
                 </div>
                 <div
-                    v-if="advancedSearchLink.url"
+                    v-if="advancedSearchLink"
                     class="advanced-links"
                 >
                     <a
@@ -143,7 +143,7 @@ export default {
                 window.location = `${this.actionUrl}?${this.queryParam}=${this.queryifySearchWords}`
             }
         },
-        activeTabIndex(index) {
+        setActiveTab(index) {
             this.activeTabIndex = index
         },
     },

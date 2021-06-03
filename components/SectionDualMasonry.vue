@@ -49,16 +49,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.masonry {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: flex-start;
-    align-items: flex-start;
+.section-dual-masonry {
+    .masonry {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: flex-start;
+        align-items: flex-start;
 
-    max-width: 1280px;
-    margin: 0 auto;
+        max-width: 1280px;
+        margin: 0 auto;
+    }
 
     .brick {
         width: 50%;
@@ -103,6 +105,12 @@ export default {
             border-left: 0;
         }
     }
+    .more {
+        display: block;
+        padding: 30px 0px;
+        margin: 75px auto 0 auto;
+        width: max-content;
+    }
 
     // Breakpoints
     @media #{$lte-phone} {
@@ -128,11 +136,5 @@ export default {
             }
         }
     }
-}
-.more {
-    display: block;
-    padding: 30px 0px;
-    margin: 0 auto;
-    width: max-content;
 }
 </style>

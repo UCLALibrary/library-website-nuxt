@@ -254,6 +254,7 @@ export default {
         position: relative;
         z-index: 30;
         margin-top: -95px;
+        overflow: hidden;
     }
     .clipped-box {
         width: 65%;
