@@ -88,7 +88,6 @@ export default {
         SvgMoleculeHalfFaceted,
         SvgHatchRight,
         SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
-        //SvgHatchMobile: () => import("~/assets/svg/hatch-mobile"),
     },
     props: {
         image: {
@@ -245,7 +244,7 @@ export default {
         opacity: 45%;
         mix-blend-mode: screen;
 
-        height: 70%;
+        height: 50%;
         width: auto;
     }
 
@@ -376,28 +375,16 @@ export default {
 
     // Breakpoints
     @media #{$lte-phone} {
-        // .hatch {
-        //     height: 55px;
-        // }
-        // &.hatch-left {
-        //     .meta {
-        //         width: 95%;
-        //         padding-left: 24px;
-        //         padding-right: 24px;
-        //     }
-        //
-        //     .category {
-        //         padding-left: 55%;
-        //         margin-top: -55px;
-        //     }
-        // }
-        //
-        // .slot {
-        //     font-size: 28px;
-        //     padding-left: 24px;
-        //     margin-top: 16px;
-        // }
-        //\
+        .slot {
+            font-size: 28px;
+            padding-left: 24px;
+            margin-top: 16px;
+        }
+        .molecule {
+            margin-bottom: -45px;
+            height: 215px;
+            width: auto;
+        }
         .box {
             margin-top: -40px;
         }
@@ -437,26 +424,9 @@ export default {
             align-content: flex-start;
             align-items: flex-start;
         }
-        //
-        // .title {
-        //     margin-top: 55px;
-        //     padding-left: 24px;
-        //     padding-right: 24px;
-        // }
-        //
-        // .detail-block {
-        //     padding-left: 24px;
-        //     padding-right: 24px;
-        // }
-        //
-        // .category {
-        //     font-weight: bold;
-        //     font-size: 14px;
-        //     text-transform: uppercase;
-        //     padding-left: 40px;
-        //     padding-right: 40px;
-        // }
-        //
+        .title {
+            margin-top: 40px;
+        }
         .button {
             width: 100%;
             height: 40px;
@@ -471,6 +441,14 @@ export default {
             }
             .hatch {
                 right: calc(65% - 44px);
+            }
+            .meta {
+                width: 100%;
+                margin-top: 0;
+                padding-left: var(--unit-gutter);
+                padding-right: var(--unit-gutter);
+                box-sizing: border-box;
+                position: static;
             }
         }
     }
