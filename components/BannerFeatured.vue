@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div class="meta">
+        <div :class="metaClasses">
             <h3
                 v-if="category.name"
                 class="category category-desktop"
@@ -173,6 +173,16 @@ export default {
             }
             return output
         },
+        metaClasses() {
+            let output = ["meta"]
+            if (this.parsedRatio <= 42 && this.alignRight) {
+                output = ["meta", "content-width"]
+            }
+            if (this.parsedRatio <= 42 && !this.alignRight) {
+                output = ["meta", "content-width-left"]
+            }
+            return output
+        },
     },
 }
 </script>
@@ -182,6 +192,8 @@ export default {
     z-index: 0;
     position: relative;
     overflow: hidden;
+    background-color: var(--color-white);
+    border: none;
 
     // Themes
     --color-theme: var(--color-primary-blue);
@@ -251,12 +263,12 @@ export default {
         height: 70%;
         width: auto;
     }
-
     .box {
         width: 100%;
         position: relative;
         z-index: 30;
         margin-top: -95px;
+        border: none;
     }
     .box-clipped {
         width: 65%;
@@ -285,7 +297,6 @@ export default {
         top: 0;
         left: calc(65% - 99px);
     }
-
     .meta {
         padding: 0px 0px 0 50px;
         margin-top: -45px;
@@ -293,6 +304,9 @@ export default {
         z-index: 40;
         background-color: var(--color-white);
         width: 45%;
+    }
+    .content-width {
+        padding-left: 200px;
     }
     .title {
         font-size: 40px;
@@ -343,7 +357,7 @@ export default {
         margin-top: 16px;
     }
 
-    // Varient
+    // Variant
     &.hatch-left {
         .box-clipped {
             margin-left: auto;
@@ -355,6 +369,9 @@ export default {
             margin-left: auto;
             padding-right: 50px;
             padding-left: 100px;
+        }
+        .content-width-left {
+            padding-left: 150px;
         }
         .hatch {
             right: calc(65% - 99px);
@@ -420,6 +437,7 @@ export default {
             padding-right: calc(40px + var(--unit-gutter));
             padding-left: var(--unit-gutter);
             height: 40px;
+            text-transform: uppercase;
 
             display: flex;
             flex-direction: column;
