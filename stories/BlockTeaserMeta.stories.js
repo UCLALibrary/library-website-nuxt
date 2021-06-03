@@ -13,15 +13,16 @@ const mock = {
     date: "Thursday, January 28",
     time: "4:30 pm",
     title: "Intro to Oral History Research and Resources",
-    text: "This event will introduce attendees to the field of oral history, what oral history research is, and how to locate oral history resources at UCLA and beyond.",
+    text:
+        "This event will introduce attendees to the field of oral history, what oral history research is, and how to locate oral history resources at UCLA and beyond.",
 }
 
 // Variations of stories below
 export const Default = () => ({
-  data() {
-      return { item: mock }
-  },
-  template: `
+    data() {
+        return { item: mock }
+    },
+    template: `
       <block-teaser-meta
           v-bind="item"
       />
@@ -42,12 +43,12 @@ export const GalleryView = () => ({
 
 export const GalleryViewOnline = () => ({
     data() {
-        return { 
+        return {
             item: {
                 ...mock,
                 time: "",
                 isOnline: true,
-            }   
+            },
         }
     },
     template: `
@@ -72,12 +73,12 @@ export const HighlightView = () => ({
 
 export const HighlightViewOnline = () => ({
     data() {
-        return { 
+        return {
             item: {
                 ...mock,
                 time: "",
                 isOnline: true,
-            }
+            },
         }
     },
     template: `
@@ -90,13 +91,13 @@ export const HighlightViewOnline = () => ({
 
 export const CalendarView = () => ({
     data() {
-        return { 
-            item: { 
-                ...mock,  
-                date: "February 11–May 31, 2019", 
+        return {
+            item: {
+                ...mock,
+                date: "February 11–May 31, 2019",
                 time: "7:00 pm – 9:00 pm",
                 location: "Music Library",
-            } 
+            },
         }
     },
     template: `
@@ -109,12 +110,12 @@ export const CalendarView = () => ({
 
 export const CalendarViewOnline = () => ({
     data() {
-        return { 
-            item: { 
-                ...mock,  
+        return {
+            item: {
+                ...mock,
                 date: "February 11–May 31, 2019",
                 location: "online",
-            } 
+            },
         }
     },
     template: `
