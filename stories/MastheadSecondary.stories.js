@@ -8,7 +8,7 @@ export const Default = () => ({
             title="Find and Reserve a Space"
             text="Browse on-campus spaces for study, meetings, and group projects."
         >
-            <search-home :has-tabs="false" />
+            <search-generic actionURL="/search" />
         </masthead-secondary>
     `,
 })
@@ -18,7 +18,7 @@ export const LongText = () => ({
             title="Research"
             text="Schedule a research consultation, chat with a librarian, email us, and find tutorials & workshops to support your research journey."
         >
-            <search-home :has-tabs="false" />
+            <search-generic actionURL="/search" />
         </masthead-secondary
     `,
 })
