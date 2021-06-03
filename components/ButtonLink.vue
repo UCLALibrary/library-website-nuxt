@@ -58,6 +58,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
 
     width: 133px;
     height: 50px;

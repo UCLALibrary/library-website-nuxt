@@ -14,7 +14,7 @@
         <responsive-image
             class="image"
             :image="image"
-            :aspect-ratio="56.25"
+            :aspect-ratio="ratio"
         >
             <div class="gradient" />
 
@@ -22,24 +22,31 @@
         </responsive-image>
 
         <div class="box">
-            <div class="box-clipped" />
-            <div class="hatch">
-                <component
-                    :is="hatchSVG"
-                    class="svg"
+            <div class="box-clipped">
+                <h3
+                    v-if="category.name"
+                    class="category category-mobile"
+                    v-html="category.name"
                 />
+            </div>
+            <div class="hatch">
+                <svg-hatch-right class="svg" />
             </div>
         </div>
 
         <div class="meta">
             <h3
-                class="category"
-                v-html="category"
+                v-if="category.name"
+                class="category category-desktop"
+                v-html="category.name"
             />
-            <h2
-                class="title"
-                v-html="title"
-            />
+            <h2 class="title">
+                <nuxt-link
+                    :to="to"
+                    v-html="title"
+                />
+            </h2>
+
             <div class="detail-block">
                 <time class="date">
                     {{ dates }}
@@ -81,7 +88,7 @@ export default {
         SvgMoleculeHalfFaceted,
         SvgHatchRight,
         SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
-        SvgHatchMobile: () => import("~/assets/svg/hatch-mobile"),
+        //SvgHatchMobile: () => import("~/assets/svg/hatch-mobile"),
     },
     props: {
         image: {
@@ -155,10 +162,13 @@ export default {
         sectionName() {
             return this.section || getSectionName(this.to)
         },
-        hatchSVG() {
-            return this.isMobile == true
-                ? "svg-hatch-mobile"
-                : "svg-hatch-right"
+        ratio() {
+            let output = 56.25
+            // TODO Get this workign with winWidth from Store
+            if (true) {
+                output = 100
+            }
+            return output
         },
     },
 }
@@ -245,14 +255,6 @@ export default {
         z-index: 30;
         margin-top: -95px;
     }
-    .meta {
-        padding: 0px 0px 0 50px;
-        margin-top: -45px;
-        position: relative;
-        z-index: 40;
-        background-color: var(--color-white);
-        width: 45%;
-    }
     .box-clipped {
         width: 65%;
         background-color: var(--color-white);
@@ -269,7 +271,9 @@ export default {
             0 100%
         );
     }
-
+    .category-mobile {
+        display: none;
+    }
     .hatch {
         height: 95px;
         overflow: hidden;
@@ -279,28 +283,14 @@ export default {
         left: calc(65% - 99px);
     }
 
-    &.hatch-left {
-        .box-clipped {
-            margin-left: auto;
-            padding-right: 50px;
-            padding-left: 100px;
-            clip-path: polygon(39px 0, 100% 0, 100% 100%, 0 100%, 0% 95px);
-        }
-        .meta {
-            margin-left: auto;
-            padding-right: 50px;
-            padding-left: 100px;
-        }
-        .hatch {
-            right: calc(65% - 99px);
-            left: auto;
-
-            .svg {
-                transform: scaleX(-1);
-            }
-        }
+    .meta {
+        padding: 0px 0px 0 50px;
+        margin-top: -45px;
+        position: relative;
+        z-index: 40;
+        background-color: var(--color-white);
+        width: 45%;
     }
-
     .title {
         font-size: 40px;
         line-height: 44px;
@@ -350,6 +340,29 @@ export default {
         margin-top: 16px;
     }
 
+    // Varient
+    &.hatch-left {
+        .box-clipped {
+            margin-left: auto;
+            padding-right: 50px;
+            padding-left: 100px;
+            clip-path: polygon(39px 0, 100% 0, 100% 100%, 0 100%, 0% 95px);
+        }
+        .meta {
+            margin-left: auto;
+            padding-right: 50px;
+            padding-left: 100px;
+        }
+        .hatch {
+            right: calc(65% - 99px);
+            left: auto;
+
+            .svg {
+                transform: scaleX(-1);
+            }
+        }
+    }
+
     // Hovers
     @media #{$has-hover} {
         &:hover {
@@ -360,65 +373,105 @@ export default {
             }
         }
     }
+
+    // Breakpoints
     @media #{$lte-phone} {
         // .hatch {
         //     height: 55px;
         // }
-        &.hatch-left {
-            .meta {
-                width: 95%;
-                padding-left: 24px;
-                padding-right: 24px;
-            }
-
-            .category {
-                padding-left: 55%;
-                margin-top: -55px;
-            }
+        // &.hatch-left {
+        //     .meta {
+        //         width: 95%;
+        //         padding-left: 24px;
+        //         padding-right: 24px;
+        //     }
+        //
+        //     .category {
+        //         padding-left: 55%;
+        //         margin-top: -55px;
+        //     }
+        // }
+        //
+        // .slot {
+        //     font-size: 28px;
+        //     padding-left: 24px;
+        //     margin-top: 16px;
+        // }
+        //\
+        .box {
+            margin-top: -40px;
         }
-
-        .slot {
-            font-size: 28px;
-            padding-left: 24px;
-            margin-top: 16px;
-        }
-
-        .meta {
-            width: 95%;
-            padding-left: 24px;
-            padding-right: 24px;
-        }
-
-        .title {
-            margin-top: 55px;
-            padding-left: 24px;
-            padding-right: 24px;
-        }
-
-        .detail-block {
-            padding-left: 24px;
-            padding-right: 24px;
-        }
-
-        .category {
-            font-weight: bold;
-            font-size: 14px;
-            text-transform: uppercase;
-            padding-left: 40px;
-            padding-right: 40px;
-        }
-
-        .button {
-            padding-right: 10%;
-            padding-left: 10%;
-            width: 240px;
+        .box-clipped {
             height: 40px;
-            margin-top: 40px;
-            text-align: center;
+        }
+        .hatch {
+            left: calc(65% - 44px);
+            height: 40px;
+
+            .svg {
+                width: 50vw;
+                height: auto;
+            }
+        }
+        .meta {
+            width: 100%;
+            margin-top: 0;
+            padding-left: var(--unit-gutter);
+            padding-right: var(--unit-gutter);
+            box-sizing: border-box;
+            position: static;
+        }
+        .category-desktop {
+            display: none;
+        }
+        .category-mobile {
+            display: block;
+            padding-right: calc(40px + var(--unit-gutter));
+            padding-left: var(--unit-gutter);
+            height: 40px;
+
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: flex-start;
+            align-items: flex-start;
+        }
+        //
+        // .title {
+        //     margin-top: 55px;
+        //     padding-left: 24px;
+        //     padding-right: 24px;
+        // }
+        //
+        // .detail-block {
+        //     padding-left: 24px;
+        //     padding-right: 24px;
+        // }
+        //
+        // .category {
+        //     font-weight: bold;
+        //     font-size: 14px;
+        //     text-transform: uppercase;
+        //     padding-left: 40px;
+        //     padding-right: 40px;
+        // }
+        //
+        .button {
+            width: 100%;
+            height: 40px;
+            margin: 40px 0 0 0;
         }
 
-        .image {
-            aspect-ratio: 1;
+        // Variant
+        &.hatch-left {
+            .box-clipped {
+                padding-left: calc(40px + var(--unit-gutter));
+                padding-right: var(--unit-gutter);
+            }
+            .hatch {
+                right: calc(65% - 44px);
+            }
         }
     }
 }

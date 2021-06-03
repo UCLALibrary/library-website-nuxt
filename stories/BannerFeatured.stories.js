@@ -9,7 +9,7 @@ const mock = {
     image: API.image,
     to: "/help/foo/bar/",
     title: "New Director of Film and Television Archive",
-    category: "Featured",
+    category: { name: "Featured", to: "/category/featured/" },
     breadcrumb: { text: "Title", to: "http://foo/about/bar" },
     dates: " July 1, 2020 - December 31, 2021",
     isOnline: true,
