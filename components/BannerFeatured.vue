@@ -32,7 +32,7 @@
         </div>
 
         <div class="meta">
-            <div
+            <h3
                 class="category"
                 v-html="category"
             />
@@ -41,15 +41,21 @@
                 v-html="title"
             />
             <div class="detail-block">
-                <datetime class="date-time">
-                    {{ dates }} {{ times }}
-                </datetime>
-                <div
-                    v-if="locationDisplay !== ''"
-                    class="location"
+                <time class="date">
+                    {{ dates }}
+                </time>
+                <time
+                    v-if="parsedTime"
+                    class="time"
+                    :datetime="times"
                 >
-                    {{ locationDisplay }}
-                </div>
+                    {{ parsedTime }}
+                </time>
+                <div
+                    v-if="locationDisplay"
+                    class="location"
+                    v-html="locationDisplay"
+                />
             </div>
 
             <nuxt-link :to="to">
@@ -135,21 +141,19 @@ export default {
                 `color-${this.sectionName}`,
             ]
         },
+        parsedTime() {
+            //TODO make this human readable time
+            return this.times
+        },
         locationDisplay() {
-            let output = ""
-            if (this.isOnline == true) {
+            let output = this.location
+            if (this.isOnline) {
                 output = "Online"
-            }
-            if (this.location) {
-                output = this.location
             }
             return output
         },
         sectionName() {
             return this.section || getSectionName(this.to)
-        },
-        isMobile() {
-            return screen.width <= 760 ? true : false
         },
         hatchSVG() {
             return this.isMobile == true
@@ -206,15 +210,20 @@ export default {
         }
         .text {
             border: 1px solid var(--color-white);
-            padding: 15px 22px 10px 35px;
-            clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+            padding: 15px 20px 13px 22px;
+            margin-left: -10px;
+            clip-path: polygon(17px 0, 100% 0, 100% 100%, 0% 100%);
         }
     }
 
     .gradient {
-        background-color: var(gradient-image-01);
+        background-color: var(--gradient-image-01);
         z-index: 10;
-        position: relative;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
     .molecule {
         right: 0;
@@ -222,6 +231,7 @@ export default {
         bottom: 95px;
         margin: auto;
         position: absolute;
+        z-index: 20;
         opacity: 45%;
         mix-blend-mode: screen;
 
@@ -319,8 +329,12 @@ export default {
         margin-bottom: 5px;
     }
 
-    .date-time {
+    .date {
         padding-right: 10px;
+    }
+
+    .time {
+        border-left: 1px solid var(--color-grey-03);
     }
 
     .location {
