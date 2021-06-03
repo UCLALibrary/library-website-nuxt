@@ -153,3 +153,24 @@ export const LongHeading = () => ({
         </banner-featured>
     `,
 })
+
+export const WideImage = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <banner-featured
+           :image="image"
+           :to="to"
+           :title="title"
+           :category="category"
+           :breadcrumb="breadcrumb"
+           :dates="dates"
+           :is-online="isOnline"
+           :prompt="prompt"
+           :ratio="42"
+       />
+    `,
+})

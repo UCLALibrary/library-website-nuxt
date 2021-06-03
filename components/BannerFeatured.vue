@@ -14,7 +14,7 @@
         <responsive-image
             class="image"
             :image="image"
-            :aspect-ratio="ratio"
+            :aspect-ratio="parsedRatio"
         >
             <div class="gradient" />
 
@@ -138,6 +138,10 @@ export default {
             type: Boolean,
             default: true,
         },
+        ratio: {
+            type: Number,
+            default: 56.25,
+        },
     },
     computed: {
         classes() {
@@ -161,10 +165,10 @@ export default {
         sectionName() {
             return this.section || getSectionName(this.to)
         },
-        ratio() {
-            let output = 56.25
-            // TODO Get this workign with winWidth from Store
-            if (true) {
+        parsedRatio() {
+            // If on mobile, change ratio of image
+            let output = this.ratio
+            if (this.$store.state.winWidth <= 750) {
                 output = 100
             }
             return output
@@ -377,7 +381,7 @@ export default {
     @media #{$lte-phone} {
         .slot {
             font-size: 28px;
-            padding-left: 24px;
+            padding-left: 20px;
             margin-top: 16px;
         }
         .molecule {

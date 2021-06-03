@@ -93,10 +93,12 @@ export default {
 
     @media #{$lte-phone} {
         .svg {
-            height: 100px;
+            height: 40px;
+            margin-right: 0;
         }
         .heading {
             font-size: 28px;
+            margin-left: -10px;
         }
     }
 }
