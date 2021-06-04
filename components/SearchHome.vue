@@ -41,7 +41,7 @@
                     class="regular-links"
                 >
                     <a
-                        v-for="(link, i) in linkItems"
+                        v-for="link in linkItems"
                         :key="link.url"
                         class="link"
                         :href="link.url"
