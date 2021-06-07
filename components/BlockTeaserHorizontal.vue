@@ -65,6 +65,14 @@ export default {
 }
 
 // Breakpoints
+@media #{$lte-tablet} {
+    .block-teaser-horizontal {
+        max-width: 95%;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
 @media #{$lte-phone} {
     .block-teaser-horizontal {
         display: flex;
