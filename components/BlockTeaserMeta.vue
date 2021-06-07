@@ -212,7 +212,7 @@ export default {
     }
     &.is-highlight {
         .meta {
-            max-width: 230px;
+            width: 350px;
         }
     }
 
