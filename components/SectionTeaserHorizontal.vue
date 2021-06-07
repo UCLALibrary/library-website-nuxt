@@ -3,8 +3,9 @@
         <div
             v-for="item in items"
             :key="item.to"
+            class="meta"
         >
-            <divider-general />
+            <divider-general class="divider" />
             <block-teaser-horizontal
                 :item="item"
                 class="block"
@@ -29,19 +30,27 @@ export default {
 .section-teaser-horizontal {
     background-color: var(--color-white);
     padding: 0 var(--unit-gutter);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    max-width: 990px;
+
+    .meta {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
 
     .block {
         margin-top: 50px;
         margin-bottom: 50px;
+        // padding-left: 5px;
+        // padding-right: 5px;
+        // width: 94%;
     }
 
     .divider {
-        &:after {
-            display: none;
-        }
+        width: 100%;
     }
 }
 </style>
