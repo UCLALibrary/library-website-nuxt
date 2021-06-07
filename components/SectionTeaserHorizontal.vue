@@ -44,9 +44,6 @@ export default {
     .block {
         margin-top: 50px;
         margin-bottom: 50px;
-        // padding-left: 5px;
-        // padding-right: 5px;
-        // width: 94%;
     }
 
     .divider {
