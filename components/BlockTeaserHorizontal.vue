@@ -26,7 +26,7 @@ export default {
 
 <style lang="scss" scoped>
 .block-teaser-horizontal {
-    max-width: 992px;
+    max-width: 990px;
     max-height: 274px;
     background-color: var(--color-white);
 
@@ -65,6 +65,14 @@ export default {
 }
 
 // Breakpoints
+@media #{$lte-tablet} {
+    .block-teaser-horizontal {
+        max-width: 95%;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
 @media #{$lte-phone} {
     .block-teaser-horizontal {
         display: flex;
