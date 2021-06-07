@@ -29,6 +29,7 @@ export default {
     max-width: 300px;
     background-color: var(--color-white);
     max-height: 360px;
+    width: 300px;
 
     .meta {
         margin-top: 16px;

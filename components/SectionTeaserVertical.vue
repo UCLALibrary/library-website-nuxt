@@ -4,11 +4,11 @@
             v-for="item in items"
             :key="item.to"
         >
-            <divider-general />
             <block-teaser-vertical
                 :item="item"
                 class="block"
             />
+            <divider-general />
         </div>
     </section>
 </template>
@@ -27,15 +27,16 @@ export default {
 
 <style lang="scss" scoped>
 .section-teaser-vertical {
+    max-width: 924px;
     background-color: var(--color-white);
     padding: 0 var(--unit-gutter);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
 
     .block {
-        margin-top: 50px;
-        margin-bottom: 50px;
+        margin: 50px 16px 60px;
     }
 
     .divider {
