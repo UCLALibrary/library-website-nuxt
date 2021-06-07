@@ -26,7 +26,7 @@ export default {
 
 <style lang="scss" scoped>
 .block-teaser-horizontal {
-    max-width: 992px;
+    max-width: 990px;
     max-height: 274px;
     background-color: var(--color-white);
 

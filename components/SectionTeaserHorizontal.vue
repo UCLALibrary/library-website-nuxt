@@ -4,11 +4,11 @@
             v-for="item in items"
             :key="item.to"
         >
+            <divider-general />
             <block-teaser-horizontal
                 :item="item"
                 class="block"
             />
-            <divider-general class="divider" />
         </div>
     </section>
 </template>
@@ -39,7 +39,7 @@ export default {
     }
 
     .divider {
-        &:last-child:after {
+        &:after {
             display: none;
         }
     }
