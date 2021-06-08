@@ -76,6 +76,8 @@ export default {
 
 <style lang="scss" scoped>
 .block-card-vertical {
+    background-color: var(--color-white);
+
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
