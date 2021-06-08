@@ -27,8 +27,9 @@ export default {
 .section-teaser-vertical {
     max-width: 990px;
     background-color: var(--color-white);
+    //background-color: pink;
     padding: 0 var(--unit-gutter);
-    border: 1px solid green;
+    background-color: coral;
 
     display: flex;
     flex-direction: row;
@@ -37,19 +38,13 @@ export default {
     align-content: center;
     align-items: center;
 
-    .meta {
-        border: 1px solid coral;
-    }
-
     .block {
-        margin-bottom: 25px;
         padding-right: 16px;
+        border: 1px solid pink;
     }
 
     .divider {
         width: 100%;
-        margin-top: 25px;
-        margin-bottom: 25px;
     }
 }
 </style>

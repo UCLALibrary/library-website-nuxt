@@ -29,11 +29,12 @@ export default {
     max-width: 300px;
     background-color: var(--color-white);
     max-height: 360px;
-    width: 300px;
 
     .meta {
         margin-top: 16px;
         max-height: 180px;
+        margin-bottom: 50px;
+        background-color: indigo;
     }
 }
 </style>
