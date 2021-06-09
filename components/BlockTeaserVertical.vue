@@ -3,6 +3,7 @@
         <responsive-image
             :image="item.image"
             :aspect-ratio="60"
+            class="image"
         />
         <block-teaser-meta
             v-bind="item"
@@ -26,15 +27,15 @@ export default {
 <style lang="scss" scoped>
 .block-teaser-vertical {
     display: block;
-    max-width: 300px;
+    width: 300px;
     background-color: var(--color-white);
-    max-height: 360px;
+
+    .image {
+        width: 300px;
+    }
 
     .meta {
         margin-top: 16px;
-        max-height: 180px;
-        margin-bottom: 50px;
-        background-color: indigo;
     }
 }
 </style>
