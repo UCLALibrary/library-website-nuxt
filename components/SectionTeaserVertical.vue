@@ -1,12 +1,15 @@
 <template lang="html">
     <section class="section-teaser-vertical">
-        <block-teaser-vertical
+        <div
             v-for="item in items"
             :key="item.to"
-            :item="item"
-            class="block"
-        />
-
+            class="meta"
+        >
+            <block-teaser-vertical
+                :item="item"
+                class="block"
+            />
+        </div>
         <divider-general class="divider" />
     </section>
 </template>
@@ -27,9 +30,7 @@ export default {
 .section-teaser-vertical {
     max-width: 990px;
     background-color: var(--color-white);
-    //background-color: pink;
     padding: 0 var(--unit-gutter);
-    background-color: coral;
 
     display: flex;
     flex-direction: row;
@@ -38,9 +39,16 @@ export default {
     align-content: center;
     align-items: center;
 
+    .meta {
+        border: 2px solid coral;
+        margin-right: 16px;
+        border: 2px solid yellow;
+        &:nth-child(3n + 3) {
+            margin-right: 0px;
+        }
+    }
     .block {
-        padding-right: 16px;
-        border: 1px solid pink;
+        margin-bottom: 50px;
     }
 
     .divider {
