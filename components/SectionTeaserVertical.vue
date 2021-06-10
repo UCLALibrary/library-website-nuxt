@@ -1,6 +1,21 @@
 <template lang="html">
     <section class="section-teaser-vertical">
-        <div
+        <div v-html="blockOfThree" />
+        <div v-for="item in blockOfThree">
+            <div
+                v-for="(item, index) in items"
+                :key="item.to"
+                class="meta"
+            >
+                <block-teaser-vertical
+                    :key="item.to"
+                    :item="item"
+                    class="block"
+                />
+            </div>
+            <divider-general class="divider" />
+        </div>
+        <!-- <div
             v-for="(item, index) in items"
             :key="item.to"
             class="meta"
@@ -9,23 +24,18 @@
                 v-for="(item, index) in items"
                 :key="item.to"
             >
-                // loop through the Array // check the width of the screen //
-                group the array into 3s // print out 3 or 2 or 1 // print the
-                divider-general
-
                 <block-teaser-vertical
                     :key="item.to"
                     :item="item"
                     class="block"
                 />
             </div>
-        </div>
-        <divider-general class="divider" />
+        </div> -->
     </section>
 </template>
 
 <script>
-import sliceIntoChunks from "~/utils/sliceIntoChunks"
+import arrayOfArrays from "~/utils/arrayOfArrays"
 
 export default {
     props: {
@@ -36,11 +46,19 @@ export default {
         },
     },
     computed: {
-        classes() {
-            return ["block-event", `button color-${this.sectionName}`]
+        blockOfThree() {
+            return arrayOfArrays(this.items, 3)
         },
-        sectionName() {
-            return getSectionName(this.to)
+        blockOfTwo() {
+            return arrayOfArrays(this.items, 2)
+        },
+        blockOfOne() {
+            return arrayOfArrays(this.items, 1)
+        },
+    },
+    methods: {
+        arrayOfArrays(arr, chunkSize) {
+            return sliceIntoChunks(arr, chunkSize)
         },
     },
 }
@@ -66,6 +84,9 @@ export default {
         &:nth-child(3n + 3) {
             margin-right: 0px;
         }
+        margin-top: 50px;
+        margin-bottom: 50px;
+
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
