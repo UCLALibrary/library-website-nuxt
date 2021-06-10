@@ -251,7 +251,8 @@ data() {
 -   [ ] BlockDetail
     -   title
     -   text (It might have p tag, figure with img and caption, blockquote with span for author)
-    -   footNote (is optional) (could be a slot)
+    -   footNotes (is optional  and Array of Strings)
+    -   DividerGeneral component if the footNotes exists.
 
 -   [ ] Gallery
     -   it needs all these icons (+/-, play icon for video, solid-molecule-image, solid-molecule-video, )
@@ -259,9 +260,9 @@ data() {
     -   featuredItem    (// It is an object contains image or video url )
     -   items   (// array of objects [url, objectType[audio,video,image], meta: { to, category, title, dates, times, text, location }])
     -   (uses BlockTeaserVertical component)
-    -   (uses LightBox component when there are multiple items)
+    -   (uses Carousel component when there are multiple items)
 
--   [ ] Carousal  (lightbox in the figma)
+-   [ ] Carousel  (lightbox in the figma)
     -   items
     -   (icons needed are left, right arrows and close )
 
