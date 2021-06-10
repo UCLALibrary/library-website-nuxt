@@ -189,7 +189,7 @@ data() {
 }
 ```
 
-## Exhibits & Upcoming Events
+## Exhibits & Upcoming Events Index Page
 
 -   [ ] BlockTeaserMeta (All of the text for all of the other BlockTeaser components)
     -   items: { to, category, title, dates, times, text, location }
@@ -241,6 +241,56 @@ data() {
 -   [ ] SectionPagination
     -   nextTo
     -   previousTo
+
+## Exhibits Detail Long Form Page
+
+-   [ ] update BannerFeatured (path=/story/banner-featured--default)
+    -   hasButton (set this to false)
+    -   add new stories
+
+-   [ ] BlockDetail
+    -   title
+    -   text (It might have p tag, figure with img and caption, blockquote with span for author)
+    -   footNote (is optional) (could be a slot)
+
+-   [ ] Gallery
+    -   it needs all these icons (+/-, play icon for video, solid-molecule-image, solid-molecule-video, )
+    -   galleryTitle
+    -   featuredItem    (// It is an object contains image or video url )
+    -   items   (// array of objects [url, objectType[audio,video,image], meta: { to, category, title, dates, times, text, location }])
+    -   (uses BlockTeaserVertical component)
+    -   (uses LightBox component when there are multiple items)
+
+-   [ ] Carousal  (lightbox in the figma)
+    -   items
+    -   (icons needed are left, right arrows and close )
+
+-   [ ] GalleryHorizontal
+    -   featuredItem
+    -   items [url, objectType[audio,video,image], meta: { to, category, title, dates, times, text, location, identifier (which can be a call number) }])
+    -   (uses updated BlockTeaserVertical component)
+    -   Uses icons +/-, play icon for video, solid-molecule-image, solid-molecule-video,
+
+-   [ ] BlockGalleryVertical ?path=/story/block-teaser-vertical--default
+    -   item (date, image, callnumber or any other identifier, tilte)
+    -   default audio or video or image icon if no images given
+
+-   [ ] BlockGalleryHorizontal
+    -   featuredTitle
+    -   featuredText
+    -   items
+    -   uses GalleryHorizontal component
+    -   uses Carousal component
+
+-   [ ] SectionGalleryHorizontal
+    -   items (// Array of Array objects )
+    -   title
+    -   Uses DividerGeneral component
+    -   Uses BlockGalleryHorizontal component
+
+
+
+
 
 note: 2 sizes full width & half page
 
