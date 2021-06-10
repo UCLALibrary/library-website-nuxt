@@ -30,31 +30,31 @@ const items = [
     },
     {
       name: "Excepteur sint occaecat cupidatat non proident1",    
-  },
-  {
-      name: "vel illum qui dolorem eum fugiat1",    
-  },
-  {
-      name: "quis nostrum exercitationem ullam1",
-  },
-  {
-      name: "Quis autem vel eum iure reprehenderit1",
-  },
+    },
+    {
+        name: "vel illum qui dolorem eum fugiat1",    
+    },
+    {
+        name: "quis nostrum exercitationem ullam1",
+    },
+    {
+        name: "Quis autem vel eum iure reprehenderit1",
+    },
 ]
 const views = [
     {
         to: "/visit/foo",
-        iconName: "",
+        iconName: "icon-list",
         title: "List",
     },
     {
         to: "/visit/baz",
-        iconName: "",
+        iconName: "icon-card",
         title: "Card",
     },
     {
         to: "/visit/qux",
-        iconName: "",
+        iconName: "icon-calendar",
         title: "Calendar",
     },
 ]
@@ -67,19 +67,19 @@ export const Default = () => ({
             {
               label: "location",
               searchField: "location_tesim",
-              selection: "single",
+              isMultiValuedField: true,
               filterItems: items,
             },
             {
                 label: "date range",
                 searchField: "date_range_tesim",
-                selection: "single",
+                isMultiValuedField: false,
                 filterItems: items,
             },
             {
                 label: "type",
                 searchField: "type_tesim",
-                selection: "single",
+                isMultiValuedField: true,
                 filterItems: items,
             },
 
@@ -101,7 +101,7 @@ export const OneFilter = () => ({
             {
               label: "location",
               searchField: "location_tesim",
-              selection: "single",
+              isMultiValuedField: false,
               filterItems: items,
             },
           ],
@@ -122,13 +122,13 @@ export const TwoFilter = () => ({
             {
               label: "location",
               searchField: "location_tesim",
-              selection: "single",
+              isMultiValuedField: true,
               filterItems: items,
             },
             {
                 label: "date range",
                 searchField: "date_range_tesim",
-                selection: "single",
+                isMultiValuedField: false,
                 filterItems: items,
             },
           ],
@@ -148,14 +148,14 @@ export const TwoFilterWithViews = () => ({
           filters:[
             {
               label: "location",
-              searchField: "location_tesim",
-              selection: "single",
+              searchField: "location_ssi",
+              isMultiValuedField: true,
               filterItems: items,
             },
             {
                 label: "date range",
-                searchField: "date_range_tesim",
-                selection: "single",
+                searchField: "date_range_ssi",
+                isMultiValuedField: false,
                 filterItems: items,
             }
           ],
@@ -177,8 +177,8 @@ export const WithViewModes = () => ({
           filters:[
             {
               label: "location",
-              searchField: "location_tesim",
-              selection: "single",
+              searchField: "location_ssi",
+              isMultiValuedField: false,
               filterItems: items,
             }
           ],

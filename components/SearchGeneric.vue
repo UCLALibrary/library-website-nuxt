@@ -29,13 +29,6 @@
                                 v-html="filter.label"
                             />
                         </button>
-                        <radio-filters
-                            :is-opened="filter.isOpened"
-                            :search-field="filter.searchField"
-                            :filter="filter.label"
-                            :filter-items="filter.filterItems"
-                            :event="event"
-                        />
                     </div>
 
                     <!-- View Mode -->
@@ -49,22 +42,44 @@
                         >
                             <span class="title"> View </span>
                         </button>
-                        <ul class="list">
+                        <ul :class="parsedListClasses">
                             <li
                                 v-for="view in viewModes"
                                 :key="view.title"
-                                class="listItem"
-                                v-html="view.title"
+                                class="list-item"
                             >
                                 <nuxt-link :to="view.to">
-                                    <components
-                                        is="view.iconName"
+                                    <component
+                                        :is="view.iconName"
                                         class="svg"
                                     />
+                                    <div v-html="view.title" />
                                 </nuxt-link>
                             </li>
                         </ul>
                     </div>
+                </div>
+
+                <!-- Filter list -->
+                <div
+                    v-for="(filter, index) in parsedFilters"
+                    :key="index"
+                    class="filter-list"
+                >
+                    <base-radio-group
+                        v-if="!filter.isMultiValuedField"
+                        :is-opened="filter.isOpened"
+                        :search-field="filter.searchField"
+                        :filter="filter.label"
+                        :filter-items="filter.filterItems"
+                    />
+                    <base-checkbox-group
+                        v-if="filter.isMultiValuedField"
+                        :is-opened="filter.isOpened"
+                        :search-field="filter.searchField"
+                        :filter="filter.label"
+                        :filter-items="filter.filterItems"
+                    />
                 </div>
             </form>
         </div>
@@ -73,16 +88,16 @@
 
 <script>
 import IconSearch from "~/assets/svg/icon-search"
-import SvgIconCalendar from "~/assets/svg/icon-calendar"
-import SvgIconCard from "~/assets/svg/icon-card"
-import SvgIconList from "~/assets/svg/icon-list"
+import IconCalendar from "~/assets/svg/icon-calendar"
+import IconCard from "~/assets/svg/icon-card"
+import IconList from "~/assets/svg/icon-list"
 
 export default {
     components: {
         IconSearch,
-        SvgIconCalendar,
-        SvgIconCard,
-        SvgIconList,
+        IconCalendar,
+        IconCard,
+        IconList,
     },
     props: {
         searchType: {
@@ -108,11 +123,11 @@ export default {
         }
     },
     computed: {
-        classes() {
-            return ["button", { "is-opened": this.isOpened }]
-        },
         parsedClasses() {
-            return [{ "is-opened": this.isOpened }]
+            return ["view-btn", { "is-opened": this.isOpened }]
+        },
+        parsedListClasses() {
+            return ["view-list", { "is-opened": this.isOpened }]
         },
         showViews() {
             return this.viewModes.length > 0 ? true : false
@@ -141,8 +156,17 @@ export default {
             })
         },
         toggleMenu(index) {
-            // this.isOpened = !this.isOpened
-            this.openedFilter = index
+            this.filters[index].isOpened = !this.filters[index].isOpened
+            if (this.filters[index].isOpened) {
+                this.openedFilter = index
+                this.isOpened = false
+            } else {
+                this.openedFilter = -1
+            }
+        },
+        toggleViews() {
+            this.isOpened = !this.isOpened
+            this.openedFilter = -1
         },
     },
 }
@@ -193,6 +217,8 @@ export default {
         list-style: none;
         cursor: pointer;
         width: 890px;
+        // box-sizing: border-box;
+        // overflow: hidden;
 
         display: flex;
         flex-direction: row;
@@ -234,33 +260,56 @@ export default {
     .view-mode {
         margin-top: 12px;
         margin-bottom: 12px;
-        padding-right: 16px;
-        width: 106px;
-        height: 60px;
-
-        background-color: var(--color-primary-blue);
-
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        align-content: center;
 
         flex: 0 1 auto;
+        display: flex;
+        flex-direction: column;
 
-        .list {
-            list-style: none;
-            display: none;
+        .view-btn {
+            width: 106px;
+            height: 60px;
+            background-color: var(--color-primary-blue);
+            padding-right: 16px;
 
-            // display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            align-content: center;
+            &::after {
+                content: "\f107";
+                font-size: 16px;
+                font-family: "Font-Awesome";
+                color: var(--color-white);
+            }
         }
 
-        &::after {
-            content: "\f107";
-            font-size: 16px;
-            font-family: "Font-Awesome";
+        .view-list {
+            margin-top: 15px;
+            list-style: none;
+            background-color: var(--color-primary-blue);
             color: var(--color-white);
+
+            display: none;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+
+            &.is-opened {
+                display: flex;
+            }
+            .list-item {
+                margin-top: 12px;
+                font-size: 18px;
+                font-weight: 400;
+                &:last-child {
+                    margin-bottom: 12px;
+                }
+            }
+            .svg:last-child {
+                padding-left: 15px;
+            }
         }
     }
     .title {

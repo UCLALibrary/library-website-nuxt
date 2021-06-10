@@ -5,10 +5,9 @@
             :key="filterItem.label"
             class="content-item"
         >
-            <BaseRadio
-                v-model="parsedModel"
+            <BaseCheckbox
+                v-model="selectedFilters[filterItem.name]"
                 :label="filterItem.name"
-                :name="filter"
             />
         </li>
     </ul>
@@ -41,14 +40,16 @@ export default {
     },
     computed: {
         classes() {
-            return ["radio-filters content", { "is-opened": this.isOpened }]
+            return [
+                "base-checkbox-group content",
+                { "is-opened": this.isOpened },
+            ]
         },
-        parsedModel() {
-            if (this.selectedFilters[this.searchField]) {
-                return this.selectedFilters[this.searchField]
-            } else {
-                this.selectedFilters[this.searchField] = ""
-                return this.selectedFilters[this.searchField]
+    },
+    methods: {
+        mounted() {
+            for (filterItem in this.filterItems) {
+                this.selectedFilters[filterItem.name] = false
             }
         },
     },
@@ -56,7 +57,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.radio-filters {
+.base-checkbox-group {
     .content-item {
         margin: 12px 32px;
         width: 230px;
