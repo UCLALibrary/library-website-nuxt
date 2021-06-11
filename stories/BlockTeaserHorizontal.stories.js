@@ -3,7 +3,7 @@ import * as API from "~/stories/mock-api.json"
 
 // Storybook default settings
 export default {
-    title: "BLOCK / Teaser / Horizontal",
+    title: "BLOCK / Teaser / List",
 }
 
 const mock = {
@@ -23,7 +23,7 @@ export const Default = () => ({
         return { item: mock }
     },
     template: `
-      <block-teaser-horizontal
+      <block-teaser-list
         :item="item"
       />
   `,
@@ -39,7 +39,7 @@ export const ShortTitle = () => ({
         }
     },
     template: `
-      <block-teaser-horizontal
+      <block-teaser-list
         :item="item"
       />
   `,
@@ -56,7 +56,7 @@ export const LongTitle = () => ({
         }
     },
     template: `
-      <block-teaser-horizontal
+      <block-teaser-list
         :item="item"
       />
   `,
