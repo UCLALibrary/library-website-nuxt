@@ -212,7 +212,13 @@ export default {
     }
     &.is-highlight {
         .meta {
-            width: 350px;
+            width: 500px;
+        }
+        .category {
+            margin-top: 6px;
+        }
+        .text {
+            margin-top: 15px;
         }
     }
 

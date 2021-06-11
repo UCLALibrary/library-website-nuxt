@@ -45,12 +45,13 @@ export default {
         width: 456px;
         height: 255px;
         background-color: white;
+        padding-bottom: 50px;
 
         .floating-highlighlight {
             z-index: 10;
             position: absolute;
             box-sizing: border-box;
-            top: -55px;
+            top: -56px;
             left: 5px;
             background-color: var(--color-fushia-01);
             width: 403px;
@@ -58,10 +59,10 @@ export default {
             clip-path: polygon(
                 0 0,
                 93.75% 0,
-                98.875% 47px,
-                98.125% 47px,
-                93.25% 2px,
-                0 2px
+                99.5% 48px,
+                98.5% 48px,
+                93.25% 2.5px,
+                0 2.5px
             );
         }
         .clipped-box {
@@ -85,12 +86,6 @@ export default {
         /deep/ {
             &.block-teaser-meta {
                 max-width: 450px;
-                .category {
-                    margin-top: 6px;
-                }
-                .text {
-                    margin-top: 15px;
-                }
             }
         }
     }
