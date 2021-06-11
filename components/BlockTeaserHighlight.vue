@@ -36,7 +36,7 @@ export default {
     display: block;
     overflow: hidden;
     max-width: 456px;
-    max-height: 5230px;
+    max-height: 450px;
     background-color: var(--color-white);
 
     .text {
@@ -61,8 +61,8 @@ export default {
                 93.75% 0,
                 99.5% 48px,
                 98.5% 48px,
-                93.25% 2.5px,
-                0 2.5px
+                93.25% 2.75px,
+                0 2.75px
             );
         }
         .clipped-box {
