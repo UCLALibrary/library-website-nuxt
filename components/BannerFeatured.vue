@@ -183,6 +183,7 @@ export default {
     z-index: 0;
     position: relative;
     overflow: hidden;
+    background-color: var(--color-white);
 
     // Themes
     --color-theme: var(--color-primary-blue);
