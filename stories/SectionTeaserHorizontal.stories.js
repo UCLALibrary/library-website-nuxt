@@ -2,7 +2,7 @@ import * as API from "~/stories/mock-api.json"
 
 // Storybook default settings
 export default {
-    title: "SECTION / Teaser Horizontal",
+    title: "SECTION / Teaser List",
 }
 
 const mock = [
@@ -55,7 +55,7 @@ export const Default = () => ({
         return { items: mock }
     },
     template: `
-      <section-teaser-horizontal
+      <section-teaser-list
         :items="items"
       />
   `,

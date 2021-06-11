@@ -1,12 +1,12 @@
 <template lang="html">
-    <section class="section-teaser-horizontal">
+    <section class="section-teaser-list">
         <div
             v-for="item in items"
             :key="item.to"
             class="meta"
         >
             <divider-general class="divider" />
-            <block-teaser-horizontal
+            <block-teaser-list
                 :item="item"
                 class="block"
             />
@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section-teaser-horizontal {
+.section-teaser-list {
     background-color: var(--color-white);
     padding: 0 var(--unit-gutter);
     max-width: 990px;
