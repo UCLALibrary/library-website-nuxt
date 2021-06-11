@@ -79,7 +79,7 @@ export default {
             width: 435px;
             padding: 15px 0 10px 20px;
             background-color: white;
-            clip-path: polygon(0 0, 375px 0, 100% 100%, 0% 100%);
+            clip-path: polygon(0 0, 375px 0, 490px 100%, 0% 100%);
         }
 
         /deep/ {
@@ -87,6 +87,9 @@ export default {
                 max-width: 450px;
                 .category {
                     margin-top: 6px;
+                }
+                .text {
+                    margin-top: 15px;
                 }
             }
         }
