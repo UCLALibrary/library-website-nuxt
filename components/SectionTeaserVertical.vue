@@ -35,6 +35,7 @@ export default {
     max-width: 990px;
     background-color: var(--color-white);
     padding-left: 25px;
+    border: 2px solid aqua;
 
     display: grid;
     grid-gap: 0px;
@@ -49,6 +50,20 @@ export default {
         &:nth-child(3) {
             border-top: none;
         }
+    }
+    // Breakpoints
+    @media #{$lte-tablet} {
+        display: grid;
+        grid-gap: 0px;
+        grid-template-columns: repeat(2, minmax(300px, 1fr));
+    }
+    @media #{$lte-phone} {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
     }
 }
 </style>
