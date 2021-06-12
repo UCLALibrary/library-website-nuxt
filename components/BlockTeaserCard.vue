@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="block-teaser-vertical">
+    <section class="block-teaser-card">
         <responsive-image
             :image="item.image"
             :aspect-ratio="60"
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.block-teaser-vertical {
+.block-teaser-card {
     display: block;
     width: 300px;
     background-color: var(--color-white);

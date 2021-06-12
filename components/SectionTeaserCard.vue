@@ -1,7 +1,7 @@
 <template lang="html">
-    <div class="section-teaser-vertical">
+    <div class="section-teaser-card">
         <template v-for="item in items">
-            <block-teaser-vertical
+            <block-teaser-card
                 :key="item.to"
                 :item="item"
                 class="block"
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section-teaser-vertical {
+.section-teaser-card {
     max-width: 990px;
     background-color: var(--color-white);
     padding-left: 25px;
@@ -41,7 +41,7 @@ export default {
     grid-gap: 0px;
     grid-template-columns: repeat(3, minmax(300px, 1fr));
 
-    .block-teaser-vertical {
+    .block-teaser-card {
         border-top: 2px dotted var(--color-grey-03);
         padding: 50px 0;
 
