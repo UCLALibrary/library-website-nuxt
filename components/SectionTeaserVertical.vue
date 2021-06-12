@@ -1,21 +1,13 @@
 <template lang="html">
-    <section class="section-teaser-vertical">
-        <div v-for="filterItems in blockOfThree">
-            <div>{{ filterItems }}</div>
-            <div
-                v-for="item in filterItems"
-                :key="item.category"
-                class="meta"
-            >
-                <block-teaser-vertical
-                    :key="item.to"
-                    :item="item"
-                    class="block"
-                />
-            </div>
-            <divider-general class="divider" />
-        </div>
-    </section>
+    <div class="section-teaser-vertical">
+        <template v-for="item in items">
+            <block-teaser-vertical
+                :key="item.to"
+                :item="item"
+                class="block"
+            />
+        </template>
+    </div>
 </template>
 
 <script>
@@ -23,8 +15,10 @@ import arrayOfArrays from "~/utils/arrayOfArrays"
 
 export default {
     props: {
+        /**
+         * Array of objects [{ image, to, category, title, dates, times, text }]
+         */
         items: {
-            //Array of objects {image, to, category, title, dates, times, text}
             type: Array,
             default: () => [],
         },
@@ -44,11 +38,20 @@ export default {
     padding: 0 var(--unit-gutter);
     border: 2px solid aqua;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+    display: grid;
+    grid-gap: 0px;
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+
+    .block-teaser-vertical {
+        border-top: solid gray 1px;
+        padding: 20px 0;
+
+        &:first-child,
+        &:nth-child(2),
+        &:nth-child(3) {
+            border-top: none;
+        }
+    }
 
     .meta {
         border: 2px solid coral;
