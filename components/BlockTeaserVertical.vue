@@ -27,7 +27,7 @@ export default {
 <style lang="scss" scoped>
 .block-teaser-vertical {
     display: block;
-    width: 300px;
+    // width: 300px;
     background-color: var(--color-white);
 
     .image {
