@@ -1,30 +1,23 @@
 <template lang="html">
-    <section class="section-teaser-vertical">
-        <div v-for="filterItems in blockOfThree">
-            <div>{{ filterItems }}</div>
-            <div
-                v-for="item in filterItems"
-                :key="item.category"
-                class="meta"
-            >
-                <block-teaser-vertical
-                    :key="item.to"
-                    :item="item"
-                    class="block"
-                />
-            </div>
-            <divider-general class="divider" />
-        </div>
-    </section>
+    <div class="section-teaser-vertical">
+        <template v-for="item in items">
+            <block-teaser-vertical
+                :key="item.to"
+                :item="item"
+                class="block"
+            />
+        </template>
+    </div>
 </template>
-
 <script>
 import arrayOfArrays from "~/utils/arrayOfArrays"
 
 export default {
     props: {
+        /**
+         * Array of objects [{ image, to, category, title, dates, times, text }]
+         */
         items: {
-            //Array of objects {image, to, category, title, dates, times, text}
             type: Array,
             default: () => [],
         },
@@ -41,38 +34,20 @@ export default {
 .section-teaser-vertical {
     max-width: 990px;
     background-color: var(--color-white);
-    padding: 0 var(--unit-gutter);
-    border: 2px solid aqua;
+    padding-left: 25px;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+    display: grid;
+    grid-gap: 0px;
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
 
-    .meta {
-        border: 2px solid coral;
-        // margin-right: 16px;
-        // &:nth-child(3n + 3) {
-        //     margin-right: 0px;
-        // }
-        // margin-top: 50px;
-        // margin-bottom: 50px;
-    }
-    .block {
-        //margin-bottom: 50px;
-    }
+    .block-teaser-vertical {
+        border-top: 2px dotted var(--color-grey-03);
+        padding: 50px 0;
 
-    .divider {
-        width: 100%;
-    }
-
-    // Breakpoints
-    @media #{$lte-tablet} {
-        .meta {
-            &:nth-child(2n + 3) {
-                //margin-right: 50px;
-            }
+        &:first-child,
+        &:nth-child(2),
+        &:nth-child(3) {
+            border-top: none;
         }
     }
 }
