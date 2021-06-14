@@ -53,11 +53,13 @@ export default {
     }
     // Breakpoints
     @media #{$lte-tablet} {
+        max-width: 990px;
         display: grid;
         grid-gap: 0px;
         grid-template-columns: repeat(2, minmax(300px, 1fr));
     }
     @media #{$lte-phone} {
+        max-width: 990px;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
