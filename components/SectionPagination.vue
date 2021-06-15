@@ -98,5 +98,19 @@ export default {
         align-content: stretch;
         align-items: center;
     }
+
+    // Hover states
+    @media #{$has-hover} {
+        .next:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue);
+            text-decoration-thickness: 1.5px;
+        }
+        .previous:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue);
+            text-decoration-thickness: 1.5px;
+        }
+    }
 }
 </style>
