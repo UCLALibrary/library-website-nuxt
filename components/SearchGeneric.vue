@@ -47,14 +47,13 @@
                                 v-for="view in viewModes"
                                 :key="view.title"
                                 class="list-item"
+                                @click="$emit('view-mode-change', view.title)"
                             >
-                                <nuxt-link :to="view.to">
-                                    <component
-                                        :is="view.iconName"
-                                        class="svg"
-                                    />
-                                    <div v-html="view.title" />
-                                </nuxt-link>
+                                <component
+                                    :is="view.iconName"
+                                    class="svg"
+                                />
+                                <div v-html="view.title" />
                             </li>
                         </ul>
                     </div>
@@ -72,6 +71,7 @@
                         :search-field="filter.searchField"
                         :filter="filter.label"
                         :filter-items="filter.filterItems"
+                        @filter-change="updateFilters"
                     />
                     <base-checkbox-group
                         v-if="filter.isMultiValuedField"
@@ -82,6 +82,12 @@
                     />
                 </div>
             </form>
+            <div
+                v-if="filterList.length > 0"
+                class="remove-list"
+            >
+                <span> {{ filterList }} </span>
+            </div>
         </div>
     </div>
 </template>
@@ -106,7 +112,6 @@ export default {
             default: "help",
         },
         filters: {
-            // Mock: api.pages
             type: Array, // array of objects that contain the filter objects
             default: () => [],
         },
@@ -120,6 +125,7 @@ export default {
             searchWords: "",
             isOpened: false,
             openedFilter: -1,
+            filterList: [],
         }
     },
     computed: {
@@ -167,6 +173,10 @@ export default {
         toggleViews() {
             this.isOpened = !this.isOpened
             this.openedFilter = -1
+        },
+        updateFilters(e) {
+            console.log("In update filter method: " + e)
+            this.filterList.push(e)
         },
     },
 }
@@ -217,8 +227,6 @@ export default {
         list-style: none;
         cursor: pointer;
         width: 890px;
-        // box-sizing: border-box;
-        // overflow: hidden;
 
         display: flex;
         flex-direction: row;

@@ -1,25 +1,35 @@
 <template>
     <div class="base-radio">
         <input
+            :id="id"
             type="radio"
-            :checked="modelValue === label"
-            :value="label"
             v-bind="$attrs"
-            @change="$emit('update:modelValue', value)"
+            @change="onUpdate"
         >
         <label v-if="label">{{ label }}</label>
     </div>
 </template>
 <script>
 export default {
+    inheritAttrs: false,
+    model: {
+        prop: "radioModel",
+        event: "radio-select",
+    },
     props: {
+        id: {
+            type: String,
+            required: true,
+        },
         label: {
             type: String,
-            default: "",
+            required: true,
         },
-        modelValue: {
-            type: String,
-            default: "",
+    },
+    methods: {
+        onUpdate() {
+            this.$emit("radio-select", event.target.value)
+            this.$emit("change", event.target.value)
         },
     },
 }

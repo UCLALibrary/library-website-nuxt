@@ -24,10 +24,12 @@ export default {
             type: Array, // array of objects that contain the filter objects
             default: () => [],
         },
+        // eslint-disable-next-line vue/require-default-prop
         filter: {
             type: String,
             reuired: true,
         },
+        // eslint-disable-next-line vue/require-default-prop
         searchField: {
             type: String,
             reuired: true,
@@ -47,8 +49,10 @@ export default {
         },
     },
     methods: {
-        mounted() {
+        created() {
+            // eslint-disable-next-line no-undef
             for (filterItem in this.filterItems) {
+                // eslint-disable-next-line no-undef
                 this.selectedFilters[filterItem.name] = false
             }
         },

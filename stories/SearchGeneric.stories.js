@@ -1,6 +1,6 @@
 // Storybook default settings
 export default {
-  title: "SEARCH / Generic",
+    title: "SEARCH / Generic",
 }
 
 const items = [
@@ -29,7 +29,7 @@ const items = [
         name: "Quis autem vel eum iure reprehenderit",
     },
     {
-      name: "Excepteur sint occaecat cupidatat non proident1",    
+        name: "Excepteur sint occaecat cupidatat non proident1",    
     },
     {
         name: "vel illum qui dolorem eum fugiat1",    
@@ -63,27 +63,27 @@ const views = [
 export const Default = () => ({
     data() {
         return {
-          filters:[
-            {
-              label: "location",
-              searchField: "location_tesim",
-              isMultiValuedField: true,
-              filterItems: items,
-            },
-            {
-                label: "date range",
-                searchField: "date_range_tesim",
-                isMultiValuedField: false,
-                filterItems: items,
-            },
-            {
-                label: "type",
-                searchField: "type_tesim",
-                isMultiValuedField: true,
-                filterItems: items,
-            },
+            filters:[
+                {
+                    label: "location",
+                    searchField: "location_tesim",
+                    isMultiValuedField: true,
+                    filterItems: items,
+                },
+                {
+                    label: "date range",
+                    searchField: "date_range_tesim",
+                    isMultiValuedField: false,
+                    filterItems: items,
+                },
+                {
+                    label: "type",
+                    searchField: "type_tesim",
+                    isMultiValuedField: true,
+                    filterItems: items,
+                },
 
-          ],
+            ],
         }
     },
     template: `
@@ -97,14 +97,14 @@ export const Default = () => ({
 export const OneFilter = () => ({
     data() {
         return {
-          filters:[
-            {
-              label: "location",
-              searchField: "location_tesim",
-              isMultiValuedField: false,
-              filterItems: items,
-            },
-          ],
+            filters:[
+                {
+                    label: "location",
+                    searchField: "location_tesim",
+                    isMultiValuedField: false,
+                    filterItems: items,
+                },
+            ],
         }
     },
     template: `
@@ -118,20 +118,20 @@ export const OneFilter = () => ({
 export const TwoFilter = () => ({
     data() {
         return {
-          filters:[
-            {
-              label: "location",
-              searchField: "location_tesim",
-              isMultiValuedField: true,
-              filterItems: items,
-            },
-            {
-                label: "date range",
-                searchField: "date_range_tesim",
-                isMultiValuedField: false,
-                filterItems: items,
-            },
-          ],
+            filters:[
+                {
+                    label: "location",
+                    searchField: "location_tesim",
+                    isMultiValuedField: true,
+                    filterItems: items,
+                },
+                {
+                    label: "date range",
+                    searchField: "date_range_tesim",
+                    isMultiValuedField: false,
+                    filterItems: items,
+                },
+            ],
         }
     },
     template: `
@@ -145,21 +145,21 @@ export const TwoFilter = () => ({
 export const TwoFilterWithViews = () => ({
     data() {
         return {
-          filters:[
-            {
-              label: "location",
-              searchField: "location_ssi",
-              isMultiValuedField: true,
-              filterItems: items,
-            },
-            {
-                label: "date range",
-                searchField: "date_range_ssi",
-                isMultiValuedField: false,
-                filterItems: items,
-            }
-          ],
-          viewModes:views,
+            filters:[
+                {
+                    label: "location",
+                    searchField: "location_ssi",
+                    isMultiValuedField: true,
+                    filterItems: items,
+                },
+                {
+                    label: "date range",
+                    searchField: "date_range_ssi",
+                    isMultiValuedField: false,
+                    filterItems: items,
+                }
+            ],
+            viewModes:views,
         }
     },
     template: `
@@ -174,15 +174,15 @@ export const TwoFilterWithViews = () => ({
 export const WithViewModes = () => ({
     data() {
         return {
-          filters:[
-            {
-              label: "location",
-              searchField: "location_ssi",
-              isMultiValuedField: false,
-              filterItems: items,
-            }
-          ],
-          viewModes:views,
+            filters:[
+                {
+                    label: "location",
+                    searchField: "location_ssi",
+                    isMultiValuedField: false,
+                    filterItems: items,
+                }
+            ],
+            viewModes:views,
         }
     },
     template: `

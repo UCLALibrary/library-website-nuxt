@@ -6,9 +6,12 @@
             class="content-item"
         >
             <BaseRadio
-                v-model="parsedModel"
+                :id="filterItem.name"
+                v-model="selectedFilters[searchField]"
                 :label="filterItem.name"
                 :name="filter"
+                :value="filterItem.name"
+                @change="changed"
             />
         </li>
     </ul>
@@ -25,10 +28,12 @@ export default {
             type: Array, // array of objects that contain the filter objects
             default: () => [],
         },
+        // eslint-disable-next-line vue/require-default-prop
         filter: {
             type: String,
             reuired: true,
         },
+        // eslint-disable-next-line vue/require-default-prop
         searchField: {
             type: String,
             reuired: true,
@@ -36,6 +41,8 @@ export default {
     },
     data() {
         return {
+            location_ssi: "",
+            location: "",
             selectedFilters: {},
         }
     },
@@ -43,13 +50,23 @@ export default {
         classes() {
             return ["base-radio-group content", { "is-opened": this.isOpened }]
         },
-        parsedModel() {
-            if (this.selectedFilters[this.searchField]) {
-                return this.selectedFilters[this.searchField]
-            } else {
-                this.selectedFilters[this.searchField] = ""
-                return this.selectedFilters[this.searchField]
-            }
+    },
+    /* watch: {
+        location_ssi(val) {
+            console.log("In the watcher: " + val)
+        },
+        selectedFilters: {
+            handler: function (val, oldVal) {
+                console.log("In the watcher: " + val)
+            },
+            deep: true,
+        },
+    }, */
+    methods: {
+        changed(e) {
+            console.log("Change handler says...")
+            console.log("In the changed event handler: " + e)
+            this.$emit("filter-change", this.selectedFilters)
         },
     },
 }
@@ -73,7 +90,6 @@ export default {
         width: 890px;
         height: 210px;
 
-        // display: flex;
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: flex-start;
