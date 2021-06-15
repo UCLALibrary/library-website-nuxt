@@ -199,7 +199,7 @@ export default {
     }
 
     &.is-gallery {
-        //min-height: 250px;
+        min-height: 170px;
 
         .meta {
             max-width: 300px;

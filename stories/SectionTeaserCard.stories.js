@@ -20,7 +20,7 @@ const mock = [
         category: "Tincidunt",
         title:
             "Mauris pellentesque pulvinar pellentesque habitant morbi tristique",
-        date: "Augustus, Avril14, 2021",
+        date: "Augustus, Avril 14, 2021",
         time: "3:23pm - 12:45 pm",
     },
     {

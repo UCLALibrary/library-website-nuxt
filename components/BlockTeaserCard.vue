@@ -36,6 +36,7 @@ export default {
 
     .meta {
         margin-top: 16px;
+        margin-left: 2px;
     }
 }
 </style>
