@@ -219,6 +219,7 @@ export default {
         }
         .text {
             margin-top: 15px;
+            width: 280px;
         }
     }
 
