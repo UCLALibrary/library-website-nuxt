@@ -1,15 +1,16 @@
 <template lang="html">
-    <section class="block-teaser-vertical">
+    <div class="block-teaser-card">
         <responsive-image
             :image="item.image"
             :aspect-ratio="60"
+            class="image"
         />
         <block-teaser-meta
             v-bind="item"
             view="gallery"
             class="meta"
         />
-    </section>
+    </div>
 </template>
 
 <script>
@@ -24,15 +25,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.block-teaser-vertical {
+.block-teaser-card {
     display: block;
-    max-width: 300px;
+    width: 300px;
     background-color: var(--color-white);
-    max-height: 360px;
+
+    .image {
+        width: 300px;
+    }
 
     .meta {
         margin-top: 16px;
-        max-height: 180px;
+        margin-left: 2px;
     }
 }
 </style>
