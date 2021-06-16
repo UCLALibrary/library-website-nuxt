@@ -55,9 +55,6 @@ export default {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: flex-start;
-    align-items: flex-start;
 
     .block {
         margin-left: 16px;
@@ -67,13 +64,11 @@ export default {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        justify-content: flex-start;
-        align-content: flex-start;
-        align-items: flex-start;
     }
 
     .divider {
-        max-width: 964px;
+        box-sizing: border-box;
+        width: 100%;
     }
 
     .card {
@@ -91,7 +86,7 @@ export default {
             flex-wrap: nowrap;
             justify-content: center;
             align-content: center;
-            align-items: center;
+            align-items: flex-start;
 
             margin-top: 35px;
             margin-bottom: 25px;
@@ -106,7 +101,7 @@ export default {
             align-content: center;
             align-items: center;
 
-            margin-left: 4px;
+            margin-left: 0px;
             margin-top: 35px;
             margin-bottom: 25px;
         }

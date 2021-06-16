@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="block-teaser-card">
+    <div class="block-teaser-card">
         <responsive-image
             :image="item.image"
             :aspect-ratio="60"
@@ -10,7 +10,7 @@
             view="gallery"
             class="meta"
         />
-    </section>
+    </div>
 </template>
 
 <script>
