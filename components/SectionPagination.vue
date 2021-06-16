@@ -3,14 +3,14 @@
         <nuxt-link
             v-if="previousTo"
             :to="previousTo"
-            class="previous"
+            class="underline-hover previous"
         >
             <svg-arrow-next class="previous-svg" /> Previous
         </nuxt-link>
         <nuxt-link
             v-if="nextTo"
             :to="nextTo"
-            class="next"
+            class="underline-hover next"
         >
             Next <svg-arrow-next class="next-svg" />
         </nuxt-link>
@@ -53,6 +53,10 @@ export default {
 .section-pagination {
     max-width: 990px;
 
+    font-family: var(--font-secondary);
+    font-size: 18px;
+    padding-left: 13px;
+
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -60,18 +64,10 @@ export default {
     align-content: center;
     align-items: center;
     .previous {
-        font-family: var(--font-secondary);
-        font-size: 18px;
-        padding-left: 13px;
-
         display: flex;
         align-items: center;
     }
     .next {
-        font-family: var(--font-secondary);
-        font-size: 18px;
-        padding-right: 13px;
-
         display: flex;
         align-items: center;
     }
@@ -101,15 +97,13 @@ export default {
 
     // Hover states
     @media #{$has-hover} {
-        .next:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue);
-            text-decoration-thickness: 1.5px;
+        .previous:hover,
+        .previous:active {
+            color: var(--color-primary-blue);
         }
-        .previous:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue);
-            text-decoration-thickness: 1.5px;
+        .next:hover,
+        .next:active {
+            color: var(--color-primary-blue);
         }
     }
 }
