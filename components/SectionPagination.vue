@@ -3,16 +3,22 @@
         <nuxt-link
             v-if="previousTo"
             :to="previousTo"
-            class="underline-hover previous"
+            class="previous"
         >
-            <svg-arrow-next class="previous-svg" /> Previous
+            <svg-arrow-next class="previous-svg" />
+            <div class="underline-hover">
+                Previous
+            </div>
         </nuxt-link>
         <nuxt-link
             v-if="nextTo"
             :to="nextTo"
-            class="underline-hover next"
+            class="next"
         >
-            Next <svg-arrow-next class="next-svg" />
+            <div class="underline-hover">
+                Next
+            </div>
+            <svg-arrow-next class="next-svg" />
         </nuxt-link>
     </div>
 </template>
