@@ -200,9 +200,10 @@ export default {
 
     &.is-gallery {
         min-height: 170px;
-
+        max-height: 365px;
         .meta {
             max-width: 300px;
+            min-height: 170px;
         }
     }
     &.is-calendar {

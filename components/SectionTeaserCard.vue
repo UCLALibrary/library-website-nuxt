@@ -60,9 +60,10 @@ export default {
     align-items: flex-start;
 
     .block {
-        padding-left: 16px;
+        margin-left: 16px;
         margin-top: 50px;
         margin-bottom: 50px;
+
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -72,7 +73,7 @@ export default {
     }
 
     .divider {
-        width: 100%;
+        max-width: 964px;
     }
 
     .card {
@@ -91,6 +92,9 @@ export default {
             justify-content: center;
             align-content: center;
             align-items: center;
+
+            margin-top: 35px;
+            margin-bottom: 25px;
         }
     }
     @media #{$lte-phone} {
@@ -101,6 +105,10 @@ export default {
             justify-content: center;
             align-content: center;
             align-items: center;
+
+            margin-left: 4px;
+            margin-top: 35px;
+            margin-bottom: 25px;
         }
     }
 }
