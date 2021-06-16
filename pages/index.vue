@@ -28,6 +28,7 @@
             :is-online="bannerVisit.isOnline"
             :prompt="bannerVisit.prompt"
             :ratio="bannerVisit.ratio"
+            :align-right="false"
         >
             <heading-arrow
                 :text="bannerVisit.breadcrumb.text"
