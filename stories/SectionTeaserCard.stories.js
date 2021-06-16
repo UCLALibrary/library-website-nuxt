@@ -16,7 +16,7 @@ const mock = [
     },
     {
         image: API.image,
-        to: "/visit/foo/bar/",
+        to: "/visit/foo/baz/",
         category: "Tincidunt",
         title:
             "Mauris pellentesque pulvinar pellentesque habitant morbi tristique",
@@ -25,7 +25,7 @@ const mock = [
     },
     {
         image: API.image,
-        to: "/visit/foo/bar/",
+        to: "/visit/foo/bat/",
         category: "Gravida",
         title: "Adipiscing Tristique",
         date: "Martius, Fevrier 14, 2021",
@@ -33,7 +33,7 @@ const mock = [
     },
     {
         image: API.image,
-        to: "/visit/foo/bar/",
+        to: "/visit/foo/ban/",
         category: "Ullamco",
         title: "Fames ac turpis egestas sed tempus lorem ipsum",
         date: "Mercurii, Ocavia 14, 2021",
@@ -41,7 +41,7 @@ const mock = [
     },
     {
         image: API.image,
-        to: "/visit/foo/bar/",
+        to: "/visit/foo/barf/",
         category: "Curabitur ",
         title: "Vel Quam Elementum",
         date: "Pempti, Mars 14, 2021",
@@ -49,7 +49,7 @@ const mock = [
     },
     {
         image: API.image,
-        to: "/visit/foo/bar/",
+        to: "/visit/foo/bad/",
         category: "Sagittis",
         title: "Aenean Lectus Elit",
         date: "Augustus, Avril14, 2021",
@@ -57,7 +57,7 @@ const mock = [
     },
     {
         image: API.image,
-        to: "/visit/foo/bar/",
+        to: "/visit/foo/bag/",
         category: "Tortor",
         title: "Vivamus Consectetuer Risus et Tortor",
         date: "Martius, Fevrier 14, 2021",
@@ -65,7 +65,7 @@ const mock = [
     },
     {
         image: API.image,
-        to: "/visit/foo/bar/",
+        to: "/visit/foo/bam/",
         category: "Maecenas",
         title: "Proin ut Ligula vel Nunc Egestas Porttitor",
         date: "Mercurii, Ocavia 14, 2021",
