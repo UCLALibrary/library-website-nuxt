@@ -31,6 +31,7 @@ export default {
 
 <style lang="scss" scoped>
 .button-more {
+    background-color: var(--color-white);
     width: fit-content;
     max-width: 120px;
 
