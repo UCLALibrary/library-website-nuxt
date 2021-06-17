@@ -8,8 +8,8 @@ export default {
 
 const mock = {
     to: "/help/foo/bar/",
-    title: "Example Service",
-    text: "Here is a decent amount of text to explain this get help with.",
+    title: "Quisque Volutpat",
+    text: "Nisl felis, venenatis tristique, dignissim in, ultrices sit amet.",
 }
 
 export const Default = () => ({
@@ -54,7 +54,8 @@ export const LongText = () => ({
             icon-name="illustration-digitized-resources"
             to="/help/foo/bar"
             :title="title"
-            text="We doubt the critics, reject the status quo and see opportunity in dissatisfaction. Our campus, faculty and students are driven by optimism. It is not naïve; it is essential. And it has fueled every accomplishment, allowing us to redefine what's possible, time after time."
+            text="Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Morbi in dui quis est pulvinar ullamcorper.
+            "
         />
     `,
 })
