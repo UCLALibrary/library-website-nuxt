@@ -159,7 +159,7 @@ export default {
     }
     .tab {
         padding: 20px 25px;
-        background-color: var(--color-lightest-blue);
+        background-color: var(--color-primary-lightest-blue);
         border: 1px solid transparent;
         border-radius: var(--rounded-slightly-top);
         transition: background-color 400ms ease-in-out;
@@ -202,7 +202,7 @@ export default {
         line-height: 100%;
         letter-spacing: 0.01em;
 
-        background-color: var(--color-lightest-blue);
+        background-color: var(--color-primary-lightest-blue);
         border-color: transparent;
         padding: 27px 37px 27px 95px;
         width: 100%;
@@ -215,7 +215,7 @@ export default {
 
     .divider {
         margin-top: 15px;
-        border-bottom: 2px solid var(--color-cyan-01);
+        border-bottom: 2px solid var(--color-default-cyan-base);
         height: 1px;
     }
 

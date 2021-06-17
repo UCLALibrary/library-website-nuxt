@@ -97,7 +97,7 @@ export default {
     align-items: center;
 
     background-color: var(--color-primary-blue);
-    border-bottom: 4px solid var(--color-yellow);
+    border-bottom: 4px solid var(--color-primary-yellow);
     position: relative;
     z-index: 0;
     min-height: 375px;
@@ -213,7 +213,7 @@ export default {
                 position: relative;
                 padding-top: 15px;
                 padding-bottom: 2px;
-                border-bottom: 2px solid var(--color-green-01);
+                border-bottom: 2px solid var(--color-help-green-base);
                 font-size: 18px;
                 font-family: var(--font-primary);
 
@@ -231,7 +231,7 @@ export default {
                 .description {
                     position: absolute;
                     top: 0;
-                    color: var(--color-green-01);
+                    color: var(--color-help-green-base);
                     font-size: 16px;
                     opacity: 0;
                     transition: opacity 400ms ease-in-out;

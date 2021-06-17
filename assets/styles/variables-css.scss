@@ -1,6 +1,7 @@
 /*
- * This file is included once, for the entire sute.
+ * This file is included once, for the entire site.
  * It's useful for CSS vars
+     use like this: color: var(--color-yellow);
  */
 
 // CSS vars
@@ -10,38 +11,59 @@
 
     // Primary colors
     --color-primary-blue: #0b6ab7;
-    --color-dark-blue: #032d5b;
+    --color-primary-yellow: #ffe800; // --color-yellow
+    --color-primary-darker-blue: #0055a6; // --color-dark-blue-02
+    --color-primary-darkest-blue: #032d5b; // --color-dark-blue
     --color-primary-light-blue: #9ecffa;
-    --color-yellow: #ffe800;
-    --color-dark-blue-02: #0055a6;
-    --color-lightest-blue: #eaf2fb;
+    --color-primary-lightest-blue: #eaf2fb; // --color-lightest-blue
 
     // Secondary colors
-    --color-primary-yellow: #ffd600;
-    --color-yellow-02: #ffdb20;
-    --color-yellow-03: #ffe92e;
-    --color-blue-01: #3284bf;
-    --color-blue-02: #1f75c5;
-    --color-blue-03: #1678d0;
-    --color-blue-04: #288fe8;
-    --color-grey-01: #717171;
-    --color-grey-02: #999999;
-    --color-grey-03: #dcdcdb;
-    --color-bkg-grey: #f2f2f2;
+    --color-secondary-yellow-01: #ffe92e; // --color-yellow-03
+    --color-secondary-yellow-02: #ffdb20; // --color-yellow-02
+    --color-secondary-yellow-03: #ffd600; // --color-primary-yellow
+    --color-secondary-blue-01: #288fe8; // --color-blue-04
+    --color-secondary-blue-02: #1678d0; // --color-blue-03
+    --color-secondary-blue-03: #1f75c5; // --color-blue-02
+    --color-secondary-grey-01: #f2f2f2; // --color-bkg-grey
+    --color-secondary-grey-02: #dcdcdb; // --color-grey-03
+    --color-secondary-grey-03: #999999; // --color-grey-02
+    --color-secondary-grey-04: #717171; // --color-grey-01
+    --color-secondary-black: #032d5b;
 
-    // Tertiary colors
-    --color-cyan-01: #0aa5ff;
-    --color-cyan-02: #5cd9ff;
-    --color-cyan-03: #c7f8ff;
-    --color-green-01: #00e0e0;
-    --color-green-02: #87fbe8;
-    --color-green-03: #b9f8ee;
-    --color-fushia-01: #ff94db;
-    --color-fushia-02: #ffbdf4;
-    --color-fushia-03: #ffdcff;
-    --color-purple-01: #c099ff;
-    --color-purple-02: #e7dbff;
-    --color-purple-03: #efe5ff;
+    // Way Finder - Tertiary colors
+    --color-help-green-base: #00e0e0; // --color-green-01
+    --color-visit-fushia-base: #ff94db; // pink --color-fushia-01
+    --color-about-purple-base: #c099ff; // --color-purple-01
+    --color-default-cyan-base: #0aa5ff; // blue --color-cyan-01
+
+    --color-help-green-lighter: #87fbe8; // --color-green-02
+    --color-visit-fushia-lighter: #ffbdf4; // --color-fushia-02
+    --color-about-purple-lighter: #e7dbff; // --color-purple-02
+    --color-default-cyan-lighter: #5cd9ff; // --color-cyan-02
+
+    --color-help-green-lightest: #b9f8ee; // --color-green-03
+    --color-visit-fushia-lightest: #ffdcff; // --color-fushia-03
+    --color-about-purple-lightest: #efe5ff; // --color-purple-03
+    --color-default-cyan-lightest: #c7f8ff; // --color-cyan-03
+
+    // Units
+    --unit-gutter: 72px;
+    --unit-vertical-gap: 100px;
+    --unit-sticky-header-height: 96px;
+    --unit-footer-height: 376px;
+
+    --unit-content-width: 1080px;
+    --unit-center-column-max: 930px;
+    --unit-center-text-max: 830px;
+
+    // Fonts
+    --font-primary: "Karbon", sans-serif;
+    --font-secondary: "proxima-nova", sans-serif;
+
+    // Borders
+    // top-left | top-right | bottom-right | bottom-left
+    --rounded-slightly-all: 4px;
+    --rounded-slightly-top: 4px 4px 0 0;
 
     // Gradients
     --gradient-01: linear-gradient(
@@ -63,30 +85,12 @@
         rgba(15, 15, 15, 0) 58.42%
     );
 
-    // Section colors
-    --color-help: var(--color-green-01);
-    --color-visit: var(--color-fushia-01);
-    --color-about: var(--color-purple-01);
-    --color-section: var(--color-cyan-01);
-
-    // Units
-    --unit-gutter: 72px;
-    --unit-vertical-gap: 100px;
-    --unit-sticky-header-height: 96px;
-    --unit-footer-height: 376px;
-
-    --unit-content-width: 1080px;
-    --unit-center-column-max: 930px;
-    --unit-center-text-max: 830px;
-
-    // Fonts
-    --font-primary: "Karbon", sans-serif;
-    --font-secondary: "proxima-nova", sans-serif;
-
-    // Borders
-    // top-left | top-right | bottom-right | bottom-left
-    --rounded-slightly-all: 4px;
-    --rounded-slightly-top: 4px 4px 0 0;
+    --gradient-radial: radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(15, 15, 15, 0) 0%,
+        rgba(15, 15, 15, 0.555208) 85.42%,
+        rgba(15, 15, 15, 0.65) 100%
+    );
 
     // Breakponts
     @media #{$lte-tablet} {

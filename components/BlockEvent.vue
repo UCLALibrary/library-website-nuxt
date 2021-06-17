@@ -96,7 +96,7 @@ export default {
     }
 
     .category {
-        color: var(--color-yellow-03);
+        color: var(--color-secondary-yellow-01);
         letter-spacing: 0.06em;
         text-transform: uppercase;
         margin-bottom: 15px;

@@ -97,7 +97,7 @@ export default {
         line-height: 100%;
         letter-spacing: 0.06em;
         text-transform: uppercase;
-        color: var(--color-dark-blue);
+        color: var(--color-primary-darkest-blue);
     }
     .title {
         font-weight: 500;
@@ -118,13 +118,13 @@ export default {
     // Themes
     --color-theme: var(--color-primary-light-blue);
     &.color-visit {
-        --color-theme: var(--color-fushia-03);
+        --color-theme: var(--color-visit-fushia-lightest);
     }
     &.color-help {
-        --color-theme: var(--color-green-03);
+        --color-theme: var(--color-help-green-lightest);
     }
     &.color-about {
-        --color-theme: var(--color-purple-03);
+        --color-theme: var(--color-about-purple-lightest);
     }
 
     // Hovers

@@ -311,7 +311,7 @@ export default {
         line-height: 16px;
         letter-spacing: 0.06em;
         text-align: left;
-        color: var(--color-dark-blue);
+        color: var(--color-primary-darkest-blue);
         margin-bottom: 5px;
         text-transform: uppercase;
     }
@@ -327,7 +327,7 @@ export default {
         font-size: 20px;
         line-height: 24px;
         text-align: left;
-        color: var(--color-grey-01);
+        color: var(--color-secondary-grey-04);
         margin: 10px 0 8px 0;
 
         display: flex;
@@ -336,7 +336,7 @@ export default {
     .schedule-item {
         &:after {
             content: "";
-            border-left: 1px solid var(--color-grey-03);
+            border-left: 1px solid var(--color-secondary-grey-02);
             margin: 0 10px;
             height: 18px;
             display: inline-block;
@@ -386,7 +386,7 @@ export default {
     @media #{$has-hover} {
         .title:hover {
             text-decoration: underline;
-            text-decoration-color: var(--color-cyan-01);
+            text-decoration-color: var(--color-default-cyan-base);
             text-decoration-thickness: 1.5px;
         }
     }
