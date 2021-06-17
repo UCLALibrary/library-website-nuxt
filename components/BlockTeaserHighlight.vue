@@ -55,7 +55,7 @@ export default {
             left: 5px;
             width: 403px;
             height: 60px;
-            background-color: var(--color-fushia-01);
+            background-color: var(--color-visit-fushia-base);
             clip-path: polygon(
                 0 0,
                 93.5% 0,

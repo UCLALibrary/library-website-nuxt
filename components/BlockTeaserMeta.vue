@@ -149,7 +149,7 @@ export default {
         line-height: 100%;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: var(--color-dark-blue);
+        color: var(--color-primary-darkest-blue);
     }
     .title {
         font-weight: 500;
@@ -205,7 +205,7 @@ export default {
     }
     &.is-calendar {
         .meta {
-            border-right: 1px dotted var(--color-grey-03);
+            border-right: 1px dotted var(--color-secondary-grey-02);
             max-width: 236px;
             padding-right: 19px;
         }
@@ -239,7 +239,7 @@ export default {
         &:hover {
             .title {
                 text-decoration: underline;
-                text-decoration-color: var(--color-cyan-01);
+                text-decoration-color: var(--color-default-cyan-base);
                 text-decoration-thickness: 1.5px;
             }
         }

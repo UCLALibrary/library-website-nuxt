@@ -20,11 +20,11 @@ export default {
 
 <style lang="scss" scoped>
 .divider-general {
-    border-bottom: 2px dotted var(--color-grey-03);
+    border-bottom: 2px dotted var(--color-secondary-grey-02);
     height: 1px;
 
     &.is-bold {
-        border-bottom-color: var(--color-grey-02);
+        border-bottom-color: var(--color-secondary-grey-03);
     }
 }
 </style>

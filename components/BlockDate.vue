@@ -35,7 +35,7 @@ export default {
     width: 274px;
     height: 232px;
     border-radius: var(--rounded-slightly-all);
-    background-color: var(--color-lightest-blue);
+    background-color: var(--color-primary-lightest-blue);
 
     display: flex;
     flex-direction: column;

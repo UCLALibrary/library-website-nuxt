@@ -176,7 +176,7 @@ export default {
             top: 18px;
             bottom: 18px;
             width: 1px;
-            background-color: var(--color-grey-03);
+            background-color: var(--color-secondary-grey-02);
         }
 
         .item-top {
@@ -192,7 +192,7 @@ export default {
         width: 100%;
         height: 80px;
         background-color: var(--color-white);
-        border-bottom: 1px solid var(--color-grey-03);
+        border-bottom: 1px solid var(--color-secondary-grey-02);
         z-index: 0;
     }
     .background-blue {
@@ -204,7 +204,7 @@ export default {
         left: 0;
         opacity: 0;
         transition: opacity 1000ms ease-in-out;
-        border-bottom: 1px solid var(--color-grey-03);
+        border-bottom: 1px solid var(--color-secondary-grey-02);
         z-index: 0;
     }
 
