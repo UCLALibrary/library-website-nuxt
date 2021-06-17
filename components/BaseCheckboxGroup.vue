@@ -6,8 +6,10 @@
             class="content-item"
         >
             <BaseCheckbox
-                v-model="selectedFilters[filterItem.name]"
+                v-model="selectedFilters[searchField][filterItem.name]"
                 :label="filterItem.name"
+                :value="filterItem.name"
+                @change="changed"
             />
         </li>
     </ul>
@@ -48,13 +50,21 @@ export default {
             ]
         },
     },
+    created() {
+        let temp
+        console.log(this.searchField)
+        this.selectedFilters[this.searchField] = {}
+        for (temp in this.filterItems) {
+            this.selectedFilters[this.searchField][
+                this.filterItems[temp].name
+            ] = false
+        }
+    },
     methods: {
-        created() {
-            // eslint-disable-next-line no-undef
-            for (filterItem in this.filterItems) {
-                // eslint-disable-next-line no-undef
-                this.selectedFilters[filterItem.name] = false
-            }
+        changed(e) {
+            console.log("Change handler says...")
+            console.log("In the changed event handler: " + e)
+            this.$emit("filter-change", this.selectedFilters)
         },
     },
 }

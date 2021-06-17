@@ -1,24 +1,37 @@
 <template>
-    <div class="base-radio">
+    <div class="base-checkbox">
         <input
             type="checkbox"
-            :checked="modelValue"
+            :checked="isChecked"
             class="field"
-            @change="$emit('update:modelValue', $event.target.checked)"
+            v-bind="$attrs"
+            @change="updateInput"
         >
         <label v-if="label">{{ label }}</label>
     </div>
 </template>
 <script>
 export default {
+    inheritAttrs: false,
+    model: {
+        prop: "checkboxValue",
+        event: "checkbox-select",
+    },
     props: {
         label: {
             type: String,
             default: "",
         },
-        modelValue: {
-            type: Boolean,
-            default: false,
+    },
+    computed: {
+        isChecked() {
+            return this.checkboxValue
+        },
+    },
+    methods: {
+        updateInput(event) {
+            this.$emit("checkbox-select", event.target.checked)
+            this.$emit("change", event.target.checked)
         },
     },
 }

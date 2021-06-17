@@ -65,19 +65,19 @@ export const Default = () => ({
         return {
             filters:[
                 {
-                    label: "location",
+                    label: "Location",
                     searchField: "location_tesim",
                     isMultiValuedField: true,
                     filterItems: items,
                 },
                 {
-                    label: "date range",
+                    label: "Department",
                     searchField: "date_range_tesim",
                     isMultiValuedField: false,
                     filterItems: items,
                 },
                 {
-                    label: "type",
+                    label: "Type",
                     searchField: "type_tesim",
                     isMultiValuedField: true,
                     filterItems: items,
@@ -120,13 +120,13 @@ export const TwoFilter = () => ({
         return {
             filters:[
                 {
-                    label: "location",
+                    label: "Location",
                     searchField: "location_tesim",
                     isMultiValuedField: true,
                     filterItems: items,
                 },
                 {
-                    label: "date range",
+                    label: "Date Range",
                     searchField: "date_range_tesim",
                     isMultiValuedField: false,
                     filterItems: items,
@@ -147,13 +147,13 @@ export const TwoFilterWithViews = () => ({
         return {
             filters:[
                 {
-                    label: "location",
+                    label: "Location",
                     searchField: "location_ssi",
                     isMultiValuedField: true,
                     filterItems: items,
                 },
                 {
-                    label: "date range",
+                    label: "Date Range",
                     searchField: "date_range_ssi",
                     isMultiValuedField: false,
                     filterItems: items,
@@ -176,7 +176,7 @@ export const WithViewModes = () => ({
         return {
             filters:[
                 {
-                    label: "location",
+                    label: "Location",
                     searchField: "location_ssi",
                     isMultiValuedField: false,
                     filterItems: items,

@@ -14,6 +14,7 @@
                     >
                 </div>
                 <hr class="divider">
+                <!-- filters -->
                 <div class="container">
                     <div
                         v-for="(filter, index) in parsedFilters"
@@ -37,12 +38,12 @@
                         class="view-mode"
                     >
                         <button
-                            :class="parsedClasses"
+                            :class="parsedViewClasses"
                             @click="toggleViews"
                         >
                             <span class="title"> View </span>
                         </button>
-                        <ul :class="parsedListClasses">
+                        <ul :class="parsedViewListClasses">
                             <li
                                 v-for="view in viewModes"
                                 :key="view.title"
@@ -67,7 +68,7 @@
                 >
                     <base-radio-group
                         v-if="!filter.isMultiValuedField"
-                        :is-opened="filter.isOpened"
+                        :is-opened="isOpenedList[filter.searchField]"
                         :search-field="filter.searchField"
                         :filter="filter.label"
                         :filter-items="filter.filterItems"
@@ -75,10 +76,11 @@
                     />
                     <base-checkbox-group
                         v-if="filter.isMultiValuedField"
-                        :is-opened="filter.isOpened"
+                        :is-opened="isOpenedList[filter.searchField]"
                         :search-field="filter.searchField"
                         :filter="filter.label"
                         :filter-items="filter.filterItems"
+                        @filter-change="updateFilters"
                     />
                 </div>
             </form>
@@ -123,17 +125,18 @@ export default {
     data() {
         return {
             searchWords: "",
-            isOpened: false,
+            isOpenedList: {},
+            isViewOpened: false,
             openedFilter: -1,
             filterList: [],
         }
     },
     computed: {
-        parsedClasses() {
-            return ["view-btn", { "is-opened": this.isOpened }]
+        parsedViewClasses() {
+            return ["view-btn", { "is-opened": this.isViewOpened }]
         },
-        parsedListClasses() {
-            return ["view-list", { "is-opened": this.isOpened }]
+        parsedViewListClasses() {
+            return ["view-list", { "is-opened": this.isViewOpened }]
         },
         showViews() {
             return this.viewModes.length > 0 ? true : false
@@ -141,18 +144,21 @@ export default {
         parsedFilters() {
             return this.filters.map((obj, index) => {
                 let btnClasses = "button"
-                let isOpened = false
                 if (index === this.openedFilter) {
                     btnClasses = "button is-opened"
-                    isOpened = true
                 }
                 return {
                     ...obj,
                     btnClasses,
-                    isOpened,
                 }
             })
         },
+    },
+    created() {
+        let temp
+        for (temp in this.filters) {
+            this.isOpenedList[this.filters[temp].searchField] = false
+        }
     },
     methods: {
         async doSearch() {
@@ -161,21 +167,33 @@ export default {
                 query: { q: this.searchWords },
             })
         },
+
         toggleMenu(index) {
-            this.filters[index].isOpened = !this.filters[index].isOpened
-            if (this.filters[index].isOpened) {
+            for (let count = 0; count < this.filters.length; count++) {
+                if (count == index) {
+                    continue
+                }
+                this.isOpenedList[this.filters[count].searchField] = false
+            }
+            this.isOpenedList[this.filters[index].searchField] = !this
+                .isOpenedList[this.filters[index].searchField]
+            if (this.isOpenedList[this.filters[index].searchField]) {
                 this.openedFilter = index
-                this.isOpened = false
+                this.isViewOpened = false
             } else {
                 this.openedFilter = -1
             }
         },
         toggleViews() {
-            this.isOpened = !this.isOpened
+            for (let count = 0; count < this.filters.length; count++) {
+                this.isOpenedList[this.filters[count].searchField] = false
+            }
+            this.isViewOpened = !this.isViewOpened
             this.openedFilter = -1
         },
         updateFilters(e) {
             console.log("In update filter method: " + e)
+            this.filterList.pop(e)
             this.filterList.push(e)
         },
     },
@@ -325,7 +343,7 @@ export default {
         margin-left: 16px;
         font-size: 18px;
         font-weight: 400;
-        text-transform: uppercase;
+        // text-transform: uppercase;
     }
 
     .is-opened {
