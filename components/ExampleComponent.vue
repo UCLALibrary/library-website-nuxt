@@ -76,7 +76,7 @@ export default {
         background: red;
     }
     @media #{$lte-phone} {
-        background: yellow;
+        background: var(--color-primary-yellow);
     }
 }
 </style>

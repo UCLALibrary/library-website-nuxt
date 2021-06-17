@@ -97,7 +97,7 @@ export default {
     align-items: center;
 
     background-color: var(--color-primary-blue);
-    border-bottom: 4px solid var(--color-yellow);
+    border-bottom: 4px solid var(--color-primary-yellow);
     position: relative;
     z-index: 0;
     min-height: 375px;

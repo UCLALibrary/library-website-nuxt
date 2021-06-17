@@ -28,9 +28,6 @@
                 class="meta masonry-item"
                 style="grid-row-end: span 15"
             >
-                <!-- <nuxt-link>
-                    <responsive-image image="items[0].image" />
-                </nuxt-link> -->
                 <p class="category">
                     DATA {{ items[0].category }}
                 </p>
@@ -67,9 +64,6 @@
                 class="meta masonry-item"
                 style="grid-row-end: span 15"
             >
-                <!-- <nuxt-link>
-                    <responsive-image image="items[0].image" />
-                </nuxt-link> -->
                 <p class="category">
                     DATA {{ items[0].category }}
                 </p>
@@ -123,36 +117,6 @@ export default {
         background: url(~/assets/svg/molecule-background.svg?url) center -100px,
             var(--gradient-03);
         background-size: cover;
-
-        // .meta-title {
-        //     font-weight: bold;
-        //     font-size: 40px;
-        //     line-height: 44px;
-        //     letter-spacing: 0.01em;
-        // }
-        // .category {
-        //     color: var(--color-yellow-03);
-        //     letter-spacing: 0.06em;
-        //     text-transform: uppercase;
-        // }
-        // .title {
-        // }
-        // .dates {
-        //     font-style: normal;
-        //     font-weight: 600;
-        //     font-size: 20px;
-        //     line-height: 140%;
-        // }
-        // .button {
-        //     border: 1px solid var(--color-primary-light-blue);
-        //     background-color: var(--color-primary-blue);
-        //     padding: 16px 40px;
-        //     color: var(--color-white);
-        // }
     }
-    // Breakpoints
-    //@media #{$lte-phone} {
-
-    //}
 }
 </style>
