@@ -6,6 +6,7 @@
         />
         <div class="text">
             <div class="floating-highlighlight" />
+            <div class="clipped-box" />
             <block-teaser-meta
                 v-bind="item"
                 view="highlight"
@@ -36,16 +37,15 @@ export default {
     display: block;
     overflow: hidden;
     max-width: 456px;
-    max-height: 450px;
     background-color: var(--color-white);
 
     .text {
         z-index: 0;
         position: relative;
         width: 456px;
-        height: 255px;
+        min-height: 255px;
         background-color: white;
-        padding-bottom: 50px;
+        margin-bottom: 85px;
 
         .floating-highlighlight {
             z-index: 10;
@@ -53,41 +53,48 @@ export default {
             box-sizing: border-box;
             top: -56px;
             left: 5px;
-            background-color: var(--color-fushia-01);
             width: 403px;
             height: 60px;
+            background-color: var(--color-fushia-01);
             clip-path: polygon(
                 0 0,
-                93.75% 0,
-                99.5% 48px,
+                93.5% 0,
+                99% 48px,
                 98.5% 48px,
-                93.25% 2.75px,
-                0 2.75px
+                93.25% 2px,
+                0 2px
             );
         }
+
         .clipped-box {
-            z-index: 10;
+            z-index: 20;
             position: absolute;
-            box-sizing: border-box;
-            top: -50px;
+            width: 436px;
+            height: 50px;
+            top: -46px;
             width: 450px;
+            box-sizing: border-box;
+            background-color: var(--color-white);
+            clip-path: polygon(0 0, 375px 0, 397px 100%, 0% 100%);
         }
 
         .meta {
-            z-index: 20;
+            z-index: 30;
             position: absolute;
             top: -46px;
-            width: 435px;
+            width: 436px;
             padding: 15px 0 10px 20px;
-            background-color: white;
+            background-color: var(--color-white);
             clip-path: polygon(0 0, 375px 0, 490px 100%, 0% 100%);
         }
+    }
 
-        /deep/ {
-            &.block-teaser-meta {
-                max-width: 450px;
-            }
-        }
+    // Breakpoints
+    @media #{$lte-tablet} {
+        width: 100%;
+    }
+    @media #{$lte-phone} {
+        width: 100%;
     }
 }
 </style>

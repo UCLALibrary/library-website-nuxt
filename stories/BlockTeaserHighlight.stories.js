@@ -34,7 +34,7 @@ export const ShortTitle = () => ({
         return {
             item: {
                 ...mock,
-                category: "Excepteur",
+                category: "Excepteurato",
                 title: "Minim",
             },
         }
