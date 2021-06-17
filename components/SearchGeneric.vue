@@ -6,113 +6,44 @@
                 @submit.prevent="doSearch"
             >
                 <div class="input-container">
-                    <icon-search class="icon" />
+                    <svg-icon-search class="icon" />
                     <input
                         v-model="searchWords"
                         type="text"
                         placeholder="Search by keyword"
                     >
                 </div>
+
                 <hr class="divider">
-                <!-- filters -->
+
                 <div class="container">
-                    <div
-                        v-for="(filter, index) in parsedFilters"
-                        :key="index"
-                        class="filter"
-                    >
-                        <button
-                            :class="filter.btnClasses"
-                            @click="toggleMenu(index)"
-                        >
-                            <span
-                                class="title"
-                                v-html="filter.label"
-                            />
-                        </button>
-                    </div>
+                    <search-generic-filter-buttons
+                        :items="filters"
+                        :active-index.sync="openedFilterIndex"
+                    />
 
-                    <!-- View Mode -->
-                    <div
-                        v-if="showViews"
-                        class="view-mode"
-                    >
-                        <button
-                            :class="parsedViewClasses"
-                            @click="toggleViews"
-                        >
-                            <span class="title"> View </span>
-                        </button>
-                        <ul :class="parsedViewListClasses">
-                            <li
-                                v-for="view in viewModes"
-                                :key="view.title"
-                                class="list-item"
-                                @click="$emit('view-mode-change', view.title)"
-                            >
-                                <component
-                                    :is="view.iconName"
-                                    class="svg"
-                                />
-                                <div v-html="view.title" />
-                            </li>
-                        </ul>
-                    </div>
+                    <!-- TODO This needs an active-type="list" etc... -->
+                    <search-generic-view-modes :is-opened.sync="isViewOpened" />
                 </div>
 
-                <!-- Filter list -->
-                <div
-                    v-for="(filter, index) in parsedFilters"
-                    :key="index"
-                    class="filter-list"
-                >
-                    <base-radio-group
-                        v-if="!filter.isMultiValuedField"
-                        :is-opened="isOpenedList[filter.searchField]"
-                        :search-field="filter.searchField"
-                        :filter="filter.label"
-                        :filter-items="filter.filterItems"
-                        @filter-change="updateFilters"
-                    />
-                    <base-checkbox-group
-                        v-if="filter.isMultiValuedField"
-                        :is-opened="isOpenedList[filter.searchField]"
-                        :search-field="filter.searchField"
-                        :filter="filter.label"
-                        :filter-items="filter.filterItems"
-                        @filter-change="updateFilters"
-                    />
-                </div>
+                <search-generic-filter-items
+                    :active-index.sync="openedFilterIndex"
+                    :items="parsedFilters"
+                    @change="onFilterChange"
+                />
             </form>
-            <div
-                v-if="filterList.length > 0"
-                class="remove-list"
-            >
-                <span> {{ filterList }} </span>
-            </div>
         </div>
     </div>
 </template>
 
 <script>
-import IconSearch from "~/assets/svg/icon-search"
-import IconCalendar from "~/assets/svg/icon-calendar"
-import IconCard from "~/assets/svg/icon-card"
-import IconList from "~/assets/svg/icon-list"
+import SvgIconSearch from "~/assets/svg/icon-search"
 
 export default {
     components: {
-        IconSearch,
-        IconCalendar,
-        IconCard,
-        IconList,
+        SvgIconSearch,
     },
     props: {
-        searchType: {
-            type: String,
-            required: true,
-            default: "help",
-        },
         filters: {
             type: Array, // array of objects that contain the filter objects
             default: () => [],
@@ -124,77 +55,63 @@ export default {
     },
     data() {
         return {
-            searchWords: "",
-            isOpenedList: {},
+            searchWords: this.$route.query.q,
+            selectedFilters: {},
+            openedFilterIndex: -1,
             isViewOpened: false,
-            openedFilter: -1,
-            filterList: [],
         }
     },
     computed: {
-        parsedViewClasses() {
-            return ["view-btn", { "is-opened": this.isViewOpened }]
-        },
-        parsedViewListClasses() {
-            return ["view-list", { "is-opened": this.isViewOpened }]
-        },
-        showViews() {
-            return this.viewModes.length > 0 ? true : false
-        },
         parsedFilters() {
-            return this.filters.map((obj, index) => {
-                let btnClasses = "button"
-                if (index === this.openedFilter) {
-                    btnClasses = "button is-opened"
+            return this.filters.map((obj) => {
+                let selected = this.selectedFilters[obj.slug] || []
+
+                // If no selected, then make sure radio's default is empty string
+                if (!selected.length && obj.inputType == "radio") {
+                    selected = ""
                 }
+
                 return {
                     ...obj,
-                    btnClasses,
+                    selected,
                 }
             })
         },
+        queryParams() {
+            // TODO probably want to use this: https://www.npmjs.com/package/qs
+            return {
+                q: this.searchWords,
+                type: "location",
+                filters: "foo",
+                viewMode: "list",
+            }
+        },
     },
-    created() {
-        let temp
-        for (temp in this.filters) {
-            this.isOpenedList[this.filters[temp].searchField] = false
-        }
+    watch: {
+        isViewOpened(newVal, oldVal) {
+            if (newVal) {
+                this.openedFilterIndex = -1
+            }
+        },
+        openedFilterIndex(newVal, oldVal) {
+            if (newVal !== -1) {
+                this.isViewOpened = false
+            }
+        },
+    },
+    mounted() {
+        // TODO parse this.$route.query.filters and set this.selectedFilters
+        // TODO parse this.$route.query.viewMode and set view dropdown active index
     },
     methods: {
         async doSearch() {
             this.$router.push({
                 path: this.actionURL,
-                query: { q: this.searchWords },
+                query: this.queryParams,
             })
         },
-
-        toggleMenu(index) {
-            for (let count = 0; count < this.filters.length; count++) {
-                if (count == index) {
-                    continue
-                }
-                this.isOpenedList[this.filters[count].searchField] = false
-            }
-            this.isOpenedList[this.filters[index].searchField] = !this
-                .isOpenedList[this.filters[index].searchField]
-            if (this.isOpenedList[this.filters[index].searchField]) {
-                this.openedFilter = index
-                this.isViewOpened = false
-            } else {
-                this.openedFilter = -1
-            }
-        },
-        toggleViews() {
-            for (let count = 0; count < this.filters.length; count++) {
-                this.isOpenedList[this.filters[count].searchField] = false
-            }
-            this.isViewOpened = !this.isViewOpened
-            this.openedFilter = -1
-        },
-        updateFilters(e) {
-            console.log("In update filter method: " + e)
-            this.filterList.pop(e)
-            this.filterList.push(e)
+        onFilterChange({ slug, selected }) {
+            this.selectedFilters[slug] = selected
         },
     },
 }
@@ -202,7 +119,6 @@ export default {
 <style lang="scss" scoped>
 .search-generic {
     .box {
-        // margin: 0 auto;
         padding: 30px 50px;
         background-color: var(--color-white);
         height: 70px;
@@ -226,9 +142,8 @@ export default {
             border-color: transparent;
             padding: 27px 95px;
 
-            width: -moz-available; /* WebKit-based browsers will ignore this. */
-            width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
-            width: fill-available;
+            width: 100%;
+            box-sizing: border-box;
 
             &::placeholder {
                 text-transform: uppercase;
@@ -249,109 +164,6 @@ export default {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-    }
-
-    .filter {
-        margin-right: 24px;
-        margin-top: 12px;
-        margin-bottom: 12px;
-
-        flex: 1 1 auto;
-
-        display: flex;
-        flex-direction: column;
-
-        .button {
-            height: 60px;
-            background-color: var(--color-primary-blue);
-            padding-right: 16px;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            align-content: center;
-
-            &::after {
-                content: "\f107";
-                font-size: 16px;
-                font-family: "Font-Awesome";
-                color: var(--color-white);
-            }
-        }
-
-        &:last-child {
-            margin-right: 0;
-        }
-    }
-    .view-mode {
-        margin-top: 12px;
-        margin-bottom: 12px;
-
-        flex: 0 1 auto;
-        display: flex;
-        flex-direction: column;
-
-        .view-btn {
-            width: 106px;
-            height: 60px;
-            background-color: var(--color-primary-blue);
-            padding-right: 16px;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            align-content: center;
-            &::after {
-                content: "\f107";
-                font-size: 16px;
-                font-family: "Font-Awesome";
-                color: var(--color-white);
-            }
-        }
-
-        .view-list {
-            margin-top: 15px;
-            list-style: none;
-            background-color: var(--color-primary-blue);
-            color: var(--color-white);
-
-            display: none;
-            flex-direction: column;
-            flex-wrap: wrap;
-            align-content: center;
-            align-items: center;
-            justify-content: center;
-
-            &.is-opened {
-                display: flex;
-            }
-            .list-item {
-                margin-top: 12px;
-                font-size: 18px;
-                font-weight: 400;
-                &:last-child {
-                    margin-bottom: 12px;
-                }
-            }
-            .svg:last-child {
-                padding-left: 15px;
-            }
-        }
-    }
-    .title {
-        color: var(--color-white);
-        margin-left: 16px;
-        font-size: 18px;
-        font-weight: 400;
-        // text-transform: uppercase;
-    }
-
-    .is-opened {
-        &.button {
-            &::after {
-                content: "\f106";
-            }
-        }
     }
 }
 </style>

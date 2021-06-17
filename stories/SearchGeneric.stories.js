@@ -10,17 +10,17 @@ const items = [
     {
         name: "qui dolorem ipsum quia dolor",
     },
-    { 
+    {
         name: "consectetur, adipisci velit.",
     },
     {
         name: "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
     },
     {
-        name: "Excepteur sint occaecat cupidatat non proident",    
+        name: "Excepteur sint occaecat cupidatat non proident",
     },
     {
-        name: "vel illum qui dolorem eum fugiat",    
+        name: "vel illum qui dolorem eum fugiat",
     },
     {
         name: "quis nostrum exercitationem ullam",
@@ -29,10 +29,10 @@ const items = [
         name: "Quis autem vel eum iure reprehenderit",
     },
     {
-        name: "Excepteur sint occaecat cupidatat non proident1",    
+        name: "Excepteur sint occaecat cupidatat non proident1",
     },
     {
-        name: "vel illum qui dolorem eum fugiat1",    
+        name: "vel illum qui dolorem eum fugiat1",
     },
     {
         name: "quis nostrum exercitationem ullam1",
@@ -63,7 +63,7 @@ const views = [
 export const Default = () => ({
     data() {
         return {
-            filters:[
+            filters: [
                 {
                     label: "Location",
                     searchField: "location_tesim",
@@ -82,12 +82,11 @@ export const Default = () => ({
                     isMultiValuedField: true,
                     filterItems: items,
                 },
-
             ],
         }
     },
     template: `
-        <search-generic 
+        <search-generic
             searchType="help"
             :filters="filters"
         />
@@ -97,7 +96,7 @@ export const Default = () => ({
 export const OneFilter = () => ({
     data() {
         return {
-            filters:[
+            filters: [
                 {
                     label: "location",
                     searchField: "location_tesim",
@@ -108,7 +107,7 @@ export const OneFilter = () => ({
         }
     },
     template: `
-        <search-generic 
+        <search-generic
             searchType="help"
             :filters="filters"
         />
@@ -118,25 +117,24 @@ export const OneFilter = () => ({
 export const TwoFilter = () => ({
     data() {
         return {
-            filters:[
+            filters: [
                 {
                     label: "Location",
-                    searchField: "location_tesim",
-                    isMultiValuedField: true,
-                    filterItems: items,
+                    slug: "location",
+                    inputType: "radio",
+                    items: items,
                 },
                 {
-                    label: "Date Range",
-                    searchField: "date_range_tesim",
-                    isMultiValuedField: false,
-                    filterItems: items,
+                    label: "Department",
+                    slug: "department",
+                    inputType: "checkbox",
+                    items: items,
                 },
             ],
         }
     },
     template: `
-        <search-generic 
-            searchType="help"
+        <search-generic
             :filters="filters"
         />
     `,
@@ -145,7 +143,7 @@ export const TwoFilter = () => ({
 export const TwoFilterWithViews = () => ({
     data() {
         return {
-            filters:[
+            filters: [
                 {
                     label: "Location",
                     searchField: "location_ssi",
@@ -157,13 +155,13 @@ export const TwoFilterWithViews = () => ({
                     searchField: "date_range_ssi",
                     isMultiValuedField: false,
                     filterItems: items,
-                }
+                },
             ],
-            viewModes:views,
+            viewModes: views,
         }
     },
     template: `
-        <search-generic 
+        <search-generic
             searchType="help"
             :filters="filters"
             :view-modes="viewModes"
@@ -174,19 +172,19 @@ export const TwoFilterWithViews = () => ({
 export const WithViewModes = () => ({
     data() {
         return {
-            filters:[
+            filters: [
                 {
                     label: "Location",
                     searchField: "location_ssi",
                     isMultiValuedField: false,
                     filterItems: items,
-                }
+                },
             ],
-            viewModes:views,
+            viewModes: views,
         }
     },
     template: `
-        <search-generic 
+        <search-generic
             searchType="help"
             :filters="filters"
             :view-modes="viewModes"
