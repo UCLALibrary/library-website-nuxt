@@ -28,6 +28,7 @@
             :is-online="bannerVisit.isOnline"
             :prompt="bannerVisit.prompt"
             :ratio="bannerVisit.ratio"
+            :align-right="false"
         >
             <heading-arrow
                 :text="bannerVisit.breadcrumb.text"
@@ -82,7 +83,8 @@ export default {
         const mockCard = {
             to: "/help/foo/bar/",
             title: "Example Service",
-            text: "Here is a decent amount of text to explain this get help with.",
+            text:
+                "Here is a decent amount of text to explain this get help with.",
         }
         const sectionCardsData = {
             items: [
@@ -93,7 +95,8 @@ export default {
                 { ...mockCard, to: "/help/foo/fred/" },
             ],
             title: "Get Help with",
-            text: "Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more.",
+            text:
+                "Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more.",
             to: "/help/foo/bar",
         }
 
@@ -177,7 +180,7 @@ export default {
 <style lang="scss" scoped>
 .page-home {
     .banner {
-        margin: var(--unit-vertical-gap) 0;
+        margin: var(--unit-vertical-gap) auto;
     }
 }
 </style>

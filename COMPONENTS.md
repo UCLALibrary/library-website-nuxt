@@ -123,7 +123,7 @@ TODO List of needed components for this website.
 
 ## Search
 
--   [ ] SearchHome
+-   [x] SearchHome
 
     -   tabs: [{title, isActive}]
     -   links: [{name, url, target}](Course Reserves etc)
@@ -189,30 +189,31 @@ data() {
 }
 ```
 
-## Exhibits & Upcoming Events
+## Exhibits & Upcoming Events Index Page
 
--   [ ] BlockTeaserMeta (All of the text for all of the other BlockTeaser components)
-    -   items: { to, category, title, dates, times, text, location }
+-   [x] BlockTeaserMeta (All of the text for all of the other BlockTeaser components)
 
--   [ ] BlockTeaserHorizontal
-    - image: {}
-    - items: { to, category, title, dates, times, text, location }
+    -   items: { image, to, category, title, dates, times, text, location }
+
+-   [x] BlockTeaserList
+
+    -   items: { image, to, category, title, dates, times, text, location }
 
 -   [ ] BlockTeaserHighlight
-    - image: {}
-    - items: { to, category, title, dates, times, text, location }
 
--   [ ] BlockTeaserVertical
-    - image: {}
-    - items: { to, category, title, dates, times, text, location }
+    -   items: { image, to, category, title, dates, times, text, location }
+
+-   [x] BlockTeaserVertical
+
+    -   items: { image, to, category, title, dates, times, text, location }
 
 -   [ ] SectionTeaserHighlight
 
     -   items: [{see block props}] (uses BlockTeaserHighlight component)
 
--   [ ] SectionTeaserHorizontal
+-   [x] SectionTeaserList
 
-    -   items: [{see block props}] (uses BlockTeaserHorizontal component)
+    -   items: [{see block props}] (uses BlockTeaserList component)
 
 -   [ ] SectionTeaserVertical
 
@@ -230,7 +231,7 @@ data() {
     -   prompt // button
     -   to
 
--   [ ] BlockDate
+-   [x] BlockDate
 
     -   date
 
@@ -241,6 +242,78 @@ data() {
 -   [ ] SectionPagination
     -   nextTo
     -   previousTo
+
+## Exhibits Detail Long Form Page
+
+-   [ ] update BannerFeatured (path=/story/banner-featured--default)
+
+    -   hasButton (set this to false)
+    -   add new stories
+
+-   [ ] BlockDetail
+
+    -   title
+    -   text (It might have p tag, figure with img and caption, blockquote with span for author)
+    -   footNotes (is optional and Array of Strings)
+    -   DividerGeneral component if the footNotes exists.
+
+-   [ ] SectionGallery
+
+    -   it needs all these icons (+/-, play icon for video, solid-molecule-image, solid-molecule-video, )
+    -   galleryTitle
+    -   featuredItem (// It is an object contains image or video url )
+    -   items (// array of objects [url, objectType[audio,video,image], meta: { to, category, title, dates, times, text, location }])
+    -   (uses SectionGalleryVertical component)
+    -   (uses Carousel component when there are multiple items)
+    -   DividerGeneral component
+
+-   [ ] BlockGalleryVertical
+
+    -   BlockTeaserMeta
+    -   items: { image, to, category, title, dates, times, text, location, prefix("On view") }
+    -   hover state will show the eye icon over the image
+    -   Clicking the eye will open the modal(carousel component) by grandparent component (SectionGallery)
+
+-   [ ] SectionGalleryVertical
+
+    -   BlockGalleryVertical
+    -   items (Array of objects)
+
+-   [ ] update BlockTeaserMeta
+
+    -   view prop (can have highlight, card (this was gallery before), gallery or calendar)
+    -   write a story for view type gallery.
+
+-   [ ] Carousel (lightbox in the figma)
+
+    -   items
+    -   (icons needed are left, right arrows and close )
+
+-   [ ] GalleryList
+
+    -   featuredItem
+    -   items [url, objectType[audio,video,image], meta: { to, category, title, dates, times, text, location, identifier (which can be a call number) }])
+    -   (uses updated BlockTeaserVertical component)
+    -   Uses icons +/-, play icon for video, solid-molecule-image, solid-molecule-video,
+
+-   [ ] BlockGalleryVertical ?path=/story/block-teaser-vertical--default
+
+    -   item (date, image, callnumber or any other identifier, tilte)
+    -   default audio or video or image icon if no images given
+
+-   [ ] BlockGalleryList
+
+    -   featuredTitle
+    -   featuredText
+    -   items
+    -   uses GalleryList component
+    -   uses Carousal component
+
+-   [ ] SectionGalleryList
+    -   items (// Array of Array objects )
+    -   title
+    -   Uses DividerGeneral component
+    -   Uses BlockGalleryList component
 
 note: 2 sizes full width & half page
 

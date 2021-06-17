@@ -76,6 +76,8 @@ export default {
 
 <style lang="scss" scoped>
 .block-card-vertical {
+    background-color: var(--color-white);
+
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -83,7 +85,7 @@ export default {
     align-content: center;
     align-items: center;
 
-    border: 2px solid var(--color-lightest-blue);
+    border: 2px solid var(--color-primary-lightest-blue);
     width: 300px;
     height: 400px;
     overflow: hidden;
@@ -113,7 +115,7 @@ export default {
     }
     .meta {
         transition: background-color 400ms ease-in-out;
-        background-color: var(--color-lightest-blue);
+        background-color: var(--color-primary-lightest-blue);
         flex: 1 1 auto;
     }
     .title {
@@ -125,7 +127,7 @@ export default {
         font-weight: 500;
         margin-top: 35px;
         margin-bottom: 10px;
-        color: var(--color-dark-blue);
+        color: var(--color-primary-darkest-blue);
         padding-right: 60px;
         padding-left: 60px;
 
@@ -142,7 +144,7 @@ export default {
         text-align: center;
         padding-left: 40px;
         padding-right: 40px;
-        color: var(--color-dark-blue);
+        color: var(--color-primary-darkest-blue);
 
         display: -webkit-box;
         -webkit-line-clamp: 4;
@@ -161,7 +163,7 @@ export default {
             }
             .title {
                 text-decoration: underline;
-                text-decoration-color: var(--color-cyan-01);
+                text-decoration-color: var(--color-default-cyan-base);
                 text-decoration-thickness: 1.5px;
             }
         }

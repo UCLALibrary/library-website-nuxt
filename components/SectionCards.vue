@@ -102,8 +102,8 @@ export default {
         }
     }
     .card-more {
-        border: 2px solid var(--color-lightest-blue);
-        width: 300px;
+        border: 2px solid var(--color-primary-lightest-blue);
+        width: 281px;
         height: 400px;
         border-radius: var(--rounded-slightly-all);
         box-sizing: border-box;

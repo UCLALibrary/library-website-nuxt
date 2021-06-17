@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="block-teaser-horizontal">
+    <section class="block-teaser-list">
         <responsive-image
             :image="item.image"
             :aspect-ratio="60"
@@ -25,8 +25,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.block-teaser-horizontal {
-    max-width: 992px;
+.block-teaser-list {
+    max-width: 990px;
     max-height: 274px;
     background-color: var(--color-white);
 
@@ -65,8 +65,16 @@ export default {
 }
 
 // Breakpoints
+@media #{$lte-tablet} {
+    .block-teaser-list {
+        max-width: 95%;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
 @media #{$lte-phone} {
-    .block-teaser-horizontal {
+    .block-teaser-list {
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;

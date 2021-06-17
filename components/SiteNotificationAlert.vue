@@ -95,7 +95,7 @@ export default {
         justify-content: center;
         user-select: none;
 
-        background-color: var(--color-yellow);
+        background-color: var(--color-primary-yellow);
         border-radius: var(--rounded-slightly-all);
         transition: border-radius 400ms ease-in-out;
         height: 48px;

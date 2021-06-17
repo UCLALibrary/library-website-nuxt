@@ -23,14 +23,14 @@ export default {
 
 <style lang="scss" scoped>
 .divider-way-finder {
+    &.color-help {
+        --color-border: var(--color-help-green-base);
+    }
     &.color-visit {
-        --color-border: var(--color-visit);
+        --color-border: var(--color-visit-fushia-base);
     }
     &.color-about {
-        --color-border: var(--color-about);
-    }
-    &.color-help {
-        --color-border: var(--color-help);
+        --color-border: var(--color-about-purple-base);
     }
 
     display: flex;
@@ -46,10 +46,13 @@ export default {
         margin-right: 17px;
         border-bottom-style: solid;
         border-bottom-width: 2px;
-        border-bottom-color: var(--color-border, var(--color-cyan-01));
+        border-bottom-color: var(
+            --color-border,
+            var(--color-default-cyan-base)
+        );
     }
     .dotted {
-        border-bottom: 2px dotted var(--color-grey-03);
+        border-bottom: 2px dotted var(--color-secondary-grey-02);
         height: 1px;
 
         flex: 1 1 auto;

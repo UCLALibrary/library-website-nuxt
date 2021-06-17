@@ -72,13 +72,13 @@ export default {
             margin-right: 48px;
         }
         .link {
-            border-bottom: 2px solid var(--color-cyan-01);
+            border-bottom: 2px solid var(--color-default-cyan-base);
             display: inline-block;
             line-height: 1.25;
             color: var(--color-black);
         }
         .regents {
-            color: var(--color-grey-01);
+            color: var(--color-secondary-grey-04);
             margin: 15px 0;
         }
     }
