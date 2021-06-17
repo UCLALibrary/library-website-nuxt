@@ -269,8 +269,8 @@ export default {
             0 0,
             calc(100% - 39px) 0,
             100% 95px,
-            100% 100%,
-            0 100%
+            100% 102%,
+            0 102%
         );
     }
     .hatch {
@@ -363,7 +363,7 @@ export default {
             margin-left: auto;
             padding-right: 50px;
             padding-left: 100px;
-            clip-path: polygon(39px 0, 100% 0, 100% 100%, 0 100%, 0% 95px);
+            clip-path: polygon(39px 0, 105% 0, 100% 102%, 0 102%, 0% 95px);
         }
         .hatch {
             right: calc(65% - 99px);
