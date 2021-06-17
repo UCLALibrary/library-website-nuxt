@@ -9,9 +9,9 @@ export default {
 const mock = {
     image: API.image,
     to: "/visit/foo/bar/",
-    categoryName: "featured",
-    author: "Ashton Prigge",
-    title: "New Library News You Should Read",
+    categoryName: "faucibus",
+    author: "Inceptos Himenaeos",
+    title: "Suspendisse in justo eu magna",
 }
 
 // Variations of stories below
@@ -93,9 +93,9 @@ export const LongText = () => ({
     },
     template: `
         <block-post-small
-            category-name="This is a long category name"
+            category-name="Morbi in dui quis est ullamcorper"
             :author="author"
-            title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In egestas nisl eget tellus posuere, eu malesuada massa lobortis."
+            title="Nulla facilisi dolor sit amet, consectetur adipiscing elit. In egestas nisl eget tellus posuere, eu malesuada massa lobortis."
             :image="image"
             :to="to"
         />
