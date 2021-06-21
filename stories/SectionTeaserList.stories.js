@@ -2,7 +2,7 @@ import * as API from "~/stories/mock-api.json"
 
 // Storybook default settings
 export default {
-    title: "SECTION / Teaser List",
+    title: "SECTION / Teaser / List",
 }
 
 const mock = [
