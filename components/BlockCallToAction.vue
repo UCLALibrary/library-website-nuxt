@@ -52,34 +52,42 @@ export default {
             type: String,
             default: "",
         },
-        isLightBlue: {
+        isDarkBlue: {
             type: Boolean,
-            default: true,
+            default: false,
         },
-        isFullSize: {
+        isSmallSize: {
             type: Boolean,
-            default: true,
+            default: false,
         },
     },
     computed: {
         parsedSvgName() {
             return `${this.iconName}`
         },
+
         classes() {
-            if (this.isLightBlue !== true) {
-                return [
-                    "block-call-to-action",
+            let output = ["container"]
+            if (this.isDarkBlue) {
+                output = [
+                    "container",
                     "color-dark-blue",
-                    "color-light",
+                    "color-light-title",
+                    "color-light-text",
                 ]
-            } else {
-                return ["block-call-to-action"]
             }
+            return output
         },
         sizeClasses() {
-            if (this.isFullsize !== true) {
-                return ["block-call-to-action-small"]
+            let output = ["block-call-to-action"]
+            if (this.isSmallSize) {
+                output = [
+                    "block-call-to-action",
+                    "block-width-small",
+                    "block-height-small",
+                ]
             }
+            return output
         },
     },
 }
@@ -87,27 +95,48 @@ export default {
 
 <style lang="scss" scoped>
 .block-call-to-action {
-    max-width: 1046px;
-    max-height: 700px;
+    max-width: var(--block-width);
+    max-height: var(--block-height);
     margin-left: auto;
     margin-right: auto;
-    background-color: var(--color-theme);
 
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-
-    // Themes
-    --color-theme: var(--color-primary-lightest-blue);
-    &.color-dark-blue {
-        --color-theme: var(--color-secondary-blue-02);
+    // Sizes
+    --block-width: 1046px;
+    &.block-width-small {
+        --block-width: 500px;
     }
-    .block-call-to-action-small {
-        max-width: 500px;
-        max-height: 520px;
+
+    --block-height: 700px;
+    &.block-height-small {
+        --block-height: 520px;
+    }
+
+    .container {
+        background-color: var(--color-theme);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+
+        // Themes for background
+        --color-theme: var(--color-primary-lightest-blue);
+        &.color-dark-blue {
+            --color-theme: var(--color-secondary-blue-02);
+        }
+
+        // Themes for title and text
+        --color-title: var(--color-primary-blue);
+        &.color-light-title {
+            --color-title: var(--color-white);
+        }
+        --color-text: var(--color-primary-darkest-blue);
+        &.color-light-text {
+            --color-text: var(--color-white);
+        }
     }
 
     .svg {
@@ -116,17 +145,13 @@ export default {
         flex-grow: 0;
         flex-shrink: 0;
     }
-    // Themes
-    --color-text: var(--color-primary-blue);
-    &.color-light {
-        --color-text: var(--color-white);
-    }
+
     .title {
         font-family: var(--font-primary);
         font-weight: 500;
         font-size: 40px;
         line-height: 100%;
-        color: var(--color-text);
+        color: var(--color-title);
         text-align: center;
         padding-left: 70px;
         padding-right: 70px;

@@ -24,7 +24,6 @@ export const Default = () => ({
     },
     template: `
         <block-call-to-action
-
             :to="to"
             :name="name"
             :title="title"
@@ -43,7 +42,7 @@ export const DarkBlue = () => ({
     },
     template: `
         <block-call-to-action
-            is-light-blue="false"
+            is-dark-blue=true
             :to="to"
             :name="name"
             :title="title"
@@ -62,7 +61,7 @@ export const SmallCTA = () => ({
     },
     template: `
         <block-call-to-action
-            is-full-size="false"
+            is-small-size=true
             :to="to"
             :name="name"
             :title="title"
