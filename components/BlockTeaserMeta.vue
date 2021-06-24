@@ -156,7 +156,7 @@ export default {
         font-size: 26px;
         line-height: 130%;
         letter-spacing: 0.01em;
-        color: var(--color-blue-01);
+        color: var(--color-primary-blue);
         margin: 16px 0 0 0;
 
         display: -webkit-box;
@@ -212,13 +212,24 @@ export default {
     }
     &.is-highlight {
         .meta {
-            width: 320px;
+            max-width: 320px;
         }
         .category {
             margin-top: 6px;
         }
+        .title {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
         .text {
             margin-top: 15px;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
     }
 
@@ -240,7 +251,7 @@ export default {
             .title {
                 text-decoration: underline;
                 text-decoration-color: var(--color-default-cyan-base);
-                text-decoration-thickness: 1.5px;
+                text-decoration-thickness: 2.5px;
             }
         }
     }
