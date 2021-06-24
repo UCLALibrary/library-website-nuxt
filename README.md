@@ -75,3 +75,8 @@ The designs for this project can be found here:
 | Menu name        | URL | Figma template name |
 | ---------------- | --- | ------------------- |
 | Location & Hours | ?   | ?                   |
+
+## LibCal Auth Procedure
+
+1. At start of build, we need to exchange secret for token
+2. Token needs to be given to client side, so that search works

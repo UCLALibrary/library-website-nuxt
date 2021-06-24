@@ -1,6 +1,10 @@
 export default {
     target: "static",
     components: true,
+    privateRuntimeConfig: {
+        libcalClientSecret: process.env.LIBCAL_CLIENT_SECRET,
+        libcalClientId: process.env.LIBCAL_CLIENT_ID,
+    },
 
     /*
      ** Global CSS
@@ -25,6 +29,15 @@ export default {
         { src: "~/plugins/web-font-loader.client.js", mode: "client" },
         { src: "~/plugins/browser-events.client.js", mode: "client" },
     ],
+
+    /*
+     * Axios. Used for Libcal query.
+     */
+    axios: {
+        baseURL:
+            process.env.LIBCAL_ENDPOINT ||
+            "https://calendar.library.ucla.edu/1.1",
+    },
 
     /*
      ** Nuxt generate configuration. Used when generating a static site.
@@ -83,6 +96,11 @@ export default {
             return config
         },
     },
+
+    /*
+     * Nuxt modules
+     */
+    modules: ["@nuxtjs/axios"],
 
     /*
      * Nuxt build modules
