@@ -3,10 +3,13 @@
         <responsive-image
             :image="item.image"
             :aspect-ratio="60"
+            class="image"
         />
         <div class="text">
-            <div class="floating-highlighlight" />
-            <div class="clipped-box" />
+            <div class="clipped">
+                <div class="floating-highlighlight" />
+                <div class="clipped-box" />
+            </div>
             <block-teaser-meta
                 v-bind="item"
                 view="highlight"
@@ -17,12 +20,7 @@
 </template>
 
 <script>
-import SvgClippedBox from "~/assets/svg/clipped-box"
-
 export default {
-    components: {
-        SvgClippedBox,
-    },
     props: {
         item: {
             type: Object,
@@ -39,62 +37,122 @@ export default {
     max-width: 456px;
     background-color: var(--color-white);
 
-    .text {
-        z-index: 0;
-        position: relative;
+    .clipped {
         width: 456px;
-        min-height: 255px;
-        background-color: white;
-        margin-bottom: 85px;
+        height: 60px;
+        position: relative;
 
         .floating-highlighlight {
-            z-index: 10;
+            z-index: 30;
             position: absolute;
-            box-sizing: border-box;
-            top: -56px;
+            width: 398px;
+            top: -57px;
             left: 5px;
-            width: 403px;
             height: 60px;
             background-color: var(--color-visit-fushia-base);
             clip-path: polygon(
                 0 0,
-                93.5% 0,
-                99% 48px,
-                98.5% 48px,
-                93.25% 2px,
-                0 2px
+                calc(100% - 19px) 0,
+                101% 55px,
+                99.5% 47px,
+                calc(100% - 21px) 2.25px,
+                0 2.25px
             );
         }
 
         .clipped-box {
-            z-index: 20;
             position: absolute;
-            width: 436px;
-            height: 50px;
+            z-index: 30;
             top: -46px;
-            width: 450px;
+            left: 0px;
+            width: 415px;
+            height: 50px;
             box-sizing: border-box;
             background-color: var(--color-white);
-            clip-path: polygon(0 0, 375px 0, 397px 100%, 0% 100%);
+            clip-path: polygon(
+                0 0,
+                calc(100% - 39px) 0,
+                100% 95px,
+                100% 102%,
+                0 102%
+            );
         }
+    }
 
-        .meta {
-            z-index: 30;
-            position: absolute;
-            top: -46px;
-            width: 436px;
-            padding: 15px 0 10px 20px;
-            background-color: var(--color-white);
-            clip-path: polygon(0 0, 375px 0, 490px 100%, 0% 100%);
-        }
+    .text {
+        z-index: 0;
+        position: relative;
+        width: 100%;
+        min-height: 255px;
+        background-color: white;
+    }
+
+    .meta {
+        z-index: 40;
+        position: absolute;
+        top: -27px;
+        width: 436px;
+        padding: 0px 0 10px 20px;
+        background-color: var(--color-white);
+        clip-path: polygon(73% 0, 73% 19%, 100% 19%, 100% 100%, 0 100%, 0 0);
     }
 
     // Breakpoints
-    @media #{$lte-tablet} {
-        width: 100%;
-    }
     @media #{$lte-phone} {
-        width: 100%;
+        .clipped {
+            width: 456px;
+            height: 30px;
+            position: relative;
+
+            .floating-highlighlight {
+                z-index: 30;
+                position: absolute;
+                width: 285px;
+                top: -40px;
+                left: 5px;
+                height: 30px;
+                background-color: var(--color-visit-fushia-base);
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 19px) 0,
+                    101% 53px,
+                    99.5% 49px,
+                    calc(100% - 21px) 2.25px,
+                    0 2.25px
+                );
+            }
+
+            .clipped-box {
+                position: absolute;
+                z-index: 30;
+                top: -30px;
+                left: 0px;
+                width: 300px;
+                height: 30px;
+                box-sizing: border-box;
+                background-color: var(--color-white);
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 39px) 0,
+                    100% 95px,
+                    100% 102%,
+                    0 102%
+                );
+            }
+        }
+
+        .text {
+            width: 325px;
+            min-height: 255px;
+        }
+        .meta {
+            z-index: 40;
+            position: absolute;
+            top: -30px;
+            width: 225px;
+            padding: 15px 0 10px 20px;
+            clip-path: polygon(0 0, 375px 0, 490px 100%, 0% 100%);
+        }
     }
 }
 </style>
