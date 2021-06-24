@@ -107,6 +107,8 @@ export default {
             type: Object,
             default: () => ({}),
         },
+
+        // TODO change these to date and time (lose the 's') and update stories, exhibit list and home page
         dates: {
             type: String,
             default: "",

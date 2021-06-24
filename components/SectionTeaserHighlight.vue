@@ -1,12 +1,13 @@
 <template lang="html">
     <section class="section-teaser-highlight">
+        <!-- TODO I don't think you need this div -->
         <div class="section">
-            <divider-general class="divider" />
             <div
                 v-for="item in items"
                 :key="item.to"
                 class="meta"
             >
+                <!-- TODO make these all indervidual props (not one big object) -->
                 <block-teaser-highlight
                     :item="item"
                     class="block"

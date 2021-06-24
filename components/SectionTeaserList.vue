@@ -5,7 +5,6 @@
             :key="item.to"
             class="meta"
         >
-            <divider-general class="divider" />
             <block-teaser-list
                 :item="item"
                 class="block"

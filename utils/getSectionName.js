@@ -22,8 +22,6 @@ function getSectionName(uri = "") {
             break
     }
 
-    console.log(output)
-
     return output
 }
 

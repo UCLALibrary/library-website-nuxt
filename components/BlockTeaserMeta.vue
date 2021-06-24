@@ -11,9 +11,15 @@
                     v-html="title"
                 />
             </nuxt-link>
+
             <div class="date-time">
-                <span v-html="parsedDateTime" />
+                <time
+                    :datetime="date"
+                    v-html="parsedDateTime"
+                />
+
                 <span v-if="showPipe"> | </span>
+
                 <component
                     :is="parsedSvgOnline"
                     v-if="isOnline"
@@ -251,7 +257,7 @@ export default {
             .title {
                 text-decoration: underline;
                 text-decoration-color: var(--color-default-cyan-base);
-                text-decoration-thickness: 2.5px;
+                text-decoration-thickness: 1.5px;
             }
         }
     }

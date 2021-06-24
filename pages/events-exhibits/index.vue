@@ -5,6 +5,7 @@
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
         >
+            <!-- TODO Add SearchGenric here when complete  -->
             <!-- <search-generic search-type="about"
                     :filters="searchFilters.filters"
                     :view-modes="searchFilters.views"
@@ -13,7 +14,7 @@
             /> -->
         </masthead-secondary>
 
-        <divider-way-finder class="section divider" />
+        <divider-way-finder class="section divider divider-way-finder" />
 
         <banner-featured
             class="section banner-featured"
@@ -27,6 +28,25 @@
             :dates="firstEvent.dates"
             :times="firstEvent.times"
         />
+
+        <divider-general class="section divider divider-general" />
+
+        <section-teaser-highlight
+            class="section"
+            :items="highlightEvents"
+        />
+
+        <divider-general class="section divider divider-general" />
+
+        <!-- TODO List of events go here -->
+        <section-teaser-list
+            :items="listEvents"
+            class="section section-list"
+        />
+
+        <divider-way-finder class="section divider divider-way-finder" />
+
+        <!-- TODO Add BlockCallToAction here. Probably need to use Craft for that content. -->
     </section>
 </template>
 
@@ -39,21 +59,43 @@ import formatEventTimes from "~/utils/formatEventTimes"
 export default {
     async asyncData({ $axios }) {
         // TODO This is hardcoded to the "Test" calendar, should be a "featured" calendar probably
-        const data = await $axios.$get(`/events`, {
+        const libcalRequest = $axios.$get(`/events`, {
             params: {
                 cal_id: 11521,
             },
         })
+        // const craftRequest = $graphql(`/craft/foo`, {
+        //     params: {
+        //         cal_id: 11521,
+        //     },
+        // })
+
+        // Do both requests in parallel
+        const [libcalData] = await Promise.all([
+            libcalRequest,
+            //craftRequest,
+        ])
 
         return {
-            events: _get(data, "events", []),
+            events: _get(libcalData, "events", []),
+            //page: _get(craftData, "data.page", {}),
         }
     },
 
     computed: {
         parsedEvents() {
+            // TODO Remove this one we have more events
+            const mockEvents = [
+                ...this.events,
+                ...this.events,
+                ...this.events,
+                ...this.events,
+                ...this.events,
+            ]
+
             // Shape events
-            return this.events.map((obj) => {
+            // return this.events.map((obj) => {
+            return mockEvents.map((obj) => {
                 const event = _get(this, "events[0]", {})
 
                 return {
@@ -70,13 +112,38 @@ export default {
                     breadcrumb: {
                         text: _get(event, "category.name", "Featured"),
                     },
+                    // TODO Only need one set of these once BannerFeatured is updated
                     dates: formatEventDates(event.start, event.end),
                     times: formatEventTimes(event.start, event.end),
+                    date: formatEventDates(event.start, event.end),
+                    time: formatEventTimes(event.start, event.end),
+                    text: event.description,
                 }
             })
         },
         firstEvent() {
             return this.parsedEvents[0] || {}
+        },
+        highlightEvents() {
+            // Get items 2nd and 3rd from array
+            const items = this.parsedEvents.slice(1, 3)
+
+            return items.map((obj) => {
+                return {
+                    ...obj,
+                    category: _get(obj, "category.name", "Featured"),
+                }
+            })
+        },
+        listEvents() {
+            const items = this.parsedEvents.slice(2)
+
+            return items.map((obj) => {
+                return {
+                    ...obj,
+                    category: _get(obj, "category.name", "Featured"),
+                }
+            })
         },
     },
 }

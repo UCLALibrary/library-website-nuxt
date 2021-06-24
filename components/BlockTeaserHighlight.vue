@@ -22,6 +22,7 @@
 <script>
 export default {
     props: {
+        // TODO make these all indervidual props (not one big object)
         item: {
             type: Object,
             default: () => {},

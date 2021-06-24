@@ -16,6 +16,7 @@
 <script>
 export default {
     props: {
+        // Make tese props not one big object
         item: {
             type: Object,
             default: () => {},
