@@ -38,7 +38,7 @@ const mock = [
     {
         image: API.image,
         to: "/visit/foo/baz/",
-        category: "Sagittis",
+        category: "Tristique",
         title: "Amet nisl suscipit adipiscing bibendum lectus sed",
         date: "Mars, Ocavia 17, 2021",
         time: "6 - 8 pm",

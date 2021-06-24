@@ -35,6 +35,7 @@ export default {
     max-width: 990px;
     padding: 0 var(--unit-gutter);
     background-color: var(--color-white);
+
     .section {
         display: flex;
         flex-direction: row;
@@ -47,6 +48,7 @@ export default {
     .divider {
         box-sizing: border-box;
         width: 100%;
+        margin-bottom: 83px;
     }
 
     .meta {
@@ -56,10 +58,6 @@ export default {
         &:nth-child(3n) {
             padding-right: 0px;
         }
-    }
-
-    .block {
-        margin-top: 85px;
     }
 
     // Breakpoints
