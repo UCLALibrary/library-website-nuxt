@@ -36,6 +36,13 @@ export default {
     },
 
     /*
+     ** Nuxt router configuration. Used to define settingg for the router.
+     */
+    router: {
+        trailingSlash: false,
+    },
+
+    /*
      ** Storybook
      ** SEE https://storybook.nuxtjs.org/options
      */

@@ -3,24 +3,28 @@
  * @param {String} uri
  * @returns {String}
  */
+
+const helps = ["/help"]
+const abouts = ["/about"]
+const visits = ["/events-exhibits"]
+
 function getSectionName(uri = "") {
     let output = "default"
 
     switch (true) {
-        case uri.includes('/help/'):
+        case helps.includes(uri):
             output = "help"
-            break;
+            break
 
-        case uri.includes('/about/'):
+        case abouts.includes(uri):
             output = "about"
-            break;
+            break
 
-        case uri.includes('/visit/'):
+        case abouts.includes(uri):
             output = "visit"
-            break;
-
+            break
     }
     return output
 }
 
-export default getSectionName;
+export default getSectionName
