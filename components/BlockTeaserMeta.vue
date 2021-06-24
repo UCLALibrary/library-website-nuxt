@@ -225,7 +225,7 @@ export default {
     // Themes
     --color-theme: var(--color-primary-light-blue);
     &.color-visit {
-        --color-theme: var(--color-visit);
+        --color-theme: var(--color-visit-fushia-base);
     }
     &.color-help {
         --color-theme: var(--color-help);

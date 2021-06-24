@@ -2,7 +2,10 @@
     <div :class="classes">
         <div class="slot">
             <slot>
-                <div class="breadcrumb">
+                <div
+                    v-if="breadcrumb.text"
+                    class="breadcrumb"
+                >
                     <svg-heading-vector class="heading-line" />
                     <div class="text">
                         {{ breadcrumb.text }}
@@ -102,7 +105,7 @@ export default {
         category: {
             // Mock as { name: 'Name', to: 'http://fake.url/link' }
             type: Object,
-            default: () => {},
+            default: () => ({}),
         },
         dates: {
             type: String,
@@ -128,7 +131,7 @@ export default {
         breadcrumb: {
             // mock as { text: 'Title', to: 'http://fake.url' }
             type: Object,
-            default: () => {},
+            default: () => ({}),
         },
         prompt: {
             // text that displays on blue button, e.g. "View exhibit". Links to `props.to`
@@ -188,7 +191,7 @@ export default {
     // Themes
     --color-theme: var(--color-primary-blue);
     &.color-visit {
-        --color-theme: var(--color-visit);
+        --color-theme: var(--color-visit-fushia-base);
     }
     &.color-help {
         --color-theme: var(--color-help);

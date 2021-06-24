@@ -4,26 +4,26 @@
  * @returns {String}
  */
 
-const helps = ["/help"]
-const abouts = ["/about"]
-const visits = ["/events-exhibits"]
-
 function getSectionName(uri = "") {
     let output = "default"
 
     switch (true) {
-        case helps.includes(uri):
+        case uri.includes("/help"):
             output = "help"
             break
 
-        case abouts.includes(uri):
+        case uri.includes("/about"):
             output = "about"
             break
 
-        case abouts.includes(uri):
+        case uri.includes("/visit"):
+        case uri.includes("/events-exhibits"):
             output = "visit"
             break
     }
+
+    console.log(output)
+
     return output
 }
 

@@ -6,6 +6,9 @@
 </template>
 
 <script>
+// Helpers
+import getSectionName from "~/utils/getSectionName"
+
 export default {
     props: {
         color: {
@@ -15,7 +18,10 @@ export default {
     },
     computed: {
         classes() {
-            return ["divider-way-finder", `color-${this.color}`]
+            return ["divider-way-finder", `color-${this.sectionName}`]
+        },
+        sectionName() {
+            return this.color || getSectionName(this.$route.path)
         },
     },
 }

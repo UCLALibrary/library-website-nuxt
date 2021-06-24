@@ -141,7 +141,7 @@ export default {
         --color-theme: var(--color-primary-light-blue);
 
         &.color-visit {
-            --color-theme: var(--color-visit);
+            --color-theme: var(--color-visit-fushia-base);
         }
 
         &.color-help {

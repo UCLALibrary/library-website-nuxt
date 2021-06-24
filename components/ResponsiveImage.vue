@@ -63,7 +63,7 @@ export default {
         },
         image: {
             type: Object,
-            default: () => {},
+            default: () => ({}),
         },
     },
     data() {
