@@ -8,7 +8,6 @@ export default {
 
 const mock = {
     to: "/help/foo/bar/",
-
     name: "Lorem ipsum dolor",
     title: "Lorem ipsum dolor sit amet?",
     text:
@@ -33,7 +32,6 @@ export const Default = () => ({
     `,
 })
 
-// Variations of stories below
 export const DarkBlue = () => ({
     data() {
         return {
@@ -52,7 +50,6 @@ export const DarkBlue = () => ({
     `,
 })
 
-// Variations of stories below
 export const SmallCTA = () => ({
     data() {
         return {
@@ -66,7 +63,26 @@ export const SmallCTA = () => ({
             :name="name"
             :title="title"
             :text="text"
-            icon-name= "svg-call-to-action-chat"
+            icon-name= "svg-call-to-action-money"
+        />
+    `,
+})
+
+export const SmallCTADarkBlue = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <block-call-to-action
+            is-small-size=true
+            is-dark-blue=true
+            :to="to"
+            :name="name"
+            :title="title"
+            :text="text"
+            icon-name= "svg-call-to-action-find"
         />
     `,
 })

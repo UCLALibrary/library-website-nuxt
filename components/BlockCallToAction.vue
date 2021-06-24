@@ -1,6 +1,6 @@
 <template lang="html">
     <div :class="sizeClasses">
-        <div :class="classes">
+        <div :class="colorClasses">
             <component
                 :is="parsedSvgName"
                 class="svg"
@@ -66,7 +66,7 @@ export default {
             return `${this.iconName}`
         },
 
-        classes() {
+        colorClasses() {
             let output = ["container"]
             if (this.isDarkBlue) {
                 output = [
@@ -74,6 +74,7 @@ export default {
                     "color-dark-blue",
                     "color-light-title",
                     "color-light-text",
+                    "color-dark-blue",
                 ]
             }
             return output
@@ -85,6 +86,8 @@ export default {
                     "block-call-to-action",
                     "block-width-small",
                     "block-height-small",
+                    "block-padding-title-small",
+                    "block-padding-text-small",
                 ]
             }
             return output
@@ -109,6 +112,17 @@ export default {
     --block-height: 700px;
     &.block-height-small {
         --block-height: 520px;
+    }
+    // Padding Sizes Title
+    --block-padding-title: 70px;
+    &.block-padding-title-small {
+        --block-padding-title: 114px;
+    }
+
+    // Padding Sizes Text
+    --block-padding-text: 10px;
+    &.block-padding-text-small {
+        --block-padding-text: 112px;
     }
 
     .container {
@@ -137,6 +151,12 @@ export default {
         &.color-light-text {
             --color-text: var(--color-white);
         }
+
+        // Themes for button color
+        --color-theme-button: var(--color-primary-blue);
+        &.color-dark-blue {
+            --color-theme-button: var(--color-secondary-blue-02);
+        }
     }
 
     .svg {
@@ -153,8 +173,8 @@ export default {
         line-height: 100%;
         color: var(--color-title);
         text-align: center;
-        padding-left: 70px;
-        padding-right: 70px;
+        padding-left: var(--block-padding-title);
+        padding-right: var(--block-padding-title);
         max-width: 630px;
         margin-bottom: 16px;
     }
@@ -164,8 +184,8 @@ export default {
         font-size: 18px;
         text-align: center;
         line-height: 140%;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: var(--block-padding-text);
+        padding-right: var(--block-padding-text);
         max-width: 630px;
         color: var(--color-text);
     }
@@ -173,7 +193,8 @@ export default {
     .button-link {
         width: 280px;
         margin-bottom: 60px;
-        background-color: var(--color-primary-blue);
+        font-size: 18px;
+        background-color: var(--color-theme-button);
         color: var(--color-white);
     }
     /deep/ {
