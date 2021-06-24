@@ -100,7 +100,7 @@ export default {
     /*
      * Nuxt modules
      */
-    modules: ["@nuxtjs/axios"],
+    modules: ["~/modules/populate", "@nuxtjs/axios"],
 
     /*
      * Nuxt build modules

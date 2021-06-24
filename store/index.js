@@ -16,18 +16,23 @@ export const mutations = {
 
 // Define actions
 export const actions = {
-    async nuxtServerInit({ commit }, { $config, error }) {
+    async nuxtGenerateInit(store, { $config, error, generatePayload }) {
+        let data = generatePayload || false
+
         try {
-            const data = await this.$axios.$post("/oauth/token", {
-                client_id: $config.libcalClientId,
-                client_secret: $config.libcalClientSecret,
-                grant_type: "client_credentials",
-            })
+            // If we have a payload already, don't do the request, use the payload
+            if (!generatePayload) {
+                let data = await this.$axios.$post("/oauth/token", {
+                    client_id: $config.libcalClientId,
+                    client_secret: $config.libcalClientSecret,
+                    grant_type: "client_credentials",
+                })
+            }
 
             if (data.access_token) {
                 this.$axios.setToken(data.access_token, "Bearer")
 
-                commit("SET_LIBCAL_TOKEN", data.access_token)
+                return data
             } else {
                 throw new Error(
                     "Auth error. Libcal returned: " + JSON.stringify(data)

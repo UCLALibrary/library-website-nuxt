@@ -1,6 +1,8 @@
 <template lang="html">
     <section class="page-events-exhibits">
         <h2 v-html="event.title" />
+
+        {{ event }}
     </section>
 </template>
 
