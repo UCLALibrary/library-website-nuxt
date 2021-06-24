@@ -1,24 +1,22 @@
 <template lang="html">
     <section class="section-teaser-highlight">
-        <div
-            v-for="(block, index) in parsedList"
-            :key="index"
-        >
-            <div class="block">
-                <div
-                    v-for="card in block"
-                    :key="card.to"
-                    class="card"
-                >
-                    <block-teaser-card :item="card" />
-                </div>
+        <div class="section">
+            <divider-general class="divider" />
+            <div
+                v-for="item in items"
+                :key="item.to"
+                class="meta"
+            >
+                <block-teaser-highlight
+                    :item="item"
+                    class="block"
+                />
             </div>
         </div>
     </section>
 </template>
-<script>
-import arrayOfArrays from "~/utils/arrayOfArrays"
 
+<script>
 export default {
     props: {
         /**
@@ -29,40 +27,21 @@ export default {
             default: () => [],
         },
     },
-    computed: {
-        parsedList() {
-            if (this.$store.state.winWidth <= 750) {
-                return arrayOfArrays(this.items, 1)
-            } else if (
-                this.$store.state.winWidth <= 1024 &&
-                this.$store.state.winWidth >= 750
-            ) {
-                return arrayOfArrays(this.items, 2)
-            } else {
-                return arrayOfArrays(this.items, 3)
-            }
-        },
-    },
 }
 </script>
 
 <style lang="scss" scoped>
 .section-teaser-highlight {
-    max-width: 964px;
+    max-width: 990px;
+    padding: 0 var(--unit-gutter);
     background-color: var(--color-white);
-
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-
-    .block {
-        margin-left: 16px;
-        margin-top: 50px;
-        margin-bottom: 50px;
-
+    .section {
         display: flex;
         flex-direction: row;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        align-items: flex-start;
     }
 
     .divider {
@@ -70,39 +49,49 @@ export default {
         width: 100%;
     }
 
-    .card {
-        padding-right: 16px;
+    .meta {
+        &:nth-child(2n) {
+            padding-right: 18px;
+        }
         &:nth-child(3n) {
             padding-right: 0px;
         }
     }
 
+    .block {
+        margin-top: 85px;
+    }
+
     // Breakpoints
     @media #{$lte-tablet} {
         .block {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: center;
-            align-content: center;
-            align-items: flex-start;
-
-            margin-top: 35px;
-            margin-bottom: 25px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            min-height: 200px;
         }
     }
     @media #{$lte-phone} {
-        .block {
+        .section {
             display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
+            flex-direction: column;
+            flex-wrap: wrap;
             justify-content: center;
             align-content: center;
-            align-items: center;
+            align-items: flex-start;
+        }
+        .block {
+            margin-top: 0px;
+            margin-bottom: 0px;
+            min-height: 200px;
+        }
 
-            margin-left: 0px;
-            margin-top: 35px;
-            margin-bottom: 25px;
+        .meta {
+            &:nth-child(2n) {
+                padding-right: 0px;
+            }
+            &:nth-child(3n) {
+                padding-right: 0px;
+            }
         }
     }
 }

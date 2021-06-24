@@ -212,13 +212,24 @@ export default {
     }
     &.is-highlight {
         .meta {
-            width: 320px;
+            max-width: 320px;
         }
         .category {
             margin-top: 6px;
         }
+        .title {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
         .text {
             margin-top: 15px;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
     }
 
@@ -244,5 +255,16 @@ export default {
             }
         }
     }
+
+    // Breakpoints
+    // @media #{$lte-phone} {
+    //     &.is-highlight {
+    //         .meta {
+    //             //max-width: 225px;
+    //             margin-bottom: 0px;
+    //             border: 4px solid coral;
+    //         }
+    //     }
+    // }
 }
 </style>

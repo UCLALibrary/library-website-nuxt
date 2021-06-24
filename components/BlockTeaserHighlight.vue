@@ -17,12 +17,7 @@
 </template>
 
 <script>
-import SvgClippedBox from "~/assets/svg/clipped-box"
-
 export default {
-    components: {
-        SvgClippedBox,
-    },
     props: {
         item: {
             type: Object,
@@ -39,62 +34,114 @@ export default {
     max-width: 456px;
     background-color: var(--color-white);
 
+    .floating-highlighlight {
+        z-index: 30;
+        position: absolute;
+        width: 398px;
+        top: -56px;
+        left: 5px;
+        height: 60px;
+        background-color: var(--color-visit-fushia-base);
+        clip-path: polygon(
+            0 0,
+            calc(100% - 19px) 0,
+            101% 55px,
+            99.5% 47px,
+            calc(100% - 21px) 2.25px,
+            0 2.25px
+        );
+    }
+
+    .clipped-box {
+        position: relative;
+        z-index: 30;
+        top: -46px;
+        left: 0px;
+        width: 415px;
+        height: 50px;
+        box-sizing: border-box;
+        background-color: var(--color-white);
+        background-color: aqua;
+        clip-path: polygon(
+            0 0,
+            calc(100% - 39px) 0,
+            100% 95px,
+            100% 102%,
+            0 102%
+        );
+    }
+
     .text {
         z-index: 0;
         position: relative;
-        width: 456px;
+        //width: 456px;
+        width: 100%;
         min-height: 255px;
         background-color: white;
         margin-bottom: 85px;
+    }
 
+    .meta {
+        z-index: 40;
+        position: absolute;
+        top: -46px;
+        width: 436px;
+        padding: 15px 0 10px 20px;
+        background-color: var(--color-white);
+        background-color: pink;
+        clip-path: polygon(73% 0, 73% 20%, 100% 21%, 100% 100%, 0 100%, 0 0);
+        //clip-path: polygon(0 0, 375px 0, 476px 100%, 0% 100%);
+    }
+
+    // Breakpoints
+    @media #{$lte-phone} {
         .floating-highlighlight {
-            z-index: 10;
-            position: absolute;
-            box-sizing: border-box;
+            width: 313px;
             top: -56px;
             left: 5px;
-            width: 403px;
             height: 60px;
             background-color: var(--color-visit-fushia-base);
             clip-path: polygon(
                 0 0,
-                93.5% 0,
-                99% 48px,
-                98.5% 48px,
-                93.25% 2px,
-                0 2px
+                calc(100% - 19px) 0,
+                100% 48px,
+                99.25% 48px,
+                calc(100% - 21.5px) 2.25px,
+                0 2.25px
             );
         }
 
         .clipped-box {
-            z-index: 20;
-            position: absolute;
-            width: 436px;
-            height: 50px;
-            top: -46px;
-            width: 450px;
+            width: 330px;
+            //background-color: var(--color-white);
             box-sizing: border-box;
-            background-color: var(--color-white);
-            clip-path: polygon(0 0, 375px 0, 397px 100%, 0% 100%);
-        }
-
-        .meta {
+            position: relative;
             z-index: 30;
+            top: -46px;
+            left: 0px;
+            height: 50px;
+
+            clip-path: polygon(
+                0 0,
+                calc(100% - 39px) 0,
+                100% 95px,
+                100% 102%,
+                0 102%
+            );
+        }
+        .text {
+            width: 325px;
+            min-height: 255px;
+            margin-bottom: 25px;
+        }
+        .meta {
+            z-index: 40;
             position: absolute;
             top: -46px;
-            width: 436px;
+            width: 225px;
             padding: 15px 0 10px 20px;
-            background-color: var(--color-white);
             clip-path: polygon(0 0, 375px 0, 490px 100%, 0% 100%);
         }
-    }
-
-    // Breakpoints
-    @media #{$lte-tablet} {
-        width: 100%;
-    }
-    @media #{$lte-phone} {
-        width: 100%;
     }
 }
 </style>
