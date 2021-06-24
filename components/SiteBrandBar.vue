@@ -25,7 +25,7 @@ export default {
 <style lang="scss" scoped>
 .site-brand-bar {
     height: 40px;
-    background-color: var(--color-blue-01);
+    background-color: var(--color-primary-blue);
     padding: 0 var(--unit-gutter);
 
     display: flex;

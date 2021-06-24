@@ -3,6 +3,7 @@
         <header-main />
 
         <nuxt class="page" />
+
         <footer-primary
             :social-items="parsedItems"
             :press-items="parsedPressItems"
