@@ -156,7 +156,7 @@ export default {
         font-size: 26px;
         line-height: 130%;
         letter-spacing: 0.01em;
-        color: var(--color-blue-01);
+        color: var(--color-primary-blue);
         margin: 16px 0 0 0;
 
         display: -webkit-box;
@@ -251,20 +251,9 @@ export default {
             .title {
                 text-decoration: underline;
                 text-decoration-color: var(--color-default-cyan-base);
-                text-decoration-thickness: 1.5px;
+                text-decoration-thickness: 2.5px;
             }
         }
     }
-
-    // Breakpoints
-    // @media #{$lte-phone} {
-    //     &.is-highlight {
-    //         .meta {
-    //             //max-width: 225px;
-    //             margin-bottom: 0px;
-    //             border: 4px solid coral;
-    //         }
-    //     }
-    // }
 }
 </style>
