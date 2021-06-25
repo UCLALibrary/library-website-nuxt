@@ -75,6 +75,8 @@ export default {
                     "color-light-title",
                     "color-light-text",
                     "color-dark-blue",
+                    "color-theme-svg-outline-dark",
+                    "color-theme-svg-lines-dark",
                 ]
             }
             return output
@@ -157,6 +159,18 @@ export default {
         &.color-dark-blue {
             --color-theme-button: var(--color-secondary-blue-02);
         }
+
+        // Themes for svg colors
+        --color-theme-svg-outline: var(--color-primary-blue);
+        &.color-theme-svg-outline-dark {
+            --color-theme-svg-outline: var(--color-primary-light-blue);
+        }
+
+        // Themes for svg colors
+        --color-theme-svg-lines: var(--color-help-green-base);
+        &.color-theme-svg-lines-dark {
+            --color-theme-svg-lines: var(--color-white);
+        }
     }
 
     .svg {
@@ -164,6 +178,14 @@ export default {
         margin-top: 60px;
         flex-grow: 0;
         flex-shrink: 0;
+
+        .outline {
+            stroke: var(--color-theme-svg-outline);
+        }
+
+        .color {
+            stroke: var(--color-theme-svg-lines);
+        }
     }
 
     .title {
