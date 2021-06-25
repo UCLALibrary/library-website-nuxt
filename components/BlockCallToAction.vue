@@ -131,6 +131,7 @@ export default {
         background-color: var(--color-theme);
         width: 100%;
         height: 100%;
+
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
@@ -140,34 +141,40 @@ export default {
 
         // Themes for background
         --color-theme: var(--color-primary-lightest-blue);
+
         &.color-dark-blue {
             --color-theme: var(--color-secondary-blue-02);
         }
 
         // Themes for title and text
         --color-title: var(--color-primary-blue);
+
         &.color-light-title {
             --color-title: var(--color-white);
         }
         --color-text: var(--color-primary-darkest-blue);
+
         &.color-light-text {
             --color-text: var(--color-white);
         }
 
         // Themes for button color
         --color-theme-button: var(--color-primary-blue);
+
         &.color-dark-blue {
             --color-theme-button: var(--color-secondary-blue-02);
         }
 
         // Themes for svg colors
         --color-theme-svg-outline: var(--color-primary-blue);
+
         &.color-theme-svg-outline-dark {
             --color-theme-svg-outline: var(--color-primary-light-blue);
         }
 
         // Themes for svg colors
         --color-theme-svg-lines: var(--color-help-green-base);
+
         &.color-theme-svg-lines-dark {
             --color-theme-svg-lines: var(--color-white);
         }
@@ -176,6 +183,7 @@ export default {
     .svg {
         margin-bottom: 35px;
         margin-top: 60px;
+
         flex-grow: 0;
         flex-shrink: 0;
 
@@ -202,23 +210,24 @@ export default {
     }
 
     .text {
-        margin-bottom: 35px;
         font-size: 18px;
-        text-align: center;
         line-height: 140%;
+        color: var(--color-text);
+        text-align: center;
         padding-left: var(--block-padding-text);
         padding-right: var(--block-padding-text);
         max-width: 630px;
-        color: var(--color-text);
+        margin-bottom: 35px;
     }
 
     .button-link {
         width: 280px;
-        margin-bottom: 60px;
         font-size: 18px;
         background-color: var(--color-theme-button);
         color: var(--color-white);
+        margin-bottom: 60px;
     }
+
     /deep/ {
         .button-link {
             .arrow-right {
