@@ -58,8 +58,8 @@ import getSectionName from "~/utils/getSectionName"
 
 export default {
     components: {
-        LocationIcon: () => import("~/assets/svg/location-icon"),
-        OnlineIcon: () => import("~/assets/svg/online-icon"),
+        LocationIcon: () => import("~/assets/svg/icon-location"),
+        OnlineIcon: () => import("~/assets/svg/icon-online"),
     },
     props: {
         view: {
@@ -121,11 +121,11 @@ export default {
             return this.view == "list" || this.view == "highlight"
         },
         parsedSvgName() {
-            return this.location == "online" ? "online-icon" : "location-icon"
+            return this.location == "online" ? "icon-online" : "icon-location"
         },
         parsedSvgOnline() {
             if (this.view == "gallery") {
-                return "online-icon"
+                return "icon-online"
             }
         },
         showLocation() {
