@@ -51,7 +51,7 @@
             icon-name="svg-call-to-action-find"
             name="Lorem ipsum dolor"
             title="Lorem ipsum dolor sit amet?"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            text="Lorem ipsum dolor sit, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             ,
         />
     </section>
