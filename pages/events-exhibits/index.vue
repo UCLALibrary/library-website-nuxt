@@ -46,7 +46,14 @@
 
         <divider-way-finder class="section divider divider-way-finder" />
 
-        <!-- TODO Add BlockCallToAction here. Probably need to use Craft for that content. -->
+        <block-call-to-action
+            class="section block-call-to-action"
+            icon-name="svg-call-to-action-find"
+            name="Lorem ipsum dolor"
+            title="Lorem ipsum dolor sit amet?"
+            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            ,
+        />
     </section>
 </template>
 
@@ -80,6 +87,19 @@ export default {
             events: _get(libcalData, "events", []),
             //page: _get(craftData, "data.page", {}),
         }
+
+        // const mockBlockCallToAction = {
+        //     to: "/help/foo/bar/",
+        //     name: "Lorem ipsum dolor",
+        //     title: "Lorem ipsum dolor sit amet?",
+        //     text:
+        //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        //     iconName: "svg-call-to-action-find",
+        // }
+        //
+        // return {
+        //     mockBlockCallToAction,
+        // }
     },
 
     computed: {
@@ -157,6 +177,9 @@ export default {
     }
     .divider {
         padding: 0 32px;
+    }
+    .block-call-to-action {
+        margin-bottom: 160px;
     }
 }
 </style>
