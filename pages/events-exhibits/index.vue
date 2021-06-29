@@ -152,6 +152,7 @@ export default {
                 }
             })
         },
+        //TODO remove once we have real data from Craft
         blockCallToAction() {
             const mockBlockCallToAction = {
                 to: "/help/foo/bar/",
@@ -177,6 +178,7 @@ export default {
     }
     .block-call-to-action {
         margin-bottom: 160px;
+        padding-top: 20px;
     }
 }
 </style>
