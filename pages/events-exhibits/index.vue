@@ -49,10 +49,10 @@
         <block-call-to-action
             class="section block-call-to-action"
             icon-name="svg-call-to-action-find"
-            name="Lorem ipsum dolor"
-            title="Lorem ipsum dolor sit amet?"
-            text="Lorem ipsum dolor sit, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-            ,
+            :to="blockCallToAction.to"
+            :name="blockCallToAction.name"
+            :title="blockCallToAction.title"
+            :text="blockCallToAction.text"
         />
     </section>
 </template>
@@ -87,19 +87,6 @@ export default {
             events: _get(libcalData, "events", []),
             //page: _get(craftData, "data.page", {}),
         }
-
-        // const mockBlockCallToAction = {
-        //     to: "/help/foo/bar/",
-        //     name: "Lorem ipsum dolor",
-        //     title: "Lorem ipsum dolor sit amet?",
-        //     text:
-        //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        //     iconName: "svg-call-to-action-find",
-        // }
-        //
-        // return {
-        //     mockBlockCallToAction,
-        // }
     },
 
     computed: {
@@ -164,6 +151,16 @@ export default {
                     category: _get(obj, "category.name", "Featured"),
                 }
             })
+        },
+        blockCallToAction() {
+            const mockBlockCallToAction = {
+                to: "/help/foo/bar/",
+                name: "Lorem ipsum dolor",
+                title: "Lorem ipsum dolor sit amet?",
+                text:
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            }
+            return mockBlockCallToAction
         },
     },
 }
