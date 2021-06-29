@@ -46,7 +46,14 @@
 
         <divider-way-finder class="section divider divider-way-finder" />
 
-        <!-- TODO Add BlockCallToAction here. Probably need to use Craft for that content. -->
+        <block-call-to-action
+            class="section block-call-to-action"
+            icon-name="svg-call-to-action-find"
+            :to="blockCallToAction.to"
+            :name="blockCallToAction.name"
+            :title="blockCallToAction.title"
+            :text="blockCallToAction.text"
+        />
     </section>
 </template>
 
@@ -145,6 +152,17 @@ export default {
                 }
             })
         },
+        //TODO remove once we have real data from Craft
+        blockCallToAction() {
+            const mockBlockCallToAction = {
+                to: "/help/foo/bar/",
+                name: "Lorem ipsum dolor",
+                title: "Lorem ipsum dolor sit amet?",
+                text:
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            }
+            return mockBlockCallToAction
+        },
     },
 }
 </script>
@@ -157,6 +175,10 @@ export default {
     }
     .divider {
         padding: 0 32px;
+    }
+    .block-call-to-action {
+        margin-bottom: 160px;
+        padding-top: 20px;
     }
 }
 </style>
