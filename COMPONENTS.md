@@ -324,3 +324,20 @@ According to the data model, `Articles` will be used in "A blog post or other ti
 **context**: this is the only part of the data model in our CraftCMS that is close to being done (pending) approval
 
 We can look at those designs and focus on making component request issues for the relevant components
+
+# Staff Directory Listing Page
+
+- BlockStaffMeta
+- BlockStaffList
+- SectionStaffList
+
+# Staff Directory Detail
+
+- BlockStaffProfile
+
+# Sticky Header
+ - Exhibits & Events
+ - Staff
+ - Services
+ - Map
+ - Article Detail Page
