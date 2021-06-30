@@ -151,7 +151,7 @@ export default {
         },
         hasButton: {
             type: Boolean,
-            default: false,
+            default: true,
         },
     },
     computed: {

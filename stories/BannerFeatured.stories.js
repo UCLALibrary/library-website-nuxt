@@ -15,7 +15,7 @@ const mock = {
     isOnline: true,
     prompt: "Cursus Quis",
     alignRight: true,
-    hasButton: false,
+    hasButton: true,
 }
 
 export const Default = () => ({
@@ -34,7 +34,7 @@ export const Default = () => ({
            :dates="dates"
            :is-online="isOnline"
            :prompt="prompt"
-           :has-button="has-button"
+           :has-button="hasButton"
        />
     `,
 })
@@ -56,7 +56,7 @@ export const LeftAligned = () => ({
            :is-online="isOnline"
            :prompt="prompt"
            align-right=false
-           :has-button="has-button"
+           :has-button="hasButton"
        />
     `,
 })
@@ -78,6 +78,7 @@ export const NotOnline = () => ({
            is-online=false
            :prompt="prompt"
            align-right=false
+           :has-button="hasButton"
         />
     `,
 })
@@ -108,7 +109,7 @@ export const Slot = () => ({
            is-online=false
            :prompt="prompt"
            align-right=false
-           has-button=true
+           :has-button="hasButton"
            location="YRL"
         >
             <heading-arrow
@@ -149,6 +150,7 @@ export const LongHeading = () => ({
            :prompt="prompt"
            align-right=false
            location="YRL"
+           :has-button="hasButton"
         >
             <heading-arrow
                 :text="breadcrumb.text"
@@ -175,7 +177,7 @@ export const WideImage = () => ({
            :dates="dates"
            :is-online="isOnline"
            :prompt="prompt"
-           has-button=true
+           :has-button="hasButton"
            :ratio="42"
            times="1:00pm"
        />
@@ -200,31 +202,7 @@ export const WideImageLeftAligned = () => ({
            :prompt="prompt"
            :ratio="42"
            align-right=false
-           has-button=true
-           times="1:00pm"
-       />
-    `,
-})
-
-export const HasButton = () => ({
-    data() {
-        return {
-            ...mock,
-        }
-    },
-    template: `
-        <banner-featured
-           :image="image"
-           :to="to"
-           :title="title"
-           :category="category"
-           :breadcrumb="breadcrumb"
-           :dates="dates"
-           :is-online="isOnline"
-           :prompt="prompt"
-           :ratio="42"
-           align-right=false
-           has-button=true
+           :has-button="hasButton"
            times="1:00pm"
        />
     `,
@@ -247,9 +225,8 @@ export const NoButton = () => ({
            :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
-           align-right="false"
+           align-right=false
            times="1:00pm"
-           :has-button="has-button"
        />
     `,
 })
