@@ -68,13 +68,14 @@
                     v-html="locationDisplay"
                 />
             </div>
-
-            <nuxt-link :to="to">
-                <button-link
-                    :label="prompt"
-                    class="button"
-                />
-            </nuxt-link>
+            <div v-if="hasButton">
+                <nuxt-link :to="to">
+                    <button-link
+                        :label="prompt"
+                        class="button"
+                    />
+                </nuxt-link>
+            </div>
         </div>
     </div>
 </template>
@@ -147,6 +148,10 @@ export default {
         ratio: {
             type: Number,
             default: 56.25,
+        },
+        hasButton: {
+            type: Boolean,
+            default: false,
         },
     },
     computed: {
