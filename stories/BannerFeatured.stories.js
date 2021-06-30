@@ -136,6 +136,7 @@ export const LongHeading = () => ({
             isOnline: true,
             prompt: "Amet Mauris",
             alignRight: true,
+            hasButton: true,
         }
     },
     template: `
