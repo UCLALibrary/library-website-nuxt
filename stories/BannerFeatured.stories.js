@@ -227,6 +227,7 @@ export const NoButton = () => ({
            :ratio="42"
            align-right=false
            times="1:00pm"
+           has-button=false
        />
     `,
 })
