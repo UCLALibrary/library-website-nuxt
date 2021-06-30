@@ -68,7 +68,7 @@
                     v-html="locationDisplay"
                 />
             </div>
-            <div v-if="hasButton">
+            <div v-if="hasButton === true">
                 <nuxt-link :to="to">
                     <button-link
                         :label="prompt"
@@ -151,7 +151,7 @@ export default {
         },
         hasButton: {
             type: Boolean,
-            default: false,
+            default: true,
         },
     },
     computed: {
