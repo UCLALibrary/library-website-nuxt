@@ -1,7 +1,7 @@
 <template lang="html">
     <section class="block-teaser-highlight">
         <responsive-image
-            :image="item.image"
+            :image="image"
             :aspect-ratio="60"
             class="image"
         />
@@ -11,7 +11,12 @@
                 <div class="clipped-box" />
             </div>
             <block-teaser-meta
-                v-bind="item"
+                :to="to"
+                :category="category"
+                :title="title"
+                :date="date"
+                :time="time"
+                :text="text"
                 view="highlight"
                 class="meta"
             />
@@ -22,10 +27,33 @@
 <script>
 export default {
     props: {
-        // TODO make these all indervidual props (not one big object)
-        item: {
+        image: {
             type: Object,
             default: () => {},
+        },
+        to: {
+            type: String,
+            default: "",
+        },
+        category: {
+            type: String,
+            default: "",
+        },
+        title: {
+            type: String,
+            default: "",
+        },
+        date: {
+            type: String,
+            default: "",
+        },
+        time: {
+            type: String,
+            default: "",
+        },
+        text: {
+            type: String,
+            default: "",
         },
     },
 }
