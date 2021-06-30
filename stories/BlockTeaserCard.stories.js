@@ -18,44 +18,51 @@ const mock = {
 // Variations of stories below
 export const Default = () => ({
     data() {
-        return { item: mock }
+        return { ...mock }
     },
     template: `
       <block-teaser-card
-        :item="item"
+      :image="image"
+      :to="to"
+      :category="category"
+      :title="title"
+      :date="date"
+      :time="time"
+      view="gallery"
       />
   `,
 })
 
 export const ShortTitle = () => ({
     data() {
-        return {
-            item: {
-                ...mock,
-                title: "Minim",
-            },
-        }
+        return { ...mock }
     },
     template: `
       <block-teaser-card
-        :item="item"
+      :image="image"
+      :to="to"
+      :category="category"
+      title="Minim"
+      :date="date"
+      :time="time"
+      view="gallery"
       />
   `,
 })
 
 export const LongTitle = () => ({
     data() {
-        return {
-            item: {
-                ...mock,
-                title:
-                    "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-            },
-        }
+        return { ...mock }
     },
     template: `
       <block-teaser-card
-        :item="item"
+      :image="image"
+      :to="to"
+      :category="category"
+      title="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+      :date="date"
+      :time="time"
+      view="gallery"
       />
   `,
 })
