@@ -7,14 +7,12 @@ export default {
 }
 
 const mock = {
-    image: API.image,
+    imageUrl: API.image.src,
     to: "/visit/foo/bar/",
-    category: "Ullamco",
-    title: "Fames ac turpis egestas sed tempus lorem ipsum",
-    date: "Pempti, Ocavia 14, 2021",
-    time: "3 - 5 pm",
-    text:
-        "Version control is the lab notebook of the digital world. It’s what professionals use to keep track of what they’ve done and enables collaboration with others. Version control is what software developers use for their work. It is a cool tool.",
+    jobTitle: "Ullamco",
+    staffName: "Fames ac turpis",
+    department: "Inceptos Himenaeos",
+    email: "loreum@ipsum.foo",
 }
 
 // Variations of stories below
@@ -23,8 +21,9 @@ export const Default = () => ({
         return { item: mock }
     },
     template: `
-      <block-teaser-list
-        :item="item"
+      <block-staff-list
+        v-bind="item"
+        phone="(222) 444-5555"
       />
   `,
 })
