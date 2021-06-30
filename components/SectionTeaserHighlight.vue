@@ -9,7 +9,13 @@
             >
                 <!-- TODO make these all indervidual props (not one big object) -->
                 <block-teaser-highlight
-                    :item="item"
+                    :to="item.to"
+                    :image="item.image"
+                    :category="item.category"
+                    :title="item.title"
+                    :date="item.date"
+                    :time="item.time"
+                    :text="item.text"
                     class="block"
                 />
             </div>
