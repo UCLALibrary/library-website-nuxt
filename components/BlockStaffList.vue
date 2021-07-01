@@ -57,12 +57,14 @@
                     v-html="phone"
                 />
             </div>
-            <div
-                v-if="consultation"
-                class="consultation"
-            >
+            <div class="consultation">
                 <svg-icon-consultation />
-                <span class="text">Book a consultation </span>
+                <smart-link
+                    to="https://calendar.library.ucla.edu/appointments"
+                    target="_blank"
+                >
+                    <span class="text">Book a consultation </span>
+                </smart-link>
             </div>
         </div>
     </section>
@@ -72,13 +74,15 @@
 import SvgHeadingArrow from "~/assets/svg/heading-arrow"
 import SvgIconLocation from "~/assets/svg/icon-location"
 import SvgIconEmail from "~/assets/svg/icon-email"
-import SvgIconConsultation from "~/assets/svg/icon-location"
+import SvgIconPhone from "~/assets/svg/icon-phone"
+import SvgIconConsultation from "~/assets/svg/icon-consultation"
 
 export default {
     components: {
         SvgHeadingArrow,
         SvgIconLocation,
         SvgIconEmail,
+        SvgIconPhone,
         SvgIconConsultation,
     },
     props: {
@@ -98,7 +102,6 @@ export default {
             type: Array,
             default: () => [],
         },
-
         email: {
             type: String,
             default: "",
@@ -118,7 +121,10 @@ export default {
     },
     computed: {
         image() {
-            return { src: this.imageUrl }
+            const image = {
+                src: this.imageUrl,
+            }
+            return image
         },
     },
 }
@@ -146,14 +152,14 @@ export default {
         overflow: hidden;
 
         .name {
-            font-weight: 500;
+            font-weight: 400;
             font-size: 48px;
             line-height: 100%;
             letter-spacing: 0.01em;
             color: var(--color-primary-blue);
         }
         .title {
-            font-weight: 500;
+            font-weight: 400;
             font-size: 18px;
             line-height: 140%;
             color: var(--color-black);

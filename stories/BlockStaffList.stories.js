@@ -8,11 +8,19 @@ export default {
 
 const mock = {
     imageUrl: API.image.src,
-    to: "/visit/foo/bar/",
+    to: "/staff/foo",
     jobTitle: "Ullamco",
     staffName: "Fames ac turpis",
     department: "Inceptos Himenaeos",
     email: "loreum@ipsum.foo",
+    locations: [{
+        title: "cupidatat non proident",
+        to: "/location/bar",
+    },
+    {
+        title: "tristique",
+        to: "/location/baz",
+    }]
 }
 
 // Variations of stories below
@@ -28,35 +36,30 @@ export const Default = () => ({
   `,
 })
 
-export const ShortTitle = () => ({
+export const OneLocation = () => ({
     data() {
         return {
             item: {
                 ...mock,
-                title: "Minim",
+                locations: mock.location[0],
             },
         }
     },
     template: `
-      <block-teaser-list
-        :item="item"
+      <block-staff-list
+        v-bind="item"
+        phone="(222) 444-5555"
       />
   `,
 })
 
-export const LongTitle = () => ({
+export const NoPhoneNumber = () => ({
     data() {
-        return {
-            item: {
-                ...mock,
-                title:
-                    "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-            },
-        }
+        return { item: mock }
     },
     template: `
-      <block-teaser-list
-        :item="item"
+      <block-staff-list
+        v-bind="item"
       />
   `,
 })
