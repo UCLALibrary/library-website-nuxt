@@ -24,13 +24,13 @@ export const Default = () => ({
     },
     template: `
       <block-teaser-list
-      :image="image"
-      :to="to"
-      :category="category"
-      :title="title"
-      :date="date"
-      :time="time"
-      :text="text"
+          :image="image"
+          :to="to"
+          :category="category"
+          :title="title"
+          :date="date"
+          :time="time"
+          :text="text"
       />
   `,
 })
@@ -43,13 +43,13 @@ export const ShortTitle = () => ({
     },
     template: `
       <block-teaser-list
-      :image="image"
-      :to="to"
-      :category="category"
-      title="Minim"
-      :date="date"
-      :time="time"
-      :text="text"
+          :image="image"
+          :to="to"
+          :category="category"
+          title="Minim"
+          :date="date"
+          :time="time"
+          :text="text"
       />
   `,
 })
@@ -62,13 +62,13 @@ export const LongTitle = () => ({
     },
     template: `
       <block-teaser-list
-      :image="image"
-      :to="to"
-      :category="category"
-      title="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-      :date="date"
-      :time="time"
-      :text="text"
+          :image="image"
+          :to="to"
+          :category="category"
+          title="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+          :date="date"
+          :time="time"
+          :text="text"
       />
   `,
 })
