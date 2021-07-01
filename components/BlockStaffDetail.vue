@@ -5,17 +5,17 @@
             :aspect-ratio="60"
             class="image"
         />
-        <div
-            class="meta"
-            v-bind="item"
-            view="detail"
-        />
+        <div class="meta" />
     </section>
 </template>
 
 <script>
 export default {
     props: {
+        image: {
+            type: Object,
+            default: () => {},
+        },
         to: {
             type: String,
             default: "",
