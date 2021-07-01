@@ -7,7 +7,6 @@
                 :key="item.to"
                 class="meta"
             >
-                <!-- TODO make these all indervidual props (not one big object) -->
                 <block-teaser-highlight
                     :to="item.to"
                     :image="item.image"
