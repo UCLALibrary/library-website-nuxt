@@ -1,20 +1,17 @@
 <template lang="html">
     <div class="search-generic">
         <div class="box">
-            <form
-                name="searchHome"
-                @submit.prevent="doSearch"
-            >
+            <form name="searchHome" @submit.prevent="doSearch">
                 <div class="input-container">
                     <svg-icon-search class="icon" />
                     <input
                         v-model="searchWords"
                         type="text"
                         placeholder="Search by keyword"
-                    >
+                    />
                 </div>
 
-                <hr class="divider">
+                <hr class="divider" />
 
                 <div class="container">
                     <search-generic-filter-buttons
@@ -26,10 +23,14 @@
                     <search-generic-view-modes :is-opened.sync="isViewOpened" />
                 </div>
 
-                <search-generic-filter-items
-                    :active-index.sync="openedFilterIndex"
-                    :items="parsedFilters"
-                    @change="onFilterChange"
+                <!-- Loop through avaible filter groups -->
+                <component
+                    v-for="(group, index) in parsedFilters"
+                    :is="group.componentName"
+                    :items="group.items"
+                    :selected.sync="parsedFilters[index].selected"
+                    v-if="index == openedFilterIndex"
+                    :key="group.slug"
                 />
             </form>
         </div>
@@ -65,15 +66,27 @@ export default {
         parsedFilters() {
             return this.filters.map((obj) => {
                 let selected = this.selectedFilters[obj.slug] || []
+                let componentName = "base-checkbox-group"
 
                 // If no selected, then make sure radio's default is empty string
                 if (!selected.length && obj.inputType == "radio") {
                     selected = ""
                 }
 
+                // Figure out Vue component name
+                switch (obj.inputType) {
+                    case "radio":
+                        componentName = "base-radio-group"
+                        break
+                    case "calendar":
+                        componentName = "base-calendar-group"
+                        break
+                }
+
                 return {
                     ...obj,
                     selected,
+                    componentName,
                 }
             })
         },
@@ -102,6 +115,16 @@ export default {
     mounted() {
         // TODO parse this.$route.query.filters and set this.selectedFilters
         // TODO parse this.$route.query.viewMode and set view dropdown active index
+        // On mounted, parse URL query to set the starting index/selections for the search
+        // On update/events, update URL query strings to reflect settings/selections
+
+        //?q=Serach term&location=libary&date_range[]={date}&date_range[]={date}
+
+        setTimeout(() => {
+            this.$set(this.selectedFilters, "department", [
+                "Excepteur sint occaecat cupidatat non proident1",
+            ])
+        }, 5000)
     },
     methods: {
         async doSearch() {

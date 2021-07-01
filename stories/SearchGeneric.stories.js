@@ -14,7 +14,8 @@ const items = [
         name: "consectetur, adipisci velit.",
     },
     {
-        name: "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        name:
+            "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
     },
     {
         name: "Excepteur sint occaecat cupidatat non proident",
@@ -162,7 +163,6 @@ export const TwoFilterWithViews = () => ({
     },
     template: `
         <search-generic
-            searchType="help"
             :filters="filters"
             :view-modes="viewModes"
         />

@@ -1,21 +1,21 @@
 <template lang="html">
     <fieldset class="base-check-group">
-        <label
-            v-for="item in items"
-            class="label"
-        >
+        <label v-for="item in items" class="label">
             <input
                 v-model="parsedSelected"
                 type="checkbox"
+                :true-value="item.name"
                 :value="item.name"
                 @change="onChange(item.name)"
-            >
+            />
             {{ item.name }}
         </label>
     </fieldset>
 </template>
 
 <script>
+import _uniq from "lodash/uniq"
+
 export default {
     props: {
         items: {
@@ -23,26 +23,26 @@ export default {
             default: () => [],
         },
         selected: {
-            type: String,
-            default: "",
+            type: Array,
+            default: () => [],
         },
     },
     data() {
         return {
-            parsedSelected: "",
+            parsedSelected: [],
         }
     },
     watch: {
         selected: {
             handler(newVal) {
-                this.parsedSelected = newVal
+                this.parsedSelected = _uniq([...newVal, ...this.parsedSelected])
             },
             immediate: true,
         },
     },
     methods: {
         onChange(value) {
-            this.$emit("update:selected", value)
+            this.$emit("update:selected", this.parsedSelected)
         },
     },
 }
