@@ -88,7 +88,7 @@ export default {
         &:hover {
             .arrow-right {
                 .arrow {
-                    stroke: var(--color-default-cyan-lighter);
+                    stroke: var(--color-default-cyan-base);
                 }
             }
             .text {
