@@ -65,6 +65,8 @@ export default {
     overflow: hidden;
     max-width: 456px;
     background-color: var(--color-white);
+    margin-left: 5px;
+    margin-right: 5px;
 
     .clipped {
         width: 456px;
