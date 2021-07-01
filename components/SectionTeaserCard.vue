@@ -10,7 +10,14 @@
                     :key="card.to"
                     class="card"
                 >
-                    <block-teaser-card :item="card" />
+                    <block-teaser-card
+                        :image="card.image"
+                        :to="card.to"
+                        :category="card.category"
+                        :title="card.title"
+                        :date="card.date"
+                        :time="card.time"
+                    />
                 </div>
             </div>
             <divider-general class="divider" />
