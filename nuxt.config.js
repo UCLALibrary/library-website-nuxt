@@ -40,6 +40,18 @@ export default {
     },
 
     /*
+     * GraphQL Request. Used for querying from Craft
+     */
+    graphql: {
+        clients: {
+            default: {
+                endpoint: process.env.CRAFT_ENDPOINT,
+                options: {},
+            },
+        },
+    },
+
+    /*
      ** Nuxt generate configuration. Used when generating a static site.
      */
     generate: {
@@ -105,7 +117,7 @@ export default {
     /*
      * Nuxt build modules
      */
-    buildModules: ["@nuxtjs/style-resources"],
+    buildModules: ["@nuxtjs/style-resources", "nuxt-graphql-request"],
 
     /*
      ** Nuxt webpack build configuration

@@ -1,0 +1,6 @@
+query StaffMember {
+  entries(orderBy: "title desc") {
+    id
+    title
+  }
+}
