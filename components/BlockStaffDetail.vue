@@ -1,7 +1,7 @@
 <template lang="html">
     <section class="block-staff-detail">
         <responsive-image
-            :image="item.image"
+            :image="image"
             :aspect-ratio="60"
             class="image"
         />

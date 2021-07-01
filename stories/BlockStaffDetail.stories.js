@@ -20,7 +20,7 @@ const mock = {
 // Variations of stories below
 export const Default = () => ({
     data() {
-        return { item: mock }
+        return { ...mock }
     },
     template: `
     <block-staff-detail
