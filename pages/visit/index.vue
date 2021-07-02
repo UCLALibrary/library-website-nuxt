@@ -93,6 +93,14 @@ export default {
             this.selectedView = slug
         },
     },
+    async asyncData() {
+        // TODO fetch content to build out results here
+    },
+    watchQuery(newQuery, oldQuery) {
+        // Only execute component methods if the old query string contained `bar`
+        // and the new query string contains `foo`
+        return newQuery.foo && oldQuery.bar
+    },
 }
 </script>
 <style lang="scss" scoped>
