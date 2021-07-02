@@ -7,26 +7,31 @@ export default {
 }
 
 const mock = {
-    imageUrl: API.image.src,
+    image: API.image_people,
     to: "/staff/foo",
     jobTitle: "Ullamco",
     staffName: "Fames ac turpis",
     department: "Inceptos Himenaeos",
     email: "loreum@ipsum.foo",
-    locations: [{
-        title: "cupidatat non proident",
-        to: "/location/bar",
-    },
-    {
-        title: "tristique",
-        to: "/location/baz",
-    }]
+    
 }
 
 // Variations of stories below
 export const Default = () => ({
     data() {
-        return { item: mock }
+        return { 
+            item: { 
+                ...mock,
+                locations: [{
+                    title: "cupidatat non proident",
+                    to: "/location/bar",
+                },
+                {
+                    title: "tristique",
+                    to: "/location/baz",
+                }]
+            }
+        }
     },
     template: `
       <block-staff-list
@@ -41,7 +46,10 @@ export const OneLocation = () => ({
         return {
             item: {
                 ...mock,
-                locations: mock.location[0],
+                locations: [{
+                    title: "cupidatat non proident",
+                    to: "/location/bar",
+                }]
             },
         }
     },
@@ -55,7 +63,19 @@ export const OneLocation = () => ({
 
 export const NoPhoneNumber = () => ({
     data() {
-        return { item: mock }
+        return { 
+            item: { 
+                ...mock,
+                locations: [{
+                    title: "cupidatat non proident",
+                    to: "/location/bar",
+                },
+                {
+                    title: "tristique",
+                    to: "/location/baz",
+                }]
+            }
+        }
     },
     template: `
       <block-staff-list

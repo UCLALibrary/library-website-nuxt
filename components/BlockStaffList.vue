@@ -1,13 +1,13 @@
 <template lang="html">
     <section class="block-staff-list">
         <responsive-image
-            v-if="imageUrl"
+            v-if="image"
             :image="image"
             :aspect-ratio="100"
             class="image"
         />
         <svg-heading-arrow
-            v-if="!imageUrl"
+            v-if="!image"
             class="svg"
         />
         <div class="meta">
@@ -27,21 +27,24 @@
                     class="department"
                     v-html="department"
                 />
-                <svg-icon-location class="svf" />
-                <nuxt-link
-                    v-for="location in locations"
-                    :key="location.to"
-                    :to="location.to"
-                >
-                    <span
-                        class="location"
-                        v-html="location.title"
-                    />
-                </nuxt-link>
+                <div class="location-group">
+                    <svg-icon-location class="svg" />
+                    <nuxt-link
+                        v-for="location in locations"
+                        :key="location.to"
+                        :to="location.to"
+                        class="location-link"
+                    >
+                        <span
+                            class="location"
+                            v-html="location.title"
+                        />
+                    </nuxt-link>
+                </div>
             </div>
 
             <div class="email">
-                <svg-icon-email />
+                <svg-icon-email class="svg" />
                 <span
                     class="text"
                     v-html="email"
@@ -51,20 +54,20 @@
                 v-if="phone"
                 class="phone"
             >
-                <svg-icon-phone />
+                <svg-icon-phone class="svg" />
                 <span
                     class="text"
                     v-html="phone"
                 />
             </div>
             <div class="consultation">
-                <svg-icon-consultation />
+                <svg-icon-consultation class="svg" />
                 <smart-link
                     to="https://calendar.library.ucla.edu/appointments"
                     target="_blank"
-                >
-                    <span class="text">Book a consultation </span>
-                </smart-link>
+                    class="text-link"
+                    v-html="`Book a consultation`"
+                />
             </div>
         </div>
     </section>
@@ -114,17 +117,9 @@ export default {
             type: String,
             default: "",
         },
-        imageUrl: {
-            type: String,
-            default: "",
-        },
-    },
-    computed: {
-        image() {
-            const image = {
-                src: this.imageUrl,
-            }
-            return image
+        image: {
+            type: Object,
+            default: () => {},
         },
     },
 }
@@ -140,16 +135,31 @@ export default {
     flex-direction: row;
 
     .image {
-        width: 456px;
-        max-height: 274px;
+        width: 300px;
+        max-height: 300px;
         margin-right: 56px;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: stretch;
+        align-items: center;
     }
     .meta {
-        width: 412px;
-        max-height: 222px;
+        width: 476px;
+        max-height: 277px;
         margin-top: 16px;
         padding-bottom: 16px;
-        overflow: hidden;
+
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 120%;
+        color: var(--color-primary-blue);
+
+        .svg {
+            margin-bottom: -10px;
+        }
 
         .name {
             font-weight: 400;
@@ -159,10 +169,49 @@ export default {
             color: var(--color-primary-blue);
         }
         .title {
+            margin-top: 8px;
             font-weight: 400;
             font-size: 18px;
             line-height: 140%;
             color: var(--color-black);
+        }
+        .dep-location {
+            margin-top: 16px;
+            .svg {
+                margin-bottom: -10px;
+            }
+        }
+        .location-link + .location-link {
+            border-left: solid 1px var(--color-primary-blue);
+            margin-left: 10px;
+            padding-left: 10px;
+        }
+        .department {
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 140%;
+
+            color: var(--color-secondary-grey-04);
+        }
+        .email {
+            margin-top: 10px;
+        }
+        .phone {
+            margin-top: 10px;
+        }
+        .consultation {
+            margin-top: 10px;
+        }
+    }
+    @media #{$lte-phone} {
+        display: flex;
+        flex-direction: column;
+
+        max-height: unset;
+
+        .dep-location {
+            display: flex;
+            flex-direction: column;
         }
     }
 }
