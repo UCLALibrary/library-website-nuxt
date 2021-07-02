@@ -6,7 +6,13 @@
             class="meta"
         >
             <block-teaser-list
-                :item="item"
+                :image="item.image"
+                :to="item.to"
+                :category="item.category"
+                :title="item.title"
+                :date="item.date"
+                :time="item.time"
+                :text="item.text"
                 class="block"
             />
         </div>
