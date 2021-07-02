@@ -9,7 +9,7 @@
                 :filters="searchFilters.filters"
                 :view-modes="searchFilters.views"
                 class="generic-search"
-                @view-mode-change="viewModeChanger"
+                @view-changed="viewModeChanger"
             />
         </masthead-secondary>
     </div>
@@ -84,12 +84,13 @@ export default {
     data() {
         return {
             searchFilters,
+            selectedView: this.$route.query.view,
         }
     },
-
     methods: {
-        viewModeChanger(e) {
-            console.log(e)
+        viewModeChanger(slug) {
+            console.log(slug)
+            this.selectedView = slug
         },
     },
 }

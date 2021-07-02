@@ -42,9 +42,11 @@ export default {
             return ["search-generic-view-modes", { "is-opened": this.isOpened }]
         },
         selectedItem() {
-            return this.items.find((obj) => {
-                return obj.slug == this.selected
-            })
+            return (
+                this.items.find((obj) => {
+                    return obj.slug == this.selected
+                }) || {}
+            )
         },
         parsedItems() {
             return this.items.map((obj) => {
@@ -66,7 +68,7 @@ export default {
         },
         onClick(slug) {
             this.$emit("update:selected", slug)
-            this.$emit("view-mode-change", slug)
+            this.$emit("view-changed", slug)
         },
     },
 }

@@ -19,16 +19,15 @@
                         :active-index.sync="openedFilterIndex"
                     />
 
-                    <!-- TODO This needs an active-type="list" etc... -->
                     <search-generic-view-modes
-                        v-if="viewModes.length"
-                        :items="viewModes"
+                        v-if="views.length"
+                        :items="views"
                         :is-opened.sync="isViewOpened"
                         :selected.sync="selectedView"
                     />
                 </div>
 
-                <!-- Loop through avaible filter groups -->
+                <!-- This loops through avaible filter groups -->
                 <transition name="slide-toggle" mode="out-in">
                     <component
                         v-for="(group, index) in parsedFilters"
@@ -57,7 +56,7 @@ export default {
             type: Array, // array of objects that contain the filter objects
             default: () => [],
         },
-        viewModes: {
+        views: {
             type: Array,
             default: () => [],
         },
@@ -77,7 +76,7 @@ export default {
                 let selected = this.selectedFilters[obj.slug] || []
                 let componentName = "base-checkbox-group"
 
-                // If no selected, then make sure radio's default is empty string
+                // If none selected, then make sure radio's default is empty string
                 if (!selected.length && obj.inputType == "radio") {
                     selected = ""
                 }
@@ -99,15 +98,6 @@ export default {
                 }
             })
         },
-        queryParams() {
-            // TODO probably want to use this: https://www.npmjs.com/package/qs
-            return {
-                q: this.searchWords,
-                type: "location",
-                filters: "foo",
-                view: "list",
-            }
-        },
     },
     watch: {
         isViewOpened(newVal, oldVal) {
@@ -122,35 +112,30 @@ export default {
         },
     },
     mounted() {
-        // TODO parse this.$route.query.filters and set this.selectedFilters
-        // TODO parse this.$route.query.viewMode and set view dropdown active index
-        // On mounted, parse URL query to set the starting index/selections for the search
-        // On update/events, update URL query strings to reflect settings/selections
+        // TODO Figure out how to get these intial values from the URL.
+        // Probably want to use this: https://www.npmjs.com/package/qs
+        this.selectedFilters = {
+            location: "Neque porro quisquam",
+            department: [
+                "quis nostrum exercitationem ullam1",
+                "Quis autem vel eum iure reprehenderit",
+            ],
+        }
 
-        //?q=Serach term&location=libary&date_range[]={date}&date_range[]={date}
-
-        // setTimeout(() => {
-        //     this.$set(this.selectedFilters, "department", [
-        //         "Excepteur sint occaecat cupidatat non proident1",
-        //     ])
-        // }, 5000)
-
-        // this.$router.push({
-        //     path: this.actionURL,
-        //     query: this.queryParams,
-        // })
-
-        this.$set(this.selectedFilters, this.$route.query)
+        // TODO probably want to validate agaisnt this.viewModes
+        this.selectedView = this.$route.query.view || "list"
     },
     methods: {
         async doSearch() {
+            // TODO Get this pushing real values ot the URL
             this.$router.push({
                 path: this.actionURL,
-                query: this.queryParams,
+                query: {
+                    q: this.searchWords,
+                    view: this.selectedView,
+                    filters: Object.keys(this.selectedFilters).length, // TODO get this encoding correctly
+                },
             })
-        },
-        onFilterChange({ slug, selected }) {
-            this.selectedFilters[slug] = selected
         },
     },
 }

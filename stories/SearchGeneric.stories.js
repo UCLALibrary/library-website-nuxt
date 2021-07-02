@@ -138,7 +138,7 @@ export const TwoFilter = () => ({
     template: `
         <search-generic
             :filters="filters"
-            :view-modes="views"
+            :views="views"
         />
     `,
 })
