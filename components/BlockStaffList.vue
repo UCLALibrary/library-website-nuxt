@@ -11,11 +11,11 @@
             class="svg"
         />
         <div class="meta">
-            <nuxt-link :to="to">
-                <h3
-                    class="name"
-                    v-html="staffName"
-                />
+            <nuxt-link
+                :to="to"
+                class="name"
+            >
+                <span v-html="staffName" />
             </nuxt-link>
 
             <div
@@ -203,6 +203,24 @@ export default {
             margin-top: 10px;
         }
     }
+
+    // Hover states
+    @media #{$has-hover} {
+        &:hover {
+            .name {
+                text-decoration: underline;
+                text-decoration-color: var(--color-primary-blue);
+                text-decoration-thickness: 1.5px;
+            }
+            .location-link {
+                text-decoration: underline;
+                text-decoration-color: var(--color-primary-blue);
+                text-decoration-thickness: 1.5px;
+            }
+        }
+    }
+
+    // Breakpoints
     @media #{$lte-phone} {
         display: flex;
         flex-direction: column;
