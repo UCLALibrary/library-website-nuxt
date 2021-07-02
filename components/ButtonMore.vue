@@ -64,9 +64,11 @@ export default {
         top: 50%;
         transform: translate(-50%, -50%);
 
-        stroke-width: 1.5px;
-        stroke: var(--color-primary-blue);
-        transition: stroke 400ms ease-in-out;
+        .arrow {
+            stroke: var(--color-primary-blue);
+            stroke-width: 1.5px;
+            transition: stroke 400ms ease-in-out;
+        }
     }
 
     .text {
@@ -85,7 +87,9 @@ export default {
     @media #{$has-hover} {
         &:hover {
             .arrow-right {
-                stroke: var(--color-default-cyan-base);
+                .arrow {
+                    stroke: var(--color-default-cyan-base);
+                }
             }
             .text {
                 color: var(--color-primary-blue);
