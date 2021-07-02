@@ -1,18 +1,17 @@
 <template lang="html">
-    <fieldset class="base-radio-group">
-        <label
-            v-for="item in items"
-            class="label"
-        >
-            <input
-                v-model="parsedSelected"
-                type="radio"
-                :value="item.name"
-                @change="onChange(item.name)"
-            >
-            {{ item.name }}
-        </label>
-    </fieldset>
+    <transition name="slide-toggle" mode="out-in">
+        <fieldset class="base-radio-group">
+            <label v-for="item in items" class="label">
+                <input
+                    v-model="parsedSelected"
+                    type="radio"
+                    :value="item.name"
+                    @change="onChange(item.name)"
+                />
+                {{ item.name }}
+            </label>
+        </fieldset>
+    </transition>
 </template>
 
 <script>

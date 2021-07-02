@@ -1,23 +1,15 @@
 <template lang="html">
-    <div
-        :class="classes"
-        @click="toggleOpen"
-    >
-        <button class="view-btn">
-            <span class="title"> View </span>
-        </button>
+    <div :class="classes" @click="toggleOpen">
+        <button class="view-btn" v-html="selectedItem.title" />
 
         <ul class="view-list">
             <li
-                v-for="view in items"
+                v-for="view in parsedItems"
                 :key="view.slug"
-                class="list-item"
-                @click="$emit('view-mode-change', view.slug)"
+                :class="view.classes"
+                @click="onClick(view.slug)"
             >
-                <component
-                    :is="`svg-${view.iconName}`"
-                    class="svg"
-                />
+                <component :is="`svg-${view.iconName}`" class="svg" />
                 <div v-html="view.title" />
             </li>
         </ul>
@@ -36,36 +28,45 @@ export default {
             type: Boolean,
             default: false,
         },
-    },
-    data() {
-        return {
-            items: [
-                {
-                    slug: "list",
-                    iconName: "icon-list",
-                    title: "List",
-                },
-                {
-                    slug: "card",
-                    iconName: "icon-card",
-                    title: "Card",
-                },
-                {
-                    slug: "calendar",
-                    iconName: "icon-calendar",
-                    title: "Calendar",
-                },
-            ],
-        }
+        items: {
+            type: Array,
+            default: () => [],
+        },
+        selected: {
+            type: String,
+            default: "",
+        },
     },
     computed: {
         classes() {
             return ["search-generic-view-modes", { "is-opened": this.isOpened }]
         },
+        selectedItem() {
+            return this.items.find((obj) => {
+                return obj.slug == this.selected
+            })
+        },
+        parsedItems() {
+            return this.items.map((obj) => {
+                let classes = "list-item"
+                if (obj.slug == this.selected) {
+                    classes = "list-item is-active"
+                }
+
+                return {
+                    classes,
+                    ...obj,
+                }
+            })
+        },
     },
     methods: {
         toggleOpen() {
             this.$emit("update:isOpened", !this.isOpened)
+        },
+        onClick(slug) {
+            this.$emit("update:selected", slug)
+            this.$emit("view-mode-change", slug)
         },
     },
 }

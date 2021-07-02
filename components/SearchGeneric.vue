@@ -20,18 +20,26 @@
                     />
 
                     <!-- TODO This needs an active-type="list" etc... -->
-                    <search-generic-view-modes :is-opened.sync="isViewOpened" />
+                    <search-generic-view-modes
+                        v-if="viewModes.length"
+                        :items="viewModes"
+                        :is-opened.sync="isViewOpened"
+                        :selected.sync="selectedView"
+                    />
                 </div>
 
                 <!-- Loop through avaible filter groups -->
-                <component
-                    v-for="(group, index) in parsedFilters"
-                    :is="group.componentName"
-                    :items="group.items"
-                    :selected.sync="parsedFilters[index].selected"
-                    v-if="index == openedFilterIndex"
-                    :key="group.slug"
-                />
+                <transition name="slide-toggle" mode="out-in">
+                    <component
+                        v-for="(group, index) in parsedFilters"
+                        :is="group.componentName"
+                        :items="group.items"
+                        :selected.sync="parsedFilters[index].selected"
+                        v-if="index == openedFilterIndex"
+                        :key="group.slug"
+                        class="filter-group"
+                    />
+                </transition>
             </form>
         </div>
     </div>
@@ -60,6 +68,7 @@ export default {
             selectedFilters: {},
             openedFilterIndex: -1,
             isViewOpened: false,
+            selectedView: "list",
         }
     },
     computed: {
@@ -96,7 +105,7 @@ export default {
                 q: this.searchWords,
                 type: "location",
                 filters: "foo",
-                viewMode: "list",
+                view: "list",
             }
         },
     },
@@ -120,11 +129,18 @@ export default {
 
         //?q=Serach term&location=libary&date_range[]={date}&date_range[]={date}
 
-        setTimeout(() => {
-            this.$set(this.selectedFilters, "department", [
-                "Excepteur sint occaecat cupidatat non proident1",
-            ])
-        }, 5000)
+        // setTimeout(() => {
+        //     this.$set(this.selectedFilters, "department", [
+        //         "Excepteur sint occaecat cupidatat non proident1",
+        //     ])
+        // }, 5000)
+
+        // this.$router.push({
+        //     path: this.actionURL,
+        //     query: this.queryParams,
+        // })
+
+        this.$set(this.selectedFilters, this.$route.query)
     },
     methods: {
         async doSearch() {
@@ -188,5 +204,26 @@ export default {
         flex-direction: row;
         justify-content: flex-start;
     }
+    .filter-group {
+        transition-duration: 400ms;
+    }
+}
+
+// Transitions
+.slide-toggle-enter,
+.slide-toggle-leave-to {
+    max-height: 0;
+    opacity: 0;
+}
+.slide-toggle-enter-to,
+.slide-toggle-leave {
+    max-height: 500px;
+    opacity: 1;
+}
+.slide-toggle-enter-active,
+.slide-toggle-leave-active {
+    overflow: hidden;
+    transition-property: opacity, max-height;
+    transition-timing-function: ease-in-out;
 }
 </style>

@@ -44,76 +44,76 @@ const items = [
 ]
 const views = [
     {
-        to: "/visit/foo",
+        slug: "list",
         iconName: "icon-list",
         title: "List",
     },
     {
-        to: "/visit/baz",
+        slug: "card",
         iconName: "icon-card",
         title: "Card",
     },
     {
-        to: "/visit/qux",
+        slug: "calendar",
         iconName: "icon-calendar",
         title: "Calendar",
     },
 ]
 
 // Variations of stories below
-export const Default = () => ({
-    data() {
-        return {
-            filters: [
-                {
-                    label: "Location",
-                    searchField: "location_tesim",
-                    isMultiValuedField: true,
-                    filterItems: items,
-                },
-                {
-                    label: "Department",
-                    searchField: "date_range_tesim",
-                    isMultiValuedField: false,
-                    filterItems: items,
-                },
-                {
-                    label: "Type",
-                    searchField: "type_tesim",
-                    isMultiValuedField: true,
-                    filterItems: items,
-                },
-            ],
-        }
-    },
-    template: `
-        <search-generic
-            searchType="help"
-            :filters="filters"
-        />
-    `,
-})
+// export const Default = () => ({
+//     data() {
+//         return {
+//             filters: [
+//                 {
+//                     label: "Location",
+//                     searchField: "location_tesim",
+//                     isMultiValuedField: true,
+//                     filterItems: items,
+//                 },
+//                 {
+//                     label: "Department",
+//                     searchField: "date_range_tesim",
+//                     isMultiValuedField: false,
+//                     filterItems: items,
+//                 },
+//                 {
+//                     label: "Type",
+//                     searchField: "type_tesim",
+//                     isMultiValuedField: true,
+//                     filterItems: items,
+//                 },
+//             ],
+//         }
+//     },
+//     template: `
+//         <search-generic
+//             searchType="help"
+//             :filters="filters"
+//         />
+//     `,
+// })
 
-export const OneFilter = () => ({
-    data() {
-        return {
-            filters: [
-                {
-                    label: "location",
-                    searchField: "location_tesim",
-                    isMultiValuedField: false,
-                    filterItems: items,
-                },
-            ],
-        }
-    },
-    template: `
-        <search-generic
-            searchType="help"
-            :filters="filters"
-        />
-    `,
-})
+// export const OneFilter = () => ({
+//     data() {
+//         return {
+//             filters: [
+//                 {
+//                     label: "location",
+//                     searchField: "location_tesim",
+//                     isMultiValuedField: false,
+//                     filterItems: items,
+//                 },
+//             ],
+//         }
+//     },
+//     template: `
+//         <search-generic
+//             searchType="help"
+//             :filters="filters"
+//         />
+//     `,
+// })
 
 export const TwoFilter = () => ({
     data() {
@@ -132,62 +132,64 @@ export const TwoFilter = () => ({
                     items: items,
                 },
             ],
+            views,
         }
     },
     template: `
         <search-generic
             :filters="filters"
+            :view-modes="views"
         />
     `,
 })
 
-export const TwoFilterWithViews = () => ({
-    data() {
-        return {
-            filters: [
-                {
-                    label: "Location",
-                    searchField: "location_ssi",
-                    isMultiValuedField: true,
-                    filterItems: items,
-                },
-                {
-                    label: "Date Range",
-                    searchField: "date_range_ssi",
-                    isMultiValuedField: false,
-                    filterItems: items,
-                },
-            ],
-            viewModes: views,
-        }
-    },
-    template: `
-        <search-generic
-            :filters="filters"
-            :view-modes="viewModes"
-        />
-    `,
-})
-
-export const WithViewModes = () => ({
-    data() {
-        return {
-            filters: [
-                {
-                    label: "Location",
-                    searchField: "location_ssi",
-                    isMultiValuedField: false,
-                    filterItems: items,
-                },
-            ],
-            viewModes: views,
-        }
-    },
-    template: `
-        <search-generic
-            searchType="help"
-            :filters="filters"
-            :view-modes="viewModes"
-        />
-    `,
-})
+// export const TwoFilterWithViews = () => ({
+//     data() {
+//         return {
+//             filters: [
+//                 {
+//                     label: "Location",
+//                     searchField: "location_ssi",
+//                     isMultiValuedField: true,
+//                     filterItems: items,
+//                 },
+//                 {
+//                     label: "Date Range",
+//                     searchField: "date_range_ssi",
+//                     isMultiValuedField: false,
+//                     filterItems: items,
+//                 },
+//             ],
+//             viewModes: views,
+//         }
+//     },
+//     template: `
+//         <search-generic
+//             :filters="filters"
+//             :view-modes="viewModes"
+//         />
+//     `,
+// })
+//
+// export const WithViewModes = () => ({
+//     data() {
+//         return {
+//             filters: [
+//                 {
+//                     label: "Location",
+//                     searchField: "location_ssi",
+//                     isMultiValuedField: false,
+//                     filterItems: items,
+//                 },
+//             ],
+//             viewModes: views,
+//         }
+//     },
+//     template: `
+//         <search-generic
+//             searchType="help"
+//             :filters="filters"
+//             :view-modes="viewModes"
+//         />
+//     `,
+// })
