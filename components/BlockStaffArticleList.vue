@@ -14,14 +14,21 @@
                 class="title"
                 v-html="title"
             />
-            <div
-                class="author"
-                v-html="author"
-            />
-            <div
-                class="date"
-                v-html="date"
-            />
+            <div class="byline">
+                <div class="author-block">
+                    <div
+                        v-for="(author, index) in authors"
+                        :key="index"
+                        class="author"
+                    >
+                        {{ author }}
+                    </div>
+                </div>
+                <div
+                    class="date"
+                    v-html="date"
+                />
+            </div>
             <div
                 class="description"
                 v-html="description"
@@ -49,7 +56,7 @@ export default {
             type: String,
             default: "",
         },
-        author: {
+        authors: {
             type: Array,
             default: () => [],
         },
@@ -68,7 +75,7 @@ export default {
 <style lang="scss" scoped>
 .block-staff-article-list {
     max-width: 990px;
-    max-height: 274px;
+    max-height: 300px;
     background-color: var(--color-secondary-grey-01);
 
     display: flex;
@@ -81,9 +88,9 @@ export default {
     }
     .meta {
         width: 412px;
-        max-height: 222px;
-        margin-top: 16px;
-        padding-bottom: 16px;
+        max-height: 245px;
+        margin-top: 5px;
+        margin-bottom: 16px;
         overflow: hidden;
     }
     .category {
@@ -93,23 +100,48 @@ export default {
         text-transform: uppercase;
         color: var(--color-secondary-black);
         font-weight: 500;
+        padding-bottom: 16px;
     }
     .title {
         font-size: 26px;
         line-height: 130%;
         color: var(--color-primary-blue);
         font-weight: 500;
+        padding-bottom: 16px;
     }
-    .author,
-    .date {
+    .byline {
+        padding-bottom: 24px;
         font-size: 18px;
         line-height: 140%;
         color: #434343;
+
+        display: flex;
+        flex-direction: row;
+    }
+    .author-block {
+        display: flex;
+        flex-direction: row;
+    }
+    .author {
+        &:after {
+            content: ",";
+            padding-right: 2px;
+        }
+        &:last-child:after {
+            content: "";
+        }
+    }
+    .date {
+        padding-left: 20px;
     }
     .description {
         font-size: 18px;
         line-height: 140%;
         color: var(--color-black);
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 }
 
