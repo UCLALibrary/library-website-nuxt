@@ -88,7 +88,6 @@ export default {
     }
     .meta {
         width: 412px;
-        max-height: 245px;
         margin-top: 5px;
         margin-bottom: 16px;
         overflow: hidden;
@@ -125,7 +124,7 @@ export default {
     .author {
         &:after {
             content: ",";
-            padding-right: 2px;
+            padding-right: 5px;
         }
         &:last-child:after {
             content: "";
@@ -142,6 +141,7 @@ export default {
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 
