@@ -15,14 +15,14 @@
                 :to="to"
                 class="name"
             >
-                <span v-html="staffName" />
+                <h3 v-html="staffName" />
             </nuxt-link>
 
             <div
                 class="title"
                 v-html="jobTitle"
             />
-            <div class="dep-location">
+            <div class="dept-location">
                 <span
                     class="department"
                     v-html="department"
@@ -182,7 +182,7 @@ export default {
             line-height: 140%;
             color: var(--color-black);
         }
-        .dep-location {
+        .dept-location {
             display: flex;
             align-items: flex-end;
 
@@ -246,7 +246,7 @@ export default {
         }
         .meta {
             margin-top: 20px;
-            .dep-location {
+            .dept-location {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
