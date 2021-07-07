@@ -7,7 +7,6 @@ export default {
 }
 
 const mock = {
-    image: API.image_people,
     to: "/staff/foo",
     jobTitle: "Ullamco",
     staffName: "Fames ac turpis",
@@ -18,6 +17,31 @@ const mock = {
 
 // Variations of stories below
 export const Default = () => ({
+    data() {
+        return { 
+            item: { 
+                ...mock,
+                image: API.image_people,
+                locations: [{
+                    title: "cupidatat non proident",
+                    to: "/location/bar",
+                },
+                {
+                    title: "tristique",
+                    to: "/location/baz",
+                }]
+            }
+        }
+    },
+    template: `
+      <block-staff-list
+        v-bind="item"
+        phone="(222) 444-5555"
+      />
+  `,
+})
+
+export const NoImage = () => ({
     data() {
         return { 
             item: { 
@@ -46,6 +70,7 @@ export const OneLocation = () => ({
         return {
             item: {
                 ...mock,
+                image: API.image_people,
                 locations: [{
                     title: "cupidatat non proident",
                     to: "/location/bar",
@@ -66,6 +91,7 @@ export const NoPhoneNumber = () => ({
         return { 
             item: { 
                 ...mock,
+                image: API.image_people,
                 locations: [{
                     title: "cupidatat non proident",
                     to: "/location/bar",

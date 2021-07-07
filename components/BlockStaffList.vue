@@ -8,7 +8,7 @@
         />
         <svg-heading-arrow
             v-if="!image"
-            class="svg"
+            class="no-image"
         />
         <div class="meta">
             <nuxt-link
@@ -31,7 +31,7 @@
                     <svg-icon-location class="svg" />
                     <nuxt-link
                         v-for="location in locations"
-                        :key="location.to"
+                        :key="`location-${location.to}`"
                         :to="location.to"
                         class="location-link"
                     >
@@ -45,8 +45,10 @@
 
             <div class="email">
                 <svg-icon-email class="svg" />
-                <span
-                    class="text"
+                <smart-link
+                    :to="`mailto:${email}`"
+                    target="_blank"
+                    class="text-link"
                     v-html="email"
                 />
             </div>
@@ -55,8 +57,10 @@
                 class="phone"
             >
                 <svg-icon-phone class="svg" />
-                <span
-                    class="text"
+                <smart-link
+                    :to="`tel:${phone}`"
+                    target="_blank"
+                    class="text-link"
                     v-html="phone"
                 />
             </div>
@@ -127,9 +131,13 @@ export default {
 
 <style lang="scss" scoped>
 .block-staff-list {
-    max-width: 990px;
-    max-height: 274px;
+    max-width: 959px;
+    max-height: 396px;
     background-color: var(--color-white);
+    border: 2px solid var(--color-primary-lightest-blue);
+    border-radius: var(--rounded-slightly-all);
+    box-sizing: border-box;
+    padding: 48px 32px 48px 64px;
 
     display: flex;
     flex-direction: row;
@@ -146,12 +154,12 @@ export default {
         align-content: stretch;
         align-items: center;
     }
+    .no-image {
+        margin-right: 32px;
+    }
     .meta {
         width: 476px;
         max-height: 277px;
-        margin-top: 16px;
-        padding-bottom: 16px;
-
         font-weight: normal;
         font-size: 18px;
         line-height: 120%;
@@ -160,7 +168,6 @@ export default {
         .svg {
             margin-bottom: -10px;
         }
-
         .name {
             font-weight: 400;
             font-size: 48px;
@@ -176,10 +183,16 @@ export default {
             color: var(--color-black);
         }
         .dep-location {
+            display: flex;
+            align-items: flex-end;
+
             margin-top: 16px;
             .svg {
                 margin-bottom: -10px;
             }
+        }
+        .location-group {
+            padding-bottom: 2px;
         }
         .location-link + .location-link {
             border-left: solid 1px var(--color-primary-blue);
@@ -190,7 +203,6 @@ export default {
             font-weight: 400;
             font-size: 18px;
             line-height: 140%;
-
             color: var(--color-secondary-grey-04);
         }
         .email {
@@ -225,11 +237,20 @@ export default {
         display: flex;
         flex-direction: column;
 
+        width: 400px;
+        padding: 30px 30px;
         max-height: unset;
-
-        .dep-location {
-            display: flex;
-            flex-direction: column;
+        .image {
+            margin-right: 0;
+            padding-right: 30px;
+        }
+        .meta {
+            margin-top: 20px;
+            .dep-location {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     }
 }
