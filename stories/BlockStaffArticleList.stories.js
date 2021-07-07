@@ -80,7 +80,7 @@ export const LongTitle = () => ({
 
 export const LongDescription = () => ({
     data() {
-        return { ...mock, authors: ["Lorem Impsum", "Lorem Impsum"] }
+        return { ...mock, authors: ["Justo Magna", "Luctus Suscipit"] }
     },
     template: `
       <block-staff-article-list
