@@ -2,7 +2,7 @@ import * as API from "~/stories/mock-api.json"
 
 // Storybook default settings
 export default {
-    title: "SECTION / Staff Article List",
+    title: "SECTION / Staff / Article / List",
 }
 
 const mock = [
@@ -22,7 +22,13 @@ const mock = [
         category: "Ullamco",
         title: "Fames ac turpis egestas sed tempus lorem ipsum",
         date: "Ocavia 14, 2021",
-        authors: ["Justo Magna"],
+        authors: [
+            "Justo Magna",
+            "Luctus Suscipit",
+            "Morbi lacinia",
+            "Vestibulum Tincidunt",
+            "Ut Ultrices Malesuada Enim",
+        ],
         description:
             "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Egestas integer eget aliquet nibh praesent tristique. Quis imperdiet massa tincidunt nunc pulvinar sapien. Quis imperdiet massa tincidunt nunc pulvinar sapien.",
     },
@@ -30,9 +36,10 @@ const mock = [
         image: API.image,
         to: "/visit/foo/bar/",
         category: "Ullamco",
-        title: "Fames ac turpis egestas sed tempus lorem ipsum",
+        title:
+            "Mauris Rhoncus Aenean Vel Elit Scelerisque Mauris Pellentesque Pulvinar Rhoncus Aenean Vel Elit Scelerisque",
         date: "Ocavia 14, 2021",
-        authors: ["Justo Magna"],
+        authors: ["Justo Magna", "Vestibulum Tincidunt"],
         description:
             "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Egestas integer eget aliquet nibh praesent tristique. Quis imperdiet massa tincidunt nunc pulvinar sapien. Quis imperdiet massa tincidunt nunc pulvinar sapien.",
     },
