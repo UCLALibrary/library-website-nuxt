@@ -19,18 +19,21 @@
             <div class="byline">
                 <div
                     v-for="(author, index) in authors"
+                    v-if="authors"
                     :key="index"
                     class="author"
                 >
                     {{ author }}
                 </div>
                 <div
+                    v-if="date"
                     class="date"
                     v-html="date"
                 />
             </div>
 
             <div
+                v-if="description"
                 class="description"
                 v-html="description"
             />
