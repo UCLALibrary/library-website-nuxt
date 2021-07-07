@@ -1,15 +1,20 @@
 <template lang="html">
     <div class="block-staff-detail">
         <div class="meta-heading">
-            <svg-heading-arrow class="svg" />
-            <nuxt-link
-                :to="to"
-                class="staffName"
-            >
-                <h3 v-html="staffName" />
-            </nuxt-link>
-
+            <div class="heading">
+                <svg-heading-arrow class="svg" />
+                <nuxt-link
+                    :to="to"
+                    class="staffName"
+                >
+                    <h3 v-html="staffName" />
+                </nuxt-link>
+            </div>
             <div class="dept-location">
+                <div
+                    class="title"
+                    v-html="jobTitle"
+                />
                 <span
                     class="department"
                     v-html="department"
@@ -23,8 +28,9 @@
                         class="location-link"
                     >
                         <span
-                            class="location"
-                            v-html="location.title"
+                            v-for="location in locations"
+                            class="locations"
+                            v-html="locations"
                         />
                     </nuxt-link>
                 </div>
@@ -39,7 +45,7 @@
                     class="image"
                 />
 
-                <divider-general />
+                <divider-general class="divider" />
 
                 <div class="email">
                     <svg-icon-email class="svg" />
@@ -71,17 +77,21 @@
 
             <div class="bio">
                 <h2
-                    class="bio-header"
-                    v-html="ask - me"
-                />
-                <ul id="topics">
+                    v-if="topics"
+                    class="text"
+                    v-html="text"
+                >
+                    Ask me About
+                </h2>
+
+                <ul class="topics">
                     <li
                         v-for="topic in topics"
-                        :key="topic.message"
-                    >
-                        {{ topic.message }}
-                    </li>
+                        v-html="topic"
+                    />
                 </ul>
+
+                <divider-general class="divider" />
 
                 <h2
                     class="bio-header"
@@ -89,8 +99,9 @@
                 />
                 <p
                     class="bio-blurb"
-                    v-html="bio - blurb"
+                    v-html="bioBlurb"
                 />
+                </h2>
             </div>
         </div>
     </div>
@@ -169,39 +180,99 @@ export default {
     align-items: flex-start;
 
     .meta-heading {
+        .heading {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: flex-start;
+            .svg {
+                margin-right: 48px;
+            }
+            .staffName {
+                margin-top: 20px;
+                font-weight: 400;
+                font-size: 48px;
+                line-height: 100%;
+                letter-spacing: 0.01em;
+                color: var(--color-primary-blue);
+            }
+        }
+    .dept-location {
+        margin-left: 115px;
+        position: relative;
+
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-content: center;
         align-items: flex-start;
+
+        .title {
+            color: hotpink;
+            border-right: 1px solid indigo;
+            padding-right: 14px;
+        }
+
+        .department {
+            color: purple;
+            border-right: 1px solid indigo;
+            padding-left: 14px;
+            padding-right: 14px;
+        }
+
+        .location-group {
+            .svg {
+                padding-left: 14px;
+                padding-right: 14px;
+                top: 10px;
+            }
+            .locations {
+                color: coral;
+            }
+        }
     }
-    .staffName {
     }
     .meta-body {
+        margin-left: 115px;
+
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-content: center;
         align-items: flex-start;
+
         .bio-header {
             font-size: 24px;
-            color: green;
+            //color: green;
         }
+
         .bio-blurb {
             font-size: 14px;
             color: indigo;
         }
+
         .contact {
-            background-color: coral;
+            //background-color: coral;
+
             .image {
                 width: 300px;
                 max-height: 300px;
+                margin-right: 80px;
+            }
+            .divider {
+                margin: 45px 0px;
             }
         }
         .bio {
-            background-color: aqua;
+            .topics {
+                list-style: circle;
+                padding-left: 18px;
+            }
+            //background-color: aqua;
         }
     }
 }
