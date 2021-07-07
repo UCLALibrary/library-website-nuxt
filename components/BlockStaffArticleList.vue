@@ -91,7 +91,7 @@ export default {
         margin-right: 56px;
     }
     .meta {
-        max-width: 490px;
+        width: 490px;
         margin-top: 5px;
         margin-bottom: 16px;
         padding-right: 10px;
