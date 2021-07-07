@@ -41,6 +41,7 @@ export default {
         sectionTitle: {
             type: String,
             default: "",
+            required: true,
         },
     },
 }
