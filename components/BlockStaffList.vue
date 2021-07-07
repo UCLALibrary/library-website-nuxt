@@ -131,7 +131,7 @@ export default {
 
 <style lang="scss" scoped>
 .block-staff-list {
-    max-width: 959px;
+    width: 959px;
     max-height: 396px;
     background-color: var(--color-white);
     border: 2px solid var(--color-primary-lightest-blue);
