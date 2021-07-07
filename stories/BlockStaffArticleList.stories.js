@@ -12,7 +12,7 @@ const mock = {
     category: "Ullamco",
     title: "Fames ac turpis egestas sed tempus lorem ipsum",
     date: "Ocavia 14, 2021",
-    authors: ["Lorem Ipsum"],
+    authors: ["Justo Magna"],
     description:
         "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Egestas integer eget aliquet nibh praesent tristique. Quis imperdiet massa tincidunt nunc pulvinar sapien. Quis imperdiet massa tincidunt nunc pulvinar sapien.",
 }
@@ -40,11 +40,11 @@ export const MultipleAuthors = () => ({
         return {
             ...mock,
             authors: [
-                "Lorem Impsum",
-                "Lorem Impsum",
-                "Lorem Impsum",
-                "Lorem Impsum",
-                "Lorem Impsum",
+                "Justo Magna",
+                "Luctus Suscipit",
+                "Morbi lacinia",
+                "Vestibulum Tincidunt",
+                "Ut Ultrices Malesuada Enim",
             ],
         }
     },
@@ -63,7 +63,7 @@ export const MultipleAuthors = () => ({
 
 export const LongTitle = () => ({
     data() {
-        return { ...mock, authors: ["Lorem Impsum", "Lorem Impsum"] }
+        return { ...mock, authors: ["Justo Magna", "Luctus Suscipit"] }
     },
     template: `
       <block-staff-article-list
