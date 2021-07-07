@@ -10,25 +10,26 @@
                 class="category"
                 v-html="category"
             />
-            <div
+            <nuxt-link
                 class="title"
+                :to="to"
                 v-html="title"
             />
+
             <div class="byline">
-                <div class="author-block">
-                    <div
-                        v-for="(author, index) in authors"
-                        :key="index"
-                        class="author"
-                    >
-                        {{ author }}
-                    </div>
+                <div
+                    v-for="(author, index) in authors"
+                    :key="index"
+                    class="author"
+                >
+                    {{ author }}
                 </div>
                 <div
                     class="date"
                     v-html="date"
                 />
             </div>
+
             <div
                 class="description"
                 v-html="description"
@@ -87,9 +88,10 @@ export default {
         margin-right: 56px;
     }
     .meta {
-        width: 412px;
+        max-width: 490px;
         margin-top: 5px;
         margin-bottom: 16px;
+        padding-right: 10px;
         overflow: hidden;
     }
     .category {
@@ -106,8 +108,13 @@ export default {
         line-height: 130%;
         color: var(--color-primary-blue);
         font-weight: 500;
-        padding-bottom: 16px;
+        margin-bottom: 5px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
+
     .byline {
         padding-bottom: 24px;
         font-size: 18px;
@@ -116,17 +123,14 @@ export default {
 
         display: flex;
         flex-direction: row;
-    }
-    .author-block {
-        display: flex;
-        flex-direction: row;
+        flex-wrap: wrap;
     }
     .author {
         &:after {
             content: ",";
             padding-right: 5px;
         }
-        &:last-child:after {
+        &:nth-last-child(2):after {
             content: "";
         }
     }
@@ -141,7 +145,14 @@ export default {
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        text-overflow: ellipsis;
+    }
+}
+// Hovers
+@media #{$has-hover} {
+    .title:hover {
+        text-decoration: underline;
+        text-decoration-color: var(--color-default-cyan-base);
+        text-decoration-thickness: 1.5px;
     }
 }
 
@@ -160,7 +171,7 @@ export default {
         flex-direction: column;
         flex-wrap: nowrap;
 
-        max-height: 550px;
+        max-height: 650px;
         max-width: 100%;
         padding-left: 5px;
         padding-right: 5px;

@@ -37,7 +37,16 @@ export const Default = () => ({
 
 export const MultipleAuthors = () => ({
     data() {
-        return { ...mock, authors: ["Lorem Impsum", "Lorem Impsum"] }
+        return {
+            ...mock,
+            authors: [
+                "Lorem Impsum",
+                "Lorem Impsum",
+                "Lorem Impsum",
+                "Lorem Impsum",
+                "Lorem Impsum",
+            ],
+        }
     },
     template: `
       <block-staff-article-list
@@ -45,6 +54,23 @@ export const MultipleAuthors = () => ({
           :to="to"
           :category="category"
           :title="title"
+          :date="date"
+          :authors="authors"
+          :description="description"
+      />
+  `,
+})
+
+export const LongTitle = () => ({
+    data() {
+        return { ...mock, authors: ["Lorem Impsum", "Lorem Impsum"] }
+    },
+    template: `
+      <block-staff-article-list
+          :image="image"
+          :to="to"
+          :category="category"
+          title="Mauris Rhoncus Aenean Vel Elit Scelerisque Mauris Pellentesque Pulvinar Rhoncus Aenean Vel Elit Scelerisque"
           :date="date"
           :authors="authors"
           :description="description"
