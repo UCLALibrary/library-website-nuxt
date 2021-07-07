@@ -131,7 +131,7 @@ export default {
 
 <style lang="scss" scoped>
 .block-staff-list {
-    max-width: 959px;
+    width: 959px;
     max-height: 396px;
     background-color: var(--color-white);
     border: 2px solid var(--color-primary-lightest-blue);
@@ -193,6 +193,7 @@ export default {
         }
         .location-group {
             padding-bottom: 2px;
+            margin-left: 8px;
         }
         .location-link + .location-link {
             border-left: solid 1px var(--color-primary-blue);
@@ -204,6 +205,8 @@ export default {
             font-size: 18px;
             line-height: 140%;
             color: var(--color-secondary-grey-04);
+            border-right: solid 1px var(--color-secondary-grey-02);
+            padding-right: 8px;
         }
         .email {
             margin-top: 10px;
@@ -238,18 +241,24 @@ export default {
         flex-direction: column;
 
         width: 400px;
+
         padding: 30px 30px;
         max-height: unset;
         .image {
             margin-right: 0;
             padding-right: 30px;
+            max-width: 100%;
         }
         .meta {
             margin-top: 20px;
+
             .dept-location {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
+            }
+            .location-group {
+                margin-left: 0;
             }
         }
     }
