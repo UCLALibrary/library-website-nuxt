@@ -77,3 +77,20 @@ export const LongTitle = () => ({
       />
   `,
 })
+
+export const LongDescription = () => ({
+    data() {
+        return { ...mock, authors: ["Lorem Impsum", "Lorem Impsum"] }
+    },
+    template: `
+      <block-staff-article-list
+          :image="image"
+          :to="to"
+          :category="category"
+          :title="title"
+          :date="date"
+          :authors="authors"
+          description="Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Egestas integer eget aliquet nibh praesent tristique. Quis imperdiet massa tincidunt nunc pulvinar sapien. Quis imperdiet massa tincidunt nunc pulvinar sapien. Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Egestas integer eget aliquet nibh praesent tristique. Quis imperdiet massa tincidunt nunc pulvinar sapien. Quis imperdiet massa tincidunt nunc pulvinar sapien."
+      />
+  `,
+})
