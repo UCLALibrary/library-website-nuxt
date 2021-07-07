@@ -237,15 +237,18 @@ export default {
         display: flex;
         flex-direction: column;
 
-        width: 400px;
+        max-width: 100%;
         padding: 30px 30px;
         max-height: unset;
         .image {
             margin-right: 0;
             padding-right: 30px;
+            max-width: 100%;
         }
         .meta {
             margin-top: 20px;
+            max-width: 100%;
+            max-height: 400px;
             .dept-location {
                 display: flex;
                 flex-direction: column;

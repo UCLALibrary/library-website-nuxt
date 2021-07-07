@@ -34,12 +34,10 @@ export default {
 <style lang="scss" scoped>
 .section-staff-list {
     background-color: var(--color-white);
-    padding: 0 var(--unit-gutter);
+    // padding: 0 var(--unit-gutter);
     max-width: 990px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 10px;
-    padding-right: 10px;
 
     .meta {
         display: flex;
