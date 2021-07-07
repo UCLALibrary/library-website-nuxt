@@ -193,6 +193,7 @@ export default {
         }
         .location-group {
             padding-bottom: 2px;
+            margin-left: 8px;
         }
         .location-link + .location-link {
             border-left: solid 1px var(--color-primary-blue);
@@ -204,6 +205,8 @@ export default {
             font-size: 18px;
             line-height: 140%;
             color: var(--color-secondary-grey-04);
+            border-right: solid 1px var(--color-secondary-grey-02);
+            padding-right: 8px;
         }
         .email {
             margin-top: 10px;
@@ -237,7 +240,8 @@ export default {
         display: flex;
         flex-direction: column;
 
-        max-width: 100%;
+        width: 400px;
+
         padding: 30px 30px;
         max-height: unset;
         .image {
@@ -247,12 +251,14 @@ export default {
         }
         .meta {
             margin-top: 20px;
-            max-width: 100%;
-            max-height: 400px;
+
             .dept-location {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
+            }
+            .location-group {
+                margin-left: 0;
             }
         }
     }
