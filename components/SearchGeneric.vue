@@ -1,17 +1,20 @@
 <template lang="html">
     <div class="search-generic">
         <div class="box">
-            <form name="searchHome" @submit.prevent="doSearch">
+            <form
+                name="searchHome"
+                @submit.prevent="doSearch"
+            >
                 <div class="input-container">
                     <svg-icon-search class="icon" />
                     <input
                         v-model="searchWords"
                         type="text"
                         placeholder="Search by keyword"
-                    />
+                    >
                 </div>
 
-                <hr class="divider" />
+                <hr class="divider">
 
                 <div class="container">
                     <search-generic-filter-buttons
@@ -28,14 +31,17 @@
                 </div>
 
                 <!-- This loops through avaible filter groups -->
-                <transition name="slide-toggle" mode="out-in">
+                <transition
+                    name="slide-toggle"
+                    mode="out-in"
+                >
                     <component
-                        v-for="(group, index) in parsedFilters"
                         :is="group.componentName"
-                        :items="group.items"
-                        :selected.sync="parsedFilters[index].selected"
+                        v-for="(group, index) in parsedFilters"
                         v-if="index == openedFilterIndex"
                         :key="group.slug"
+                        :items="group.items"
+                        :selected.sync="parsedFilters[index].selected"
                         class="filter-group"
                     />
                 </transition>
@@ -175,8 +181,8 @@ export default {
         }
     }
     .divider {
-        margin-top: 15px;
-        height: 1px;
+        margin: 15px 0 24px;
+        height: 2px;
         border: none;
         background-color: var(--color-cyan-01);
     }

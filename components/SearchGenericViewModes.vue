@@ -1,6 +1,22 @@
 <template lang="html">
-    <div :class="classes" @click="toggleOpen">
-        <button class="view-btn" v-html="selectedItem.title" />
+    <div
+        :class="classes"
+        @click="toggleOpen"
+    >
+        <button class="view-btn">
+            <div class="selected">
+                <span v-if="isOpened">View</span>
+                <component
+                    :is="`svg-${selectedItem.iconName}`"
+                    v-else
+                    class="svg"
+                />
+            </div>
+
+            <div class="chevron">
+                <svg-chevron-down class="svg" />
+            </div>
+        </button>
 
         <ul class="view-list">
             <li
@@ -9,7 +25,10 @@
                 :class="view.classes"
                 @click="onClick(view.slug)"
             >
-                <component :is="`svg-${view.iconName}`" class="svg" />
+                <component
+                    :is="`svg-${view.iconName}`"
+                    class="svg"
+                />
                 <div v-html="view.title" />
             </li>
         </ul>
@@ -17,8 +36,11 @@
 </template>
 
 <script>
+import SvgChevronDown from "~/assets/svg/chevron-down"
+
 export default {
     components: {
+        SvgChevronDown,
         SvgIconCalendar: () => import("~/assets/svg/icon-calendar"),
         SvgIconCard: () => import("~/assets/svg/icon-card"),
         SvgIconList: () => import("~/assets/svg/icon-list"),
@@ -80,72 +102,107 @@ export default {
     display: flex;
     flex-direction: column;
 
+    margin-left: 8px;
+    font-family: var(--font-secondary);
+    font-size: 18px;
+
     .view-btn {
         width: 106px;
         height: 60px;
+        font-size: 18px;
+
+        color: var(--color-white);
         background-color: var(--color-primary-blue);
-        padding-right: 16px;
+        padding: 0 50px 0 16px;
+        position: relative;
+
+        border-radius: 2px;
+        border: 1.5px solid transparent;
+
+        transition: border-color 400ms ease-in-out;
 
         display: flex;
         justify-content: space-between;
         align-items: center;
         align-content: center;
+    }
+    .selected {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
 
-        // TODO Use an SVG not Font Awesome
-        &::after {
-            content: "\f107";
-            font-size: 16px;
-            font-family: "Font-Awesome";
-            color: var(--color-white);
+        .svg {
+            display: inline-block;
+            transform: translateY(2px);
         }
+    }
+    .chevron {
+        font-size: 16px;
+        color: var(--color-white);
+        position: absolute;
+        width: 40px;
+        right: 0;
+        top: 0;
+        height: 100%;
+        transition: background-color 400ms ease-in-out;
+
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
+    .svg path {
+        stroke: var(--color-white);
     }
 
     .view-list {
-        margin-top: 15px;
+        margin-top: 12px;
         list-style: none;
         background-color: var(--color-primary-blue);
         color: var(--color-white);
         opacity: 0;
         max-height: 0;
         overflow: hidden;
+        text-align: center;
+        border-radius: 2px;
+        border: 1.5px solid transparent;
 
-        transition-property: opacity, max-height;
+        padding: 16px 8px;
+
+        transition-property: opacity, max-height, border;
         transition-duration: 400ms;
         transition-timing-function: ease-in-out;
-
-        .list-item {
-            margin-top: 12px;
-            font-size: 18px;
-            font-weight: 400;
-            text-align: center;
-
-            &:last-child {
-                margin-bottom: 12px;
-            }
-        }
-        .svg:last-child {
-            padding-left: 15px;
-        }
     }
+    .list-item {
+        height: 72px;
+        padding: 12px 8px;
+        box-sizing: border-box;
+        background-color: rgba(255, 255, 255, 0);
+        border-radius: 2px;
+        transition: background-color 400ms ease-in-out;
 
-    .title {
-        color: var(--color-white);
-        margin-left: 16px;
-        font-size: 18px;
-        font-weight: 400;
+        .svg {
+            display: block;
+            margin: 0 auto;
+        }
     }
 
     // Open state
     &.is-opened {
+        .view-btn {
+            border-color: var(--color-fushia-03);
+        }
         .view-list {
             max-height: 220px;
             opacity: 1;
+            border-color: var(--color-fushia-03);
         }
+    }
 
-        .button {
-            &::after {
-                content: "\f106";
-            }
+    // Hovers
+    @media #{$has-hover} {
+        .list-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
     }
 }

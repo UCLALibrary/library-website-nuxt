@@ -82,9 +82,3 @@
     font-style: normal;
     font-weight: 700;
 }
-@font-face {
-    font-family: 'Font-Awesome';
-    src: url('~assets/fonts/fontawesome-webfont.woff2') format("woff2"),
-    url('~assets/fonts/fontawesome-webfont.woff') format('woff'), 
-    url('~assets/fonts/fontawesome-webfont.ttf') format('truetype');
-}
