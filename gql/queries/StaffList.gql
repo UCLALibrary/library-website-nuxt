@@ -1,0 +1,12 @@
+query StaffMember {
+  entries(section: "staffMember") {
+    email
+    phone: phoneNumber
+    jobTitle: staffMemberJobTitle
+    staffgitName: staffMemberName
+    to: slug
+    dept: department {
+      title
+    }
+  }
+}
