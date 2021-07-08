@@ -228,17 +228,16 @@ export default {
 
     // Hover states
     @media #{$has-hover} {
-        &:hover {
-            .name {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue);
-                text-decoration-thickness: 1.5px;
-            }
-            .location-link {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue);
-                text-decoration-thickness: 1.5px;
-            }
+        .name:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue);
+            text-decoration-thickness: 1.5px;
+        }
+
+        .location-link:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue);
+            text-decoration-thickness: 1.5px;
         }
     }
 

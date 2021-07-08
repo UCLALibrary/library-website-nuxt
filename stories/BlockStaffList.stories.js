@@ -10,7 +10,7 @@ const mock = {
     to: "/staff/foo",
     jobTitle: "Ullamco",
     staffName: "Fames ac turpis",
-    department: "Inceptos Himenaeos Inceptos Himenaeos",
+    department: "Inceptos Himenaeos Inceptos",
     email: "loreum@ipsum.foo",
 }
 
