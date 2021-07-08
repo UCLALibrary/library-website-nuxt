@@ -1,7 +1,7 @@
 <template>
     <div class="page page-staff">
         <!-- staff page here -->
-        {{ page }}
+
         <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
