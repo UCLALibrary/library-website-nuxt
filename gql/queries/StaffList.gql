@@ -1,6 +1,12 @@
 query StaffMember {
-  entries(orderBy: "title desc") {
-    id
-    title
+  entries(section: "staffMember") {
+    email
+    phone: phoneNumber
+    jobTitle: staffMemberJobTitle
+    staffName: staffMemberName
+    to: slug
+    dept: department {
+      title
+    }
   }
 }

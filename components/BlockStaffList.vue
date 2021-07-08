@@ -27,7 +27,10 @@
                     class="department"
                     v-html="department"
                 />
-                <div class="location-group">
+                <div
+                    v-if="locations.length"
+                    class="location-group"
+                >
                     <svg-icon-location class="svg" />
                     <nuxt-link
                         v-for="location in locations"
