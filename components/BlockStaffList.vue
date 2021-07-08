@@ -188,6 +188,9 @@ export default {
         }
         .dept-location {
             display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: center;
             align-items: flex-end;
 
             margin-top: 16px;
@@ -258,7 +261,7 @@ export default {
 
             .dept-location {
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
                 align-items: flex-start;
             }
             .location-group {
