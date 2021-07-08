@@ -48,8 +48,10 @@
 
                 <div class="email">
                     <svg-icon-email class="svg" />
-                    <span
-                        class="text"
+                    <smart-link
+                        :to="`mailto:${email}`"
+                        target="_blank"
+                        class="text-link"
                         v-html="email"
                     />
                 </div>
@@ -57,14 +59,16 @@
                     v-if="phone"
                     class="phone"
                 >
-                    <svg-icon-phone class="body-svgs" />
-                    <span
-                        class="text"
+                    <svg-icon-phone class="svg" />
+                    <smart-link
+                        :to="`tel:${phone}`"
+                        target="_blank"
+                        class="text-link"
                         v-html="phone"
                     />
                 </div>
                 <div class="consultation">
-                    <svg-icon-consultation class="body-svgs" />
+                    <svg-icon-consultation class="svg" />
                     <smart-link
                         to="https://calendar.library.ucla.edu/appointments"
                         target="_blank"
@@ -75,32 +79,36 @@
             </div>
 
             <div class="bio">
-                <h2
-                    v-if="topics"
-                    class="text"
-                    v-html="text"
+                <div
+                    v-if="topics.length >= 1"
+                    class="topic"
                 >
-                    Ask me About
-                </h2>
+                    <h2 class="bio-header">
+                        Ask me About
+                    </h2>
 
-                <ul class="topics">
-                    <li
-                        v-for="topic in topics"
-                        v-html="topic"
+                    <ul class="topics">
+                        <li
+                            v-for="topic in topics"
+                            v-html="topic"
+                        />
+                    </ul>
+
+                    <divider-general class="divider" />
+                </div>
+
+                <div
+                    v-if="biography.length >= 1"
+                    class="biography"
+                >
+                    <h2
+                        class="bio-header"
+                    />Biography</h2>
+                    <p
+                        class="bio-blurb"
+                        v-html="biography"
                     />
-                </ul>
-
-                <divider-general class="divider" />
-
-                <h2
-                    class="bio-header"
-                    v-html="biography"
-                />
-                <p
-                    class="bio-blurb"
-                    v-html="bioBlurb"
-                />
-                </h2>
+                </div>
             </div>
         </div>
     </div>
@@ -200,6 +208,7 @@ export default {
         }
         .dept-location {
             margin-left: 115px;
+            margin-top: 15px;
             position: relative;
 
             display: flex;
@@ -213,6 +222,7 @@ export default {
                 color: hotpink;
                 border-right: 1px solid indigo;
                 padding-right: 14px;
+                margin-top: 10px;
             }
 
             .department {
@@ -220,13 +230,14 @@ export default {
                 border-right: 1px solid indigo;
                 padding-left: 14px;
                 padding-right: 14px;
+                margin-top: 10px;
             }
 
             .location-group {
                 padding-left: 14px;
-                .location-svg {
-                    margin-bottom: -20px;
-                }
+
+                display: flex;
+                align-items: center;
             }
             .location-link + .location-link {
                 border-left: solid 1px var(--color-primary-blue);
@@ -245,35 +256,72 @@ export default {
         align-content: center;
         align-items: flex-start;
 
-        .bio-header {
-            font-size: 24px;
-            //color: green;
-        }
-
-        .bio-blurb {
-            font-size: 14px;
-            color: indigo;
-        }
-
         .contact {
-            //background-color: coral;
-
             .image {
                 width: 300px;
                 max-height: 300px;
-                margin-right: 80px;
                 margin-top: 75px;
             }
-            .divider {
-                margin: 45px 0px;
+
+            .email {
+                margin-top: 10px;
+            }
+            .phone {
+                margin-top: 10px;
+            }
+            .consultation {
+                margin-top: 10px;
             }
         }
+
+        .svg {
+            margin-bottom: -10px;
+        }
+
+        .divider {
+            margin: 45px 0px;
+        }
+
         .bio {
-            .topics {
-                list-style: circle;
-                padding-left: 18px;
+            margin-top: 75px;
+            margin-left: 80px;
+            .bio-header {
+                font-size: 28px;
+                //margin-bottom: ;
+                line-height: 35px;
             }
-            //background-color: aqua;
+            .topic {
+                .topics {
+                    list-style: circle;
+                    padding-left: 18px;
+                    font-family: Karbon;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 24px;
+                    letter-spacing: 0.01em;
+                    text-align: left;
+                    ul li::before {
+                        color: var(--color-primary-blue);
+                    }
+                }
+            }
+
+                color: pink;
+                margin-top: 36px;
+                padding-left: 18px;
+                font-family: Karbon;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 24px;
+                letter-spacing: 0.01em;
+                text-align: left;
+            }
+
+            .bio-blurb {
+                font-size: 14px;
+            }
         }
     }
 }

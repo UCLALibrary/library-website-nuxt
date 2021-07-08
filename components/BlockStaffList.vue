@@ -214,6 +214,9 @@ export default {
         .consultation {
             margin-top: 10px;
         }
+        .biography {
+            background-color: lightgreen;
+        }
     }
 
     // Hover states
