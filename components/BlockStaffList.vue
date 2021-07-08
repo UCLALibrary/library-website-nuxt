@@ -27,7 +27,11 @@
                     class="department"
                     v-html="department"
                 />
-                <div class="location-group">
+
+                <div
+                    v-if="locations.length"
+                    class="location-group"
+                >
                     <svg-icon-location class="svg" />
                     <nuxt-link
                         v-for="location in locations"
@@ -194,6 +198,8 @@ export default {
         .location-group {
             padding-bottom: 2px;
             margin-left: 8px;
+            border-left: solid 1px var(--color-secondary-grey-02);
+            padding-left: 8px;
         }
         .location-link + .location-link {
             border-left: solid 1px var(--color-primary-blue);
@@ -205,8 +211,6 @@ export default {
             font-size: 18px;
             line-height: 140%;
             color: var(--color-secondary-grey-04);
-            border-right: solid 1px var(--color-secondary-grey-02);
-            padding-right: 8px;
         }
         .email {
             margin-top: 10px;

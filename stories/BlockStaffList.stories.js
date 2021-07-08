@@ -12,25 +12,26 @@ const mock = {
     staffName: "Fames ac turpis",
     department: "Inceptos Himenaeos",
     email: "loreum@ipsum.foo",
-    
 }
 
 // Variations of stories below
 export const Default = () => ({
     data() {
-        return { 
-            item: { 
+        return {
+            item: {
                 ...mock,
                 image: API.image_people,
-                locations: [{
-                    title: "cupidatat non proident",
-                    to: "/location/bar",
-                },
-                {
-                    title: "tristique",
-                    to: "/location/baz",
-                }]
-            }
+                locations: [
+                    {
+                        title: "cupidatat non proident",
+                        to: "/location/bar",
+                    },
+                    {
+                        title: "tristique",
+                        to: "/location/baz",
+                    },
+                ],
+            },
         }
     },
     template: `
@@ -43,18 +44,20 @@ export const Default = () => ({
 
 export const NoImage = () => ({
     data() {
-        return { 
-            item: { 
+        return {
+            item: {
                 ...mock,
-                locations: [{
-                    title: "cupidatat non proident",
-                    to: "/location/bar",
-                },
-                {
-                    title: "tristique",
-                    to: "/location/baz",
-                }]
-            }
+                locations: [
+                    {
+                        title: "cupidatat non proident",
+                        to: "/location/bar",
+                    },
+                    {
+                        title: "tristique",
+                        to: "/location/baz",
+                    },
+                ],
+            },
         }
     },
     template: `
@@ -71,10 +74,12 @@ export const OneLocation = () => ({
             item: {
                 ...mock,
                 image: API.image_people,
-                locations: [{
-                    title: "cupidatat non proident",
-                    to: "/location/bar",
-                }]
+                locations: [
+                    {
+                        title: "cupidatat non proident",
+                        to: "/location/bar",
+                    },
+                ],
             },
         }
     },
@@ -88,19 +93,37 @@ export const OneLocation = () => ({
 
 export const NoPhoneNumber = () => ({
     data() {
-        return { 
-            item: { 
+        return {
+            item: {
                 ...mock,
                 image: API.image_people,
-                locations: [{
-                    title: "cupidatat non proident",
-                    to: "/location/bar",
-                },
-                {
-                    title: "tristique",
-                    to: "/location/baz",
-                }]
-            }
+                locations: [
+                    {
+                        title: "cupidatat non proident",
+                        to: "/location/bar",
+                    },
+                    {
+                        title: "tristique",
+                        to: "/location/baz",
+                    },
+                ],
+            },
+        }
+    },
+    template: `
+      <block-staff-list
+        v-bind="item"
+      />
+  `,
+})
+
+export const NoLocation = () => ({
+    data() {
+        return {
+            item: {
+                ...mock,
+                image: API.image_people,
+            },
         }
     },
     template: `
