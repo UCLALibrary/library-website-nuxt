@@ -103,7 +103,7 @@ export default {
         },
         webpackFinal(config, { configDir }) {
             // Allow webpack to auto-load .gql and .svg files
-            config.resolve.extensions.push(".svg")
+            config.resolve.extensions.push(".svg",".gql")
 
             return config
         },

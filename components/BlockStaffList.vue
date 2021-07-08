@@ -4,6 +4,7 @@
             v-if="image"
             :image="image"
             :aspect-ratio="100"
+            sizes="300px"
             class="image"
         />
         <svg-heading-arrow

@@ -2,10 +2,7 @@
     <div class="page page-staff">
         <!-- staff page here -->
 
-        <masthead-secondary
-            title="Exhibits & Upcoming Events"
-            text="Browse upcoming remote events and online exhibits."
-        >
+        <masthead-secondary title="Staff Directory">
             <!-- TODO Add SearchGenric here when complete  -->
             <!-- <search-generic search-type="about"
                     :filters="searchFilters.filters"
@@ -21,7 +18,10 @@
 </template>
 
 <script>
-import * as MOCK_API from "~/stories/mock-api.json"
+// Helpers
+import _get from "lodash/get"
+
+// gql
 import STAFF_LIST from "~/gql/queries/StaffList"
 
 export default {
@@ -36,19 +36,11 @@ export default {
     },
     computed: {
         parsedStaffList() {
-            return this.page.entries.map((obj, i) => {
-                obj.department = obj.dept[0].title
-                switch (i) {
-                    case 0:
-                        obj.image = MOCK_API.image
-                        break
-
-                    case 1:
-                        obj.image = MOCK_API.image
-                        break
-                }
+            return this.page.entries.map((obj) => {
                 return {
                     ...obj,
+                    image: _get(obj, "image[0]", null),
+                    department: _get(obj, "dept[0].title", ""),
                 }
             })
         },
