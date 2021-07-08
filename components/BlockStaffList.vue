@@ -23,7 +23,7 @@
                 v-html="jobTitle"
             />
             <div class="dept-location">
-                <span
+                <div
                     class="department"
                     v-html="department"
                 />
@@ -162,7 +162,6 @@ export default {
         margin-right: 32px;
     }
     .meta {
-        width: 476px;
         max-height: 277px;
         font-weight: normal;
         font-size: 18px;
@@ -194,9 +193,16 @@ export default {
             align-items: flex-end;
 
             margin-top: 16px;
+            max-width: 659px;
             .svg {
                 margin-bottom: -10px;
             }
+        }
+        .department {
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 140%;
+            color: var(--color-secondary-grey-04);
         }
         .location-group {
             padding-bottom: 2px;
@@ -208,12 +214,6 @@ export default {
             border-left: solid 1px var(--color-primary-blue);
             margin-left: 10px;
             padding-left: 10px;
-        }
-        .department {
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 140%;
-            color: var(--color-secondary-grey-04);
         }
         .email {
             margin-top: 10px;
