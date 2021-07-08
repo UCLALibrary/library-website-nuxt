@@ -20,17 +20,16 @@
                     v-html="department"
                 />
                 <div class="location-group">
-                    <svg-icon-location class="svg" />
+                    <svg-icon-location class="location-svg" />
                     <nuxt-link
                         v-for="location in locations"
-                        :key="location.to"
+                        :key="`location-${location.to}`"
                         :to="location.to"
                         class="location-link"
                     >
                         <span
-                            v-for="location in locations"
-                            class="locations"
-                            v-html="locations"
+                            class="location"
+                            v-html="location.title"
                         />
                     </nuxt-link>
                 </div>
@@ -58,14 +57,14 @@
                     v-if="phone"
                     class="phone"
                 >
-                    <svg-icon-phone class="svg" />
+                    <svg-icon-phone class="body-svgs" />
                     <span
                         class="text"
                         v-html="phone"
                     />
                 </div>
                 <div class="consultation">
-                    <svg-icon-consultation class="svg" />
+                    <svg-icon-consultation class="body-svgs" />
                     <smart-link
                         to="https://calendar.library.ucla.edu/appointments"
                         target="_blank"
@@ -199,41 +198,42 @@ export default {
                 color: var(--color-primary-blue);
             }
         }
-    .dept-location {
-        margin-left: 115px;
-        position: relative;
+        .dept-location {
+            margin-left: 115px;
+            position: relative;
 
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        align-content: center;
-        align-items: flex-start;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: flex-start;
 
-        .title {
-            color: hotpink;
-            border-right: 1px solid indigo;
-            padding-right: 14px;
-        }
+            .title {
+                color: hotpink;
+                border-right: 1px solid indigo;
+                padding-right: 14px;
+            }
 
-        .department {
-            color: purple;
-            border-right: 1px solid indigo;
-            padding-left: 14px;
-            padding-right: 14px;
-        }
-
-        .location-group {
-            .svg {
+            .department {
+                color: purple;
+                border-right: 1px solid indigo;
                 padding-left: 14px;
                 padding-right: 14px;
-                top: 10px;
             }
-            .locations {
-                color: coral;
+
+            .location-group {
+                padding-left: 14px;
+                .location-svg {
+                    margin-bottom: -20px;
+                }
+            }
+            .location-link + .location-link {
+                border-left: solid 1px var(--color-primary-blue);
+                margin-left: 10px;
+                padding-left: 10px;
             }
         }
-    }
     }
     .meta-body {
         margin-left: 115px;
@@ -262,6 +262,7 @@ export default {
                 width: 300px;
                 max-height: 300px;
                 margin-right: 80px;
+                margin-top: 75px;
             }
             .divider {
                 margin: 45px 0px;

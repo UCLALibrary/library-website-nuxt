@@ -7,12 +7,14 @@ export default {
 }
 
 const mock = {
-    image: API.image,
+    // image: API.image_people,
     to: "/staff/id/",
     staffName: "Ada Lovelace",
     jobTitle: "Librateria",
-    // locations: [{title: "Powellarium", to: "/location/bar"}{title: "Research Library (Charles E. Young)", to: "/location/baz"}],
-    locations: ["Powellarium"],
+    locations: [
+        { title: "Powellarium", to: "/location/bar" },
+        { title: "Research Library (Charles E. Young)", to: "/location/baz" },
+    ],
     email: "ada@somewhere.com",
     phone: "555-555-5555",
     department: "DIIT",
@@ -25,21 +27,16 @@ const mock = {
 export const Default = () => ({
     data() {
         return {
-            ...mock,
+            item: {
+                ...mock,
+                image: API.image_people,
+            },
         }
     },
     template: `
     <block-staff-detail
-    :image="image"
-    :to="to"
-    :staffName="staffName"
-    :jobTitle="jobTitle"
-    :locations="locations"
-    :email="email"
-    :phone="phone"
-    :department="department"
-    :topics="topics"
-    :biography="biography"
+    v-bind="item"
+
     />
   `,
 })
