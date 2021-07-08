@@ -3,7 +3,7 @@ query StaffMember {
     email
     phone: phoneNumber
     jobTitle: staffMemberJobTitle
-    staffgitName: staffMemberName
+    staffName: staffMemberName
     to: slug
     dept: department {
       title
