@@ -112,7 +112,14 @@ export default {
             return getSectionName(this.to)
         },
         parsedDateTime() {
-            return `${this.date} | ${this.time}`
+            let output = `${this.date} | ${this.time}`
+            if (!this.date) {
+                output = this.time
+            }
+            if (!this.time) {
+                output = this.date
+            }
+            return output
         },
         parseOnline() {
             return this.isOnline ? " online" : ""
