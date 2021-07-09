@@ -1,7 +1,7 @@
 export const state = () => ({
     winHeight: 0,
     winWidth: 0,
-    libCalToken: "",
+    sTop: 0,
 })
 
 export const mutations = {
@@ -9,8 +9,8 @@ export const mutations = {
         state.winWidth = data.width
         state.winHeight = data.height
     },
-    SET_LIBCAL_TOKEN(state, data) {
-        state.libCalToken = data
+    SET_S_TOP(state, data) {
+        state.sTop = data
     },
 }
 
