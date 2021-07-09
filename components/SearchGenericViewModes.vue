@@ -98,9 +98,7 @@ export default {
 
 <style lang="scss" scoped>
 .search-generic-view-modes {
-    flex: 0 1 auto;
-    display: flex;
-    flex-direction: column;
+    position: relative;
 
     margin-left: 8px;
     font-family: var(--font-secondary);
@@ -110,16 +108,20 @@ export default {
         width: 106px;
         height: 60px;
         font-size: 18px;
+        overflow: hidden;
 
+        font-family: var(--font-secondary);
         color: var(--color-white);
         background-color: var(--color-primary-blue);
         padding: 0 50px 0 16px;
         position: relative;
 
-        border-radius: 2px;
+        border-radius: 0;
         border: 1.5px solid transparent;
 
-        transition: border-color 400ms ease-in-out;
+        transition-property: border-color, border-radius;
+        transition-duration: 400ms;
+        transition-timing-function: ease-in-out;
 
         display: flex;
         justify-content: space-between;
@@ -156,7 +158,7 @@ export default {
     }
 
     .view-list {
-        margin-top: 12px;
+        margin-top: 8px;
         list-style: none;
         background-color: var(--color-primary-blue);
         color: var(--color-white);
@@ -164,10 +166,14 @@ export default {
         max-height: 0;
         overflow: hidden;
         text-align: center;
-        border-radius: 2px;
+        border-radius: var(--rounded-slightly-all);
         border: 1.5px solid transparent;
 
         padding: 16px 8px;
+
+        position: absolute;
+        top: 100%;
+        right: 0;
 
         transition-property: opacity, max-height, border;
         transition-duration: 400ms;
@@ -178,7 +184,7 @@ export default {
         padding: 12px 8px;
         box-sizing: border-box;
         background-color: rgba(255, 255, 255, 0);
-        border-radius: 2px;
+        border-radius: var(--rounded-slightly-all);
         transition: background-color 400ms ease-in-out;
 
         .svg {
@@ -190,6 +196,7 @@ export default {
     // Open state
     &.is-opened {
         .view-btn {
+            border-radius: var(--rounded-slightly-all);
             border-color: var(--color-fushia-03);
         }
         .view-list {

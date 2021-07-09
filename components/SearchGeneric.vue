@@ -1,53 +1,54 @@
 <template lang="html">
-    <div class="search-generic">
-        <div class="box">
-            <form
-                name="searchHome"
-                @submit.prevent="doSearch"
+    <!-- TODO Need tick's next to "altered" radio dropdown  -->
+    <!-- TODO Need count of items selected for checkbox -->
+    <!-- TODO Need selected tags (match to checkbox) -->
+
+    <form
+        class="search-generic"
+        name="searchHome"
+        @submit.prevent="doSearch"
+    >
+        <div class="input-container">
+            <svg-icon-search class="icon" />
+            <input
+                v-model="searchWords"
+                type="text"
+                placeholder="Search by keyword"
             >
-                <div class="input-container">
-                    <svg-icon-search class="icon" />
-                    <input
-                        v-model="searchWords"
-                        type="text"
-                        placeholder="Search by keyword"
-                    >
-                </div>
-
-                <hr class="divider">
-
-                <div class="container">
-                    <search-generic-filter-buttons
-                        :items="filters"
-                        :active-index.sync="openedFilterIndex"
-                    />
-
-                    <search-generic-view-modes
-                        v-if="views.length"
-                        :items="views"
-                        :is-opened.sync="isViewOpened"
-                        :selected.sync="selectedView"
-                    />
-                </div>
-
-                <!-- This loops through avaible filter groups -->
-                <transition
-                    name="slide-toggle"
-                    mode="out-in"
-                >
-                    <component
-                        :is="group.componentName"
-                        v-for="(group, index) in parsedFilters"
-                        v-if="index == openedFilterIndex"
-                        :key="group.slug"
-                        :items="group.items"
-                        :selected.sync="parsedFilters[index].selected"
-                        class="filter-group"
-                    />
-                </transition>
-            </form>
         </div>
-    </div>
+
+        <hr class="divider">
+
+        <div class="container">
+            <search-generic-filter-buttons
+                :items="filters"
+                :active-index.sync="openedFilterIndex"
+            />
+
+            <search-generic-view-modes
+                v-if="views.length"
+                :items="views"
+                :is-opened.sync="isViewOpened"
+                :selected.sync="selectedView"
+            />
+        </div>
+
+        <!-- This loops through avaible filter groups -->
+        <transition
+            name="slide-toggle"
+            mode="out-in"
+        >
+            <component
+                :is="group.componentName"
+                v-for="(group, index) in parsedFilters"
+                v-if="index == openedFilterIndex"
+                :key="group.slug"
+                :items="group.items"
+                :selected.sync="parsedFilters[index].selected"
+                class="filter-group"
+            />
+        </transition>
+    </form>
 </template>
 
 <script>
@@ -148,14 +149,15 @@ export default {
 </script>
 <style lang="scss" scoped>
 .search-generic {
-    .box {
-        padding: 30px 50px;
-        background-color: var(--color-white);
-        height: 70px;
-        width: 890px;
-        border: 1px solid transparent;
-        border-top-left-radius: 4px;
-    }
+    position: relative;
+
+    padding: 0 50px;
+    margin: 30px auto;
+    background-color: var(--color-white);
+    max-width: 890px;
+    border: 1px solid transparent;
+    border-top-left-radius: 4px;
+
     .input-container {
         .icon {
             padding: 25px 40px 25px 32px;
@@ -197,6 +199,13 @@ export default {
     }
     .filter-group {
         transition-duration: 400ms;
+
+        position: absolute;
+        top: 100%;
+        left: 50px;
+        right: 50px;
+
+        margin-top: 8px;
     }
 }
 

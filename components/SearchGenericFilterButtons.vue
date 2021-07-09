@@ -74,22 +74,38 @@ export default {
     .button {
         height: 60px;
         font-size: 18px;
+        font-family: var(--font-secondary);
         color: var(--color-white);
         background-color: var(--color-blue-03);
         margin-right: 8px;
-        padding: 0 50px 0 16px;
+        padding: 0;
+
         position: relative;
         box-sizing: border-box;
+        overflow: hidden;
+
+        border: 1.5px solid transparent;
+
+        transition-property: border, border-radius;
+        transition-duration: 400ms;
+        transition-timing-function: ease-in-out;
 
         flex: 1 1 auto;
-
-        display: flex;
-        align-items: center;
-        align-content: center;
 
         &:last-child {
             margin-right: 0;
         }
+    }
+    .title {
+        display: block;
+        height: 100%;
+        width: 100%;
+        padding: 0 50px 0 16px;
+        transition: background-color 400ms ease-in-out;
+
+        display: flex;
+        align-items: center;
+        align-content: center;
     }
     .chevron {
         font-size: 16px;
@@ -100,6 +116,7 @@ export default {
         top: 0;
         height: 100%;
         transition: background-color 400ms ease-in-out;
+        background-color: var(--color-blue-03);
 
         display: flex;
         justify-content: center;
@@ -112,14 +129,23 @@ export default {
 
     // Open state
     .is-active {
+        border: 1.5px solid var(--color-fushia-03);
+        border-radius: var(--rounded-slightly-all);
+
         .svg {
             transform: rotate(180deg);
+        }
+
+        .title,
+        .chevron {
+            background-color: var(--color-primary-blue);
         }
     }
 
     // Hovers
     @media #{$has-hover} {
-        .button:hover .chevron {
+        .title:hover,
+        .chevron:hover {
             background-color: var(--color-primary-blue);
         }
     }

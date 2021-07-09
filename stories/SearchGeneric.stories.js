@@ -136,10 +136,14 @@ export const TwoFilter = () => ({
         }
     },
     template: `
+    <div>
         <search-generic
             :filters="filters"
             :views="views"
         />
+
+        This shouldn't move when search opened.
+    </div>
     `,
 })
 
