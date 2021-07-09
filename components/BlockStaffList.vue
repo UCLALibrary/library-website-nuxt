@@ -265,6 +265,8 @@ export default {
             }
             .location-group {
                 margin-left: 0;
+                border-left: none;
+                padding-left: 0px;
             }
         }
     }
