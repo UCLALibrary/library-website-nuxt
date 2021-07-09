@@ -1,7 +1,7 @@
 <template lang="html">
-    <!-- TODO Need tick's next to "altered" radio dropdown  -->
+    <!-- TODO Need tick's next to radio dropdown  -->
     <!-- TODO Need count of items selected for checkbox -->
-    <!-- TODO Need selected tags (match to checkbox) -->
+    <!-- TODO Need selected tags (sync'd to selected checkboxes) -->
 
     <form
         class="search-generic"
