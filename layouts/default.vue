@@ -114,7 +114,11 @@ export default {
             })
         },
         classes() {
-            return ["layout", "layout-default"]
+            return [
+                "layout",
+                "layout-default",
+                { "has-scrolled": this.$store.state.sTop },
+            ]
         },
     },
 }

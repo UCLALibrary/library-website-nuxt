@@ -24,7 +24,7 @@
                 v-html="jobTitle"
             />
             <div class="dept-location">
-                <span
+                <div
                     class="department"
                     v-html="department"
                 />
@@ -162,7 +162,6 @@ export default {
         margin-right: 32px;
     }
     .meta {
-        width: 476px;
         max-height: 277px;
         font-weight: normal;
         font-size: 18px;
@@ -188,29 +187,33 @@ export default {
         }
         .dept-location {
             display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: center;
             align-items: flex-end;
 
             margin-top: 16px;
+            max-width: 659px;
             .svg {
                 margin-bottom: -10px;
             }
-        }
-        .location-group {
-            padding-bottom: 2px;
-            margin-left: 8px;
-        }
-        .location-link + .location-link {
-            border-left: solid 1px var(--color-primary-blue);
-            margin-left: 10px;
-            padding-left: 10px;
         }
         .department {
             font-weight: 400;
             font-size: 18px;
             line-height: 140%;
             color: var(--color-secondary-grey-04);
-            border-right: solid 1px var(--color-secondary-grey-02);
-            padding-right: 8px;
+        }
+        .location-group {
+            padding-bottom: 2px;
+            margin-left: 8px;
+            border-left: solid 1px var(--color-secondary-grey-02);
+            padding-left: 8px;
+        }
+        .location-link + .location-link {
+            border-left: solid 1px var(--color-primary-blue);
+            margin-left: 10px;
+            padding-left: 10px;
         }
         .email {
             margin-top: 10px;
@@ -225,17 +228,16 @@ export default {
 
     // Hover states
     @media #{$has-hover} {
-        &:hover {
-            .name {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue);
-                text-decoration-thickness: 1.5px;
-            }
-            .location-link {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue);
-                text-decoration-thickness: 1.5px;
-            }
+        .name:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue);
+            text-decoration-thickness: 1.5px;
+        }
+
+        .location-link:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue);
+            text-decoration-thickness: 1.5px;
         }
     }
 
@@ -258,11 +260,13 @@ export default {
 
             .dept-location {
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
                 align-items: flex-start;
             }
             .location-group {
                 margin-left: 0;
+                border-left: none;
+                padding-left: 0px;
             }
         }
     }
