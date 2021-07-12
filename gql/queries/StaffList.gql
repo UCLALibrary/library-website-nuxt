@@ -1,20 +1,22 @@
 #import "~/gql/fragments/Image"
 query StaffMember {
   entries(section: "staffMember" orderBy: "title ") {
-    email
-    phone: phoneNumber
-    jobTitle: staffMemberJobTitle
-    staffName: staffMemberName
-    to: slug
-    dept: department {
-      title
-    }
-    locations: associatedLocations {
-      title
-      to: uri
-    }
-    image {
-      ...Image
+    ... on staffMember_staffMember_Entry {
+      email
+      phone: phoneNumber
+      jobTitle: staffMemberJobTitle
+      staffName: staffMemberName
+      to: slug
+      dept: department {
+        title
+      }
+      locations: associatedLocations {
+        title
+        to: uri
+      }
+      image {
+        ...Image
+      }
     }
   }
 }
