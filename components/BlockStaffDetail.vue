@@ -300,36 +300,20 @@ export default {
 
             .bio-header {
                 font-size: 28px;
-                margin-bottom: 35px;
+                margin-bottom: 18px;
                 line-height: 35px;
             }
 
             .topic {
                 .topics {
-                    list-style: circle;
-                    // list-style-image: "molecule-background.svg";
+                    // list-style: circle;
+                    list-style-image: url("~/assets/svg/molecule-bullet.svg?url");
                     padding-left: 18px;
+                    margin-bottom: 3px;
                     li::marker {
                         color: var(--color-primary-blue);
                     }
                 }
-            }
-        }
-    }
-
-
-    // Hover states
-    @media #{$has-hover} {
-        &:hover {
-            .name {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue);
-                text-decoration-thickness: 1.5px;
-            }
-            .location-link {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue);
-                text-decoration-thickness: 1.5px;
             }
         }
     }
