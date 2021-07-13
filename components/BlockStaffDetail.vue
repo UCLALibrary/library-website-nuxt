@@ -1,5 +1,6 @@
 <template lang="html">
     <div class="block-staff-detail">
+        <!-- HEADING -->
         <div class="meta-heading">
             <div class="heading">
                 <svg-heading-arrow class="svg" />
@@ -10,6 +11,7 @@
                     <h3 v-html="staffName" />
                 </nuxt-link>
             </div>
+
             <div class="dept-location">
                 <div
                     class="title"
@@ -36,8 +38,9 @@
             </div>
         </div>
 
-        <div class="meta-body">
-            <div class="contact">
+        <!-- ---------BODY----------- -->
+        <div class="body">
+            <div class="body-contact">
                 <responsive-image
                     :image="image"
                     :aspect-ratio="100"
@@ -46,7 +49,7 @@
 
                 <divider-general class="divider" />
 
-                <div class="email">
+                <div class="contact-info">
                     <svg-icon-email class="svg" />
                     <smart-link
                         :to="`mailto:${email}`"
@@ -57,7 +60,7 @@
                 </div>
                 <div
                     v-if="phone"
-                    class="phone"
+                    class="contact-info"
                 >
                     <svg-icon-phone class="svg" />
                     <smart-link
@@ -67,7 +70,7 @@
                         v-html="phone"
                     />
                 </div>
-                <div class="consultation">
+                <div class="contact-info">
                     <svg-icon-consultation class="svg" />
                     <smart-link
                         to="https://calendar.library.ucla.edu/appointments"
@@ -78,9 +81,9 @@
                 </div>
             </div>
 
-            <div class="bio">
+            <div class="body-bio">
                 <div
-                    v-if="topics.length >= 1"
+                    v-if="topics.length"
                     class="topic"
                 >
                     <h2 class="bio-header">
@@ -93,12 +96,13 @@
                             v-html="topic"
                         />
                     </ul>
-
-                    <divider-general class="divider" />
                 </div>
 
+                <divider-general class="divider" />
+
+
                 <div
-                    v-if="biography.length >= 1"
+                    v-if="biography"
                     class="biography"
                 >
                     <h2
@@ -159,10 +163,10 @@ export default {
             default: "",
         },
         department: {
-            type: String,
-            default: "",
+            type: Array,
+            default: () => [],
         },
-        topics: {
+        topics: { // ask-me-about
             type: Array,
             default: () => [],
         },
@@ -187,6 +191,7 @@ export default {
     align-items: flex-start;
 
     .meta-heading {
+    // -------HEADING------------
         .heading {
             display: flex;
             flex-direction: row;
@@ -219,14 +224,12 @@ export default {
             align-items: flex-start;
 
             .title {
-                color: hotpink;
                 border-right: 1px solid indigo;
                 padding-right: 14px;
                 margin-top: 10px;
             }
 
             .department {
-                color: purple;
                 border-right: 1px solid indigo;
                 padding-left: 14px;
                 padding-right: 14px;
@@ -246,7 +249,10 @@ export default {
             }
         }
     }
-    .meta-body {
+
+    // -------BODY-----------------------
+    // -------CONTACT------------
+    .body {
         margin-left: 115px;
 
         display: flex;
@@ -256,101 +262,121 @@ export default {
         align-content: center;
         align-items: flex-start;
 
-        .contact {
+        .body-contact {
+            font-size: 20px;
+
             .image {
                 width: 300px;
                 max-height: 300px;
                 margin-top: 75px;
             }
 
-            .email {
+            .contact-info {
                 margin-top: 10px;
             }
-            .phone {
-                margin-top: 10px;
+
+            .svg {
+                margin-bottom: -10px;
             }
-            .consultation {
-                margin-top: 10px;
+
+            .divider {
+                margin: 45px 0px;
             }
         }
 
-        .svg {
-            margin-bottom: -10px;
-        }
-
-        .divider {
-            margin: 45px 0px;
-        }
-
-        .bio {
+    // -------BIO------------
+        .body-bio {
             margin-top: 75px;
             margin-left: 80px;
+
+            font-family: Karbon;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px;
+            letter-spacing: 0.01em;
+            text-align: left;
+            line-height: 32px;
+
             .bio-header {
                 font-size: 28px;
-                //margin-bottom: ;
+                margin-bottom: 35px;
                 line-height: 35px;
             }
+
             .topic {
                 .topics {
                     list-style: circle;
+                    // list-style-image: "molecule-background.svg";
                     padding-left: 18px;
-                    font-family: Karbon;
-                    font-size: 20px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: 24px;
-                    letter-spacing: 0.01em;
-                    text-align: left;
-                    ul li::before {
+                    li::marker {
                         color: var(--color-primary-blue);
                     }
                 }
             }
+        }
+    }
 
-                color: pink;
-                margin-top: 36px;
-                padding-left: 18px;
-                font-family: Karbon;
-                font-size: 20px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 24px;
-                letter-spacing: 0.01em;
-                text-align: left;
+
+    // Hover states
+    @media #{$has-hover} {
+        &:hover {
+            .name {
+                text-decoration: underline;
+                text-decoration-color: var(--color-primary-blue);
+                text-decoration-thickness: 1.5px;
             }
-
-            .bio-blurb {
-                font-size: 14px;
+            .location-link {
+                text-decoration: underline;
+                text-decoration-color: var(--color-primary-blue);
+                text-decoration-thickness: 1.5px;
             }
         }
     }
-}
 
-// Breakpoints
-@media #{$lte-tablet} {
-    .block-staff-detail {
-        max-width: 95%;
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-}
-
-@media #{$lte-phone} {
-    .block-staff-detail {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-
-        max-height: 550px;
-        max-width: 100%;
-        padding-left: 5px;
-        padding-right: 5px;
-
-        .image {
-            max-width: 100%;
+    // Hover states
+    @media #{$has-hover} {
+        &:hover {
+            .name {
+                text-decoration: underline;
+                text-decoration-color: var(--color-primary-blue);
+                text-decoration-thickness: 1.5px;
+            }
+            .location-link {
+                text-decoration: underline;
+                text-decoration-color: var(--color-primary-blue);
+                text-decoration-thickness: 1.5px;
+            }
         }
-        .block-staff {
+    }
+
+    // Breakpoints
+    @media #{$lte-tablet} {
+        .block-staff-detail {
+            max-width: 95%;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+
+    @media #{$lte-phone} {
+        .block-staff-detail {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+
+            width: 400px;
+            max-height: unset;
             max-width: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+
+            .image {
+                max-width: 100%;
+            }
+            .block-staff {
+                max-width: 100%;
+            }
         }
     }
 }
