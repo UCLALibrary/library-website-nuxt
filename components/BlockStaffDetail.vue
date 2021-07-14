@@ -17,13 +17,15 @@
                     class="title"
                     v-html="jobTitle"
                 />
-                <ul class="departments">
-                    <li
-                        v-for="department in departments"
-                        class="department"
-                        v-html="department"
-                    />
-                </ul>
+                <div class="department-group">
+                    <ul class="departments">
+                        <li
+                            v-for="department in departments"
+                            class="department"
+                            v-html="department"
+                        />
+                    </ul>
+                </div>
                 <div class="location-group">
                     <svg-icon-location class="svg" />
                     <nuxt-link
@@ -109,6 +111,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </template>
 
