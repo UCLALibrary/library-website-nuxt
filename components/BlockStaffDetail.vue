@@ -22,7 +22,7 @@
                     v-html="department"
                 />
                 <div class="location-group">
-                    <svg-icon-location class="location-svg" />
+                    <svg-icon-location class="svg" />
                     <nuxt-link
                         v-for="location in locations"
                         :key="`location-${location.to}`"
@@ -42,6 +42,7 @@
         <div class="body">
             <div class="body-contact">
                 <responsive-image
+                    v-if="image"
                     :image="image"
                     :aspect-ratio="100"
                     class="image"
@@ -82,10 +83,7 @@
             </div>
 
             <div class="body-bio">
-                <div
-                    v-if="topics.length"
-                    class="topic"
-                >
+                <div v-if="topics.length">
                     <h2 class="bio-header">
                         Ask me About
                     </h2>
@@ -100,18 +98,11 @@
 
                 <divider-general class="divider" />
 
-
-                <div
-                    v-if="biography"
-                    class="biography"
-                >
-                    <h2
-                        class="bio-header"
-                    />Biography</h2>
-                    <p
-                        class="bio-blurb"
-                        v-html="biography"
-                    />
+                <div v-if="biography">
+                    <h2 class="bio-header">
+                        Biography
+                    </h2>
+                    <p v-html="biography" />
                 </div>
             </div>
         </div>
@@ -166,7 +157,8 @@ export default {
             type: Array,
             default: () => [],
         },
-        topics: { // ask-me-about
+        topics: {
+            // ask-me-about
             type: Array,
             default: () => [],
         },
@@ -191,7 +183,7 @@ export default {
     align-items: flex-start;
 
     .meta-heading {
-    // -------HEADING------------
+        // -------HEADING------------
         .heading {
             display: flex;
             flex-direction: row;
@@ -212,9 +204,10 @@ export default {
             }
         }
         .dept-location {
+            position: relative;
             margin-left: 115px;
             margin-top: 15px;
-            position: relative;
+            font-size: 20px;
 
             display: flex;
             flex-direction: row;
@@ -224,26 +217,27 @@ export default {
             align-items: flex-start;
 
             .title {
-                border-right: 1px solid indigo;
                 padding-right: 14px;
                 margin-top: 10px;
+                border-right: 1px solid var(--color-secondary-grey-02);
             }
 
             .department {
-                border-right: 1px solid indigo;
-                padding-left: 14px;
                 padding-right: 14px;
+                padding-left: 14px;
                 margin-top: 10px;
+                border-right: 1px solid var(--color-secondary-grey-02);
             }
 
             .location-group {
                 padding-left: 14px;
+                color: var(--color-primary-blue);
 
                 display: flex;
                 align-items: center;
             }
             .location-link + .location-link {
-                border-left: solid 1px var(--color-primary-blue);
+                border-left: solid 1px var(--color-secondary-grey-02);
                 margin-left: 10px;
                 padding-left: 10px;
             }
@@ -264,6 +258,7 @@ export default {
 
         .body-contact {
             font-size: 20px;
+            min-width: 300px;
 
             .image {
                 width: 300px;
@@ -272,6 +267,7 @@ export default {
             }
 
             .contact-info {
+                color: var(--color-primary-blue);
                 margin-top: 10px;
             }
 
@@ -281,10 +277,11 @@ export default {
 
             .divider {
                 margin: 45px 0px;
+                width: 100%;
             }
         }
 
-    // -------BIO------------
+        // -------BIO------------
         .body-bio {
             margin-top: 75px;
             margin-left: 80px;
@@ -301,17 +298,26 @@ export default {
             .bio-header {
                 font-size: 28px;
                 margin-bottom: 18px;
-                line-height: 35px;
+            }
+            .divider {
+                margin: 45px 0px;
+                width: 100%;
             }
 
-            .topic {
-                .topics {
-                    // list-style: circle;
-                    list-style-image: url("~/assets/svg/molecule-bullet.svg?url");
-                    padding-left: 18px;
-                    margin-bottom: 3px;
+            .topics {
+                li {
+                    background: url("~/assets/svg/molecule-bullet.svg?url")
+                        no-repeat left center;
+                    padding: 0px 10px 0px 35px;
+                    list-style: none;
+                    margin: 0;
+                    vertical-align: middle;
                     li::marker {
+                        border-bottom: 2px solid var(--color-default-cyan-base);
+                        display: inline-block;
+                        line-height: 1.25;
                         color: var(--color-primary-blue);
+                        font-size: 2em;
                     }
                 }
             }
@@ -321,10 +327,10 @@ export default {
     // Hover states
     @media #{$has-hover} {
         &:hover {
-            .name {
+            .staffName {
                 text-decoration: underline;
                 text-decoration-color: var(--color-primary-blue);
-                text-decoration-thickness: 1.5px;
+                text-decoration-thickness: 2px;
             }
             .location-link {
                 text-decoration: underline;
@@ -341,6 +347,17 @@ export default {
             padding-left: 5px;
             padding-right: 5px;
         }
+        .meta-heading {
+            .dept-location {
+                // position: relative;
+                // margin-left: 115px;
+                // margin-top: 15px;
+                // font-size: 20px;
+
+                display: flex;
+                flex-direction: column;
+            }
+        }
     }
 
     @media #{$lte-phone} {
@@ -355,12 +372,35 @@ export default {
             padding-left: 5px;
             padding-right: 5px;
 
-            .image {
-                max-width: 100%;
+            .meta-heading {
+                .dept-location {
+                    // position: relative;
+                    // margin-left: 115px;
+                    // margin-top: 15px;
+                    // font-size: 20px;
+
+                    display: flex;
+                    flex-direction: column;
+                }
             }
-            .block-staff {
-                max-width: 100%;
+
+            .body {
+                margin-left: 115px;
+                width: 100%;
+
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                align-content: center;
+                align-items: flex-start;
             }
+            // .image {
+            //     max-width: 100%;
+            // }
+            // .block-staff {
+            //     max-width: 100%;
+            // }
         }
     }
 }
