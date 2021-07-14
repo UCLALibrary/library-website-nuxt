@@ -17,10 +17,13 @@
                     class="title"
                     v-html="jobTitle"
                 />
-                <span
-                    class="department"
-                    v-html="department"
-                />
+                <ul class="departments">
+                    <li
+                        v-for="department in departments"
+                        class="department"
+                        v-html="department"
+                    />
+                </ul>
                 <div class="location-group">
                     <svg-icon-location class="svg" />
                     <nuxt-link
@@ -153,7 +156,7 @@ export default {
             type: String,
             default: "",
         },
-        department: {
+        departments: {
             type: Array,
             default: () => [],
         },
@@ -222,11 +225,17 @@ export default {
                 border-right: 1px solid var(--color-secondary-grey-02);
             }
 
-            .department {
+            .departments {
+                display: inline;
+                list-style: none;
                 padding-right: 14px;
                 padding-left: 14px;
                 margin-top: 10px;
                 border-right: 1px solid var(--color-secondary-grey-02);
+                .department {
+                    display: inline;
+                    padding-right: 14px;
+                }
             }
 
             .location-group {
