@@ -17,22 +17,30 @@
                     class="title"
                     v-html="jobTitle"
                 />
-                <ul class="departments">
-                    <li
+                <div class="department-group">
+                    <ul class="departments">
+                        <li
+                            v-for="department in departments"
+                            class="department"
+                            v-html="department"
+                        />
+                    </ul>
+                </div>
+                <div class="department-group">
+                    <span
                         v-for="department in departments"
-                        class="department"
+                        class="departments"
                         v-html="department"
                     />
-                </ul>
+                </div>
                 <div class="location-group">
-                    <svg-icon-location class="svg" />
                     <nuxt-link
                         v-for="location in locations"
                         :key="`location-${location.to}`"
                         :to="location.to"
                         class="location-link"
                     >
-                        <span
+                        <svg-icon-location class="svg" /> <span
                             class="location"
                             v-html="location.title"
                         />
@@ -110,6 +118,7 @@
             </div>
         </div>
     </div>
+    </div>
 </template>
 
 <script>
@@ -169,6 +178,14 @@ export default {
             type: String,
             default: "",
         },
+    },
+    computed: {
+        locationsWithIcon: function() {
+            return this.locations.map(function(location) {
+                return `<svg-icon-consultation class="svg" />` + location.title
+                //return location
+            })
+        }
     },
 }
 </script>
@@ -351,11 +368,10 @@ export default {
 
     // Breakpoints
     @media #{$lte-tablet} {
-        .block-staff-detail {
-            max-width: 95%;
-            padding-left: 5px;
-            padding-right: 5px;
-        }
+        max-width: 95%;
+        padding-left: 5px;
+        padding-right: 5px;
+
         .meta-heading {
             .dept-location {
                 // position: relative;
@@ -367,13 +383,17 @@ export default {
                 flex-direction: column;
             }
         }
+        .departments {
+            display: block;
+            .department {
+                display: block;
+            }
+        }
     }
 
     @media #{$lte-phone} {
-        .block-staff-detail {
             display: flex;
             flex-direction: column;
-            flex-wrap: nowrap;
 
             width: 400px;
             max-height: unset;
@@ -394,15 +414,10 @@ export default {
             }
 
             .body {
-                margin-left: 115px;
-                width: 100%;
+                //margin-left: 115px;
 
                 display: flex;
                 flex-direction: column;
-                flex-wrap: nowrap;
-                justify-content: flex-start;
-                align-content: center;
-                align-items: flex-start;
             }
             // .image {
             //     max-width: 100%;
@@ -411,6 +426,6 @@ export default {
             //     max-width: 100%;
             // }
         }
-    }
+    
 }
 </style>
