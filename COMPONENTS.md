@@ -259,12 +259,12 @@ data() {
 
 -   [ ] SectionGallery
 
-    -   it needs all these icons (+/-, play icon for video, solid-molecule-image, solid-molecule-video, )
-    -   galleryTitle
-    -   featuredItem (// It is an object contains image or video url )
-    -   items (// array of objects [url, objectType[audio,video,image], meta: { to, category, title, dates, times, text, location }])
+    it needs all these icons (+/-, play icon for video, solid-molecule-image, solid-molecule-video, )
+
+    -   title
+    -   items: [{type:"audio,video,image", title, text, dates, location])
+
     -   (uses SectionGalleryVertical component)
-    -   (uses Carousel component when there are multiple items)
     -   DividerGeneral component
 
 -   [ ] BlockGalleryVertical
@@ -334,6 +334,20 @@ We can look at those designs and focus on making component request issues for th
 # Staff Directory Detail
 
 -   BlockStaffProfile
+
+# Gallery variants
+
+-   GalleryPreview
+-   BlockGallery
+-   GalleryGrid
+-   GalleryItem
+
+-   SectionGallery
+
+-   ModalGallery
+
+-   PlayerVideo
+-   PlayerAudio
 
 # Sticky Header
 
