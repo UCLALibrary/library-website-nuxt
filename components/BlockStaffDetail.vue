@@ -29,18 +29,20 @@
                 <!-- <div class="department-group">
                     <span
                         v-for="department in departments"
-                        class="departments"
-                        v-html="department"
+                        :key="department.id"
+                        class="department"
+                        v-html="department.title"
                     />
                 </div> -->
                 <div class="location-group">
                     <nuxt-link
                         v-for="location in locations"
-                        :key="`location-${location.to}`"
+                        :key="`location-${location.id}`"
                         :to="location.to"
                         class="location-link"
                     >
-                        <svg-icon-location class="svg" /> <span
+                        <svg-icon-location class="svg" />
+                        <span
                             class="location"
                             v-html="location.title"
                         />
@@ -102,7 +104,8 @@
                     <ul class="topics">
                         <li
                             v-for="topic in topics"
-                            v-html="topic"
+                            :key="topic.id"
+                            v-html="topic.title"
                         />
                     </ul>
                 </div>

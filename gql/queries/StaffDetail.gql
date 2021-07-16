@@ -1,18 +1,25 @@
 #import "~/gql/fragments/Image"
-query StaffMember {
-  entries(section: "staffMember" orderBy: "title ") {
+query StaffMember($slug: [String]!) {
+  entry(section: "staffMember", slug: $slug) {
     ... on staffMember_staffMember_Entry {
       email
       phone: phoneNumber
       jobTitle: staffMemberJobTitle
       staffName: staffMemberName
       to: slug
-      dept: department {
+      topics: askMeAbout {
         title
+        slug
+      }
+      biography
+      departments: department {
+        title
+        slug
       }
       locations: associatedLocations {
         title
-        to: slug
+        to: uri
+        slug
       }
       image {
         ...Image

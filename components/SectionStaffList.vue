@@ -4,7 +4,7 @@
             v-for="item in items"
             :key="item.to"
             :image="item.image"
-            :to="item.to"
+            :to="`/staff/${item.to}`"
             :staff-name="item.staffName"
             :job-title="item.jobTitle"
             :locations="item.locations"
