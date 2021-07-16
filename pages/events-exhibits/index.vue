@@ -1,20 +1,24 @@
 <template lang="html">
     <section class="page-events-exhibits">
+        <nuxt-link to="/events-exhibits/test">
+            Test event
+        </nuxt-link>
+
         <!-- TODO These props should come from Craft -->
-        <masthead-secondary
+        <!-- <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
-        >
-            <!-- TODO Add SearchGenric here when complete  -->
-            <!-- <search-generic search-type="about"
+        > -->
+        <!-- TODO Add SearchGenric here when complete  -->
+        <!-- <search-generic search-type="about"
                     :filters="searchFilters.filters"
                     :view-modes="searchFilters.views"
                     class="generic-search"
                     @view-mode-change="viewModeChanger"
             /> -->
-        </masthead-secondary>
+        <!-- </masthead-secondary> -->
 
-        <divider-way-finder class="section divider divider-way-finder" />
+        <!-- <divider-way-finder class="section divider divider-way-finder" />
 
         <banner-featured
             class="section banner-featured"
@@ -27,19 +31,19 @@
             :align-right="false"
             :dates="firstEvent.dates"
             :times="firstEvent.times"
-        />
+        /> -->
 
-        <divider-general class="section divider divider-general" />
+        <!-- <divider-general class="section divider divider-general" />
 
         <section-teaser-highlight
             class="section"
             :items="highlightEvents"
         />
 
-        <divider-general class="section divider divider-general" />
+        <divider-general class="section divider divider-general" /> -->
 
         <!-- TODO List of events go here -->
-        <section-teaser-list
+        <!-- <section-teaser-list
             :items="listEvents"
             class="section section-list"
         />
@@ -53,7 +57,7 @@
             :name="blockCallToAction.name"
             :title="blockCallToAction.title"
             :text="blockCallToAction.text"
-        />
+        /> -->
     </section>
 </template>
 
@@ -66,11 +70,11 @@ import formatEventTimes from "~/utils/formatEventTimes"
 export default {
     async asyncData({ $axios }) {
         // TODO This is hardcoded to the "Test" calendar, should be a "featured" calendar probably
-        const libcalRequest = $axios.$get(`/events`, {
-            params: {
-                cal_id: 11521,
-            },
-        })
+        // const libcalRequest = $axios.$get(`/events`, {
+        //     params: {
+        //         cal_id: 11521,
+        //     },
+        // })
         // const craftRequest = $graphql(`/craft/foo`, {
         //     params: {
         //         cal_id: 11521,
@@ -78,13 +82,13 @@ export default {
         // })
 
         // Do both requests in parallel
-        const [libcalData] = await Promise.all([
-            libcalRequest,
-            //craftRequest,
-        ])
+        // const [libcalData] = await Promise.all([
+        //     libcalRequest,
+        //     //craftRequest,
+        // ])
 
         return {
-            events: _get(libcalData, "events", []),
+            //events: _get(libcalData, "events", []),
             //page: _get(craftData, "data.page", {}),
         }
     },

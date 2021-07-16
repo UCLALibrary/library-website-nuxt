@@ -118,6 +118,7 @@ export default {
                 "layout",
                 "layout-default",
                 { "has-scrolled": this.$store.state.sTop },
+                { "has-scrolled-past-header": this.$store.state.sTop >= 170 },
             ]
         },
     },

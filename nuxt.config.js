@@ -61,6 +61,23 @@ export default {
     },
 
     /*
+     ** Page transition
+     */
+    pageTransition: {
+        name: "fade",
+        mode: "out-in",
+    },
+
+    /*
+     ** Customize the progress-bar color
+     ** See: https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-loading
+     */
+    loading: {
+        color: "#0b6ab7",
+        height: "3px",
+    },
+
+    /*
      ** Nuxt router configuration. Used to define settingg for the router.
      */
     router: {
@@ -103,7 +120,7 @@ export default {
         },
         webpackFinal(config, { configDir }) {
             // Allow webpack to auto-load .gql and .svg files
-            config.resolve.extensions.push(".svg",".gql")
+            config.resolve.extensions.push(".svg", ".gql")
 
             return config
         },

@@ -6,7 +6,10 @@ function onResize({ store }, event = {}) {
     store.commit("SET_WIN_DIMENSIONS", dimensions)
 }
 function onScroll({ store }, event = {}) {
-    store.commit("SET_S_TOP", window.scrollTop)
+    store.commit(
+        "SET_S_TOP",
+        window.pageYOffset || window.scrollY || document.body.scrollTop
+    )
 }
 
 export default (context, inject) => {

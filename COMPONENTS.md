@@ -327,17 +327,21 @@ We can look at those designs and focus on making component request issues for th
 
 # Staff Directory Listing Page
 
-- BlockStaffMeta
-- BlockStaffList
-- SectionStaffList
+-   BlockStaffMeta
+-   BlockStaffList
+-   SectionStaffList
 
 # Staff Directory Detail
 
-- BlockStaffProfile
+-   BlockStaffProfile
 
 # Sticky Header
- - Exhibits & Events
- - Staff
- - Services
- - Map
- - Article Detail Page
+
+Parent component is <sticky-header>.
+
+Child-headers are:
+
+-   HeaderChildBreadcrumbs (can have social share links)
+-   HeaderChildSearch (can have breadcrumb too)
+-   HeaderChildMenu (can have a button too)
+-   HeaderChildDates
