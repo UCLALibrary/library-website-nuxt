@@ -26,13 +26,13 @@
                         />
                     </ul>
                 </div>
-                <div class="department-group">
+                <!-- <div class="department-group">
                     <span
                         v-for="department in departments"
                         class="departments"
                         v-html="department"
                     />
-                </div>
+                </div> -->
                 <div class="location-group">
                     <nuxt-link
                         v-for="location in locations"
@@ -50,7 +50,7 @@
         </div>
 
         <!-- ---------BODY----------- -->
-        <div class="body">
+        <div class="meta">
             <div class="body-contact">
                 <responsive-image
                     v-if="image"
@@ -243,14 +243,15 @@ export default {
             }
 
             .departments {
-                display: inline;
+                display: flex;
+                flex-direction: row;
+
                 list-style: none;
                 padding-right: 14px;
                 padding-left: 14px;
                 margin-top: 10px;
                 border-right: 1px solid var(--color-secondary-grey-02);
                 .department {
-                    display: inline;
                     padding-right: 14px;
                 }
             }
@@ -272,7 +273,7 @@ export default {
 
     // -------BODY-----------------------
     // -------CONTACT------------
-    .body {
+    .meta {
         margin-left: 115px;
 
         display: flex;
@@ -374,20 +375,14 @@ export default {
 
         .meta-heading {
             .dept-location {
-                // position: relative;
-                // margin-left: 115px;
-                // margin-top: 15px;
-                // font-size: 20px;
-
                 display: flex;
                 flex-direction: column;
             }
         }
         .departments {
-            display: block;
-            .department {
-                display: block;
-            }
+            display: flex;
+            flex-direction: column;
+            margin-left: 0px;
         }
     }
 
@@ -398,33 +393,41 @@ export default {
             width: 400px;
             max-height: unset;
             max-width: 100%;
-            padding-left: 5px;
             padding-right: 5px;
 
             .meta-heading {
                 .dept-location {
-                    // position: relative;
-                    // margin-left: 115px;
-                    // margin-top: 15px;
-                    // font-size: 20px;
+                    margin-left: 15px;
 
+                    display: flex;
+                    flex-direction: column;
+                    .department {
+                    padding-right: 0px;
+                    }
+                }
+                .location-group {
                     display: flex;
                     flex-direction: column;
                 }
             }
 
-            .body {
-                //margin-left: 115px;
+
+            .meta {
+                margin-left: 15px;
+
+                .body-contact {
+                    .image {
+                        margin-top: 45px;
+                    }
+                }
 
                 display: flex;
                 flex-direction: column;
+                .body-bio {
+                    margin-top: 43px;
+                    margin-left: 10px;
+                }
             }
-            // .image {
-            //     max-width: 100%;
-            // }
-            // .block-staff {
-            //     max-width: 100%;
-            // }
         }
     
 }
