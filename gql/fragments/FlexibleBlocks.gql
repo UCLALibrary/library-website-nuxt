@@ -1,5 +1,5 @@
 fragment FlexibleBlocks on ElementInterface {
-    allFlexiblePageBlocks {
+    blocks: allFlexiblePageBlocks {
         id
         typeHandle
         ...BlockRichText
@@ -7,6 +7,8 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockCta
     }
 }
+
+# TODO Define all blocks here as fragments
 
 fragment BlockRichText on allFlexiblePageBlocks_richText_BlockType {
     text
