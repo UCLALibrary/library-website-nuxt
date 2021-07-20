@@ -1,5 +1,5 @@
 <template>
-    <div class="page page-staff-detail">
+    <section class="page page-staff-detail">
         <!-- staff page here -->
         <!-- no search on this page -->
         <masthead-secondary title="Staff Directory" />
@@ -18,19 +18,19 @@
         />
         <divider-way-finder class="section divider divider-way-finder" />
         <section-staff-article-list
-            :items="items"
+            :items="page.entries"
             section-title="Articles"
         />
-        <!-- section-staff-list :items="parsedStaffList" /-->
-        <!--block-call-to-action
+        <!-- this is different from flexible page blocks ctacontentwidth and will be hardcoded where required -->
+        <block-call-to-action
             class="section block-call-to-action"
-            icon-name="svg-call-to-action-find"
-            :to="blockCallToAction.to"
-            :name="blockCallToAction.name"
-            :title="blockCallToAction.title"
-            :text="blockCallToAction.text"
-        /-->
-    </div>
+            icon-name="svg-call-to-action-mail"
+            to="/contact-us"
+            name="Contact Us"
+            title="Not sure who you should reach out to?"
+            text="Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+        />
+    </section>
 </template>
 
 <script>

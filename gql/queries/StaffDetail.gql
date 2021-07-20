@@ -1,7 +1,8 @@
 #import "~/gql/fragments/Image"
-query StaffMember($slug: [String]!) {
-  entry(section: "staffMember", slug: $slug) {
+query StaffDetail($slug: [String]!) {
+  entry(section: "staffMember", slug: $slug, ) {
     ... on staffMember_staffMember_Entry {
+      id
       email
       phone: phoneNumber
       jobTitle: staffMemberJobTitle
@@ -9,21 +10,26 @@ query StaffMember($slug: [String]!) {
       to: slug
       topics: askMeAbout {
         title
-        slug
+        id
       }
       biography
       departments: department {
         title
-        slug
+        id
       }
       locations: associatedLocations {
         title
         to: uri
-        slug
+        id
       }
       image {
         ...Image
       }
     }
+  }
+  entries(section: "article" relatedToEntries: {section: "staffMember", slug: $slug}) {
+    id
+    title
+    slug
   }
 }
