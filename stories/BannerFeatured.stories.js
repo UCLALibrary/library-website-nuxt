@@ -8,13 +8,14 @@ export default {
 const mock = {
     image: API.image,
     to: "/help/foo/bar/",
-    title: "New Director of Film and Television Archive",
-    category: { name: "Featured", to: "/category/featured/" },
-    breadcrumb: { text: "Title", to: "http://foo/about/bar" },
-    dates: "July 1, 2020 - December 31, 2021",
+    title: "Curabitur Tortor Pellentesque Nibh Aenean",
+    category: { name: "Ullamcorper", to: "/category/featured/" },
+    breadcrumb: { text: "Lectus", to: "http://foo/about/bar" },
+    dates: "Junio 1, 2020 - Malesuada 31, 2021",
     isOnline: true,
-    prompt: "Read More",
+    prompt: "Cursus Quis",
     alignRight: true,
+    hasButton: true,
 }
 
 export const Default = () => ({
@@ -33,6 +34,7 @@ export const Default = () => ({
            :dates="dates"
            :is-online="isOnline"
            :prompt="prompt"
+           :has-button="hasButton"
        />
     `,
 })
@@ -53,7 +55,8 @@ export const LeftAligned = () => ({
            :dates="dates"
            :is-online="isOnline"
            :prompt="prompt"
-           :align-right="false"
+           align-right=false
+           :has-button="hasButton"
        />
     `,
 })
@@ -75,6 +78,7 @@ export const NotOnline = () => ({
            is-online=false
            :prompt="prompt"
            align-right=false
+           :has-button="hasButton"
         />
     `,
 })
@@ -84,13 +88,15 @@ export const Slot = () => ({
         return {
             image: API.image,
             to: "/visit/foo/bar/",
-            title: "Drawn to Paradise: Jewish Musicians in Los Angeles",
-            category: "Featured",
-            breadcrumb: { text: "Featured", to: "/help/bar/foo" },
-            dates: " July 1, 2020 - December 31, 2021",
+            title:
+                "Sed Lectus Inceptos: Suspendisse in Justo eu Magna Luctus Suscipit",
+            category: "Torquent",
+            breadcrumb: { text: "Torquent", to: "/help/bar/foo" },
+            dates: " Duis 1, 2020 - Curabitur31, 2021",
             isOnline: true,
-            prompt: "Read More",
-            alignRight: true,
+            prompt: "Cursus Quis",
+            alignRight: false,
+            hasButton: true,
         }
     },
     template: `
@@ -103,7 +109,8 @@ export const Slot = () => ({
            :dates="dates"
            is-online=false
            :prompt="prompt"
-           align-right=false
+           :align-right="alignRight"
+           :has-button="hasButton"
            location="YRL"
         >
             <heading-arrow
@@ -120,16 +127,16 @@ export const LongHeading = () => ({
         return {
             image: API.image,
             to: "/visit/foo/bar/",
-            title: "New Director of Film and Television Archive",
-            category: "Featured",
+            title: "Sit Amet Augue Congue Elementum Aliquet Risus Ultricies",
+            category: "Curabitur",
             breadcrumb: {
-                text: "Featured Exhibitions",
+                text: "Curabitur Sollicitudin",
                 to: "",
             },
-            dates: " July 1, 2020 - December 31, 2021",
+            dates: " Sodales 1, 2020 - Accumsan 31, 2021",
             isOnline: true,
-            prompt: "Read More",
-            alignRight: true,
+            prompt: "Amet Mauris",
+            alignRight: false,
         }
     },
     template: `
@@ -142,8 +149,9 @@ export const LongHeading = () => ({
            :dates="dates"
            is-online=false
            :prompt="prompt"
-           align-right=false
+           :align-right="alignRight"
            location="YRL"
+
         >
             <heading-arrow
                 :text="breadcrumb.text"
@@ -170,6 +178,7 @@ export const WideImage = () => ({
            :dates="dates"
            :is-online="isOnline"
            :prompt="prompt"
+           :has-button="hasButton"
            :ratio="42"
            times="1:00pm"
        />
@@ -193,8 +202,33 @@ export const WideImageLeftAligned = () => ({
            :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
-           :align-right="false"
+           align-right=false
+           :has-button="hasButton"
            times="1:00pm"
+       />
+    `,
+})
+
+export const NoButton = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <banner-featured
+           :image="image"
+           :to="to"
+           :title="title"
+           :category="category"
+           :breadcrumb="breadcrumb"
+           :dates="dates"
+           :is-online="isOnline"
+           :prompt="prompt"
+           :ratio="42"
+           align-right="false"
+           times="1:00pm"
+           has-button=false
        />
     `,
 })

@@ -11,9 +11,15 @@
                     v-html="title"
                 />
             </nuxt-link>
+
             <div class="date-time">
-                <span v-html="parsedDateTime" />
+                <time
+                    :datetime="date"
+                    v-html="parsedDateTime"
+                />
+
                 <span v-if="showPipe"> | </span>
+
                 <component
                     :is="parsedSvgOnline"
                     v-if="isOnline"
@@ -52,8 +58,8 @@ import getSectionName from "~/utils/getSectionName"
 
 export default {
     components: {
-        LocationIcon: () => import("~/assets/svg/location-icon"),
-        OnlineIcon: () => import("~/assets/svg/online-icon"),
+        LocationIcon: () => import("~/assets/svg/icon-location"),
+        OnlineIcon: () => import("~/assets/svg/icon-online"),
     },
     props: {
         view: {
@@ -115,11 +121,11 @@ export default {
             return this.view == "list" || this.view == "highlight"
         },
         parsedSvgName() {
-            return this.location == "online" ? "online-icon" : "location-icon"
+            return this.location == "online" ? "icon-online" : "icon-location"
         },
         parsedSvgOnline() {
             if (this.view == "gallery") {
-                return "online-icon"
+                return "icon-online"
             }
         },
         showLocation() {
@@ -149,14 +155,14 @@ export default {
         line-height: 100%;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: var(--color-dark-blue);
+        color: var(--color-primary-darkest-blue);
     }
     .title {
         font-weight: 500;
         font-size: 26px;
         line-height: 130%;
         letter-spacing: 0.01em;
-        color: var(--color-blue-01);
+        color: var(--color-primary-blue);
         margin: 16px 0 0 0;
 
         display: -webkit-box;
@@ -199,29 +205,44 @@ export default {
     }
 
     &.is-gallery {
-        height: 323px;
-
         .meta {
             max-width: 300px;
         }
     }
     &.is-calendar {
         .meta {
-            border-right: 1px dotted var(--color-grey-03);
+            border-right: 1px dotted var(--color-secondary-grey-02);
             max-width: 236px;
             padding-right: 19px;
         }
     }
     &.is-highlight {
         .meta {
-            max-width: 230px;
+            max-width: 320px;
+        }
+        .category {
+            margin-top: 6px;
+        }
+        .title {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .text {
+            margin-top: 15px;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
     }
 
     // Themes
     --color-theme: var(--color-primary-light-blue);
     &.color-visit {
-        --color-theme: var(--color-visit);
+        --color-theme: var(--color-visit-fushia-base);
     }
     &.color-help {
         --color-theme: var(--color-help);
@@ -235,7 +256,7 @@ export default {
         &:hover {
             .title {
                 text-decoration: underline;
-                text-decoration-color: var(--color-cyan-01);
+                text-decoration-color: var(--color-default-cyan-base);
                 text-decoration-thickness: 1.5px;
             }
         }

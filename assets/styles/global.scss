@@ -1,4 +1,6 @@
-ol, ul, li {
+ol,
+ul,
+li {
     padding: 0;
     margin: 0;
 }
@@ -43,8 +45,11 @@ button {
 }
 
 // Z-indexs
-.header-main {
+.header-sticky {
     z-index: 100;
+}
+.header-main {
+    z-index: 200;
 }
 
 // Page Structure
@@ -89,4 +94,14 @@ button {
             opacity: 1;
         }
     }
+}
+
+// Generic Vue transitions
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 400ms ease-in-out;
+}
+.fade-enter,
+.fade-leave-active {
+    opacity: 0;
 }

@@ -1,13 +1,18 @@
 <template lang="html">
-    <section class="section-teaser-horizontal">
+    <section class="section-teaser-list">
         <div
             v-for="item in items"
             :key="item.to"
             class="meta"
         >
-            <divider-general class="divider" />
-            <block-teaser-horizontal
-                :item="item"
+            <block-teaser-list
+                :image="item.image"
+                :to="item.to"
+                :category="item.category"
+                :title="item.title"
+                :date="item.date"
+                :time="item.time"
+                :text="item.text"
                 class="block"
             />
         </div>
@@ -27,7 +32,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section-teaser-horizontal {
+.section-teaser-list {
     background-color: var(--color-white);
     padding: 0 var(--unit-gutter);
     max-width: 990px;

@@ -1,6 +1,10 @@
 export default {
     target: "static",
     components: true,
+    privateRuntimeConfig: {
+        libcalClientSecret: process.env.LIBCAL_CLIENT_SECRET,
+        libcalClientId: process.env.LIBCAL_CLIENT_ID,
+    },
 
     /*
      ** Global CSS
@@ -27,12 +31,57 @@ export default {
     ],
 
     /*
+     * Axios. Used for Libcal query.
+     */
+    axios: {
+        baseURL:
+            process.env.LIBCAL_ENDPOINT ||
+            "https://calendar.library.ucla.edu/1.1",
+    },
+
+    /*
+     * GraphQL Request. Used for querying from Craft
+     */
+    graphql: {
+        clients: {
+            default: {
+                endpoint: process.env.CRAFT_ENDPOINT,
+                options: {},
+            },
+        },
+    },
+
+    /*
      ** Nuxt generate configuration. Used when generating a static site.
      */
     generate: {
         fallback: "404.html",
         interval: 500,
         concurrency: 500,
+    },
+
+    /*
+     ** Page transition
+     */
+    pageTransition: {
+        name: "fade",
+        mode: "out-in",
+    },
+
+    /*
+     ** Customize the progress-bar color
+     ** See: https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-loading
+     */
+    loading: {
+        color: "#0b6ab7",
+        height: "3px",
+    },
+
+    /*
+     ** Nuxt router configuration. Used to define settingg for the router.
+     */
+    router: {
+        trailingSlash: false,
     },
 
     /*
@@ -78,9 +127,14 @@ export default {
     },
 
     /*
+     * Nuxt modules
+     */
+    modules: ["~/modules/populate", "@nuxtjs/axios"],
+
+    /*
      * Nuxt build modules
      */
-    buildModules: ["@nuxtjs/style-resources"],
+    buildModules: ["@nuxtjs/style-resources", "nuxt-graphql-request"],
 
     /*
      ** Nuxt webpack build configuration

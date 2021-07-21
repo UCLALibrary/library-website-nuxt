@@ -1,12 +1,18 @@
 <template lang="html">
-    <section class="block-teaser-horizontal">
+    <section class="block-teaser-list">
         <responsive-image
-            :image="item.image"
+            :image="image"
             :aspect-ratio="60"
             class="image"
         />
         <block-teaser-meta
-            v-bind="item"
+            :image="image"
+            :to="to"
+            :category="category"
+            :title="title"
+            :date="date"
+            :time="time"
+            :text="text"
             view="list"
             class="block-teaser"
         />
@@ -16,16 +22,40 @@
 <script>
 export default {
     props: {
-        item: {
+        image: {
             type: Object,
             default: () => {},
+        },
+        to: {
+            type: String,
+            default: "",
+        },
+        category: {
+            type: String,
+            default: "",
+        },
+        title: {
+            type: String,
+            default: "",
+        },
+        date: {
+            type: String,
+            default: "",
+        },
+        time: {
+            type: String,
+            default: "",
+        },
+        text: {
+            type: String,
+            default: "",
         },
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.block-teaser-horizontal {
+.block-teaser-list {
     max-width: 990px;
     max-height: 274px;
     background-color: var(--color-white);
@@ -66,7 +96,7 @@ export default {
 
 // Breakpoints
 @media #{$lte-tablet} {
-    .block-teaser-horizontal {
+    .block-teaser-list {
         max-width: 95%;
         padding-left: 5px;
         padding-right: 5px;
@@ -74,7 +104,7 @@ export default {
 }
 
 @media #{$lte-phone} {
-    .block-teaser-horizontal {
+    .block-teaser-list {
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;

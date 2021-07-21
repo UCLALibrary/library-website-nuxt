@@ -102,11 +102,15 @@ export default {
         }
     }
     .card-more {
-        border: 2px solid var(--color-lightest-blue);
-        width: 300px;
+        border: 2px solid var(--color-primary-lightest-blue);
+        width: 281px;
         height: 400px;
         border-radius: var(--rounded-slightly-all);
         box-sizing: border-box;
+
+        transition-property: box-shadow, transform;
+        transition-duration: 400ms;
+        transition-timing-function: ease-in-out;
 
         display: flex;
         flex-direction: column;
@@ -119,6 +123,16 @@ export default {
             width: 100%;
             max-width: 100%;
             height: 100%;
+        }
+    }
+
+    // Hovers
+    .card-more {
+        @media #{$has-hover} {
+            &:hover {
+                transform: scale(1.1);
+                box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
+            }
         }
     }
 

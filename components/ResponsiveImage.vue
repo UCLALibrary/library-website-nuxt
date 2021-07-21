@@ -11,8 +11,9 @@
             @load="onLoad"
         >
         <figcaption
+            v-if="image.caption || caption"
             class="caption"
-            v-html="caption"
+            v-html="image.caption || caption"
         />
         <div
             class="sizer"
@@ -63,7 +64,7 @@ export default {
         },
         image: {
             type: Object,
-            default: () => {},
+            default: () => ({}),
         },
     },
     data() {

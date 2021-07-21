@@ -31,6 +31,7 @@ export default {
 
 <style lang="scss" scoped>
 .button-more {
+    background-color: var(--color-white);
     width: fit-content;
     max-width: 120px;
 
@@ -49,7 +50,7 @@ export default {
         width: 83px;
         height: 83px;
 
-        stroke: var(--color-cyan-01);
+        stroke: var(--color-default-cyan-base);
         stroke-width: 1.5px;
     }
     .arrow-right {
@@ -63,14 +64,16 @@ export default {
         top: 50%;
         transform: translate(-50%, -50%);
 
-        stroke-width: 1.5px;
-        stroke: var(--color-primary-blue);
-        transition: stroke 400ms ease-in-out;
+        .arrow {
+            stroke: var(--color-primary-blue);
+            stroke-width: 1.5px;
+            transition: stroke 400ms ease-in-out;
+        }
     }
 
     .text {
         margin-top: 16px;
-        color: var(--color-dark-blue);
+        color: var(--color-primary-darkest-blue);
         font-family: var(--font-primary);
         font-size: 16px;
         font-weight: 500;
@@ -84,7 +87,9 @@ export default {
     @media #{$has-hover} {
         &:hover {
             .arrow-right {
-                stroke: var(--color-cyan-01);
+                .arrow {
+                    stroke: var(--color-default-cyan-base);
+                }
             }
             .text {
                 color: var(--color-primary-blue);

@@ -3,6 +3,7 @@
         <header-main />
 
         <nuxt class="page" />
+
         <footer-primary
             :social-items="parsedItems"
             :press-items="parsedPressItems"
@@ -113,7 +114,12 @@ export default {
             })
         },
         classes() {
-            return ["layout", "layout-default"]
+            return [
+                "layout",
+                "layout-default",
+                { "has-scrolled": this.$store.state.sTop },
+                { "has-scrolled-past-header": this.$store.state.sTop >= 170 },
+            ]
         },
     },
 }

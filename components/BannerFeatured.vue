@@ -2,7 +2,10 @@
     <div :class="classes">
         <div class="slot">
             <slot>
-                <div class="breadcrumb">
+                <div
+                    v-if="breadcrumb.text"
+                    class="breadcrumb"
+                >
                     <svg-heading-vector class="heading-line" />
                     <div class="text">
                         {{ breadcrumb.text }}
@@ -65,13 +68,14 @@
                     v-html="locationDisplay"
                 />
             </div>
-
-            <nuxt-link :to="to">
-                <button-link
-                    :label="prompt"
-                    class="button"
-                />
-            </nuxt-link>
+            <div v-if="hasButton === true">
+                <nuxt-link :to="to">
+                    <button-link
+                        :label="prompt"
+                        class="button"
+                    />
+                </nuxt-link>
+            </div>
         </div>
     </div>
 </template>
@@ -102,8 +106,10 @@ export default {
         category: {
             // Mock as { name: 'Name', to: 'http://fake.url/link' }
             type: Object,
-            default: () => {},
+            default: () => ({}),
         },
+
+        // TODO change these to date and time (lose the 's') and update stories, exhibit list and home page
         dates: {
             type: String,
             default: "",
@@ -128,7 +134,7 @@ export default {
         breadcrumb: {
             // mock as { text: 'Title', to: 'http://fake.url' }
             type: Object,
-            default: () => {},
+            default: () => ({}),
         },
         prompt: {
             // text that displays on blue button, e.g. "View exhibit". Links to `props.to`
@@ -142,6 +148,10 @@ export default {
         ratio: {
             type: Number,
             default: 56.25,
+        },
+        hasButton: {
+            type: Boolean,
+            default: true,
         },
     },
     computed: {
@@ -188,13 +198,13 @@ export default {
     // Themes
     --color-theme: var(--color-primary-blue);
     &.color-visit {
-        --color-theme: var(--color-visit);
+        --color-theme: var(--color-visit-fushia-base);
     }
     &.color-help {
-        --color-theme: var(--color-help);
+        --color-theme: var(--color-help-green-base);
     }
     &.color-about {
-        --color-theme: var(--color-about);
+        --color-theme: var(--color-about-purple-base);
     }
     .hatch {
         stroke: var(--color-theme);
@@ -269,8 +279,8 @@ export default {
             0 0,
             calc(100% - 39px) 0,
             100% 95px,
-            100% 100%,
-            0 100%
+            100% 102%,
+            0 102%
         );
     }
     .hatch {
@@ -311,7 +321,7 @@ export default {
         line-height: 16px;
         letter-spacing: 0.06em;
         text-align: left;
-        color: var(--color-dark-blue);
+        color: var(--color-primary-darkest-blue);
         margin-bottom: 5px;
         text-transform: uppercase;
     }
@@ -327,7 +337,7 @@ export default {
         font-size: 20px;
         line-height: 24px;
         text-align: left;
-        color: var(--color-grey-01);
+        color: var(--color-secondary-grey-04);
         margin: 10px 0 8px 0;
 
         display: flex;
@@ -336,7 +346,7 @@ export default {
     .schedule-item {
         &:after {
             content: "";
-            border-left: 1px solid var(--color-grey-03);
+            border-left: 1px solid var(--color-secondary-grey-02);
             margin: 0 10px;
             height: 18px;
             display: inline-block;
@@ -363,7 +373,7 @@ export default {
             margin-left: auto;
             padding-right: 50px;
             padding-left: 100px;
-            clip-path: polygon(39px 0, 100% 0, 100% 100%, 0 100%, 0% 95px);
+            clip-path: polygon(39px 0, 105% 0, 100% 102%, 0 102%, 0% 95px);
         }
         .hatch {
             right: calc(65% - 99px);
@@ -386,7 +396,7 @@ export default {
     @media #{$has-hover} {
         .title:hover {
             text-decoration: underline;
-            text-decoration-color: var(--color-cyan-01);
+            text-decoration-color: var(--color-default-cyan-base);
             text-decoration-thickness: 1.5px;
         }
     }

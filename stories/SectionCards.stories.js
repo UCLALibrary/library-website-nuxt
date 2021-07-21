@@ -7,33 +7,35 @@ const items = [
     {
         iconName: "illustration-book-binding",
         to: "/help/foo/bar/",
-        title: "Book Binding",
-        text: "Here is a decent amount of text to explain this get help with.",
+        title: "Lacus Luctus",
+        text: "Litora torquent per conubia nostra, per inceptos himenaeos.",
     },
     {
         iconName: "illustration-find-space",
         to: "/help/foo/baz/",
-        title: "Book Binding",
-        text: "Here is a decent amount of text to explain this get help with.",
+        title: "Ultrices Enim",
+        text:
+            "Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem.",
     },
     {
         iconName: "illustration-digitized-resources",
         to: "/help/foo/fred/",
-        title: "Book Binding",
-        text: "Here is a decent amount of text to explain this get help with.",
+        title: "Egestas et Augue",
+        text: "Suspendisse in justo eu magna luctus suscipit libero eget ante.",
     },
     {
         iconName: "illustration-databases",
         to: "/about/foo/thud/",
-        title: "Book Binding",
+        title: "Proin Sodales",
         text:
-            "Here is a decent amount of text to explain this get help with.Here is a decent amount of text to explain this get help with.Here is a decent amount of text to explain this get help with.",
+            "Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Morbi in dui quis est pulvinar ullamcorper.",
     },
     {
         iconName: "illustration-remote-access",
         to: "/visit/foo/qux/",
-        title: "Book Binding",
-        text: "Here is a decent amount of text to explain this get help with.",
+        title: "Taciti sociosqu",
+        text:
+            "Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa.",
     },
 ]
 
@@ -47,7 +49,7 @@ export const Default = () => ({
         <section-cards
             :items="items"
             title="Get Help with"
-            text="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
+            text="Curabitur aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. "
             to="/help/foo/bar"
         />
     `,

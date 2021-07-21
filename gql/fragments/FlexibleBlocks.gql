@@ -1,0 +1,33 @@
+fragment FlexibleBlocks on ElementInterface {
+    blocks: allFlexiblePageBlocks {
+        id
+        typeHandle
+        ...BlockRichText
+        ...BlockDivider
+        ...BlockCta
+    }
+}
+
+# TODO Define all blocks here as fragments
+
+fragment BlockRichText on allFlexiblePageBlocks_richText_BlockType {
+    text
+}
+
+fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
+    divider
+}
+
+fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
+    innerBlocks: ctaBlockContentWidth {
+        a
+        ... on ctaBlockContentWidth_ctaBlockContentWidth_BlockType {
+            id
+            title: titleCtaContentWidth
+            description: shortDescription
+            buttonUrl: urlButtonUrl
+            buttonText: urlButtonText
+            icon
+        }
+    }
+}
