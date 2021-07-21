@@ -1,18 +1,20 @@
 <template>
     <div class="section-teaser-calendar">
+        <div v-html="groupByDate" />
         <div class="select-month-actions">
             <span
                 class="selected-month"
             >{{ selectedMonth }} {{ selectedYear }}</span>
-            <button
+            <svg-caret
                 class="month-prev"
                 @click="selectPreviousMonth"
-            >
-                prev
-            </button>
-            <button @click="selectNextMonth">
-                next
-            </button>
+            />
+
+            <svg-caret
+                class="month-next"
+                @click="selectNextMonth"
+            />
+
             <button
                 class="select-today"
                 @click="selectCurrentMonth()"
@@ -21,20 +23,17 @@
             </button>
         </div>
         <divider-way-finder color="visit" />
-        <div>
+        <div v-if="events.length">
             <section
                 v-for="(eventGroup, date) in groupedEvents"
                 :key="date"
                 class="calendar-items"
             >
                 <block-date
-                    :date="dayjs(date).format('DD')"
-                    :day="dayjs(date).format('dddd')"
+                    :date="format(date, 'DD')"
+                    :day="format(date, 'dddd')"
                     class="calendar-item"
                 />
-                <!-- <div :key="i">
-                    weeee: {{ date }}
-                </div> -->
                 <template v-for="(event, i) in eventGroup">
                     <block-teaser-meta
                         :key="i"
@@ -50,24 +49,32 @@
                     />
                 </template>
             </section>
-            <div v-if="isEmpty(groupedEvents)">
-                No Events
-            </div>
         </div>
     </div>
 </template>
 
 <script>
 import _ from "lodash"
+
+import add from "date-fns/add"
+import sub from "date-fns/sub"
+import format from "date-fns/format"
+
 import dayjs from "dayjs"
-import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
+// import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
 
-// load isSameOrAfter dayjs plugin
-dayjs.extend(isSameOrAfter)
+import SvgCaret from "~/assets/svg/caret"
 
-// TODO: finish styling actions, includes getting Caret glyphs
+import formatDates from "~/utils/formatEventDates"
+import formatTimes from "~/utils/formatEventTimes"
+
+// // load isSameOrAfter dayjs plugin
+// dayjs.extend(isSameOrAfter)
 
 export default {
+    components: {
+        SvgCaret,
+    },
     props: {
         /**
          * List of events: [{ category, title, dateStart, dateEnd, location, }]
@@ -80,9 +87,6 @@ export default {
 
     data() {
         return {
-            // passes dayjs lib to template for inline date formatting
-            dayjs,
-            isEmpty: _.isEmpty,
             // defaults to current date time
             selectedMonthYear: dayjs(),
         }
@@ -92,26 +96,28 @@ export default {
             // filter events on selected month
             const eventsFiltered = _.filter(this.events, (event) => {
                 return (
-                    dayjs(event.dateStart).format("YYYYMM") ===
-                    dayjs(this.selectedMonthYear).format("YYYYMM")
+                    format(event.dateStart, "yyyy MM") ===
+                    format(this.selectedMonthYear, "yyyy MM")
                 )
             })
             const eventsSorted = _.sortBy(eventsFiltered, "dateStart")
             const eventsGrouped = eventsSorted.map((event) => {
                 return {
                     ...event,
-                    dateGroup: dayjs(
-                        event.dateStart
+                    dateGroup:
                         // group with day granularity
-                    ).format("YYYY-MM-DD"),
+                        format(event.dateStart, "YYYY-MM-DD"),
                     dateRange: this.getDateRange(
                         event.dateStart,
                         event.dateEnd
                     ),
-                    time: this.getTime(event.dateStart, event.dateEnd),
+                    // time: this.getTime(event.dateStart, event.dateEnd),
                 }
             })
             return _.groupBy(eventsGrouped, "dateGroup")
+        },
+        groupByDate() {
+            return _.groupBy(this.events, "dateStart")
         },
         selectedMonth() {
             return dayjs(this.selectedMonthYear, "YYYYMM").format("MMM")
@@ -119,32 +125,16 @@ export default {
         selectedYear() {
             return dayjs(this.selectedMonthYear, "YYYYMM").format("YYYY")
         },
+        formatDates() {
+            return formatTimes(
+                ((startDate = this.event.dateStart),
+                (endDate = this.event.dateEnd))
+            )
+        },
     },
 
     methods: {
-        /**
-         * Returns formatted date range as string ONLY if the end date is a different day.
-         * Otherwise, returns an empty string because the date is displayed via row.
-         */
-        getDateRange(start, end) {
-            return dayjs(start).format("YYYY-MM-DD") !==
-                dayjs(end).format("YYYY-MM-DD") && end
-                ? `${dayjs(start).format("MMMM D")} - ${dayjs(end).format(
-                    "MMMM D, YYYY"
-                )}`
-                : ""
-        },
-
-        /**
-         * Returns formatted time as string, includes endtime if present.
-         */
-        getTime(start, end) {
-            return end
-                ? `${dayjs(start).format("h:mm a")} - ${dayjs(end).format(
-                    "h:mm a"
-                )}`
-                : dayjs(start).format("h:mm a")
-        },
+        getDateRange(start, end) {},
 
         /**
          * Sets the current month of the calendar to the current month.
@@ -159,6 +149,7 @@ export default {
          * Sets the current month of the calendar to the next month relative to selected month.
          */
         selectNextMonth() {
+            // is future in date fns
             this.selectedMonthYear = dayjs(
                 this.selectedMonthYear,
                 "YYYYMM"
@@ -170,6 +161,7 @@ export default {
          * Sets the current month of the calendar to the previous month relative to selected month.
          */
         selectPreviousMonth() {
+            // is_past in date fns
             const prevMonth = dayjs(this.selectedMonthYear, "YYYYMM").subtract(
                 1,
                 "month"
@@ -188,23 +180,34 @@ export default {
 .section-teaser-calendar {
     .select-month-actions {
         display: flex;
-        button {
-            color: var(--color-grey-02);
-            font-size: 28px; // TODO: remove when prev/next are replaced with glyfs
-        }
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
 
-        .selected-month {
-            color: var(--color-primary-blue);
-            font-size: 64px;
-            margin-left: 32px;
-            min-width: 240px;
-        }
+    .selected-month {
+        color: var(--color-primary-blue);
+        font-size: 64px;
+        margin-left: 32px;
+        min-width: 240px;
+    }
+    .month-prev {
+        transform: scaleX(-1);
+    }
+    .month-next {
+    }
 
-        .select-today {
-            font-size: 18px;
-            font-family: var(--font-secondary);
-            margin-left: auto;
-        }
+    .select-today {
+        font-size: 18px;
+        font-family: var(--font-secondary);
+        color: var(--color-secondary-grey-04);
+        margin-left: auto;
+        margin-right: 5px;
+        border: 1px solid var(--color-secondary-grey-02);
+        border-radius: var(--rounded-slightly-all);
+        padding: 19px 32px 19px 32px;
     }
 
     .divider-way-finder {
@@ -216,14 +219,13 @@ export default {
         flex-wrap: wrap;
 
         margin-bottom: 17px;
+    }
+    .calendar-item {
+        margin: 32px 0 28px 75px;
+        width: 274px;
 
-        .calendar-item {
-            margin: 32px 0 28px 75px;
-            width: 274px;
-
-            &:first-child {
-                margin-left: 0;
-            }
+        &:first-child {
+            margin-left: 0;
         }
     }
 }
