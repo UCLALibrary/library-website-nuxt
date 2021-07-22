@@ -2,14 +2,14 @@
     <nav class="nav-secondary">
         <ul class="list">
             <li
-                v-for="item in items"
+                v-for="item in parsedItems"
                 class="list-item"
             >
                 <smart-link
                     class="link underline-hover"
                     :to="item.to"
                     :target="item.target"
-                    v-html="item.text"
+                    v-html="item.name"
                 />
             </li>
         </ul>
@@ -17,11 +17,24 @@
 </template>
 
 <script>
+// Helpers
+import formatLinkTarget from "~/utils/formatLinkTarget"
+
 export default {
     props: {
         items: {
             type: Array,
             default: () => [],
+        },
+    },
+    computed: {
+        parsedItems() {
+            return this.items.map((obj) => {
+                return {
+                    ...obj,
+                    target: formatLinkTarget(obj.target),
+                }
+            })
         },
     },
 }

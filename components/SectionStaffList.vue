@@ -10,7 +10,7 @@
             :locations="item.locations"
             :email="item.email"
             :phone="item.phone"
-            :department="item.department"
+            :departments="item.departments"
             class="block"
         />
     </section>

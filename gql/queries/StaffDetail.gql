@@ -1,0 +1,48 @@
+#import "~/gql/fragments/Image"
+query StaffDetail($slug: [String]!) {
+  entry(section: "staffMember", slug: $slug, ) {
+    ... on staffMember_staffMember_Entry {
+      id
+      email
+      phone: phoneNumber
+      jobTitle: staffMemberJobTitle
+      staffName: staffMemberName
+      to: slug
+      topics: askMeAbout {
+        title
+        id
+      }
+      biography
+      departments: department {
+        title
+        id
+      }
+      locations: associatedLocations {
+        title
+        to: uri
+        id
+      }
+      image {
+        ...Image
+      }
+    }
+  }
+  entries(section: "article" relatedToEntries: {section: "staffMember", slug: $slug}) {
+    ... on article_article_Entry {
+      id
+      title
+      to: slug
+      image: heroImage {
+        ...Image
+      }
+      authors: staffMember {
+        id
+        slug
+        title
+      } 
+      description: shortDescription
+      category: typeHandle
+      date: dateUpdated
+    }
+  }
+}

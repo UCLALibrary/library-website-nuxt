@@ -1,5 +1,5 @@
 #import "~/gql/fragments/Image"
-query StaffMember {
+query StaffList {
   entries(section: "staffMember" orderBy: "title ") {
     ... on staffMember_staffMember_Entry {
       email
@@ -7,12 +7,14 @@ query StaffMember {
       jobTitle: staffMemberJobTitle
       staffName: staffMemberName
       to: slug
-      dept: department {
+      departments: department {
+        id
         title
       }
       locations: associatedLocations {
+        id
         title
-        to: uri
+        to: slug
       }
       image {
         ...Image

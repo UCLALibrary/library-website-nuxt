@@ -3,7 +3,7 @@
         <!-- HEADING -->
         <div class="meta-heading">
             <div class="heading">
-                <svg-heading-arrow class="svg" />
+                <svg-heading-arrow class="arrow-svg" />
                 <nuxt-link
                     :to="to"
                     class="staffName"
@@ -14,33 +14,30 @@
 
             <div class="dept-location">
                 <div
-                    class="title"
+                    class="job-title"
                     v-html="jobTitle"
                 />
+
                 <div class="department-group">
                     <ul class="departments">
                         <li
                             v-for="department in departments"
-                            class="department"
-                            v-html="department"
+                            :key="department.id"
+                            class="department" 
+                            v-html="department.title"
                         />
                     </ul>
                 </div>
-                <!-- <div class="department-group">
-                    <span
-                        v-for="department in departments"
-                        class="departments"
-                        v-html="department"
-                    />
-                </div> -->
+
                 <div class="location-group">
                     <nuxt-link
                         v-for="location in locations"
-                        :key="`location-${location.to}`"
+                        :key="`location-${location.id}`"
                         :to="location.to"
                         class="location-link"
                     >
-                        <svg-icon-location class="svg" /> <span
+                        <svg-icon-location class="svg" />
+                        <span
                             class="location"
                             v-html="location.title"
                         />
@@ -85,7 +82,7 @@
                 <div class="contact-info">
                     <svg-icon-consultation class="svg" />
                     <smart-link
-                        to="https://calendar.library.ucla.edu/appointments"
+                        :to="getBookingLink"
                         target="_blank"
                         class="text-link"
                         v-html="`Book a consultation`"
@@ -102,7 +99,8 @@
                     <ul class="topics">
                         <li
                             v-for="topic in topics"
-                            v-html="topic"
+                            :key="topic.id"
+                            v-html="topic.title"
                         />
                     </ul>
                 </div>
@@ -180,13 +178,10 @@ export default {
         },
     },
     computed: {
-        locationsWithIcon: function() {
-            return this.locations.map(function(location) {
-                return `<svg-icon-consultation class="svg" />` + location.title
-                //return location
-            })
+        getBookingLink(){
+            return this.$config.libcalAppointment
         }
-    },
+    }
 }
 </script>
 
@@ -211,7 +206,7 @@ export default {
             justify-content: flex-start;
             align-content: center;
             align-items: flex-start;
-            .svg {
+            .arrow-svg {
                 margin-right: 48px;
             }
             .staffName {
@@ -228,15 +223,16 @@ export default {
             margin-left: 115px;
             margin-top: 15px;
             font-size: 20px;
+            background-color:cyan;
 
             display: flex;
             flex-direction: row;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             justify-content: flex-start;
             align-content: center;
             align-items: flex-start;
 
-            .title {
+            .job-title {
                 padding-right: 14px;
                 margin-top: 10px;
                 border-right: 1px solid var(--color-secondary-grey-02);
@@ -245,29 +241,44 @@ export default {
             .departments {
                 display: flex;
                 flex-direction: row;
+                flex-wrap: wrap;
 
                 list-style: none;
-                padding-right: 14px;
+                //padding-right: 14px;
                 padding-left: 14px;
                 margin-top: 10px;
-                border-right: 1px solid var(--color-secondary-grey-02);
+                //border-right: 1px solid var(--color-secondary-grey-02);
                 .department {
                     padding-right: 14px;
                 }
             }
 
             .location-group {
-                padding-left: 14px;
                 color: var(--color-primary-blue);
+                font-family: var(--font-secondary);
+                padding-bottom: -30px;
 
-                display: flex;
-                align-items: center;
+                .location-link {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
+                    align-content: center;
+                    align-items: center;
+                }
+                .svg {
+                    padding-left: 14px;
+                    //padding-bottom: -30px;
+                }
+                .location {
+                    //margin-bottom: 30px;
+                }
             }
-            .location-link + .location-link {
-                border-left: solid 1px var(--color-secondary-grey-02);
-                margin-left: 10px;
-                padding-left: 10px;
-            }
+            // .location-link + .location-link {
+            //     border-left: solid 1px var(--color-secondary-grey-02);
+            //     margin-left: 10px;
+            //     padding-left: 10px;
+            // }
         }
     }
 
@@ -408,6 +419,19 @@ export default {
                 .location-group {
                     display: flex;
                     flex-direction: column;
+
+                    .location-link {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    justify-content: flex-start;
+                    align-content: center;
+                    align-items: center;
+                    }
+                    .svg {
+                        padding-left: 14px;
+                    //padding-bottom: -30px;
+                    }
                 }
             }
 

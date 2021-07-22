@@ -18,17 +18,16 @@
 
             <div class="byline">
                 <div
-                    v-for="(author, index) in authors"
+                    v-for="author in authors"
                     v-if="authors"
-                    :key="index"
+                    :key="author.id"
                     class="author"
-                >
-                    {{ author }}
-                </div>
+                    v-html="author.title"
+                />
                 <div
                     v-if="date"
                     class="date"
-                    v-html="date"
+                    v-html="parsedDate"
                 />
             </div>
 
@@ -42,6 +41,7 @@
 </template>
 
 <script>
+import format from "date-fns/format"
 export default {
     props: {
         image: {
@@ -71,6 +71,11 @@ export default {
         description: {
             type: String,
             default: "",
+        },
+    },
+    computed: {
+        parsedDate() {
+            return format(new Date(this.date), "MMMM d, Y")
         },
     },
 }

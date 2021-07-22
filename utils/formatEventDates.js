@@ -10,6 +10,7 @@ import format from "date-fns/format"
 
 function formatDates(startDate = "", endDate = "") {
     const start = format(new Date(startDate), "MMMM d Y")
+    console.log(start)
     const end = format(new Date(endDate), "MMMM d Y")
 
     // "February 11 2020 – May 31 2021"
