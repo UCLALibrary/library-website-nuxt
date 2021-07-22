@@ -1,0 +1,10 @@
+query Globals {
+  globalSets {
+    ... on siteSettings_GlobalSet {
+      appointmentsLink: externalUrl {
+        urlText
+        theUrl
+      }
+    }
+  }
+}

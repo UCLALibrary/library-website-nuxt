@@ -1,7 +1,13 @@
+// gql
+import GLOBALS from "~/gql/queries/Gobals"
+// utils
+import removeEmpties from "~/utils/removeEmpties"
+
 export const state = () => ({
     winHeight: 0,
     winWidth: 0,
     sTop: 0,
+    globals: {}
 })
 
 export const mutations = {
@@ -12,13 +18,23 @@ export const mutations = {
     SET_S_TOP(state, data) {
         state.sTop = data
     },
+    SET_GLOBALS(state, data) {
+        state.globals = data
+    }
 }
 
 // Define actions
 export const actions = {
-    async nuxtGenerateInit(store, { $config, error, generatePayload }) {
+    async nuxtGenerateInit(store, { $config, generatePayload }) {
         let data = generatePayload || false
-
+        
+         if(!data) {
+            data=  setLibCalToken(data)
+         }
+         return data
+        
+    },
+    async setLibCalToken(data){
         try {
             // If we have a payload already, don't do the request, use the payload
             if (!data) {
@@ -45,4 +61,15 @@ export const actions = {
             )
         }
     },
+    async getGlobals({$graphql, store}) {
+        try {
+            const data = await $graphql.default.request(GLOBALS)
+            store.commit('SET_GLOBALS', removeEmpties(data.globalSets || []))
+        } catch (e) {
+            throw new Error(
+                "Craft API error, trying to set gobals. " +
+                    e
+            )
+        }
+    }
 }

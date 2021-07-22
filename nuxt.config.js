@@ -6,7 +6,7 @@ export default {
         libcalClientId: process.env.LIBCAL_CLIENT_ID,
     },
     publicRuntimeConfig: {
-        libcalAppointment: "https://calendar.library.ucla.edu/appointments",
+        libcalAppointment: process.env.LIBCAL_APPOINTMENTS,
     },
 
     /*
