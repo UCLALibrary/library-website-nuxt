@@ -7,14 +7,15 @@
 
         <ul class="sub-menu">
             <li
-                v-for="children in item.items"
+                v-for="child in parsedChildren"
+                :key="child.id"
                 class="sub-menu-item"
             >
                 <smart-link
-                    class="sub-menu-link"
-                    :to="children.to"
-                    :target="children.target"
-                    v-html="children.text"
+                    :class="child.classes"
+                    :to="child.to"
+                    :target="child.target"
+                    v-html="child.name"
                 />
             </li>
         </ul>
@@ -22,6 +23,9 @@
 </template>
 
 <script>
+// Helpers
+import formatLinkTarget from "~/utils/formatLinkTarget"
+
 export default {
     props: {
         item: {
@@ -40,10 +44,20 @@ export default {
     computed: {
         classes() {
             return [
+                this.item.classes,
                 "nav-menu-item",
                 { "is-active": this.isActive },
                 { "is-opened": this.isOpened },
             ]
+        },
+        parsedChildren() {
+            return this.item.children.map((obj) => {
+                return {
+                    ...obj,
+                    target: formatLinkTarget(obj.target),
+                    classes: `sub-menu-link ${obj.classes || ""}`,
+                }
+            })
         },
     },
 }

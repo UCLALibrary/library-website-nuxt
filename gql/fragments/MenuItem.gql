@@ -1,0 +1,7 @@
+fragment MenuItem on NodeInterface {
+    id
+    name: title
+    to: url
+    classes
+    target: newWindow
+}

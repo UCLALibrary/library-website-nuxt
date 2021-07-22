@@ -12,8 +12,8 @@
         <ul class="menu">
             <nav-menu-item
                 v-for="(item, index) in parsedItems"
-                v-if="item.items.length"
-                :key="item.url"
+                v-if="item.children"
+                :key="item.id"
                 :item="item"
                 :is-active="item.isActive"
                 :is-opened="isOpened"
@@ -80,7 +80,7 @@ export default {
             // Generally this is just the last "Support Us" link, but we are going to allwo it to be more than 1
             return this.items.filter((obj) => {
                 // Return items that don't have sub-menu children
-                return !obj.items.length
+                return !obj.children || !obj.children.length
             })
         },
         currentPathActiveIndex() {
@@ -92,11 +92,16 @@ export default {
         },
         parsedItems() {
             // Add an isActive property to all menu items
-            return this.items.map((obj, index) => {
+            const items = this.items.map((obj, index) => {
                 return {
                     ...obj,
                     isActive: index == this.activeMenuIndex,
                 }
+            })
+
+            // Return only items that have children (assume these are dropdowns)
+            return items.filter((obj) => {
+                return obj.children && obj.children.length
             })
         },
     },

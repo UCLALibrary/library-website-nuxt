@@ -29,7 +29,7 @@ export default {
     computed: {
         elementType() {
             let output = "a"
-            if (this.target == "_self") {
+            if (this.target == "_self" || this.target === "") {
                 output = "nuxt-link"
             }
             return output
