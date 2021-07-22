@@ -1,7 +1,6 @@
 <template lang="html">
     <section class="block-staff-list">
         <responsive-image
-            v-if="image"
             :image="image"
             :aspect-ratio="100"
             sizes="300px"
