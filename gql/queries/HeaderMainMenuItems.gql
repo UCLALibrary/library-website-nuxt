@@ -1,0 +1,13 @@
+#import "~/gql/fragments/MenuItem"
+
+query HeaderMainMenuItems {
+    secondary: nodes(navHandle: "secondaryMenu", level: 1) {
+        ...MenuItem
+    }
+    primary: nodes(navHandle: "primaryMenu", level: 1) {
+        ...MenuItem
+        children {
+            ...MenuItem
+        }
+    }
+}

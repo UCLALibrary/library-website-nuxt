@@ -1,28 +1,35 @@
 <template lang="html">
     <header class="header-main">
         <site-brand-bar />
-        <nav-secondary :items="navSecondaryItems" />
+        <nav-secondary :items="secondaryItems" />
         <nav-primary
             class="primary"
-            :items="navPrimaryItems"
+            :items="primaryItems"
         />
     </header>
 </template>
 
 <script>
-import * as MOCK_API from "~/stories/mock-api.json"
+// GQL
+import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
+
+// Helpers
+import _get from "lodash/get"
 
 export default {
     data() {
         return {
-            navSecondaryItems: [],
-            navPrimaryItems: [],
+            secondaryItems: [],
+            primaryItems: [],
         }
     },
     async fetch() {
-        // TODO Fetch real data from Craft here
-        this.navSecondaryItems = MOCK_API.links
-        this.navPrimaryItems = MOCK_API.primaryNavlinks
+        const data = await this.$graphql.default.request(HEADER_MAIN_MENU_ITEMS)
+        this.primaryItems = _get(data, "primary", [])
+        this.secondaryItems = _get(data, "secondary", [])
+    },
+    fetchKey(getCounter) {
+        return `header-main-${getCounter("header-main")}`
     },
 }
 </script>
