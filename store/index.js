@@ -1,13 +1,15 @@
 // gql
-import GLOBALS from "~/gql/queries/Gobals"
+import GLOBALS from "~/gql/queries/Globals"
+
 // utils
 import removeEmpties from "~/utils/removeEmpties"
+import _get from "lodash/get"
 
 export const state = () => ({
     winHeight: 0,
     winWidth: 0,
     sTop: 0,
-    globals: {}
+    globals: {},
 })
 
 export const mutations = {
@@ -20,34 +22,40 @@ export const mutations = {
     },
     SET_GLOBALS(state, data) {
         state.globals = data
-    }
+    },
 }
 
 // Define actions
 export const actions = {
-    async nuxtGenerateInit(store, { $config, generatePayload }) {
-        let data = generatePayload || false
-        
-         if(!data) {
-            data=  setLibCalToken(data)
-         }
-         return data
-        
+    async nuxtGenerateInit({ store, dispatch }, { generatePayload }) {
+        let data = generatePayload || {}
+
+        // Fetch data in parallel
+        let libCalQuery = dispatch("setLibCalToken", data.libCal)
+        let globalsQuery = dispatch("getGlobals", data.globals)
+        const [libCalResult, globalsResult] = await Promise.all([
+            libCalQuery,
+            globalsQuery,
+        ])
+
+        return {
+            libCal: libCalResult,
+            globals: globalsResult,
+        }
     },
-    async setLibCalToken(data){
+    async setLibCalToken(context, data) {
         try {
             // If we have a payload already, don't do the request, use the payload
             if (!data) {
                 data = await this.$axios.$post("/oauth/token", {
-                    client_id: $config.libcalClientId,
-                    client_secret: $config.libcalClientSecret,
+                    client_id: process.env.LIBCAL_CLIENT_ID,
+                    client_secret: process.env.LIBCAL_CLIENT_SECRET,
                     grant_type: "client_credentials",
                 })
             }
 
             if (data.access_token) {
                 this.$axios.setToken(data.access_token, "Bearer")
-
                 return data
             } else {
                 throw new Error(
@@ -61,15 +69,21 @@ export const actions = {
             )
         }
     },
-    async getGlobals({$graphql, store}) {
+    async getGlobals({ commit }, data) {
         try {
-            const data = await $graphql.default.request(GLOBALS)
-            store.commit('SET_GLOBALS', removeEmpties(data.globalSets || []))
+            if (!data) {
+                data = await this.$graphql.default.request(GLOBALS)
+                data = removeEmpties(data.globalSets || [])
+
+                // Shape data from Craft
+                data = {
+                    appointmentsLink: _get(data, "[0].appointmentsLink[0]", {}),
+                }
+            }
+            commit("SET_GLOBALS", data)
+            return data
         } catch (e) {
-            throw new Error(
-                "Craft API error, trying to set gobals. " +
-                    e
-            )
+            throw new Error("Craft API error, trying to set gobals. " + e)
         }
-    }
+    },
 }

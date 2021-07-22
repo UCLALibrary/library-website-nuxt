@@ -74,10 +74,10 @@
             <div class="consultation">
                 <svg-icon-consultation class="svg" />
                 <smart-link
-                    :to="getBookingLink"
+                    :to="bookingLink.theUrl"
                     target="_blank"
                     class="text-link"
-                    v-html="`Book a consultation`"
+                    v-html="bookingLink.urlText"
                 />
             </div>
         </div>
@@ -134,8 +134,9 @@ export default {
         },
     },
     computed: {
-        getBookingLink() {
-            return this.$config.libcalAppointment
+        bookingLink() {
+            // TODO Make this a prop, and do the $store from the page
+            return this.$store.state.globals.appointmentsLink
         },
     },
 }
