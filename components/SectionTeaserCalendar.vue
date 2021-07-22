@@ -2,23 +2,14 @@
     <div class="section-teaser-calendar">
         <div v-html="groupByDate" />
         <div class="select-month-actions">
-            <span
-                class="selected-month"
-            >{{ selectedMonth }} {{ selectedYear }}</span>
-            <svg-caret
-                class="month-prev"
-                @click="selectPreviousMonth"
-            />
-
-            <svg-caret
-                class="month-next"
-                @click="selectNextMonth"
-            />
-
-            <button
-                class="select-today"
-                @click="selectCurrentMonth()"
+            <span class="selected-month"
+                >{{ selectedMonth }} {{ selectedYear }}</span
             >
+            <svg-caret class="month-prev" @click="selectPreviousMonth" />
+
+            <svg-caret class="month-next" @click="selectNextMonth" />
+
+            <button class="select-today" @click="selectCurrentMonth()">
                 Today
             </button>
         </div>
@@ -61,15 +52,14 @@ import sub from "date-fns/sub"
 import format from "date-fns/format"
 
 import dayjs from "dayjs"
-// import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
+// // load isSameOrAfter dayjs plugin
+dayjs.extend(isSameOrAfter)
 
 import SvgCaret from "~/assets/svg/caret"
 
 import formatDates from "~/utils/formatEventDates"
 import formatTimes from "~/utils/formatEventTimes"
-
-// // load isSameOrAfter dayjs plugin
-// dayjs.extend(isSameOrAfter)
 
 export default {
     components: {
@@ -106,7 +96,7 @@ export default {
                     ...event,
                     dateGroup:
                         // group with day granularity
-                        format(new Date(event.dateStart), "YYYY-MM-DD"),
+                        format(new Date(event.dateStart), "yyyy-MM-DD"),
                     dateRange: this.getDateRange(
                         event.dateStart,
                         event.dateEnd
@@ -125,6 +115,14 @@ export default {
         selectedYear() {
             return dayjs(this.selectedMonthYear, "YYYYMM").format("YYYY")
         },
+        getDateRange(start, end) {
+            return dayjs(start).format("YYYY-MM-DD") !==
+                dayjs(end).format("YYYY-MM-DD") && end
+                ? `${dayjs(start).format("MMMM D")} - ${dayjs(end).format(
+                    "MMMM D, YYYY"
+                )}`
+                : ""
+        },
         formatDates() {
             return formatTimes(
                 ((startDate = this.event.dateStart),
@@ -134,8 +132,31 @@ export default {
     },
 
     methods: {
-        getDateRange(start, end) {},
+        /**
+         * Returns formatted date range as string ONLY if the end date is a different day.
+         * Otherwise, returns an empty string because the date is displayed via row.
+         */
+        getDateRange(start, end) {
+            return format(new Date(start), "YYYY-MM-DD") !==
+                format(new Date(end), "YYYY-MM-DD") && end
+                ? `${format(new Date(start), "MMMM D")} - ${format(
+                    new Date(end),
+                    "MMMM D, YYYY"
+                )}`
+                : ""
+        },
 
+        /**
+         * Returns formatted time as string, includes endtime if present.
+         */
+        getTime(start, end) {
+            return end
+                ? `${format(new Date(start), "h:mm a")} - ${format(
+                    new Date(end),
+                    "h:mm a"
+                )}`
+                : format(new Date(start), "h:mm a")
+        },
         /**
          * Sets the current month of the calendar to the current month.
          */
@@ -144,25 +165,21 @@ export default {
             this.selectedMonthYear = dayjs()
             this.$emit("current-month-selected", this.selectedMonthYear)
         },
-
         /**
          * Sets the current month of the calendar to the next month relative to selected month.
          */
         selectNextMonth() {
-            // is future in date fns
-            this.selectedMonthYear = dayjs(
-                this.selectedMonthYear,
+            this.selectedMonthYear = format(
+                new Date(this.selectedMonthYear),
                 "YYYYMM"
             ).add(1, "month")
             this.$emit("next-month-selected", this.selectedMonthYear)
         },
-
         /**
          * Sets the current month of the calendar to the previous month relative to selected month.
          */
         selectPreviousMonth() {
-            // is_past in date fns
-            const prevMonth = dayjs(this.selectedMonthYear, "YYYYMM").subtract(
+            const prevMonth = format(new Date(this.selectedMonthYear, "YYYYMM").sub(
                 1,
                 "month"
             )
