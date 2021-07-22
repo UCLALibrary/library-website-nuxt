@@ -9,6 +9,7 @@
             :sizes="image.sizes || sizes"
             class="media"
             @load="onLoad"
+            @error="onError"
         >
         <figcaption
             v-if="image.caption || caption"
@@ -70,6 +71,7 @@ export default {
     data() {
         return {
             hasLoaded: false,
+            hasErrored: false,
         }
     },
     computed: {
@@ -88,12 +90,16 @@ export default {
                 "responsive-image",
                 `object-fit-${this.objectFit}`,
                 { "has-loaded": this.hasLoaded },
+                { "has-errored": this.hasErrored },
             ]
         },
     },
     methods: {
         onLoad() {
             this.hasLoaded = true
+        },
+        onError() {
+            this.hasErrored = true
         },
     },
 }
