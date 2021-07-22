@@ -48,7 +48,7 @@
 <script>
 import SvgLogoUclaLibrary from "~/assets/svg/logo-ucla-library"
 
-// TODO Handle "click outside" event to close menu.
+// TODO Handle "click outside" event to close menu. Or just add a "click-blocker" DIV to the page.
 // SEE https://stackoverflow.com/questions/53013471/vuejs-2-custom-directive-to-close-when-clicked-outside-not-working
 
 export default {
