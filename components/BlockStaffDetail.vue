@@ -22,8 +22,9 @@
                     <ul class="departments">
                         <li
                             v-for="department in departments"
-                            class="department"
-                            v-html="department"
+                            :key="department.id"
+                            class="department" 
+                            v-html="department.title"
                         />
                     </ul>
                 </div>
@@ -31,11 +32,12 @@
                 <div class="location-group">
                     <nuxt-link
                         v-for="location in locations"
-                        :key="`location-${location.to}`"
+                        :key="`location-${location.id}`"
                         :to="location.to"
                         class="location-link"
                     >
-                        <svg-icon-location class="svg" /> <span
+                        <svg-icon-location class="svg" />
+                        <span
                             class="location"
                             v-html="location.title"
                         />
@@ -80,7 +82,7 @@
                 <div class="contact-info">
                     <svg-icon-consultation class="svg" />
                     <smart-link
-                        to="https://calendar.library.ucla.edu/appointments"
+                        :to="getBookingLink"
                         target="_blank"
                         class="text-link"
                         v-html="`Book a consultation`"
@@ -97,7 +99,8 @@
                     <ul class="topics">
                         <li
                             v-for="topic in topics"
-                            v-html="topic"
+                            :key="topic.id"
+                            v-html="topic.title"
                         />
                     </ul>
                 </div>
@@ -175,13 +178,10 @@ export default {
         },
     },
     computed: {
-        locationsWithIcon: function() {
-            return this.locations.map(function(location) {
-                return `<svg-icon-consultation class="svg" />` + location.title
-                //return location
-            })
+        getBookingLink(){
+            return this.$config.libcalAppointment
         }
-    },
+    }
 }
 </script>
 

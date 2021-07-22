@@ -1,5 +1,8 @@
 <template lang="html">
-    <figure :class="classes">
+    <figure
+        v-if="image && image.src"
+        :class="classes"
+    >
         <img
             :src="image.src || src"
             :height="image.width || width"
@@ -9,6 +12,7 @@
             :sizes="image.sizes || sizes"
             class="media"
             @load="onLoad"
+            @error="onError"
         >
         <figcaption
             v-if="image.caption || caption"
@@ -70,6 +74,7 @@ export default {
     data() {
         return {
             hasLoaded: false,
+            hasErrored: false,
         }
     },
     computed: {
@@ -88,12 +93,16 @@ export default {
                 "responsive-image",
                 `object-fit-${this.objectFit}`,
                 { "has-loaded": this.hasLoaded },
+                { "has-errored": this.hasErrored },
             ]
         },
     },
     methods: {
         onLoad() {
             this.hasLoaded = true
+        },
+        onError() {
+            this.hasErrored = true
         },
     },
 }
@@ -104,7 +113,7 @@ export default {
     position: relative;
     margin: 0;
     z-index: 0;
-    opacity: 0;
+    // opacity: 0; // TODO add this back when we resolve why onload is not firing on craft images in netlify, works locally
     transition: opacity 400ms ease-in-out;
 
     .media {

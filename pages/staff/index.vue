@@ -39,8 +39,8 @@ export default {
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,
+                    to: `/staff/${obj.to}`,
                     image: _get(obj, "image[0]", null),
-                    department: _get(obj, "dept[0].title", ""),
                 }
             })
         },

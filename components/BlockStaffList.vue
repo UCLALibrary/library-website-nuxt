@@ -1,7 +1,6 @@
 <template lang="html">
     <section class="block-staff-list">
         <responsive-image
-            v-if="image"
             :image="image"
             :aspect-ratio="100"
             sizes="300px"
@@ -24,21 +23,25 @@
                 v-html="jobTitle"
             />
             <div class="dept-location">
-                <div
-                    class="department"
-                    v-html="department"
-                />
+                <ul class="departments">
+                    <li
+                        v-for="department in departments"
+                        :key="department.id"
+                        class="department"
+                        v-html="department.title"
+                    />
+                </ul>
                 <div
                     v-if="locations.length"
                     class="location-group"
                 >
-                    <svg-icon-location class="svg" />
                     <nuxt-link
                         v-for="location in locations"
-                        :key="`location-${location.to}`"
+                        :key="`location-${location.id}`"
                         :to="location.to"
                         class="location-link"
                     >
+                        <svg-icon-location class="svg" />
                         <span
                             class="location"
                             v-html="location.title"
@@ -71,10 +74,10 @@
             <div class="consultation">
                 <svg-icon-consultation class="svg" />
                 <smart-link
-                    to="https://calendar.library.ucla.edu/appointments"
+                    :to="bookingLink.theUrl"
                     target="_blank"
                     class="text-link"
-                    v-html="`Book a consultation`"
+                    v-html="bookingLink.urlText"
                 />
             </div>
         </div>
@@ -121,13 +124,19 @@ export default {
             type: String,
             default: "",
         },
-        department: {
-            type: String,
-            default: "",
+        departments: {
+            type: Array,
+            default: () => [],
         },
         image: {
             type: Object,
             default: () => {},
+        },
+    },
+    computed: {
+        bookingLink() {
+            // TODO Make this a prop, and do the $store from the page
+            return this.$store.state.globals.appointmentsLink
         },
     },
 }
@@ -187,10 +196,10 @@ export default {
         }
         .dept-location {
             display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            align-content: center;
-            align-items: flex-end;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: flex-start;
 
             margin-top: 16px;
             max-width: 659px;
@@ -198,17 +207,25 @@ export default {
                 margin-bottom: -10px;
             }
         }
-        .department {
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 140%;
-            color: var(--color-secondary-grey-04);
+        .departments {
+            display: flex;
+            flex-direction: column;
+
+            list-style: none;
+            margin-bottom: 5px;
+            .department {
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 140%;
+                color: var(--color-secondary-grey-04);
+            }
         }
+
         .location-group {
             padding-bottom: 2px;
-            margin-left: 8px;
-            border-left: solid 1px var(--color-secondary-grey-02);
-            padding-left: 8px;
+            // margin-left: 8px;
+            // border-left: solid 1px var(--color-secondary-grey-02);
+            // padding-left: 8px;
         }
         .location-link + .location-link {
             border-left: solid 1px var(--color-primary-blue);

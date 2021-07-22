@@ -5,6 +5,9 @@ export default {
         libcalClientSecret: process.env.LIBCAL_CLIENT_SECRET,
         libcalClientId: process.env.LIBCAL_CLIENT_ID,
     },
+    publicRuntimeConfig: {
+        libcalAppointment: process.env.LIBCAL_APPOINTMENTS,
+    },
 
     /*
      ** Global CSS
