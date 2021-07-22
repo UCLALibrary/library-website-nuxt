@@ -28,8 +28,21 @@ query StaffDetail($slug: [String]!) {
     }
   }
   entries(section: "article" relatedToEntries: {section: "staffMember", slug: $slug}) {
-    id
-    title
-    slug
+    ... on article_article_Entry {
+      id
+      title
+      to: slug
+      image: heroImage {
+        ...Image
+      }
+      authors: staffMember {
+        id
+        slug
+        title
+      } 
+      description: shortDescription
+      category: typeHandle
+      date: dateUpdated
+    }
   }
 }

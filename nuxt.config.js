@@ -5,6 +5,9 @@ export default {
         libcalClientSecret: process.env.LIBCAL_CLIENT_SECRET,
         libcalClientId: process.env.LIBCAL_CLIENT_ID,
     },
+    publicRuntimeConfig: {
+        libcalAppointment: "https://calendar.library.ucla.edu/appointments",
+    },
 
     /*
      ** Global CSS

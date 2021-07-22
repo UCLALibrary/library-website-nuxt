@@ -41,7 +41,6 @@ export default {
                     ...obj,
                     to: `/staff/${obj.to}`,
                     image: _get(obj, "image[0]", null),
-                    department: _get(obj, "dept[0].title", ""),
                 }
             })
         },

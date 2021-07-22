@@ -18,8 +18,9 @@
         />
         <divider-way-finder class="section divider divider-way-finder" />
         <section-staff-article-list
-            :items="page.entries"
+            :items="parsedItems"
             section-title="Articles"
+            class="staff-article-list-section"
         />
         <!-- this is different from flexible page blocks ctacontentwidth and will be hardcoded where required -->
         <block-call-to-action
@@ -54,6 +55,15 @@ export default {
         parsedImage() {
             return _get(this.page.entry, "image[0]", null)
         },
+        parsedItems() {
+            return this.page.entries.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/news/${obj.to}`,
+                    image: _get(obj, "image[0]", null),
+                }
+            })
+        },
     },
 }
 </script>
@@ -64,6 +74,9 @@ export default {
         margin-left: auto;
         margin-right: auto;
         margin-top: 70px;
+    }
+    .staff-article-list-section {
+        background-color: var(--color-secondary-grey-01);
     }
 }
 </style>

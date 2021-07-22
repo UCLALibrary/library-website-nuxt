@@ -7,10 +7,12 @@ query StaffList {
       jobTitle: staffMemberJobTitle
       staffName: staffMemberName
       to: slug
-      dept: department {
+      departments: department {
+        id
         title
       }
       locations: associatedLocations {
+        id
         title
         to: slug
       }
