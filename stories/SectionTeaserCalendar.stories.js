@@ -66,7 +66,7 @@ const mock = [
         dateStart: "2021-06-05",
         dateEnd: "",
         location: "Billy Wilder Theater",
-        timeStart: "8pm",
+        timeStart: "6pm",
     },
 ]
 
