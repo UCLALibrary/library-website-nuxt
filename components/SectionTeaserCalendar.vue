@@ -30,8 +30,8 @@
                 class="calendar-items"
             >
                 <block-date
-                    :date="format(date, 'DD')"
-                    :day="format(date, 'dddd')"
+                    :date="format(new Date(date), 'DD')"
+                    :day="format(new Date(date), 'dddd')"
                     class="calendar-item"
                 />
                 <template v-for="(event, i) in eventGroup">
@@ -96,8 +96,8 @@ export default {
             // filter events on selected month
             const eventsFiltered = _.filter(this.events, (event) => {
                 return (
-                    format(event.dateStart, "yyyy MM") ===
-                    format(this.selectedMonthYear, "yyyy MM")
+                    format(new Date(event.dateStart), "yyyy MM") ===
+                    format(new Date(this.selectedMonthYear), "yyyy MM")
                 )
             })
             const eventsSorted = _.sortBy(eventsFiltered, "dateStart")
@@ -106,7 +106,7 @@ export default {
                     ...event,
                     dateGroup:
                         // group with day granularity
-                        format(event.dateStart, "YYYY-MM-DD"),
+                        format(new Date(event.dateStart), "YYYY-MM-DD"),
                     dateRange: this.getDateRange(
                         event.dateStart,
                         event.dateEnd
