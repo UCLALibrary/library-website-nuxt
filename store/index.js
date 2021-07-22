@@ -28,7 +28,7 @@ export const actions = {
                     grant_type: "client_credentials",
                 })
             }
-
+            console.log(data)
             if (data.access_token) {
                 this.$axios.setToken(data.access_token, "Bearer")
 
