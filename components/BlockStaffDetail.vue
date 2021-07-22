@@ -3,7 +3,7 @@
         <!-- HEADING -->
         <div class="meta-heading">
             <div class="heading">
-                <svg-heading-arrow class="svg" />
+                <svg-heading-arrow class="arrow-svg" />
                 <nuxt-link
                     :to="to"
                     class="staffName"
@@ -14,9 +14,10 @@
 
             <div class="dept-location">
                 <div
-                    class="title"
+                    class="job-title"
                     v-html="jobTitle"
                 />
+
                 <div class="department-group">
                     <ul class="departments">
                         <li
@@ -27,14 +28,7 @@
                         />
                     </ul>
                 </div>
-                <!-- <div class="department-group">
-                    <span
-                        v-for="department in departments"
-                        :key="department.id"
-                        class="department"
-                        v-html="department.title"
-                    />
-                </div> -->
+
                 <div class="location-group">
                     <nuxt-link
                         v-for="location in locations"
@@ -212,7 +206,7 @@ export default {
             justify-content: flex-start;
             align-content: center;
             align-items: flex-start;
-            .svg {
+            .arrow-svg {
                 margin-right: 48px;
             }
             .staffName {
@@ -229,15 +223,16 @@ export default {
             margin-left: 115px;
             margin-top: 15px;
             font-size: 20px;
+            background-color:cyan;
 
             display: flex;
             flex-direction: row;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             justify-content: flex-start;
             align-content: center;
             align-items: flex-start;
 
-            .title {
+            .job-title {
                 padding-right: 14px;
                 margin-top: 10px;
                 border-right: 1px solid var(--color-secondary-grey-02);
@@ -246,29 +241,44 @@ export default {
             .departments {
                 display: flex;
                 flex-direction: row;
+                flex-wrap: wrap;
 
                 list-style: none;
-                padding-right: 14px;
+                //padding-right: 14px;
                 padding-left: 14px;
                 margin-top: 10px;
-                border-right: 1px solid var(--color-secondary-grey-02);
+                //border-right: 1px solid var(--color-secondary-grey-02);
                 .department {
                     padding-right: 14px;
                 }
             }
 
             .location-group {
-                padding-left: 14px;
                 color: var(--color-primary-blue);
+                font-family: var(--font-secondary);
+                padding-bottom: -30px;
 
-                display: flex;
-                align-items: center;
+                .location-link {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
+                    align-content: center;
+                    align-items: center;
+                }
+                .svg {
+                    padding-left: 14px;
+                    //padding-bottom: -30px;
+                }
+                .location {
+                    //margin-bottom: 30px;
+                }
             }
-            .location-link + .location-link {
-                border-left: solid 1px var(--color-secondary-grey-02);
-                margin-left: 10px;
-                padding-left: 10px;
-            }
+            // .location-link + .location-link {
+            //     border-left: solid 1px var(--color-secondary-grey-02);
+            //     margin-left: 10px;
+            //     padding-left: 10px;
+            // }
         }
     }
 
@@ -409,6 +419,19 @@ export default {
                 .location-group {
                     display: flex;
                     flex-direction: column;
+
+                    .location-link {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    justify-content: flex-start;
+                    align-content: center;
+                    align-items: center;
+                    }
+                    .svg {
+                        padding-left: 14px;
+                    //padding-bottom: -30px;
+                    }
                 }
             }
 
