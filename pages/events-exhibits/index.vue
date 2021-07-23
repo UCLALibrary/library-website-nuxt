@@ -1,8 +1,15 @@
 <template lang="html">
     <section class="page-events-exhibits">
-        <nuxt-link to="/events-exhibits/test">
-            Test event
-        </nuxt-link>
+        <!-- <nuxt-link to="/events-exhibits/test"> Test event </nuxt-link> -->
+
+        {{ viewMode }}
+
+        <loading-spinner v-if="$fetchState.pending" />
+        <component
+            :is="viewComponentName"
+            v-else
+            :items="allEvents"
+        />
 
         <!-- TODO These props should come from Craft -->
         <!-- <masthead-secondary
@@ -68,32 +75,56 @@ import formatEventDates from "~/utils/formatEventDates"
 import formatEventTimes from "~/utils/formatEventTimes"
 
 export default {
-    async asyncData({ $axios }) {
-        // TODO This is hardcoded to the "Test" calendar, should be a "featured" calendar probably
-        // const libcalRequest = $axios.$get(`/events`, {
-        //     params: {
-        //         cal_id: 11521,
-        //     },
-        // })
-        // const craftRequest = $graphql(`/craft/foo`, {
-        //     params: {
-        //         cal_id: 11521,
-        //     },
-        // })
-
-        // Do both requests in parallel
-        // const [libcalData] = await Promise.all([
-        //     libcalRequest,
-        //     //craftRequest,
-        // ])
-
+    data() {
         return {
-            //events: _get(libcalData, "events", []),
-            //page: _get(craftData, "data.page", {}),
+            allEvents: [],
         }
     },
+    async fetch() {
+        const data = await this.$axios.$get(`/events`, {
+            params: {
+                offset: this.$route.query.offset || 0,
+                q: this.$route.query.q || "",
+            },
+        })
+
+        this.allEvents = [...this.allEvents, ...data]
+    },
+    //async asyncData({ query }) {
+    // console.log(query)
+    //
+    // return {
+    //     viewMode: query.viewMode || "default",
+    // }
+
+    // TODO This is hardcoded to the "Test" calendar, should be a "featured" calendar probably
+    // const libcalRequest = $axios.$get(`/events`, {
+    //     params: {
+    //         cal_id: 11521,
+    //     },
+    // })
+    // const craftRequest = $graphql(`/craft/foo`, {
+    //     params: {
+    //         cal_id: 11521,
+    //     },
+    // })
+
+    // Do both requests in parallel
+    // const [libcalData] = await Promise.all([
+    //     libcalRequest,
+    //     //craftRequest,
+    // ])
+
+    // return {
+    //     //events: _get(libcalData, "events", []),
+    //     //page: _get(craftData, "data.page", {}),
+    // }
+    //},
 
     computed: {
+        viewComponentName() {
+            // get view component name (see the PR section-teaser calander)
+        },
         parsedEvents() {
             // TODO Remove this one we have more events
             const mockEvents = [
@@ -168,6 +199,8 @@ export default {
             return mockBlockCallToAction
         },
     },
+    // This will recall fetch() when these query params change
+    watchQuery: ["offset", "q"],
 }
 </script>
 
