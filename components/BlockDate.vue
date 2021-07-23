@@ -17,6 +17,7 @@ export default {
     components: {
         SvgArrowDown,
     },
+    // TODO Make date a JS date object, and then figure out the day from that
     props: {
         date: {
             type: String,

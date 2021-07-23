@@ -1,8 +1,12 @@
 <template lang="html">
     <section class="page-events-exhibits">
-        <nuxt-link to="/events-exhibits/test">
-            Test event
-        </nuxt-link>
+        <!-- TODO This is how you handle the different view modes -->
+        <!-- <transition name="fade">
+            <component
+                :is="viewMode"
+                :items="parsedEvents"
+            />
+        </transition> -->
 
         <!-- TODO These props should come from Craft -->
         <!-- <masthead-secondary
@@ -94,6 +98,18 @@ export default {
     },
 
     computed: {
+        viewMode() {
+            let output = "view-list"
+            switch (this.$route.params.viewMode) {
+                case "card":
+                    output = "view-card"
+                    break
+                case "calendar":
+                    output = "view-calendar"
+                    break
+            }
+            return output
+        },
         parsedEvents() {
             // TODO Remove this one we have more events
             const mockEvents = [
@@ -168,6 +184,8 @@ export default {
             return mockBlockCallToAction
         },
     },
+    // Re-run asyncData() when this query param changes
+    watchQuery: ["viewMode"],
 }
 </script>
 

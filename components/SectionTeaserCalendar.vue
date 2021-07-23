@@ -34,7 +34,7 @@
                     class="calendar-item"
                 />
                 <template v-for="(event, i) in eventGroup">
-                    <block-teaser-meta
+                    <!-- <block-teaser-meta
                         :key="i"
                         :category="event.category"
                         :date="event.dateRange"
@@ -45,7 +45,7 @@
                         :item="event"
                         view="calendar"
                         class="calendar-item"
-                    />
+                    /> -->
                 </template>
             </section>
         </div>
@@ -59,10 +59,12 @@ import add from "date-fns/add"
 import sub from "date-fns/sub"
 import format from "date-fns/format"
 
-import dayjs from "dayjs"
-import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
+//import dayjs from "dayjs"
+//import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
 // // load isSameOrAfter dayjs plugin
-dayjs.extend(isSameOrAfter)
+//dayjs.extend(isSameOrAfter)
+
+function dayjs() {}
 
 import SvgCaret from "~/assets/svg/caret"
 
