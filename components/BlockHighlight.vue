@@ -1,0 +1,376 @@
+<template lang="html">
+    <section :class="classes">
+        <responsive-image
+            :image="image"
+            :aspect-ratio="imageAspectRatio"
+            class="image"
+        />
+        <div class="text-meta">
+            <div
+                v-if="hasTriangle"
+                class="clipped"
+            >
+                <div class="floating-highlighlight" />
+                <div class="clipped-box" />
+            </div>
+            <div class="meta">
+                <div
+                    class="category"
+                    v-html="category"
+                />
+                <nuxt-link :to="to">
+                    <h3
+                        class="title"
+                        v-html="title"
+                    />
+                </nuxt-link>
+
+                <div class="date-time">
+                    <time
+                        v-if="dates"
+                        class="dates"
+                        v-html="dates"
+                    />
+                    <time
+                        v-if="times"
+                        class="times"
+                        :datetime="times"
+                        v-html="times"
+                    />
+                    <component
+                        :is="parse"
+                        v-if="isOnline"
+                        class="svg svg-online"
+                    />
+                    <span
+                        v-if="isOnline"
+                        v-html="parseOnline"
+                    />
+                </div>
+                <p
+                    v-if="text"
+                    class="text"
+                    v-html="text"
+                />
+                <div
+                    v-if="location"
+                    class="location"
+                >
+                    <component
+                        :is="parsedSvgName"
+                        class="svg"
+                    />
+
+                    <span
+                        class="location-name"
+                        v-html="location"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<script>
+export default {
+    components: {
+        SvgLocationIcon: () => import("~/assets/svg/icon-location"),
+        SvgOnlineIcon: () => import("~/assets/svg/icon-online"),
+    },
+    props: {
+        image: {
+            type: Object,
+            default: () => {},
+        },
+        to: {
+            type: String,
+            default: "",
+        },
+        category: {
+            type: String,
+            default: "",
+        },
+        title: {
+            type: String,
+            default: "",
+        },
+        dates: {
+            type: String,
+            default: "",
+        },
+        times: {
+            type: String,
+            default: "",
+        },
+        text: {
+            type: String,
+            default: "",
+        },
+        hasTriangle: {
+            type: Boolean,
+            default: false,
+        },
+        isVertical: {
+            type: Boolean,
+            default: false,
+        },
+        imageAspectRatio: {
+            type: Number,
+            default: 0,
+        },
+        isOnline: {
+            type: Boolean,
+            default: false,
+        },
+        location: {
+            type: String,
+            default: "",
+        },
+    },
+    computed: {
+        classes() {
+            return [
+                "block-highlight",
+                { "is-verticle": this.isVertical },
+                { "has-triangle": this.hasTriangle },
+            ]
+        },
+        parseOnline() {
+            // TODO this can be a link to zoom or ?
+            return this.isOnline ? "online" : ""
+        },
+        parsedSvgName() {
+            return this.location == "online"
+                ? "svg-icon-online"
+                : "svg-icon-location"
+        },
+    },
+}
+</script>
+
+<style lang="scss" scoped>
+.block-highlight {
+    display: block;
+    overflow: hidden;
+    max-width: 456px;
+    background-color: var(--color-white);
+    margin-left: 5px;
+    margin-right: 5px;
+
+    .clipped {
+        width: 456px;
+        height: 60px;
+        position: relative;
+
+        .floating-highlighlight {
+            z-index: 30;
+            position: absolute;
+            width: 398px;
+            top: -57px;
+            left: 5px;
+            height: 60px;
+            background-color: var(--color-visit-fushia-base);
+            clip-path: polygon(
+                0 0,
+                calc(100% - 19px) 0,
+                101% 55px,
+                99.5% 47px,
+                calc(100% - 21px) 2.25px,
+                0 2.25px
+            );
+        }
+
+        .clipped-box {
+            position: absolute;
+            z-index: 30;
+            top: -46px;
+            left: 0px;
+            width: 415px;
+            height: 50px;
+            box-sizing: border-box;
+            background-color: var(--color-white);
+            clip-path: polygon(
+                0 0,
+                calc(100% - 39px) 0,
+                100% 95px,
+                100% 102%,
+                0 102%
+            );
+        }
+    }
+
+    .text-meta {
+        z-index: 0;
+        position: relative;
+        width: 100%;
+        min-height: 255px;
+        background-color: white;
+    }
+
+    .meta {
+        z-index: 40;
+        position: absolute;
+        top: -27px;
+        width: 436px;
+        padding: 0px 0 10px 20px;
+        background-color: var(--color-white);
+        clip-path: polygon(73% 0, 73% 19%, 100% 19%, 100% 100%, 0 100%, 0 0);
+    }
+    .category {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 100%;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-primary-darkest-blue);
+    }
+    .title {
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 130%;
+        letter-spacing: 0.01em;
+        color: var(--color-primary-blue);
+        margin: 16px 0 0 0;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .date-time {
+        font-weight: 300;
+        font-size: 18px;
+        line-height: 140%;
+        color: var(color-grey-01);
+        margin-top: 10px;
+        .times {
+            margin-left: 10px;
+            padding-left: 10px;
+            border-left: 1px solid var(--color-secondary-grey-02);
+        }
+        .svg-online {
+            margin-bottom: -5px;
+            margin-left: 10px;
+            padding-left: 10px;
+            border-left: 1px solid var(--color-secondary-grey-02);
+        }
+    }
+    .text {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 140%;
+        margin: 24px 0 0 0;
+        color: var(--color-black);
+
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .location {
+        display: flex;
+
+        color: var(--color-primary-blue);
+        margin-top: 11px;
+
+        .location-name {
+            align-self: center;
+        }
+    }
+    &.is-verticle {
+    }
+    &.has-triangle {
+        .meta {
+            // TODO this is not working
+            clip-path: polygon(
+                73% 0,
+                73% 19%,
+                100% 19%,
+                100% 100%,
+                0 100%,
+                0 0
+            );
+        }
+    }
+
+    // Breakpoints
+    @media #{$lte-phone} {
+        .clipped {
+            width: 456px;
+            height: 30px;
+            position: relative;
+
+            .floating-highlighlight {
+                z-index: 30;
+                position: absolute;
+                width: 285px;
+                top: -40px;
+                left: 5px;
+                height: 30px;
+                background-color: var(--color-visit-fushia-base);
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 19px) 0,
+                    101% 53px,
+                    99.5% 49px,
+                    calc(100% - 21px) 2.25px,
+                    0 2.25px
+                );
+            }
+
+            .clipped-box {
+                position: absolute;
+                z-index: 30;
+                top: -30px;
+                left: 0px;
+                width: 300px;
+                height: 30px;
+                box-sizing: border-box;
+                background-color: var(--color-white);
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 39px) 0,
+                    100% 95px,
+                    100% 102%,
+                    0 102%
+                );
+            }
+        }
+
+        .text {
+            width: 325px;
+            min-height: 255px;
+        }
+        .meta {
+            z-index: 40;
+            position: absolute;
+            top: -30px;
+            width: 225px;
+            padding: 15px 0 10px 20px;
+        }
+    }
+
+    // Themes
+    --color-theme: var(--color-primary-light-blue);
+    &.color-visit {
+        --color-theme: var(--color-visit-fushia-base);
+    }
+    &.color-help {
+        --color-theme: var(--color-help);
+    }
+    &.color-about {
+        --color-theme: var(--color-about);
+    }
+
+    // Hovers
+    @media #{$has-hover} {
+        &:hover {
+            .title {
+                text-decoration: underline;
+                text-decoration-color: var(--color-default-cyan-base);
+                text-decoration-thickness: 1.5px;
+            }
+        }
+    }
+}
+</style>
