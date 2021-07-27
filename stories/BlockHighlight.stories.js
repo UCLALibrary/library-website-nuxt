@@ -33,9 +33,9 @@ export const Default = () => ({
           :times="time"
           :text="text"
           :has-triangle="true"
-          :is-verticle="true"
+          :is-vertical="true"
           :is-online="true"
-          location="online"
+          :image-aspect-ratio="60"
       />
   `,
 })
@@ -56,7 +56,8 @@ export const ShortTitle = () => ({
           :times="time"
           :text="text"
           :has-triangle="true"
-          :is-verticle="true"
+          :is-vertical="true"
+          :image-aspect-ratio="60"
       />
   `,
 })
@@ -77,7 +78,44 @@ export const LongTitle = () => ({
           :times="time"
           :text="text"
           :has-triangle="true"
-          :is-verticle="true"
+          :is-vertical="true"
+          :image-aspect-ratio="60"
+      />
+  `,
+})
+
+export const Card = () => ({
+    data() {
+        return { ...mock }
+    },
+    template: `
+      <block-highlight
+      :image="image"
+      :to="to"
+      :category="category"
+      :title="title"
+      :dates="date"
+      :times="time"
+      :is-vertical="true"
+      :image-aspect-ratio="60"
+      />
+  `,
+})
+
+export const List = () => ({
+    data() {
+        return { ...mock }
+    },
+    template: `
+      <block-highlight
+      :image="image"
+      :to="to"
+      :category="category"
+      :title="title"
+      :text="text"
+      :dates="date"
+      :times="time"
+      :image-aspect-ratio="60"
       />
   `,
 })

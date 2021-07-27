@@ -1,24 +1,22 @@
 <template lang="html">
     <section class="section-teaser-highlight">
         <!-- TODO I don't think you need this div -->
-        <div class="section">
-            <div
-                v-for="item in items"
-                :key="item.to"
-                class="meta"
-            >
-                <block-teaser-highlight
-                    :to="item.to"
-                    :image="item.image"
-                    :category="item.category"
-                    :title="item.title"
-                    :date="item.date"
-                    :time="item.time"
-                    :text="item.text"
-                    class="block"
-                />
-            </div>
-        </div>
+
+        <block-highlight
+            v-for="item in items"
+            :key="item.to"
+            :to="item.to"
+            :image="item.image"
+            :category="item.category"
+            :title="item.title"
+            :dates="item.date"
+            :times="item.time"
+            :text="item.text"
+            :has-triangle="true"
+            :is-vertical="true"
+            :is-online="true"
+            class="block"
+        />
     </section>
 </template>
 
@@ -42,28 +40,17 @@ export default {
     padding: 0 var(--unit-gutter);
     background-color: var(--color-white);
 
-    .section {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-content: center;
-        align-items: flex-start;
-    }
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: flex-start;
 
-    .divider {
-        box-sizing: border-box;
-        width: 100%;
-        margin-bottom: 83px;
-    }
-
-    .meta {
-        &:nth-child(2n) {
-            padding-right: 18px;
-        }
-        &:nth-child(3n) {
-            padding-right: 0px;
-        }
+    .block {
+        margin: 16px 16px;
+        max-width: 456px;
+        max-height: 527px;
     }
 
     // Breakpoints

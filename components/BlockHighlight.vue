@@ -5,67 +5,66 @@
             :aspect-ratio="imageAspectRatio"
             class="image"
         />
-        <div class="text-meta">
+
+        <div
+            v-if="hasTriangle"
+            class="clipped"
+        >
+            <div class="floating-highlighlight" />
+            <div class="clipped-box" />
+        </div>
+        <div class="meta">
             <div
-                v-if="hasTriangle"
-                class="clipped"
-            >
-                <div class="floating-highlighlight" />
-                <div class="clipped-box" />
+                class="category"
+                v-html="category"
+            />
+            <nuxt-link :to="to">
+                <h3
+                    class="title"
+                    v-html="title"
+                />
+            </nuxt-link>
+
+            <div class="date-time">
+                <time
+                    v-if="dates"
+                    class="dates"
+                    v-html="dates"
+                />
+                <time
+                    v-if="times"
+                    class="times"
+                    :datetime="times"
+                    v-html="times"
+                />
+                <component
+                    :is="parsedSvgOnline"
+                    v-if="isOnline"
+                    class="svg svg-online"
+                />
+                <span
+                    v-if="isOnline"
+                    v-html="parseOnline"
+                />
             </div>
-            <div class="meta">
-                <div
-                    class="category"
-                    v-html="category"
+            <p
+                v-if="text"
+                class="text"
+                v-html="text"
+            />
+            <div
+                v-if="location"
+                class="location"
+            >
+                <component
+                    :is="parsedSvgLocation"
+                    class="svg"
                 />
-                <nuxt-link :to="to">
-                    <h3
-                        class="title"
-                        v-html="title"
-                    />
-                </nuxt-link>
 
-                <div class="date-time">
-                    <time
-                        v-if="dates"
-                        class="dates"
-                        v-html="dates"
-                    />
-                    <time
-                        v-if="times"
-                        class="times"
-                        :datetime="times"
-                        v-html="times"
-                    />
-                    <component
-                        :is="parse"
-                        v-if="isOnline"
-                        class="svg svg-online"
-                    />
-                    <span
-                        v-if="isOnline"
-                        v-html="parseOnline"
-                    />
-                </div>
-                <p
-                    v-if="text"
-                    class="text"
-                    v-html="text"
+                <span
+                    class="location-name"
+                    v-html="location"
                 />
-                <div
-                    v-if="location"
-                    class="location"
-                >
-                    <component
-                        :is="parsedSvgName"
-                        class="svg"
-                    />
-
-                    <span
-                        class="location-name"
-                        v-html="location"
-                    />
-                </div>
             </div>
         </div>
     </section>
@@ -74,8 +73,8 @@
 <script>
 export default {
     components: {
-        SvgLocationIcon: () => import("~/assets/svg/icon-location"),
-        SvgOnlineIcon: () => import("~/assets/svg/icon-online"),
+        SvgIconLocation: () => import("~/assets/svg/icon-location"),
+        SvgIconOnline: () => import("~/assets/svg/icon-online"),
     },
     props: {
         image: {
@@ -129,9 +128,10 @@ export default {
     },
     computed: {
         classes() {
+            console.log(this.isVertical)
             return [
                 "block-highlight",
-                { "is-verticle": this.isVertical },
+                { "is-vertical": this.isVertical },
                 { "has-triangle": this.hasTriangle },
             ]
         },
@@ -139,10 +139,11 @@ export default {
             // TODO this can be a link to zoom or ?
             return this.isOnline ? "online" : ""
         },
-        parsedSvgName() {
-            return this.location == "online"
-                ? "svg-icon-online"
-                : "svg-icon-location"
+        parsedSvgOnline() {
+            return "svg-icon-online"
+        },
+        parsedSvgLocation() {
+            return "svg-icon-location"
         },
     },
 }
@@ -150,12 +151,12 @@ export default {
 
 <style lang="scss" scoped>
 .block-highlight {
-    display: block;
-    overflow: hidden;
-    max-width: 456px;
+    max-width: 990px;
+    max-height: 274px;
     background-color: var(--color-white);
-    margin-left: 5px;
-    margin-right: 5px;
+
+    display: flex;
+    flex-direction: row;
 
     .clipped {
         width: 456px;
@@ -207,15 +208,6 @@ export default {
         background-color: white;
     }
 
-    .meta {
-        z-index: 40;
-        position: absolute;
-        top: -27px;
-        width: 436px;
-        padding: 0px 0 10px 20px;
-        background-color: var(--color-white);
-        clip-path: polygon(73% 0, 73% 19%, 100% 19%, 100% 100%, 0 100%, 0 0);
-    }
     .category {
         font-weight: 500;
         font-size: 16px;
@@ -277,77 +269,56 @@ export default {
             align-self: center;
         }
     }
-    &.is-verticle {
+    &.is-vertical {
+        flex-direction: column;
+
+        max-width: 300px;
+        &:not(&.has-triangle) {
+            max-height: 420px;
+            .meta {
+                margin-top: 16px;
+                margin-left: 2px;
+                max-width: 300px;
+            }
+        }
+        &.has-triangle {
+            max-width: 456px;
+            .meta {
+                max-width: 320px;
+                margin-left: 17px;
+            }
+        }
     }
-    &.has-triangle {
+
+    &:not(&.is-vertical) {
         .meta {
-            // TODO this is not working
-            clip-path: polygon(
-                73% 0,
-                73% 19%,
-                100% 19%,
-                100% 100%,
-                0 100%,
-                0 0
-            );
+            max-width: 412px;
+            max-height: 222px;
+            margin-top: 16px;
+            padding-bottom: 16px;
+            overflow: hidden;
+        }
+        .image {
+            width: 456px;
+            max-height: 274px;
+            margin-right: 56px;
+        }
+        .title {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .text {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
     }
 
     // Breakpoints
     @media #{$lte-phone} {
-        .clipped {
-            width: 456px;
-            height: 30px;
-            position: relative;
-
-            .floating-highlighlight {
-                z-index: 30;
-                position: absolute;
-                width: 285px;
-                top: -40px;
-                left: 5px;
-                height: 30px;
-                background-color: var(--color-visit-fushia-base);
-                clip-path: polygon(
-                    0 0,
-                    calc(100% - 19px) 0,
-                    101% 53px,
-                    99.5% 49px,
-                    calc(100% - 21px) 2.25px,
-                    0 2.25px
-                );
-            }
-
-            .clipped-box {
-                position: absolute;
-                z-index: 30;
-                top: -30px;
-                left: 0px;
-                width: 300px;
-                height: 30px;
-                box-sizing: border-box;
-                background-color: var(--color-white);
-                clip-path: polygon(
-                    0 0,
-                    calc(100% - 39px) 0,
-                    100% 95px,
-                    100% 102%,
-                    0 102%
-                );
-            }
-        }
-
-        .text {
-            width: 325px;
-            min-height: 255px;
-        }
-        .meta {
-            z-index: 40;
-            position: absolute;
-            top: -30px;
-            width: 225px;
-            padding: 15px 0 10px 20px;
-        }
     }
 
     // Themes

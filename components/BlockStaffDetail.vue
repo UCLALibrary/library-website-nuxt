@@ -273,11 +273,6 @@ export default {
                     //margin-bottom: 30px;
                 }
             }
-            // .location-link + .location-link {
-            //     border-left: solid 1px var(--color-secondary-grey-02);
-            //     margin-left: 10px;
-            //     padding-left: 10px;
-            // }
         }
     }
 
