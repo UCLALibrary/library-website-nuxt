@@ -243,6 +243,45 @@ data() {
     -   nextTo
     -   previousTo
 
+## Drew's versions of Exhibits & Upcoming Events list page
+
+-   SectionHighlights
+
+    -   items: [{...BlockHighlight},{...BlockHighlight}]
+
+-   BlockHighlight
+
+    -   title
+    -   image
+    -   date
+    -   isOnline
+    -   hasTriangle (used to turn on clippy path detail)
+    -   text
+    -   to
+    -   isVertical: (false will show the side-by-side style )
+
+-   HeaderChildCalendar
+
+    -   date (should be a datestamp)
+
+-   BlockDay (already done, but update as per my TODO)
+
+    -   date
+
+-   BlockEvent
+
+    -   category (string)
+    -   title
+    -   dates: [] (should be array of datestamps)
+    -   time
+
+-   SectionDay
+
+    -   items: [{...BlockEvent}, {...}]
+
+-   HeaderChildDateRanges
+    -   items: [{startDate, endDate, name}, {...}]
+
 ## Exhibits Detail Long Form Page
 
 -   [ ] update BannerFeatured (path=/story/banner-featured--default)
@@ -359,3 +398,4 @@ Child-headers are:
 -   HeaderChildSearch (can have breadcrumb too)
 -   HeaderChildMenu (can have a button too)
 -   HeaderChildDates
+
