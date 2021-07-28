@@ -318,7 +318,7 @@ data() {
     -   CTABlockcontentwidth
     -   etc
 
--   [ ] SectionGallery // This will not be used as we will build the media gallery flexible page block component.
+-   [ ] SectionGallery // This may not be requierd as we will build the media gallery flexible page block component. Check with UX
 
     it needs all these icons (+/-, play icon for video, solid-molecule-image, solid-molecule-video, )
 
@@ -438,10 +438,20 @@ This uses the BannerFeatured component
     Questions
     1. which of the flexible page blocks will give the data for More upcoming events and events in this series, or are these flexible page blocks?
 
--   [ ] More upcoming events Section
+- BlockEventCard
+    -   event type
+    -   title
+    -   image
+    -   Date
+    -   Time
+
+-   [ ] SectionEventsGrid // More upcoming events Section
+    https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=1101%3A46937
+    - items[{...BlockEventCard},{...BlockEventCard}]
     
--   [ ] Events in this series Section
-    
+-   [ ] SectionEventsList // Events in this series Section
+    https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=1101%3A45265
+    - items[{...BlockEventCard},{...BlockEventCard}]
 
 -  [ ] ViewMore 
     - plus icon svg 
@@ -449,29 +459,129 @@ This uses the BannerFeatured component
 
 # Event Detail Page
 
--   [ ] Hero Banner
+If Hero Image exists, use BannerFeatured component else SimpleBanner
+-   [ ]  SimpleBanner
     -   Title
     -   Date
     -   Start Time
     -   Event type
-    
-    -   Short Description
-    optional fields
-    -   Hero Image, 
     -   End Time, 
     -   Address,
     -   Button/URL, 
     -   Associated Location(s),
+    -   svg half molecule
 
--   [ ]  Similar Events
-
--   [ ] Associated Event Series, Associated Workshop, 
+-   [ ]  SectionEventsHighlght // Related Events or Event Series// Shown on Exhibit Detail short form Page and Event Detailed page
+    https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=1001%3A46025
+    - items[{...BlockEventCard},{...BlockEventCard}]
 
 -   Flexible Page Blocks
     -   Rich Text
     -   Rich Text with Media
     -   etc
 
+# Get Help with, All Services and Resources Listing page (General Template)
+https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A38064
+
+-   [ ] BlockCardHorizontal // This has the same props as to BlockCardVertical
+    -   iconName: String
+    -   title
+    -   text
+    -   to
+
+-   [ ] LoadMore
+    -   svg plus icon
+    -   lazy loading url or will it emit event?
+
+-   [ ] CTABlockcontentwidth // This is the FlexiblePageBlock
+
+# About us (Landing Page) / Support Us (Landing Page)
+https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A29498
+
+-  [ ] LandingBanner
+    -   Title
+    -   Description
+    -   full cirlce molecule
+    -   HeadingArrow component
 
 
 
+-   [ ] ImapactNumbersCarousel // this is a Flexible Page Block
+    https://airtable.com/tblbfuBMzyHtLCYKY/viwqexZxA0x4tVEt9?blocks=show
+
+    -   heading
+    -   items []
+
+-   [ ] SimpleCardGrid // This is a Flexible Page Block
+    https://airtable.com/tblFpvWgv6MuMbClH/viwDcIDo9xJKefFzR/recWJ9YUJkBFXq6PV/fldSewQYeFhJd0ejr/attpkhJCdD9hRpDZN?blocks=show
+
+    This a 3 X 3 grid on about us page and 2 by 3 grid on Support us?
+
+    -   heading
+    -   items [{...SimpleCard},{...SimpleCard}...]
+    
+-   [ ] SimpleCard
+    -   title
+    -   short description
+    -   Svg small right arrow
+
+-   [x] ButtonMore 
+
+-   [ ] ImageWithTextOverlay// This is a Flexible Page Block
+    Use to display an image side by side with text, and an optional button/link to another page
+    https://airtable.com/tblbfuBMzyHtLCYKY/viwqexZxA0x4tVEt9?blocks=show
+
+-   [ ] SectionImageWithTextOverlay
+    -   items [{...ImageWithTextOverlay},{...ImageWithTextOverlay},...]
+
+# Endowment General Page
+https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A29404
+
+-   [x] BannerFeatured
+-   FlexiblePageBlocks
+
+# Get Help With -- Detail Page // Is this page used for workshop/resource/services help topics?
+https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A31680
+
+This will use BannerFeatured component if it has hero image, if not use TextBanner
+-   [ ] TextBanner
+    -   category
+    -   title
+    -   text
+    -   button text
+    -   button url //example reserve url for a Resource https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A31862
+
+-   [ ] SectionEventsList // This is also used on Event Series Detail Page
+    -   items []
+    -   heading
+    -   short description
+
+-   Flexible Page Blocks
+
+-   [x] SectionCard // This is used on home page, on this page it is the associated topics
+
+-   [ ] DownloadCallOut // This is Flexible Page Block
+    https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A32027
+    https://airtable.com/tblFpvWgv6MuMbClH/viwDcIDo9xJKefFzR/recdCXeJuctGMw2a3/fldSewQYeFhJd0ejr/attHoiJWFElFmSwUb?blocks=show
+    -   title
+    -   text
+    -   button text
+    -   button url
+    -   Image
+
+-  [ ] BlockMedia // Is this a Flexible Page block used by Media Thumbnail
+    https://airtable.com/tblFpvWgv6MuMbClH/viwDcIDo9xJKefFzR/recfdHVVRtfO6JqKH/fldSewQYeFhJd0ejr/att1F5YXvg9OFqLxn?blocks=show
+    https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A32027
+
+    -   title
+    -   description
+    -   button label
+    -   button url
+    -   Image
+    -   what does the play button on the image do?
+
+-   [ ] SectionBlockMedia
+    - items [{...BlockMedia},{}]
+
+-   [ ] CTABlockcontentwidth // This is the FlexiblePageBlock
+    https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A32202
