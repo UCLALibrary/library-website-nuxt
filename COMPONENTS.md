@@ -282,6 +282,14 @@ data() {
 -   HeaderChildDateRanges
     -   items: [{startDate, endDate, name}, {...}]
 
+- Flexible Page Blocks 
+    -   Feature Promo
+        -   Will this just call BannerFeatured Component?
+    -   Card with Image (2-up)
+        -   will this call the SectionTeaserHighlight?
+    -   CTA Block, content width
+        -   This flexible page block calls CallToAction Component to display calltoaction as full width.
+
 ## Exhibits Detail Long Form Page
 
 -   [ ] update BannerFeatured (path=/story/banner-featured--default)
@@ -289,14 +297,28 @@ data() {
     -   hasButton (set this to false)
     -   add new stories
 
--   [ ] BlockDetail
+-   [ ] BlockDetail  // This is not required
 
     -   title
     -   text (It might have p tag, figure with img and caption, blockquote with span for author)
     -   footNotes (is optional and Array of Strings)
     -   DividerGeneral component if the footNotes exists.
 
--   [ ] SectionGallery
+-   Flexible Page Blocks
+    -   RickText
+    -   RichTextWithMedia
+    -   PullQuote
+    -   MediaGallery
+        -  Can be closed gallery with full width or half width, is the width added in craft or should be determined on the page level, or just a open gallery with section heading like sample manuscript pages on the mid length page.
+    -   VideoContentWidth
+        One Video full width, with play button on the side?
+        On the mid length page there is manuscript with one video after the richtext which has the play button in the middle is this a flexible page block or regular component
+    -   ImageContentWidth
+    -   AudioContentWidth
+    -   CTABlockcontentwidth
+    -   etc
+
+-   [ ] SectionGallery // This will not be used as we will build the media gallery flexible page block component.
 
     it needs all these icons (+/-, play icon for video, solid-molecule-image, solid-molecule-video, )
 
@@ -366,15 +388,15 @@ We can look at those designs and focus on making component request issues for th
 
 # Staff Directory Listing Page
 
--   BlockStaffMeta
--   BlockStaffList
--   SectionStaffList
+-  [x] BlockStaffMeta
+-  [x] BlockStaffList
+-  [x] SectionStaffList
 
 # Staff Directory Detail
 
--   BlockStaffProfile
+-  [x] BlockStaffProfile
 
-# Gallery variants
+# Gallery variants these are used on Exhibit or Events Detail Pages
 
 -   GalleryPreview
 -   BlockGallery
@@ -395,7 +417,61 @@ Parent component is <sticky-header>.
 Child-headers are:
 
 -   HeaderChildBreadcrumbs (can have social share links)
+    -   Where does the breadcrumb data come from?
 -   HeaderChildSearch (can have breadcrumb too)
 -   HeaderChildMenu (can have a button too)
 -   HeaderChildDates
+
+# Event Series Detail Page
+
+This uses the BannerFeatured component
+
+-   Flexible Page Blocks
+    -   [ ] Rich text
+    -   [ ] Rich text with media
+    -   [ ] Media Gallery // Selected Trailers
+    -   [ ] Divider
+    -   [ ] Pull quote
+    -   [ ] Image - Content Width, // Individual event in this series with clipped box on the left which has the event date.
+    -   etc
+
+    Questions
+    1. which of the flexible page blocks will give the data for More upcoming events and events in this series, or are these flexible page blocks?
+
+-   [ ] More upcoming events Section
+    
+-   [ ] Events in this series Section
+    
+
+-  [ ] ViewMore 
+    - plus icon svg 
+    - ?
+
+# Event Detail Page
+
+-   [ ] Hero Banner
+    -   Title
+    -   Date
+    -   Start Time
+    -   Event type
+    
+    -   Short Description
+    optional fields
+    -   Hero Image, 
+    -   End Time, 
+    -   Address,
+    -   Button/URL, 
+    -   Associated Location(s),
+
+-   [ ]  Similar Events
+
+-   [ ] Associated Event Series, Associated Workshop, 
+
+-   Flexible Page Blocks
+    -   Rich Text
+    -   Rich Text with Media
+    -   etc
+
+
+
 
