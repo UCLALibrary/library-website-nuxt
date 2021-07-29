@@ -9,8 +9,8 @@ const mock = {
     category: "Event",
     text:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, metus in aliquet venenatis, mi lectus placerat leo, congue gravida mi quam sit amet neque.",
-    title: "Curabitur Tortor Pellentesque Nibh Aenean",
-    buttonText: "More Information",
+    title: "Curabitur Tortor Pellentesque",
+    buttonText: "Curabitur",
     to: "/help/foo/bar/",
 }
 
@@ -26,5 +26,45 @@ export const Default = () => ({
         :title="title"
         :button-text="buttonText"
         :to="to"
+    />`,
+})
+
+export const LongTitle = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `<banner-text
+        :category="category"
+        :text="text"
+        :title="title"
+        :button-text="buttonText"
+        :to="to"
+    />`,
+})
+
+export const NoButton = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `<banner-text
+        :category="category"
+        :text="text"
+        :title="title"
+    />`,
+})
+
+export const NoText = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `<banner-text
+        :category="category"
+        :title="title"
     />`,
 })

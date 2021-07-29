@@ -12,11 +12,14 @@
             v-html="title"
         />
         <div
+            v-if="text"
             class="text"
             v-html="text"
         />
         <button-link
+            v-if="to"
             :label="buttonText"
+            :to="to"
             class="button"
         />
         <svg-molecule-two-facets class="molecule" />
@@ -108,7 +111,6 @@ export default {
         position: absolute;
         z-index: 20;
         mix-blend-mode: screen;
-
         width: auto;
     }
 }
