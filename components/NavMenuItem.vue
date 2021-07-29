@@ -116,7 +116,7 @@ export default {
         opacity: 0;
 
         transition-property: max-height, opacity;
-        transition-duration: 800ms, 400ms;
+        transition-duration: 400ms, 400ms;
         transition-timing-function: ease-in-out;
     }
     .sub-menu-item {
@@ -142,7 +142,7 @@ export default {
     }
     &.is-opened {
         .sub-menu {
-            max-height: 100vh;
+            max-height: 200px; // TODO Change this number once you know what max menu height is
             opacity: 0.45;
         }
     }
