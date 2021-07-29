@@ -1,5 +1,5 @@
 <template lang="html">
-    <section :class="classes">
+    <div :class="classes">
         <responsive-image
             :image="image"
             :aspect-ratio="imageAspectRatio"
@@ -13,6 +13,7 @@
             <div class="floating-highlighlight" />
             <div class="clipped-box" />
         </div>
+
         <div class="meta">
             <div
                 class="category"
@@ -67,7 +68,7 @@
                 />
             </div>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -128,7 +129,6 @@ export default {
     },
     computed: {
         classes() {
-            console.log(this.isVertical)
             return [
                 "block-highlight",
                 { "is-vertical": this.isVertical },
@@ -152,60 +152,63 @@ export default {
 <style lang="scss" scoped>
 .block-highlight {
     max-width: 990px;
-    max-height: 274px;
     background-color: var(--color-white);
 
     display: flex;
     flex-direction: row;
 
     .clipped {
-        width: 456px;
-        height: 60px;
+        width: 100%;
+        height: 47px;
+        margin-top: -54px;
         position: relative;
+        z-index: 0;
 
         .floating-highlighlight {
             z-index: 30;
             position: absolute;
-            width: 398px;
-            top: -57px;
+            width: calc(100% - 55px);
+            top: 0;
             left: 5px;
-            height: 60px;
+            height: 47px;
             background-color: var(--color-visit-fushia-base);
+
             clip-path: polygon(
                 0 0,
-                calc(100% - 19px) 0,
-                101% 55px,
-                99.5% 47px,
-                calc(100% - 21px) 2.25px,
-                0 2.25px
+                calc(100% - 20px) 0,
+                100% 47px,
+                calc(100% - 1.5px) 47px,
+                calc(100% - 21px) 1.5px,
+                0 1.5px
             );
         }
 
         .clipped-box {
             position: absolute;
             z-index: 30;
-            top: -46px;
+            top: 8px;
             left: 0px;
-            width: 415px;
-            height: 50px;
+            width: calc(100% - 57px);
+            height: 47px;
             box-sizing: border-box;
             background-color: var(--color-white);
             clip-path: polygon(
                 0 0,
-                calc(100% - 39px) 0,
-                100% 95px,
-                100% 102%,
-                0 102%
+                calc(100% - 20px) 0,
+                100% 47px,
+                calc(100% - 1.5px) 47px,
+                0 47px,
+                0 1.5px
             );
         }
     }
 
-    .text-meta {
-        z-index: 0;
+    .meta {
+        z-index: 10;
         position: relative;
         width: 100%;
         min-height: 255px;
-        background-color: white;
+        box-sizing: border-box;
     }
 
     .category {
@@ -269,31 +272,30 @@ export default {
             align-self: center;
         }
     }
+
+    // Variations
     &.is-vertical {
         flex-direction: column;
+        margin-bottom: 50px;
 
-        max-width: 300px;
-        &:not(&.has-triangle) {
+        &:not(.has-triangle) {
             max-height: 420px;
+
             .meta {
                 margin-top: 16px;
-                margin-left: 2px;
                 max-width: 300px;
             }
         }
         &.has-triangle {
-            max-width: 456px;
             .meta {
-                max-width: 320px;
-                margin-left: 17px;
+                margin-top: -25px;
+                padding: 0 60px 0 17px;
             }
         }
     }
-
     &:not(&.is-vertical) {
         .meta {
             max-width: 412px;
-            max-height: 222px;
             margin-top: 16px;
             padding-bottom: 16px;
             overflow: hidden;

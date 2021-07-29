@@ -36,53 +36,29 @@ export default {
 
 <style lang="scss" scoped>
 .section-teaser-highlight {
-    max-width: 990px;
-    padding: 0 var(--unit-gutter);
+    padding: 0 calc(var(--unit-gutter) - 16px);
     background-color: var(--color-white);
+    margin: 0 auto;
 
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
+    justify-content: flex-start;
+    align-content: flex-start;
     align-items: flex-start;
 
     .block {
-        margin: 16px 16px;
-        max-width: 456px;
-        max-height: 527px;
+        width: calc(50% - 16px);
+        margin: 0 8px 50px 8px;
     }
 
     // Breakpoints
-    @media #{$lte-tablet} {
-        .block {
-            margin-top: 0px;
-            margin-bottom: 0px;
-            min-height: 200px;
-        }
-    }
     @media #{$lte-phone} {
-        .section {
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-content: center;
-            align-items: flex-start;
-        }
-        .block {
-            margin-top: 0px;
-            margin-bottom: 0px;
-            min-height: 200px;
-        }
+        padding: 0 var(--unit-gutter);
 
-        .meta {
-            &:nth-child(2n) {
-                padding-right: 0px;
-            }
-            &:nth-child(3n) {
-                padding-right: 0px;
-            }
+        .block {
+            width: 100%;
+            margin: 0 0 50px;
         }
     }
 }
