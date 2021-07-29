@@ -19,16 +19,16 @@
             :label="buttonText"
             class="button"
         />
-        <svg-molecule-half-faceted class="molecule" />
+        <svg-molecule-two-facets class="molecule" />
     </div>
 </template>
 
 <script>
-import SvgMoleculeHalfFaceted from "~/assets/svg/molecule-half-faceted"
+import SvgMoleculeTwoFacets from "~/assets/svg/molecule-two-facets"
 
 export default {
     components: {
-        SvgMoleculeHalfFaceted,
+        SvgMoleculeTwoFacets,
         SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
     },
     props: {
@@ -107,11 +107,8 @@ export default {
         margin: auto;
         position: absolute;
         z-index: 20;
-        opacity: 45%;
         mix-blend-mode: screen;
-        stroke: black;
 
-        height: 70%;
         width: auto;
     }
 }
