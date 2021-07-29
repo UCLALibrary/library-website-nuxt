@@ -483,11 +483,12 @@ If Hero Image exists, use BannerFeatured component else SimpleBanner
 # Get Help with, All Services and Resources Listing page (General Template)
 https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A38064
 
--   [ ] BlockCardHorizontal // This has the same props as to BlockCardVertical
+-   [ ] BlockCard // Rename BlockCardVertical to this and add additional props
     -   iconName: String
     -   title
     -   text
-    -   to
+    -   to // Compute if the url is external, thenshow link out icon
+    -  Add isExternal utility
 
 -   [ ] LoadMore
     -   svg plus icon
