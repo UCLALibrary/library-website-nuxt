@@ -1,5 +1,7 @@
 <template lang="html">
     <div class="block-staff-detail">
+        <!-- TODO Split this into HeadingStaff and SectionStaffBio -->
+
         <!-- HEADING -->
         <div class="meta-heading">
             <div class="heading">
@@ -23,7 +25,7 @@
                         <li
                             v-for="department in departments"
                             :key="department.id"
-                            class="department" 
+                            class="department"
                             v-html="department.title"
                         />
                     </ul>
@@ -453,6 +455,6 @@ export default {
                 }
             }
         }
-    
+
 }
 </style>

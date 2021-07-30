@@ -68,6 +68,9 @@ export default {
 
         colorClasses() {
             let output = ["container"]
+
+            // TODO I don't think you need all these clases. Just have theme-dark OR theme-light
+
             if (this.isDarkBlue) {
                 output = [
                     "container",
@@ -84,6 +87,8 @@ export default {
         sizeClasses() {
             let output = ["block-call-to-action"]
             if (this.isSmallSize) {
+                // TODO Probably only need one class for all of this, size-small OR size-large
+
                 output = [
                     "block-call-to-action",
                     "block-width-small",
@@ -179,6 +184,22 @@ export default {
             --color-theme-svg-lines: var(--color-white);
         }
     }
+
+    // NOTE Drew's quick code of what this could be
+    // &.size-small {
+    //     padding: 0 30px;
+    //     max-width: 400px;
+    // }
+    // &.theme-dark {
+    //     background-color: red;
+    //
+    //     .svg {
+    //         stroke: green;
+    //     }
+    //     .color: {
+    //         stroke: yellow;
+    //     }
+    // }
 
     .svg {
         margin-bottom: 35px;

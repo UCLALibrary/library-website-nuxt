@@ -130,13 +130,13 @@ export default {
         },
         image: {
             type: Object,
-            default: () => {},
+            default: () => ({}),
         },
     },
     computed: {
         bookingLink() {
             // TODO Make this a prop, and do the $store from the page
-            return this.$store.state.globals.appointmentsLink
+            return this.$store.state.globals.appointmentsLink || {}
         },
     },
 }
@@ -144,20 +144,20 @@ export default {
 
 <style lang="scss" scoped>
 .block-staff-list {
-    width: 959px;
-    max-height: 396px;
+    // TODO Stop using max-height. You don't know how tall anything will be ever
+
     background-color: var(--color-white);
     border: 2px solid var(--color-primary-lightest-blue);
     border-radius: var(--rounded-slightly-all);
     box-sizing: border-box;
     padding: 48px 32px 48px 64px;
 
+    // TODO Make this vert cetnering too
     display: flex;
     flex-direction: row;
 
     .image {
-        width: 300px;
-        max-height: 300px;
+        width: 33%;
         margin-right: 56px;
 
         display: flex;

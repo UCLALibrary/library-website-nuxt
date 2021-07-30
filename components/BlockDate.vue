@@ -17,6 +17,8 @@ export default {
     components: {
         SvgArrowDown,
     },
+    // TODO See ticket in internal system for notes on this. TLDR: Use JS date objects
+    // Then have date-fns format function as computed to show date and day
     props: {
         date: {
             type: String,

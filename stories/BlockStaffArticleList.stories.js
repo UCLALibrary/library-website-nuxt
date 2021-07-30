@@ -11,8 +11,8 @@ const mock = {
     to: "/visit/foo/bar/",
     category: "Ullamco",
     title: "Fames ac turpis egestas sed tempus lorem ipsum",
-    date: "Ocavia 14, 2021",
-    authors: ["Justo Magna"],
+    date: "1995-12-17T03:24:00",
+    authors: [{ title: "Justo Magna", id: 123 }],
     description:
         "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Egestas integer eget aliquet nibh praesent tristique. Quis imperdiet massa tincidunt nunc pulvinar sapien. Quis imperdiet massa tincidunt nunc pulvinar sapien.",
 }
