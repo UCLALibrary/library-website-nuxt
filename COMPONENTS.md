@@ -243,6 +243,53 @@ data() {
     -   nextTo
     -   previousTo
 
+## Drew's versions of Exhibits & Upcoming Events list page
+
+-   SectionHighlights
+
+    -   items: [{...BlockHighlight},{...BlockHighlight}]
+
+-   BlockHighlight
+
+    -   title
+    -   image
+    -   date
+    -   isOnline
+    -   hasTriangle (used to turn on clippy path detail)
+    -   text
+    -   to
+    -   isVertical: (false will show the side-by-side style )
+
+-   HeaderChildCalendar
+
+    -   date (should be a datestamp)
+
+-   BlockDay (already done, but update as per my TODO)
+
+    -   date
+
+-   BlockEvent
+
+    -   category (string)
+    -   title
+    -   dates: [] (should be array of datestamps)
+    -   time
+
+-   SectionDay
+
+    -   items: [{...BlockEvent}, {...}]
+
+-   HeaderChildDateRanges
+    -   items: [{startDate, endDate, name}, {...}]
+
+- Flexible Page Blocks 
+    -   Feature Promo
+        -   Will this just call BannerFeatured Component?
+    -   Card with Image (2-up)
+        -   will this call the SectionTeaserHighlight?
+    -   CTA Block, content width
+        -   This flexible page block calls CallToAction Component to display calltoaction as full width.
+
 ## Exhibits Detail Long Form Page
 
 -   [ ] update BannerFeatured (path=/story/banner-featured--default)
@@ -250,14 +297,28 @@ data() {
     -   hasButton (set this to false)
     -   add new stories
 
--   [ ] BlockDetail
+-   [ ] BlockDetail  // This is not required
 
     -   title
     -   text (It might have p tag, figure with img and caption, blockquote with span for author)
     -   footNotes (is optional and Array of Strings)
     -   DividerGeneral component if the footNotes exists.
 
--   [ ] SectionGallery
+-   Flexible Page Blocks
+    -   RickText
+    -   RichTextWithMedia
+    -   PullQuote
+    -   MediaGallery
+        -  Can be closed gallery with full width or half width, is the width added in craft or should be determined on the page level, or just a open gallery with section heading like sample manuscript pages on the mid length page.
+    -   VideoContentWidth
+        One Video full width, with play button on the side?
+        On the mid length page there is manuscript with one video after the richtext which has the play button in the middle is this a flexible page block or regular component
+    -   ImageContentWidth
+    -   AudioContentWidth
+    -   CTABlockcontentwidth
+    -   etc
+
+-   [ ] SectionGallery // This may not be requierd as we will build the media gallery flexible page block component. Check with UX
 
     it needs all these icons (+/-, play icon for video, solid-molecule-image, solid-molecule-video, )
 
@@ -327,15 +388,15 @@ We can look at those designs and focus on making component request issues for th
 
 # Staff Directory Listing Page
 
--   BlockStaffMeta
--   BlockStaffList
--   SectionStaffList
+-  [x] BlockStaffMeta
+-  [x] BlockStaffList
+-  [x] SectionStaffList
 
 # Staff Directory Detail
 
--   BlockStaffProfile
+-  [x] BlockStaffProfile
 
-# Gallery variants
+# Gallery variants these are used on Exhibit or Events Detail Pages
 
 -   GalleryPreview
 -   BlockGallery
@@ -356,6 +417,172 @@ Parent component is <sticky-header>.
 Child-headers are:
 
 -   HeaderChildBreadcrumbs (can have social share links)
+    -   Where does the breadcrumb data come from?
 -   HeaderChildSearch (can have breadcrumb too)
 -   HeaderChildMenu (can have a button too)
 -   HeaderChildDates
+
+# Event Series Detail Page
+
+This uses the BannerFeatured component
+
+-   Flexible Page Blocks
+    -   [ ] Rich text
+    -   [ ] Rich text with media
+    -   [ ] Media Gallery // Selected Trailers
+    -   [ ] Divider
+    -   [ ] Pull quote
+    -   [ ] Image - Content Width, // Individual event in this series with clipped box on the left which has the event date.
+    -   etc
+
+    Questions
+    1. which of the flexible page blocks will give the data for More upcoming events and events in this series, or are these flexible page blocks?
+
+- BlockEventCard
+    -   event type
+    -   title
+    -   image
+    -   Date
+    -   Time
+
+-   [ ] SectionEventsGrid // More upcoming events Section
+    https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=1101%3A46937
+    - items[{...BlockEventCard},{...BlockEventCard}]
+    
+-   [ ] SectionEventsList // Events in this series Section
+    https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=1101%3A45265
+    - items[{...BlockEventCard},{...BlockEventCard}]
+
+-  [ ] ViewMore 
+    - plus icon svg 
+    - ?
+
+# Event Detail Page
+
+If Hero Image exists, use BannerFeatured component else SimpleBanner
+-   [ ]  SimpleBanner
+    -   Title
+    -   Date
+    -   Start Time
+    -   Event type
+    -   End Time, 
+    -   Address,
+    -   Button/URL, 
+    -   Associated Location(s),
+    -   svg half molecule
+
+-   [ ]  SectionEventsHighlght // Related Events or Event Series// Shown on Exhibit Detail short form Page and Event Detailed page
+    https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=1001%3A46025
+    - items[{...BlockEventCard},{...BlockEventCard}]
+
+-   Flexible Page Blocks
+    -   Rich Text
+    -   Rich Text with Media
+    -   etc
+
+# Get Help with, All Services and Resources Listing page (General Template)
+https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A38064
+
+-   [ ] BlockCard // Rename BlockCardVertical to this and add additional props
+    -   iconName: String
+    -   title
+    -   text
+    -   to // Compute if the url is external, thenshow link out icon
+    -  Add isExternal utility
+
+-   [ ] LoadMore
+    -   svg plus icon
+    -   lazy loading url or will it emit event?
+
+-   [ ] CTABlockcontentwidth // This is the FlexiblePageBlock
+
+# About us (Landing Page) / Support Us (Landing Page)
+https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A29498
+
+-  [ ] LandingBanner
+    -   Title
+    -   Description
+    -   full cirlce molecule
+    -   HeadingArrow component
+
+
+
+-   [ ] ImapactNumbersCarousel // this is a Flexible Page Block
+    https://airtable.com/tblbfuBMzyHtLCYKY/viwqexZxA0x4tVEt9?blocks=show
+
+    -   heading
+    -   items []
+
+-   [ ] SimpleCardGrid // This is a Flexible Page Block
+    https://airtable.com/tblFpvWgv6MuMbClH/viwDcIDo9xJKefFzR/recWJ9YUJkBFXq6PV/fldSewQYeFhJd0ejr/attpkhJCdD9hRpDZN?blocks=show
+
+    This a 3 X 3 grid on about us page and 2 by 3 grid on Support us?
+
+    -   heading
+    -   items [{...SimpleCard},{...SimpleCard}...]
+    
+-   [ ] SimpleCard
+    -   title
+    -   short description
+    -   Svg small right arrow
+
+-   [x] ButtonMore 
+
+-   [ ] ImageWithTextOverlay// This is a Flexible Page Block
+    Use to display an image side by side with text, and an optional button/link to another page
+    https://airtable.com/tblbfuBMzyHtLCYKY/viwqexZxA0x4tVEt9?blocks=show
+
+-   [ ] SectionImageWithTextOverlay
+    -   items [{...ImageWithTextOverlay},{...ImageWithTextOverlay},...]
+
+# Endowment General Page
+https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A29404
+
+-   [x] BannerFeatured
+-   FlexiblePageBlocks
+
+# Get Help With -- Detail Page // Is this page used for workshop/resource/services help topics?
+https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A31680
+
+This will use BannerFeatured component if it has hero image, if not use TextBanner
+-   [ ] TextBanner
+    -   category
+    -   title
+    -   text
+    -   button text
+    -   button url //example reserve url for a Resource https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A31862
+
+-   [ ] SectionEventsList // This is also used on Event Series Detail Page
+    -   items []
+    -   heading
+    -   short description
+
+-   Flexible Page Blocks
+
+-   [x] SectionCard // This is used on home page, on this page it is the associated topics
+
+-   [ ] DownloadCallOut // This is Flexible Page Block
+    https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A32027
+    https://airtable.com/tblFpvWgv6MuMbClH/viwDcIDo9xJKefFzR/recdCXeJuctGMw2a3/fldSewQYeFhJd0ejr/attHoiJWFElFmSwUb?blocks=show
+    -   title
+    -   text
+    -   button text
+    -   button url
+    -   Image
+
+-  [ ] BlockMedia // Is this a Flexible Page block used by Media Thumbnail
+    https://airtable.com/tblFpvWgv6MuMbClH/viwDcIDo9xJKefFzR/recfdHVVRtfO6JqKH/fldSewQYeFhJd0ejr/att1F5YXvg9OFqLxn?blocks=show
+    https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A32027
+
+    -   title
+    -   description
+    -   button label
+    -   button url
+    -   Image
+    -   what does the play button on the image do?
+
+-   [ ] SectionBlockMedia
+    - items [{...BlockMedia},{}]
+
+-   [ ] CTABlockcontentwidth // This is the FlexiblePageBlock
+    https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A32202
