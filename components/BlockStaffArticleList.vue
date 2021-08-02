@@ -83,24 +83,24 @@ export default {
 
 <style lang="scss" scoped>
 .block-staff-article-list {
-    max-width: 990px;
-    max-height: 300px;
-    background-color: var(--color-secondary-grey-01);
+    padding: 0 10px;
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 
     .image {
-        width: 456px;
-        max-height: 274px;
+        width: 50%;
         margin-right: 56px;
     }
     .meta {
-        width: 490px;
-        margin-top: 5px;
-        margin-bottom: 16px;
-        padding-right: 10px;
+        width: calc(50% - 56px);
         overflow: hidden;
+        padding: 10px 0;
     }
     .category {
         font-size: 16px;
@@ -117,10 +117,11 @@ export default {
         color: var(--color-primary-blue);
         font-weight: 500;
         margin-bottom: 5px;
+        overflow: hidden;
+
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
-        overflow: hidden;
     }
 
     .byline {
@@ -167,7 +168,6 @@ export default {
 // Breakpoints
 @media #{$lte-tablet} {
     .block-staff-article-list {
-        max-width: 95%;
         padding-left: 5px;
         padding-right: 5px;
     }
@@ -179,16 +179,15 @@ export default {
         flex-direction: column;
         flex-wrap: nowrap;
 
-        max-height: 650px;
-        max-width: 100%;
         padding-left: 5px;
         padding-right: 5px;
 
         .image {
-            max-width: 100%;
+            width: 100%;
+            margin-right: 0;
         }
         .meta {
-            max-width: 100%;
+            width: 100%;
         }
     }
 }

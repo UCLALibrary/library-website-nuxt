@@ -1,4 +1,5 @@
 <template lang="html">
+    <!-- TODO write story for this -->
     <transition
         name="slide-toggle"
         mode="out-in"

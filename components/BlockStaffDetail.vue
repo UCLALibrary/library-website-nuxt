@@ -1,5 +1,7 @@
 <template lang="html">
     <div class="block-staff-detail">
+        <!-- TODO Split this into HeadingStaff and SectionStaffBio -->
+
         <!-- HEADING -->
         <div class="meta-heading">
             <div class="heading">
