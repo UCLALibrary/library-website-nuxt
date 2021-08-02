@@ -118,7 +118,6 @@
             </div>
         </div>
     </div>
-    </div>
 </template>
 
 <script>
@@ -180,10 +179,10 @@ export default {
         },
     },
     computed: {
-        getBookingLink(){
+        getBookingLink() {
             return this.$config.libcalAppointment
-        }
-    }
+        },
+    },
 }
 </script>
 
@@ -225,7 +224,7 @@ export default {
             margin-left: 115px;
             margin-top: 15px;
             font-size: 20px;
-            background-color:cyan;
+            background-color: cyan;
 
             display: flex;
             flex-direction: row;
@@ -276,11 +275,6 @@ export default {
                     //margin-bottom: 30px;
                 }
             }
-            // .location-link + .location-link {
-            //     border-left: solid 1px var(--color-secondary-grey-02);
-            //     margin-left: 10px;
-            //     padding-left: 10px;
-            // }
         }
     }
 
@@ -400,61 +394,59 @@ export default {
     }
 
     @media #{$lte-phone} {
-            display: flex;
-            flex-direction: column;
+        display: flex;
+        flex-direction: column;
 
-            width: 400px;
-            max-height: unset;
-            max-width: 100%;
-            padding-right: 5px;
+        width: 400px;
+        max-height: unset;
+        max-width: 100%;
+        padding-right: 5px;
 
-            .meta-heading {
-                .dept-location {
-                    margin-left: 15px;
+        .meta-heading {
+            .dept-location {
+                margin-left: 15px;
 
-                    display: flex;
-                    flex-direction: column;
-                    .department {
+                display: flex;
+                flex-direction: column;
+                .department {
                     padding-right: 0px;
-                    }
                 }
-                .location-group {
-                    display: flex;
-                    flex-direction: column;
+            }
+            .location-group {
+                display: flex;
+                flex-direction: column;
 
-                    .location-link {
+                .location-link {
                     display: flex;
                     flex-direction: row;
                     flex-wrap: nowrap;
                     justify-content: flex-start;
                     align-content: center;
                     align-items: center;
-                    }
-                    .svg {
-                        padding-left: 14px;
+                }
+                .svg {
+                    padding-left: 14px;
                     //padding-bottom: -30px;
-                    }
-                }
-            }
-
-
-            .meta {
-                margin-left: 15px;
-
-                .body-contact {
-                    .image {
-                        margin-top: 45px;
-                    }
-                }
-
-                display: flex;
-                flex-direction: column;
-                .body-bio {
-                    margin-top: 43px;
-                    margin-left: 10px;
                 }
             }
         }
 
+        .meta {
+            margin-left: 15px;
+
+            .body-contact {
+                .image {
+                    margin-top: 45px;
+                }
+            }
+
+            display: flex;
+            flex-direction: column;
+            .body-bio {
+                margin-top: 43px;
+                margin-left: 10px;
+            }
+        }
+    }
 }
 </style>

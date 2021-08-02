@@ -1,24 +1,22 @@
 <template lang="html">
     <section class="section-teaser-highlight">
         <!-- TODO I don't think you need this div -->
-        <div class="section">
-            <div
-                v-for="item in items"
-                :key="item.to"
-                class="meta"
-            >
-                <block-teaser-highlight
-                    :to="item.to"
-                    :image="item.image"
-                    :category="item.category"
-                    :title="item.title"
-                    :date="item.date"
-                    :time="item.time"
-                    :text="item.text"
-                    class="block"
-                />
-            </div>
-        </div>
+
+        <block-highlight
+            v-for="item in items"
+            :key="item.to"
+            :to="item.to"
+            :image="item.image"
+            :category="item.category"
+            :title="item.title"
+            :dates="item.date"
+            :times="item.time"
+            :text="item.text"
+            :has-triangle="true"
+            :is-vertical="true"
+            :is-online="true"
+            class="block"
+        />
     </section>
 </template>
 
@@ -38,64 +36,29 @@ export default {
 
 <style lang="scss" scoped>
 .section-teaser-highlight {
-    max-width: 990px;
-    padding: 0 var(--unit-gutter);
+    padding: 0 calc(var(--unit-gutter) - 16px);
     background-color: var(--color-white);
+    margin: 0 auto;
 
-    .section {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-content: center;
-        align-items: flex-start;
-    }
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
 
-    .divider {
-        box-sizing: border-box;
-        width: 100%;
-        margin-bottom: 83px;
-    }
-
-    .meta {
-        &:nth-child(2n) {
-            padding-right: 18px;
-        }
-        &:nth-child(3n) {
-            padding-right: 0px;
-        }
+    .block {
+        width: calc(50% - 16px);
+        margin: 0 8px 50px 8px;
     }
 
     // Breakpoints
-    @media #{$lte-tablet} {
-        .block {
-            margin-top: 0px;
-            margin-bottom: 0px;
-            min-height: 200px;
-        }
-    }
     @media #{$lte-phone} {
-        .section {
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-content: center;
-            align-items: flex-start;
-        }
-        .block {
-            margin-top: 0px;
-            margin-bottom: 0px;
-            min-height: 200px;
-        }
+        padding: 0 var(--unit-gutter);
 
-        .meta {
-            &:nth-child(2n) {
-                padding-right: 0px;
-            }
-            &:nth-child(3n) {
-                padding-right: 0px;
-            }
+        .block {
+            width: 100%;
+            margin: 0 0 50px;
         }
     }
 }

@@ -5,13 +5,14 @@
             :key="item.to"
             class="meta"
         >
-            <block-teaser-list
+            <divider-general class="divider" />
+            <block-highlight
                 :image="item.image"
                 :to="item.to"
                 :category="item.category"
                 :title="item.title"
-                :date="item.date"
-                :time="item.time"
+                :dates="item.date"
+                :times="item.time"
                 :text="item.text"
                 class="block"
             />

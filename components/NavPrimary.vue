@@ -42,6 +42,12 @@
             class="background-blue"
             @click="toggleMenu"
         />
+
+        <div
+            v-if="isOpened"
+            class="click-blocker"
+            @click="toggleMenu"
+        />
     </nav>
 </template>
 
@@ -74,7 +80,11 @@ export default {
     },
     computed: {
         classes() {
-            return ["nav-primary", { "is-opened": this.isOpened }]
+            return [
+                "nav-primary",
+                { "is-opened": this.isOpened },
+                { "not-hovered": this.activeMenuIndex == -1 },
+            ]
         },
         supportLinks() {
             // Generally this is just the last "Support Us" link, but we are going to allwo it to be more than 1
@@ -212,6 +222,14 @@ export default {
         border-bottom: 1px solid var(--color-secondary-grey-02);
         z-index: 0;
     }
+    .click-blocker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -10;
+    }
 
     // States
     &.is-opened {
@@ -221,6 +239,11 @@ export default {
     }
 
     // Hovers
+    &.not-hovered {
+        /deep/ .nav-menu-item .sub-menu {
+            opacity: 1;
+        }
+    }
     // @media #{$has-hover} {
     //     .menu:hover .submenu {
     //         background-color: var(--color-primary-blue);

@@ -10,13 +10,15 @@
                     :key="card.to"
                     class="card"
                 >
-                    <block-teaser-card
+                    <block-highlight
                         :image="card.image"
                         :to="card.to"
                         :category="card.category"
                         :title="card.title"
-                        :date="card.date"
-                        :time="card.time"
+                        :dates="card.date"
+                        :times="card.time"
+                        :is-vertical="true"
+                        :is-online="true"
                     />
                 </div>
             </div>
@@ -79,9 +81,9 @@ export default {
     }
 
     .card {
-        padding-right: 16px;
+        margin-right: 16px;
         &:nth-child(3n) {
-            padding-right: 0px;
+            margin-right: 0px;
         }
     }
 
