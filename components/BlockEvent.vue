@@ -145,11 +145,11 @@ export default {
         }
 
         &.color-help {
-            --color-theme: var(--color-help);
+            --color-theme: var(--color-help-green-base);
         }
 
         &.color-about {
-            --color-theme: var(--color-about);
+            --color-theme: var(--color-about-purple-base);
         }
     }
 

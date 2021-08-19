@@ -40,11 +40,11 @@ export const MultipleAuthors = () => ({
         return {
             ...mock,
             authors: [
-                "Justo Magna",
-                "Luctus Suscipit",
-                "Morbi lacinia",
-                "Vestibulum Tincidunt",
-                "Ut Ultrices Malesuada Enim",
+                {title: "Justo Magna", id: "article-1"},
+                {title: "Luctus Suscipit", id: "article-2"},
+                {title: "Morbi lacinia", id: "article-3"},
+                {title: "Vestibulum Tincidunt", id: "article-4"},
+                {title: "Ut Ultrices Malesuada Enim", id: "article-5"},
             ],
         }
     },
@@ -63,7 +63,7 @@ export const MultipleAuthors = () => ({
 
 export const LongTitle = () => ({
     data() {
-        return { ...mock, authors: ["Justo Magna", "Luctus Suscipit"] }
+        return { ...mock, authors: [{id: "article-1", title: "Justo Magna"}, {id: "article-2", title: "Luctus Suscipit"}] }
     },
     template: `
       <block-staff-article-list
@@ -80,7 +80,7 @@ export const LongTitle = () => ({
 
 export const LongDescription = () => ({
     data() {
-        return { ...mock, authors: ["Justo Magna", "Luctus Suscipit"] }
+        return { ...mock, authors: [{title: "Justo Magna", id: "article1", slug: "/staff/Justo-Magna"}, {title: "Luctus Suscipit", id: "article2", slug: "/staff/Luctus-Suscipit"}] }
     },
     template: `
       <block-staff-article-list

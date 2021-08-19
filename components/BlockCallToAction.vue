@@ -109,6 +109,7 @@ export default {
     max-height: var(--block-height);
     margin-left: auto;
     margin-right: auto;
+    background-color: var(--color-white);
 
     // Sizes
     --block-width: 1046px;
