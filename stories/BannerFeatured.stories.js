@@ -226,9 +226,9 @@ export const NoButton = () => ({
            :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
-           align-right="false"
+           :align-right="false"
            times="1:00pm"
-           has-button=false
+           :has-button="false"
        />
     `,
 })
