@@ -191,6 +191,7 @@ export const WideImageLeftAligned = () => ({
     data() {
         return {
             ...mock,
+            alignRight: false,
         }
     },
     template: `
@@ -204,7 +205,7 @@ export const WideImageLeftAligned = () => ({
            :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
-           align-right=false
+           :align-right="alignRight"
            :has-button="hasButton"
            times="1:00pm"
        />
