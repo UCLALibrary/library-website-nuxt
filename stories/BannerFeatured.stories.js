@@ -43,6 +43,7 @@ export const LeftAligned = () => ({
     data() {
         return {
             ...mock,
+            alignRight: false,
         }
     },
     template: `
@@ -55,7 +56,7 @@ export const LeftAligned = () => ({
            :dates="dates"
            :is-online="isOnline"
            :prompt="prompt"
-           align-right=false
+           :align-right="alignRight"
            :has-button="hasButton"
        />
     `,
@@ -65,6 +66,7 @@ export const NotOnline = () => ({
     data() {
         return {
             ...mock,
+            isOnline: false,
         }
     },
     template: `
@@ -75,9 +77,9 @@ export const NotOnline = () => ({
            :category="category"
            :breadcrumb="breadcrumb"
            :dates="dates"
-           is-online=false
+           :is-online="isOnline"
            :prompt="prompt"
-           align-right=false
+           :align-right="alignRight"
            :has-button="hasButton"
         />
     `,
