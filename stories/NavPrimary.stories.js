@@ -18,7 +18,7 @@ const items = [
         name: "About",
         url: "/about/",
     },
-    { ...API.primaryNavlinks[1] },
+    { ...API.primaryNavlinks[3] },
 ]
 
 // TODO Write seperate story for NavMenuItem

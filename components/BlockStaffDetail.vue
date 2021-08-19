@@ -224,7 +224,7 @@ export default {
             margin-left: 115px;
             margin-top: 15px;
             font-size: 20px;
-            background-color: cyan;
+            // background-color: cyan;
 
             display: flex;
             flex-direction: row;

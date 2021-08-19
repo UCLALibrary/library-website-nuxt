@@ -60,7 +60,6 @@ export default {
     justify-content: center;
     box-sizing: border-box;
 
-    width: 133px;
     height: 50px;
     background-color: var(--color-white);
     border: 1.5px solid var(--color-primary-light-blue);

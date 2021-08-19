@@ -119,70 +119,71 @@
         {
             "name": "Get Help With...",
             "url": "/help/",
-            "items": [
+            "children": [
                 {
-                    "text": "Lorem ipsum",
+                    "name": "Lorem ipsum",
                     "to": "/help/uri/1",
-                    "target": "_self"
+                    "target": ""
                 },
                 {
-                    "text": "Mauris finibus",
+                    "name": "Mauris finibus",
                     "to": "/help/uri/2",
-                    "target": "_self"
+                    "target": ""
                 },
                 {
-                    "text": "Curabitur ac odio vulputate",
+                    "name": "Curabitur ac odio vulputate",
                     "to": "https://catalog.library.ucla.edu/",
-                    "target": "_blank"
+                    "target": "1"
                 }
             ]
         },
         {
             "name": "Visit",
             "url": "/visit/",
-            "items": [
+            "children": [
                 {
-                    "text": "Lorem ipsum",
-                    "to": "/visit/uri/1",
-                    "target": "_self"
+                    "name": "Lorem ipsum",
+                    "to": "/visit/ur_self",
+                    "target": ""
                 },
                 {
-                    "text": "Mauris finibus",
+                    "name": "Mauris finibus",
                     "to": "/visit/uri/2",
-                    "target": "_self"
+                    "target": ""
                 },
                 {
-                    "text": "Curabitur ac odio vulputate",
+                    "name": "Curabitur ac odio vulputate",
                     "to": "https://catalog.library.ucla.edu/",
-                    "target": "_blank"
+                    "target": "1"
                 }
             ]
         },
         {
             "name": "About",
             "url": "/about/",
-            "items": [
+            "children": [
                 {
-                    "text": "Lorem ipsum",
+                    "name": "Lorem ipsum",
                     "to": "/about/uri/1",
-                    "target": "_self"
+                    "target": ""
                 },
                 {
-                    "text": "Mauris finibus",
+                    "name": "Mauris finibus",
                     "to": "/about/uri/2",
-                    "target": "_self"
+                    "target": ""
                 },
                 {
-                    "text": "Curabitur ac odio vulputate",
+                    "name": "Curabitur ac odio vulputate",
                     "to": "https://catalog.library.ucla.edu/",
-                    "target": "_blank"
+                    "target": "1"
                 }
             ]
         },
         {
             "name": "Support Us",
-            "url": "http://www.google.com",
-            "items": []
+            "to": "http://www.google.com",
+            "target": "1",
+            "children": []
         }
     ],
     "alert": {
