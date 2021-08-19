@@ -43,7 +43,6 @@ export const LeftAligned = () => ({
     data() {
         return {
             ...mock,
-            alignRight: false,
         }
     },
     template: `
@@ -56,7 +55,7 @@ export const LeftAligned = () => ({
            :dates="dates"
            :is-online="isOnline"
            :prompt="prompt"
-           :align-right="alignRight"
+           :align-right="false"
            :has-button="hasButton"
        />
     `,
@@ -66,7 +65,6 @@ export const NotOnline = () => ({
     data() {
         return {
             ...mock,
-            isOnline: false,
         }
     },
     template: `
@@ -77,7 +75,7 @@ export const NotOnline = () => ({
            :category="category"
            :breadcrumb="breadcrumb"
            :dates="dates"
-           :is-online="isOnline"
+           :is-online="false"
            :prompt="prompt"
            :align-right="alignRight"
            :has-button="hasButton"
@@ -191,7 +189,6 @@ export const WideImageLeftAligned = () => ({
     data() {
         return {
             ...mock,
-            alignRight: false,
         }
     },
     template: `
@@ -205,7 +202,7 @@ export const WideImageLeftAligned = () => ({
            :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
-           :align-right="alignRight"
+           :align-right="false"
            :has-button="hasButton"
            times="1:00pm"
        />
