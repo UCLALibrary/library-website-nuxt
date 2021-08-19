@@ -55,7 +55,7 @@ export const LeftAligned = () => ({
            :dates="dates"
            :is-online="isOnline"
            :prompt="prompt"
-           align-right=false
+           :align-right="false"
            :has-button="hasButton"
        />
     `,
@@ -75,9 +75,9 @@ export const NotOnline = () => ({
            :category="category"
            :breadcrumb="breadcrumb"
            :dates="dates"
-           is-online=false
+           :is-online="false"
            :prompt="prompt"
-           align-right=false
+           :align-right="alignRight"
            :has-button="hasButton"
         />
     `,
@@ -202,7 +202,7 @@ export const WideImageLeftAligned = () => ({
            :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
-           align-right=false
+           :align-right="false"
            :has-button="hasButton"
            times="1:00pm"
        />
@@ -226,9 +226,9 @@ export const NoButton = () => ({
            :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
-           align-right="false"
+           :align-right="false"
            times="1:00pm"
-           has-button=false
+           :has-button="false"
        />
     `,
 })
