@@ -6,7 +6,8 @@ query StaffDetail($slug: [String]!) {
       email
       phone: phoneNumber
       jobTitle: staffMemberJobTitle
-      staffName: staffMemberName
+      nameFirst
+      nameLast
       to: slug
       topics: askMeAbout {
         title
@@ -32,9 +33,16 @@ query StaffDetail($slug: [String]!) {
       id
       title
       to: slug
-      image: heroImage {
-        ...Image
+      heroImage {
+        ... on heroImage_heroImage_BlockType {
+          id
+          image {
+            ...Image
+          }
+          altText
+        }
       }
+      
       authors: staffMember {
         id
         slug

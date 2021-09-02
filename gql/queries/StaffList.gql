@@ -5,7 +5,8 @@ query StaffList {
       email
       phone: phoneNumber
       jobTitle: staffMemberJobTitle
-      staffName: staffMemberName
+      nameFirst
+      nameLast
       to: slug
       departments: department {
         id

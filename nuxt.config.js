@@ -30,7 +30,8 @@ export default {
      */
     plugins: [
         { src: "~/plugins/web-font-loader.client.js", mode: "client" },
-        { src: "~/plugins/browser-events.client.js", mode: "client" },
+        { src: "~/plugins/browser-events.client.js", mode: "client" }, 
+        { src: "~/plugins/preview.client.js", mode: "client" },
     ],
 
     /*
