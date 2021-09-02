@@ -62,6 +62,7 @@ export default {
                     ...obj,
                     to: `/news/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
+                    staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
         },
