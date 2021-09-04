@@ -60,6 +60,15 @@
                 <divider-general class="divider" />
 
                 <div class="contact-info">
+                    <svg-icon-email
+                        v-if="pronouns"
+                        class="svg"
+                    />
+                    <div
+                        v-if="pronouns"
+                        class="pronouns"
+                        :pronouns="pronouns"
+                    />
                     <svg-icon-email class="svg" />
                     <smart-link
                         :to="`mailto:${email}`"
@@ -163,6 +172,10 @@ export default {
             default: "",
         },
         phone: {
+            type: String,
+            default: "",
+        },
+        pronouns: {
             type: String,
             default: "",
         },
