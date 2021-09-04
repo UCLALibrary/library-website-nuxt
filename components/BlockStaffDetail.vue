@@ -56,7 +56,7 @@
                     :aspect-ratio="100"
                     class="image"
                 />
-
+                <!-- TODO fix divider to go all the way acroos meta div -->
                 <divider-general class="divider" />
 
                 <div class="contact-info">
@@ -106,7 +106,10 @@
                     </ul>
                 </div>
 
-                <divider-general class="divider" />
+                <divider-general
+                    v-if="biography"
+                    class="divider"
+                />
 
                 <div v-if="biography">
                     <h2 class="bio-header">
@@ -359,12 +362,10 @@ export default {
 
     // Hover states
     @media #{$has-hover} {
-        &:hover {
-            .location-link {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue);
-                text-decoration-thickness: 1.5px;
-            }
+        .location-link:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue);
+            text-decoration-thickness: 1.5px;
         }
     }
 
