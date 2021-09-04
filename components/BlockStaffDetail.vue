@@ -6,12 +6,11 @@
         <div class="meta-heading">
             <div class="heading">
                 <svg-heading-arrow class="arrow-svg" />
-                <nuxt-link
-                    :to="to"
+
+                <h3
                     class="staffName"
-                >
-                    <h3 v-html="staffName" />
-                </nuxt-link>
+                    v-html="staffName"
+                />
             </div>
 
             <div class="dept-location">
@@ -361,11 +360,6 @@ export default {
     // Hover states
     @media #{$has-hover} {
         &:hover {
-            .staffName {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue);
-                text-decoration-thickness: 2px;
-            }
             .location-link {
                 text-decoration: underline;
                 text-decoration-color: var(--color-primary-blue);
