@@ -110,7 +110,7 @@
                         <li
                             v-for="topic in topics"
                             :key="topic.id"
-                            v-html="topic"
+                            v-html="topic.title"
                         />
                     </ul>
                 </div>
