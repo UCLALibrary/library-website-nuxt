@@ -47,7 +47,6 @@ export default {
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
         })
-        console.log(data)
 
         return {
             page: data,

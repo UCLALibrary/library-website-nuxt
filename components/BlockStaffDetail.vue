@@ -67,7 +67,7 @@
                     <div
                         v-if="pronouns"
                         class="pronouns"
-                        :pronouns="pronouns"
+                        :pronouns="parsedPronouns"
                     />
                     <svg-icon-email class="svg" />
                     <smart-link
@@ -110,7 +110,7 @@
                         <li
                             v-for="topic in topics"
                             :key="topic.id"
-                            v-html="topic.title"
+                            v-html="topic"
                         />
                     </ul>
                 </div>
@@ -196,6 +196,9 @@ export default {
     computed: {
         getBookingLink() {
             return this.$config.libcalAppointment
+        },
+        parsedPronouns() {
+            return `pronouns:${this.pronouns}`
         },
     },
 }
