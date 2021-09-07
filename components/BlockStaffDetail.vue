@@ -102,6 +102,7 @@
 
             <div class="body-bio">
                 <div v-if="topics.length">
+                    <!-- TODO new comps call this Subject Speciality areas-just for librarians? -->
                     <h2 class="bio-header">
                         Ask me About
                     </h2>
