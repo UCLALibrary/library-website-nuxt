@@ -56,7 +56,7 @@
                     :aspect-ratio="100"
                     class="image"
                 />
-                <!-- TODO fix divider to go all the way acroos meta div -->
+                <!-- TODO fix divider to go all the way across  heading if there is no picture -->
                 <divider-general class="divider" />
 
                 <div class="contact-info">
