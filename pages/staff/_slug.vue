@@ -6,6 +6,7 @@
         <block-staff-detail
             :image="parsedImage"
             :staff-name="parsedStaffName"
+            :pronouns="page.entry.pronouns"
             :job-title="page.entry.jobTitle"
             :locations="page.entry.locations"
             :email="page.entry.email"

@@ -58,17 +58,12 @@
                 />
                 <!-- TODO fix divider to go all the way across  heading if there is no picture -->
                 <divider-general class="divider" />
-
+                <div
+                    v-if="pronouns"
+                    class="pronouns"
+                    v-html="parsedPronouns"
+                />
                 <div class="contact-info">
-                    <svg-icon-email
-                        v-if="pronouns"
-                        class="svg"
-                    />
-                    <div
-                        v-if="pronouns"
-                        class="pronouns"
-                        :pronouns="parsedPronouns"
-                    />
                     <svg-icon-email class="svg" />
                     <smart-link
                         :to="`mailto:${email}`"
@@ -199,7 +194,7 @@ export default {
             return this.$config.libcalAppointment
         },
         parsedPronouns() {
-            return `pronouns:${this.pronouns}`
+            return `Pronouns: ${this.pronouns}`
         },
     },
 }
