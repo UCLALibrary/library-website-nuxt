@@ -5,8 +5,8 @@
         <masthead-secondary title="Staff Directory" />
         <block-staff-detail
             :image="parsedImage"
-            :to="page.entry.to"
-            :staff-name="page.entry.staffName"
+            :staff-name="parsedStaffName"
+            :pronouns="page.entry.pronouns"
             :job-title="page.entry.jobTitle"
             :locations="page.entry.locations"
             :email="page.entry.email"
@@ -18,6 +18,7 @@
         />
         <divider-way-finder class="section divider divider-way-finder" />
         <section-staff-article-list
+            v-if="parsedItems.length"
             :items="parsedItems"
             section-title="Articles"
             class="staff-article-list-section"
@@ -56,13 +57,15 @@ export default {
         parsedImage() {
             return _get(this.page.entry, "image[0]", null)
         },
+        parsedStaffName() {
+            return `${this.page.entry.nameFirst} ${this.page.entry.nameLast}`
+        },
         parsedItems() {
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,
                     to: `/news/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
         },

@@ -8,6 +8,7 @@ query StaffDetail($slug: [String]!) {
       jobTitle: staffMemberJobTitle
       nameFirst
       nameLast
+      pronouns
       to: slug
       topics: askMeAbout {
         title
