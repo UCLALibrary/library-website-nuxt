@@ -20,7 +20,7 @@
             v-if="to"
             :label="buttonText"
             :to="to"
-            class="button"
+            class="button-link"
         />
         <svg-molecule-two-facets class="molecule" />
     </div>
@@ -28,11 +28,12 @@
 
 <script>
 import SvgMoleculeTwoFacets from "~/assets/svg/molecule-two-facets"
+import SvgHeadingVector from "~/assets/svg/vector-blue"
 
 export default {
     components: {
         SvgMoleculeTwoFacets,
-        SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
+        SvgHeadingVector,
     },
     props: {
         category: {
@@ -98,8 +99,9 @@ export default {
         max-width: 630px;
         margin-top: 10px;
     }
-    .button {
+    .button-link {
         margin-top: 24px;
+        max-width: 150px;
         background-color: var(--color-primary-blue);
         color: var(--color-white);
     }
