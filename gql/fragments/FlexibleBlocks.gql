@@ -5,6 +5,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockRichText
         ...BlockDivider
         ...BlockCta
+        ...BlockImageWithTextOverlay
     }
 }
 
@@ -30,4 +31,17 @@ fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
             icon
         }
     }
+}
+
+fragment BlockImageWithTextOverlay on imageWithTextOverlay_imageWithTextOverlay_BlockType {
+    id
+    title: imageWithTextOverlayTitle
+    description: shortDescription
+    imageAltText
+    image {
+        url
+    }
+    imageAlignment: alignment
+    urlButtonText
+    urlButtonUrl
 }
