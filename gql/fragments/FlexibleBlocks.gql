@@ -6,6 +6,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockDivider
         ...BlockCta
         ...BlockImageWithTextOverlay
+        ...BlockFaqs
     }
 }
 
@@ -44,4 +45,17 @@ fragment BlockImageWithTextOverlay on imageWithTextOverlay_imageWithTextOverlay_
     imageAlignment: alignment
     urlButtonText
     urlButtonUrl
+}
+
+fragment BlockFaqs on allFlexiblePageBlocks_faqs_BlockType {
+    id
+    subheader
+    shortDescription
+    faqs {
+        ... on faqs_questionAnswer_BlockType {
+            id
+            question
+            answer
+        }
+    }
 }
