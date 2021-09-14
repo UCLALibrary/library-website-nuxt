@@ -541,7 +541,9 @@ https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Fac
 -   [x] BannerFeatured
 -   FlexiblePageBlocks
 
-## Get Help With -- Detail Page // Is this page used for workshop/resource/services help topics?
+## Get Help With -- Detail Page 
+// Is this page used for workshop/resource/services help topics?
+    
 https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A31680
 
 This will use BannerFeatured component if it has hero image, if not use TextBanner
