@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 // gql
 import GLOBALS from "~/gql/queries/Globals"
 
@@ -27,6 +29,7 @@ export const mutations = {
 
 // Define actions
 export const actions = {
+    // eslint-disable-next-line no-unused-vars
     async nuxtGenerateInit({ store, dispatch }, { generatePayload }) {
         let data = generatePayload || {}
 
