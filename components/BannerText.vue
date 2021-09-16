@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="banner-text">
+    <div :class="darkClasses">
         <div class="meta">
             <svg-heading-vector class="heading-line" />
             <div
@@ -13,14 +13,13 @@
         />
         <div class="schedule">
             <time
-                v-if="parsedDate"
+                v-if="date"
                 class="schedule-item"
                 v-html="parsedDate"
             />
             <time
-                v-if="parsedTime"
+                v-if="date"
                 class="schedule-item"
-                :datetime="times"
                 v-html="parsedTime"
             />
             <div
@@ -45,9 +44,10 @@
 </template>
 
 <script>
+import format from "date-fns/format"
 import SvgMoleculeTwoFacets from "~/assets/svg/molecule-two-facets"
 import SvgHeadingVector from "~/assets/svg/vector-blue"
-
+import formatEventTimes from "~/utils/formatEventTimes"
 import getSectionName from "~/utils/getSectionName"
 
 export default {
@@ -66,8 +66,8 @@ export default {
             required: true,
         },
         date: {
-            type: Object,
-            default: () => {},
+            type: String,
+            default: "",
         },
         location: {
             type: String,
@@ -85,6 +85,10 @@ export default {
             type: String,
             default: "",
         },
+        isDarkBlue: {
+            type: Boolean,
+            default: false,
+        },
     },
     computed: {
         sectionName() {
@@ -94,13 +98,13 @@ export default {
             return ["category", `color-${this.sectionName}`]
         },
         darkClasses() {
-            return ["banner-text", "color-dark"]
+            return ["banner-text", { "color-dark": this.isDarkBlue }]
         },
         parsedDate() {
-            return "this is the date"
+            return format(new Date(this.date), "MMMM d, Y")
         },
         parsedTime() {
-            return "this is the time"
+            return formatEventTimes(this.date, this.date)
         },
         locationDisplay() {
             let output = this.location
@@ -119,7 +123,12 @@ export default {
     padding-left: var(--unit-gutter);
     padding-right: var(--unit-gutter);
     padding-top: 10px;
-    background-color: var(--color-white); //Update this to be a theme that
+    background-color: var(--color-background); //Update this to be a theme that
+
+    --color-background: var(--color-white);
+    &.color-dark {
+        --color-background: var(--color-primary-blue);
+    }
 
     .meta {
         display: flex;

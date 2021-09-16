@@ -11,8 +11,9 @@ const mock = {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, metus in aliquet venenatis, mi lectus placerat leo, congue gravida mi quam sit amet neque.",
     title: "Curabitur Tortor Pellentesque",
     location: "Curabitur Tortor",
+    date: "1995-12-17T03:24:00",
     buttonText: "Curabitur",
-    to: "/about/foo/bar/",
+    to: "/visit/foo/bar/",
 }
 
 export const Default = () => ({
@@ -23,8 +24,9 @@ export const Default = () => ({
     },
     template: `<banner-text
         :category="category"
-        :text="text"
         :title="title"
+        :text="text"
+
         :button-text="buttonText"
         :to="to"
 
@@ -43,6 +45,7 @@ export const LongTitle = () => ({
         :title="title"
         :button-text="buttonText"
         :to="to"
+
     />`,
 })
 
@@ -56,6 +59,7 @@ export const NoButton = () => ({
         :category="category"
         :text="text"
         :title="title"
+        :date="date"
     />`,
 })
 
@@ -68,10 +72,11 @@ export const NoText = () => ({
     template: `<banner-text
         :category="category"
         :title="title"
+        :date="date"
     />`,
 })
 
-export const DarkBlue = () => ({
+export const DarkBlueBackground = () => ({
     data() {
         return {
             ...mock,
@@ -80,6 +85,10 @@ export const DarkBlue = () => ({
     template: `<banner-text
         :category="category"
         :title="title"
+        :button-text="buttonText"
+        :date="date"
+        :to="to"
+        :isDarkBlue="true"
     />`,
 })
 
@@ -87,12 +96,15 @@ export const LocationInfo = () => ({
     data() {
         return {
             ...mock,
+            to: "/help/foo/bar/",
         }
     },
     template: `<banner-text
         :category="category"
         :title="title"
+        :date="date"
         :location="location"
         :text="text"
+        :to="to"
     />`,
 })
