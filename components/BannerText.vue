@@ -1,9 +1,9 @@
 <template lang="html">
-    <div :class="darkClasses">
+    <div :class="classes">
         <div class="meta">
             <svg-heading-vector class="heading-line" />
             <div
-                :class="classes"
+                :class="categoryClasses"
                 v-html="category"
             />
         </div>
@@ -94,11 +94,15 @@ export default {
         sectionName() {
             return getSectionName(this.to)
         },
-        classes() {
+        categoryClasses() {
             return ["category", `color-${this.sectionName}`]
         },
-        darkClasses() {
-            return ["banner-text", { "theme-dark": this.isDarkBlue }]
+        classes() {
+            if (this.isDarkBlue) {
+                return ["banner-text", "theme-dark"]
+            } else {
+                return ["banner-text", "theme-light"]
+            }
         },
         parsedDate() {
             return format(new Date(this.date), "MMMM d, Y")
@@ -118,10 +122,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:root {
+.theme-light {
     --background-color: var(--color-white);
-    --text-color: var(--color-black);
     --title-color: var(--color-primary-blue);
+    --text-color: var(--color-black);
     --schedule-item-color: var(--color-secondary-grey-04);
     --schedule-item-border: var(--color-secondary-grey-02);
     --button-color: var(--color-primary-blue);
@@ -129,14 +133,15 @@ export default {
 
 .theme-dark {
     --background-color: var(--color-primary-blue);
-    --text-color: var(--color-white);
     --title-color: var(--color-white);
+    --text-color: var(--color-white);
     --schedule-item-color: var(--color-white);
     --schedule-item-border: var(--color-primary-yellow);
     --button-color: var(--color-default-cyan-lighter);
 }
 .banner-text {
     max-width: 1030px;
+    height: 100%;
     padding-left: var(--unit-gutter);
     padding-right: var(--unit-gutter);
     padding-top: 10px;
