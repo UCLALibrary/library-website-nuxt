@@ -11,6 +11,24 @@
             class="title"
             v-html="title"
         />
+        <div class="schedule">
+            <time
+                v-if="parsedDate"
+                class="schedule-item"
+                v-html="parsedDate"
+            />
+            <time
+                v-if="parsedTime"
+                class="schedule-item"
+                :datetime="times"
+                v-html="parsedTime"
+            />
+            <div
+                v-if="locationDisplay"
+                class="schedule-item"
+                v-html="locationDisplay"
+            />
+        </div>
         <div
             v-if="text"
             class="text"
@@ -51,6 +69,10 @@ export default {
             type: Object,
             default: () => {},
         },
+        location: {
+            type: String,
+            default: "",
+        },
         text: {
             type: String,
             default: "",
@@ -65,12 +87,6 @@ export default {
         },
     },
     computed: {
-        parsedDate() {
-            return "this is the date"
-        },
-        parsedTime() {
-            return "this is the time"
-        },
         sectionName() {
             return getSectionName(this.to)
         },
@@ -79,6 +95,19 @@ export default {
         },
         darkClasses() {
             return ["banner-text", "color-dark"]
+        },
+        parsedDate() {
+            return "this is the date"
+        },
+        parsedTime() {
+            return "this is the time"
+        },
+        locationDisplay() {
+            let output = this.location
+            if (this.isOnline) {
+                output = "Online"
+            }
+            return output
         },
     },
 }
@@ -98,15 +127,15 @@ export default {
         justify-content: flex-start;
     }
     // Themes for category outline
-    --color-theme: var(--color-primary-light-blue);
-    &.color-visit {
-        --color-theme: var(--color-visit-fushia-lightest);
+    --color-theme: var(--color-primary-blue);
+    .color-visit {
+        --color-theme: var(--color-visit-fushia-base);
     }
-    &.color-help {
-        --color-theme: var(--color-help-green-lightest);
+    .color-help {
+        --color-theme: var(--color-help-green-base);
     }
-    &.color-about {
-        --color-theme: var(--color-about-purple-lightest);
+    .color-about {
+        --color-theme: var(--color-about-purple-base);
     }
     .category {
         color: var(--color-primary-darkest-blue);
@@ -129,6 +158,34 @@ export default {
         text-align: left;
         max-width: 730px;
         padding-left: 20px;
+    }
+    .schedule {
+        font-size: 20px;
+        line-height: 24px;
+        text-align: left;
+        color: var(--color-secondary-grey-04);
+        margin: 10px 0 8px 0;
+        padding-left: 20px;
+
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    .schedule-item {
+        &:after {
+            content: "";
+            border-left: 1px solid var(--color-secondary-grey-02);
+            margin: 0 10px;
+            height: 18px;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+        &:last-child:after {
+            display: none;
+        }
     }
     .text {
         font-size: 24px;

@@ -10,6 +10,7 @@ const mock = {
     text:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, metus in aliquet venenatis, mi lectus placerat leo, congue gravida mi quam sit amet neque.",
     title: "Curabitur Tortor Pellentesque",
+    location: "Curabitur Tortor",
     buttonText: "Curabitur",
     to: "/about/foo/bar/",
 }
@@ -26,6 +27,7 @@ export const Default = () => ({
         :title="title"
         :button-text="buttonText"
         :to="to"
+
     />`,
 })
 
@@ -90,5 +92,7 @@ export const LocationInfo = () => ({
     template: `<banner-text
         :category="category"
         :title="title"
+        :location="location"
+        :text="text"
     />`,
 })
