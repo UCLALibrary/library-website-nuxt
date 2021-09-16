@@ -105,6 +105,7 @@ export const LocationInfo = () => ({
         :date="date"
         :location="location"
         :text="text"
+        :button-text="buttonText"
         :to="to"
     />`,
 })

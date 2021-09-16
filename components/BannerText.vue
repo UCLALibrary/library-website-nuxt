@@ -98,7 +98,7 @@ export default {
             return ["category", `color-${this.sectionName}`]
         },
         darkClasses() {
-            return ["banner-text", { "color-dark": this.isDarkBlue }]
+            return ["banner-text", { "theme-dark": this.isDarkBlue }]
         },
         parsedDate() {
             return format(new Date(this.date), "MMMM d, Y")
@@ -118,17 +118,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+:root {
+    --background-color: var(--color-white);
+    --text-color: var(--color-black);
+    --title-color: var(--color-primary-blue);
+    --schedule-item-color: var(--color-secondary-grey-04);
+    --schedule-item-border: var(--color-secondary-grey-02);
+    --button-color: var(--color-primary-blue);
+}
+
+.theme-dark {
+    --background-color: var(--color-primary-blue);
+    --text-color: var(--color-white);
+    --title-color: var(--color-white);
+    --schedule-item-color: var(--color-white);
+    --schedule-item-border: var(--color-primary-yellow);
+    --button-color: var(--color-default-cyan-lighter);
+}
 .banner-text {
     max-width: 1030px;
     padding-left: var(--unit-gutter);
     padding-right: var(--unit-gutter);
     padding-top: 10px;
-    background-color: var(--color-background); //Update this to be a theme that
-
-    --color-background: var(--color-white);
-    &.color-dark {
-        --color-background: var(--color-primary-blue);
-    }
+    background-color: var(--background-color);
 
     .meta {
         display: flex;
@@ -162,7 +174,7 @@ export default {
     }
     .title {
         font-size: 72px;
-        color: var(--color-primary-blue);
+        color: var(--title-color);
         margin-top: 70px;
         text-align: left;
         max-width: 730px;
@@ -172,7 +184,7 @@ export default {
         font-size: 20px;
         line-height: 24px;
         text-align: left;
-        color: var(--color-secondary-grey-04);
+        color: var(--schedule-item-color);
         margin: 10px 0 8px 0;
         padding-left: 20px;
 
@@ -182,7 +194,7 @@ export default {
     .schedule-item {
         &:after {
             content: "";
-            border-left: 1px solid var(--color-secondary-grey-02);
+            border-left: 1px solid var(--schedule-item-border);
             margin: 0 10px;
             height: 18px;
             display: inline-block;
@@ -202,12 +214,13 @@ export default {
         max-width: 630px;
         margin-top: 10px;
         padding-left: 20px;
+        color: var(--text-color);
     }
     .button-link {
         margin-top: 24px;
         max-width: 160px;
         margin-left: 20px;
-        background-color: var(--color-primary-blue);
+        background-color: var(--button-color);
         color: var(--color-white);
     }
     .molecule {
