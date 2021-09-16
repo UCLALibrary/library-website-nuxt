@@ -11,7 +11,7 @@ const mock = {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, metus in aliquet venenatis, mi lectus placerat leo, congue gravida mi quam sit amet neque.",
     title: "Curabitur Tortor Pellentesque",
     buttonText: "Curabitur",
-    to: "/help/foo/bar/",
+    to: "/about/foo/bar/",
 }
 
 export const Default = () => ({
@@ -58,6 +58,30 @@ export const NoButton = () => ({
 })
 
 export const NoText = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `<banner-text
+        :category="category"
+        :title="title"
+    />`,
+})
+
+export const DarkBlue = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `<banner-text
+        :category="category"
+        :title="title"
+    />`,
+})
+
+export const LocationInfo = () => ({
     data() {
         return {
             ...mock,

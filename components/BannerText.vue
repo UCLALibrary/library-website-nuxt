@@ -3,7 +3,7 @@
         <div class="meta">
             <svg-heading-vector class="heading-line" />
             <div
-                class="category"
+                :class="classes"
                 v-html="category"
             />
         </div>
@@ -30,6 +30,8 @@
 import SvgMoleculeTwoFacets from "~/assets/svg/molecule-two-facets"
 import SvgHeadingVector from "~/assets/svg/vector-blue"
 
+import getSectionName from "~/utils/getSectionName"
+
 export default {
     components: {
         SvgMoleculeTwoFacets,
@@ -45,6 +47,10 @@ export default {
             default: "",
             required: true,
         },
+        date: {
+            type: Object,
+            default: () => {},
+        },
         text: {
             type: String,
             default: "",
@@ -58,25 +64,55 @@ export default {
             default: "",
         },
     },
+    computed: {
+        parsedDate() {
+            return "this is the date"
+        },
+        parsedTime() {
+            return "this is the time"
+        },
+        sectionName() {
+            return getSectionName(this.to)
+        },
+        classes() {
+            return ["category", `color-${this.sectionName}`]
+        },
+        darkClasses() {
+            return ["banner-text", "color-dark"]
+        },
+    },
 }
 </script>
 
 <style lang="scss" scoped>
 .banner-text {
     max-width: 1030px;
-    margin-left: auto;
-    margin-right: auto;
+    padding-left: var(--unit-gutter);
+    padding-right: var(--unit-gutter);
+    padding-top: 10px;
+    background-color: var(--color-white); //Update this to be a theme that
 
     .meta {
         display: flex;
         align-items: center;
         justify-content: flex-start;
     }
+    // Themes for category outline
+    --color-theme: var(--color-primary-light-blue);
+    &.color-visit {
+        --color-theme: var(--color-visit-fushia-lightest);
+    }
+    &.color-help {
+        --color-theme: var(--color-help-green-lightest);
+    }
+    &.color-about {
+        --color-theme: var(--color-about-purple-lightest);
+    }
     .category {
         color: var(--color-primary-darkest-blue);
         font-size: 26px;
         text-transform: capitalize;
-        border: 1px solid var(--color-help-green-base);
+        border: 1px solid var(--color-theme);
         padding: 15px 20px 13px 22px;
         margin-left: -10px;
         clip-path: polygon(17px 0, 100% 0, 100% 100%, 1px 100%);
@@ -92,16 +128,19 @@ export default {
         margin-top: 70px;
         text-align: left;
         max-width: 730px;
+        padding-left: 20px;
     }
     .text {
         font-size: 24px;
         text-align: left;
         max-width: 630px;
         margin-top: 10px;
+        padding-left: 20px;
     }
     .button-link {
         margin-top: 24px;
-        max-width: 150px;
+        max-width: 160px;
+        margin-left: 20px;
         background-color: var(--color-primary-blue);
         color: var(--color-white);
     }
@@ -112,8 +151,23 @@ export default {
         margin: auto;
         position: absolute;
         z-index: 20;
-        mix-blend-mode: screen;
+        // mix-blend-mode: screen;
         width: auto;
+    }
+
+    @media #{$lte-phone} {
+        .title {
+            font-size: 36px;
+            max-width: 70%;
+        }
+        .text {
+            font-size: 18px;
+            max-width: 70%;
+        }
+        .molecule {
+            height: 215px;
+            width: auto;
+        }
     }
 }
 </style>
