@@ -35,17 +35,23 @@ fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
     }
 }
 
-fragment BlockImageWithTextOverlay on imageWithTextOverlay_imageWithTextOverlay_BlockType {
+fragment BlockImageWithTextOverlay on allFlexiblePageBlocks_imageWithTextOverlay_BlockType {
     id
-    title: imageWithTextOverlayTitle
-    description: shortDescription
-    imageAltText
-    image {
-        url
+    imageWithTextOverlay {
+        id
+        ... on imageWithTextOverlay_imageWithTextOverlay_BlockType {
+            id
+            title: imageWithTextOverlayTitle
+            description: shortDescription
+            imageAltText
+            image {
+                url
+            }
+            imageAlignment: alignment
+            urlButtonText
+            urlButtonUrl
+        }
     }
-    imageAlignment: alignment
-    urlButtonText
-    urlButtonUrl
 }
 
 fragment BlockFaqs on allFlexiblePageBlocks_faqs_BlockType {
