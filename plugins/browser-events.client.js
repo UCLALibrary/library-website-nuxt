@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 function onResize({ store }, event = {}) {
     const dimensions = {
         height: window.innerHeight,
@@ -5,6 +6,7 @@ function onResize({ store }, event = {}) {
     }
     store.commit("SET_WIN_DIMENSIONS", dimensions)
 }
+// eslint-disable-next-line no-unused-vars
 function onScroll({ store }, event = {}) {
     store.commit(
         "SET_S_TOP",
@@ -12,6 +14,7 @@ function onScroll({ store }, event = {}) {
     )
 }
 
+// eslint-disable-next-line no-unused-vars
 export default (context, inject) => {
     window.addEventListener("resize", (event) => {
         onResize(context, event)

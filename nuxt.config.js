@@ -1,3 +1,4 @@
+/* eslint-env node */
 export default {
     target: "static",
     components: true,
@@ -122,6 +123,7 @@ export default {
                 ],
             },
         },
+        // eslint-disable-next-line no-unused-vars
         webpackFinal(config, { configDir }) {
             // Allow webpack to auto-load .gql and .svg files
             config.resolve.extensions.push(".svg", ".gql")
@@ -144,6 +146,7 @@ export default {
      ** Nuxt webpack build configuration
      */
     build: {
+        // eslint-disable-next-line no-unused-vars
         extend(config, ctx) {
             // Remove SVG from default Nuxt webpack rules, add back in rule without SVGs
             const svgRule = config.module.rules.find((rule) =>

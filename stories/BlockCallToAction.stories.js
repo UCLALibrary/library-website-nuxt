@@ -1,6 +1,3 @@
-// Import mock api data
-import * as API from "~/stories/mock-api.json"
-
 // Storybook default settings
 export default {
     title: "BLOCK / Call to Action",

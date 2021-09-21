@@ -10,6 +10,8 @@
         "start": "nuxt start",
         "storybook": "nuxt storybook",
         "storybook-build": "nuxt storybook build",
+        "lint": "eslint ./",
+        "lint-fix": "eslint --fix ./",
         "percy": "percy storybook http://localhost:3003",
         "percy-static": "percy storybook ./storybook-static"
     },
