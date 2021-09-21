@@ -386,17 +386,17 @@ According to the data model, `Articles` will be used in "A blog post or other ti
 
 We can look at those designs and focus on making component request issues for the relevant components
 
-# Staff Directory Listing Page
+## Staff Directory Listing Page
 
 -  [x] BlockStaffMeta
 -  [x] BlockStaffList
 -  [x] SectionStaffList
 
-# Staff Directory Detail
+## Staff Directory Detail
 
 -  [x] BlockStaffProfile
 
-# Gallery variants these are used on Exhibit or Events Detail Pages
+## Gallery variants these are used on Exhibit or Events Detail Pages
 
 -   GalleryPreview
 -   BlockGallery
@@ -410,7 +410,7 @@ We can look at those designs and focus on making component request issues for th
 -   PlayerVideo
 -   PlayerAudio
 
-# Sticky Header
+## Sticky Header
 
 Parent component is <sticky-header>.
 
@@ -422,7 +422,7 @@ Child-headers are:
 -   HeaderChildMenu (can have a button too)
 -   HeaderChildDates
 
-# Event Series Detail Page
+## Event Series Detail Page
 
 This uses the BannerFeatured component
 
@@ -457,7 +457,7 @@ This uses the BannerFeatured component
     - plus icon svg 
     - ?
 
-# Event Detail Page
+## Event Detail Page
 
 If Hero Image exists, use BannerFeatured component else SimpleBanner
 -   [ ]  SimpleBanner
@@ -480,7 +480,7 @@ If Hero Image exists, use BannerFeatured component else SimpleBanner
     -   Rich Text with Media
     -   etc
 
-# Get Help with, All Services and Resources Listing page (General Template)
+## Get Help with, All Services and Resources Listing page (General Template)
 https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A38064
 
 -   [ ] BlockCard // Rename BlockCardVertical to this and add additional props
@@ -496,7 +496,7 @@ https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Fac
 
 -   [ ] CTABlockcontentwidth // This is the FlexiblePageBlock
 
-# About us (Landing Page) / Support Us (Landing Page)
+## About us (Landing Page) / Support Us (Landing Page)
 https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A29498
 
 -  [ ] LandingBanner
@@ -535,13 +535,15 @@ https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Fac
 -   [ ] SectionImageWithTextOverlay
     -   items [{...ImageWithTextOverlay},{...ImageWithTextOverlay},...]
 
-# Endowment General Page
+## Endowment General Page
 https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A29404
 
 -   [x] BannerFeatured
 -   FlexiblePageBlocks
 
-# Get Help With -- Detail Page // Is this page used for workshop/resource/services help topics?
+## Get Help With -- Detail Page 
+// Is this page used for workshop/resource/services help topics?
+    
 https://www.figma.com/file/ZT2qWKTlOxfhr1QUS2rFPL/UI-Pattern-Library-(Client-Facing)-Final?node-id=887%3A31680
 
 This will use BannerFeatured component if it has hero image, if not use TextBanner

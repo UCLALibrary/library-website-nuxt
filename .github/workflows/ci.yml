@@ -34,4 +34,7 @@ jobs:
           pullRequestOpened: >
             # Percy Screenshots
 
-            In order to conserve our percy screenshot allowance, percy is not configured to run automatically. Please make sure the PR is ready and all other checks are passing, then start it manually by commenting `@percy` on this pull request.
+            In order to conserve our percy screenshot allowance, percy is not configured to run automatically. Please make sure the PR is ready and all other checks are passing, then start it manually:
+            0. Visit https://github.com/UCLALibrary/library-website-nuxt/actions/workflows/percy.yml
+            0. Click the 'Run workflow' button in the blue bar. 
+            0. Select the correct branch for this PR and click 'Run workflow' again to confirm.

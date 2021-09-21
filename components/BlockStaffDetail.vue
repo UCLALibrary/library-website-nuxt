@@ -6,12 +6,11 @@
         <div class="meta-heading">
             <div class="heading">
                 <svg-heading-arrow class="arrow-svg" />
-                <nuxt-link
-                    :to="to"
+
+                <h3
                     class="staffName"
-                >
-                    <h3 v-html="staffName" />
-                </nuxt-link>
+                    v-html="staffName"
+                />
             </div>
 
             <div class="dept-location">
@@ -57,9 +56,13 @@
                     :aspect-ratio="100"
                     class="image"
                 />
-
+                <!-- TODO fix divider to go all the way across  heading if there is no picture -->
                 <divider-general class="divider" />
-
+                <div
+                    v-if="pronouns"
+                    class="pronouns"
+                    v-html="parsedPronouns"
+                />
                 <div class="contact-info">
                     <svg-icon-email class="svg" />
                     <smart-link
@@ -94,6 +97,7 @@
 
             <div class="body-bio">
                 <div v-if="topics.length">
+                    <!-- TODO new comps call this Subject Speciality areas-just for librarians? -->
                     <h2 class="bio-header">
                         Ask me About
                     </h2>
@@ -107,7 +111,10 @@
                     </ul>
                 </div>
 
-                <divider-general class="divider" />
+                <divider-general
+                    v-if="biography"
+                    class="divider"
+                />
 
                 <div v-if="biography">
                     <h2 class="bio-header">
@@ -164,6 +171,10 @@ export default {
             type: String,
             default: "",
         },
+        pronouns: {
+            type: String,
+            default: "",
+        },
         departments: {
             type: Array,
             default: () => [],
@@ -181,6 +192,9 @@ export default {
     computed: {
         getBookingLink() {
             return this.$config.libcalAppointment
+        },
+        parsedPronouns() {
+            return `Pronouns: ${this.pronouns}`
         },
     },
 }
@@ -360,17 +374,10 @@ export default {
 
     // Hover states
     @media #{$has-hover} {
-        &:hover {
-            .staffName {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue);
-                text-decoration-thickness: 2px;
-            }
-            .location-link {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue);
-                text-decoration-thickness: 1.5px;
-            }
+        .location-link:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue);
+            text-decoration-thickness: 1.5px;
         }
     }
 

@@ -27,7 +27,7 @@ jobs:
       uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353
       with:
         path: storybook-static
-        key: ${{ github.sha }}
+        key: storybook-${{ github.sha }}
     - run: npm run storybook-build
       if: steps.cache-storybook.outputs.cache-hit != 'true'
     - run: npm run percy-static
