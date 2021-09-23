@@ -45,8 +45,12 @@
 
 <script>
 import format from "date-fns/format"
+
+// SVGs
 import SvgMoleculeTwoFacets from "~/assets/svg/molecule-two-facets"
 import SvgHeadingVector from "~/assets/svg/vector-blue"
+
+// Utility functions
 import formatEventTimes from "~/utils/formatEventTimes"
 import getSectionName from "~/utils/getSectionName"
 
@@ -73,6 +77,10 @@ export default {
             type: String,
             default: "",
         },
+        isOnline: {
+            type: Boolean,
+            default: false,
+        },
         text: {
             type: String,
             default: "",
@@ -91,18 +99,18 @@ export default {
         },
     },
     computed: {
+        classes() {
+            let output = ["banner-text", "theme-light"]
+            if (this.isDarkBlue) {
+                output = ["banner-text", "theme-dark"]
+            }
+            return output
+        },
         sectionName() {
             return getSectionName(this.to)
         },
         categoryClasses() {
             return ["category", `color-${this.sectionName}`]
-        },
-        classes() {
-            if (this.isDarkBlue) {
-                return ["banner-text", "theme-dark"]
-            } else {
-                return ["banner-text", "theme-light"]
-            }
         },
         parsedDate() {
             return format(new Date(this.date), "MMMM d, Y")
@@ -124,23 +132,29 @@ export default {
 <style lang="scss" scoped>
 .theme-light {
     --background-color: var(--color-white);
+    --category-title-color: var(--color-primary-darkest-blue);
     --title-color: var(--color-primary-blue);
     --text-color: var(--color-black);
     --schedule-item-color: var(--color-secondary-grey-04);
     --schedule-item-border: var(--color-secondary-grey-02);
-    --button-color: var(--color-primary-blue);
+    --button-border-color: var(--color-primary-blue);
+    --facet-inside-color: var(--color-primary-light-blue);
+    --facet-outside-color: var(--color-primary-blue);
 }
 
 .theme-dark {
     --background-color: var(--color-primary-blue);
+    --category-title-color: var(--color-white);
     --title-color: var(--color-white);
     --text-color: var(--color-white);
     --schedule-item-color: var(--color-white);
     --schedule-item-border: var(--color-primary-yellow);
-    --button-color: var(--color-default-cyan-lighter);
+    --button-border-color: var(--color-default-cyan-lighter);
+    --facet-inside-color: var(--color-default-cyan-lighter);
+    --facet-outside-color: var(--color-default-cyan-base);
 }
 .banner-text {
-    max-width: 1030px;
+    max-width: 1440px;
     height: 100%;
     padding-left: var(--unit-gutter);
     padding-right: var(--unit-gutter);
@@ -164,7 +178,7 @@ export default {
         --color-theme: var(--color-about-purple-base);
     }
     .category {
-        color: var(--color-primary-darkest-blue);
+        color: var(--category-title-color);
         font-size: 26px;
         text-transform: capitalize;
         border: 1px solid var(--color-theme);
@@ -225,8 +239,9 @@ export default {
         margin-top: 24px;
         max-width: 160px;
         margin-left: 20px;
-        background-color: var(--button-color);
+        background-color: var(--color-primary-blue);
         color: var(--color-white);
+        border: 1px solid var(--button-border-color);
     }
     .molecule {
         right: 0;
@@ -237,6 +252,14 @@ export default {
         z-index: 20;
         // mix-blend-mode: screen;
         width: auto;
+
+        .facet-outside {
+            fill: var(--facet-outside-color);
+        }
+
+        .facet-inside {
+            fill: var(--facet-inside-color);
+        }
     }
 
     @media #{$lte-phone} {
