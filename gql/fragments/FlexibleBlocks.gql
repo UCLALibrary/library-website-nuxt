@@ -2,6 +2,7 @@ fragment FlexibleBlocks on ElementInterface {
     blocks: allFlexiblePageBlocks {
         id
         typeHandle
+        ...BlockAudioContentWidth
         ...BlockRichText
         ...BlockDivider
         ...BlockCta
@@ -12,6 +13,26 @@ fragment FlexibleBlocks on ElementInterface {
 }
 
 # TODO Define all blocks here as fragments
+fragment BlockAudioContentWidth on allFlexiblePageBlocks_audioContentWidth_BlockType {
+    id
+    audioContentWidth {
+        ...on audioContentWidth_audioContentWidth_BlockType {
+            id
+            audioFile {
+                url
+            }
+            captionTitle
+            captionText
+            header
+            coverImage {
+                url
+            }
+            coverImageAltText
+        }
+    }
+}
+
+
 
 fragment BlockRichText on allFlexiblePageBlocks_richText_BlockType {
     text
