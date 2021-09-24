@@ -7,7 +7,7 @@
                 v-html="category"
             />
         </div>
-        <h2
+        <h1
             class="title"
             v-html="title"
         />
@@ -22,11 +22,27 @@
                 class="schedule-item"
                 v-html="parsedTime"
             />
+            <!-- TODO this can be multiple locations, on own line with icon -->
             <div
-                v-if="locationDisplay"
+                v-if="isOnline"
                 class="schedule-item"
-                v-html="locationDisplay"
-            />
+            >
+                Online
+            </div>
+        </div>
+        <div class="location-group">
+            <nuxt-link
+                v-for="location in locations"
+                :key="`location-${location.id}`"
+                :to="location.to"
+                class="location-link"
+            >
+                <svg-icon-location class="svg" />
+                <span
+                    class="location"
+                    v-html="location.title"
+                />
+            </nuxt-link>
         </div>
         <div
             v-if="text"
@@ -49,6 +65,7 @@ import format from "date-fns/format"
 // SVGs
 import SvgMoleculeTwoFacets from "~/assets/svg/molecule-two-facets"
 import SvgHeadingVector from "~/assets/svg/vector-blue"
+import SvgIconLocation from "~/assets/svg/icon-location"
 
 // Utility functions
 import formatEventTimes from "~/utils/formatEventTimes"
@@ -58,6 +75,7 @@ export default {
     components: {
         SvgMoleculeTwoFacets,
         SvgHeadingVector,
+        SvgIconLocation,
     },
     props: {
         category: {
@@ -73,9 +91,9 @@ export default {
             type: String,
             default: "",
         },
-        location: {
-            type: String,
-            default: "",
+        locations: {
+            type: Array,
+            default: () => [],
         },
         isOnline: {
             type: Boolean,
@@ -118,13 +136,6 @@ export default {
         parsedTime() {
             return formatEventTimes(this.date, this.date)
         },
-        locationDisplay() {
-            let output = this.location
-            if (this.isOnline) {
-                output = "Online"
-            }
-            return output
-        },
     },
 }
 </script>
@@ -155,16 +166,20 @@ export default {
 }
 .banner-text {
     max-width: 1440px;
-    height: 100%;
-    padding-left: var(--unit-gutter);
+    min-height: 500px;
+    padding-left: 284px;
     padding-right: var(--unit-gutter);
     padding-top: 10px;
+    padding-bottom: 128px;
     background-color: var(--background-color);
+    position: relative;
+    z-index: 0;
 
     .meta {
         display: flex;
         align-items: center;
         justify-content: flex-start;
+        margin-top: 84px;
     }
     // Themes for category outline
     --color-theme: var(--color-primary-blue);
@@ -197,7 +212,7 @@ export default {
         margin-top: 70px;
         text-align: left;
         max-width: 730px;
-        padding-left: 20px;
+        padding-left: 52px;
     }
     .schedule {
         font-size: 20px;
@@ -205,7 +220,7 @@ export default {
         text-align: left;
         color: var(--schedule-item-color);
         margin: 10px 0 8px 0;
-        padding-left: 20px;
+        padding-left: 52px;
 
         display: flex;
         flex-wrap: nowrap;
@@ -227,18 +242,33 @@ export default {
             display: none;
         }
     }
+    .location-group {
+        color: var(--color-primary-blue);
+        font-family: var(--font-secondary);
+        padding-left: 52px;
+    }
+
+    .location-link {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+    }
     .text {
         font-size: 24px;
         text-align: left;
         max-width: 630px;
         margin-top: 10px;
-        padding-left: 20px;
+        padding-left: 52px;
         color: var(--text-color);
     }
     .button-link {
         margin-top: 24px;
         max-width: 160px;
-        margin-left: 20px;
+        margin-left: 52px;
+        margin-bottom: 40px;
         background-color: var(--color-primary-blue);
         color: var(--color-white);
         border: 1px solid var(--button-border-color);
@@ -246,7 +276,7 @@ export default {
     .molecule {
         right: 0;
         top: 0;
-        bottom: 95px;
+        // bottom: 95px;
         margin: auto;
         position: absolute;
         z-index: 20;

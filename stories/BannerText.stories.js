@@ -10,7 +10,10 @@ const mock = {
     text:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, metus in aliquet venenatis, mi lectus placerat leo, congue gravida mi quam sit amet neque.",
     title: "Curabitur Tortor Pellentesque",
-    location: "Curabitur Tortor",
+    locations: [
+        { title: "Powellarium", to: "/location/bar" },
+        { title: "Research Library (Charles E. Young)", to: "/location/baz" },
+    ],
     date: "1995-12-17T03:24:00",
     buttonText: "Curabitur",
     to: "/visit/foo/bar/",
@@ -26,7 +29,6 @@ export const Default = () => ({
         :category="category"
         :title="title"
         :text="text"
-
         :button-text="buttonText"
         :to="to"
 
@@ -103,7 +105,7 @@ export const LocationInfo = () => ({
         :category="category"
         :title="title"
         :date="date"
-        :location="location"
+        :locations="locations"
         :text="text"
         :button-text="buttonText"
         :to="to"
