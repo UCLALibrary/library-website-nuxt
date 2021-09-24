@@ -3,6 +3,7 @@ fragment FlexibleBlocks on ElementInterface {
         id
         typeHandle
         ...BlockAudioContentWidth
+        ...BlockCardWithImageTwoUp
         ...BlockRichText
         ...BlockDivider
         ...BlockCta
@@ -32,7 +33,26 @@ fragment BlockAudioContentWidth on allFlexiblePageBlocks_audioContentWidth_Block
     }
 }
 
-
+fragment BlockCardWithImageTwoUp on allFlexiblePageBlocks_cardWithImage2Up_BlockType {
+    id
+    cardWithImage2Up {
+        id
+        ...on cardWithImage2Up_cardWithImage2Up_BlockType {
+            id
+            image {
+                id
+                url
+            }
+            imageAltText
+            contentLink {
+                id
+                url
+                uri
+            }
+            shortDescription
+        }
+    }
+}
 
 fragment BlockRichText on allFlexiblePageBlocks_richText_BlockType {
     text
