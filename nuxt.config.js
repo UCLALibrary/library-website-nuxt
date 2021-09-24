@@ -7,6 +7,8 @@ export default {
     },
     publicRuntimeConfig: {
         libcalAppointment: process.env.LIBCAL_APPOINTMENTS,
+        libcalClientSecret: process.env.LIVE_PREVIEW === 'true' ? process.env.LIBCAL_CLIENT_SECRET : '',
+        libcalClientId: process.env.LIVE_PREVIEW === 'true' ? process.env.LIBCAL_CLIENT_ID : '',
     },
 
     /*
