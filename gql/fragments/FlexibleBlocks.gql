@@ -4,6 +4,8 @@ fragment FlexibleBlocks on ElementInterface {
         typeHandle
         ...BlockAudioContentWidth
         ...BlockCardWithImageTwoUp
+        ...BlockCardWithImageThreeUp
+        ...BlockCtaBlockTwoUp
         ...BlockRichText
         ...BlockDivider
         ...BlockCta
@@ -51,6 +53,42 @@ fragment BlockCardWithImageTwoUp on allFlexiblePageBlocks_cardWithImage2Up_Block
             }
             shortDescription
         }
+    }
+}
+
+fragment BlockCardWithImageThreeUp on allFlexiblePageBlocks_cardWithImage3Up_BlockType {
+    id
+    cardWithImage3Up {
+        id
+        ... on cardWithImage3Up_cardWithImage3Up_BlockType {
+            id
+            image {
+                id
+                url
+            }
+            imageAltText
+            contentLink {
+                id
+                url
+                uri
+            }
+            shortDescription
+        }
+    }
+}
+
+fragment BlockCtaBlockTwoUp on allFlexiblePageBlocks_ctaBlock2Up_BlockType {
+    id
+    ctaBlock2Up {
+        id
+            ...on ctaBlock2Up_ctaBlock2Up_BlockType {
+                id
+                shortDescription
+                urlButtonText
+                urlButtonUrl
+                titleCTA2Up
+                icon
+            }
     }
 }
 
