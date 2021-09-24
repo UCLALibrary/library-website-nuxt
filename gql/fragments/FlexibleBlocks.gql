@@ -6,6 +6,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockCardWithImageTwoUp
         ...BlockCardWithImageThreeUp
         ...BlockCtaBlockTwoUp
+        ...BlockDivider
         ...BlockRichText
         ...BlockDivider
         ...BlockCta
@@ -90,6 +91,11 @@ fragment BlockCtaBlockTwoUp on allFlexiblePageBlocks_ctaBlock2Up_BlockType {
                 icon
             }
     }
+}
+
+fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
+  id
+  weight: divider
 }
 
 fragment BlockRichText on allFlexiblePageBlocks_richText_BlockType {
