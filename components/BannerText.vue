@@ -235,6 +235,7 @@ export default {
         padding-left: 52px;
 
         display: flex;
+        flex-direction: row;
         flex-wrap: nowrap;
     }
     .schedule-item {
@@ -307,51 +308,82 @@ export default {
             fill: var(--facet-inside-color);
         }
     }
-
-    @media #{$lte-tablet} {
-        .banner-text {
-            padding-left: 92px;
-            max-width: 768;
-
-            .title {
-                font-size: 52px;
-                max-width: 70%;
-            }
-            .text {
-                font-size: 18px;
-                max-width: 70%;
-            }
-            .molecule {
-                height: 215px;
-                width: auto;
-            }
-        }
-    }
-
-    @media #{$lte-phone} {
-        .banner-text {
-            padding-left: 32px;
-            max-width: 375;
-
-            .title {
-                font-size: 36px;
-                max-width: 70%;
-            }
-            .text {
-                font-size: 18px;
-                max-width: 70%;
-            }
-            .molecule {
-                height: 215px;
-                width: auto;
-            }
-        }
-    }
+    // Hovers
     @media #{$has-hover} {
         .button-link:hover {
             border: 1px solid var(--hover-border-color);
             background-color: var(--hover-background-color);
             color: var(--text-color);
+        }
+    }
+}
+
+// Breakpoints
+@media #{$lte-tablet} {
+    .banner-text {
+        padding-left: 92px;
+        max-width: 768;
+
+        .meta {
+            margin-top: 40px;
+        }
+        .title {
+            font-size: 52px;
+            max-width: 420px;
+        }
+        .text {
+            font-size: 18px;
+            max-width: 70%;
+        }
+        .molecule {
+            height: 300px;
+            width: auto;
+        }
+    }
+}
+
+@media #{$lte-phone} {
+    .banner-text {
+        padding: 32px 32px 48px 32px;
+        max-width: 375;
+
+        .meta {
+            // margin-bottom: 32px;
+        }
+
+        .title {
+            font-size: 42px;
+            padding-right: 88px;
+            padding-left: 0;
+            margin-top: 32px;
+        }
+        .schedule {
+            display: flex;
+            flex-direction: column;
+            padding-left: 0;
+        }
+        .schedule-item {
+            &:after {
+                display: none;
+            }
+        }
+        .location-group {
+            padding-left: 0;
+        }
+        .text {
+            font-size: 18px;
+            max-width: 70%;
+            padding-left: 0;
+        }
+        .molecule {
+            height: 215px;
+            width: auto;
+            margin-top: 32px;
+        }
+        .button-link {
+            max-width: 100%;
+            height: 40px;
+            margin: 40px 0 0 0;
         }
     }
 }
