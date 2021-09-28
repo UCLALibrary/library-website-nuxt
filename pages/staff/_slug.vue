@@ -44,7 +44,7 @@ import STAFF_DETAIL from "~/gql/queries/StaffDetail"
 
 export default {
     async asyncData({ $graphql, params }) {
-        console.log("In preview mode")
+        console.log("fecthing graphql data for staff from Craft")
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
         })
@@ -66,6 +66,7 @@ export default {
                     ...obj,
                     to: `/news/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
+                    staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
         },

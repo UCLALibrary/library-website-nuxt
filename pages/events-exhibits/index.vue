@@ -1,32 +1,25 @@
 <template lang="html">
     <section class="page-events-exhibits">
-        <!-- <nuxt-link to="/events-exhibits/test"> Test event </nuxt-link> -->
-
-        {{ viewMode }}
-
-        <loading-spinner v-if="$fetchState.pending" />
-        <component
-            :is="viewComponentName"
-            v-else
-            :items="allEvents"
-        />
-
+        <!-- This was added to test the slug page with breadcrumbs -->
+        <!--<nuxt-link to="/events-exhibits/test">
+            Test event
+        </nuxt-link> -->
         <!-- TODO These props should come from Craft -->
-        <!-- <masthead-secondary
+        <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
-        > -->
-        <!-- TODO Add SearchGenric here when complete  -->
-        <!-- <search-generic search-type="about"
-                    :filters="searchFilters.filters"
-                    :view-modes="searchFilters.views"
-                    class="generic-search"
-                    @view-mode-change="viewModeChanger"
-            /> -->
-        <!-- </masthead-secondary> -->
+        >
+            <!-- TODO Add SearchGenric here when complete  -->
+            <!--search-generic
+                search-type="about"
+                class="generic-search"
+            />
+            <!-- :filters="searchFilters.filters"
+                :view-modes="searchFilters.views" 
+                @view-mode-change="viewModeChanger"-->
+        </masthead-secondary>
 
-        <!-- <divider-way-finder class="section divider divider-way-finder" />
-
+        <divider-way-finder class="section divider divider-way-finder" />
         <banner-featured
             class="section banner-featured"
             :title="firstEvent.title"
@@ -38,19 +31,17 @@
             :align-right="false"
             :dates="firstEvent.dates"
             :times="firstEvent.times"
-        /> -->
+        />
 
-        <!-- <divider-general class="section divider divider-general" />
-
+        <divider-general class="section divider divider-general" />
         <section-teaser-highlight
             class="section"
             :items="highlightEvents"
         />
 
-        <divider-general class="section divider divider-general" /> -->
-
+        <divider-general class="section divider divider-general" />
         <!-- TODO List of events go here -->
-        <!-- <section-teaser-list
+        <section-teaser-list
             :items="listEvents"
             class="section section-list"
         />
@@ -64,7 +55,7 @@
             :name="blockCallToAction.name"
             :title="blockCallToAction.title"
             :text="blockCallToAction.text"
-        /> -->
+        />
     </section>
 </template>
 
@@ -75,74 +66,62 @@ import formatEventDates from "~/utils/formatEventDates"
 import formatEventTimes from "~/utils/formatEventTimes"
 
 export default {
-    data() {
+    async asyncData({ $axios }) {
+        console.log("in asyncdata calling axios get event")
+        const libcalData = await $axios.$get(`/events`, {
+            params: {
+                cal_id: 7056,
+            },
+        })
+
+        const events = libcalData.events
+        console.log(libcalData.events[0].title)
         return {
-            allEvents: [],
+            page: { events: events },
         }
     },
-    async fetch() {
+
+    // TODO either use asyncdata or fetch
+    /*async fetch() {
+        // TODO how to fetch all events from libcal
+        const data = await this.$axios.$get(`/events`)
+        //TODO this will be used if we need pagination with libcal, the params passed needs to be reviewd
+        /*
         const data = await this.$axios.$get(`/events`, {
             params: {
                 offset: this.$route.query.offset || 0,
                 q: this.$route.query.q || "",
             },
         })
+        */
 
-        this.allEvents = [...this.allEvents, ...data]
-    },
-    //async asyncData({ query }) {
-    // console.log(query)
-    //
-    // return {
-    //     viewMode: query.viewMode || "default",
-    // }
-
-    // TODO This is hardcoded to the "Test" calendar, should be a "featured" calendar probably
-    // const libcalRequest = $axios.$get(`/events`, {
-    //     params: {
-    //         cal_id: 11521,
-    //     },
-    // })
-    // const craftRequest = $graphql(`/craft/foo`, {
-    //     params: {
-    //         cal_id: 11521,
-    //     },
-    // })
-
-    // Do both requests in parallel
-    // const [libcalData] = await Promise.all([
-    //     libcalRequest,
-    //     //craftRequest,
-    // ])
-
-    // return {
-    //     //events: _get(libcalData, "events", []),
-    //     //page: _get(craftData, "data.page", {}),
-    // }
-    //},
+    // this.allEvents = [...this.allEvents, ...data]
+    //},*/
 
     computed: {
-        viewComponentName() {
+        /*viewComponentName() {
+            // TODO we may not need this as we have decidec not to add view modes dropdown in the reworked design
             // get view component name (see the PR section-teaser calander)
-        },
+        },*/
         parsedEvents() {
             // TODO Remove this one we have more events
+
             const mockEvents = [
-                ...this.events,
-                ...this.events,
-                ...this.events,
-                ...this.events,
-                ...this.events,
+                ...this.page.events,
+                ...this.page.events,
+                ...this.page.events,
+                ...this.page.events,
+                ...this.page.events,
             ]
 
             // Shape events
             // return this.events.map((obj) => {
-            return mockEvents.map((obj) => {
-                const event = _get(this, "events[0]", {})
+            return mockEvents.map((obj, index) => {
+                const event = obj || {}
 
                 return {
                     ...event,
-                    to: `${this.$route.path}/${event.id}`,
+                    to: `${this.$route.path}/${index}-${event.id}`, // added index to avoid duplicate errors
                     location: _get(event, "location.name", "Online"),
                     image: {
                         src: event.featured_image,
@@ -193,8 +172,7 @@ export default {
                 to: "/help/foo/bar/",
                 name: "Lorem ipsum dolor",
                 title: "Lorem ipsum dolor sit amet?",
-                text:
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             }
             return mockBlockCallToAction
         },

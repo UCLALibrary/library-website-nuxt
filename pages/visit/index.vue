@@ -32,8 +32,7 @@ const searchFilters = {
                     name: "consectetur, adipisci velit.",
                 },
                 {
-                    name:
-                        "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+                    name: "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
                 },
                 {
                     name: "Excepteur sint occaecat cupidatat non proident",
@@ -81,25 +80,25 @@ const searchFilters = {
     ],
 }
 export default {
+    async asyncData() {
+        // TODO fetch content to build out results here
+    },
     data() {
         return {
             searchFilters,
             selectedView: this.$route.query.view,
         }
     },
+    watchQuery(newQuery, oldQuery) {
+        // Only execute component methods if the old query string contained `bar`
+        // and the new query string contains `foo`
+        return newQuery.foo && oldQuery.bar
+    },
     methods: {
         viewModeChanger(slug) {
             console.log(slug)
             this.selectedView = slug
         },
-    },
-    async asyncData() {
-        // TODO fetch content to build out results here
-    },
-    watchQuery(newQuery, oldQuery) {
-        // Only execute component methods if the old query string contained `bar`
-        // and the new query string contains `foo`
-        return newQuery.foo && oldQuery.bar
     },
 }
 </script>
