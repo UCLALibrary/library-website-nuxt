@@ -146,7 +146,7 @@ export default {
         align-items: center;
 
         // Themes for background
-        --color-theme: var(--color-primary-lightest-blue);
+        --color-theme: var(--color-primary-blue-01);
 
         &.color-dark-blue {
             --color-theme: var(--color-secondary-blue-02);

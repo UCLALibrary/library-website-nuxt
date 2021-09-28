@@ -102,7 +102,7 @@ export default {
         }
     }
     .card-more {
-        border: 2px solid var(--color-primary-lightest-blue);
+        border: 2px solid var(--color-primary-blue-01);
         width: 281px;
         height: 400px;
         border-radius: var(--rounded-slightly-all);

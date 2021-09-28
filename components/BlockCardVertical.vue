@@ -85,7 +85,7 @@ export default {
     align-content: center;
     align-items: center;
 
-    border: 2px solid var(--color-primary-lightest-blue);
+    border: 2px solid var(--color-primary-blue-01);
     width: 300px;
     height: 400px;
     overflow: hidden;
@@ -115,7 +115,7 @@ export default {
     }
     .meta {
         transition: background-color 400ms ease-in-out;
-        background-color: var(--color-primary-lightest-blue);
+        background-color: var(--color-primary-blue-01);
         flex: 1 1 auto;
     }
     .title {
