@@ -37,7 +37,7 @@
                 :to="location.to"
                 class="location-link"
             >
-                <svg-icon-location class="svg" />
+                <svg-icon-location class="location-svg" />
                 <span
                     class="location"
                     v-html="location.title"
@@ -69,6 +69,7 @@ import SvgIconLocation from "~/assets/svg/icon-location"
 
 // Utility functions
 import formatEventTimes from "~/utils/formatEventTimes"
+import formatEventDates from "~/utils/formatEventDates"
 import getSectionName from "~/utils/getSectionName"
 
 export default {
@@ -131,8 +132,9 @@ export default {
             return ["category", `color-${this.sectionName}`]
         },
         parsedDate() {
-            return format(new Date(this.date), "MMMM d, Y")
+            return formatEventDates(this.date, this.date)
         },
+        //TODO what is it is just one time
         parsedTime() {
             return formatEventTimes(this.date, this.date)
         },
@@ -141,6 +143,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// Variations for dark blue and white backgrounds
+
 .theme-light {
     --background-color: var(--color-white);
     --category-title-color: var(--color-primary-darkest-blue);
@@ -151,6 +155,10 @@ export default {
     --button-border-color: var(--color-primary-blue);
     --facet-inside-color: var(--color-primary-light-blue);
     --facet-outside-color: var(--color-primary-blue);
+    --location-color: var(--color-primary-blue);
+    --location-icon-color: var(--color-primary-blue);
+    --hover-border-color: var(--color-primary-light-blue);
+    --hover-background-color: var(--color-white);
 }
 
 .theme-dark {
@@ -163,6 +171,10 @@ export default {
     --button-border-color: var(--color-default-cyan-lighter);
     --facet-inside-color: var(--color-default-cyan-lighter);
     --facet-outside-color: var(--color-default-cyan-base);
+    --location-color: var(--color-white);
+    --location-icon-color: var(--color-white);
+    --hover-border-color: var(--color-white);
+    --hover-background-color: var(--color-primary-blue);
 }
 .banner-text {
     max-width: 1440px;
@@ -243,11 +255,10 @@ export default {
         }
     }
     .location-group {
-        color: var(--color-primary-blue);
+        color: var(--location-color);
         font-family: var(--font-secondary);
         padding-left: 52px;
     }
-
     .location-link {
         display: flex;
         flex-direction: row;
@@ -255,6 +266,11 @@ export default {
         justify-content: flex-start;
         align-content: center;
         align-items: center;
+    }
+    .location-svg {
+        .location-icon {
+            fill: var(--location-icon-color);
+        }
     }
     .text {
         font-size: 24px;
@@ -276,7 +292,7 @@ export default {
     .molecule {
         right: 0;
         top: 0;
-        // bottom: 95px;
+        bottom: 95px;
         margin: auto;
         position: absolute;
         z-index: 20;
@@ -292,18 +308,50 @@ export default {
         }
     }
 
+    @media #{$lte-tablet} {
+        .banner-text {
+            padding-left: 92px;
+            max-width: 768;
+
+            .title {
+                font-size: 52px;
+                max-width: 70%;
+            }
+            .text {
+                font-size: 18px;
+                max-width: 70%;
+            }
+            .molecule {
+                height: 215px;
+                width: auto;
+            }
+        }
+    }
+
     @media #{$lte-phone} {
-        .title {
-            font-size: 36px;
-            max-width: 70%;
+        .banner-text {
+            padding-left: 32px;
+            max-width: 375;
+
+            .title {
+                font-size: 36px;
+                max-width: 70%;
+            }
+            .text {
+                font-size: 18px;
+                max-width: 70%;
+            }
+            .molecule {
+                height: 215px;
+                width: auto;
+            }
         }
-        .text {
-            font-size: 18px;
-            max-width: 70%;
-        }
-        .molecule {
-            height: 215px;
-            width: auto;
+    }
+    @media #{$has-hover} {
+        .button-link:hover {
+            border: 1px solid var(--hover-border-color);
+            background-color: var(--hover-background-color);
+            color: var(--text-color);
         }
     }
 }

@@ -74,7 +74,6 @@ export const NoText = () => ({
     template: `<banner-text
         :category="category"
         :title="title"
-        :date="date"
     />`,
 })
 
@@ -109,5 +108,24 @@ export const LocationInfo = () => ({
         :text="text"
         :button-text="buttonText"
         :to="to"
+    />`,
+})
+
+export const LocationInfoDarkBlue = () => ({
+    data() {
+        return {
+            ...mock,
+            to: "/help/foo/bar/",
+        }
+    },
+    template: `<banner-text
+        :category="category"
+        :title="title"
+        :date="date"
+        :locations="locations"
+        :text="text"
+        :button-text="buttonText"
+        :to="to"
+        :isDarkBlue="true"
     />`,
 })
