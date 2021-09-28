@@ -175,7 +175,7 @@ export default {
         --color-theme-svg-outline: var(--color-primary-blue);
 
         &.color-theme-svg-outline-dark {
-            --color-theme-svg-outline: var(--color-primary-light-blue);
+            --color-theme-svg-outline: var(--color-primary-blue-02);
         }
 
         // Themes for svg colors

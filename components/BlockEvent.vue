@@ -126,7 +126,7 @@ export default {
         height: 60%;
     }
     .button {
-        border: 1px solid var(--color-primary-light-blue);
+        border: 1px solid var(--color-primary-blue-02);
         background-color: var(--color-primary-blue);
         padding: 16px 40px;
         font-family: var(--font-secondary);
@@ -138,7 +138,7 @@ export default {
         transition: color 400ms ease-in-out;
 
         // Themes
-        --color-theme: var(--color-primary-light-blue);
+        --color-theme: var(--color-primary-blue-02);
 
         &.color-visit {
             --color-theme: var(--color-visit-fushia-base);

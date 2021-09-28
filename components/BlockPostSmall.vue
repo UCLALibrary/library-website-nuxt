@@ -116,7 +116,7 @@ export default {
     }
 
     // Themes
-    --color-theme: var(--color-primary-light-blue);
+    --color-theme: var(--color-primary-blue-02);
     &.color-visit {
         --color-theme: var(--color-visit-fushia-lightest);
     }
