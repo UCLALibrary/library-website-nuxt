@@ -11,7 +11,10 @@
             class="title"
             v-html="title"
         />
-        <div class="schedule">
+        <div
+            v-if="date"
+            class="schedule"
+        >
             <time
                 v-if="date"
                 class="schedule-item"
@@ -30,7 +33,10 @@
                 Online
             </div>
         </div>
-        <div class="location-group">
+        <div
+            v-if="locations.length"
+            class="location-group"
+        >
             <nuxt-link
                 v-for="location in locations"
                 :key="`location-${location.id}`"
@@ -345,10 +351,13 @@ export default {
 @media #{$lte-phone} {
     .banner-text {
         padding: 32px 32px 48px 32px;
+        // padding-bottom: 48px;
         max-width: 375;
+        max-height: 100%;
+        min-height: 100px;
 
         .meta {
-            // margin-bottom: 32px;
+            margin-top: 0px;
         }
 
         .title {
