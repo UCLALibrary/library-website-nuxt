@@ -85,7 +85,7 @@ export default {
     align-content: center;
     align-items: center;
 
-    border: 2px solid var(--color-primary-blue-01);
+    border: 2px solid var(--color-primary-blue-03-01);
     width: 300px;
     height: 400px;
     overflow: hidden;
@@ -97,7 +97,7 @@ export default {
     transition-timing-function: ease-in-out;
 
     // Themes
-    --color-theme: var(--color-primary-blue-02);
+    --color-theme: var(--color-primary-blue-03-02);
     &.color-visit {
         --color-theme: var(--color-visit-fushia-lightest);
     }
@@ -115,7 +115,7 @@ export default {
     }
     .meta {
         transition: background-color 400ms ease-in-out;
-        background-color: var(--color-primary-blue-01);
+        background-color: var(--color-primary-blue-03-01);
         flex: 1 1 auto;
     }
     .title {
@@ -127,7 +127,7 @@ export default {
         font-weight: 500;
         margin-top: 35px;
         margin-bottom: 10px;
-        color: var(--color-primary-darkest-blue);
+        color: var(--color-primary-blue-05);
         padding-right: 60px;
         padding-left: 60px;
 
@@ -144,7 +144,7 @@ export default {
         text-align: center;
         padding-left: 40px;
         padding-right: 40px;
-        color: var(--color-primary-darkest-blue);
+        color: var(--color-primary-blue-05);
 
         display: -webkit-box;
         -webkit-line-clamp: 4;

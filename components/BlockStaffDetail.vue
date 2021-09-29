@@ -230,7 +230,7 @@ export default {
                 font-size: 48px;
                 line-height: 100%;
                 letter-spacing: 0.01em;
-                color: var(--color-primary-blue);
+                color: var(--color-primary-blue-03);
             }
         }
         .dept-location {
@@ -269,7 +269,7 @@ export default {
             }
 
             .location-group {
-                color: var(--color-primary-blue);
+                color: var(--color-primary-blue-03);
                 font-family: var(--font-secondary);
                 padding-bottom: -30px;
 
@@ -315,7 +315,7 @@ export default {
             }
 
             .contact-info {
-                color: var(--color-primary-blue);
+                color: var(--color-primary-blue-03);
                 margin-top: 10px;
             }
 
@@ -364,7 +364,7 @@ export default {
                         border-bottom: 2px solid var(--color-default-cyan-base);
                         display: inline-block;
                         line-height: 1.25;
-                        color: var(--color-primary-blue);
+                        color: var(--color-primary-blue-03);
                         font-size: 2em;
                     }
                 }
@@ -376,7 +376,7 @@ export default {
     @media #{$has-hover} {
         .location-link:hover {
             text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue);
+            text-decoration-color: var(--color-primary-blue-03);
             text-decoration-thickness: 1.5px;
         }
     }

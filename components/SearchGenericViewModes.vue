@@ -112,7 +112,7 @@ export default {
 
         font-family: var(--font-secondary);
         color: var(--color-white);
-        background-color: var(--color-primary-blue);
+        background-color: var(--color-primary-blue-03);
         padding: 0 50px 0 16px;
         position: relative;
 
@@ -160,7 +160,7 @@ export default {
     .view-list {
         margin-top: 8px;
         list-style: none;
-        background-color: var(--color-primary-blue);
+        background-color: var(--color-primary-blue-03);
         color: var(--color-white);
         opacity: 0;
         max-height: 0;

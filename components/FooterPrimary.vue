@@ -96,7 +96,7 @@ export default {
     align-content: center;
     align-items: center;
 
-    background-color: var(--color-primary-blue);
+    background-color: var(--color-primary-blue-03);
     border-bottom: 4px solid var(--color-primary-yellow-01);
     position: relative;
     z-index: 0;

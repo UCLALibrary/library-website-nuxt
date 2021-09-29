@@ -71,7 +71,7 @@ export default {
             font-size: 44px;
             line-height: 100%;
             text-transform: capitalize;
-            color: var(--color-primary-blue);
+            color: var(--color-primary-blue-03);
         }
         .text {
             max-width: 730px;

@@ -146,36 +146,36 @@ export default {
         align-items: center;
 
         // Themes for background
-        --color-theme: var(--color-primary-blue-01);
+        --color-theme: var(--color-primary-blue-03-01);
 
         &.color-dark-blue {
             --color-theme: var(--color-secondary-blue-02);
         }
 
         // Themes for title and text
-        --color-title: var(--color-primary-blue);
+        --color-title: var(--color-primary-blue-03);
 
         &.color-light-title {
             --color-title: var(--color-white);
         }
-        --color-text: var(--color-primary-darkest-blue);
+        --color-text: var(--color-primary-blue-05);
 
         &.color-light-text {
             --color-text: var(--color-white);
         }
 
         // Themes for button color
-        --color-theme-button: var(--color-primary-blue);
+        --color-theme-button: var(--color-primary-blue-03);
 
         &.color-dark-blue {
             --color-theme-button: var(--color-secondary-blue-02);
         }
 
         // Themes for svg colors
-        --color-theme-svg-outline: var(--color-primary-blue);
+        --color-theme-svg-outline: var(--color-primary-blue-03);
 
         &.color-theme-svg-outline-dark {
-            --color-theme-svg-outline: var(--color-primary-blue-02);
+            --color-theme-svg-outline: var(--color-primary-blue-03-02);
         }
 
         // Themes for svg colors

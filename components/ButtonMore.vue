@@ -65,7 +65,7 @@ export default {
         transform: translate(-50%, -50%);
 
         .arrow {
-            stroke: var(--color-primary-blue);
+            stroke: var(--color-primary-blue-03);
             stroke-width: 1.5px;
             transition: stroke 400ms ease-in-out;
         }
@@ -73,7 +73,7 @@ export default {
 
     .text {
         margin-top: 16px;
-        color: var(--color-primary-darkest-blue);
+        color: var(--color-primary-blue-05);
         font-family: var(--font-primary);
         font-size: 16px;
         font-weight: 500;
@@ -92,7 +92,7 @@ export default {
                 }
             }
             .text {
-                color: var(--color-primary-blue);
+                color: var(--color-primary-blue-03);
             }
         }
     }

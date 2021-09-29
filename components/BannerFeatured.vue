@@ -196,7 +196,7 @@ export default {
     background-color: var(--color-white);
 
     // Themes
-    --color-theme: var(--color-primary-blue);
+    --color-theme: var(--color-primary-blue-03);
     &.color-visit {
         --color-theme: var(--color-visit-fushia-base);
     }
@@ -321,7 +321,7 @@ export default {
         line-height: 16px;
         letter-spacing: 0.06em;
         text-align: left;
-        color: var(--color-primary-darkest-blue);
+        color: var(--color-primary-blue-05);
         margin-bottom: 5px;
         text-transform: uppercase;
     }
@@ -330,7 +330,7 @@ export default {
         line-height: 44px;
         text-align: left;
         margin-bottom: 5px;
-        color: var(--color-primary-blue);
+        color: var(--color-primary-blue-03);
         font-weight: 500;
     }
     .schedule {

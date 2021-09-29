@@ -114,7 +114,7 @@ export default {
     .title {
         font-size: 26px;
         line-height: 130%;
-        color: var(--color-primary-blue);
+        color: var(--color-primary-blue-03);
         font-weight: 500;
         margin-bottom: 5px;
         overflow: hidden;
