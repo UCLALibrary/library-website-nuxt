@@ -116,15 +116,15 @@ export default {
     }
 
     // Themes
-    --color-theme: var(--color-primary-blue-03-02);
+    --color-theme: var(--color-primary-blue-03);
     &.color-visit {
-        --color-theme: var(--color-visit-fushia-lightest);
+        --color-theme: var(--color-visit-fushia-01);
     }
     &.color-help {
-        --color-theme: var(--color-help-green-lightest);
+        --color-theme: var(--color-help-green-01);
     }
     &.color-about {
-        --color-theme: var(--color-about-purple-lightest);
+        --color-theme: var(--color-about-purple-01);
     }
 
     // Hovers
