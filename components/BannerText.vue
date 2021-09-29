@@ -278,6 +278,9 @@ export default {
         .location-icon {
             fill: var(--location-icon-color);
         }
+        .location-icon-line {
+            stroke: var(--location-icon-color);
+        }
     }
     .text {
         font-size: 24px;
@@ -350,6 +353,8 @@ export default {
 @media #{$lte-tablet} {
     .banner-text {
         padding-left: 92px;
+        padding-bottom: 60px;
+        padding-top: 40px;
         max-width: 768;
 
         .meta {
@@ -358,11 +363,16 @@ export default {
         .title {
             font-size: 52px;
             max-width: 420px;
+            margin-top: 40px;
         }
         .text {
             font-size: 18px;
             max-width: 70%;
         }
+        .button-link {
+            margin-bottom: 32px;
+        }
+
         .molecule {
             height: 300px;
             width: auto;
