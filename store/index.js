@@ -27,61 +27,38 @@ export const mutations = {
 
 // Define actions
 export const actions = {
-    async nuxtGenerateInit({ store, dispatch }, { generatePayload }) {
-        let data = generatePayload || {}
-
-        // Fetch data in parallel
-        let libCalQuery = dispatch("setLibCalToken", data.libCal)
-        let globalsQuery = dispatch("getGlobals", data.globals)
-        const [libCalResult, globalsResult] = await Promise.all([
-            libCalQuery,
-            globalsQuery,
-        ])
-
-        return {
-            libCal: libCalResult,
-            globals: globalsResult,
-        }
-    },
-    async setLibCalToken(context, data) {
+    async nuxtServerInit({ commit }, { $config }) {
         try {
-            // If we have a payload already, don't do the request, use the payload
-            if (!data) {
-                data = await this.$axios.$post("/oauth/token", {
-                    client_id: process.env.LIBCAL_CLIENT_ID,
-                    client_secret: process.env.LIBCAL_CLIENT_SECRET,
-                    grant_type: "client_credentials",
-                })
-            }
+            console.log("client side public config client id "+$config.libcalClientId)
+            const libcaldata = await this.$axios.$post("/oauth/token", {
+                client_id: $config.libcalClientId,
+                client_secret: $config.libcalClientSecret,
+                grant_type: "client_credentials",
+            })
 
-            if (data.access_token) {
-                this.$axios.setToken(data.access_token, "Bearer")
-                return data
+            if (libcaldata.access_token) {
+                this.$axios.setToken(libcaldata.access_token, "Bearer")
+                console.log(libcaldata.access_token)
             } else {
                 throw new Error(
-                    "Auth error. Libcal returned: " + JSON.stringify(data)
+                    "Auth error. Libcal returned: " + JSON.stringify(libcaldata)
                 )
             }
         } catch (e) {
             throw new Error(
-                "Libcal API error, see nuxtGenerateInit function for source. " +
-                    e
+                "Libcal API error, see nuxtServerInit function for source. " + e
             )
         }
-    },
-    async getGlobals({ commit }, data) {
-        try {
-            if (!data) {
-                data = await this.$graphql.default.request(GLOBALS)
-                data = removeEmpties(data.globalSets || [])
+        try{
+            console.log("Get Global data from Craft")
+            let globalData = await this.$graphql.default.request(GLOBALS)
+            globalData = removeEmpties(globalData.globalSets || [])
 
-                // Shape data from Craft
-                data = {
-                    appointmentsLink: _get(data, "[0].appointmentsLink[0]", {}),
-                }
+            // Shape data from Craft
+            globalData = {
+                appointmentsLink: _get(globalData, "[0].appointmentsLink[0]", {}),
             }
-            commit("SET_GLOBALS", data)
-            return data
+            commit("SET_GLOBALS", globalData)
         } catch (e) {
             throw new Error("Craft API error, trying to set gobals. " + e)
         }

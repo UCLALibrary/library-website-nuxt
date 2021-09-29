@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 import { resolve } from "path"
 
 export default function () {

@@ -1,14 +1,18 @@
+/* eslint-env node */
 export default {
-    target: "static",
+    target: 'static',
     components: true,
+
     privateRuntimeConfig: {
         libcalClientSecret: process.env.LIBCAL_CLIENT_SECRET,
         libcalClientId: process.env.LIBCAL_CLIENT_ID,
     },
     publicRuntimeConfig: {
         libcalAppointment: process.env.LIBCAL_APPOINTMENTS,
+        libcalClientSecret: process.env.LIVE_PREVIEW === 'true' ? process.env.LIBCAL_CLIENT_SECRET : '',
+        libcalClientId: process.env.LIVE_PREVIEW === 'true' ? process.env.LIBCAL_CLIENT_ID : '',
     },
-
+    
     /*
      ** Global CSS
      */
@@ -29,9 +33,9 @@ export default {
      ** Plugins to load before mounting the App
      */
     plugins: [
-        { src: "~/plugins/web-font-loader.client.js", mode: "client" },
-        { src: "~/plugins/browser-events.client.js", mode: "client" }, 
-        { src: "~/plugins/preview.client.js", mode: "client" },
+        '~/plugins/preview.client.js',
+        '~/plugins/web-font-loader.client.js',
+        '~/plugins/browser-events.client.js'
     ],
 
     /*
@@ -42,10 +46,10 @@ export default {
             process.env.LIBCAL_ENDPOINT ||
             "https://calendar.library.ucla.edu/1.1",
     },
-
+    
     /*
-     * GraphQL Request. Used for querying from Craft
-     */
+    * GraphQL Request. Used for querying from Craft
+    */
     graphql: {
         clients: {
             default: {
@@ -60,8 +64,6 @@ export default {
      */
     generate: {
         fallback: "404.html",
-        interval: 500,
-        concurrency: 500,
     },
 
     /*
@@ -77,16 +79,17 @@ export default {
      ** See: https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-loading
      */
     loading: {
-        color: "#0b6ab7",
+        color: "#ffe800",
         height: "3px",
     },
 
     /*
      ** Nuxt router configuration. Used to define settingg for the router.
      */
-    router: {
+    // TODO find out later why this causing the live preview to not work
+    /*router: {
         trailingSlash: false,
-    },
+    },*/ 
 
     /*
      ** Storybook
@@ -122,6 +125,7 @@ export default {
                 ],
             },
         },
+        // eslint-disable-next-line no-unused-vars
         webpackFinal(config, { configDir }) {
             // Allow webpack to auto-load .gql and .svg files
             config.resolve.extensions.push(".svg", ".gql")
@@ -133,17 +137,19 @@ export default {
     /*
      * Nuxt modules
      */
-    modules: ["~/modules/populate", "@nuxtjs/axios"],
+    modules: ["@nuxtjs/axios"],
 
     /*
-     * Nuxt build modules
-     */
-    buildModules: ["@nuxtjs/style-resources", "nuxt-graphql-request"],
-
+    * Nuxt build modules
+    */
+    buildModules: ["@nuxtjs/style-resources","nuxt-graphql-request"],
+    
+  
     /*
      ** Nuxt webpack build configuration
-     */
+    */
     build: {
+        // eslint-disable-next-line no-unused-vars
         extend(config, ctx) {
             // Remove SVG from default Nuxt webpack rules, add back in rule without SVGs
             const svgRule = config.module.rules.find((rule) =>
@@ -189,4 +195,7 @@ export default {
             })
         },
     },
+
+    
 }
+  

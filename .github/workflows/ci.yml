@@ -1,0 +1,40 @@
+name: Run CI Suite
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+    - uses: actions/setup-node@25316bbc1f10ac9d8798711f44914b1cf3c4e954
+      with:
+        node-version: '14.15.4'
+        cache: 'npm'
+    - name: Cache npm dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: npm-${{ hashFiles('package-lock.json') }}
+        restore-keys: npm-
+    - run: npm ci
+    - run: npm run lint
+
+  percy-instructions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment with percy instructions
+        uses: bubkoo/auto-comment@c907eece18ad79480d1058c2577e63fb5b5f1604
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          pullRequestOpened: >
+            # Percy Screenshots
+
+            In order to conserve our percy screenshot allowance, percy is not configured to run automatically. Please make sure the PR is ready and all other checks are passing, then start it manually:
+            0. Visit https://github.com/UCLALibrary/library-website-nuxt/actions/workflows/percy.yml
+            0. Click the 'Run workflow' button in the blue bar. 
+            0. Select the correct branch for this PR and click 'Run workflow' again to confirm.
