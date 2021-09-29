@@ -1,3 +1,4 @@
+/* eslint-env node */
 export default {
     target: 'static',
     components: true,
