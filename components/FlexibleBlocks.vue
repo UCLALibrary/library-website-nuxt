@@ -18,6 +18,8 @@ export default {
     components: {
         // TODO register all other block types
         BlockCallToAction: () => import("~/components/BlockCallToAction"),
+
+        Divider: () => import("~/components/DividerGeneral"),
     },
     props: {
         blocks: {
@@ -56,6 +58,10 @@ function convertName(typeHandle) {
     switch (typeHandle) {
         case "ctaBlockContentWidth":
             output = "flexible-cta"
+            break
+
+        case "divider":
+            output = "flexible-divider"
             break
     }
 
