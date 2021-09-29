@@ -9,7 +9,6 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockDivider
         ...BlockImageContentWidth
         ...BlockRichText
-        ...BlockDivider
         ...BlockCta
         ...BlockImageWithTextOverlay
         ...BlockFaqs
@@ -120,10 +119,6 @@ fragment BlockRichText on allFlexiblePageBlocks_richText_BlockType {
     text
 }
 
-fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
-    divider
-}
-
 fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
     innerBlocks: ctaBlockContentWidth {
         a
@@ -170,7 +165,7 @@ fragment BlockFaqs on allFlexiblePageBlocks_faqs_BlockType {
     }
 }
 
-fragment BlockRichTextWithMedia on on allFlexiblePageBlocks_richTextWithMedia_BlockType {
+fragment BlockRichTextWithMedia on allFlexiblePageBlocks_richTextWithMedia_BlockType {
     id
     richTextWithMedia {
         ... on richTextWithMedia_richTextWithMedia_BlockType {
