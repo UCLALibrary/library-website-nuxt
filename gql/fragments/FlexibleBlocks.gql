@@ -2,13 +2,119 @@ fragment FlexibleBlocks on ElementInterface {
     blocks: allFlexiblePageBlocks {
         id
         typeHandle
+        ...BlockAudioContentWidth
+        ...BlockCardWithImageTwoUp
+        ...BlockCardWithImageThreeUp
+        ...BlockCtaBlockTwoUp
+        ...BlockDivider
+        ...BlockImageContentWidth
         ...BlockRichText
         ...BlockDivider
         ...BlockCta
+        ...BlockImageWithTextOverlay
+        ...BlockFaqs
+        ...BlockRichTextWithMedia
     }
 }
 
 # TODO Define all blocks here as fragments
+fragment BlockAudioContentWidth on allFlexiblePageBlocks_audioContentWidth_BlockType {
+    id
+    audioContentWidth {
+        ...on audioContentWidth_audioContentWidth_BlockType {
+            id
+            audioFile {
+                url
+            }
+            captionTitle
+            captionText
+            header
+            coverImage {
+                url
+            }
+            coverImageAltText
+        }
+    }
+}
+
+fragment BlockCardWithImageTwoUp on allFlexiblePageBlocks_cardWithImage2Up_BlockType {
+    id
+    cardWithImage2Up {
+        id
+        ...on cardWithImage2Up_cardWithImage2Up_BlockType {
+            id
+            image {
+                id
+                url
+            }
+            imageAltText
+            contentLink {
+                id
+                url
+                uri
+            }
+            shortDescription
+        }
+    }
+}
+
+fragment BlockCardWithImageThreeUp on allFlexiblePageBlocks_cardWithImage3Up_BlockType {
+    id
+    cardWithImage3Up {
+        id
+        ... on cardWithImage3Up_cardWithImage3Up_BlockType {
+            id
+            image {
+                id
+                url
+            }
+            imageAltText
+            contentLink {
+                id
+                url
+                uri
+            }
+            shortDescription
+        }
+    }
+}
+
+fragment BlockCtaBlockTwoUp on allFlexiblePageBlocks_ctaBlock2Up_BlockType {
+    id
+    ctaBlock2Up {
+        id
+            ...on ctaBlock2Up_ctaBlock2Up_BlockType {
+                id
+                shortDescription
+                urlButtonText
+                urlButtonUrl
+                titleCTA2Up
+                icon
+            }
+    }
+}
+
+fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
+  id
+  weight: divider
+}
+
+fragment BlockImageContentWidth on allFlexiblePageBlocks_imageContentWidth_BlockType {
+    id
+    imageContentWidth {
+        ...on imageContentWidth_imageContentWidth_BlockType {
+            id
+            image {
+                id
+                url
+            }
+            altText
+            captionText
+            captionTitle
+            header
+        }
+    }
+}
 
 fragment BlockRichText on allFlexiblePageBlocks_richText_BlockType {
     text
@@ -28,6 +134,56 @@ fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
             buttonUrl: urlButtonUrl
             buttonText: urlButtonText
             icon
+        }
+    }
+}
+
+fragment BlockImageWithTextOverlay on allFlexiblePageBlocks_imageWithTextOverlay_BlockType {
+    id
+    imageWithTextOverlay {
+        id
+        ... on imageWithTextOverlay_imageWithTextOverlay_BlockType {
+            id
+            title: imageWithTextOverlayTitle
+            description: shortDescription
+            imageAltText
+            image {
+                url
+            }
+            imageAlignment: alignment
+            urlButtonText
+            urlButtonUrl
+        }
+    }
+}
+
+fragment BlockFaqs on allFlexiblePageBlocks_faqs_BlockType {
+    id
+    subheader
+    shortDescription
+    faqs {
+        ... on faqs_questionAnswer_BlockType {
+            id
+            question
+            answer
+        }
+    }
+}
+
+fragment BlockRichTextWithMedia on on allFlexiblePageBlocks_richTextWithMedia_BlockType {
+    id
+    richTextWithMedia {
+        ... on richTextWithMedia_richTextWithMedia_BlockType {
+            id
+            text
+            mediaType
+            mediaUpload {
+                id
+                url
+            }
+            imageAltText
+            imageAlignment: alignment
+            imageCaption
         }
     }
 }
