@@ -9,18 +9,30 @@
         </header-sticky>
 
         Event detail here
-
+        {{ allEvents }}
         <!-- TODO flexible content goes here -->
     </section>
 </template>
 
 <script>
 export default {
-    async asyncData() {
-        // TODO get event data from Craft
+    data() {
         return {
-            page: {},
+            allEvents: [],
         }
+    },
+    async fetch() {
+        const data = await this.$axios.$get(`/events`, {
+            params: {
+                cal_id: 7056,
+            },
+        })
+        // TODO get event data from Craft
+        // return {
+        //     page: {},
+        // }
+        this.allEvents = [...this.allEvents, ...data.events]
+        console.log(data.events[0].title)
     },
     computed: {
         shareData() {
