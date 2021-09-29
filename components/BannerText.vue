@@ -59,6 +59,8 @@
             v-if="to"
             :label="buttonText"
             :to="to"
+            :is-secondary="parsedSecondary"
+            icon-name="svg-arrow-diagonal"
             class="button-link"
         />
         <svg-molecule-two-facets class="molecule" />
@@ -140,9 +142,11 @@ export default {
         parsedDate() {
             return formatEventDates(this.date, this.date)
         },
-        //TODO what is it is just one time
         parsedTime() {
             return formatEventTimes(this.date, this.date)
+        },
+        parsedSecondary() {
+            return [this.isDarkBlue ? true : false]
         },
     },
 }
@@ -185,7 +189,7 @@ export default {
 .banner-text {
     max-width: 1440px;
     min-height: 500px;
-    padding-left: 284px;
+    padding-left: 204px;
     padding-right: var(--unit-gutter);
     padding-top: 10px;
     padding-bottom: 128px;
@@ -351,7 +355,6 @@ export default {
 @media #{$lte-phone} {
     .banner-text {
         padding: 32px 32px 48px 32px;
-        // padding-bottom: 48px;
         max-width: 375;
         max-height: 100%;
         min-height: 100px;

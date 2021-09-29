@@ -5,17 +5,22 @@
             v-if="iconName"
             class="icon"
         >
-            <arrow-right class="arrow-right" />
+            <component
+                :is="parsedIconName"
+                class="arrow"
+            />
         </span>
     </div>
 </template>
 
 <script>
-import ArrowRight from "~/assets/svg/arrow-right-small"
+import SvgArrowRight from "~/assets/svg/arrow-right-small"
+import SvgArrowDiagonal from "~/assets/svg/arrow-diagonal"
 
 export default {
     components: {
-        ArrowRight,
+        SvgArrowRight,
+        SvgArrowDiagonal,
     },
     props: {
         /**
@@ -49,6 +54,9 @@ export default {
                 },
             ]
         },
+        parsedIconName() {
+            return `${this.iconName}`
+        },
     },
 }
 </script>
@@ -71,40 +79,49 @@ export default {
     transition-duration: 400ms;
     transition-timing-function: ease-in-out;
 
-    .arrow-right {
-        stroke: var(--color-default-cyan-base);
+    .arrow {
+        // stroke: var(--color-default-cyan-base);
+        fill: var(--color-default-cyan-base);
         padding-top: 5px;
+
+        .line {
+            stroke: var(--color-default-cyan-base);
+        }
     }
 
     &.is-secondary {
-        background-color: var(--color-primary-blue);
-        border: unset;
-        color: var(--color-white);
-        .arrow-right {
-            stroke: var(--color-white);
+        // background-color: var(--color-primary-blue);
+        // border: unset;
+        // color: var(--color-white);
+        .arrow {
+            fill: var(--color-white);
+
+            .line {
+                stroke: var(--color-white);
+            }
         }
     }
 
     // Hover states
-    @media #{$has-hover} {
-        &:hover {
-            background-color: var(--color-primary-blue);
-            border: unset;
-            color: var(--color-white);
-            cursor: pointer;
-            .arrow-right {
-                stroke: var(--color-white);
-            }
-            &.is-secondary {
-                background-color: var(--color-white);
-                border: 1.5px solid var(--color-primary-light-blue);
-                color: var(--color-black);
-                .arrow-right {
-                    stroke: var(--color-default-cyan-base);
-                }
-            }
-        }
-    }
+    // @media #{$has-hover} {
+    //     &:hover {
+    //         background-color: var(--color-primary-blue);
+    //         border: unset;
+    //         color: var(--color-white);
+    //         cursor: pointer;
+    //         .arrow {
+    //             stroke: var(--color-white);
+    //         }
+    //         &.is-secondary {
+    //             background-color: var(--color-white);
+    //             border: 1.5px solid var(--color-primary-light-blue);
+    //             color: var(--color-black);
+    //             .arrow {
+    //                 stroke: var(--color-default-cyan-base);
+    //             }
+    //         }
+    //     }
+    // }
     // Breakpoints
     @media #{$lte-phone} {
         width: auto;
