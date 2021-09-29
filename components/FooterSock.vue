@@ -72,7 +72,7 @@ export default {
             margin-right: 48px;
         }
         .link {
-            border-bottom: 2px solid var(--color-default-cyan-base);
+            border-bottom: 2px solid var(-color-default-cyan-03);
             display: inline-block;
             line-height: 1.25;
             color: var(--color-black);

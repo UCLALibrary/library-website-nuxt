@@ -163,7 +163,7 @@ export default {
             }
             .title {
                 text-decoration: underline;
-                text-decoration-color: var(--color-default-cyan-base);
+                text-decoration-color: var(-color-default-cyan-03);
                 text-decoration-thickness: 1.5px;
             }
         }
