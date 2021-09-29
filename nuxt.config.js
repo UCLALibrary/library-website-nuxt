@@ -37,7 +37,6 @@ export default {
         '~/plugins/browser-events.client.js'
     ],
 
-
     /*
      * Axios. Used for Libcal query.
      */
@@ -48,16 +47,17 @@ export default {
     },
     
     /*
-       * GraphQL Request. Used for querying from Craft
-       */
+    * GraphQL Request. Used for querying from Craft
+    */
     graphql: {
         clients: {
             default: {
-                endpoint: 'https://test-craft.library.ucla.edu/api',
+                endpoint: process.env.CRAFT_ENDPOINT,
                 options: {},
             },
         },
     },
+
     /*
      ** Nuxt generate configuration. Used when generating a static site.
      */
@@ -81,6 +81,14 @@ export default {
         color: "#ffe800",
         height: "3px",
     },
+
+    /*
+     ** Nuxt router configuration. Used to define settingg for the router.
+     */
+    // TODO find out later why this causing the live preview to not work
+    /*router: {
+        trailingSlash: false,
+    },*/ 
 
     /*
      ** Storybook

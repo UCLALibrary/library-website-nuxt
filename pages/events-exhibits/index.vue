@@ -4,6 +4,15 @@
         <!--<nuxt-link to="/events-exhibits/test">
             Test event
         </nuxt-link> -->
+        <!-- last commit by Drew
+        {{ viewMode }}
+
+        <loading-spinner v-if="$fetchState.pending" />
+        <component
+            :is="viewComponentName"
+            v-else
+            :items="allEvents"
+        / -->
         <!-- TODO These props should come from Craft -->
         <masthead-secondary
             title="Exhibits & Upcoming Events"
