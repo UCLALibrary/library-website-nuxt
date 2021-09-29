@@ -26,6 +26,7 @@ import STAFF_LIST from "~/gql/queries/StaffList"
 
 export default {
     async asyncData({ $graphql, params }) {
+        console.log("live preview enters staff list")
         const data = await $graphql.default.request(STAFF_LIST, {
             uri: params.path,
         })
