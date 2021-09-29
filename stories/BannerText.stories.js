@@ -32,22 +32,6 @@ export const Default = () => ({
     />`,
 })
 
-export const LongTitle = () => ({
-    data() {
-        return {
-            ...mock,
-        }
-    },
-    template: `<banner-text
-        :category="category"
-        :text="text"
-        :title="title"
-        :button-text="buttonText"
-        :to="to"
-
-    />`,
-})
-
 export const NoButton = () => ({
     data() {
         return {

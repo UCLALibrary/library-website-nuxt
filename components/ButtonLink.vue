@@ -77,7 +77,7 @@ export default {
     transition-duration: 400ms;
     transition-timing-function: ease-in-out;
     .arrow {
-        stroke: var(--color-default-cyan-base);
+        // stroke: var(--color-default-cyan-base);
         padding-top: 5px;
         padding-left: 5px;
     }

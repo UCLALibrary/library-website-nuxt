@@ -298,10 +298,10 @@ export default {
         /deep/ {
             .arrow {
                 stroke: var(--color-default-white);
+
                 .arrow-diagonal {
                     fill: var(--color-white);
                 }
-
                 .line {
                     stroke: var(--color-white);
                 }
@@ -315,13 +315,11 @@ export default {
         margin: auto;
         position: absolute;
         z-index: 20;
-        // mix-blend-mode: screen;
         width: auto;
 
         .facet-outside {
             fill: var(--facet-outside-color);
         }
-
         .facet-inside {
             fill: var(--facet-inside-color);
         }
@@ -335,13 +333,12 @@ export default {
 
             /deep/ {
                 .arrow {
+                    stroke: var(--color-default-cyan-base);
                     .arrow-diagonal {
-                        // stroke: var(--color-default-cyan-base);
-                        fill: var(--color-black);
+                        fill: var(--color-default-cyan-base);
                     }
-
                     .line {
-                        stroke: var(--color-black);
+                        stroke: var(--color-default-cyan-base);
                     }
                 }
             }
