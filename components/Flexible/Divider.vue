@@ -1,5 +1,5 @@
 <template lang="html">
-    <divider-general />
+    <divider-general :is-bold="isBold" />
 </template>
 
 <script>
@@ -8,6 +8,11 @@ export default {
         block: {
             type: Object,
             default: () => {},
+        },
+    },
+    computed: {
+        isBold() {
+            return this.block.dividerType == "bold" ? true : false
         },
     },
 }
