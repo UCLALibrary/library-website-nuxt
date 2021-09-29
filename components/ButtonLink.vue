@@ -67,61 +67,48 @@ export default {
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-
     height: 50px;
     background-color: var(--color-white);
     border: 1.5px solid var(--color-primary-light-blue);
     font-size: 18px;
     color: var(--color-black);
     padding: 14px 40px;
-
     transition-property: color, background-color;
     transition-duration: 400ms;
     transition-timing-function: ease-in-out;
-
     .arrow {
-        // stroke: var(--color-default-cyan-base);
-        fill: var(--color-default-cyan-base);
+        stroke: var(--color-default-cyan-base);
         padding-top: 5px;
-
-        .line {
-            stroke: var(--color-default-cyan-base);
+        padding-left: 5px;
+    }
+    &.is-secondary {
+        background-color: var(--color-primary-blue);
+        border: unset;
+        color: var(--color-white);
+        .arrow {
+            stroke: var(--color-white);
         }
     }
-
-    &.is-secondary {
-        // background-color: var(--color-primary-blue);
-        // border: unset;
-        // color: var(--color-white);
-        .arrow {
-            fill: var(--color-white);
-
-            .line {
+    // Hover states
+    @media #{$has-hover} {
+        &:hover {
+            background-color: var(--color-primary-blue);
+            border: unset;
+            color: var(--color-white);
+            cursor: pointer;
+            .arrow {
                 stroke: var(--color-white);
+            }
+            &.is-secondary {
+                background-color: var(--color-white);
+                border: 1.5px solid var(--color-primary-light-blue);
+                color: var(--color-black);
+                .arrow {
+                    stroke: var(--color-default-cyan-base);
+                }
             }
         }
     }
-
-    // Hover states
-    // @media #{$has-hover} {
-    //     &:hover {
-    //         background-color: var(--color-primary-blue);
-    //         border: unset;
-    //         color: var(--color-white);
-    //         cursor: pointer;
-    //         .arrow {
-    //             stroke: var(--color-white);
-    //         }
-    //         &.is-secondary {
-    //             background-color: var(--color-white);
-    //             border: 1.5px solid var(--color-primary-light-blue);
-    //             color: var(--color-black);
-    //             .arrow {
-    //                 stroke: var(--color-default-cyan-base);
-    //             }
-    //         }
-    //     }
-    // }
     // Breakpoints
     @media #{$lte-phone} {
         width: auto;

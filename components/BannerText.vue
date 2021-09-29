@@ -59,7 +59,6 @@
             v-if="to"
             :label="buttonText"
             :to="to"
-            :is-secondary="parsedSecondary"
             icon-name="svg-arrow-diagonal"
             class="button-link"
         />
@@ -144,9 +143,6 @@ export default {
         },
         parsedTime() {
             return formatEventTimes(this.date, this.date)
-        },
-        parsedSecondary() {
-            return [this.isDarkBlue ? true : false]
         },
     },
 }
@@ -299,6 +295,18 @@ export default {
         background-color: var(--color-primary-blue);
         color: var(--color-white);
         border: 1px solid var(--button-border-color);
+        /deep/ {
+            .arrow {
+                stroke: var(--color-default-white);
+                .arrow-diagonal {
+                    fill: var(--color-white);
+                }
+
+                .line {
+                    stroke: var(--color-white);
+                }
+            }
+        }
     }
     .molecule {
         right: 0;
@@ -324,6 +332,19 @@ export default {
             border: 1px solid var(--hover-border-color);
             background-color: var(--hover-background-color);
             color: var(--text-color);
+
+            /deep/ {
+                .arrow {
+                    .arrow-diagonal {
+                        // stroke: var(--color-default-cyan-base);
+                        fill: var(--color-black);
+                    }
+
+                    .line {
+                        stroke: var(--color-black);
+                    }
+                }
+            }
         }
     }
 }
