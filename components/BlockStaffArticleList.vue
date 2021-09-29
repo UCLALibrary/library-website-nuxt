@@ -107,7 +107,7 @@ export default {
         line-height: 100%;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: var(--color-secondary-black);
+        color: var(--color-secondary-grey-05);
         font-weight: 500;
         padding-bottom: 16px;
     }
