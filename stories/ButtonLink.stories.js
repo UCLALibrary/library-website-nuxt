@@ -37,5 +37,5 @@ export const LongLabel = () => ({
 })
 
 export const HasGlyph = () => ({
-    template: `<button-link label="Aug id Dignissim" :isSecondary="true" iconName="svg-arrow-diagonal"/>`,
+    template: `<button-link label="Aug id Dignissim" :isSecondary="true" iconName="svg-arrow-right"/>`,
 })
