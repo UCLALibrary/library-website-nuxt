@@ -85,7 +85,7 @@ export default {
     align-content: center;
     align-items: center;
 
-    border: 2px solid var(--color-primary-lightest-blue);
+    border: 2px solid var(--color-primary-blue-01);
     width: 300px;
     height: 400px;
     overflow: hidden;
@@ -97,15 +97,15 @@ export default {
     transition-timing-function: ease-in-out;
 
     // Themes
-    --color-theme: var(--color-primary-light-blue);
+    --color-theme: var(--color-primary-blue-02);
     &.color-visit {
-        --color-theme: var(--color-visit-fushia-lightest);
+        --color-theme: var(--color-visit-fushia-01);
     }
     &.color-help {
-        --color-theme: var(--color-help-green-lightest);
+        --color-theme: var(--color-help-green-01);
     }
     &.color-about {
-        --color-theme: var(--color-visit-fushia-lightest);
+        --color-theme: var(--color-visit-fushia-01);
     }
 
     .svg {
@@ -115,7 +115,7 @@ export default {
     }
     .meta {
         transition: background-color 400ms ease-in-out;
-        background-color: var(--color-primary-lightest-blue);
+        background-color: var(--color-primary-blue-01);
         flex: 1 1 auto;
     }
     .title {
@@ -127,7 +127,7 @@ export default {
         font-weight: 500;
         margin-top: 35px;
         margin-bottom: 10px;
-        color: var(--color-primary-darkest-blue);
+        color: var(--color-primary-blue-05);
         padding-right: 60px;
         padding-left: 60px;
 
@@ -144,7 +144,7 @@ export default {
         text-align: center;
         padding-left: 40px;
         padding-right: 40px;
-        color: var(--color-primary-darkest-blue);
+        color: var(--color-primary-blue-05);
 
         display: -webkit-box;
         -webkit-line-clamp: 4;
@@ -163,7 +163,7 @@ export default {
             }
             .title {
                 text-decoration: underline;
-                text-decoration-color: var(--color-default-cyan-base);
+                text-decoration-color: var(--color-default-cyan-03);
                 text-decoration-thickness: 1.5px;
             }
         }

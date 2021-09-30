@@ -96,8 +96,8 @@ export default {
     align-content: center;
     align-items: center;
 
-    background-color: var(--color-primary-blue);
-    border-bottom: 4px solid var(--color-primary-yellow);
+    background-color: var(--color-primary-blue-03);
+    border-bottom: 4px solid var(--color-primary-yellow-01);
     position: relative;
     z-index: 0;
     min-height: 375px;
@@ -176,7 +176,7 @@ export default {
                 color: var(--color-white);
                 list-style-type: none;
                 font-family: var(--font-secondary);
-                border-bottom: 2px solid var(--color-primary-yellow);
+                border-bottom: 2px solid var(--color-primary-yellow-01);
                 line-height: 1.25;
             }
         } // footer-links
@@ -213,7 +213,7 @@ export default {
                 position: relative;
                 padding-top: 15px;
                 padding-bottom: 2px;
-                border-bottom: 2px solid var(--color-help-green-base);
+                border-bottom: 2px solid var(--color-help-green-03);
                 font-size: 18px;
                 font-family: var(--font-primary);
 
@@ -231,7 +231,7 @@ export default {
                 .description {
                     position: absolute;
                     top: 0;
-                    color: var(--color-help-green-base);
+                    color: var(--color-help-green-03);
                     font-size: 16px;
                     opacity: 0;
                     transition: opacity 400ms ease-in-out;
@@ -282,11 +282,11 @@ export default {
     @media #{$has-hover} {
         &:hover {
             .social-item:hover {
-                color: var(--color-primary-yellow);
+                color: var(--color-primary-yellow-01);
             }
 
             .press-room:hover {
-                color: var(--color-primary-yellow);
+                color: var(--color-primary-yellow-01);
                 text-decoration: none;
             }
         }
@@ -345,7 +345,7 @@ export default {
     @media #{$has-hover} {
         &:hover {
             .press-room:hover {
-                color: var(--color-primary-yellow);
+                color: var(--color-primary-yellow-01);
             }
         }
     }

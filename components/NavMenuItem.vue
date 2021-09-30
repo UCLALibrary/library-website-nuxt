@@ -95,7 +95,7 @@ export default {
             height: 5px;
             width: 100%;
             opacity: 0;
-            background-color: var(--color-primary-yellow);
+            background-color: var(--color-primary-yellow-01);
             transition: opacity 400ms ease-in-out;
         }
     }
@@ -157,7 +157,7 @@ export default {
         .sub-menu-item:hover {
             background-color: rgba(#ffffff, 0.1);
             text-decoration: underline;
-            text-decoration-color: var(--color-primary-yellow);
+            text-decoration-color: var(--color-primary-yellow-01);
         }
     }
 }
