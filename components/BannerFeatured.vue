@@ -396,7 +396,7 @@ export default {
     @media #{$has-hover} {
         .title:hover {
             text-decoration: underline;
-            text-decoration-color: var(------color-default-cyan-03);
+            text-decoration-color: var(--color-default-cyan-03);
             text-decoration-thickness: 1.5px;
         }
     }
