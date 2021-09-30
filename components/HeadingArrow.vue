@@ -63,15 +63,15 @@ export default {
     text-decoration: none;
 
     // themes
-    --color-theme: var(--color-primary-blue);
+    --color-theme: var(--color-primary-blue-03);
     &.color-visit {
-        --color-theme: var(--color-visit-fushia-base);
+        --color-theme: var(--color-visit-fushia-03);
     }
     &.color-help {
-        --color-theme: var(--color-help-green-base);
+        --color-theme: var(--color-help-green-03);
     }
     &.color-about {
-        --color-theme: var(--color-about-purple-base);
+        --color-theme: var(--color-about-purple-03);
     }
 
     .top {
@@ -87,7 +87,7 @@ export default {
             color: var(--color-white);
         }
         &.color-div {
-            color: var(--color-primary-blue);
+            color: var(--color-primary-blue-03);
         }
     }
 

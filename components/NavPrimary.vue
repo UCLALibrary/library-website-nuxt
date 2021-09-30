@@ -166,7 +166,7 @@ export default {
         align-items: center;
 
         .nuxt-link-active {
-            color: var(--color-primary-blue);
+            color: var(--color-primary-blue-03);
         }
     }
     .logo-ucla {
@@ -211,7 +211,7 @@ export default {
         z-index: 0;
     }
     .background-blue {
-        background-color: var(--color-primary-blue);
+        background-color: var(--color-primary-blue-03);
         position: absolute;
         top: calc(var(--unit-height) + 1px);
         bottom: 0;
@@ -246,7 +246,7 @@ export default {
     }
     // @media #{$has-hover} {
     //     .menu:hover .submenu {
-    //         background-color: var(--color-primary-blue);
+    //         background-color: var(--color-primary-blue-03);
     //         display: block;
     //     }
     //     .menu-item:hover {

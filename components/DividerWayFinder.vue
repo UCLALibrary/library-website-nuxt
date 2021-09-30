@@ -30,13 +30,13 @@ export default {
 <style lang="scss" scoped>
 .divider-way-finder {
     &.color-help {
-        --color-border: var(--color-help-green-base);
+        --color-border: var(--color-help-green-03);
     }
     &.color-visit {
-        --color-border: var(--color-visit-fushia-base);
+        --color-border: var(--color-visit-fushia-03);
     }
     &.color-about {
-        --color-border: var(--color-about-purple-base);
+        --color-border: var(--color-about-purple-03);
     }
 
     display: flex;
@@ -52,10 +52,7 @@ export default {
         margin-right: 17px;
         border-bottom-style: solid;
         border-bottom-width: 2px;
-        border-bottom-color: var(
-            --color-border,
-            var(--color-default-cyan-base)
-        );
+        border-bottom-color: var(--color-border, var(--color-default-cyan-03));
     }
     .dotted {
         border-bottom: 2px dotted var(--color-secondary-grey-02);

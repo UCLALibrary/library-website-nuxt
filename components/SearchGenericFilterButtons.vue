@@ -138,7 +138,7 @@ export default {
 
         .title,
         .chevron {
-            background-color: var(--color-primary-blue);
+            background-color: var(--color-primary-blue-03);
         }
     }
 
@@ -146,7 +146,7 @@ export default {
     @media #{$has-hover} {
         .title:hover,
         .chevron:hover {
-            background-color: var(--color-primary-blue);
+            background-color: var(--color-primary-blue-03);
         }
     }
 }

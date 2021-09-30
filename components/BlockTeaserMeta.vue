@@ -155,14 +155,14 @@ export default {
         line-height: 100%;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: var(--color-primary-darkest-blue);
+        color: var(--color-primary-blue-05);
     }
     .title {
         font-weight: 500;
         font-size: 26px;
         line-height: 130%;
         letter-spacing: 0.01em;
-        color: var(--color-primary-blue);
+        color: var(--color-primary-blue-03);
         margin: 16px 0 0 0;
 
         display: -webkit-box;
@@ -196,7 +196,7 @@ export default {
     .location {
         display: flex;
 
-        color: var(--color-primary-blue);
+        color: var(--color-primary-blue-03);
         margin-top: 11px;
 
         .location-name {
@@ -240,9 +240,9 @@ export default {
     }
 
     // Themes
-    --color-theme: var(--color-primary-light-blue);
+    --color-theme: var(--color-primary-blue-02);
     &.color-visit {
-        --color-theme: var(--color-visit-fushia-base);
+        --color-theme: var(--color-visit-fushia-03);
     }
     &.color-help {
         --color-theme: var(--color-help);
@@ -256,7 +256,7 @@ export default {
         &:hover {
             .title {
                 text-decoration: underline;
-                text-decoration-color: var(--color-default-cyan-base);
+                text-decoration-color: var(--color-default-cyan-03);
                 text-decoration-thickness: 1.5px;
             }
         }

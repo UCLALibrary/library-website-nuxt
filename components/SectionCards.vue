@@ -71,7 +71,7 @@ export default {
             font-size: 44px;
             line-height: 100%;
             text-transform: capitalize;
-            color: var(--color-primary-blue);
+            color: var(--color-primary-blue-03);
         }
         .text {
             max-width: 730px;
@@ -102,7 +102,7 @@ export default {
         }
     }
     .card-more {
-        border: 2px solid var(--color-primary-lightest-blue);
+        border: 2px solid var(--color-primary-blue-01);
         width: 281px;
         height: 400px;
         border-radius: var(--rounded-slightly-all);
