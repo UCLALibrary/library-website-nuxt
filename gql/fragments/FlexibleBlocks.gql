@@ -2,25 +2,29 @@ fragment FlexibleBlocks on ElementInterface {
     blocks: allFlexiblePageBlocks {
         id
         typeHandle
+
         ...BlockAudioContentWidth
         ...BlockCardWithImageTwoUp
         ...BlockCardWithImageThreeUp
         ...BlockCtaBlockTwoUp
-        ...BlockDivider
-        ...BlockImageContentWidth
-        ...BlockRichText
         ...BlockCta
-        ...BlockImageWithTextOverlay
+        ...BlockDivider
         ...BlockFaqs
+        ...BlockFeaturedLinkCard
+        ...BlockImageContentWidth
+        ...BlockImageWithTextOverlay
+        ...BlockPullQuote
+        ...BlockRichText
         ...BlockRichTextWithMedia
     }
 }
 
-# TODO Define all blocks here as fragments
+# Define all blocks here as fragments
+
 fragment BlockAudioContentWidth on allFlexiblePageBlocks_audioContentWidth_BlockType {
     id
     audioContentWidth {
-        ...on audioContentWidth_audioContentWidth_BlockType {
+        ... on audioContentWidth_audioContentWidth_BlockType {
             id
             audioFile {
                 url
@@ -40,7 +44,7 @@ fragment BlockCardWithImageTwoUp on allFlexiblePageBlocks_cardWithImage2Up_Block
     id
     cardWithImage2Up {
         id
-        ...on cardWithImage2Up_cardWithImage2Up_BlockType {
+        ... on cardWithImage2Up_cardWithImage2Up_BlockType {
             id
             image {
                 id
@@ -82,41 +86,15 @@ fragment BlockCtaBlockTwoUp on allFlexiblePageBlocks_ctaBlock2Up_BlockType {
     id
     ctaBlock2Up {
         id
-            ...on ctaBlock2Up_ctaBlock2Up_BlockType {
-                id
-                shortDescription
-                urlButtonText
-                urlButtonUrl
-                titleCTA2Up
-                icon
-            }
-    }
-}
-
-fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
-  id
-  weight: divider
-}
-
-fragment BlockImageContentWidth on allFlexiblePageBlocks_imageContentWidth_BlockType {
-    id
-    imageContentWidth {
-        ...on imageContentWidth_imageContentWidth_BlockType {
+        ... on ctaBlock2Up_ctaBlock2Up_BlockType {
             id
-            image {
-                id
-                url
-            }
-            altText
-            captionText
-            captionTitle
-            header
+            shortDescription
+            urlButtonText
+            urlButtonUrl
+            titleCTA2Up
+            icon
         }
     }
-}
-
-fragment BlockRichText on allFlexiblePageBlocks_richText_BlockType {
-    text
 }
 
 fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
@@ -129,6 +107,58 @@ fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
             buttonUrl: urlButtonUrl
             buttonText: urlButtonText
             icon
+        }
+    }
+}
+
+fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
+    id
+    weight: divider
+}
+
+fragment BlockFaqs on allFlexiblePageBlocks_faqs_BlockType {
+    id
+    subheader
+    shortDescription
+    faqs {
+        ... on faqs_questionAnswer_BlockType {
+            id
+            question
+            answer
+        }
+    }
+}
+
+fragment BlockFeaturedLinkCard on allFlexiblePageBlocks_featuredLinkCard_BlockType {
+    id
+    featuredLinkCard {
+        ... on featuredLinkCard_featuredLinkCard_BlockType {
+            id
+            featuredLinkTitle
+            featuredLinkCardText
+            featuredLinkCardImage {
+                id
+                url
+            }
+            featuredLinkCardButtonUrl
+            featuredLinkCardButtonTitle
+        }
+    }
+}
+
+fragment BlockImageContentWidth on allFlexiblePageBlocks_imageContentWidth_BlockType {
+    id
+    imageContentWidth {
+        ... on imageContentWidth_imageContentWidth_BlockType {
+            id
+            image {
+                id
+                url
+            }
+            altText
+            captionText
+            captionTitle
+            header
         }
     }
 }
@@ -152,17 +182,18 @@ fragment BlockImageWithTextOverlay on allFlexiblePageBlocks_imageWithTextOverlay
     }
 }
 
-fragment BlockFaqs on allFlexiblePageBlocks_faqs_BlockType {
+fragment BlockPullQuote on allFlexiblePageBlocks_pullQuote_BlockType {
     id
-    subheader
-    shortDescription
-    faqs {
-        ... on faqs_questionAnswer_BlockType {
-            id
-            question
-            answer
+    pullQuote {
+        ... on pullQuote_pullQuote_BlockType {
+            text
+            attribution
         }
     }
+}
+
+fragment BlockRichText on allFlexiblePageBlocks_richText_BlockType {
+    text
 }
 
 fragment BlockRichTextWithMedia on allFlexiblePageBlocks_richTextWithMedia_BlockType {
