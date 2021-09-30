@@ -80,7 +80,7 @@ export default {
     @media #{$has-hover} {
         .link:hover,
         .link:active {
-            color: var(--color-primary-blue);
+            color: var(--color-primary-blue-03);
         }
     }
 }
