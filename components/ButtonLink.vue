@@ -69,7 +69,7 @@ export default {
     box-sizing: border-box;
     height: 50px;
     background-color: var(--color-white);
-    border: 1.5px solid var(--color-primary-light-blue);
+    border: 1.5px solid var(--color-primary-blue-02);
     font-size: 18px;
     color: var(--color-black);
     padding: 14px 40px;
@@ -77,12 +77,12 @@ export default {
     transition-duration: 400ms;
     transition-timing-function: ease-in-out;
     .arrow {
-        stroke: var(--color-default-cyan-base);
+        stroke: var(--color-default-cyan-03);
         padding-top: 5px;
         padding-left: 5px;
     }
     &.is-secondary {
-        background-color: var(--color-primary-blue);
+        background-color: var(--color-primary-blue-03);
         border: unset;
         color: var(--color-white);
         .arrow {
@@ -92,7 +92,7 @@ export default {
     // Hover states
     @media #{$has-hover} {
         &:hover {
-            background-color: var(--color-primary-blue);
+            background-color: var(--color-primary-blue-03);
             border: unset;
             color: var(--color-white);
             cursor: pointer;
@@ -101,10 +101,10 @@ export default {
             }
             &.is-secondary {
                 background-color: var(--color-white);
-                border: 1.5px solid var(--color-primary-light-blue);
+                border: 1.5px solid var(--color-primary-blue-02);
                 color: var(--color-black);
                 .arrow {
-                    stroke: var(--color-default-cyan-base);
+                    stroke: var(--color-default-cyan-03);
                 }
             }
         }
