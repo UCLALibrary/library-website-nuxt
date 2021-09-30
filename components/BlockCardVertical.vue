@@ -85,7 +85,7 @@ export default {
     align-content: center;
     align-items: center;
 
-    border: 2px solid var(--color-primary-blue-03-01);
+    border: 2px solid var(--color-primary-blue-01);
     width: 300px;
     height: 400px;
     overflow: hidden;
