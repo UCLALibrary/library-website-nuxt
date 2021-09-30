@@ -73,7 +73,7 @@ export default {
     color: var(--color-white);
     background-color: var(--color-primary-blue-03);
     border-radius: var(--rounded-slightly-all);
-    border: 1.5px solid var(--color-fushia-03);
+    border: 1.5px solid var(--color-visit-fushia-01);
     margin: 0;
 
     padding: 22px 16px;
