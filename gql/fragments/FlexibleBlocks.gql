@@ -10,6 +10,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockCta
         ...BlockDivider
         ...BlockFaqs
+        ...BlockFeaturedLinkCard
         ...BlockImageContentWidth
         ...BlockImageWithTextOverlay
         ...BlockPullQuote
@@ -124,6 +125,23 @@ fragment BlockFaqs on allFlexiblePageBlocks_faqs_BlockType {
             id
             question
             answer
+        }
+    }
+}
+
+fragment BlockFeaturedLinkCard on allFlexiblePageBlocks_featuredLinkCard_BlockType {
+    id
+    featuredLinkCard {
+        ... on featuredLinkCard_featuredLinkCard_BlockType {
+            id
+            featuredLinkTitle
+            featuredLinkCardText
+            featuredLinkCardImage {
+                id
+                url
+            }
+            featuredLinkCardButtonUrl
+            featuredLinkCardButtonTitle
         }
     }
 }
