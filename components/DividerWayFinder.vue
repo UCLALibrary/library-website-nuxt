@@ -52,7 +52,7 @@ export default {
         margin-right: 17px;
         border-bottom-style: solid;
         border-bottom-width: 2px;
-        border-bottom-color: var(--color-border, var(-color-default-cyan-03));
+        border-bottom-color: var(--color-border, var(--color-default-cyan-03));
     }
     .dotted {
         border-bottom: 2px dotted var(--color-secondary-grey-02);

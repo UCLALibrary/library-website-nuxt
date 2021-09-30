@@ -50,7 +50,7 @@ export default {
         width: 83px;
         height: 83px;
 
-        stroke: var(-color-default-cyan-03);
+        stroke: var(--color-default-cyan-03);
         stroke-width: 1.5px;
     }
     .arrow-right {
@@ -88,7 +88,7 @@ export default {
         &:hover {
             .arrow-right {
                 .arrow {
-                    stroke: var(-color-default-cyan-03);
+                    stroke: var(--color-default-cyan-03);
                 }
             }
             .text {

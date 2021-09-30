@@ -215,7 +215,7 @@ export default {
 
     .divider {
         margin-top: 15px;
-        border-bottom: 2px solid var(-color-default-cyan-03);
+        border-bottom: 2px solid var(--color-default-cyan-03);
         height: 1px;
     }
 

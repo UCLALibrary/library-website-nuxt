@@ -361,7 +361,7 @@ export default {
                     margin: 0;
                     vertical-align: middle;
                     li::marker {
-                        border-bottom: 2px solid var(-color-default-cyan-03);
+                        border-bottom: 2px solid var(--color-default-cyan-03);
                         display: inline-block;
                         line-height: 1.25;
                         color: var(--color-primary-blue-03);

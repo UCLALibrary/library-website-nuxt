@@ -72,7 +72,7 @@ export default {
     transition-timing-function: ease-in-out;
 
     .arrow-right {
-        stroke: var(-color-default-cyan-03);
+        stroke: var(--color-default-cyan-03);
         padding-top: 5px;
     }
 
@@ -100,7 +100,7 @@ export default {
                 border: 1.5px solid var(--color-primary-blue-03-02);
                 color: var(--color-black);
                 .arrow-right {
-                    stroke: var(-color-default-cyan-03);
+                    stroke: var(--color-default-cyan-03);
                 }
             }
         }
