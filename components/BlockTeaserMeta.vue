@@ -240,7 +240,7 @@ export default {
     }
 
     // Themes
-    --color-theme: var(--color-primary-blue-03-02);
+    --color-theme: var(--color-primary-blue-02);
     &.color-visit {
         --color-theme: var(--color-visit-fushia-03);
     }

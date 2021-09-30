@@ -97,7 +97,7 @@ export default {
     transition-timing-function: ease-in-out;
 
     // Themes
-    --color-theme: var(--color-primary-blue-03-02);
+    --color-theme: var(--color-primary-blue-02);
     &.color-visit {
         --color-theme: var(--color-visit-fushia-01);
     }
@@ -115,7 +115,7 @@ export default {
     }
     .meta {
         transition: background-color 400ms ease-in-out;
-        background-color: var(--color-primary-blue-03-01);
+        background-color: var(--color-primary-blue-01);
         flex: 1 1 auto;
     }
     .title {
