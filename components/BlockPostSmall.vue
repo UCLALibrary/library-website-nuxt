@@ -97,14 +97,14 @@ export default {
         line-height: 100%;
         letter-spacing: 0.06em;
         text-transform: uppercase;
-        color: var(--color-primary-darkest-blue);
+        color: var(--color-primary-blue-05);
     }
     .title {
         font-weight: 500;
         font-size: 16px;
         line-height: 120%;
         letter-spacing: 0.01em;
-        color: var(--color-primary-blue);
+        color: var(--color-primary-blue-03);
         margin: 15px 0 0 0;
     }
     .author {
@@ -116,15 +116,15 @@ export default {
     }
 
     // Themes
-    --color-theme: var(--color-primary-light-blue);
+    --color-theme: var(--color-primary-blue-02);
     &.color-visit {
-        --color-theme: var(--color-visit-fushia-lightest);
+        --color-theme: var(--color-visit-fushia-01);
     }
     &.color-help {
-        --color-theme: var(--color-help-green-lightest);
+        --color-theme: var(--color-help-green-01);
     }
     &.color-about {
-        --color-theme: var(--color-about-purple-lightest);
+        --color-theme: var(--color-about-purple-01);
     }
 
     // Hovers

@@ -153,7 +153,7 @@ export default {
     // TODO Stop using max-height. You don't know how tall anything will be ever
 
     background-color: var(--color-white);
-    border: 2px solid var(--color-primary-lightest-blue);
+    border: 2px solid var(--color-primary-blue-01);
     border-radius: var(--rounded-slightly-all);
     box-sizing: border-box;
     padding: 48px 32px 48px 64px;
@@ -181,7 +181,7 @@ export default {
         font-weight: normal;
         font-size: 18px;
         line-height: 120%;
-        color: var(--color-primary-blue);
+        color: var(--color-primary-blue-03);
 
         .svg {
             margin-bottom: -10px;
@@ -191,7 +191,7 @@ export default {
             font-size: 48px;
             line-height: 100%;
             letter-spacing: 0.01em;
-            color: var(--color-primary-blue);
+            color: var(--color-primary-blue-03);
         }
         .title {
             margin-top: 8px;
@@ -234,7 +234,7 @@ export default {
             // padding-left: 8px;
         }
         .location-link + .location-link {
-            border-left: solid 1px var(--color-primary-blue);
+            border-left: solid 1px var(--color-primary-blue-03);
             margin-left: 10px;
             padding-left: 10px;
         }
@@ -253,13 +253,13 @@ export default {
     @media #{$has-hover} {
         .name:hover {
             text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue);
+            text-decoration-color: var(--color-primary-blue-03);
             text-decoration-thickness: 1.5px;
         }
 
         .location-link:hover {
             text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue);
+            text-decoration-color: var(--color-primary-blue-03);
             text-decoration-thickness: 1.5px;
         }
     }

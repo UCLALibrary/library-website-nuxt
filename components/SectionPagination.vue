@@ -105,11 +105,11 @@ export default {
     @media #{$has-hover} {
         .previous:hover,
         .previous:active {
-            color: var(--color-primary-blue);
+            color: var(--color-primary-blue-03);
         }
         .next:hover,
         .next:active {
-            color: var(--color-primary-blue);
+            color: var(--color-primary-blue-03);
         }
     }
 }

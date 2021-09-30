@@ -107,14 +107,14 @@ export default {
         line-height: 100%;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: var(--color-secondary-black);
+        color: var(--color-secondary-grey-05);
         font-weight: 500;
         padding-bottom: 16px;
     }
     .title {
         font-size: 26px;
         line-height: 130%;
-        color: var(--color-primary-blue);
+        color: var(--color-primary-blue-03);
         font-weight: 500;
         margin-bottom: 5px;
         overflow: hidden;
@@ -160,7 +160,7 @@ export default {
 @media #{$has-hover} {
     .title:hover {
         text-decoration: underline;
-        text-decoration-color: var(--color-default-cyan-base);
+        text-decoration-color: var(--color-default-cyan-03);
         text-decoration-thickness: 1.5px;
     }
 }
