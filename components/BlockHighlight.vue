@@ -171,7 +171,7 @@ export default {
             top: 0;
             left: 5px;
             height: 47px;
-            background-color: var(--color-visit-fushia-base);
+            background-color: var(--color-visit-fushia-03);
 
             clip-path: polygon(
                 0 0,
@@ -326,7 +326,7 @@ export default {
     // Themes
     --color-theme: var(--color-primary-blue-03-02);
     &.color-visit {
-        --color-theme: var(--color-visit-fushia-base);
+        --color-theme: var(--color-visit-fushia-03);
     }
     &.color-help {
         --color-theme: var(--color-help);

@@ -80,7 +80,7 @@ export default {
             top: -57px;
             left: 5px;
             height: 60px;
-            background-color: var(--color-visit-fushia-base);
+            background-color: var(--color-visit-fushia-03);
             clip-path: polygon(
                 0 0,
                 calc(100% - 19px) 0,
@@ -142,7 +142,7 @@ export default {
                 top: -40px;
                 left: 5px;
                 height: 30px;
-                background-color: var(--color-visit-fushia-base);
+                background-color: var(--color-visit-fushia-03);
                 clip-path: polygon(
                     0 0,
                     calc(100% - 19px) 0,

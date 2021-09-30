@@ -179,7 +179,7 @@ export default {
         }
 
         // Themes for svg colors
-        --color-theme-svg-lines: var(--color-help-green-base);
+        --color-theme-svg-lines: var(--color-help-green-03);
 
         &.color-theme-svg-lines-dark {
             --color-theme-svg-lines: var(--color-white);

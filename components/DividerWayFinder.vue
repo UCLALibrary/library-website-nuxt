@@ -30,13 +30,13 @@ export default {
 <style lang="scss" scoped>
 .divider-way-finder {
     &.color-help {
-        --color-border: var(--color-help-green-base);
+        --color-border: var(--color-help-green-03);
     }
     &.color-visit {
-        --color-border: var(--color-visit-fushia-base);
+        --color-border: var(--color-visit-fushia-03);
     }
     &.color-about {
-        --color-border: var(--color-about-purple-base);
+        --color-border: var(--color-about-purple-03);
     }
 
     display: flex;
