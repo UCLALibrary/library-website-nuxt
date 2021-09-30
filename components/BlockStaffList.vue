@@ -85,6 +85,7 @@
 </template>
 
 <script>
+import _isEmpty from "lodash/isEmpty"
 import SvgHeadingArrow from "~/assets/svg/heading-arrow"
 import SvgIconLocation from "~/assets/svg/icon-location"
 import SvgIconEmail from "~/assets/svg/icon-email"
@@ -136,12 +137,12 @@ export default {
     computed: {
         bookingLink() {
             // TODO Make this a prop, and do the $store from the page
-            return (
-                this.$store.state.globals.appointmentsLink || {
+            return !_isEmpty(this.$store.state.global)
+                ? this.$store.state.globals.appointmentsLink
+                : {
                     theUrl: this.$config.libcalAppointment,
                     urlText: "Book a consultation",
                 }
-            )
         },
     },
 }

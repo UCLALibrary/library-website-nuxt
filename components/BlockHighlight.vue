@@ -48,7 +48,7 @@
                     v-html="parseOnline"
                 />
             </div>
-            <p
+            <div
                 v-if="text"
                 class="text"
                 v-html="text"
@@ -258,7 +258,7 @@ export default {
         color: var(--color-black);
 
         display: -webkit-box;
-        -webkit-line-clamp: 4;
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }

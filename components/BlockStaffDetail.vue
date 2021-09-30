@@ -120,7 +120,7 @@
                     <h2 class="bio-header">
                         Biography
                     </h2>
-                    <p v-html="biography" />
+                    <div v-html="biography" />
                 </div>
             </div>
         </div>
