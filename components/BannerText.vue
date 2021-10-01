@@ -153,34 +153,34 @@ export default {
 
 .theme-light {
     --background-color: var(--color-white);
-    --category-title-color: var(--color-primary-darkest-blue);
-    --title-color: var(--color-primary-blue);
+    --category-title-color: var(--color-primary-blue-05);
+    --title-color: var(--color-primary-blue-03);
     --text-color: var(--color-black);
     --schedule-item-color: var(--color-secondary-grey-04);
     --schedule-item-border: var(--color-secondary-grey-02);
-    --button-border-color: var(--color-primary-blue);
-    --facet-inside-color: var(--color-primary-light-blue);
-    --facet-outside-color: var(--color-primary-blue);
-    --location-color: var(--color-primary-blue);
-    --location-icon-color: var(--color-primary-blue);
-    --hover-border-color: var(--color-primary-light-blue);
+    --button-border-color: var(--color-primary-blue-03);
+    --facet-inside-color: var(--color-primary-blue-02);
+    --facet-outside-color: var(--color-primary-blue-03);
+    --location-color: var(--color-primary-blue-03);
+    --location-icon-color: var(--color-primary-blue-03);
+    --hover-border-color: var(--color-primary-blue-02);
     --hover-background-color: var(--color-white);
 }
 
 .theme-dark {
-    --background-color: var(--color-primary-blue);
+    --background-color: var(--color-primary-blue-03);
     --category-title-color: var(--color-white);
     --title-color: var(--color-white);
     --text-color: var(--color-white);
     --schedule-item-color: var(--color-white);
-    --schedule-item-border: var(--color-primary-yellow);
-    --button-border-color: var(--color-default-cyan-lighter);
-    --facet-inside-color: var(--color-default-cyan-lighter);
-    --facet-outside-color: var(--color-default-cyan-base);
+    --schedule-item-border: var(--color-primary-yellow-01);
+    --button-border-color: var(--color-default-cyan-02);
+    --facet-inside-color: var(--color-default-cyan-02);
+    --facet-outside-color: var(--color-default-cyan-03);
     --location-color: var(--color-white);
     --location-icon-color: var(--color-white);
     --hover-border-color: var(--color-white);
-    --hover-background-color: var(--color-primary-blue);
+    --hover-background-color: var(--color-primary-blue-03);
 }
 .banner-text {
     max-width: 1440px;
@@ -295,7 +295,7 @@ export default {
         max-width: 160px;
         margin-left: 52px;
         margin-bottom: 40px;
-        background-color: var(--color-primary-blue);
+        background-color: var(--color-primary-blue-03);
         color: var(--color-white);
         border: 1px solid var(--button-border-color);
         /deep/ {
@@ -336,12 +336,12 @@ export default {
 
             /deep/ {
                 .arrow {
-                    stroke: var(--color-default-cyan-base);
+                    stroke: var(--color-default-cyan-03);
                     .arrow-diagonal {
-                        fill: var(--color-default-cyan-base);
+                        fill: var(--color-default-cyan-03);
                     }
                     .line {
-                        stroke: var(--color-default-cyan-base);
+                        stroke: var(--color-default-cyan-03);
                     }
                 }
             }
