@@ -151,6 +151,22 @@ export default {
 <style lang="scss" scoped>
 // Variations for dark blue and white backgrounds
 
+.theme-dark {
+    --background-color: var(--color-primary-blue-03);
+    --category-title-color: var(--color-white);
+    --title-color: var(--color-white);
+    --text-color: var(--color-white);
+    --schedule-item-color: var(--color-white);
+    --schedule-item-border: var(--color-primary-yellow-01);
+    --button-border-color: var(--color-default-cyan-02);
+    --facet-inside-color: var(--color-default-cyan-02);
+    --facet-outside-color: var(--color-default-cyan-03);
+    --location-color: var(--color-white);
+    --location-icon-color: var(--color-white);
+    --hover-border-color: var(--color-white);
+    --hover-background-color: var(--color-primary-blue-03);
+}
+// Variations for dark blue and white backgrounds
 .theme-light {
     --background-color: var(--color-white);
     --category-title-color: var(--color-primary-blue-05);
@@ -166,7 +182,6 @@ export default {
     --hover-border-color: var(--color-primary-blue-02);
     --hover-background-color: var(--color-white);
 }
-
 .theme-dark {
     --background-color: var(--color-primary-blue-03);
     --category-title-color: var(--color-white);
@@ -184,20 +199,18 @@ export default {
 }
 .banner-text {
     max-width: 1440px;
-    min-height: 500px;
     padding-left: 204px;
     padding-right: var(--unit-gutter);
-    padding-top: 10px;
+    padding-top: 84px;
     padding-bottom: 128px;
+    margin: 0 auto;
     background-color: var(--background-color);
     position: relative;
     z-index: 0;
-
     .meta {
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        margin-top: 84px;
     }
     // Themes for category outline
     --color-theme: var(--color-primary-blue-03);
@@ -219,27 +232,27 @@ export default {
         margin-left: -10px;
         clip-path: polygon(17px 0, 100% 0, 100% 100%, 1px 100%);
     }
-
     .heading-line {
         flex-shrink: 0;
         padding-right: 0;
     }
     .title {
-        font-size: 72px;
+        font-size: 80px;
+        line-height: 1;
         color: var(--title-color);
-        margin-top: 70px;
+        margin-top: 48px;
         text-align: left;
-        max-width: 730px;
+        max-width: 788px;
         padding-left: 52px;
     }
     .schedule {
         font-size: 20px;
         line-height: 24px;
         text-align: left;
+        font-family: var(--font-secondary);
         color: var(--schedule-item-color);
-        margin: 10px 0 8px 0;
+        margin: 24px 0 8px 0;
         padding-left: 52px;
-
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -264,12 +277,14 @@ export default {
     .location-group {
         color: var(--location-color);
         font-family: var(--font-secondary);
+        font-size: 20px;
+        line-height: 1;
         padding-left: 52px;
     }
     .location-link {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: flex-start;
         align-content: center;
         align-items: center;
@@ -283,15 +298,16 @@ export default {
         }
     }
     .text {
-        font-size: 24px;
+        font-size: 20px;
+        line-height: 1.5;
         text-align: left;
-        max-width: 630px;
-        margin-top: 10px;
+        max-width: 70%;
+        margin-top: 24px;
         padding-left: 52px;
         color: var(--text-color);
     }
     .button-link {
-        margin-top: 24px;
+        margin-top: 40px;
         max-width: 160px;
         margin-left: 52px;
         margin-bottom: 40px;
@@ -301,7 +317,6 @@ export default {
         /deep/ {
             .arrow {
                 stroke: var(--color-default-white);
-
                 .arrow-diagonal {
                     fill: var(--color-white);
                 }
@@ -313,13 +328,12 @@ export default {
     }
     .molecule {
         right: 0;
-        top: 0;
-        bottom: 95px;
+        top: 50%;
+        transform: translateY(-50%);
         margin: auto;
         position: absolute;
         z-index: 20;
         width: auto;
-
         .facet-outside {
             fill: var(--facet-outside-color);
         }
@@ -333,7 +347,6 @@ export default {
             border: 1px solid var(--hover-border-color);
             background-color: var(--hover-background-color);
             color: var(--text-color);
-
             /deep/ {
                 .arrow {
                     stroke: var(--color-default-cyan-03);
@@ -348,49 +361,40 @@ export default {
         }
     }
 }
-
 // Breakpoints
+@media #{$gt-wide} {
+    .banner-text {
+        margin-top: 72px;
+        .text {
+            max-width: 788px;
+        }
+    }
+}
 @media #{$lte-tablet} {
     .banner-text {
-        padding-left: 92px;
+        padding-left: 40px;
         padding-bottom: 60px;
         padding-top: 40px;
-        max-width: 768;
-
-        .meta {
-            margin-top: 40px;
-        }
         .title {
             font-size: 52px;
-            max-width: 420px;
-            margin-top: 40px;
+            margin-top: 32px;
+            padding-right: 120px;
         }
         .text {
-            font-size: 18px;
-            max-width: 70%;
+            padding-right: 120px;
         }
         .button-link {
-            margin-bottom: 32px;
+            margin-top: 32px;
         }
-
         .molecule {
             height: 300px;
             width: auto;
         }
     }
 }
-
 @media #{$lte-phone} {
     .banner-text {
         padding: 32px 32px 48px 32px;
-        max-width: 375;
-        max-height: 100%;
-        min-height: 100px;
-
-        .meta {
-            margin-top: 0px;
-        }
-
         .title {
             font-size: 42px;
             padding-right: 88px;
@@ -411,19 +415,19 @@ export default {
             padding-left: 0;
         }
         .text {
-            font-size: 18px;
-            max-width: 70%;
             padding-left: 0;
+            padding-right: 0;
+            max-width: 100%;
         }
         .molecule {
             height: 215px;
             width: auto;
-            margin-top: 32px;
+            top: 32px;
+            transform: none;
         }
         .button-link {
             max-width: 100%;
-            height: 40px;
-            margin: 40px 0 0 0;
+            margin: 32px 0 0 0;
         }
     }
 }
