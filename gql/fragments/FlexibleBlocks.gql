@@ -9,6 +9,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockCtaBlockTwoUp
         ...BlockCta
         ...BlockDivider
+        ...BlockDownloadCallout
         ...BlockFaqs
         ...BlockFeaturedLinkCard
         ...BlockFeaturedPromo
@@ -116,6 +117,43 @@ fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
 fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
     id
     weight: divider
+}
+
+fragment BlockDownloadCallout on allFlexiblePageBlocks_downloadCallout_BlockType {
+    id
+    downloadCallout {
+        ... on downloadCallout_downloadCallout_BlockType {
+            id
+            sectionHeader
+            shortDescription
+            buttonText
+            downloadLink
+            image {
+                url
+            }
+            imageAltText
+        }
+    }
+    downloadCalloutDownloadableStreamingFile {
+        ... on downloadCalloutDownloadableStreamingFile_video_BlockType {
+            id
+            videoUrl
+            videoFile {
+                id
+                url
+            }
+            posterImage {
+                id
+                url
+            }
+        }
+        ... on downloadCalloutDownloadableStreamingFile_document_BlockType {
+            id
+            document {
+                url
+            }
+        }
+    }
 }
 
 fragment BlockFaqs on allFlexiblePageBlocks_faqs_BlockType {
