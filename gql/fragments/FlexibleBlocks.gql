@@ -11,6 +11,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockDivider
         ...BlockFaqs
         ...BlockFeaturedLinkCard
+        ...BlockFeaturedPromo
         ...BlockImageContentWidth
         ...BlockImageWithTextOverlay
         ...BlockPullQuote
@@ -143,6 +144,20 @@ fragment BlockFeaturedLinkCard on allFlexiblePageBlocks_featuredLinkCard_BlockTy
             }
             featuredLinkCardButtonUrl
             featuredLinkCardButtonTitle
+        }
+    }
+}
+
+fragment BlockFeaturedPromo on allFlexiblePageBlocks_featuredPromo_BlockType {
+    id
+    featuredPromo {
+        ... on featuredPromo_featuredPromo_BlockType {
+            id
+            contentLink {
+                url
+                title
+            }
+            alignment
         }
     }
 }
