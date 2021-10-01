@@ -200,15 +200,15 @@ export default {
         margin-top: 84px;
     }
     // Themes for category outline
-    --color-theme: var(--color-primary-blue);
+    --color-theme: var(--color-primary-blue-03);
     .color-visit {
-        --color-theme: var(--color-visit-fushia-base);
+        --color-theme: var(--color-visit-fushia-03);
     }
     .color-help {
-        --color-theme: var(--color-help-green-base);
+        --color-theme: var(--color-help-green-03);
     }
     .color-about {
-        --color-theme: var(--color-about-purple-base);
+        --color-theme: var(--color-about-purple-03);
     }
     .category {
         color: var(--category-title-color);
