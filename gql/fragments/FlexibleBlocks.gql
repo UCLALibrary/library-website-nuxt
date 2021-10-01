@@ -16,6 +16,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockPullQuote
         ...BlockRichText
         ...BlockRichTextWithMedia
+        ...BlockHelpTopicCards3Up
     }
 }
 
@@ -210,6 +211,24 @@ fragment BlockRichTextWithMedia on allFlexiblePageBlocks_richTextWithMedia_Block
             imageAltText
             imageAlignment: alignment
             imageCaption
+        }
+    }
+}
+
+fragment BlockHelpTopicCards3Up on allFlexiblePageBlocks_helpTopicCards3Up_BlockType {
+    id
+    helpTopicCard3Up {
+        ... on helpTopicCard3Up_helpTopicCard3Up_BlockType {
+            id
+            contentLink {
+                id
+                url
+                uri
+                title
+                shortDescription
+                iconName: illustrationsResourcesAndServices
+            }
+            subheader
         }
     }
 }
