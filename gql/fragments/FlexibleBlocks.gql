@@ -326,49 +326,57 @@ fragment BlockHelpTopicCards3Up on allFlexiblePageBlocks_helpTopicCards3Up_Block
 }
 
 fragment BlockSimpleCard2Up on allFlexiblePageBlocks_simpleCard2Up_BlockType {
-  id
-  simpleCard2Up {
-    ... on simpleCard2Up_simpleCard2UpContent_BlockType {
-      id
-      featuredLinkCardText
-      contentLink {
-        id
-        url
-      }
-      shortDescription
-      externalLink
+    id
+    simpleCard2Up {
+        ... on simpleCard2Up_simpleCard2UpContent_BlockType {
+            id
+            featuredLinkCardText
+            contentLink {
+                id
+                url
+            }
+            shortDescription
+            externalLink
+        }
     }
-  }
 }
 
 fragment BlockSimpleCard3Up on allFlexiblePageBlocks_simpleCard3Up_BlockType {
-  id
-  simpleCard3Up {
-    ... on simpleCard3Up_simpleCard3UpContent_BlockType {
-      id
-      linkText
-      contentLink3up {
-        id
-        url
-      }
-      subheader3up
-      externalLink
+    id
+    simpleCard3Up {
+        ... on simpleCard3Up_simpleCard3UpContent_BlockType {
+            id
+            linkText
+            contentLink3up {
+                id
+                url
+            }
+            subheader3up
+            externalLink
+        }
     }
-  }
 }
 
-fragment BlockVideoContentWidth o allFlexiblePageBlocks_videoContentWidth_BlockType {
+fragment BlockVideoContentWidth on allFlexiblePageBlocks_videoContentWidth_BlockType {
     id
-    videoContentWidth  {
-        ...  on videoContentWidth_videoContentWidth_BlockType {
+    videoContentWidth {
+        ... on videoContentWidth_videoContentWidth_BlockType {
             id
-            header
             videoUrl
-            captionTitle
+            videoUpload {
+                url
+                ... on mediaAndDocuments_Asset {
+                    id
+                    url
+                }
+            }
             captionText
-            coverImage
+            captionTitle
+            coverImage {
+                id
+                url
+            }
             coverImageAltText
-            videoUpload
         }
     }
 }
