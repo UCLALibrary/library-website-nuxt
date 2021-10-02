@@ -21,6 +21,9 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockRichText
         ...BlockRichTextWithMedia
         ...BlockHelpTopicCards3Up
+        ...BlockSimpleCardTwoUp
+        ...BlockSimpleCardThreeUp
+        ...BlockVideoContentWidth
     }
 }
 
@@ -318,6 +321,51 @@ fragment BlockHelpTopicCards3Up on allFlexiblePageBlocks_helpTopicCards3Up_Block
                 iconName: illustrationsResourcesAndServices
             }
             subheader
+        }
+    }
+}
+
+fragment BlockSimpleCard2Up on allFlexiblePageBlocks_simpleCard2Up_BlockType {
+  id
+  simpleCard2Up {
+    ... on simpleCard2Up_simpleCard2UpContent_BlockType {
+      id
+      featuredLinkCardText
+      contentLink {
+        id
+        url
+      }
+      shortDescription
+      externalLink
+    }
+  }
+}
+
+fragment BlockSimpleCardThreeUp o allFlexiblePageBlocks_simpleCard3Up_BlockType {
+    id
+    simpleCard3Up {
+        ... on simpleCard2Up_simpleCard2Up_BlockType {
+            id
+            featuredLinkCardText
+            contentLink
+            shortDescription
+            externalLink
+        }
+    }
+}
+
+fragment BlockVideoContentWidth o allFlexiblePageBlocks_videoContentWidth_BlockType {
+    id
+    videoContentWidth  {
+        ...  on videoContentWidth_videoContentWidth_BlockType {
+            id
+            header
+            videoUrl
+            captionTitle
+            captionText
+            coverImage
+            coverImageAltText
+            videoUpload
         }
     }
 }
