@@ -15,6 +15,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockFeaturedPromo
         ...BlockImageContentWidth
         ...BlockImageWithTextOverlay
+        ...BlockImpactNumbersCarousel
         ...BlockPullQuote
         ...BlockRichText
         ...BlockRichTextWithMedia
@@ -232,6 +233,23 @@ fragment BlockImageWithTextOverlay on allFlexiblePageBlocks_imageWithTextOverlay
             imageAlignment: alignment
             urlButtonText
             urlButtonUrl
+        }
+    }
+}
+
+fragment BlockImpactNumbersCarousel on allFlexiblePageBlocks_impactNumbersCarousel_BlockType {
+    id
+    impactNumbersCarousel {
+        id
+        ... on impactNumbersCarousel_impactNumbersCarousel_BlockType {
+            id
+            largeText
+            mediumText
+            smallDescriptor
+            image {
+                url
+            }
+            imageAltText
         }
     }
 }
