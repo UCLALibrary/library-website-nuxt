@@ -341,17 +341,20 @@ fragment BlockSimpleCard2Up on allFlexiblePageBlocks_simpleCard2Up_BlockType {
   }
 }
 
-fragment BlockSimpleCardThreeUp o allFlexiblePageBlocks_simpleCard3Up_BlockType {
-    id
-    simpleCard3Up {
-        ... on simpleCard2Up_simpleCard2Up_BlockType {
-            id
-            featuredLinkCardText
-            contentLink
-            shortDescription
-            externalLink
-        }
+fragment BlockSimpleCard3Up on allFlexiblePageBlocks_simpleCard3Up_BlockType {
+  id
+  simpleCard3Up {
+    ... on simpleCard3Up_simpleCard3UpContent_BlockType {
+      id
+      linkText
+      contentLink3up {
+        id
+        url
+      }
+      subheader3up
+      externalLink
     }
+  }
 }
 
 fragment BlockVideoContentWidth o allFlexiblePageBlocks_videoContentWidth_BlockType {
