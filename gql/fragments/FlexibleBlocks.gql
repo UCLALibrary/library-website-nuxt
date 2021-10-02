@@ -16,6 +16,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockImageContentWidth
         ...BlockImageWithTextOverlay
         ...BlockImpactNumbersCarousel
+        ...BlockMediaGallery
         ...BlockPullQuote
         ...BlockRichText
         ...BlockRichTextWithMedia
@@ -250,6 +251,23 @@ fragment BlockImpactNumbersCarousel on allFlexiblePageBlocks_impactNumbersCarous
                 url
             }
             imageAltText
+        }
+    }
+}
+
+fragment BlockMediaGallery on allFlexiblePageBlocks_mediaGallery_BlockType {
+    id
+    mediaGallery {
+        id
+        ... on mediaGallery_image_BlockType {
+            id
+            image {
+                id
+                url
+            }
+            captionTitle
+            captionText
+            altText
         }
     }
 }
