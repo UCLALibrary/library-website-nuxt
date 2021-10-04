@@ -9,14 +9,21 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockCtaBlockTwoUp
         ...BlockCta
         ...BlockDivider
+        ...BlockDownloadCallout
         ...BlockFaqs
         ...BlockFeaturedLinkCard
+        ...BlockFeaturedPromo
         ...BlockImageContentWidth
         ...BlockImageWithTextOverlay
+        ...BlockImpactNumbersCarousel
+        ...BlockMediaGallery
         ...BlockPullQuote
         ...BlockRichText
         ...BlockRichTextWithMedia
         ...BlockHelpTopicCards3Up
+        ...BlockSimpleCardTwoUp
+        ...BlockSimpleCardThreeUp
+        ...BlockVideoContentWidth
     }
 }
 
@@ -117,6 +124,43 @@ fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
     weight: divider
 }
 
+fragment BlockDownloadCallout on allFlexiblePageBlocks_downloadCallout_BlockType {
+    id
+    downloadCallout {
+        ... on downloadCallout_downloadCallout_BlockType {
+            id
+            sectionHeader
+            shortDescription
+            buttonText
+            downloadLink
+            image {
+                url
+            }
+            imageAltText
+        }
+    }
+    downloadCalloutDownloadableStreamingFile {
+        ... on downloadCalloutDownloadableStreamingFile_video_BlockType {
+            id
+            videoUrl
+            videoFile {
+                id
+                url
+            }
+            posterImage {
+                id
+                url
+            }
+        }
+        ... on downloadCalloutDownloadableStreamingFile_document_BlockType {
+            id
+            document {
+                url
+            }
+        }
+    }
+}
+
 fragment BlockFaqs on allFlexiblePageBlocks_faqs_BlockType {
     id
     subheader
@@ -143,6 +187,20 @@ fragment BlockFeaturedLinkCard on allFlexiblePageBlocks_featuredLinkCard_BlockTy
             }
             featuredLinkCardButtonUrl
             featuredLinkCardButtonTitle
+        }
+    }
+}
+
+fragment BlockFeaturedPromo on allFlexiblePageBlocks_featuredPromo_BlockType {
+    id
+    featuredPromo {
+        ... on featuredPromo_featuredPromo_BlockType {
+            id
+            contentLink {
+                url
+                title
+            }
+            alignment
         }
     }
 }
@@ -179,6 +237,40 @@ fragment BlockImageWithTextOverlay on allFlexiblePageBlocks_imageWithTextOverlay
             imageAlignment: alignment
             urlButtonText
             urlButtonUrl
+        }
+    }
+}
+
+fragment BlockImpactNumbersCarousel on allFlexiblePageBlocks_impactNumbersCarousel_BlockType {
+    id
+    impactNumbersCarousel {
+        id
+        ... on impactNumbersCarousel_impactNumbersCarousel_BlockType {
+            id
+            largeText
+            mediumText
+            smallDescriptor
+            image {
+                url
+            }
+            imageAltText
+        }
+    }
+}
+
+fragment BlockMediaGallery on allFlexiblePageBlocks_mediaGallery_BlockType {
+    id
+    mediaGallery {
+        id
+        ... on mediaGallery_image_BlockType {
+            id
+            image {
+                id
+                url
+            }
+            captionTitle
+            captionText
+            altText
         }
     }
 }
@@ -229,6 +321,62 @@ fragment BlockHelpTopicCards3Up on allFlexiblePageBlocks_helpTopicCards3Up_Block
                 iconName: illustrationsResourcesAndServices
             }
             subheader
+        }
+    }
+}
+
+fragment BlockSimpleCard2Up on allFlexiblePageBlocks_simpleCard2Up_BlockType {
+    id
+    simpleCard2Up {
+        ... on simpleCard2Up_simpleCard2UpContent_BlockType {
+            id
+            featuredLinkCardText
+            contentLink {
+                id
+                url
+            }
+            shortDescription
+            externalLink
+        }
+    }
+}
+
+fragment BlockSimpleCard3Up on allFlexiblePageBlocks_simpleCard3Up_BlockType {
+    id
+    simpleCard3Up {
+        ... on simpleCard3Up_simpleCard3UpContent_BlockType {
+            id
+            linkText
+            contentLink3up {
+                id
+                url
+            }
+            subheader3up
+            externalLink
+        }
+    }
+}
+
+fragment BlockVideoContentWidth on allFlexiblePageBlocks_videoContentWidth_BlockType {
+    id
+    videoContentWidth {
+        ... on videoContentWidth_videoContentWidth_BlockType {
+            id
+            videoUrl
+            videoUpload {
+                url
+                ... on mediaAndDocuments_Asset {
+                    id
+                    url
+                }
+            }
+            captionText
+            captionTitle
+            coverImage {
+                id
+                url
+            }
+            coverImageAltText
         }
     }
 }
