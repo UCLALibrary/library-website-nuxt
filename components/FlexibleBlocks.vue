@@ -65,6 +65,10 @@ function convertName(typeHandle) {
         case "divider":
             output = "flexible-divider"
             break
+
+        case "helpTopicCard3Up":
+            output = "flexible-help-topic-cards"
+            break
     }
 
     return _kebabCase(output)
