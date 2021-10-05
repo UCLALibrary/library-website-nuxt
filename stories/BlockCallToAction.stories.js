@@ -7,8 +7,7 @@ const mock = {
     to: "/help/foo/bar/",
     name: "Lorem ipsum dolor",
     title: "Lorem ipsum dolor sit amet?",
-    text:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 }
 
 // Variations of stories below
@@ -24,7 +23,7 @@ export const Default = () => ({
             :name="name"
             :title="title"
             :text="text"
-            icon-name= "svg-call-to-action-chat"
+            svg-name= "svg-call-to-action-chat"
         />
     `,
 })
@@ -42,7 +41,7 @@ export const DarkBlue = () => ({
             :name="name"
             :title="title"
             :text="text"
-            icon-name= "svg-call-to-action-chat"
+            svg-name= "svg-call-to-action-chat"
         />
     `,
 })
@@ -60,7 +59,7 @@ export const SmallCTA = () => ({
             :name="name"
             :title="title"
             :text="text"
-            icon-name= "svg-call-to-action-money"
+            svg-name= "svg-call-to-action-money"
         />
     `,
 })
@@ -79,7 +78,7 @@ export const SmallCTADarkBlue = () => ({
             :name="name"
             :title="title"
             :text="text"
-            icon-name= "svg-call-to-action-find"
+            svg-name= "svg-call-to-action-find"
         />
     `,
 })

@@ -26,7 +26,7 @@
         <!-- this is different from flexible page blocks ctacontentwidth and will be hardcoded where required -->
         <block-call-to-action
             class="section block-call-to-action"
-            icon-name="svg-call-to-action-mail"
+            svg-name="svg-call-to-action-mail"
             to="/contact-us"
             name="Contact Us"
             title="Not sure who you should reach out to?"
