@@ -315,9 +315,9 @@ fragment BlockHelpTopicCards3Up on allFlexiblePageBlocks_helpTopicCards3Up_Block
             contentLink {
                 id
                 url
-                uri
+                to: uri
                 title
-                shortDescription
+                text: shortDescription
                 iconName: illustrationsResourcesAndServices
             }
             subheader

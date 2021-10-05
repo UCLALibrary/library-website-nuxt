@@ -17,8 +17,9 @@ import _kebabCase from "lodash/kebabCase"
 export default {
     components: {
         // TODO register all other block types
-        BlockCallToAction: () => import("~/components/BlockCallToAction"),
-        Divider: () => import("~/components/DividerGeneral"),
+        BlockCallToAction: () =>
+            import("~/components/Flexible/CtaBlockContentWidth"),
+        Divider: () => import("~/components/Flexible/Divider"),
         HelpTopicCards: () =>
             import("~/components/Flexible/HelpTopicCards.vue"),
     },

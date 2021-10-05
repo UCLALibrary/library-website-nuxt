@@ -3,7 +3,7 @@
         <div class="cards">
             <!-- TODO update this to parse out items in block object/match gql names -->
             <block-card-vertical
-                v-for="item in block.innerBlock"
+                v-for="item in block.helpTopicCard3Up"
                 :key="item.contentLink[0].to"
                 class="card"
                 :icon-name="item.contentLink[0].iconName"
@@ -34,7 +34,9 @@ export default {
     },
     computed: {
         descriptionText() {
-            return this.block.subheader //Or return short description from content link
+            return this.item.contentLink[0].subheader
+                ? this.item.contentLink[0].subheader
+                : this.item.contentLink[0].shortDescription
         },
     },
 }
