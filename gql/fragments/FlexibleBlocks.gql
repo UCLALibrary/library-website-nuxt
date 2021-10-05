@@ -320,7 +320,6 @@ fragment BlockHelpTopicCards3Up on allFlexiblePageBlocks_helpTopicCards_BlockTyp
                 text: shortDescription
                 iconName: illustrationsResourcesAndServices
             }
-            subheader
         }
     }
 }

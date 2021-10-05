@@ -32,13 +32,6 @@ export default {
             default: () => {},
         },
     },
-    computed: {
-        descriptionText() {
-            return this.item.contentLink[0].subheader
-                ? this.item.contentLink[0].subheader
-                : this.item.contentLink[0].shortDescription
-        },
-    },
 }
 </script>
 
