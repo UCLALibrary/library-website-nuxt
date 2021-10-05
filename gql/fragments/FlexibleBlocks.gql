@@ -307,7 +307,7 @@ fragment BlockRichTextWithMedia on allFlexiblePageBlocks_richTextWithMedia_Block
     }
 }
 
-fragment BlockHelpTopicCards3Up on allFlexiblePageBlocks_helpTopicCards_BlockType {
+fragment BlockHelpTopicCards3Up on allFlexiblePageBlocks_helpTopicCards3Up_BlockType {
     id
     helpTopicCard3Up {
         ... on helpTopicCard3Up_helpTopicCard3Up_BlockType {
@@ -315,9 +315,9 @@ fragment BlockHelpTopicCards3Up on allFlexiblePageBlocks_helpTopicCards_BlockTyp
             contentLink {
                 id
                 url
-                to: uri
+                uri
                 title
-                text: shortDescription
+                shortDescription
                 iconName: illustrationsResourcesAndServices
             }
             subheader
