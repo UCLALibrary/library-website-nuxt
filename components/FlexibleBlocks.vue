@@ -18,8 +18,9 @@ export default {
     components: {
         // TODO register all other block types
         BlockCallToAction: () => import("~/components/BlockCallToAction"),
-
         Divider: () => import("~/components/DividerGeneral"),
+        HelpTopicCards: () =>
+            import("~/components/Flexible/HelpTopicCards.vue"),
     },
     props: {
         blocks: {
