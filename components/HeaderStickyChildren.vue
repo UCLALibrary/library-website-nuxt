@@ -29,6 +29,14 @@ import getShareLinks from "~/utils/getShareLinks"
 
 export default {
     props: {
+        hasShareLinks: {
+            type: Boolean,
+            default: false,
+        },
+        callToAction: {
+            type: Object,
+            default: () => {},
+        },
         items: {
             type: Array,
             default: () => [],

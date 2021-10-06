@@ -1,7 +1,7 @@
 <template lang="html">
     <section class="page-event-detail">
         <header-sticky>
-            <header-child-breadcrumbs
+            <header-sticky-children
                 :items="breadcrumbs"
                 :share-title="shareData.title"
                 :share-text="shareData.text"
