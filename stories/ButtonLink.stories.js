@@ -33,9 +33,9 @@ export const NotPrimary = () => ({
 })
 
 export const LongLabel = () => ({
-    template: `<button-link label="Proin sodales dolor sit amet." iconName="arrow-right-small"/>`,
+    template: `<button-link label="Proin sodales dolor sit amet." iconName="svg-arrow-right"/>`,
 })
 
 export const HasGlyph = () => ({
-    template: `<button-link label="Aug id Dignissim" :isSecondary="true" iconName="arrow-right-small"/>`,
+    template: `<button-link label="Aug id Dignissim" :isSecondary="true" iconName="svg-arrow-right"/>`,
 })

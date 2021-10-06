@@ -5,17 +5,22 @@
             v-if="iconName"
             class="icon"
         >
-            <arrow-right class="arrow-right" />
+            <component
+                :is="parsedIconName"
+                class="arrow"
+            />
         </span>
     </div>
 </template>
 
 <script>
-import ArrowRight from "~/assets/svg/arrow-right-small"
+import SvgArrowRight from "~/assets/svg/arrow-right-small"
+import SvgArrowDiagonal from "~/assets/svg/arrow-diagonal"
 
 export default {
     components: {
-        ArrowRight,
+        SvgArrowRight,
+        SvgArrowDiagonal,
     },
     props: {
         /**
@@ -49,6 +54,9 @@ export default {
                 },
             ]
         },
+        parsedIconName() {
+            return `${this.iconName}`
+        },
     },
 }
 </script>
@@ -59,32 +67,28 @@ export default {
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-
     height: 50px;
     background-color: var(--color-white);
     border: 1.5px solid var(--color-primary-blue-02);
     font-size: 18px;
     color: var(--color-black);
     padding: 14px 40px;
-
     transition-property: color, background-color;
     transition-duration: 400ms;
     transition-timing-function: ease-in-out;
-
-    .arrow-right {
+    .arrow {
         stroke: var(--color-default-cyan-03);
         padding-top: 5px;
+        padding-left: 5px;
     }
-
     &.is-secondary {
         background-color: var(--color-primary-blue-03);
         border: unset;
         color: var(--color-white);
-        .arrow-right {
+        .arrow {
             stroke: var(--color-white);
         }
     }
-
     // Hover states
     @media #{$has-hover} {
         &:hover {
@@ -92,14 +96,14 @@ export default {
             border: unset;
             color: var(--color-white);
             cursor: pointer;
-            .arrow-right {
+            .arrow {
                 stroke: var(--color-white);
             }
             &.is-secondary {
                 background-color: var(--color-white);
                 border: 1.5px solid var(--color-primary-blue-02);
                 color: var(--color-black);
-                .arrow-right {
+                .arrow {
                     stroke: var(--color-default-cyan-03);
                 }
             }

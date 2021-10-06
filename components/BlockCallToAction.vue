@@ -17,7 +17,7 @@
                 :label="name"
                 :to="to"
                 class="button-link"
-                :icon-name="iconName"
+                icon-name="svg-arrow-right"
             />
         </div>
     </div>
@@ -32,7 +32,7 @@ export default {
         SvgCallToActionFind: () => import("~/assets/svg/call-to-action-find"),
     },
     props: {
-        iconName: {
+        svgName: {
             type: String,
             default: "",
         },
@@ -63,7 +63,7 @@ export default {
     },
     computed: {
         parsedSvgName() {
-            return `${this.iconName}`
+            return `${this.svgName}`
         },
 
         colorClasses() {
