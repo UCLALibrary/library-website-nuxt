@@ -16,7 +16,6 @@ const mock = {
                     iconName: "illustration-find-space",
                 },
             ],
-            subheader: "a link to learn more",
         },
         {
             id: "2405",
