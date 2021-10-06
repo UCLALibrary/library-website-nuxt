@@ -15,6 +15,11 @@ function formatTimes(startDate = "", endDate = "") {
     // "9:00 am – 1:00 pm"
     let output = `${start} - ${end}`
 
+    if (start == end) {
+        // "9:00 am"
+        output = format(new Date(startDate), "h:mm aaa")
+    }
+
     if (!endDate) {
         // 9:00 am
         output = start
