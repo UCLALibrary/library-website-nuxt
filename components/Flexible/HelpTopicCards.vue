@@ -22,7 +22,6 @@ export default {
         parsedItems() {
             let items = []
             for (let item in this.block.helpTopicCards) {
-                console.log(this.block.helpTopicCards[item].contentLink[0])
                 items.push(this.block.helpTopicCards[item].contentLink[0])
             }
             return items
