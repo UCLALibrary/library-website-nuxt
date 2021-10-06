@@ -2,7 +2,7 @@
     <div class="help-topic-card">
         <div class="cards">
             <block-card-vertical
-                v-for="item in block.helpTopicCard3Up"
+                v-for="item in block.helpTopicCards"
                 :key="item.contentLink[0].to"
                 class="card"
                 :icon-name="item.contentLink[0].iconName"

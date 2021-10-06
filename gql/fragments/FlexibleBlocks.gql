@@ -20,7 +20,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockPullQuote
         ...BlockRichText
         ...BlockRichTextWithMedia
-        ...BlockHelpTopicCards3Up
+        ...BlockHelpTopicCards
         ...BlockSimpleCardTwoUp
         ...BlockSimpleCardThreeUp
         ...BlockVideoContentWidth
@@ -307,10 +307,10 @@ fragment BlockRichTextWithMedia on allFlexiblePageBlocks_richTextWithMedia_Block
     }
 }
 
-fragment BlockHelpTopicCards3Up on allFlexiblePageBlocks_helpTopicCards_BlockType {
+fragment BlockHelpTopicCards on allFlexiblePageBlocks_helpTopicCards_BlockType {
     id
-    helpTopicCard3Up {
-        ... on helpTopicCard3Up_helpTopicCard3Up_BlockType {
+    helpTopicCards {
+        ... on helpTopicCards_helpTopicCards_BlockType {
             id
             contentLink {
                 id

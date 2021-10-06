@@ -3,7 +3,7 @@ export default {
 }
 
 const mock = {
-    helpTopicCard3Up: [
+    helpTopicCards: [
         {
             id: "2404",
             contentLink: [
@@ -46,7 +46,7 @@ export const Default = () => ({
 })
 
 const mockOneFPB = {
-    helpTopicCard3Up: [
+    helpTopicCards: [
         {
             id: "2404",
             contentLink: [
