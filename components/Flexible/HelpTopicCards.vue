@@ -1,7 +1,6 @@
 <template lang="html">
     <div class="help-topic-card">
         <div class="cards">
-            <!-- TODO update this to parse out items in block object/match gql names -->
             <block-card-vertical
                 v-for="item in block.helpTopicCard3Up"
                 :key="item.contentLink[0].to"
