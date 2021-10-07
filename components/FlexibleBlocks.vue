@@ -1,76 +1,81 @@
 <template lang="html">
-    <div class="flexible-blocks">
-        <component
-            :is="block.componentName"
-            v-bind="block"
-            v-for="block in parsedBlocks"
-            :key="block.id"
-            class="flexible-block"
-        />
-    </div>
+  <div class="flexible-blocks">
+    <component
+      :is="block.componentName"
+      v-bind="block"
+      v-for="block in parsedBlocks"
+      :key="block.id"
+      class="flexible-block"
+    />
+  </div>
 </template>
 
 <script>
 // Helpers
-import _kebabCase from "lodash/kebabCase"
+import _kebabCase from "lodash/kebabCase";
 
 export default {
-    components: {
-        // TODO register all other block types
-        BlockCallToAction: () => import("~/components/BlockCallToAction"),
+  components: {
+    // TODO register all other block types
+    FlexibleCta: () => import("~/components/Flexible/CtaBlockContentWidth"),
+    FlexibleDivider: () => import("~/components/Flexible/Divider"),
+    FlexibleHelpTopicCards: () =>
+      import("~/components/Flexible/HelpTopicCards.vue")
+  },
+  props: {
+    blocks: {
+      type: Array,
+      default: () => []
+    }
+  },
+  computed: {
+    parsedBlocks() {
+      // Shape blocks to work with components
+      let output = this.blocks.map(obj => {
+        return {
+          ...obj,
+          componentName: convertName(obj.typeHandle)
+        };
+      });
 
-        Divider: () => import("~/components/DividerGeneral"),
+      // Remove any un-registered blocks
+      return output.filter(obj => {
+        return this.registeredComponents.includes(obj.componentName);
+      });
     },
-    props: {
-        blocks: {
-            type: Array,
-            default: () => [],
-        },
-    },
-    computed: {
-        parsedBlocks() {
-            // Shape blocks to work with components
-            let output = this.blocks.map((obj) => {
-                return {
-                    ...obj,
-                    componentName: convertName(obj.typeHandle),
-                }
-            })
-
-            // Remove any un-registered blocks
-            return output.filter((obj) => {
-                return this.registeredComponents.includes(obj.componentName)
-            })
-        },
-        registeredComponents() {
-            // Get all local component names as kebabCase, used to check if component is registered above
-            let components = Object.keys(this.$options.components || {})
-            return components.map((str) => {
-                return _kebabCase(str)
-            })
-        },
-    },
-}
+    registeredComponents() {
+      // Get all local component names as kebabCase, used to check if component is registered above
+      let components = Object.keys(this.$options.components || {});
+      return components.map(str => {
+        return _kebabCase(str);
+      });
+    }
+  }
+};
 
 function convertName(typeHandle) {
-    let output = `flexible-${typeHandle}`
+  let output = `flexible-${typeHandle}`;
 
-    switch (typeHandle) {
-        case "ctaBlockContentWidth":
-            output = "flexible-cta"
-            break
+  switch (typeHandle) {
+    case "ctaBlockContentWidth":
+      output = "flexible-cta";
+      break;
 
-        case "divider":
-            output = "flexible-divider"
-            break
-    }
+    case "divider":
+      output = "flexible-divider";
+      break;
 
-    return _kebabCase(output)
+    case "helpTopicCards":
+      output = "flexible-help-topic-cards";
+      break;
+  }
+
+  return _kebabCase(output);
 }
 </script>
 
 <style lang="scss" scoped>
 :where(.flexible-blocks) {
-    // TODO Style the basics here
+  // TODO Style the basics here
 }
 </style>

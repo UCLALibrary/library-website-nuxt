@@ -28,7 +28,10 @@
                 class="card card-more"
                 :to="to"
             >
-                <button-more class="button" />
+                <button-more
+                    class="button"
+                    :text="buttonText"
+                />
             </nuxt-link>
         </div>
     </div>
@@ -50,6 +53,10 @@ export default {
             default: () => [],
         },
         to: {
+            type: String,
+            default: "",
+        },
+        buttonText: {
             type: String,
             default: "",
         },
