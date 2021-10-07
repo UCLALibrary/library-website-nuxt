@@ -3,9 +3,7 @@ fragment FlexibleBlocks on ElementInterface {
         id
         typeHandle
 
-        ...BlockAudioContentWidth
-        ...BlockCardWithImageTwoUp
-        ...BlockCardWithImageThreeUp
+        ...BlockCardWithImage
         ...BlockCtaBlockTwoUp
         ...BlockCta
         ...BlockDivider
@@ -13,7 +11,6 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockFaqs
         ...BlockFeaturedLinkCard
         ...BlockFeaturedPromo
-        ...BlockImageContentWidth
         ...BlockImageWithTextOverlay
         ...BlockImpactNumbersCarousel
         ...BlockMediaGallery
@@ -21,59 +18,17 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockRichText
         ...BlockRichTextWithMedia
         ...BlockHelpTopicCards
-        ...BlockSimpleCardTwoUp
-        ...BlockSimpleCardThreeUp
-        ...BlockVideoContentWidth
+        ...BlockSimpleCard
     }
 }
 
 # Define all blocks here as fragments
 
-fragment BlockAudioContentWidth on allFlexiblePageBlocks_audioContentWidth_BlockType {
+fragment BlockCardWithImage on allFlexiblePageBlocks_cardWithImage_BlockType {
     id
-    audioContentWidth {
-        ... on audioContentWidth_audioContentWidth_BlockType {
-            id
-            audioFile {
-                url
-            }
-            captionTitle
-            captionText
-            header
-            coverImage {
-                url
-            }
-            coverImageAltText
-        }
-    }
-}
-
-fragment BlockCardWithImageTwoUp on allFlexiblePageBlocks_cardWithImage2Up_BlockType {
-    id
-    cardWithImage2Up {
+    cardWithImage {
         id
-        ... on cardWithImage2Up_cardWithImage2Up_BlockType {
-            id
-            image {
-                id
-                url
-            }
-            imageAltText
-            contentLink {
-                id
-                url
-                uri
-            }
-            shortDescription
-        }
-    }
-}
-
-fragment BlockCardWithImageThreeUp on allFlexiblePageBlocks_cardWithImage3Up_BlockType {
-    id
-    cardWithImage3Up {
-        id
-        ... on cardWithImage3Up_cardWithImage3Up_BlockType {
+        ... on cardWithImage_cardWithImage_BlockType {
             id
             image {
                 id
@@ -216,23 +171,6 @@ fragment BlockFeaturedPromo on allFlexiblePageBlocks_featuredPromo_BlockType {
     }
 }
 
-fragment BlockImageContentWidth on allFlexiblePageBlocks_imageContentWidth_BlockType {
-    id
-    imageContentWidth {
-        ... on imageContentWidth_imageContentWidth_BlockType {
-            id
-            image {
-                id
-                url
-            }
-            altText
-            captionText
-            captionTitle
-            header
-        }
-    }
-}
-
 fragment BlockImageWithTextOverlay on allFlexiblePageBlocks_imageWithTextOverlay_BlockType {
     id
     imageWithTextOverlay {
@@ -335,58 +273,18 @@ fragment BlockHelpTopicCards on allFlexiblePageBlocks_helpTopicCards_BlockType {
     }
 }
 
-fragment BlockSimpleCard2Up on allFlexiblePageBlocks_simpleCard2Up_BlockType {
+fragment BlockSimpleCard on allFlexiblePageBlocks_simpleCard_BlockType {
     id
-    simpleCard2Up {
-        ... on simpleCard2Up_simpleCard2UpContent_BlockType {
+    simpleCard {
+        ... on simpleCard_simpleCardContent_BlockType {
             id
-            featuredLinkCardText
+            linkText
             contentLink {
                 id
                 url
             }
-            shortDescription
+            subheader
             externalLink
-        }
-    }
-}
-
-fragment BlockSimpleCard3Up on allFlexiblePageBlocks_simpleCard3Up_BlockType {
-    id
-    simpleCard3Up {
-        ... on simpleCard3Up_simpleCard3UpContent_BlockType {
-            id
-            linkText
-            contentLink3up {
-                id
-                url
-            }
-            subheader3up
-            externalLink
-        }
-    }
-}
-
-fragment BlockVideoContentWidth on allFlexiblePageBlocks_videoContentWidth_BlockType {
-    id
-    videoContentWidth {
-        ... on videoContentWidth_videoContentWidth_BlockType {
-            id
-            videoUrl
-            videoUpload {
-                url
-                ... on mediaAndDocuments_Asset {
-                    id
-                    url
-                }
-            }
-            captionText
-            captionTitle
-            coverImage {
-                id
-                url
-            }
-            coverImageAltText
         }
     }
 }
