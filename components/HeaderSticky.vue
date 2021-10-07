@@ -4,21 +4,28 @@
             <!--TODO add the right chevron between breadcrumb -->
             <nuxt-link
                 v-for="item in crumbs"
-                :key="item.to"
-                :to="item.to"
-                v-html="item.text"
+                :key="item.path"
+                :to="item.path"
+                v-html="item.title"
             />
         </div>
         <div v-if="hasCallToAction">
-            <nuxt-link :to="to">
+            <smart-link
+                :to="callToActionURL"
+                :target="parseTarget"
+            >
                 <button-link
-                    :label="callToAction.prompt"
-                    :icon-name="callToAction.iconName"
+                    :label="callToActionLabel"
+                    :icon-name="callToActionIconName"
                     class="button"
                 />
-            </nuxt-link>
+            </smart-link>
         </div>
-        <div class="social-shares">
+        <div
+            v-if="hasShareLinks"
+            class="social-shares"
+        >
+            <span class="share-text"> Share </span>
             <a
                 v-for="item in mainShareLinks"
                 :key="item.url"
@@ -32,14 +39,30 @@
 </template>
 
 <script>
-// import _get from "lodash/get"
-import startCase from "lodash/startcase"
+import _get from "lodash/get"
+
 import getShareLinks from "~/utils/getShareLinks"
 
 // TODO Share Links design
 
 export default {
     props: {
+        crumbs: {
+            type: Array,
+            default: () => [],
+        },
+        shareUrl: {
+            type: String,
+            default: "",
+        },
+        shareText: {
+            type: String,
+            default: "",
+        },
+        shareTitle: {
+            type: String,
+            default: "",
+        },
         hasShareLinks: {
             type: Boolean,
             default: false,
@@ -48,42 +71,32 @@ export default {
             type: Boolean,
             default: false,
         },
-        callToAction: {
-            type: Object,
-            default: () => {},
+        callToActionLabel: {
+            type: String,
+            default: "",
+        },
+        callToActionIconName: {
+            type: String,
+            default: "",
+        },
+        callToActionURL: {
+            type: String,
+            default: "",
         },
     },
     computed: {
-        crumbs() {
-            const pathArray = this.$route.path.split("/")
-            pathArray.shift()
-            const breadcrumbs = pathArray.reduce(
-                (breadcrumbArray, path, idx) => {
-                    if (path) {
-                        breadcrumbArray.push({
-                            to: breadcrumbArray[idx - 1]
-                                ? "/" +
-                                  breadcrumbArray[idx - 1].path +
-                                  "/" +
-                                  path
-                                : "/" + path,
-                            text: startCase(path),
-                        })
-                    }
-
-                    return breadcrumbArray
-                },
-                []
-            )
-            return breadcrumbs
+        parseTarget() {
+            return this.callToActionIconName.includes("arrow-diagonal")
+                ? "_blank"
+                : ""
         },
-        /* parsedShareUrl() {
+        parsedShareUrl() {
             let domWindow = {}
             if (process.client) {
                 domWindow = window
             }
             return this.shareUrl || _get(domWindow, "location.href", "")
-        }, */
+        },
         allShareLinks() {
             return getShareLinks({
                 title: this.shareTitle,
@@ -104,20 +117,13 @@ export default {
 
 <style lang="scss" scoped>
 .header-sticky {
-    top: 0;
-    left: 0;
-    width: 100%;
-    position: fixed;
     background-color: red;
-    height: 96px;
 
-    transform: translateY(-100%);
-    transition: transform 400ms ease-in-out;
-
-    // States
-    .has-scrolled-past-header & {
-        transform: translateY(0);
-    }
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
 }
 </style>
 

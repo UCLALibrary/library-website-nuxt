@@ -10,7 +10,7 @@
 
         <br>
 
-        Share links go here:
+        <span class="share-text"> Share </span>
         <a
             v-for="item in mainShareLinks"
             :key="item.url"

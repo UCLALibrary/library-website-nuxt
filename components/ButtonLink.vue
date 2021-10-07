@@ -14,13 +14,11 @@
 </template>
 
 <script>
-import SvgArrowRight from "~/assets/svg/arrow-right-small"
-import SvgArrowDiagonal from "~/assets/svg/arrow-diagonal"
-
 export default {
     components: {
-        SvgArrowRight,
-        SvgArrowDiagonal,
+        SvgArrowRight: () => import("~/assets/svg/arrow-right-small"),
+        SvgArrowDiagonal: () => import("~/assets/svg/arrow-diagonal"),
+        SvgArrowDownload: () => import("~/assets/svg/arrow-download"),
     },
     props: {
         /**

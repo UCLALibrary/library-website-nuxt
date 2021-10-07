@@ -1,11 +1,17 @@
 <template lang="html">
     <section class="page-event-detail">
-        <header-sticky>
-            <header-sticky-children
+        <header-sticky
+            class="sticky-header"
+            :has-share-links="true"
+            :share-title="shareData.title"
+            :share-text="shareData.text"
+            :crumbs="crumbs"
+        >
+            <!--header-sticky-children
                 :items="breadcrumbs"
                 :share-title="shareData.title"
                 :share-text="shareData.text"
-            />
+            / -->
         </header-sticky>
 
         Event detail here
@@ -15,6 +21,8 @@
 </template>
 
 <script>
+import startCase from "lodash/startcase"
+
 export default {
     data() {
         return {
@@ -41,11 +49,24 @@ export default {
                 text: "Test text",
             }
         },
-        breadcrumbs() {
-            return [
-                { text: "Breadcrumb 1 Text", to: "." },
-                { text: "Breadcrumb 2 Text", to: "/test" },
-            ]
+        crumbs() {
+            const fullPath = this.$route.fullPath
+            const params = fullPath.startsWith("/")
+                ? fullPath.substring(1).split("/")
+                : fullPath.split("/")
+            const crumbs = []
+            let path = ""
+            params.forEach((param, index) => {
+                path = `${path}/${param}`
+                const match = this.$router.match(path)
+                if (match.name !== null) {
+                    crumbs.push({
+                        title: startCase(param.replace(/-/g, " ")),
+                        ...match,
+                    })
+                }
+            })
+            return crumbs
         },
     },
 }
@@ -54,5 +75,19 @@ export default {
 <style lang="scss" scoped>
 .page-event-detail {
     height: 400vh;
+    .sticky-header {
+        top: 0;
+        left: 0;
+        width: 100%;
+        position: fixed;
+        background-color: red;
+        height: 96px;
+        transform: translateY(-100%);
+        transition: transform 400ms ease-in-out;
+        // States
+        .has-scrolled-past-header & {
+            transform: translateY(0);
+        }
+    }
 }
 </style>
