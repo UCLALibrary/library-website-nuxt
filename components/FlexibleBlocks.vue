@@ -22,6 +22,7 @@ export default {
         Divider: () => import("~/components/Flexible/Divider"),
         HelpTopicCards: () =>
             import("~/components/Flexible/HelpTopicCards.vue"),
+        FeaturedPromo: () => import("~/components/Flexible/FeaturedPromo.vue"),
     },
     props: {
         blocks: {
@@ -68,6 +69,10 @@ function convertName(typeHandle) {
 
         case "helpTopicCards":
             output = "flexible-help-topic-cards"
+            break
+
+        case "featuredPromo":
+            output = "flexible-featured-promo"
             break
     }
 

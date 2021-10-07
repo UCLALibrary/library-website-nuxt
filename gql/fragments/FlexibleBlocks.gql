@@ -198,7 +198,18 @@ fragment BlockFeaturedPromo on allFlexiblePageBlocks_featuredPromo_BlockType {
             id
             contentLink {
                 url
+                to: uri
                 title
+                prompt: buttonText
+                # date
+                associatedLocations {
+                    id
+                    title
+                }
+                image: heroImage {
+                    ...Image
+                    altText
+                }
             }
             alignment
         }

@@ -15,7 +15,6 @@ const mock = {
     isOnline: true,
     prompt: "Cursus Quis",
     alignRight: true,
-    hasButton: true,
 }
 
 export const Default = () => ({
@@ -34,7 +33,6 @@ export const Default = () => ({
            :dates="dates"
            :is-online="isOnline"
            :prompt="prompt"
-           :has-button="hasButton"
        />
     `,
 })
@@ -56,7 +54,6 @@ export const LeftAligned = () => ({
            :is-online="isOnline"
            :prompt="prompt"
            :align-right="false"
-           :has-button="hasButton"
        />
     `,
 })
@@ -78,7 +75,6 @@ export const NotOnline = () => ({
            :is-online="false"
            :prompt="prompt"
            :align-right="alignRight"
-           :has-button="hasButton"
         />
     `,
 })
@@ -88,15 +84,13 @@ export const Slot = () => ({
         return {
             image: API.image,
             to: "/visit/foo/bar/",
-            title:
-                "Sed Lectus Inceptos: Suspendisse in Justo eu Magna Luctus Suscipit",
+            title: "Sed Lectus Inceptos: Suspendisse in Justo eu Magna Luctus Suscipit",
             category: "Torquent",
             breadcrumb: { text: "Torquent", to: "/help/bar/foo" },
             dates: " Duis 1, 2020 - Curabitur31, 2021",
             isOnline: true,
             prompt: "Cursus Quis",
             alignRight: false,
-            hasButton: true,
         }
     },
     template: `
@@ -110,7 +104,6 @@ export const Slot = () => ({
            is-online=false
            :prompt="prompt"
            :align-right="alignRight"
-           :has-button="hasButton"
            location="YRL"
         >
             <heading-arrow
@@ -178,7 +171,6 @@ export const WideImage = () => ({
            :dates="dates"
            :is-online="isOnline"
            :prompt="prompt"
-           :has-button="hasButton"
            :ratio="42"
            times="1:00pm"
        />
@@ -203,7 +195,6 @@ export const WideImageLeftAligned = () => ({
            :prompt="prompt"
            :ratio="42"
            :align-right="false"
-           :has-button="hasButton"
            times="1:00pm"
        />
     `,
@@ -218,7 +209,6 @@ export const NoButton = () => ({
     template: `
         <banner-featured
            :image="image"
-           :to="to"
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
@@ -228,7 +218,6 @@ export const NoButton = () => ({
            :ratio="42"
            :align-right="false"
            times="1:00pm"
-           :has-button="false"
        />
     `,
 })
