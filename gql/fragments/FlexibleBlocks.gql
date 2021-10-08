@@ -3,12 +3,25 @@ fragment FlexibleBlocks on ElementInterface {
     id
     typeHandle
 
+<<<<<<< HEAD
     ...BlockCardWithImage
+=======
+    ...BlockAudioContentWidth
+    ...BlockCardWithImageTwoUp
+    ...BlockCardWithImageThreeUp
+>>>>>>> 435f551 (BannerFeatured FPB)
     ...BlockCtaBlockTwoUp
     ...BlockCta
     ...BlockDivider
     ...BlockDownloadCallout
+<<<<<<< HEAD
     ...BlockFeaturedPromo
+=======
+    ...BlockFaqs
+    ...BlockFeaturedLinkCard
+    ...BlockBannerFeatured
+    ...BlockImageContentWidth
+>>>>>>> 435f551 (BannerFeatured FPB)
     ...BlockImageWithTextOverlay
     ...BlockImpactNumbersCarousel
     ...BlockMediaGallery
@@ -16,17 +29,75 @@ fragment FlexibleBlocks on ElementInterface {
     ...BlockRichText
     ...BlockRichTextWithMedia
     ...BlockHelpTopicCards
+<<<<<<< HEAD
     ...BlockSimpleCard
+=======
+    ...BlockSimpleCardTwoUp
+    ...BlockSimpleCardThreeUp
+    ...BlockVideoContentWidth
+>>>>>>> 435f551 (BannerFeatured FPB)
   }
 }
 
 # Define all blocks here as fragments
 
+<<<<<<< HEAD
 fragment BlockCardWithImage on allFlexiblePageBlocks_cardWithImage_BlockType {
   id
   cardWithImage {
     id
     ... on cardWithImage_cardWithImage_BlockType {
+=======
+fragment BlockAudioContentWidth on allFlexiblePageBlocks_audioContentWidth_BlockType {
+  id
+  audioContentWidth {
+    ... on audioContentWidth_audioContentWidth_BlockType {
+      id
+      audioFile {
+        url
+      }
+      captionTitle
+      captionText
+      header
+      coverImage {
+        url
+      }
+      coverImageAltText
+    }
+  }
+}
+
+fragment BlockCardWithImageTwoUp on allFlexiblePageBlocks_cardWithImage2Up_BlockType {
+  id
+  cardWithImage2Up {
+    id
+    ... on cardWithImage2Up_cardWithImage2Up_BlockType {
+>>>>>>> 435f551 (BannerFeatured FPB)
+      id
+      image {
+        id
+        url
+      }
+      imageAltText
+      contentLink {
+<<<<<<< HEAD
+        id
+        url
+=======
+        id
+        url
+        uri
+      }
+      shortDescription
+    }
+  }
+}
+
+fragment BlockCardWithImageThreeUp on allFlexiblePageBlocks_cardWithImage3Up_BlockType {
+  id
+  cardWithImage3Up {
+    id
+    ... on cardWithImage3Up_cardWithImage3Up_BlockType {
       id
       image {
         id
@@ -36,6 +107,7 @@ fragment BlockCardWithImage on allFlexiblePageBlocks_cardWithImage_BlockType {
       contentLink {
         id
         url
+>>>>>>> 435f551 (BannerFeatured FPB)
         uri
       }
       shortDescription
@@ -114,10 +186,10 @@ fragment BlockDownloadCallout on allFlexiblePageBlocks_downloadCallout_BlockType
   }
 }
 
-fragment BlockFeaturedPromo on allFlexiblePageBlocks_featuredPromo_BlockType {
+fragment BlockBannerFeatured on allFlexiblePageBlocks_bannerFeatured_BlockType {
   id
-  featuredPromo {
-    ... on featuredPromo_featuredPromo_BlockType {
+  bannerFeatured {
+    ... on bannerFeatured_bannerFeatured_BlockType {
       id
       contentLink {
         url
