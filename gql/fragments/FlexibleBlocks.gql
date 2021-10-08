@@ -8,8 +8,6 @@ fragment FlexibleBlocks on ElementInterface {
     ...BlockCta
     ...BlockDivider
     ...BlockDownloadCallout
-    ...BlockFaqs
-    ...BlockFeaturedLinkCard
     ...BlockFeaturedPromo
     ...BlockImageWithTextOverlay
     ...BlockImpactNumbersCarousel
@@ -112,36 +110,6 @@ fragment BlockDownloadCallout on allFlexiblePageBlocks_downloadCallout_BlockType
       document {
         url
       }
-    }
-  }
-}
-
-fragment BlockFaqs on allFlexiblePageBlocks_faqs_BlockType {
-  id
-  subheader
-  shortDescription
-  faqs {
-    ... on faqs_questionAnswer_BlockType {
-      id
-      question
-      answer
-    }
-  }
-}
-
-fragment BlockFeaturedLinkCard on allFlexiblePageBlocks_featuredLinkCard_BlockType {
-  id
-  featuredLinkCard {
-    ... on featuredLinkCard_featuredLinkCard_BlockType {
-      id
-      featuredLinkTitle
-      featuredLinkCardText
-      featuredLinkCardImage {
-        id
-        url
-      }
-      featuredLinkCardButtonUrl
-      featuredLinkCardButtonTitle
     }
   }
 }
