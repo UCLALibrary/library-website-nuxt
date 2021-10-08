@@ -8,7 +8,7 @@ fragment FlexibleBlocks on ElementInterface {
     ...BlockCta
     ...BlockDivider
     ...BlockDownloadCallout
-    ...BlockFeaturedPromo
+    ...BlockBannerFeatured
     ...BlockImageWithTextOverlay
     ...BlockImpactNumbersCarousel
     ...BlockMediaGallery
@@ -114,23 +114,26 @@ fragment BlockDownloadCallout on allFlexiblePageBlocks_downloadCallout_BlockType
   }
 }
 
-fragment BlockFeaturedPromo on allFlexiblePageBlocks_featuredPromo_BlockType {
+fragment BlockBannerFeatured on allFlexiblePageBlocks_bannerFeatured_BlockType {
   id
-  featuredPromo {
-    ... on featuredPromo_featuredPromo_BlockType {
+  bannerFeatured {
+    ... on bannerFeatured_bannerFeatured_BlockType {
       id
       contentLink {
         url
         to: uri
         title
         prompt: buttonText
-        # date
+        date {
+          startDate
+          endDate
+        }
         associatedLocations {
           id
           title
         }
         image: heroImage {
-          ...Image
+          image
           altText
         }
       }
