@@ -2,10 +2,10 @@
     <div :class="classes">
         <div class="slot">
             <slot>
-                <div v-if="breadcrumb.text" class="breadcrumb">
+                <div v-if="breadcrumb" class="breadcrumb">
                     <svg-heading-vector class="heading-line" />
                     <div class="text">
-                        {{ breadcrumb.text }}
+                        {{ breadcrumb }}
                     </div>
                 </div>
             </slot>
@@ -24,9 +24,9 @@
         <div class="hatch-box">
             <div class="clipped-box">
                 <h3
-                    v-if="category.name"
+                    v-if="category"
                     class="category category-mobile"
-                    v-html="category.name"
+                    v-html="category"
                 />
             </div>
             <div class="hatch">
@@ -36,28 +36,34 @@
 
         <div class="meta">
             <h3
-                v-if="category.name"
+                v-if="category"
                 class="category category-desktop"
-                v-html="category.name"
+                v-html="category"
             />
             <h2 class="title">
                 <nuxt-link :to="to" v-html="title" />
             </h2>
 
             <div class="schedule">
-                <time v-if="dates" class="schedule-item" v-html="dates" />
+                <time v-if="date" class="schedule-item" v-html="date" />
                 <time
                     v-if="parsedTime"
                     class="schedule-item"
-                    :datetime="times"
+                    :datetime="time"
                     v-html="parsedTime"
                 />
                 <!-- TODO refactor this to be an array of locations -->
-                <div
-                    v-if="locationDisplay"
-                    class="schedule-item"
-                    v-html="locationDisplay"
-                />
+                <div v-if="locations.length" class="location-group">
+                    <nuxt-link
+                        v-for="location in locations"
+                        :key="`location-${location.id}`"
+                        :to="location.to"
+                        class="location-link"
+                    >
+                        <svg-icon-location class="location-svg" />
+                        <span class="location" v-html="location" />
+                    </nuxt-link>
+                </div>
             </div>
             <div v-if="to">
                 <nuxt-link :to="to">
@@ -75,11 +81,13 @@ import getSectionName from "~/utils/getSectionName"
 // SVGs
 import SvgMoleculeHalfFaceted from "~/assets/svg/molecule-half-faceted"
 import SvgHatchRight from "~/assets/svg/hatch-right"
+import SvgIconLocation from "~/assets/svg/icon-location"
 
 export default {
     components: {
         SvgMoleculeHalfFaceted,
         SvgHatchRight,
+        SvgIconLocation,
         SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
     },
     props: {
@@ -93,20 +101,20 @@ export default {
         },
         category: {
             // Mock as { name: 'Name', to: 'http://fake.url/link' }
-            type: Object,
-            default: () => ({}),
+            type: String,
+            default: "",
         },
 
         // TODO change these to date and time (lose the 's') and update stories, exhibit list and home page
-        dates: {
+        date: {
             type: String,
             default: "",
         },
-        times: {
+        time: {
             type: String,
             default: "",
         },
-        location: {
+        locations: {
             type: Array,
             default: () => [],
         },
@@ -120,9 +128,8 @@ export default {
             default: "",
         },
         breadcrumb: {
-            // mock as { text: 'Title', to: 'http://fake.url' }
-            type: Object,
-            default: () => ({}),
+            type: String,
+            default: "",
         },
         prompt: {
             // text that displays on blue button, e.g. "View exhibit". Links to `props.to`
@@ -148,7 +155,7 @@ export default {
         },
         parsedTime() {
             //TODO make this human readable time
-            return this.times
+            return this.time
         },
         locationDisplay() {
             let output = this.location
@@ -342,6 +349,29 @@ export default {
         }
         &:last-child:after {
             display: none;
+        }
+    }
+    .location-group {
+        color: var(--location-color);
+        font-family: var(--font-secondary);
+        font-size: 20px;
+        line-height: 1;
+        padding-left: 52px;
+    }
+    .location-link {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+    }
+    .location-svg {
+        .location-icon {
+            fill: var(--location-icon-color);
+        }
+        .location-icon-line {
+            stroke: var(--location-icon-color);
         }
     }
     .button {

@@ -3,14 +3,15 @@
         <banner-featured
             :image="block.contentLink[0].image[0].image"
             :to="block.contentLink[0].to"
-            text="Featured"
             :title="block.contentLink[0].title"
+            breadcrumb="Event"
             category="Featured"
-            :dates="parsedDate"
+            :date="parsedDate"
+            :time="parsedTime"
             :is-online="isOnline"
             :prompt="block.buttonText"
             :align-right="parsedAlignment"
-            :location="parsedLocations"
+            :locations="parsedLocations"
         />
     </div>
 </template>
