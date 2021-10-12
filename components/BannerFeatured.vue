@@ -2,10 +2,7 @@
     <div :class="classes">
         <div class="slot">
             <slot>
-                <div
-                    v-if="breadcrumb.text"
-                    class="breadcrumb"
-                >
+                <div v-if="breadcrumb.text" class="breadcrumb">
                     <svg-heading-vector class="heading-line" />
                     <div class="text">
                         {{ breadcrumb.text }}
@@ -44,36 +41,27 @@
                 v-html="category.name"
             />
             <h2 class="title">
-                <nuxt-link
-                    :to="to"
-                    v-html="title"
-                />
+                <nuxt-link :to="to" v-html="title" />
             </h2>
 
             <div class="schedule">
-                <time
-                    v-if="dates"
-                    class="schedule-item"
-                    v-html="dates"
-                />
+                <time v-if="dates" class="schedule-item" v-html="dates" />
                 <time
                     v-if="parsedTime"
                     class="schedule-item"
                     :datetime="times"
                     v-html="parsedTime"
                 />
+                <!-- TODO refactor this to be an array of locations -->
                 <div
                     v-if="locationDisplay"
                     class="schedule-item"
                     v-html="locationDisplay"
                 />
             </div>
-            <div v-if="hasButton === true">
+            <div v-if="to">
                 <nuxt-link :to="to">
-                    <button-link
-                        :label="prompt"
-                        class="button"
-                    />
+                    <button-link :label="prompt" class="button" />
                 </nuxt-link>
             </div>
         </div>
@@ -119,8 +107,8 @@ export default {
             default: "",
         },
         location: {
-            type: String,
-            default: "",
+            type: Array,
+            default: () => [],
         },
         isOnline: {
             type: Boolean,
@@ -148,10 +136,6 @@ export default {
         ratio: {
             type: Number,
             default: 56.25,
-        },
-        hasButton: {
-            type: Boolean,
-            default: true,
         },
     },
     computed: {
