@@ -2,7 +2,10 @@
     <div :class="classes">
         <div class="slot">
             <slot>
-                <div v-if="breadcrumb" class="breadcrumb">
+                <div
+                    v-if="breadcrumb"
+                    class="breadcrumb"
+                >
                     <svg-heading-vector class="heading-line" />
                     <div class="text">
                         {{ breadcrumb }}
@@ -41,33 +44,47 @@
                 v-html="category"
             />
             <h2 class="title">
-                <nuxt-link :to="to" v-html="title" />
+                <nuxt-link
+                    :to="to"
+                    v-html="title"
+                />
             </h2>
 
             <div class="schedule">
-                <time v-if="date" class="schedule-item" v-html="date" />
+                <time
+                    v-if="startDate"
+                    class="schedule-item"
+                    v-html="parsedDate"
+                />
                 <time
                     v-if="parsedTime"
                     class="schedule-item"
-                    :datetime="time"
                     v-html="parsedTime"
                 />
-                <!-- TODO refactor this to be an array of locations -->
-                <div v-if="locations.length" class="location-group">
-                    <nuxt-link
-                        v-for="location in locations"
-                        :key="`location-${location.id}`"
-                        :to="location.to"
-                        class="location-link"
-                    >
-                        <svg-icon-location class="location-svg" />
-                        <span class="location" v-html="location" />
-                    </nuxt-link>
-                </div>
+            </div>
+            <div
+                v-if="locations.length"
+                class="location-group"
+            >
+                <nuxt-link
+                    v-for="location in locations"
+                    :key="`location-${location.id}`"
+                    :to="location.to"
+                    class="location-link"
+                >
+                    <svg-icon-location class="location-svg" />
+                    <span
+                        class="location"
+                        v-html="location"
+                    />
+                </nuxt-link>
             </div>
             <div v-if="to">
                 <nuxt-link :to="to">
-                    <button-link :label="prompt" class="button" />
+                    <button-link
+                        :label="prompt"
+                        class="button"
+                    />
                 </nuxt-link>
             </div>
         </div>
@@ -77,6 +94,8 @@
 <script>
 // Helpers
 import getSectionName from "~/utils/getSectionName"
+import formatEventTimes from "~/utils/formatEventTimes"
+import formatEventDates from "~/utils/formatEventDates"
 
 // SVGs
 import SvgMoleculeHalfFaceted from "~/assets/svg/molecule-half-faceted"
@@ -104,13 +123,11 @@ export default {
             type: String,
             default: "",
         },
-
-        // TODO change these to date and time (lose the 's') and update stories, exhibit list and home page
-        date: {
+        startDate: {
             type: String,
             default: "",
         },
-        time: {
+        endDate: {
             type: String,
             default: "",
         },
@@ -153,16 +170,18 @@ export default {
                 `color-${this.sectionName}`,
             ]
         },
-        parsedTime() {
-            //TODO make this human readable time
-            return this.time
-        },
         locationDisplay() {
             let output = this.location
             if (this.isOnline) {
                 output = "Online"
             }
             return output
+        },
+        parsedDate() {
+            return formatEventDates(this.startDate, this.endDate)
+        },
+        parsedTime() {
+            return formatEventTimes(this.startDate, this.endDate)
         },
         sectionName() {
             return this.section || getSectionName(this.to)
@@ -332,7 +351,8 @@ export default {
         margin: 10px 0 8px 0;
 
         display: flex;
-        flex-wrap: nowrap;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
     .schedule-item {
         &:after {
@@ -352,11 +372,10 @@ export default {
         }
     }
     .location-group {
-        color: var(--location-color);
+        color: var(--color-primary-blue-03);
         font-family: var(--font-secondary);
         font-size: 20px;
         line-height: 1;
-        padding-left: 52px;
     }
     .location-link {
         display: flex;
@@ -365,14 +384,6 @@ export default {
         justify-content: flex-start;
         align-content: center;
         align-items: center;
-    }
-    .location-svg {
-        .location-icon {
-            fill: var(--location-icon-color);
-        }
-        .location-icon-line {
-            stroke: var(--location-icon-color);
-        }
     }
     .button {
         width: 180px;

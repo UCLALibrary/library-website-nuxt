@@ -11,7 +11,8 @@ const mock = {
     title: "Curabitur Tortor Pellentesque Nibh Aenean",
     category: "Ullamcorper",
     breadcrumb: "Lectus",
-    date: "1995-12-17T03:24:00",
+    startDate: "1995-12-17T03:24:00",
+    endDate: "1995-12-17T03:24:00",
     isOnline: true,
     prompt: "Cursus Quis",
     alignRight: true,
@@ -30,7 +31,8 @@ export const Default = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :date="date"
+           :start-date="startDate"
+           :end-date="endDate"
            :is-online="isOnline"
            :prompt="prompt"
        />
@@ -50,7 +52,8 @@ export const LeftAligned = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :date="date"
+           :start-date="startDate"
+           :end-date="endDate"
            :is-online="isOnline"
            :prompt="prompt"
            :align-right="false"
@@ -71,7 +74,8 @@ export const NotOnline = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :dates="dates"
+           :start-date="startDate"
+           :end-date="endDate"
            :is-online="false"
            :prompt="prompt"
            :align-right="alignRight"
@@ -100,7 +104,8 @@ export const Slot = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :date="date"
+           :start-date="startDate"
+           :end-date="endDate"
            is-online=false
            :prompt="prompt"
            :align-right="alignRight"
@@ -136,7 +141,8 @@ export const LongHeading = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :date="date"
+           :start-date="startDate"
+           :end-date="endDate"
            is-online=false
            :prompt="prompt"
            :align-right="alignRight"
@@ -164,11 +170,12 @@ export const WideImage = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :date="date"
+           :start-date="startDate"
+           :end-date="endDate"
            :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
-           time="1:00pm"
+
        />
     `,
 })
@@ -186,12 +193,13 @@ export const WideImageLeftAligned = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :date="date"
+           :start-date="startDate"
+           :end-date="endDate"
            :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
            :align-right="false"
-           time="1:00pm"
+
        />
     `,
 })
@@ -209,12 +217,12 @@ export const NoButton = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :date="date"
+           :start-date="startDate"
+           :end-date="endDate"
            :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
            :align-right="false"
-           time="1:00pm"
        />
     `,
 })

@@ -6,8 +6,8 @@
             :title="block.contentLink[0].title"
             breadcrumb="Event"
             category="Featured"
-            :date="parsedDate"
-            :time="parsedTime"
+            :start-date="block.contentLink[0].date[0].startDate"
+            :end-date="block.contentLink[0].date[0].endDate"
             :is-online="isOnline"
             :prompt="block.buttonText"
             :align-right="parsedAlignment"
@@ -17,10 +17,6 @@
 </template>
 
 <script>
-// Utility functions
-import formatEventTimes from "~/utils/formatEventTimes"
-import formatEventDates from "~/utils/formatEventDates"
-
 export default {
     props: {
         block: {
@@ -43,18 +39,6 @@ export default {
                 )
             }
             return locations
-        },
-        parsedDate() {
-            return formatEventDates(
-                this.block.contentLink[0].date[0].startDate,
-                this.block.contentLink[0].date[0].endDate
-            )
-        },
-        parsedTime() {
-            return formatEventTimes(
-                this.block.contentLink[0].date[0].startDate,
-                this.block.contentLink[0].date[0].endDate
-            )
         },
     },
 }
