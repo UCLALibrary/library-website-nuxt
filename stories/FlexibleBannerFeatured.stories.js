@@ -22,10 +22,12 @@ const mock = {
                 {
                     id: "523",
                     title: "Powell Library",
+                    to: "visit/locations/powell-library",
                 },
                 {
                     id: "801",
                     title: "YRL",
+                    to: "visit/locations/yrl",
                 },
             ],
             heroImage: [

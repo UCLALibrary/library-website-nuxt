@@ -24,16 +24,14 @@
             :title="bannerVisit.title"
             :category="bannerVisit.category"
             :breadcrumb="bannerVisit.breadcrumb"
-            :dates="bannerVisit.dates"
+            :start-date="bannerVisit.startDate"
+            :end-date="bannerVisit.endDate"
             :is-online="bannerVisit.isOnline"
             :prompt="bannerVisit.prompt"
             :ratio="bannerVisit.ratio"
             :align-right="false"
         >
-            <heading-arrow
-                :text="bannerVisit.breadcrumb.text"
-                :to="bannerVisit.breadcrumb.to"
-            />
+            <heading-arrow :text="bannerVisit.breadcrumb" />
         </banner-featured>
 
         <section-dual-masonry
@@ -53,15 +51,13 @@
             :title="bannerAbout.title"
             :category="bannerAbout.category"
             :breadcrumb="bannerAbout.breadcrumb"
-            :dates="bannerAbout.dates"
+            :start-date="bannerVisit.startDate"
+            :end-date="bannerVisit.endDate"
             :is-online="bannerAbout.isOnline"
             :prompt="bannerAbout.prompt"
             :ratio="bannerAbout.ratio"
         >
-            <heading-arrow
-                :text="bannerAbout.breadcrumb.text"
-                :to="bannerAbout.breadcrumb.to"
-            />
+            <heading-arrow :text="bannerAbout.breadcrumb" />
         </banner-featured>
         <divider-general class="divider" />
         <section-post-small
@@ -121,12 +117,10 @@ export default {
             image: MOCK_API.image,
             to: "/help/foo/bar/",
             title: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
-            category: { name: "Quisque", to: "/category/featured/" },
-            breadcrumb: {
-                text: "Lorem ipsum dolor sit amet",
-                to: "http://foo/about/bar",
-            },
-            dates: "July 1, 2020 - December 31, 2021",
+            category: "Quisque",
+            breadcrumb: "Lorem ipsum dolor sit amet",
+            startDate: "1995-12-17T03:24:00",
+            endDate: "1995-12-17T03:24:00",
             isOnline: true,
             prompt: "Read More",
             alignRight: true,
