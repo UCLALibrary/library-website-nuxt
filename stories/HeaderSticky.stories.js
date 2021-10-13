@@ -27,6 +27,33 @@ export const Default = () => ({
     `,
 })
 
+export const LongCrumbsText = () => ({
+    data() {
+        return {
+            crumbs : [...mock.crumbs]
+        }
+    },
+    computed: {
+        parsedCrumbs() {
+            // Restructuring item to support text key
+            return this.crumbs.map((obj, index) => {
+                return {
+                    path: obj.path,
+                    title: "Really long text,Really long text, Really long text, Really long text, Really long text",
+                }
+            })
+        },
+    },
+    template: `
+        <header-sticky
+            :crumbs="parsedCrumbs"
+            share-title="Borrowing Equipments"
+            share-text="Short Description of this resource."
+            share-url="http://localhost:3000/events/1"
+        />
+    `,
+})
+
 export const WithSocialLinks = () => ({
     data() {
         return {
@@ -57,7 +84,27 @@ export const WithCallToAction = () => ({
             share-text="Short Description of this resource."
             share-url="http://localhost:3000/events/2"
             :has-call-to-action="true"
-            call-to-action-label="Errrr"
+            call-to-action-label="Reserve"
+            call-to-action-icon-name="svg-arrow-diagonal"
+            call-to-action-url="www.example.com"
+        />
+    `,
+})
+
+export const WithLongCallToAction = () => ({
+    data() {
+        return {
+            crumbs : mock.crumbs
+        }
+    },
+    template: `
+        <header-sticky 
+            :crumbs="crumbs"
+            share-title="Python Workshop"
+            share-text="Short Description of this resource."
+            share-url="http://localhost:3000/events/2"
+            :has-call-to-action="true"
+            call-to-action-label="Book Consultation"
             call-to-action-icon-name="svg-arrow-diagonal"
             call-to-action-url="www.example.com"
         />

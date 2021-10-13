@@ -79,11 +79,16 @@ export default {
         padding-top: 5px;
         padding-left: 5px;
     }
+
     &.is-secondary {
         background-color: var(--color-primary-blue-03);
         border: unset;
         color: var(--color-white);
         .arrow {
+            stroke: var(--color-white);
+            // fill: var(--color-white);
+        }
+        .line {
             stroke: var(--color-white);
         }
     }
@@ -97,11 +102,15 @@ export default {
             .arrow {
                 stroke: var(--color-white);
             }
+
             &.is-secondary {
                 background-color: var(--color-white);
                 border: 1.5px solid var(--color-primary-blue-02);
                 color: var(--color-black);
                 .arrow {
+                    stroke: var(--color-default-cyan-03);
+                }
+                .line {
                     stroke: var(--color-default-cyan-03);
                 }
             }

@@ -1,16 +1,20 @@
 <template lang="html">
     <header :class="classes">
-        <div class="bread-crumb">
+        <div class="bread-crumbs">
             <!--TODO add the right chevron between breadcrumb -->
             <nuxt-link
                 :key="crumbs[0].path"
                 :to="crumbs[0].path"
+                class="crumb-link"
                 v-html="crumbs[0].title"
             />
             <svg-chevron-left class="chevron-left" />
             <span>{{ crumbs[1].title }}</span>
         </div>
-        <div v-if="hasCallToAction">
+        <div
+            v-if="hasCallToAction"
+            class="call-to-action"
+        >
             <smart-link
                 :to="callToActionURL"
                 :target="parseTarget"
@@ -18,6 +22,7 @@
                 <button-link
                     :label="callToActionLabel"
                     :icon-name="callToActionIconName"
+                    :is-secondary="true"
                     class="button"
                 />
             </smart-link>
@@ -27,14 +32,18 @@
             class="social-shares"
         >
             <div class="main-shares">
-                <span class="share-text"> Share </span>
+                <span class="share-label"> Share </span>
                 <a
                     v-for="item in mainShareLinks"
                     :key="item.name"
                     :href="item.url"
                     target="_blank"
+                    class="main-share-link"
                 >
-                    <component :is="item.icon" />
+                    <component
+                        :is="item.icon"
+                        class="svg"
+                    />
                 </a>
                 <span @click="toggleShare()">
                     <svg-icon-ellipsis class="svg-ellipsis" />
@@ -49,7 +58,10 @@
                     target="_blank"
                     class="other-link"
                 >
-                    <component :is="item.icon" />
+                    <component
+                        :is="item.icon"
+                        class="svg"
+                    />
                     <span class="share-name">{{ item.name }}</span>
                 </a>
             </div>
@@ -132,7 +144,12 @@ export default {
     },
     computed: {
         classes() {
-            return ["header-sticky", { "is-opened": this.isOpened }]
+            return [
+                "header-sticky",
+                { "is-opened": this.isOpened },
+                { "has-call-to-action": this.hasCallToAction },
+                { "has-share-links": this.hasShareLinks },
+            ]
         },
         parseTarget() {
             return this.callToActionIconName.includes("arrow-diagonal")
@@ -211,25 +228,63 @@ export default {
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
-    .bread-crumb {
+    .bread-crumbs {
         width: 816px;
         display: flex;
         flex-direction: row;
         align-items: center;
         align-content: center;
+
+        font-family: Karbon;
+        font-style: normal;
+        font-size: 20px;
+        line-height: 150%;
+
+        .crumb-link {
+            color: var(--color-primary-blue-03);
+            font-weight: 500;
+        }
+        .chevron-left {
+            margin: 0 8px;
+            margin-bottom: -6px;
+        }
+    }
+    .call-to-action {
+        margin-left: 24px;
     }
     .social-shares {
         width: 240px;
         .svg-close {
             display: none;
+            margin-left: 42px;
+            .outline {
+                stroke: var(--color-black);
+            }
+            cursor: pointer;
         }
         .main-shares {
             display: flex;
             flex-direction: row;
-            justify-content: space-evenly;
+            justify-content: flex-start;
             align-items: center;
             align-content: center;
             // padding: 20px 47px;
+            .share-label {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 135%;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                margin-right: 23px;
+            }
+            .main-share-link {
+                margin: 0 2px;
+            }
+            .svg-ellipsis {
+                margin-left: 32px;
+                cursor: pointer;
+            }
         }
         .other-shares {
             background-color: var(--color-white);
@@ -238,7 +293,7 @@ export default {
             overflow: hidden;
             padding: 10px 22px;
             position: absolute;
-            max-width: 240px;
+            max-width: 230px;
             transition-property: opacity, max-height;
             transition-duration: 400ms;
             transition-timing-function: ease-in-out;
@@ -251,8 +306,8 @@ export default {
             align-content: center;
 
             .other-link {
-                &:not(last-child) {
-                    padding-right: 30px;
+                &:first-child {
+                    margin-right: 30px;
                 }
                 margin-top: 16px;
                 display: flex;
@@ -277,8 +332,44 @@ export default {
         }
     }
 
+    // Hovers
+    @media #{$has-hover} {
+        .main-share-link:hover,
+        .other-link:hover {
+            .svg {
+                .color {
+                    // stroke: #eaf2fb;
+                    fill: #eaf2fb;
+                }
+                .outline {
+                    fill: #0b6ab7;
+                    // stroke: #0b6ab7;
+                }
+                .outline-email-innercircle {
+                    stroke: #0b6ab7;
+                }
+                .outline-printer {
+                    stroke: #0b6ab7;
+                }
+            }
+        }
+    }
+
     // Breakpoints
+    @media #{$lte-tablet} {
+        padding: unset;
+    }
     @media #{$lte-phone} {
+        padding: unset;
+        &.has-call-to-action,
+        &.has-share-links {
+            .bread-crumbs {
+                display: none;
+            }
+            .call-to-action {
+                margin-right: 10px;
+            }
+        }
     }
 }
 </style>
