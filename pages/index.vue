@@ -31,7 +31,10 @@
             :ratio="bannerVisit.ratio"
             :align-right="false"
         >
-            <heading-arrow :text="bannerVisit.breadcrumb" />
+            <heading-arrow
+                :text="bannerVisit.breadcrumb"
+                :to="bannerVisit.to"
+            />
         </banner-featured>
 
         <section-dual-masonry
@@ -57,7 +60,10 @@
             :prompt="bannerAbout.prompt"
             :ratio="bannerAbout.ratio"
         >
-            <heading-arrow :text="bannerAbout.breadcrumb" />
+            <heading-arrow
+                :text="bannerAbout.breadcrumb"
+                :to="bannerAbout.to"
+            />
         </banner-featured>
         <divider-general class="divider" />
         <section-post-small
