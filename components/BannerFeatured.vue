@@ -38,17 +38,17 @@
         </div>
 
         <div class="meta">
-            <h3
+            <div
                 v-if="category"
                 class="category category-desktop"
                 v-html="category"
             />
-            <h2 class="title">
+            <h3 class="title">
                 <nuxt-link
                     :to="to"
                     v-html="title"
                 />
-            </h2>
+            </h3>
 
             <div class="schedule">
                 <time
