@@ -24,7 +24,7 @@
                 class="generic-search"
             />
             <!-- :filters="searchFilters.filters"
-                :view-modes="searchFilters.views" 
+                :view-modes="searchFilters.views"
                 @view-mode-change="viewModeChanger"-->
         </masthead-secondary>
 
@@ -39,7 +39,8 @@
             :breadcrumb="firstEvent.breadcrumb"
             :align-right="false"
             :dates="firstEvent.dates"
-            :times="firstEvent.times"
+            :start-date="firstEvent.startDate"
+            :end-date="firstEvent.endDate"
         />
 
         <divider-general class="section divider divider-general" />
@@ -143,10 +144,8 @@ export default {
                         text: _get(event, "category.name", "Featured"),
                     },
                     // TODO Only need one set of these once BannerFeatured is updated
-                    dates: formatEventDates(event.start, event.end),
-                    times: formatEventTimes(event.start, event.end),
-                    date: formatEventDates(event.start, event.end),
-                    time: formatEventTimes(event.start, event.end),
+                    startDate: event.start,
+                    endDate: event.end,
                     text: event.description,
                 }
             })
