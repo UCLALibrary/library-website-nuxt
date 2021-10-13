@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="flexible-banner-featured">
         <banner-featured
-            :image="block.contentLink[0].image[0].image"
+            :image="block.contentLink[0].heroImage[0].image[0]"
             :to="block.contentLink[0].to"
             :title="block.contentLink[0].title"
             breadcrumb="Event"

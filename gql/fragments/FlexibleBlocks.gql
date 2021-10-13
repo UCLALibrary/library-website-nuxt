@@ -132,7 +132,7 @@ fragment BlockBannerFeatured on allFlexiblePageBlocks_bannerFeatured_BlockType {
                     id
                     title
                 }
-                image: heroImage {
+                heroImage {
                     ... on heroImage_heroImage_BlockType {
                         id
                         image {
