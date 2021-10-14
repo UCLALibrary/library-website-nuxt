@@ -191,7 +191,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-phone} {
+    @media #{$small} {
         width: 300px;
         .message {
             width: 300px;

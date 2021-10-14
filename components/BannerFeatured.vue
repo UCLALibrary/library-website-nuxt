@@ -402,7 +402,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-phone} {
+    @media #{$small} {
         .slot {
             font-size: 28px;
             padding-left: 20px;

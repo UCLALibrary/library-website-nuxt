@@ -362,7 +362,7 @@ export default {
     }
 }
 // Breakpoints
-@media #{$gt-wide} {
+@media #{$extra-large} {
     .banner-text {
         margin-top: 72px;
         .text {
@@ -370,7 +370,7 @@ export default {
         }
     }
 }
-@media #{$lte-tablet} {
+@media #{$medium} {
     .banner-text {
         padding-left: 40px;
         padding-bottom: 60px;
@@ -392,7 +392,7 @@ export default {
         }
     }
 }
-@media #{$lte-phone} {
+@media #{$small} {
     .banner-text {
         padding: 32px 32px 48px 32px;
         .title {

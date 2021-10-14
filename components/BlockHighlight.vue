@@ -320,7 +320,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-phone} {
+    @media #{$small} {
     }
 
     // Themes

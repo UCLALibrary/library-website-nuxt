@@ -382,7 +382,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-tablet} {
+    @media #{$medium} {
         max-width: 95%;
         padding-left: 5px;
         padding-right: 5px;
@@ -400,7 +400,7 @@ export default {
         }
     }
 
-    @media #{$lte-phone} {
+    @media #{$small} {
         display: flex;
         flex-direction: column;
 

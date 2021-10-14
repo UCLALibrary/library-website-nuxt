@@ -95,7 +95,7 @@ export default {
 }
 
 // Breakpoints
-@media #{$lte-tablet} {
+@media #{$medium} {
     .block-teaser-list {
         max-width: 95%;
         padding-left: 5px;
@@ -103,7 +103,7 @@ export default {
     }
 }
 
-@media #{$lte-phone} {
+@media #{$small} {
     .block-teaser-list {
         display: flex;
         flex-direction: column;

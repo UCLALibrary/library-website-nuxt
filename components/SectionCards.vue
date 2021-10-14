@@ -144,7 +144,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-tablet} {
+    @media #{$medium} {
         .meta {
             padding: 0 var(--unit-gutter);
             margin-bottom: 40px;
