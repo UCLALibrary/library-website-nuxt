@@ -36,7 +36,7 @@
             :to="firstEvent.to"
             :is-online="firstEvent.isOnline"
             prompt="View exhibit"
-            :breadcrumb="firstEvent.breadcrumb"
+            :breadcrumb="firstEvent.breadcrumb.text"
             :align-right="false"
             :dates="firstEvent.dates"
             :start-date="firstEvent.startDate"
