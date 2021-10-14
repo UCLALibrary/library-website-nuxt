@@ -27,7 +27,9 @@ export default {
         parsedAlignment() {
             return this.block.alignment === "right" ? true : false
         },
-        parsedIsOnline() {},
+        parsedIsOnline() {
+            // TODO where are we getting isOnline from?
+        },
         parsedLocations() {
             let locations = []
             for (let location in this.block.contentLink[0]
