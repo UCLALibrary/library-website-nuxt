@@ -91,7 +91,8 @@ export const Slot = () => ({
             title: "Sed Lectus Inceptos: Suspendisse in Justo eu Magna Luctus Suscipit",
             category: "Torquent",
             breadcrumb: "Torquent",
-            date: "1995-12-17T03:24:00",
+            startDate: "1995-12-17T03:24:00",
+            endDate: "1995-12-17T03:24:00",
             isOnline: true,
             prompt: "Cursus Quis",
             alignRight: false,
@@ -112,9 +113,9 @@ export const Slot = () => ({
            location="YRL"
         >
             <heading-arrow
-                :text="breadcrumb.text"
-                :to="breadcrumb.to"
-                v-if="breadcrumb.to"
+                v-if="breadcrumb"
+                :text="breadcrumb"
+                :to="to"
             />
         </banner-featured>
     `,
@@ -128,7 +129,8 @@ export const LongHeading = () => ({
             title: "Sit Amet Augue Congue Elementum Aliquet Risus Ultricies",
             category: "Curabitur",
             breadcrumb: "Curabitur Sollicitudin",
-            date: "1995-12-17T03:24:00",
+            startDate: "1995-12-17T03:24:00",
+            endDate: "1997-12-17T03:24:00",
             isOnline: true,
             prompt: "Amet Mauris",
             alignRight: false,
@@ -150,8 +152,9 @@ export const LongHeading = () => ({
 
         >
             <heading-arrow
-                :text="breadcrumb"
                 v-if="breadcrumb"
+                :text="breadcrumb"
+                :to="to"
             />
         </banner-featured>
     `,
