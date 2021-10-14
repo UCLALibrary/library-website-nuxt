@@ -44,11 +44,17 @@
         />
 
         <divider-general class="section divider divider-general" />
-        <section-teaser-highlight class="section" :items="highlightEvents" />
+        <section-teaser-highlight
+            class="section"
+            :items="highlightEvents"
+        />
 
         <divider-general class="section divider divider-general" />
         <!-- TODO List of events go here -->
-        <section-teaser-list :items="listEvents" class="section section-list" />
+        <section-teaser-list
+            :items="listEvents"
+            class="section section-list"
+        />
 
         <divider-way-finder class="section divider divider-way-finder" />
 
@@ -134,8 +140,9 @@ export default {
                     category: {
                         name: _get(event, "category.name", "Featured"),
                     },
-                    breadcrumb: _get(event, "category.name", "Featured"),
-                    ,
+                    breadcrumb: {
+                        text: _get(event, "category.name", "Featured"),
+                    },
                     // TODO Only need one set of these once BannerFeatured is updated
                     startDate: event.start,
                     endDate: event.end,
