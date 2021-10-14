@@ -79,14 +79,16 @@
                     />
                 </nuxt-link>
             </div>
-            <div v-if="to">
-                <nuxt-link :to="to">
-                    <button-link
-                        :label="prompt"
-                        class="button"
-                    />
-                </nuxt-link>
-            </div>
+
+            <nuxt-link
+                v-if="to"
+                :to="to"
+            >
+                <button-link
+                    :label="prompt"
+                    class="button"
+                />
+            </nuxt-link>
         </div>
     </div>
 </template>
