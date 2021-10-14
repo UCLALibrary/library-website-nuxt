@@ -9,8 +9,9 @@
                 v-html="crumbs[0].title"
             />
             <svg-chevron-left class="chevron-left" />
-            <span>{{ crumbs[1].title }}</span>
+            <span class="child-title">{{ crumbs[1].title }}</span>
         </div>
+        <svg-arrow-left-small class="arrow-left" />
         <div
             v-if="hasCallToAction"
             class="call-to-action"
@@ -86,6 +87,7 @@ import SvgIconShareEmail from "~/assets/svg/icon-share-email"
 import SvgIconEllipsis from "~/assets/svg/icon-ellipsis"
 import SvgGlyphClose from "~/assets/svg/glyph-close"
 import SvgChevronLeft from "~/assets/svg/chevron-left"
+import SvgArrowLeftSmall from "~/assets/svg/arrow-left-small"
 
 export default {
     components: {
@@ -98,6 +100,7 @@ export default {
         SvgIconEllipsis,
         SvgGlyphClose,
         SvgChevronLeft,
+        SvgArrowLeftSmall,
     },
     props: {
         crumbs: {
@@ -221,15 +224,16 @@ export default {
 .header-sticky {
     background-color: var(--color-white);
     width: 100%;
-    padding: 15px 200px;
+    padding: 15px 0;
 
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     .bread-crumbs {
-        width: 816px;
+        max-width: 816px;
+        width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -248,11 +252,29 @@ export default {
             margin: 0 8px;
             margin-bottom: -6px;
         }
+        .child-title {
+            width: 50%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+    .arrow-left {
+        display: none;
     }
     .call-to-action {
         margin-left: 24px;
+        max-width: 180px;
+        width: 100%;
+        .button {
+            /deep/ {
+                &:hover {
+                }
+            }
+        }
     }
     .social-shares {
+        margin-left: 24px;
         width: 240px;
         .svg-close {
             display: none;
@@ -357,14 +379,32 @@ export default {
 
     // Breakpoints
     @media #{$lte-tablet} {
-        padding: unset;
-    }
-    @media #{$lte-phone} {
-        padding: unset;
-        &.has-call-to-action,
+        width: auto;
+        padding: 15px 0;
+        .bread-crumbs {
+            width: 720px;
+        }
+        &.has-call-to-action {
+            .bread-crumbs {
+                width: 514px;
+            }
+        }
         &.has-share-links {
             .bread-crumbs {
+                width: 416px;
+            }
+        }
+    }
+    @media #{$lte-phone} {
+        &.has-call-to-action,
+        &.has-share-links {
+            justify-content: space-around;
+            .bread-crumbs {
                 display: none;
+            }
+            .arrow-left {
+                display: unset;
+                margin-left: var(--unit-gutter);
             }
             .call-to-action {
                 margin-right: 10px;

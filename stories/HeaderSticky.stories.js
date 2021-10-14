@@ -57,12 +57,41 @@ export const LongCrumbsText = () => ({
 export const WithSocialLinks = () => ({
     data() {
         return {
-            crumbs : mock.crumbs
+            crumbs : [...mock.crumbs]
         }
     },
     template: `
         <header-sticky
             :crumbs="crumbs" 
+            :has-share-links="true"
+            share-title="Python Workshop"
+            share-text="Short Description of this resource."
+            share-url="http://localhost:3000/events/2"
+        />
+    `,
+})
+
+export const EllipsisTextWithSocialLinks = () => ({
+    data() {
+        return {
+            crumbs : mock.crumbs
+        }
+    },
+    computed: {
+        parsedCrumbs() {
+            // Restructuring item to support text key
+            return this.crumbs.map((obj, index) => {
+                if(index == 0) return obj
+                return {
+                    path: obj.path,
+                    title: "Really long text,Really long text, Really long text, Really long text, Really long text",
+                }
+            })
+        },
+    },
+    template: `
+        <header-sticky
+            :crumbs="parsedCrumbs" 
             :has-share-links="true"
             share-title="Python Workshop"
             share-text="Short Description of this resource."
