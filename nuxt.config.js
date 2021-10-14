@@ -99,6 +99,26 @@ export default {
         stories: ["~/stories/**/*.stories.js"],
         parameters: {
             layout: "fullscreen",
+            viewport: { 
+                viewports:{
+                    extraLarge: {
+                        name: 'Extra Large',
+                        styles:{ width: '1920px', height: '1080px', },
+                    },
+                    Large: {
+                        name: 'Large',
+                        styles:{ width: '1440px', height: '1024px', },
+                    },
+                    Medium: {
+                        name: 'Medium',
+                        styles:{ width: '768px', height: '1024px', },
+                    },
+                    Small: {
+                        name: 'Small',
+                        styles:{ width: '375px', height: '812px', },
+                    },
+                },
+            },
             backgrounds: {
                 default: "default",
                 values: [
