@@ -67,15 +67,18 @@
                 class="location-group"
             >
                 <nuxt-link
-                    v-for="location in locations"
+                    v-for="location in parsedLocations"
                     :key="`location-${location.id}`"
                     :to="location.to"
                     class="location-link"
                 >
-                    <svg-icon-location class="location-svg" />
+                    <component
+                        :is="location.svg"
+                        class="location-svg"
+                    />
                     <span
                         class="location"
-                        v-html="location"
+                        v-html="location.title"
                     />
                 </nuxt-link>
             </div>
@@ -102,14 +105,14 @@ import formatEventDates from "~/utils/formatEventDates"
 // SVGs
 import SvgMoleculeHalfFaceted from "~/assets/svg/molecule-half-faceted"
 import SvgHatchRight from "~/assets/svg/hatch-right"
-import SvgIconLocation from "~/assets/svg/icon-location"
 
 export default {
     components: {
         SvgMoleculeHalfFaceted,
         SvgHatchRight,
-        SvgIconLocation,
         SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
+        SvgIconLocation: () => import("~/assets/svg/icon-location"),
+        SvgIconOnline: () => import("~/assets/svg/icon-online"),
     },
     props: {
         image: {
@@ -136,10 +139,6 @@ export default {
         locations: {
             type: Array,
             default: () => [],
-        },
-        isOnline: {
-            type: Boolean,
-            default: false,
         },
         to: {
             // URL to link to, if blank won't link
@@ -172,13 +171,6 @@ export default {
                 `color-${this.sectionName}`,
             ]
         },
-        locationDisplay() {
-            let output = this.location
-            if (this.isOnline) {
-                output = "Online"
-            }
-            return output
-        },
         parsedDate() {
             return formatEventDates(this.startDate, this.endDate)
         },
@@ -195,6 +187,18 @@ export default {
                 output = 100
             }
             return output
+        },
+        parsedLocations() {
+            for (let location in this.locations) {
+                console.log(this.locations[location].title)
+                if (this.locations[location].title == "Online") {
+                    this.locations[location].svg = "svg-icon-online"
+                } else {
+                    this.locations[location].svg = "svg-icon-location"
+                }
+            }
+            // console.log(this.locations)
+            return this.locations
         },
     },
 }

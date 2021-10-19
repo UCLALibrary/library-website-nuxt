@@ -4,11 +4,9 @@
         :image="block.contentLink[0].heroImage[0].image[0]"
         :to="block.contentLink[0].to"
         :title="block.contentLink[0].title"
-        breadcrumb="Event"
-        category="Featured"
+        breadcrumb="block.typeHandle"
         :start-date="block.contentLink[0].date[0].startDate"
         :end-date="block.contentLink[0].date[0].endDate"
-        :is-online="isOnline"
         :prompt="block.buttonText"
         :align-right="parsedAlignment"
         :locations="parsedLocations"
@@ -36,7 +34,6 @@ export default {
                 .associatedLocations) {
                 locations.push(
                     this.block.contentLink[0].associatedLocations[location]
-                        .title
                 )
             }
             return locations

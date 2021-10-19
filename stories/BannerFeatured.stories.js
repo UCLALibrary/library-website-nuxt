@@ -13,7 +13,23 @@ const mock = {
     breadcrumb: "Lectus",
     startDate: "1995-12-17T03:24:00",
     endDate: "1995-12-17T03:24:00",
-    isOnline: true,
+    locations: [
+        {
+            id: "523",
+            title: "Powell Library",
+            to: "visit/locations/powell-library",
+        },
+        {
+            id: "801",
+            title: "YRL",
+            to: "visit/locations/yrl",
+        },
+        {
+            id: "3062",
+            title: "Online",
+            to: "visit/locations/online",
+        },
+    ],
     prompt: "Cursus Quis",
     alignRight: true,
 }
@@ -33,8 +49,8 @@ export const Default = () => ({
            :breadcrumb="breadcrumb"
            :start-date="startDate"
            :end-date="endDate"
-           :is-online="isOnline"
            :prompt="prompt"
+           :locations="locations"
        />
     `,
 })
@@ -54,7 +70,6 @@ export const LeftAligned = () => ({
            :breadcrumb="breadcrumb"
            :start-date="startDate"
            :end-date="endDate"
-           :is-online="isOnline"
            :prompt="prompt"
            :align-right="false"
        />
@@ -93,7 +108,6 @@ export const Slot = () => ({
             breadcrumb: "Torquent",
             startDate: "1995-12-17T03:24:00",
             endDate: "1995-12-17T03:24:00",
-            isOnline: true,
             prompt: "Cursus Quis",
             alignRight: false,
         }
@@ -110,7 +124,6 @@ export const Slot = () => ({
            is-online=false
            :prompt="prompt"
            :align-right="alignRight"
-           location="YRL"
         >
             <heading-arrow
                 v-if="breadcrumb"
@@ -131,7 +144,6 @@ export const LongHeading = () => ({
             breadcrumb: "Curabitur Sollicitudin",
             startDate: "1995-12-17T03:24:00",
             endDate: "1997-12-17T03:24:00",
-            isOnline: true,
             prompt: "Amet Mauris",
             alignRight: false,
         }
@@ -145,10 +157,8 @@ export const LongHeading = () => ({
            :breadcrumb="breadcrumb"
            :start-date="startDate"
            :end-date="endDate"
-           is-online=false
            :prompt="prompt"
            :align-right="alignRight"
-           location="YRL"
 
         >
             <heading-arrow
@@ -175,7 +185,6 @@ export const WideImage = () => ({
            :breadcrumb="breadcrumb"
            :start-date="startDate"
            :end-date="endDate"
-           :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
 
@@ -198,7 +207,6 @@ export const WideImageLeftAligned = () => ({
            :breadcrumb="breadcrumb"
            :start-date="startDate"
            :end-date="endDate"
-           :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
            :align-right="false"
@@ -222,7 +230,6 @@ export const NoButton = () => ({
            :breadcrumb="breadcrumb"
            :start-date="startDate"
            :end-date="endDate"
-           :is-online="isOnline"
            :prompt="prompt"
            :ratio="42"
            :align-right="false"
