@@ -4,7 +4,7 @@
         :image="block.contentLink[0].heroImage[0].image[0]"
         :to="block.contentLink[0].to"
         :title="block.contentLink[0].title"
-        breadcrumb="block.typeHandle"
+        :breadcrumb="parsedTypeHandle"
         :start-date="block.contentLink[0].date[0].startDate"
         :end-date="block.contentLink[0].date[0].endDate"
         :prompt="block.buttonText"
@@ -25,9 +25,6 @@ export default {
         parsedAlignment() {
             return this.block.alignment === "right" ? true : false
         },
-        parsedIsOnline() {
-            // TODO where are we getting isOnline from?
-        },
         parsedLocations() {
             let locations = []
             for (let location in this.block.contentLink[0]
@@ -37,6 +34,12 @@ export default {
                 )
             }
             return locations
+        },
+        parsedTypeHandle() {
+            // This will be pased on the page level
+            return this.page.entries.typeHandle
+                ? this.page.entries.typeHandle
+                : "Featured"
         },
     },
 }

@@ -190,14 +190,12 @@ export default {
         },
         parsedLocations() {
             for (let location in this.locations) {
-                console.log(this.locations[location].title)
                 if (this.locations[location].title == "Online") {
                     this.locations[location].svg = "svg-icon-online"
                 } else {
                     this.locations[location].svg = "svg-icon-location"
                 }
             }
-            // console.log(this.locations)
             return this.locations
         },
     },
