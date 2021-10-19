@@ -72,6 +72,7 @@ export const LeftAligned = () => ({
            :end-date="endDate"
            :prompt="prompt"
            :align-right="false"
+           :locations="locations"
        />
     `,
 })
@@ -187,6 +188,7 @@ export const WideImage = () => ({
            :end-date="endDate"
            :prompt="prompt"
            :ratio="42"
+           :locations="locations"
 
        />
     `,
@@ -210,6 +212,7 @@ export const WideImageLeftAligned = () => ({
            :prompt="prompt"
            :ratio="42"
            :align-right="false"
+           :locations="locations"
 
        />
     `,

@@ -20,6 +20,10 @@ export default {
             type: Object,
             default: () => {},
         },
+        typeHandle: {
+            type: String,
+            default: "",
+        },
     },
     computed: {
         parsedAlignment() {
@@ -37,9 +41,7 @@ export default {
         },
         parsedTypeHandle() {
             // This will be pased on the page level
-            return this.page.entries.typeHandle
-                ? this.page.entries.typeHandle
-                : "Featured"
+            return this.typeHandle ? this.typeHandle : "Featured"
         },
     },
 }
