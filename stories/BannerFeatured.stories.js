@@ -92,7 +92,6 @@ export const NotOnline = () => ({
            :breadcrumb="breadcrumb"
            :start-date="startDate"
            :end-date="endDate"
-           :is-online="false"
            :prompt="prompt"
            :align-right="alignRight"
         />
@@ -122,7 +121,6 @@ export const Slot = () => ({
            :breadcrumb="breadcrumb"
            :start-date="startDate"
            :end-date="endDate"
-           is-online=false
            :prompt="prompt"
            :align-right="alignRight"
         >
