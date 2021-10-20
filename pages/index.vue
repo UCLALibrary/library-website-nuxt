@@ -26,7 +26,6 @@
             :breadcrumb="bannerVisit.breadcrumb"
             :start-date="bannerVisit.startDate"
             :end-date="bannerVisit.endDate"
-            :is-online="bannerVisit.isOnline"
             :prompt="bannerVisit.prompt"
             :ratio="bannerVisit.ratio"
             :align-right="false"
@@ -56,9 +55,9 @@
             :breadcrumb="bannerAbout.breadcrumb"
             :start-date="bannerVisit.startDate"
             :end-date="bannerVisit.endDate"
-            :is-online="bannerAbout.isOnline"
             :prompt="bannerAbout.prompt"
             :ratio="bannerAbout.ratio"
+            :locations="bannerAbout.locations"
         >
             <heading-arrow
                 :text="bannerAbout.breadcrumb"
@@ -127,7 +126,13 @@ export default {
             breadcrumb: "Lorem ipsum dolor sit amet",
             startDate: "1995-12-17T03:24:00",
             endDate: "1995-12-17T03:24:00",
-            isOnline: true,
+            locations: [
+                {
+                    id: "523",
+                    title: "Online",
+                    to: "visit/locations/Online",
+                },
+            ],
             prompt: "Read More",
             alignRight: true,
         }

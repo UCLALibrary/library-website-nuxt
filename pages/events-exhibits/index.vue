@@ -34,7 +34,6 @@
             :title="firstEvent.title"
             :image="firstEvent.image"
             :to="firstEvent.to"
-            :is-online="firstEvent.isOnline"
             prompt="View exhibit"
             :breadcrumb="firstEvent.breadcrumb.text"
             :align-right="false"
@@ -136,7 +135,6 @@ export default {
                     image: {
                         src: event.featured_image,
                     },
-                    isOnline: !event.location.name,
                     category: {
                         name: _get(event, "category.name", "Featured"),
                     },
