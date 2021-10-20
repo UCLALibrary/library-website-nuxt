@@ -1,17 +1,22 @@
 <template lang="html">
-    <nuxt-link
-        :to="to"
-        :class="classes"
-    >
-        <h3
-            class="title"
-            v-html="title"
-        />
-        <div
-            class="text"
-            v-html="text"
-        />
-    </nuxt-link>
+    <div class="simple-card">
+        <div class="meta">
+            <nuxt-link
+                :to="to"
+                :class="classes"
+            >
+                <h3
+                    class="title"
+                    v-html="title"
+                />
+                <div
+                    class="text"
+                    v-html="text"
+                />
+                <svg-arrow-right class="svg" />
+            </nuxt-link>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -41,7 +46,7 @@ export default {
     },
     computed: {
         classes() {
-            return ["simple-card", `color-${this.sectionName}`]
+            return [`color-${this.sectionName}`]
         },
         sectionName() {
             return getSectionName(this.to)
@@ -56,13 +61,13 @@ export default {
     max-height: 314px;
     border-radius: var(--rounded-slightly-all);
     box-sizing: border-box;
-
+    overflow: wrap;
+    background-color: var(--color-primary-blue-01);
     transition-property: box-shadow, transform;
-    transition-duration: 400ms;
-    transition-timing-function: ease-in-out;
+    // transition-duration: 400ms;
+    // transition-timing-function: ease-in-out;
 
     transition: background-color 400ms ease-in-out;
-    background-color: var(--color-primary-blue-01);
     flex: 1 1 auto;
 
     // Themes
@@ -76,7 +81,9 @@ export default {
     &.color-about {
         --color-theme: var(--color-visit-fushia-01);
     }
-
+    .meta {
+        padding: 20px 48px 20px 48px;
+    }
     .title {
         font-family: var(--font-primary);
         font-style: normal;
@@ -85,6 +92,7 @@ export default {
         line-height: 110%;
         letter-spacing: 0.0015em;
         color: var(--color-primary-blue-03);
+        padding-bottom: 16px;
     }
     .text {
         font-family: var(--font-secondary);
