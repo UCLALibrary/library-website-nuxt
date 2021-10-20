@@ -20,7 +20,9 @@ export default {
     FlexibleCta: () => import("~/components/Flexible/CtaBlockContentWidth"),
     FlexibleDivider: () => import("~/components/Flexible/Divider"),
     FlexibleHelpTopicCards: () =>
-      import("~/components/Flexible/HelpTopicCards.vue")
+      import("~/components/Flexible/HelpTopicCards.vue"),
+    FlexibleBannerFeatured: () =>
+      import("~/components/Flexible/BannerFeatured.vue")
   },
   props: {
     blocks: {
@@ -67,6 +69,10 @@ function convertName(typeHandle) {
 
     case "helpTopicCards":
       output = "flexible-help-topic-cards";
+      break;
+
+    case "bannerFeatured":
+      output = "flexible-banner-featured";
       break;
   }
 

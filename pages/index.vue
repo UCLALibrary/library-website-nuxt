@@ -24,15 +24,15 @@
             :title="bannerVisit.title"
             :category="bannerVisit.category"
             :breadcrumb="bannerVisit.breadcrumb"
-            :dates="bannerVisit.dates"
-            :is-online="bannerVisit.isOnline"
+            :start-date="bannerVisit.startDate"
+            :end-date="bannerVisit.endDate"
             :prompt="bannerVisit.prompt"
             :ratio="bannerVisit.ratio"
             :align-right="false"
         >
             <heading-arrow
-                :text="bannerVisit.breadcrumb.text"
-                :to="bannerVisit.breadcrumb.to"
+                :text="bannerVisit.breadcrumb"
+                :to="bannerVisit.to"
             />
         </banner-featured>
 
@@ -53,14 +53,15 @@
             :title="bannerAbout.title"
             :category="bannerAbout.category"
             :breadcrumb="bannerAbout.breadcrumb"
-            :dates="bannerAbout.dates"
-            :is-online="bannerAbout.isOnline"
+            :start-date="bannerVisit.startDate"
+            :end-date="bannerVisit.endDate"
             :prompt="bannerAbout.prompt"
             :ratio="bannerAbout.ratio"
+            :locations="bannerAbout.locations"
         >
             <heading-arrow
-                :text="bannerAbout.breadcrumb.text"
-                :to="bannerAbout.breadcrumb.to"
+                :text="bannerAbout.breadcrumb"
+                :to="bannerAbout.to"
             />
         </banner-featured>
         <divider-general class="divider" />
@@ -121,13 +122,17 @@ export default {
             image: MOCK_API.image,
             to: "/help/foo/bar/",
             title: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
-            category: { name: "Quisque", to: "/category/featured/" },
-            breadcrumb: {
-                text: "Lorem ipsum dolor sit amet",
-                to: "http://foo/about/bar",
-            },
-            dates: "July 1, 2020 - December 31, 2021",
-            isOnline: true,
+            category: "Quisque",
+            breadcrumb: "Lorem ipsum dolor sit amet",
+            startDate: "1995-12-17T03:24:00",
+            endDate: "1995-12-17T03:24:00",
+            locations: [
+                {
+                    id: "523",
+                    title: "Online",
+                    to: "visit/locations/Online",
+                },
+            ],
             prompt: "Read More",
             alignRight: true,
         }
