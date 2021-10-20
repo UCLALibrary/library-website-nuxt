@@ -1,13 +1,15 @@
 <template lang="html">
-    <block-call-to-action
-        v-for="item in parsedItems"
-        class="cta-block-two-up"
-        :is-small-size="true"
-        :name="item.urlButtonText"
-        :title="item.titleCTA2Up"
-        :text="item.shortDescription"
-        :icon-name="item.icon"
-    />
+    <div class="cta-block-two-up">
+        <block-call-to-action
+            v-for="item in parsedItems"
+            class="cta-block-two-up"
+            :is-small-size="true"
+            :name="item.urlButtonUrl"
+            :title="item.titleCTA2Up"
+            :text="item.shortDescription"
+            :icon-name="item.icon"
+        />
+    </div>
 </template>
 
 <script>
