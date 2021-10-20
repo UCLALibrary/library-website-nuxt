@@ -3,12 +3,12 @@
         <div class="slot">
             <slot>
                 <div
-                    v-if="breadcrumb.text"
+                    v-if="breadcrumb"
                     class="breadcrumb"
                 >
                     <svg-heading-vector class="heading-line" />
                     <div class="text">
-                        {{ breadcrumb.text }}
+                        {{ breadcrumb }}
                     </div>
                 </div>
             </slot>
@@ -27,9 +27,9 @@
         <div class="hatch-box">
             <div class="clipped-box">
                 <h3
-                    v-if="category.name"
+                    v-if="category"
                     class="category category-mobile"
-                    v-html="category.name"
+                    v-html="category"
                 />
             </div>
             <div class="hatch">
@@ -38,44 +38,60 @@
         </div>
 
         <div class="meta">
-            <h3
-                v-if="category.name"
+            <div
+                v-if="category"
                 class="category category-desktop"
-                v-html="category.name"
+                v-html="category"
             />
-            <h2 class="title">
+            <h3 class="title">
                 <nuxt-link
                     :to="to"
                     v-html="title"
                 />
-            </h2>
+            </h3>
 
             <div class="schedule">
                 <time
-                    v-if="dates"
+                    v-if="startDate"
                     class="schedule-item"
-                    v-html="dates"
+                    v-html="parsedDate"
                 />
                 <time
                     v-if="parsedTime"
                     class="schedule-item"
-                    :datetime="times"
                     v-html="parsedTime"
                 />
-                <div
-                    v-if="locationDisplay"
-                    class="schedule-item"
-                    v-html="locationDisplay"
-                />
             </div>
-            <div v-if="hasButton === true">
-                <nuxt-link :to="to">
-                    <button-link
-                        :label="prompt"
-                        class="button"
+            <div
+                v-if="locations.length"
+                class="location-group"
+            >
+                <nuxt-link
+                    v-for="location in parsedLocations"
+                    :key="`location-${location.id}`"
+                    :to="location.to"
+                    class="location-link"
+                >
+                    <component
+                        :is="location.svg"
+                        class="location-svg"
+                    />
+                    <span
+                        class="location"
+                        v-html="location.title"
                     />
                 </nuxt-link>
             </div>
+
+            <nuxt-link
+                v-if="to"
+                :to="to"
+            >
+                <button-link
+                    :label="prompt"
+                    class="button"
+                />
+            </nuxt-link>
         </div>
     </div>
 </template>
@@ -83,6 +99,8 @@
 <script>
 // Helpers
 import getSectionName from "~/utils/getSectionName"
+import formatEventTimes from "~/utils/formatEventTimes"
+import formatEventDates from "~/utils/formatEventDates"
 
 // SVGs
 import SvgMoleculeHalfFaceted from "~/assets/svg/molecule-half-faceted"
@@ -93,6 +111,8 @@ export default {
         SvgMoleculeHalfFaceted,
         SvgHatchRight,
         SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
+        SvgIconLocation: () => import("~/assets/svg/icon-location"),
+        SvgIconOnline: () => import("~/assets/svg/icon-online"),
     },
     props: {
         image: {
@@ -105,26 +125,20 @@ export default {
         },
         category: {
             // Mock as { name: 'Name', to: 'http://fake.url/link' }
-            type: Object,
-            default: () => ({}),
-        },
-
-        // TODO change these to date and time (lose the 's') and update stories, exhibit list and home page
-        dates: {
             type: String,
             default: "",
         },
-        times: {
+        startDate: {
             type: String,
             default: "",
         },
-        location: {
+        endDate: {
             type: String,
             default: "",
         },
-        isOnline: {
-            type: Boolean,
-            default: false,
+        locations: {
+            type: Array,
+            default: () => [],
         },
         to: {
             // URL to link to, if blank won't link
@@ -132,9 +146,8 @@ export default {
             default: "",
         },
         breadcrumb: {
-            // mock as { text: 'Title', to: 'http://fake.url' }
-            type: Object,
-            default: () => ({}),
+            type: String,
+            default: "",
         },
         prompt: {
             // text that displays on blue button, e.g. "View exhibit". Links to `props.to`
@@ -149,10 +162,6 @@ export default {
             type: Number,
             default: 56.25,
         },
-        hasButton: {
-            type: Boolean,
-            default: true,
-        },
     },
     computed: {
         classes() {
@@ -162,16 +171,11 @@ export default {
                 `color-${this.sectionName}`,
             ]
         },
-        parsedTime() {
-            //TODO make this human readable time
-            return this.times
+        parsedDate() {
+            return formatEventDates(this.startDate, this.endDate)
         },
-        locationDisplay() {
-            let output = this.location
-            if (this.isOnline) {
-                output = "Online"
-            }
-            return output
+        parsedTime() {
+            return formatEventTimes(this.startDate, this.endDate)
         },
         sectionName() {
             return this.section || getSectionName(this.to)
@@ -183,6 +187,16 @@ export default {
                 output = 100
             }
             return output
+        },
+        parsedLocations() {
+            for (let location in this.locations) {
+                if (this.locations[location].title == "Online") {
+                    this.locations[location].svg = "svg-icon-online"
+                } else {
+                    this.locations[location].svg = "svg-icon-location"
+                }
+            }
+            return this.locations
         },
     },
 }
@@ -341,7 +355,8 @@ export default {
         margin: 10px 0 8px 0;
 
         display: flex;
-        flex-wrap: nowrap;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
     .schedule-item {
         &:after {
@@ -359,6 +374,20 @@ export default {
         &:last-child:after {
             display: none;
         }
+    }
+    .location-group {
+        color: var(--color-primary-blue-03);
+        font-family: var(--font-secondary);
+        font-size: 20px;
+        line-height: 1;
+    }
+    .location-link {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
     }
     .button {
         width: 180px;

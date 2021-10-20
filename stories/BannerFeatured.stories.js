@@ -9,13 +9,29 @@ const mock = {
     image: API.image,
     to: "/help/foo/bar/",
     title: "Curabitur Tortor Pellentesque Nibh Aenean",
-    category: { name: "Ullamcorper", to: "/category/featured/" },
-    breadcrumb: { text: "Lectus", to: "http://foo/about/bar" },
-    dates: "Junio 1, 2020 - Malesuada 31, 2021",
-    isOnline: true,
+    category: "Ullamcorper",
+    breadcrumb: "Lectus",
+    startDate: "1995-12-17T03:24:00",
+    endDate: "1995-12-17T03:24:00",
+    locations: [
+        {
+            id: "523",
+            title: "Powell Library",
+            to: "visit/locations/powell-library",
+        },
+        {
+            id: "801",
+            title: "YRL",
+            to: "visit/locations/yrl",
+        },
+        {
+            id: "3062",
+            title: "Online",
+            to: "visit/locations/online",
+        },
+    ],
     prompt: "Cursus Quis",
     alignRight: true,
-    hasButton: true,
 }
 
 export const Default = () => ({
@@ -31,10 +47,10 @@ export const Default = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :dates="dates"
-           :is-online="isOnline"
+           :start-date="startDate"
+           :end-date="endDate"
            :prompt="prompt"
-           :has-button="hasButton"
+           :locations="locations"
        />
     `,
 })
@@ -52,11 +68,11 @@ export const LeftAligned = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :dates="dates"
-           :is-online="isOnline"
+           :start-date="startDate"
+           :end-date="endDate"
            :prompt="prompt"
            :align-right="false"
-           :has-button="hasButton"
+           :locations="locations"
        />
     `,
 })
@@ -74,11 +90,10 @@ export const NotOnline = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :dates="dates"
-           :is-online="false"
+           :start-date="startDate"
+           :end-date="endDate"
            :prompt="prompt"
            :align-right="alignRight"
-           :has-button="hasButton"
         />
     `,
 })
@@ -88,15 +103,13 @@ export const Slot = () => ({
         return {
             image: API.image,
             to: "/visit/foo/bar/",
-            title:
-                "Sed Lectus Inceptos: Suspendisse in Justo eu Magna Luctus Suscipit",
+            title: "Sed Lectus Inceptos: Suspendisse in Justo eu Magna Luctus Suscipit",
             category: "Torquent",
-            breadcrumb: { text: "Torquent", to: "/help/bar/foo" },
-            dates: " Duis 1, 2020 - Curabitur31, 2021",
-            isOnline: true,
+            breadcrumb: "Torquent",
+            startDate: "1995-12-17T03:24:00",
+            endDate: "1995-12-17T03:24:00",
             prompt: "Cursus Quis",
             alignRight: false,
-            hasButton: true,
         }
     },
     template: `
@@ -106,17 +119,15 @@ export const Slot = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :dates="dates"
-           is-online=false
+           :start-date="startDate"
+           :end-date="endDate"
            :prompt="prompt"
            :align-right="alignRight"
-           :has-button="hasButton"
-           location="YRL"
         >
             <heading-arrow
-                :text="breadcrumb.text"
-                :to="breadcrumb.to"
-                v-if="breadcrumb.to"
+                v-if="breadcrumb"
+                :text="breadcrumb"
+                :to="to"
             />
         </banner-featured>
     `,
@@ -129,12 +140,9 @@ export const LongHeading = () => ({
             to: "/visit/foo/bar/",
             title: "Sit Amet Augue Congue Elementum Aliquet Risus Ultricies",
             category: "Curabitur",
-            breadcrumb: {
-                text: "Curabitur Sollicitudin",
-                to: "",
-            },
-            dates: " Sodales 1, 2020 - Accumsan 31, 2021",
-            isOnline: true,
+            breadcrumb: "Curabitur Sollicitudin",
+            startDate: "1995-12-17T03:24:00",
+            endDate: "1997-12-17T03:24:00",
             prompt: "Amet Mauris",
             alignRight: false,
         }
@@ -146,17 +154,16 @@ export const LongHeading = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :dates="dates"
-           is-online=false
+           :start-date="startDate"
+           :end-date="endDate"
            :prompt="prompt"
            :align-right="alignRight"
-           location="YRL"
 
         >
             <heading-arrow
-                :text="breadcrumb.text"
-                :to="breadcrumb.to"
-                v-if="breadcrumb.to"
+                v-if="breadcrumb"
+                :text="breadcrumb"
+                :to="to"
             />
         </banner-featured>
     `,
@@ -175,12 +182,12 @@ export const WideImage = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :dates="dates"
-           :is-online="isOnline"
+           :start-date="startDate"
+           :end-date="endDate"
            :prompt="prompt"
-           :has-button="hasButton"
            :ratio="42"
-           times="1:00pm"
+           :locations="locations"
+
        />
     `,
 })
@@ -198,13 +205,13 @@ export const WideImageLeftAligned = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :dates="dates"
-           :is-online="isOnline"
+           :start-date="startDate"
+           :end-date="endDate"
            :prompt="prompt"
            :ratio="42"
            :align-right="false"
-           :has-button="hasButton"
-           times="1:00pm"
+           :locations="locations"
+
        />
     `,
 })
@@ -222,13 +229,11 @@ export const NoButton = () => ({
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"
-           :dates="dates"
-           :is-online="isOnline"
+           :start-date="startDate"
+           :end-date="endDate"
            :prompt="prompt"
            :ratio="42"
            :align-right="false"
-           times="1:00pm"
-           :has-button="false"
        />
     `,
 })

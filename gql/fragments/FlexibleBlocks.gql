@@ -1,258 +1,267 @@
 fragment FlexibleBlocks on ElementInterface {
-  blocks: allFlexiblePageBlocks {
-    id
-    typeHandle
+    blocks: allFlexiblePageBlocks {
+        id
+        typeHandle
 
-    ...BlockCardWithImage
-    ...BlockCtaBlockTwoUp
-    ...BlockCta
-    ...BlockDivider
-    ...BlockDownloadCallout
-    ...BlockFeaturedPromo
-    ...BlockImageWithTextOverlay
-    ...BlockImpactNumbersCarousel
-    ...BlockMediaGallery
-    ...BlockPullQuote
-    ...BlockRichText
-    ...BlockRichTextWithMedia
-    ...BlockHelpTopicCards
-    ...BlockSimpleCard
-  }
+        ...BlockCardWithImage
+        ...BlockCtaBlockTwoUp
+        ...BlockCta
+        ...BlockDivider
+        ...BlockDownloadCallout
+        ...BlockBannerFeatured
+        ...BlockImageWithTextOverlay
+        ...BlockImpactNumbersCarousel
+        ...BlockMediaGallery
+        ...BlockPullQuote
+        ...BlockRichText
+        ...BlockRichTextWithMedia
+        ...BlockHelpTopicCards
+        ...BlockSimpleCard
+    }
 }
 
 # Define all blocks here as fragments
 
 fragment BlockCardWithImage on allFlexiblePageBlocks_cardWithImage_BlockType {
-  id
-  cardWithImage {
     id
-    ... on cardWithImage_cardWithImage_BlockType {
-      id
-      image {
+    cardWithImage {
         id
-        url
-      }
-      imageAltText
-      contentLink {
-        id
-        url
-        uri
-      }
-      shortDescription
+        ... on cardWithImage_cardWithImage_BlockType {
+            id
+            image {
+                id
+                url
+            }
+            imageAltText
+            contentLink {
+                id
+                url
+                uri
+            }
+            shortDescription
+        }
     }
-  }
 }
 
 fragment BlockCtaBlockTwoUp on allFlexiblePageBlocks_ctaBlock2Up_BlockType {
-  id
-  ctaBlock2Up {
     id
-    ... on ctaBlock2Up_ctaBlock2Up_BlockType {
-      id
-      shortDescription
-      urlButtonText
-      urlButtonUrl
-      titleCTA2Up
-      icon
+    ctaBlock2Up {
+        id
+        ... on ctaBlock2Up_ctaBlock2Up_BlockType {
+            id
+            shortDescription
+            urlButtonText
+            urlButtonUrl
+            titleCTA2Up
+            icon
+        }
     }
-  }
 }
 
 fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
-  innerBlocks: ctaBlockContentWidth {
-    a
-    ... on ctaBlockContentWidth_ctaBlockContentWidth_BlockType {
-      id
-      title: titleCtaContentWidth
-      description: shortDescription
-      buttonUrl: urlButtonUrl
-      buttonText: urlButtonText
-      icon
+    innerBlocks: ctaBlockContentWidth {
+        a
+        ... on ctaBlockContentWidth_ctaBlockContentWidth_BlockType {
+            id
+            title: titleCtaContentWidth
+            description: shortDescription
+            buttonUrl: urlButtonUrl
+            buttonText: urlButtonText
+            icon
+        }
     }
-  }
 }
 
 fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
-  id
-  weight: divider
+    id
+    weight: divider
 }
 
 fragment BlockDownloadCallout on allFlexiblePageBlocks_downloadCallout_BlockType {
-  id
-  downloadCallout {
-    ... on downloadCallout_downloadCallout_BlockType {
-      id
-      sectionHeader
-      shortDescription
-      buttonText
-      downloadLink
-      image {
-        url
-      }
-      imageAltText
+    id
+    downloadCallout {
+        ... on downloadCallout_downloadCallout_BlockType {
+            id
+            sectionHeader
+            shortDescription
+            buttonText
+            downloadLink
+            image {
+                url
+            }
+            imageAltText
+        }
     }
-  }
-  downloadCalloutDownloadableStreamingFile {
-    ... on downloadCalloutDownloadableStreamingFile_video_BlockType {
-      id
-      videoUrl
-      videoFile {
-        id
-        url
-      }
-      posterImage {
-        id
-        url
-      }
+    downloadCalloutDownloadableStreamingFile {
+        ... on downloadCalloutDownloadableStreamingFile_video_BlockType {
+            id
+            videoUrl
+            videoFile {
+                id
+                url
+            }
+            posterImage {
+                id
+                url
+            }
+        }
+        ... on downloadCalloutDownloadableStreamingFile_document_BlockType {
+            id
+            document {
+                url
+            }
+        }
     }
-    ... on downloadCalloutDownloadableStreamingFile_document_BlockType {
-      id
-      document {
-        url
-      }
-    }
-  }
 }
 
-fragment BlockFeaturedPromo on allFlexiblePageBlocks_featuredPromo_BlockType {
-  id
-  featuredPromo {
-    ... on featuredPromo_featuredPromo_BlockType {
-      id
-      contentLink {
-        url
-        to: uri
-        title
-        prompt: buttonText
-        # date
-        associatedLocations {
-          id
-          title
+fragment BlockBannerFeatured on allFlexiblePageBlocks_bannerFeatured_BlockType {
+    id
+    bannerFeatured {
+        ... on bannerFeatured_bannerFeatured_BlockType {
+            id
+            contentLink {
+                url
+                to: uri
+                title
+                prompt: buttonText
+                date {
+                    startDate
+                    endDate
+                }
+                associatedLocations {
+                    id
+                    title
+                    to: uri
+                }
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                        altText
+                    }
+                }
+            }
+            alignment
         }
-        image: heroImage {
-          ...Image
-          altText
-        }
-      }
-      alignment
     }
-  }
 }
 
 fragment BlockImageWithTextOverlay on allFlexiblePageBlocks_imageWithTextOverlay_BlockType {
-  id
-  imageWithTextOverlay {
     id
-    ... on imageWithTextOverlay_imageWithTextOverlay_BlockType {
-      id
-      title: imageWithTextOverlayTitle
-      description: shortDescription
-      imageAltText
-      image {
-        url
-      }
-      imageAlignment: alignment
-      urlButtonText
-      urlButtonUrl
+    imageWithTextOverlay {
+        id
+        ... on imageWithTextOverlay_imageWithTextOverlay_BlockType {
+            id
+            title: imageWithTextOverlayTitle
+            description: shortDescription
+            imageAltText
+            image {
+                url
+            }
+            imageAlignment: alignment
+            urlButtonText
+            urlButtonUrl
+        }
     }
-  }
 }
 
 fragment BlockImpactNumbersCarousel on allFlexiblePageBlocks_impactNumbersCarousel_BlockType {
-  id
-  impactNumbersCarousel {
     id
-    ... on impactNumbersCarousel_impactNumbersCarousel_BlockType {
-      id
-      largeText
-      mediumText
-      smallDescriptor
-      image {
-        url
-      }
-      imageAltText
+    impactNumbersCarousel {
+        id
+        ... on impactNumbersCarousel_impactNumbersCarousel_BlockType {
+            id
+            largeText
+            mediumText
+            smallDescriptor
+            image {
+                url
+            }
+            imageAltText
+        }
     }
-  }
 }
 
 fragment BlockMediaGallery on allFlexiblePageBlocks_mediaGallery_BlockType {
-  id
-  mediaGallery {
     id
-    ... on mediaGallery_image_BlockType {
-      id
-      image {
+    mediaGallery {
         id
-        url
-      }
-      captionTitle
-      captionText
-      altText
+        ... on mediaGallery_image_BlockType {
+            id
+            image {
+                id
+                url
+            }
+            captionTitle
+            captionText
+            altText
+        }
     }
-  }
 }
 
 fragment BlockPullQuote on allFlexiblePageBlocks_pullQuote_BlockType {
-  id
-  pullQuote {
-    ... on pullQuote_pullQuote_BlockType {
-      text
-      attribution
+    id
+    pullQuote {
+        ... on pullQuote_pullQuote_BlockType {
+            text
+            attribution
+        }
     }
-  }
 }
 
 fragment BlockRichText on allFlexiblePageBlocks_richText_BlockType {
-  text
+    text
 }
 
 fragment BlockRichTextWithMedia on allFlexiblePageBlocks_richTextWithMedia_BlockType {
-  id
-  richTextWithMedia {
-    ... on richTextWithMedia_richTextWithMedia_BlockType {
-      id
-      text
-      mediaType
-      mediaUpload {
-        id
-        url
-      }
-      imageAltText
-      imageAlignment: alignment
-      imageCaption
+    id
+    richTextWithMedia {
+        ... on richTextWithMedia_richTextWithMedia_BlockType {
+            id
+            text
+            mediaType
+            mediaUpload {
+                id
+                url
+            }
+            imageAltText
+            imageAlignment: alignment
+            imageCaption
+        }
     }
-  }
 }
 
 fragment BlockHelpTopicCards on allFlexiblePageBlocks_helpTopicCards_BlockType {
-  id
-  helpTopicCards {
-    ... on helpTopicCards_helpTopicCards_BlockType {
-      id
-      contentLink {
-        id
-        url
-        to: uri
-        title
-        text: shortDescription
-        iconName: illustrationsResourcesAndServices
-      }
+    id
+    helpTopicCards {
+        ... on helpTopicCards_helpTopicCards_BlockType {
+            id
+            contentLink {
+                id
+                url
+                to: uri
+                title
+                text: shortDescription
+                iconName: illustrationsResourcesAndServices
+            }
+        }
     }
-  }
 }
 
 fragment BlockSimpleCard on allFlexiblePageBlocks_simpleCard_BlockType {
-  id
-  simpleCard {
-    ... on simpleCard_simpleCardContent_BlockType {
-      id
-      linkText
-      contentLink {
-        id
-        url
-      }
-      subheader
-      externalLink
+    id
+    simpleCard {
+        ... on simpleCard_simpleCardContent_BlockType {
+            id
+            linkText
+            contentLink {
+                id
+                url
+            }
+            subheader
+            externalLink
+        }
     }
-  }
 }
