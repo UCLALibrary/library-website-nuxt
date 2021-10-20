@@ -1,5 +1,8 @@
 <template>
-    <div class="section-cards">
+    <div
+        class="section-cards"
+        :data-cy="cypressSelector"
+    >
         <div class="meta">
             <h3
                 v-if="title"
@@ -38,6 +41,8 @@
 </template>
 
 <script>
+import _kebabCase from "lodash/kebabCase"
+
 export default {
     props: {
         title: {
@@ -59,6 +64,11 @@ export default {
         buttonText: {
             type: String,
             default: "",
+        },
+    },
+    computed: {
+        cypressSelector() {
+            return `section-cards-${_kebabCase(this.title) || "untitled"}`
         },
     },
 }
