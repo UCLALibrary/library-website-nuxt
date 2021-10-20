@@ -61,3 +61,18 @@ export const Default = () => ({
        />
     `,
 })
+
+export const WithTypeHandle = () => ({
+    data() {
+        return {
+            block: mock,
+            typeHandle: "Event",
+        }
+    },
+    template: `
+        <flexible-banner-featured
+            :block="block"
+            :type-handle="typeHandle"
+       />
+    `,
+})
