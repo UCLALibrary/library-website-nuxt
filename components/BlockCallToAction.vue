@@ -32,6 +32,7 @@ export default {
         SvgCallToActionFind: () => import("~/assets/svg/call-to-action-find"),
     },
     props: {
+        /* svgName=icon*/
         svgName: {
             type: String,
             default: "",
@@ -40,18 +41,22 @@ export default {
             type: String,
             default: "",
         },
+        /* text=shortDescription*/
         text: {
             type: String,
             default: "",
         },
-        name: {
+        /* name=buttonText */
+        name: { 
             type: String,
             default: "",
         },
+        /* to=buttonUrl */
         to: {
             type: String,
             default: "",
         },
+        /* isDarkBlue=backgroundColor*/
         isDarkBlue: {
             type: Boolean,
             default: false,

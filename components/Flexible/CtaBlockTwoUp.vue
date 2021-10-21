@@ -4,10 +4,12 @@
             v-for="item in parsedItems"
             class="cta-block-two-up"
             :is-small-size="true"
-            :name="item.urlButtonUrl"
-            :title="item.titleCTA2Up"
-            :text="item.shortDescription"
-            :icon-name="item.icon"
+            :to="item.buttonUrl"
+            :name="item.buttonText"
+            :title="item.title"
+            :text="item.description"
+            :svg-name="item.icon"
+            :is-dark-blue="item.backgroundColor"
         />
     </div>
 </template>
@@ -22,7 +24,7 @@ export default {
     },
     computed: {
         parsedItems() {
-            return this.block.ctaBlock2Up[0]
+            return this.block.ctaBlock2Up
         },
     },
 }
@@ -30,6 +32,9 @@ export default {
 
 <style lang="css" scoped>
 .cta-block-two-up {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
     max-width: 924px;
     margin-left: auto;
     margin-right: auto;

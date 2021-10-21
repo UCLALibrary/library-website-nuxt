@@ -45,30 +45,29 @@ fragment BlockCardWithImage on allFlexiblePageBlocks_cardWithImage_BlockType {
 
 fragment BlockCtaBlockTwoUp on allFlexiblePageBlocks_ctaBlock2Up_BlockType {
     id
-    ctaBlock2Up {
-        id
-        ... on ctaBlock2Up_ctaBlock2Up_BlockType {
-            id
-            shortDescription
-            urlButtonText
-            urlButtonUrl
-            titleCTA2Up
-            icon
-        }
+
+    ... on ctaBlock2Up_ctaBlock2Up_BlockType {
+      id
+      shortDescription
+      urlButtonText
+      urlButtonUrl
+      titleCTA2Up
+      icon
+      backgroundColor
     }
 }
 
 fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
-    innerBlocks: ctaBlockContentWidth {
-        a
-        ... on ctaBlockContentWidth_ctaBlockContentWidth_BlockType {
-            id
-            title: titleCtaContentWidth
-            description: shortDescription
-            buttonUrl: urlButtonUrl
-            buttonText: urlButtonText
-            icon
-        }
+
+ctaBlockContentWidth {
+    ... on ctaBlockContentWidth_ctaBlockContentWidth_BlockType {
+      id
+      title: titleCtaContentWidth
+      description: shortDescription
+      buttonUrl: urlButtonUrl
+      buttonText: urlButtonText
+      icon
+      backgroundColor
     }
 }
 
