@@ -173,7 +173,7 @@ export default {
         --color-theme-button: var(--color-primary-blue-03);
 
         &.color-dark-blue {
-            --color-theme-button: var(--color-secondary-blue-02);
+            --color-theme-button: var(--color-secondary-blue-03);
         }
 
         // Themes for svg colors
