@@ -91,18 +91,17 @@ export default {
     max-height: var(--block-height);
     margin-left: auto;
     margin-right: auto;
-    // background-color: var(--color-white);
-    background-color: pink;
+    background-color: var(--color-white);
 
 // Size
-    .size-full-width {
+    &.size-full-width {
         --block-width: 1046px;
         --block-height: 700px;
         --block-padding-title: 70px;
         --block-padding-text: 10px;
     }
 
-    .size-small {
+    &.size-small {
         --block-width: 500px;
         --block-height: 520px;
         --block-padding-title: 114px;
