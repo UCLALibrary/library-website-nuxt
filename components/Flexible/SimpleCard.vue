@@ -13,7 +13,7 @@
                     class="text"
                     v-html="text"
                 />
-                <svg-arrow-right class="svg" />
+                <svg-arrow-right-small class="svg" />
             </nuxt-link>
         </div>
     </div>
@@ -24,11 +24,11 @@
 import getSectionName from "~/utils/getSectionName"
 
 // SVGs
-import SvgArrowRight from "~/assets/svg/arrow-right"
+import SvgArrowRightSmall from "~/assets/svg/arrow-right-small"
 
 export default {
     components: {
-        SvgArrowRight,
+        SvgArrowRightSmall,
     },
     props: {
         title: {
@@ -61,14 +61,17 @@ export default {
     max-height: 314px;
     border-radius: var(--rounded-slightly-all);
     box-sizing: border-box;
-    overflow: wrap;
+    overflow: hidden;
     background-color: var(--color-primary-blue-01);
     transition-property: box-shadow, transform;
-    // transition-duration: 400ms;
-    // transition-timing-function: ease-in-out;
+    transition-duration: 400ms;
+    transition-timing-function: ease-in-out;
 
-    transition: background-color 400ms ease-in-out;
-    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+
+    // transition: background-color 400ms ease-in-out;
+    // flex: 1 1 auto;
 
     // Themes
     --color-theme: var(--color-primary-blue-02);
@@ -103,16 +106,19 @@ export default {
         letter-spacing: 0.01em;
         color: var(--color-black);
     }
+    .svg {
+        fill: black;
+        stroke: black;
+        padding-right: 45px;
+    }
 
     // Hovers
     @media #{$has-hover} {
-        &:hover {
+        &.simple-card:hover {
             transform: scale(1.1);
             box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
+            background-color: var(--color-theme);
 
-            .simple-card {
-                background-color: var(--color-theme);
-            }
             .title {
                 text-decoration-color: var(--color-default-cyan-03);
                 text-decoration-thickness: 1.5px;
