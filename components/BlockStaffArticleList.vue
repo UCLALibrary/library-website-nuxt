@@ -166,14 +166,14 @@ export default {
 }
 
 // Breakpoints
-@media #{$lte-tablet} {
+@media #{$medium} {
     .block-staff-article-list {
         padding-left: 5px;
         padding-right: 5px;
     }
 }
 
-@media #{$lte-phone} {
+@media #{$small} {
     .block-staff-article-list {
         display: flex;
         flex-direction: column;

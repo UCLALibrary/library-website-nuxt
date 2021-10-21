@@ -129,7 +129,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-phone} {
+    @media #{$small} {
         .clipped {
             width: 456px;
             height: 30px;

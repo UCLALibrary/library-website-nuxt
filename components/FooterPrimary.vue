@@ -293,7 +293,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-tablet} {
+    @media #{$medium} {
         display: block;
         padding-top: 25px;
         padding-bottom: 54px;

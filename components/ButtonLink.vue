@@ -110,7 +110,7 @@ export default {
         }
     }
     // Breakpoints
-    @media #{$lte-phone} {
+    @media #{$small} {
         width: auto;
         height: 44px;
         margin: 0 var(--unit-gutter);

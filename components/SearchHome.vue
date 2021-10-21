@@ -246,7 +246,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-phone} {
+    @media #{$small} {
         .tabs {
             font-size: 13px;
         }

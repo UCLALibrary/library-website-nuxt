@@ -4,8 +4,14 @@
  */
 
 // Breakpoints
-$gt-wide: "only screen and (min-width: 1800px)";
-$lte-tablet: "only screen and (max-width: 1024px)";
-$lte-phone: "only screen and (max-width: 750px)";
-$lte-phone-landscape: "only screen and (max-width: 750px) and (orientation: landscape)";
+// $gt-wide: "only screen and (min-width: 1800px)";
+// $lte-tablet: "only screen and (max-width: 1024px)";
+// $lte-phone: "only screen and (max-width: 750px)";
+// $lte-phone-landscape: "only screen and (max-width: 750px) and (orientation: landscape)";
+// $has-hover: "(hover: hover)";
+
+$extra-large: "only screen and (min-width: 1441px)";
+$large: "only screen and (max-width: 1440px)";
+$medium: "only screen and (max-width: 1024px)";
+$small: "only screen and (max-width: 750px)";
 $has-hover: "(hover: hover)";

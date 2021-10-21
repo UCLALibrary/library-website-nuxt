@@ -88,7 +88,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-tablet} {
+    @media #{$medium} {
         .block {
             display: flex;
             flex-direction: row;
@@ -101,7 +101,7 @@ export default {
             margin-bottom: 25px;
         }
     }
-    @media #{$lte-phone} {
+    @media #{$small} {
         .block {
             display: flex;
             flex-direction: row;

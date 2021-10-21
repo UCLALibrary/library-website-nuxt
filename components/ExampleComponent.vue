@@ -72,10 +72,10 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-tablet} {
+    @media #{$medium} {
         background: red;
     }
-    @media #{$lte-phone} {
+    @media #{$small} {
         background: var(--color-primary-yellow-01);
     }
 }

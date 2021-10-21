@@ -113,7 +113,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-phone} {
+    @media #{$small} {
         flex-direction: column;
         flex-wrap: nowrap;
 

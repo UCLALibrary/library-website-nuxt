@@ -165,12 +165,12 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-tablet} {
+    @media #{$medium} {
         .text {
             height: 75%;
         }
     }
-    @media #{$lte-phone} {
+    @media #{$small} {
         .category {
             font-size: 14px;
         }

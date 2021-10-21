@@ -91,7 +91,7 @@ export default {
         }
     }
 
-    @media #{$lte-phone} {
+    @media #{$small} {
         .svg {
             height: 40px;
             margin-right: 0;

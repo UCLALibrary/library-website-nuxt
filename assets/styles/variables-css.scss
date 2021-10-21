@@ -96,10 +96,10 @@
     );
 
     // Breakponts
-    @media #{$lte-tablet} {
+    @media #{$medium} {
         --unit-gutter: 36px;
     }
-    @media #{$lte-phone} {
+    @media #{$small} {
         --unit-gutter: 25px;
     }
 }

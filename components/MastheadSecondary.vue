@@ -118,7 +118,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-phone} {
+    @media #{$small} {
         --unit-height: 230px;
 
         .meta {

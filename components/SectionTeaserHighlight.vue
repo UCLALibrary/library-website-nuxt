@@ -53,7 +53,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-phone} {
+    @media #{$small} {
         padding: 0 var(--unit-gutter);
 
         .block {

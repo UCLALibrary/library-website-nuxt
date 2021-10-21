@@ -82,7 +82,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-phone} {
+    @media #{$small} {
         .background {
             height: 230px;
         }

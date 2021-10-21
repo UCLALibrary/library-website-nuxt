@@ -265,7 +265,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$lte-phone} {
+    @media #{$small} {
         display: flex;
         flex-direction: column;
 
