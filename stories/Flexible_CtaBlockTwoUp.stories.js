@@ -6,19 +6,21 @@ const mock = {
     ctaBlock2Up: [
         {
             "id": "3036",
-            "shortDescription": "Cat",
-            "urlButtonText": "Cat",
-            "urlButtonUrl": "http://cat.com",
-            "titleCTA2Up": "Cat",
-            "icon": "https://img.icons8.com/fluent/2x/doge.png"
+            "description": "Parking passes for Cats & Kittens only. Day use, weekly, monthly and annual passes are available now.",
+            "buttonText": "Get Parking Passes",
+            "buttonUrl": "http://cat-kitten-parking.com",
+            "title": "Cat & Kitten Parking Passes",
+            "icon": "svg-call-to-action-find",
+            "backgroundColor": true
         },
         {
             "id": "3037",
-            "shortDescription": "Dog",
-            "urlButtonText": "Dog",
-            "urlButtonUrl": "http://dog.com",
-            "titleCTA2Up": "Dog",
-            "icon": "https://img.icons8.com/fluent/2x/doge.png"
+            "description": "Advanced Ancient Greek for Dogs. Teach your dog the useful language of ancient Greek so you can communicate together more effectively.",
+            "buttonText": "Sign Up for Class",
+            "buttonUrl": "http://ancient-greek-for-dogs.com",
+            "title": "Ancient Greek for Dogs",
+            "icon": "svg-call-to-action-money",
+            "backgroundColor": false
         },
     ],
 }
