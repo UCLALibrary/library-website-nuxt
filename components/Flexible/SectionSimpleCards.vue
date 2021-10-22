@@ -1,10 +1,9 @@
 <template>
     <div class="cards">
-        <block-card-vertical
+        <simple-card
             v-for="item in items"
             :key="item.to"
             class="card"
-            :icon-name="item.iconName"
             :to="item.to"
             :title="item.title"
             :text="item.text"
@@ -13,18 +12,11 @@
 </template>
 
 <script>
-import _kebabCase from "lodash/kebabCase"
-
 export default {
     props: {
         items: {
             type: Array,
             default: () => [],
-        },
-    },
-    computed: {
-        cypressSelector() {
-            return `section-cards-${_kebabCase(this.title) || "untitled"}`
         },
     },
 }
@@ -38,16 +30,17 @@ export default {
     justify-content: flex-start;
     align-content: flex-start;
     align-items: flex-start;
+
+    max-width: 928px;
 }
 .card {
-    margin: 0 30px 0 0;
-    width: 281px;
+    margin: 0 16px 0 0;
 
-    &:nth-child(3n) {
-        margin-right: 0;
-    }
-    &:nth-child(n + 4) {
-        margin-top: 40px;
-    }
+    // &:nth-child(3n) {
+    //     margin-right: 0;
+    // }
+    // &:nth-child(n + 4) {
+    //     margin-top: 40px;
+    // }
 }
 </style>
