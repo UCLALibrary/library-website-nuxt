@@ -1,10 +1,11 @@
 <template lang="html">
-    <div class="simple-card">
+    <div :class="classes">
         <div class="meta">
-            <nuxt-link
-                :to="to"
-                :class="classes"
-            >
+            <nuxt-link :to="to">
+                <h2
+                    class="section"
+                    v-html="sectionName"
+                />
                 <h3
                     class="title"
                     v-html="title"
@@ -13,7 +14,9 @@
                     class="text"
                     v-html="text"
                 />
-                <svg-arrow-right-small class="svg" />
+                <div class="svg-meta">
+                    <svg-arrow-right-small class="svg" />
+                </div>
             </nuxt-link>
         </div>
     </div>
@@ -46,7 +49,7 @@ export default {
     },
     computed: {
         classes() {
-            return [`color-${this.sectionName}`]
+            return ["simple-card", `color-${this.sectionName}`]
         },
         sectionName() {
             return getSectionName(this.to)
@@ -57,8 +60,9 @@ export default {
 
 <style lang="scss" scoped>
 .simple-card {
+    min-width: 300px;
     max-width: 456px;
-    max-height: 314px;
+    height: 314px;
     border-radius: var(--rounded-slightly-all);
     box-sizing: border-box;
     overflow: hidden;
@@ -70,9 +74,6 @@ export default {
     display: flex;
     flex-direction: column;
 
-    // transition: background-color 400ms ease-in-out;
-    // flex: 1 1 auto;
-
     // Themes
     --color-theme: var(--color-primary-blue-02);
     &.color-visit {
@@ -82,10 +83,13 @@ export default {
         --color-theme: var(--color-help-green-01);
     }
     &.color-about {
-        --color-theme: var(--color-visit-fushia-01);
+        --color-theme: var(--color-about-purple-01);
     }
     .meta {
         padding: 20px 48px 20px 48px;
+    }
+    .section {
+        display: none;
     }
     .title {
         font-family: var(--font-primary);
@@ -95,34 +99,43 @@ export default {
         line-height: 110%;
         letter-spacing: 0.0015em;
         color: var(--color-primary-blue-03);
+
         padding-bottom: 16px;
     }
     .text {
         font-family: var(--font-secondary);
+        color: var(--color-black);
         font-style: normal;
         font-weight: normal;
         font-size: 16px;
         line-height: 160%;
         letter-spacing: 0.01em;
-        color: var(--color-black);
+        max-height: 175px;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+    .svg-meta {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+        align-content: flex-end;
+        align-items: center;
     }
     .svg {
-        fill: black;
-        stroke: black;
-        padding-right: 45px;
+        stroke: var(--color-primary-blue-03);
     }
+}
+// Hovers
+@media #{$has-hover} {
+    .simple-card:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
+        background-color: var(--color-theme);
 
-    // Hovers
-    @media #{$has-hover} {
-        &.simple-card:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
-            background-color: var(--color-theme);
-
-            .title {
-                text-decoration-color: var(--color-default-cyan-03);
-                text-decoration-thickness: 1.5px;
-            }
+        .title {
+            text-decoration-color: var(--color-default-cyan-03);
+            text-decoration-thickness: 1.5px;
         }
     }
 }
