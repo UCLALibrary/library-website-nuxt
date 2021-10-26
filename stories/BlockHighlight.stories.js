@@ -101,6 +101,41 @@ export const Card = () => ({
       />
   `,
 })
+export const CardShortTitle = () => ({
+    data() {
+        return { ...mock }
+    },
+    template: `
+      <block-highlight
+      :image="image"
+      :to="to"
+      :category="category"
+      title="Minim"
+      :dates="date"
+      :times="time"
+      :is-vertical="true"
+      :image-aspect-ratio="60"
+      />
+  `,
+})
+
+export const CardLongTitle = () => ({
+    data() {
+        return { ...mock }
+    },
+    template: `
+      <block-highlight
+      :image="image"
+      :to="to"
+      :category="category"
+      title="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+      :dates="date"
+      :times="time"
+      :is-vertical="true"
+      :image-aspect-ratio="60"
+      />
+  `,
+})
 
 export const List = () => ({
     data() {
@@ -119,3 +154,44 @@ export const List = () => ({
       />
   `,
 })
+
+export const ListShortTitle = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+      <block-highlight
+          :image="image"
+          :to="to"
+          :category="category"
+          title="Minim"
+          :dates="date"
+          :times="time"
+          :text="text"
+          :image-aspect-ratio="60"
+      />
+  `,
+})
+
+export const ListLongTitle = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+      <block-highlight
+          :image="image"
+          :to="to"
+          :category="category"
+          title="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+          :dates="date"
+          :times="time"
+          :text="text"
+          :image-aspect-ratio="60"
+      />
+  `,
+})
+
