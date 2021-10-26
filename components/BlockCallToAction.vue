@@ -1,6 +1,6 @@
 <template lang="html">
     <div :class="sizeClasses">
-        <div :class="colorClasses">
+        <div :class="themeClasses">
             <component
                 :is="parsedSvgName"
                 class="svg"
@@ -65,30 +65,19 @@ export default {
             return `${this.svgName}`
         },
 
-        colorClasses() {
-            let output = ["container","theme-light" ]
+        themeClasses() {
+            let theme = ["container", "theme-light" ]
             if (this.isDarkBlue) {
-                output = [
-                    "container",
-                    "theme-dark" 
-                ]
+                theme = ["container", "theme-dark" ]
             }
-            return output
+            return theme
         },
         sizeClasses() {
-            let output = ["block-call-to-action"]
+            let size= ["block-call-to-action", "full-width"]
             if (this.isSmallSize) {
-                // TODO Probably only need one class for all of this, size-small OR size-large
-
-                output = [
-                    "block-call-to-action",
-                    "block-width-small",
-                    "block-height-small",
-                    "block-padding-title-small",
-                    "block-padding-text-small",
-                ]
+                size = ["block-call-to-action", "small"]
             }
-            return output
+            return size
         },
     },
 }
@@ -100,32 +89,24 @@ export default {
     max-height: var(--block-height);
     margin-left: auto;
     margin-right: auto;
-    background-color: var(--color-white);
 
     // Sizes
-    --block-width: 1046px;
-    &.block-width-small {
+    &.full-width {
+        --block-width: var(--unit-container-max-default);
+        --block-height: 700px;
+        --block-padding-title: 70px;
+        --block-padding-text: 10px;
+    }
+
+    &.small {
         --block-width: 500px;
-    }
-
-    --block-height: 700px;
-    &.block-height-small {
         --block-height: 520px;
-    }
-    // Padding Sizes Title
-    --block-padding-title: 70px;
-    &.block-padding-title-small {
         --block-padding-title: 114px;
-    }
-
-    // Padding Sizes Text
-    --block-padding-text: 10px;
-    &.block-padding-text-small {
         --block-padding-text: 112px;
     }
 
     .container {
-        background-color: var(--color-theme);
+        background-color: var(--color-background);
         width: 100%;
         height: 100%;
 
@@ -136,63 +117,23 @@ export default {
         align-content: center;
         align-items: center;
 
-        // Themes for background
-        --color-theme: var(--color-primary-blue-01);
-
-        // &.color-dark-blue {
-        //     --color-theme: var(--color-secondary-blue-02);
-        // }
-
-        // Themes for title and text
-        --color-title: var(--color-primary-blue-03);
-
-        &.color-light-title {
-            --color-title: var(--color-white);
-        }
-        --color-text: var(--color-primary-blue-05);
-
-        &.color-light-text {
-            --color-text: var(--color-white);
-        }
-
-        // Themes for button color
-        --color-theme-button: var(--color-primary-blue-03);
-
-        // &.color-dark-blue {
-        //     --color-theme-button: var(--color-secondary-blue-02);
-        // }
-
-        // Themes for svg colors
-        --color-theme-svg-outline: var(--color-primary-blue-03);
-
-        // &.color-theme-svg-outline-dark {
-        //     --color-theme-svg-outline: var(--color-primary-blue-02);
-        // }
-
-        // Themes for svg colors
-        --color-theme-svg-lines: var(--color-help-green-03);
-
-        // &.color-theme-svg-lines-dark {
-        //     --color-theme-svg-lines: var(--color-white);
-        // }
-
         &.theme-light {
-            // --background-color: var(--color-primary-blue-01);
-            background-color: indigo;
-            --color-title: green;
-            --color-text: var(--color-primary-blue-05);
-            --color-theme-button: var(--color-primary-blue-03);
-            --color-theme-svg-outline: var(--color-primary-blue-03);
-            --color-theme-svg-lines: var(--color-help-green-03);
+            --color-background: var(--color-primary-blue-01);
+            --color-title: var(--color-primary-blue-03);
+            --color-text: var(--color-black);
+            --color-button-background: var(--color-primary-blue-03);
+            --color-svg-molecule-outline: var(--color-primary-blue-03); // outer polygon
+            --color-svg-molecule-inner-highlight: var(--color-help-green-03); // inner polygon highlight
         }
 
         &.theme-dark {
-            background-color:  var(--color-primary-blue-03);
+            --color-background:  var(--color-primary-blue-03);
             --color-title: var(--color-white); 
             --color-text: var(--color-white);
-            --color-theme-button: var(--color-secondary-blue-03);
-            --color-theme-svg-outline: var(--color-primary-blue-02);
-            --color-theme-svg-lines: var(--color-white);
+            --color-button-background: var(--color-secondary-blue-03);
+            --color-svg-molecule-outline: var(--color-primary-blue-02); // outer polygon
+            --color-svg-molecule-inner-highlight: var(--color-white); // inner polygon highlight
+            --color-button-border: 2px solid var(--color-default-cyan-02);
         }
     }
 
@@ -202,13 +143,16 @@ export default {
 
         flex-grow: 0;
         flex-shrink: 0;
+        path {
+            color: pink;
+        }
 
         .outline {
-            stroke: var(--color-theme-svg-outline);
+            stroke: var(--color-svg-molecule-outline);
         }
 
         .color {
-            stroke: var(--color-theme-svg-lines);
+            stroke: var(--color-svg-molecule-inner-highlight);
         }
     }
 
@@ -240,18 +184,18 @@ export default {
     .button-link {
         width: 280px;
         font-size: 20px;
-        background-color: var(--color-theme-button);
+        background-color: var(--color-button-background);
         color: var(--color-white);
         margin-bottom: 60px;
-        border: 2px solid var(--color-default-cyan-02);
+        border: var(--color-button-border);
     }
-
-    // /deep/ {
-    //     .button-link {
-    //         .arrow-right {
-    //             stroke: var(--color-white);
-    //         }
-    //     }
-    // }
 }
+
+// Breakpoints
+@media #{$extra-large} {
+}
+
+@media #{$medium} {
+}
+
 </style>
