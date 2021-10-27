@@ -200,6 +200,8 @@ export default {
     .block-call-to-action {
         margin-bottom: 160px;
         padding-top: 20px;
+        padding-left: 0px;
+        padding-right: 0px;
     }
 }
 </style>
