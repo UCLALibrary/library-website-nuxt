@@ -75,7 +75,7 @@ export default {
         sizeClasses() {
             let size= ["block-call-to-action", "full-width"]
             if (this.isSmallSize) {
-                size = ["block-call-to-action", "small"]
+                size = ["block-call-to-action", "half-width"]
             }
             return size
         },
@@ -98,9 +98,9 @@ export default {
         --block-padding-text: 10px;
     }
 
-    &.small {
-        --block-width: 500px;
-        --block-height: 520px;
+    &.half-width {
+        --block-width: var(--unit-container-max-half-width);
+        --block-height: 566px;
         --block-padding-title: 114px;
         --block-padding-text: 112px;
     }
@@ -143,9 +143,6 @@ export default {
 
         flex-grow: 0;
         flex-shrink: 0;
-        path {
-            color: pink;
-        }
 
         .outline {
             stroke: var(--color-svg-molecule-outline);
@@ -158,26 +155,28 @@ export default {
 
     .title {
         font-family: var(--font-primary);
-        font-weight: 500;
+        font-weight: 600;
         font-size: 36px;
         line-height: 100%;
+        letter-spacing: .0025em;
         color: var(--color-title);
         text-align: center;
         padding-left: var(--block-padding-title);
         padding-right: var(--block-padding-title);
-        max-width: 630px;
+        max-width: 640px;
         margin-bottom: 16px;
     }
 
     .text {
         font-size: 20px;
+        font-family: var(--font-primary);
         line-height: 30px;
-        letter-spacing: 1%;
+        letter-spacing: .01em;
         color: var(--color-text);
         text-align: center;
         padding-left: var(--block-padding-text);
         padding-right: var(--block-padding-text);
-        max-width: 630px;
+        max-width: 640px;
         margin-bottom: 32px;
     }
 
@@ -190,12 +189,4 @@ export default {
         border: var(--color-button-border);
     }
 }
-
-// Breakpoints
-@media #{$extra-large} {
-}
-
-@media #{$medium} {
-}
-
 </style>
