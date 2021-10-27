@@ -70,20 +70,6 @@ export default {
                 { "theme-dark": this.isDark },
             ]
         },
-        // themeClasses() {
-        //     let theme = ["container", "theme-light" ]
-        //     if (this.isDarkBlue) {
-        //         theme = ["container", "theme-dark" ]
-        //     }
-        //     return theme
-        // },
-        // sizeClasses() {
-        //     let size= ["block-call-to-action", "full-width"]
-        //     if (this.isSmallSize) {
-        //         size = ["block-call-to-action", "half-width"]
-        //     }
-        //     return size
-        // },
         parsedSvgName() {
             return `${this.svgName}`
         },
@@ -110,14 +96,13 @@ export default {
 
     // Sizes
     &.full-width {
-        --block-width: var(--unit-container-max-default);
         --block-height: 700px;
         --block-padding-title: 70px;
         --block-padding-text: 10px;
     }
 
     &.half-width {
-        --block-width: var(--unit-container-max-half-width);
+        --block-width: 507px;
         --block-height: 566px;
         --block-padding-title: 114px;
         --block-padding-text: 112px;
@@ -159,33 +144,32 @@ export default {
         }
     }
 
-        .title {
-            font-family: var(--font-primary);
-            font-weight: 600;
-            font-size: 36px;
-            text-align: center;
-            letter-spacing: .0025em;
-            line-height: 100%;
-            color: var(--color-title);
-            padding-left: var(--block-padding-title);
-            padding-right: var(--block-padding-title);
-            margin-bottom: 16px;
-            max-width: 640px;
-        }
+    .title {
+        font-family: var(--font-primary);
+        font-weight: 600;
+        font-size: 36px;
+        text-align: center;
+        letter-spacing: .0025em;
+        line-height: 100%;
+        color: var(--color-title);
+        padding-left: var(--block-padding-title);
+        padding-right: var(--block-padding-title);
+        margin-bottom: 16px;
+        max-width: 640px;
+    }
 
-        .text {
-            font-family: var(--font-primary);
-            font-size: 20px;
-            text-align: center;
-            line-height: 30px;
-            letter-spacing: .01em;
-            color: var(--color-text);
-            padding-left: var(--block-padding-text);
-            padding-right: var(--block-padding-text);
-            margin-bottom: 32px;
-            max-width: 640px;
-        }
-
+    .text {
+        font-family: var(--font-primary);
+        font-size: 20px;
+        text-align: center;
+        line-height: 30px;
+        letter-spacing: .01em;
+        color: var(--color-text);
+        padding-left: var(--block-padding-text);
+        padding-right: var(--block-padding-text);
+        margin-bottom: 32px;
+        max-width: 640px;
+    }
 
     .button-link {
         width: 280px;
@@ -208,10 +192,8 @@ export default {
             --block-padding-text: 48px;
         }
 
-        .container {
-            .text {
-                max-width: 234px;
-            }
+        .text {
+            max-width: 234px;
         }
     }
 }
