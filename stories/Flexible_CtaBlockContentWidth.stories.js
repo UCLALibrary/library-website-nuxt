@@ -7,7 +7,7 @@ const mock = {
         {
             "id": "3378",
             "title": "Tootsie Roll Danish Shortbread Croissant",
-            "description": "Tootsie roll danish shortbread croissant  bear claw chocolate marshmallow cupcake.",
+            "description": "Tootsie roll danish shortbread croissant bear claw chocolate marshmallow cupcake.",
             "buttonUrl": "http://www.cupcakeipsum.com/",
             "buttonText": "Get the Recipe",
             "icon": "svg-call-to-action-money",
