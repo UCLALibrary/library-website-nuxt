@@ -117,6 +117,7 @@ export default {
         align-content: center;
         align-items: center;
 
+        // Color Themes
         &.theme-light {
             --color-background: var(--color-primary-blue-01);
             --color-title: var(--color-primary-blue-03);
@@ -153,32 +154,33 @@ export default {
         }
     }
 
-    .title {
-        font-family: var(--font-primary);
-        font-weight: 600;
-        font-size: 36px;
-        line-height: 100%;
-        letter-spacing: .0025em;
-        color: var(--color-title);
-        text-align: center;
-        padding-left: var(--block-padding-title);
-        padding-right: var(--block-padding-title);
-        max-width: 640px;
-        margin-bottom: 16px;
-    }
+        .title {
+            font-family: var(--font-primary);
+            font-weight: 600;
+            font-size: 36px;
+            text-align: center;
+            letter-spacing: .0025em;
+            line-height: 100%;
+            color: var(--color-title);
+            padding-left: var(--block-padding-title);
+            padding-right: var(--block-padding-title);
+            margin-bottom: 16px;
+            max-width: 640px;
+        }
 
-    .text {
-        font-size: 20px;
-        font-family: var(--font-primary);
-        line-height: 30px;
-        letter-spacing: .01em;
-        color: var(--color-text);
-        text-align: center;
-        padding-left: var(--block-padding-text);
-        padding-right: var(--block-padding-text);
-        max-width: 640px;
-        margin-bottom: 32px;
-    }
+        .text {
+            font-family: var(--font-primary);
+            font-size: 20px;
+            text-align: center;
+            line-height: 30px;
+            letter-spacing: .01em;
+            color: var(--color-text);
+            padding-left: var(--block-padding-text);
+            padding-right: var(--block-padding-text);
+            margin-bottom: 32px;
+            max-width: 640px;
+        }
+
 
     .button-link {
         width: 280px;
@@ -187,6 +189,27 @@ export default {
         color: var(--color-white);
         margin-bottom: 60px;
         border: var(--color-button-border);
+    }
+}
+
+// Breakpoints
+@media #{$small}{
+    .block-call-to-action {
+        &.full-width {
+            --block-padding-title: 48px;
+            --block-padding-text: 48px;
+        }
+
+        &.half-width {
+            --block-padding-title: 48px;
+            --block-padding-text: 48px;
+        }
+
+        .container {
+            .text {
+                max-width: 234px;
+            }
+        }
     }
 }
 </style>
