@@ -1,24 +1,24 @@
 <template lang="html">
-    <div :class="sizeClasses">
-        <div :class="themeClasses">
-            <component
-                :is="parsedSvgName"
-                class="svg"
-            />
-            <div
-                class="title"
-                v-html="title"
-            />
-            <div
-                class="text"
-                v-html="text"
-            />
-            <button-link
-                :label="name"
-                :to="to"
-                class="button-link"
-            />
-        </div>
+    <div
+        :class="classes"
+    >
+        <component
+            :is="parsedSvgName"
+            class="svg"
+        />
+        <div
+            class="title"
+            v-html="title"
+        />
+        <div
+            class="text"
+            v-html="text"
+        />
+        <button-link
+            :label="name"
+            :to="to"
+            class="button-link"
+        />
     </div>
 </template>
 
@@ -51,7 +51,7 @@ export default {
             type: String,
             default: "",
         },
-        isDarkBlue: {
+        isDark: {
             type: Boolean,
             default: false,
         },
@@ -61,23 +61,31 @@ export default {
         },
     },
     computed: {
+        classes() {
+            return [
+                "block-call-to-action",
+                { "full-width": !this.isSmallSize },
+                { "half-width": this.isSmallSize },
+                { "theme-light": !this.isDark },
+                { "theme-dark": this.isDark },
+            ]
+        },
+        // themeClasses() {
+        //     let theme = ["container", "theme-light" ]
+        //     if (this.isDarkBlue) {
+        //         theme = ["container", "theme-dark" ]
+        //     }
+        //     return theme
+        // },
+        // sizeClasses() {
+        //     let size= ["block-call-to-action", "full-width"]
+        //     if (this.isSmallSize) {
+        //         size = ["block-call-to-action", "half-width"]
+        //     }
+        //     return size
+        // },
         parsedSvgName() {
             return `${this.svgName}`
-        },
-
-        themeClasses() {
-            let theme = ["container", "theme-light" ]
-            if (this.isDarkBlue) {
-                theme = ["container", "theme-dark" ]
-            }
-            return theme
-        },
-        sizeClasses() {
-            let size= ["block-call-to-action", "full-width"]
-            if (this.isSmallSize) {
-                size = ["block-call-to-action", "half-width"]
-            }
-            return size
         },
     },
 }
@@ -89,6 +97,16 @@ export default {
     max-height: var(--block-height);
     margin-left: auto;
     margin-right: auto;
+    background-color: var(--color-background);
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 
     // Sizes
     &.full-width {
@@ -105,37 +123,24 @@ export default {
         --block-padding-text: 112px;
     }
 
-    .container {
-        background-color: var(--color-background);
-        width: 100%;
-        height: 100%;
+    // Color Themes
+    &.theme-light {
+        --color-background: var(--color-primary-blue-01);
+        --color-title: var(--color-primary-blue-03);
+        --color-text: var(--color-black);
+        --color-button-background: var(--color-primary-blue-03);
+        --color-svg-molecule-outline: var(--color-primary-blue-03); // outer polygon
+        --color-svg-molecule-inner-highlight: var(--color-help-green-03); // inner polygon highlight
+    }
 
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-
-        // Color Themes
-        &.theme-light {
-            --color-background: var(--color-primary-blue-01);
-            --color-title: var(--color-primary-blue-03);
-            --color-text: var(--color-black);
-            --color-button-background: var(--color-primary-blue-03);
-            --color-svg-molecule-outline: var(--color-primary-blue-03); // outer polygon
-            --color-svg-molecule-inner-highlight: var(--color-help-green-03); // inner polygon highlight
-        }
-
-        &.theme-dark {
-            --color-background:  var(--color-primary-blue-03);
-            --color-title: var(--color-white); 
-            --color-text: var(--color-white);
-            --color-button-background: var(--color-secondary-blue-03);
-            --color-svg-molecule-outline: var(--color-primary-blue-02); // outer polygon
-            --color-svg-molecule-inner-highlight: var(--color-white); // inner polygon highlight
-            --color-button-border: 2px solid var(--color-default-cyan-02);
-        }
+    &.theme-dark {
+        --color-background:  var(--color-primary-blue-03);
+        --color-title: var(--color-white); 
+        --color-text: var(--color-white);
+        --color-button-background: var(--color-secondary-blue-03);
+        --color-svg-molecule-outline: var(--color-primary-blue-02); // outer polygon
+        --color-svg-molecule-inner-highlight: var(--color-white); // inner polygon highlight
+        --color-button-border: 2px solid var(--color-default-cyan-02);
     }
 
     .svg {
@@ -190,11 +195,9 @@ export default {
         margin-bottom: 60px;
         border: var(--color-button-border);
     }
-}
 
 // Breakpoints
-@media #{$small}{
-    .block-call-to-action {
+    @media #{$small}{
         &.full-width {
             --block-padding-title: 48px;
             --block-padding-text: 48px;
