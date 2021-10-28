@@ -1,12 +1,10 @@
 <template lang="html">
     <block-call-to-action
-        class="cta-block-content-width"
-        :to="parsedItems.buttonUrl"
-        :name="parsedItems.buttonText"
-        :title="parsedItems.title"
-        :text="parsedItems.description"
-        :icon-name="parsedItems.icon"
-        :is-dark-blue="parsedItems.backgroundColor"
+        :to="block.innerBlocks[0].buttonUrl"
+        :name="block.innerBlocks[0].buttonText"
+        :title="block.innerBlocks[0].title"
+        :text="block.innerBlocks[0].description"
+        :icon-name="block.innerBlocks[0].icon"
     />
 </template>
 
@@ -18,17 +16,7 @@ export default {
             default: () => {},
         },
     },
-    computed: {
-        parsedItems() {
-            return this.block.ctaBlockContentWidth[0]
-        },
-    },
 }
 </script>
 
-<style lang="css" scoped>
-.cta-block-content-width {
-    max-width: 924px;
-    margin-left: auto;
-    margin-right: auto;
-}</style>
+<style lang="css" scoped></style>
