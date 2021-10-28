@@ -179,7 +179,7 @@ export default {
         border: var(--color-button-border);
     }
 
-// Breakpoints
+    // Breakpoints
     @media #{$small}{
         &.full-width {
             --block-padding-title: 48px;
