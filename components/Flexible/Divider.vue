@@ -12,7 +12,7 @@ export default {
     },
     computed: {
         isBold() {
-            return this.block.divider== "bold" ? true : false
+            return this.block.dividerType == "bold" ? true : false
         },
     },
 }
