@@ -191,6 +191,10 @@ export default {
             --block-padding-text: 48px;
         }
 
+        .title {
+            max-width: 234px;
+        }
+
         .text {
             max-width: 234px;
         }
