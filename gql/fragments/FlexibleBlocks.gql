@@ -43,6 +43,21 @@ fragment BlockCardWithImage on allFlexiblePageBlocks_cardWithImage_BlockType {
     }
 }
 
+fragment BlockCtaBlockTwoUp on allFlexiblePageBlocks_ctaBlock2Up_BlockType {
+    id
+    ctaBlock2Up {
+        id
+        ... on ctaBlock2Up_ctaBlock2Up_BlockType {
+            id
+            shortDescription
+            urlButtonText
+            urlButtonUrl
+            titleCTA2Up
+            icon
+        }
+    }
+}
+
 fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
     innerBlocks: ctaBlockContentWidth {
         ... on ctaBlockContentWidth_ctaBlockContentWidth_BlockType {
