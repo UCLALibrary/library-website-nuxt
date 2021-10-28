@@ -1,13 +1,15 @@
 <template>
-    <div class="cards">
-        <simple-card
-            v-for="item in items"
-            :key="item.to"
-            class="card"
-            :to="item.to"
-            :title="item.title"
-            :text="item.text"
-        />
+    <div class="section">
+        <div class="simple-cards">
+            <flexible-simple-card
+                v-for="(item, index) in items"
+                :key="index"
+                class="card"
+                :to="item.to"
+                :title="item.title"
+                :text="item.text"
+            />
+        </div>
     </div>
 </template>
 
@@ -19,11 +21,19 @@ export default {
             default: () => [],
         },
     },
+    computed: {
+        //TODO fill in parsed title or text depedning on new content or content link
+    },
 }
 </script>
 
 <style lang="scss" scoped>
-.cards {
+.section {
+    max-width: 960px;
+    height: 100%;
+    background-color: pink;
+}
+.simple-cards {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -31,10 +41,14 @@ export default {
     align-content: flex-start;
     align-items: flex-start;
 
-    max-width: 928px;
+    width: fit-content;
+    // block-size: fit-content;
 }
+
 .card {
-    margin: 0 16px 0 0;
+    margin: 5px 16px 0 0;
+    // width: auto;
+    flex-grow: 1;
 
     // &:nth-child(3n) {
     //     margin-right: 0;
