@@ -9,12 +9,12 @@
             :image="item.image"
             :category="item.category"
             :title="item.title"
-            :dates="item.date"
-            :times="item.time"
+            :start-date="item.startDate"
+            :end-date="item.endDate"
             :text="item.text"
             :has-triangle="true"
             :is-vertical="true"
-            :is-online="true"
+            :locations="item.locations"
             class="block"
         />
     </section>

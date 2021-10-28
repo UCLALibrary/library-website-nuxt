@@ -11,11 +11,14 @@ const mock = {
     to: "/visit/foo/bar/",
     category: "Ullamco",
     title: "Fames ac turpis egestas sed tempus",
-    date: "Pempti, Ocavia 14, 2021",
-    time: "3 - 5 pm",
-    text:
-        "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Egestas integer eget aliquet nibh praesent tristique. Quis imperdiet massa tincidunt nunc pulvinar sapien.",
+    startDate: "2021-09-03T08:00:00+00:00",
+    endDate: "2021-10-08T07:10:00+00:00",
+    text: "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Egestas integer eget aliquet nibh praesent tristique. Quis imperdiet massa tincidunt nunc pulvinar sapien.",
     imageAspectRatio: 60,
+    locations: [
+        { title: "Powellarium", to: "/location/bar" },
+        { title: "Research Library (Charles E. Young)", to: "/location/baz" },
+    ],
 }
 
 // Variations of stories below
@@ -29,13 +32,13 @@ export const Default = () => ({
           :to="to"
           :category="category"
           :title="title"
-          :dates="date"
-          :times="time"
+          :start-date="startDate"
+          :end-date="endDate"
           :text="text"
           :has-triangle="true"
           :is-vertical="true"
-          :is-online="true"
           :image-aspect-ratio="60"
+          :locations="locations"
       />
   `,
 })
@@ -52,8 +55,8 @@ export const ShortTitle = () => ({
           :to="to"
           category="Excepteurato"
           title="Minim"
-          :dates="date"
-          :times="time"
+          :start-date="startDate"
+          :end-date="endDate"
           :text="text"
           :has-triangle="true"
           :is-vertical="true"
@@ -74,12 +77,13 @@ export const LongTitle = () => ({
           :to="to"
           :category="category"
           title="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-          :dates="date"
-          :times="time"
+          :start-date="startDate"
+          :end-date="endDate"
           :text="text"
           :has-triangle="true"
           :is-vertical="true"
           :image-aspect-ratio="60"
+          :locations="locations"
       />
   `,
 })
@@ -94,8 +98,8 @@ export const Card = () => ({
       :to="to"
       :category="category"
       :title="title"
-      :dates="date"
-      :times="time"
+      :start-date="startDate"
+      :end-date="endDate"
       :is-vertical="true"
       :image-aspect-ratio="60"
       />
@@ -111,8 +115,8 @@ export const CardShortTitle = () => ({
       :to="to"
       :category="category"
       title="Minim"
-      :dates="date"
-      :times="time"
+      :start-date="startDate"
+      :end-date="endDate"
       :is-vertical="true"
       :image-aspect-ratio="60"
       />
@@ -129,8 +133,8 @@ export const CardLongTitle = () => ({
       :to="to"
       :category="category"
       title="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-      :dates="date"
-      :times="time"
+      :start-date="startDate"
+      :end-date="endDate"
       :is-vertical="true"
       :image-aspect-ratio="60"
       />
@@ -148,8 +152,8 @@ export const List = () => ({
       :category="category"
       :title="title"
       :text="text"
-      :dates="date"
-      :times="time"
+      :start-date="startDate"
+      :end-date="endDate"
       :image-aspect-ratio="60"
       />
   `,
@@ -167,8 +171,8 @@ export const ListShortTitle = () => ({
           :to="to"
           :category="category"
           title="Minim"
-          :dates="date"
-          :times="time"
+          :start-date="startDate"
+          :end-date="endDate"
           :text="text"
           :image-aspect-ratio="60"
       />
@@ -187,11 +191,10 @@ export const ListLongTitle = () => ({
           :to="to"
           :category="category"
           title="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-          :dates="date"
-          :times="time"
+          :start-date="startDate"
+          :end-date="endDate"
           :text="text"
           :image-aspect-ratio="60"
       />
   `,
 })
-
