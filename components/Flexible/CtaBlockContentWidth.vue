@@ -5,7 +5,7 @@
         :name="parsedItems.buttonText"
         :title="parsedItems.title"
         :text="parsedItems.description"
-        :icon-name="parsedItems.icon"
+        :svg-name="parsedItems.icon"
         :is-dark-blue="parsedItems.backgroundColor"
     />
 </template>
