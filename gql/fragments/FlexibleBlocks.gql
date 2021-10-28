@@ -17,6 +17,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockRichTextWithMedia
         ...BlockHelpTopicCards
         ...BlockSimpleCard
+        ...BlockHighlight
     }
 }
 
@@ -261,6 +262,40 @@ fragment BlockSimpleCard on allFlexiblePageBlocks_simpleCard_BlockType {
             }
             subheader
             externalLink
+        }
+    }
+}
+
+fragment BlockHighlight on allFlexiblePageBlocks_highlight_BlockType {
+    id
+    highlight {
+        ... on highlight_highlight_BlockType {
+            id
+            contentLink {
+                id
+                url
+                to: uri
+                title
+                prompt: buttonText
+                date {
+                    startDate
+                    endDate
+                }
+                associatedLocations {
+                    id
+                    title
+                    to: uri
+                }
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                        altText
+                    }
+                }
+            }
         }
     }
 }

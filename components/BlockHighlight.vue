@@ -28,15 +28,14 @@
 
             <div class="date-time">
                 <time
-                    v-if="dates"
-                    class="dates"
-                    v-html="dates"
+                    v-if="startDate"
+                    class="schedule-item"
+                    v-html="parsedDate"
                 />
                 <time
-                    v-if="times"
-                    class="times"
-                    :datetime="times"
-                    v-html="times"
+                    v-if="parsedTime"
+                    class="schedule-item"
+                    v-html="parsedTime"
                 />
                 <component
                     :is="parsedSvgOnline"
@@ -72,6 +71,9 @@
 </template>
 
 <script>
+import formatEventTimes from "~/utils/formatEventTimes"
+import formatEventDates from "~/utils/formatEventDates"
+
 export default {
     components: {
         SvgIconLocation: () => import("~/assets/svg/icon-location"),
@@ -94,14 +96,15 @@ export default {
             type: String,
             default: "",
         },
-        dates: {
+        startDate: {
             type: String,
             default: "",
         },
-        times: {
+        endDate: {
             type: String,
             default: "",
         },
+
         text: {
             type: String,
             default: "",
@@ -138,6 +141,12 @@ export default {
         parseOnline() {
             // TODO this can be a link to zoom or ?
             return this.isOnline ? "online" : ""
+        },
+        parsedDate() {
+            return formatEventDates(this.startDate, this.endDate)
+        },
+        parsedTime() {
+            return formatEventTimes(this.startDate, this.endDate)
         },
         parsedSvgOnline() {
             return "svg-icon-online"
