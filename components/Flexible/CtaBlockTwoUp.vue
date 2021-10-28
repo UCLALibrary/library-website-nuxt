@@ -34,6 +34,9 @@ export default {
 .cta-block-two-up {
     display: flex;
     flex-direction: row;
+    row-gap: 10px;
+    column-gap: 2em;
+
     align-content: space-between;
     max-width: 924px;
     margin-left: auto;
