@@ -60,7 +60,6 @@ fragment BlockCtaBlockTwoUp on allFlexiblePageBlocks_ctaBlock2Up_BlockType {
 
 fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
     innerBlocks: ctaBlockContentWidth {
-        a
         ... on ctaBlockContentWidth_ctaBlockContentWidth_BlockType {
             id
             title: titleCtaContentWidth
