@@ -20,7 +20,7 @@ export const Default = () => ({
 const mockBold = {
     divider: "bold"
 }
-    
+
 export const Bold= () => ({
     data() {
         return { block: mockBold }
