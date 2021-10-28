@@ -67,11 +67,6 @@ const mock = {
                             to: "visit/locations/powell-library",
                         },
                         {
-                            id: "801",
-                            title: "YRL",
-                            to: "visit/locations/yrl",
-                        },
-                        {
                             id: "3062",
                             title: "Online",
                             to: "visit/locations/online",

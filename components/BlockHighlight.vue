@@ -37,15 +37,6 @@
                     class="schedule-item"
                     v-html="parsedTime"
                 />
-                <component
-                    :is="parsedSvgOnline"
-                    v-if="isOnline"
-                    class="svg svg-online"
-                />
-                <span
-                    v-if="isOnline"
-                    v-html="parseOnline"
-                />
             </div>
             <div
                 v-if="text"
@@ -53,18 +44,24 @@
                 v-html="text"
             />
             <div
-                v-if="location"
-                class="location"
+                v-if="locations.length"
+                class="location-group"
             >
-                <component
-                    :is="parsedSvgLocation"
-                    class="svg"
-                />
-
-                <span
-                    class="location-name"
-                    v-html="location"
-                />
+                <nuxt-link
+                    v-for="location in parsedLocations"
+                    :key="`location-${location.id}`"
+                    :to="location.to"
+                    class="location-link"
+                >
+                    <component
+                        :is="location.svg"
+                        class="location-svg"
+                    />
+                    <span
+                        class="location"
+                        v-html="location.title"
+                    />
+                </nuxt-link>
             </div>
         </div>
     </div>
@@ -121,13 +118,9 @@ export default {
             type: Number,
             default: 0,
         },
-        isOnline: {
-            type: Boolean,
-            default: false,
-        },
-        location: {
-            type: String,
-            default: "",
+        locations: {
+            type: Array,
+            default: () => [],
         },
     },
     computed: {
@@ -148,11 +141,16 @@ export default {
         parsedTime() {
             return formatEventTimes(this.startDate, this.endDate)
         },
-        parsedSvgOnline() {
-            return "svg-icon-online"
-        },
-        parsedSvgLocation() {
-            return "svg-icon-location"
+
+        parsedLocations() {
+            for (let location in this.locations) {
+                if (this.locations[location].title == "Online") {
+                    this.locations[location].svg = "svg-icon-online"
+                } else {
+                    this.locations[location].svg = "svg-icon-location"
+                }
+            }
+            return this.locations
         },
     },
 }
@@ -271,15 +269,29 @@ export default {
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
-    .location {
-        display: flex;
-
+    // .location {
+    //     display: flex;
+    //
+    //     color: var(--color-primary-blue-03);
+    //     margin-top: 11px;
+    //
+    //     .location-name {
+    //         align-self: center;
+    //     }
+    // }
+    .location-group {
         color: var(--color-primary-blue-03);
-        margin-top: 11px;
-
-        .location-name {
-            align-self: center;
-        }
+        font-family: var(--font-secondary);
+        font-size: 20px;
+        line-height: 1;
+    }
+    .location-link {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
     }
 
     // Variations

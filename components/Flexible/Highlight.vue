@@ -10,10 +10,10 @@
                 :title="item.title"
                 :start-date="item.date[0].startDate"
                 :end-date="item.date[0].endDate"
+                :locations="item.associatedLocations"
                 :text="item.text"
                 :has-triangle="true"
                 :is-vertical="true"
-                :is-online="true"
                 class="block"
             />
         </section>
@@ -34,7 +34,6 @@ export default {
             for (let item in this.block.highlight) {
                 items.push(this.block.highlight[item].contentLink[0])
             }
-            console.log(items)
             return items
         },
     },
