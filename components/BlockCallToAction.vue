@@ -32,7 +32,6 @@ export default {
         SvgCallToActionFind: () => import("~/assets/svg/call-to-action-find"),
     },
     props: {
-        /* svgName=icon*/
         svgName: {
             type: String,
             default: "",
@@ -41,22 +40,18 @@ export default {
             type: String,
             default: "",
         },
-        /* text=shortDescription*/
         text: {
             type: String,
             default: "",
         },
-        /* name=buttonText */
-        name: { 
+        name: {
             type: String,
             default: "",
         },
-        /* to=buttonUrl */
         to: {
             type: String,
             default: "",
         },
-        /* isDarkBlue=backgroundColor*/
         isDarkBlue: {
             type: Boolean,
             default: false,
@@ -173,7 +168,7 @@ export default {
         --color-theme-button: var(--color-primary-blue-03);
 
         &.color-dark-blue {
-            --color-theme-button: var(--color-secondary-blue-03);
+            --color-theme-button: var(--color-secondary-blue-02);
         }
 
         // Themes for svg colors
