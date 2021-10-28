@@ -95,13 +95,13 @@ export default {
 
     // Sizes
     &.full-width {
-        //--block-height: 700px;
+        --block-height: 700px;
         --block-padding-title: 70px;
         --block-padding-text: 10px;
     }
 
     &.half-width {
-        //--block-width: 507px;
+        --block-width: 506px;
         --block-height: 566px;
         --block-padding-title: 114px;
         --block-padding-text: 112px;
@@ -181,9 +181,6 @@ export default {
 
 // Breakpoints
     @media #{$small}{
-        // padding-left: 0px;
-        // padding-right: 0px;
-
         &.full-width {
             --block-padding-title: 48px;
             --block-padding-text: 48px;
