@@ -39,7 +39,7 @@ const mock = [
         startDate: "2021-01-03T08:00:00+00:00",
         endDate: "2021-02-08T07:10:00+00:00",
         locations: [
-            { title: "Powellarium", to: "/location/bar" },
+            { title: "Online", to: "/location/bar" },
             {
                 title: "Research Library (Charles E. Young)",
                 to: "/location/baz",
