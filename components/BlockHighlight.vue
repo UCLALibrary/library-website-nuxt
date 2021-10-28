@@ -245,16 +245,33 @@ export default {
         line-height: 140%;
         color: var(color-grey-01);
         margin-top: 10px;
-        .times {
-            margin-left: 10px;
-            padding-left: 10px;
-            border-left: 1px solid var(--color-secondary-grey-02);
-        }
+        // .times {
+        //     margin-left: 10px;
+        //     padding-left: 10px;
+        //     border-left: 1px solid var(--color-secondary-grey-02);
+        // }
         .svg-online {
             margin-bottom: -5px;
             margin-left: 10px;
             padding-left: 10px;
             border-left: 1px solid var(--color-secondary-grey-02);
+        }
+    }
+    .schedule-item {
+        &:after {
+            content: "";
+            border-left: 1px solid var(--color-secondary-grey-02);
+            margin: 0 10px;
+            height: 18px;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+        &:last-child:after {
+            display: none;
         }
     }
     .text {
@@ -269,16 +286,6 @@ export default {
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
-    // .location {
-    //     display: flex;
-    //
-    //     color: var(--color-primary-blue-03);
-    //     margin-top: 11px;
-    //
-    //     .location-name {
-    //         align-self: center;
-    //     }
-    // }
     .location-group {
         color: var(--color-primary-blue-03);
         font-family: var(--font-secondary);

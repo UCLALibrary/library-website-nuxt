@@ -1,23 +1,21 @@
 <template lang="html">
-    <div class="section-block-highlight">
-        <section class="section-teaser-highlight">
-            <block-highlight
-                v-for="item in parsedItems"
-                :key="item.to"
-                :to="item.to"
-                :image="item.image[0].image[0]"
-                :category="item.category"
-                :title="item.title"
-                :start-date="item.date[0].startDate"
-                :end-date="item.date[0].endDate"
-                :locations="item.associatedLocations"
-                :text="item.text"
-                :has-triangle="true"
-                :is-vertical="true"
-                class="block"
-            />
-        </section>
-    </div>
+    <section class="section-teaser-highlight">
+        <block-highlight
+            v-for="item in parsedItems"
+            :key="item.to"
+            :to="item.to"
+            :image="item.image[0].image[0]"
+            :category="item.category"
+            :title="item.title"
+            :start-date="item.date[0].startDate"
+            :end-date="item.date[0].endDate"
+            :locations="item.associatedLocations"
+            :text="item.text"
+            :has-triangle="true"
+            :is-vertical="true"
+            class="block"
+        />
+    </section>
 </template>
 
 <script>
