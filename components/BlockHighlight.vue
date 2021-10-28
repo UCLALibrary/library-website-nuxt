@@ -245,11 +245,6 @@ export default {
         line-height: 140%;
         color: var(color-grey-01);
         margin-top: 10px;
-        // .times {
-        //     margin-left: 10px;
-        //     padding-left: 10px;
-        //     border-left: 1px solid var(--color-secondary-grey-02);
-        // }
         .svg-online {
             margin-bottom: -5px;
             margin-left: 10px;
