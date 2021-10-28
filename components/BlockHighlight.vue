@@ -151,7 +151,7 @@ export default {
 
 <style lang="scss" scoped>
 .block-highlight {
-    max-width: 990px;
+    max-width: 456px;
     background-color: var(--color-white);
 
     display: flex;
@@ -285,7 +285,11 @@ export default {
                 margin-top: 16px;
                 max-width: 300px;
             }
+            .image {
+                width: 300px;
+            }
         }
+        // for clipped version
         &.has-triangle {
             .meta {
                 margin-top: -25px;
@@ -294,6 +298,7 @@ export default {
         }
     }
     &:not(&.is-vertical) {
+        max-width: 990px;
         .meta {
             max-width: 412px;
             margin-top: 16px;
@@ -320,7 +325,34 @@ export default {
     }
 
     // Breakpoints
+    @media #{$medium} {
+        &:not(&.is-vertical) {
+            max-width: 95%;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+
     @media #{$small} {
+        &.is-vertical {
+            // for clipped version
+            &.has-triangle {
+            }
+        }
+        &:not(&.is-vertical) {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+
+            max-height: 550px;
+            max-width: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+
+            .image {
+                max-width: 100%;
+            }
+        }
     }
 
     // Themes
