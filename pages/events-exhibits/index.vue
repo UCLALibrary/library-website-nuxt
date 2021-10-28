@@ -59,7 +59,7 @@
 
         <block-call-to-action
             class="section block-call-to-action"
-            icon-name="svg-call-to-action-find"
+            svg-name="svg-call-to-action-find"
             :to="blockCallToAction.to"
             :name="blockCallToAction.name"
             :title="blockCallToAction.title"
@@ -199,9 +199,8 @@ export default {
     }
     .block-call-to-action {
         margin-bottom: 160px;
-        padding-top: 20px;
-        padding-left: 0px;
-        padding-right: 0px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 </style>

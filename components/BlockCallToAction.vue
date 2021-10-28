@@ -81,10 +81,9 @@ export default {
 .block-call-to-action {
     max-width: var(--block-width);
     max-height: var(--block-height);
-    margin-left: auto;
-    margin-right: auto;
     background-color: var(--color-background);
-    width: 100%;
+    padding: 20px 0;
+    width: 85%;
     height: 100%;
 
     display: flex;
@@ -96,13 +95,13 @@ export default {
 
     // Sizes
     &.full-width {
-        --block-height: 700px;
+        //--block-height: 700px;
         --block-padding-title: 70px;
         --block-padding-text: 10px;
     }
 
     &.half-width {
-        --block-width: 507px;
+        //--block-width: 507px;
         --block-height: 566px;
         --block-padding-title: 114px;
         --block-padding-text: 112px;
@@ -182,8 +181,8 @@ export default {
 
 // Breakpoints
     @media #{$small}{
-        padding-left: 0px;
-        padding-right: 0px;
+        // padding-left: 0px;
+        // padding-right: 0px;
 
         &.full-width {
             --block-padding-title: 48px;
