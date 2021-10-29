@@ -181,6 +181,7 @@ export default {
 
     // Breakpoints
     @media #{$small}{
+        width: 100%;
         &.full-width {
             --block-padding-title: 48px;
             --block-padding-text: 48px;
@@ -197,6 +198,13 @@ export default {
 
         .text {
             max-width: 234px;
+        }
+    }
+
+        @media #{$medium}{
+        &.full-width {
+            --block-padding-title: 48px;
+            --block-padding-text: 48px;
         }
     }
 }
