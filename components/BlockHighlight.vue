@@ -33,7 +33,6 @@
                     v-html="parsedDate"
                 />
                 <time
-                    v-if="parsedTime"
                     class="schedule-item"
                     v-html="parsedTime"
                 />
@@ -132,10 +131,14 @@ export default {
             ]
         },
         parsedDate() {
-            return formatEventDates(this.startDate, this.endDate)
+            if (this.startDate) {
+                return formatEventDates(this.startDate, this.endDate)
+            }
         },
         parsedTime() {
-            return formatEventTimes(this.startDate, this.endDate)
+            if (this.startDate) {
+                return formatEventTimes(this.startDate, this.endDate)
+            }
         },
 
         parsedLocations() {

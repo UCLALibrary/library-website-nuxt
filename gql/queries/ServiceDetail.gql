@@ -4,6 +4,5 @@ query ServiceDetail($slug: [String!]) {
     entry(section: "service", slug: $slug) {
         id
         title
-        ...FlexibleBlocks
     }
 }

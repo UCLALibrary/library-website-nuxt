@@ -11,8 +11,8 @@ const mock = {
     to: "/visit/foo/bar/",
     category: "Ullamco",
     title: "Fames ac turpis egestas sed tempus",
-    startDate: "2021-09-03T08:00:00+00:00",
-    endDate: "2021-10-08T07:10:00+00:00",
+    startDate: "2021-11-16T11:00:00-08:00",
+    endDate: "2021-11-16T11:00:00-08:00",
     text: "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Egestas integer eget aliquet nibh praesent tristique. Quis imperdiet massa tincidunt nunc pulvinar sapien.",
     imageAspectRatio: 60,
     locations: [
