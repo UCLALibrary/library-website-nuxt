@@ -13,6 +13,7 @@ const mock = {
                     url: "https://test-craft.library.ucla.edu/visit/events-exhibits/a-new-exhibit",
                     to: "visit/events-exhibits/a-new-exhibit",
                     title: "a new exhibit",
+                    text: "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Egestas integer eget aliquet",
                     date: [
                         {
                             startDate: "2021-09-08T07:00:00+00:00",
