@@ -33,6 +33,7 @@
                     v-html="parsedDate"
                 />
                 <time
+                    v-if="startDate"
                     class="schedule-item"
                     v-html="parsedTime"
                 />
