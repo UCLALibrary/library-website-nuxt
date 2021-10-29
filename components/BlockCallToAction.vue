@@ -83,7 +83,6 @@ export default {
     max-height: var(--block-height);
     background-color: var(--color-background);
     padding: 20px 0;
-    width: 85%;
     height: 100%;
 
     display: flex;
@@ -95,13 +94,15 @@ export default {
 
     // Sizes
     &.full-width {
+        --block-width: 1046px;
         --block-height: 700px;
         --block-padding-title: 70px;
         --block-padding-text: 10px;
     }
 
     &.half-width {
-        --block-width: 506px;
+        --block-width: calc((1046px / 2) - 34px);
+        //--block-width: 500px;
         --block-height: 566px;
         --block-padding-title: 114px;
         --block-padding-text: 112px;
