@@ -131,10 +131,6 @@ export default {
                 { "has-triangle": this.hasTriangle },
             ]
         },
-        parseOnline() {
-            // TODO this can be a link to zoom or ?
-            return this.isOnline ? "online" : ""
-        },
         parsedDate() {
             return formatEventDates(this.startDate, this.endDate)
         },
