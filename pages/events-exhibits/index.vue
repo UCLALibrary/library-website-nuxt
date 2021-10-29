@@ -127,7 +127,6 @@ export default {
             // return this.events.map((obj) => {
             return mockEvents.map((obj, index) => {
                 const event = obj || {}
-                console.log(event)
 
                 return {
                     ...event,
