@@ -38,11 +38,7 @@
                     v-html="parsedTime"
                 />
             </div>
-            <div
-                v-if="text"
-                class="text"
-                v-html="text"
-            />
+
             <div
                 v-if="locations.length"
                 class="location-group"
@@ -63,6 +59,11 @@
                     />
                 </nuxt-link>
             </div>
+            <div
+                v-if="text"
+                class="text"
+                v-html="text"
+            />
         </div>
     </div>
 </template>
@@ -286,6 +287,7 @@ export default {
         font-family: var(--font-secondary);
         font-size: 20px;
         line-height: 1;
+        margin-top: 24px;
     }
     .location-link {
         display: flex;
