@@ -36,7 +36,7 @@ export const DarkBlue = () => ({
     },
     template: `
         <block-call-to-action
-            is-dark-blue=true
+            is-dark=true
             :to="to"
             :name="name"
             :title="title"
@@ -73,7 +73,7 @@ export const SmallCTADarkBlue = () => ({
     template: `
         <block-call-to-action
             is-small-size=true
-            is-dark-blue=true
+            is-dark=true
             :to="to"
             :name="name"
             :title="title"

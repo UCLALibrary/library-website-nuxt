@@ -59,12 +59,34 @@
 
         <block-call-to-action
             class="section block-call-to-action"
-            icon-name="svg-call-to-action-find"
+            svg-name="svg-call-to-action-find"
             :to="blockCallToAction.to"
             :name="blockCallToAction.name"
             :title="blockCallToAction.title"
             :text="blockCallToAction.text"
         />
+        <div class=" section two-up">
+            <block-call-to-action
+                class="block-call-to-action"
+                svg-name="svg-call-to-action-find"
+                :to="blockCallToAction.to"
+                :name="blockCallToAction.name"
+                :title="blockCallToAction.title"
+                :text="blockCallToAction.text"
+                :is-small-size="true"
+            />
+
+            <block-call-to-action
+                class="block-call-to-action"
+                svg-name="svg-call-to-action-find"
+                :to="blockCallToAction.to"
+                :name="blockCallToAction.name"
+                :title="blockCallToAction.title"
+                :text="blockCallToAction.text"
+                :is-small-size="true"
+                :is-dark="true"
+            />
+        </div>
     </section>
 </template>
 
@@ -194,12 +216,20 @@ export default {
         max-width: var(--unit-content-width);
         margin: 80px auto;
     }
+
+    .two-up {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
     .divider {
         padding: 0 32px;
     }
     .block-call-to-action {
         margin-bottom: 160px;
-        padding-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 </style>
