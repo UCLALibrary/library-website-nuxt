@@ -65,7 +65,7 @@
             :title="blockCallToAction.title"
             :text="blockCallToAction.text"
         />
-        <div class=" section two-up">
+        <div class="section two-up">
             <block-call-to-action
                 class="block-call-to-action"
                 svg-name="svg-call-to-action-find"

@@ -1,5 +1,5 @@
 export default {
-    title: "FLEXIBLE / CTA Block Content Width",
+    title: "FLEXIBLE / Call To Action Block Content Width",
 }
 
 const mock = {

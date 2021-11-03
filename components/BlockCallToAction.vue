@@ -101,8 +101,7 @@ export default {
     }
 
     &.half-width {
-        --block-width: calc((1046px / 2) - 34px);
-        //--block-width: 500px;
+        --block-width: calc((1046px / 2) - 50px);
         --block-height: 566px;
         --block-padding-title: 114px;
         --block-padding-text: 112px;
@@ -114,17 +113,17 @@ export default {
         --color-title: var(--color-primary-blue-03);
         --color-text: var(--color-black);
         --color-button-background: var(--color-primary-blue-03);
-        --color-svg-molecule-outline: var(--color-primary-blue-03); // outer polygon
-        --color-svg-molecule-inner-highlight: var(--color-help-green-03); // inner polygon highlight
+        --color-svg-molecule-outline: var(--color-primary-blue-03);
+        --color-svg-molecule-inner-highlight: var(--color-help-green-03);
     }
 
     &.theme-dark {
         --color-background:  var(--color-primary-blue-03);
         --color-title: var(--color-white); 
         --color-text: var(--color-white);
-        --color-button-background: var(--color-secondary-blue-03);
-        --color-svg-molecule-outline: var(--color-primary-blue-02); // outer polygon
-        --color-svg-molecule-inner-highlight: var(--color-white); // inner polygon highlight
+        --color-svg-molecule-outline: var(--color-primary-blue-02);
+        --color-svg-molecule-inner-highlight: var(--color-white);
+        --color-button-background: var(--color-primary-blue-03);
         --color-button-border: 2px solid var(--color-default-cyan-02);
     }
 
@@ -181,8 +180,9 @@ export default {
     }
 
     // Breakpoints
-    @media #{$small}{
+    @media #{$small} {
         width: 100%;
+
         &.full-width {
             --block-padding-title: 48px;
             --block-padding-text: 48px;
@@ -202,8 +202,15 @@ export default {
         }
     }
 
-        @media #{$medium}{
+    @media #{$medium} {
+
+
         &.full-width {
+            --block-padding-title: 48px;
+            --block-padding-text: 48px;
+        }
+
+        &.half-width {
             --block-padding-title: 48px;
             --block-padding-text: 48px;
         }
