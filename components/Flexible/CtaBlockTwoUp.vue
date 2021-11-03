@@ -2,6 +2,7 @@
     <div class="cta-block-two-up">
         <block-call-to-action
             v-for="item in parsedItems"
+            :key="item.title"
             class="two-up"
             :svg-name="item.icon"
             :title="item.title"

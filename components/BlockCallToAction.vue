@@ -195,7 +195,6 @@ export default {
         }
     }
 
-
     // Breakpoints
     @media #{$small} {
         width: 100%;

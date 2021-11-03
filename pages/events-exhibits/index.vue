@@ -56,20 +56,15 @@
         />
 
         <divider-way-finder class="section divider divider-way-finder" />
-        <div class="section">
-            <block-call-to-action
-                class="section block-call-to-action"
-                svg-name="svg-call-to-action-find"
-                :to="blockCallToAction.to"
-                :name="blockCallToAction.name"
-                :title="blockCallToAction.title"
-                :text="blockCallToAction.text"
-            />
-            <block-call-to-action-two-up
-                class="block-call-to-action-two-up cta-block-two-up"
-                :items="blockCallToActionTwoUp"
-            />
-        </div>
+
+        <block-call-to-action
+            class="section block-call-to-action"
+            svg-name="svg-call-to-action-find"
+            :to="blockCallToAction.to"
+            :name="blockCallToAction.name"
+            :title="blockCallToAction.title"
+            :text="blockCallToAction.text"
+        />
     </section>
 </template>
 
@@ -188,31 +183,6 @@ export default {
             }
             return mockBlockCallToAction
         },
-
-        //TODO remove once we have real data from Craft
-        blockCallToActionTwoUp() {
-            const mockBlockCallToActionTwoUp = [
-                {
-                    svgName: "svg-call-to-action-chat",
-                    title: "Lorem ipsum dolor sit amet?",
-                    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    name: "Lorem ipsum dolor",
-                    to: "/help/foo/bar/",
-                    isDark: false,
-                    isSmallSize: true,
-                },
-                {
-                    svgName: "svg-call-to-action-chat",
-                    title: "Dolor sit amet Ipsum",
-                    text: "Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    name: "Ipsum dolor amet",
-                    to: "/help/foo/bar/",
-                    isDark: true,
-                    isSmallSize: true,
-                },
-            ]
-            return mockBlockCallToActionTwoUp
-        },
     },
     // This will recall fetch() when these query params change
     watchQuery: ["offset", "q"],
@@ -230,14 +200,11 @@ export default {
     .divider {
         padding: 0 32px;
     }
+
     .block-call-to-action {
-        margin-bottom: 50px;
+        margin-bottom: 160px;
         margin-left: auto;
         margin-right: auto;
-    }
-
-    .block-call-to-action-two-up {
-        margin-bottom: 160px;
     }
 }
 </style>

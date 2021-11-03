@@ -9,7 +9,7 @@
             :name="item.name"
             :to="item.to"
             :is-dark="item.isDark"
-            is-small-size="true"
+            :is-small-size="true"
         />
     </section>
 </template>
@@ -29,13 +29,12 @@ export default {
 .block-call-to-action-two-up {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    column-gap: 48px;
 
         @media #{$medium}{
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        row-gap: 50px;
+        row-gap: 48px;
     }
 }
 
