@@ -1,5 +1,3 @@
-import { disableExperimentalFragmentVariables } from "graphql-tag"
-
 // Storybook default settings
 export default {
     title: "BLOCK / Call to Action",
