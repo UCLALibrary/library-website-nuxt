@@ -65,6 +65,10 @@
             :title="blockCallToAction.title"
             :text="blockCallToAction.text"
         />
+        <block-call-to-action-two-up
+            class="section"
+            :items="blockCallToActionTwoUp"
+        />
     </section>
 </template>
 
@@ -182,6 +186,30 @@ export default {
                 text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             }
             return mockBlockCallToAction
+        },
+
+        blockCallToActionTwoUp() {
+            const mockBlockCallToActionTwoUp = [
+                {
+                    svgName: "svg-call-to-action-chat",
+                    title: "Lorem ipsum dolor sit amet?",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    name: "Lorem ipsum dolor",
+                    to: "/help/foo/bar/",
+                    isDark: false,
+                    isSmallSize: true,
+                },
+                {
+                    svgName: "svg-call-to-action-chat",
+                    title: "Dolor sit amet Ipsum",
+                    text: "Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    name: "Ipsum dolor amet",
+                    to: "/help/foo/bar/",
+                    isDark: true,
+                    isSmallSize: true,
+                },
+            ]
+            return mockBlockCallToActionTwoUp
         },
     },
     // This will recall fetch() when these query params change

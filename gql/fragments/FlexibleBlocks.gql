@@ -55,6 +55,8 @@ fragment BlockCtaBlockTwoUp on allFlexiblePageBlocks_ctaBlock2Up_BlockType {
             urlButtonUrl
             titleCTA2Up
             icon
+            backgroundColor
+            isSizeSmall
         }
     }
 }
