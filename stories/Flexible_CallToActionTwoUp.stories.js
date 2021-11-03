@@ -1,9 +1,9 @@
 export default {
-    title: "FLEXIBLE / Call To Action Block Two Up",
+    title: "FLEXIBLE / Call To Action Two Up",
 }
 
 const mock = {
-    ctaBlock2Up: [
+    callToActionTwoUp: [
         {
             "description": "Parking passes for Cats & Kittens only. Day use, weekly, monthly and annual passes are available now.",
             "buttonText": "Get Parking Passes",
@@ -28,7 +28,7 @@ export const Default = () => ({
         return { block: mock }
     },
     template: `
-        <flexible-cta-block-two-up
+        <flexible-call-to-action-two-up
             :block="block"
         />
     `,

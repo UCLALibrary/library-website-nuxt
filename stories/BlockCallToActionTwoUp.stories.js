@@ -5,7 +5,7 @@ export default {
 
 const items = [
     {
-        svgName: "svg-call-to-action-chat",
+        svgName: "svg-call-to-action-find",
         title: "Lorem ipsum dolor sit amet?",
         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         name: "Lorem ipsum dolor",
