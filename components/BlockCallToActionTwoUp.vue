@@ -25,11 +25,18 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .block-call-to-action-two-up {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+        @media #{$medium}{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        row-gap: 50px;
+    }
 }
 
 </style>

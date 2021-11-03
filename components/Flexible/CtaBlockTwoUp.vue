@@ -2,6 +2,7 @@
     <div class="cta-block-two-up">
         <block-call-to-action
             v-for="item in parsedItems"
+            class="two-up"
             :svg-name="item.icon"
             :title="item.title"
             :text="item.description"
@@ -29,12 +30,17 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .cta-block-two-up {
     display: flex;
     flex-direction: row;
-    row-gap: 50px;
-    column-gap: 50px;
-    align-content: space-between;
+    justify-content: space-between;
+
+    @media #{$medium}{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        row-gap: 50px;
+    }
 }
 </style>

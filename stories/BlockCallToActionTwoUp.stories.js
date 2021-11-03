@@ -33,7 +33,6 @@ export const Default = () => ({
     template: `
         <block-call-to-action-two-up
             :items="items"
-            isSmallSize=true
         />
     `,
 })

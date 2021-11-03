@@ -101,7 +101,7 @@ export default {
     }
 
     &.half-width {
-        --block-width: calc((1046px / 2) - 50px);
+        --block-width: calc((1046px / 2) - 10px);
         --block-height: 566px;
         --block-padding-title: 114px;
         --block-padding-text: 112px;
@@ -202,8 +202,7 @@ export default {
         }
     }
 
-    @media #{$medium} {
-
+    @media #{$medium}{
 
         &.full-width {
             --block-padding-title: 48px;
