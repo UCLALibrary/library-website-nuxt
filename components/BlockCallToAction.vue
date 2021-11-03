@@ -115,6 +115,10 @@ export default {
         --color-button-background: var(--color-primary-blue-03);
         --color-svg-molecule-outline: var(--color-primary-blue-03);
         --color-svg-molecule-inner-highlight: var(--color-help-green-03);
+        // Hover
+        --button-link-border-hover: 2px solid var(--color-primary-blue-02);
+        --button-link-bg-color-hover:  var(--color-white);
+        --button-link-color-hover: var(--color-black);
     }
 
     &.theme-dark {
@@ -125,6 +129,9 @@ export default {
         --color-svg-molecule-inner-highlight: var(--color-white);
         --color-button-background: var(--color-primary-blue-03);
         --color-button-border: 2px solid var(--color-default-cyan-02);
+        // Hover
+        --button-link-border-hover: 2px solid var(--color-white);
+        --button-link-color-hover: var(--color-white);
     }
 
     .svg {
@@ -178,6 +185,16 @@ export default {
         margin-bottom: 60px;
         border: var(--color-button-border);
     }
+
+    // Hover
+    @media #{$has-hover} {
+        .button-link:hover {
+            border: var(--button-link-border-hover);
+            background-color: var(--button-link-bg-color-hover);
+            color: var(--button-link-color-hover);
+        }
+    }
+
 
     // Breakpoints
     @media #{$small} {
