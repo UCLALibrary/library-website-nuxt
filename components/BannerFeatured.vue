@@ -493,10 +493,10 @@ export default {
             left: calc(65% - 44px);
             height: 40px;
 
-            // .svg {
-            //     width: 70vw;
-            //     height: auto;
-            // }
+            .svg {
+                width: 50vw;
+                height: auto;
+            }
         }
         .category-mobile {
             display: block;
