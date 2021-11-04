@@ -3,22 +3,26 @@ export default {
 }
 
 const mock = {
-    callToActionTwoUp: [
+    ctaBlock2Up: [
         {
-            "description": "Parking passes for Cats & Kittens only. Day use, weekly, monthly and annual passes are available now.",
-            "buttonText": "Get Parking Passes",
-            "buttonUrl": "http://cat-kitten-parking.com",
-            "title": "Cat & Kitten Parking Passes",
-            "icon": "svg-call-to-action-find",
-            "backgroundColor": true
+            text: "Parking passes for Cats & Kittens only. Day use, weekly, monthly and annual passes are available now.",
+            name: "Get Parking Passes",
+            to: "http://cat-kitten-parking.com",
+            title: "Cat & Kitten Parking Passes",
+            icon: "svg-call-to-action-find",
+            backgroundColor: true,
+            isDark: false,
+            isSmallSize: true,
         },
         {
-            "description": "Advanced Ancient Greek for Dogs. Teach your dog the useful language of ancient Greek so you can communicate together more effectively.",
-            "buttonText": "Sign Up for Class",
-            "buttonUrl": "http://ancient-greek-for-dogs.com",
-            "title": "Ancient Greek for Dogs",
-            "icon": "svg-call-to-action-money",
-            "backgroundColor": false
+            text: "Advanced Ancient Greek for Dogs. Teach your dog the useful language of ancient Greek so you can communicate together more effectively.",
+            name: "Sign Up for Class",
+            to: "http://ancient-greek-for-dogs.com",
+            title: "Ancient Greek for Dogs",
+            icon: "svg-call-to-action-money",
+            backgroundColor: false,
+            isDark: true,
+            isSmallSize: true,
         },
     ],
 }
@@ -28,7 +32,7 @@ export const Default = () => ({
         return { block: mock }
     },
     template: `
-        <flexible-call-to-action-two-up
+        <flexible-cta-block-two-up
             :block="block"
         />
     `,
