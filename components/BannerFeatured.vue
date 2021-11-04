@@ -7,9 +7,9 @@
                     class="breadcrumb"
                 >
                     <svg-heading-vector class="heading-line" />
-                    <div class="text">
+                    <h3 class="text">
                         {{ breadcrumb }}
-                    </div>
+                    </h3>
                 </div>
             </slot>
         </div>
@@ -311,7 +311,7 @@ export default {
 
     .meta {
         padding: 0 50px;
-        margin: -45px 0 0 0;
+        margin: -60px 0 0 0;
         position: relative;
         z-index: 40;
         width: 65%;
@@ -336,7 +336,7 @@ export default {
         letter-spacing: 0.06em;
         text-align: left;
         color: var(--color-primary-blue-05);
-        margin-bottom: 5px;
+        margin-bottom: 15px;
         text-transform: uppercase;
     }
     .title {
@@ -388,6 +388,9 @@ export default {
         justify-content: flex-start;
         align-content: center;
         align-items: center;
+    }
+    .location {
+        padding: 0 0 5px 5px;
     }
     .button {
         width: 180px;
@@ -452,10 +455,10 @@ export default {
             left: calc(65% - 44px);
             height: 40px;
 
-            .svg {
-                width: 50vw;
-                height: auto;
-            }
+            // .svg {
+            //     width: 70vw;
+            //     height: auto;
+            // }
         }
         .category-mobile {
             display: block;

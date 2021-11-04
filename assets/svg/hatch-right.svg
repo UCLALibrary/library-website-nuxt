@@ -1,4 +1,4 @@
-<svg width="635" height="157" viewBox="0 0 635 157" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="900" height="157" viewBox="0 0 900 157" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path class="hatch" d="M144.445 318.242L12.7009 0.182617" stroke="#C099FF" stroke-width="1.5"/>
 <path class="hatch" d="M160.445 318.242L28.7009 0.182617" stroke="#C099FF" stroke-width="1.5"/>
 <path class="hatch" d="M176.445 318.242L44.7009 0.182617" stroke="#C099FF" stroke-width="1.5"/>
@@ -35,5 +35,16 @@
 <path class="hatch" d="M672.445 318.242L540.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
 <path class="hatch" d="M688.445 318.242L556.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
 <path class="hatch" d="M704.445 318.242L572.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
+<path class="hatch" d="M720.445 318.242L588.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
+<path class="hatch" d="M736.445 318.242L604.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
+<path class="hatch" d="M752.445 318.242L620.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
+<path class="hatch" d="M768.445 318.242L636.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
+<path class="hatch" d="M784.445 318.242L654.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
+<path class="hatch" d="M800.445 318.242L670.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
+<path class="hatch" d="M816.445 318.242L686.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
+<path class="hatch" d="M832.445 318.242L702.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
+<path class="hatch" d="M848.445 318.242L718.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
+<path class="hatch" d="M864.445 318.242L734.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
+<path class="hatch" d="M880.445 318.242L750.701 0.182617" stroke="#C099FF" stroke-width="5.5"/>
 
 </svg>
