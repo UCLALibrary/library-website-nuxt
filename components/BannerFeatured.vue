@@ -219,7 +219,6 @@ export default {
             for (let location in this.locations) {
                 if (this.locations[location].title == "Online") {
                     this.locations[location].svg = "svg-icon-online"
-                    console.log(this.locations[location].title)
                     parsedOnline.push(this.locations[location])
                 }
             }
