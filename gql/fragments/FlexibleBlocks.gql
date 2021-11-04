@@ -50,11 +50,13 @@ fragment BlockCtaBlockTwoUp on allFlexiblePageBlocks_ctaBlock2Up_BlockType {
         id
         ... on ctaBlock2Up_ctaBlock2Up_BlockType {
             id
-            shortDescription
-            urlButtonText
-            urlButtonUrl
-            titleCTA2Up
-            icon
+            text: shortDescription
+            name: urlButtonText
+            to: urlButtonUrl
+            title: titleCTA2Up
+            svgName: icon
+            backgroundColor
+            isSizeSmall
         }
     }
 }

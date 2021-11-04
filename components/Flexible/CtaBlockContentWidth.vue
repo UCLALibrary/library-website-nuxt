@@ -31,4 +31,5 @@ export default {
     max-width: 924px;
     margin-left: auto;
     margin-right: auto;
-}</style>
+}
+</style>
