@@ -60,7 +60,7 @@ export const SmallCTA = () => ({
     },
     template: `
         <block-call-to-action
-            :svgName= "svgName"
+            svgName= "svg-call-to-action-find"
             :title="title"
             :text="text"
             :name="name"
@@ -79,7 +79,7 @@ export const SmallCTADarkBlue = () => ({
     },
     template: `
         <block-call-to-action
-            svg-name= "svg-call-to-action-chat"
+            svg-name= "svg-call-to-action-money"
             :title="title"
             :text="text"
             :name="name"
