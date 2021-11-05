@@ -61,23 +61,23 @@ function convertName(typeHandle) {
 
     switch (typeHandle) {
         case "ctaBlockContentWidth":
-            output = "flexible-cta"
+            output = "cta"
             break
 
         case "divider":
-            output = "flexible-divider"
+            output = "divider"
             break
 
         case "helpTopicCards":
-            output = "flexible-help-topic-cards"
+            output = "help-topic-cards"
             break
 
         case "bannerFeatured":
-            output = "flexible-banner-featured"
+            output = "banner-featured"
             break
 
         case "highlight":
-            output = "flexible-highlight"
+            output = "highlight"
             break
     }
 
