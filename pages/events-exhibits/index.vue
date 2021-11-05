@@ -59,11 +59,15 @@
 
         <block-call-to-action
             class="section block-call-to-action"
-            icon-name="svg-call-to-action-find"
+            svg-name="svg-call-to-action-find"
             :to="blockCallToAction.to"
             :name="blockCallToAction.name"
             :title="blockCallToAction.title"
             :text="blockCallToAction.text"
+        />
+        <block-call-to-action-two-up
+            class="section"
+            :items="blockCallToActionTwoUp"
         />
     </section>
 </template>
@@ -172,6 +176,7 @@ export default {
                 }
             })
         },
+
         //TODO remove once we have real data from Craft
         blockCallToAction() {
             const mockBlockCallToAction = {
@@ -182,10 +187,35 @@ export default {
             }
             return mockBlockCallToAction
         },
+
+        blockCallToActionTwoUp() {
+            const mockBlockCallToActionTwoUp = [
+                {
+                    svgName: "svg-call-to-action-chat",
+                    title: "Lorem ipsum dolor sit amet?",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    name: "Lorem ipsum dolor",
+                    to: "/help/foo/bar/",
+                    isDark: false,
+                    isSmallSize: true,
+                },
+                {
+                    svgName: "svg-call-to-action-chat",
+                    title: "Dolor sit amet Ipsum",
+                    text: "Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    name: "Ipsum dolor amet",
+                    to: "/help/foo/bar/",
+                    isDark: true,
+                    isSmallSize: true,
+                },
+            ]
+            return mockBlockCallToActionTwoUp
+        },
     },
     // This will recall fetch() when these query params change
     watchQuery: ["offset", "q"],
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -194,12 +224,15 @@ export default {
         max-width: var(--unit-content-width);
         margin: 80px auto;
     }
+
     .divider {
         padding: 0 32px;
     }
+
     .block-call-to-action {
         margin-bottom: 160px;
-        padding-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 </style>

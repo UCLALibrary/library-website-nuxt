@@ -4,10 +4,13 @@ export default {
 }
 
 const mock = {
-    to: "/help/foo/bar/",
-    name: "Lorem ipsum dolor",
+    svgName: "svg-call-to-action-chat",
     title: "Lorem ipsum dolor sit amet?",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    name: "Lorem ipsum dolor",
+    to: "/help/foo/bar/",
+    isDark: false,
+    isSmallSize: false,
 }
 
 // Variations of stories below
@@ -19,11 +22,13 @@ export const Default = () => ({
     },
     template: `
         <block-call-to-action
-            :to="to"
-            :name="name"
+            :svgName= "svgName"
             :title="title"
             :text="text"
-            svg-name= "svg-call-to-action-chat"
+            :name="name"
+            :to="to"
+            :isDark="isDark"
+            :isSmallSize="isSmallSize"
         />
     `,
 })
@@ -36,12 +41,13 @@ export const DarkBlue = () => ({
     },
     template: `
         <block-call-to-action
-            is-dark-blue=true
-            :to="to"
-            :name="name"
+            :svgName= "svgName"
             :title="title"
             :text="text"
-            svg-name= "svg-call-to-action-chat"
+            :name="name"
+            :to="to"
+            is-dark=true
+            :isSmallSize="isSmallSize"
         />
     `,
 })
@@ -54,12 +60,13 @@ export const SmallCTA = () => ({
     },
     template: `
         <block-call-to-action
-            is-small-size=true
-            :to="to"
-            :name="name"
+            svgName= "svg-call-to-action-find"
             :title="title"
             :text="text"
-            svg-name= "svg-call-to-action-money"
+            :name="name"
+            :to="to"
+            :is-dark=false
+            :isSmallSize=true
         />
     `,
 })
@@ -72,13 +79,13 @@ export const SmallCTADarkBlue = () => ({
     },
     template: `
         <block-call-to-action
-            is-small-size=true
-            is-dark-blue=true
-            :to="to"
-            :name="name"
+            svg-name= "svg-call-to-action-money"
             :title="title"
             :text="text"
-            svg-name= "svg-call-to-action-find"
+            :name="name"
+            :to="to"
+            is-small-size=true
+            is-dark=true
         />
     `,
 })

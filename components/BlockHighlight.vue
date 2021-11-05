@@ -28,50 +28,50 @@
 
             <div class="date-time">
                 <time
-                    v-if="dates"
-                    class="dates"
-                    v-html="dates"
+                    v-if="startDate"
+                    class="schedule-item"
+                    v-html="parsedDate"
                 />
                 <time
-                    v-if="times"
-                    class="times"
-                    :datetime="times"
-                    v-html="times"
+                    v-if="startDate"
+                    class="schedule-item"
+                    v-html="parsedTime"
                 />
-                <component
-                    :is="parsedSvgOnline"
-                    v-if="isOnline"
-                    class="svg svg-online"
-                />
-                <span
-                    v-if="isOnline"
-                    v-html="parseOnline"
-                />
+            </div>
+
+            <div
+                v-if="locations.length"
+                class="location-group"
+            >
+                <nuxt-link
+                    v-for="location in parsedLocations"
+                    :key="`location-${location.id}`"
+                    :to="location.to"
+                    class="location-link"
+                >
+                    <component
+                        :is="location.svg"
+                        class="location-svg"
+                    />
+                    <span
+                        class="location"
+                        v-html="location.title"
+                    />
+                </nuxt-link>
             </div>
             <div
                 v-if="text"
                 class="text"
                 v-html="text"
             />
-            <div
-                v-if="location"
-                class="location"
-            >
-                <component
-                    :is="parsedSvgLocation"
-                    class="svg"
-                />
-
-                <span
-                    class="location-name"
-                    v-html="location"
-                />
-            </div>
         </div>
     </div>
 </template>
 
 <script>
+import formatEventTimes from "~/utils/formatEventTimes"
+import formatEventDates from "~/utils/formatEventDates"
+
 export default {
     components: {
         SvgIconLocation: () => import("~/assets/svg/icon-location"),
@@ -94,14 +94,15 @@ export default {
             type: String,
             default: "",
         },
-        dates: {
+        startDate: {
             type: String,
             default: "",
         },
-        times: {
+        endDate: {
             type: String,
             default: "",
         },
+
         text: {
             type: String,
             default: "",
@@ -118,13 +119,9 @@ export default {
             type: Number,
             default: 0,
         },
-        isOnline: {
-            type: Boolean,
-            default: false,
-        },
-        location: {
-            type: String,
-            default: "",
+        locations: {
+            type: Array,
+            default: () => [],
         },
     },
     computed: {
@@ -135,15 +132,26 @@ export default {
                 { "has-triangle": this.hasTriangle },
             ]
         },
-        parseOnline() {
-            // TODO this can be a link to zoom or ?
-            return this.isOnline ? "online" : ""
+        parsedDate() {
+            if (this.startDate) {
+                return formatEventDates(this.startDate, this.endDate)
+            }
         },
-        parsedSvgOnline() {
-            return "svg-icon-online"
+        parsedTime() {
+            if (this.startDate) {
+                return formatEventTimes(this.startDate, this.endDate)
+            }
         },
-        parsedSvgLocation() {
-            return "svg-icon-location"
+
+        parsedLocations() {
+            for (let location in this.locations) {
+                if (this.locations[location].title == "Online") {
+                    this.locations[location].svg = "svg-icon-online"
+                } else {
+                    this.locations[location].svg = "svg-icon-location"
+                }
+            }
+            return this.locations
         },
     },
 }
@@ -238,16 +246,28 @@ export default {
         line-height: 140%;
         color: var(color-grey-01);
         margin-top: 10px;
-        .times {
-            margin-left: 10px;
-            padding-left: 10px;
-            border-left: 1px solid var(--color-secondary-grey-02);
-        }
         .svg-online {
             margin-bottom: -5px;
             margin-left: 10px;
             padding-left: 10px;
             border-left: 1px solid var(--color-secondary-grey-02);
+        }
+    }
+    .schedule-item {
+        &:after {
+            content: "";
+            border-left: 1px solid var(--color-secondary-grey-02);
+            margin: 0 10px;
+            height: 18px;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+        &:last-child:after {
+            display: none;
         }
     }
     .text {
@@ -262,15 +282,20 @@ export default {
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
-    .location {
-        display: flex;
-
+    .location-group {
         color: var(--color-primary-blue-03);
-        margin-top: 11px;
-
-        .location-name {
-            align-self: center;
-        }
+        font-family: var(--font-secondary);
+        font-size: 20px;
+        line-height: 1;
+        margin-top: 24px;
+    }
+    .location-link {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
     }
 
     // Variations

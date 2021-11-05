@@ -1,3 +1,5 @@
+#import "~/gql/fragments/Image"
+
 fragment FlexibleBlocks on ElementInterface {
     blocks: allFlexiblePageBlocks {
         id
@@ -14,9 +16,9 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockMediaGallery
         ...BlockPullQuote
         ...BlockRichText
-        ...BlockRichTextWithMedia
         ...BlockHelpTopicCards
         ...BlockSimpleCard
+        ...BlockHighlight
     }
 }
 
@@ -49,11 +51,13 @@ fragment BlockCtaBlockTwoUp on allFlexiblePageBlocks_ctaBlock2Up_BlockType {
         id
         ... on ctaBlock2Up_ctaBlock2Up_BlockType {
             id
-            shortDescription
-            urlButtonText
-            urlButtonUrl
-            titleCTA2Up
-            icon
+            text: shortDescription
+            name: urlButtonText
+            to: urlButtonUrl
+            title: titleCTA2Up
+            svgName: icon
+            backgroundColor
+            isSizeSmall
         }
     }
 }
@@ -211,25 +215,7 @@ fragment BlockPullQuote on allFlexiblePageBlocks_pullQuote_BlockType {
 }
 
 fragment BlockRichText on allFlexiblePageBlocks_richText_BlockType {
-    text
-}
-
-fragment BlockRichTextWithMedia on allFlexiblePageBlocks_richTextWithMedia_BlockType {
-    id
-    richTextWithMedia {
-        ... on richTextWithMedia_richTextWithMedia_BlockType {
-            id
-            text
-            mediaType
-            mediaUpload {
-                id
-                url
-            }
-            imageAltText
-            imageAlignment: alignment
-            imageCaption
-        }
-    }
+    richText
 }
 
 fragment BlockHelpTopicCards on allFlexiblePageBlocks_helpTopicCards_BlockType {
@@ -252,7 +238,7 @@ fragment BlockHelpTopicCards on allFlexiblePageBlocks_helpTopicCards_BlockType {
 fragment BlockSimpleCard on allFlexiblePageBlocks_simpleCard_BlockType {
     id
     simpleCard {
-        ... on simpleCard_simpleCardContent_BlockType {
+        ... on simpleCard_simpleCard_BlockType {
             id
             linkText
             contentLink {
@@ -261,6 +247,41 @@ fragment BlockSimpleCard on allFlexiblePageBlocks_simpleCard_BlockType {
             }
             subheader
             externalLink
+        }
+    }
+}
+
+fragment BlockHighlight on allFlexiblePageBlocks_highlight_BlockType {
+    id
+    highlight {
+        ... on highlight_highlight_BlockType {
+            id
+            contentLink {
+                id
+                url
+                to: uri
+                title
+                prompt: buttonText
+                text: shortDescription
+                date {
+                    startDate
+                    endDate
+                }
+                associatedLocations {
+                    id
+                    title
+                    to: uri
+                }
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                        altText
+                    }
+                }
+            }
         }
     }
 }

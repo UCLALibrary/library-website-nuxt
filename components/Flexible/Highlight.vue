@@ -1,20 +1,18 @@
 <template lang="html">
     <section class="section-teaser-highlight">
-        <!-- TODO I don't think you need this div -->
-
         <block-highlight
-            v-for="item in items"
+            v-for="item in parsedItems"
             :key="item.to"
             :to="item.to"
-            :image="item.image"
+            :image="item.image[0].image[0]"
             :category="item.category"
             :title="item.title"
-            :start-date="item.startDate"
-            :end-date="item.endDate"
+            :start-date="item.date[0].startDate"
+            :end-date="item.date[0].endDate"
+            :locations="item.associatedLocations"
             :text="item.text"
             :has-triangle="true"
             :is-vertical="true"
-            :locations="item.locations"
             class="block"
         />
     </section>
@@ -23,12 +21,18 @@
 <script>
 export default {
     props: {
-        /**
-         * Array of objects [{ image, to, category, title, dates, times, text }]
-         */
-        items: {
-            type: Array,
-            default: () => [],
+        block: {
+            type: Object,
+            default: () => {},
+        },
+    },
+    computed: {
+        parsedItems() {
+            let items = []
+            for (let item in this.block.highlight) {
+                items.push(this.block.highlight[item].contentLink[0])
+            }
+            return items
         },
     },
 }

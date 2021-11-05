@@ -1,6 +1,6 @@
 /* eslint-env node */
 export default {
-    target: 'static',
+    target: "static",
     components: true,
 
     privateRuntimeConfig: {
@@ -9,10 +9,16 @@ export default {
     },
     publicRuntimeConfig: {
         libcalAppointment: process.env.LIBCAL_APPOINTMENTS,
-        libcalClientSecret: process.env.LIVE_PREVIEW === 'true' ? process.env.LIBCAL_CLIENT_SECRET : '',
-        libcalClientId: process.env.LIVE_PREVIEW === 'true' ? process.env.LIBCAL_CLIENT_ID : '',
+        libcalClientSecret:
+            process.env.LIVE_PREVIEW === "true"
+                ? process.env.LIBCAL_CLIENT_SECRET
+                : "",
+        libcalClientId:
+            process.env.LIVE_PREVIEW === "true"
+                ? process.env.LIBCAL_CLIENT_ID
+                : "",
     },
-    
+
     /*
      ** Global CSS
      */
@@ -33,9 +39,9 @@ export default {
      ** Plugins to load before mounting the App
      */
     plugins: [
-        '~/plugins/preview.client.js',
-        '~/plugins/web-font-loader.client.js',
-        '~/plugins/browser-events.client.js'
+        "~/plugins/preview.client.js",
+        "~/plugins/web-font-loader.client.js",
+        "~/plugins/browser-events.client.js",
     ],
 
     /*
@@ -46,10 +52,10 @@ export default {
             process.env.LIBCAL_ENDPOINT ||
             "https://calendar.library.ucla.edu/1.1",
     },
-    
+
     /*
-    * GraphQL Request. Used for querying from Craft
-    */
+     * GraphQL Request. Used for querying from Craft
+     */
     graphql: {
         clients: {
             default: {
@@ -89,7 +95,7 @@ export default {
     // TODO find out later why this causing the live preview to not work
     /*router: {
         trailingSlash: false,
-    },*/ 
+    },*/
 
     /*
      ** Storybook
@@ -99,23 +105,23 @@ export default {
         stories: ["~/stories/**/*.stories.js"],
         parameters: {
             layout: "fullscreen",
-            viewport: { 
-                viewports:{
+            viewport: {
+                viewports: {
                     extraLarge: {
-                        name: 'Extra Large',
-                        styles:{ width: '1920px', height: '1080px', },
+                        name: "Extra Large",
+                        styles: { width: "1920px", height: "1080px" },
                     },
                     Large: {
-                        name: 'Large',
-                        styles:{ width: '1440px', height: '1024px', },
+                        name: "Large",
+                        styles: { width: "1440px", height: "1024px" },
                     },
                     Medium: {
-                        name: 'Medium',
-                        styles:{ width: '768px', height: '1024px', },
+                        name: "Medium",
+                        styles: { width: "768px", height: "1024px" },
                     },
                     Small: {
-                        name: 'Small',
-                        styles:{ width: '375px', height: '812px', },
+                        name: "Small",
+                        styles: { width: "375px", height: "812px" },
                     },
                 },
             },
@@ -160,14 +166,13 @@ export default {
     modules: ["@nuxtjs/axios"],
 
     /*
-    * Nuxt build modules
-    */
-    buildModules: ["@nuxtjs/style-resources","nuxt-graphql-request"],
-    
-  
+     * Nuxt build modules
+     */
+    buildModules: ["@nuxtjs/style-resources", "nuxt-graphql-request"],
+
     /*
      ** Nuxt webpack build configuration
-    */
+     */
     build: {
         // eslint-disable-next-line no-unused-vars
         extend(config, ctx) {
@@ -215,7 +220,4 @@ export default {
             })
         },
     },
-
-    
 }
-  

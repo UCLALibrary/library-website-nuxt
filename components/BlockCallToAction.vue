@@ -1,25 +1,24 @@
 <template lang="html">
-    <div :class="sizeClasses">
-        <div :class="colorClasses">
-            <component
-                :is="parsedSvgName"
-                class="svg"
-            />
-            <div
-                class="title"
-                v-html="title"
-            />
-            <div
-                class="text"
-                v-html="text"
-            />
-            <button-link
-                :label="name"
-                :to="to"
-                class="button-link"
-                icon-name="svg-arrow-right"
-            />
-        </div>
+    <div
+        :class="classes"
+    >
+        <component
+            :is="parsedSvgName"
+            class="svg"
+        />
+        <div
+            class="title"
+            v-html="title"
+        />
+        <div
+            class="text"
+            v-html="text"
+        />
+        <button-link
+            :label="name"
+            :to="to"
+            class="button-link"
+        />
     </div>
 </template>
 
@@ -52,7 +51,7 @@ export default {
             type: String,
             default: "",
         },
-        isDarkBlue: {
+        isDark: {
             type: Boolean,
             default: false,
         },
@@ -62,42 +61,17 @@ export default {
         },
     },
     computed: {
+        classes() {
+            return [
+                "block-call-to-action",
+                { "full-width": !this.isSmallSize },
+                { "half-width": this.isSmallSize },
+                { "theme-light": !this.isDark },
+                { "theme-dark": this.isDark },
+            ]
+        },
         parsedSvgName() {
             return `${this.svgName}`
-        },
-
-        colorClasses() {
-            let output = ["container"]
-
-            // TODO I don't think you need all these clases. Just have theme-dark OR theme-light
-
-            if (this.isDarkBlue) {
-                output = [
-                    "container",
-                    "color-dark-blue",
-                    "color-light-title",
-                    "color-light-text",
-                    "color-dark-blue",
-                    "color-theme-svg-outline-dark",
-                    "color-theme-svg-lines-dark",
-                ]
-            }
-            return output
-        },
-        sizeClasses() {
-            let output = ["block-call-to-action"]
-            if (this.isSmallSize) {
-                // TODO Probably only need one class for all of this, size-small OR size-large
-
-                output = [
-                    "block-call-to-action",
-                    "block-width-small",
-                    "block-height-small",
-                    "block-padding-title-small",
-                    "block-padding-text-small",
-                ]
-            }
-            return output
         },
     },
 }
@@ -107,154 +81,153 @@ export default {
 .block-call-to-action {
     max-width: var(--block-width);
     max-height: var(--block-height);
-    margin-left: auto;
-    margin-right: auto;
-    background-color: var(--color-white);
+    background-color: var(--color-background);
+    padding: 20px 0;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 
     // Sizes
-    --block-width: 1046px;
-    &.block-width-small {
-        --block-width: 500px;
+    &.full-width {
+        --block-width: 1046px;
+        --block-height: 700px;
+        --block-padding-title: 70px;
+        --block-padding-text: 10px;
     }
 
-    --block-height: 700px;
-    &.block-height-small {
-        --block-height: 520px;
-    }
-    // Padding Sizes Title
-    --block-padding-title: 70px;
-    &.block-padding-title-small {
+    &.half-width {
+        --block-width: calc((1046px / 2) - 10px);
+        --block-height: 566px;
         --block-padding-title: 114px;
-    }
-
-    // Padding Sizes Text
-    --block-padding-text: 10px;
-    &.block-padding-text-small {
         --block-padding-text: 112px;
     }
 
-    .container {
-        background-color: var(--color-theme);
-        width: 100%;
-        height: 100%;
-
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-
-        // Themes for background
-        --color-theme: var(--color-primary-blue-01);
-
-        &.color-dark-blue {
-            --color-theme: var(--color-secondary-blue-02);
-        }
-
-        // Themes for title and text
+    // Color Themes
+    &.theme-light {
+        --color-background: var(--color-primary-blue-01);
         --color-title: var(--color-primary-blue-03);
-
-        &.color-light-title {
-            --color-title: var(--color-white);
-        }
-        --color-text: var(--color-primary-blue-05);
-
-        &.color-light-text {
-            --color-text: var(--color-white);
-        }
-
-        // Themes for button color
-        --color-theme-button: var(--color-primary-blue-03);
-
-        &.color-dark-blue {
-            --color-theme-button: var(--color-secondary-blue-02);
-        }
-
-        // Themes for svg colors
-        --color-theme-svg-outline: var(--color-primary-blue-03);
-
-        &.color-theme-svg-outline-dark {
-            --color-theme-svg-outline: var(--color-primary-blue-02);
-        }
-
-        // Themes for svg colors
-        --color-theme-svg-lines: var(--color-help-green-03);
-
-        &.color-theme-svg-lines-dark {
-            --color-theme-svg-lines: var(--color-white);
-        }
+        --color-text: var(--color-black);
+        --color-button-background: var(--color-primary-blue-03);
+        --color-svg-molecule-outline: var(--color-primary-blue-03);
+        --color-svg-molecule-inner-highlight: var(--color-help-green-03);
+        // Hover
+        --button-link-border-hover: 2px solid var(--color-primary-blue-02);
+        --button-link-bg-color-hover:  var(--color-white);
+        --button-link-color-hover: var(--color-black);
     }
 
-    // NOTE Drew's quick code of what this could be
-    // &.size-small {
-    //     padding: 0 30px;
-    //     max-width: 400px;
-    // }
-    // &.theme-dark {
-    //     background-color: red;
-    //
-    //     .svg {
-    //         stroke: green;
-    //     }
-    //     .color: {
-    //         stroke: yellow;
-    //     }
-    // }
+    &.theme-dark {
+        --color-background:  var(--color-primary-blue-03);
+        --color-title: var(--color-white); 
+        --color-text: var(--color-white);
+        --color-svg-molecule-outline: var(--color-primary-blue-02);
+        --color-svg-molecule-inner-highlight: var(--color-white);
+        --color-button-background: var(--color-primary-blue-03);
+        --color-button-border: 2px solid var(--color-default-cyan-02);
+        // Hover
+        --button-link-border-hover: 2px solid var(--color-white);
+        --button-link-color-hover: var(--color-white);
+    }
 
     .svg {
-        margin-bottom: 35px;
+        margin-bottom: 32px;
         margin-top: 60px;
 
         flex-grow: 0;
         flex-shrink: 0;
 
         .outline {
-            stroke: var(--color-theme-svg-outline);
+            stroke: var(--color-svg-molecule-outline);
         }
 
         .color {
-            stroke: var(--color-theme-svg-lines);
+            stroke: var(--color-svg-molecule-inner-highlight);
         }
     }
 
     .title {
         font-family: var(--font-primary);
-        font-weight: 500;
-        font-size: 40px;
+        font-weight: 600;
+        font-size: 36px;
+        text-align: center;
+        letter-spacing: .0025em;
         line-height: 100%;
         color: var(--color-title);
-        text-align: center;
         padding-left: var(--block-padding-title);
         padding-right: var(--block-padding-title);
-        max-width: 630px;
         margin-bottom: 16px;
+        max-width: 640px;
     }
 
     .text {
-        font-size: 18px;
-        line-height: 140%;
-        color: var(--color-text);
+        font-family: var(--font-primary);
+        font-size: 20px;
         text-align: center;
+        line-height: 30px;
+        letter-spacing: .01em;
+        color: var(--color-text);
         padding-left: var(--block-padding-text);
         padding-right: var(--block-padding-text);
-        max-width: 630px;
-        margin-bottom: 35px;
+        margin-bottom: 32px;
+        max-width: 640px;
     }
 
     .button-link {
         width: 280px;
-        font-size: 18px;
-        background-color: var(--color-theme-button);
+        font-size: 20px;
+        background-color: var(--color-button-background);
         color: var(--color-white);
         margin-bottom: 60px;
+        border: var(--color-button-border);
     }
 
-    /deep/ {
-        .button-link {
-            .arrow-right {
-                stroke: var(--color-white);
-            }
+    // Hover
+    @media #{$has-hover} {
+        .button-link:hover {
+            border: var(--button-link-border-hover);
+            background-color: var(--button-link-bg-color-hover);
+            color: var(--button-link-color-hover);
+        }
+    }
+
+    // Breakpoints
+    @media #{$small} {
+        width: 100%;
+
+        &.full-width {
+            --block-padding-title: 48px;
+            --block-padding-text: 48px;
+        }
+
+        &.half-width {
+            --block-padding-title: 48px;
+            --block-padding-text: 48px;
+        }
+
+        .title {
+            max-width: 234px;
+        }
+
+        .text {
+            max-width: 234px;
+        }
+    }
+
+    @media #{$medium}{
+
+        &.full-width {
+            --block-padding-title: 48px;
+            --block-padding-text: 48px;
+        }
+
+        &.half-width {
+            --block-padding-title: 48px;
+            --block-padding-text: 48px;
         }
     }
 }
