@@ -4,7 +4,7 @@ fragment FlexibleBlocks on ElementInterface {
     blocks: allFlexiblePageBlocks {
         id
         typeHandle
-        #
+
         ...BlockCardWithImage
         ...BlockCtaBlockTwoUp
         ...BlockCta
@@ -21,9 +21,9 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockHighlight
     }
 }
-#
-# # Define all blocks here as fragments
-#
+
+# Define all blocks here as fragments
+
 fragment BlockCardWithImage on allFlexiblePageBlocks_cardWithImage_BlockType {
     id
     cardWithImage {
@@ -61,7 +61,7 @@ fragment BlockCtaBlockTwoUp on allFlexiblePageBlocks_ctaBlock2Up_BlockType {
         }
     }
 }
-#
+
 fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
     innerBlocks: ctaBlockContentWidth {
         ... on ctaBlockContentWidth_ctaBlockContentWidth_BlockType {
