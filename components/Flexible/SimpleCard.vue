@@ -7,10 +7,12 @@
                     v-html="sectionName"
                 />
                 <h3
+                    v-if="title"
                     class="title"
                     v-html="title"
                 />
                 <div
+                    v-if="text"
                     class="text"
                     v-html="text"
                 />
@@ -61,7 +63,7 @@ export default {
 <style lang="scss" scoped>
 .simple-card {
     min-width: 300px;
-    max-width: 456px;
+    max-width: 464px;
     height: 314px;
     border-radius: var(--rounded-slightly-all);
     box-sizing: border-box;
@@ -86,7 +88,7 @@ export default {
         --color-theme: var(--color-about-purple-01);
     }
     .meta {
-        padding: 20px 48px 20px 48px;
+        // margin: 20px 48px 20px 48px;
     }
     .section {
         display: none;
