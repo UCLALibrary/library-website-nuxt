@@ -63,7 +63,7 @@ export default {
 <style lang="scss" scoped>
 .simple-card {
     min-width: 300px;
-    max-width: 464px;
+    max-width: 458px;
     height: 314px;
     border-radius: var(--rounded-slightly-all);
     box-sizing: border-box;
@@ -117,19 +117,23 @@ export default {
         overflow: hidden;
     }
     .svg-meta {
-        // margin-top: 120px;
-
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: flex-end;
         align-content: flex-end;
         align-items: center;
+
+        // position: fixed;
+        // z-index: 20;
+        // bottom: 20px;
     }
     .svg {
+        bottom: -20px;
         stroke: var(--color-primary-blue-03);
     }
 }
+
 // Hovers
 @media #{$has-hover} {
     .simple-card:hover {
@@ -140,6 +144,13 @@ export default {
         .title {
             text-decoration-color: var(--color-default-cyan-03);
             text-decoration-thickness: 1.5px;
+            color: var(--color-primary-blue-05);
+        }
+        .text {
+            color: var(--color-primary-blue-05);
+        }
+        .svg {
+            stroke: var(--color-primary-blue-05);
         }
     }
 }
