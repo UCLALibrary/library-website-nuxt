@@ -6,15 +6,15 @@ const mock = {
     simpleCard: [
         {
             id: "3496",
-            linkText: null,
+            linkText: "Different Link text",
             contentLink: [
                 {
                     id: "1750",
                     url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
                 },
             ],
-            subheader: null,
-            externalLink: null,
+            subheader: "Here is some text. so many different names",
+            externalLink: "google.com",
         },
         {
             id: "3497",
@@ -31,7 +31,12 @@ const mock = {
         {
             id: "3516",
             linkText: "this is a new simple card",
-            contentLink: [],
+            contentLink: [
+                {
+                    id: "483",
+                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
+                },
+            ],
             subheader: "a new simple card without a content link",
             externalLink: "http://google.com",
         },
@@ -52,7 +57,12 @@ const mock = {
         {
             id: "3516",
             linkText: "this is a new simple card",
-            contentLink: [],
+            contentLink: [
+                {
+                    id: "483",
+                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
+                },
+            ],
             subheader: "a new simple card without a content link",
             externalLink: "http://google.com",
         },
@@ -79,7 +89,7 @@ export const Default = () => ({
     },
     template: `
         <flexible-section-simple-cards
-        :items="block.simpleCard"
+        :block="block"
 
         />
     `,
@@ -120,7 +130,7 @@ export const TwoCards = () => ({
     },
     template: `
         <flexible-section-simple-cards
-        :items="block.simpleCard"
+        :block="block"
 
         />
     `,
@@ -173,7 +183,7 @@ export const ThreeCards = () => ({
     },
     template: `
         <flexible-section-simple-cards
-        :items="block.simpleCard"
+        :block="block"
 
         />
     `,
@@ -235,7 +245,7 @@ export const FourCards = () => ({
     },
     template: `
         <flexible-section-simple-cards
-        :items="block.simpleCard"
+        :block="block"
 
         />
     `,
@@ -304,7 +314,7 @@ export const FiveCards = () => ({
     },
     template: `
         <flexible-section-simple-cards
-        :items="block.simpleCard"
+        :block="block"
 
         />
     `,
