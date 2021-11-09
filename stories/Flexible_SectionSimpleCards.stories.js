@@ -85,6 +85,100 @@ export const Default = () => ({
     `,
 })
 
+const twoCards = {
+    simpleCard: [
+        {
+            id: "3496",
+            linkText: null,
+            contentLink: [
+                {
+                    id: "1750",
+                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
+                },
+            ],
+            subheader: null,
+            externalLink: null,
+        },
+        {
+            id: "3497",
+            linkText: null,
+            contentLink: [
+                {
+                    id: "483",
+                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
+                },
+            ],
+            subheader: null,
+            externalLink: null,
+        },
+    ],
+}
+
+export const TwoCards = () => ({
+    data() {
+        return { block: twoCards }
+    },
+    template: `
+        <flexible-section-simple-cards
+        :items="block.simpleCard"
+
+        />
+    `,
+})
+
+const threeCards = {
+    simpleCard: [
+        {
+            id: "3496",
+            linkText: null,
+            contentLink: [
+                {
+                    id: "1750",
+                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
+                },
+            ],
+            subheader: null,
+            externalLink: null,
+        },
+        {
+            id: "3497",
+            linkText: null,
+            contentLink: [
+                {
+                    id: "483",
+                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
+                },
+            ],
+            subheader: null,
+            externalLink: null,
+        },
+        {
+            id: "3497",
+            linkText: null,
+            contentLink: [
+                {
+                    id: "483",
+                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
+                },
+            ],
+            subheader: null,
+            externalLink: null,
+        },
+    ],
+}
+
+export const ThreeCards = () => ({
+    data() {
+        return { block: threeCards }
+    },
+    template: `
+        <flexible-section-simple-cards
+        :items="block.simpleCard"
+
+        />
+    `,
+})
+
 const mockOne = {
     simpleCard: [
         {
