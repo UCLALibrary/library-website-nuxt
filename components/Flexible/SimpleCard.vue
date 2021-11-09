@@ -76,6 +76,8 @@ export default {
     display: flex;
     flex-direction: column;
 
+    position: relative;
+    z-index: 0;
     // Themes
     --color-theme: var(--color-primary-blue-02);
     &.color-visit {
@@ -123,13 +125,13 @@ export default {
         justify-content: flex-end;
         align-content: flex-end;
         align-items: center;
-
-        // position: fixed;
-        // z-index: 20;
-        // bottom: 20px;
     }
     .svg {
-        bottom: -20px;
+        right: 44px;
+        bottom: 20px;
+        position: absolute;
+        z-index: 20;
+
         stroke: var(--color-primary-blue-03);
     }
 }
