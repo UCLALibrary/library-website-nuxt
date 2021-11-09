@@ -11,6 +11,7 @@ const mock = {
                 {
                     id: "1750",
                     url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
+                    text: "Here is some text. that should get overwritten",
                 },
             ],
             subheader: "Here is some text. so many different names",
@@ -25,7 +26,8 @@ const mock = {
                     url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
                 },
             ],
-            subheader: null,
+            subheader:
+                "this is a lot of text tow lines this is a lot of text tow lines this is a lot of text tow lines this is a lot of text tow lines this is a lot of text tow lines",
             externalLink: null,
         },
         {
@@ -104,22 +106,26 @@ const twoCards = {
                 {
                     id: "1750",
                     url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
+                    text: "Learn more here",
+                    title: "Scholarships",
                 },
             ],
             subheader: null,
             externalLink: null,
         },
         {
-            id: "3497",
-            linkText: null,
+            id: "3516",
+            linkText: "this is a new simple card",
             contentLink: [
                 {
-                    id: "483",
-                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
+                    id: "1750",
+                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
+                    title: "Scholarship Award",
+                    text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: null,
-            externalLink: null,
+            subheader: "a new simple card without a content link",
+            externalLink: "http://google.com",
         },
     ],
 }
@@ -139,16 +145,18 @@ export const TwoCards = () => ({
 const threeCards = {
     simpleCard: [
         {
-            id: "3496",
-            linkText: null,
+            id: "3516",
+            linkText: "this is a new simple card",
             contentLink: [
                 {
                     id: "1750",
                     url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
+                    title: "Scholarship Award",
+                    text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: null,
-            externalLink: null,
+            subheader: "a new simple card without a content link",
+            externalLink: "http://google.com",
         },
         {
             id: "3497",
@@ -157,22 +165,26 @@ const threeCards = {
                 {
                     id: "483",
                     url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
+                    title: "Ashton Prigge",
+                    text: "Hi my name is Ashton Prigge",
                 },
             ],
             subheader: null,
             externalLink: null,
         },
         {
-            id: "3497",
-            linkText: null,
+            id: "3516",
+            linkText: "this is a new simple card",
             contentLink: [
                 {
-                    id: "483",
-                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
+                    id: "1750",
+                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
+                    title: "Scholarship Award",
+                    text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
             subheader: null,
-            externalLink: null,
+            externalLink: "http://google.com",
         },
     ],
 }
@@ -192,28 +204,32 @@ export const ThreeCards = () => ({
 const mockOne = {
     simpleCard: [
         {
-            id: "3496",
-            linkText: null,
+            id: "3516",
+            linkText: "this is a new simple card",
             contentLink: [
                 {
                     id: "1750",
                     url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
+                    title: "Scholarship Award",
+                    text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
             subheader: null,
-            externalLink: null,
+            externalLink: "http://google.com",
         },
         {
-            id: "3497",
-            linkText: null,
+            id: "3516",
+            linkText: "this is a new simple card",
             contentLink: [
                 {
-                    id: "483",
-                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
+                    id: "1750",
+                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
+                    title: "Scholarship Award",
+                    text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
             subheader: null,
-            externalLink: null,
+            externalLink: "http://google.com",
         },
         {
             id: "3516",
@@ -251,27 +267,31 @@ export const FourCards = () => ({
     `,
 })
 
-const mockTwo = {
+const fiveCards = {
     simpleCard: [
         {
-            id: "3496",
-            linkText: null,
+            id: "3516",
+            linkText: "this is a new simple card",
             contentLink: [
                 {
                     id: "1750",
                     url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
+                    title: "Scholarship Award",
+                    text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
             subheader: null,
             externalLink: null,
         },
         {
-            id: "3497",
-            linkText: null,
+            id: "3516",
+            linkText: "this is a new simple card",
             contentLink: [
                 {
-                    id: "483",
-                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
+                    id: "1750",
+                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
+                    title: "Scholarship Award",
+                    text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
             subheader: null,
@@ -310,7 +330,7 @@ const mockTwo = {
 
 export const FiveCards = () => ({
     data() {
-        return { block: mockTwo }
+        return { block: fiveCards }
     },
     template: `
         <flexible-section-simple-cards

@@ -88,7 +88,7 @@ export default {
         --color-theme: var(--color-about-purple-01);
     }
     .meta {
-        // margin: 20px 48px 20px 48px;
+        margin: 20px 48px 20px 48px;
     }
     .section {
         display: none;
@@ -117,6 +117,8 @@ export default {
         overflow: hidden;
     }
     .svg-meta {
+        // margin-top: 120px;
+
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;

@@ -58,7 +58,7 @@ export default {
             } else if (this.parsedItems.length == 5) {
                 return ["card", "card-five"]
             } else {
-                return ["card"]
+                return ["card", "card-small"]
             }
         },
     },
@@ -79,14 +79,60 @@ export default {
 
     .card {
         margin: 12px 16px 0 0;
-        flex-grow: 1;
     }
     .card-large {
         width: 100%;
     }
+    .card-small {
+        width: 300px;
+    }
     .card-five {
         &:nth-child(-n + 2) {
             width: 100%;
+        }
+        &:nth-last-child(-n + 3) {
+            width: 300px;
+        }
+    }
+}
+
+// Breakpoints
+@media #{$small} {
+    .section {
+        display: flex;
+        flex-direction: column;
+
+        .card {
+            width: 300px;
+        }
+        .card-large {
+            width: 300px;
+        }
+        .card-five {
+            &:nth-child(-n + 2) {
+                width: 300px;
+            }
+            &:nth-last-child(-n + 3) {
+                width: 300px;
+            }
+        }
+    }
+}
+
+@media #{$medium} {
+    .section {
+        max-width: 632px;
+
+        .card {
+            width: 300px;
+        }
+        .card-large {
+            width: 300px;
+        }
+        .card-five {
+            &:nth-child(-n + 2) {
+                width: 300px;
+            }
         }
     }
 }
