@@ -150,23 +150,6 @@ export default {
 
 <style lang="scss" scoped>
 // Variations for dark blue and white backgrounds
-
-.theme-dark {
-    --background-color: var(--color-primary-blue-03);
-    --category-title-color: var(--color-white);
-    --title-color: var(--color-white);
-    --text-color: var(--color-white);
-    --schedule-item-color: var(--color-white);
-    --schedule-item-border: var(--color-primary-yellow-01);
-    --button-border-color: var(--color-default-cyan-02);
-    --facet-inside-color: var(--color-default-cyan-02);
-    --facet-outside-color: var(--color-default-cyan-03);
-    --location-color: var(--color-white);
-    --location-icon-color: var(--color-white);
-    --hover-border-color: var(--color-white);
-    --hover-background-color: var(--color-primary-blue-03);
-}
-// Variations for dark blue and white backgrounds
 .theme-light {
     --background-color: var(--color-white);
     --category-title-color: var(--color-primary-blue-05);
