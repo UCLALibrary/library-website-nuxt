@@ -30,6 +30,8 @@ export default {
                 return ["card", "card-large"]
             } else if (this.items.length == 2) {
                 return ["card", "card-large"]
+            } else if (this.items.length == 5) {
+                return ["card", "card-five"]
             } else {
                 return ["card"]
             }
@@ -60,21 +62,18 @@ export default {
 
 .card {
     margin: 5px 16px 0 0;
-    // width: auto;
     flex-grow: 1;
-
-    // &:nth-child(3n) {
-    //     margin-right: 0;
-    // }
-    // &:nth-child(n + 4) {
-    //     margin-top: 40px;
-    // }
 }
 
 .card-large {
     width: 100%;
 }
-// .card-small {
-//     // width: 300px;
-// }
+.card-five {
+    &:nth-child(-n + 2) {
+        width: 100%;
+    }
+    // &:nth-child(n + 4) {
+    //     margin-top: 40px;
+    // }
+}
 </style>
