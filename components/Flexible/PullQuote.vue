@@ -51,7 +51,6 @@ export default {
     border-left: 4px solid var(--color-default-cyan-03);
     border-radius: 2px;
     padding: 24px var(--spacing-text-left);
-    ;
     --spacing-text-left: 64px;
     --container-width: 600px;
 
