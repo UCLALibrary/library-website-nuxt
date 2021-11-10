@@ -4,8 +4,16 @@
             v-if="text"
             class="quote"
             v-html="text"
+        />
+        <div
+            v-if="attribution"
+            class="attribution-block"
         >
-            <h3
+            <span
+                class="dash"
+            >—</span>
+            <span
+                v-if="attribution"
                 class="attribution"
                 v-html="attribution"
             />
@@ -30,7 +38,8 @@ export default {
 
 <style lang="scss" scoped>
 .pull-quote {
-    max-width: 600px;
+    background-color: var(--color-white);
+    max-width: var(--container-width);
     text-align: left;
     font-family: var(--font-primary);
     font-size: 24px;
@@ -41,31 +50,39 @@ export default {
     color: var(--color-primary-blue-03);
     border-left: 4px solid var(--color-default-cyan-03);
     border-radius: 2px;
+    padding: 24px var(--spacing-text-left);
     ;
+    --spacing-text-left: 64px;
+    --container-width: 600px;
 
-    .quote {
-        font-family: var(--font-primary);
+    // Breakpoints
+    @media #{$small} {
+        --spacing-text-left: 24px;
+        --container-width: 100%;
+    }
+
+    .attribution-block {
         padding-top: 24px;
-        padding-bottom: 24px;
-        padding-left: 64px;
     }
 
     .dash {
         font-size: 48px;
-        font-style: italic;
-        font-weight: regular;
-        line-height: 120%;
-        letter-spacing: 0.01em;
+        font-style: normal;
+        font-weight: 400;
         color: var(--color-secondary-grey-05);
+        position: absolute;
+        height: 58px;
     }
 
     .attribution {
         font-weight: regular;
         font-size: 20px;
+        font-style: normal;
         line-height: 140%;
         align-items: center;
         text-transform: uppercase;
         color: var(--color-secondary-grey-05);
+        margin-left: 50px;
     }
 }
 </style>
