@@ -138,7 +138,6 @@ export default {
             required: true,
         },
         category: {
-            // Mock as { name: 'Name', to: 'http://fake.url/link' }
             type: String,
             default: "",
         },
@@ -274,11 +273,23 @@ export default {
             padding: 15px 20px 13px 22px;
             margin-left: -10px;
             clip-path: polygon(17px 0, 100% 0, 100% 100%, 1px 100%);
+            line-height: 1;
         }
     }
-
+    //TODO update with variables
     .gradient {
-        background-color: var(--gradient-image-01);
+        background: linear-gradient(
+                117.49deg,
+                #0f0f0f 0%,
+                rgba(15, 15, 15, 0.25) 31.88%,
+                rgba(15, 15, 15, 0) 58.42%
+            ),
+            linear-gradient(
+                180deg,
+                rgba(15, 15, 15, 0) 0%,
+                rgba(15, 15, 15, 0.25) 67.57%,
+                #0f0f0f 100%
+            );
         z-index: 10;
         position: absolute;
         top: 0;
@@ -293,7 +304,7 @@ export default {
         margin: auto;
         position: absolute;
         z-index: 20;
-        opacity: 45%;
+        opacity: 30%;
         mix-blend-mode: screen;
 
         height: 70%;
@@ -362,7 +373,7 @@ export default {
         letter-spacing: 0.06em;
         text-align: left;
         color: var(--color-primary-blue-05);
-        margin-bottom: 15px;
+        margin-bottom: 16px;
         text-transform: uppercase;
     }
     .title {
