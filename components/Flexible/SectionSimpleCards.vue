@@ -27,6 +27,7 @@ export default {
             }
             return items
         },
+        // Determines whether content link or new content is used for props
         parsedContent() {
             let itemContent = []
             for (let item in this.parsedItems) {
@@ -44,22 +45,22 @@ export default {
                     : this.parsedItems[item].contentLink[0].url
                 itemContent.push(this.parsedItems[item])
             }
-
-            console.log(itemContent[0])
             return itemContent
         },
-
-        //change to be a case statement
         classes() {
-            if (this.parsedItems.length == 2) {
-                return ["card", "card-large"]
-            } else if (this.parsedItems.length == 4) {
-                return ["card", "card-large"]
-            } else if (this.parsedItems.length == 5) {
-                return ["card", "card-five"]
-            } else {
-                return ["card", "card-small"]
+            let output = ["card", "card-small"]
+            switch (this.parsedItems.length) {
+                case 2:
+                    output = ["card", "card-large"]
+                    break
+                case 4:
+                    output = ["card", "card-large"]
+                    break
+                case 5:
+                    output = ["card", "card-five"]
+                    break
             }
+            return output
         },
     },
 }
