@@ -15,7 +15,7 @@ const mock = {
                 },
             ],
             subheader: "Here is some text. so many different names",
-            externalLink: "google.com",
+            externalLink: null,
         },
         {
             id: "3497",
@@ -41,7 +41,7 @@ const mock = {
                 },
             ],
             subheader: "a new simple card without a content link",
-            externalLink: "http://google.com",
+            externalLink: null,
         },
         {
             id: "3516",
@@ -55,7 +55,7 @@ const mock = {
                 },
             ],
             subheader: "a new simple card without a content link",
-            externalLink: "http://google.com",
+            externalLink: null,
         },
         {
             id: "3516",
@@ -67,7 +67,7 @@ const mock = {
                 },
             ],
             subheader: "a new simple card without a content link",
-            externalLink: "http://google.com",
+            externalLink: null,
         },
         {
             id: "3516",
@@ -81,7 +81,7 @@ const mock = {
                 },
             ],
             subheader: "a new simple card without a content link",
-            externalLink: "http://google.com",
+            externalLink: null,
         },
     ],
 }
@@ -126,7 +126,7 @@ const twoCards = {
                 },
             ],
             subheader: "a new simple card without a content link",
-            externalLink: "http://google.com",
+            externalLink: null,
         },
     ],
 }
@@ -171,7 +171,7 @@ const threeCards = {
                 },
             ],
             subheader: null,
-            externalLink: null,
+            externalLink: "http://google.com",
         },
         {
             id: "3516",
@@ -216,7 +216,7 @@ const mockOne = {
                 },
             ],
             subheader: null,
-            externalLink: "http://google.com",
+            externalLink: null,
         },
         {
             id: "3516",
@@ -230,14 +230,21 @@ const mockOne = {
                 },
             ],
             subheader: null,
-            externalLink: "http://google.com",
+            externalLink: null,
         },
         {
             id: "3516",
             linkText: "this is a new simple card",
-            contentLink: [],
-            subheader: "a new simple card without a content link",
-            externalLink: "http://google.com",
+            contentLink: [
+                {
+                    id: "1750",
+                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
+                    title: "Scholarship Award",
+                    text: "this is a lot of sample test to see how wide this card will get",
+                },
+            ],
+            subheader: null,
+            externalLink: null,
         },
         {
             id: "3516",
@@ -251,7 +258,7 @@ const mockOne = {
                 },
             ],
             subheader: "a new simple card without a content link",
-            externalLink: "http://google.com",
+            externalLink: null,
         },
     ],
 }
