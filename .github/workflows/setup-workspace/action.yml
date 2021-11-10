@@ -1,0 +1,25 @@
+name: 'Set up Workspace'
+description: 'Checks out repository, installs correct version of node and npm dependencies.'
+# inputs:
+#   who-to-greet:  # id of input
+#     description: 'Who to greet'
+#     required: true
+#     default: 'World'
+# outputs:
+#   random-number:
+#     description: "Random number"
+#     value: ${{ steps.random-number-generator.outputs.random-id }}
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@fd4bd829f2dd6b6c1420bd94a93449c54612ffc2
+      with:
+        node-version: '14.15.4'
+    - name: Persist npm cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: npm-${{ hashFiles('package-lock.json') }}
+        restore-keys: npm-
+    - run: npm ci
+      shell: bash
