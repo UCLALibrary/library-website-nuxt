@@ -150,7 +150,7 @@ export const LongHeading = () => ({
     template: `
         <banner-featured
            :image="image"
-           to="/about/foo/bar/"
+           :to="to"
            :title="title"
            :category="category"
            :breadcrumb="breadcrumb"

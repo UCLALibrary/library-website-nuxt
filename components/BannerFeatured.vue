@@ -7,9 +7,9 @@
                     class="breadcrumb"
                 >
                     <svg-heading-vector class="heading-line" />
-                    <div class="text">
+                    <h3 class="text">
                         {{ breadcrumb }}
-                    </div>
+                    </h3>
                 </div>
             </slot>
         </div>
@@ -81,6 +81,20 @@
                         v-html="location.title"
                     />
                 </nuxt-link>
+                <div
+                    v-for="location in parsedIsOnline"
+                    :key="`location-${location.id}`"
+                    class="location-online"
+                >
+                    <component
+                        :is="location.svg"
+                        class="location-svg"
+                    />
+                    <span
+                        class="location"
+                        v-html="location.title"
+                    />
+                </div>
             </div>
 
             <nuxt-link
@@ -124,7 +138,6 @@ export default {
             required: true,
         },
         category: {
-            // Mock as { name: 'Name', to: 'http://fake.url/link' }
             type: String,
             default: "",
         },
@@ -189,14 +202,26 @@ export default {
             return output
         },
         parsedLocations() {
+            let parsedLocations = []
+            for (let location in this.locations) {
+                if (this.locations[location].title == "Online") {
+                    break
+                } else {
+                    this.locations[location].svg = "svg-icon-location"
+                    parsedLocations.push(this.locations[location])
+                }
+            }
+            return parsedLocations
+        },
+        parsedIsOnline() {
+            let parsedOnline = []
             for (let location in this.locations) {
                 if (this.locations[location].title == "Online") {
                     this.locations[location].svg = "svg-icon-online"
-                } else {
-                    this.locations[location].svg = "svg-icon-location"
+                    parsedOnline.push(this.locations[location])
                 }
             }
-            return this.locations
+            return parsedOnline
         },
     },
 }
@@ -248,11 +273,18 @@ export default {
             padding: 15px 20px 13px 22px;
             margin-left: -10px;
             clip-path: polygon(17px 0, 100% 0, 100% 100%, 1px 100%);
+            line-height: 1;
         }
     }
-
+    //TODO update with variables
     .gradient {
-        background-color: var(--gradient-image-01);
+        background: var(--gradient-image-01),
+            linear-gradient(
+                180deg,
+                rgba(15, 15, 15, 0) 0%,
+                rgba(15, 15, 15, 0.25) 67.57%,
+                #0f0f0f 100%
+            );
         z-index: 10;
         position: absolute;
         top: 0;
@@ -267,7 +299,7 @@ export default {
         margin: auto;
         position: absolute;
         z-index: 20;
-        opacity: 45%;
+        opacity: 30%;
         mix-blend-mode: screen;
 
         height: 70%;
@@ -311,7 +343,7 @@ export default {
 
     .meta {
         padding: 0 50px;
-        margin: -45px 0 0 0;
+        margin: -60px 0 0 0;
         position: relative;
         z-index: 40;
         width: 65%;
@@ -336,7 +368,7 @@ export default {
         letter-spacing: 0.06em;
         text-align: left;
         color: var(--color-primary-blue-05);
-        margin-bottom: 5px;
+        margin-bottom: 16px;
         text-transform: uppercase;
     }
     .title {
@@ -376,7 +408,6 @@ export default {
         }
     }
     .location-group {
-        color: var(--color-primary-blue-03);
         font-family: var(--font-secondary);
         font-size: 20px;
         line-height: 1;
@@ -388,6 +419,21 @@ export default {
         justify-content: flex-start;
         align-content: center;
         align-items: center;
+
+        color: var(--color-primary-blue-03);
+    }
+    .location-online {
+        color: var(--color-secondary-grey-05);
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+    }
+    .location {
+        padding: 0 0 5px 5px;
     }
     .button {
         width: 180px;
