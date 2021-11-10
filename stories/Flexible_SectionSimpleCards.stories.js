@@ -33,7 +33,7 @@ const mock = {
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "483",
@@ -45,7 +45,7 @@ const mock = {
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -59,7 +59,7 @@ const mock = {
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "483",
@@ -71,7 +71,7 @@ const mock = {
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -116,7 +116,7 @@ const twoCards = {
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -147,7 +147,7 @@ const threeCards = {
     simpleCard: [
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -175,7 +175,7 @@ const threeCards = {
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -206,7 +206,7 @@ const mockOne = {
     simpleCard: [
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -220,7 +220,7 @@ const mockOne = {
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -234,7 +234,7 @@ const mockOne = {
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -248,7 +248,7 @@ const mockOne = {
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -279,7 +279,7 @@ const fiveCards = {
     simpleCard: [
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -293,7 +293,7 @@ const fiveCards = {
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -307,21 +307,21 @@ const fiveCards = {
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [],
             subheader: "a new simple card without a content link",
             externalLink: "http://google.com",
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [],
             subheader: "a new simple card without a content link",
             externalLink: "http://google.com",
         },
         {
             id: "3516",
-            linkText: "this is a new simple card",
+            linkText: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
