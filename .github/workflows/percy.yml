@@ -58,3 +58,5 @@ jobs:
         start: docker run -v ${{ github.workspace }}/dist:/usr/share/nginx/html:ro -p 3000:80 nginx
         command-prefix: 'percy exec -- npx'
         wait-on: http://localhost:3000
+      env: 
+        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
