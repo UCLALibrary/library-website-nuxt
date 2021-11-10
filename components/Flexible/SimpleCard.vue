@@ -90,7 +90,7 @@ export default {
         --color-theme: var(--color-about-purple-01);
     }
     .meta {
-        margin: 20px 48px 20px 48px;
+        margin: 56px 48px 20px 48px;
     }
     .section {
         display: none;
@@ -98,7 +98,7 @@ export default {
     .title {
         font-family: var(--font-primary);
         font-style: normal;
-        font-weight: medium;
+        font-weight: 500;
         font-size: 28px;
         line-height: 110%;
         letter-spacing: 0.0015em;
