@@ -26,7 +26,6 @@ export const Default = () => ({
             :title="block.contentLink[0].title"
             :text="block.contentLink[0].text"
             :to="block.contentLink[0].to"
-
         />
     `,
 })
