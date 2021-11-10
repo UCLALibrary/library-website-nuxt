@@ -24,6 +24,7 @@ const mock = {
                 {
                     id: "483",
                     url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
+                    title: "Staff",
                 },
             ],
             subheader:
