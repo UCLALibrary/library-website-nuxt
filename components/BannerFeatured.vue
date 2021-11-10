@@ -278,12 +278,7 @@ export default {
     }
     //TODO update with variables
     .gradient {
-        background: linear-gradient(
-                117.49deg,
-                #0f0f0f 0%,
-                rgba(15, 15, 15, 0.25) 31.88%,
-                rgba(15, 15, 15, 0) 58.42%
-            ),
+        background: var(--gradient-image-01),
             linear-gradient(
                 180deg,
                 rgba(15, 15, 15, 0) 0%,
