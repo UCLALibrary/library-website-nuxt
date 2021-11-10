@@ -83,7 +83,7 @@ export default {
             border-right: 0;
 
             // Half of 37.5
-            margin-top: calc(-18.75% + 6.5px);
+            margin-top: calc(-19.1% + 6.5px);
 
             /deep/ {
                 .molecule {
