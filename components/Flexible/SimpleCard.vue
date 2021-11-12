@@ -1,27 +1,36 @@
 <template lang="html">
-    <div :class="classes">
+    <li
+        tabindex="1"
+        :class="classes"
+    >
         <div class="meta">
-            <nuxt-link :to="to">
-                <h2
-                    class="section"
-                    v-html="sectionName"
-                />
+            <h2
+                class="section"
+                v-html="sectionName"
+            />
+            <nuxt-link
+                :to="to"
+                class="link"
+            >
                 <h3
                     v-if="title"
                     class="title"
                     v-html="title"
                 />
-                <div
-                    v-if="text"
-                    class="text"
-                    v-html="text"
-                />
-                <div class="svg-meta">
-                    <svg-arrow-right-small class="svg" />
-                </div>
             </nuxt-link>
+            <div
+                v-if="text"
+                class="text"
+                v-html="text"
+            />
+            <div class="svg-meta">
+                <component
+                    :is="parsedIconName"
+                    class="svg"
+                />
+            </div>
         </div>
-    </div>
+    </li>
 </template>
 
 <script>
@@ -30,10 +39,12 @@ import getSectionName from "~/utils/getSectionName"
 
 // SVGs
 import SvgArrowRightSmall from "~/assets/svg/arrow-right-small"
+import SvgArrowDiagonal from "~/assets/svg/arrow-diagonal"
 
 export default {
     components: {
         SvgArrowRightSmall,
+        SvgArrowDiagonal,
     },
     props: {
         title: {
@@ -55,6 +66,15 @@ export default {
         },
         sectionName() {
             return getSectionName(this.to)
+        },
+        isInternalLink() {
+            console.log(this.to)
+            return this.to.includes("library.ucla.edu") ? true : false
+        },
+        parsedIconName() {
+            return this.isInternalLink
+                ? "svg-arrow-right-small"
+                : "svg-arrow-diagonal"
         },
     },
 }
@@ -89,11 +109,20 @@ export default {
     &.color-about {
         --color-theme: var(--color-about-purple-01);
     }
+
     .meta {
         margin: 56px 48px 20px 48px;
     }
     .section {
         display: none;
+    }
+    .link::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
     }
     .title {
         font-family: var(--font-primary);
@@ -132,7 +161,13 @@ export default {
         position: absolute;
         z-index: 20;
 
-        stroke: var(--color-primary-blue-03);
+        .arrow-right,
+        .line {
+            stroke: var(--color-primary-blue-03);
+        }
+        .arrow-diagonal {
+            fill: var(--color-primary-blue-03);
+        }
     }
 }
 
@@ -143,12 +178,20 @@ export default {
     }
 }
 
+@media #{$medium} {
+    .simple-card {
+        width: 300px;
+    }
+}
+
 // Hovers
 @media #{$has-hover} {
-    .simple-card:hover {
+    .simple-card:hover,
+    :focus {
         transform: scale(1.1);
         box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
         background-color: var(--color-theme);
+        z-index: 30;
 
         .title {
             text-decoration-color: var(--color-default-cyan-03);
@@ -159,7 +202,13 @@ export default {
             color: var(--color-primary-blue-05);
         }
         .svg {
-            stroke: var(--color-primary-blue-05);
+            .arrow-right,
+            .line {
+                stroke: var(--color-primary-blue-05);
+            }
+            .arrow-diagonal {
+                fill: var(--color-primary-blue-05);
+            }
         }
     }
 }

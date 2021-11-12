@@ -1,5 +1,5 @@
 <template>
-    <div class="section">
+    <ul class="section">
         <flexible-simple-card
             v-for="(item, index) in parsedContent"
             :key="index"
@@ -8,7 +8,7 @@
             :title="item.title"
             :text="item.text"
         />
-    </div>
+    </ul>
 </template>
 
 <script>
