@@ -8,7 +8,7 @@
                 class="section"
                 v-html="sectionName"
             />
-            <nuxt-link
+            <smart-link
                 :to="to"
                 class="link"
             >
@@ -17,7 +17,7 @@
                     class="title"
                     v-html="title"
                 />
-            </nuxt-link>
+            </smart-link>
             <div
                 v-if="text"
                 class="text"
