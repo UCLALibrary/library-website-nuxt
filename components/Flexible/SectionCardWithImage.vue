@@ -11,6 +11,7 @@
             :end-date="item.date[0].endDate"
             :text="item.text"
             :is-vertical="true"
+            :locations="item.associatedLocations"
             image-aspect-ratio="60"
             class="block"
         />
@@ -31,7 +32,6 @@ export default {
             for (let item in this.block.cardWithImage) {
                 items.push(this.block.cardWithImage[item].contentLink[0])
             }
-            console.log(items)
             return items
         },
     },

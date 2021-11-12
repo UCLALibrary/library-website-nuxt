@@ -30,15 +30,22 @@ fragment BlockCardWithImage on allFlexiblePageBlocks_cardWithImage_BlockType {
         id
         ... on cardWithImage_cardWithImage_BlockType {
             id
-            image {
-                id
-                url
-            }
+            ...Image
             imageAltText
             contentLink {
                 id
                 url
                 uri
+                title
+                date {
+                    startDate
+                    endDate
+                }
+                associatedLocations {
+                    id
+                    title
+                    to: uri
+                }
             }
             shortDescription
         }
