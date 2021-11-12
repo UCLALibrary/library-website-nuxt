@@ -136,6 +136,13 @@ export default {
     }
 }
 
+// Breakpoints
+@media #{$small} {
+    .simple-card {
+        width: 300px;
+    }
+}
+
 // Hovers
 @media #{$has-hover} {
     .simple-card:hover {
