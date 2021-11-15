@@ -8,16 +8,15 @@
                 class="section"
                 v-html="sectionName"
             />
-            <smart-link
-                :to="to"
-                class="link"
-            >
-                <h3
+            <h3>
+                <smart-link
                     v-if="title"
+                    :to="to"
+                    :target="parsedTarget"
                     class="title"
                     v-html="title"
                 />
-            </smart-link>
+            </h3>
             <div
                 v-if="text"
                 class="text"
@@ -68,8 +67,10 @@ export default {
             return getSectionName(this.to)
         },
         isInternalLink() {
-            console.log(this.to)
             return this.to.includes("library.ucla.edu") ? true : false
+        },
+        parsedTarget() {
+            return this.isInternalLink ? "_self" : "blank"
         },
         parsedIconName() {
             return this.isInternalLink
@@ -116,7 +117,7 @@ export default {
     .section {
         display: none;
     }
-    .link::after {
+    .title::after {
         content: "";
         position: absolute;
         top: 0;
