@@ -40,7 +40,10 @@ export default {
 
 <style lang="scss" scoped>
 .section-card-with-image {
-    max-width: 924px;
+    padding: 0 calc(var(--unit-gutter) - 16px);
+    background-color: var(--color-white);
+    margin: 0 auto;
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -49,15 +52,13 @@ export default {
     align-items: flex-start;
 
     .block {
-        margin: 0 30px 0 0;
-        width: 281px;
+        margin: 0 8px 50px 8px;
+    }
+}
 
-        &:nth-child(3n) {
-            margin-right: 0;
-        }
-        &:nth-child(n + 4) {
-            margin-top: 40px;
-        }
+// Breakpoints
+@media #{$small} {
+    .section-card-with-image {
     }
 }
 </style>
