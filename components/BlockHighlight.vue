@@ -7,6 +7,14 @@
         />
 
         <div
+            v-if="hasListAndHorizontal"
+            class="clipped-date"
+        >
+            <div class="floating-highlighlight" />
+            <div class="clipped-box" />
+        </div>
+
+        <div
             v-if="hasTriangle"
             class="clipped"
         >
@@ -107,6 +115,10 @@ export default {
             type: String,
             default: "",
         },
+        hasListAndHorizontal: {
+            type: Boolean,
+            default: false,
+        },
         hasTriangle: {
             type: Boolean,
             default: false,
@@ -166,6 +178,52 @@ export default {
     flex-direction: row;
 
     .clipped {
+        width: 100%;
+        height: 47px;
+        margin-top: -54px;
+        position: relative;
+        z-index: 0;
+
+        .floating-highlighlight {
+            z-index: 30;
+            position: absolute;
+            width: calc(100% - 350px);
+            top: 0;
+            left: 5px;
+            height: 47px;
+            background-color: var(--color-visit-fushia-03);
+
+            clip-path: polygon(
+                0 0,
+                calc(100% - 20px) 0,
+                100% 47px,
+                calc(100% - 1.5px) 47px,
+                calc(100% - 21px) 1.5px,
+                0 1.5px
+            );
+        }
+
+        .clipped-box {
+            position: absolute;
+            z-index: 30;
+            top: 8px;
+            left: 0px;
+            width: calc(100% - 350px);
+            height: 47px;
+            box-sizing: border-box;
+            background-color: var(--color-white);
+            clip-path: polygon(
+                0 0,
+                calc(100% - 20px) 0,
+                100% 47px,
+                calc(100% - 1.5px) 47px,
+                0 47px,
+                0 1.5px
+            );
+        }
+    }
+
+    .clipped-date {
         width: 100%;
         height: 47px;
         margin-top: -54px;
