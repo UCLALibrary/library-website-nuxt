@@ -28,7 +28,7 @@ const mock = {
                 },
             ],
             subheader:
-                "this is a lot of text tow lines this is a lot of text tow lines this is a lot of text tow lines this is a lot of text tow lines this is a lot of text tow lines",
+                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar.Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
             externalLink: null,
         },
         {
@@ -40,7 +40,8 @@ const mock = {
                     url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
                 },
             ],
-            subheader: "a new simple card without a content link",
+            subheader:
+                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
             externalLink: null,
         },
         {
@@ -54,7 +55,8 @@ const mock = {
                     text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: "a new simple card without a content link",
+            subheader:
+                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
             externalLink: null,
         },
         {
@@ -66,7 +68,8 @@ const mock = {
                     url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
                 },
             ],
-            subheader: "a new simple card without a content link",
+            subheader:
+                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
             externalLink: null,
         },
         {
@@ -80,7 +83,8 @@ const mock = {
                     text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: "a new simple card without a content link",
+            subheader:
+                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
             externalLink: null,
         },
     ],
@@ -125,7 +129,8 @@ const twoCards = {
                     text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: "a new simple card without a content link",
+            subheader:
+                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
             externalLink: null,
         },
     ],
@@ -156,7 +161,8 @@ const threeCards = {
                     text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: "a new simple card without a content link",
+            subheader:
+                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
             externalLink: "http://google.com",
         },
         {
@@ -167,7 +173,7 @@ const threeCards = {
                     id: "483",
                     url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
                     title: "Ashton Prigge",
-                    text: "Hi my name is Ashton Prigge",
+                    text: "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
                 },
             ],
             subheader: null,
@@ -181,7 +187,7 @@ const threeCards = {
                     id: "1750",
                     url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
                     title: "Scholarship Award",
-                    text: "this is a lot of sample test to see how wide this card will get",
+                    text: "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
                 },
             ],
             subheader: null,
@@ -257,7 +263,8 @@ const mockOne = {
                     text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: "a new simple card without a content link",
+            subheader:
+                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
             externalLink: null,
         },
     ],
