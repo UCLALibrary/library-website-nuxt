@@ -32,7 +32,7 @@ jobs:
       if: steps.cache-storybook.outputs.cache-hit != 'true'
     - run: npm run percy-static
       env: 
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_STORYBOOK }}
 
   percy-cypress:
     name: Cypress tests with Percy screenshots
@@ -59,4 +59,4 @@ jobs:
         command-prefix: 'percy exec -- npx'
         wait-on: http://localhost:3000
       env: 
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_E2E }}
