@@ -317,7 +317,7 @@ export default {
         }
     }
     .text {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 400;
         line-height: 140%;
         margin: 24px 0 0 0;

@@ -52,6 +52,7 @@ export default {
 
 <style lang="scss" scoped>
 .section-card-with-image {
+    // max-width: 924px;
     padding: 0 calc(var(--unit-gutter) - 16px);
     background-color: var(--color-white);
     margin: 0 auto;
@@ -65,6 +66,16 @@ export default {
 
     .block {
         margin: 0 8px 50px 8px;
+    }
+}
+
+// Breakpoints
+@media #{$small} {
+    padding: 0 var(--unit-gutter);
+
+    .block {
+        width: 100%;
+        margin: 0 0 50px;
     }
 }
 </style>
