@@ -1,17 +1,17 @@
 <template lang="html">
     <div class="section-card-with-image">
         <block-highlight
-            v-for="item in parsedItems"
-            :key="item.to"
-            :to="item.to"
-            :image="item.image[0].image[0]"
-            :category="item.category"
-            :title="item.title"
-            :start-date="item.date[0].startDate"
-            :end-date="item.date[0].endDate"
+            v-for="(item, index) in parsedContent"
+            :key="index"
+            :to="item.contentLink[0].to"
+            :image="item.contentLink[0].image[0].image[0]"
+            :category="item.contentLink[0].category"
+            :title="item.contentLink[0].title"
+            :start-date="item.contentLink[0].date[0].startDate"
+            :end-date="item.contentLink[0].date[0].endDate"
             :text="item.text"
             :is-vertical="true"
-            :locations="item.associatedLocations"
+            :locations="item.contentLink[0].associatedLocations"
             image-aspect-ratio="60"
             class="block"
         />
@@ -30,9 +30,21 @@ export default {
         parsedItems() {
             let items = []
             for (let item in this.block.cardWithImage) {
-                items.push(this.block.cardWithImage[item].contentLink[0])
+                items.push(this.block.cardWithImage[item])
             }
             return items
+        },
+        // Determines whether content link or new content is used for text
+        parsedContent() {
+            let itemContent = []
+            for (let item in this.parsedItems) {
+                this.parsedItems[item]["text"] = this.parsedItems[item]
+                    .subheader
+                    ? this.parsedItems[item].subheader
+                    : this.parsedItems[item].contentLink[0].text
+                itemContent.push(this.parsedItems[item])
+            }
+            return itemContent
         },
     },
 }
@@ -53,12 +65,6 @@ export default {
 
     .block {
         margin: 0 8px 50px 8px;
-    }
-}
-
-// Breakpoints
-@media #{$small} {
-    .section-card-with-image {
     }
 }
 </style>
