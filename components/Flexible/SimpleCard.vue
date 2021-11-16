@@ -22,7 +22,10 @@
                 class="text"
                 v-html="text"
             />
-            <div class="svg-meta">
+            <div
+                class="svg-meta"
+                aria-hidden="true"
+            >
                 <component
                     :is="parsedIconName"
                     class="svg"
