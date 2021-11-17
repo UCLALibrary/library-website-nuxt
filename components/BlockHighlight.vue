@@ -1,36 +1,32 @@
 <template lang="html">
     <div :class="classes">
-        <div>
-            <!-- <div :class="highlightClasses" /> -->
-            <div class="floating-highlight" />
-            <div
-                v-if="!isVertical"
-                class="clipped-date"
-            >
-                <div class="date-short">
-                    <time
-                        v-if="startDate"
-                        class="month"
-                        v-html="parsedDateMonth"
-                    />
-                    <time
-                        v-if="startDate"
-                        class="day"
-                        v-html="parsedDateDay"
-                    />
-                </div>
-            </div>
-            <responsive-image
-                :image="image"
-                :aspect-ratio="imageAspectRatio"
-                class="image"
+        <div class="floating-highlight" />
+        <div
+            v-if="!isVertical"
+            class="clipped-date"
+        >
+            <time
+                v-if="startDate"
+                class="month"
+                v-html="parsedDateMonth"
+            />
+            <time
+                v-if="startDate"
+                class="day"
+                v-html="parsedDateDay"
             />
         </div>
+        <responsive-image
+            :image="image"
+            :aspect-ratio="imageAspectRatio"
+            class="image"
+        />
+
         <div
             v-if="hasTriangle"
             class="clipped"
         >
-            <div :class="highlightClasses" />
+            <div class="floating-highlight" />
             <div class="clipped-box" />
         </div>
 
@@ -152,15 +148,13 @@ export default {
                 "block-highlight",
                 { "is-vertical": this.isVertical },
                 { "has-triangle": this.hasTriangle },
-                `color-${this.sectionName}`
+                `color-${this.sectionName}`,
             ]
         },
         sectionName() {
             return getSectionName(this.to)
         },
-        highlightClasses() {
-            return ["floating-highlight", `color-${this.sectionName}`]
-        },
+
         parsedDate() {
             if (this.startDate) {
                 return formatEventDates(this.startDate, this.endDate)
@@ -186,14 +180,14 @@ export default {
             return ""
         },
         parsedLocations() {
-            for (let location in this.locations) {
-                if (this.locations[location].title == "Online") {
-                    this.locations[location].svg = "svg-icon-online"
-                } else {
-                    this.locations[location].svg = "svg-icon-location"
+            return this.locations.map((obj) => {
+                let input = "svg-icon-location"
+                if (obj.title == "Online") input = "svg-icon-online"
+                return {
+                    ...obj,
+                    svg: input,
                 }
-            }
-            return this.locations
+            })
         },
     },
 }
@@ -208,7 +202,7 @@ export default {
     display: flex;
     flex-direction: row;
 
-    // Themes for floating highlight
+    // Themes for floating highlight/ triangle
     --color-theme: var(--color-primary-blue-03);
     &.color-visit {
         --color-theme: var(--color-visit-fushia-03);
@@ -282,7 +276,7 @@ export default {
     .title {
         font-weight: 500;
         font-size: 28px;
-        letter-spacing: .25%;
+        letter-spacing: 0.25%;
         color: var(--color-primary-blue-03);
         margin: 16px 0 0 0;
 
@@ -376,37 +370,12 @@ export default {
     }
     &:not(&.is-vertical) {
         max-width: 990px;
-        position:relative;
+        position: relative;
         .meta {
             max-width: 412px;
             margin-top: 16px;
             padding-bottom: 16px;
             overflow: hidden;
-        }
-        .date-short {
-            width: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-content: center;
-            align-items: center;
-
-            padding-top: 15px;
-            padding-left: 35px;
-            .month {
-                color: var(--color-primary-blue-03);
-                font-weight: 400;
-                font-family: var(--font-secondary);
-                font-size: 16px;
-                letter-spacing: 1.5%;
-            }
-            .day {
-                color: var(--color-primary-blue-03);
-                font-weight: 500;
-                font-family: var(--font-primary);
-                font-size: 36px;
-                letter-spacing: .25%;
-            }
         }
         .floating-highlight {
             z-index: 30;
@@ -419,14 +388,16 @@ export default {
 
             clip-path: polygon(
                 0 0,
-                calc(100% - 37px) 0, 100% 75px,
+                calc(100% - 37px) 0,
+                100% 75px,
                 calc(100% - 1.5px) 75px,
-                calc(100% - 38px) 1.5px, 0 1.5px
+                calc(100% - 38px) 1.5px,
+                0 1.5px
             );
         }
         .clipped-date {
             margin-top: 54px;
-            z-index:30;
+            z-index: 30;
             position: absolute;
             top: 145px;
             left: 0px;
@@ -436,30 +407,55 @@ export default {
             background-color: var(--color-white);
             clip-path: polygon(
                 0 0,
-                calc(100% - 39px) 0, 100% 84px,
-                calc(100% - 1.5px) 84px, 0 84px, 0 1.5px
+                calc(100% - 39px) 0,
+                100% 84px,
+                calc(100% - 1.5px) 84px,
+                0 84px,
+                0 1.5px
             );
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            padding-left: 32px;
+            color: var(--color-primary-blue-03);
+            .month {
+                font-weight: 400;
+                font-family: var(--font-secondary);
+                font-size: 16px;
+                letter-spacing: 1.5%;
+            }
+            .day {
+                font-weight: 500;
+                font-family: var(--font-primary);
+                font-size: 36px;
+                letter-spacing: 0.25%;
+            }
         }
         .image {
             width: 456px;
             max-height: 274px;
             margin-right: 56px;
-                    .clipped-date {
-            margin-top: 54px;
-            z-index:30;
-            position: absolute;
-            top: 145px;
-            left: 0px;
-            width: 125px;
-            height: 84px;
-            box-sizing: border-box;
-            background-color: var(--color-white);
-            clip-path: polygon(
-                0 0,
-                calc(100% - 39px) 0, 100% 84px,
-                calc(100% - 1.5px) 84px, 0 84px, 0 1.5px
-            );
-        }
+            .clipped-date {
+                margin-top: 54px;
+                z-index: 30;
+                position: absolute;
+                top: 145px;
+                left: 0px;
+                width: 125px;
+                height: 84px;
+                box-sizing: border-box;
+                background-color: var(--color-white);
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 39px) 0,
+                    100% 84px,
+                    calc(100% - 1.5px) 84px,
+                    0 84px,
+                    0 1.5px
+                );
+            }
         }
         .title {
             display: -webkit-box;
@@ -486,9 +482,6 @@ export default {
             flex-direction: column;
             flex-wrap: nowrap;
 
-            .date-short {
-                display: none;
-            }
             .floating-highlight {
                 display: none;
             }
@@ -502,6 +495,7 @@ export default {
         &.is-vertical {
             // for clipped version
             &.has-triangle {
+                //no changes for mobile
             }
         }
         &:not(&.is-vertical) {
