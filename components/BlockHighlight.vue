@@ -1,5 +1,21 @@
 <template lang="html">
     <div :class="classes">
+        <div class="floating-highlight" />
+        <div
+            v-if="!isVertical"
+            class="clipped-date"
+        >
+            <time
+                v-if="startDate"
+                class="month"
+                v-html="parsedDateMonth"
+            />
+            <time
+                v-if="startDate"
+                class="day"
+                v-html="parsedDateDay"
+            />
+        </div>
         <responsive-image
             :image="image"
             :aspect-ratio="imageAspectRatio"
@@ -10,7 +26,7 @@
             v-if="hasTriangle"
             class="clipped"
         >
-            <div class="floating-highlighlight" />
+            <div class="floating-highlight" />
             <div class="clipped-box" />
         </div>
 
@@ -71,6 +87,9 @@
 <script>
 import formatEventTimes from "~/utils/formatEventTimes"
 import formatEventDates from "~/utils/formatEventDates"
+import formatEventDay from "~/utils/formatEventDay"
+import formatEventMonth from "~/utils/formatEventMonth"
+import getSectionName from "~/utils/getSectionName"
 
 export default {
     components: {
@@ -102,7 +121,6 @@ export default {
             type: String,
             default: "",
         },
-
         text: {
             type: String,
             default: "",
@@ -130,28 +148,46 @@ export default {
                 "block-highlight",
                 { "is-vertical": this.isVertical },
                 { "has-triangle": this.hasTriangle },
+                `color-${this.sectionName}`,
             ]
         },
+        sectionName() {
+            return getSectionName(this.to)
+        },
+
         parsedDate() {
             if (this.startDate) {
                 return formatEventDates(this.startDate, this.endDate)
             }
+            return ""
+        },
+        parsedDateDay() {
+            if (this.startDate) {
+                return formatEventDay(this.startDate)
+            }
+            return ""
+        },
+        parsedDateMonth() {
+            if (this.startDate) {
+                return formatEventMonth(this.startDate)
+            }
+            return ""
         },
         parsedTime() {
             if (this.startDate) {
                 return formatEventTimes(this.startDate, this.endDate)
             }
+            return ""
         },
-
         parsedLocations() {
-            for (let location in this.locations) {
-                if (this.locations[location].title == "Online") {
-                    this.locations[location].svg = "svg-icon-online"
-                } else {
-                    this.locations[location].svg = "svg-icon-location"
+            return this.locations.map((obj) => {
+                let input = "svg-icon-location"
+                if (obj.title == "Online") input = "svg-icon-online"
+                return {
+                    ...obj,
+                    svg: input,
                 }
-            }
-            return this.locations
+            })
         },
     },
 }
@@ -161,9 +197,22 @@ export default {
 .block-highlight {
     max-width: 456px;
     background-color: var(--color-white);
+    font-family: var(--font-primary);
 
     display: flex;
     flex-direction: row;
+
+    // Themes for floating highlight/ triangle
+    --color-theme: var(--color-primary-blue-03);
+    &.color-visit {
+        --color-theme: var(--color-visit-fushia-03);
+    }
+    &.color-help {
+        --color-theme: var(--color-help-green-03);
+    }
+    &.color-about {
+        --color-theme: var(--color-about-purple-03);
+    }
 
     .clipped {
         width: 100%;
@@ -171,15 +220,14 @@ export default {
         margin-top: -54px;
         position: relative;
         z-index: 0;
-
-        .floating-highlighlight {
+        .floating-highlight {
             z-index: 30;
             position: absolute;
             width: calc(100% - 55px);
             top: 0;
             left: 5px;
             height: 47px;
-            background-color: var(--color-visit-fushia-03);
+            background-color: var(--color-theme);
 
             clip-path: polygon(
                 0 0,
@@ -190,7 +238,6 @@ export default {
                 0 1.5px
             );
         }
-
         .clipped-box {
             position: absolute;
             z-index: 30;
@@ -218,7 +265,6 @@ export default {
         min-height: 255px;
         box-sizing: border-box;
     }
-
     .category {
         font-weight: 500;
         font-size: 16px;
@@ -229,9 +275,8 @@ export default {
     }
     .title {
         font-weight: 500;
-        font-size: 26px;
-        line-height: 130%;
-        letter-spacing: 0.01em;
+        font-size: 28px;
+        letter-spacing: 0.25%;
         color: var(--color-primary-blue-03);
         margin: 16px 0 0 0;
 
@@ -241,10 +286,11 @@ export default {
         overflow: hidden;
     }
     .date-time {
-        font-weight: 300;
-        font-size: 18px;
-        line-height: 140%;
-        color: var(color-grey-01);
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 30px;
+        letter-spacing: 1%;
+        color: var(--color-black);
         margin-top: 10px;
         .svg-online {
             margin-bottom: -5px;
@@ -324,16 +370,92 @@ export default {
     }
     &:not(&.is-vertical) {
         max-width: 990px;
+        position: relative;
         .meta {
             max-width: 412px;
             margin-top: 16px;
             padding-bottom: 16px;
             overflow: hidden;
         }
+        .floating-highlight {
+            z-index: 30;
+            position: absolute;
+            width: 123px;
+            top: 191px;
+            left: 6px;
+            height: 90px;
+            background-color: var(--color-theme);
+
+            clip-path: polygon(
+                0 0,
+                calc(100% - 37px) 0,
+                100% 75px,
+                calc(100% - 1.5px) 75px,
+                calc(100% - 38px) 1.5px,
+                0 1.5px
+            );
+        }
+        .clipped-date {
+            margin-top: 54px;
+            z-index: 30;
+            position: absolute;
+            top: 145px;
+            left: 0px;
+            width: 125px;
+            height: 84px;
+            box-sizing: border-box;
+            background-color: var(--color-white);
+            clip-path: polygon(
+                0 0,
+                calc(100% - 39px) 0,
+                100% 84px,
+                calc(100% - 1.5px) 84px,
+                0 84px,
+                0 1.5px
+            );
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            padding-left: 32px;
+            color: var(--color-primary-blue-03);
+            .month {
+                font-weight: 400;
+                font-family: var(--font-secondary);
+                font-size: 16px;
+                letter-spacing: 1.5%;
+            }
+            .day {
+                font-weight: 500;
+                font-family: var(--font-primary);
+                font-size: 36px;
+                letter-spacing: 0.25%;
+            }
+        }
         .image {
             width: 456px;
             max-height: 274px;
             margin-right: 56px;
+            .clipped-date {
+                margin-top: 54px;
+                z-index: 30;
+                position: absolute;
+                top: 145px;
+                left: 0px;
+                width: 125px;
+                height: 84px;
+                box-sizing: border-box;
+                background-color: var(--color-white);
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 39px) 0,
+                    100% 84px,
+                    calc(100% - 1.5px) 84px,
+                    0 84px,
+                    0 1.5px
+                );
+            }
         }
         .title {
             display: -webkit-box;
@@ -355,6 +477,17 @@ export default {
             max-width: 95%;
             padding-left: 5px;
             padding-right: 5px;
+
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+
+            .floating-highlight {
+                display: none;
+            }
+            .clipped-date {
+                display: none;
+            }
         }
     }
 
@@ -362,6 +495,7 @@ export default {
         &.is-vertical {
             // for clipped version
             &.has-triangle {
+                //no changes for mobile
             }
         }
         &:not(&.is-vertical) {
@@ -378,18 +512,6 @@ export default {
                 max-width: 100%;
             }
         }
-    }
-
-    // Themes
-    --color-theme: var(--color-primary-blue-02);
-    &.color-visit {
-        --color-theme: var(--color-visit-fushia-03);
-    }
-    &.color-help {
-        --color-theme: var(--color-help);
-    }
-    &.color-about {
-        --color-theme: var(--color-about);
     }
 
     // Hovers
