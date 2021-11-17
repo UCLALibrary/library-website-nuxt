@@ -21,10 +21,47 @@ const mock = {
     ],
 }
 
+const mock2 = {
+    image: API.image,
+    to: "/about/foo/bar/",
+    category: "Lerisque",
+    title: "Orci Dapibus",
+    startDate: "2021-02-05T11:00:00-08:00",
+    endDate: "2021-02-05T11:00:00-08:00",
+    text: "Vel eros donec ac odio tempor orci dapibus. Ante metus dictum at tempor.",
+    imageAspectRatio: 60,
+    locations: [
+        { title: "Powellarium", to: "/location/bar" },
+        { title: "Research Library (Charles E. Young)", to: "/location/baz" },
+    ],
+}
+
+
 // Variations of stories below
 export const Default = () => ({
     data() {
         return { ...mock }
+    },
+    template: `
+      <block-highlight
+          :image="image"
+          :to="to"
+          :category="category"
+          :title="title"
+          :start-date="startDate"
+          :end-date="endDate"
+          :text="text"
+          :has-triangle="true"
+          :is-vertical="true"
+          :image-aspect-ratio="60"
+          :locations="locations"
+      />
+  `,
+})
+
+export const About = () => ({
+    data() {
+        return { ...mock2 }
     },
     template: `
       <block-highlight
@@ -163,7 +200,7 @@ export const List = () => ({
 export const ListShortTitle = () => ({
     data() {
         return {
-            ...mock,
+            ...mock2,
         }
     },
     template: `
@@ -189,7 +226,7 @@ export const ListLongTitle = () => ({
     template: `
       <block-highlight
           :image="image"
-          :to="to"
+          to="/help/foo/bar/"
           :category="category"
           title="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
           :start-date="startDate"

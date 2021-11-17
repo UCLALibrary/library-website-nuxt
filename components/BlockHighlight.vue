@@ -1,7 +1,7 @@
 <template lang="html">
     <div :class="classes">
         <div>
-            <div class="floating-highlighlight" />
+            <div :class="highlightClasses" />
             <div
                 v-if="!isVertical"
                 class="clipped-date"
@@ -29,7 +29,7 @@
             v-if="hasTriangle"
             class="clipped"
         >
-            <div class="floating-highlighlight" />
+            <div :class="highlightClasses" />
             <div class="clipped-box" />
         </div>
 
@@ -92,6 +92,7 @@ import formatEventTimes from "~/utils/formatEventTimes"
 import formatEventDates from "~/utils/formatEventDates"
 import formatEventDay from "~/utils/formatEventDay"
 import formatEventMonth from "~/utils/formatEventMonth"
+import getSectionName from "~/utils/getSectionName"
 
 export default {
     components: {
@@ -153,6 +154,12 @@ export default {
                 { "has-triangle": this.hasTriangle },
             ]
         },
+        sectionName() {
+            return getSectionName(this.to)
+        },
+        highlightClasses() {
+            return ["floating-highlight", `color-${this.sectionName}`]
+        },
         parsedDate() {
             if (this.startDate) {
                 return formatEventDates(this.startDate, this.endDate)
@@ -173,7 +180,6 @@ export default {
                 return formatEventTimes(this.startDate, this.endDate)
             }
         },
-
         parsedLocations() {
             for (let location in this.locations) {
                 if (this.locations[location].title == "Online") {
@@ -196,6 +202,18 @@ export default {
     display: flex;
     flex-direction: row;
 
+    // Themes for floating highlight
+    --color-theme: var(--color-primary-blue-03);
+    .color-visit {
+        --color-theme: var(--color-visit-fushia-03);
+    }
+    .color-help {
+        --color-theme: var(--color-help-green-03);
+    }
+    .color-about {
+        --color-theme: var(--color-about-purple-03);
+    }
+
     .clipped {
         width: 100%;
         height: 47px;
@@ -203,14 +221,14 @@ export default {
         position: relative;
         z-index: 0;
 
-        .floating-highlighlight {
+        .floating-highlight {
             z-index: 30;
             position: absolute;
             width: calc(100% - 55px);
             top: 0;
             left: 5px;
             height: 47px;
-            background-color: var(--color-visit-fushia-03);
+            background-color: var(--color-theme);
 
             clip-path: polygon(
                 0 0,
@@ -384,22 +402,22 @@ export default {
                 letter-spacing: .25%;
             }
         }
-            .floating-highlighlight {
-                z-index: 30;
-                position: absolute;
-                width: 123px;
-                top: 192px;
-                left: 7px;
-                height: 90px;
-                background-color: var(--color-visit-fushia-03);
+        .floating-highlight {
+            z-index: 30;
+            position: absolute;
+            width: 123px;
+            top: 192px;
+            left: 7px;
+            height: 90px;
+            background-color: var(--color-theme);
 
-                clip-path: polygon(
-                    0 0,
-                    calc(100% - 37px) 0, 100% 75px,
-                    calc(100% - 1.5px) 75px,
-                    calc(100% - 38px) 1.5px, 0 1.5px
-                );
-            }
+            clip-path: polygon(
+                0 0,
+                calc(100% - 37px) 0, 100% 75px,
+                calc(100% - 1.5px) 75px,
+                calc(100% - 38px) 1.5px, 0 1.5px
+            );
+        }
         .clipped-date {
             margin-top: 54px;
             z-index:30;
@@ -415,7 +433,6 @@ export default {
                 calc(100% - 39px) 0, 100% 84px,
                 calc(100% - 1.5px) 84px, 0 84px, 0 1.5px
             );
-
         }
         .image {
             width: 456px;
