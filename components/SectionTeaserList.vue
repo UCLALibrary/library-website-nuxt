@@ -11,8 +11,8 @@
                 :to="item.to"
                 :category="item.category"
                 :title="item.title"
-                :dates="item.date"
-                :times="item.time"
+                :start-date="item.startDate"
+                :end-date="item.endDate"
                 :text="item.text"
                 class="block"
             />
