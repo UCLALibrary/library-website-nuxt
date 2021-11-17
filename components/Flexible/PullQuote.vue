@@ -44,7 +44,7 @@ export default {
     font-family: var(--font-primary);
     font-size: 24px;
     font-style: italic;
-    font-weight: 800;
+    font-weight: 600;
     line-height: 150%;
     letter-spacing: 0.01em;
     color: var(--color-primary-blue-03);
@@ -74,7 +74,7 @@ export default {
     }
 
     .attribution {
-        font-weight: regular;
+        font-weight: 400;
         font-size: 20px;
         font-style: normal;
         line-height: 140%;
