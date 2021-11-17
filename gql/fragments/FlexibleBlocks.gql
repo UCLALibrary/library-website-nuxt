@@ -245,6 +245,7 @@ fragment BlockSimpleCard on allFlexiblePageBlocks_simpleCard_BlockType {
                 id
                 url
                 title
+                text: shortDescription
             }
             subheader
             externalLink
