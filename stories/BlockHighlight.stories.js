@@ -28,7 +28,7 @@ const mock2 = {
     title: "Orci Dapibus",
     startDate: "2021-02-05T11:00:00-08:00",
     endDate: "2021-02-05T11:00:00-08:00",
-    text: "Vel eros donec ac odio tempor orci dapibus. Ante metus dictum at tempor.",
+    text: "Vel eros donec ac odio tempor orci dapibus. Ante metus dictum at tempor. Pretium nibh ipsum consequat nisl vel pretium. Amet consectetur adipiscing elit ut aliquam purus sit. Diam quis enim lobortis scelerisque fermentum dui faucibus. Hac habitasse platea dictumst quisque.",
     imageAspectRatio: 60,
     locations: [
         { title: "Powellarium", to: "/location/bar" },
@@ -139,6 +139,7 @@ export const Card = () => ({
       :end-date="endDate"
       :is-vertical="true"
       :image-aspect-ratio="60"
+      :locations="locations"
       />
   `,
 })
@@ -157,6 +158,7 @@ export const CardShortTitle = () => ({
       :end-date="endDate"
       :is-vertical="true"
       :image-aspect-ratio="60"
+      :locations="locations"
       />
   `,
 })
@@ -175,6 +177,7 @@ export const CardLongTitle = () => ({
       :end-date="endDate"
       :is-vertical="true"
       :image-aspect-ratio="60"
+      :locations="locations"
       />
   `,
 })
@@ -193,6 +196,7 @@ export const List = () => ({
       :start-date="startDate"
       :end-date="endDate"
       :image-aspect-ratio="60"
+      :locations="locations"
       />
   `,
 })
@@ -213,6 +217,7 @@ export const ListShortTitle = () => ({
           :end-date="endDate"
           :text="text"
           :image-aspect-ratio="60"
+          :locations="locations"
       />
   `,
 })
@@ -233,6 +238,7 @@ export const ListLongTitle = () => ({
           :end-date="endDate"
           :text="text"
           :image-aspect-ratio="60"
+          :locations="locations"
       />
   `,
 })

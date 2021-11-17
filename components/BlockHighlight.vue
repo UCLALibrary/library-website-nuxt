@@ -1,7 +1,8 @@
 <template lang="html">
     <div :class="classes">
         <div>
-            <div :class="highlightClasses" />
+            <!-- <div :class="highlightClasses" /> -->
+            <div class="floating-highlight" />
             <div
                 v-if="!isVertical"
                 class="clipped-date"
@@ -124,7 +125,6 @@ export default {
             type: String,
             default: "",
         },
-
         text: {
             type: String,
             default: "",
@@ -152,6 +152,7 @@ export default {
                 "block-highlight",
                 { "is-vertical": this.isVertical },
                 { "has-triangle": this.hasTriangle },
+                `color-${this.sectionName}`
             ]
         },
         sectionName() {
@@ -164,21 +165,25 @@ export default {
             if (this.startDate) {
                 return formatEventDates(this.startDate, this.endDate)
             }
+            return ""
         },
         parsedDateDay() {
             if (this.startDate) {
                 return formatEventDay(this.startDate)
             }
+            return ""
         },
         parsedDateMonth() {
             if (this.startDate) {
                 return formatEventMonth(this.startDate)
             }
+            return ""
         },
         parsedTime() {
             if (this.startDate) {
                 return formatEventTimes(this.startDate, this.endDate)
             }
+            return ""
         },
         parsedLocations() {
             for (let location in this.locations) {
@@ -198,19 +203,20 @@ export default {
 .block-highlight {
     max-width: 456px;
     background-color: var(--color-white);
+    font-family: var(--font-primary);
 
     display: flex;
     flex-direction: row;
 
     // Themes for floating highlight
     --color-theme: var(--color-primary-blue-03);
-    .color-visit {
+    &.color-visit {
         --color-theme: var(--color-visit-fushia-03);
     }
-    .color-help {
+    &.color-help {
         --color-theme: var(--color-help-green-03);
     }
-    .color-about {
+    &.color-about {
         --color-theme: var(--color-about-purple-03);
     }
 
@@ -220,7 +226,6 @@ export default {
         margin-top: -54px;
         position: relative;
         z-index: 0;
-
         .floating-highlight {
             z-index: 30;
             position: absolute;
@@ -239,7 +244,6 @@ export default {
                 0 1.5px
             );
         }
-
         .clipped-box {
             position: absolute;
             z-index: 30;
@@ -267,7 +271,6 @@ export default {
         min-height: 255px;
         box-sizing: border-box;
     }
-
     .category {
         font-weight: 500;
         font-size: 16px;
@@ -278,9 +281,8 @@ export default {
     }
     .title {
         font-weight: 500;
-        font-size: 26px;
-        line-height: 130%;
-        letter-spacing: 0.01em;
+        font-size: 28px;
+        letter-spacing: .25%;
         color: var(--color-primary-blue-03);
         margin: 16px 0 0 0;
 
@@ -290,10 +292,11 @@ export default {
         overflow: hidden;
     }
     .date-time {
-        font-weight: 300;
-        font-size: 18px;
-        line-height: 140%;
-        color: var(color-grey-01);
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 30px;
+        letter-spacing: 1%;
+        color: var(--color-black);
         margin-top: 10px;
         .svg-online {
             margin-bottom: -5px;
@@ -381,9 +384,12 @@ export default {
             overflow: hidden;
         }
         .date-short {
+            width: 30px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-content: center;
+            align-items: center;
 
             padding-top: 15px;
             padding-left: 35px;
@@ -406,8 +412,8 @@ export default {
             z-index: 30;
             position: absolute;
             width: 123px;
-            top: 192px;
-            left: 7px;
+            top: 191px;
+            left: 6px;
             height: 90px;
             background-color: var(--color-theme);
 
@@ -475,6 +481,20 @@ export default {
             max-width: 95%;
             padding-left: 5px;
             padding-right: 5px;
+
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+
+            .date-short {
+                display: none;
+            }
+            .floating-highlight {
+                display: none;
+            }
+            .clipped-date {
+                display: none;
+            }
         }
     }
 
@@ -498,18 +518,6 @@ export default {
                 max-width: 100%;
             }
         }
-    }
-
-    // Themes
-    --color-theme: var(--color-primary-blue-02);
-    &.color-visit {
-        --color-theme: var(--color-visit-fushia-03);
-    }
-    &.color-help {
-        --color-theme: var(--color-help);
-    }
-    &.color-about {
-        --color-theme: var(--color-about);
     }
 
     // Hovers
