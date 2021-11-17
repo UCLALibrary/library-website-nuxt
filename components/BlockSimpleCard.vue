@@ -64,7 +64,7 @@ export default {
     },
     computed: {
         classes() {
-            return ["simple-card", `color-${this.sectionName}`]
+            return ["block-simple-card", `color-${this.sectionName}`]
         },
         sectionName() {
             return getSectionName(this.to)
@@ -85,7 +85,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.simple-card {
+.block-simple-card {
     min-width: 300px;
     max-width: 458px;
     height: 314px;
@@ -177,20 +177,20 @@ export default {
 
 // Breakpoints
 @media #{$small} {
-    .simple-card {
+    .block-simple-card {
         width: 300px;
     }
 }
 
 @media #{$medium} {
-    .simple-card {
+    .block-simple-card {
         width: 300px;
     }
 }
 
 // Hovers
 @media #{$has-hover} {
-    .simple-card:hover,
+    .block-simple-card:hover,
     :focus {
         transform: scale(1.1);
         box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);

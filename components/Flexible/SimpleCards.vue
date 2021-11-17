@@ -1,6 +1,6 @@
 <template>
-    <ul class="section">
-        <flexible-simple-card
+    <ul class="simple-cards">
+        <block-simple-card
             v-for="(item, index) in parsedContent"
             :key="index"
             :class="classes"
@@ -51,8 +51,6 @@ export default {
             let output = ["card", "card-small"]
             switch (this.parsedItems.length) {
                 case 2:
-                    output = ["card", "card-large"]
-                    break
                 case 4:
                     output = ["card", "card-large"]
                     break
@@ -67,7 +65,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section {
+.simple-cards {
     max-width: 960px;
     height: 100%;
 
@@ -99,7 +97,7 @@ export default {
 
 // Breakpoints
 @media #{$small} {
-    .section {
+    .simple-cards {
         display: flex;
         flex-direction: column;
 
@@ -121,7 +119,7 @@ export default {
 }
 
 @media #{$medium} {
-    .section {
+    .simple-cards {
         max-width: 632px;
 
         .card {

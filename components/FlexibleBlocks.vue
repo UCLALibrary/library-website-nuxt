@@ -25,7 +25,7 @@ export default {
             import("~/components/Flexible/BannerFeatured.vue"),
         FlexibleHighlight: () => import("~/components/Flexible/Highlight.vue"),
         FlexibleSectionSimpleCards: () =>
-            import("~/components/Flexible/SectionSimpleCards.vue"),
+            import("~/components/Flexible/SimpleCards.vue"),
     },
     props: {
         blocks: {
@@ -82,8 +82,8 @@ function convertName(typeHandle) {
             output = "highlight"
             break
 
-        case "sectionSimpleCards":
-            output = "section-simple-cards"
+        case "simpleCards":
+            output = "simple-cards"
             break
     }
 
