@@ -12,21 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-    - uses: actions/setup-node@fd4bd829f2dd6b6c1420bd94a93449c54612ffc2
-      with:
-        node-version: '14.15.4'
-    - name: Persist npm cache
-      uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: npm-${{ hashFiles('package-lock.json') }}
-        restore-keys: npm-
-    - name: Cache node_modules
-      uses: actions/cache@v2
-      with:
-        path: ./node_modules
-        key: node_modules-${{ runner.os }}-${{ hashFiles('**/package.lock') }}
-    - run: npm ci
+    - uses: ./.github/workflows/setup-workspace
     - run: npm run lint
 
   percy-instructions:
@@ -45,102 +31,69 @@ jobs:
             3. Select the correct branch for this PR and click 'Run workflow' again to confirm.
 
   storybook:
+    env:
+      GITHUB_ENV_NAME: ${{ github.event_name }}-${{ github.event.number }}
     runs-on: ubuntu-latest
     steps:
-    - name: Cache Storybook Build
-      id: cache-storybook
-      uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353
-      with:
-        path: ./storybook-static
-        key: storybook-${{ github.sha }}
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      if: steps.cache-storybook.outputs.cache-hit != 'true'
-    - uses: actions/setup-node@fd4bd829f2dd6b6c1420bd94a93449c54612ffc2
-      if: steps.cache-storybook.outputs.cache-hit != 'true'
-      with:
-        node-version: '14.15.4'
-    - name: Persist npm cache
-      if: steps.cache-storybook.outputs.cache-hit != 'true'
-      uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: npm-${{ hashFiles('package-lock.json') }}
-        restore-keys: npm-
-    - name: Cache node_modules
-      if: steps.cache-storybook.outputs.cache-hit != 'true'
-      uses: actions/cache@v2
-      with:
-        path: ./node_modules
-        key: node_modules-${{ runner.os }}-${{ hashFiles('**/package.lock') }}
-    - run: npm ci
-      if: steps.cache-storybook.outputs.cache-hit != 'true'
+    - uses: ./.github/workflows/setup-workspace
     - run: npx nuxt storybook build --output-dir ./storybook-static
-      if: steps.cache-storybook.outputs.cache-hit != 'true'
+    - run: echo "GITHUB_ENV_NAME=production" >> $GITHUB_ENV
+      if: github.head_ref=='main'
     - name: Deploy to Netlify
       uses: nwtgck/actions-netlify@f517512ae75beec8896aa7b027c1c72f01816200
       with:
         production-branch: main
         production-deploy: ${{ github.event_name=='push' && github.head_ref=='main' }}
-        alias: ${{ github.head_ref }}
+        alias: ${{ env.GITHUB_ENV_NAME }}
         deploy-message: "Deploy from GitHub Actions"
         github-token: ${{ secrets.GITHUB_TOKEN }}
         overwrites-pull-request-comment: true
         publish-dir: './storybook-static'
         fails-without-credentials: true
-        github-deployment-environment: storybook - pull request
+        github-deployment-environment: storybook--${{ env.GITHUB_ENV_NAME }}
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_STORYBOOK }}
 
   nuxt:
+    env:
+      GITHUB_ENV_NAME: ${{ github.event_name }}-${{ github.event.number }}
+    name: Nuxt build / Cypress tests / Netlify deploy
     runs-on: ubuntu-latest
     steps:
-    - name: Cache Nuxt Build
-      id: cache-nuxt
-      uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353
+    - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+    - uses: ./.github/workflows/setup-workspace
+    - name: Cache built static site
+      uses: actions/cache@v2
       with:
         path: ./dist
-        key: nuxt-${{ github.sha }}
-    - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-      if: steps.cache-nuxt.outputs.cache-hit != 'true'
-    - uses: actions/setup-node@fd4bd829f2dd6b6c1420bd94a93449c54612ffc2
-      if: steps.cache-nuxt.outputs.cache-hit != 'true'
-      with:
-        node-version: '14.15.4'
-    - name: Persist npm cache
-      if: steps.cache-nuxt.outputs.cache-hit != 'true'
-      uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: npm-${{ hashFiles('package-lock.json') }}
-        restore-keys: npm-
-    - name: Cache node_modules
-      if: steps.cache-nuxt.outputs.cache-hit != 'true'
-      uses: actions/cache@v2
-      with:
-        path: ./node_modules
-        key: node_modules-${{ runner.os }}-${{ hashFiles('**/package.lock') }}
-    - run: npm ci
-      if: steps.cache-nuxt.outputs.cache-hit != 'true'
+        key: nuxt-site-${{ github.sha }}
     - run: npm run generate
-      if: steps.cache-nuxt.outputs.cache-hit != 'true'
       env:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
         LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
         LIBCAL_CLIENT_SECRET: ${{ secrets.LIBCAL_CLIENT_SECRET }}
         LIBCAL_CLIENT_ID: ${{ secrets.LIBCAL_CLIENT_ID }}
+    - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
+      with:
+        start: docker run -v ${{ github.workspace }}/dist:/usr/share/nginx/html:ro -p 3000:80 nginx
+        command-prefix: 'npx'
+        wait-on: http://localhost:3000
+    - run: echo "GITHUB_ENV_NAME=production" >> $GITHUB_ENV
+      if: github.head_ref=='main'
     - name: Deploy to Netlify
       uses: nwtgck/actions-netlify@f517512ae75beec8896aa7b027c1c72f01816200
       with:
         production-branch: main
         production-deploy: ${{ github.event_name=='push' && github.head_ref=='main' }}
-        alias: ${{ github.head_ref }}
+        alias: ${{ env.GITHUB_ENV_NAME }}
         deploy-message: "Deploy from GitHub Actions"
         github-token: ${{ secrets.GITHUB_TOKEN }}
         overwrites-pull-request-comment: true
         publish-dir: './dist'
         fails-without-credentials: true
-        github-deployment-environment: pull request
+        github-deployment-environment: ${{ env.GITHUB_ENV_NAME }}
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

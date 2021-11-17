@@ -7,7 +7,7 @@ on:
     inputs: {}
 
 jobs:
-  percy:
+  percy-storybook:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
@@ -32,4 +32,31 @@ jobs:
       if: steps.cache-storybook.outputs.cache-hit != 'true'
     - run: npm run percy-static
       env: 
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_STORYBOOK }}
+
+  percy-cypress:
+    name: Cypress tests with Percy screenshots
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+    - uses: ./.github/workflows/setup-workspace
+    - name: Cache built static site
+      id: cache-nuxt
+      uses: actions/cache@v2
+      with:
+        path: ./dist
+        key: nuxt-site-${{ github.sha }}
+    - run: npm run generate
+      if: steps.cache-nuxt.outputs.cache-hit != 'true'
+      env:
+        CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+        LIBCAL_CLIENT_SECRET: ${{ secrets.LIBCAL_CLIENT_SECRET }}
+        LIBCAL_CLIENT_ID: ${{ secrets.LIBCAL_CLIENT_ID }}
+    - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
+      with:
+        start: docker run -v ${{ github.workspace }}/dist:/usr/share/nginx/html:ro -p 3000:80 nginx
+        command-prefix: 'percy exec -- npx'
+        wait-on: http://localhost:3000
+      env: 
+        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_E2E }}
