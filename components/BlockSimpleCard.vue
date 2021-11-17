@@ -96,12 +96,12 @@ export default {
     transition-property: box-shadow, transform;
     transition-duration: 400ms;
     transition-timing-function: ease-in-out;
+    position: relative;
+    z-index: 0;
 
     display: flex;
     flex-direction: column;
 
-    position: relative;
-    z-index: 0;
     // Themes
     --color-theme: var(--color-default-cyan-01);
     &.color-visit {
