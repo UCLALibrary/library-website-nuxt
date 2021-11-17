@@ -1,19 +1,30 @@
 <template lang="html">
     <div :class="classes">
-        <responsive-image
-            :image="image"
-            :aspect-ratio="imageAspectRatio"
-            class="image"
-        />
-
-        <div
-            v-if="hasListAndHorizontal"
-            class="clipped-date"
-        >
+        <div>
             <div class="floating-highlighlight" />
-            <div class="clipped-box" />
+            <div
+                v-if="!isVertical"
+                class="clipped-date"
+            >
+                <div class="date-short">
+                    <time
+                        v-if="startDate"
+                        class="month"
+                        v-html="parsedDateMonth"
+                    />
+                    <time
+                        v-if="startDate"
+                        class="day"
+                        v-html="parsedDateDay"
+                    />
+                </div>
+            </div>
+            <responsive-image
+                :image="image"
+                :aspect-ratio="imageAspectRatio"
+                class="image"
+            />
         </div>
-
         <div
             v-if="hasTriangle"
             class="clipped"
@@ -79,6 +90,8 @@
 <script>
 import formatEventTimes from "~/utils/formatEventTimes"
 import formatEventDates from "~/utils/formatEventDates"
+import formatEventDay from "~/utils/formatEventDay"
+import formatEventMonth from "~/utils/formatEventMonth"
 
 export default {
     components: {
@@ -115,10 +128,6 @@ export default {
             type: String,
             default: "",
         },
-        hasListAndHorizontal: {
-            type: Boolean,
-            default: false,
-        },
         hasTriangle: {
             type: Boolean,
             default: false,
@@ -147,6 +156,16 @@ export default {
         parsedDate() {
             if (this.startDate) {
                 return formatEventDates(this.startDate, this.endDate)
+            }
+        },
+        parsedDateDay() {
+            if (this.startDate) {
+                return formatEventDay(this.startDate)
+            }
+        },
+        parsedDateMonth() {
+            if (this.startDate) {
+                return formatEventMonth(this.startDate)
             }
         },
         parsedTime() {
@@ -178,52 +197,6 @@ export default {
     flex-direction: row;
 
     .clipped {
-        width: 100%;
-        height: 47px;
-        margin-top: -54px;
-        position: relative;
-        z-index: 0;
-
-        .floating-highlighlight {
-            z-index: 30;
-            position: absolute;
-            width: calc(100% - 350px);
-            top: 0;
-            left: 5px;
-            height: 47px;
-            background-color: var(--color-visit-fushia-03);
-
-            clip-path: polygon(
-                0 0,
-                calc(100% - 20px) 0,
-                100% 47px,
-                calc(100% - 1.5px) 47px,
-                calc(100% - 21px) 1.5px,
-                0 1.5px
-            );
-        }
-
-        .clipped-box {
-            position: absolute;
-            z-index: 30;
-            top: 8px;
-            left: 0px;
-            width: calc(100% - 350px);
-            height: 47px;
-            box-sizing: border-box;
-            background-color: var(--color-white);
-            clip-path: polygon(
-                0 0,
-                calc(100% - 20px) 0,
-                100% 47px,
-                calc(100% - 1.5px) 47px,
-                0 47px,
-                0 1.5px
-            );
-        }
-    }
-
-    .clipped-date {
         width: 100%;
         height: 47px;
         margin-top: -54px;
@@ -382,16 +355,88 @@ export default {
     }
     &:not(&.is-vertical) {
         max-width: 990px;
+        position:relative;
         .meta {
             max-width: 412px;
             margin-top: 16px;
             padding-bottom: 16px;
             overflow: hidden;
         }
+        .date-short {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            padding-top: 15px;
+            padding-left: 35px;
+            .month {
+                color: var(--color-primary-blue-03);
+                font-weight: 400;
+                font-family: var(--font-secondary);
+                font-size: 16px;
+                letter-spacing: 1.5%;
+            }
+            .day {
+                color: var(--color-primary-blue-03);
+                font-weight: 500;
+                font-family: var(--font-primary);
+                font-size: 36px;
+                letter-spacing: .25%;
+            }
+        }
+            .floating-highlighlight {
+                z-index: 30;
+                position: absolute;
+                width: 123px;
+                top: 192px;
+                left: 7px;
+                height: 90px;
+                background-color: var(--color-visit-fushia-03);
+
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 37px) 0, 100% 75px,
+                    calc(100% - 1.5px) 75px,
+                    calc(100% - 38px) 1.5px, 0 1.5px
+                );
+            }
+        .clipped-date {
+            margin-top: 54px;
+            z-index:30;
+            position: absolute;
+            top: 145px;
+            left: 0px;
+            width: 125px;
+            height: 84px;
+            box-sizing: border-box;
+            background-color: var(--color-white);
+            clip-path: polygon(
+                0 0,
+                calc(100% - 39px) 0, 100% 84px,
+                calc(100% - 1.5px) 84px, 0 84px, 0 1.5px
+            );
+
+        }
         .image {
             width: 456px;
             max-height: 274px;
             margin-right: 56px;
+                    .clipped-date {
+            margin-top: 54px;
+            z-index:30;
+            position: absolute;
+            top: 145px;
+            left: 0px;
+            width: 125px;
+            height: 84px;
+            box-sizing: border-box;
+            background-color: var(--color-white);
+            clip-path: polygon(
+                0 0,
+                calc(100% - 39px) 0, 100% 84px,
+                calc(100% - 1.5px) 84px, 0 84px, 0 1.5px
+            );
+        }
         }
         .title {
             display: -webkit-box;
