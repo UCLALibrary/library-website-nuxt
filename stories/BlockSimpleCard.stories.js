@@ -1,5 +1,5 @@
 export default {
-    title: "FLEXIBLE / Simple Card",
+    title: "BLOCK / Simple Card",
 }
 
 const mock = {
