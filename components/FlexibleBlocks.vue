@@ -24,6 +24,7 @@ export default {
         FlexibleBannerFeatured: () =>
             import("~/components/Flexible/BannerFeatured.vue"),
         FlexibleHighlight: () => import("~/components/Flexible/Highlight.vue"),
+        FlexiblePullQuote: () => import("~/components/Flexible/PullQuote.vue"),
     },
     props: {
         blocks: {
@@ -78,6 +79,10 @@ function convertName(typeHandle) {
 
         case "highlight":
             output = "highlight"
+            break
+
+        case "pullQuote":
+            output = "pull-quote"
             break
     }
 
