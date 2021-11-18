@@ -26,6 +26,7 @@ export default {
         FlexibleHighlight: () => import("~/components/Flexible/Highlight.vue"),
         FlexibleSectionSimpleCards: () =>
             import("~/components/Flexible/SimpleCards.vue"),
+        FlexiblePullQuote: () => import("~/components/Flexible/PullQuote.vue"),
     },
     props: {
         blocks: {
@@ -84,6 +85,9 @@ function convertName(typeHandle) {
 
         case "simpleCards":
             output = "simple-cards"
+
+        case "pullQuote":
+            output = "pull-quote"
             break
     }
 
