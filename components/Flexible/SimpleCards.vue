@@ -34,17 +34,17 @@ export default {
                 ].linkText
                     ? this.block.simpleCard[item].linkText
                     : this.block.simpleCard[item].contentLink[0].title
-                this.block.simpleCard[item]["to"] = this.parsedItems[item]
+                this.block.simpleCard[item]["to"] = this.block.simpleCard[item]
                     .externalLink
                     ? this.block.simpleCard[item].externalLink
                     : this.block.simpleCard[item].contentLink[0].url
-                itemContent.push(this.parsedItems[item])
+                itemContent.push(this.block.simpleCard[item])
             }
             return itemContent
         },
         classes() {
             let output = ["card", "card-small"]
-            switch (this.parsedItems.length) {
+            switch (this.parsedContent.length) {
                 case 2:
                 case 4:
                     output = ["card", "card-large"]
