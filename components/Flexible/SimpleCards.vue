@@ -20,29 +20,24 @@ export default {
         },
     },
     computed: {
-        parsedItems() {
-            let items = []
-            for (let item in this.block.simpleCard) {
-                items.push(this.block.simpleCard[item])
-            }
-            return items
-        },
         // Determines whether content link or new content is used for props
         parsedContent() {
             let itemContent = []
-            for (let item in this.parsedItems) {
-                this.parsedItems[item]["text"] = this.parsedItems[item]
-                    .subheader
-                    ? this.parsedItems[item].subheader
-                    : this.parsedItems[item].contentLink[0].text
-                this.parsedItems[item]["title"] = this.parsedItems[item]
-                    .linkText
-                    ? this.parsedItems[item].linkText
-                    : this.parsedItems[item].contentLink[0].title
-                this.parsedItems[item]["to"] = this.parsedItems[item]
+            for (let item in this.block.simpleCard) {
+                this.block.simpleCard[item]["text"] = this.block.simpleCard[
+                    item
+                ].subheader
+                    ? this.block.simpleCard[item].subheader
+                    : this.block.simpleCard[item].contentLink[0].text
+                this.block.simpleCard[item]["title"] = this.block.simpleCard[
+                    item
+                ].linkText
+                    ? this.block.simpleCard[item].linkText
+                    : this.block.simpleCard[item].contentLink[0].title
+                this.block.simpleCard[item]["to"] = this.parsedItems[item]
                     .externalLink
-                    ? this.parsedItems[item].externalLink
-                    : this.parsedItems[item].contentLink[0].url
+                    ? this.block.simpleCard[item].externalLink
+                    : this.block.simpleCard[item].contentLink[0].url
                 itemContent.push(this.parsedItems[item])
             }
             return itemContent
