@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="section-card-with-image">
+    <div class="card-with-image">
         <block-highlight
             v-for="(item, index) in parsedContent"
             :key="index"
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section-card-with-image {
+.card-with-image {
     // max-width: 924px;
     padding: 0 calc(var(--unit-gutter) - 16px);
     background-color: var(--color-white);

@@ -1,5 +1,5 @@
 export default {
-    title: "FLEXIBLE / Cards With Image",
+    title: "FLEXIBLE / Card With Image",
 }
 
 const mock = {
@@ -17,7 +17,7 @@ const mock = {
                     date: [
                         {
                             startDate: "2021-09-08T07:00:00+00:00",
-                            endDate: "2021-09-29T07:00:00+00:00",
+                            endDate: null,
                         },
                     ],
                     associatedLocations: [
@@ -59,7 +59,7 @@ const mock = {
                     date: [
                         {
                             startDate: "2021-09-08T07:00:00+00:00",
-                            endDate: "2021-09-29T07:00:00+00:00",
+                            endDate: null,
                         },
                     ],
                     associatedLocations: [
@@ -101,7 +101,7 @@ const mock = {
                     date: [
                         {
                             startDate: "2021-09-08T07:00:00+00:00",
-                            endDate: "2021-09-29T07:00:00+00:00",
+                            endDate: null,
                         },
                     ],
                     associatedLocations: [
@@ -143,7 +143,7 @@ const mock = {
                     date: [
                         {
                             startDate: "2021-09-08T07:00:00+00:00",
-                            endDate: "2021-09-29T07:00:00+00:00",
+                            endDate: null,
                         },
                     ],
                     associatedLocations: [
@@ -183,7 +183,7 @@ export const Default = () => ({
         }
     },
     template: `
-        <flexible-cards-with-image
+        <flexible-card-with-image
             :block="block"
        />
     `,
