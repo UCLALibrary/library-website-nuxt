@@ -1,5 +1,5 @@
 export default {
-    title: "FLEXIBLE / Section Card With Image",
+    title: "FLEXIBLE / Cards With Image",
 }
 
 const mock = {
@@ -183,7 +183,7 @@ export const Default = () => ({
         }
     },
     template: `
-        <flexible-section-card-with-image
+        <flexible-cards-with-image
             :block="block"
        />
     `,
