@@ -172,39 +172,36 @@ export default {
             fill: var(--color-primary-blue-03);
         }
     }
-}
-
-// Breakpoints
-@media #{$medium} {
-    .block-simple-card {
+    // Breakpoints
+    @media #{$medium} {
         width: 300px;
     }
-}
 
-// Hovers
-@media #{$has-hover} {
-    .block-simple-card:hover,
-    :focus {
-        transform: scale(1.1);
-        box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
-        background-color: var(--color-theme);
-        z-index: 30;
+    // Hovers
+    @media #{$has-hover} {
+        &:hover,
+        &:focus {
+            transform: scale(1.1);
+            box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
+            background-color: var(--color-theme);
+            z-index: 30;
 
-        .title {
-            text-decoration-color: var(--color-default-cyan-03);
-            text-decoration-thickness: 1.5px;
-            color: var(--color-primary-blue-05);
-        }
-        .text {
-            color: var(--color-primary-blue-05);
-        }
-        .svg {
-            .arrow-right,
-            .line {
-                stroke: var(--color-primary-blue-05);
+            .title {
+                text-decoration-color: var(--color-default-cyan-03);
+                text-decoration-thickness: 1.5px;
+                color: var(--color-primary-blue-05);
             }
-            .arrow-diagonal {
-                fill: var(--color-primary-blue-05);
+            .text {
+                color: var(--color-primary-blue-05);
+            }
+            .svg {
+                .arrow-right,
+                .line {
+                    stroke: var(--color-primary-blue-05);
+                }
+                .arrow-diagonal {
+                    fill: var(--color-primary-blue-05);
+                }
             }
         }
     }
