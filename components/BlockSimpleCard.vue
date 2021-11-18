@@ -136,7 +136,6 @@ export default {
         line-height: 110%;
         letter-spacing: 0.0015em;
         color: var(--color-primary-blue-03);
-
         padding-bottom: 16px;
     }
     .text {
