@@ -24,7 +24,7 @@ export default {
         FlexibleBannerFeatured: () =>
             import("~/components/Flexible/BannerFeatured.vue"),
         FlexibleHighlight: () => import("~/components/Flexible/Highlight.vue"),
-        FlexibleSectionSimpleCards: () =>
+        FlexibleSimpleCards: () =>
             import("~/components/Flexible/SimpleCards.vue"),
         FlexiblePullQuote: () => import("~/components/Flexible/PullQuote.vue"),
     },

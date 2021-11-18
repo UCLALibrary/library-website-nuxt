@@ -175,12 +175,6 @@ export default {
 }
 
 // Breakpoints
-@media #{$small} {
-    .block-simple-card {
-        width: 300px;
-    }
-}
-
 @media #{$medium} {
     .block-simple-card {
         width: 300px;

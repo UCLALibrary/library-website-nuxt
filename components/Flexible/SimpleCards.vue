@@ -22,25 +22,20 @@ export default {
     computed: {
         // Determines whether content link or new content is used for props
         parsedContent() {
-            let itemContent = []
-            for (let item in this.block.simpleCard) {
-                this.block.simpleCard[item]["text"] = this.block.simpleCard[
-                    item
-                ].subheader
-                    ? this.block.simpleCard[item].subheader
-                    : this.block.simpleCard[item].contentLink[0].text
-                this.block.simpleCard[item]["title"] = this.block.simpleCard[
-                    item
-                ].linkText
-                    ? this.block.simpleCard[item].linkText
-                    : this.block.simpleCard[item].contentLink[0].title
-                this.block.simpleCard[item]["to"] = this.block.simpleCard[item]
-                    .externalLink
-                    ? this.block.simpleCard[item].externalLink
-                    : this.block.simpleCard[item].contentLink[0].url
-                itemContent.push(this.block.simpleCard[item])
-            }
-            return itemContent
+            return this.block.simpleCard.map((obj) => {
+                return {
+                    ...obj,
+                    text: obj.subheader
+                        ? obj.subheader
+                        : obj.contentLink[0].text,
+                    title: obj.linkText
+                        ? obj.linkText
+                        : obj.contentLink[0].title,
+                    to: obj.externalLink
+                        ? obj.externalLink
+                        : obj.contentLink[0].url,
+                }
+            })
         },
         classes() {
             let output = ["card", "card-small"]
@@ -88,33 +83,8 @@ export default {
             width: 300px;
         }
     }
-}
-
-// Breakpoints
-@media #{$small} {
-    .simple-cards {
-        display: flex;
-        flex-direction: column;
-
-        .card {
-            width: 300px;
-        }
-        .card-large {
-            width: 300px;
-        }
-        .card-five {
-            &:nth-child(-n + 2) {
-                width: 300px;
-            }
-            &:nth-last-child(-n + 3) {
-                width: 300px;
-            }
-        }
-    }
-}
-
-@media #{$medium} {
-    .simple-cards {
+    // Breakpoints
+    @media #{$medium} {
         max-width: 632px;
 
         .card {
@@ -125,6 +95,15 @@ export default {
         }
         .card-five {
             &:nth-child(-n + 2) {
+                width: 300px;
+            }
+        }
+    }
+    @media #{$small} {
+        display: flex;
+        flex-direction: column;
+        .card-five {
+            &:nth-last-child(-n + 3) {
                 width: 300px;
             }
         }
