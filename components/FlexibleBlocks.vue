@@ -85,6 +85,7 @@ function convertName(typeHandle) {
 
         case "simpleCards":
             output = "simple-cards"
+            break
 
         case "pullQuote":
             output = "pull-quote"

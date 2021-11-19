@@ -1,9 +1,9 @@
 <template>
     <ul class="simple-cards">
         <block-simple-card
-            v-for="(item, index) in parsedContent"
-            :key="index"
-            :class="classes"
+            v-for="item in parsedContent"
+            :key="item.to"
+            :class="item.classes"
             :to="item.to"
             :title="item.title"
             :text="item.text"
@@ -22,6 +22,16 @@ export default {
     computed: {
         // Determines whether content link or new content is used for props
         parsedContent() {
+            let output = ["card", "card-small"]
+            switch (this.block.simpleCard.length) {
+                case 2:
+                case 4:
+                    output = ["card", "card-large"]
+                    break
+                case 5:
+                    output = ["card", "card-five"]
+                    break
+            }
             return this.block.simpleCard.map((obj) => {
                 return {
                     ...obj,
@@ -34,21 +44,9 @@ export default {
                     to: obj.externalLink
                         ? obj.externalLink
                         : obj.contentLink[0].url,
+                    classes: output,
                 }
             })
-        },
-        classes() {
-            let output = ["card", "card-small"]
-            switch (this.parsedContent.length) {
-                case 2:
-                case 4:
-                    output = ["card", "card-large"]
-                    break
-                case 5:
-                    output = ["card", "card-five"]
-                    break
-            }
-            return output
         },
     },
 }
@@ -90,9 +88,6 @@ export default {
         .card {
             width: 300px;
         }
-        .card-large {
-            width: 300px;
-        }
         .card-five {
             &:nth-child(-n + 2) {
                 width: 300px;
@@ -102,6 +97,7 @@ export default {
     @media #{$small} {
         display: flex;
         flex-direction: column;
+
         .card-five {
             &:nth-last-child(-n + 3) {
                 width: 300px;
