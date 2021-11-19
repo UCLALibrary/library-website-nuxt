@@ -32,8 +32,8 @@ export default {
             return this.block.cardWithImage.map((obj) => {
                 return {
                     ...obj,
-                    text: obj.subheader
-                        ? obj.subheader
+                    text: obj.shortDescription
+                        ? obj.shortDescription
                         : obj.contentLink[0].text,
                 }
             })
