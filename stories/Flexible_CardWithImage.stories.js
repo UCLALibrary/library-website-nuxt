@@ -7,6 +7,7 @@ const mock = {
     cardWithImage: [
         {
             id: "3575",
+            subheader: "This is a subheader",
             contentLink: [
                 {
                     id: "1686",
