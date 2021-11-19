@@ -10,7 +10,7 @@ query StaffDetail($slug: [String]!) {
       nameLast
       pronouns
       to: slug
-      topics: askMeAbout {
+      topics: areasOfExpertise {
         title
         id
       }
