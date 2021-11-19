@@ -1,8 +1,8 @@
 <template lang="html">
     <div class="card-with-image">
         <block-highlight
-            v-for="(item, index) in parsedContent"
-            :key="index"
+            v-for="item in parsedContent"
+            :key="item.contentLink[0].to"
             :to="item.contentLink[0].to"
             :image="item.contentLink[0].image[0].image[0]"
             :category="item.contentLink[0].category"
@@ -27,24 +27,16 @@ export default {
         },
     },
     computed: {
-        parsedItems() {
-            let items = []
-            for (let item in this.block.cardWithImage) {
-                items.push(this.block.cardWithImage[item])
-            }
-            return items
-        },
         // Determines whether content link or new content is used for text
         parsedContent() {
-            let itemContent = []
-            for (let item in this.parsedItems) {
-                this.parsedItems[item]["text"] = this.parsedItems[item]
-                    .subheader
-                    ? this.parsedItems[item].subheader
-                    : this.parsedItems[item].contentLink[0].text
-                itemContent.push(this.parsedItems[item])
-            }
-            return itemContent
+            return this.block.cardWithImage.map((obj) => {
+                return {
+                    ...obj,
+                    text: obj.subheader
+                        ? obj.subheader
+                        : obj.contentLink[0].text,
+                }
+            })
         },
     },
 }
@@ -52,7 +44,7 @@ export default {
 
 <style lang="scss" scoped>
 .card-with-image {
-    // max-width: 924px;
+    max-width: 960px;
     padding: 0 calc(var(--unit-gutter) - 16px);
     background-color: var(--color-white);
     margin: 0 auto;
