@@ -25,13 +25,11 @@
         }
     ],
     "image_people": {
-        "src": "https://www.ucla.edu/img/content-images/spotlight/gm421-Geriatric@2x.jpeg",
-        "srcset": "https://www.ucla.edu/img/content-images/spotlight/gm421-Geriatric@2x.jpeg",
+        "src": "https://via.placeholder.com/960x540",
+        "srcset": "https://via.placeholder.com/960x960",
         "sizes": "100vw",
         "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "title": "Lorem ipsum",
-        "height": 879,
-        "width": 1875
+        "title": "Lorem ipsum"
     },
     "links": [
         {
