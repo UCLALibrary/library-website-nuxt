@@ -17,8 +17,8 @@ export default {
         parsedRichText() {
             return this.block.richText
         },
-        classes() {
-            return ["rich-text", "p", "blockquote"]
+        isIframe() {
+            return this.parsedRichText.includes("<iframe")
         },
     },
 }
@@ -28,18 +28,51 @@ export default {
 .rich-text {
     max-width: 832px;
 
-    //TODO figure out how to style html elements as they come in from the props
-    p {
-        font-family: var(--font-primary);
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 150%;
-        letter-spacing: 0.01em;
-        color: var(--color-black);
+    /deep/ {
+        p {
+            font-family: var(--font-primary);
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 150%;
+            letter-spacing: 0.01em;
+            color: var(--color-black);
+        }
     }
 
-    blockquote {
-        color: red;
+    /deep/ blockquote {
+        background-color: var(--color-white);
+        max-width: var(--container-width);
+        text-align: left;
+        font-family: var(--font-primary);
+        font-size: 24px;
+        font-style: italic;
+        font-weight: 600;
+        line-height: 150%;
+        letter-spacing: 0.01em;
+        color: var(--color-primary-blue-03);
+        border-left: 4px solid var(--color-default-cyan-03);
+        border-radius: 2px;
+        padding: 24px var(--spacing-text-left);
+        --spacing-text-left: 64px;
+        --container-width: 600px;
     }
+
+    /deep/ figcaption {
+        font-family: var(--font-secondary);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 160%;
+        letter-spacing: 0.01em;
+        color: var(--color-secondary-grey-05);
+    }
+
+    // /deep/ iframe {
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     height: 100%;
+    //     width: 100%;
+    //     object-fit: contain;
+    // }
 }
 </style>
