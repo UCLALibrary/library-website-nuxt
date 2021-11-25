@@ -28,15 +28,21 @@ export default {
 .rich-text {
     max-width: 832px;
 
-    /deep/ {
-        p {
-            font-family: var(--font-primary);
-            font-weight: 400;
-            font-size: 20px;
-            line-height: 150%;
-            letter-spacing: 0.01em;
-            color: var(--color-black);
-        }
+    /deep/ h2 {
+        font-family: var(--font-primary);
+        font-weight: 400;
+        font-size: 48px;
+        line-height: 150%;
+        letter-spacing: 0.01em;
+        color: var(--color-black);
+    }
+    /deep/ p {
+        font-family: var(--font-primary);
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 150%;
+        letter-spacing: 0.01em;
+        color: var(--color-black);
     }
 
     /deep/ blockquote {
