@@ -1,33 +1,55 @@
+// Import mock api data
+import * as API from "~/stories/mock-api.json"
+
 // Storybook default settings
 export default {
     title: "GLOBAL / Header Sticky",
 }
 
-const mock = {
-    crumbs: [
-        { title: "Breadcrumb 1 Text", path: "." },
-        { title: "Breadcrumb 2 Text", path: "/test" },
-    ]
-}
+const primaryItems = [
+    { ...API.primaryNavlinks[0] },
+    {
+        ...API.primaryNavlinks[0],
+        name: "Visit",
+        url: "/visit/",
+    },
+    {
+        ...API.primaryNavlinks[0],
+        name: "About",
+        url: "/about/",
+    },
+    { ...API.primaryNavlinks[3] },
+]
+const secondaryItems= [{ ...API.links[0] },{ ...API.links[1] },{ ...API.links[2] }]
 
 // Variations of stories below
 export const Default = () => ({
     data() {
         return {
-            crumbs : mock.crumbs
+            primaryItems,
+            secondaryItems
         }
+    },
+    computed: {
+        parsedSecondaryItems() {
+            // Restructuring item to support text key
+            return this.secondaryItems.map((obj) => {
+                return {
+                    ...obj,
+                    text: obj.name,
+                }
+            })
+        },
     },
     template: `
         <header-sticky
-            :crumbs="crumbs"
-            share-title="Borrowing Equipments"
-            share-text="Short Description of this resource."
-            share-url="http://localhost:3000/events/1"
+            :primary-items="primaryItems"
+            :secondary-items="parsedSecondaryItems"
         />
     `,
 })
 
-export const LongCrumbsText = () => ({
+/*export const LongCrumbsText = () => ({
     data() {
         return {
             crumbs : [...mock.crumbs]
@@ -138,4 +160,4 @@ export const WithLongCallToAction = () => ({
             call-to-action-url="www.example.com"
         />
     `,
-})
+})*/
