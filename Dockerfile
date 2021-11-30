@@ -8,9 +8,6 @@ COPY package*.json ./
 RUN npm ci
 ENV PATH=/usr/local/node_modules/.bin:$PATH
 
-COPY package.json ./
-COPY package-lock.json ./
-
 WORKDIR /usr/local/app
 
 EXPOSE 3000
