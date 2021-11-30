@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="rich-text">
-        <divider-way-finder />
+        <divider-way-finder class="divider-way-finder" />
         <div
             class="text"
             v-html="parsedRichText"
@@ -20,16 +20,19 @@ export default {
         parsedRichText() {
             return this.block.richText
         },
-        isIframe() {
-            return this.parsedRichText.includes("<iframe")
-        },
     },
 }
 </script>
 
 <style lang="scss" scoped>
 .rich-text {
-    max-width: 832px;
+    .divider-way-finder {
+        width: 100%;
+    }
+
+    .text {
+        max-width: 832px;
+    }
 
     /deep/ h3 {
         font-family: var(--font-primary);
@@ -73,21 +76,22 @@ export default {
         line-height: 160%;
         letter-spacing: 0.01em;
         color: var(--color-secondary-grey-05);
-
+        max-width: 448px;
         padding: 16px 16px 32px 16px;
     }
 
-    // /deep/ iframe {
-    //     position: absolute;
-    //     top: 0;
-    //     left: 0;
-    //     height: 100%;
-    //     width: 100%;
-    //     object-fit: contain;
-    // }
-
-    // /deep/ img {
-    //     max-width: 448px;
-    // }
+    /deep/ iframe {
+        max-width: 448px;
+    }
+    /deep/ figure {
+        max-width: 448px;
+        margin: 10px 10px 10px 10px;
+        display: inline;
+        // width: 448 !important;
+        max-width: 448px !important;
+    }
+    /deep/ img {
+        max-width: 448px;
+    }
 }
 </style>
