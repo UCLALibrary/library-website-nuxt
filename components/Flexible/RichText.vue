@@ -1,8 +1,11 @@
 <template lang="html">
-    <div
-        class="rich-text"
-        v-html="parsedRichText"
-    />
+    <div class="rich-text">
+        <divider-way-finder />
+        <div
+            class="text"
+            v-html="parsedRichText"
+        />
+    </div>
 </template>
 
 <script>
@@ -28,7 +31,7 @@ export default {
 .rich-text {
     max-width: 832px;
 
-    /deep/ h2 {
+    /deep/ h3 {
         font-family: var(--font-primary);
         font-weight: 400;
         font-size: 48px;
@@ -81,6 +84,10 @@ export default {
     //     height: 100%;
     //     width: 100%;
     //     object-fit: contain;
+    // }
+
+    // /deep/ img {
+    //     max-width: 448px;
     // }
 }
 </style>
