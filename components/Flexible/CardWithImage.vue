@@ -59,15 +59,15 @@ export default {
     .block {
         margin: 0 8px 50px 8px;
     }
-}
 
-// Breakpoints
-@media #{$small} {
-    padding: 0 var(--unit-gutter);
+    // Breakpoints
+    @media #{$small} {
+        padding: 0 var(--unit-gutter);
 
-    .block {
-        width: 100%;
-        margin: 0 0 50px;
+        .block {
+            width: 100%;
+            margin: 0 0 50px;
+        }
     }
 }
 </style>
