@@ -27,6 +27,8 @@ export default {
         FlexibleSimpleCards: () =>
             import("~/components/Flexible/SimpleCards.vue"),
         FlexiblePullQuote: () => import("~/components/Flexible/PullQuote.vue"),
+        FlexibleCardWithImage: () =>
+            import("~/components/Flexible/CardWithImage.vue"),
     },
     props: {
         blocks: {
@@ -89,6 +91,10 @@ function convertName(typeHandle) {
 
         case "pullQuote":
             output = "pull-quote"
+            break
+
+        case "cardWithImage":
+            output = "card-with-image"
             break
     }
 
