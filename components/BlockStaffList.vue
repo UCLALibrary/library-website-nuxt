@@ -11,7 +11,6 @@
             class="no-image"
         >
             <svg-heading-arrow
-                
                 class="icon-heading-arrow"
             />
         </div>
@@ -51,7 +50,7 @@
                     >
                         <svg-icon-location class="icon" />
                         <span
-                            class="location"
+                            class="location-title"
                             v-html="location.title"
                         />
                     </nuxt-link>
@@ -161,18 +160,19 @@ export default {
 
 <style lang="scss" scoped>
 .block-staff-list {
+    display: flex;
+    flex-direction: row;
+
     font-family: var(--font-primary);
+    font-size: 20px;
     background-color: var(--color-white);
     border: 2px solid var(--color-primary-blue-01);
     border-radius: var(--rounded-slightly-all);
     box-sizing: border-box;
 
-    display: flex;
-    flex-direction: row;
-
     .image {
         width: 352px;
-        margin: 48px 56px 64px;
+        margin: 48px 56px 48px 64px;
     }
     .no-image {
         display: flex;
@@ -182,6 +182,7 @@ export default {
         align-content: stretch;
         align-items: center;
 
+        margin: 48px 56px 48px 64px;
         border: 1px solid var(--color-primary-blue-01);
         border-radius: var(--rounded-slightly-all);
         width: 267px;
@@ -189,12 +190,9 @@ export default {
         .icon-heading-arrow {
             margin: 0 auto;
         }
-
     }
 
     .meta {
-        border: 1px solid indigo;
-
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
@@ -202,58 +200,38 @@ export default {
         align-content: flex-start;
         align-items: flex-start;
 
+        margin-right: 64px;
+
     .staff-name{
-        border: 1px solid green;
-        font-weight: 500;
-        font-size: 36px;
-        line-height: 120%;
-        color: var(--color-primary-blue-03);
-
-    }
-
-    .title-department {
-        border: 1px solid pink;
-        .job-title {
-            font-weight: 400;
-            font-size: 20px;
-            line-height: 30px;
-            color: var(--color-black);
+            font-weight: 500;
+            font-size: 36px;
+            line-height: 120%;
+            color: var(--color-primary-blue-03);
         }
-        .dept-location {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-content: flex-start;
-            align-items: flex-start;
-
-            margin-top: 16px;
-            max-width: 659px;
-            .svg {
-                margin-bottom: -10px;
-            }
-        }
-        .department {
-            display: flex;
-            flex-direction: column;
-
-            list-style: none;
-            margin-bottom: 5px;
-            .department {
+        .title-department {
+            .job-title {
                 font-weight: 400;
-                font-size: 18px;
+                line-height: 30px;
+                color: var(--color-black);
+                margin-bottom: 2px;
+            }
+            .department {
+                display: flex;
+                flex-direction: column;
+
+                list-style: none;
+                margin-bottom: 15px;
+                font-weight: 400;
                 line-height: 140%;
                 color: var(--color-secondary-grey-04);
             }
         }
     }
-    }
+
     .icon-block {
-        border: 1px solid gold;
+        color: var(--color-primary-blue-03);
         .location {
             padding-bottom: 2px;
-            // margin-left: 8px;
-            // border-left: solid 1px var(--color-secondary-grey-02);
-            // padding-left: 8px;
         }
         .icon {
             margin-bottom: -10px;
@@ -262,6 +240,9 @@ export default {
             border-left: solid 1px var(--color-primary-blue-03);
             margin-left: 10px;
             padding-left: 10px;
+        }
+        .location-title {
+            line-height: 20px;
         }
         .email {
             margin-top: 10px;
@@ -276,18 +257,32 @@ export default {
 
     // Hover states
     @media #{$has-hover} {
-        .name:hover {
+        .staff-name:hover {
             text-decoration: underline;
             text-decoration-color: var(--color-primary-blue-03);
             text-decoration-thickness: 1.5px;
         }
-
-        .location-link:hover {
+        .location-title:hover {
             text-decoration: underline;
             text-decoration-color: var(--color-primary-blue-03);
             text-decoration-thickness: 1.5px;
         }
-    }
+        .email:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue-03);
+            text-decoration-thickness: 1.5px;
+        }
+        .phone:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue-03);
+            text-decoration-thickness: 1.5px;
+        }
+        .consultation:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue-03);
+            text-decoration-thickness: 1.5px;
+        }
+}
 
     // Breakpoints
     @media #{$small} {
@@ -296,9 +291,25 @@ export default {
         justify-content: center;
         align-content: center;
         align-items: center;
-        background-color: moccasin;
-        .image {
 
+        .image {
+            margin: 27px 56px 64px;
+        }
+        .meta {
+            margin-bottom: 48px;
+            margin-right: 0px;
+        }
+        .icon-block {
+            .location {
+                display: flex;
+                flex-direction: column;
+            }
+            .location-link + .location-link {
+                border-style: hidden;
+                margin-left: 0px;
+                margin-top: 5px;
+                padding-left: 0px;
+            }
         }
     }
 }
