@@ -30,7 +30,9 @@ fragment BlockCardWithImage on allFlexiblePageBlocks_cardWithImage_BlockType {
         id
         ... on cardWithImage_cardWithImage_BlockType {
             id
-            ...Image
+            image {
+                ...Image
+            }
             imageAltText
             contentLink {
                 id

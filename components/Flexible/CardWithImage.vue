@@ -4,7 +4,7 @@
             v-for="item in parsedContent"
             :key="item.contentLink[0].to"
             :to="item.contentLink[0].to"
-            :image="item.contentLink[0].image[0].image[0]"
+            :image="item.image[0]"
             :category="item.contentLink[0].category"
             :title="item.contentLink[0].title"
             :start-date="item.contentLink[0].date[0].startDate"
