@@ -59,8 +59,8 @@
             v-if="to"
             :label="buttonText"
             :to="to"
+            :is-secondary="true"
             icon-name="svg-arrow-diagonal"
-            class="button-link"
         />
         <svg-molecule-two-facets class="molecule" />
     </div>
@@ -129,6 +129,13 @@ export default {
             let output = ["banner-text", "theme-light"]
             if (this.isDarkBlue) {
                 output = ["banner-text", "theme-dark"]
+            }
+            return output
+        },
+        parseDarkBackground() {
+            let output = true
+            if (this.isDarkBlue) {
+                output = false
             }
             return output
         },
@@ -294,20 +301,9 @@ export default {
         max-width: 160px;
         margin-left: 52px;
         margin-bottom: 40px;
-        background-color: var(--color-primary-blue-03);
-        color: var(--color-white);
+        // background-color: var(--color-primary-blue-03);
+        // color: var(--color-white);
         border: 1px solid var(--button-border-color);
-        /deep/ {
-            .arrow {
-                stroke: var(--color-default-white);
-                .arrow-diagonal {
-                    fill: var(--color-white);
-                }
-                .line {
-                    stroke: var(--color-white);
-                }
-            }
-        }
     }
     .molecule {
         right: 0;
@@ -323,23 +319,21 @@ export default {
         .facet-inside {
             fill: var(--facet-inside-color);
         }
+        &.theme-dark {
+            .button-link {
+                background-color: var(--color-primary-blue-03);
+                color: var(--color-white);
+            }
+        }
     }
+
     // Hovers
     @media #{$has-hover} {
-        .button-link:hover {
-            border: 1px solid var(--hover-border-color);
-            background-color: var(--hover-background-color);
-            color: var(--text-color);
-            /deep/ {
-                .arrow {
-                    stroke: var(--color-default-cyan-03);
-                    .arrow-diagonal {
-                        fill: var(--color-default-cyan-03);
-                    }
-                    .line {
-                        stroke: var(--color-default-cyan-03);
-                    }
-                }
+        &.theme-dark {
+            .button-link:hover {
+                // border: 1px solid var(--hover-border-color);
+                background-color: var(--hover-background-color);
+                color: var(--text-color);
             }
         }
     }

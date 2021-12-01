@@ -28,7 +28,7 @@
 <script>
 // Helpers
 import _get from "lodash/get"
-import startCase from "lodash/startcase"
+// import startCase from "lodash/startcase"
 
 // GQL
 import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
@@ -60,13 +60,13 @@ export default {
         console.log(data.events[0].title)
     },
     computed: {
-        shareData() {
+        /*shareData() {
             return {
                 title: "Test title",
                 text: "Test text",
             }
-        },
-        crumbs() {
+        },*/
+        /* crumbs() {
             const fullPath = this.$route.fullPath
             const params = fullPath.startsWith("/")
                 ? fullPath.substring(1).split("/")
@@ -84,7 +84,7 @@ export default {
                 }
             })
             return crumbs
-        },
+        }, */
     },
 }
 </script>
