@@ -215,7 +215,6 @@ export default {
     // This will recall fetch() when these query params change
     watchQuery: ["offset", "q"],
 }
-
 </script>
 
 <style lang="scss" scoped>
