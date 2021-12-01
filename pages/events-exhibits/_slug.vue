@@ -1,18 +1,23 @@
 <template lang="html">
     <section class="page-event-detail">
+        <masthead-secondary
+            title="Exhibits & Upcoming Events"
+            text="Browse upcoming remote events and online exhibits."
+        >
+            <!-- TODO Add SearchGenric here when complete  -->
+            <!--search-generic
+                search-type="about"
+                class="generic-search"
+            />
+            <!-- :filters="searchFilters.filters"
+                :view-modes="searchFilters.views"
+                @view-mode-change="viewModeChanger"-->
+        </masthead-secondary>
         <header-sticky
             class="sticky-header"
-            :has-share-links="true"
-            :share-title="shareData.title"
-            :share-text="shareData.text"
-            :crumbs="crumbs"
-        >
-            <!--header-sticky-children
-                :items="breadcrumbs"
-                :share-title="shareData.title"
-                :share-text="shareData.text"
-            / -->
-        </header-sticky>
+            :primary-items="primaryItems"
+            :secondary-items="secondaryItems"
+        />
 
         Event detail here
         {{ allEvents }}
@@ -21,15 +26,27 @@
 </template>
 
 <script>
+// Helpers
+import _get from "lodash/get"
 import startCase from "lodash/startcase"
+
+// GQL
+import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
 
 export default {
     data() {
         return {
             allEvents: [],
+            primaryItems: [],
+            secondaryItems: [],
         }
     },
     async fetch() {
+        const navData = await this.$graphql.default.request(
+            HEADER_MAIN_MENU_ITEMS
+        )
+        this.primaryItems = _get(navData, "primary", [])
+        this.secondaryItems = _get(navData, "secondary", [])
         const data = await this.$axios.$get(`/events`, {
             params: {
                 cal_id: 7056,
@@ -80,8 +97,8 @@ export default {
         left: 0;
         width: 100%;
         position: fixed;
-        background-color: red;
-        height: 96px;
+        // background-color: red;
+        // height: 96px;
         transform: translateY(-100%);
         transition: transform 400ms ease-in-out;
         // States

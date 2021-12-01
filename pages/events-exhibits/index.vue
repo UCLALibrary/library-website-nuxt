@@ -88,7 +88,7 @@ export default {
         })
 
         const events = libcalData.events
-        console.log(libcalData.events[0].title)
+        // console.log(libcalData.events[0].title)
         return {
             page: { events: events },
         }
@@ -215,7 +215,6 @@ export default {
     // This will recall fetch() when these query params change
     watchQuery: ["offset", "q"],
 }
-
 </script>
 
 <style lang="scss" scoped>
