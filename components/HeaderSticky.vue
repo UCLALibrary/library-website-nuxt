@@ -1,12 +1,29 @@
 <template lang="html">
     <header class="header-sticky">
-        <!-- TODO Style this header with UCLA logo and side border  -->
-        <slot />
+        <nav-primary
+            :items="primaryItems"
+            class="primary"
+        />
+        <nav-secondary
+            :items="secondaryItems"
+            class="secondary"
+        />
     </header>
 </template>
 
 <script>
-export default {}
+export default {
+    props: {
+        primaryItems: {
+            type: Array,
+            default: () => [],
+        },
+        secondaryItems: {
+            type: Array,
+            default: () => [],
+        },
+    },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -15,15 +32,49 @@ export default {}
     left: 0;
     width: 100%;
     position: fixed;
-    background-color: red;
-    height: 96px;
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-secondary-grey-02);
 
-    transform: translateY(-100%);
-    transition: transform 400ms ease-in-out;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
 
-    // States
-    .has-scrolled-past-header & {
-        transform: translateY(0);
+    .primary {
+        // position: absolute;
+        --unit-height: 64px;
+        padding: 0 18px;
+        justify-content: flex-start;
+        width: unset;
+        /deep/ {
+            .section-name {
+                color: var(--color-black);
+                font-family: var(--font-primary);
+                font-size: 15px;
+                font-weight: 600;
+            }
+            .support-links {
+                .item-top {
+                    color: var(--color-black);
+                    font-family: var(--font-primary);
+                    font-size: 15px;
+                }
+            }
+            .background-white {
+                border-bottom: unset;
+                height: unset;
+            }
+            .background-blue {
+                width: 1920px;
+            }
+        }
+    }
+    .secondary {
+        border-bottom: unset;
+        margin-top: 10px;
+        // margin-bottom: 21px;
+        justify-content: flex-start;
+        padding: 0 20px;
     }
 }
 </style>

@@ -41,7 +41,7 @@ export const Default = () => ({
 export const ExtraSupportLinks = () => ({
     data() {
         const newItems = items
-        newItems.push({ ...API.primaryNavlinks[1] })
+        newItems.push({ ...API.primaryNavlinks[3] })
 
         return {
             items: newItems,

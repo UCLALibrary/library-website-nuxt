@@ -36,6 +36,10 @@ function getShareLinks(opts = {}) {
         pinterest: `http://pinterest.com/pin/create/button/?url=${encodeURIComponent(
             url
         )}&description=${encodeURIComponent(text)}`,
+        printer: `javascript:window.print()`,
+        whatsapp:`https://wa.me/?text=${encodeURIComponent(
+            url
+        )}${encodeURIComponent(text)}`,
     }
 }
 

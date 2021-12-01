@@ -8,6 +8,7 @@
                 <ul class="socials">
                     <li
                         v-for="item in socialItems"
+                        :key="item.text"
                         class="social-item"
                     >
                         <smart-link
@@ -19,7 +20,10 @@
                 </ul>
 
                 <ul class="press-room">
-                    <li v-for="item in pressItems">
+                    <li
+                        v-for="item in pressItems"
+                        :key="item.text"
+                    >
                         <smart-link
                             :to="item.to"
                             :target="item.target"
