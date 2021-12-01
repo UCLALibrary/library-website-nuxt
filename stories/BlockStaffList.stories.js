@@ -9,7 +9,7 @@ export default {
 const mock = {
     to: "/staff/foo",
     jobTitle: "Ullamco",
-    staffName: "Fames ac turpis",
+    staffName: "Fames C. Turpis",
     departments: [{ id: 123, title: "Inceptos Himenaeos Inceptos" }],
     email: "loreum@ipsum.foo",
 }
@@ -23,7 +23,7 @@ export const Default = () => ({
                 image: API.image_people,
                 locations: [
                     {
-                        title: "cupidatat non proident",
+                        title: "Cupidatat non Proident",
                         to: "/location/bar",
                     },
                     {
@@ -49,11 +49,11 @@ export const NoImage = () => ({
                 ...mock,
                 locations: [
                     {
-                        title: "cupidatat non proident",
+                        title: "Cupidatat on Proident",
                         to: "/location/bar",
                     },
                     {
-                        title: "tristique",
+                        title: "Tristique Abore et Dolore",
                         to: "/location/baz",
                     },
                 ],

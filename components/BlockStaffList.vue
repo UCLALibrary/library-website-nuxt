@@ -6,34 +6,41 @@
             sizes="300px"
             class="image"
         />
-        <svg-heading-arrow
+        <div
             v-if="!image"
             class="no-image"
-        />
-        <div class="meta">
-            <nuxt-link
-                :to="to"
-                class="name"
-            >
-                <h3 v-html="staffName" />
-            </nuxt-link>
-
-            <div
-                class="title"
-                v-html="jobTitle"
+        >
+            <svg-heading-arrow
+                class="icon-heading-arrow"
             />
-            <div class="dept-location">
-                <ul class="departments">
+        </div>
+
+        <div class="meta">
+            <h3 class="staff-name">
+                <nuxt-link
+                    :to="to"
+                    v-html="staffName"
+                />
+            </h3>
+
+            <div class="title-department">
+                <h4
+                    class="job-title"
+                    v-html="jobTitle"
+                />
+                <ul class="department">
                     <li
                         v-for="department in departments"
                         :key="department.id"
-                        class="department"
                         v-html="department.title"
                     />
                 </ul>
+            </div>
+
+            <div class="icon-block">
                 <div
                     v-if="locations.length"
-                    class="location-group"
+                    class="location"
                 >
                     <nuxt-link
                         v-for="location in locations"
@@ -41,45 +48,48 @@
                         :to="location.to"
                         class="location-link"
                     >
-                        <svg-icon-location class="svg" />
+                        <svg-icon-location class="icon" />
                         <span
-                            class="location"
+                            class="location-title"
                             v-html="location.title"
                         />
                     </nuxt-link>
                 </div>
-            </div>
 
-            <div class="email">
-                <svg-icon-email class="svg" />
-                <smart-link
-                    :to="`mailto:${email}`"
-                    target="_blank"
-                    class="text-link"
-                    v-html="email"
-                />
+                <div class="email">
+                    <svg-icon-email class="icon" />
+                    <smart-link
+                        :to="`mailto:${email}`"
+                        target="_blank"
+                        class="text-link"
+                        v-html="email"
+                    />
+                </div>
+
+                <div
+                    v-if="phone"
+                    class="phone"
+                >
+                    <svg-icon-phone class="icon" />
+                    <smart-link
+                        :to="`tel:${phone}`"
+                        target="_blank"
+                        class="text-link"
+                        v-html="phone"
+                    />
+                </div>
+
+                <div class="consultation">
+                    <svg-icon-consultation class="icon" />
+                    <smart-link
+                        :to="bookingLink.theUrl"
+                        target="_blank"
+                        class="text-link"
+                        v-html="bookingLink.urlText"
+                    />
+                </div>
             </div>
-            <div
-                v-if="phone"
-                class="phone"
-            >
-                <svg-icon-phone class="svg" />
-                <smart-link
-                    :to="`tel:${phone}`"
-                    target="_blank"
-                    class="text-link"
-                    v-html="phone"
-                />
-            </div>
-            <div class="consultation">
-                <svg-icon-consultation class="svg" />
-                <smart-link
-                    :to="bookingLink.theUrl"
-                    target="_blank"
-                    class="text-link"
-                    v-html="bookingLink.urlText"
-                />
-            </div>
+        </div>
         </div>
     </section>
 </template>
@@ -105,6 +115,10 @@ export default {
             type: String,
             default: "",
         },
+        image: {
+            type: Object,
+            default: () => {},
+        },
         staffName: {
             type: String,
             default: "",
@@ -129,10 +143,6 @@ export default {
             type: Array,
             default: () => [],
         },
-        image: {
-            type: Object,
-            default: () => ({}),
-        },
     },
     computed: {
         bookingLink() {
@@ -150,93 +160,89 @@ export default {
 
 <style lang="scss" scoped>
 .block-staff-list {
-    // TODO Stop using max-height. You don't know how tall anything will be ever
+    display: flex;
+    flex-direction: row;
 
+    font-family: var(--font-primary);
+    font-size: 20px;
     background-color: var(--color-white);
     border: 2px solid var(--color-primary-blue-01);
     border-radius: var(--rounded-slightly-all);
     box-sizing: border-box;
-    padding: 48px 32px 48px 64px;
-
-    // TODO Make this vert cetnering too
-    display: flex;
-    flex-direction: row;
 
     .image {
-        width: 33%;
-        margin-right: 56px;
-
+        width: 352px;
+        margin: 48px 56px 48px 64px;
+    }
+    .no-image {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        justify-content: flex-start;
+        justify-content: center;
         align-content: stretch;
         align-items: center;
-    }
-    .no-image {
-        margin-right: 32px;
-    }
-    .meta {
-        max-height: 277px;
-        font-weight: normal;
-        font-size: 18px;
-        line-height: 120%;
-        color: var(--color-primary-blue-03);
 
-        .svg {
-            margin-bottom: -10px;
+        margin: 48px 56px 48px 64px;
+        border: 1px solid var(--color-primary-blue-01);
+        border-radius: var(--rounded-slightly-all);
+        width: 267px;
+        height:  267px;
+        .icon-heading-arrow {
+            margin: 0 auto;
         }
-        .name {
-            font-weight: 400;
-            font-size: 48px;
-            line-height: 100%;
-            letter-spacing: 0.01em;
+    }
+
+    .meta {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: flex-start;
+        align-items: flex-start;
+
+        margin-right: 64px;
+
+    .staff-name{
+            font-weight: 500;
+            font-size: 36px;
+            line-height: 120%;
             color: var(--color-primary-blue-03);
         }
-        .title {
-            margin-top: 8px;
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 140%;
-            color: var(--color-black);
-        }
-        .dept-location {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-content: flex-start;
-            align-items: flex-start;
-
-            margin-top: 16px;
-            max-width: 659px;
-            .svg {
-                margin-bottom: -10px;
-            }
-        }
-        .departments {
-            display: flex;
-            flex-direction: column;
-
-            list-style: none;
-            margin-bottom: 5px;
-            .department {
+        .title-department {
+            .job-title {
                 font-weight: 400;
-                font-size: 18px;
+                line-height: 30px;
+                color: var(--color-black);
+                margin-bottom: 2px;
+            }
+            .department {
+                display: flex;
+                flex-direction: column;
+
+                list-style: none;
+                margin-bottom: 15px;
+                font-weight: 400;
                 line-height: 140%;
                 color: var(--color-secondary-grey-04);
             }
         }
+    }
 
-        .location-group {
+    .icon-block {
+        color: var(--color-primary-blue-03);
+        .location {
             padding-bottom: 2px;
-            // margin-left: 8px;
-            // border-left: solid 1px var(--color-secondary-grey-02);
-            // padding-left: 8px;
+        }
+        .icon {
+            margin-bottom: -10px;
         }
         .location-link + .location-link {
             border-left: solid 1px var(--color-primary-blue-03);
             margin-left: 10px;
             padding-left: 10px;
+        }
+        .location-title {
+            line-height: 20px;
         }
         .email {
             margin-top: 10px;
@@ -251,44 +257,57 @@ export default {
 
     // Hover states
     @media #{$has-hover} {
-        .name:hover {
+        .staff-name:hover {
             text-decoration: underline;
             text-decoration-color: var(--color-primary-blue-03);
             text-decoration-thickness: 1.5px;
         }
-
-        .location-link:hover {
+        .location-title:hover {
             text-decoration: underline;
             text-decoration-color: var(--color-primary-blue-03);
             text-decoration-thickness: 1.5px;
         }
-    }
+        .email:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue-03);
+            text-decoration-thickness: 1.5px;
+        }
+        .phone:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue-03);
+            text-decoration-thickness: 1.5px;
+        }
+        .consultation:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue-03);
+            text-decoration-thickness: 1.5px;
+        }
+}
 
     // Breakpoints
     @media #{$small} {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
 
-        width: 400px;
-
-        padding: 30px 30px;
-        max-height: unset;
         .image {
-            margin-right: 0;
-            padding-right: 30px;
-            max-width: 100%;
+            margin: 27px 56px 64px;
         }
         .meta {
-            margin-top: 20px;
-
-            .dept-location {
+            margin-bottom: 48px;
+            margin-right: 0px;
+        }
+        .icon-block {
+            .location {
                 display: flex;
-                flex-direction: row;
-                align-items: flex-start;
+                flex-direction: column;
             }
-            .location-group {
-                margin-left: 0;
-                border-left: none;
+            .location-link + .location-link {
+                border-style: hidden;
+                margin-left: 0px;
+                margin-top: 5px;
                 padding-left: 0px;
             }
         }
