@@ -91,6 +91,13 @@ export default {
         .line {
             stroke: var(--color-white);
         }
+        .arrow-diagonal {
+            fill: var(--color-white);
+        }
+        .arrow-download {
+            fill: var(--color-white);
+            stroke: var(--color-white);
+        }
     }
     // Hover states
     @media #{$has-hover} {
@@ -108,6 +115,13 @@ export default {
                 border: 1.5px solid var(--color-primary-blue-02);
                 color: var(--color-black);
                 .arrow {
+                    stroke: var(--color-default-cyan-03);
+                }
+                .arrow-diagonal {
+                    fill: var(--color-default-cyan-03);
+                }
+                .arrow-download {
+                    fill: var(--color-default-cyan-03);
                     stroke: var(--color-default-cyan-03);
                 }
                 .line {
