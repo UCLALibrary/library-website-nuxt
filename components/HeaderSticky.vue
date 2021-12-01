@@ -28,6 +28,10 @@ export default {
 
 <style lang="scss" scoped>
 .header-sticky {
+    top: 0;
+    left: 0;
+    width: 100%;
+    position: fixed;
     background-color: var(--color-white);
     border-bottom: 1px solid var(--color-secondary-grey-02);
 

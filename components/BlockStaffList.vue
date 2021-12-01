@@ -52,8 +52,8 @@
 
             <div class="email">
                 <svg-icon-email class="svg" />
-                <a
-                    :href="`mailto:${email}`"
+                <smart-link
+                    :to="`mailto:${email}`"
                     target="_blank"
                     class="text-link"
                     v-html="email"
@@ -64,8 +64,8 @@
                 class="phone"
             >
                 <svg-icon-phone class="svg" />
-                <a
-                    :href="`tel:${phone}`"
+                <smart-link
+                    :to="`tel:${phone}`"
                     target="_blank"
                     class="text-link"
                     v-html="phone"
@@ -73,8 +73,8 @@
             </div>
             <div class="consultation">
                 <svg-icon-consultation class="svg" />
-                <a
-                    :href="bookingLink.theUrl"
+                <smart-link
+                    :to="bookingLink.theUrl"
                     target="_blank"
                     class="text-link"
                     v-html="bookingLink.urlText"
