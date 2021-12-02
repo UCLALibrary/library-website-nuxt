@@ -7,7 +7,7 @@ services:
       - "3000:3000"
       volumes:
         - ./:/usr/local/app/
-        # the volume above prevents our host system's node_modules to be mounted
+        # the volume below prevents our host system's node_modules to be mounted
         - exclude:/usr/local/app/node_modules/
 
   storybook:
@@ -16,7 +16,7 @@ services:
       - "3009:3003"
       volumes:
         - ./:/usr/local/app/
-        # the volume above prevents our host system's node_modules to be mounted
+        # the volume below prevents our host system's node_modules to be mounted
         - exclude:/usr/local/app/node_modules/
       command: npm run storybook
 
