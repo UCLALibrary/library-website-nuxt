@@ -126,7 +126,10 @@ export default {
         SvgHatchRight,
         SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
         SvgIconLocation: () => import("~/assets/svg/icon-location"),
-        SvgIconOnline: () => import("~/assets/svg/icon-online"),
+        SvgIconOnline: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-virtual"
+            ),
     },
     props: {
         image: {
@@ -361,23 +364,16 @@ export default {
             width: 100%;
         }
     }
+
     .category {
-        font-size: 16px;
-        font-weight: 500;
-        line-height: 16px;
-        letter-spacing: 0.06em;
-        text-align: left;
-        color: var(--color-primary-blue-05);
-        margin-bottom: 16px;
-        text-transform: uppercase;
+        @include overline;
+        margin-bottom: $component-06 + px;
     }
     .title {
-        font-size: 40px;
         line-height: 44px;
-        text-align: left;
         margin-bottom: 5px;
         color: var(--color-primary-blue-03);
-        font-weight: 500;
+        @include step-2;
     }
     .schedule {
         font-size: 20px;

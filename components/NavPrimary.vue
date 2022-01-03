@@ -240,7 +240,7 @@ export default {
 
     // Hovers
     &.not-hovered {
-        /deep/ .nav-menu-item .sub-menu {
+        ::v-deep .nav-menu-item .sub-menu {
             opacity: 1;
         }
     }
