@@ -10,8 +10,8 @@
     --color-black: #0f0f0f;
 
     // Primary colors
-    --color-primary-yellow-01: #ffe800; // --color-primary-yellow
-    --color-primary-blue-01: #eaf2fb; // --color-primary-lightest-blue
+    --color-primary-yellow-01: #{$primary-yellow-01}; // --color-primary-yellow
+    --color-primary-blue-01: #{$primary-blue-01}; // --color-primary-lightest-blue
     --color-primary-blue-02: #9ecffa; // --color-primary-light-blue
     --color-primary-blue-03: #0b6ab7; // --color-primary-blue
     --color-primary-blue-04: #0055a6; // --color-primary-darker-blue

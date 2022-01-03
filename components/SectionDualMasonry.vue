@@ -72,7 +72,7 @@ export default {
             order: 1;
             border-left: 0;
 
-            /deep/ {
+            ::v-deep {
                 .molecule {
                     transform: rotate(180deg);
                 }
@@ -85,7 +85,7 @@ export default {
             // Half of 37.5
             margin-top: calc(-19.1% + 6.5px);
 
-            /deep/ {
+            ::v-deep {
                 .molecule {
                     bottom: 0;
                     top: auto;

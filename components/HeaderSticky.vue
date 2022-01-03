@@ -46,7 +46,7 @@ export default {
         padding: 0 18px;
         justify-content: flex-start;
         width: unset;
-        /deep/ {
+        ::v-deep {
             .section-name {
                 color: var(--color-black);
                 font-family: var(--font-primary);
