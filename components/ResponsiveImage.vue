@@ -125,7 +125,18 @@ export default {
         z-index: 0;
     }
     .caption {
-        display: none;
+        // display: none;
+        font-family: var(--font-secondary);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 160%;
+        letter-spacing: 0.01em;
+        color: var(--color-secondary-grey-05);
+        max-width: 448px;
+        padding: 16px 16px 32px 16px;
+        z-index: 10;
+        position: absolute;
+        bottom: 0;
     }
     .sizer {
         width: 100%;

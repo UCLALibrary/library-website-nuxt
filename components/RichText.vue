@@ -1,24 +1,35 @@
 <template lang="html">
     <div class="rich-text">
-        <div class="text">
-            {{ textBlocks[0] }}
+        <div
+            v-if="textBlocks[0]"
+            class="text"
+            v-html="textBlocks[0]"
+        />
 
-            <responsive-image
-                v-if="image"
-                class="image"
-                :image="image"
-            />
+        <responsive-image
+            v-if="image"
+            class="image"
+            :image="image"
+            :caption="caption"
+        />
 
-            {{ textBlocks[1] }}
+        <div
+            v-if="textBlocks[1]"
+            class="text"
+            v-html="textBlocks[1]"
+        />
 
-            <flexible-pull-quote
-                v-if="pullQuote"
-                class="pull-quote"
-                :text="pullQuote.text"
-                :attribution="pullQuote.attribution"
-            />
-            {{ textBlocks[2] }}
-        </div>
+        <pull-quote
+            v-if="pullQuote"
+            class="pull-quote"
+            :text="pullQuote.text"
+            :attribution="pullQuote.attribution"
+        />
+        <div
+            v-if="textBlocks[2]"
+            class="text"
+            v-html="textBlocks[2]"
+        />
     </div>
 </template>
 
@@ -28,6 +39,10 @@ export default {
         image: {
             type: Object,
             default: () => {},
+        },
+        caption: {
+            type: String,
+            default: "",
         },
         pullQuote: {
             type: Object,
@@ -55,10 +70,14 @@ export default {
     }
 
     .image {
-        margin: 10px 10px 10px 10px;
+        margin: 10px 10px 10px 0px;
         // display: inline;
         width: 292px;
         float: left;
+    }
+
+    .pull-quote {
+        margin: 10px 10px 10px 10px;
     }
 }
 </style>
