@@ -2,14 +2,14 @@
     <div class="rich-text">
         <div class="text">
             {{ textBlocks[0] }}
-            <span>
-                <responsive-image
-                    v-if="image"
-                    class="image"
-                    :image="image"
-                />
-                {{ textBlocks[1] }}
-            </span>
+
+            <responsive-image
+                v-if="image"
+                class="image"
+                :image="image"
+            />
+
+            {{ textBlocks[1] }}
 
             <flexible-pull-quote
                 v-if="pullQuote"
@@ -55,7 +55,10 @@ export default {
     }
 
     .image {
-        width: 448px;
+        margin: 10px 10px 10px 10px;
+        // display: inline;
+        width: 292px;
+        float: left;
     }
 }
 </style>
