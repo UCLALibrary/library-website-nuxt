@@ -16,11 +16,6 @@
                 :image="image"
                 :caption="caption"
             />
-            <div
-                v-if="caption"
-                class="caption"
-                v-html="caption"
-            />
         </div>
 
         <div
@@ -87,23 +82,23 @@ export default {
     }
 
     .image {
-        margin: 10px 10px 10px 0px;
+        margin: 10px 10px 0 0;
         // display: inline;
-        width: 292px;
+        width: 448px;
     }
 
-    .caption {
+    ::v-deep .caption {
         font-family: var(--font-secondary);
         font-weight: 400;
         font-size: 16px;
         line-height: 160%;
         letter-spacing: 0.01em;
         color: var(--color-secondary-grey-05);
-        padding: 16px 16px 32px 16px;
+        padding: 16px 16px 26px 16px;
     }
 
     .pull-quote {
-        margin: 20px 10px 20px 10px;
+        margin: 20px 10px 20px 0;
     }
 }
 </style>

@@ -2,7 +2,7 @@
 import * as API from "~/stories/mock-api.json"
 
 export default {
-    title: "Rich Text",
+    title: "IMPACT REPORT / Rich Text",
 }
 
 const mock = {
