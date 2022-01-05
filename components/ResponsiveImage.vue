@@ -1,33 +1,30 @@
 <template lang="html">
-    <div :class="classes">
-        <figure
-            v-if="image && image.src"
-            class="figure"
+    <figure
+        v-if="image && image.src"
+        :class="classes"
+    >
+        <img
+            :src="image.src || src"
+            :height="image.width || width"
+            :width="image.height || height"
+            :alt="image.alt || alt"
+            :srcset="image.srcset || srcset"
+            :sizes="image.sizes || sizes"
+            class="media"
+            @load="onLoad"
+            @error="onError"
         >
-            <img
-                :src="image.src || src"
-                :height="image.width || width"
-                :width="image.height || height"
-                :alt="image.alt || alt"
-                :srcset="image.srcset || srcset"
-                :sizes="image.sizes || sizes"
-                class="media"
-                @load="onLoad"
-                @error="onError"
-            >
-
-            <div
-                class="sizer"
-                :style="styles"
-            />
-            <slot />
-        </figure>
         <figcaption
             v-if="image.caption || caption"
             class="caption"
             v-html="image.caption || caption"
         />
-    </div>
+        <div
+            class="sizer"
+            :style="styles"
+        />
+        <slot />
+    </figure>
 </template>
 
 <script>
@@ -113,13 +110,11 @@ export default {
 
 <style lang="scss" scoped>
 .responsive-image {
-    .figure {
-        position: relative;
-        margin: 0;
-        z-index: 0;
-        // opacity: 0; // TODO add this back when we resolve why onload is not firing on craft images in netlify, works locally
-        transition: opacity 400ms ease-in-out;
-    }
+    position: relative;
+    margin: 0;
+    z-index: 0;
+    // opacity: 0; // TODO add this back when we resolve why onload is not firing on craft images in netlify, works locally
+    transition: opacity 400ms ease-in-out;
 
     .media {
         position: absolute;
@@ -130,7 +125,7 @@ export default {
         z-index: 0;
     }
     .caption {
-        // display: none;
+        display: none;
         // font-family: var(--font-secondary);
         // font-weight: 400;
         // font-size: 16px;
@@ -138,6 +133,8 @@ export default {
         // letter-spacing: 0.01em;
         // color: var(--color-secondary-grey-05);
         // padding: 16px 16px 32px 16px;
+        // z-index: 10;
+        // position: absolute;
     }
     .sizer {
         width: 100%;

@@ -14,7 +14,11 @@
                 v-if="image"
                 class="image"
                 :image="image"
-                :caption="caption"
+            />
+            <div
+                v-if="caption"
+                class="caption"
+                v-html="caption"
             />
         </div>
 
