@@ -32,3 +32,40 @@ export const Default = () => ({
         :caption="caption"
     />`,
 })
+
+export const NoPullQuote = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `<rich-text
+        :text-blocks="textBlocks"
+        :image="image"
+        :caption="caption"
+    />`,
+})
+
+export const NoImage = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `<rich-text
+        :text-blocks="textBlocks"
+        :pull-quote="pullQuote"
+        :caption="caption"
+    />`,
+})
+
+export const TextOnly = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `<rich-text
+        :text-blocks="textBlocks"
+    />`,
+})

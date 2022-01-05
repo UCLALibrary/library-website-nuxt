@@ -6,12 +6,22 @@
             v-html="textBlocks[0]"
         />
 
-        <responsive-image
+        <div
             v-if="image"
-            class="image"
-            :image="image"
-            :caption="caption"
-        />
+            class="image-block"
+        >
+            <responsive-image
+                v-if="image"
+                class="image"
+                :image="image"
+                :caption="caption"
+            />
+            <div
+                v-if="caption"
+                class="caption"
+                v-html="caption"
+            />
+        </div>
 
         <div
             v-if="textBlocks[1]"
@@ -69,15 +79,31 @@ export default {
         color: var(--color-black);
     }
 
+    .image-block {
+        display: flex;
+        flex-direction: column;
+
+        float: left;
+    }
+
     .image {
         margin: 10px 10px 10px 0px;
         // display: inline;
         width: 292px;
-        float: left;
+    }
+
+    .caption {
+        font-family: var(--font-secondary);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 160%;
+        letter-spacing: 0.01em;
+        color: var(--color-secondary-grey-05);
+        padding: 16px 16px 32px 16px;
     }
 
     .pull-quote {
-        margin: 10px 10px 10px 10px;
+        margin: 20px 10px 20px 10px;
     }
 }
 </style>
