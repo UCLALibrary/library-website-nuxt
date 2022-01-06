@@ -26,7 +26,7 @@ export default {
         FlexibleHighlight: () => import("~/components/Flexible/Highlight.vue"),
         FlexibleSimpleCards: () =>
             import("~/components/Flexible/SimpleCards.vue"),
-        FlexiblePullQuote: () => import("~/components/Flexible/PullQuote.vue"),
+        FlexiblePullQuote: () => import("~/components/PullQuote.vue"),
         FlexibleCardWithImage: () =>
             import("~/components/Flexible/CardWithImage.vue"),
     },

@@ -126,6 +126,15 @@ export default {
     }
     .caption {
         display: none;
+        // font-family: var(--font-secondary);
+        // font-weight: 400;
+        // font-size: 16px;
+        // line-height: 160%;
+        // letter-spacing: 0.01em;
+        // color: var(--color-secondary-grey-05);
+        // padding: 16px 16px 32px 16px;
+        // z-index: 10;
+        // position: absolute;
     }
     .sizer {
         width: 100%;
