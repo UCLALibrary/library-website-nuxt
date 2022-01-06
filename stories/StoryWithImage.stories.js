@@ -16,7 +16,7 @@ export const Default = () => ({
     template: `
       <story-with-image
           :image="item.image"
-          :imagetitle="item.image.title"
+          :caption="item.image.caption"
           :title="item.title"
           :text="item.text"
           :footnote="item.footnote"
