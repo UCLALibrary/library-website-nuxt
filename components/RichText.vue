@@ -14,7 +14,7 @@
                 v-if="image"
                 class="image"
                 :image="image"
-                :aspect-ratio="56.25"
+                :aspect-ratio="parsedRatio"
             />
             <div
                 v-if="image.caption"
@@ -63,6 +63,16 @@ export default {
             default: () => [],
         },
     },
+    computed: {
+        parsedRatio() {
+            // If on mobile, change ratio of image
+            let output = this.ratio
+            if (this.$store.state.winWidth <= 750) {
+                output = 100
+            }
+            return output
+        },
+    },
 }
 </script>
 
@@ -94,7 +104,7 @@ export default {
         width: 448px;
     }
 
-    ::v-deep .caption {
+    .caption {
         font-family: var(--font-secondary);
         font-weight: 400;
         font-size: 16px;
@@ -106,6 +116,13 @@ export default {
 
     .pull-quote {
         margin: 20px 10px 20px 0;
+    }
+
+    // Breakpoints
+    @media #{$small} {
+        .image {
+            width: 370px;
+        }
     }
 }
 </style>
