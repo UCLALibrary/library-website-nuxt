@@ -14,11 +14,12 @@
                 v-if="image"
                 class="image"
                 :image="image"
+                :aspect-ratio="56.25"
             />
             <div
-                v-if="caption"
+                v-if="image.caption"
                 class="caption"
-                v-html="caption"
+                v-html="image.caption"
             />
         </div>
 
