@@ -20,21 +20,25 @@
 
             <div class="meta">
                 <h2
+                    v-if="title"
                     class="title"
                     v-html="title"
                 />
                 <div
+                    v-if="text"
                     class="text"
                     v-html="text"
                 />
                 <divider-general class="divider-general" />
                 <div
+                    v-if="footnote"
                     class="footnote"
                     v-html="footnote"
                 />
                 <divider-general class="divider-general" />
                 <div class="calltoaction">
                     <span
+                        v-if="calltoaction"
                         v-html="calltoaction"
                     />
                     <svg-arrow-diagonal class="svg" />
