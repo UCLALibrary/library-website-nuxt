@@ -22,7 +22,7 @@
                 <ul class="press-room">
                     <li
                         v-for="item in pressItems"
-                        :key="item.text"
+                        :key="item.text "
                     >
                         <smart-link
                             :to="item.to"
@@ -33,7 +33,10 @@
                 </ul>
             </div>
 
-            <form class="form">
+            <form
+                v-if="form"
+                class="form"
+            >
                 <h2 class="title">
                     Stay updated
                 </h2>
@@ -86,6 +89,10 @@ export default {
             // Mock with api.links
             type: Array,
             default: () => [],
+        },
+        form: {
+            type: String,
+            default: "",
         },
     },
 }
