@@ -1,17 +1,13 @@
 <template lang="html">
     <div :class="classes">
-        <div class="slot">
-            <slot>
-                <div
-                    v-if="breadcrumb"
-                    class="breadcrumb"
-                >
-                    <svg-heading-vector class="heading-line" />
-                    <h3 class="text">
-                        {{ breadcrumb }}
-                    </h3>
-                </div>
-            </slot>
+        <div
+            v-if="breadcrumb"
+            class="breadcrumb"
+        >
+            <svg-heading-vector class="heading-line" />
+            <h3 class="text">
+                {{ breadcrumb }}
+            </h3>
         </div>
 
         <responsive-image
@@ -19,7 +15,7 @@
             :image="image"
             :aspect-ratio="parsedRatio"
         >
-            <div class="gradient" />
+            <div :class="gradientClasses" />
 
             <svg-molecule-half-faceted class="molecule" />
         </responsive-image>
@@ -130,6 +126,10 @@ export default {
             type: String,
             required: true,
         },
+        byline: {
+            type: String,
+            default: "",
+        },
         startDate: {
             type: String,
             default: "",
@@ -190,6 +190,9 @@ export default {
             }
             return output
         },
+        gradientClasses() {
+            return this.breadcrumb ? "gradient" : "gradient-no-breadcrumb"
+        },
         parsedLocations() {
             let parsedLocations = []
             for (let location in this.locations) {
@@ -238,16 +241,15 @@ export default {
         stroke: var(--color-theme);
     }
 
-    .slot {
-        position: absolute;
-        z-index: 20;
-        padding-left: 50px;
-        margin-top: 40px;
-    }
     .breadcrumb {
         color: var(--color-white);
         font-size: 26px;
         text-transform: capitalize;
+
+        position: absolute;
+        z-index: 20;
+        padding-left: 50px;
+        margin-top: 40px;
 
         display: flex;
         align-items: center;
@@ -274,6 +276,15 @@ export default {
                 rgba(15, 15, 15, 0.25) 67.57%,
                 #0f0f0f 100%
             );
+        z-index: 10;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .gradient-no-breadcrumb {
+        // background: $overlay-02;
         z-index: 10;
         position: absolute;
         top: 0;
@@ -352,7 +363,7 @@ export default {
         // line-height: 44px;
         margin-bottom: 5px;
         color: var(--color-primary-blue-03);
-        @include step-1;
+        // @include step-1;
         font-size: 84px;
     }
     .schedule {
@@ -418,7 +429,7 @@ export default {
         margin-top: 16px;
     }
 
-    // Varient
+    // Variant
     &.hatch-left {
         .clipped-box {
             margin-left: auto;
@@ -454,7 +465,7 @@ export default {
 
     // Breakpoints
     @media #{$small} {
-        .slot {
+        .breadcrumb {
             font-size: 28px;
             padding-left: 20px;
             margin-top: 16px;

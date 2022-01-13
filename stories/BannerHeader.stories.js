@@ -19,11 +19,6 @@ const mock = {
             to: "visit/locations/powell-library",
         },
         {
-            id: "801",
-            title: "YRL",
-            to: "visit/locations/yrl",
-        },
-        {
             id: "3062",
             title: "Online",
             to: "visit/locations/online",
@@ -65,6 +60,26 @@ export const LeftAligned = () => ({
            :to="to"
            :title="title"
            :breadcrumb="breadcrumb"
+           :start-date="startDate"
+           :end-date="endDate"
+           :prompt="prompt"
+           :align-right="false"
+           :locations="locations"
+       />
+    `,
+})
+
+export const NoBradcrumb = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <banner-header
+           :image="image"
+           :to="to"
+           :title="title"
            :start-date="startDate"
            :end-date="endDate"
            :prompt="prompt"
