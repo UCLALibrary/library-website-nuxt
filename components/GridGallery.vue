@@ -10,7 +10,6 @@
                 :key="card.to"
                 :class="card.classes"
             >
-                <!-- card.featured ? 'card-featured' : 'card' -->
                 <responsive-image
                     :image="card.image"
                     :aspect-ratio="parsedAspectRatio"
