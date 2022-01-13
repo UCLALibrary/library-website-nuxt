@@ -1,13 +1,14 @@
 <template lang="html">
     <div :class="classes">
         <div
-            v-if="breadcrumb"
-            class="breadcrumb"
+            v-if="category"
+            class="category"
         >
             <svg-heading-vector class="heading-line" />
-            <h3 class="text">
-                {{ breadcrumb }}
-            </h3>
+            <h3
+                class="text"
+                v-html="category"
+            />
         </div>
 
         <responsive-image
@@ -155,7 +156,7 @@ export default {
             type: String,
             default: "",
         },
-        breadcrumb: {
+        category: {
             type: String,
             default: "",
         },
@@ -199,7 +200,7 @@ export default {
             return output
         },
         gradientClasses() {
-            return this.breadcrumb ? "gradient" : "gradient-no-breadcrumb"
+            return this.category ? "gradient" : "gradient-no-category"
         },
         parsedLocations() {
             let parsedLocations = []
@@ -249,7 +250,7 @@ export default {
         stroke: var(--color-theme);
     }
 
-    .breadcrumb {
+    .category {
         color: var(--color-white);
         font-size: 26px;
         text-transform: capitalize;
@@ -277,13 +278,7 @@ export default {
     }
     //TODO update with overlay variable
     .gradient {
-        background: var(--gradient-image-01),
-            linear-gradient(
-                180deg,
-                rgba(15, 15, 15, 0) 0%,
-                rgba(15, 15, 15, 0.25) 67.57%,
-                #0f0f0f 100%
-            );
+        background: $overlay-01;
         z-index: 10;
         position: absolute;
         top: 0;
@@ -291,8 +286,8 @@ export default {
         width: 100%;
         height: 100%;
     }
-    .gradient-no-breadcrumb {
-        background: $overlays-overlay-02;
+    .gradient-no-category {
+        background: $overlay-02;
         z-index: 10;
         position: absolute;
         top: 0;
@@ -362,7 +357,7 @@ export default {
         align-items: flex-start;
 
         > * {
-            max-width: 700px;
+            max-width: 650px;
             width: 100%;
         }
     }
@@ -481,7 +476,7 @@ export default {
 
     // Breakpoints
     @media #{$small} {
-        .breadcrumb {
+        .category {
             font-size: 28px;
             padding-left: 16px;
             margin-top: 16px;
@@ -520,7 +515,8 @@ export default {
             }
         }
         .title {
-            margin-top: 10px;
+            font-size: 36px;
+            margin: 10px 0 5px 0px;
         }
         .button {
             width: 100%;

@@ -9,7 +9,7 @@ const mock = {
     image: API.image,
     to: "/help/foo/bar/",
     title: "Curabitur Tortor Pellentesque Nibh Aenean",
-    breadcrumb: "Lectus",
+    category: "Lectus",
     startDate: "1995-12-17T03:24:00",
     endDate: "1995-12-17T03:24:00",
     byline: "By Cursus Quis",
@@ -40,7 +40,7 @@ export const Default = () => ({
            :image="image"
            :to="to"
            :title="title"
-           :breadcrumb="breadcrumb"
+           :category="category"
            :start-date="startDate"
            :end-date="endDate"
            :byline="byline"
@@ -61,7 +61,7 @@ export const LeftAligned = () => ({
            :image="image"
            :to="to"
            :title="title"
-           :breadcrumb="breadcrumb"
+           :category="category"
            :start-date="startDate"
            :end-date="endDate"
            :prompt="prompt"
@@ -71,7 +71,7 @@ export const LeftAligned = () => ({
     `,
 })
 
-export const NoBreadcrumb = () => ({
+export const NoCategory = () => ({
     data() {
         return {
             ...mock,
