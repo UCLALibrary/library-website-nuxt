@@ -116,7 +116,10 @@ export default {
         SvgMoleculeHalfFaceted,
         SvgHatchRight,
         SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
-        SvgIconLocation: () => import("~/assets/svg/icon-location"),
+        SvgIconLocation: () =>
+            import(
+                "~~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
+            ),
         SvgIconOnline: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-virtual"
@@ -348,7 +351,7 @@ export default {
         margin: -60px 0 0 0;
         position: relative;
         z-index: 40;
-        width: 65%;
+        width: 75%;
         box-sizing: border-box;
 
         display: flex;
@@ -356,17 +359,17 @@ export default {
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-content: flex-end;
-        align-items: flex-end;
+        align-items: flex-start;
 
         > * {
-            max-width: 550px;
+            max-width: 700px;
             width: 100%;
         }
     }
 
     .title {
         // line-height: 44px;
-        margin: 20px 0 5px 0;
+        margin: 20px 0 5px 112px;
         color: var(--color-primary-blue-03);
         // @include step-1;
         font-size: 84px;
@@ -376,7 +379,7 @@ export default {
         line-height: 24px;
         text-align: left;
         color: var(--color-primary-blue-03);
-        margin: 10px 0 8px 0;
+        margin: 10px 0 8px 112px;
 
         display: flex;
         flex-direction: row;
@@ -404,6 +407,7 @@ export default {
         font-family: var(--font-secondary);
         font-size: 20px;
         line-height: 1;
+        padding-left: 112px;
     }
     .location-link {
         display: flex;
@@ -432,7 +436,7 @@ export default {
         width: 180px;
         height: 50px;
         padding: 0px 0px;
-        margin-top: 16px;
+        margin: 16px 0 0 112px;
     }
 
     // Variant
@@ -456,7 +460,13 @@ export default {
             margin-left: auto;
 
             align-content: flex-start;
-            align-items: flex-start;
+            align-items: flex-end;
+        }
+        .button {
+            width: 180px;
+            height: 50px;
+            padding: 0px 0px;
+            margin: 16px 0 0 0;
         }
     }
 
@@ -492,7 +502,7 @@ export default {
             height: 40px;
 
             .svg {
-                width: 50vw;
+                width: 70vw;
                 height: auto;
             }
         }
@@ -510,7 +520,7 @@ export default {
             }
         }
         .title {
-            margin-top: 40px;
+            margin-top: 10px;
         }
         .button {
             width: 100%;
