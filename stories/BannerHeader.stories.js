@@ -12,6 +12,7 @@ const mock = {
     breadcrumb: "Lectus",
     startDate: "1995-12-17T03:24:00",
     endDate: "1995-12-17T03:24:00",
+    byline: "By Cursus Quis",
     locations: [
         {
             id: "523",
@@ -42,6 +43,7 @@ export const Default = () => ({
            :breadcrumb="breadcrumb"
            :start-date="startDate"
            :end-date="endDate"
+           :byline="byline"
            :prompt="prompt"
            :locations="locations"
        />
@@ -69,7 +71,7 @@ export const LeftAligned = () => ({
     `,
 })
 
-export const NoBradcrumb = () => ({
+export const NoBreadcrumb = () => ({
     data() {
         return {
             ...mock,
@@ -85,6 +87,41 @@ export const NoBradcrumb = () => ({
            :prompt="prompt"
            :align-right="false"
            :locations="locations"
+       />
+    `,
+})
+
+export const Article = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <banner-header
+           :image="image"
+           :to="to"
+           :title="title"
+           :start-date="startDate"
+           :end-date="endDate"
+           :byline="byline"
+           :prompt="prompt"
+           :align-right="false"
+       />
+    `,
+})
+
+export const Location = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <banner-header
+           :image="image"
+           :title="title"
+           :align-right="false"
        />
     `,
 })

@@ -36,13 +36,18 @@
             </h3>
 
             <div class="schedule">
+                <div
+                    v-if="byline"
+                    class="schedule-item"
+                    v-html="byline"
+                />
                 <time
                     v-if="startDate"
                     class="schedule-item"
                     v-html="parsedDate"
                 />
                 <time
-                    v-if="parsedTime"
+                    v-if="startDate"
                     class="schedule-item"
                     v-html="parsedTime"
                 />
@@ -248,8 +253,8 @@ export default {
 
         position: absolute;
         z-index: 20;
-        padding-left: 50px;
-        margin-top: 40px;
+        padding-left: 64px;
+        margin-top: 64px;
 
         display: flex;
         align-items: center;
@@ -267,7 +272,7 @@ export default {
             line-height: 1;
         }
     }
-    //TODO update with variables
+    //TODO update with overlay variable
     .gradient {
         background: var(--gradient-image-01),
             linear-gradient(
@@ -284,7 +289,7 @@ export default {
         height: 100%;
     }
     .gradient-no-breadcrumb {
-        // background: $overlay-02;
+        background: $overlays-overlay-02;
         z-index: 10;
         position: absolute;
         top: 0;
@@ -314,7 +319,7 @@ export default {
         overflow: hidden;
     }
     .clipped-box {
-        width: 65%;
+        width: 75%;
         background-color: var(--color-white);
         box-sizing: border-box;
         position: relative;
@@ -361,7 +366,7 @@ export default {
 
     .title {
         // line-height: 44px;
-        margin-bottom: 5px;
+        margin: 20px 0 5px 0;
         color: var(--color-primary-blue-03);
         // @include step-1;
         font-size: 84px;
@@ -377,6 +382,7 @@ export default {
         flex-direction: row;
         flex-wrap: wrap;
     }
+
     .schedule-item {
         &:after {
             content: "";
@@ -438,7 +444,7 @@ export default {
             clip-path: polygon(39px 0, 105% 0, 100% 102%, 0 102%, 0% 95px);
         }
         .hatch {
-            right: calc(65% - 99px);
+            right: calc(75% - 99px);
             left: auto;
 
             .svg {
@@ -467,7 +473,7 @@ export default {
     @media #{$small} {
         .breadcrumb {
             font-size: 28px;
-            padding-left: 20px;
+            padding-left: 16px;
             margin-top: 16px;
         }
         .molecule {
