@@ -16,7 +16,7 @@ export const Default = () => ({
             image: API.image,
         }
     },
-    template: `<responsive-image v-bind="image"/>`,
+    template: `<responsive-image :image="image"/>`,
 })
 
 export const SquareRatio = () => ({
@@ -28,7 +28,7 @@ export const SquareRatio = () => ({
     },
     template: `
         <responsive-image
-            v-bind="image"
+            :image="image"
             :aspect-ratio="100"
         />
     `,
@@ -43,7 +43,7 @@ export const ObjectFitContain = () => ({
     },
     template: `
         <responsive-image
-            v-bind="image"
+            :image="image"
             :aspect-ratio="100"
             object-fit="contain"
         />
