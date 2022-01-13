@@ -203,7 +203,6 @@ export const ThreeCards = () => ({
     template: `
         <flexible-simple-cards
         :block="block"
-
         />
     `,
 })
