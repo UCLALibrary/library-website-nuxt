@@ -91,7 +91,7 @@ export const FeaturedNoSnippet = () => ({
     computed: {
         parsedItems() {
             return this.items.map((obj, index) => {
-                let copyObj = Object.assign({}, obj);
+                let copyObj = Object.assign({}, obj)
                 let featured = false
                 if(index == 3) copyObj.snippet = ""
                 if(index == 5 || index == 3) featured = true
