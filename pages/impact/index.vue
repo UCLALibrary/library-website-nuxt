@@ -13,15 +13,15 @@
         </div>
 
         <h2>Banner Featured</h2>
-        <!-- <banner-featured
+        <banner-featured
             class="section banner-featured"
             :title="impactBannerFeatured.title"
             :category="impactBannerFeatured.category"
             :image="impactBannerFeatured.image"
             :to="impactBannerFeatured.to"
             prompt="View exhibit"
-            :align-right="false"
-        /> -->
+            :align-right="true"
+        />
 
         <section-teaser-card
             class="teaser-card"
@@ -45,8 +45,7 @@
 
 <script>
 import * as API from "~/stories/mock-api.json"
-import formatEventDates from "~/utils/formatEventDates"
-import formatEventTimes from "~/utils/formatEventTimes"
+// import * as API from "~/stories/impact-report.json"
 
 export default {
     layout: 'impact',
@@ -58,9 +57,6 @@ export default {
                 image: API.image,
                 to: "/help/foo/bar/",
                 title: "Curabitur Tortor Pellentesque Nibh Aenean",
-                category: "Ullamcorper",
-                breadcrumb: "Lectus",
-                prompt: "Cursus Quis",
                 alignRight: true,
             }
             return mockBannerFeatured
