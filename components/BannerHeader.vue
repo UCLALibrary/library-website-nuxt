@@ -359,12 +359,13 @@ export default {
         > * {
             max-width: 650px;
             width: 100%;
+            margin: 20px 0 5px 100px;
         }
     }
 
     .title {
         // line-height: 44px;
-        margin: 20px 0 5px 112px;
+        // margin: 20px 0 5px 112px;
         color: var(--color-primary-blue-03);
         // @include step-1;
         font-size: 84px;
@@ -374,7 +375,7 @@ export default {
         line-height: 24px;
         text-align: left;
         color: var(--color-primary-blue-03);
-        margin: 10px 0 8px 112px;
+        // margin: 10px 0 8px 112px;
 
         display: flex;
         flex-direction: row;
@@ -402,7 +403,7 @@ export default {
         font-family: var(--font-secondary);
         font-size: 20px;
         line-height: 1;
-        padding-left: 112px;
+        // padding-left: 112px;
     }
     .location-link {
         display: flex;
@@ -431,7 +432,7 @@ export default {
         width: 180px;
         height: 50px;
         padding: 0px 0px;
-        margin: 16px 0 0 112px;
+        // margin: 16px 0 0 112px;
     }
 
     // Variant
@@ -475,6 +476,14 @@ export default {
     }
 
     // Breakpoints
+    @media #{$medium} {
+        .meta {
+            > * {
+                max-width: 75%;
+            }
+        }
+    }
+
     @media #{$small} {
         .category {
             font-size: 28px;
@@ -512,6 +521,7 @@ export default {
 
             > * {
                 max-width: 100%;
+                margin: 0 0 0 0;
             }
         }
         .title {
