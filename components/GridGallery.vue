@@ -187,6 +187,15 @@ export default {
         .card-featured {
             grid-template-columns: 1fr;
             gap: 0;
+            grid-column: span 6;
+
+            .section-text svg {
+                display: none;
+            }
+
+            .text {
+                margin: 16px 0 0;
+            }
         }
         .card-4up {
             grid-column: span 6;
