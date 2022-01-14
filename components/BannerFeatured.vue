@@ -39,7 +39,6 @@
 
         <div class="meta">
             <div
-                v-if="category"
                 class="category category-desktop"
                 v-html="category"
             />
@@ -50,6 +49,12 @@
                 />
             </h3>
 
+            <p
+                v-if="description"
+                class="description"
+                v-html="description"
+            />
+
             <div class="schedule">
                 <time
                     v-if="startDate"
@@ -57,11 +62,12 @@
                     v-html="parsedDate"
                 />
                 <time
-                    v-if="parsedTime"
+                    v-if="endDate"
                     class="schedule-item"
                     v-html="parsedTime"
                 />
             </div>
+
             <div
                 v-if="locations.length"
                 class="location-group"
@@ -102,6 +108,7 @@
                 :to="to"
             >
                 <button-link
+                    v-if="prompt"
                     :label="prompt"
                     class="button"
                 />
@@ -139,6 +146,10 @@ export default {
         title: {
             type: String,
             required: true,
+        },
+        description: {
+            type: String,
+            default: "",
         },
         category: {
             type: String,
