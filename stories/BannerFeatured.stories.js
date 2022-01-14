@@ -10,6 +10,7 @@ const mock = {
     to: "/help/foo/bar/",
     title: "Curabitur Tortor Pellentesque Nibh Aenean",
     category: "Ullamcorper",
+    description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     breadcrumb: "Lectus",
     startDate: "1995-12-17T03:24:00",
     endDate: "1995-12-17T03:24:00",
@@ -42,16 +43,16 @@ export const Default = () => ({
     },
     template: `
         <banner-featured
-           :image="image"
-           :to="to"
-           :title="title"
-           :category="category"
-           :breadcrumb="breadcrumb"
-           :start-date="startDate"
-           :end-date="endDate"
-           :prompt="prompt"
-           :locations="locations"
-       />
+            :image="image"
+            :to="to"
+            :title="title"
+            :category="category"
+            :breadcrumb="breadcrumb"
+            :start-date="startDate"
+            :end-date="endDate"
+            :prompt="prompt"
+            :locations="locations"
+        />
     `,
 })
 
@@ -63,17 +64,17 @@ export const LeftAligned = () => ({
     },
     template: `
         <banner-featured
-           :image="image"
-           :to="to"
-           :title="title"
-           :category="category"
-           :breadcrumb="breadcrumb"
-           :start-date="startDate"
-           :end-date="endDate"
-           :prompt="prompt"
-           :align-right="false"
-           :locations="locations"
-       />
+            :image="image"
+            :to="to"
+            :title="title"
+            :category="category"
+            :breadcrumb="breadcrumb"
+            :start-date="startDate"
+            :end-date="endDate"
+            :prompt="prompt"
+            :align-right="false"
+            :locations="locations"
+        />
     `,
 })
 
@@ -85,15 +86,15 @@ export const NotOnline = () => ({
     },
     template: `
         <banner-featured
-           :image="image"
-           :to="to"
-           :title="title"
-           :category="category"
-           :breadcrumb="breadcrumb"
-           :start-date="startDate"
-           :end-date="endDate"
-           :prompt="prompt"
-           :align-right="alignRight"
+            :image="image"
+            :to="to"
+            :title="title"
+            :category="category"
+            :breadcrumb="breadcrumb"
+            :start-date="startDate"
+            :end-date="endDate"
+            :prompt="prompt"
+            :align-right="alignRight"
         />
     `,
 })
@@ -114,15 +115,15 @@ export const Slot = () => ({
     },
     template: `
         <banner-featured
-           :image="image"
-           to="/about/foo/bar/"
-           :title="title"
-           :category="category"
-           :breadcrumb="breadcrumb"
-           :start-date="startDate"
-           :end-date="endDate"
-           :prompt="prompt"
-           :align-right="alignRight"
+            :image="image"
+            to="/about/foo/bar/"
+            :title="title"
+            :category="category"
+            :breadcrumb="breadcrumb"
+            :start-date="startDate"
+            :end-date="endDate"
+            :prompt="prompt"
+            :align-right="alignRight"
         >
             <heading-arrow
                 v-if="breadcrumb"
@@ -149,16 +150,15 @@ export const LongHeading = () => ({
     },
     template: `
         <banner-featured
-           :image="image"
-           :to="to"
-           :title="title"
-           :category="category"
-           :breadcrumb="breadcrumb"
-           :start-date="startDate"
-           :end-date="endDate"
-           :prompt="prompt"
-           :align-right="alignRight"
-
+            :image="image"
+            :to="to"
+            :title="title"
+            :category="category"
+            :breadcrumb="breadcrumb"
+            :start-date="startDate"
+            :end-date="endDate"
+            :prompt="prompt"
+            :align-right="alignRight"
         >
             <heading-arrow
                 v-if="breadcrumb"
@@ -177,18 +177,17 @@ export const WideImage = () => ({
     },
     template: `
         <banner-featured
-           :image="image"
-           :to="to"
-           :title="title"
-           :category="category"
-           :breadcrumb="breadcrumb"
-           :start-date="startDate"
-           :end-date="endDate"
-           :prompt="prompt"
-           :ratio="42"
-           :locations="locations"
-
-       />
+            :image="image"
+            :to="to"
+            :title="title"
+            :category="category"
+            :breadcrumb="breadcrumb"
+            :start-date="startDate"
+            :end-date="endDate"
+            :prompt="prompt"
+            :ratio="42"
+            :locations="locations"
+        />
     `,
 })
 
@@ -200,19 +199,18 @@ export const WideImageLeftAligned = () => ({
     },
     template: `
         <banner-featured
-           :image="image"
-           :to="to"
-           :title="title"
-           :category="category"
-           :breadcrumb="breadcrumb"
-           :start-date="startDate"
-           :end-date="endDate"
-           :prompt="prompt"
-           :ratio="42"
-           :align-right="false"
-           :locations="locations"
-
-       />
+            :image="image"
+            :to="to"
+            :title="title"
+            :category="category"
+            :breadcrumb="breadcrumb"
+            :start-date="startDate"
+            :end-date="endDate"
+            :prompt="prompt"
+            :ratio="42"
+            :align-right="false"
+            :locations="locations"
+        />
     `,
 })
 
@@ -224,16 +222,32 @@ export const NoButton = () => ({
     },
     template: `
         <banner-featured
-           :image="image"
-           :to="to"
-           :title="title"
-           :category="category"
-           :breadcrumb="breadcrumb"
-           :start-date="startDate"
-           :end-date="endDate"
-           :prompt="prompt"
-           :ratio="42"
-           :align-right="false"
-       />
+            :image="image"
+            :title="title"
+            :category="category"
+            :breadcrumb="breadcrumb"
+            :start-date="startDate"
+            :end-date="endDate"
+            :ratio="42"
+            :align-right="false"
+        />
+    `,
+})
+
+export const WithDescription = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <banner-featured
+            :image="image"
+            :category="category"
+            :to="to"
+            :title="title"
+            :description="description"
+            :prompt="prompt"
+        />
     `,
 })
