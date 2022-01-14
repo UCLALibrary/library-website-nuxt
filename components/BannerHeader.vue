@@ -364,11 +364,9 @@ export default {
     }
 
     .title {
-        // line-height: 44px;
         // margin: 20px 0 5px 112px;
         color: var(--color-primary-blue-03);
-        // @include step-1;
-        font-size: 84px;
+        @include step-5;
     }
     .schedule {
         font-size: 20px;
@@ -456,7 +454,7 @@ export default {
             margin-left: auto;
 
             align-content: flex-start;
-            align-items: flex-end;
+            // align-items: flex-end;
         }
         .button {
             width: 180px;
@@ -480,6 +478,7 @@ export default {
         .meta {
             > * {
                 max-width: 75%;
+                margin: 20px 0 5px 10px;
             }
         }
     }
@@ -518,14 +517,14 @@ export default {
             padding-right: var(--unit-gutter);
             box-sizing: border-box;
             position: static;
+            margin: 0 0 0 0;
 
             > * {
                 max-width: 100%;
-                margin: 0 0 0 0;
+                margin-bottom: 0;
             }
         }
         .title {
-            font-size: 36px;
             margin: 10px 0 5px 0px;
         }
         .button {
@@ -545,11 +544,16 @@ export default {
             }
             .meta {
                 width: 100%;
-                margin-top: 0;
+                margin: 0 0 0 0;
                 padding-left: var(--unit-gutter);
                 padding-right: var(--unit-gutter);
                 box-sizing: border-box;
                 position: static;
+            }
+            .button {
+                width: 100%;
+                height: 40px;
+                margin: 24px 0 10px 0;
             }
         }
     }
