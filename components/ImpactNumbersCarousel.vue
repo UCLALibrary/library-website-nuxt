@@ -1,7 +1,14 @@
 <template lang="html">
     <div class="impact-numbers-carousel">
         <div class="slide-indicator">
-            molecules here
+            <div 
+                v-for="i in blocks"
+                :key="i"
+                class="bullet"
+            >
+                <svg-molecule-bullet class="slide" />
+                <svg-molecule-radio-button class="current-slide" />
+            </div>
         </div>
         <vue-glide
             per-view="1"
@@ -47,6 +54,8 @@ import { Glide, GlideSlide } from 'vue-glide-js'
 import 'vue-glide-js/dist/vue-glide.css'
 // SVGs
 import SvgArrowRight from "~/assets/svg/arrow-right"
+import SvgMoleculeBullet from "~/assets/svg/molecule-bullet"
+import SvgMoleculeRadioButton from "~/assets/svg/molecule-radio-button"
 
 
 export default {
@@ -54,6 +63,8 @@ export default {
         [Glide.name]: Glide,
         [GlideSlide.name]: GlideSlide,
         SvgArrowRight,
+        SvgMoleculeBullet,
+        SvgMoleculeRadioButton,
     },
     props: {
         /**
@@ -69,30 +80,37 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .impact-numbers-carousel {
     display: flex;
-}
 
-.impactNumber {
-    font-family: var(--font-secondary);
-    font-weight: medium;
-    font-size: 128px;
-    line-height: 100%;
-    letter-spacing: -0.02em;
-    color: var(--color-primary-blue-03);
-}
+    .slide-indicator {
+        .current-slide {
+            fill: var(--color-primary-blue-03);
+        }
+    }
 
-.impactText {
-    font-family: var(--font-primary);
-    font-weight: regular;
-    font-size: 64px;
-    line-height: 85%;
-    letter-spacing: -0.005em;
-    color: var(--color-black);
-}
 
-.prev-control {
-    transform: rotate(180deg);
+    .impactNumber {
+        font-family: var(--font-secondary);
+        font-weight: medium;
+        font-size: 128px;
+        line-height: 100%;
+        letter-spacing: -0.02em;
+        color: var(--color-primary-blue-03);
+    }
+
+    .impactText {
+        font-family: var(--font-primary);
+        font-weight: regular;
+        font-size: 64px;
+        line-height: 85%;
+        letter-spacing: -0.005em;
+        color: var(--color-black);
+    }
+
+    .prev-control {
+        transform: rotate(180deg);
+    }
 }
 </style>
