@@ -32,6 +32,7 @@
 
         <div class="meta">
             <div
+                v-if="category"
                 class="category"
                 v-html="category"
             />
@@ -75,7 +76,7 @@
                     />
                 </nuxt-link>
             </div>
-            <div
+            <p
                 v-if="text"
                 class="text"
                 v-html="text"
@@ -121,10 +122,6 @@ export default {
             type: String,
             default: "",
         },
-        text: {
-            type: String,
-            default: "",
-        },
         hasTriangle: {
             type: Boolean,
             default: false,
@@ -140,6 +137,10 @@ export default {
         locations: {
             type: Array,
             default: () => [],
+        },
+        text: {
+            type: String,
+            default: "",
         },
     },
     computed: {
