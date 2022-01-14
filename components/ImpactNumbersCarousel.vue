@@ -1,27 +1,40 @@
 <template lang="html">
     <div class="impact-numbers-carousel">
-        <div
-            v-for="(block, index) in blocks"
-            :key="index"
-            class="glider"
-        >
-            <div>Slide: {{ index + 1 }}</div>
-            <div>Large Text: {{ block.largeText }}</div>
-            <div>Medium Text: {{ block.mediumText }}</div>
+        <div class="slide-indicator">
+            molecules here
         </div>
-
-        <button 
-            aria-label="Previous"
-            class="glider-prev"
+        <vue-glide
+            per-view="1"
+            :rewind="false"
         >
-            «
-        </button>
-        <button
-            aria-label="Next"
-            class="glider-next"
-        >
-            »
-        </button>
+            <vue-glide-slide
+                v-for="(block, i) in blocks"
+                :key="i"
+            >
+                <div>
+                    <img
+                        :src="block.imagePath"
+                        width="600"
+                        height="400"
+                    >
+                </div>
+                <div class="impact-munbers-text-container">
+                    <span class="impactNumber">{{ block.largeText }}</span>
+                    <span class="impactText">{{ block.mediumText }}</span>
+                </div>
+                <div class="smallDescriptor">
+                    {{ block.smallDescriptor }}
+                </div>
+            </vue-glide-slide>
+            <template slot="control">
+                <button data-glide-dir="<">
+                    <svg-arrow-right class="prev-control" />
+                </button>
+                <button data-glide-dir=">">
+                    <svg-arrow-right />
+                </button>
+            </template>
+        </vue-glide>
         <div
             role="tablist"
             class="dots"
@@ -30,11 +43,22 @@
 </template>
 
 <script>
+import { Glide, GlideSlide } from 'vue-glide-js'
+import 'vue-glide-js/dist/vue-glide.css'
+// SVGs
+import SvgArrowRight from "~/assets/svg/arrow-right"
+
+
 export default {
+    components: {
+        [Glide.name]: Glide,
+        [GlideSlide.name]: GlideSlide,
+        SvgArrowRight,
+    },
     props: {
         /**
          * An array of blocks with the following properties: [{ largeText, 
-         * mediumText, smallDescriptor, image, altImageText }].
+         * mediumText, smallDescriptor, imagePath, altImageText }].
          */
         blocks: {
             type: Array,
@@ -47,6 +71,28 @@ export default {
 
 <style lang="css" scoped>
 .impact-numbers-carousel {
-    
+    display: flex;
+}
+
+.impactNumber {
+    font-family: var(--font-secondary);
+    font-weight: medium;
+    font-size: 128px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    color: var(--color-primary-blue-03);
+}
+
+.impactText {
+    font-family: var(--font-primary);
+    font-weight: regular;
+    font-size: 64px;
+    line-height: 85%;
+    letter-spacing: -0.005em;
+    color: var(--color-black);
+}
+
+.prev-control {
+    transform: rotate(180deg);
 }
 </style>
