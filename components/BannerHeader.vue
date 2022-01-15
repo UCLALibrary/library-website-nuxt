@@ -12,11 +12,21 @@
         </div>
 
         <responsive-image
+            v-if="image"
             class="image"
             :image="image"
             :aspect-ratio="parsedRatio"
         >
-            <div :class="gradientClasses" />
+            <!-- Update to be <comopnent is> after reponsive video is built -->
+            <!-- <responsive-video
+            v-if="video"
+            class="image"
+            :video="video"
+        > -->
+            <div
+                v-if="image"
+                :class="gradientClasses"
+            />
 
             <svg-molecule-half-faceted class="molecule" />
         </responsive-image>
@@ -128,6 +138,10 @@ export default {
     },
     props: {
         image: {
+            type: Object,
+            default: () => {},
+        },
+        video: {
             type: Object,
             default: () => {},
         },
