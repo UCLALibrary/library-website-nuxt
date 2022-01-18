@@ -12,33 +12,49 @@
             </p>
         </div>
 
-        <h2>Banner Featured</h2>
         <banner-featured
-            class="section banner-featured"
+            class="banner-featured"
             :title="impactBannerFeatured.title"
+            :description="impactBannerFeatured.description"
             :category="impactBannerFeatured.category"
             :image="impactBannerFeatured.image"
             :to="impactBannerFeatured.to"
             prompt="View exhibit"
+            :ratio="42"
             :align-right="true"
         />
 
-        <section-teaser-card
-            class="teaser-card"
-            :items="sectionTeaserCard.items"
-        />
+        <div class="section-grid">
+            <section-teaser-card
+                class="teaser-card"
+                :items="sectionTeaserCard.items"
+            />
 
-        <!-- <divider-way-finder
+            <divider-way-finder
+                class="divider" 
+                color="about"
+            />
+
+            <h2 class="grid-gallery-title">
+                2020-21: An Academic Year Like No Other
+            </h2>
+
+            <h3 class="grid-gallery-subtitle">
+                The Great Pivot: March - October 2020
+            </h3>
+
+            <grid-gallery
+                :items="gridGallery.items"
+            />
+        </div>
+
+        <p class="credits">
+            <a href="">Thank you to UCLA Library Staff</a> credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia nascetur tristique orci est vehicula interdum. Vehicula non hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis felis ipsum malesuada posuere sollicitudin. Habitasse proin purus montes lorem cursus iaculis lacinia et. Elementum consectetuer aptent parturient nostra hendrerit sapien imperdiet vel.
+        </p>
+
+        <divider-way-finder
+            class="divider" 
             color="about"
-        /> -->
-
-        <block-call-to-action
-            class="section block-call-to-action"
-            svg-name="svg-call-to-action-find"
-            :to="blockCallToAction.to"
-            :name="blockCallToAction.name"
-            :title="blockCallToAction.title"
-            :text="blockCallToAction.text"
         />
     </div>
 </template>
@@ -57,6 +73,7 @@ export default {
                 image: API.image,
                 to: "/help/foo/bar/",
                 title: "Curabitur Tortor Pellentesque Nibh Aenean",
+                description: "After Covid triggered a campus closure, UCLA Library reimagined its services for students and faculty scattered across the country and globe",
                 alignRight: true,
             }
             return mockBannerFeatured
@@ -81,16 +98,41 @@ export default {
             ]
             return { items: mockTeaserCard }
         },
-
-        blockCallToAction() {
-            const mockBlockCallToAction = {
-                to: "/help/foo/bar/",
-                name: "[Label]",
-                title: "Call to Action",
-                text: "[Byline] Descriptive copy",
-            }
-            return mockBlockCallToAction
+        gridGallery() {
+            const mockGridGallery = [
+                {
+                    image: API.image,
+                    monthYear: "March 2020",
+                    to: "/visit/foo/bar/",
+                    headlineText: "Vel Quam Elementum",
+                    snippet: "Vel eros donec ac odio tempor orci dapibus. Ante metus dictum at tempor. ",
+                },
+                {
+                    image: API.image,
+                    monthYear: "March 2020",
+                    to: "/visit/foo/baz/",
+                    headlineText:
+                        "Mauris pellentesque pulvinar pellentesque habitant morbi tristique",
+                    snippet: "Ante metus dictum at tempor. Pretium nibh ipsum consequat nisl vel pretium. Amet consectetur adipiscing elit ut aliquam purus sit. Diam quis enim lobortis scelerisque fermentum dui faucibus. Hac habitasse platea dictumst quisque.",
+                },
+                {
+                    image: API.image,
+                    monthYear: "March 2020",
+                    to: "/visit/foo/bat/",
+                    headlineText: "Adipiscing Tristique",
+                    snippet: "Vel eros donec ac odio  nisl vel pretium. Amet consectetur adipiscing elit ut aliquam purus sit. ",
+                },
+                {
+                    image: API.image,
+                    to: "/visit/foo/bad/",
+                    headlineText: "Aenean Lectus Elit",
+                    snippet: "Vel eros donec ac odio tempor orci dapibus. Ante metus dictum at tempor. Pretium nibh ipsum consequat nisl vel pretium. Amet consectetur adipiscing elit ut aliquam purus sit. Diam quis enim lobortis scelerisque fermentum dui faucibus. Hac habitasse platea dictumst quisque.",
+                    featured: "true",
+                },
+            ]
+            return { items: mockGridGallery }
         },
+        
     },
     // This will recall fetch() when these query params change
     watchQuery: ["offset", "q"],
@@ -109,21 +151,49 @@ export default {
         }
         .text {
             font-size: 48px;
-            line-height: 57px;
+            line-height: 56px;
         }
         .attribution {
             font-size: 48px;
             line-height: 57px;
         }
     }
-    .section-teaser-card {
+
+    .section-grid {
+
+        .grid-gallery-title {
+            margin: var(--unit-gutter) var(--unit-gutter) 24px var(--unit-gutter);
+            color: var(--color-primary-blue-03);
+            font-size: 48px;
+            line-height: 56px;
+        }
+        .grid-gallery-subtitle {
+            margin: 0 var(--unit-gutter) 0 var(--unit-gutter);
+            color: var(--color-primary-blue-03);
+            font-size: 35.538px;
+            line-height: 43px;
+        }
+        .grid-gallery {
+            margin: 0 auto;
+        }
+    }
+
+    .teaser-card {
         margin: 0 auto;
     }
-    .divider {
-        margin: 0 auto;
-    }
+
      .block-call-to-action {
     }
-}
 
+    .credits {
+        margin: var(--unit-gutter);
+        font-style: italic;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 26px;
+    }
+}
+.page .section {
+    margin-top: 0px;
+}
 </style>

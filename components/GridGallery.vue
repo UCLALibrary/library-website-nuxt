@@ -113,6 +113,7 @@ export default {
         font-size: 35.538px;
         line-height: 120%;
         color: var(--color-black);
+        margin-top: var(--unit-gutter);
     }
     .cards {
         display: grid;
