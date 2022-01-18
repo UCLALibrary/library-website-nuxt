@@ -490,9 +490,10 @@ export default {
     // Breakpoints
     @media #{$medium} {
         .meta {
+            margin: -70px 0 0 0;
             > * {
                 max-width: 85%;
-                margin: 20px 0 5px 10px;
+                margin: 8px 0 5px 10px;
             }
         }
     }
