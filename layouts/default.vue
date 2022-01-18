@@ -7,6 +7,7 @@
         <footer-primary
             :social-items="parsedItems"
             :press-items="parsedPressItems"
+            form="true"
         />
         <footer-sock :items="footerSockItems" />
     </main>
