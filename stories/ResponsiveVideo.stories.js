@@ -13,3 +13,12 @@ export const ImageWithVideo = () => ({
     },
     template: `<responsive-video :image="image" />`,
 })
+
+export const VideoWithControls = () => ({
+    data() {
+        return {
+            image: API.video,
+        }
+    },
+    template: `<responsive-video :image="image" :controls="true"/>`,
+})
