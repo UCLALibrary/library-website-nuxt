@@ -25,6 +25,7 @@
             :loop="loop"
             :autoplay="autoplay"
             :muted="muted"
+            :controls="controls"
             :playsinline="playsinline"
             @loadeddata="onLoaded('video')"
             @error="onError('video')"
@@ -120,6 +121,10 @@ export default {
         muted: {
             type: Boolean,
             default: true,
+        },
+        controls: {
+            type: Boolean,
+            default: false,
         },
         playsinline: {
             type: Boolean,
