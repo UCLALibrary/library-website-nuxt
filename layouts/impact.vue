@@ -1,16 +1,16 @@
 <template lang="html">
-    <main :class="classes">
-        <header-main />
-
+    <div :class="classes">
+        <nav-primary
+            class="primary"
+            :items="primaryItems"
+        />
         <nuxt class="page" />
 
         <footer-primary
             :social-items="parsedItems"
             :press-items="parsedPressItems"
-            form="true"
         />
-        <footer-sock :items="footerSockItems" />
-    </main>
+    </div>
 </template>
 
 <script>
