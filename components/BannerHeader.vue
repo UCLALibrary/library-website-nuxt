@@ -491,7 +491,7 @@ export default {
     @media #{$medium} {
         .meta {
             > * {
-                max-width: 75%;
+                max-width: 85%;
                 margin: 20px 0 5px 10px;
             }
         }
