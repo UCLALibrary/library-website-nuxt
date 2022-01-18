@@ -111,7 +111,7 @@ export default {
         },
         loop: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         autoplay: {
             type: Boolean,
@@ -206,9 +206,6 @@ export default {
             )
         },
         parsedVideoUrl() {
-            console.log(
-                this.videoUrl || _get(this, "image.imageMeta.videoUrl", "")
-            )
             return this.videoUrl || _get(this, "image.imageMeta.videoUrl", "")
         },
         parsedFocalPoint() {
