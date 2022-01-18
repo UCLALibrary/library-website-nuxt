@@ -535,16 +535,16 @@ export default {
 
             > * {
                 max-width: 100%;
-                margin-bottom: 0;
+                margin: 8px 0 0 0;
             }
         }
         .title {
             margin: 10px 0 5px 0px;
         }
         .button {
-            width: 100%;
+            width: 324px;
             height: 40px;
-            margin: 40px 0 0 0;
+            margin: 24px 0 0 0;
         }
 
         // Variant
@@ -565,7 +565,7 @@ export default {
                 position: static;
             }
             .button {
-                width: 100%;
+                width: 324px;
                 height: 40px;
                 margin: 24px 0 10px 0;
             }

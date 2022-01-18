@@ -91,7 +91,7 @@ export const NoCategory = () => ({
     `,
 })
 
-export const Article = () => ({
+export const WithByline = () => ({
     data() {
         return {
             ...mock,
@@ -111,7 +111,7 @@ export const Article = () => ({
     `,
 })
 
-export const Location = () => ({
+export const OnlyTitle = () => ({
     data() {
         return {
             ...mock,
