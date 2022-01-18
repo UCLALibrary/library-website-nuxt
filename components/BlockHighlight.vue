@@ -263,7 +263,7 @@ export default {
         z-index: 10;
         position: relative;
         width: 100%;
-        min-height: 255px;
+        // min-height: 255px;
         box-sizing: border-box;
     }
     .category {
@@ -351,8 +351,6 @@ export default {
         margin-bottom: 50px;
 
         &:not(.has-triangle) {
-            max-height: 420px;
-
             .meta {
                 margin-top: 16px;
                 max-width: 300px;
