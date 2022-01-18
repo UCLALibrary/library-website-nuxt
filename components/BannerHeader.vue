@@ -542,6 +542,17 @@ export default {
         .title {
             margin: 10px 0 5px 0px;
         }
+        .schedule {
+            display: flex;
+            flex-direction: column;
+            padding-left: 0;
+        }
+        .schedule-item {
+            margin-top: 8px;
+            &:after {
+                display: none;
+            }
+        }
         .button {
             width: 324px;
             height: 40px;
