@@ -1,5 +1,5 @@
 // Import mock api data
-import { data as API } from "~/stories/video.json"
+import * as API from "~/stories/mock-api.json"
 
 export default {
     title: "GLOBAL / Responsive Video",
@@ -8,7 +8,7 @@ export default {
 export const ImageWithVideo = () => ({
     data() {
         return {
-            image: API.images.nodes[0],
+            image: API.video,
         }
     },
     template: `<responsive-video :image="image" />`,
