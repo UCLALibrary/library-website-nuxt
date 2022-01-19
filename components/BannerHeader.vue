@@ -294,7 +294,7 @@ export default {
             line-height: 1;
         }
     }
-    .image {
+    .media {
         max-height: 730px;
     }
     .gradient {
@@ -490,7 +490,7 @@ export default {
 
     // Breakpoints
     @media #{$medium} {
-        .image {
+        .media {
             max-height: 432px;
         }
         .meta {
@@ -503,7 +503,7 @@ export default {
     }
 
     @media #{$small} {
-        .image {
+        .media {
             max-height: 375px;
         }
         .category {
