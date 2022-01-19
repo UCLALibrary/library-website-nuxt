@@ -15,14 +15,28 @@
         </div>
 
         <responsive-image
+            v-if="image"
             class="image"
             :image="image"
             :aspect-ratio="parsedRatio"
         >
-            <div class="gradient" />
+            <div
+                v-if="image"
+                class="gradient"
+            />
 
-            <svg-molecule-half-faceted class="molecule" />
+            <svg-molecule-half-faceted
+                v-if="image"
+                class="molecule"
+            />
         </responsive-image>
+
+        <responsive-video
+            v-if="video"
+            class="video"
+            :image="video"
+            :aspect-ratio="parsedRatio"
+        />
 
         <div class="hatch-box">
             <div class="clipped-box">
@@ -140,6 +154,10 @@ export default {
     },
     props: {
         image: {
+            type: Object,
+            default: () => {},
+        },
+        video: {
             type: Object,
             default: () => {},
         },
