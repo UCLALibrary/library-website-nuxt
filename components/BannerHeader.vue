@@ -119,7 +119,7 @@ import formatEventTimes from "~/utils/formatEventTimes"
 import formatEventDates from "~/utils/formatEventDates"
 
 // SVGs
-import SvgMoleculeHalfFaceted from "~/assets/svg/molecule-half-faceted"
+import SvgMoleculeHalfFaceted from "~~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-half-overlay"
 import SvgHatchRight from "~/assets/svg/hatch-right"
 
 export default {
@@ -248,6 +248,7 @@ export default {
     position: relative;
     overflow: hidden;
     background-color: var(--color-white);
+    max-width: $content-width-05;
 
     // Themes
     --color-theme: var(--color-primary-blue-03);
@@ -290,7 +291,9 @@ export default {
             line-height: 1;
         }
     }
-    //TODO update with overlay variable
+    .image {
+        max-height: 730px;
+    }
     .gradient {
         background: $overlay-01;
         z-index: 10;
@@ -378,7 +381,6 @@ export default {
     }
 
     .title {
-        // margin: 20px 0 5px 112px;
         color: var(--color-primary-blue-03);
         @include step-5;
     }
@@ -387,7 +389,6 @@ export default {
         line-height: 24px;
         text-align: left;
         color: var(--color-primary-blue-03);
-        // margin: 10px 0 8px 112px;
 
         display: flex;
         flex-direction: row;
@@ -415,7 +416,6 @@ export default {
         font-family: var(--font-secondary);
         font-size: 20px;
         line-height: 1;
-        // padding-left: 112px;
     }
     .location-link {
         display: flex;
@@ -444,7 +444,6 @@ export default {
         width: 180px;
         height: 50px;
         padding: 0px 0px;
-        // margin: 16px 0 0 112px;
     }
 
     // Variant
@@ -468,7 +467,6 @@ export default {
             margin-left: auto;
 
             align-content: flex-start;
-            // align-items: flex-end;
         }
         .button {
             width: 180px;
@@ -489,6 +487,9 @@ export default {
 
     // Breakpoints
     @media #{$medium} {
+        .image {
+            max-height: 432px;
+        }
         .meta {
             margin: -70px 0 0 0;
             > * {
@@ -499,6 +500,9 @@ export default {
     }
 
     @media #{$small} {
+        .image {
+            max-height: 375px;
+        }
         .category {
             font-size: 28px;
             padding-left: 16px;
