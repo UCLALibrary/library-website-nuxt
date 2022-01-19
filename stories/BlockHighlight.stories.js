@@ -195,8 +195,8 @@ export const List = () => ({
       :text="text"
       :start-date="startDate"
       :end-date="endDate"
-      :image-aspect-ratio="60"
       :locations="locations"
+      :image-aspect-ratio="60"
       />
   `,
 })
