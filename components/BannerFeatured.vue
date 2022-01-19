@@ -14,15 +14,22 @@
             </slot>
         </div>
 
-        <responsive-image
-            class="image"
-            :image="image"
+        <component
+            :is="parsedMediaComponent"
+            class="media"
+            :image="parsedMediaProp"
             :aspect-ratio="parsedRatio"
         >
-            <div class="gradient" />
+            <div
+                v-if="image"
+                class="gradient"
+            />
 
-            <svg-molecule-half-faceted class="molecule" />
-        </responsive-image>
+            <svg-molecule-half-faceted
+                v-if="image"
+                class="molecule"
+            />
+        </component>
 
         <div class="hatch-box">
             <div class="clipped-box">
@@ -124,15 +131,21 @@ import formatEventTimes from "~/utils/formatEventTimes"
 import formatEventDates from "~/utils/formatEventDates"
 
 // SVGs
-import SvgMoleculeHalfFaceted from "~/assets/svg/molecule-half-faceted"
+
 import SvgHatchRight from "~/assets/svg/hatch-right"
 
 export default {
     components: {
-        SvgMoleculeHalfFaceted,
         SvgHatchRight,
+        SvgMoleculeHalfFaceted: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-half-overlay"
+            ),
         SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
-        SvgIconLocation: () => import("~/assets/svg/icon-location"),
+        SvgIconLocation: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
+            ),
         SvgIconOnline: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-virtual"
@@ -140,6 +153,10 @@ export default {
     },
     props: {
         image: {
+            type: Object,
+            default: () => {},
+        },
+        video: {
             type: Object,
             default: () => {},
         },
@@ -206,6 +223,12 @@ export default {
         },
         sectionName() {
             return this.section || getSectionName(this.to)
+        },
+        parsedMediaComponent() {
+            return this.image ? "responsive-image" : "responsive-video"
+        },
+        parsedMediaProp() {
+            return this.image ? this.image : this.video
         },
         parsedRatio() {
             // If on mobile, change ratio of image
@@ -313,7 +336,7 @@ export default {
         margin: auto;
         position: absolute;
         z-index: 20;
-        opacity: 30%;
+        opacity: 0.3;
         mix-blend-mode: screen;
 
         height: 70%;
@@ -506,7 +529,7 @@ export default {
             height: 40px;
 
             .svg {
-                width: 50vw;
+                width: 70vw;
                 height: auto;
             }
         }

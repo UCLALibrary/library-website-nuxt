@@ -7,10 +7,12 @@ export default {
 
 const mock = {
     image: API.image,
+    video: API.video,
     to: "/help/foo/bar/",
     title: "Curabitur Tortor Pellentesque Nibh Aenean",
     category: "Ullamcorper",
-    description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    description:
+        "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     breadcrumb: "Lectus",
     startDate: "1995-12-17T03:24:00",
     endDate: "1995-12-17T03:24:00",
@@ -243,6 +245,24 @@ export const WithDescription = () => ({
     template: `
         <banner-featured
             :image="image"
+            :category="category"
+            :to="to"
+            :title="title"
+            :description="description"
+            :prompt="prompt"
+        />
+    `,
+})
+
+export const Video = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <banner-featured
+            :video="video"
             :category="category"
             :to="to"
             :title="title"
