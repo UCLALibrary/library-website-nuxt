@@ -524,7 +524,7 @@ export default {
             height: 40px;
 
             .svg {
-                width: 50vw;
+                width: 70vw;
                 height: auto;
             }
         }
