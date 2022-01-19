@@ -69,7 +69,7 @@
 
 <script>
 import SvgLogoUclaLibrary from "~/assets/svg/logo-ucla-library"
-import SvgMoleculeHalf from "~/assets/svg/molecule-half"
+import SvgMoleculeHalf from "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-half"
 import SvgArrowRight from "~/assets/svg/arrow-right"
 
 export default {
@@ -122,11 +122,12 @@ export default {
     .molecule-half-svg {
         position: absolute;
         z-index: 10;
-        opacity: 45%;
+        opacity: 0.45;
         mix-blend-mode: screen;
         top: 30px;
         left: -55px;
         height: 287px;
+        transform: rotate(180deg);
     }
 
     .container {
