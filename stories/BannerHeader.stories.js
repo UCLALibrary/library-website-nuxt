@@ -7,6 +7,7 @@ export default {
 
 const mock = {
     image: API.image,
+    video: API.video,
     to: "/help/foo/bar/",
     title: "Curabitur Tortor Pellentesque Nibh Aenean",
     category: "Lectus",
@@ -120,6 +121,21 @@ export const OnlyTitle = () => ({
     template: `
         <banner-header
            :image="image"
+           :title="title"
+           :align-right="false"
+       />
+    `,
+})
+
+export const Video = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <banner-header
+           :video="video"
            :title="title"
            :align-right="false"
        />

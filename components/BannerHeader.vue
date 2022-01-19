@@ -11,25 +11,22 @@
             />
         </div>
 
-        <responsive-image
-            v-if="image"
-            class="image"
-            :image="image"
+        <component
+            :is="parsedMediaComponent"
+            class="media"
+            :image="parsedMediaProp"
             :aspect-ratio="parsedRatio"
         >
-            <!-- Update to be <comopnent is> after reponsive video is built -->
-            <!-- <responsive-video
-            v-if="video"
-            class="image"
-            :video="video"
-        > -->
             <div
                 v-if="image"
                 :class="gradientClasses"
             />
 
-            <svg-molecule-half-faceted class="molecule" />
-        </responsive-image>
+            <svg-molecule-half-faceted
+                v-if="image"
+                class="molecule"
+            />
+        </component>
 
         <div class="hatch-box">
             <div class="clipped-box" />
@@ -213,6 +210,12 @@ export default {
             }
             return output
         },
+        parsedMediaComponent() {
+            return this.image ? "responsive-image" : "responsive-video"
+        },
+        parsedMediaProp() {
+            return this.image ? this.image : this.video
+        },
         gradientClasses() {
             return this.category ? "gradient" : "gradient-no-category"
         },
@@ -320,7 +323,7 @@ export default {
         position: absolute;
         z-index: 20;
         // opacity: 30%;
-        mix-blend-mode: screen;
+        // mix-blend-mode: screen;
 
         height: 70%;
         width: auto;
