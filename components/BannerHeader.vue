@@ -319,7 +319,7 @@ export default {
         margin: auto;
         position: absolute;
         z-index: 20;
-        opacity: 30%;
+        // opacity: 30%;
         mix-blend-mode: screen;
 
         height: 70%;
