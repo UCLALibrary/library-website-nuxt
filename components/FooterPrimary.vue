@@ -1,7 +1,7 @@
 <template lang="html">
     <footer class="footer-primary">
         <svg-molecule-half class="molecule-half-svg" />
-        <div class="container">
+        <div :class="classes">
             <div class="footer-links">
                 <svg-logo-ucla-library class="logo-svg" />
 
@@ -22,7 +22,7 @@
                 <ul class="press-room">
                     <li
                         v-for="item in pressItems"
-                        :key="item.text "
+                        :key="item.text"
                     >
                         <smart-link
                             :to="item.to"
@@ -73,7 +73,7 @@ import SvgMoleculeHalf from "~/assets/svg/molecule-half"
 import SvgArrowRight from "~/assets/svg/arrow-right"
 
 export default {
-    name: "FooterPrimary",
+    // name: "FooterPrimary",
     components: {
         SvgLogoUclaLibrary,
         SvgMoleculeHalf,
@@ -91,8 +91,13 @@ export default {
             default: () => [],
         },
         form: {
-            type: String,
-            default: "",
+            type: Boolean,
+            default: true,
+        },
+    },
+    computed: {
+        classes() {
+            return this.form ? ["container"] : ["container no-form"]
         },
     },
 }
@@ -137,6 +142,15 @@ export default {
         position: relative;
         z-index: 20;
         margin: 0 auto;
+
+        &.no-form {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: center;
+        }
 
         // Footer Links - Left / Top
         .footer-links {
