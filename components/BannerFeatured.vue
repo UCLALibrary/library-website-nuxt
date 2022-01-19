@@ -14,10 +14,10 @@
             </slot>
         </div>
 
-        <responsive-image
-            v-if="image"
-            class="image"
-            :image="image"
+        <component
+            :is="parsedMediaComponent"
+            class="media"
+            :image="parsedMediaProp"
             :aspect-ratio="parsedRatio"
         >
             <div
@@ -29,14 +29,7 @@
                 v-if="image"
                 class="molecule"
             />
-        </responsive-image>
-
-        <responsive-video
-            v-if="video"
-            class="video"
-            :image="video"
-            :aspect-ratio="parsedRatio"
-        />
+        </component>
 
         <div class="hatch-box">
             <div class="clipped-box">
@@ -138,15 +131,21 @@ import formatEventTimes from "~/utils/formatEventTimes"
 import formatEventDates from "~/utils/formatEventDates"
 
 // SVGs
-import SvgMoleculeHalfFaceted from "~/assets/svg/molecule-half-faceted"
+
 import SvgHatchRight from "~/assets/svg/hatch-right"
 
 export default {
     components: {
-        SvgMoleculeHalfFaceted,
         SvgHatchRight,
+        SvgMoleculeHalfFaceted: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-half-overlay"
+            ),
         SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
-        SvgIconLocation: () => import("~/assets/svg/icon-location"),
+        SvgIconLocation: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
+            ),
         SvgIconOnline: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-virtual"
@@ -224,6 +223,12 @@ export default {
         },
         sectionName() {
             return this.section || getSectionName(this.to)
+        },
+        parsedMediaComponent() {
+            return this.image ? "responsive-image" : "responsive-video"
+        },
+        parsedMediaProp() {
+            return this.image ? this.image : this.video
         },
         parsedRatio() {
             // If on mobile, change ratio of image
