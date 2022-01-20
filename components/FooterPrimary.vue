@@ -173,7 +173,7 @@ export default {
             .socials {
                 display: flex;
                 flex-direction: row;
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 justify-content: center;
                 align-content: flex-start;
                 align-items: flex-start;
