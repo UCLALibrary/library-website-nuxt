@@ -338,6 +338,15 @@ export default {
 
             padding-top: 100px;
 
+            &.no-form {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-content: flex-end;
+                align-items: flex-end;
+            }
+
             .footer-links {
                 display: flex;
                 flex-direction: column;
@@ -367,14 +376,6 @@ export default {
             .form {
                 margin-right: 37px;
                 margin-bottom: 88px;
-            }
-        }
-    }
-    // Hover states
-    @media #{$has-hover} {
-        &:hover {
-            .press-room:hover {
-                color: var(--color-primary-yellow-01);
             }
         }
     }
