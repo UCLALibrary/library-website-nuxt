@@ -9,6 +9,7 @@
         <footer-primary
             :social-items="parsedItems"
             :press-items="parsedPressItems"
+            :form="false"
         />
     </div>
 </template>
