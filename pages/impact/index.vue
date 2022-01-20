@@ -8,7 +8,7 @@
                 As we close out the year, it’s worth reflecting on what we have accomplished as a Library community. When a pandemic scattered most of our faculty and students across the country and globe, we quickly adapted traditional in-person services for remote learning. This pivot made it possible for Bruins to access the materials, workshops, and research advice they needed, wherever they were. Our return to campus brings new priorities, and here is what we are focusing on in 2022: increasing opportunities for teaching with rare and unique materials, building capacity to recruit librarians who are experts in their field, and amplifying access to and safekeeping of digitally stored materials.
             </p>
             <p class="attribution">
-                – Virginia Steel, Norman and Armena Powell University Librarian
+                - Virginia Steel, Norman and Armena Powell University Librarian
             </p>
         </div>
 
@@ -43,8 +43,10 @@
                 The Great Pivot: March - October 2020
             </h3>
 
-            <grid-gallery
-                :items="gridGallery.items"
+            <div
+                v-for="article in timelineSortedByMonth"
+                :key="index"
+                class="grid-gallery"
             />
         </div>
 
@@ -60,17 +62,33 @@
 </template>
 
 <script>
-import * as API from "~/stories/mock-api.json"
-// import * as API from "~/stories/impact-report.json"
+// import * as API from "~/stories/mock-api.json"
+import _ from "lodash"
+// import groupBy from 'lodash/groupBy'
+import * as IMPACT_API from "~/data/impact-report.json"
 
 export default {
+    components: {},
     layout: 'impact',
+    async asyncData() {
+        const timelineGallery = IMPACT_API.timelineGallery
 
+        const data = {
+            timelineGallery: timelineGallery
+        }
+
+        return {
+            page: data,
+        }
+    },
     computed: {
-        //TODO remove once we have real data from Craft
+        timelineSortedByMonth() {
+            const parsedTimeline = _.groupBy(IMPACT_API.timelineGallery, month => month.monthYear)
+            console.log(parsedTimeline)
+        },
         impactBannerFeatured() {
             const mockBannerFeatured = {
-                image: API.image,
+                image: IMPACT_API.image,
                 to: "/help/foo/bar/",
                 title: "Curabitur Tortor Pellentesque Nibh Aenean",
                 description: "After Covid triggered a campus closure, UCLA Library reimagined its services for students and faculty scattered across the country and globe",
@@ -78,62 +96,29 @@ export default {
             }
             return mockBannerFeatured
         },
+
         sectionTeaserCard() {
             const mockTeaserCard = [
                 {
-                    image: API.image,
+                    image: IMPACT_API.image,
                     to: "/visit/foo/bar/",
                     title: "Virtual Screening Room attracts new audiences during covid"
                 },
                 {
-                    image: API.image,
+                    image: IMPACT_API.image,
                     to: "/visit/foo/baz/",
                     title: "Faculty partnership results in affordable course materials for Chicano/Chicana Studies students"
                 },
                 {
-                    image: API.image,
+                    image: IMPACT_API.image,
                     to: "/visit/foo/bat/",
                     title: "UC Library Search: Many UC libraries, one unified discovery tool",
                 }
             ]
             return { items: mockTeaserCard }
         },
-        gridGallery() {
-            const mockGridGallery = [
-                {
-                    image: API.image,
-                    monthYear: "March 2020",
-                    to: "/visit/foo/bar/",
-                    headlineText: "Vel Quam Elementum",
-                    snippet: "Vel eros donec ac odio tempor orci dapibus. Ante metus dictum at tempor. ",
-                },
-                {
-                    image: API.image,
-                    monthYear: "March 2020",
-                    to: "/visit/foo/baz/",
-                    headlineText:
-                        "Mauris pellentesque pulvinar pellentesque habitant morbi tristique",
-                    snippet: "Ante metus dictum at tempor. Pretium nibh ipsum consequat nisl vel pretium. Amet consectetur adipiscing elit ut aliquam purus sit. Diam quis enim lobortis scelerisque fermentum dui faucibus. Hac habitasse platea dictumst quisque.",
-                },
-                {
-                    image: API.image,
-                    monthYear: "March 2020",
-                    to: "/visit/foo/bat/",
-                    headlineText: "Adipiscing Tristique",
-                    snippet: "Vel eros donec ac odio  nisl vel pretium. Amet consectetur adipiscing elit ut aliquam purus sit. ",
-                },
-                {
-                    image: API.image,
-                    to: "/visit/foo/bad/",
-                    headlineText: "Aenean Lectus Elit",
-                    snippet: "Vel eros donec ac odio tempor orci dapibus. Ante metus dictum at tempor. Pretium nibh ipsum consequat nisl vel pretium. Amet consectetur adipiscing elit ut aliquam purus sit. Diam quis enim lobortis scelerisque fermentum dui faucibus. Hac habitasse platea dictumst quisque.",
-                    featured: "true",
-                },
-            ]
-            return { items: mockGridGallery }
-        },
-        
     },
+
     // This will recall fetch() when these query params change
     watchQuery: ["offset", "q"],
 }
@@ -160,7 +145,6 @@ export default {
     }
 
     .section-grid {
-
         .grid-gallery-title {
             margin: var(--unit-gutter) var(--unit-gutter) 24px var(--unit-gutter);
             color: var(--color-primary-blue-03);
