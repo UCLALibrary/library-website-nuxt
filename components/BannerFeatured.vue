@@ -25,10 +25,7 @@
                 class="gradient"
             />
 
-            <svg-molecule-half-faceted
-                v-if="image"
-                class="molecule"
-            />
+            <svg-molecule-half-faceted class="molecule" />
         </component>
 
         <div class="hatch-box">
