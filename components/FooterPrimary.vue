@@ -379,5 +379,13 @@ export default {
             }
         }
     }
+
+    @media #{$small} {
+        .container {
+            .footer-links {
+                margin-right: 0;
+            }
+        }
+    }
 }
 </style>
