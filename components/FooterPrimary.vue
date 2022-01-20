@@ -19,7 +19,10 @@
                     </li>
                 </ul>
 
-                <ul class="press-room">
+                <ul
+                    v-if="form"
+                    class="press-room"
+                >
                     <li
                         v-for="item in pressItems"
                         :key="item.text"
