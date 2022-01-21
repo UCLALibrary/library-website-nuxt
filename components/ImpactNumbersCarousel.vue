@@ -31,10 +31,17 @@
             </vue-glide-slide>
             <template slot="control">
                 <!-- <div class="controls"> -->
-                <button data-glide-dir="<">
+                <button 
+                    data-glide-dir="<"
+                    :class="prevIsDisabled"
+                >
                     <svg-arrow-right class="prev-control" />
                 </button>
-                <button data-glide-dir=">">
+                <div class="separator"></div>
+                <button
+                    data-glide-dir=">"
+                    :class="nextIsDisabled"
+                >
                     <svg-arrow-right />
                 </button>
                 <!-- </div> -->
@@ -79,6 +86,16 @@ export default {
             currentSlide: 0,
         }
     },
+    computed: {
+        // returns 'disabled' if current slide is first
+        prevIsDisabled() {
+            return this.currentSlide === 0 ? 'disabled' : ''
+        },
+        // returns 'disabled' if current slide is last
+        nextIsDisabled() {
+            return this.currentSlide === this.blocks.length - 1 ? 'disabled' : ''
+        },
+    },
     methods: {
         checkCurrentSlide(index) {
             if (index === this.currentSlide) {
@@ -95,6 +112,7 @@ export default {
 <style lang="scss" scoped>
 .impact-numbers-carousel {
     display: flex;
+    max-width: 680px;
 
     .slide-indicator {
         .current-slide path.bullet-fill {
@@ -106,7 +124,10 @@ export default {
         width: calc(100% - 32px);
 
         .slide-image img {
+            max-height: 360px;
+            max-width: 608px;
             width: 100%;
+            object-fit: cover;
         }
 
         .impact-munbers-text-container {
@@ -138,18 +159,38 @@ export default {
     }
 
     [data-glide-el="controls"] {
-        button {
+        button,
+        .separator {
+            bottom: 36px;
             position: absolute;
-            right: 0;
-            bottom: 60px;
+            // the right arrow svg has a built in 21px padding, so adding 4px
+            // to the right to make 25px margin to match the left margin
+            right: 48px;
 
             &[data-glide-dir="<"] {
-                right: 40px;
+                right: 104px;
+            }
+
+            &.disabled path {
+                stroke: var(--color-secondary-grey-02);
+            }
+
+            path {
+                stroke: var(--color-secondary-grey-04);
             }
         }
 
         .prev-control {
+            right: 52px;
             transform: scaleX(-1);
+        }
+
+        .separator {
+            border-left: dotted 1px;
+            bottom: 56px;
+            border-color: var(--color-secondary-grey-02);
+            height: 16px;
+            right: 107px;
         }
     }
 }
