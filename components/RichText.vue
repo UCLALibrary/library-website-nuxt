@@ -68,6 +68,8 @@ export default {
 <style lang="scss" scoped>
 .rich-text {
     max-width: 832px;
+    margin: var(--unit-gutter) auto;
+    padding: 0 var(--unit-gutter);
 
     .text {
         font-family: var(--font-primary);

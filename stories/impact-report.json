@@ -16,20 +16,5 @@
             "footnote": "<a href='https://www.library.ucla.edu/events/jackie-robinson-ucla-1939%E2%80%9341'>Jackie Robinson and UCLA, 1939–1941</a> is part of a campus-wide celebration honoring Jackie Robinson’s 100th birthday.",
             "calltoaction": "Find ways to give to UCLA Library"
         }
-    ],
-    "bannerHeader": {
-        "image": {
-            "src": "https://via.placeholder.com/1920x1080",
-            "srcset": "https://via.placeholder.com/960x540 960w, https://via.placeholder.com/1280x720 1280w, https://via.placeholder.com/1920x1080 1920w",
-            "sizes": "100vw",
-            "alt": "Peter Conheim and Viviana Garcia-Besne. Getty Images.",
-            "title": "Peter Conheim and Viviana Garcia-Besne. Getty Images.",
-            "height": 1080,
-            "width": 1920,
-            "caption": "Peter Conheim and Viviana Garcia-Besne. Getty Images."
-        },
-        "title": "After Covid triggered a campus closure UCLA Library reimagined",
-        "prompt": "Cursus Quis",
-        "alignRight": true
-    }
+    ]
 }

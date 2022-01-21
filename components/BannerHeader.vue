@@ -496,19 +496,6 @@ export default {
         }
     }
 
-    // @media #{$medium} {
-    //     .media {
-    //         max-height: 432px;
-    //     }
-    //     .meta {
-    //         margin: -70px 0 0 0;
-    //         > * {
-    //             max-width: 85%;
-    //             margin: 8px 0 5px 10px;
-    //         }
-    //     }
-    // }
-
     @media #{$small} {
         .media {
             max-height: 375px;

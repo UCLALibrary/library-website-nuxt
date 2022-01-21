@@ -1,9 +1,6 @@
 <template lang="html">
     <div :class="classes">
-        <nav-primary
-            class="primary"
-            :items="primaryItems"
-        />
+        <nav-primary class="primary" />
         <nuxt class="page" />
 
         <footer-primary
@@ -28,14 +25,9 @@ export default {
             pageMeta: {
                 title: "UCLA Library",
             },
-            footerSockItems: [],
             footerPrimaryItems: [...MOCK_API.shortLinks],
             pressItems: [{ ...MOCK_API.links[0] }],
         }
-    },
-    async fetch() {
-        // TODO Fetch real data from Craft here
-        this.footerSockItems = await MOCK_API.links
     },
     head() {
         return {

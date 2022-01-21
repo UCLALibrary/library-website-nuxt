@@ -14,22 +14,24 @@
                 class="divider"
             />
 
-            <!-- <rich-text
-                :text-blocks="textBlocks"
-                :pull-quote="pullQuote"
-                :image="image"
-                :caption="caption"
-            /> -->
+            <rich-text
+                :text-blocks="mainStory.textBlocks"
+                :pull-quote="mainStory.pullQuote"
+                :image="mainStory.image"
+                :caption="mainStory.caption"
+                class="rich-text"
+            />
 
             <story-with-image
-                v-for="item in stories"
-                :key="item.title"
+                v-for="(item, index) in stories"
+                :key="item.index"
                 :image="item.image"
                 :caption="item.image.caption"
                 :title="item.title"
                 :text="item.text"
                 :footnote="item.footnote"
                 :calltoaction="item.calltoaction"
+                class="story"
             />
         </div>
     </div>
@@ -37,19 +39,20 @@
 
 <script>
 // TODO replace this file with actual json data from google sheet
-import * as MOCK_IMPACT_API from "~/stories/impact-report.json"
+import * as MOCK_IMPACT_API from "~/data/mock-impact-report.json"
 
 export default {
     layout: "impact",
 
-    async asyncData() {
+    asyncData() {
         const stories = [
             MOCK_IMPACT_API.story[0],
             MOCK_IMPACT_API.story[0],
             MOCK_IMPACT_API.story[0],
         ]
         const bannerHeader = MOCK_IMPACT_API.bannerHeader
-        return { stories, bannerHeader }
+        const mainStory = MOCK_IMPACT_API.mainStory
+        return { stories, bannerHeader, mainStory }
     },
 
     computed: {},
@@ -58,9 +61,14 @@ export default {
 
 <style lang="scss" scoped>
 .page-impact-report-home {
+    .rich-text {
+        margin: var(--unit-gutter) auto;
+    }
     .divider {
         margin: 0 auto;
         padding-bottom: 30px;
+    }
+    .story {
     }
 }
 </style>
