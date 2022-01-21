@@ -43,13 +43,16 @@
                 The Great Pivot: March - October 2020
             </h3>
 
-            <div
-                v-for="article in timelineSortedByMonth"
-                :key="index"
+            <grid-gallery
+                v-for="item in timelineSortedByMonth"
+                :key="item.to"
+                :image="item.image"
+                :headline-text="item.headlineText"
+                :featured="item.featured"
+                :snippet="item.snippet"
                 class="grid-gallery"
             />
         </div>
-
         <p class="credits">
             <a href="">Thank you to UCLA Library Staff</a> credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia nascetur tristique orci est vehicula interdum. Vehicula non hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis felis ipsum malesuada posuere sollicitudin. Habitasse proin purus montes lorem cursus iaculis lacinia et. Elementum consectetuer aptent parturient nostra hendrerit sapien imperdiet vel.
         </p>
@@ -62,7 +65,7 @@
 </template>
 
 <script>
-// import * as API from "~/stories/mock-api.json"
+import * as API from "~/stories/mock-api.json"
 import _ from "lodash"
 // import groupBy from 'lodash/groupBy'
 import * as IMPACT_API from "~/data/impact-report.json"
@@ -84,7 +87,7 @@ export default {
     computed: {
         timelineSortedByMonth() {
             const parsedTimeline = _.groupBy(IMPACT_API.timelineGallery, month => month.monthYear)
-            console.log(parsedTimeline)
+            return parsedTimeline
         },
         impactBannerFeatured() {
             const mockBannerFeatured = {
