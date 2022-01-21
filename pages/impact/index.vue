@@ -45,11 +45,7 @@
 
             <grid-gallery
                 v-for="item in timelineSortedByMonth"
-                :key="item.to"
-                :image="item.image"
-                :headline-text="item.headlineText"
-                :featured="item.featured"
-                :snippet="item.snippet"
+                :items="item."
                 class="grid-gallery"
             />
         </div>
@@ -86,7 +82,7 @@ export default {
     },
     computed: {
         timelineSortedByMonth() {
-            const parsedTimeline = _.groupBy(IMPACT_API.timelineGallery, month => month.monthYear)
+            const parsedTimeline = _.groupBy(timelineGallery, month => month.monthYear)
             return parsedTimeline
         },
         impactBannerFeatured() {
