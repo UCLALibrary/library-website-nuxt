@@ -43,14 +43,13 @@ import * as MOCK_IMPACT_API from "~/data/mock-impact-report.json"
 
 export default {
     layout: "impact",
-
-    asyncData() {
-        const stories = MOCK_IMPACT_API.story
-        const bannerHeader = MOCK_IMPACT_API.bannerHeader
-        const mainStory = MOCK_IMPACT_API.mainStory
-        return { stories, bannerHeader, mainStory }
+    data() {
+        return {
+            stories: MOCK_IMPACT_API.story,
+            bannerHeader: MOCK_IMPACT_API.bannerHeader,
+            mainStory: MOCK_IMPACT_API.mainStory,
+        }
     },
-
     computed: {},
 }
 </script>
