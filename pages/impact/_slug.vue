@@ -1,46 +1,42 @@
 <template lang="html">
     <div class="page page-impact-report">
-        <!-- <banner-featured
-            class="section banner-featured"
-            :title="title"
-            :category="category"
-            :image="image"
-            :to="to"
-            prompt="View exhibit"
-            :align-right="false"
+        <banner-header
+            class="section banner-header"
+            :title="bannerHeader.title"
+            :image="bannerHeader.image"
+            :video="bannerHeader.video"
+            :to="bannerHeader.to"
+            :align-right="true"
         />
         <div class="meta">
-            <h2 class="intro">
-                After Covid triggered a campus closure, UCLA Library reimagined
-            </h2>
+            <divider-way-finder
+                color="about"
+                class="divider"
+            />
 
-            <divider-way-finder color="about" />
-
-            <rich-text
+            <!-- <rich-text
                 :text-blocks="textBlocks"
                 :pull-quote="pullQuote"
                 :image="image"
                 :caption="caption"
             /> -->
 
-        <story-with-image
-            v-for="item in parsedStories"
-            :key="item.title"
-            :image="item.image"
-            :caption="item.image.caption"
-            :title="item.title"
-            :text="item.text"
-            :footnote="item.footnote"
-            :calltoaction="item.calltoaction"
-        />
-        <div v-html="stories" />
+            <story-with-image
+                v-for="item in stories"
+                :key="item.title"
+                :image="item.image"
+                :caption="item.image.caption"
+                :title="item.title"
+                :text="item.text"
+                :footnote="item.footnote"
+                :calltoaction="item.calltoaction"
+            />
+        </div>
     </div>
-
-    <!-- </div> -->
 </template>
 
 <script>
-import * as API from "~/stories/mock-api.json"
+// TODO replace this file with actual json data from google sheet
 import * as MOCK_IMPACT_API from "~/stories/impact-report.json"
 
 export default {
@@ -53,37 +49,19 @@ export default {
             MOCK_IMPACT_API.story[0],
         ]
         console.log(stories)
-        return stories
+        const bannerHeader = MOCK_IMPACT_API.bannerHeader
+        return { stories, bannerHeader }
     },
-    computed: {
-        parsedStories() {
-            return this.stories
-        },
-    },
+
+    computed: {},
 }
 </script>
 
 <style lang="scss" scoped>
 .page-impact-report-home {
-    .opening {
-        margin: var(--unit-gutter);
-        .intro {
-            font-size: 84px;
-            font-weight: 300;
-            line-height: 84px;
-            color: var(--color-primary-blue-03);
-        }
-        .text {
-            font-size: 48px;
-            line-height: 57px;
-        }
-        .attribution {
-            font-size: 48px;
-            line-height: 57px;
-        }
-    }
     .divider {
         margin: 0 auto;
+        padding-bottom: 30px;
     }
 }
 </style>

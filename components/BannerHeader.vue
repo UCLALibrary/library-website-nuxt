@@ -33,12 +33,10 @@
         </div>
 
         <div class="meta">
-            <h3 class="title">
-                <nuxt-link
-                    :to="to"
-                    v-html="title"
-                />
-            </h3>
+            <h3
+                class="title"
+                v-html="title"
+            />
 
             <div class="schedule">
                 <div
@@ -197,7 +195,9 @@ export default {
             return formatEventTimes(this.startDate, this.endDate)
         },
         sectionName() {
-            return this.section || getSectionName(this.to)
+            return this.to
+                ? getSectionName(this.to)
+                : getSectionName(this.$route.path)
         },
         parsedRatio() {
             // If on mobile, change ratio of image
@@ -477,13 +477,13 @@ export default {
     }
 
     // Hovers
-    @media #{$has-hover} {
-        .title:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-default-cyan-03);
-            text-decoration-thickness: 1.5px;
-        }
-    }
+    // @media #{$has-hover} {
+    //     .title:hover {
+    //         text-decoration: underline;
+    //         text-decoration-color: var(--color-default-cyan-03);
+    //         text-decoration-thickness: 1.5px;
+    //     }
+    // }
 
     // Breakpoints
     @media #{$medium} {
