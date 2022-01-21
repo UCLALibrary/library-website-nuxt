@@ -45,11 +45,7 @@ export default {
     layout: "impact",
 
     asyncData() {
-        const stories = [
-            MOCK_IMPACT_API.story[0],
-            MOCK_IMPACT_API.story[0],
-            MOCK_IMPACT_API.story[0],
-        ]
+        const stories = MOCK_IMPACT_API.story
         const bannerHeader = MOCK_IMPACT_API.bannerHeader
         const mainStory = MOCK_IMPACT_API.mainStory
         return { stories, bannerHeader, mainStory }
