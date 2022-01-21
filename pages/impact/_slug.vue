@@ -1,17 +1,17 @@
 <template lang="html">
     <div class="page page-impact-report">
-        <banner-featured
+        <!-- <banner-featured
             class="section banner-featured"
             :title="title"
             :category="category"
-            :image="firstEvent.image"
-            :to="firstEvent.to"
+            :image="image"
+            :to="to"
             prompt="View exhibit"
             :align-right="false"
         />
         <div class="meta">
             <h2 class="intro">
-                After Covid triggered a campus closure, UCLA Library reimagined 
+                After Covid triggered a campus closure, UCLA Library reimagined
             </h2>
 
             <divider-way-finder color="about" />
@@ -21,29 +21,45 @@
                 :pull-quote="pullQuote"
                 :image="image"
                 :caption="caption"
-            />
+            /> -->
 
-            <story-with-image
-                :image="item.image"
-                :caption="item.image.caption"
-                :title="item.title"
-                :text="item.text"
-                :footnote="item.footnote"
-                :calltoaction="item.calltoaction"
-            />
-        </div>
+        <story-with-image
+            v-for="item in parsedStories"
+            :key="item.title"
+            :image="item.image"
+            :caption="item.image.caption"
+            :title="item.title"
+            :text="item.text"
+            :footnote="item.footnote"
+            :calltoaction="item.calltoaction"
+        />
+        <div v-html="stories" />
     </div>
+
+    <!-- </div> -->
 </template>
 
 <script>
 import * as API from "~/stories/mock-api.json"
+import * as MOCK_IMPACT_API from "~/stories/impact-report.json"
 
 export default {
-    layout: 'impact',
+    layout: "impact",
 
+    async asyncData() {
+        const stories = [
+            MOCK_IMPACT_API.story[0],
+            MOCK_IMPACT_API.story[0],
+            MOCK_IMPACT_API.story[0],
+        ]
+        console.log(stories)
+        return stories
+    },
     computed: {
-
-    }
+        parsedStories() {
+            return this.stories
+        },
+    },
 }
 </script>
 
@@ -70,5 +86,4 @@ export default {
         margin: 0 auto;
     }
 }
-
 </style>
