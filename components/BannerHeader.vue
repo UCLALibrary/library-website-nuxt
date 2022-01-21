@@ -486,18 +486,28 @@ export default {
     // }
 
     // Breakpoints
-    @media #{$medium} {
-        .media {
-            max-height: 432px;
-        }
+    @media #{$large} {
         .meta {
-            margin: -70px 0 0 0;
+            margin: -60px 0 0 0;
             > * {
-                max-width: 85%;
-                margin: 8px 0 5px 10px;
+                max-width: 95%;
+                margin: 20px 0 5px 60px;
             }
         }
     }
+
+    // @media #{$medium} {
+    //     .media {
+    //         max-height: 432px;
+    //     }
+    //     .meta {
+    //         margin: -70px 0 0 0;
+    //         > * {
+    //             max-width: 85%;
+    //             margin: 8px 0 5px 10px;
+    //         }
+    //     }
+    // }
 
     @media #{$small} {
         .media {

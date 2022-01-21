@@ -48,7 +48,6 @@ export default {
             MOCK_IMPACT_API.story[0],
             MOCK_IMPACT_API.story[0],
         ]
-        console.log(stories)
         const bannerHeader = MOCK_IMPACT_API.bannerHeader
         return { stories, bannerHeader }
     },
