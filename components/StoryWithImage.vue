@@ -96,7 +96,7 @@ export default {
     color: var(--color-black);
 
     .image {
-        margin: var(--unit-gutter) var(--unit-gutter);
+        margin: 0 var(--unit-gutter);
         .gradient {
             background: var(--gradient-image-01),
                 linear-gradient(
