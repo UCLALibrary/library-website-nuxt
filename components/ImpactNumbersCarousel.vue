@@ -204,4 +204,25 @@ export default {
         }
     }
 }
+
+@media #{$small} {
+    .impact-numbers-carousel {
+        flex-direction: column-reverse;
+        
+        .slide-indicator {
+            display: flex;
+            justify-content: center;
+            margin: 12px 0;
+        }
+
+        .glide {
+            width: 100%;
+        }
+
+        [data-glide-el="controls"] button,
+        [data-glide-el="controls"] .separator {
+            display: none;
+        }
+    }
+}
 </style>
