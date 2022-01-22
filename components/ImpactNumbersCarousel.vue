@@ -19,6 +19,7 @@
                 <div class="slide-image">
                     <img
                         :src="block.imagePath"
+                        :alt="block.altImageText"
                     >
                 </div>
                 <div class="impact-numbers-text-container">
