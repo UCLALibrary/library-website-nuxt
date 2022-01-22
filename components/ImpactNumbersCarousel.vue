@@ -21,7 +21,7 @@
                         :src="block.imagePath"
                     >
                 </div>
-                <div class="impact-munbers-text-container">
+                <div class="impact-numbers-text-container">
                     <span class="impactNumber">{{ block.largeText }}</span>
                     <span class="impactText">{{ block.mediumText }}</span>
                 </div>
@@ -130,8 +130,14 @@ export default {
             object-fit: cover;
         }
 
-        .impact-munbers-text-container {
-            margin-left: 25px;
+        .impact-numbers-text-container {
+            background: white;
+            margin-top: -64px;
+            padding-left: 25px;
+            position: relative;
+            width: 431px;
+            -webkit-clip-path: polygon(0 0, calc(100% - 39px) 0, 100% 95px, 100% 102%, 0 102%);
+            clip-path: polygon(0 0, calc(100% - 39px) 0, 100% 95px, 100% 102%, 0 102%);
 
             .impactNumber {
                 font-family: var(--font-secondary);
@@ -171,8 +177,12 @@ export default {
                 right: 104px;
             }
 
-            &.disabled path {
-                stroke: var(--color-secondary-grey-02);
+            &.disabled {
+                cursor: default;
+
+                path {
+                    stroke: var(--color-secondary-grey-02);
+                }
             }
 
             path {
