@@ -85,15 +85,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-impact-report-home {
-    .rich-text {
-        margin: var(--unit-gutter) auto;
-    }
-    .divider {
-        margin: 0 auto;
-        padding-bottom: 30px;
-    }
-    .story {
+.page .section {
+    margin-top: 1px;
+
+    .page-impact-report-home {
+        margin: 0 0 0 0;
+        .rich-text {
+            margin: var(--unit-gutter) auto;
+        }
+        .divider {
+            margin: 0 auto;
+            padding-bottom: 30px;
+        }
+        .story {
+        }
     }
 }
 </style>
