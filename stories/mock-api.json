@@ -32,6 +32,8 @@
         "title": "Lorem ipsum"
     },
     "video": {
+        "height": 1892,
+        "width": 3360,
         "videoUrl": "https://static.library.ucla.edu/ucla-impact-report-animation.mp4"
     },
     "links": [
