@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="page page-impact-report">
         <banner-header
-            class="section banner-header"
+            class="banner-header"
             :title="bannerHeader.title"
             :video="parseVideo"
             :to="bannerHeader.to"
