@@ -6,7 +6,7 @@
             class="media media-video"
             :src="parsedVideoUrl"
             :style="mediaStyles"
-            :poster="parsedSrc"
+            :poster="poster"
             :loop="loop"
             :autoplay="autoplay"
             :muted="muted"
@@ -50,6 +50,10 @@ export default {
             default: 0,
         },
         src: {
+            type: String,
+            default: "",
+        },
+        poster: {
             type: String,
             default: "",
         },
