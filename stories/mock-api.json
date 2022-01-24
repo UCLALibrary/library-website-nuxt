@@ -32,16 +32,7 @@
         "title": "Lorem ipsum"
     },
     "video": {
-        "mediaDetails": {
-            "height": 1892,
-            "width": 3360
-        },
-        "imageMeta": {
-            "videoUrl": "https://static.library.ucla.edu/ucla-impact-report-animation.mp4",
-            "primaryColor": null,
-            "focalPointX": null,
-            "focalPointY": null
-        }
+        "videoUrl": "https://static.library.ucla.edu/ucla-impact-report-animation.mp4"
     },
     "links": [
         {

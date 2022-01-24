@@ -1,20 +1,5 @@
 <template>
     <figure :class="classes">
-        <img
-            v-if="parsedSrc"
-            ref="img"
-            class="media media-image"
-            :src="parsedSrc"
-            :srcset="parsedSrcset"
-            :sizes="parsedSizes"
-            :style="mediaStyles"
-            :alt="parsedAlt"
-            :height="parsedHeight"
-            :width="parsedWidth"
-            @load="onLoaded('image')"
-            @error="onError('image')"
-        >
-
         <video
             v-if="parsedVideoUrl"
             ref="video"
@@ -40,12 +25,6 @@
         <div
             class="background-color"
             :style="backgroundStyles"
-        />
-
-        <figcaption
-            v-if="parsedCaption"
-            class="caption"
-            v-html="parsedCaption"
         />
 
         <slot />
@@ -149,7 +128,7 @@ export default {
     computed: {
         classes() {
             return [
-                "wp-image",
+                "responsive-video",
                 `mode-${this.mode}`,
                 { "has-loaded": this.hasLoaded },
                 { "has-background-color": this.parsedColor },
@@ -211,7 +190,7 @@ export default {
             )
         },
         parsedVideoUrl() {
-            return this.videoUrl || _get(this, "image.imageMeta.videoUrl", "")
+            return this.videoUrl || _get(this, "image.videoUrl", "")
         },
         parsedFocalPoint() {
             return {
@@ -225,9 +204,6 @@ export default {
         },
         parsedAlt() {
             return this.alt || _get(this, "image.altText", "")
-        },
-        parsedCaption() {
-            return this.caption || _get(this, "image.caption", "")
         },
         sizerStyles() {
             let styles = {}
@@ -346,7 +322,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wp-image {
+.responsive-video {
     margin: 0;
     width: 100%;
     .sizer {
