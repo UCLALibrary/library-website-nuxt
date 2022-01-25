@@ -37,7 +37,7 @@
                 v-html="category"
             />
             <smart-link
-                :target="_blank"
+                :target="parsedTarget"
                 :to="to"
                 class="title"
                 v-html="title"
@@ -154,6 +154,12 @@ export default {
         },
         sectionName() {
             return getSectionName(this.to)
+        },
+        isImpactReport() {
+            return this.$route.path.includes("impact") ? "true" : "false"
+        },
+        parsedTarget() {
+            return this.isImpactReport ? "_blank" : ""
         },
         parsedDate() {
             if (this.startDate) {
