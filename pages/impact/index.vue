@@ -5,18 +5,7 @@
                 2020-2021 UCLA Library Impact Report
             </h2>
             <p class="text">
-                As we close out the year, it’s worth reflecting on what we have
-                accomplished as a Library community. When a pandemic scattered
-                most of our faculty and students across the country and globe,
-                we quickly adapted traditional in-person services for remote
-                learning. This pivot made it possible for Bruins to access the
-                materials, workshops, and research advice they needed, wherever
-                they were. Our return to campus brings new priorities, and here
-                is what we are focusing on in 2022: increasing opportunities for
-                teaching with rare and unique materials, building capacity to
-                recruit librarians who are experts in their field, and
-                amplifying access to and safekeeping of digitally stored
-                materials.
+                As we close out the year, its worth reflecting on what we have accomplished as a Library community. When a pandemic scattered most of our faculty and students across the country and globe, we quickly adapted traditional in-person services for remote learning. This pivot made it possible for Bruins to access the materials, workshops, and research advice they needed, wherever they were. Our return to campus brings new priorities, and here is what we are focusing on in 2022: increasing opportunities for teaching with rare and unique materials, building capacity to recruit librarians who are experts in their field, and amplifying access to and safekeeping of digitally stored materials.
             </p>
             <p class="attribution">
                 - Virginia Steel, Norman and Armena Powell University Librarian
@@ -63,14 +52,7 @@
             />
         </div>
         <p class="credits">
-            <a href="">Thank you to UCLA Library Staff</a> credit lines, Lorem
-            ipsum dolor sit amet odio maximus quis posuere vivamus dapibus
-            etiam. Consectetur luctus elementum tempor lacinia nascetur
-            tristique orci est vehicula interdum. Vehicula non hendrerit orci
-            justo urna lacinia quam lectus taciti. Enim eros dis felis ipsum
-            malesuada posuere sollicitudin. Habitasse proin purus montes lorem
-            cursus iaculis lacinia et. Elementum consectetuer aptent parturient
-            nostra hendrerit sapien imperdiet vel.
+            <a href="">Thank you to UCLA Library Staff</a> credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia nascetur tristique orci est vehicula interdum. Vehicula non hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis felis ipsum malesuada posuere sollicitudin. Habitasse proin purus montes lorem cursus iaculis lacinia et. Elementum consectetuer aptent parturient nostra hendrerit sapien imperdiet vel.
         </p>
 
         <divider-way-finder
@@ -140,29 +122,11 @@ export default {
             }
             return mockBannerFeatured
         },
-
         sectionTeaserCard() {
-            const mockTeaserCard = [
-                {
-                    image: IMPACT_API.image,
-                    to: "/visit/foo/bar/",
-                    title: "Virtual Screening Room attracts new audiences during covid",
-                },
-                {
-                    image: IMPACT_API.image,
-                    to: "/visit/foo/baz/",
-                    title: "Faculty partnership results in affordable course materials for Chicano/Chicana Studies students",
-                },
-                {
-                    image: IMPACT_API.image,
-                    to: "/visit/foo/bat/",
-                    title: "UC Library Search: Many UC libraries, one unified discovery tool",
-                },
-            ]
-            return { items: mockTeaserCard }
+            const featurettes = IMPACT_API.featurette
+            return { items: featurettes}
         },
     },
-
     // This will recall fetch() when these query params change
     watchQuery: ["offset", "q"],
 }
