@@ -2,7 +2,7 @@
     <div class="grid-gallery">
         <h3
             class="month-year"
-            v-html="items[0].monthYear"
+            v-html="monthYear"
         />
         <ul class="cards">
             <li
@@ -73,6 +73,10 @@ export default {
     },
     props: {
         //  [{ image : Object, date: String, headlineText: String, to: URL,  featured: boolean, snippet:String }]
+        monthYear: {
+            type: String,
+            default: "",
+        },
         items: {
             type: Array,
             default: () => [],
