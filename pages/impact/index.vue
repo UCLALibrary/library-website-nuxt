@@ -124,7 +124,18 @@ export default {
         },
         sectionTeaserCard() {
             const featurettes = IMPACT_API.featurette
-            return { items: featurettes}
+            const parsedFeaturettes = featurettes.map((obj) => {
+                return {
+                    ...obj,
+                    image: updateImageData(
+                        obj.imgSrc,
+                        obj.imgAlt,
+                        Object.assign({}, API.image),
+                        this.$config
+                    ),
+                }
+            })
+            return { items: parsedFeaturettes}
         },
     },
     // This will recall fetch() when these query params change
