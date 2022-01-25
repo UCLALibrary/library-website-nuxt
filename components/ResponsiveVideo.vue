@@ -1,27 +1,12 @@
 <template>
     <figure :class="classes">
-        <img
-            v-if="parsedSrc"
-            ref="img"
-            class="media media-image"
-            :src="parsedSrc"
-            :srcset="parsedSrcset"
-            :sizes="parsedSizes"
-            :style="mediaStyles"
-            :alt="parsedAlt"
-            :height="parsedHeight"
-            :width="parsedWidth"
-            @load="onLoaded('image')"
-            @error="onError('image')"
-        >
-
         <video
             v-if="parsedVideoUrl"
             ref="video"
             class="media media-video"
             :src="parsedVideoUrl"
             :style="mediaStyles"
-            :poster="parsedSrc"
+            :poster="poster"
             :loop="loop"
             :autoplay="autoplay"
             :muted="muted"
@@ -40,12 +25,6 @@
         <div
             class="background-color"
             :style="backgroundStyles"
-        />
-
-        <figcaption
-            v-if="parsedCaption"
-            class="caption"
-            v-html="parsedCaption"
         />
 
         <slot />
@@ -71,6 +50,10 @@ export default {
             default: 0,
         },
         src: {
+            type: String,
+            default: "",
+        },
+        poster: {
             type: String,
             default: "",
         },
@@ -149,7 +132,7 @@ export default {
     computed: {
         classes() {
             return [
-                "wp-image",
+                "responsive-video",
                 `mode-${this.mode}`,
                 { "has-loaded": this.hasLoaded },
                 { "has-background-color": this.parsedColor },
@@ -186,14 +169,14 @@ export default {
             if (this.height) {
                 return parseInt(this.height)
             }
-            return _get(this, "image.mediaDetails.height", "auto")
+            return _get(this, "image.height", "auto")
         },
         parsedWidth() {
             // default to defined width
             if (this.width) {
                 return parseInt(this.width)
             }
-            return _get(this, "image.mediaDetails.width", "auto")
+            return _get(this, "image.width", "auto")
         },
         parsedSrc() {
             return this.src || _get(this, "image.sourceUrl", "")
@@ -205,13 +188,10 @@ export default {
             return this.sizes || _get(this, "image.sizes", "")
         },
         parsedColor() {
-            return (
-                this.backgroundColor ||
-                _get(this, "image.imageMeta.primaryColor", "")
-            )
+            return this.backgroundColor || _get(this, "image.primaryColor", "")
         },
         parsedVideoUrl() {
-            return this.videoUrl || _get(this, "image.imageMeta.videoUrl", "")
+            return this.videoUrl || _get(this, "image.videoUrl", "")
         },
         parsedFocalPoint() {
             return {
@@ -225,9 +205,6 @@ export default {
         },
         parsedAlt() {
             return this.alt || _get(this, "image.altText", "")
-        },
-        parsedCaption() {
-            return this.caption || _get(this, "image.caption", "")
         },
         sizerStyles() {
             let styles = {}
@@ -346,7 +323,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wp-image {
+.responsive-video {
     margin: 0;
     width: 100%;
     .sizer {
