@@ -65,7 +65,6 @@ export default {
         parsedStories() {
             const stories = MOCK_IMPACT_API.story
             return this.stories.map((obj) => {
-                console.log(obj)
                 return {
                     ...obj,
                     photo: {
