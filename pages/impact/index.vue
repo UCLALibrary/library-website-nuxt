@@ -55,10 +55,10 @@
             </h3>
 
             <grid-gallery
-                v-for="key in Object.keys(timelineSortedByMonth)"
-                :key="key"
-                :month-year="key"
-                :items="timelineSortedByMonth[key]"
+                v-for="(value, propertyName) in timelineSortedByMonth"
+                :key="propertyName"
+                :month-year="propertyName"
+                :items="value"
                 class="grid-gallery"
             />
         </div>
@@ -84,6 +84,8 @@
 import * as API from "~/stories/mock-api.json"
 import _ from "lodash"
 import * as IMPACT_API from "~/data/impact-report.json"
+// Utilities
+import updateImageData from "~/utils/updateImageData"
 
 export default {
     components: {},
@@ -105,6 +107,20 @@ export default {
                 this.page.timelineGallery,
                 (month) => month.monthYear
             )
+            for (const key in parsedTimeline) {
+                parsedTimeline[key] = parsedTimeline[key].map((obj) => {
+                    return {
+                        ...obj,
+                        image: updateImageData(
+                            obj.imgSrc,
+                            obj.imgAlt,
+                            Object.assign({}, API.image),
+                            this.$config
+                        ),
+                    }
+                })
+                // console.log("key:" + key)
+            }
             return parsedTimeline
         },
         impactBannerFeatured() {
