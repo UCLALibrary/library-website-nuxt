@@ -28,7 +28,7 @@
             :title="impactBannerFeatured.title"
             :description="impactBannerFeatured.description"
             :category="impactBannerFeatured.category"
-            :image="impactBannerFeatured.image"
+            :video="impactBannerFeatured.video"
             :to="impactBannerFeatured.to"
             prompt="View exhibit"
             :ratio="42"
@@ -86,6 +86,7 @@ import _ from "lodash"
 import * as IMPACT_API from "~/data/impact-report.json"
 // Utilities
 import updateImageData from "~/utils/updateImageData"
+import getS3Bucket from "~/utils/getS3Bucket"
 
 export default {
     components: {},
@@ -125,7 +126,12 @@ export default {
         },
         impactBannerFeatured() {
             const mockBannerFeatured = {
-                image: IMPACT_API.image,
+                video: {
+                    videoUrl: getS3Bucket(
+                        this.$config,
+                        "ucla-impact-report-animation.mp4"
+                    ),
+                },
                 to: "/help/foo/bar/",
                 title: "Curabitur Tortor Pellentesque Nibh Aenean",
                 description:
