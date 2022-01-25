@@ -9,13 +9,22 @@
                     src="https://www.library.ucla.edu/sites/default/files/styles/custom_crop/public/Steel_1200x630_3.jpg?itok=yiUHl52V"
                     class="portrait-Ginny"
                 >
+                <!-- <img
+                    src="https://static.library.ucla.edu/ginny-steel-ucla-library.jpg"
+                    class="portrait-Ginny"
+                    alt=""
+                > -->
                 As we close out the year, its worth reflecting on what we have accomplished as a Library community. When a pandemic scattered most of our faculty and students across the country and globe, we quickly adapted traditional in-person services for remote learning. This pivot made it possible for Bruins to access the materials, workshops, and research advice they needed, wherever they were. Our return to campus brings new priorities, and here is what we are focusing on in 2022: increasing opportunities for teaching with rare and unique materials, building capacity to recruit librarians who are experts in their field, and amplifying access to and safekeeping of digitally stored materials.
-                </imgsrc="https:>
             </p>
             <img
                 src="https://huntersvillencdentistry.com/wp-content/uploads/2021/06/marra-signature.png"
                 class="signature-image" 
             >
+            <!-- <img
+                    src="https://static.library.ucla.edu/ginny-steel-signature.jpg"
+                    class="signature-image"
+                    alt=""
+            > -->
             <p class="signature">
                 - Virginia Steel, Norman and Armena Powell University Librarian
             </p>
