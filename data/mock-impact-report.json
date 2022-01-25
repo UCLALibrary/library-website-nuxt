@@ -2,12 +2,7 @@
     "story": [
         {
             "image": {
-                "src": "https://static.library.ucla.edu/video_icon.svg",
-                "sizes": "100vw",
-                "alt": "Peter Conheim and Viviana Garcia-Besne. Getty Images.",
-                "title": "Peter Conheim and Viviana Garcia-Besne. Getty Images.",
-                "height": 1080,
-                "width": 1920,
+                "src": "shelves-ucla-arts-library.jpg",
                 "caption": "Peter Conheim and Viviana Garcia-Besne. Getty Images."
             },
             "title": "About the Exhibit",
@@ -17,13 +12,7 @@
         },
         {
             "image": {
-                "src": "https://via.placeholder.com/1920x1080",
-                "srcset": "https://via.placeholder.com/960x540 960w, https://via.placeholder.com/1280x720 1280w, https://via.placeholder.com/1920x1080 1920w",
-                "sizes": "100vw",
-                "alt": "Peter Conheim and Viviana Garcia-Besne. Getty Images.",
-                "title": "Peter Conheim and Viviana Garcia-Besne. Getty Images.",
-                "height": 1080,
-                "width": 1920,
+                "src": "ucla-library-facebook-live.jpg",
                 "caption": "Peter Conheim and Viviana Garcia-Besne. Getty Images."
             },
             "title": "About the Exhibit",
@@ -33,13 +22,7 @@
         },
         {
             "image": {
-                "src": "https://via.placeholder.com/1920x1080",
-                "srcset": "https://via.placeholder.com/960x540 960w, https://via.placeholder.com/1280x720 1280w, https://via.placeholder.com/1920x1080 1920w",
-                "sizes": "100vw",
-                "alt": "Peter Conheim and Viviana Garcia-Besne. Getty Images.",
-                "title": "Peter Conheim and Viviana Garcia-Besne. Getty Images.",
-                "height": 1080,
-                "width": 1920,
+                "src": "mystery-of-the-wax-museum.jpg",
                 "caption": "Peter Conheim and Viviana Garcia-Besne. Getty Images."
             },
             "title": "About the Exhibit",
@@ -50,13 +33,7 @@
     ],
     "bannerHeader": {
         "image": {
-            "src": "https://via.placeholder.com/1920x1080",
-            "srcset": "https://via.placeholder.com/960x540 960w, https://via.placeholder.com/1280x720 1280w, https://via.placeholder.com/1920x1080 1920w",
-            "sizes": "100vw",
-            "alt": "Peter Conheim and Viviana Garcia-Besne. Getty Images.",
-            "title": "Peter Conheim and Viviana Garcia-Besne. Getty Images.",
-            "height": 1080,
-            "width": 1920,
+            "file_name": "shelves-ucla-arts-library.jpg",
             "caption": "Peter Conheim and Viviana Garcia-Besne. Getty Images."
         },
         "title": "After Covid triggered a campus closure&#44; UCLA Library reimagined",

@@ -22,10 +22,10 @@
             />
 
             <story-with-image
-                v-for="(item, index) in stories"
+                v-for="(item, index) in parsedStories"
                 :key="item.index"
-                :image="item.image"
-                :caption="item.image.caption"
+                :image="item.photo"
+                :caption="item.photo.caption"
                 :title="item.title"
                 :text="item.text"
                 :footnote="item.footnote"
@@ -61,6 +61,22 @@ export default {
                 ),
             }
             return video
+        },
+        parsedStories() {
+            const stories = MOCK_IMPACT_API.story
+            return this.stories.map((obj) => {
+                return {
+                    ...obj,
+                    photo: {
+                        src: getS3Bucket(this.$config, obj.image.src),
+                        sizes: "100vw",
+                        height: 1080,
+                        width: 1920,
+                        alt: obj.image.alt,
+                        caption: obj.image.caption,
+                    },
+                }
+            })
         },
     },
 }
