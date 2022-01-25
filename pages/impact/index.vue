@@ -5,9 +5,18 @@
                 2020-2021 UCLA Library Impact Report
             </h2>
             <p class="text">
+                <img
+                    src="https://www.library.ucla.edu/sites/default/files/styles/custom_crop/public/Steel_1200x630_3.jpg?itok=yiUHl52V"
+                    class="portrait-Ginny"
+                >
                 As we close out the year, its worth reflecting on what we have accomplished as a Library community. When a pandemic scattered most of our faculty and students across the country and globe, we quickly adapted traditional in-person services for remote learning. This pivot made it possible for Bruins to access the materials, workshops, and research advice they needed, wherever they were. Our return to campus brings new priorities, and here is what we are focusing on in 2022: increasing opportunities for teaching with rare and unique materials, building capacity to recruit librarians who are experts in their field, and amplifying access to and safekeeping of digitally stored materials.
+                </imgsrc="https:>
             </p>
-            <p class="attribution">
+            <img
+                src="https://huntersvillencdentistry.com/wp-content/uploads/2021/06/marra-signature.png"
+                class="signature-image" 
+            >
+            <p class="signature">
                 - Virginia Steel, Norman and Armena Powell University Librarian
             </p>
         </div>
@@ -24,17 +33,16 @@
             :align-right="true"
         />
 
+        <section-teaser-card
+            class="teaser-card"
+            :items="sectionTeaserCard.items"
+        />
+
+        <divider-way-finder
+            class="divider divider-center"
+            color="about"
+        />
         <div class="section-grid">
-            <section-teaser-card
-                class="teaser-card"
-                :items="sectionTeaserCard.items"
-            />
-
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
-
             <h2 class="grid-gallery-title">
                 2020-21: An Academic Year Like No Other
             </h2>
@@ -51,12 +59,18 @@
                 class="grid-gallery"
             />
         </div>
+
+        <divider-way-finder
+            class="divider divider-top"
+            color="about"
+        />
+
         <p class="credits">
             <a href="">Thank you to UCLA Library Staff</a> credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia nascetur tristique orci est vehicula interdum. Vehicula non hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis felis ipsum malesuada posuere sollicitudin. Habitasse proin purus montes lorem cursus iaculis lacinia et. Elementum consectetuer aptent parturient nostra hendrerit sapien imperdiet vel.
         </p>
 
         <divider-way-finder
-            class="divider"
+            class="divider divider-bottom"
             color="about"
         />
     </div>
@@ -157,10 +171,23 @@ export default {
             font-size: 47px;
             line-height: 56px;
         }
-        .attribution {
+        .signature {
             font-size: 48px;
             line-height: 57px;
         }
+    }
+
+    .portrait-Ginny {
+        width: 100%;
+        max-width: 704px;
+        float: right;
+    }
+        .signature-image {
+        width: 100%;
+        max-width: 704px;
+    }
+    .banner-featured {
+        margin-bottom: 125px;
     }
 
     .section-grid {
@@ -186,17 +213,34 @@ export default {
         margin: 0 auto;
     }
 
-    .block-call-to-action {
+    .divider-center {
+        margin-top: 100px;
+        margin-bottom: 100px;
+        max-width: 1100px;
+    }
+
+    .divider-top {
+        margin-top: 75px;
+        margin-bottom: 48px;
+        max-width: 1100px;
     }
 
     .credits {
-        margin: var(--unit-gutter);
+        max-width: 932px;
+        padding-bottom: 138px;
+        margin: 0 auto;
         font-style: italic;
         font-weight: normal;
         font-size: 16px;
         line-height: 26px;
     }
+
+    .divider-bottom {
+        margin-bottom: 92px;
+        max-width: 1100px;
+    }
 }
+
 .page .section {
     margin-top: 0px;
 }
