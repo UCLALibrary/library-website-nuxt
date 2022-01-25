@@ -25,7 +25,7 @@
                 v-for="(item, index) in parsedStories"
                 :key="item.index"
                 :image="item.photo"
-                :caption="item.image.caption"
+                :caption="item.photo.caption"
                 :title="item.title"
                 :text="item.text"
                 :footnote="item.footnote"
@@ -72,6 +72,8 @@ export default {
                         sizes: "100vw",
                         height: 1080,
                         width: 1920,
+                        alt: obj.image.alt,
+                        caption: obj.image.caption,
                     },
                 }
             })
