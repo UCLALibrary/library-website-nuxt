@@ -36,12 +36,12 @@
                 class="category"
                 v-html="category"
             />
-            <nuxt-link :to="to">
-                <h3
-                    class="title"
-                    v-html="title"
-                />
-            </nuxt-link>
+            <smart-link
+                :target="parsedTarget"
+                :to="to"
+                class="title"
+                v-html="title"
+            />
 
             <div class="date-time">
                 <time
@@ -155,7 +155,12 @@ export default {
         sectionName() {
             return getSectionName(this.to)
         },
-
+        isImpactReport() {
+            return this.$route.path.includes("impact") ? "true" : "false"
+        },
+        parsedTarget() {
+            return this.isImpactReport ? "_blank" : ""
+        },
         parsedDate() {
             if (this.startDate) {
                 return formatEventDates(this.startDate, this.endDate)
