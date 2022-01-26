@@ -113,6 +113,7 @@ export default {
     padding: 0;
     margin: 0;
     background-color: var(--color-white);
+    position: relative;
     .month-year {
         font-weight: $font-weight-medium;
         font-size: 35.538px;
@@ -160,7 +161,14 @@ export default {
         -webkit-box-orient: vertical;
         overflow: hidden;*/
     }
-
+    .link::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
     .snippet {
         font-size: 18px;
         font-weight: 400;

@@ -289,6 +289,7 @@ export default {
         bottom: 0;
         right: 0;
         left: 0;
+        color: pink;
     }
     .title {
         font-weight: 500;
