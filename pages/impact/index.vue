@@ -47,7 +47,7 @@
         <div class="section-grid">
             <section-teaser-card
                 class="teaser-card"
-                :items="sectionTeaserCard.items"
+                :items="featuretteCard.items"
             />
 
             <divider-way-finder
@@ -202,7 +202,7 @@ export default {
             }
             return mainStoryFeatured
         },
-        sectionTeaserCard() {
+        featuretteCard() {
             const featurettes = IMPACT_API.featurette
             const parsedFeaturettes = featurettes.map((obj) => {
                 return {
