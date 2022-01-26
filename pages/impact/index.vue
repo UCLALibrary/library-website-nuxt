@@ -241,7 +241,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-impact-report {
-    position: relative;
     .meta {
         margin: $layout-06 + px auto;
         max-width: $content-width-05 + px;
