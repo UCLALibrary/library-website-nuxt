@@ -38,11 +38,8 @@
 <script>
 // TODO replace this file with actual json data from google sheet
 import * as MOCK_IMPACT_API from "~/data/impact_slug_page.json"
-import * as API from "~/stories/mock-api.json"
-
 // Utilities
 import getS3Bucket from "~/utils/getS3Bucket"
-import updateImageData from "~/utils/updateImageData"
 
 export default {
     layout: "impact",
