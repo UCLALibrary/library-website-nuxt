@@ -1,4 +1,13 @@
 {
+   "mainStoryData": {
+      "title": "After Covid Triggered a Campus Closure, UCLA Library Reimagined its Services for Students and Faculty Scattered Across the Country and Globe",
+      "description": "Undergraduates reflect on successfully completing their research projects while learning remotely.",
+      "buttonText": "Read full story",
+      "asset": "ucla-impact-report-animation.mp4",
+      "link": "/impact/main-story",
+      "altText": "Animated line-art sequence, starting with a female sitting in bedroom looking at a laptop computer. Transitions to yellow light eminating from laptop screen and revealing a library reading room."
+   },
+     
   "timelineGallery": [
     {
       "monthYear": "March 2020",
