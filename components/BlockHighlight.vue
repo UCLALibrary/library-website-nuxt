@@ -36,12 +36,14 @@
                 class="category"
                 v-html="category"
             />
-            <smart-link
-                :target="parsedTarget"
-                :to="to"
-                class="title"
-                v-html="title"
-            />
+            <h3>
+                <smart-link
+                    :target="parsedTarget"
+                    :to="to"
+                    class="title"
+                    v-html="title"
+                />
+            </h3>
 
             <div class="date-time">
                 <time
@@ -204,6 +206,7 @@ export default {
     max-width: 456px;
     background-color: var(--color-white);
     font-family: var(--font-primary);
+    position: relative;
 
     display: flex;
     flex-direction: row;
@@ -278,6 +281,14 @@ export default {
         letter-spacing: 0.1em;
         text-transform: uppercase;
         color: var(--color-primary-blue-05);
+    }
+    .title::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
     }
     .title {
         font-weight: 500;
