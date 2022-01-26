@@ -1,6 +1,5 @@
 <template lang="html">
     <div class="page page-impact-report">
-        <div v-html="parsedMainStory" />
         <banner-header
             class="banner-header"
             :title="bannerHeader.title"
@@ -39,6 +38,7 @@
 <script>
 // TODO replace this file with actual json data from google sheet
 import * as MOCK_IMPACT_API from "~/data/impact_slug_page.json"
+import * as API from "~/stories/mock-api.json"
 
 // Utilities
 import getS3Bucket from "~/utils/getS3Bucket"
