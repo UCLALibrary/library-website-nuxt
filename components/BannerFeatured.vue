@@ -267,6 +267,7 @@ export default {
     position: relative;
     overflow: hidden;
     background-color: var(--color-white);
+    max-width: $content-width-06 + px;
 
     // Themes
     --color-theme: var(--color-primary-blue-03);
@@ -353,7 +354,7 @@ export default {
         box-sizing: border-box;
         position: relative;
         z-index: 20;
-        height: 95px;
+        height: 100px;
 
         clip-path: polygon(
             0 0,
@@ -382,18 +383,18 @@ export default {
         z-index: 40;
         width: 65%;
         box-sizing: border-box;
+        padding-left: 240px;
 
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-content: flex-end;
-        align-items: flex-end;
 
-        > * {
-            max-width: 550px;
-            width: 100%;
-        }
+        // > * {
+        //     max-width: 550px;
+        //     width: 100%;
+        // }
     }
 
     .category {
