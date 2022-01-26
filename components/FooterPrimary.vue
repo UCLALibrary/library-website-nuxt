@@ -6,16 +6,17 @@
                 <svg-logo-ucla-library class="logo-svg" />
 
                 <ul class="socials">
-                    <li
-                        v-for="item in socialItems"
-                        :key="item.text"
-                        class="social-item"
-                    >
-                        <smart-link
-                            :to="item.to"
-                            :target="item.target"
-                            v-html="item.text"
-                        />
+                    <li class="social-item">
+                        <a href="https://www.facebook.com/uclalibrary/">Facebook</a>
+                    </li>
+                    <li class="social-item">
+                        <a href="https://twitter.com/UCLALibrary">Twitter</a>
+                    </li>
+                    <li class="social-item">
+                        <a href="https://www.instagram.com/uclalibrary/">Instagram</a>
+                    </li>
+                    <li class="social-item">
+                        <a href="https://www.youtube.com/channel/UCRPedAkolOOC6z-iP2S-clQ">Youtube</a>
                     </li>
                 </ul>
 

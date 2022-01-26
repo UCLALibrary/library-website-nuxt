@@ -10,18 +10,7 @@
                     :aspect-ratio="60"
                     class="portrait-Ginny"
                 />
-                As we close out the year, its worth reflecting on what we have
-                accomplished as a Library community. When a pandemic scattered
-                most of our faculty and students across the country and globe,
-                we quickly adapted traditional in-person services for remote
-                learning. This pivot made it possible for Bruins to access the
-                materials, workshops, and research advice they needed, wherever
-                they were. Our return to campus brings new priorities, and here
-                is what we are focusing on in 2022: increasing opportunities for
-                teaching with rare and unique materials, building capacity to
-                recruit librarians who are experts in their field, and
-                amplifying access to and safekeeping of digitally stored
-                materials.
+                As we close out the year, its worth reflecting on what we have accomplished as a Library community. When a pandemic scattered most of our faculty and students across the country and globe, we quickly adapted traditional in-person services for remote learning. This pivot made it possible for Bruins to access the materials, workshops, and research advice they needed, wherever they were. Our return to campus brings new priorities, and here is what we are focusing on in 2022: increasing opportunities for teaching with rare and unique materials, building capacity to recruit librarians who are experts in their field, and amplifying access to and safekeeping of digitally stored materials.
             </p>
             <responsive-image
                 :image="imageSignature.image"
@@ -92,14 +81,7 @@
 
         <p class="credits">
             Thank you to
-            <a href="https://www.library.ucla.edu/staff">UCLA Library Staff</a>
-            credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere
-            vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia
-            nascetur tristique orci est vehicula interdum. Vehicula non
-            hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis
-            felis ipsum malesuada posuere sollicitudin. Habitasse proin purus
-            montes lorem cursus iaculis lacinia et. Elementum consectetuer
-            aptent parturient nostra hendrerit sapien imperdiet vel.
+            <a href="https://www.library.ucla.edu/staff">UCLA Library Staff</a> credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia nascetur tristique orci est vehicula interdum. Vehicula non hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis felis ipsum malesuada posuere sollicitudin. Habitasse proin purus montes lorem cursus iaculis lacinia et. Elementum consectetuer aptent parturient nostra hendrerit sapien imperdiet vel.
         </p>
 
         <divider-way-finder
@@ -236,12 +218,10 @@ export default {
             color: var(--color-primary-blue-03);
         }
         .text {
-            font-size: 47px;
-            line-height: 56px;
+            @include step-3;
         }
         .signature {
-            font-size: 48px;
-            line-height: 57px;
+            @include step-3;
         }
     }
     .portrait-Ginny {
@@ -260,15 +240,13 @@ export default {
         margin: var(--unit-gutter) var(--unit-gutter) $layout-05 + px
             var(--unit-gutter);
         color: var(--color-primary-blue-03);
-        font-size: 48px;
-        line-height: 56px;
+        @include step-3;
         padding-left: 100px;
     }
     .grid-gallery-title {
         margin: var(--unit-gutter) var(--unit-gutter) 24px var(--unit-gutter);
         color: var(--color-primary-blue-03);
-        font-size: 48px;
-        line-height: 56px;
+        @include step-3;
         padding-left: 100px;
     }
     .section-grid {
@@ -276,8 +254,7 @@ export default {
             margin: var(--unit-gutter) var(--unit-gutter) 24px
                 var(--unit-gutter);
             color: var(--color-primary-blue-03);
-            font-size: 48px;
-            line-height: 56px;
+            @include step-3;
             padding-left: 100px;
         }
         .grid-gallery-subtitle {
