@@ -281,6 +281,7 @@ export default {
             font-size: 48px;
             line-height: 56px;
             margin-top: 92px;
+            margin-bottom: 50px;
         }
 
         .sub-section-grid {
@@ -298,7 +299,7 @@ export default {
         }
     }
     .teaser-card {
-        margin: var(--unit-vertical-gap) auto;
+        margin: 0 auto;
     }
     .credits {
         max-width: 932px;
