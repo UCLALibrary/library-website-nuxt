@@ -7,19 +7,19 @@
         />
 
         <div
-            v-if="image"
+            v-if="images[0]"
             class="image-block"
         >
             <responsive-image
-                v-if="image"
+                v-if="images[0]"
                 class="image"
-                :image="image"
+                :image="images[0]"
                 :aspect-ratio="parsedRatio"
             />
             <div
-                v-if="image.caption"
+                v-if="images[0].caption"
                 class="caption"
-                v-html="image.caption"
+                v-html="images[0].caption"
             />
         </div>
 
@@ -28,7 +28,50 @@
             class="text"
             v-html="textBlocks[1]"
         />
+        <div
+            v-if="images[1]"
+            class="image-block-right"
+        >
+            <responsive-image
+                v-if="images[1]"
+                class="image"
+                :image="images[1]"
+                :aspect-ratio="parsedRatio"
+            />
+            <div
+                v-if="images[1].caption"
+                class="caption"
+                v-html="images[1].caption"
+            />
+        </div>
 
+        <div
+            v-if="textBlocks[2]"
+            class="text"
+            v-html="textBlocks[2]"
+        />
+        <div
+            v-if="images[2]"
+            class="image-block"
+        >
+            <responsive-image
+                v-if="images[2]"
+                class="image"
+                :image="images[2]"
+                :aspect-ratio="parsedRatio"
+            />
+            <div
+                v-if="images[2].caption"
+                class="caption"
+                v-html="images[2].caption"
+            />
+        </div>
+
+        <div
+            v-if="textBlocks[3]"
+            class="text"
+            v-html="textBlocks[3]"
+        />
         <pull-quote
             v-if="pullQuote"
             class="pull-quote"
@@ -36,9 +79,9 @@
             :attribution="pullQuote.attribution"
         />
         <div
-            v-if="textBlocks[2]"
+            v-if="textBlocks[4]"
             class="text"
-            v-html="textBlocks[2]"
+            v-html="textBlocks[4]"
         />
     </div>
 </template>
@@ -48,12 +91,8 @@ export default {
     props: {
         //Array of image objects
         images: {
-            type: Object,
-            default: () => {},
-        },
-        caption: {
-            type: String,
-            default: "",
+            type: Array,
+            default: () => [],
         },
         pullQuote: {
             type: Object,
@@ -99,6 +138,13 @@ export default {
         float: left;
     }
 
+    .image-block-right {
+        display: flex;
+        flex-direction: column;
+
+        float: right;
+    }
+
     .image {
         margin: 10px 10px 0 0;
         // display: inline;
@@ -122,8 +168,17 @@ export default {
 
     // Breakpoints
     @media #{$small} {
+        .image-block,
+        .image-block-right {
+            display: flex;
+            flex-direction: column;
+            float: none;
+        }
         .image {
-            width: 370px;
+            max-width: 300px;
+        }
+        .caption {
+            max-width: 300px;
         }
     }
 }

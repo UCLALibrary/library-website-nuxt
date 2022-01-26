@@ -1,5 +1,6 @@
 <template lang="html">
     <div class="page page-impact-report">
+        <div v-html="parsedMainStory" />
         <banner-header
             class="banner-header"
             :title="bannerHeader.title"
@@ -16,8 +17,7 @@
             <rich-text
                 :text-blocks="mainStory.textBlocks"
                 :pull-quote="mainStory.pullQuote"
-                :image="mainStory.image"
-                :caption="mainStory.caption"
+                :images="parsedMainStoryImages"
                 class="rich-text"
             />
 
@@ -38,10 +38,11 @@
 
 <script>
 // TODO replace this file with actual json data from google sheet
-import * as MOCK_IMPACT_API from "~/data/mock-impact-report.json"
+import * as MOCK_IMPACT_API from "~/data/impact_slug_page.json"
 
 // Utilities
 import getS3Bucket from "~/utils/getS3Bucket"
+import updateImageData from "~/utils/updateImageData"
 
 export default {
     layout: "impact",
@@ -75,6 +76,19 @@ export default {
                         alt: obj.image.alt,
                         caption: obj.image.caption,
                     },
+                }
+            })
+        },
+        parsedMainStoryImages() {
+            const mainStory = MOCK_IMPACT_API.mainStory
+            return this.mainStory.images.map((obj) => {
+                return {
+                    src: getS3Bucket(this.$config, obj.src),
+                    sizes: "100vw",
+                    height: 1080,
+                    width: 1920,
+                    alt: obj.alt,
+                    caption: obj.caption,
                 }
             })
         },
