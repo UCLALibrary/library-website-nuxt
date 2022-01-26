@@ -57,8 +57,8 @@ export default {
         align-content: center;
         align-items: flex-start;
 
-        margin-top: 35px;
-        margin-bottom: 25px;
+        // margin-top: 35px;
+        // margin-bottom: 25px;
     }
     @media #{$small} {
         align-items: center;

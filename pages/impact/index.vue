@@ -34,17 +34,32 @@
             :align-right="true"
         />
 
-        <section-teaser-card
-            class="teaser-card"
-            :items="sectionTeaserCard.items"
-        />
+        <div class="section section-grid">
+            <section-teaser-card
+                class="teaser-card"
+                :items="featuretteCard.items"
+            />
 
-        <divider-way-finder
-            class="divider divider-top"
-            color="about"
-        />
+            <divider-way-finder
+                class="divider divider-top"
+                color="about"
+            />
 
-        <div class="section-grid">
+            <h2 class="grid-gallery-title">
+                Remote Learning by the Numbers:<br>Data from March 2020 through September 2021
+            </h2>
+
+            <section-teaser-card
+                class="teaser-card"
+                :items="remoteLearningCard.items"
+            />
+
+            <divider-way-finder
+                class="divider divider-top"
+                color="about"
+            />
+
+        
             <h2 class="grid-gallery-title">
                 2020-21: An Academic Year Like No Other
             </h2>
@@ -68,7 +83,7 @@
         />
 
         <p class="credits">
-            Thank you to UCLA Library Staff</a> credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia nascetur tristique orci est vehicula interdum. Vehicula non hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis felis ipsum malesuada posuere sollicitudin. Habitasse proin purus montes lorem cursus iaculis lacinia et. Elementum consectetuer aptent parturient nostra hendrerit sapien imperdiet vel.
+            Thank you to <a href="https://www.library.ucla.edu/staff">UCLA Library Staff</a> credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia nascetur tristique orci est vehicula interdum. Vehicula non hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis felis ipsum malesuada posuere sollicitudin. Habitasse proin purus montes lorem cursus iaculis lacinia et. Elementum consectetuer aptent parturient nostra hendrerit sapien imperdiet vel.
         </p>
 
         <divider-way-finder
@@ -159,7 +174,7 @@ export default {
             }
             return mainStoryFeatured
         },
-        sectionTeaserCard() {
+        featuretteCard() {
             const featurettes = IMPACT_API.featurette
             const parsedFeaturettes = featurettes.map((obj) => {
                 return {
@@ -173,6 +188,21 @@ export default {
                 }
             })
             return { items: parsedFeaturettes }
+        },
+        remoteLearningCard() {
+            const remoteLearnings = IMPACT_API.remoteLearning
+            const parsedremoteLearnings = remoteLearnings.map((obj) => {
+                return {
+                    ...obj,
+                    image: updateImageData(
+                        obj.imgSrc,
+                        obj.imgAlt,
+                        Object.assign({}, API.image),
+                        this.$config
+                    ),
+                }
+            })
+            return { items: parsedremoteLearnings }
         },
     },
 }
@@ -209,7 +239,14 @@ export default {
     .banner {
         margin: var(--unit-vertical-gap) auto;
     }
-
+    .grid-gallery-title {
+        margin: var(--unit-gutter) var(--unit-gutter) 24px
+            var(--unit-gutter);
+        color: var(--color-primary-blue-03);
+        font-size: 48px;
+        line-height: 56px;
+        padding-left:100px;
+    }
     .section-grid {
         .grid-gallery-title {
             margin: var(--unit-gutter) var(--unit-gutter) 24px
@@ -217,12 +254,14 @@ export default {
             color: var(--color-primary-blue-03);
             font-size: 48px;
             line-height: 56px;
+            padding-left:100px;
         }
         .grid-gallery-subtitle {
             margin: 0 var(--unit-gutter) 0 var(--unit-gutter);
             color: var(--color-primary-blue-03);
             font-size: 35.538px;
             line-height: 43px;
+            padding-left:100px;
         }
         .grid-gallery {
             margin: 0 auto;
