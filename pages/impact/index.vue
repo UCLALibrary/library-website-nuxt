@@ -52,11 +52,11 @@
             />
 
             <divider-way-finder
-                class="divider divider-top"
+                class="divider-section"
                 color="about"
             />
 
-            <h2 class="remote-learning">
+            <h2 class="title">
                 Remote Learning by the Numbers:<br>Data from March 2020
                 through September 2021
             </h2>
@@ -67,28 +67,34 @@
             />
 
             <divider-way-finder
-                class="divider divider-top"
+                class="divider-section"
                 color="about"
             />
 
-            <h2 class="grid-gallery-title">
+            <h2 class="title">
                 2020-21: An Academic Year Like No Other
             </h2>
 
-            <h3 class="grid-gallery-subtitle">
-                The Great Pivot: March - October 2020
-            </h3>
-
-            <grid-gallery
-                v-for="(value, propertyName) in timelineSortedByMonth"
+            <div
+                v-for="(value, propertyName) in timelineSortedBySubtitle"
                 :key="propertyName"
-                :month-year="propertyName"
-                :items="value"
-                class="grid-gallery"
-            />
+                class="sub-section-grid"
+            >
+                <h3
+                    class="grid-gallery-subtitle"
+                    v-html="propertyName"
+                />
+
+                <grid-gallery
+                    v-for="(subValue, propertySubName) in value"
+                    :key="propertySubName"
+                    :month-year="propertySubName"
+                    :items="subValue"
+                />
+            </div>
         </div>
 
-        <divider-general class="divider divider-center" />
+        <divider-general class="divider divider-general" />
 
         <p class="credits">
             Thank you to
@@ -103,7 +109,7 @@
         </p>
 
         <divider-way-finder
-            class="divider divider-bottom"
+            class="divider"
             color="about"
         />
     </div>
@@ -153,24 +159,33 @@ export default {
             }
             return signature
         },
-        timelineSortedByMonth() {
+        timelineSortedBySubtitle() {
             const parsedTimeline = _.groupBy(
                 this.page.timelineGallery,
-                (month) => month.monthYear
+                (row) => row.subtitle
             )
             for (const key in parsedTimeline) {
-                parsedTimeline[key] = parsedTimeline[key].map((obj) => {
-                    return {
-                        ...obj,
-                        image: updateImageData(
-                            obj.imgSrc,
-                            obj.imgAlt,
-                            Object.assign({}, API.image),
-                            this.$config
-                        ),
-                    }
-                })
-                // console.log("key:" + key)
+                const parsedTimelineByMonth = _.groupBy(
+                    parsedTimeline[key],
+                    (row) => row.monthYear
+                )
+                for (const innerKey in parsedTimelineByMonth) {
+                    parsedTimelineByMonth[innerKey] = parsedTimelineByMonth[
+                        innerKey
+                    ].map((obj) => {
+                        return {
+                            ...obj,
+                            image: updateImageData(
+                                obj.src,
+                                obj.alt,
+                                Object.assign({}, API.image),
+                                this.$config
+                            ),
+                        }
+                    })
+                    // console.log("key:" + innerKey)
+                }
+                parsedTimeline[key] = parsedTimelineByMonth
             }
             return parsedTimeline
         },
@@ -226,6 +241,7 @@ export default {
 
 <style lang="scss" scoped>
 .page-impact-report {
+    position: relative;
     .meta {
         margin: $layout-06 + px auto;
         max-width: $content-width-05 + px;
@@ -256,39 +272,32 @@ export default {
     .banner {
         margin: $layout-07 + px auto;
     }
-    .remote-learning {
-        margin: var(--unit-gutter) var(--unit-gutter) $layout-05 + px
-            var(--unit-gutter);
-        color: var(--color-primary-blue-03);
-        font-size: 48px;
-        line-height: 56px;
-        padding-left: 100px;
-    }
-    .grid-gallery-title {
-        margin: var(--unit-gutter) var(--unit-gutter) 24px var(--unit-gutter);
-        color: var(--color-primary-blue-03);
-        font-size: 48px;
-        line-height: 56px;
-        padding-left: 100px;
-    }
+
     .section-grid {
-        .grid-gallery-title {
-            margin: var(--unit-gutter) var(--unit-gutter) 24px
-                var(--unit-gutter);
+        max-width: 932px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+
+        margin: 0 auto;
+        .title {
             color: var(--color-primary-blue-03);
             font-size: 48px;
             line-height: 56px;
-            padding-left: 100px;
+            margin-bottom: $layout-05 + px;
+        }
+        .sub-section-grid {
+            margin: 24px auto;
         }
         .grid-gallery-subtitle {
-            margin: 0 var(--unit-gutter) 0 var(--unit-gutter);
             color: var(--color-primary-blue-03);
             font-size: 35.538px;
             line-height: 43px;
-            padding-left: 100px;
         }
-        .grid-gallery {
-            margin: 0 auto;
+        .divider-section {
+            max-width: 1100px;
+            margin: $layout-07 + px 0;
         }
     }
     .teaser-card {
@@ -303,19 +312,14 @@ export default {
         font-size: 16px;
         line-height: 26px;
     }
-    .divider-top {
-        margin-top: 100px;
-        margin-bottom: 100px;
+    .divider {
         max-width: 1100px;
+        margin: $layout-07 + px auto;
     }
-    .divider-center {
+    .divider-general {
         margin-top: 75px;
         margin-bottom: 48px;
         max-width: $content-width-03 + px;
-    }
-    .divider-bottom {
-        margin-bottom: 92px;
-        max-width: 1100px;
     }
 }
 .page .section {
