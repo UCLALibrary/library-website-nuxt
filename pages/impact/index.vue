@@ -44,21 +44,32 @@
             :ratio="42"
             :align-right="true"
         />
-
-        <section-teaser-card
-            class="teaser-card"
-            :items="sectionTeaserCard.items"
-        />
-
-        <divider-way-finder
-            class="divider"
-            color="about"
-        />
-
         <div class="section-grid">
-            <h2 class="grid-gallery-title">
+            <section-teaser-card
+                class="teaser-card"
+                :items="sectionTeaserCard.items"
+            />
+
+            <divider-way-finder
+                class="divider-section"
+                color="about"
+            />
+            <h3 class="title">
+                Remote Learning by the Numbers:<br>Data from March 2020
+                through September 2021
+            </h3>
+            <section-teaser-card
+                class="teaser-card"
+                :items="remoteLearningCard.items"
+            />
+            <divider-way-finder
+                class="divider-section"
+                color="about"
+            />
+
+            <h3 class="title">
                 2020-21: An Academic Year Like No Other
-            </h2>
+            </h3>
 
             <div
                 v-for="(value, propertyName) in timelineSortedBySubtitle"
@@ -79,10 +90,7 @@
             </div>
         </div>
 
-        <divider-way-finder
-            class="divider"
-            color="about"
-        />
+        <divider-general class="divider-general" />
 
         <p class="credits">
             Thank you to UCLA Library Staff credit lines, Lorem ipsum dolor sit
@@ -177,6 +185,7 @@ export default {
             }
             return parsedTimeline
         },
+
         impactBannerFeatured() {
             const mainStoryFeatured = {
                 video: {
@@ -207,6 +216,21 @@ export default {
                 }
             })
             return { items: parsedFeaturettes }
+        },
+        remoteLearningCard() {
+            const remoteLearnings = IMPACT_API.remoteLearning
+            const parsedremoteLearnings = remoteLearnings.map((obj) => {
+                return {
+                    ...obj,
+                    image: updateImageData(
+                        obj.imgSrc,
+                        obj.imgAlt,
+                        Object.assign({}, API.image),
+                        this.$config
+                    ),
+                }
+            })
+            return { items: parsedremoteLearnings }
         },
     },
 }
@@ -252,11 +276,13 @@ export default {
         justify-content: left;
 
         margin: 0 auto;
-        .grid-gallery-title {
+        .title {
             color: var(--color-primary-blue-03);
             font-size: 48px;
             line-height: 56px;
+            margin-top: 92px;
         }
+
         .sub-section-grid {
             margin: 24px auto;
         }
@@ -265,24 +291,34 @@ export default {
             font-size: 35.538px;
             line-height: 43px;
         }
+        .divider-section {
+            max-width: 1100px;
+            margin-left: 0;
+            margin-right: 0;
+        }
     }
     .teaser-card {
-        margin: 0 auto;
+        margin: var(--unit-vertical-gap) auto;
     }
     .credits {
         max-width: 932px;
-        padding-bottom: 138px;
-        margin: 0 auto;
+
+        margin: var(--unit-vertical-gap) auto;
         font-style: italic;
         font-weight: normal;
         font-size: 16px;
         line-height: 26px;
     }
+    .divider-general {
+        max-width: 950px;
+        margin: var(--unit-vertical-gap) auto;
+    }
     .divider {
+        max-width: 1100px;
         margin: var(--unit-vertical-gap) auto;
     }
     @media #{$medium} {
-        .grid-gallery-title {
+        .title {
             padding: 0 64px;
         }
         .section-grid {
@@ -293,7 +329,7 @@ export default {
     }
     @media #{$small} {
         .section-grid {
-            .grid-gallery-title {
+            .title {
                 padding: 0 24px;
             }
             .grid-gallery-subtitle {

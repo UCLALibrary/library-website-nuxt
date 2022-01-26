@@ -651,5 +651,55 @@
       "imgAlt": "Graphic of laptop screen reading \"UC Library Search\" with book pages behind it",
       "caption": ""
     }
+  ],
+  "remoteLearning":  [
+    {
+      "title": "Pandemic Spurs Virtual Screening Room, Bringing Moving Images to a Global Audience",
+      "to": "https://www.cinema.ucla.edu/blogs/archive-blog/2022/01/31/pandemic-spurs-virtual-screening-room",
+      "imgSrc": "virtual-screening-room-toll-sea.jpg",
+      "text": "When its theatrical home closed its doors in March 2020 due to COVID-19 the UCLA Film & Television Archive shifted public programming to an ambitious new online screening model.",
+      "imgAlt": "A woman smiling and holding a rose.",
+      "caption": ""
+    },
+    {
+      "title": "Video Series Explores Impact of Library Initiatives that Open Access to Materials",
+      "to": "https://www.library.ucla.edu/news/open-sourced-bruins-share-their-openucla-impact-stories",
+      "imgSrc": "open-sourced-video-ucla-library.jpg",
+      "text": "Affordable course materials, open educational resources, digital collections and contemporary music scores reduce barriers for researchers, advancing knowledge creation.",
+      "imgAlt": "Woman gesticulating at a table, with video play button at center",
+      "caption": ""
+    },
+    {
+      "title": "UC Library Search: The Future is Shared",
+      "to": "https://docs.google.com/document/d/1FE2E2ymsLEcNZQcJr_Pr13yX6ppueMNgf24i_DQiL6Q/edit?usp=sharing",
+      "imgSrc": "uc-library-search-laptop-book.jpeg",
+      "text": "One year after Covid-19 struck, 160 University of California librarians and staff across 10 campuses launched the first-ever systemwide integrated library discovery and circulation management platform - on schedule.",
+      "imgAlt": "Graphic of laptop screen reading \"UC Library Search\" with book pages behind it",
+      "caption": ""
+    },
+    {
+      "title": "Video Series Explores Impact of Library Initiatives that Open Access to Materials",
+      "to": "https://www.library.ucla.edu/news/open-sourced-bruins-share-their-openucla-impact-stories",
+      "imgSrc": "open-sourced-video-ucla-library.jpg",
+      "text": "Affordable course materials, open educational resources, digital collections and contemporary music scores reduce barriers for researchers, advancing knowledge creation.",
+      "imgAlt": "Woman gesticulating at a table, with video play button at center",
+      "caption": ""
+    },
+    {
+      "title": "UC Library Search: The Future is Shared",
+      "to": "https://docs.google.com/document/d/1FE2E2ymsLEcNZQcJr_Pr13yX6ppueMNgf24i_DQiL6Q/edit?usp=sharing",
+      "imgSrc": "uc-library-search-laptop-book.jpeg",
+      "text": "One year after Covid-19 struck, 160 University of California librarians and staff across 10 campuses launched the first-ever systemwide integrated library discovery and circulation management platform - on schedule.",
+      "imgAlt": "Graphic of laptop screen reading \"UC Library Search\" with book pages behind it",
+      "caption": ""
+    },
+    {
+      "title": "Pandemic Spurs Virtual Screening Room, Bringing Moving Images to a Global Audience",
+      "to": "https://www.cinema.ucla.edu/blogs/archive-blog/2022/01/31/pandemic-spurs-virtual-screening-room",
+      "imgSrc": "virtual-screening-room-toll-sea.jpg",
+      "text": "When its theatrical home closed its doors in March 2020 due to COVID-19 the UCLA Film & Television Archive shifted public programming to an ambitious new online screening model.",
+      "imgAlt": "A woman smiling and holding a rose.",
+      "caption": ""
+    }
   ]
 }
