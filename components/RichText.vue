@@ -46,7 +46,8 @@
 <script>
 export default {
     props: {
-        image: {
+        //Array of image objects
+        images: {
             type: Object,
             default: () => {},
         },
@@ -112,6 +113,7 @@ export default {
         letter-spacing: 0.01em;
         color: var(--color-secondary-grey-05);
         padding: 16px 16px 26px 16px;
+        width: 448px;
     }
 
     .pull-quote {
