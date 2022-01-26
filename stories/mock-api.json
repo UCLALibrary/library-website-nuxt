@@ -5,6 +5,7 @@
         "sizes": "100vw",
         "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "title": "Lorem ipsum",
+        "caption": "Lorem ipsum",
         "height": 1080,
         "width": 1920
     },

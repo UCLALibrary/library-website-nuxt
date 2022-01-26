@@ -12,6 +12,7 @@
             :muted="muted"
             :controls="controls"
             :playsinline="playsinline"
+            :alt="parsedAlt"
             @loadeddata="onLoaded('video')"
             @error="onError('video')"
             @ended="onEnded"
