@@ -10,7 +10,18 @@
                     :aspect-ratio="60"
                     class="portrait-Ginny"
                 />
-                As we close out the year, its worth reflecting on what we have accomplished as a Library community. When a pandemic scattered most of our faculty and students across the country and globe, we quickly adapted traditional in-person services for remote learning. This pivot made it possible for Bruins to access the materials, workshops, and research advice they needed, wherever they were. Our return to campus brings new priorities, and here is what we are focusing on in 2022: increasing opportunities for teaching with rare and unique materials, building capacity to recruit librarians who are experts in their field, and amplifying access to and safekeeping of digitally stored materials.
+                As we close out the year, its worth reflecting on what we have
+                accomplished as a Library community. When a pandemic scattered
+                most of our faculty and students across the country and globe,
+                we quickly adapted traditional in-person services for remote
+                learning. This pivot made it possible for Bruins to access the
+                materials, workshops, and research advice they needed, wherever
+                they were. Our return to campus brings new priorities, and here
+                is what we are focusing on in 2022: increasing opportunities for
+                teaching with rare and unique materials, building capacity to
+                recruit librarians who are experts in their field, and
+                amplifying access to and safekeeping of digitally stored
+                materials.
             </p>
             <responsive-image
                 :image="imageSignature.image"
@@ -23,7 +34,7 @@
         </div>
 
         <banner-featured
-            class="banner"
+            class="banner banner-main-story-data"
             :title="impactBannerFeatured.title"
             :description="impactBannerFeatured.description"
             :category="impactBannerFeatured.category"
@@ -40,7 +51,7 @@
         />
 
         <divider-way-finder
-            class="divider divider-top"
+            class="divider"
             color="about"
         />
 
@@ -49,30 +60,43 @@
                 2020-21: An Academic Year Like No Other
             </h2>
 
-            <h3 class="grid-gallery-subtitle">
-                The Great Pivot: March - October 2020
-            </h3>
-
-            <grid-gallery
-                v-for="(value, propertyName) in timelineSortedByMonth"
+            <div
+                v-for="(value, propertyName) in timelineSortedBySubtitle"
                 :key="propertyName"
-                :month-year="propertyName"
-                :items="value"
-                class="grid-gallery"
-            />
+                class="sub-section-grid"
+            >
+                <h3
+                    class="grid-gallery-subtitle"
+                    v-html="propertyName"
+                />
+
+                <grid-gallery
+                    v-for="(subValue, propertySubName) in value"
+                    :key="propertySubName"
+                    :month-year="propertySubName"
+                    :items="subValue"
+                />
+            </div>
         </div>
 
         <divider-way-finder
-            class="divider divider-center"
+            class="divider"
             color="about"
         />
 
         <p class="credits">
-            Thank you to UCLA Library Staff</a> credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia nascetur tristique orci est vehicula interdum. Vehicula non hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis felis ipsum malesuada posuere sollicitudin. Habitasse proin purus montes lorem cursus iaculis lacinia et. Elementum consectetuer aptent parturient nostra hendrerit sapien imperdiet vel.
+            Thank you to UCLA Library Staff credit lines, Lorem ipsum dolor sit
+            amet odio maximus quis posuere vivamus dapibus etiam. Consectetur
+            luctus elementum tempor lacinia nascetur tristique orci est vehicula
+            interdum. Vehicula non hendrerit orci justo urna lacinia quam lectus
+            taciti. Enim eros dis felis ipsum malesuada posuere sollicitudin.
+            Habitasse proin purus montes lorem cursus iaculis lacinia et.
+            Elementum consectetuer aptent parturient nostra hendrerit sapien
+            imperdiet vel.
         </p>
 
         <divider-way-finder
-            class="divider divider-bottom"
+            class="divider"
             color="about"
         />
     </div>
@@ -108,7 +132,7 @@ export default {
                 sizes: "100vw",
                 height: 1080,
                 width: 1920,
-                alt: "Illustration of woman wearing glasses and a grey blazer, with a yellow background"
+                alt: "Illustration of woman wearing glasses and a grey blazer, with a yellow background",
             }
             return portrait
         },
@@ -118,22 +142,50 @@ export default {
                 sizes: "100vw",
                 height: 1080,
                 width: 1920,
-                alt: "Signature image"
+                alt: "Signature image",
             }
             return signature
         },
-        timelineSortedByMonth() {
+        timelineSortedBySubtitle() {
             const parsedTimeline = _.groupBy(
                 this.page.timelineGallery,
-                (month) => month.monthYear
+                (row) => row.subtitle
             )
+
+            for (const key in parsedTimeline) {
+                const parsedTimelineByMonth = _.groupBy(
+                    parsedTimeline[key],
+                    (row) => row.monthYear
+                )
+                for (const innerKey in parsedTimelineByMonth) {
+                    parsedTimelineByMonth[innerKey] = parsedTimelineByMonth[
+                        innerKey
+                    ].map((obj) => {
+                        return {
+                            ...obj,
+                            image: updateImageData(
+                                obj.src,
+                                obj.alt,
+                                Object.assign({}, API.image),
+                                this.$config
+                            ),
+                        }
+                    })
+                    console.log("key:" + innerKey)
+                }
+                parsedTimeline[key] = parsedTimelineByMonth
+            }
+            return parsedTimeline
+        },
+        timelineSortedByMonth() {
+            const parsedTimeline = _.groupBy(this.value, (row) => row.monthYear)
             for (const key in parsedTimeline) {
                 parsedTimeline[key] = parsedTimeline[key].map((obj) => {
                     return {
                         ...obj,
                         image: updateImageData(
-                            obj.imgSrc,
-                            obj.imgAlt,
+                            obj.src,
+                            obj.alt,
                             Object.assign({}, API.image),
                             this.$config
                         ),
@@ -202,7 +254,7 @@ export default {
         max-width: 704px;
         float: right;
     }
-     .signature-image {
+    .signature-image {
         width: 100%;
         max-width: 704px;
     }
@@ -211,21 +263,25 @@ export default {
     }
 
     .section-grid {
+        max-width: 932px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+
+        margin: 0 auto;
         .grid-gallery-title {
-            margin: var(--unit-gutter) var(--unit-gutter) 24px
-                var(--unit-gutter);
             color: var(--color-primary-blue-03);
             font-size: 48px;
             line-height: 56px;
         }
+        .sub-section-grid {
+            margin: 24px auto;
+        }
         .grid-gallery-subtitle {
-            margin: 0 var(--unit-gutter) 0 var(--unit-gutter);
             color: var(--color-primary-blue-03);
             font-size: 35.538px;
             line-height: 43px;
-        }
-        .grid-gallery {
-            margin: 0 auto;
         }
     }
     .teaser-card {
@@ -240,19 +296,28 @@ export default {
         font-size: 16px;
         line-height: 26px;
     }
-    .divider-top {
-        margin-top: 100px;
-        margin-bottom: 100px;
-        max-width: 1100px;
+    .divider {
+        margin: var(--unit-vertical-gap) auto;
     }
-    .divider-center {
-        margin-top: 75px;
-        margin-bottom: 48px;
-        max-width: 1100px;
+    @media #{$medium} {
+        .grid-gallery-title {
+            padding: 0 64px;
+        }
+        .section-grid {
+            .grid-gallery-subtitle {
+                padding: 0 64px;
+            }
+        }
     }
-    .divider-bottom {
-        margin-bottom: 92px;
-        max-width: 1100px;
+    @media #{$small} {
+        .section-grid {
+            .grid-gallery-title {
+                padding: 0 24px;
+            }
+            .grid-gallery-subtitle {
+                padding: 0 24px;
+            }
+        }
     }
 }
 .page .section {
