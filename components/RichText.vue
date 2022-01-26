@@ -30,7 +30,7 @@
         />
         <div
             v-if="images[1]"
-            class="image-block-right"
+            class="image-block"
         >
             <responsive-image
                 v-if="images[1]"
@@ -134,21 +134,11 @@ export default {
     .image-block {
         display: flex;
         flex-direction: column;
-
-        float: left;
-    }
-
-    .image-block-right {
-        display: flex;
-        flex-direction: column;
-
-        float: right;
     }
 
     .image {
         margin: 10px 10px 0 0;
-        // display: inline;
-        width: 448px;
+        width: 832px;
     }
 
     .caption {
@@ -159,7 +149,7 @@ export default {
         letter-spacing: 0.01em;
         color: var(--color-secondary-grey-05);
         padding: 16px 16px 26px 16px;
-        width: 448px;
+        width: 832px;
     }
 
     .pull-quote {
@@ -168,12 +158,6 @@ export default {
 
     // Breakpoints
     @media #{$small} {
-        .image-block,
-        .image-block-right {
-            display: flex;
-            flex-direction: column;
-            float: none;
-        }
         .image {
             max-width: 300px;
         }

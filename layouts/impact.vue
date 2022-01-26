@@ -25,6 +25,7 @@ export default {
             pageMeta: {
                 title: "UCLA Library",
             },
+            // TODO add real social links
             footerPrimaryItems: [...MOCK_API.shortLinks],
             pressItems: [{ ...MOCK_API.links[0] }],
         }
@@ -79,6 +80,11 @@ export default {
                     hid: "og:title",
                     property: "og:title",
                     content: this.pageMeta.title,
+                },
+                { charset: "utf-8" },
+                {
+                    name: "viewport",
+                    content: "width=device-width, initial-scale=1",
                 },
             ],
         }
