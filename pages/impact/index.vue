@@ -6,7 +6,7 @@
             </h2>
             <p class="text">
                 <responsive-image
-                    :image="imagePortrait.image"
+                    :image="imagePortrait"
                     :aspect-ratio="60"
                     class="portrait-Ginny"
                 />
@@ -24,7 +24,7 @@
                 materials.
             </p>
             <responsive-image
-                :image="imageSignature.image"
+                :image="imageSignature"
                 :aspect-ratio="60"
                 class="signature-image"
             />
