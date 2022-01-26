@@ -177,24 +177,6 @@ export default {
             }
             return parsedTimeline
         },
-        timelineSortedByMonth() {
-            const parsedTimeline = _.groupBy(this.value, (row) => row.monthYear)
-            for (const key in parsedTimeline) {
-                parsedTimeline[key] = parsedTimeline[key].map((obj) => {
-                    return {
-                        ...obj,
-                        image: updateImageData(
-                            obj.src,
-                            obj.alt,
-                            Object.assign({}, API.image),
-                            this.$config
-                        ),
-                    }
-                })
-                // console.log("key:" + key)
-            }
-            return parsedTimeline
-        },
         impactBannerFeatured() {
             const mainStoryFeatured = {
                 video: {
