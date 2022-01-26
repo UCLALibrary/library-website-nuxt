@@ -133,6 +133,7 @@ export default {
         // letter-spacing: 0.01em;
         // color: var(--color-secondary-grey-05);
         // padding: 16px 16px 32px 16px;
+        // bottom: -20px;
         // z-index: 10;
         // position: absolute;
     }

@@ -339,7 +339,7 @@ export default {
         box-sizing: border-box;
         position: relative;
         z-index: 20;
-        height: 95px;
+        height: 100px;
 
         clip-path: polygon(
             0 0,
