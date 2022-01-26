@@ -5,26 +5,18 @@
                 2020-2021 UCLA Library Impact Report
             </h2>
             <p class="text">
-                <img
-                    src="https://www.library.ucla.edu/sites/default/files/styles/custom_crop/public/Steel_1200x630_3.jpg?itok=yiUHl52V"
+                <responsive-image
+                    :image="imagePortrait.image"
+                    :aspect-ratio="60"
                     class="portrait-Ginny"
-                >
-                <!-- <img
-                    src="https://static.library.ucla.edu/ginny-steel-ucla-library.jpg"
-                    class="portrait-Ginny"
-                    alt=""
-                > -->
+                />
                 As we close out the year, its worth reflecting on what we have accomplished as a Library community. When a pandemic scattered most of our faculty and students across the country and globe, we quickly adapted traditional in-person services for remote learning. This pivot made it possible for Bruins to access the materials, workshops, and research advice they needed, wherever they were. Our return to campus brings new priorities, and here is what we are focusing on in 2022: increasing opportunities for teaching with rare and unique materials, building capacity to recruit librarians who are experts in their field, and amplifying access to and safekeeping of digitally stored materials.
             </p>
-            <img
-                src="https://huntersvillencdentistry.com/wp-content/uploads/2021/06/marra-signature.png"
-                class="signature-image" 
-            >
-            <!-- <img
-                    src="https://static.library.ucla.edu/ginny-steel-signature.jpg"
-                    class="signature-image"
-                    alt=""
-            > -->
+            <responsive-image
+                :image="imageSignature.image"
+                :aspect-ratio="60"
+                class="signature-image"
+            />
             <p class="signature">
                 - Virginia Steel, Norman and Armena Powell University Librarian
             </p>
@@ -108,6 +100,26 @@ export default {
         }
     },
     computed: {
+        imagePortrait() {
+            const portrait = {
+                src: getS3Bucket(this.$config, "ginny-steel-ucla-library.jpg"),
+                sizes: "100vw",
+                height: 1080,
+                width: 1920,
+                alt: "Illustration of woman wearing glasses and a grey blazer, with a yellow background"
+            }
+            return portrait
+        },
+        imageSignature() {
+            const signature = {
+                src: getS3Bucket(this.$config, "ginny-steel-signature.jpg"),
+                sizes: "100vw",
+                height: 1080,
+                width: 1920,
+                alt: "Signature image"
+            }
+            return signature
+        },
         timelineSortedByMonth() {
             const parsedTimeline = _.groupBy(
                 this.page.timelineGallery,
@@ -125,7 +137,6 @@ export default {
                         ),
                     }
                 })
-                // console.log("key:" + key)
             }
             return parsedTimeline
         },
@@ -191,7 +202,7 @@ export default {
         max-width: 704px;
         float: right;
     }
-        .signature-image {
+     .signature-image {
         width: 100%;
         max-width: 704px;
     }
