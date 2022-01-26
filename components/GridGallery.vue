@@ -25,6 +25,7 @@
                     <smart-link
                         :to="card.to"
                         target="_blank"
+                        class="link"
                         v-html="card.headlineText"
                     />
                 </h3>
@@ -113,7 +114,7 @@ export default {
     margin: 0;
     background-color: var(--color-white);
     .month-year {
-        font-weight: 600;
+        font-weight: $font-weight-medium;
         font-size: 35.538px;
         line-height: 120%;
         color: var(--color-black);
@@ -173,7 +174,7 @@ export default {
         justify-content: space-evenly;
     }
     .svg {
-        transform: rotate(180deg);
+        transform: rotate(180deg) scale(1.5);
         width: 200px;
     }
 

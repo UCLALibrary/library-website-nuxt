@@ -10,7 +10,18 @@
                     :aspect-ratio="60"
                     class="portrait-Ginny"
                 />
-                As we close out the year, its worth reflecting on what we have accomplished as a Library community. When a pandemic scattered most of our faculty and students across the country and globe, we quickly adapted traditional in-person services for remote learning. This pivot made it possible for Bruins to access the materials, workshops, and research advice they needed, wherever they were. Our return to campus brings new priorities, and here is what we are focusing on in 2022: increasing opportunities for teaching with rare and unique materials, building capacity to recruit librarians who are experts in their field, and amplifying access to and safekeeping of digitally stored materials.
+                As we close out the year, its worth reflecting on what we have
+                accomplished as a Library community. When a pandemic scattered
+                most of our faculty and students across the country and globe,
+                we quickly adapted traditional in-person services for remote
+                learning. This pivot made it possible for Bruins to access the
+                materials, workshops, and research advice they needed, wherever
+                they were. Our return to campus brings new priorities, and here
+                is what we are focusing on in 2022: increasing opportunities for
+                teaching with rare and unique materials, building capacity to
+                recruit librarians who are experts in their field, and
+                amplifying access to and safekeeping of digitally stored
+                materials.
             </p>
             <responsive-image
                 :image="imageSignature.image"
@@ -45,8 +56,9 @@
                 color="about"
             />
 
-            <h2 class="grid-gallery-title">
-                Remote Learning by the Numbers:<br>Data from March 2020 through September 2021
+            <h2 class="remote-learning">
+                Remote Learning by the Numbers:<br>Data from March 2020
+                through September 2021
             </h2>
 
             <section-teaser-card
@@ -59,7 +71,6 @@
                 color="about"
             />
 
-        
             <h2 class="grid-gallery-title">
                 2020-21: An Academic Year Like No Other
             </h2>
@@ -77,13 +88,18 @@
             />
         </div>
 
-        <divider-way-finder
-            class="divider divider-center"
-            color="about"
-        />
+        <divider-general class="divider divider-center" />
 
         <p class="credits">
-            Thank you to <a href="https://www.library.ucla.edu/staff">UCLA Library Staff</a> credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia nascetur tristique orci est vehicula interdum. Vehicula non hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis felis ipsum malesuada posuere sollicitudin. Habitasse proin purus montes lorem cursus iaculis lacinia et. Elementum consectetuer aptent parturient nostra hendrerit sapien imperdiet vel.
+            Thank you to
+            <a href="https://www.library.ucla.edu/staff">UCLA Library Staff</a>
+            credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere
+            vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia
+            nascetur tristique orci est vehicula interdum. Vehicula non
+            hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis
+            felis ipsum malesuada posuere sollicitudin. Habitasse proin purus
+            montes lorem cursus iaculis lacinia et. Elementum consectetuer
+            aptent parturient nostra hendrerit sapien imperdiet vel.
         </p>
 
         <divider-way-finder
@@ -123,7 +139,7 @@ export default {
                 sizes: "100vw",
                 height: 1080,
                 width: 1920,
-                alt: "Illustration of woman wearing glasses and a grey blazer, with a yellow background"
+                alt: "Illustration of woman wearing glasses and a grey blazer, with a yellow background",
             }
             return portrait
         },
@@ -133,7 +149,7 @@ export default {
                 sizes: "100vw",
                 height: 1080,
                 width: 1920,
-                alt: "Signature image"
+                alt: "Signature image",
             }
             return signature
         },
@@ -211,7 +227,8 @@ export default {
 <style lang="scss" scoped>
 .page-impact-report {
     .meta {
-        margin: var(--unit-gutter);
+        margin: $layout-06 + px auto;
+        max-width: $content-width-05 + px;
         .intro {
             font-size: 84px;
             font-weight: 300;
@@ -232,20 +249,27 @@ export default {
         max-width: 704px;
         float: right;
     }
-     .signature-image {
+    .signature-image {
         width: 100%;
         max-width: 704px;
     }
     .banner {
-        margin: var(--unit-vertical-gap) auto;
+        margin: $layout-07 + px auto;
     }
-    .grid-gallery-title {
-        margin: var(--unit-gutter) var(--unit-gutter) 24px
+    .remote-learning {
+        margin: var(--unit-gutter) var(--unit-gutter) $layout-05 + px
             var(--unit-gutter);
         color: var(--color-primary-blue-03);
         font-size: 48px;
         line-height: 56px;
-        padding-left:100px;
+        padding-left: 100px;
+    }
+    .grid-gallery-title {
+        margin: var(--unit-gutter) var(--unit-gutter) 24px var(--unit-gutter);
+        color: var(--color-primary-blue-03);
+        font-size: 48px;
+        line-height: 56px;
+        padding-left: 100px;
     }
     .section-grid {
         .grid-gallery-title {
@@ -254,14 +278,14 @@ export default {
             color: var(--color-primary-blue-03);
             font-size: 48px;
             line-height: 56px;
-            padding-left:100px;
+            padding-left: 100px;
         }
         .grid-gallery-subtitle {
             margin: 0 var(--unit-gutter) 0 var(--unit-gutter);
             color: var(--color-primary-blue-03);
             font-size: 35.538px;
             line-height: 43px;
-            padding-left:100px;
+            padding-left: 100px;
         }
         .grid-gallery {
             margin: 0 auto;
@@ -272,8 +296,8 @@ export default {
     }
     .credits {
         max-width: 932px;
-        padding-bottom: 138px;
-        margin: 0 auto;
+        margin: $layout-07 + px auto;
+        // margin: ;
         font-style: italic;
         font-weight: normal;
         font-size: 16px;
@@ -287,7 +311,7 @@ export default {
     .divider-center {
         margin-top: 75px;
         margin-bottom: 48px;
-        max-width: 1100px;
+        max-width: $content-width-03 + px;
     }
     .divider-bottom {
         margin-bottom: 92px;
