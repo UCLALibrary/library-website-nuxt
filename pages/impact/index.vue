@@ -4,12 +4,12 @@
             <h2 class="intro">
                 2020-2021 UCLA Library Impact Report
             </h2>
+            <responsive-image
+                :image="imagePortrait"
+                :aspect-ratio="60"
+                class="portrait-Ginny"
+            />
             <p class="text">
-                <responsive-image
-                    :image="imagePortrait"
-                    :aspect-ratio="60"
-                    class="portrait-Ginny"
-                />
                 As we close out the year, its worth reflecting on what we have
                 accomplished as a Library community. When a pandemic scattered
                 most of our faculty and students across the country and globe,
@@ -23,11 +23,11 @@
                 amplifying access to and safekeeping of digitally stored
                 materials.
             </p>
-            <!--responsive-image
+            <responsive-image
                 :image="imageSignature"
                 :aspect-ratio="60"
                 class="signature-image"
-            /-->
+            />
             <p class="signature">
                 - Virginia Steel, Norman and Armena Powell University Librarian
             </p>
