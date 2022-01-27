@@ -113,7 +113,7 @@ export default {
     padding: 0;
     margin: 0;
     background-color: var(--color-white);
-    position: relative;
+
     .month-year {
         font-weight: $font-weight-medium;
         font-size: 35.538px;
@@ -132,6 +132,7 @@ export default {
         margin-bottom: 32px;
         list-style: none;
         padding: 0;
+        position: relative;
     }
     .card-small {
         grid-column: span 2;
