@@ -210,7 +210,7 @@ export default {
     max-width: 456px;
     background-color: var(--color-white);
     font-family: var(--font-primary);
-    position: relative;
+    // position: relative;
 
     display: flex;
     flex-direction: row;
@@ -286,15 +286,14 @@ export default {
         text-transform: uppercase;
         color: var(--color-primary-blue-05);
     }
-    .title::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        color: pink;
-    }
+    // .title::after {
+    //     content: "";
+    //     position: absolute;
+    //     top: 0;
+    //     bottom: 0;
+    //     right: 0;
+    //     left: 0;
+    // }
     .title,
     .title-no-link {
         font-weight: 500;
