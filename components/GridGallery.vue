@@ -137,6 +137,7 @@ export default {
         margin-bottom: 32px;
         list-style: none;
         padding: 0;
+        position: relative;
     }
     .card-small {
         grid-column: span 2;
@@ -166,7 +167,14 @@ export default {
         -webkit-box-orient: vertical;
         overflow: hidden;*/
     }
-
+    .link::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
     .snippet {
         font-size: 18px;
         font-weight: 400;

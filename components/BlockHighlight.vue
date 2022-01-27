@@ -37,9 +37,15 @@
                 v-html="category"
             />
             <smart-link
+                v-if="to"
                 :target="parsedTarget"
                 :to="to"
                 class="title"
+                v-html="title"
+            />
+            <h3
+                v-else
+                class="title-no-link"
                 v-html="title"
             />
 
@@ -204,6 +210,7 @@ export default {
     max-width: 456px;
     background-color: var(--color-white);
     font-family: var(--font-primary);
+    // position: relative;
 
     display: flex;
     flex-direction: row;
@@ -279,7 +286,16 @@ export default {
         text-transform: uppercase;
         color: var(--color-primary-blue-05);
     }
-    .title {
+    // .title::after {
+    //     content: "";
+    //     position: absolute;
+    //     top: 0;
+    //     bottom: 0;
+    //     right: 0;
+    //     left: 0;
+    // }
+    .title,
+    .title-no-link {
         font-weight: 500;
         font-size: 28px;
         letter-spacing: 0.25%;
@@ -291,6 +307,7 @@ export default {
         -webkit-box-orient: vertical;
         overflow: hidden;*/
     }
+
     .date-time {
         font-weight: 400;
         font-size: 20px;
