@@ -40,7 +40,7 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: left;
-    gap: 16px;
+    gap: 32px 16px;
 
     .card {
         width: 100%;
