@@ -382,7 +382,7 @@ export default {
 
     .title {
         color: var(--color-primary-blue-03);
-        @include step-5;
+        @include step-4;
     }
     .schedule {
         font-size: 20px;

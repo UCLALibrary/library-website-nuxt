@@ -9,9 +9,20 @@
                 :aspect-ratio="60"
                 class="portrait-Ginny"
             />
-            
-            <p>
-                As we close out the year, its worth reflecting on what we have accomplished as a Library community. When a pandemic scattered most of our faculty and students across the country and globe, we quickly adapted traditional in-person services for remote learning. This pivot made it possible for Bruins to access the materials, workshops, and research advice they needed, wherever they were. Our return to campus brings new priorities, and here is what we are focusing on in 2022: increasing opportunities for teaching with rare and unique materials, building capacity to recruit librarians who are experts in their field, and amplifying access to and safekeeping of digitally stored materials.
+
+            <p class="text">
+                As we close out the year, its worth reflecting on what we have
+                accomplished as a Library community. When a pandemic scattered
+                most of our faculty and students across the country and globe,
+                we quickly adapted traditional in-person services for remote
+                learning. This pivot made it possible for Bruins to access the
+                materials, workshops, and research advice they needed, wherever
+                they were. Our return to campus brings new priorities, and here
+                is what we are focusing on in 2022: increasing opportunities for
+                teaching with rare and unique materials, building capacity to
+                recruit librarians who are experts in their field, and
+                amplifying access to and safekeeping of digitally stored
+                materials.
             </p>
             <p class="signature">
                 - Virginia Steel, Norman and Armena Powell University Librarian
@@ -42,7 +53,8 @@
             />
 
             <h2 class="title">
-                Remote Learning by the Numbers:<br>Data from March 2020 through September 2021
+                Remote Learning by the Numbers:<br>Data from March 2020
+                through September 2021
             </h2>
 
             <section-teaser-card
@@ -82,7 +94,14 @@
 
         <p class="credits">
             Thank you to
-            <a href="https://www.library.ucla.edu/staff">UCLA Library Staff</a> credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia nascetur tristique orci est vehicula interdum. Vehicula non hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis felis ipsum malesuada posuere sollicitudin. Habitasse proin purus montes lorem cursus iaculis lacinia et. Elementum consectetuer aptent parturient nostra hendrerit sapien imperdiet vel.
+            <a href="https://www.library.ucla.edu/staff">UCLA Library Staff</a>
+            credit lines, Lorem ipsum dolor sit amet odio maximus quis posuere
+            vivamus dapibus etiam. Consectetur luctus elementum tempor lacinia
+            nascetur tristique orci est vehicula interdum. Vehicula non
+            hendrerit orci justo urna lacinia quam lectus taciti. Enim eros dis
+            felis ipsum malesuada posuere sollicitudin. Habitasse proin purus
+            montes lorem cursus iaculis lacinia et. Elementum consectetuer
+            aptent parturient nostra hendrerit sapien imperdiet vel.
         </p>
 
         <divider-way-finder
@@ -219,12 +238,11 @@ export default {
 <style lang="scss" scoped>
 .page-impact-report {
     .meta {
+        padding: 0 var(--unit-gutter);
         margin: $layout-06 + px auto;
         max-width: $content-width-05 + px;
         .intro {
-            font-size: 84px;
-            font-weight: 300;
-            line-height: 84px;
+            @include step-5;
             color: var(--color-primary-blue-03);
         }
         .text {
@@ -242,19 +260,7 @@ export default {
     .banner {
         margin: $layout-07 + px auto;
     }
-    .remote-learning {
-        margin: var(--unit-gutter) var(--unit-gutter) $layout-05 + px
-            var(--unit-gutter);
-        color: var(--color-primary-blue-03);
-        @include step-3;
-        padding-left: 100px;
-    }
-    .grid-gallery-title {
-        margin: var(--unit-gutter) var(--unit-gutter) 24px var(--unit-gutter);
-        color: var(--color-primary-blue-03);
-        @include step-3;
-        padding-left: 100px;
-    }
+
     .section-grid {
         max-width: 932px;
 
@@ -268,14 +274,16 @@ export default {
             font-size: 48px;
             line-height: 56px;
             margin-bottom: $layout-05 + px;
+            @include step-3;
         }
         .sub-section-grid {
-            margin: 24px auto;
+            margin: 12px auto;
         }
         .grid-gallery-subtitle {
             color: var(--color-primary-blue-03);
             font-size: 35.538px;
             line-height: 43px;
+            @include step-2;
         }
         .divider-section {
             max-width: 1100px;
@@ -288,7 +296,6 @@ export default {
     .credits {
         max-width: 932px;
         margin: $layout-07 + px auto;
-        // margin: ;
         font-style: italic;
         font-weight: normal;
         font-size: 16px;
@@ -303,8 +310,27 @@ export default {
         margin-bottom: 48px;
         max-width: $content-width-03 + px;
     }
-}
-.page .section {
-    margin-top: 0px;
+    @media #{$medium} {
+        .meta {
+            padding: 0 var(--unit-gutter);
+            .portrait-Ginny {
+                float: none;
+            }
+        }
+        .section {
+            .sub-section-grid {
+                ::v-deep .grid-gallery {
+                    padding: unset;
+                }
+            }
+        }
+    }
+    @media #{$small} {
+        .meta {
+            .portrait-Ginny {
+                width: 100%;
+            }
+        }
+    }
 }
 </style>
