@@ -1,7 +1,9 @@
 <template lang="html">
     <div :class="classes">
         <nav-primary class="primary" />
-        <nuxt class="page" />
+        <main>
+            <nuxt class="page" />
+        </main>
 
         <footer-primary
             :social-items="parsedItems"
