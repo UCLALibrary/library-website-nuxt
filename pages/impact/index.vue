@@ -188,8 +188,8 @@ export default {
                 return {
                     ...obj,
                     image: updateImageData(
-                        obj.imgSrc,
-                        obj.imgAlt,
+                        obj.src,
+                        obj.alt,
                         Object.assign({}, API.image),
                         this.$config
                     ),
@@ -203,8 +203,8 @@ export default {
                 return {
                     ...obj,
                     image: updateImageData(
-                        obj.imgSrc,
-                        obj.imgAlt,
+                        obj.src,
+                        obj.alt,
                         Object.assign({}, API.image),
                         this.$config
                     ),
