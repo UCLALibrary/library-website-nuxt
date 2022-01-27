@@ -113,13 +113,18 @@ export default {
     padding: 0;
     margin: 0;
     background-color: var(--color-white);
+    position: relative;
 
     .month-year {
-        font-weight: $font-weight-medium;
-        font-size: 35.538px;
-        line-height: 120%;
+        @include step-2;
         color: var(--color-black);
-        margin-top: var(--unit-gutter);
+        position: sticky;
+        top: 52px;
+        background-color: var(--color-white);
+        z-index: 20;
+        padding-bottom: 16px;
+        padding-top: 10px;
+        // margin-top: $layout-05 + px;
     }
     .cards {
         display: grid;
@@ -219,6 +224,8 @@ export default {
 
     @media #{$small} {
         padding: 0 24px;
+        .month-year {
+        }
         .card {
             grid-column: span 6;
         }
