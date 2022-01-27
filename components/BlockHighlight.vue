@@ -36,14 +36,18 @@
                 class="category"
                 v-html="category"
             />
-            <h3>
-                <smart-link
-                    :target="parsedTarget"
-                    :to="to"
-                    class="title"
-                    v-html="title"
-                />
-            </h3>
+            <smart-link
+                v-if="to"
+                :target="parsedTarget"
+                :to="to"
+                class="title"
+                v-html="title"
+            />
+            <h3
+                v-else
+                class="title-no-link"
+                v-html="title"
+            />
 
             <div class="date-time">
                 <time
@@ -291,7 +295,8 @@ export default {
         left: 0;
         color: pink;
     }
-    .title {
+    .title,
+    .title-no-link {
         font-weight: 500;
         font-size: 28px;
         letter-spacing: 0.25%;
@@ -303,6 +308,7 @@ export default {
         -webkit-box-orient: vertical;
         overflow: hidden;*/
     }
+
     .date-time {
         font-weight: 400;
         font-size: 20px;
