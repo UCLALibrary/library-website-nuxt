@@ -1,9 +1,9 @@
 <template lang="html">
     <div class="page page-impact-report">
         <div class="meta">
-            <h2 class="intro">
+            <h1 class="intro">
                 2020-2021 UCLA Library Impact Report
-            </h2>
+            </h1>
             <responsive-image
                 :image="imagePortrait"
                 :aspect-ratio="60"
@@ -278,12 +278,19 @@ export default {
         }
         .sub-section-grid {
             margin: 12px auto;
+            position: relative;
         }
         .grid-gallery-subtitle {
             color: var(--color-primary-blue-03);
             font-size: 35.538px;
             line-height: 43px;
             @include step-2;
+            position: sticky;
+            top: 0;
+            background-color: var(--color-white);
+            padding-top: 8px;
+            z-index: 30;
+            min-height: 46px;
         }
         .divider-section {
             max-width: 1100px;
