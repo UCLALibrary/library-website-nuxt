@@ -286,10 +286,10 @@ export default {
         color: var(--color-primary-blue-03);
         margin: 16px 0 0 0;
 
-        display: -webkit-box;
+        /*display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        overflow: hidden;
+        overflow: hidden;*/
     }
     .date-time {
         font-weight: 400;
@@ -329,10 +329,10 @@ export default {
         margin: 24px 0 0 0;
         color: var(--color-black);
 
-        display: -webkit-box;
+        /*display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
-        overflow: hidden;
+        overflow: hidden;*/
     }
     .location-group {
         color: var(--color-primary-blue-03);
@@ -462,16 +462,16 @@ export default {
             }
         }
         .title {
-            display: -webkit-box;
+            /* display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            overflow: hidden;
+            overflow: hidden;*/
         }
         .text {
-            display: -webkit-box;
+            /*display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
-            overflow: hidden;
+            overflow: hidden;*/
         }
     }
 
