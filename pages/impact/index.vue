@@ -13,11 +13,6 @@
             <p>
                 As we close out the year, its worth reflecting on what we have accomplished as a Library community. When a pandemic scattered most of our faculty and students across the country and globe, we quickly adapted traditional in-person services for remote learning. This pivot made it possible for Bruins to access the materials, workshops, and research advice they needed, wherever they were. Our return to campus brings new priorities, and here is what we are focusing on in 2022: increasing opportunities for teaching with rare and unique materials, building capacity to recruit librarians who are experts in their field, and amplifying access to and safekeeping of digitally stored materials.
             </p>
-            <responsive-image
-                :image="imageSignature"
-                :aspect-ratio="60"
-                class="signature-image"
-            />
             <p class="signature">
                 - Virginia Steel, Norman and Armena Powell University Librarian
             </p>
@@ -47,8 +42,7 @@
             />
 
             <h2 class="title">
-                Remote Learning by the Numbers:<br>Data from March 2020
-                through September 2021
+                Remote Learning by the Numbers:<br>Data from March 2020 through September 2021
             </h2>
 
             <section-teaser-card
@@ -244,10 +238,6 @@ export default {
         width: 100%;
         max-width: 704px;
         float: right;
-    }
-    .signature-image {
-        width: 100%;
-        max-width: 704px;
     }
     .banner {
         margin: $layout-07 + px auto;
