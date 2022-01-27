@@ -230,9 +230,9 @@ export default {
         parsedRatio() {
             // If on mobile, change ratio of image
             let output = this.ratio
-            if (this.$store.state.winWidth <= 750) {
-                output = 100
-            }
+            // if (this.$store.state.winWidth <= 750) {
+            //     output = 100
+            // }
             return output
         },
         parsedLocations() {

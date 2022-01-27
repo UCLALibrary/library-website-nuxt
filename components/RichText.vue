@@ -121,7 +121,6 @@ export default {
     max-width: 832px;
     margin: var(--unit-gutter) auto;
     padding: 0 var(--unit-gutter);
-
     .text {
         font-family: var(--font-primary);
         font-weight: 400;
@@ -130,17 +129,15 @@ export default {
         letter-spacing: 0.01em;
         color: var(--color-black);
     }
-
     .image-block {
         display: flex;
         flex-direction: column;
-    }
 
-    .image {
-        margin: 10px 10px 0 0;
         width: 832px;
     }
-
+    .image {
+        margin: 30px 10px 0 0;
+    }
     .caption {
         font-family: var(--font-secondary);
         font-weight: 400;
@@ -149,19 +146,14 @@ export default {
         letter-spacing: 0.01em;
         color: var(--color-secondary-grey-05);
         padding: 16px 16px 26px 16px;
-        width: 832px;
     }
-
     .pull-quote {
         margin: 20px 10px 20px 0;
     }
 
     // Breakpoints
     @media #{$small} {
-        .image {
-            max-width: 300px;
-        }
-        .caption {
+        .image-block {
             max-width: 300px;
         }
     }

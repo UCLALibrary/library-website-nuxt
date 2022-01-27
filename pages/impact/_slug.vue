@@ -95,20 +95,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page .section {
-    margin-top: 1px;
-
-    .page-impact-report-home {
-        margin: 0 0 0 0;
-        .rich-text {
-            margin: var(--unit-gutter) auto;
-        }
-        .divider {
-            margin: 0 auto;
-            padding-bottom: 30px;
-        }
-        .story {
-        }
+.page-impact-report {
+    margin: 0 0 0 0;
+    .banner-header {
+        margin-bottom: $layout-06 + px;
+    }
+    .rich-text {
+        margin: var(--unit-gutter) auto;
+    }
+    .divider {
+        margin: 0 auto;
+        padding-bottom: 30px;
+    }
+    .story {
     }
 }
 </style>
