@@ -23,11 +23,11 @@
                 amplifying access to and safekeeping of digitally stored
                 materials.
             </p>
-            <responsive-image
+            <!--responsive-image
                 :image="imageSignature"
                 :aspect-ratio="60"
                 class="signature-image"
-            />
+            /-->
             <p class="signature">
                 - Virginia Steel, Norman and Armena Powell University Librarian
             </p>
