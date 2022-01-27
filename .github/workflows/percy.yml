@@ -7,7 +7,7 @@ on:
     inputs: {}
 
 jobs:
-  percy-storybook:
+  percy-components:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
@@ -30,11 +30,16 @@ jobs:
         key: storybook-${{ github.sha }}
     - run: npm run storybook-build
       if: steps.cache-storybook.outputs.cache-hit != 'true'
-    - run: npm run percy-static
+    - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
+      with:
+        start: docker run -v ${{ github.workspace }}/storybook-static:/usr/share/nginx/html:ro -p 3009:80 nginx
+        command-prefix: 'percy exec -- npx'
+        config-file: cypress.storybook.json
+        wait-on: http://localhost:3009
       env: 
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_STORYBOOK }}
 
-  percy-cypress:
+  percy-integration:
     name: Cypress tests with Percy screenshots
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +60,8 @@ jobs:
         LIBCAL_CLIENT_ID: ${{ secrets.LIBCAL_CLIENT_ID }}
     - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
       with:
-        start: docker run -v ${{ github.workspace }}/dist:/usr/share/nginx/html:ro -p 3000:80 nginx
+        # start: docker run -v ${{ github.workspace }}/dist:/usr/share/nginx/html:ro -p 3000:80 nginx
+        start: npm run dev
         command-prefix: 'percy exec -- npx'
         wait-on: http://localhost:3000
       env: 

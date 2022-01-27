@@ -8,7 +8,7 @@
         "build": "nuxt build",
         "generate": "nuxt generate",
         "start": "nuxt start",
-        "storybook": "nuxt storybook",
+        "storybook": "nuxt storybook --port 3009",
         "storybook-build": "nuxt storybook build",
         "cypress": "cypress open",
         "cypress-run": "cypress run",
