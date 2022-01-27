@@ -365,7 +365,7 @@ export default {
         z-index: 40;
         width: 65%;
         box-sizing: border-box;
-        padding-left: 240px;
+        padding-left: 478px;
 
         display: flex;
         flex-direction: column;
