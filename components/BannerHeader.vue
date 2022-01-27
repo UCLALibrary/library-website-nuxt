@@ -363,21 +363,15 @@ export default {
         margin: -60px 0 0 0;
         position: relative;
         z-index: 40;
-        width: 75%;
+        width: 65%;
         box-sizing: border-box;
+        padding-left: 240px;
 
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-content: flex-end;
-        align-items: flex-start;
-
-        > * {
-            max-width: 650px;
-            width: 100%;
-            margin: 20px 0 5px 100px;
-        }
     }
 
     .title {
