@@ -40,12 +40,14 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: left;
+    gap: 32px 16px;
 
     .card {
-        margin-right: 16px;
-        &:nth-child(3n) {
-            margin-right: 0px;
-        }
+        width: 100%;
+        // margin-right: 16px;
+        // &:nth-child(3n) {
+            // margin-right: 0px;
+        // }
     }
 
     // Breakpoints
