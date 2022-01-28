@@ -164,7 +164,6 @@ export default {
 
         display: flex;
         align-items: center;
-        // align-content: flex-end;
     }
     .svg {
         text-decoration: underline;
@@ -179,7 +178,7 @@ export default {
     }
 
     @media #{$has-hover} {
-        .calltoaction:hover {
+        .call-to-action:hover {
             text-decoration: underline;
             text-decoration-color: var(--color-primary-blue-03);
             text-decoration-thickness: 2px;

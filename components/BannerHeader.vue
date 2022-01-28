@@ -394,6 +394,7 @@ export default {
         color: var(--color-secondary-grey-04);
         font-weight: 400;
         margin-top: $layout-03 + px;
+        line-height: 120%;
     }
     .schedule {
         font-size: 20px;
