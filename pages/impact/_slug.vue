@@ -3,6 +3,7 @@
         <banner-header
             class="section banner-header"
             :title="bannerHeader.title"
+            :byline="bannerHeader.byline"
             :video="parseVideo"
             :to="bannerHeader.to"
             :align-right="true"
@@ -19,19 +20,28 @@
                 :images="parsedMainStoryImages"
                 class="rich-text"
             />
-
-            <story-with-image
-                v-for="(item, index) in parsedStories"
-                :key="item.index"
-                :image="item.photo"
-                :caption="item.photo.caption"
-                :title="item.title"
-                :text="item.text"
-                :footnote="item.footnote"
-                :calltoaction="item.calltoaction"
-                class="story"
-            />
         </div>
+        <divider-general class="divider divider-general" />
+        <div class="credits">
+            <em>
+                <dl class="credit-list">
+                    <dt>Written By</dt>
+                    <dd>Cynthia Lee</dd>
+
+                    <dt>Illustrations and Animation</dt>
+                    <dd class="underline-hover">
+                        <a
+                            href="https://www.brettaffrunti.com/"
+                            target="_blank"
+                        >Brett Affrunti</a>
+                    </dd>
+                </dl></em>
+        </div>
+
+        <divider-way-finder
+            class="divider divider-wayfinder"
+            color="about"
+        />
     </div>
 </template>
 
@@ -46,7 +56,6 @@ export default {
     layout: "impact",
     data() {
         return {
-            stories: MOCK_IMPACT_API.story,
             bannerHeader: MOCK_IMPACT_API.bannerHeader,
             mainStory: MOCK_IMPACT_API.mainStory,
         }
@@ -60,22 +69,6 @@ export default {
                 ),
             }
             return video
-        },
-        parsedStories() {
-            const stories = MOCK_IMPACT_API.story
-            return this.stories.map((obj) => {
-                return {
-                    ...obj,
-                    photo: {
-                        src: getS3Bucket(this.$config, obj.image.src),
-                        sizes: "100vw",
-                        height: 1080,
-                        width: 1920,
-                        alt: obj.image.alt,
-                        caption: obj.image.caption,
-                    },
-                }
-            })
         },
         parsedMainStoryImages() {
             const mainStory = MOCK_IMPACT_API.mainStory
@@ -110,7 +103,46 @@ export default {
         margin: 0 auto;
         padding-bottom: 30px;
     }
-    .story {
+    .divider-wayfinder {
+        max-width: 1100px;
+        margin: $layout-07 + px auto;
+    }
+    .divider-general {
+        margin-top: 75px;
+        margin-bottom: 48px;
+        max-width: $content-width-03 + px;
+    }
+    .credits {
+        max-width: 932px;
+        margin: $layout-07 + px auto;
+        font-style: italic;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 26px;
+    }
+    .credit-list {
+        display: inline;
+    }
+    .credits dt,
+    dd {
+        display: inline;
+        font-family: var(--font-secondary);
+        line-height: 26px;
+    }
+    .credits dd,
+    .credits dl {
+        margin: 0;
+        color: var(--color-secondary-grey-04);
+    }
+    dt {
+        font-weight: 600;
+    }
+    .credit-header {
+        display: inline;
+        color: var(--color-primary-blue-03);
+        font-weight: 700;
+        font-size: 18px;
+        padding-right: 5px;
     }
 }
 </style>

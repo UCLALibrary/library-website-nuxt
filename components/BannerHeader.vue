@@ -383,6 +383,7 @@ export default {
         line-height: 24px;
         text-align: left;
         color: var(--color-primary-blue-03);
+        margin-top: 24px;
 
         display: flex;
         flex-direction: row;
