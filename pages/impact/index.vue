@@ -379,12 +379,14 @@ export default {
     .illustrator a{
         text-decoration: underline;
         text-decoration-color: var(--color-primary-blue-03);
-        text-decoration-thickness: 1.5px;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 1px;
     }
     // Hover states
     @media #{$has-hover} {
     .illustrator:hover {
         color: var(--color-primary-blue-03);
+        @include hover;
         }
     }
 

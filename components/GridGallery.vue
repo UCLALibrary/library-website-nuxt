@@ -186,16 +186,22 @@ export default {
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-evenly;
+        margin-left: -24px;
     }
     .svg {
-        transform: rotate(180deg) scale(1.5);
-        width: 200px;
+        transform: rotate(180deg) scale(0.75);
+        flex-shrink: 0;
     }
 
     .text {
-        margin-left: 15px;
         .title {
             margin-top: unset;
+        }
+    }
+    // Hovers
+    @media #{$has-hover} {
+        .title:hover {
+            @include hover;
         }
     }
 

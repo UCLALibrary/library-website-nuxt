@@ -32,7 +32,7 @@
                     <dd>Cynthia Lee</dd>
 
                     <dt>Illustrations and Animation</dt>
-                    <dd class="underline-hover">
+                    <dd class="illustrator hover-text">
                         <a
                             href="https://www.brettaffrunti.com/"
                             target="_blank"
@@ -49,6 +49,7 @@
             <a
                 href="https://giveto.ucla.edu/area/libraries/"
                 target="_blank"
+                class="hover-text"
             >Find ways to give to UCLA Library</a>
             <svg-arrow-diagonal class="svg" />
         </div>
@@ -155,6 +156,12 @@ export default {
         font-size: 18px;
         padding-right: 5px;
     }
+    .illustrator a {
+        text-decoration: underline;
+        text-decoration-color: var(--color-primary-blue-03);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 1px;
+    }
     .call-to-action {
         font-weight: 500;
         font-size: 18px;
@@ -178,11 +185,6 @@ export default {
     }
 
     @media #{$has-hover} {
-        .call-to-action:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue-03);
-            text-decoration-thickness: 2px;
-        }
         .svg:hover {
             .arrow {
                 path {
@@ -195,6 +197,11 @@ export default {
                     color: var(--color-primary-blue-03);
                 }
             }
+        }
+
+        .hover-text:hover {
+            @include hover;
+            text-decoration-color: var(--color-primary-blue-03);
         }
     }
 }
