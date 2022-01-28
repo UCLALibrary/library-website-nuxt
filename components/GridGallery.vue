@@ -119,7 +119,7 @@ export default {
         @include step-2;
         color: var(--color-black);
         position: sticky;
-        top: 52px;
+        top: 48px;
         background-color: var(--color-white);
         z-index: 20;
         padding-bottom: 16px;
@@ -219,6 +219,9 @@ export default {
         }
         .card-4up {
             grid-column: span 6;
+        }
+        .month-year {
+            padding-top: 20px;
         }
     }
 
