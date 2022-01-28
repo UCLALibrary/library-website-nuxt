@@ -5,7 +5,17 @@
             class="text"
             v-html="textBlocks[0]"
         />
-
+        <pull-quote
+            v-if="pullQuote[0]"
+            class="pull-quote"
+            :text="pullQuote[0].text"
+            :attribution="pullQuote[0].attribution"
+        />
+        <div
+            v-if="textBlocks[1]"
+            class="text"
+            v-html="textBlocks[1]"
+        />
         <div
             v-if="images[0]"
             class="image-block"
@@ -22,17 +32,22 @@
                 v-html="images[0].caption"
             />
         </div>
-        <pull-quote
-            v-if="pullQuote[0]"
-            class="pull-quote"
-            :text="pullQuote[0].text"
-            :attribution="pullQuote[0].attribution"
-        />
 
         <div
-            v-if="textBlocks[1]"
+            v-if="textBlocks[2]"
             class="text"
-            v-html="textBlocks[1]"
+            v-html="textBlocks[2]"
+        />
+        <pull-quote
+            v-if="pullQuote[1]"
+            class="pull-quote"
+            :text="pullQuote[1].text"
+            :attribution="pullQuote[1].attribution"
+        />
+        <div
+            v-if="textBlocks[3]"
+            class="text"
+            v-html="textBlocks[3]"
         />
         <div
             v-if="images[1]"
@@ -52,9 +67,32 @@
         </div>
 
         <div
-            v-if="textBlocks[2]"
+            v-if="textBlocks[4]"
             class="text"
-            v-html="textBlocks[2]"
+            v-html="textBlocks[4]"
+        />
+        <pull-quote
+            v-if="pullQuote[1]"
+            class="pull-quote"
+            :text="pullQuote[1].text"
+            :attribution="pullQuote[1].attribution"
+        />
+
+        <div
+            v-if="textBlocks[5]"
+            class="text"
+            v-html="textBlocks[5]"
+        />
+        <pull-quote
+            v-if="pullQuote[2]"
+            class="pull-quote"
+            :text="pullQuote[2].text"
+            :attribution="pullQuote[2].attribution"
+        />
+        <div
+            v-if="textBlocks[6]"
+            class="text"
+            v-html="textBlocks[6]"
         />
         <div
             v-if="images[2]"
@@ -72,23 +110,10 @@
                 v-html="images[2].caption"
             />
         </div>
-        <pull-quote
-            v-if="pullQuote[1]"
-            class="pull-quote"
-            :text="pullQuote[1].text"
-            :attribution="pullQuote[1].attribution"
-        />
-
         <div
-            v-if="textBlocks[3]"
+            v-if="textBlocks[7]"
             class="text"
-            v-html="textBlocks[3]"
-        />
-
-        <div
-            v-if="textBlocks[4]"
-            class="text"
-            v-html="textBlocks[4]"
+            v-html="textBlocks[7]"
         />
     </div>
 </template>
@@ -157,6 +182,12 @@ export default {
     }
     .pull-quote {
         margin: 20px 10px 20px 0;
+    }
+
+    .link {
+        text-decoration: underline;
+        text-decoration-color: var(--color-primary-blue-03);
+        text-decoration-thickness: 2px;
     }
 
     // Breakpoints
