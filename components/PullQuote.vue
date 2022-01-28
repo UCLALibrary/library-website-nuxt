@@ -9,9 +9,7 @@
             v-if="attribution"
             class="attribution-block"
         >
-            <span
-                class="dash"
-            >—</span>
+            <span class="dash">—</span>
             <span
                 v-if="attribution"
                 class="attribution"
@@ -67,7 +65,7 @@ export default {
     .dash {
         font-size: 48px;
         font-style: normal;
-        font-weight: 400;
+        font-weight: 300;
         color: var(--color-secondary-grey-05);
         position: absolute;
         height: 58px;
