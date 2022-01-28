@@ -37,8 +37,15 @@
                 class="title"
                 v-html="title"
             />
-
-            <div class="schedule">
+            <div
+                v-if="text"
+                class="snippet"
+                v-html="text"
+            />
+            <div
+                v-if="byline"
+                class="schedule"
+            >
                 <div
                     v-if="byline"
                     class="schedule-item"
@@ -140,6 +147,10 @@ export default {
         title: {
             type: String,
             required: true,
+        },
+        text: {
+            type: String,
+            default: "",
         },
         byline: {
             type: String,
@@ -377,6 +388,12 @@ export default {
     .title {
         color: var(--color-primary-blue-03);
         @include step-4;
+    }
+    .snippet {
+        @include step-1;
+        color: var(--color-secondary-grey-04);
+        font-weight: 400;
+        margin-top: $layout-03 + px;
     }
     .schedule {
         font-size: 20px;

@@ -3,7 +3,7 @@
         <banner-header
             class="section banner-header"
             :title="bannerHeader.title"
-            :byline="bannerHeader.byline"
+            :text="bannerHeader.text"
             :video="parseVideo"
             :to="bannerHeader.to"
             :align-right="true"
@@ -23,6 +23,9 @@
         </div>
         <divider-general class="divider-general" />
         <div class="credits">
+            <h2 class="credit-header">
+                Acknowledgements
+            </h2>
             <em>
                 <dl class="credit-list">
                     <dt>Written By</dt>
@@ -42,7 +45,6 @@
             class="divider-wayfinder"
             color="about"
         />
-        <divider-general class="divider-general" />
         <div class="call-to-action">
             <a
                 href="https://giveto.ucla.edu/area/libraries/"
@@ -50,10 +52,6 @@
             >Find ways to give to UCLA Library</a>
             <svg-arrow-diagonal class="svg" />
         </div>
-        <divider-way-finder
-            class="divider-wayfinder"
-            color="about"
-        />
     </div>
 </template>
 

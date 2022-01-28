@@ -184,6 +184,12 @@ export default {
         margin: 20px 10px 20px 0;
     }
 
+    .link {
+        text-decoration: underline;
+        text-decoration-color: var(--color-primary-blue-03);
+        text-decoration-thickness: 2px;
+    }
+
     // Breakpoints
     @media #{$small} {
         .image-block {
