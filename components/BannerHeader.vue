@@ -359,7 +359,7 @@ export default {
     }
 
     .meta {
-        padding: 0 50px;
+        padding: 0 0 10px 50px;
         margin: -60px 0 0 0;
         position: relative;
         z-index: 40;
@@ -474,6 +474,12 @@ export default {
     @media #{$large} {
         .meta {
             margin: -60px 0 0 0;
+        }
+    }
+
+    @media #{$large} {
+        .meta {
+            padding-left: 148px;
         }
     }
 
