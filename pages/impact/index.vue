@@ -365,6 +365,7 @@ export default {
     }
     dt {
     font-weight: 600;
+          padding-left: 2px;
     }
     .credit-header {
         display: inline;
