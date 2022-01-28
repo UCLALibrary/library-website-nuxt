@@ -28,7 +28,7 @@
             </h2>
             <em>
                 <dl class="credit-list">
-                    <dt>Written By</dt>
+                    <dt>By</dt>
                     <dd>Cynthia Lee</dd>
 
                     <dt>Illustrations and Animation</dt>
