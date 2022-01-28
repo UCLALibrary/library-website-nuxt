@@ -119,7 +119,7 @@ export default {
         @include step-2;
         color: var(--color-black);
         position: sticky;
-        top: 52px;
+        top: 48px;
         background-color: var(--color-white);
         z-index: 20;
         padding-bottom: 16px;
@@ -186,16 +186,22 @@ export default {
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-evenly;
+        margin-left: -24px;
     }
     .svg {
-        transform: rotate(180deg) scale(1.5);
-        width: 200px;
+        transform: rotate(180deg) scale(0.75);
+        flex-shrink: 0;
     }
 
     .text {
-        margin-left: 15px;
         .title {
             margin-top: unset;
+        }
+    }
+    // Hovers
+    @media #{$has-hover} {
+        .title:hover {
+            @include hover;
         }
     }
 
@@ -219,6 +225,9 @@ export default {
         }
         .card-4up {
             grid-column: span 6;
+        }
+        .month-year {
+            padding-top: 20px;
         }
     }
 
