@@ -22,6 +22,12 @@
                 v-html="images[0].caption"
             />
         </div>
+        <pull-quote
+            v-if="pullQuote[0]"
+            class="pull-quote"
+            :text="pullQuote[0].text"
+            :attribution="pullQuote[0].attribution"
+        />
 
         <div
             v-if="textBlocks[1]"
@@ -66,18 +72,19 @@
                 v-html="images[2].caption"
             />
         </div>
+        <pull-quote
+            v-if="pullQuote[1]"
+            class="pull-quote"
+            :text="pullQuote[1].text"
+            :attribution="pullQuote[1].attribution"
+        />
 
         <div
             v-if="textBlocks[3]"
             class="text"
             v-html="textBlocks[3]"
         />
-        <pull-quote
-            v-if="pullQuote"
-            class="pull-quote"
-            :text="pullQuote.text"
-            :attribution="pullQuote.attribution"
-        />
+
         <div
             v-if="textBlocks[4]"
             class="text"
@@ -89,14 +96,15 @@
 <script>
 export default {
     props: {
-        //Array of image objects
+        // Array of image objects
         images: {
             type: Array,
             default: () => [],
         },
+        // Array of pullquote objects
         pullQuote: {
-            type: Object,
-            default: () => {},
+            type: Array,
+            default: () => [],
         },
         textBlocks: {
             type: Array,
