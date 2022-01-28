@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="page page-impact-report">
         <banner-header
-            class="banner-header"
+            class="section banner-header"
             :title="bannerHeader.title"
             :video="parseVideo"
             :to="bannerHeader.to"
@@ -97,6 +97,9 @@ export default {
 <style lang="scss" scoped>
 .page-impact-report {
     margin: 0 0 0 0;
+    .section {
+        margin: 1px auto;
+    }
     .banner-header {
         margin-bottom: $layout-06 + px;
     }
