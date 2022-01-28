@@ -94,16 +94,15 @@
                     <dd>Joshua Gomez, Head of Software Development and Library Systems; </dd>
 
                     <dt>Illustrations and Animation</dt>
-                    <dd>
+                    <dd class="underline-hover">
                         <a
                             href="https://www.brettaffrunti.com/"
                             target="_blank"
-                            class="illustrations"
-                        />Brett Affrunti
+                        />Brett Affrunti</a>
                     </dd>
 
                     <dt>Feature Writer</dt>
-                    <dd>Cyndy Calverley</dd>
+                    <dd>Cynthia Lee</dd>
 
                     <dt>Contributing Writers</dt>
                     <dd>Ben Alkaly,</dd> <dd>Courtney Hoffner,</dd> <dd> Jennifer Rhee</dd>
