@@ -207,7 +207,7 @@ export default {
 
 <style lang="scss" scoped>
 .block-highlight {
-    max-width: 456px;
+    max-width: calc((100% - 32px)/3);
     background-color: var(--color-white);
     font-family: var(--font-primary);
     // position: relative;
@@ -375,10 +375,10 @@ export default {
         &:not(.has-triangle) {
             .meta {
                 margin-top: 16px;
-                max-width: 300px;
+                // max-width: 300px;
             }
             .image {
-                width: 300px;
+                width: 100%;
             }
         }
         // for clipped version
@@ -513,6 +513,7 @@ export default {
     }
 
     @media #{$small} {
+        max-width: 100%;
         &.is-vertical {
             // for clipped version
             &.has-triangle {
