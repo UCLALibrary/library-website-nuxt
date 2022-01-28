@@ -385,12 +385,18 @@ export default {
                 }
             }
         }
+        .credits {
+            padding: 0 var(--unit-gutter);
+        }
     }
     @media #{$small} {
         .meta {
             .portrait-Ginny {
                 width: 100%;
             }
+        }
+        .credits {
+            padding: 0 var(--unit-gutter);
         }
     }
 }
