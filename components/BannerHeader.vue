@@ -248,7 +248,7 @@ export default {
     position: relative;
     overflow: hidden;
     background-color: var(--color-white);
-    max-width: $content-width-05;
+    max-width: $content-width-05 + px;
 
     // Themes
     --color-theme: var(--color-primary-blue-03);
@@ -365,7 +365,7 @@ export default {
         z-index: 40;
         width: 65%;
         box-sizing: border-box;
-        padding-left: 478px;
+        padding-left: 240px;
 
         display: flex;
         flex-direction: column;
@@ -470,23 +470,10 @@ export default {
         }
     }
 
-    // Hovers
-    // @media #{$has-hover} {
-    //     .title:hover {
-    //         text-decoration: underline;
-    //         text-decoration-color: var(--color-default-cyan-03);
-    //         text-decoration-thickness: 1.5px;
-    //     }
-    // }
-
     // Breakpoints
     @media #{$large} {
         .meta {
             margin: -60px 0 0 0;
-            > * {
-                max-width: 95%;
-                margin: 20px 0 5px 60px;
-            }
         }
     }
 
@@ -528,11 +515,6 @@ export default {
             box-sizing: border-box;
             position: static;
             margin: 0 0 0 0;
-
-            > * {
-                max-width: 100%;
-                margin: 8px 0 0 0;
-            }
         }
         .title {
             margin: 10px 0 5px 0px;
