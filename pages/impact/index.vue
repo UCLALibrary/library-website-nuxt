@@ -94,11 +94,11 @@
                     <dd>Joshua Gomez, Head of Software Development and Library Systems; </dd>
 
                     <dt>Illustrations and Animation</dt>
-                    <dd class="underline-hover">
+                    <dd class="illustrator">
                         <a
                             href="https://www.brettaffrunti.com/"
                             target="_blank"
-                        />Brett Affrunti</a>
+                        >Brett Affrunti</a>
                     </dd>
 
                     <dt>Feature Writer</dt>
@@ -373,6 +373,17 @@ export default {
         font-weight: 700;
         font-size: 18px;
         padding-right: 5px;
+    }
+    .illustrator a{
+        text-decoration: underline;
+        text-decoration-color: var(--color-primary-blue-03);
+        text-decoration-thickness: 1.5px;
+    }
+    // Hover states
+    @media #{$has-hover} {
+    .illustrator:hover {
+        color: var(--color-primary-blue-03);
+        }
     }
 
     @media #{$medium} {
