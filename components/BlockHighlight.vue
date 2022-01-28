@@ -210,7 +210,7 @@ export default {
 
 <style lang="scss" scoped>
 .block-highlight {
-    max-width: calc((100% - 32px)/3);
+    max-width: calc((100% - 32px) / 3);
     background-color: var(--color-white);
     font-family: var(--font-primary);
     // position: relative;
@@ -543,9 +543,7 @@ export default {
     @media #{$has-hover} {
         &:hover {
             .title {
-                text-decoration: underline;
-                text-decoration-color: var(--color-default-cyan-03);
-                text-decoration-thickness: 1.5px;
+                @include hover;
             }
         }
     }

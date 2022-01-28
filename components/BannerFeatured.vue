@@ -46,11 +46,16 @@
                 class="category category-desktop"
                 v-html="category"
             />
-            <h3 class="title">
-                <nuxt-link
+            <!-- TODO make the id unique programmaticly -->
+            <h3
+                id="banner-featured"
+                class="title"
+                v-html="title"
+            >
+                <!--nuxt-link
                     :to="to"
                     v-html="title"
-                />
+                /-->
             </h3>
 
             <p
@@ -110,6 +115,7 @@
             <nuxt-link
                 v-if="to"
                 :to="to"
+                aria-labelledby="banner-featured"
             >
                 <button-link
                     v-if="prompt"
@@ -497,11 +503,11 @@ export default {
 
     // Hovers
     @media #{$has-hover} {
-        .title:hover {
+        /*.title:hover {
             text-decoration: underline;
             text-decoration-color: var(--color-default-cyan-03);
             text-decoration-thickness: 1.5px;
-        }
+        }*/
     }
 
     // Breakpoints

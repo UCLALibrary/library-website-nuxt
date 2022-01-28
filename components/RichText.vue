@@ -189,6 +189,11 @@ export default {
         text-decoration-color: var(--color-primary-blue-03);
         text-decoration-thickness: 2px;
     }
+    @media #{$has-hover} {
+        .link:hover {
+            @include hover;
+        }
+    }
 
     // Breakpoints
     @media #{$small} {

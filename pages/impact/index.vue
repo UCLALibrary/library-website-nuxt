@@ -273,14 +273,16 @@ export default {
 .page-impact-report {
     .meta {
         padding: 0 var(--unit-gutter);
-        margin: $layout-06 + px auto;
+        margin: $layout-06 + px auto 0 auto;
         max-width: $content-width-05 + px;
         .intro {
             @include step-5;
+            margin-bottom: $layout-05 + px;
             color: var(--color-primary-blue-03);
         }
         .text {
             @include step-3;
+            line-height: 120%;
         }
         .signature {
             @include step-3;
@@ -377,12 +379,14 @@ export default {
     .illustrator a{
         text-decoration: underline;
         text-decoration-color: var(--color-primary-blue-03);
-        text-decoration-thickness: 1.5px;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 1px;
     }
     // Hover states
     @media #{$has-hover} {
     .illustrator:hover {
         color: var(--color-primary-blue-03);
+        @include hover;
         }
     }
 
