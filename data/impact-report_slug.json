@@ -74,9 +74,15 @@
             }
         ],
 
-        "pullQuote": {
-            "text": "Vestibulum sodales tincidunt libero, vitae bibendum urna gravida ullamcorper. Morbi sagittis id justo nec condimentum. Aenean at ex nec sapien semper viverra eget sed erat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nulla urna, euismod at sagittis ac, aliquam ut sem. Phasellus varius lacinia nisl nec fermentum.",
-            "attribution": "Ashton Prigge"
-        }
+        "pullQuote": [
+            {
+                "text": "UCLA Library staff were absolutely brilliant pointing us to digital archives we hadn’t even thought to ask about – films, newspapers, archives related to local figures … as well as teaching us how to use a range of tools, such as ArcGIS Story Maps, to make powerful arguments using these materials.",
+                "attribution": "Assistant Professor of History Bharat Venkat"
+            },
+            {
+                "text": "A lot more work is going to be done remotely, even on a campus like UCLA’s that is about the in-person experience. Looking ahead, UCLA Library will accelerate its transition to a digital environment while balancing in-person and remote services to meet our users’ needs wherever they are.",
+                "attribution": "Ginny Steel, the Norman and Armena Powell University Librarian"
+            }
+        ]
     }
 }
