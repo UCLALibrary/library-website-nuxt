@@ -21,7 +21,7 @@
                 class="rich-text"
             />
         </div>
-        <divider-general class="divider divider-general" />
+        <divider-general class="divider-general" />
         <div class="credits">
             <em>
                 <dl class="credit-list">
@@ -39,20 +39,34 @@
         </div>
 
         <divider-way-finder
-            class="divider divider-wayfinder"
+            class="divider-wayfinder"
+            color="about"
+        />
+        <divider-general class="divider-general" />
+        <div class="call-to-action">
+            <a
+                href="https://giveto.ucla.edu/area/libraries/"
+                target="_blank"
+            >Find ways to give to UCLA Library</a>
+            <svg-arrow-diagonal class="svg" />
+        </div>
+        <divider-way-finder
+            class="divider-wayfinder"
             color="about"
         />
     </div>
 </template>
 
 <script>
-// TODO replace this file with actual json data from google sheet
 import * as MOCK_IMPACT_API from "~/data/impact-report_slug.json"
 
 // Utilities
 import getS3Bucket from "~/utils/getS3Bucket"
 
 export default {
+    components: {
+        SvgArrowDiagonal: () => import("~/assets/svg/arrow-diagonal"),
+    },
     layout: "impact",
     data() {
         return {
@@ -104,16 +118,15 @@ export default {
         padding-bottom: 30px;
     }
     .divider-wayfinder {
-        max-width: 1100px;
+        max-width: $content-width-03 + px;
         margin: $layout-07 + px auto;
     }
     .divider-general {
-        margin-top: 75px;
-        margin-bottom: 48px;
+        margin: $layout-07 + px auto;
         max-width: $content-width-03 + px;
     }
     .credits {
-        max-width: 932px;
+        max-width: $content-width-03 + px;
         margin: $layout-07 + px auto;
         font-style: italic;
         font-weight: normal;
@@ -143,6 +156,49 @@ export default {
         font-weight: 700;
         font-size: 18px;
         padding-right: 5px;
+    }
+    .call-to-action {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 100%;
+        margin: $layout-07 + px auto;
+        max-width: $content-width-03 + px;
+
+        display: flex;
+        align-items: center;
+        // align-content: flex-end;
+    }
+    .svg {
+        text-decoration: underline;
+        text-decoration-color: var(--color-primary-blue-03);
+        padding-left: 5px;
+        .line {
+            stroke: var(--color-primary-blue-03);
+        }
+        .arrow-diagonal {
+            fill: var(--color-primary-blue-03);
+        }
+    }
+
+    @media #{$has-hover} {
+        .calltoaction:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue-03);
+            text-decoration-thickness: 2px;
+        }
+        .svg:hover {
+            .arrow {
+                path {
+                    fill: var(--color-primary-blue-03);
+                }
+            }
+            path {
+                fill: var(--color-primary-blue-03);
+                .arrow-diagonal {
+                    color: var(--color-primary-blue-03);
+                }
+            }
+        }
     }
 }
 </style>
