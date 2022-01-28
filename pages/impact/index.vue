@@ -336,13 +336,15 @@ export default {
         margin: 0 auto;
     }
     .credits {
-        display: inline;
         max-width: 932px;
         margin: $layout-07 + px auto;
         font-style: italic;
         font-weight: normal;
         font-size: 16px;
         line-height: 26px;
+    }
+    .credit-list {
+        display: inline;
     }
     .divider {
         max-width: 1100px;
@@ -370,6 +372,7 @@ export default {
         color: var(--color-primary-blue-03);
         font-weight: 700;
         font-size: 18px;
+        padding-right: 5px;
     }
 
     @media #{$medium} {
