@@ -91,7 +91,7 @@
                 <dl class="credit-list">
                     <dt>Project Leads</dt>
                     <dd>Ariane Bicho, Director of Library Communications and Marketing; </dd>
-                    <dd>Joshua Gomez, Head of Software Development and Library Systems; </dd>
+                    <dd>Joshua Gomez, Head of Software Development and Library Systems </dd>
 
                     <dt>Illustrations and Animation</dt>
                     <dd class="illustrator">
