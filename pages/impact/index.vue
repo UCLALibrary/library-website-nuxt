@@ -118,16 +118,22 @@
                     <dd>Parinita Mulak</dd>
 
                     <dt>Developers</dt>
-                    <dd>Jen Diamond</dd> <dd>Casey Grzecka</dd> <dd>Ashton Prigge</dd> <dd>Andrew Wallace</dd>
+                    <dd>Jen Diamond,</dd> <dd>Casey Grzecka,</dd> <dd>Ashton Prigge,</dd> <dd>Andrew Wallace</dd>
 
                     <dt>Lead UX Designer</dt>
-                    <dd>Axa Liauw</dd> <dt>UX Designer</dt> <dd>Dianne Weinthal</dd>
+                    <dd>Axa Liauw</dd>
+                    
+                    <dt>UX Designer</dt>
+                    <dd>Dianne Weinthal</dd>
 
                     <dt>Data Services</dt>
-                    <dd>Dana Peterman</dd> <dd>Jack Schwada</dd> <dd>Sharon Shafer</dd>
+                    <dd>Dana Peterman,</dd> <dd>Jack Schwada,</dd> <dd>Sharon Shafer</dd>
 
                     <dt>Graphic Design</dt>
-                    <dd>Sean Deyoe</dd> <dt>Student Assistants</dt> <dd>Dana Binfet</dd> <dd>Marley Rodriguez</dd>
+                    <dd>Sean Deyoe</dd>
+
+                    <dt>Student Assistants</dt>
+                    <dd>Dana Binfet,</dd> <dd>Marley Rodriguez</dd>
                 </dl></em>
             </dl>
         </div>
