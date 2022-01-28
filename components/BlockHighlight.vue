@@ -36,12 +36,18 @@
                 class="category"
                 v-html="category"
             />
-            <nuxt-link :to="to">
-                <h3
-                    class="title"
-                    v-html="title"
-                />
-            </nuxt-link>
+            <smart-link
+                v-if="to"
+                :target="parsedTarget"
+                :to="to"
+                class="title"
+                v-html="title"
+            />
+            <h3
+                v-else
+                class="title-no-link"
+                v-html="title"
+            />
 
             <div class="date-time">
                 <time
@@ -155,7 +161,12 @@ export default {
         sectionName() {
             return getSectionName(this.to)
         },
-
+        isImpactReport() {
+            return this.$route.path.includes("impact") ? "true" : "false"
+        },
+        parsedTarget() {
+            return this.isImpactReport ? "_blank" : ""
+        },
         parsedDate() {
             if (this.startDate) {
                 return formatEventDates(this.startDate, this.endDate)
@@ -196,9 +207,10 @@ export default {
 
 <style lang="scss" scoped>
 .block-highlight {
-    max-width: 456px;
+    max-width: calc((100% - 32px)/3);
     background-color: var(--color-white);
     font-family: var(--font-primary);
+    // position: relative;
 
     display: flex;
     flex-direction: row;
@@ -263,7 +275,7 @@ export default {
         z-index: 10;
         position: relative;
         width: 100%;
-        min-height: 255px;
+        // min-height: 255px;
         box-sizing: border-box;
     }
     .category {
@@ -274,18 +286,28 @@ export default {
         text-transform: uppercase;
         color: var(--color-primary-blue-05);
     }
-    .title {
+    // .title::after {
+    //     content: "";
+    //     position: absolute;
+    //     top: 0;
+    //     bottom: 0;
+    //     right: 0;
+    //     left: 0;
+    // }
+    .title,
+    .title-no-link {
         font-weight: 500;
         font-size: 28px;
         letter-spacing: 0.25%;
         color: var(--color-primary-blue-03);
         margin: 16px 0 0 0;
 
-        display: -webkit-box;
+        /*display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        overflow: hidden;
+        overflow: hidden;*/
     }
+
     .date-time {
         font-weight: 400;
         font-size: 20px;
@@ -324,10 +346,10 @@ export default {
         margin: 24px 0 0 0;
         color: var(--color-black);
 
-        display: -webkit-box;
+        /*display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
-        overflow: hidden;
+        overflow: hidden;*/
     }
     .location-group {
         color: var(--color-primary-blue-03);
@@ -351,14 +373,12 @@ export default {
         margin-bottom: 50px;
 
         &:not(.has-triangle) {
-            max-height: 420px;
-
             .meta {
                 margin-top: 16px;
-                max-width: 300px;
+                // max-width: 300px;
             }
             .image {
-                width: 300px;
+                width: 100%;
             }
         }
         // for clipped version
@@ -459,16 +479,16 @@ export default {
             }
         }
         .title {
-            display: -webkit-box;
+            /* display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            overflow: hidden;
+            overflow: hidden;*/
         }
         .text {
-            display: -webkit-box;
+            /*display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
-            overflow: hidden;
+            overflow: hidden;*/
         }
     }
 
@@ -493,6 +513,7 @@ export default {
     }
 
     @media #{$small} {
+        max-width: 100%;
         &.is-vertical {
             // for clipped version
             &.has-triangle {

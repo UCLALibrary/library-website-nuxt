@@ -1,25 +1,41 @@
 <template lang="html">
     <footer class="footer-primary">
         <svg-molecule-half class="molecule-half-svg" />
-        <div class="container">
+        <div :class="classes">
             <div class="footer-links">
                 <svg-logo-ucla-library class="logo-svg" />
 
                 <ul class="socials">
-                    <li
-                        v-for="item in socialItems"
-                        :key="item.text"
-                        class="social-item"
-                    >
-                        <smart-link
-                            :to="item.to"
-                            :target="item.target"
-                            v-html="item.text"
-                        />
+                    <li class="social-item">
+                        <a
+                            href="https://www.facebook.com/uclalibrary/"
+                            target="_blank"
+                        >Facebook</a>
+                    </li>
+                    <li class="social-item">
+                        <a
+                            href="https://twitter.com/UCLALibrary"
+                            target="_blank"
+                        >Twitter</a>
+                    </li>
+                    <li class="social-item">
+                        <a
+                            href="https://www.instagram.com/uclalibrary/"
+                            target="_blank"
+                        >Instagram</a>
+                    </li>
+                    <li class="social-item">
+                        <a
+                            href="https://www.youtube.com/channel/UCRPedAkolOOC6z-iP2S-clQ"
+                            target="_blank"
+                        >Youtube</a>
                     </li>
                 </ul>
 
-                <ul class="press-room">
+                <ul
+                    v-if="form"
+                    class="press-room"
+                >
                     <li
                         v-for="item in pressItems"
                         :key="item.text"
@@ -33,7 +49,10 @@
                 </ul>
             </div>
 
-            <form class="form">
+            <form
+                v-if="form"
+                class="form"
+            >
                 <h2 class="title">
                     Stay updated
                 </h2>
@@ -66,11 +85,11 @@
 
 <script>
 import SvgLogoUclaLibrary from "~/assets/svg/logo-ucla-library"
-import SvgMoleculeHalf from "~/assets/svg/molecule-half"
+import SvgMoleculeHalf from "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-half"
 import SvgArrowRight from "~/assets/svg/arrow-right"
 
 export default {
-    name: "FooterPrimary",
+    // name: "FooterPrimary",
     components: {
         SvgLogoUclaLibrary,
         SvgMoleculeHalf,
@@ -86,6 +105,15 @@ export default {
             // Mock with api.links
             type: Array,
             default: () => [],
+        },
+        form: {
+            type: Boolean,
+            default: true,
+        },
+    },
+    computed: {
+        classes() {
+            return this.form ? ["container"] : ["container no-form"]
         },
     },
 }
@@ -110,11 +138,12 @@ export default {
     .molecule-half-svg {
         position: absolute;
         z-index: 10;
-        opacity: 45%;
+        opacity: 0.45;
         mix-blend-mode: screen;
         top: 30px;
         left: -55px;
         height: 287px;
+        transform: rotate(180deg);
     }
 
     .container {
@@ -130,6 +159,15 @@ export default {
         position: relative;
         z-index: 20;
         margin: 0 auto;
+
+        &.no-form {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: center;
+        }
 
         // Footer Links - Left / Top
         .footer-links {
@@ -148,7 +186,7 @@ export default {
             .socials {
                 display: flex;
                 flex-direction: row;
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 justify-content: center;
                 align-content: flex-start;
                 align-items: flex-start;
@@ -313,6 +351,15 @@ export default {
 
             padding-top: 100px;
 
+            &.no-form {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-content: flex-end;
+                align-items: flex-end;
+            }
+
             .footer-links {
                 display: flex;
                 flex-direction: column;
@@ -345,11 +392,11 @@ export default {
             }
         }
     }
-    // Hover states
-    @media #{$has-hover} {
-        &:hover {
-            .press-room:hover {
-                color: var(--color-primary-yellow-01);
+
+    @media #{$small} {
+        .container {
+            .footer-links {
+                margin-right: 0;
             }
         }
     }

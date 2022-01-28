@@ -7,37 +7,88 @@
         />
 
         <div
-            v-if="image"
+            v-if="images[0]"
             class="image-block"
         >
             <responsive-image
-                v-if="image"
+                v-if="images[0]"
                 class="image"
-                :image="image"
+                :image="images[0]"
+                :aspect-ratio="parsedRatio"
             />
             <div
-                v-if="caption"
+                v-if="images[0].caption"
                 class="caption"
-                v-html="caption"
+                v-html="images[0].caption"
             />
         </div>
+        <pull-quote
+            v-if="pullQuote[0]"
+            class="pull-quote"
+            :text="pullQuote[0].text"
+            :attribution="pullQuote[0].attribution"
+        />
 
         <div
             v-if="textBlocks[1]"
             class="text"
             v-html="textBlocks[1]"
         />
+        <div
+            v-if="images[1]"
+            class="image-block"
+        >
+            <responsive-image
+                v-if="images[1]"
+                class="image"
+                :image="images[1]"
+                :aspect-ratio="parsedRatio"
+            />
+            <div
+                v-if="images[1].caption"
+                class="caption"
+                v-html="images[1].caption"
+            />
+        </div>
 
-        <pull-quote
-            v-if="pullQuote"
-            class="pull-quote"
-            :text="pullQuote.text"
-            :attribution="pullQuote.attribution"
-        />
         <div
             v-if="textBlocks[2]"
             class="text"
             v-html="textBlocks[2]"
+        />
+        <div
+            v-if="images[2]"
+            class="image-block"
+        >
+            <responsive-image
+                v-if="images[2]"
+                class="image"
+                :image="images[2]"
+                :aspect-ratio="parsedRatio"
+            />
+            <div
+                v-if="images[2].caption"
+                class="caption"
+                v-html="images[2].caption"
+            />
+        </div>
+        <pull-quote
+            v-if="pullQuote[1]"
+            class="pull-quote"
+            :text="pullQuote[1].text"
+            :attribution="pullQuote[1].attribution"
+        />
+
+        <div
+            v-if="textBlocks[3]"
+            class="text"
+            v-html="textBlocks[3]"
+        />
+
+        <div
+            v-if="textBlocks[4]"
+            class="text"
+            v-html="textBlocks[4]"
         />
     </div>
 </template>
@@ -45,21 +96,29 @@
 <script>
 export default {
     props: {
-        image: {
-            type: Object,
-            default: () => {},
+        // Array of image objects
+        images: {
+            type: Array,
+            default: () => [],
         },
-        caption: {
-            type: String,
-            default: "",
-        },
+        // Array of pullquote objects
         pullQuote: {
-            type: Object,
-            default: () => {},
+            type: Array,
+            default: () => [],
         },
         textBlocks: {
             type: Array,
             default: () => [],
+        },
+    },
+    computed: {
+        parsedRatio() {
+            // If on mobile, change ratio of image
+            let output = this.ratio
+            if (this.$store.state.winWidth <= 750) {
+                output = 100
+            }
+            return output
         },
     },
 }
@@ -68,7 +127,8 @@ export default {
 <style lang="scss" scoped>
 .rich-text {
     max-width: 832px;
-
+    margin: var(--unit-gutter) auto;
+    padding: 0 var(--unit-gutter);
     .text {
         font-family: var(--font-primary);
         font-weight: 400;
@@ -77,21 +137,16 @@ export default {
         letter-spacing: 0.01em;
         color: var(--color-black);
     }
-
     .image-block {
         display: flex;
         flex-direction: column;
 
-        float: left;
+        width: 832px;
     }
-
     .image {
-        margin: 10px 10px 0 0;
-        // display: inline;
-        width: 448px;
+        margin: 30px 10px 0 0;
     }
-
-    ::v-deep .caption {
+    .caption {
         font-family: var(--font-secondary);
         font-weight: 400;
         font-size: 16px;
@@ -100,9 +155,15 @@ export default {
         color: var(--color-secondary-grey-05);
         padding: 16px 16px 26px 16px;
     }
-
     .pull-quote {
         margin: 20px 10px 20px 0;
+    }
+
+    // Breakpoints
+    @media #{$small} {
+        .image-block {
+            max-width: 300px;
+        }
     }
 }
 </style>

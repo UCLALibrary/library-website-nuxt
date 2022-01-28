@@ -2,7 +2,7 @@
     <div class="grid-gallery">
         <h3
             class="month-year"
-            v-html="items[0].monthYear"
+            v-html="monthYear"
         />
         <ul class="cards">
             <li
@@ -25,6 +25,7 @@
                     <smart-link
                         :to="card.to"
                         target="_blank"
+                        class="link"
                         v-html="card.headlineText"
                     />
                 </h3>
@@ -73,6 +74,10 @@ export default {
     },
     props: {
         //  [{ image : Object, date: String, headlineText: String, to: URL,  featured: boolean, snippet:String }]
+        monthYear: {
+            type: String,
+            default: "",
+        },
         items: {
             type: Array,
             default: () => [],
@@ -108,11 +113,18 @@ export default {
     padding: 0;
     margin: 0;
     background-color: var(--color-white);
+    position: relative;
+
     .month-year {
-        font-weight: 600;
-        font-size: 35.538px;
-        line-height: 120%;
+        @include step-2;
         color: var(--color-black);
+        position: sticky;
+        top: 52px;
+        background-color: var(--color-white);
+        z-index: 20;
+        padding-bottom: 16px;
+        padding-top: 10px;
+        // margin-top: $layout-05 + px;
     }
     .cards {
         display: grid;
@@ -125,6 +137,7 @@ export default {
         margin-bottom: 32px;
         list-style: none;
         padding: 0;
+        position: relative;
     }
     .card-small {
         grid-column: span 2;
@@ -149,12 +162,19 @@ export default {
         color: var(--color-primary-blue-03);
         margin: 16px 0 0 0;
 
-        display: -webkit-box;
+        /* display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        overflow: hidden;
+        overflow: hidden;*/
     }
-
+    .link::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
     .snippet {
         font-size: 18px;
         font-weight: 400;
@@ -168,7 +188,7 @@ export default {
         justify-content: space-evenly;
     }
     .svg {
-        transform: rotate(180deg);
+        transform: rotate(180deg) scale(1.5);
         width: 200px;
     }
 
@@ -204,6 +224,8 @@ export default {
 
     @media #{$small} {
         padding: 0 24px;
+        .month-year {
+        }
         .card {
             grid-column: span 6;
         }

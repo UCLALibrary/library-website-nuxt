@@ -13,6 +13,7 @@ function getSectionName(uri = "") {
             break
 
         case uri.includes("/about"):
+        case uri.includes("/impact"):
             output = "about"
             break
 

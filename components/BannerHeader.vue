@@ -1,17 +1,14 @@
 <template lang="html">
     <div :class="classes">
-        <div class="slot">
-            <slot>
-                <div
-                    v-if="breadcrumb"
-                    class="breadcrumb"
-                >
-                    <svg-heading-vector class="heading-line" />
-                    <h3 class="text">
-                        {{ breadcrumb }}
-                    </h3>
-                </div>
-            </slot>
+        <div
+            v-if="category"
+            class="category"
+        >
+            <svg-heading-vector class="heading-line" />
+            <h3
+                class="text"
+                v-html="category"
+            />
         </div>
 
         <component
@@ -22,56 +19,42 @@
         >
             <div
                 v-if="image"
-                class="gradient"
+                :class="gradientClasses"
             />
 
             <svg-molecule-half-faceted class="molecule" />
         </component>
 
         <div class="hatch-box">
-            <div class="clipped-box">
-                <h3
-                    v-if="category"
-                    class="category category-mobile"
-                    v-html="category"
-                />
-            </div>
+            <div class="clipped-box" />
             <div class="hatch">
                 <svg-hatch-right class="svg" />
             </div>
         </div>
 
         <div class="meta">
-            <div
-                class="category category-desktop"
-                v-html="category"
-            />
-            <h3 class="title">
-                <nuxt-link
-                    :to="to"
-                    v-html="title"
-                />
-            </h3>
-
-            <p
-                v-if="description"
-                class="description"
-                v-html="description"
+            <h3
+                class="title"
+                v-html="title"
             />
 
             <div class="schedule">
+                <div
+                    v-if="byline"
+                    class="schedule-item"
+                    v-html="byline"
+                />
                 <time
                     v-if="startDate"
                     class="schedule-item"
                     v-html="parsedDate"
                 />
                 <time
-                    v-if="endDate"
+                    v-if="startDate"
                     class="schedule-item"
                     v-html="parsedTime"
                 />
             </div>
-
             <div
                 v-if="locations.length"
                 class="location-group"
@@ -112,8 +95,8 @@
                 :to="to"
             >
                 <button-link
-                    v-if="prompt"
                     :label="prompt"
+                    :is-secondary="true"
                     class="button"
                 />
             </nuxt-link>
@@ -128,20 +111,17 @@ import formatEventTimes from "~/utils/formatEventTimes"
 import formatEventDates from "~/utils/formatEventDates"
 
 // SVGs
-
+import SvgMoleculeHalfFaceted from "~~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-half-overlay"
 import SvgHatchRight from "~/assets/svg/hatch-right"
 
 export default {
     components: {
+        SvgMoleculeHalfFaceted,
         SvgHatchRight,
-        SvgMoleculeHalfFaceted: () =>
-            import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-half-overlay"
-            ),
         SvgHeadingVector: () => import("~/assets/svg/vector-blue"),
         SvgIconLocation: () =>
             import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
+                "~~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
             ),
         SvgIconOnline: () =>
             import(
@@ -161,11 +141,7 @@ export default {
             type: String,
             required: true,
         },
-        description: {
-            type: String,
-            default: "",
-        },
-        category: {
+        byline: {
             type: String,
             default: "",
         },
@@ -186,7 +162,7 @@ export default {
             type: String,
             default: "",
         },
-        breadcrumb: {
+        category: {
             type: String,
             default: "",
         },
@@ -207,7 +183,7 @@ export default {
     computed: {
         classes() {
             return [
-                "banner-featured",
+                "banner-header",
                 { "hatch-left": !this.alignRight },
                 `color-${this.sectionName}`,
             ]
@@ -219,13 +195,9 @@ export default {
             return formatEventTimes(this.startDate, this.endDate)
         },
         sectionName() {
-            return this.section || getSectionName(this.to)
-        },
-        parsedMediaComponent() {
-            return this.image ? "responsive-image" : "responsive-video"
-        },
-        parsedMediaProp() {
-            return this.image ? this.image : this.video
+            return this.to
+                ? getSectionName(this.to)
+                : getSectionName(this.$route.path)
         },
         parsedRatio() {
             // If on mobile, change ratio of image
@@ -234,6 +206,15 @@ export default {
             //     output = 100
             // }
             return output
+        },
+        parsedMediaComponent() {
+            return this.image ? "responsive-image" : "responsive-video"
+        },
+        parsedMediaProp() {
+            return this.image ? this.image : this.video
+        },
+        gradientClasses() {
+            return this.category ? "gradient" : "gradient-no-category"
         },
         parsedLocations() {
             let parsedLocations = []
@@ -262,12 +243,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.banner-featured {
+.banner-header {
     z-index: 0;
     position: relative;
     overflow: hidden;
     background-color: var(--color-white);
-    max-width: $content-width-06 + px;
+    max-width: $content-width-05 + px;
 
     // Themes
     --color-theme: var(--color-primary-blue-03);
@@ -284,16 +265,15 @@ export default {
         stroke: var(--color-theme);
     }
 
-    .slot {
-        position: absolute;
-        z-index: 20;
-        padding-left: 50px;
-        margin-top: 40px;
-    }
-    .breadcrumb {
+    .category {
         color: var(--color-white);
         font-size: 26px;
         text-transform: capitalize;
+
+        position: absolute;
+        z-index: 20;
+        padding-left: 64px;
+        margin-top: 64px;
 
         display: flex;
         align-items: center;
@@ -311,15 +291,20 @@ export default {
             line-height: 1;
         }
     }
-    //TODO update with variables
+    .media {
+        max-height: 730px;
+    }
     .gradient {
-        background: var(--gradient-image-01),
-            linear-gradient(
-                180deg,
-                rgba(15, 15, 15, 0) 0%,
-                rgba(15, 15, 15, 0.25) 67.57%,
-                #0f0f0f 100%
-            );
+        background: $overlay-01;
+        z-index: 10;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .gradient-no-category {
+        background: $overlay-02;
         z-index: 10;
         position: absolute;
         top: 0;
@@ -349,7 +334,7 @@ export default {
         overflow: hidden;
     }
     .clipped-box {
-        width: 65%;
+        width: 75%;
         background-color: var(--color-white);
         box-sizing: border-box;
         position: relative;
@@ -372,12 +357,9 @@ export default {
         top: 0;
         left: calc(65% - 99px);
     }
-    .category-mobile {
-        display: none;
-    }
 
     .meta {
-        padding: 0 50px;
+        padding: 0 0 10px 50px;
         margin: -60px 0 0 0;
         position: relative;
         z-index: 40;
@@ -390,34 +372,23 @@ export default {
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-content: flex-end;
-
-        // > * {
-        //     max-width: 550px;
-        //     width: 100%;
-        // }
     }
 
-    .category {
-        @include overline;
-        margin-bottom: $component-06 + px;
-    }
     .title {
-        line-height: 44px;
-        margin-bottom: 5px;
         color: var(--color-primary-blue-03);
-        @include step-2;
+        @include step-4;
     }
     .schedule {
         font-size: 20px;
         line-height: 24px;
         text-align: left;
-        color: var(--color-secondary-grey-04);
-        margin: 10px 0 8px 0;
+        color: var(--color-primary-blue-03);
 
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
     }
+
     .schedule-item {
         &:after {
             content: "";
@@ -467,10 +438,9 @@ export default {
         width: 180px;
         height: 50px;
         padding: 0px 0px;
-        margin-top: 16px;
     }
 
-    // Varient
+    // Variant
     &.hatch-left {
         .clipped-box {
             margin-left: auto;
@@ -479,7 +449,7 @@ export default {
             clip-path: polygon(39px 0, 105% 0, 100% 102%, 0 102%, 0% 95px);
         }
         .hatch {
-            right: calc(65% - 99px);
+            right: calc(75% - 99px);
             left: auto;
 
             .svg {
@@ -491,24 +461,35 @@ export default {
             margin-left: auto;
 
             align-content: flex-start;
-            align-items: flex-start;
         }
-    }
-
-    // Hovers
-    @media #{$has-hover} {
-        .title:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-default-cyan-03);
-            text-decoration-thickness: 1.5px;
+        .button {
+            width: 180px;
+            height: 50px;
+            padding: 0px 0px;
+            margin: 16px 0 0 0;
         }
     }
 
     // Breakpoints
+    @media #{$large} {
+        .meta {
+            margin: -60px 0 0 0;
+        }
+    }
+
+    @media #{$large} {
+        .meta {
+            padding-left: 148px;
+        }
+    }
+
     @media #{$small} {
-        .slot {
+        .media {
+            max-height: 375px;
+        }
+        .category {
             font-size: 28px;
-            padding-left: 20px;
+            padding-left: 16px;
             margin-top: 16px;
         }
         .molecule {
@@ -531,21 +512,6 @@ export default {
                 height: auto;
             }
         }
-        .category-mobile {
-            display: block;
-            padding-right: calc(40px + var(--unit-gutter));
-            padding-left: var(--unit-gutter);
-            height: 40px;
-            padding-top: 7px;
-            box-sizing: border-box;
-
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-content: flex-start;
-            align-items: flex-start;
-        }
 
         .meta {
             width: 100%;
@@ -554,21 +520,26 @@ export default {
             padding-right: var(--unit-gutter);
             box-sizing: border-box;
             position: static;
-
-            > * {
-                max-width: 100%;
-            }
-        }
-        .category-desktop {
-            display: none;
+            margin: 0 0 0 0;
         }
         .title {
-            margin-top: 40px;
+            margin: 10px 0 5px 0px;
+        }
+        .schedule {
+            display: flex;
+            flex-direction: column;
+            padding-left: 0;
+        }
+        .schedule-item {
+            margin-top: 8px;
+            &:after {
+                display: none;
+            }
         }
         .button {
-            width: 100%;
+            width: 324px;
             height: 40px;
-            margin: 40px 0 0 0;
+            margin: 24px 0 0 0;
         }
 
         // Variant
@@ -580,17 +551,18 @@ export default {
             .hatch {
                 right: calc(65% - 44px);
             }
-            .category-mobile {
-                align-content: center;
-                align-items: center;
-            }
             .meta {
                 width: 100%;
-                margin-top: 0;
+                margin: 0 0 0 0;
                 padding-left: var(--unit-gutter);
                 padding-right: var(--unit-gutter);
                 box-sizing: border-box;
                 position: static;
+            }
+            .button {
+                width: 324px;
+                height: 40px;
+                margin: 24px 0 10px 0;
             }
         }
     }

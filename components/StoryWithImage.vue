@@ -17,7 +17,6 @@
                 v-html="caption"
             />
 
-
             <div class="meta">
                 <h2
                     v-if="title"
@@ -51,7 +50,7 @@
 <script>
 export default {
     components: {
-        SvgArrowDiagonal: () => import("~/assets/svg/arrow-diagonal")
+        SvgArrowDiagonal: () => import("~/assets/svg/arrow-diagonal"),
     },
     props: {
         image: {
@@ -88,7 +87,7 @@ export default {
             }
             return output
         },
-    }
+    },
 }
 </script>
 
@@ -122,7 +121,7 @@ export default {
         line-height: 22px;
         letter-spacing: 0.01em;
         color: var(--color-secondary-grey-05);
-        margin:  0 var(--unit-gutter);
+        margin: 0 var(--unit-gutter);
         padding: 16px 50px 26px 16px;
         text-align: right;
     }
@@ -132,12 +131,12 @@ export default {
         margin-bottom: 50px;
         margin-left: 15%;
         width: 70%;
-        }
+    }
 
     .title {
         color: var(--color-black);
         font-size: 28px;
-        margin-bottom: 50px
+        margin-bottom: 50px;
     }
     .text {
         font-size: 20px;
@@ -214,10 +213,10 @@ export default {
             width: 80%;
         }
         .caption {
-            padding-right:  var(--unit-gutter);
+            padding-right: var(--unit-gutter);
         }
         .title {
-            margin-bottom: 25px
+            margin-bottom: 25px;
         }
         .text {
             margin-bottom: 40px;

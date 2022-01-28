@@ -1,34 +1,23 @@
 <template lang="html">
     <section class="section-teaser-card">
-        <div
-            v-for="(block, index) in parsedList"
-            :key="index"
-        >
-            <div class="block">
-                <div
-                    v-for="card in block"
-                    :key="card.to"
-                    class="card"
-                >
-                    <block-highlight
-                        :image="card.image"
-                        :to="card.to"
-                        :category="card.category"
-                        :title="card.title"
-                        :dates="card.date"
-                        :times="card.time"
-                        :is-vertical="true"
-                        :is-online="true"
-                    />
-                </div>
-            </div>
-            <divider-general class="divider" />
-        </div>
+        <block-highlight
+            v-for="card in items"
+            :key="card.to"
+            class="card"
+            :image="card.image"
+            :to="card.to"
+            :category="card.category"
+            :title="card.title"
+            :start-date="card.startDate"
+            :end-date="card.endDate"
+            :text="card.text"
+            :image-aspect-ratio="60"
+            :is-vertical="true"
+            :is-online="card.isOnline"
+        />
     </section>
 </template>
 <script>
-import arrayOfArrays from "~/utils/arrayOfArrays"
-
 export default {
     props: {
         /**
@@ -37,20 +26,6 @@ export default {
         items: {
             type: Array,
             default: () => [],
-        },
-    },
-    computed: {
-        parsedList() {
-            if (this.$store.state.winWidth <= 750) {
-                return arrayOfArrays(this.items, 1)
-            } else if (
-                this.$store.state.winWidth <= 1024 &&
-                this.$store.state.winWidth >= 750
-            ) {
-                return arrayOfArrays(this.items, 2)
-            } else {
-                return arrayOfArrays(this.items, 3)
-            }
         },
     },
 }
@@ -62,58 +37,36 @@ export default {
     background-color: var(--color-white);
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
-
-    .block {
-        margin-left: 16px;
-        margin-top: 50px;
-        margin-bottom: 50px;
-
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-    }
-
-    .divider {
-        box-sizing: border-box;
-        width: 100%;
-    }
+    justify-content: left;
+    gap: 32px 16px;
 
     .card {
-        margin-right: 16px;
-        &:nth-child(3n) {
-            margin-right: 0px;
-        }
+        width: 100%;
+        // margin-right: 16px;
+        // &:nth-child(3n) {
+            // margin-right: 0px;
+        // }
     }
 
     // Breakpoints
     @media #{$medium} {
-        .block {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: center;
-            align-content: center;
-            align-items: flex-start;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        align-items: flex-start;
 
-            margin-top: 35px;
-            margin-bottom: 25px;
-        }
+        // margin-top: 35px;
+        // margin-bottom: 25px;
     }
     @media #{$small} {
-        .block {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: center;
-            align-content: center;
-            align-items: center;
+        align-items: center;
+        flex-direction: column;
 
-            margin-left: 0px;
-            margin-top: 35px;
-            margin-bottom: 25px;
-        }
+        margin-left: 0px;
     }
 }
 </style>

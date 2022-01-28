@@ -1,7 +1,10 @@
 <template lang="html">
     <nav :class="classes">
         <div class="item-top">
-            <nuxt-link to="/">
+            <nuxt-link
+                to="/"
+                aria-label="UCLA Library home page"
+            >
                 <svg-logo-ucla-library
                     class="svg logo-ucla"
                     alt="UCLA Library logo blue"

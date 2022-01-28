@@ -17,6 +17,7 @@ export default {
             process.env.LIVE_PREVIEW === "dev"
                 ? process.env.LIBCAL_CLIENT_ID
                 : "test", 
+        s3Bucket: process.env.S3_BUCKET,
     },
 
     /*

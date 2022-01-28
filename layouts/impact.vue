@@ -1,16 +1,16 @@
 <template lang="html">
-    <main :class="classes">
-        <header-main />
-
-        <nuxt class="page" />
+    <div :class="classes">
+        <nav-primary class="primary" />
+        <main>
+            <nuxt class="page" />
+        </main>
 
         <footer-primary
             :social-items="parsedItems"
             :press-items="parsedPressItems"
-            :form="true"
+            :form="false"
         />
-        <footer-sock :items="footerSockItems" />
-    </main>
+    </div>
 </template>
 
 <script>
@@ -27,14 +27,10 @@ export default {
             pageMeta: {
                 title: "UCLA Library",
             },
-            footerSockItems: [],
+            // TODO add real social links
             footerPrimaryItems: [...MOCK_API.shortLinks],
             pressItems: [{ ...MOCK_API.links[0] }],
         }
-    },
-    async fetch() {
-        // TODO Fetch real data from Craft here
-        this.footerSockItems = await MOCK_API.links
     },
     head() {
         return {
@@ -86,6 +82,11 @@ export default {
                     hid: "og:title",
                     property: "og:title",
                     content: this.pageMeta.title,
+                },
+                { charset: "utf-8" },
+                {
+                    name: "viewport",
+                    content: "width=device-width, initial-scale=1",
                 },
             ],
         }
