@@ -7,16 +7,28 @@
 
                 <ul class="socials">
                     <li class="social-item">
-                        <a href="https://www.facebook.com/uclalibrary/">Facebook</a>
+                        <a
+                            href="https://www.facebook.com/uclalibrary/"
+                            target="_blank"
+                        >Facebook</a>
                     </li>
                     <li class="social-item">
-                        <a href="https://twitter.com/UCLALibrary">Twitter</a>
+                        <a
+                            href="https://twitter.com/UCLALibrary"
+                            target="_blank"
+                        >Twitter</a>
                     </li>
                     <li class="social-item">
-                        <a href="https://www.instagram.com/uclalibrary/">Instagram</a>
+                        <a
+                            href="https://www.instagram.com/uclalibrary/"
+                            target="_blank"
+                        >Instagram</a>
                     </li>
                     <li class="social-item">
-                        <a href="https://www.youtube.com/channel/UCRPedAkolOOC6z-iP2S-clQ">Youtube</a>
+                        <a
+                            href="https://www.youtube.com/channel/UCRPedAkolOOC6z-iP2S-clQ"
+                            target="_blank"
+                        >Youtube</a>
                     </li>
                 </ul>
 
