@@ -1,5 +1,5 @@
 // Import mock api data
-import * as API from "~/stories/impact-report.json"
+import * as API from "~/stories/impact-report_index.json"
 
 // Storybook default settings
 export default {
