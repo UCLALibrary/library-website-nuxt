@@ -336,6 +336,7 @@ export default {
         margin: 0 auto;
     }
     .credits {
+        display: inline;
         max-width: 932px;
         margin: $layout-07 + px auto;
         font-style: italic;
@@ -352,7 +353,7 @@ export default {
         margin-bottom: 48px;
         max-width: $content-width-03 + px;
     }
-    .credits dt, dd, p {
+    .credits dt, dd {
       display: inline;
       font-family: var(--font-secondary);
       line-height: 26px;
