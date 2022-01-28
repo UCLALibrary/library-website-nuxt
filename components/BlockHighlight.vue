@@ -1,5 +1,10 @@
 <template lang="html">
-    <div :class="classes">
+    <smart-link
+        v-if="to"
+        :target="parsedTarget"
+        :to="to"
+        :class="classes"
+    >
         <div class="floating-highlight" />
         <div
             v-if="!isVertical"
@@ -36,10 +41,8 @@
                 class="category"
                 v-html="category"
             />
-            <smart-link
+            <h3
                 v-if="to"
-                :target="parsedTarget"
-                :to="to"
                 class="title"
                 v-html="title"
             />
@@ -88,7 +91,7 @@
                 v-html="text"
             />
         </div>
-    </div>
+    </smart-link>
 </template>
 
 <script>
