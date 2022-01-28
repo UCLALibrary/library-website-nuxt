@@ -84,49 +84,51 @@
 
 
         <div class="credits">
-            <h2 class="credit-header">
-                Acknowledgements
-            </h2>
-            <dl class="credit-list">
-                <dt>Project Leads</dt>
-                <dd>Ariane Bicho, Director of Library Communications and Marketing; </dd>
-                <dd>Joshua Gomez, Head of Software Development and Library Systems; </dd>
-                <dt>Illustrations and Animation</dt>
-                <dd>
-                    <a
-                        href="https://www.brettaffrunti.com/"
-                        target="_blank"
-                        class="illustrations"
-                    />Brett Affrunti
-                </dd>
-                <dt>Feature Writer</dt>
-                <dd>Cyndy Calverley</dd>
-                <dt>Contributing Writers</dt>
-                <dd>Ben Alkaly, Courtney Hoffner, Jennifer Rhee</dd>
-                <dt>Photo Editors</dt>
-                <dd>Ben Alkaly, Jennifer Rhee</dd>
-                <dt>Editorial and Research Contributors</dt>
-                <dd>Suzy Lee, Marisa Soto</dd>
-                <dt>Lead Developer </dt>
-                <dd>Parinita Mulak</dd>
-                <dt>Developers</dt>
-                <dd>Jen Diamond</dd>
-                <dd>Casey Grzecka</dd>
-                <dd>Ashton Prigge</dd>
-                <dd>Andrew Wallace</dd>
-                <dt>Lead UX Designer</dt>
-                <dd>Axa Liauw</dd>
-                <dt>UX Designer</dt>
-                <dd>Dianne Weinthal</dd>
-                <dt>Data Services</dt>
-                <dd>Dana Peterman</dd>
-                <dd>Jack Schwada</dd>
-                <dd>Sharon Shafer</dd>
-                <dt>Graphic Design</dt>
-                <dd>Sean Deyoe</dd>
-                <dt>Student Assistants</dt>
-                <dd>Dana Binfet</dd>
-                <dd>Marley Rodriguez</dd>
+            <em>
+                <h2 class="credit-header">
+                    Acknowledgements
+                </h2>
+                <dl class="credit-list">
+                    <dt>Project Leads</dt>
+                    <dd>Ariane Bicho, Director of Library Communications and Marketing; </dd>
+                    <dd>Joshua Gomez, Head of Software Development and Library Systems; </dd>
+
+                    <dt>Illustrations and Animation</dt>
+                    <dd>
+                        <a
+                            href="https://www.brettaffrunti.com/"
+                            target="_blank"
+                            class="illustrations"
+                        />Brett Affrunti
+                    </dd>
+
+                    <dt>Feature Writer</dt>
+                    <dd>Cyndy Calverley</dd>
+
+                    <dt>Contributing Writers</dt>
+                    <dd>Ben Alkaly,</dd> <dd>Courtney Hoffner,</dd> <dd> Jennifer Rhee</dd>
+
+                    <dt>Photo Editors</dt>
+                    <dd>Ben Alkaly,</dd> <dd>Jennifer Rhee</dd>
+
+                    <dt>Editorial and Research Contributors</dt>
+                    <dd>Suzy Lee,</dd> <dd>Marisa Soto</dd>
+
+                    <dt>Lead Developer </dt>
+                    <dd>Parinita Mulak</dd>
+
+                    <dt>Developers</dt>
+                    <dd>Jen Diamond</dd> <dd>Casey Grzecka</dd> <dd>Ashton Prigge</dd> <dd>Andrew Wallace</dd>
+
+                    <dt>Lead UX Designer</dt>
+                    <dd>Axa Liauw</dd> <dt>UX Designer</dt> <dd>Dianne Weinthal</dd>
+
+                    <dt>Data Services</dt>
+                    <dd>Dana Peterman</dd> <dd>Jack Schwada</dd> <dd>Sharon Shafer</dd>
+
+                    <dt>Graphic Design</dt>
+                    <dd>Sean Deyoe</dd> <dt>Student Assistants</dt> <dd>Dana Binfet</dd> <dd>Marley Rodriguez</dd>
+                </dl></em>
             </dl>
         </div>
 
@@ -344,34 +346,24 @@ export default {
         margin-bottom: 48px;
         max-width: $content-width-03 + px;
     }
-    // .credits {
-    //     display: inline;
-    //     .credit-list dt {
-    //         float: left;
-    //         clear: left;
-    //         margin-right: 10px;
-    //         font-display: italic;
-    //     }
-    //     .credit-list dd {
-    //         margin-left: 0px;
-    //         font-display: none;
-    //     }
-    // }
-dt {
-  display: inline;
-  margin-right:20px;
-}
-
-dt::before {
-  content: "\A";
-  white-space: pre;
- 
-}
-
-dd {
-  display: inline;
-  margin:0;
-}
+    .credits dt, dd, p {
+      display: inline;
+      font-family: var(--font-secondary);
+      line-height: 26px;
+    }
+    .credits dd,.credits dl {
+        margin: 0;
+        color: var(--color-secondary-grey-04);
+    }
+    dt {
+    font-weight: 600;
+    }
+    .credit-header {
+        display: inline;
+        color: var(--color-primary-blue-03);
+        font-weight: 700;
+        font-size: 18px;
+    }
 
     @media #{$medium} {
         .meta {
