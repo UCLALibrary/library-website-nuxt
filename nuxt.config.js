@@ -164,7 +164,14 @@ export default {
     /*
      * Nuxt modules
      */
-    modules: ["@nuxtjs/axios"],
+    modules: [
+        "@nuxtjs/axios",
+        "@nuxtjs/gtm",
+    ],
+
+    gtm: {
+        id: 'GTM-T2SXV2'
+    },
 
     /*
      * Nuxt build modules
