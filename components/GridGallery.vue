@@ -13,7 +13,7 @@
                 <responsive-image
                     :image="card.image"
                     :aspect-ratio="parsedAspectRatio"
-                    class="image"
+                    :class="card.imgclasses"
                 />
                 <h3
                     v-if="
@@ -149,6 +149,14 @@ export default {
         display: grid;
         grid-template-columns: 2fr 1fr;
         gap: 16px;
+
+        .two-librarians {
+            ::v-deep {
+                .media {
+                    object-position: 50% top;
+                }
+            }
+        }
     }
 
     .card-4up {
