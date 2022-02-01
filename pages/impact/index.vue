@@ -205,6 +205,7 @@ export default {
                     ].map((obj) => {
                         return {
                             ...obj,
+                            imgclasses: `image ${obj.class}`,
                             image: updateImageData(
                                 obj.src,
                                 obj.alt,
