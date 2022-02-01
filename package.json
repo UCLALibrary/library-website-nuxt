@@ -18,6 +18,7 @@
         "percy-static": "percy storybook ./storybook-static"
     },
     "dependencies": {
+        "@nuxtjs/gtm": "^2.4.0",
         "nuxt": "^2.15.4"
     },
     "devDependencies": {
