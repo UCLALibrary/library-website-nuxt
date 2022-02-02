@@ -21,6 +21,13 @@
                 class="rich-text"
             />
         </div>
+        <div class="breadcrumb-link">
+            <nuxt-link to="/impact/">
+                Read 2020-2021 UCLA Library Impact Report
+            </nuxt-link>
+            <svg-arrow-right class="svg-arrow-right" />
+        </div>
+
         <divider-general class="divider divider-general" />
         <div class="credits">
             <h2 class="credit-header">
@@ -65,6 +72,7 @@ import getS3Bucket from "~/utils/getS3Bucket"
 export default {
     components: {
         SvgArrowDiagonal: () => import("~/assets/svg/arrow-diagonal"),
+        SvgArrowRight: () => import("~/assets/svg/arrow-right-small"),
     },
     layout: "impact",
     data() {
@@ -113,6 +121,18 @@ export default {
     }
     .rich-text {
         margin: var(--unit-gutter) auto;
+    }
+    .breadcrumb-link {
+        margin: $layout-07 + px auto;
+        padding: 0 $margin-01 + px;
+        max-width: $content-width-03 + px;
+        font-style: var(--font-secondary);
+        font-size: 20px;
+        color: var(--color-primary-blue-03);
+        font-weight: 400;
+
+        display: flex;
+        align-items: center;
     }
     .divider {
         margin: $layout-06 + px auto;
@@ -189,11 +209,17 @@ export default {
             fill: var(--color-primary-blue-03);
         }
     }
+    .svg-arrow-right {
+        flex-shrink: 0;
+        .arrow-right {
+            stroke: var(--color-primary-blue-03);
+        }
+    }
 
     @media #{$medium} {
         .divider-general {
             margin: $layout-06 + px auto;
-            width: calc(100% - (var(--unit-gutter)*2));
+            width: calc(100% - (var(--unit-gutter) * 2));
         }
 
         .rich-text {
@@ -205,7 +231,8 @@ export default {
         }
 
         .credits,
-        .call-to-action {
+        .call-to-action,
+        .breadcrumb-link {
             margin: $layout-06 + px auto;
             padding: 0 $margin-01 + px;
         }
@@ -214,7 +241,7 @@ export default {
     @media #{$small} {
         .divider-general {
             margin: $layout-05 + px auto;
-            width: calc(100% - (var(--unit-gutter)*2));
+            width: calc(100% - (var(--unit-gutter) * 2));
         }
 
         .rich-text {
@@ -226,7 +253,8 @@ export default {
         }
 
         .credits,
-        .call-to-action {
+        .call-to-action,
+        .breadcrumb-link {
             margin: $layout-05 + px auto;
             padding: 0 var(--unit-gutter);
         }
