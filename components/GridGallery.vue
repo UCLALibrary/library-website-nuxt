@@ -1,6 +1,6 @@
 <template>
     <div class="grid-gallery">
-        <h3
+        <h4
             class="month-year"
             v-html="monthYear"
         />
@@ -15,7 +15,7 @@
                     :aspect-ratio="parsedAspectRatio"
                     :class="card.imgclasses"
                 />
-                <h3
+                <h5
                     v-if="
                         card.headlineText &&
                             ((card.featured && !card.snippet) || !card.featured)
@@ -28,7 +28,7 @@
                         class="link"
                         v-html="card.headlineText"
                     />
-                </h3>
+                </h5>
                 <p
                     v-if="!card.featured && card.snippet"
                     class="snippet"
@@ -43,16 +43,17 @@
                         class="svg"
                     />
                     <div class="text">
-                        <h3
+                        <h5
                             v-if="card.headlineText"
                             class="title"
                         >
                             <smart-link
                                 :to="card.to"
                                 target="_blank"
+                                class="link"
                                 v-html="card.headlineText"
                             />
-                        </h3>
+                        </h5>
                         <p
                             class="snippet"
                             v-html="card.snippet"
@@ -145,6 +146,7 @@ export default {
 
     .card-featured {
         grid-column: span 6;
+        position: relative;
 
         display: grid;
         grid-template-columns: 2fr 1fr;
@@ -208,7 +210,7 @@ export default {
     }
     // Hovers
     @media #{$has-hover} {
-        .title:hover {
+        .title a:hover {
             @include hover;
         }
     }
@@ -237,14 +239,32 @@ export default {
         .month-year {
             padding-top: 20px;
         }
+        .section-text {
+            margin-left: 0;
+        }
     }
 
     @media #{$small} {
         padding: 0 24px;
+
         .month-year {
+            top: 74px;
         }
         .card {
             grid-column: span 6;
+        }
+    }
+
+    @media (min-width: 400px) {
+        .month-year {
+            top: 60px;
+            padding-top: 16px;
+        }
+    }
+
+    @media (min-width: 860px) {
+        .month-year {
+            top: 40px;
         }
     }
 }

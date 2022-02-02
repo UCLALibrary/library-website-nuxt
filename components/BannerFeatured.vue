@@ -64,7 +64,7 @@
                 v-html="description"
             />
 
-            <div class="schedule">
+            <div class="schedule" v-if="startDate || endDate">
                 <time
                     v-if="startDate"
                     class="schedule-item"
@@ -383,13 +383,16 @@ export default {
     }
 
     .meta {
-        padding: 0 50px;
-        margin: -60px 0 0 0;
+        margin: -60px auto 0;
         position: relative;
         z-index: 40;
-        width: 65%;
+
+        padding-right: clamp(360px, 35%, 600px);
+        max-width: $content-width-03 + px;
+
+        // width: 65%;
         box-sizing: border-box;
-        padding-left: 240px;
+        // padding-left: 240px;
 
         display: flex;
         flex-direction: column;
@@ -493,7 +496,8 @@ export default {
             }
         }
         .meta {
-            padding-left: 75px;
+            padding-left: clamp(368px, 35%, 600px);
+            padding-right: $margin-02 + px;;
             margin-left: auto;
 
             align-content: flex-start;
@@ -511,6 +515,14 @@ export default {
     }
 
     // Breakpoints
+    
+    @media #{$medium} {
+        .meta {
+            padding-left: $margin-01 + px;
+            margin-left: 0;
+        }
+    }
+
     @media #{$small} {
         .slot {
             font-size: 28px;
@@ -556,14 +568,15 @@ export default {
         .meta {
             width: 100%;
             margin-top: 0;
-            padding-left: var(--unit-gutter);
             padding-right: var(--unit-gutter);
+            padding-left: $margin-02 + px;
             box-sizing: border-box;
             position: static;
 
-            > * {
-                max-width: 100%;
-            }
+            // > * {
+            //     max-width: 100%;
+            // }
+
         }
         .category-desktop {
             display: none;
@@ -600,5 +613,10 @@ export default {
             }
         }
     }
+    // @media (min-width: 928px) and (max-width: 1050px) {
+    //     .meta {
+    //         padding-left: 0;
+    //     }
+    // }
 }
 </style>

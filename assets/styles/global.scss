@@ -60,19 +60,31 @@ button {
 .page {
     .section {
         margin: 100px auto;
-        padding-left: var(--unit-gutter);
-        padding-right: var(--unit-gutter);
-        max-width: 1300px;
+        padding-left: $margin-01 + px;
+        padding-right: $margin-01 + px;
+        max-width: $content-width-05 + px;
+
+        @media #{$small} {
+            padding-left: $margin-02 + px;
+            padding-right: $margin-02 + px;
+        }
     }
     .divider-first + .section {
         margin-top: 75px;
     }
     .divider {
-        max-width: 960px;
+        max-width: $content-width-03 + px;
         margin-left: auto;
         margin-right: auto;
-        padding: 0 var(--unit-gutter);
         box-sizing: border-box;
+
+        @media #{$medium} {
+            padding: 0 $margin-01 + px;
+        }
+
+        @media #{$small} {
+            padding: 0 $margin-02 + px;
+        }
     }
 }
 
@@ -108,4 +120,8 @@ button {
 .fade-enter,
 .fade-leave-active {
     opacity: 0;
+}
+
+.visually-hidden {
+    @include visually-hidden;
 }
