@@ -2,6 +2,7 @@
   "baseUrl": "http://localhost:3009",
   "integrationFolder": "stories",
   "testFiles": "**/*.spec.js",
+  "defaultCommandTimeout": 60000,
   "video": false,
   "viewportWidth": 1440,
   "viewportHeight": 1024
