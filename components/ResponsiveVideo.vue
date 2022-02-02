@@ -374,6 +374,7 @@ export default {
     // Object fit modes
     &.object-fit-cover .media {
         object-fit: cover;
+        object-position: left center;
     }
     &.object-fit-contain .media {
         object-fit: contain;

@@ -19,6 +19,8 @@
             </p>
         </div>
 
+        <h2 class="visually-hidden">Main Story</h2>
+
         <banner-featured
             class="banner"
             :title="impactBannerFeatured.title"
@@ -205,6 +207,7 @@ export default {
                     ].map((obj) => {
                         return {
                             ...obj,
+                            imgclasses: `image ${obj.class}`,
                             image: updateImageData(
                                 obj.src,
                                 obj.alt,
@@ -273,14 +276,16 @@ export default {
 .page-impact-report {
     .meta {
         padding: 0 var(--unit-gutter);
-        margin: $layout-06 + px auto;
+        margin: $layout-06 + px auto 0 auto;
         max-width: $content-width-05 + px;
         .intro {
             @include step-5;
+            margin-bottom: $layout-05 + px;
             color: var(--color-primary-blue-03);
         }
         .text {
             @include step-3;
+            line-height: 120%;
         }
         .signature {
             @include step-3;
@@ -288,7 +293,7 @@ export default {
     }
     .portrait-Ginny {
         width: 100%;
-        max-width: 704px;
+        max-width: 50%;
         float: right;
     }
     .banner {
@@ -296,7 +301,7 @@ export default {
     }
 
     .section-grid {
-        max-width: 932px;
+        max-width: $content-width-03 + px;
 
         display: flex;
         flex-direction: column;
@@ -327,7 +332,7 @@ export default {
             min-height: 46px;
         }
         .divider-section {
-            max-width: 1100px;
+            max-width: $content-width-03 + px;
             margin: $layout-07 + px 0;
         }
     }
@@ -335,7 +340,7 @@ export default {
         margin: 0 auto;
     }
     .credits {
-        max-width: 932px;
+        max-width: $content-width-03 + px;
         margin: $layout-07 + px auto;
         font-style: italic;
         font-weight: normal;
@@ -346,7 +351,7 @@ export default {
         display: inline;
     }
     .divider {
-        max-width: 1100px;
+        max-width: $content-width-03 + px;
         margin: $layout-07 + px auto;
     }
     .divider-general {
@@ -376,23 +381,47 @@ export default {
     }
     .illustrator a{
         text-decoration: underline;
-        text-decoration-color: var(--color-primary-blue-03);
-        text-decoration-thickness: 1.5px;
+        text-decoration-color: var(--color-default-cyan-03);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 1px;
     }
     // Hover states
     @media #{$has-hover} {
     .illustrator:hover {
         color: var(--color-primary-blue-03);
+        @include hover;
         }
     }
 
     @media #{$medium} {
         .meta {
-            padding: 0 var(--unit-gutter);
+            padding: 0 $margin-01 + px;
+            margin-top: $margin-02 + px;
+
+            .intro {
+                margin-bottom: $layout-04 + px;
+            }
+
             .portrait-Ginny {
                 float: none;
+                max-width: 100%;
+                margin: 32px auto;
             }
         }
+        .banner {
+            margin: $layout-06 + px auto;
+        }
+
+        .section-grid .divider-section,
+        .divider {
+            margin: $layout-06 + px 0;
+        }
+
+        .divider-general {
+            margin: $layout-06 + px auto;
+            width: calc(100% - (var(--unit-gutter)*2));
+        }
+
         .section {
             .sub-section-grid {
                 ::v-deep .grid-gallery {
@@ -401,17 +430,48 @@ export default {
             }
         }
         .credits {
-            padding: 0 var(--unit-gutter);
+            padding: 0 $margin-01 + px;
+            margin: $layout-05 + px auto;
         }
     }
     @media #{$small} {
-        .meta {
+        .meta {  
+            padding: 0 $margin-02 + px;     
             .portrait-Ginny {
                 width: 100%;
             }
         }
+        .banner {
+            margin: $layout-05 + px auto;
+        }
+
+        .grid-gallery-subtitle {
+            height: 80px;
+        }
+
+        .section-grid .divider-section,
+        .divider {
+            margin: $layout-05 + px 0;
+        }
+
+        .divider-general {
+            margin: $layout-05 + px auto;
+        }
+
         .credits {
             padding: 0 var(--unit-gutter);
+        }
+    }
+
+    @media (min-width: 400px) {
+        .grid-gallery-subtitle {
+            height: 60px;
+        }
+    }
+
+    @media (min-width: 860px) {
+        .grid-gallery-subtitle {
+            height: 40px;
         }
     }
 }

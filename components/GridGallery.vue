@@ -1,6 +1,6 @@
 <template>
     <div class="grid-gallery">
-        <h3
+        <h4
             class="month-year"
             v-html="monthYear"
         />
@@ -13,9 +13,9 @@
                 <responsive-image
                     :image="card.image"
                     :aspect-ratio="parsedAspectRatio"
-                    class="image"
+                    :class="card.imgclasses"
                 />
-                <h3
+                <h5
                     v-if="
                         card.headlineText &&
                             ((card.featured && !card.snippet) || !card.featured)
@@ -28,7 +28,7 @@
                         class="link"
                         v-html="card.headlineText"
                     />
-                </h3>
+                </h5>
                 <p
                     v-if="!card.featured && card.snippet"
                     class="snippet"
@@ -43,16 +43,17 @@
                         class="svg"
                     />
                     <div class="text">
-                        <h3
+                        <h5
                             v-if="card.headlineText"
                             class="title"
                         >
                             <smart-link
                                 :to="card.to"
                                 target="_blank"
+                                class="link"
                                 v-html="card.headlineText"
                             />
-                        </h3>
+                        </h5>
                         <p
                             class="snippet"
                             v-html="card.snippet"
@@ -119,7 +120,7 @@ export default {
         @include step-2;
         color: var(--color-black);
         position: sticky;
-        top: 52px;
+        top: 48px;
         background-color: var(--color-white);
         z-index: 20;
         padding-bottom: 16px;
@@ -145,10 +146,19 @@ export default {
 
     .card-featured {
         grid-column: span 6;
+        position: relative;
 
         display: grid;
         grid-template-columns: 2fr 1fr;
         gap: 16px;
+
+        .two-librarians {
+            ::v-deep {
+                .media {
+                    object-position: 50% top;
+                }
+            }
+        }
     }
 
     .card-4up {
@@ -186,16 +196,22 @@ export default {
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-evenly;
+        margin-left: -24px;
     }
     .svg {
-        transform: rotate(180deg) scale(1.5);
-        width: 200px;
+        transform: rotate(180deg) scale(0.75);
+        flex-shrink: 0;
     }
 
     .text {
-        margin-left: 15px;
         .title {
             margin-top: unset;
+        }
+    }
+    // Hovers
+    @media #{$has-hover} {
+        .title a:hover {
+            @include hover;
         }
     }
 
@@ -220,14 +236,35 @@ export default {
         .card-4up {
             grid-column: span 6;
         }
+        .month-year {
+            padding-top: 20px;
+        }
+        .section-text {
+            margin-left: 0;
+        }
     }
 
     @media #{$small} {
         padding: 0 24px;
+
         .month-year {
+            top: 74px;
         }
         .card {
             grid-column: span 6;
+        }
+    }
+
+    @media (min-width: 400px) {
+        .month-year {
+            top: 60px;
+            padding-top: 16px;
+        }
+    }
+
+    @media (min-width: 860px) {
+        .month-year {
+            top: 40px;
         }
     }
 }

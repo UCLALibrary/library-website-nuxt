@@ -207,10 +207,10 @@ export default {
 
 <style lang="scss" scoped>
 .block-highlight {
-    max-width: calc((100% - 32px)/3);
+    max-width: calc((100% - 32px) / 3);
     background-color: var(--color-white);
     font-family: var(--font-primary);
-    // position: relative;
+    position: relative;
 
     display: flex;
     flex-direction: row;
@@ -273,7 +273,7 @@ export default {
 
     .meta {
         z-index: 10;
-        position: relative;
+        // position: relative;
         width: 100%;
         // min-height: 255px;
         box-sizing: border-box;
@@ -286,14 +286,14 @@ export default {
         text-transform: uppercase;
         color: var(--color-primary-blue-05);
     }
-    // .title::after {
-    //     content: "";
-    //     position: absolute;
-    //     top: 0;
-    //     bottom: 0;
-    //     right: 0;
-    //     left: 0;
-    // }
+    .title::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
     .title,
     .title-no-link {
         font-weight: 500;
@@ -370,7 +370,7 @@ export default {
     // Variations
     &.is-vertical {
         flex-direction: column;
-        margin-bottom: 50px;
+        // margin-bottom: 50px;
 
         &:not(.has-triangle) {
             .meta {
@@ -391,7 +391,7 @@ export default {
     }
     &:not(&.is-vertical) {
         max-width: 990px;
-        position: relative;
+        // position: relative;
         .meta {
             max-width: 412px;
             margin-top: 16px;
@@ -540,9 +540,7 @@ export default {
     @media #{$has-hover} {
         &:hover {
             .title {
-                text-decoration: underline;
-                text-decoration-color: var(--color-default-cyan-03);
-                text-decoration-thickness: 1.5px;
+                @include hover;
             }
         }
     }

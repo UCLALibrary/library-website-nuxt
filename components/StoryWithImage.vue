@@ -127,10 +127,9 @@ export default {
     }
 
     .meta {
-        margin-top: 50px;
-        margin-bottom: 50px;
-        margin-left: 15%;
-        width: 70%;
+        margin: 50px auto;
+        // width: 70%;
+        max-width: $content-width-03 + px;
     }
 
     .title {
@@ -143,6 +142,8 @@ export default {
         line-height: 32px;
         letter-spacing: 0.01em;
         margin-bottom: 80px;
+        max-width: $content-width-02 + px;
+        padding-right: 96px;
     }
     .footnote {
         font-style: italic;
@@ -192,7 +193,7 @@ export default {
         }
         .svg:hover {
             .arrow {
-                color: green;
+                // TODO remove color: green;
                 path {
                     fill: var(--color-primary-blue-03);
                 }

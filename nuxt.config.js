@@ -1,5 +1,9 @@
 /* eslint-env node */
 export default {
+    server: {
+        port: 3000,
+        host: "0.0.0.0"
+    },
     target: "static",
     components: true,
 
@@ -164,7 +168,14 @@ export default {
     /*
      * Nuxt modules
      */
-    modules: ["@nuxtjs/axios"],
+    modules: [
+        "@nuxtjs/axios",
+        "@nuxtjs/gtm",
+    ],
+
+    gtm: {
+        id: 'GTM-T2SXV2'
+    },
 
     /*
      * Nuxt build modules
