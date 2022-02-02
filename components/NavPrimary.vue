@@ -145,6 +145,8 @@ export default {
     width: 100%;
     box-sizing: border-box;
 
+    z-index: 10;
+
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
