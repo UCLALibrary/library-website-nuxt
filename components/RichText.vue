@@ -177,14 +177,16 @@ export default {
         margin: 20px 10px 20px 0;
     }
 
-    .link {
+    ::v-deep .link {
         text-decoration: underline;
         text-decoration-color: var(--color-primary-blue-03);
         text-decoration-thickness: 2px;
     }
     @media #{$has-hover} {
-        .link:hover {
-            @include hover;
+        ::v-deep {
+            .link:hover {
+                @include hover;
+            }
         }
     }
 
