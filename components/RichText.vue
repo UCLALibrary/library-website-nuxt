@@ -71,13 +71,6 @@
             class="text"
             v-html="textBlocks[4]"
         />
-        <pull-quote
-            v-if="pullQuote[1]"
-            class="pull-quote"
-            :text="pullQuote[1].text"
-            :attribution="pullQuote[1].attribution"
-        />
-
         <div
             v-if="textBlocks[5]"
             class="text"
