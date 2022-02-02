@@ -21,7 +21,7 @@
                 class="rich-text"
             />
         </div>
-        <divider-general class="divider-general" />
+        <divider-general class="divider divider-general" />
         <div class="credits">
             <h2 class="credit-header">
                 Acknowledgements
@@ -42,7 +42,7 @@
         </div>
 
         <divider-way-finder
-            class="divider-wayfinder"
+            class="divider"
             color="about"
         />
         <div class="call-to-action">
@@ -108,17 +108,21 @@ export default {
     }
     .banner-header {
         margin-bottom: $layout-06 + px;
+        padding: 0;
+        max-width: 1440px;
     }
     .rich-text {
         margin: var(--unit-gutter) auto;
     }
     .divider {
-        margin: 0 auto;
-        padding-bottom: 30px;
+        margin: $layout-06 + px auto;
     }
-    .divider-wayfinder {
+    .divider-way-finder {
         max-width: $content-width-03 + px;
         margin: $layout-07 + px auto;
+        &.divider {
+            box-sizing: unset;
+        }
     }
     .divider-general {
         margin: $layout-07 + px auto;
@@ -127,6 +131,7 @@ export default {
     .credits {
         max-width: $content-width-03 + px;
         margin: $layout-07 + px auto;
+        padding: 0 $margin-01 + px;
         font-style: italic;
         font-weight: normal;
         font-size: 16px;
@@ -158,7 +163,7 @@ export default {
     }
     .illustrator a {
         text-decoration: underline;
-        text-decoration-color: var(--color-primary-blue-03);
+        text-decoration-color: var(--color-default-cyan-03);
         text-decoration-thickness: 2px;
         text-underline-offset: 1px;
     }
@@ -167,6 +172,7 @@ export default {
         font-size: 18px;
         line-height: 100%;
         margin: $layout-07 + px auto;
+        padding: 0 $margin-01 + px;
         max-width: $content-width-03 + px;
 
         display: flex;
@@ -181,6 +187,48 @@ export default {
         }
         .arrow-diagonal {
             fill: var(--color-primary-blue-03);
+        }
+    }
+
+    @media #{$medium} {
+        .divider-general {
+            margin: $layout-06 + px auto;
+            width: calc(100% - (var(--unit-gutter)*2));
+        }
+
+        .rich-text {
+            padding: 0 $margin-01 + px;
+        }
+
+        .divider-way-finder {
+            margin: $layout-06 + px auto;
+        }
+
+        .credits,
+        .call-to-action {
+            margin: $layout-06 + px auto;
+            padding: 0 $margin-01 + px;
+        }
+    }
+
+    @media #{$small} {
+        .divider-general {
+            margin: $layout-05 + px auto;
+            width: calc(100% - (var(--unit-gutter)*2));
+        }
+
+        .rich-text {
+            padding: 0 $margin-02 + px;
+        }
+
+        .divider-way-finder {
+            margin: $layout-05 + px auto;
+        }
+
+        .credits,
+        .call-to-action {
+            margin: $layout-05 + px auto;
+            padding: 0 var(--unit-gutter);
         }
     }
 
@@ -200,8 +248,8 @@ export default {
         }
 
         .hover-text:hover {
+            color: var(--color-primary-blue-03);
             @include hover;
-            text-decoration-color: var(--color-primary-blue-03);
         }
     }
 }

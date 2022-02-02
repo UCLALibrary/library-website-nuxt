@@ -33,7 +33,7 @@
         </div>
 
         <div class="meta">
-            <h3
+            <h1
                 class="title"
                 v-html="title"
             />
@@ -303,7 +303,7 @@ export default {
         }
     }
     .media {
-        max-height: 730px;
+        max-height: 66vh;
     }
     .gradient {
         background: $overlay-01;
@@ -370,13 +370,15 @@ export default {
     }
 
     .meta {
-        padding: 0 0 10px 50px;
-        margin: -60px 0 0 0;
+        // padding: 0 0 10px 50px;
+        margin: -60px auto 0;
         position: relative;
         z-index: 40;
-        width: 65%;
+        // width: 65%;
         box-sizing: border-box;
-        padding-left: 240px;
+        // padding-left: 240px;
+        padding-right: 300px;
+        max-width: $content-width-03 + px;
 
         display: flex;
         flex-direction: column;
@@ -476,7 +478,8 @@ export default {
             }
         }
         .meta {
-            padding-left: 75px;
+            padding-left: 300px;
+            padding-right: $margin-02 + px;
             margin-left: auto;
 
             align-content: flex-start;
@@ -490,17 +493,24 @@ export default {
     }
 
     // Breakpoints
-    @media #{$large} {
+    // @media #{$large} {
+    //     .meta {
+    //         margin: -60px 0 0 0;
+    //     }
+    // }
+
+    @media #{$medium} {
         .meta {
-            margin: -60px 0 0 0;
+            padding-left: $margin-01 + px;
+            margin-left: 0;
         }
     }
 
-    @media #{$large} {
-        .meta {
-            padding-left: 148px;
-        }
-    }
+    // @media #{$large} {
+    //     .meta {
+    //         padding-left: 148px;
+    //     }
+    // }
 
     @media #{$small} {
         .media {
