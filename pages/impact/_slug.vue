@@ -22,7 +22,10 @@
             />
         </div>
         <div class="breadcrumb-link">
-            <nuxt-link to="/impact/">
+            <nuxt-link
+                to="/impact/"
+                class="hover-text"
+            >
                 Read 2020-2021 UCLA Library Impact Report
             </nuxt-link>
             <svg-arrow-right class="svg-arrow-right" />
