@@ -1,6 +1,5 @@
 <template lang="html">
     <div class="rich-text">
-        <divider-way-finder class="divider-way-finder" />
         <div
             class="text"
             v-html="parsedRichText"
@@ -26,15 +25,15 @@ export default {
 
 <style lang="scss" scoped>
 .rich-text {
-    .divider-way-finder {
-        width: 100%;
-    }
+    max-width: $content-width-02 + px;
+    margin: var(--unit-gutter) auto;
+    // padding: 0 var(--unit-gutter);
+    padding-right: 96px;
 
     .text {
-        max-width: 832px;
     }
 
-    /deep/ h3 {
+    ::v-deep h3 {
         font-family: var(--font-primary);
         font-weight: 400;
         font-size: 48px;
@@ -42,7 +41,7 @@ export default {
         letter-spacing: 0.01em;
         color: var(--color-black);
     }
-    /deep/ p {
+    ::v-deep p {
         font-family: var(--font-primary);
         font-weight: 400;
         font-size: 20px;
@@ -51,7 +50,7 @@ export default {
         color: var(--color-black);
     }
 
-    /deep/ blockquote {
+    ::v-deep blockquote {
         background-color: var(--color-white);
         max-width: var(--container-width);
         text-align: left;
@@ -67,31 +66,45 @@ export default {
         padding: 24px var(--spacing-text-left);
         --spacing-text-left: 64px;
         --container-width: 600px;
+        // margin: 20px 10px 20px 0;
     }
 
-    /deep/ figcaption {
+    ::v-deep figure {
+        display: flex;
+        flex-direction: column;
+
+        max-width: 100%;
+    }
+    ::v-deep figcaption {
         font-family: var(--font-secondary);
         font-weight: 400;
         font-size: 16px;
         line-height: 160%;
         letter-spacing: 0.01em;
         color: var(--color-secondary-grey-05);
-        max-width: 448px;
-        padding: 16px 16px 32px 16px;
+        padding: 16px 16px 26px 16px;
     }
 
-    /deep/ iframe {
-        max-width: 448px;
+    ::v-deep iframe {
+        max-width: 100%;
+        object-fit: cover;
     }
-    /deep/ figure {
-        max-width: 448px;
-        margin: 10px 10px 10px 10px;
-        display: inline;
-        // width: 448 !important;
-        max-width: 448px !important;
+
+    ::v-deep img {
+        max-width: 100%;
+        object-fit: cover;
     }
-    /deep/ img {
-        max-width: 448px;
+
+    // Breakpoints
+    @media #{$small} {
+        // .image-block {
+        // max-width: 300px;
+        // }
+    }
+
+    @media #{$medium} {
+        padding: 0 $margin-02 + px;
+        max-width: 928px;
     }
 }
 </style>
