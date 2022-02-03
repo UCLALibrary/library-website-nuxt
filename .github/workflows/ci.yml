@@ -55,6 +55,15 @@ jobs:
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_STORYBOOK }}
+    - name: Cypress test for Storybook Components
+      uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
+      with:
+        start: docker run -v ${{ github.workspace }}/storybook-static:/usr/share/nginx/html:ro -p 3009:80 nginx
+        command-prefix: 'npx'
+        config-file: cypress.storybook.json
+        wait-on: http://localhost:3009
+      env: 
+        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_STORYBOOK }}
 
   nuxt:
     env:
