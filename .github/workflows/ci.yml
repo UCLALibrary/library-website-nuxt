@@ -87,8 +87,7 @@ jobs:
         S3_BUCKET: "https://static.library.ucla.edu/"
     - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
       with:
-        # start: docker run -v ${{ github.workspace }}/dist:/usr/share/nginx/html:ro -p 3000:80 nginx
-        start: npm run dev
+        start: docker run -v ${{ github.workspace }}/dist:/usr/share/nginx/html:ro -p 3000:80 nginx
         command-prefix: 'npx'
         wait-on: http://localhost:3000
       env:

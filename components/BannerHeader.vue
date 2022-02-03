@@ -42,14 +42,13 @@
                 class="snippet"
                 v-html="text"
             />
-            <div
-                v-if="byline"
-                class="schedule"
-            >
+            <div class="byline">
                 <div
+                    v-for="(item, index) in byline"
                     v-if="byline"
-                    class="schedule-item"
-                    v-html="byline"
+                    :key="index"
+                    class="byline-item"
+                    v-html="item"
                 />
                 <time
                     v-if="startDate"
@@ -153,8 +152,8 @@ export default {
             default: "",
         },
         byline: {
-            type: String,
-            default: "",
+            type: Array,
+            default: () => [],
         },
         startDate: {
             type: String,
@@ -398,6 +397,18 @@ export default {
         margin-top: $layout-03 + px;
         line-height: 120%;
     }
+    .byline {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    .byline-item {
+        font-size: 20px;
+        line-height: 24px;
+        text-align: left;
+        color: var(--color-secondary-grey-04);
+        margin-top: 24px;
+    }
     .schedule {
         font-size: 20px;
         line-height: 24px;
@@ -410,7 +421,8 @@ export default {
         flex-wrap: wrap;
     }
 
-    .schedule-item {
+    .schedule-item,
+    .byline-item {
         &:after {
             content: "";
             border-left: 1px solid var(--color-secondary-grey-02);

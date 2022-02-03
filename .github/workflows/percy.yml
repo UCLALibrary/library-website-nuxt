@@ -8,6 +8,7 @@ on:
 
 jobs:
   percy-components:
+    name: Percy - Storybook Components
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
@@ -40,7 +41,7 @@ jobs:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_STORYBOOK }}
 
   percy-integration:
-    name: Cypress tests with Percy screenshots
+    name: Percy - Nuxt Site
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
@@ -60,8 +61,7 @@ jobs:
         LIBCAL_CLIENT_ID: ${{ secrets.LIBCAL_CLIENT_ID }}
     - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
       with:
-        # start: docker run -v ${{ github.workspace }}/dist:/usr/share/nginx/html:ro -p 3000:80 nginx
-        start: npm run dev
+        start: docker run -v ${{ github.workspace }}/dist:/usr/share/nginx/html:ro -p 3000:80 nginx
         command-prefix: 'percy exec -- npx'
         wait-on: http://localhost:3000
       env: 
