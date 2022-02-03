@@ -4,6 +4,7 @@
             class="section banner-header"
             :title="bannerHeader.title"
             :text="bannerHeader.text"
+            :byline="bannerHeader.byline"
             :video="parseVideo"
             :to="bannerHeader.to"
             :align-right="true"
@@ -29,26 +30,6 @@
                 Read 2020-2021 UCLA Library Impact Report
             </nuxt-link>
             <svg-arrow-right class="svg-arrow-right" />
-        </div>
-
-        <divider-general class="divider divider-general" />
-        <div class="credits">
-            <h2 class="credit-header">
-                Acknowledgements
-            </h2>
-            <em>
-                <dl class="credit-list">
-                    <dt>By</dt>
-                    <dd>Cynthia Lee</dd>
-
-                    <dt>Illustrations and Animation</dt>
-                    <dd class="illustrator hover-text">
-                        <a
-                            href="https://www.brettaffrunti.com/"
-                            target="_blank"
-                        >Brett Affrunti</a>
-                    </dd>
-                </dl></em>
         </div>
 
         <divider-way-finder
@@ -151,45 +132,6 @@ export default {
         margin: $layout-07 + px auto;
         max-width: $content-width-03 + px;
     }
-    .credits {
-        max-width: $content-width-03 + px;
-        margin: $layout-07 + px auto;
-        padding: 0 $margin-01 + px;
-        font-style: italic;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 26px;
-    }
-    .credit-list {
-        display: inline;
-    }
-    .credits dt,
-    dd {
-        display: inline;
-        font-family: var(--font-secondary);
-        line-height: 26px;
-    }
-    .credits dd,
-    .credits dl {
-        margin: 0;
-        color: var(--color-secondary-grey-04);
-    }
-    dt {
-        font-weight: 600;
-    }
-    .credit-header {
-        display: inline;
-        color: var(--color-primary-blue-03);
-        font-weight: 700;
-        font-size: 18px;
-        padding-right: 5px;
-    }
-    .illustrator a {
-        text-decoration: underline;
-        text-decoration-color: var(--color-default-cyan-03);
-        text-decoration-thickness: 2px;
-        text-underline-offset: 1px;
-    }
     .call-to-action {
         font-weight: 500;
         font-size: 18px;
@@ -233,7 +175,6 @@ export default {
             margin: $layout-06 + px auto;
         }
 
-        .credits,
         .call-to-action,
         .breadcrumb-link {
             margin: $layout-06 + px auto;
@@ -255,7 +196,6 @@ export default {
             margin: $layout-05 + px auto;
         }
 
-        .credits,
         .call-to-action,
         .breadcrumb-link {
             margin: $layout-05 + px auto;
