@@ -70,7 +70,7 @@ export default {
             let video = {
                 videoUrl: getS3Bucket(
                     this.$config,
-                    "ucla-impact-report-animation.mp4"
+                    "ucla-impact-report-feature-story-animation.mp4"
                 ),
             }
             return video
