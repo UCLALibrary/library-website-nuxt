@@ -55,18 +55,26 @@ export default {
         max-width: var(--container-width);
         text-align: left;
         font-family: var(--font-primary);
-        font-size: 24px;
-        font-style: italic;
-        font-weight: 600;
-        line-height: 150%;
-        letter-spacing: 0.01em;
-        color: var(--color-primary-blue-03);
-        border-left: 4px solid var(--color-default-cyan-03);
-        border-radius: 2px;
-        padding: 24px var(--spacing-text-left);
-        --spacing-text-left: 64px;
-        --container-width: 600px;
+
         // margin: 20px 10px 20px 0;
+        p {
+            font-size: 24px;
+            font-style: italic;
+            font-weight: 600;
+            line-height: 150%;
+            letter-spacing: 0.01em;
+            color: var(--color-primary-blue-03);
+        }
+        #text {
+            font-weight: 400;
+            font-size: 20px;
+            font-style: normal;
+            line-height: 140%;
+            align-items: center;
+            text-transform: uppercase;
+            color: var(--color-secondary-grey-05);
+            margin-left: 50px;
+        }
     }
 
     ::v-deep figure {
