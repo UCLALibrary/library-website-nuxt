@@ -516,6 +516,19 @@ export default {
             padding-left: $margin-01 + px;
             margin-left: 0;
         }
+        .byline,
+        .schedule {
+            display: flex;
+            flex-direction: column;
+            padding-left: 0;
+        }
+        .schedule-item,
+        .byline-item {
+            margin-top: 8px;
+            &:after {
+                display: none;
+            }
+        }
     }
 
     // @media #{$large} {
@@ -566,12 +579,14 @@ export default {
         .title {
             margin: 10px 0 5px 0px;
         }
+        .byline,
         .schedule {
             display: flex;
             flex-direction: column;
             padding-left: 0;
         }
-        .schedule-item {
+        .schedule-item,
+        .byline-item {
             margin-top: 8px;
             &:after {
                 display: none;
