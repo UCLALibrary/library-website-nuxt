@@ -126,7 +126,7 @@ export default {
         margin: var(--unit-gutter) auto;
     }
     .breadcrumb-link {
-        margin: $layout-07 + px auto;
+        margin: $layout-06 + px auto;
         padding: 0 $margin-01 + px;
         max-width: $content-width-03 + px;
         font-style: var(--font-secondary);
