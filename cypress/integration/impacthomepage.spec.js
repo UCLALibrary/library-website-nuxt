@@ -1,6 +1,6 @@
 describe('Impact Homepage', () => {
     it('Visit the Impact Home Page', () => {
-        cy.visit('/impact')
+        cy.visit('/impact/index.html')
 
         // UCLA Library brand
         cy.get('.logo-ucla').should('be.visible')
