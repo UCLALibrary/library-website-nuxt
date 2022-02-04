@@ -16,7 +16,7 @@
       "subtitle": "The Great Pivot: Library Launches Pilot Emergency Services",
       "featured": "",
       "src": "ucla-campus-closed-covid-19.jpeg",
-      "alt": "A red brick building foregrounded by blue sign announcing UCLA's campus closure due to Covid-19"
+      "alt": "A red brick building foregrounded by blue sign announcing UCLA's campus closure due to COVID-19"
     },
     {
       "monthYear": "March 2020",
@@ -50,7 +50,7 @@
     },
     {
       "monthYear": "April 2020",
-      "headlineText": "Remote Control Workshops' Help Students Succeed in a New Learning Environment",
+      "headlineText": "Remote Control Workshops Help Students Succeed in a New Learning Environment",
       "snippet": "",
       "to": "https://guides.library.ucla.edu/remotecontrol",
       "subtitle": "The Great Pivot: Library Launches Pilot Emergency Services",
@@ -81,12 +81,11 @@
     {
       "monthYear": "April 2020",
       "headlineText": "LibGuides Groups in Practice: Building a Partnership Between an Academic Library and an Information Studies School",
-      "snippet": "<p>Working with Information Studies faculty, two UCLA Librarians introduced practical web skills into the iSchool curriculum, teaching future librarians how to create user&#45;friendly content with technology tools relevant to academic libraries. The journal article details the benefits of the partnership for both the Library and the students. &#8212; Coauthored by Science Librarian <strong>Courtney Hoffner</strong> and Health and Life Science Librarian <strong>Antonia Osuna-Garcia</strong>, published by <em>College and Research Libraries News</em>.</p>",
+      "snippet": "<p>Working with Information Studies faculty, two UCLA librarians introduced practical web skills into the iSchool curriculum, teaching future librarians how to create user&#45;friendly content with technology tools relevant to academic libraries. The journal article details the benefits of the partnership for both the Library and the students. &#8212; Coauthored by Science Librarian <strong>Courtney Hoffner</strong> and Health and Life Science Librarian <strong>Antonia Osuna-Garcia</strong>, published by <em>College and Research Libraries News</em>.</p>",
       "to": "https://crln.acrl.org/index.php/crlnews/article/view/24384/32223",
       "subtitle": "The Great Pivot: Library Launches Pilot Emergency Services",
       "featured": true,
       "src": "antonia-osuna-garcia-courtney_hoffner_ucla_library.jpg",
-      "class": "two-librarians",
       "alt": "Sketch of two Antinia Osuna-Garcia and Courtney Hoffner, with turqoise background"
     },
     {
@@ -191,7 +190,7 @@
     },
     {
       "monthYear": "October 2020",
-      "headlineText": "Library Seeks Narrators for New Covid-19 Oral History Project",
+      "headlineText": "Library Seeks Narrators for New COVID-19 Oral History Project",
       "snippet": "",
       "to": "https://newsroom.ucla.edu/dept/faculty/ucla-library-seeks-narrators-for-newly-launched-covid-19-oral-history-project",
       "subtitle": "The Great Pivot: Library Launches Pilot Emergency Services",
@@ -241,7 +240,7 @@
     },
     {
       "monthYear": "January 2021",
-      "headlineText": "Alumna May Hong HaDuong Named Director of the UCLA FTVA",
+      "headlineText": "Alumna May Hong HaDuong Named Director of the UCLA Film & Television Archive",
       "snippet": "",
       "to": "https://newsroom.ucla.edu/releases/may-hong-haduong-director-ucla-film-television-archive",
       "subtitle": "The New Normal: Temporary Remote Instruction Continues",
@@ -322,7 +321,7 @@
     {
       "monthYear": "March 2021",
       "headlineText": "Manchu Language Pedagogical Practices: The Connections Between Manuscript and Printed Books",
-      "snippet": "<p>This publication explores the history of Manchu language education during the Qing dynasty in order to reconstruct the relationships between printed pedagogical genres and their manuscript counterparts. The paper explores three aspects of Manchu language education &#150; institutions, textbooks and students&#39 materials &#150; to radically expand our view of the role Manchu language education played during the Qing Dynasty. &#8212; By <strong>Devin Fitzgerald</strong>, curator of rare books and history of printing, published in Sakasha: <em>A Journal of Manchu Studies</em>.</p>",
+      "snippet": "<p>This publication explores the history of Manchu language education during the Qing dynasty in order to reconstruct the relationships between printed pedagogical genres and their manuscript counterparts. The paper explores three aspects of Manchu language education &#150; institutions, textbooks and students&#39 materials &#150; to radically expand our view of the role Manchu language education played during the Qing Dynasty. &#8212; By <strong>Devin Fitzgerald</strong>, curator of rare books and history of printing, published in Saksaha: <em>A Journal of Manchu Studies</em>.</p>",
       "to": "https://quod.lib.umich.edu/s/saksaha/13401746.0017.001?view=text;rgn=main",
       "subtitle": "The New Normal: Temporary Remote Instruction Continues",
       "featured": true,
@@ -407,7 +406,6 @@
       "subtitle": "The New Normal: Temporary Remote Instruction Continues",
       "featured": true,
       "src": "jet-jacobs-matt-johnson-ucla-library.jpg",
-      "class": "two-librarians",
       "alt": "Sketch of Jet Jacobs and Matt Johnson, with turqoise background"
     },
     {
@@ -484,7 +482,7 @@
       "monthYear": "June 2021",
       "headlineText": "The Teaching with Primary Sources Cookbook",
       "snippet": "<p>In the chapter, &#34;Creating a Showstopper: Student&#45;Curated Exhibitions,&#34; the coauthors detail a structured approach to teaching students how to curate exhibitions using primary source materials based on a &#34;recipe&#34; format. Students learn how to conduct research in special collections, to tie abstract concepts from a course to concrete primary sources and to think critically about their audience. &#8212; Coauthored by Research and Instruction Librarian <strong>Katherine Kapsidelis</strong>, published by the <em>Association of College and Research Libraries</em>.",
-      "to": "https://escholarship.org/content/qt59t9h70w/qt59t9h70w.pdf https://www.alastore.ala.org/content/teaching-primary-sources-cookbook",
+      "to": "https://escholarship.org/content/qt59t9h70w/qt59t9h70w.pdf",
       "subtitle": "The New Normal: Temporary Remote Instruction Continues",
       "featured": true,
       "src": "katherine-kapsidelis-ucla-library.jpg",
