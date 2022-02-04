@@ -65,6 +65,11 @@ export default {
             mainStory: MOCK_IMPACT_API.mainStory,
         }
     },
+    head() {
+        return {
+            title: this.bannerHeader.title,
+        }
+    },
     computed: {
         parseVideo() {
             let video = {
