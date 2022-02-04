@@ -85,12 +85,16 @@ export default {
         IconSearch,
     },
     props: {
-        // List of links with the following properties: [{text, url, target}]
+        /**
+         * List of links with the following properties: [{text, url, target}]
+         */ 
         linkItems: {
             type: Array,
             default: () => [],
         },
-        // An advanced search link in this format: {text, url, target}
+        /**
+         * An advanced search link in this format: {text, url, target}
+         */
         advancedSearchLink: {
             type: Object,
             default: () => {},
