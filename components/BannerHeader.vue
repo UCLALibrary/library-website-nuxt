@@ -33,7 +33,7 @@
         </div>
 
         <div class="meta">
-            <h3
+            <h1
                 class="title"
                 v-html="title"
             />
@@ -42,14 +42,13 @@
                 class="snippet"
                 v-html="text"
             />
-            <div
-                v-if="byline"
-                class="schedule"
-            >
+            <div class="byline">
                 <div
+                    v-for="(item, index) in byline"
                     v-if="byline"
-                    class="schedule-item"
-                    v-html="byline"
+                    :key="index"
+                    class="byline-item"
+                    v-html="item"
                 />
                 <time
                     v-if="startDate"
@@ -153,8 +152,8 @@ export default {
             default: "",
         },
         byline: {
-            type: String,
-            default: "",
+            type: Array,
+            default: () => [],
         },
         startDate: {
             type: String,
@@ -303,7 +302,7 @@ export default {
         }
     }
     .media {
-        max-height: 730px;
+        max-height: 66vh;
     }
     .gradient {
         background: $overlay-01;
@@ -370,13 +369,15 @@ export default {
     }
 
     .meta {
-        padding: 0 0 10px 50px;
-        margin: -60px 0 0 0;
+        // padding: 0 0 10px 50px;
+        margin: -60px auto 0;
         position: relative;
         z-index: 40;
-        width: 65%;
+        // width: 65%;
         box-sizing: border-box;
-        padding-left: 240px;
+        // padding-left: 240px;
+        padding-right: 300px;
+        max-width: $content-width-03 + px;
 
         display: flex;
         flex-direction: column;
@@ -396,6 +397,18 @@ export default {
         margin-top: $layout-03 + px;
         line-height: 120%;
     }
+    .byline {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    .byline-item {
+        font-size: 20px;
+        line-height: 24px;
+        text-align: left;
+        color: var(--color-secondary-grey-04);
+        margin-top: 24px;
+    }
     .schedule {
         font-size: 20px;
         line-height: 24px;
@@ -408,7 +421,8 @@ export default {
         flex-wrap: wrap;
     }
 
-    .schedule-item {
+    .schedule-item,
+    .byline-item {
         &:after {
             content: "";
             border-left: 1px solid var(--color-secondary-grey-02);
@@ -476,7 +490,8 @@ export default {
             }
         }
         .meta {
-            padding-left: 75px;
+            padding-left: 300px;
+            padding-right: $margin-02 + px;
             margin-left: auto;
 
             align-content: flex-start;
@@ -490,17 +505,37 @@ export default {
     }
 
     // Breakpoints
-    @media #{$large} {
+    // @media #{$large} {
+    //     .meta {
+    //         margin: -60px 0 0 0;
+    //     }
+    // }
+
+    @media #{$medium} {
         .meta {
-            margin: -60px 0 0 0;
+            padding-left: $margin-01 + px;
+            margin-left: 0;
+        }
+        .byline,
+        .schedule {
+            display: flex;
+            flex-direction: column;
+            padding-left: 0;
+        }
+        .schedule-item,
+        .byline-item {
+            margin-top: 8px;
+            &:after {
+                display: none;
+            }
         }
     }
 
-    @media #{$large} {
-        .meta {
-            padding-left: 148px;
-        }
-    }
+    // @media #{$large} {
+    //     .meta {
+    //         padding-left: 148px;
+    //     }
+    // }
 
     @media #{$small} {
         .media {
@@ -544,12 +579,14 @@ export default {
         .title {
             margin: 10px 0 5px 0px;
         }
+        .byline,
         .schedule {
             display: flex;
             flex-direction: column;
             padding-left: 0;
         }
-        .schedule-item {
+        .schedule-item,
+        .byline-item {
             margin-top: 8px;
             &:after {
                 display: none;

@@ -33,7 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 .section-teaser-card {
-    max-width: 964px;
+    max-width: $content-width-03 + px;
     background-color: var(--color-white);
 
     display: flex;

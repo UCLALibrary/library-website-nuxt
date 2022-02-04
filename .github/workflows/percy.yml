@@ -7,7 +7,8 @@ on:
     inputs: {}
 
 jobs:
-  percy-storybook:
+  percy-components:
+    name: Percy - Storybook Components
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
@@ -30,12 +31,17 @@ jobs:
         key: storybook-${{ github.sha }}
     - run: npm run storybook-build
       if: steps.cache-storybook.outputs.cache-hit != 'true'
-    - run: npm run percy-static
+    - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
+      with:
+        start: docker run -v ${{ github.workspace }}/storybook-static:/usr/share/nginx/html:ro -p 3009:80 nginx
+        command-prefix: 'percy exec -- npx'
+        config-file: cypress.storybook.json
+        wait-on: http://localhost:3009
       env: 
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_STORYBOOK }}
 
-  percy-cypress:
-    name: Cypress tests with Percy screenshots
+  percy-integration:
+    name: Percy - Nuxt Site
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
