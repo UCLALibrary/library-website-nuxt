@@ -7,7 +7,7 @@ describe('Impact Homepage', () => {
 
 
         // Ginny's Letter
-        cy.get('.intro')
+        cy.get('h1.intro')
             .should('contain', 'Impact Report')
         cy.get('.signature').should('contain','Virginia Steel')
 
