@@ -1,5 +1,5 @@
 describe('Impact Homepage', () => {
-    it('Visit the Impact Home Page', () => {
+    it.skip('Visit the Impact Home Page', () => {
         cy.visit('/impact/index.html')
 
         // UCLA Library brand
@@ -7,7 +7,7 @@ describe('Impact Homepage', () => {
 
 
         // Ginny's Letter
-        cy.get('h1.intro', { timeout: 100000 })
+        cy.get('h1.intro')
             .should('contain', 'Impact Report')
         cy.get('.signature').should('contain','Virginia Steel')
 
