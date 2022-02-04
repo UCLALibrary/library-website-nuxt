@@ -33,7 +33,7 @@ jobs:
       if: steps.cache-storybook.outputs.cache-hit != 'true'
     - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
       with:
-        start: docker run -v ${{ github.workspace }}/storybook-static:/usr/share/nginx/html:ro -p 3009:80 nginx
+        start: npx http-server ./storybook-static -p 3009
         command-prefix: 'percy exec -- npx'
         config-file: cypress.storybook.json
         wait-on: http://localhost:3009
@@ -61,7 +61,7 @@ jobs:
         LIBCAL_CLIENT_ID: ${{ secrets.LIBCAL_CLIENT_ID }}
     - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
       with:
-        start: docker run -v ${{ github.workspace }}/dist:/usr/share/nginx/html:ro -p 3000:80 nginx
+        start: npx http-server ./dist -p 3000
         command-prefix: 'percy exec -- npx'
         wait-on: http://localhost:3000
       env: 
