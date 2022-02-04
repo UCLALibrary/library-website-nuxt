@@ -170,6 +170,11 @@ export default {
             page: data,
         }
     },
+    head(){
+        return {
+            title: '2020-2021 UCLA Library Impact Report',
+        }
+    },
     computed: {
         imagePortrait() {
             const portrait = {

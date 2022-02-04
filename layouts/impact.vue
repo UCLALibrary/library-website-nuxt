@@ -32,7 +32,17 @@ export default {
             pressItems: [{ ...MOCK_API.links[0] }],
         }
     },
-    head() {
+    head: {
+        titleTemplate: "%s | UCLA Library", // <-- title template
+        meta: [
+            {
+                hid: "description",
+                name: "description",
+                content: "",
+            },
+        ],
+    },
+    /* head() {
         return {
             htmlAttrs: {
                 lang: "en",
@@ -90,7 +100,7 @@ export default {
                 },
             ],
         }
-    },
+    },*/
     computed: {
         bodyClasses() {
             const classes = ["body", "theme-default"]
