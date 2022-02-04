@@ -296,12 +296,10 @@ export default {
     }
     .title,
     .title-no-link {
-        font-weight: 500;
-        font-size: 28px;
-        letter-spacing: 0.25%;
+        @include step-1;
         color: var(--color-primary-blue-03);
         margin: 16px 0 0 0;
-
+        line-height: $line-height--1;
         /*display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
