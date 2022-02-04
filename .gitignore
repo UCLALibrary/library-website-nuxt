@@ -93,3 +93,6 @@ sw.*
 # Storybook
 .nuxt-storybook
 storybook-static
+
+# Cypress
+cypress/fixtures/example.json
