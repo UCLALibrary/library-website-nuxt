@@ -30,15 +30,18 @@ export default {
     // padding: 0 var(--unit-gutter);
     padding-right: 96px;
 
-    .text {
-    }
-
     ::v-deep h3 {
         font-family: var(--font-primary);
-        font-weight: 400;
-        font-size: 48px;
-        line-height: 150%;
-        letter-spacing: 0.01em;
+        @include step-2;
+        // font-weight: 400;
+        color: var(--color-black);
+    }
+    ::v-deep h4 {
+        font-family: var(--font-primary);
+        color: var(--color-black);
+    }
+    ::v-deep h5 {
+        font-family: var(--font-primary);
         color: var(--color-black);
     }
     ::v-deep p {
@@ -51,10 +54,20 @@ export default {
     }
 
     ::v-deep blockquote {
-        background-color: var(--color-white);
-        max-width: var(--container-width);
-        text-align: left;
-        font-family: var(--font-primary);
+        border-left: 4px solid var(--color-default-cyan-03);
+        border-radius: 2px;
+        padding: 24px var(--spacing-text-left);
+        --spacing-text-left: 64px;
+        --container-width: 600px;
+
+        font-weight: 400;
+        font-size: 20px;
+        font-style: normal;
+        line-height: 140%;
+        align-items: center;
+        text-transform: uppercase;
+        color: var(--color-secondary-grey-05);
+        margin-left: 50px;
 
         // margin: 20px 10px 20px 0;
         p {
@@ -64,16 +77,8 @@ export default {
             line-height: 150%;
             letter-spacing: 0.01em;
             color: var(--color-primary-blue-03);
-        }
-        #text {
-            font-weight: 400;
-            font-size: 20px;
-            font-style: normal;
-            line-height: 140%;
-            align-items: center;
-            text-transform: uppercase;
-            color: var(--color-secondary-grey-05);
-            margin-left: 50px;
+            font-family: var(--font-primary);
+            text-transform: none;
         }
     }
 
@@ -104,15 +109,15 @@ export default {
     }
 
     // Breakpoints
+    @media #{$medium} {
+        padding: 0 $margin-02 + px;
+        max-width: 928px;
+    }
+
     @media #{$small} {
         // .image-block {
         // max-width: 300px;
         // }
-    }
-
-    @media #{$medium} {
-        padding: 0 $margin-02 + px;
-        max-width: 928px;
     }
 }
 </style>
