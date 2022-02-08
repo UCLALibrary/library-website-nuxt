@@ -43,6 +43,7 @@ export default {
     ::v-deep h5 {
         font-family: var(--font-primary);
         color: var(--color-black);
+        @include step-3;
     }
     ::v-deep p {
         font-family: var(--font-primary);
