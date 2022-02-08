@@ -9,6 +9,8 @@
 
 <script>
 export default {
+    components: {},
+
     props: {
         block: {
             type: Object,
@@ -32,26 +34,24 @@ export default {
 
     ::v-deep h3 {
         font-family: var(--font-primary);
-        @include step-2;
-        // font-weight: 400;
         color: var(--color-black);
+        @include step-3;
     }
     ::v-deep h4 {
         font-family: var(--font-primary);
         color: var(--color-black);
+        @include step-2;
     }
     ::v-deep h5 {
         font-family: var(--font-primary);
         color: var(--color-black);
-        @include step-3;
+        @include step-1;
     }
-    ::v-deep p {
+    ::v-deep p,
+    ::v-deep li {
         font-family: var(--font-primary);
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 150%;
-        letter-spacing: 0.01em;
         color: var(--color-black);
+        @include step-0;
     }
 
     ::v-deep blockquote {
@@ -87,7 +87,8 @@ export default {
         display: flex;
         flex-direction: column;
 
-        max-width: 100%;
+        max-width: 50% !important;
+        width: 50% !important;
     }
     ::v-deep figcaption {
         font-family: var(--font-secondary);
@@ -100,13 +101,59 @@ export default {
     }
 
     ::v-deep iframe {
-        max-width: 100%;
+        max-width: 50%;
         object-fit: cover;
     }
 
     ::v-deep img {
-        max-width: 100%;
+        // max-width: 50%;
         object-fit: cover;
+    }
+
+    ::v-deep a {
+        text-decoration: underline;
+        text-decoration-color: var(--color-default-cyan-03);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 1px;
+
+        font-family: var(--font-primary);
+        color: var(--color-black);
+        @include step-0;
+    }
+    ::v-deep ul,
+    ::v-deep ol {
+        padding: 0 16px;
+        margin-bottom: 24px;
+    }
+    ::v-deep ol {
+        li {
+            padding-left: 16px;
+            margin-bottom: 20px;
+        }
+        ::marker {
+            font-family: var(--font-secondary);
+            font-size: 20px;
+            line-height: 1;
+            color: var(--color-primary-blue-03);
+        }
+    }
+
+    ::v-deep ul {
+        li {
+            padding-left: 16px;
+            margin-bottom: 20px;
+        }
+        ::marker {
+            content: url(~/assets/svg/molecule-bullet.svg?url);
+        }
+    }
+
+    // Hover states
+    @media #{$has-hover} {
+        ::v-deep a:hover {
+            color: var(--color-primary-blue-03);
+            @include hover;
+        }
     }
 
     // Breakpoints
@@ -116,9 +163,10 @@ export default {
     }
 
     @media #{$small} {
-        // .image-block {
-        // max-width: 300px;
-        // }
+        ::v-deep img {
+            max-width: 100%;
+            object-fit: cover;
+        }
     }
 }
 </style>

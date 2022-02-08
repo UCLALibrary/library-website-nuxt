@@ -80,3 +80,22 @@ export const ImagePositionLeft = () => ({
          />
     `,
 })
+
+const mockFive = {
+    id: "4004",
+    richText:
+        '<p>Creating Vue components allows us to extract repeatable parts of the interface coupled with its functionality into reusable pieces of code. This alone can get our application pretty far in terms of maintainability and flexibility. However, our collective experience has proved that this alone might not be enough, especially when your application is getting really big – think several hundred components. When dealing with such large applications, sharing and reusing code becomes especially important.</p>\n<figure style="float:left;width:704px;max-width:704px;margin-left:10px;margin-right:10px;"><img src="https://test-craft.library.ucla.edu/assets/shortbread-cookies.jpg" alt="short bread cookies" /><figcaption>yummy short bread cookies</figcaption></figure><p>Let’s imagine that in our app, we have a view to show a list of repositories of a certain user. On top of that, we want to apply search and filter capabilities. Our component handling this view could look like this:</p>\n<p>Creating Vue components allows us to extract repeatable parts of the interface coupled with its functionality into reusable pieces of code. This alone can get our application pretty far in terms of maintainability and flexibility. However, our collective experience has proved that this alone might not be enough, especially when your application is getting really big – think several hundred components. When dealing with such large applications, sharing and reusing code becomes especially important.</p>\n<p>Let’s imagine that in our app, we have a view to show a list of repositories of a certain user. On top of that, we want to apply search and filter capabilities. Our component handling this view could look like this:</p><figure><img src="https://test-craft.library.ucla.edu/assets/IMG_20210829_132932553.jpg" alt="dreaming code" /><figcaption>dreaming code</figcaption></figure> <h3>This is an h3</h3><h4>This is an h4</h4><h5>This is an h5</h5><blockquote>this is a quote</blockquote>\n\n<p>This is normal text</p>\n<p><strong>Bolded text</strong></p>\n<p><em>Italic text</em><del><br /></del></p>\n<p><em><del>Strikethrough</del><br /></em></p><ul><li>an item in unordered</li><li>an item in unordered</li><li>an item in unordered</li></ul>\n<ol><li>this is an ordered list</li><li>ordered list</li></ol>\n<h3><a href="http://google.com/" target="_blank" rel="noreferrer noopener">this is a link</a></h3><h3><br /></h3>',
+}
+
+export const AllRichText = () => ({
+    data() {
+        return {
+            block: mockFive,
+        }
+    },
+    template: `
+         <flexible-rich-text
+         :block="block"
+         />
+    `,
+})
