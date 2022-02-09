@@ -1,8 +1,10 @@
-describe("Flexible RichText", () => {
+describe("FLEXIBLE / Rich Text", () => {
     it("Default", () => {
-        cy.visit("/iframe.html?id=rich-text--default&args=&viewMode=story")
+        cy.visit(
+            "/iframe.html?id=flexible-rich-text--default&args=&viewMode=story"
+        )
         cy.get(".rich-text").should("exist")
 
-        cy.percySnapshot("Rich Text: Default")
+        cy.percySnapshot("FLEXIBLE / Rich Text: Default")
     })
 })
