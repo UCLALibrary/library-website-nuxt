@@ -43,25 +43,6 @@ export const QuoteImage = () => ({
     `,
 })
 
-const mockThree = {
-    id: "3815",
-    richText:
-        '<p>Could you do an actual logo instead of a font I cant pay you? Can we try some other colors maybe? I cant pay you. You might wanna give it another shot, so make it pop and this is just a 5 minutes job the target audience makes and families aged zero and up will royalties in the company do instead of cash.</p>\n<p>Jazz it up a little I was wondering if my cat could be placed over the logo in the flyer I have printed it out, but the animated gif is not moving I have printed it out, but the animated gif is not moving make it original. Can you make it stand out more? Make it original.</p>\n<figure><img src="https://test-craft.library.ucla.edu/assets/_medium/IMG_20210803_081620186.jpg" alt="flower" /><figcaption>A beautiful flower.</figcaption></figure><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
-}
-
-export const ImageNoPosition = () => ({
-    data() {
-        return {
-            block: mockThree,
-        }
-    },
-    template: `
-        <flexible-rich-text
-            :block="block"
-        />
-    `,
-})
-
 const mockFour = {
     id: "4003",
     richText:
