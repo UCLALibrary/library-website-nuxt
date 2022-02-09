@@ -173,6 +173,16 @@ export default {
 
             max-width: 100% !important;
             width: 100% !important;
+            height: auto !important;
+        }
+        ::v-deep iframe {
+            max-width: 100% !important;
+            width: 100% !important;
+            height: auto !important;
+        }
+        ::v-deep blockquote {
+            --spacing-text-left: 24px;
+            --container-width: 100%;
         }
     }
 }
