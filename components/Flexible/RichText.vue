@@ -1,8 +1,8 @@
 <template lang="html">
     <div class="rich-text">
         <div
-            class="text"
-            v-html="parsedRichText"
+            class="parsed-content"
+            v-html="parsedContent"
         />
     </div>
 </template>
@@ -18,7 +18,7 @@ export default {
         },
     },
     computed: {
-        parsedRichText() {
+        parsedContent() {
             return this.block.richText
         },
     },
@@ -29,7 +29,6 @@ export default {
 .rich-text {
     max-width: $content-width-02 + px;
     margin: var(--unit-gutter) auto;
-    // padding: 0 var(--unit-gutter);
     padding-right: 96px;
 
     ::v-deep h3 {
@@ -89,6 +88,8 @@ export default {
 
         max-width: 50% !important;
         width: 50% !important;
+        height: auto !important;
+        margin-left: 0 !important;
     }
     ::v-deep figcaption {
         font-family: var(--font-secondary);
@@ -101,7 +102,8 @@ export default {
     }
 
     ::v-deep iframe {
-        max-width: 50%;
+        // max-width: 50% !important;
+
         object-fit: cover;
     }
 
@@ -158,14 +160,19 @@ export default {
 
     // Breakpoints
     @media #{$medium} {
-        padding: 0 $margin-02 + px;
-        max-width: 928px;
+        .rich-text {
+            padding: 0 $margin-02 + px;
+            max-width: 928px;
+        }
     }
 
     @media #{$small} {
-        ::v-deep img {
-            max-width: 100%;
-            object-fit: cover;
+        ::v-deep figure {
+            display: flex;
+            flex-direction: column;
+
+            max-width: 100% !important;
+            width: 100% !important;
         }
     }
 }
