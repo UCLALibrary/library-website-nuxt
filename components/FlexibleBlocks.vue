@@ -29,6 +29,7 @@ export default {
         FlexiblePullQuote: () => import("~/components/PullQuote.vue"),
         FlexibleCardWithImage: () =>
             import("~/components/Flexible/CardWithImage.vue"),
+        FlexibleRichText: () => import("~/components/Flexible/RichText.vue"),
     },
     props: {
         blocks: {
@@ -95,6 +96,10 @@ function convertName(typeHandle) {
 
         case "cardWithImage":
             output = "card-with-image"
+            break
+
+        case "richText":
+            output = "rich-text"
             break
     }
 
