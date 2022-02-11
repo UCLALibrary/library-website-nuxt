@@ -48,7 +48,7 @@ export default {
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
         })
-
+        console.log("data from craft: " + data.entry.phone)
         return {
             page: data,
         }
