@@ -47,6 +47,7 @@ export default {
         "~/plugins/preview.client.js",
         "~/plugins/web-font-loader.client.js",
         "~/plugins/browser-events.client.js",
+        "~/plugins/craft.js",
     ],
 
     /*
