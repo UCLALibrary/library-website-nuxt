@@ -151,17 +151,17 @@ export default {
         padding: 0 16px;
         margin: 0 0 2rem;
         font-size: 20px;
-    }
 
-    ::v-deep li {
-        margin-bottom: 24px;
-        padding-left: 16px;
-        line-height: 1.6;
+        li {
+            margin-bottom: 24px;
+            padding-left: 16px;
+            line-height: 1.6;
 
-        display: flex;
-        align-items: flex-start;
-        justify-content: flex-start;
-        flex-direction: row;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-direction: row;
+        }
     }
 
     ::v-deep ul li:before {
