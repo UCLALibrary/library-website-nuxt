@@ -1,4 +1,4 @@
-export default function ({ $config, $graphql, query }, inject) {
+export default function ({ $graphql, query }) {
     // Create $craft and inject it into Vue components
     // Usage: `this.$craft({ query: gqlQuery, variables: { uri: `code/${this.$route.params.slug}` } })`
     
