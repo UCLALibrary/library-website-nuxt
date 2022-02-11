@@ -69,7 +69,6 @@ export default {
         color: var(--color-secondary-grey-05);
         margin-left: 50px;
 
-        // margin: 20px 10px 20px 0;
         p {
             font-size: 24px;
             font-style: italic;
@@ -83,7 +82,8 @@ export default {
     }
 
     ::v-deep .figure {
-        max-width: 50%;
+        width: 50%;
+        margin: $layout-02 + px;
 
         display: flex;
         flex-direction: column;
@@ -146,17 +146,6 @@ export default {
         }
     }
 
-    // ::v-deep ul {
-    //     li {
-    //         padding-left: 16px;
-    //         margin-bottom: 20px;
-    //         @include step-0;
-    //     }
-    //     ::marker {
-    //         content: url(~/assets/svg/molecule-bullet.svg?url);
-    //     }
-    // }
-
     ::v-deep ul {
         list-style: none;
         padding: 0 16px;
@@ -204,18 +193,14 @@ export default {
     }
 
     @media #{$small} {
-        ::v-deep figure {
-            display: flex;
-            flex-direction: column;
-
-            max-width: 100% !important;
-            width: 100% !important;
-            height: auto !important;
+        ::v-deep .figure {
+            width: 100%;
+            height: auto;
         }
         ::v-deep iframe {
-            max-width: 100% !important;
-            width: 100% !important;
-            height: auto !important;
+            max-width: 100%;
+            width: 100%;
+            height: auto;
         }
         ::v-deep blockquote {
             --spacing-text-left: 24px;
