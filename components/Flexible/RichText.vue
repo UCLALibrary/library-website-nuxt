@@ -198,7 +198,7 @@ export default {
             height: auto;
         }
         ::v-deep iframe {
-            max-width: 100%;
+            width: 100%;
             width: 100%;
             height: auto;
         }
