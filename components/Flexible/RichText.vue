@@ -82,24 +82,21 @@ export default {
         }
     }
 
-    ::v-deep figure {
-    }
-    ::v-deep .image-right {
-        float: right;
-        margin: $layout-02 + px;
+    ::v-deep .figure {
         max-width: 50%;
 
         display: flex;
         flex-direction: column;
+    }
+
+    ::v-deep .image-right {
+        float: right;
+        margin-left: $layout-02 + px;
     }
 
     ::v-deep .image-left {
         float: left;
-        margin: $layout-02 + px;
-        max-width: 50%;
-
-        display: flex;
-        flex-direction: column;
+        margin-right: $layout-02 + px;
     }
 
     ::v-deep figcaption {
@@ -149,15 +146,45 @@ export default {
         }
     }
 
+    // ::v-deep ul {
+    //     li {
+    //         padding-left: 16px;
+    //         margin-bottom: 20px;
+    //         @include step-0;
+    //     }
+    //     ::marker {
+    //         content: url(~/assets/svg/molecule-bullet.svg?url);
+    //     }
+    // }
+
     ::v-deep ul {
-        li {
-            padding-left: 16px;
-            margin-bottom: 20px;
-            @include step-0;
-        }
-        ::marker {
-            content: url(~/assets/svg/molecule-bullet.svg?url);
-        }
+        list-style: none;
+        padding: 0 16px;
+        margin: 0 0 2rem;
+        font-size: 20px;
+    }
+
+    ::v-deep li {
+        margin-bottom: 24px;
+        padding-left: 16px;
+        line-height: 1.6;
+
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: row;
+    }
+
+    ::v-deep ul li:before {
+        content: "";
+        height: 24px;
+        width: 24px;
+        padding: 0 24px 0 16px;
+        flex-basis: 0;
+
+        background-image: url(~/assets/svg/molecule-bullet.svg?url);
+        background-repeat: no-repeat;
+        background-position-y: 4px; // This will shift the bullet down as needed
     }
 
     // Hover states
