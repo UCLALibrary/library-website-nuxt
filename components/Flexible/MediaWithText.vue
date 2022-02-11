@@ -21,11 +21,15 @@
                 :is-secondary="true"
             />
         </div>
-        <responsive-image
-            v-if="parsedContent[0].image[0]"
-            :image="parsedContent[0].image[0]"
-            :class="parsedContent[0].classes"
-        />
+        <div class="meta">
+            <div class="floating-highlight" />
+            <div class="clipped-date" />
+            <responsive-image
+                v-if="parsedContent[0].image[0]"
+                :image="parsedContent[0].image[0]"
+                :class="parsedContent[0].classes"
+            />
+        </div>
     </div>
 </template>
 
@@ -93,9 +97,9 @@ export default {
 .media-with-text {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: center;
-    align-items: center;
+    // flex-wrap: nowrap;
+    // align-content: center;
+    // align-items: center;
 
     max-width: $content-width-06 + px;
 
@@ -121,10 +125,57 @@ export default {
     .image {
         width: 426px;
         height: 240px;
+        z-index: 0;
+        position: relative;
     }
     .image-mobile {
         display: none;
     }
+
+    .floating-highlight {
+        z-index: 30;
+        position: absolute;
+        width: 123px;
+        top: 156px;
+        // left: 6px;
+        height: 90px;
+        background-color: var(--color-visit-fushia-03);
+
+        clip-path: polygon(
+            0 0,
+            calc(100% - 37px) 0,
+            100% 75px,
+            calc(100% - 1.5px) 75px,
+            calc(100% - 38px) 1.5px,
+            0 1.5px
+        );
+    }
+    .clipped-date {
+        margin-top: 54px;
+        z-index: 30;
+        position: absolute;
+        top: 108px;
+        width: 125px;
+        height: 84px;
+        box-sizing: border-box;
+        background-color: var(--color-white);
+        clip-path: polygon(
+            0 0,
+            calc(100% - 39px) 0,
+            100% 84px,
+            calc(100% - 1.5px) 84px,
+            0 84px,
+            0 1.5px
+        );
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        padding-left: 32px;
+        color: var(--color-primary-blue-03);
+    }
+
     .button {
         width: 176px;
     }
@@ -154,6 +205,15 @@ export default {
                 width: 100%;
                 height: auto;
                 margin-bottom: 24px;
+            }
+            .floating-highlight {
+                display: none;
+            }
+            .floating-highlight {
+                display: none;
+            }
+            .clipped-date {
+                display: none;
             }
 
             .button {
