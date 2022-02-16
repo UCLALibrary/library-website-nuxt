@@ -23,7 +23,7 @@ export default {
         // Determines whether content link or new content is used for props
         parsedContent() {
             let output = ["card", "card-small"]
-            switch (this.block.simpleCard.length) {
+            switch (this.block.simpleCards.length) {
                 case 2:
                 case 4:
                     output = ["card", "card-large"]
@@ -32,7 +32,7 @@ export default {
                     output = ["card", "card-five"]
                     break
             }
-            return this.block.simpleCard.map((obj) => {
+            return this.block.simpleCards.map((obj) => {
                 return {
                     ...obj,
                     text: obj.subheader
