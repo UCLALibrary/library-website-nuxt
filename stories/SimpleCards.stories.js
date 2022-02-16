@@ -1,5 +1,5 @@
 export default {
-    title: "FLEXIBLE / Simple Cards",
+    title: "Simple Cards",
 }
 const mock = {
     simpleCard: [
@@ -93,7 +93,7 @@ export const Default = () => ({
         return { block: mock }
     },
     template: `
-        <flexible-simple-cards
+        <simple-cards
         :block="block"
         />
     `,
@@ -136,7 +136,7 @@ export const TwoCards = () => ({
         return { block: twoCards }
     },
     template: `
-        <flexible-simple-cards
+        <simple-cards
         :block="block"
         />
     `,
@@ -193,7 +193,7 @@ export const ThreeCards = () => ({
         return { block: threeCards }
     },
     template: `
-        <flexible-simple-cards
+        <simple-cards
         :block="block"
         />
     `,
@@ -264,7 +264,7 @@ export const FourCards = () => ({
         return { block: mockOne }
     },
     template: `
-        <flexible-simple-cards
+        <simple-cards
         :block="block"
         />
     `,
@@ -334,7 +334,7 @@ export const FiveCards = () => ({
         return { block: fiveCards }
     },
     template: `
-        <flexible-simple-cards
+        <simple-cards
         :block="block"
         />
     `,

@@ -1,6 +1,6 @@
 <template lang="html">
-    <block-simple-card
-        :items="parsedItems"
+    <simple-cards
+        :block="block"
     />
 </template>
 
@@ -10,11 +10,6 @@ export default {
         block: {
             type: Object,
             default: () => {},
-        },
-    },
-    computed: {
-        parsedItems() {
-            return this.block.simpleCard
         },
     },
 }
