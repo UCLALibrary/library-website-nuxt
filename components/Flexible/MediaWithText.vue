@@ -22,8 +22,14 @@
             />
         </div>
         <div class="meta">
-            <div class="floating-highlight" />
-            <div class="clipped-date" />
+            <div
+                v-if="isVideo || isAudio"
+                class="floating-highlight"
+            />
+            <div
+                v-if="isVideo || isAudio"
+                class="clipped-date"
+            />
             <responsive-image
                 v-if="parsedContent[0].image[0]"
                 :image="parsedContent[0].image[0]"
