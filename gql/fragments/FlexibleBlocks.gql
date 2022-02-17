@@ -89,11 +89,7 @@ fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
     divider
 }
 
-<<<<<<< HEAD
 fragment BlockMediaWithText on allFlexiblePageBlocks_mediaWithText_BlockType {
-=======
-fragment BlockDownloadCallout on allFlexiblePageBlocks_mediaWithText_BlockType {
->>>>>>> aee08f6 (wip)
     id
     mediaWithText {
         ... on mediaWithText_mediaWithText_BlockType {
