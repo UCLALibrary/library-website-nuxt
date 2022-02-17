@@ -6,6 +6,15 @@
                 v-html="sectionHeader"
             />
             <div class="meta-mobile">
+                <responsive-image
+                    v-if="image"
+                    :image="image"
+                    :class="mobileImageClasses"
+                />
+                <div
+                    v-else
+                    class="no-image-mobile"
+                />
                 <div
                     v-if="isVideo || isAudio"
                     class="floating-highlight-mobile"
@@ -21,15 +30,6 @@
                 <svg-icon-headphones
                     v-if="isAudio"
                     class="icon-headphones-mobile"
-                />
-                <responsive-image
-                    v-if="image"
-                    :image="image"
-                    :class="mobileImageClasses"
-                />
-                <div
-                    v-else
-                    class="no-image-mobile"
                 />
             </div>
             <div
@@ -275,12 +275,10 @@ export default {
             align-items: center;
 
             padding: 32px;
-            // max-width: $content-width-02 + px;
-            // margin: 0 var(--unit-gutter);
+            max-width: 100%;
 
             .text-grouping {
                 max-width: 100%;
-                // margin-top: 50px;
                 margin-right: 0;
             }
             .meta {
@@ -327,14 +325,14 @@ export default {
                 );
             }
             .clipped-date-mobile {
-                margin-top: 176px;
+                top: 180px;
                 z-index: 200;
                 position: absolute;
                 width: calc(100% - 200px);
                 height: calc(100% - 10px);
                 box-sizing: border-box;
                 background-color: var(--color-white);
-                // background-color: blue;
+
                 clip-path: polygon(
                     0 0,
                     calc(100% - 39px) 0,
@@ -349,6 +347,11 @@ export default {
                 position: absolute;
                 top: 208px;
                 margin-left: 24px;
+            }
+            .icon-headphones-mobile {
+                z-index: 400;
+                position: absolute;
+                top: 24px;
             }
 
             .button {

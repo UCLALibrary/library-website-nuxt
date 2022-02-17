@@ -31,12 +31,11 @@ export default {
     },
     computed: {
         parsedContent() {
-            console.log(this.block.mediaWithText)
             const mediaWithText = this.block.mediaWithText
             return mediaWithText.map((obj) => {
-                console.log(obj)
                 return {
                     ...obj,
+
                     // classes: output,
                     //video and audio computed
                     //vertcical computed?
