@@ -2,7 +2,7 @@ export default {
     title: "Simple Cards",
 }
 const mock = {
-    simpleCard: [
+    simpleCards: [
         {
             id: "3496",
             linkText: "Different Link text",
@@ -99,7 +99,7 @@ export const Default = () => ({
     `,
 })
 const twoCards = {
-    simpleCard: [
+    simpleCards: [
         {
             id: "3496",
             linkText: null,
@@ -142,7 +142,7 @@ export const TwoCards = () => ({
     `,
 })
 const threeCards = {
-    simpleCard: [
+    simpleCards: [
         {
             id: "3516",
             linkText: "This is a new simple card",
@@ -199,7 +199,7 @@ export const ThreeCards = () => ({
     `,
 })
 const mockOne = {
-    simpleCard: [
+    simpleCards: [
         {
             id: "3516",
             linkText: "This is a new simple card",
@@ -270,7 +270,7 @@ export const FourCards = () => ({
     `,
 })
 const fiveCards = {
-    simpleCard: [
+    simpleCards: [
         {
             id: "3516",
             linkText: "This is a new simple card",
