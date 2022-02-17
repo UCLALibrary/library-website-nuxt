@@ -131,17 +131,6 @@ export default {
                 ? ["image-mobile is-vertical"]
                 : ["image-mobile is-horizontal"]
         },
-        // isInternalLink() {
-        //     return this.to.includes("library.ucla.edu") ? true : false
-        // },
-        // parsedTarget() {
-        //     return this.isInternalLink ? "_self" : "blank"
-        // },
-        // parsedIconName() {
-        //     return this.isInternalLink
-        //         ? "svg-arrow-right-small"
-        //         : "svg-arrow-diagonal"
-        // },
     },
 }
 </script>
