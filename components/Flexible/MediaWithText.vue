@@ -3,21 +3,28 @@
         <div class="text-grouping">
             <div
                 class="section-header"
-                v-html="parsedContent.sectionHeader"
+                v-html="parsedContent[0].sectionHeader"
+            />
+            <responsive-image
+                v-if="parsedContent[0].image[0]"
+                :image="parsedContent[0].image[0]"
+                :class="parsedContent[0].mobileClasses"
             />
             <div
+                v-if="parsedContent[0].shortDescription"
                 class="short-description"
-                v-html="parsedContent.shortDescription"
+                v-html="parsedContent[0].shortDescription"
             />
             <button-link
                 class="button"
-                :label="parsedContent.buttonText"
+                :label="parsedContent[0].buttonText"
                 :is-secondary="true"
             />
         </div>
         <responsive-image
-            :image="parsedContent.image[0]"
-            class="image"
+            v-if="parsedContent[0].image[0]"
+            :image="parsedContent[0].image[0]"
+            :class="parsedContent[0].classes"
         />
     </div>
 </template>
@@ -40,7 +47,31 @@ export default {
     },
     computed: {
         parsedContent() {
-            return this.block.mediaWithText[0]
+            const mediaWithText = this.block.mediaWithText
+            let output = ["image"]
+            let mobile = ["image-mobile"]
+            // switch (this.block.mediaWithText[0]) {
+            //     case this.isVideo:
+            //         output = ["image", "image-mobile", "image-video"]
+            //         break
+            //     case this.isAudio:
+            //         output = ["image", "image-mobile", "image-audio"]
+            //         break
+            // }
+            return mediaWithText.map((obj) => {
+                console.log(obj)
+                return {
+                    ...obj,
+                    classes: output,
+                    mobileClasses: mobile,
+                }
+            })
+        },
+        isVideo() {
+            return false
+        },
+        isAudio() {
+            return false
         },
 
         isInternalLink() {
@@ -91,14 +122,45 @@ export default {
         width: 426px;
         height: 240px;
     }
+    .image-mobile {
+        display: none;
+    }
     .button {
         width: 176px;
     }
 
-    // // Breakpoints
-    // @media #{$medium} {
-    //     width: 300px;
-    // }
-    //
+    // Breakpoints
+    @media #{$small} {
+        &.media-with-text {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+
+            padding: 32px;
+
+            .text-grouping {
+                max-width: 100%;
+                // margin-top: 50px;
+                margin-right: 0;
+            }
+            .image {
+                display: none;
+            }
+            .image-mobile {
+                display: block;
+                width: 100%;
+                height: auto;
+                margin-bottom: 24px;
+            }
+
+            .button {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+    }
 }
 </style>
