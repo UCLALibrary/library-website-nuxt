@@ -5,15 +5,33 @@
                 class="section-header"
                 v-html="sectionHeader"
             />
-            <responsive-image
-                v-if="image"
-                :image="image"
-                :class="mobileImageClasses"
-            />
-            <div
-                v-else
-                class="no-image-mobile"
-            />
+            <div class="meta-mobile">
+                <div
+                    v-if="isVideo || isAudio"
+                    class="floating-highlight-mobile"
+                />
+                <div
+                    v-if="isVideo || isAudio"
+                    class="clipped-date-mobile"
+                />
+                <svg-icon-play-filled
+                    v-if="isVideo || isAudio"
+                    class="icon-play-filled-mobile"
+                />
+                <svg-icon-headphones
+                    v-if="isAudio"
+                    class="icon-headphones-mobile"
+                />
+                <responsive-image
+                    v-if="image"
+                    :image="image"
+                    :class="mobileImageClasses"
+                />
+                <div
+                    v-else
+                    class="no-image-mobile"
+                />
+            </div>
             <div
                 v-if="shortDescription"
                 class="short-description"
@@ -169,6 +187,8 @@ export default {
     .is-horizontal {
         width: 426px;
         height: 240px;
+        // width: 100%;
+        // height: auto;
     }
     .is-vertical {
         width: 426px;
@@ -183,10 +203,7 @@ export default {
         background-color: var(--color-primary-blue-02);
     }
 
-    .image-mobile {
-        display: none;
-    }
-    .no-image-mobile {
+    .meta-mobile {
         display: none;
     }
 
@@ -210,6 +227,7 @@ export default {
     }
     .clipped-date {
         margin-top: 54px;
+        left: -1px;
         z-index: 30;
         position: absolute;
         top: 108px;
@@ -230,12 +248,16 @@ export default {
     .icon-play-filled {
         z-index: 40;
         position: absolute;
-        top: 180px;
-        margin-left: 16px;
+        top: 186px;
+        margin-left: 24px;
+        transform: scale(150%);
     }
     .icon-headphones {
         z-index: 30;
         position: absolute;
+        right: auto;
+        left: 50%;
+        top: 30%;
     }
 
     .button {
@@ -253,33 +275,80 @@ export default {
             align-items: center;
 
             padding: 32px;
+            // max-width: $content-width-02 + px;
+            // margin: 0 var(--unit-gutter);
 
             .text-grouping {
                 max-width: 100%;
                 // margin-top: 50px;
                 margin-right: 0;
             }
-            .image,
-            .no-image,
-            .icon-play-filled,
-            .icon-headphones {
+            .meta {
                 display: none;
             }
-            .image-mobile,
-            .no-image-mobile {
+            .meta-mobile {
+                display: block;
+
                 display: block;
                 width: 100%;
                 height: auto;
                 margin-bottom: 24px;
+                z-index: 0;
+                position: relative;
             }
-            .floating-highlight {
-                display: none;
+            .image-mobile {
+                width: 100%;
+                height: auto;
+                z-index: 10;
+                position: relative;
             }
-            .floating-highlight {
-                display: none;
+            .no-image-mobile {
+                width: 200px;
+                height: 200px;
+                z-index: 10;
+                position: relative;
+                background-color: var(--color-primary-blue-02);
             }
-            .clipped-date {
-                display: none;
+            .floating-highlight-mobile {
+                z-index: 100;
+                position: absolute;
+                width: 116px;
+                top: 168px;
+                height: 90px;
+                background-color: var(--color-visit-fushia-03);
+
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 37px) 0,
+                    100% 75px,
+                    calc(100% - 1.5px) 75px,
+                    calc(100% - 38px) 1.5px,
+                    0 1.5px
+                );
+            }
+            .clipped-date-mobile {
+                margin-top: 176px;
+                z-index: 200;
+                position: absolute;
+                width: calc(100% - 200px);
+                height: calc(100% - 10px);
+                box-sizing: border-box;
+                background-color: var(--color-white);
+                // background-color: blue;
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 39px) 0,
+                    100% 84px,
+                    calc(100% - 1.5px) 84px,
+                    0 84px,
+                    0 1.5px
+                );
+            }
+            .icon-play-filled-mobile {
+                z-index: 400;
+                position: absolute;
+                top: 208px;
+                margin-left: 24px;
             }
 
             .button {
