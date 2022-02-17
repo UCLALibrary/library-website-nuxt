@@ -17,7 +17,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockPullQuote
         ...BlockRichText
         ...BlockHelpTopicCards
-        ...BlockSimpleCard
+        ...BlockSimpleCards
         ...BlockHighlight
     }
 }
@@ -36,7 +36,7 @@ fragment BlockCardWithImage on allFlexiblePageBlocks_cardWithImage_BlockType {
             imageAltText
             contentLink {
                 id
-                url
+                to: url
                 uri
                 title
                 date {
@@ -86,7 +86,7 @@ fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
 
 fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
     id
-    weight: divider
+    divider
 }
 
 fragment BlockDownloadCallout on allFlexiblePageBlocks_downloadCallout_BlockType {
@@ -244,22 +244,22 @@ fragment BlockHelpTopicCards on allFlexiblePageBlocks_helpTopicCards_BlockType {
     }
 }
 
-fragment BlockSimpleCard on allFlexiblePageBlocks_simpleCard_BlockType {
-    id
-    simpleCard {
-        ... on simpleCard_simpleCard_BlockType {
-            id
-            linkText
-            contentLink {
-                id
-                url
-                title
-                text: shortDescription
-            }
-            subheader
-            externalLink
-        }
+fragment BlockSimpleCards on allFlexiblePageBlocks_simpleCards_BlockType {
+  id
+  simpleCards {
+    ... on simpleCards_simpleCard_BlockType {
+      id
+      linkText
+      contentLink {
+        id
+        url
+        title
+        text: shortDescription
+      }
+      subheader
+      externalLink
     }
+  }
 }
 
 fragment BlockHighlight on allFlexiblePageBlocks_highlight_BlockType {

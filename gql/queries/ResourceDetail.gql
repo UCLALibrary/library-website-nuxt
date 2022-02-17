@@ -1,8 +1,8 @@
 #import "~/gql/fragments/FlexibleBlocks"
 #import "~/gql/fragments/Image"
-query ServiceDetail($slug: [String!]) {
-  entry(section: "service", slug: $slug) {
-    ... on service_service_Entry {
+query ResourceDetail($slug: [String!]) {
+  entry(section: "resource", slug: $slug) {
+    ... on resource_resource_Entry {
       id
       shortDescription
       title
@@ -39,7 +39,7 @@ query ServiceDetail($slug: [String!]) {
         id
         ... on helpTopic_helpTopic_Entry {
           id
-          shortDescription
+          text: shortDescription
           title
           helpTopicBlock {
             ... on helpTopicBlock_subheader_BlockType {

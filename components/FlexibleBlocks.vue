@@ -2,9 +2,9 @@
     <div class="flexible-blocks">
         <component
             :is="block.componentName"
-            v-bind="block"
             v-for="block in parsedBlocks"
             :key="block.id"
+            :block="block"
             class="flexible-block"
         />
     </div>
@@ -18,6 +18,7 @@ export default {
     components: {
         // TODO register all other block types
         FlexibleCta: () => import("~/components/Flexible/CtaBlockContentWidth"),
+        FlexibleCtaBlock2Up: () => import("~/components/Flexible/CtaBlock2Up"),
         FlexibleDivider: () => import("~/components/Flexible/Divider"),
         FlexibleHelpTopicCards: () =>
             import("~/components/Flexible/HelpTopicCards.vue"),
@@ -26,7 +27,7 @@ export default {
         FlexibleHighlight: () => import("~/components/Flexible/Highlight.vue"),
         FlexibleSimpleCards: () =>
             import("~/components/Flexible/SimpleCards.vue"),
-        FlexiblePullQuote: () => import("~/components/PullQuote.vue"),
+        FlexiblePullQuote: () => import("~/components/Flexible/PullQuote.vue"),
         FlexibleCardWithImage: () =>
             import("~/components/Flexible/CardWithImage.vue"),
         FlexibleRichText: () => import("~/components/Flexible/RichText.vue"),
@@ -41,16 +42,22 @@ export default {
         parsedBlocks() {
             // Shape blocks to work with components
             let output = this.blocks.map((obj) => {
+                // console.log(obj)
                 return {
                     ...obj,
                     componentName: convertName(obj.typeHandle),
                 }
             })
-
+            // console.log(output)
             // Remove any un-registered blocks
-            return output.filter((obj) => {
+            output = output.filter((obj) => {
+                console.log(
+                    this.registeredComponents.includes(obj.componentName)
+                )
                 return this.registeredComponents.includes(obj.componentName)
             })
+
+            return output
         },
         registeredComponents() {
             // Get all local component names as kebabCase, used to check if component is registered above
@@ -64,44 +71,6 @@ export default {
 
 function convertName(typeHandle) {
     let output = `flexible-${typeHandle}`
-
-    switch (typeHandle) {
-        case "ctaBlockContentWidth":
-            output = "cta"
-            break
-
-        case "divider":
-            output = "divider"
-            break
-
-        case "helpTopicCards":
-            output = "help-topic-cards"
-            break
-
-        case "bannerFeatured":
-            output = "banner-featured"
-            break
-
-        case "highlight":
-            output = "highlight"
-            break
-
-        case "simpleCards":
-            output = "simple-cards"
-            break
-
-        case "pullQuote":
-            output = "pull-quote"
-            break
-
-        case "cardWithImage":
-            output = "card-with-image"
-            break
-
-        case "richText":
-            output = "rich-text"
-            break
-    }
 
     return _kebabCase(output)
 }

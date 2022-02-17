@@ -44,11 +44,10 @@ import STAFF_DETAIL from "~/gql/queries/StaffDetail"
 
 export default {
     async asyncData({ $graphql, params }) {
-        console.log("fecthing graphql data for staff from Craft")
+        // console.log("fecthing graphql data for staff from Craft")
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
         })
-        console.log("data from craft: " + data.entry.phone)
         return {
             page: data,
         }
