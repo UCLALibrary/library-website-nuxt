@@ -4,10 +4,7 @@
  * @returns {Array}
  */
 function removeEmpties(arr) {
-    return arr.filter((value) => {
-        console.log("test filter: "+Object.keys(value).length)
-        return Object.keys(value).length !== 0
-    })
+    return arr.filter((value) => Object.keys(value).length !== 0)
 }
 
 export default removeEmpties

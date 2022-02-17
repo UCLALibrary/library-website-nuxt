@@ -15,7 +15,6 @@
                 v-html="text"
             />
         </div>
-
         <div class="cards">
             <block-card-vertical
                 v-for="item in items"

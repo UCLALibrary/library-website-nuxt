@@ -52,12 +52,14 @@ query ResourceDetail($slug: [String!]) {
                   title
                   text: shortDescription
                   iconName: illustrationsResourcesAndServices
+                  to: slug
                 }
                 ... on resource_resource_Entry {
                   id
                   iconName: illustrationsResourcesAndServices
                   title
                   text: shortDescription
+                  to: slug
                 }
               }
             }

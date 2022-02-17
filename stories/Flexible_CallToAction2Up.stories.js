@@ -1,5 +1,5 @@
 export default {
-    title: "FLEXIBLE / Call To Action Two Up",
+    title: "FLEXIBLE / Call To Action 2 Up",
 }
 
 const mock = {
@@ -32,7 +32,7 @@ export const Default = () => ({
         return { block: mock }
     },
     template: `
-        <flexible-cta-block-two-up
+        <flexible-cta-block-2-up
             :block="block"
         />
     `,
