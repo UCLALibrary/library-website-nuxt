@@ -30,9 +30,9 @@
                 />
                 <ul class="department">
                     <li
-                        v-for="department in departments"
-                        :key="department.id"
-                        v-html="department.title"
+                        v-for="(department, index) in departments"
+                        :key="index"
+                        v-html="department"
                     />
                 </ul>
             </div>
