@@ -34,22 +34,10 @@ export default {
             const mediaWithText = this.block.mediaWithText
 
             return mediaWithText.map((obj) => {
-                console.log(obj.mediaType)
-                let video = false
-                let audio = false
-                // let vertical = false
-                switch (obj.mediaType) {
-                    case "video":
-                        video = true
-                        break
-                    case "audio":
-                        audio = true
-                        break
-                }
                 return {
                     ...obj,
-                    parsedIsVideo: video,
-                    parsedIsAudio: audio,
+                    parsedIsVideo: obj.mediaType == "video" ? true : false,
+                    parsedIsAudio: obj.mediaType == "audio" ? true : false,
                     parsedIsVertical: obj.verticalImage == "yes" ? true : false,
                 }
             })
