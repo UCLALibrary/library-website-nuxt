@@ -19,48 +19,42 @@
             :locations="page.locations"
         />
         <divider-way-finder color="help" />
-
+        <h2 class="more-info">
+            More Information
+        </h2>
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
         />
         <divider-way-finder color="help" />
-
-        <section-cards
-            v-if="page.helpTopic.length > 0"
+        <!-- TO DO write a computed property to parse associated content -->
+        <!--section-cards
+            v-if="page.resourceServiceWorkshop.length > 0"
             :items="
-                page.helpTopic[0].helpTopicBlock[0]
-                    .associatedServicesResourcesAndWorkshops
+                page.resourceServiceWorkshop[0]
             "
             :title="page.helpTopic[0].title"
             :text="page.helpTopic[0].text"
             to="/help/services-resources"
-        />
+        /-->
     </section>
 </template>
 
 <script>
 // GQL
-import SERVICE_DETAIL from "~/gql/queries/ServiceDetail"
-import RESOURCE_DETAIL from "~/gql/queries/ResourceDetail"
-import QUERY_HANDLE from "~/gql/queries/QueryHandle"
+import SERVICE_OR_RESOURCE_DETAIL from "~/gql/queries/ServiceOrResourceDetail"
 
 // Helpers
 import _get from "lodash/get"
 
 export default {
     async asyncData({ $graphql, params }) {
-        const handle = await $graphql.default.request(QUERY_HANDLE, {
-            slug: params.slug,
-        })
-        const query =
-            handle.entry.typeHandle == "service"
-                ? SERVICE_DETAIL
-                : RESOURCE_DETAIL
-        const data = await $graphql.default.request(query, {
-            slug: params.slug,
-        })
-        console.log("handle:" + handle.entry.typeHandle)
+        const data = await $graphql.default.request(
+            SERVICE_OR_RESOURCE_DETAIL,
+            {
+                slug: params.slug,
+            }
+        )
         return {
             page: _get(data, "entry", {}),
         }
@@ -70,5 +64,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-service-detail {
+    .more-info {
+        display: none;
+    }
 }
 </style>
