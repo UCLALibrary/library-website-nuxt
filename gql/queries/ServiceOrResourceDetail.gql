@@ -1,7 +1,6 @@
-#import "~/gql/fragments/FlexibleBlocks"
 #import "~/gql/fragments/Image"
 query ServiceOrResourceDetail($slug: [String!]){
-  entry(section: "serviceOrResource", slug: "sample-service-page-with-faqs") {
+  entry(section: "serviceOrResource", slug: $slug) {
     ... on serviceOrResource_serviceOrResource_Entry {
       id
       button: buttonUrl {
@@ -21,7 +20,7 @@ query ServiceOrResourceDetail($slug: [String!]){
           altText
         }
       }
-      serviceOrResourceType
+      type: serviceOrResourceType
       title
       text: shortDescription
       locations: associatedLocations {
@@ -36,15 +35,36 @@ query ServiceOrResourceDetail($slug: [String!]){
           title
           to: slug
         }
+        ... on serviceOrResource_serviceOrResource_Entry {
+          id
+          to: slug
+          text: shortDescription
+          serviceOrResourceType
+          title
+        }
+        # ... on researchGuide_default_Entry {
+        #   id
+        #   researchGuide {
+        #     id
+        #     ... on researchGuide_researchGuide_BlockType {
+        #       id
+        #       researchGuideTitle
+        #       to: researchGuideURL
+        #       text: shortDescription
+        #     }
+        #   }
+        # }
         ... on helpTopic_helpTopic_Entry {
           id
           helpTopicBlock {
+            id
             ... on helpTopicBlock_subheader_BlockType {
               id
               subheader
               subheaderShortDescription
               title
               associatedServicesResourcesAndWorkshops {
+                id
                 ... on workshop_workshop_Entry {
                   id
                   text: shortDescription
@@ -62,26 +82,55 @@ query ServiceOrResourceDetail($slug: [String!]){
             }
           }
         }
-        ... on serviceOrResource_serviceOrResource_Entry {
-          id
-          to: slug
-          text: shortDescription
-          serviceOrResourceType
-          title
-        }
-        ... on researchGuide_default_Entry {
-          id
-          researchGuide {
-            ... on researchGuide_researchGuide_BlockType {
-              id
-              researchGuideTitle
-              to: researchGuideURL
-              text: shortDescription
-            }
-          }
-        }
       }
     }
-    ...FlexibleBlocks
+    ...FlexibleBlocksServiceOrResource
+  }
+}
+fragment FlexibleBlocksServiceOrResource on ElementInterface {
+  blocks: serviceOrResourceBlocks {
+    id
+    typeHandle
+    ...BlockDivider
+    ...BlockPullQuote
+    ...BlockSimpleCards
+    ...BlockRichText
+  }
+}
+
+fragment BlockRichText on serviceOrResourceBlocks_richText_BlockType {
+  richText
+}
+
+fragment BlockPullQuote on serviceOrResourceBlocks_pullQuote_BlockType {
+  id
+  pullQuote {
+    ... on pullQuote_pullQuote_BlockType {
+      text
+      attribution
+    }
+  }
+}
+
+fragment BlockDivider on serviceOrResourceBlocks_divider_BlockType {
+  id
+  divider
+}
+
+fragment BlockSimpleCards on serviceOrResourceBlocks_simpleCards_BlockType {
+  id
+  simpleCards {
+    ... on simpleCards_simpleCard_BlockType {
+      id
+      linkText
+      contentLink {
+        id
+        url
+        title
+        text: shortDescription
+      }
+      subheader
+      externalLink
+    }
   }
 }
