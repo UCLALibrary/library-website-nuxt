@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="media-with-text">
         <div class="text-grouping">
-            <div
+            <h3
                 class="section-header"
                 v-html="sectionHeader"
             />
@@ -19,7 +19,7 @@
                     <div
                         v-if="isVideo || isAudio"
                         class="floating-highlight-mobile"
-                     />
+                    />
                     <div
                         v-if="isVideo || isAudio"
                         class="clipped-date-mobile"
@@ -44,6 +44,7 @@
                 :label="buttonText"
                 :is-secondary="true"
                 :to="to"
+                :icon-name="parsedIconName"
             />
         </div>
         <div class="meta">
@@ -51,7 +52,7 @@
                 <div
                     v-if="isVideo || isAudio"
                     class="floating-highlight"
-                    />
+                />
                 <div
                     v-if="isVideo || isAudio"
                     class="clipped-date"
@@ -61,7 +62,7 @@
                     class="icon-play-filled"
                 />
             </div>
-             <svg-icon-headphones
+            <svg-icon-headphones
                 v-if="isAudio"
                 class="icon-headphones"
             />
@@ -139,6 +140,13 @@ export default {
                 ? ["image-mobile is-vertical"]
                 : ["image-mobile is-horizontal"]
         },
+        isInternalLink() {
+            return this.to.includes("library.ucla.edu") ? true : false
+        },
+        parsedTarget() {
+            return this.isInternalLink ? "_self" : "blank"
+        },
+        parsedIconName() {},
     },
 }
 </script>
@@ -154,7 +162,7 @@ export default {
     max-width: $content-width-06 + px;
 
     .text-grouping {
-        max-width: 40%;
+        // max-width: 40%;
         margin-right: 50px;
 
         display: flex;

@@ -1,5 +1,8 @@
 <template lang="html">
-    <div class="section-media-with-text">
+    <div :class="classes">
+        <h2 class="visually-hidden">
+            Resources
+        </h2>
         <div
             v-for="(item, index) in parsedContent"
             :key="index"
@@ -10,13 +13,16 @@
                 :short-description="item.shortDescription"
                 :image="item.image"
                 :button-text="item.buttonText"
-                :to="item.to"
+                :to="item.parsedTo"
                 :is-audio="item.parsedIsAudio"
                 :is-video="item.parsedIsVideo"
                 :is-vertical="item.parsedIsVertical"
                 class="flexible-media-with-text"
             />
-            <divider-general class="divider" />
+            <divider-general
+                class="divider"
+                :is-bold="isBoldDivider"
+            />
         </div>
     </div>
 </template>
@@ -27,6 +33,10 @@ export default {
         block: {
             type: Object,
             default: () => {},
+        },
+        isGreyBackground: {
+            type: Boolean,
+            default: false,
         },
     },
     computed: {
@@ -39,40 +49,62 @@ export default {
                     parsedIsVideo: obj.mediaType == "video" ? true : false,
                     parsedIsAudio: obj.mediaType == "audio" ? true : false,
                     parsedIsVertical: obj.verticalImage == "yes" ? true : false,
+                    parsedTo: obj.mediaWithTextLink
+                        ? obj.mediaWithTextLink
+                        : obj.downloadAssetLink[0].url,
                 }
             })
         },
+        isBoldDivider() {
+            return this.isGreyBackground ? true : false
+        },
+        classes() {
+            return this.isGreyBackground
+                ? ["section-media-with-text", "color-grey"]
+                : ["section-media-with-text"]
+        },
     },
-    isVideo() {},
 }
 </script>
 
 <style lang="scss" scoped>
 .section-media-with-text {
-    // display: flex;
-    // flex-direction: column;
-    // flex-wrap: nowrap;
-    // align-content: center;
-    // align-items: center;
-    // justify-content: center;
+    // Themes
+    --color-theme: var(--color-white);
+    &.color-grey {
+        --color-theme: var(--color-secondary-grey-02);
+    }
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
 
     max-width: $content-width-06 + px;
+    background-color: var(--color-theme);
+    padding-top: 96px;
+    padding-bottom: 114px;
+
+    .visually-hidden {
+        display: none;
+    }
 
     .meta {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        align-content: center;
-        align-items: center;
-        justify-content: center;
+        margin: 0 var(--unit-gutter);
     }
 
     .flexible-media-with-text {
         margin-bottom: 56px;
     }
     .divider {
-        width: 100%;
+        max-width: $content-width-06 + px;
         margin-bottom: 56px;
+
+        &:last-child:after {
+            display: none;
+        }
     }
 }
 </style>

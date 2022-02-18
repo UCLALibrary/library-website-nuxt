@@ -6,11 +6,12 @@ const mock = {
     mediaWithText: [
         {
             id: "4527",
-            sectionHeader: "This is a Media With Text",
+            sectionHeader:
+                "This is a Media With Text with a Really Really Really Long Title Like Really Long",
             shortDescription:
                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
             buttonText: "Download",
-            to: "http://google.com",
+            mediaWithTextLink: "http://google.com",
             mediaType: "resource",
             image: {
                 id: "2338",
@@ -28,7 +29,7 @@ const mock = {
             shortDescription:
                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
             buttonText: "Download",
-            to: "http://google.com",
+            mediaWithTextLink: "http://google.com",
             mediaType: "audio",
         },
         {
@@ -37,7 +38,7 @@ const mock = {
             shortDescription:
                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
             buttonText: "Download",
-            to: "http://google.com",
+            mediaWithTextLink: "http://google.com",
             mediaType: "video",
             image: {
                 id: "2338",
@@ -55,7 +56,12 @@ const mock = {
             shortDescription:
                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
             buttonText: "Download",
-            to: "http://google.com",
+            downloadAssetLink: [
+                {
+                    id: "3101",
+                    url: "http://ucla-craft.nitro/assets/IMG_20210803_081620186.jpg",
+                },
+            ],
             verticalImage: "yes",
             image: {
                 id: "2338",
@@ -77,6 +83,19 @@ export const Default = () => ({
     template: `
         <flexible-section-media-with-text
             :block="block"
+
+        />
+    `,
+})
+
+export const IsGreyBackground = () => ({
+    data() {
+        return { block: mock }
+    },
+    template: `
+        <flexible-section-media-with-text
+            :block="block"
+            :is-grey-background=true
 
         />
     `,
