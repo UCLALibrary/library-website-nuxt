@@ -4,7 +4,7 @@
         :class="classes"
     >
         <div class="meta">
-            <h2
+            <span
                 class="section"
                 v-html="sectionName"
             />
