@@ -15,18 +15,20 @@
                     v-else
                     class="no-image-mobile"
                 />
-                <div
-                    v-if="isVideo || isAudio"
-                    class="floating-highlight-mobile"
-                />
-                <div
-                    v-if="isVideo || isAudio"
-                    class="clipped-date-mobile"
-                />
-                <svg-icon-play-filled
-                    v-if="isVideo || isAudio"
-                    class="icon-play-filled-mobile"
-                />
+                <div class="clippy">
+                    <div
+                        v-if="isVideo || isAudio"
+                        class="floating-highlight-mobile"
+                     />
+                    <div
+                        v-if="isVideo || isAudio"
+                        class="clipped-date-mobile"
+                    />
+                    <svg-icon-play-filled
+                        v-if="isVideo || isAudio"
+                        class="icon-play-filled-mobile"
+                    />
+                </div>
                 <svg-icon-headphones
                     v-if="isAudio"
                     class="icon-headphones-mobile"
@@ -45,17 +47,23 @@
             />
         </div>
         <div class="meta">
-            <div
-                v-if="isVideo || isAudio"
-                class="floating-highlight"
-            />
-            <div
-                v-if="isVideo || isAudio"
-                class="clipped-date"
-            />
-            <svg-icon-play-filled
-                v-if="isVideo || isAudio"
-                class="icon-play-filled"
+            <div class="clippy">
+                <div
+                    v-if="isVideo || isAudio"
+                    class="floating-highlight"
+                    />
+                <div
+                    v-if="isVideo || isAudio"
+                    class="clipped-date"
+                />
+                <svg-icon-play-filled
+                    v-if="isVideo || isAudio"
+                    class="icon-play-filled"
+                />
+            </div>
+             <svg-icon-headphones
+                v-if="isAudio"
+                class="icon-headphones"
             />
             <svg-icon-headphones
                 v-if="isAudio"
@@ -83,7 +91,7 @@ export default {
             ),
         SvgIconPlayFilled: () =>
             import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-play-filled"
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-play"
             ),
     },
     props: {
@@ -195,14 +203,19 @@ export default {
     .meta-mobile {
         display: none;
     }
-
-    .floating-highlight {
-        z-index: 30;
+    .clippy {
+        z-index: 100;
         position: absolute;
-        width: 123px;
-        top: 156px;
-        margin-left: 5px;
-        height: 90px;
+        bottom: 0;
+        left: 0;
+    }
+    .floating-highlight {
+        z-index: 200;
+        position: absolute;
+        bottom: 8px;
+        left: 5px;
+        width: 112px;
+        height: 72px;
         background-color: var(--color-visit-fushia-03);
 
         clip-path: polygon(
@@ -215,38 +228,40 @@ export default {
         );
     }
     .clipped-date {
-        margin-top: 54px;
-        left: -1px;
-        z-index: 30;
+        bottom: 0;
+        left: 0;
+        z-index: 200;
         position: absolute;
-        top: 108px;
-        width: calc(100% - 300px);
-        height: calc(100% - 100px);
+        width: 112px;
+        height: 72px;
         box-sizing: border-box;
         background-color: var(--color-white);
-        // background-color: blue;
+
         clip-path: polygon(
             0 0,
-            calc(100% - 39px) 0,
-            100% 84px,
+            calc(100% - 38px) 0,
+            100% 78px,
             calc(100% - 1.5px) 84px,
             0 84px,
             0 1.5px
         );
     }
+    .svg__icon-play {
+        fill: var(--color-primary-blue-03);
+    }
     .icon-play-filled {
-        z-index: 40;
+        z-index: 400;
         position: absolute;
-        top: 186px;
+        bottom: 16px;
         margin-left: 24px;
-        transform: scale(150%);
     }
     .icon-headphones {
-        z-index: 30;
+        z-index: 400;
         position: absolute;
-        right: auto;
         left: 50%;
-        top: 30%;
+        margin-left: -40px;
+        top: 50%;
+        margin-top: -40px;
     }
 
     .button {
@@ -290,18 +305,19 @@ export default {
                 position: relative;
             }
             .no-image-mobile {
-                width: 200px;
+                width: 100%;
                 height: 200px;
                 z-index: 10;
                 position: relative;
                 background-color: var(--color-primary-blue-02);
             }
             .floating-highlight-mobile {
-                z-index: 100;
+                z-index: 200;
                 position: absolute;
-                width: 116px;
-                top: 168px;
-                height: 90px;
+                bottom: 8px;
+                left: 5px;
+                width: 112px;
+                height: 72px;
                 background-color: var(--color-visit-fushia-03);
 
                 clip-path: polygon(
@@ -314,18 +330,19 @@ export default {
                 );
             }
             .clipped-date-mobile {
-                top: 180px;
+                bottom: 0;
+                left: 0;
                 z-index: 200;
                 position: absolute;
-                width: calc(100% - 200px);
-                height: calc(100% - 10px);
+                width: 112px;
+                height: 72px;
                 box-sizing: border-box;
                 background-color: var(--color-white);
 
                 clip-path: polygon(
                     0 0,
-                    calc(100% - 39px) 0,
-                    100% 84px,
+                    calc(100% - 38px) 0,
+                    100% 78px,
                     calc(100% - 1.5px) 84px,
                     0 84px,
                     0 1.5px
@@ -334,13 +351,16 @@ export default {
             .icon-play-filled-mobile {
                 z-index: 400;
                 position: absolute;
-                top: 208px;
+                bottom: 16px;
                 margin-left: 24px;
             }
             .icon-headphones-mobile {
                 z-index: 400;
                 position: absolute;
-                top: 24px;
+                left: 50%;
+                margin-left: -40px;
+                top: 50%;
+                margin-top: -40px;
             }
 
             .button {
