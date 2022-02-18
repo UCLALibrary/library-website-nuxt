@@ -1,5 +1,0 @@
-query QueryHandle($slug: [String!]) {
-  entry(slug: $slug) {
-    typeHandle
-  }
-}

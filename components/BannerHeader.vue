@@ -5,7 +5,7 @@
             class="category"
         >
             <svg-heading-vector class="heading-line" />
-            <h3
+            <div
                 class="text"
                 v-html="category"
             />
