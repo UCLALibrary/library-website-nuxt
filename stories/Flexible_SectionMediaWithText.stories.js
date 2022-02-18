@@ -11,6 +11,7 @@ const mock = {
                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
             buttonText: "Download",
             to: "http://google.com",
+            mediaType: "resource",
             image: {
                 id: "2338",
                 src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/long-llama.jpg",
@@ -28,7 +29,7 @@ const mock = {
                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
             buttonText: "Download",
             to: "http://google.com",
-            isAudio: true,
+            mediaType: "audio",
         },
         {
             id: "4527",
@@ -37,7 +38,7 @@ const mock = {
                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
             buttonText: "Download",
             to: "http://google.com",
-            isVideo: true,
+            mediaType: "video",
             image: {
                 id: "2338",
                 src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/long-llama.jpg",
@@ -55,7 +56,7 @@ const mock = {
                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
             buttonText: "Download",
             to: "http://google.com",
-            isVertical: true,
+            verticalImage: "yes",
             image: {
                 id: "2338",
                 src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/long-llama.jpg",

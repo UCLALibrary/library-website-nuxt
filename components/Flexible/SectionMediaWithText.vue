@@ -11,9 +11,9 @@
                 :image="item.image"
                 :button-text="item.buttonText"
                 :to="item.to"
-                :is-audio="item.isAudio"
-                :is-video="item.isVideo"
-                :is-vertical="item.isVertical"
+                :is-audio="item.parsedIsAudio"
+                :is-video="item.parsedIsVideo"
+                :is-vertical="item.parsedIsVertical"
                 class="flexible-media-with-text"
             />
             <divider-general class="divider" />
@@ -32,17 +32,30 @@ export default {
     computed: {
         parsedContent() {
             const mediaWithText = this.block.mediaWithText
+
             return mediaWithText.map((obj) => {
+                console.log(obj.mediaType)
+                let video = false
+                let audio = false
+                // let vertical = false
+                switch (obj.mediaType) {
+                    case "video":
+                        video = true
+                        break
+                    case "audio":
+                        audio = true
+                        break
+                }
                 return {
                     ...obj,
-
-                    // classes: output,
-                    //video and audio computed
-                    //vertcical computed?
+                    parsedIsVideo: video,
+                    parsedIsAudio: audio,
+                    parsedIsVertical: obj.verticalImage == "yes" ? true : false,
                 }
             })
         },
     },
+    isVideo() {},
 }
 </script>
 
@@ -68,10 +81,10 @@ export default {
 
     .flexible-media-with-text {
         margin-bottom: 56px;
-        margin-top: 56px;
     }
     .divider {
         width: 100%;
+        margin-bottom: 56px;
     }
 }
 </style>
