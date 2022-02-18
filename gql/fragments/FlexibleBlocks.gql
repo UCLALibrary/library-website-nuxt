@@ -9,7 +9,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockCtaBlockTwoUp
         ...BlockCta
         ...BlockDivider
-        ...BlockDownloadCallout
+        ...BlockMediaWithText
         ...BlockBannerFeatured
         ...BlockImageWithTextOverlay
         ...BlockImpactNumbersCarousel
@@ -89,38 +89,21 @@ fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
     divider
 }
 
-fragment BlockDownloadCallout on allFlexiblePageBlocks_downloadCallout_BlockType {
+fragment BlockMediaWithText on allFlexiblePageBlocks_mediaWithText_BlockType {
     id
-    downloadCallout {
-        ... on downloadCallout_downloadCallout_BlockType {
+    mediaWithText {
+        ... on mediaWithText_mediaWithText_BlockType {
             id
             sectionHeader
             shortDescription
             buttonText
-            downloadLink
+            mediaWithTextLink
+            downloadAssetLink {
+                id
+                url
+            }
             image {
-                url
-            }
-            imageAltText
-        }
-    }
-    downloadCalloutDownloadableStreamingFile {
-        ... on downloadCalloutDownloadableStreamingFile_video_BlockType {
-            id
-            videoUrl
-            videoFile {
-                id
-                url
-            }
-            posterImage {
-                id
-                url
-            }
-        }
-        ... on downloadCalloutDownloadableStreamingFile_document_BlockType {
-            id
-            document {
-                url
+                ...Image
             }
         }
     }
@@ -245,21 +228,21 @@ fragment BlockHelpTopicCards on allFlexiblePageBlocks_helpTopicCards_BlockType {
 }
 
 fragment BlockSimpleCards on allFlexiblePageBlocks_simpleCards_BlockType {
-  id
-  simpleCards {
-    ... on simpleCards_simpleCard_BlockType {
-      id
-      linkText
-      contentLink {
-        id
-        url
-        title
-        text: shortDescription
-      }
-      subheader
-      externalLink
+    id
+    simpleCards {
+        ... on simpleCards_simpleCard_BlockType {
+            id
+            linkText
+            contentLink {
+                id
+                url
+                title
+                text: shortDescription
+            }
+            subheader
+            externalLink
+        }
     }
-  }
 }
 
 fragment BlockHighlight on allFlexiblePageBlocks_highlight_BlockType {
