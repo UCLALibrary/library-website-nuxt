@@ -102,8 +102,8 @@ export default {
         max-width: $content-width-06 + px;
         margin-bottom: 56px;
 
-        &:last-child:after {
-            display: none;
+        &:nth-child(-n + 2):after {
+            content: "hello";
         }
     }
 }

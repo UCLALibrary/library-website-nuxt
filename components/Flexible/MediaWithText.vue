@@ -40,6 +40,7 @@
                 v-html="shortDescription"
             />
             <button-link
+                v-if="to"
                 class="button"
                 :label="buttonText"
                 :is-secondary="true"
