@@ -171,7 +171,6 @@ export default {
     max-width: $content-width-06 + px;
 
     .text-grouping {
-        // max-width: 40%;
         margin-right: 50px;
 
         display: flex;
@@ -201,14 +200,11 @@ export default {
     .is-horizontal {
         width: 426px;
         height: 240px;
-        // width: 100%;
-        // height: auto;
     }
     .is-vertical {
         width: 426px;
         height: 568px;
     }
-
     .no-image {
         z-index: 0;
         position: relative;
@@ -216,7 +212,6 @@ export default {
         height: 240px;
         background-color: var(--color-primary-blue-02);
     }
-
     .meta-mobile {
         display: none;
     }

@@ -31,6 +31,8 @@ export default {
         FlexibleCardWithImage: () =>
             import("~/components/Flexible/CardWithImage.vue"),
         FlexibleRichText: () => import("~/components/Flexible/RichText.vue"),
+        FlexibleSectionMediaWithText: () =>
+            import("~/components/Flexible/SectionMediaWithText.vue"),
     },
     props: {
         blocks: {
