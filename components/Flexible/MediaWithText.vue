@@ -109,6 +109,10 @@ export default {
             type: String,
             default: "",
         },
+        iconName: {
+            type: String,
+            default: "",
+        },
         to: {
             type: String,
             default: "",
@@ -147,7 +151,11 @@ export default {
         parsedTarget() {
             return this.isInternalLink ? "_self" : "blank"
         },
-        parsedIconName() {},
+        parsedIconName() {
+            return this.iconName == "svg-arrow-right" && !this.isInternalLink
+                ? "svg-arrow-diagonal"
+                : this.iconName
+        },
     },
 }
 </script>

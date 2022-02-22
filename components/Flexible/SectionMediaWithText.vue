@@ -13,12 +13,14 @@
                 :short-description="item.shortDescription"
                 :image="item.image"
                 :button-text="item.buttonText"
+                :icon-name="item.parsedIcon"
                 :to="item.parsedTo"
                 :is-audio="item.parsedIsAudio"
                 :is-video="item.parsedIsVideo"
                 :is-vertical="item.parsedIsVertical"
                 class="flexible-media-with-text"
             />
+
             <divider-general
                 class="divider"
                 :is-bold="isBoldDivider"
@@ -44,14 +46,24 @@ export default {
             const mediaWithText = this.block.mediaWithText
 
             return mediaWithText.map((obj) => {
+                let to = ""
+
+                if (obj.mediaWithTextLink) {
+                    to = obj.mediaWithTextLink
+                } else if (obj.downloadAssetLink) {
+                    to = obj.downloadAssetLink
+                }
+
                 return {
                     ...obj,
                     parsedIsVideo: obj.mediaType == "video" ? true : false,
                     parsedIsAudio: obj.mediaType == "audio" ? true : false,
                     parsedIsVertical: obj.verticalImage == "yes" ? true : false,
-                    parsedTo: obj.mediaWithTextLink
-                        ? obj.mediaWithTextLink
-                        : obj.downloadAssetLink[0].url,
+                    //TODO need to account for no links?
+                    parsedTo: to,
+                    parsedIcon: obj.mediaWithTextLink
+                        ? "svg-arrow-right"
+                        : "svg-arrow-download",
                 }
             })
         },
@@ -90,7 +102,6 @@ export default {
     .visually-hidden {
         display: none;
     }
-
     .meta {
         margin: 0 var(--unit-gutter);
     }
@@ -98,12 +109,17 @@ export default {
     .flexible-media-with-text {
         margin-bottom: 56px;
     }
+    ::v-deep .clipped-date {
+        background-color: var(--color-theme);
+    }
+
     .divider {
         max-width: $content-width-06 + px;
         margin-bottom: 56px;
-
-        &:nth-child(-n + 2):after {
-            content: "hello";
+    }
+    .meta:last-child {
+        .divider {
+            display: none;
         }
     }
 }
