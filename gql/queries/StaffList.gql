@@ -1,6 +1,6 @@
 #import "~/gql/fragments/Image"
 query StaffList {
-    entries(section: "staffMember", orderBy: "title ") {
+    entries(section: "staffMember", orderBy: "staffMemberJobTitle") {
         ... on staffMember_staffMember_Entry {
             email
             phone: phoneNumber
