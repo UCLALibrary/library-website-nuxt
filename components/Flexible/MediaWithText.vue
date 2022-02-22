@@ -290,7 +290,6 @@ export default {
             align-content: center;
             align-items: center;
 
-            padding: 32px;
             max-width: 100%;
 
             .text-grouping {

@@ -117,5 +117,31 @@ export default {
             display: none;
         }
     }
+
+    // Breakpoints
+
+    @media #{$medium} {
+        &.section-media-with-text {
+            padding-top: 40px;
+
+            .flexible-media-with-text {
+                margin-bottom: 32px;
+            }
+            .divider {
+                margin-bottom: 32px;
+            }
+        }
+    }
+    @media #{$small} {
+        &.section-media-with-text {
+            padding-top: 32px;
+            .flexible-media-with-text {
+                margin-bottom: 24px;
+            }
+            .divider {
+                margin-bottom: 24px;
+            }
+        }
+    }
 }
 </style>
