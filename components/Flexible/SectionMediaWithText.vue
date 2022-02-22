@@ -47,19 +47,16 @@ export default {
 
             return mediaWithText.map((obj) => {
                 let to = ""
-
                 if (obj.mediaWithTextLink) {
                     to = obj.mediaWithTextLink
                 } else if (obj.downloadAssetLink) {
                     to = obj.downloadAssetLink
                 }
-
                 return {
                     ...obj,
                     parsedIsVideo: obj.mediaType == "video" ? true : false,
                     parsedIsAudio: obj.mediaType == "audio" ? true : false,
                     parsedIsVertical: obj.verticalImage == "yes" ? true : false,
-                    //TODO need to account for no links?
                     parsedTo: to,
                     parsedIcon: obj.mediaWithTextLink
                         ? "svg-arrow-right"
@@ -105,14 +102,12 @@ export default {
     .meta {
         margin: 0 var(--unit-gutter);
     }
-
     .flexible-media-with-text {
         margin-bottom: 56px;
     }
     ::v-deep .clipped-date {
         background-color: var(--color-theme);
     }
-
     .divider {
         max-width: $content-width-06 + px;
         margin-bottom: 56px;
