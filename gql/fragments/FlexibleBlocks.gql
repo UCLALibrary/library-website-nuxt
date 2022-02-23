@@ -97,6 +97,7 @@ fragment BlockMediaWithText on allFlexiblePageBlocks_mediaWithText_BlockType {
             sectionHeader
             shortDescription
             buttonText
+            mediaType
             mediaWithTextLink
             downloadAssetLink {
                 id
