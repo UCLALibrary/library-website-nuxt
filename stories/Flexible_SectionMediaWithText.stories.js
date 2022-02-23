@@ -1,5 +1,5 @@
 export default {
-    title: "FLEXIBLE / Section Media With Text",
+    title: "FLEXIBLE / Media With Text",
 }
 
 const mock = {
@@ -80,7 +80,7 @@ export const Default = () => ({
         return { block: mock }
     },
     template: `
-        <flexible-section-media-with-text
+        <flexible-media-with-text
             :block="block"
 
         />
@@ -92,7 +92,7 @@ export const IsGreyBackground = () => ({
         return { block: mock }
     },
     template: `
-        <flexible-section-media-with-text
+        <flexible-media-with-text
             :block="block"
             :is-grey-background=true
 
@@ -129,7 +129,7 @@ export const Single = () => ({
         return { block: mockSingle }
     },
     template: `
-        <flexible-section-media-with-text
+        <flexible-media-with-text
             :block="block"
             :is-grey-background=true
 

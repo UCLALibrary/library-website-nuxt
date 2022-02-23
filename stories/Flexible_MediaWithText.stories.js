@@ -1,5 +1,5 @@
 export default {
-    title: "FLEXIBLE / Media with Text",
+    title: "block / Media with Text",
 }
 
 const mock = {
@@ -25,7 +25,7 @@ export const Default = () => ({
         return { ...mock }
     },
     template: `
-        <flexible-media-with-text
+        <block-media-with-text
             :section-header="sectionHeader"
             :short-description="shortDescription"
             :button-text="buttonText"
@@ -42,7 +42,7 @@ export const VerticalImage = () => ({
         return { ...mock }
     },
     template: `
-        <flexible-media-with-text
+        <block-media-with-text
             :section-header="sectionHeader"
             :short-description="shortDescription"
             :button-text="buttonText"
@@ -59,7 +59,7 @@ export const IsVideo = () => ({
         return { ...mock }
     },
     template: `
-        <flexible-media-with-text
+        <block-media-with-text
             :section-header="sectionHeader"
             :short-description="shortDescription"
             :button-text="buttonText"
@@ -75,7 +75,7 @@ export const IsAudio = () => ({
         return { ...mock }
     },
     template: `
-        <flexible-media-with-text
+        <block-media-with-text
             :section-header="sectionHeader"
             :short-description="shortDescription"
             :button-text="buttonText"
@@ -91,7 +91,7 @@ export const NoImage = () => ({
         return { ...mock }
     },
     template: `
-        <flexible-media-with-text
+        <block-media-with-text
             :section-header="sectionHeader"
             :short-description="shortDescription"
             :button-text="buttonText"
