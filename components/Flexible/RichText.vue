@@ -27,7 +27,7 @@ export default {
 
 <style lang="scss" scoped>
 .rich-text {
-    max-width: $content-width-02 + px;
+    max-width: $container-l-text + px;
     margin: var(--unit-gutter) auto;
     padding-right: 96px;
 
@@ -58,7 +58,7 @@ export default {
         border-radius: 2px;
         padding: 24px var(--spacing-text-left);
         --spacing-text-left: 64px;
-        --container-width: 600px;
+        --container-width: $container-m-text + px;
 
         font-weight: 400;
         font-size: 20px;
@@ -83,7 +83,7 @@ export default {
 
     ::v-deep .figure {
         width: 50%;
-        margin: $layout-02 + px;
+        margin: var(--space-s);
 
         display: flex;
         flex-direction: column;
@@ -91,12 +91,12 @@ export default {
 
     ::v-deep .image-right {
         float: right;
-        margin-left: $layout-02 + px;
+        margin-left: var(--space-s);
     }
 
     ::v-deep .image-left {
         float: left;
-        margin-right: $layout-02 + px;
+        margin-right: var(--space-s);
     }
 
     ::v-deep figcaption {
@@ -187,8 +187,8 @@ export default {
     // Breakpoints
     @media #{$medium} {
         .rich-text {
-            padding: 0 $margin-02 + px;
-            max-width: 928px;
+            padding: 0 $whitespace-s-sides + px;
+            max-width: $container-l-main + px;
         }
     }
 

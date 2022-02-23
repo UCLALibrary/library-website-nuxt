@@ -129,7 +129,7 @@ export default {
     .meta {
         margin: 50px auto;
         // width: 70%;
-        max-width: $content-width-03 + px;
+        max-width: $container-l-main + px;
     }
 
     .title {
@@ -142,7 +142,7 @@ export default {
         line-height: 32px;
         letter-spacing: 0.01em;
         margin-bottom: 80px;
-        max-width: $content-width-02 + px;
+        max-width: $container-l-text + px;
         padding-right: 96px;
     }
     .footnote {

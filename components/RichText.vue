@@ -144,9 +144,8 @@ export default {
 
 <style lang="scss" scoped>
 .rich-text {
-    max-width: $content-width-02 + px;
+    max-width: $container-l-text + px;
     margin: var(--unit-gutter) auto;
-    // padding: 0 var(--unit-gutter);
     padding-right: 96px;
     .text {
         font-family: var(--font-primary);
@@ -160,12 +159,8 @@ export default {
         display: flex;
         flex-direction: column;
 
-        // width: 832px;
         max-width: 100%;
     }
-    // .image {
-    //     margin: 30px 10px 0 0;
-    // }
     .caption {
         font-family: var(--font-secondary);
         font-weight: 400;
@@ -193,15 +188,9 @@ export default {
     }
 
     // Breakpoints
-    @media #{$small} {
-        // .image-block {
-            // max-width: 300px;
-        // }
-    }
-
     @media #{$medium} {
-        padding: 0 $margin-02 + px;
-        max-width: 928px;
+        padding: 0 $whitespace-s-sides + px;
+        max-width: $container-l-main + px;
     }
 }
 </style>

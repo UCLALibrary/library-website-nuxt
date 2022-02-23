@@ -158,7 +158,7 @@ export default {
     align-content: center;
     align-items: center;
 
-    max-width: $content-width-06 + px;
+    max-width: $container-xl-full-width + px;
 
     .text-grouping {
         margin-right: 50px;

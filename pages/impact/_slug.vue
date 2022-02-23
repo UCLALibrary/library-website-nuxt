@@ -104,17 +104,17 @@ export default {
         margin: 1px auto;
     }
     .banner-header {
-        margin-bottom: $layout-06 + px;
+        margin-bottom: var(--space-xl);
         padding: 0;
-        max-width: 1440px;
+        max-width: $container-xl-full-width + px;
     }
     .rich-text {
         margin: var(--unit-gutter) auto;
     }
     .breadcrumb-link {
-        margin: $layout-06 + px auto;
-        padding: 0 $margin-01 + px;
-        max-width: $content-width-03 + px;
+        margin: var(--space-xl) auto;
+        padding: 0 $whitespace-m-sides + px;
+        max-width: $container-l-main + px;
         font-style: var(--font-secondary);
         font-size: 20px;
         color: var(--color-primary-blue-03);
@@ -124,26 +124,26 @@ export default {
         align-items: center;
     }
     .divider {
-        margin: $layout-06 + px auto;
+        margin: var(--space-xl) auto;
     }
     .divider-way-finder {
-        max-width: $content-width-03 + px;
-        margin: $layout-07 + px auto;
+        max-width: $container-l-main + px;
+        margin: var(--space-3xl) auto;
         &.divider {
             box-sizing: unset;
         }
     }
     .divider-general {
-        margin: $layout-07 + px auto;
-        max-width: $content-width-03 + px;
+        margin: var(--space-3xl) auto;
+        max-width: $container-l-main + px;
     }
     .call-to-action {
         font-weight: 500;
         font-size: 18px;
         line-height: 100%;
-        margin: $layout-07 + px auto;
-        padding: 0 $margin-01 + px;
-        max-width: $content-width-03 + px;
+        margin: var(--space-3xl) auto;
+        padding: 0 $whitespace-m-sides + px;
+        max-width: $container-l-main + px;
 
         display: flex;
         align-items: center;
@@ -168,42 +168,15 @@ export default {
 
     @media #{$medium} {
         .divider-general {
-            margin: $layout-06 + px auto;
             width: calc(100% - (var(--unit-gutter) * 2));
         }
 
         .rich-text {
-            padding: 0 $margin-01 + px;
-        }
-
-        .divider-way-finder {
-            margin: $layout-06 + px auto;
+            padding: 0 var(--unit-gutter);
         }
 
         .call-to-action,
         .breadcrumb-link {
-            margin: $layout-06 + px auto;
-            padding: 0 $margin-01 + px;
-        }
-    }
-
-    @media #{$small} {
-        .divider-general {
-            margin: $layout-05 + px auto;
-            width: calc(100% - (var(--unit-gutter) * 2));
-        }
-
-        .rich-text {
-            padding: 0 $margin-02 + px;
-        }
-
-        .divider-way-finder {
-            margin: $layout-05 + px auto;
-        }
-
-        .call-to-action,
-        .breadcrumb-link {
-            margin: $layout-05 + px auto;
             padding: 0 var(--unit-gutter);
         }
     }
