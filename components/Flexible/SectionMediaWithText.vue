@@ -105,7 +105,7 @@ export default {
     .flexible-media-with-text {
         margin-bottom: 56px;
     }
-    ::v-deep .clipped-date {
+    ::v-deep .clipped-play {
         background-color: var(--color-theme);
     }
     .divider {
@@ -140,6 +140,9 @@ export default {
             }
             .divider {
                 margin-bottom: 24px;
+            }
+            ::v-deep .clipped-play-mobile {
+                background-color: var(--color-theme);
             }
         }
     }

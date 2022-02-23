@@ -22,7 +22,7 @@
                     />
                     <div
                         v-if="isVideo || isAudio"
-                        class="clipped-date-mobile"
+                        class="clipped-play-mobile"
                     />
                     <svg-icon-play-filled
                         v-if="isVideo || isAudio"
@@ -56,7 +56,7 @@
                 />
                 <div
                     v-if="isVideo || isAudio"
-                    class="clipped-date"
+                    class="clipped-play"
                 />
                 <svg-icon-play-filled
                     v-if="isVideo || isAudio"
@@ -224,7 +224,7 @@ export default {
             0 1.5px
         );
     }
-    .clipped-date {
+    .clipped-play {
         bottom: 0;
         left: 0;
         z-index: 200;
@@ -232,7 +232,7 @@ export default {
         width: 112px;
         height: 72px;
         box-sizing: border-box;
-        background-color: var(--color-white);
+        background-color: var(--color-theme);
 
         clip-path: polygon(
             0 0,
@@ -339,7 +339,7 @@ export default {
                     0 1.5px
                 );
             }
-            .clipped-date-mobile {
+            .clipped-play-mobile {
                 bottom: 0;
                 left: 0;
                 z-index: 200;
