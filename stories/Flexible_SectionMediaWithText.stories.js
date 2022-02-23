@@ -62,7 +62,6 @@ const mock = {
                     url: "http://ucla-craft.nitro/assets/IMG_20210803_081620186.jpg",
                 },
             ],
-            verticalImage: "yes",
             image: {
                 id: "2338",
                 src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/long-llama.jpg",

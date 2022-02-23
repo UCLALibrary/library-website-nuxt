@@ -9,7 +9,7 @@
                 <responsive-image
                     v-if="image"
                     :image="image"
-                    :class="mobileImageClasses"
+                    class="image-mobile"
                 />
                 <div
                     v-else
@@ -74,7 +74,7 @@
             <responsive-image
                 v-if="image"
                 :image="image"
-                :class="imageClasses"
+                class="image"
             />
             <div
                 v-else
@@ -135,16 +135,6 @@ export default {
         },
     },
     computed: {
-        imageClasses() {
-            return this.isVertical
-                ? ["image is-vertical"]
-                : ["image is-horizontal"]
-        },
-        mobileImageClasses() {
-            return this.isVertical
-                ? ["image-mobile is-vertical"]
-                : ["image-mobile is-horizontal"]
-        },
         isInternalLink() {
             return this.to.includes("library.ucla.edu") ? true : false
         },
@@ -196,14 +186,9 @@ export default {
     .image {
         z-index: 0;
         position: relative;
-    }
-    .is-horizontal {
-        width: 426px;
-        height: 240px;
-    }
-    .is-vertical {
-        width: 426px;
-        height: 568px;
+        max-width: 100%;
+        min-width: 426px;
+        height: auto;
     }
     .no-image {
         z-index: 0;
