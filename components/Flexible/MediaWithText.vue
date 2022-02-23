@@ -1,84 +1,29 @@
 <template lang="html">
-    <div class="media-with-text">
-        <div class="text-grouping">
-            <h3
-                class="section-header"
-                v-html="sectionHeader"
+    <div :class="classes">
+        <h2 class="visually-hidden">
+            Resources
+        </h2>
+        <div
+            v-for="(item, index) in parsedContent"
+            :key="index"
+            class="meta"
+        >
+            <block-media-with-text
+                :section-header="item.sectionHeader"
+                :short-description="item.shortDescription"
+                :image="item.parsedImage"
+                :button-text="item.buttonText"
+                :icon-name="item.parsedIcon"
+                :to="item.parsedTo"
+                :is-audio="item.parsedIsAudio"
+                :is-video="item.parsedIsVideo"
+                :is-vertical="item.parsedIsVertical"
+                class="flexible-media-with-text"
             />
-            <div class="meta-mobile">
-                <responsive-image
-                    v-if="image"
-                    :image="image"
-                    class="image-mobile"
-                />
-                <div
-                    v-else
-                    class="no-image-mobile"
-                />
-                <div class="clippy">
-                    <div
-                        v-if="isVideo || isAudio"
-                        class="floating-highlight-mobile"
-                    />
-                    <div
-                        v-if="isVideo || isAudio"
-                        class="clipped-play-mobile"
-                    />
-                    <svg-icon-play-filled
-                        v-if="isVideo || isAudio"
-                        class="icon-play-filled-mobile"
-                    />
-                </div>
-                <svg-icon-headphones
-                    v-if="isAudio"
-                    class="icon-headphones-mobile"
-                />
-            </div>
-            <div
-                v-if="shortDescription"
-                class="short-description"
-                v-html="shortDescription"
-            />
-            <button-link
-                v-if="to"
-                class="button"
-                :label="buttonText"
-                :is-secondary="true"
-                :to="to"
-                :icon-name="parsedIconName"
-            />
-        </div>
-        <div class="meta">
-            <div class="clippy">
-                <div
-                    v-if="isVideo || isAudio"
-                    class="floating-highlight"
-                />
-                <div
-                    v-if="isVideo || isAudio"
-                    class="clipped-play"
-                />
-                <svg-icon-play-filled
-                    v-if="isVideo || isAudio"
-                    class="icon-play-filled"
-                />
-            </div>
-            <svg-icon-headphones
-                v-if="isAudio"
-                class="icon-headphones"
-            />
-            <svg-icon-headphones
-                v-if="isAudio"
-                class="icon-headphones"
-            />
-            <responsive-image
-                v-if="image"
-                :image="image"
-                class="image"
-            />
-            <div
-                v-else
-                class="no-image"
+
+            <divider-general
+                class="divider"
+                :is-bold="isBoldDivider"
             />
         </div>
     </div>
@@ -86,296 +31,116 @@
 
 <script>
 export default {
-    components: {
-        SvgIconHeadphones: () =>
-            import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-headphones"
-            ),
-        SvgIconPlayFilled: () =>
-            import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-play"
-            ),
-    },
     props: {
-        sectionHeader: {
-            type: String,
-            default: "",
-        },
-        shortDescription: {
-            type: String,
-            default: "",
-        },
-        buttonText: {
-            type: String,
-            default: "",
-        },
-        iconName: {
-            type: String,
-            default: "",
-        },
-        to: {
-            type: String,
-            default: "",
-        },
-        image: {
+        block: {
             type: Object,
             default: () => {},
         },
-        isVertical: {
-            type: Boolean,
-            default: false,
-        },
-        isVideo: {
-            type: Boolean,
-            default: false,
-        },
-        isAudio: {
+        isGreyBackground: {
             type: Boolean,
             default: false,
         },
     },
     computed: {
-        isInternalLink() {
-            return this.to.includes("library.ucla.edu") ? true : false
+        parsedContent() {
+            const mediaWithText = this.block.mediaWithText
+            return mediaWithText.map((obj) => {
+                let to = ""
+                if (obj.mediaWithTextLink) {
+                    to = obj.mediaWithTextLink
+                } else if (obj.downloadAssetLink) {
+                    to = obj.downloadAssetLink
+                }
+                return {
+                    ...obj,
+                    parsedIsVideo: obj.mediaType == "video" ? true : false,
+                    parsedIsAudio: obj.mediaType == "audio" ? true : false,
+                    parsedIsVertical: obj.verticalImage == "yes" ? true : false,
+                    parsedTo: to,
+                    parsedImage: obj.image ? obj.image[0] : "",
+                    parsedIcon: obj.mediaWithTextLink
+                        ? "svg-arrow-right"
+                        : "svg-arrow-download",
+                }
+            })
         },
-        parsedTarget() {
-            return this.isInternalLink ? "_self" : "blank"
+        isBoldDivider() {
+            return this.isGreyBackground ? true : false
         },
-        parsedIconName() {
-            return this.iconName == "svg-arrow-right" && !this.isInternalLink
-                ? "svg-arrow-diagonal"
-                : this.iconName
+        classes() {
+            return this.isGreyBackground
+                ? ["section-media-with-text", "color-grey"]
+                : ["section-media-with-text"]
         },
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.media-with-text {
+.section-media-with-text {
+    // Themes
+    --color-theme: var(--color-white);
+    &.color-grey {
+        --color-theme: var(--color-secondary-grey-02);
+    }
+
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: nowrap;
     align-content: center;
     align-items: center;
+    justify-content: center;
+    background-color: var(--color-theme);
 
     max-width: $container-xl-full-width + px;
 
-    .text-grouping {
-        margin-right: 50px;
-
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        align-content: flex-start;
-        align-items: flex-start;
-    }
-    .section-header {
-        @include step-3;
-        color: var(--color-primary-blue-03);
-        margin-bottom: 24px;
-    }
-    .short-description {
-        @include step-0;
-        margin-bottom: 24px;
-    }
-    .meta {
-        max-width: 500px;
-        z-index: 0;
-        position: relative;
-    }
-    .image {
-        z-index: 0;
-        position: relative;
-        max-width: 100%;
-        min-width: 426px;
-        height: auto;
-    }
-    .no-image {
-        z-index: 0;
-        position: relative;
-        width: 426px;
-        height: 240px;
-        background-color: var(--color-primary-blue-02);
-    }
-    .meta-mobile {
+    .visually-hidden {
         display: none;
     }
-    .clippy {
-        z-index: 100;
-        position: absolute;
-        bottom: 0;
-        left: 0;
+    .meta {
+        margin: 0 var(--unit-gutter);
     }
-    .floating-highlight {
-        z-index: 200;
-        position: absolute;
-        bottom: 8px;
-        left: 5px;
-        width: 112px;
-        height: 72px;
-        background-color: var(--color-visit-fushia-03);
-
-        clip-path: polygon(
-            0 0,
-            calc(100% - 37px) 0,
-            100% 75px,
-            calc(100% - 1.5px) 75px,
-            calc(100% - 38px) 1.5px,
-            0 1.5px
-        );
+    .flexible-media-with-text {
+        margin-bottom: 56px;
     }
-    .clipped-play {
-        bottom: 0;
-        left: 0;
-        z-index: 200;
-        position: absolute;
-        width: 112px;
-        height: 72px;
-        box-sizing: border-box;
+    ::v-deep .clipped-play {
         background-color: var(--color-theme);
-
-        clip-path: polygon(
-            0 0,
-            calc(100% - 38px) 0,
-            100% 78px,
-            calc(100% - 1.5px) 84px,
-            0 84px,
-            0 1.5px
-        );
     }
-    .svg__icon-play {
-        fill: var(--color-primary-blue-03);
+    .divider {
+        max-width: $container-xl-full-width + px;
+        margin-bottom: 56px;
     }
-    .icon-play-filled {
-        z-index: 400;
-        position: absolute;
-        bottom: 16px;
-        margin-left: 24px;
-    }
-    .icon-headphones {
-        z-index: 400;
-        position: absolute;
-        left: 50%;
-        margin-left: -40px;
-        top: 50%;
-        margin-top: -40px;
-    }
-
-    .button {
-        width: 176px;
+    .meta:last-child {
+        .divider {
+            display: none;
+        }
     }
 
     // Breakpoints
 
     @media #{$medium} {
-        .image {
-            width: calc(50% - 48px);
-            height: auto;
-            max-width: 100%;
-            min-width: 296px;
-        }
-        .no-image {
-            width: calc(50% - 48px);
-            max-width: 100%;
-            min-width: 296px;
+        &.section-media-with-text {
+            padding-top: 40px;
+
+            .flexible-media-with-text {
+                margin-bottom: 32px;
+            }
+            .divider {
+                margin-bottom: 32px;
+            }
         }
     }
     @media #{$small} {
-        &.media-with-text {
-            display: flex;
-            flex-direction: column;
-            flex-wrap: nowrap;
-            justify-content: center;
-            align-content: center;
-            align-items: center;
-
-            max-width: 100%;
-
-            .text-grouping {
-                max-width: 100%;
-                margin-right: 0;
-            }
-            .meta {
-                display: none;
-            }
-            .meta-mobile {
-                display: block;
-
-                display: block;
-                width: 100%;
-                height: auto;
+        &.section-media-with-text {
+            padding-top: 32px;
+            .flexible-media-with-text {
                 margin-bottom: 24px;
-                z-index: 0;
-                position: relative;
             }
-            .image-mobile {
-                width: 100%;
-                height: auto;
-                z-index: 10;
-                position: relative;
+            .divider {
+                margin-bottom: 24px;
             }
-            .no-image-mobile {
-                width: 100%;
-                height: 200px;
-                z-index: 10;
-                position: relative;
-                background-color: var(--color-primary-blue-02);
-            }
-            .floating-highlight-mobile {
-                z-index: 200;
-                position: absolute;
-                bottom: 8px;
-                left: 5px;
-                width: 112px;
-                height: 72px;
-                background-color: var(--color-visit-fushia-03);
-
-                clip-path: polygon(
-                    0 0,
-                    calc(100% - 37px) 0,
-                    100% 75px,
-                    calc(100% - 1.5px) 75px,
-                    calc(100% - 38px) 1.5px,
-                    0 1.5px
-                );
-            }
-            .clipped-play-mobile {
-                bottom: 0;
-                left: 0;
-                z-index: 200;
-                position: absolute;
-                width: 112px;
-                height: 72px;
-                box-sizing: border-box;
+            ::v-deep .clipped-play-mobile {
                 background-color: var(--color-theme);
-
-                clip-path: polygon(
-                    0 0,
-                    calc(100% - 38px) 0,
-                    100% 78px,
-                    calc(100% - 1.5px) 84px,
-                    0 84px,
-                    0 1.5px
-                );
-            }
-            .icon-play-filled-mobile {
-                z-index: 400;
-                position: absolute;
-                bottom: 16px;
-                margin-left: 24px;
-            }
-            .icon-headphones-mobile {
-                z-index: 400;
-                position: absolute;
-                left: 50%;
-                margin-left: -40px;
-                top: 50%;
-                margin-top: -40px;
-            }
-
-            .button {
-                width: 100%;
-                margin-left: 0;
             }
         }
     }

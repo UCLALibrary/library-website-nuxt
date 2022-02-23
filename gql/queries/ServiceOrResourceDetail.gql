@@ -45,8 +45,7 @@ query ServiceOrResourceDetail($slug: [String!]) {
                 # ... on researchGuide_researchGuide_Entry {
                 #     id
                 #     title
-                #     text: shortDescription
-                #     to: slug
+                #     researchGuideLink
                 # }
                 ... on helpTopic_helpTopic_Entry {
                     id
@@ -67,6 +66,7 @@ fragment FlexibleBlocksServiceOrResource on ElementInterface {
         ...BlockPullQuote
         ...BlockSimpleCards
         ...BlockRichText
+        ...BlockMediaWithText
     }
 }
 
@@ -103,6 +103,27 @@ fragment BlockSimpleCards on serviceOrResourceBlocks_simpleCards_BlockType {
             }
             subheader
             externalLink
+        }
+    }
+}
+
+fragment BlockMediaWithText on serviceOrResourceBlocks_mediaWithText_BlockType {
+    id
+    mediaWithText {
+        ... on mediaWithText_mediaWithText_BlockType {
+            id
+            sectionHeader
+            shortDescription
+            buttonText
+            mediaType
+            mediaWithTextLink
+            downloadAssetLink {
+                id
+                url
+            }
+            image {
+                ...Image
+            }
         }
     }
 }
