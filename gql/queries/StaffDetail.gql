@@ -15,7 +15,7 @@ query StaffDetail($slug: [String]!) {
                 id
             }
             biography
-            departments: department
+            departments: department(label: true)
             locations: associatedLocations {
                 title
                 to: uri
