@@ -12,7 +12,7 @@
         />
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage.image"
+            :image="page.heroImage[0].image[0]"
             :to="page.button.buttonUrl"
             :prompt="page.button.buttonText"
             :title="page.title"
@@ -99,15 +99,10 @@ export default {
     }
     .content {
         margin: var(--unit-gutter) auto;
-        ::v-deep .pull-quote {
-            margin: var(--unit-gutter) auto;
-        }
-        ::v-deep .simple-cards {
-            margin: var(--unit-gutter) auto;
-        }
-        ::v-deep .rich-text {
-            margin: var(--unit-gutter) auto;
-        }
+        ::v-deep .pull-quote,
+        ::v-deep .simple-cards,
+        ::v-deep .section-media-with-text,
+        ::v-deep .rich-text,
         ::v-deep .divider-general {
             margin: var(--unit-gutter) auto;
             max-width: $container-xl-banner + px;

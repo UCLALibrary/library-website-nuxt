@@ -11,7 +11,7 @@
             <block-media-with-text
                 :section-header="item.sectionHeader"
                 :short-description="item.shortDescription"
-                :image="item.image"
+                :image="item.image[0]"
                 :button-text="item.buttonText"
                 :icon-name="item.parsedIcon"
                 :to="item.parsedTo"
