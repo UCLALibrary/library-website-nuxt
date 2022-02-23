@@ -36,22 +36,12 @@
             color="help"
             class="divider-way-finder"
         />
-        <!-- TO DO write a computed property to parse associated content -->
-        <!--section-cards
-            v-if="page.resourceServiceWorkshop.length > 0"
-            :items="
-                page.resourceServiceWorkshop[0]
-            "
-            :title="page.helpTopic[0].title"
-            :text="page.helpTopic[0].text"
-            to="/help/services-resources"
-        /-->
-        <!-- Remove this once associated content computed property is ready -->
         <section-cards
             class="section-cards"
-            :items="parsedItems"
-            title="Get Help with"
-            to="/help/foo/bar"
+            :items="parsedHelpTopics"
+            title="Associated Topics"
+            button-text="All Services and Resources "
+            to="/help/services-resources"
         />
         <block-call-to-action
             class="block-call-to-action"
@@ -81,46 +71,13 @@ export default {
                 slug: params.slug,
             }
         )
-        const items = [
-            {
-                iconName: "illustration-book-binding",
-                to: "/help/foo/bar/",
-                title: "Lacus Luctus",
-                text: "Litora torquent per conubia nostra, per inceptos himenaeos.",
-            },
-            {
-                iconName: "illustration-find-space",
-                to: "/help/foo/baz/",
-                title: "Ultrices Enim",
-                text: "Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem.",
-            },
-            {
-                iconName: "illustration-digitized-resources",
-                to: "/help/foo/fred/",
-                title: "Egestas et Augue",
-                text: "Suspendisse in justo eu magna luctus suscipit libero eget ante.",
-            },
-            {
-                iconName: "illustration-databases",
-                to: "/about/foo/thud/",
-                title: "Proin Sodales",
-                text: "Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Morbi in dui quis est pulvinar ullamcorper.",
-            },
-            {
-                iconName: "illustration-remote-access",
-                to: "/visit/foo/qux/",
-                title: "Taciti sociosqu",
-                text: "Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa.",
-            },
-        ]
         return {
             page: _get(data, "entry", {}),
-            items: items,
         }
     },
     computed: {
-        parsedItems() {
-            return [{ ...this.items[0] }, { ...this.items[1] }]
+        parsedHelpTopics() {
+            return this.page.resourceServiceWorkshop
         },
     },
 }
@@ -146,6 +103,9 @@ export default {
             margin: var(--unit-gutter) auto;
         }
         ::v-deep .simple-cards {
+            margin: var(--unit-gutter) auto;
+        }
+        ::v-deep .rich-text {
             margin: var(--unit-gutter) auto;
         }
         ::v-deep .divider-general {
