@@ -92,6 +92,7 @@ export default {
         margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
+        margin: var(--unit-gutter) auto;
     }
     .divider-way-finder {
         max-width: $container-xl-banner + px;

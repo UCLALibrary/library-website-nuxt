@@ -90,6 +90,7 @@ export default {
     align-content: center;
     align-items: center;
     justify-content: center;
+    background-color: var(--color-theme);
 
     max-width: $container-xl-full-width + px;
 
@@ -106,7 +107,7 @@ export default {
         background-color: var(--color-theme);
     }
     .divider {
-        max-width: $content-width-06 + px;
+        max-width: $container-xl-full-width + px;
         margin-bottom: 56px;
     }
     .meta:last-child {
