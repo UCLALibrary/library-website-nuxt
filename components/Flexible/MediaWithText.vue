@@ -266,6 +266,20 @@ export default {
     }
 
     // Breakpoints
+
+    @media #{$medium} {
+        .image {
+            width: calc(50% - 48px);
+            height: auto;
+            max-width: 100%;
+            min-width: 296px;
+        }
+        .no-image {
+            width: calc(50% - 48px);
+            max-width: 100%;
+            min-width: 296px;
+        }
+    }
     @media #{$small} {
         &.media-with-text {
             display: flex;
@@ -333,7 +347,7 @@ export default {
                 width: 112px;
                 height: 72px;
                 box-sizing: border-box;
-                background-color: var(--color-white);
+                background-color: var(--color-theme);
 
                 clip-path: polygon(
                     0 0,
