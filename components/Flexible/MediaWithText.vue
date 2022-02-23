@@ -11,7 +11,7 @@
             <block-media-with-text
                 :section-header="item.sectionHeader"
                 :short-description="item.shortDescription"
-                :image="item.image[0]"
+                :image="item.parsedImage"
                 :button-text="item.buttonText"
                 :icon-name="item.parsedIcon"
                 :to="item.parsedTo"
@@ -44,7 +44,6 @@ export default {
     computed: {
         parsedContent() {
             const mediaWithText = this.block.mediaWithText
-            console.log(this.block)
             return mediaWithText.map((obj) => {
                 let to = ""
                 if (obj.mediaWithTextLink) {
@@ -58,6 +57,7 @@ export default {
                     parsedIsAudio: obj.mediaType == "audio" ? true : false,
                     parsedIsVertical: obj.verticalImage == "yes" ? true : false,
                     parsedTo: to,
+                    parsedImage: obj.image ? obj.image[0] : "",
                     parsedIcon: obj.mediaWithTextLink
                         ? "svg-arrow-right"
                         : "svg-arrow-download",
