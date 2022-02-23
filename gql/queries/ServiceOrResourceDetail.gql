@@ -42,12 +42,11 @@ query ServiceOrResourceDetail($slug: [String!]) {
                     serviceOrResourceType
                     title
                 }
-                # ... on researchGuide_researchGuide_Entry {
-                #     id
-                #     title
-                #     text: shortDescription
-                #     to: slug
-                # }
+                ... on researchGuide_researchGuide_Entry {
+                    id
+                    title
+                    researchGuideLink
+                }
                 ... on helpTopic_helpTopic_Entry {
                     id
                     text: shortDescription
