@@ -105,6 +105,9 @@ export default {
         ::v-deep .simple-cards {
             margin: var(--unit-gutter) auto;
         }
+        ::v-deep .rich-text {
+            margin: var(--unit-gutter) auto;
+        }
         ::v-deep .divider-general {
             margin: var(--unit-gutter) auto;
             max-width: $content-width-05 + px;
