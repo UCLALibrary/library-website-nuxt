@@ -188,7 +188,7 @@ export default {
     --hover-background-color: var(--color-primary-blue-03);
 }
 .banner-text {
-    max-width: 1440px;
+    max-width: $container-xl-full-width + px;
     padding-left: 204px;
     padding-right: var(--unit-gutter);
     padding-top: 84px;

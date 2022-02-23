@@ -258,7 +258,7 @@ export default {
     position: relative;
     overflow: hidden;
     background-color: var(--color-white);
-    max-width: $content-width-05 + px;
+    max-width: $container-xl-banner + px;
 
     // Themes
     --color-theme: var(--color-primary-blue-03);
@@ -377,7 +377,7 @@ export default {
         box-sizing: border-box;
         // padding-left: 240px;
         padding-right: 300px;
-        max-width: $content-width-03 + px;
+        max-width: $container-l-main + px;
 
         display: flex;
         flex-direction: column;
@@ -394,7 +394,7 @@ export default {
         @include step-1;
         color: var(--color-secondary-grey-04);
         font-weight: 400;
-        margin-top: $layout-03 + px;
+        margin-top: var(--space-m);
         line-height: 120%;
     }
     .byline {
@@ -491,7 +491,7 @@ export default {
         }
         .meta {
             padding-left: 300px;
-            padding-right: $margin-02 + px;
+            padding-right: $whitespace-s-sides + px;
             margin-left: auto;
 
             align-content: flex-start;
@@ -513,7 +513,7 @@ export default {
 
     @media #{$medium} {
         .meta {
-            padding-left: $margin-01 + px;
+            padding-left: $whitespace-m-sides + px;
             margin-left: 0;
         }
         .byline,

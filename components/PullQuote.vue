@@ -50,7 +50,7 @@ export default {
     border-radius: 2px;
     padding: 24px var(--spacing-text-left);
     --spacing-text-left: 64px;
-    --container-width: 600px;
+    --container-width: $container-m-text + px;
 
     // Breakpoints
     @media #{$small} {

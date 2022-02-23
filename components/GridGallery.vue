@@ -125,7 +125,7 @@ export default {
         z-index: 20;
         padding-bottom: 16px;
         padding-top: 10px;
-        // margin-top: $layout-05 + px;
+        // margin-top: var(--space-xl);
     }
     .cards {
         display: grid;
@@ -244,7 +244,7 @@ export default {
     }
 
     @media #{$small} {
-        padding: 0 24px;
+        padding: 0 $whitespace-s-sides + px;
 
         .month-year {
             top: 74px;

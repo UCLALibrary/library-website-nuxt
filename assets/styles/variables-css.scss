@@ -50,7 +50,7 @@
     --color-about-purple-03: #c099ff; // --color-about-purple-base
 
     // Units
-    --unit-gutter: #{$margin-01}px;
+    --unit-gutter: #{$whitespace-m-sides}px;
     --unit-vertical-gap: 100px;
     --unit-sticky-header-height: 96px;
     --unit-footer-height: 376px;
@@ -97,9 +97,9 @@
 
     // Breakponts
     @media #{$medium} {
-        --unit-gutter: #{$margin-01}px;
+        --unit-gutter: #{$whitespace-m-sides}px;
     }
     @media #{$small} {
-        --unit-gutter: #{$margin-02}px;
+        --unit-gutter: #{$whitespace-s-sides}px;
     }
 }

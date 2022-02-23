@@ -86,16 +86,16 @@ export default {
 <style lang="scss" scoped>
 .page-service-detail {
     .banner-text {
-        max-width: 1440px;
+        max-width: $container-xl-full-width + px;
     }
     .banner-header {
-        margin-bottom: $layout-06 + px;
+        margin-bottom: var(--space-xl);
         padding: 0;
-        max-width: 1440px;
+        max-width: $container-xl-full-width + px;
     }
     .divider-way-finder {
-        max-width: $content-width-05 + px;
-        margin: $layout-07 + px auto;
+        max-width: $container-xl-banner + px;
+        margin: var(--space-3xl) auto;
     }
     .content {
         margin: var(--unit-gutter) auto;
@@ -110,17 +110,17 @@ export default {
         }
         ::v-deep .divider-general {
             margin: var(--unit-gutter) auto;
-            max-width: $content-width-05 + px;
+            max-width: $container-xl-banner + px;
         }
     }
     .section-cards {
-        margin: $layout-07 + px auto;
+        margin: var(--space-3xl) auto;
     }
     .more-info {
         display: none;
     }
     .block-call-to-action {
-        margin: $layout-07 + px auto;
+        margin: var(--space-3xl) auto;
     }
 }
 </style>
