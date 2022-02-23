@@ -77,22 +77,7 @@ export default {
     },
     computed: {
         parsedHelpTopics() {
-            // return this.page.resourceServiceWorkshop
-
-            return [
-                {
-                    id: "3811",
-                    title: "A research guide",
-                    text: "<p>This is a short description of the research guide</p>",
-                    to: "a-research-guide",
-                },
-                {
-                    id: "205",
-                    text: null,
-                    title: 'A Test Workshop with a "Pull Quote" FPB',
-                    to: "a-test-workshop-with-a-pull-quote-fpb",
-                },
-            ]
+            return this.page.resourceServiceWorkshop
         },
     },
 }
