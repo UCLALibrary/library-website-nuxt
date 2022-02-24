@@ -45,7 +45,6 @@ query ServiceOrResourceDetail($slug: [String!]) {
                 # ... on researchGuide_researchGuide_Entry {
                 #     id
                 #     title
-                #     researchGuideLink
                 # }
                 ... on helpTopic_helpTopic_Entry {
                     id
