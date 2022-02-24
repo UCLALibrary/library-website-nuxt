@@ -15,7 +15,6 @@
                 v-html="text"
             />
         </div>
-
         <div class="cards">
             <block-card-vertical
                 v-for="item in items"
@@ -163,7 +162,7 @@ export default {
                 font-size: 40px;
             }
             .text {
-                max-width: 600px;
+                max-width: $container-m-text + px;
                 font-size: 22px;
             }
         }

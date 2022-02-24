@@ -281,11 +281,11 @@ export default {
 .page-impact-report {
     .meta {
         padding: 0 var(--unit-gutter);
-        margin: $layout-06 + px auto 0 auto;
-        max-width: $content-width-05 + px;
+        margin: var(--space-xl) auto 0 auto;
+        max-width: $container-xl-banner + px;
         .intro {
             @include step-5;
-            margin-bottom: $layout-05 + px;
+            margin-bottom: var(--space-xl);
             color: var(--color-primary-blue-03);
         }
         .text {
@@ -302,11 +302,11 @@ export default {
         float: right;
     }
     .banner {
-        margin: $layout-07 + px auto;
+        margin: var(--space-3xl) auto;
     }
 
     .section-grid {
-        max-width: $content-width-03 + px;
+        max-width: $container-l-main + px;
 
         display: flex;
         flex-direction: column;
@@ -317,7 +317,7 @@ export default {
             color: var(--color-primary-blue-03);
             font-size: 48px;
             line-height: 56px;
-            margin-bottom: $layout-05 + px;
+            margin-bottom: var(--space-xl);
             @include step-3;
         }
         .sub-section-grid {
@@ -337,16 +337,16 @@ export default {
             min-height: 46px;
         }
         .divider-section {
-            max-width: $content-width-03 + px;
-            margin: $layout-07 + px 0;
+            max-width: $container-l-main + px;
+            margin: var(--space-3xl) 0;
         }
     }
     .teaser-card {
         margin: 0 auto;
     }
     .credits {
-        max-width: $content-width-03 + px;
-        margin: $layout-07 + px auto;
+        max-width: $container-l-main + px;
+        margin: var(--space-3xl) auto;
         font-style: italic;
         font-weight: normal;
         font-size: 16px;
@@ -356,13 +356,13 @@ export default {
         display: inline;
     }
     .divider {
-        max-width: $content-width-03 + px;
-        margin: $layout-07 + px auto;
+        max-width: $container-l-main + px;
+        margin: var(--space-3xl) auto;
     }
     .divider-general {
-        margin-top: 75px;
-        margin-bottom: 48px;
-        max-width: $content-width-03 + px;
+        margin-top: var(--space-3xl);
+        margin-bottom: var(--space-3xl);
+        max-width: $container-l-main + px;
     }
     .credits dt, dd {
       display: inline;
@@ -400,12 +400,8 @@ export default {
 
     @media #{$medium} {
         .meta {
-            padding: 0 $margin-01 + px;
-            margin-top: $margin-02 + px;
-
-            .intro {
-                margin-bottom: $layout-04 + px;
-            }
+            padding: 0 $whitespace-m-sides + px;
+            margin-top: 24px;
 
             .portrait-Ginny {
                 float: none;
@@ -413,17 +409,8 @@ export default {
                 margin: 32px auto;
             }
         }
-        .banner {
-            margin: $layout-06 + px auto;
-        }
-
-        .section-grid .divider-section,
-        .divider {
-            margin: $layout-06 + px 0;
-        }
 
         .divider-general {
-            margin: $layout-06 + px auto;
             width: calc(100% - (var(--unit-gutter)*2));
         }
 
@@ -435,32 +422,19 @@ export default {
             }
         }
         .credits {
-            padding: 0 $margin-01 + px;
-            margin: $layout-05 + px auto;
+            padding: 0 $whitespace-m-sides + px;
         }
     }
     @media #{$small} {
         .meta {  
-            padding: 0 $margin-02 + px;     
+            padding: 0 $whitespace-s-sides + px;     
             .portrait-Ginny {
                 width: 100%;
             }
         }
-        .banner {
-            margin: $layout-05 + px auto;
-        }
 
         .grid-gallery-subtitle {
             height: 80px;
-        }
-
-        .section-grid .divider-section,
-        .divider {
-            margin: $layout-05 + px 0;
-        }
-
-        .divider-general {
-            margin: $layout-05 + px auto;
         }
 
         .credits {

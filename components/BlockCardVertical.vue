@@ -1,5 +1,6 @@
 <template lang="html">
     <nuxt-link
+        v-if="to"
         :to="to"
         :class="classes"
     >

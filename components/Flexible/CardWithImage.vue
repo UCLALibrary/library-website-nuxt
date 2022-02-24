@@ -7,14 +7,12 @@
             :image="item.image[0]"
             :category="item.contentLink[0].category"
             :title="item.contentLink[0].title"
-            :start-date="item.contentLink[0].date[0].startDate"
-            :end-date="item.contentLink[0].date[0].endDate"
             :text="item.text"
             :is-vertical="true"
-            :locations="item.contentLink[0].associatedLocations"
             image-aspect-ratio="60"
             class="block"
         />
+        <!--  :locations="item.contentLink[0].associatedLocations" -->
     </div>
 </template>
 
@@ -32,9 +30,6 @@ export default {
             return this.block.cardWithImage.map((obj) => {
                 return {
                     ...obj,
-                    text: obj.shortDescription
-                        ? obj.shortDescription
-                        : obj.contentLink[0].text,
                 }
             })
         },

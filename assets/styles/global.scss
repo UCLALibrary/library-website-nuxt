@@ -60,30 +60,30 @@ button {
 .page {
     .section {
         margin: 100px auto;
-        padding-left: $margin-01 + px;
-        padding-right: $margin-01 + px;
-        max-width: $content-width-05 + px;
+        padding-left: $whitespace-m-sides + px;
+        padding-right: $whitespace-m-sides + px;
+        max-width: $container-xl-banner + px;
 
         @media #{$small} {
-            padding-left: $margin-02 + px;
-            padding-right: $margin-02 + px;
+            padding-left: $whitespace-s-sides + px;
+            padding-right: $whitespace-s-sides + px;
         }
     }
     .divider-first + .section {
         margin-top: 75px;
     }
     .divider {
-        max-width: $content-width-03 + px;
+        max-width: $container-l-main + px;
         margin-left: auto;
         margin-right: auto;
         box-sizing: border-box;
 
         @media #{$medium} {
-            padding: 0 $margin-01 + px;
+            padding: 0 $whitespace-m-sides + px;
         }
 
         @media #{$small} {
-            padding: 0 $margin-02 + px;
+            padding: 0 $whitespace-s-sides + px;
         }
     }
 }

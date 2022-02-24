@@ -273,7 +273,7 @@ export default {
     position: relative;
     overflow: hidden;
     background-color: var(--color-white);
-    max-width: $content-width-06 + px;
+    max-width: $container-xl-full-width + px;
 
     // Themes
     --color-theme: var(--color-primary-blue-03);
@@ -388,7 +388,7 @@ export default {
         z-index: 40;
 
         padding-right: clamp(360px, 35%, 600px);
-        max-width: $content-width-03 + px;
+        max-width: $container-l-main + px;
 
         // width: 65%;
         box-sizing: border-box;
@@ -497,7 +497,7 @@ export default {
         }
         .meta {
             padding-left: clamp(368px, 35%, 600px);
-            padding-right: $margin-02 + px;;
+            padding-right: $whitespace-s-sides + px;;
             margin-left: auto;
 
             align-content: flex-start;
@@ -518,7 +518,7 @@ export default {
     
     @media #{$medium} {
         .meta {
-            padding-left: $margin-01 + px;
+            padding-left: $whitespace-m-sides + px;
             margin-left: 0;
         }
     }
@@ -569,7 +569,7 @@ export default {
             width: 100%;
             margin-top: 0;
             padding-right: var(--unit-gutter);
-            padding-left: $margin-02 + px;
+            padding-left: $whitespace-s-sides + px;
             box-sizing: border-box;
             position: static;
 
