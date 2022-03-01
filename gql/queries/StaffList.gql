@@ -8,6 +8,7 @@ query StaffList {
             nameFirst
             nameLast
             to: slug
+            bookAConsultation
             departments: department {
                 id
                 title
@@ -17,9 +18,11 @@ query StaffList {
                 title
                 to: slug
             }
-            bookAConsultation
-            image {
-                ...Image
+            image: staffMemberImage {
+                staffMemberImage {
+                    ...Image
+                }
+                staffMemberImageAltText
             }
         }
     }

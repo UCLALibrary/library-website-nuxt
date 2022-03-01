@@ -26,8 +26,11 @@ query StaffDetail($slug: [String]!) {
                 to: uri
                 id
             }
-            image {
-                ...Image
+            image: staffMemberImage {
+                staffMemberImage {
+                    ...Image
+                }
+                staffMemberImageAltText
             }
         }
     }

@@ -54,7 +54,8 @@ export default {
     },
     computed: {
         parsedImage() {
-            return _get(this.page.entry, "image[0]", null)
+            console.log(this.page.entry)
+            return _get(this.page.entry, "image[0]staffMemberImage[0]", null)
         },
         parsedStaffName() {
             return `${this.page.entry.nameFirst} ${this.page.entry.nameLast}`
