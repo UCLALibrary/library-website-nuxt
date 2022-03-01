@@ -8,12 +8,16 @@ query StaffList {
             nameFirst
             nameLast
             to: slug
-            departments: department(label: true)
+            departments: department {
+                id
+                title
+            }
             locations: associatedLocations {
                 id
                 title
                 to: slug
             }
+            bookAConsultation
             image {
                 ...Image
             }
