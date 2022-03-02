@@ -22,7 +22,7 @@ query ServiceOrResourceDetail($slug: [String!]) {
             }
             type: serviceOrResourceType
             title
-            text: shortDescription
+            text: summary
             locations: associatedLocations {
                 id
                 to: slug

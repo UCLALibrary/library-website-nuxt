@@ -6,14 +6,14 @@
             :category="page.type"
             :title="page.title"
             :text="page.text"
-            :button-text="page.button.buttonText"
-            :to="page.button.buttonUrl"
+            :button-text="page.button[0].buttonText"
+            :to="page.button[0].buttonUrl"
         />
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
-            :to="page.button.buttonUrl"
-            :prompt="page.button.buttonText"
+            :to="page.button[0].buttonUrl"
+            :prompt="page.button[0].buttonText"
             :title="page.title"
             :category="page.type"
             :text="page.text"
