@@ -32,8 +32,8 @@ query ServiceOrResourceDetail($slug: [String!]) {
                 id
                 text: summary
                 title
-                to: slug
-                researchGuideURL
+                slug
+                researchGuideUrl
             }
         }
         ...FlexibleBlocksServiceOrResource

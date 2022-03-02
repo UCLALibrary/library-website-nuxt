@@ -36,7 +36,7 @@
         />
         <section-cards
             class="section-cards"
-            :items="parsedHelpTopics"
+            :items="parsedAssociatedTopics"
             title="Associated Topics"
             button-text="All Services and Resources "
             to="/help/services-resources"
@@ -74,8 +74,13 @@ export default {
         }
     },
     computed: {
-        parsedHelpTopics() {
-            return this.page.associatedTopics
+        parsedAssociatedTopics() {
+            return this.page.associatedTopics.map((obj) => {
+                return {
+                    ...obj,
+                    to: obj.researchGuideUrl ? obj.researchGuideUrl : obj.slug,
+                }
+            })
         },
     },
 }
