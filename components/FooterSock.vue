@@ -49,11 +49,12 @@ export default {
     .container {
         max-width: var(--unit-content-width);
         min-height: 89px;
+        margin: auto;
 
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-between;
         align-content: center;
         align-items: stretch;
 
