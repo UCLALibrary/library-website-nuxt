@@ -28,31 +28,12 @@ query ServiceOrResourceDetail($slug: [String!]) {
                 to: slug
                 title
             }
-            resourceServiceWorkshop {
-                ... on workshop_workshop_Entry {
-                    id
-                    text: shortDescription
-                    title
-                    to: slug
-                }
-                ... on serviceOrResource_serviceOrResource_Entry {
-                    id
-                    to: slug
-                    text: shortDescription
-                    serviceOrResourceType
-                    title
-                }
-                # ... on researchGuide_researchGuide_Entry {
-                #     id
-                #     title
-                #     researchGuideLink
-                # }
-                ... on helpTopic_helpTopic_Entry {
-                    id
-                    text: shortDescription
-                    to: slug
-                    title
-                }
+            associatedTopics {
+                id
+                text: summary
+                title
+                to: slug
+                researchGuideURL
             }
         }
         ...FlexibleBlocksServiceOrResource

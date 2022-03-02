@@ -8,7 +8,6 @@
             :text="page.text"
             :button-text="page.button.buttonText"
             :to="page.button.buttonUrl"
-            :locations="page.locations"
         />
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
@@ -17,7 +16,6 @@
             :prompt="page.button.buttonText"
             :title="page.title"
             :category="page.type"
-            :locations="page.locations"
             :text="page.text"
         />
         <divider-way-finder
@@ -77,7 +75,7 @@ export default {
     },
     computed: {
         parsedHelpTopics() {
-            return this.page.resourceServiceWorkshop
+            return this.page.associatedTopics
         },
     },
 }
