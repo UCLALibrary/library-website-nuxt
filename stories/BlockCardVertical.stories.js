@@ -120,3 +120,25 @@ export const Teaching = () => ({
         />
     `,
 })
+
+const mockTwo = {
+    to: "/help/foo/bar/",
+    title: "Quisque Volutpat",
+    text: "Nisl felis, venenatis tristique, dignissim in, ultrices sit amet.",
+}
+
+export const ExternalLink = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <block-card-vertical
+            icon-name="illustration-teaching"
+            to="https://guides.library.illinois.edu/openrefine/joiningprojects"
+            :title="title"
+            :text="text"
+        />
+    `,
+})
