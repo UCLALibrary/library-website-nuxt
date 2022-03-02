@@ -9,20 +9,28 @@ query StaffDetail($slug: [String]!) {
             nameFirst
             nameLast
             pronouns
+            subjectLibrarian
+            bookAConsultation
             to: slug
             topics: askMeAbout {
                 title
                 id
             }
             biography
-            departments: department(label: true)
+            departments: department {
+                id
+                title
+            }
             locations: associatedLocations {
                 title
                 to: uri
                 id
             }
-            image {
-                ...Image
+            image: staffMemberImage {
+                staffMemberImage {
+                    ...Image
+                }
+                staffMemberImageAltText
             }
         }
     }
