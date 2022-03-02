@@ -151,9 +151,7 @@ export default {
     }
 
     .title {
-        font-family: var(--font-primary);
-        font-weight: 600;
-        font-size: 36px;
+        @include step-2;
         text-align: center;
         letter-spacing: .0025em;
         line-height: 100%;
