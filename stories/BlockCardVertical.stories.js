@@ -121,12 +121,6 @@ export const Teaching = () => ({
     `,
 })
 
-const mockTwo = {
-    to: "/help/foo/bar/",
-    title: "Quisque Volutpat",
-    text: "Nisl felis, venenatis tristique, dignissim in, ultrices sit amet.",
-}
-
 export const ExternalLink = () => ({
     data() {
         return {
