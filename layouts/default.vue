@@ -1,5 +1,5 @@
 <template lang="html">
-    <main :class="classes">
+    <div :class="classes">
         <header-main />
 
         <nuxt class="page" />
@@ -10,7 +10,7 @@
             :form="true"
         />
         <footer-sock :items="footerSockItems" />
-    </main>
+    </div>
 </template>
 
 <script>

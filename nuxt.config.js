@@ -23,7 +23,15 @@ export default {
                 : "test", 
         s3Bucket: process.env.S3_BUCKET,
     },
-
+    /*
+     ** Required charset and viewport meta tags
+     */
+    head: {
+        meta: [
+            { charset: "utf-8" },
+            { name: "viewport", content: "width=device-width, initial-scale=1" },
+        ]
+    },
     /*
      ** Global CSS
      */
