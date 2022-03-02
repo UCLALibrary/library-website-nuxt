@@ -1,30 +1,32 @@
 <template lang="html">
     <section class="section-staff-article-list">
-        <divider-way-finder
-            color="about"
-            class="divider-wayfinder"
-        />
-        <div
-            v-if="sectionTitle"
-            class="section-title"
-            v-html="sectionTitle"
-        />
-        <div
-            v-for="item in items"
-            :key="item.to"
-            class="meta"
-        >
-            <block-staff-article-list
-                :image="item.image"
-                :to="item.to"
-                :category="item.category"
-                :title="item.title"
-                :date="item.date"
-                :authors="item.authors"
-                :description="item.description"
-                class="block"
+        <div class="container">
+            <divider-way-finder
+                color="about"
+                class="divider-wayfinder"
             />
-            <divider-general class="divider-general" />
+            <div
+                v-if="sectionTitle"
+                class="section-title"
+                v-html="sectionTitle"
+            />
+            <div
+                v-for="item in items"
+                :key="item.to"
+                class="meta"
+            >
+                <block-staff-article-list
+                    :image="item.image"
+                    :to="item.to"
+                    :category="item.category"
+                    :title="item.title"
+                    :date="item.date"
+                    :authors="item.authors"
+                    :description="item.description"
+                    class="block"
+                />
+                <divider-general :is-bold="true" class="divider-general" />
+            </div>
         </div>
     </section>
 </template>
@@ -50,14 +52,25 @@ export default {
 <style lang="scss" scoped>
 .section-staff-article-list {
     background-color: var(--color-secondary-grey-01);
-    padding: 0 var(--unit-gutter);
-    max-width: 990px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 100%;
+    margin: auto;
+
+    .container {
+        max-width: $container-l-main + px;
+        padding: 0 var(--unit-gutter) 46px;
+        margin: auto;
+
+        > .meta:last-child .divider-general {
+            display: none;
+        }
+    }
 
     .divider-wayfinder {
         width: 100%;
         padding-top: 100px;
+        ::v-deep .dotted {
+            border-bottom-color: var(--color-secondary-grey-03);
+        }
     }
     .section-title {
         font-size: 44px;

@@ -1,7 +1,8 @@
 <template>
-    <section class="page page-staff-detail">
+    <main class="page page-staff-detail">
         <!-- staff page here -->
         <!-- no search on this page -->
+        <!-- TODO: Add Breadcrumb Component -->
         <block-staff-detail
             :image="parsedImage"
             :staff-name="parsedStaffName"
@@ -15,7 +16,6 @@
             :biography="page.entry.biography"
             class="staff-detail-block"
         />
-        <divider-way-finder class="section divider divider-way-finder" />
         <section-staff-article-list
             v-if="parsedItems.length"
             :items="parsedItems"
@@ -31,7 +31,7 @@
             title="Not sure who you should reach out to?"
             text="Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
         />
-    </section>
+    </main>
 </template>
 
 <script>

@@ -89,9 +89,10 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: center;
     align-items: center;
+    width: 100%;
 
     .image {
         width: 50%;
