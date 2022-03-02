@@ -6,18 +6,16 @@
             :category="page.type"
             :title="page.title"
             :text="page.text"
-            :button-text="page.button.buttonText"
-            :to="page.button.buttonUrl"
-            :locations="page.locations"
+            :button-text="page.button[0].buttonText"
+            :to="page.button[0].buttonUrl"
         />
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
-            :to="page.button.buttonUrl"
-            :prompt="page.button.buttonText"
+            :to="page.button[0].buttonUrl"
+            :prompt="page.button[0].buttonText"
             :title="page.title"
             :category="page.type"
-            :locations="page.locations"
             :text="page.text"
         />
         <divider-way-finder
@@ -38,7 +36,7 @@
         />
         <section-cards
             class="section-cards"
-            :items="parsedHelpTopics"
+            :items="parsedAssociatedTopics"
             title="Associated Topics"
             button-text="All Services and Resources "
             to="/help/services-resources"
@@ -76,8 +74,13 @@ export default {
         }
     },
     computed: {
-        parsedHelpTopics() {
-            return this.page.resourceServiceWorkshop
+        parsedAssociatedTopics() {
+            return this.page.associatedTopics.map((obj) => {
+                return {
+                    ...obj,
+                    to: obj.researchGuideUrl ? obj.researchGuideUrl : obj.slug,
+                }
+            })
         },
     },
 }
