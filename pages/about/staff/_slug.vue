@@ -2,7 +2,6 @@
     <section class="page page-staff-detail">
         <!-- staff page here -->
         <!-- no search on this page -->
-        <masthead-secondary title="Staff Directory" />
         <block-staff-detail
             :image="parsedImage"
             :staff-name="parsedStaffName"
