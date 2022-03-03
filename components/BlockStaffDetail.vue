@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <!-- --------- SectionStaffBio ----------- -->
+        <!-- SectionStaffBio -->
         <div class="section-staff-bio">
             <div class="body-contact">
                 <responsive-image
@@ -199,7 +199,7 @@ export default {
     max-width: calc($container-l-main + 128) + px;
     .heading-staff {
         width: 100%;
-        margin-left: calc(var(--space-2xl) * -1);
+        // margin-left: calc(var(--space-2xl) * -1);
         margin-bottom: 64px;
 
         display: flex;
@@ -223,7 +223,10 @@ export default {
         align-content: center;
         align-items: flex-start;
 
-        .staffName, .job-title, .department, .location-link {
+        .staffName,
+        .job-title,
+        .department,
+        .location-link {
             margin-bottom: 8px;
             @include step-0;
             line-height: $line-height--2;
@@ -234,7 +237,8 @@ export default {
             @include step-4;
         }
 
-        .departments , .location-group {
+        .departments,
+        .location-group {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
@@ -243,7 +247,8 @@ export default {
             list-style: none;
         }
 
-        .department, .location-link {
+        .department,
+        .location-link {
             border-right: 1px solid var(--color-secondary-grey-02);
             padding: 0 8px;
             &:first-child {
@@ -273,16 +278,16 @@ export default {
             }
         }
     }
-        // Hover states
-        @media #{$has-hover} {
-            .location-link:hover {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue-03);
-                text-decoration-thickness: 1.5px;
-            }
+    // Hover states
+    @media #{$has-hover} {
+        .location-link:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue-03);
+            text-decoration-thickness: 1.5px;
         }
+    }
 
-    // -------BODY-----------------------
+    // BODY
     .section-staff-bio {
         max-width: $container-l-main + px;
         margin: 0 auto 96px;
@@ -294,7 +299,7 @@ export default {
         justify-content: flex-start;
         gap: 80px;
 
-        // -------CONTACT------------
+        // CONTACT
         .body-contact {
             flex: 1 1 300px;
             font-size: 20px;
@@ -319,7 +324,7 @@ export default {
             }
         }
 
-        // --------- SectionStaffBio -----------
+        // SectionStaffBio
         .body-bio {
             flex: 3 1 calc(100% - 380px);
 
