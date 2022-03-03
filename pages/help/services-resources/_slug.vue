@@ -6,14 +6,14 @@
             :category="page.type"
             :title="page.title"
             :text="page.text"
-            :button-text="page.button[0].buttonText"
-            :to="page.button[0].buttonUrl"
+            :button-text="parsedButtonText"
+            :to="parsedButtonTo"
         />
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
-            :to="page.button[0].buttonUrl"
-            :prompt="page.button[0].buttonText"
+            :to="parsedButtonTo"
+            :prompt="parsedButtonText"
             :title="page.title"
             :category="page.type"
             :text="page.text"
@@ -35,6 +35,7 @@
             class="divider-way-finder"
         />
         <section-cards
+            v-if="parsedAssociatedTopics.length"
             class="section-cards"
             :items="parsedAssociatedTopics"
             title="Associated Topics"
@@ -81,6 +82,20 @@ export default {
                     to: obj.researchGuideUrl ? obj.researchGuideUrl : obj.slug,
                 }
             })
+        },
+        parsedButtonText() {
+            let output = ""
+            if (this.page.button[0]) {
+                output = this.page.button[0].buttonText
+            }
+            return output
+        },
+        parsedButtonTo() {
+            let output = ""
+            if (this.page.button[0]) {
+                output = this.page.button[0].buttonUrl
+            }
+            return output
         },
     },
 }
