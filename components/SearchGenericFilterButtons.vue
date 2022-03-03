@@ -72,30 +72,26 @@ export default {
     flex-direction: row;
 
     .button {
-        height: 60px;
+        flex: 1 1 auto;
+
+    height: 60px;
         font-size: 18px;
         font-family: var(--font-secondary);
         color: var(--color-white);
         background-color: var(--color-blue-03);
         margin-right: 8px;
         padding: 0;
-
         position: relative;
-        box-sizing: border-box;
         overflow: hidden;
-
         border: 1.5px solid transparent;
-
         transition-property: border, border-radius;
         transition-duration: 400ms;
         transition-timing-function: ease-in-out;
-
-        flex: 1 1 auto;
-
         &:last-child {
             margin-right: 0;
         }
     }
+
     .title {
         display: block;
         height: 100%;
@@ -107,6 +103,7 @@ export default {
         align-items: center;
         align-content: center;
     }
+
     .chevron {
         font-size: 16px;
         color: var(--color-white);
@@ -123,6 +120,7 @@ export default {
         align-content: center;
         align-items: center;
     }
+
     .svg path {
         stroke: var(--color-white);
     }
@@ -131,11 +129,9 @@ export default {
     .is-active {
         border: 1.5px solid var(--color-fushia-03);
         border-radius: var(--rounded-slightly-all);
-
         .svg {
             transform: rotate(180deg);
         }
-
         .title,
         .chevron {
             background-color: var(--color-primary-blue-03);

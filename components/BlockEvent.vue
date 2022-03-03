@@ -119,10 +119,8 @@ export default {
         bottom: 0;
         top: auto;
         max-width: 500px;
-        box-sizing: border-box;
         padding: 20px var(--unit-gutter);
         margin: 0 auto;
-        box-sizing: border-box;
         height: 60%;
     }
     .button {
@@ -133,7 +131,6 @@ export default {
         font-size: 18px;
         font-weight: 400;
         line-height: 18px;
-        box-sizing: border-box;
         color: var(--color-theme);
         transition: color 400ms ease-in-out;
 

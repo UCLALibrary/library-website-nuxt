@@ -77,7 +77,6 @@ export default {
     width: 320px;
     min-height: 150px;
     padding: 25px;
-    box-sizing: border-box;
     border-radius: var(--rounded-slightly-all);
     transition-property: background-color, box-shadow;
     transition-duration: 400ms;
