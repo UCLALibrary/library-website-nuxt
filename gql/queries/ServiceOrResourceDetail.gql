@@ -33,6 +33,7 @@ query ServiceOrResourceDetail($slug: [String!]) {
                 text: summary
                 title
                 slug
+                uri
                 researchGuideUrl
             }
         }
