@@ -7,10 +7,7 @@
         :rel="rel"
         :class="classes"
     >
-        <!--
-            // TODO Figure out why if we have a slot here it gives node-mismatch error
-            <slot />
-        -->
+        <slot />
     </component>
 </template>
 

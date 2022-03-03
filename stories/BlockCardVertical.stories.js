@@ -120,3 +120,19 @@ export const Teaching = () => ({
         />
     `,
 })
+
+export const ExternalLink = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <block-card-vertical
+            icon-name="illustration-teaching"
+            to="https://guides.library.illinois.edu/openrefine/joiningprojects"
+            :title="title"
+            :text="text"
+        />
+    `,
+})
