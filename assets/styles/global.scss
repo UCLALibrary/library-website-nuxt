@@ -1,4 +1,9 @@
-
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
 ol,
 ul,
 li {
@@ -15,6 +20,7 @@ body {
     font-feature-settings: "kern" 1;
     font-kerning: normal;
 }
+
 h1,
 h2,
 h3,
@@ -23,19 +29,28 @@ h5 {
     font-weight: 400;
     margin: 0;
 }
+
 strong {
     font-weight: 500;
 }
+
 ul,
 ol {
     margin: 0;
     padding: 0;
 }
+
+li,
+p {
+    @include step-0;
+}
+
 a {
     text-decoration: none;
     color: inherit;
     transition: color 400ms ease-in-out;
 }
+
 button {
     appearance: none;
     border: none;
@@ -43,6 +58,7 @@ button {
     cursor: pointer;
     margin: 0;
 }
+
 ::selection {
     background: var(--color-primary-blue-03);
     color: var(--color-white);
