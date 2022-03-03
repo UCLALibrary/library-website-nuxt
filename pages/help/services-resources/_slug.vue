@@ -79,7 +79,7 @@ export default {
             return this.page.associatedTopics.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.researchGuideUrl ? obj.researchGuideUrl : obj.slug,
+                    to: obj.researchGuideUrl ? obj.researchGuideUrl : obj.uri,
                 }
             })
         },
