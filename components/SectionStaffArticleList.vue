@@ -1,10 +1,6 @@
 <template lang="html">
     <section class="section-staff-article-list">
         <div class="container">
-            <divider-way-finder
-                color="about"
-                class="divider-wayfinder"
-            />
             <div
                 v-if="sectionTitle"
                 class="section-title"
@@ -25,7 +21,10 @@
                     :description="item.description"
                     class="block"
                 />
-                <divider-general :is-bold="true" class="divider-general" />
+                <divider-general
+                    :is-bold="true"
+                    class="divider-general"
+                />
             </div>
         </div>
     </section>
@@ -72,9 +71,9 @@ export default {
             border-bottom-color: var(--color-secondary-grey-03);
         }
     }
+
     .section-title {
-        font-size: 44px;
-        line-height: 100%;
+        @include step-3;
         text-transform: capitalize;
         color: var(--color-primary-blue-03);
         padding-top: 100px;

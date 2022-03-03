@@ -147,6 +147,11 @@ export default {
     max-width: $container-l-text + px;
     margin: var(--unit-gutter) auto;
     padding-right: 96px;
+        ::v-deep h5 {
+        font-family: var(--font-primary);
+        color: var(--color-black);
+        @include step-1;
+    }
     .text {
         font-family: var(--font-primary);
         font-weight: 400;
