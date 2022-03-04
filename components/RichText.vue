@@ -1,142 +1,20 @@
 <template lang="html">
     <div class="rich-text">
         <div
-            v-if="textBlocks[0]"
-            class="text"
-            v-html="textBlocks[0]"
-        />
-        <pull-quote
-            v-if="pullQuote[0]"
-            class="pull-quote"
-            :text="pullQuote[0].text"
-            :attribution="pullQuote[0].attribution"
-        />
-        <div
-            v-if="textBlocks[1]"
-            class="text"
-            v-html="textBlocks[1]"
-        />
-        <div
-            v-if="images[0]"
-            class="image-block"
-        >
-            <responsive-image
-                v-if="images[0]"
-                class="image"
-                :image="images[0]"
-                :aspect-ratio="parsedRatio"
-            />
-            <div
-                v-if="images[0].caption"
-                class="caption"
-                v-html="images[0].caption"
-            />
-        </div>
-
-        <div
-            v-if="textBlocks[2]"
-            class="text"
-            v-html="textBlocks[2]"
-        />
-        <pull-quote
-            v-if="pullQuote[1]"
-            class="pull-quote"
-            :text="pullQuote[1].text"
-            :attribution="pullQuote[1].attribution"
-        />
-        <div
-            v-if="textBlocks[3]"
-            class="text"
-            v-html="textBlocks[3]"
-        />
-        <div
-            v-if="images[1]"
-            class="image-block"
-        >
-            <responsive-image
-                v-if="images[1]"
-                class="image"
-                :image="images[1]"
-                :aspect-ratio="parsedRatio"
-            />
-            <div
-                v-if="images[1].caption"
-                class="caption"
-                v-html="images[1].caption"
-            />
-        </div>
-
-        <div
-            v-if="textBlocks[4]"
-            class="text"
-            v-html="textBlocks[4]"
-        />
-        <div
-            v-if="textBlocks[5]"
-            class="text"
-            v-html="textBlocks[5]"
-        />
-        <pull-quote
-            v-if="pullQuote[2]"
-            class="pull-quote"
-            :text="pullQuote[2].text"
-            :attribution="pullQuote[2].attribution"
-        />
-        <div
-            v-if="textBlocks[6]"
-            class="text"
-            v-html="textBlocks[6]"
-        />
-        <div
-            v-if="images[2]"
-            class="image-block"
-        >
-            <responsive-image
-                v-if="images[2]"
-                class="image"
-                :image="images[2]"
-                :aspect-ratio="parsedRatio"
-            />
-            <div
-                v-if="images[2].caption"
-                class="caption"
-                v-html="images[2].caption"
-            />
-        </div>
-        <div
-            v-if="textBlocks[7]"
-            class="text"
-            v-html="textBlocks[7]"
+            class="parsed-content"
+            v-html="richTextContent"
         />
     </div>
 </template>
 
 <script>
 export default {
+    components: {},
+
     props: {
-        // Array of image objects
-        images: {
-            type: Array,
-            default: () => [],
-        },
-        // Array of pullquote objects
-        pullQuote: {
-            type: Array,
-            default: () => [],
-        },
-        textBlocks: {
-            type: Array,
-            default: () => [],
-        },
-    },
-    computed: {
-        parsedRatio() {
-            // If on mobile, change ratio of image
-            let output = this.ratio
-            if (this.$store.state.winWidth <= 750) {
-                output = 100
-            }
-            return output
+        richTextContent: {
+            type: String,
+            default: "",
         },
     },
 }
@@ -147,55 +25,182 @@ export default {
     max-width: $container-l-text + px;
     margin: var(--unit-gutter) auto;
     padding-right: 96px;
-        ::v-deep h5 {
+
+    ::v-deep h3 {
+        font-family: var(--font-primary);
+        color: var(--color-black);
+        @include step-3;
+    }
+    ::v-deep h4 {
+        font-family: var(--font-primary);
+        color: var(--color-black);
+        @include step-2;
+    }
+    ::v-deep h5 {
         font-family: var(--font-primary);
         color: var(--color-black);
         @include step-1;
     }
-    .text {
+    ::v-deep p,
+    ::v-deep li {
         font-family: var(--font-primary);
+        color: var(--color-black);
+        @include step-0;
+    }
+
+    ::v-deep blockquote {
+        border-left: 4px solid var(--color-default-cyan-03);
+        border-radius: 2px;
+        padding: 24px var(--spacing-text-left);
+        --spacing-text-left: 64px;
+        --container-width: $container-m-text + px;
+
         font-weight: 400;
         font-size: 20px;
-        line-height: 150%;
-        letter-spacing: 0.01em;
-        color: var(--color-black);
+        font-style: normal;
+        line-height: 140%;
+        align-items: center;
+        text-transform: uppercase;
+        color: var(--color-secondary-grey-05);
+        margin-left: 50px;
+
+        p {
+            font-size: 24px;
+            font-style: italic;
+            font-weight: 600;
+            line-height: 150%;
+            letter-spacing: 0.01em;
+            color: var(--color-primary-blue-03);
+            font-family: var(--font-primary);
+            text-transform: none;
+        }
     }
-    .image-block {
+
+    ::v-deep .figure {
+        width: 50%;
+        margin: var(--space-s);
+
         display: flex;
         flex-direction: column;
-
-        max-width: 100%;
     }
-    .caption {
+
+    ::v-deep .image-right {
+        float: right;
+        margin-left: var(--space-s);
+    }
+
+    ::v-deep .image-left {
+        float: left;
+        margin-right: var(--space-s);
+    }
+
+    ::v-deep figcaption {
         font-family: var(--font-secondary);
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 160%;
-        letter-spacing: 0.01em;
+        @include step--1;
         color: var(--color-secondary-grey-05);
         padding: 16px 16px 26px 16px;
     }
-    .pull-quote {
-        margin: 20px 10px 20px 0;
+
+    ::v-deep iframe {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
     }
 
-    ::v-deep .link {
-        text-decoration: underline;
-        text-decoration-color: var(--color-primary-blue-03);
-        text-decoration-thickness: 2px;
+    ::v-deep img {
+        height: auto;
+        object-fit: cover;
     }
+
+    ::v-deep a {
+        text-decoration: underline;
+        text-decoration-color: var(--color-default-cyan-03);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 1px;
+
+        font-family: var(--font-primary);
+        color: var(--color-black);
+        @include step-0;
+    }
+    ::v-deep ul,
+    ::v-deep ol {
+        padding: 0 16px;
+        margin-bottom: 24px;
+    }
+    ::v-deep ol {
+        li {
+            padding-left: 16px;
+            margin-bottom: 20px;
+            @include step-0;
+        }
+        ::marker {
+            font-family: var(--font-secondary);
+            font-size: 20px;
+            line-height: 1;
+            color: var(--color-primary-blue-03);
+        }
+    }
+
+    ::v-deep ul {
+        list-style: none;
+        padding: 0 16px;
+        margin: 0 0 2rem;
+        font-size: 20px;
+
+        li {
+            margin-bottom: 24px;
+            padding-left: 16px;
+            line-height: 1.6;
+
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-direction: row;
+        }
+    }
+
+    ::v-deep ul li:before {
+        content: "";
+        height: 24px;
+        width: 24px;
+        padding: 0 24px 0 16px;
+        flex-basis: 0;
+
+        background-image: url(~/assets/svg/molecule-bullet.svg?url);
+        background-repeat: no-repeat;
+        background-position-y: 4px; // This will shift the bullet down as needed
+    }
+
+    // Hover states
     @media #{$has-hover} {
-        ::v-deep {
-            .link:hover {
-                @include hover;
-            }
+        ::v-deep a:hover {
+            color: var(--color-primary-blue-03);
+            @include hover;
         }
     }
 
     // Breakpoints
     @media #{$medium} {
-        padding: 0 $whitespace-s-sides + px;
-        max-width: $container-l-main + px;
+        .rich-text {
+            padding: 0 $whitespace-s-sides + px;
+            max-width: $container-l-main + px;
+        }
+    }
+
+    @media #{$small} {
+        ::v-deep .figure {
+            width: 100%;
+            height: auto;
+        }
+        ::v-deep iframe {
+            width: 100%;
+            width: 100%;
+            height: auto;
+        }
+        ::v-deep blockquote {
+            --spacing-text-left: 24px;
+            --container-width: 100%;
+        }
     }
 }
 </style>
