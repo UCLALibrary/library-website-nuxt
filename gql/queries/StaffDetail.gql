@@ -12,6 +12,8 @@ query StaffDetail($slug: [String]!) {
             subjectLibrarian
             bookAConsultation
             to: slug
+            orcid: orcidId
+            publications
             topics: askMeAbout {
                 title
                 id

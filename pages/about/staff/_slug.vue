@@ -4,24 +4,43 @@
         <!-- no search on this page -->
         <!-- TODO: Add Breadcrumb Component -->
         <block-staff-detail
+            class="staff-detail-block"
             :image="parsedImage"
             :staff-name="parsedStaffName"
-            :pronouns="page.entry.pronouns"
             :job-title="page.entry.jobTitle"
+            :departments="page.entry.departments"
             :locations="page.entry.locations"
+            :pronouns="page.entry.pronouns"
             :email="page.entry.email"
             :phone="page.entry.phone"
-            :departments="page.entry.departments"
+            :consultation="page.entry.consultation"
             :topics="page.entry.topics"
             :biography="page.entry.biography"
-            class="staff-detail-block"
+        />
+
+        <h2
+            v-if="page.entry.orcid || page.entry.publications"
+            class="staff-orcid-publications"
+        >
+            PUBLICATIONS
+        </h2>
+        <div
+            v-if="page.entry.orcid"
+            class="orcid"
+            v-html="page.entry.orcid"
+        />
+        <rich-text
+            v-if="page.entry.publications"
+            class="publications"
+            :rich-text-content="page.entry.publications"
         />
         <section-staff-article-list
             v-if="parsedItems.length"
-            :items="parsedItems"
-            section-title="Articles"
             class="staff-article-list-section"
+            section-title="Articles"
+            :items="parsedItems"
         />
+
         <!-- this is different from flexible page blocks ctacontentwidth and will be hardcoded where required -->
         <block-call-to-action
             class="section block-call-to-action"
@@ -56,7 +75,18 @@ export default {
             return _get(this.page.entry, "image[0]staffMemberImage[0]", null)
         },
         parsedStaffName() {
+            console.log(this.page.entry)
             return `${this.page.entry.nameFirst} ${this.page.entry.nameLast}`
+        },
+        parsedPublications() {
+            return this.page.entries.map((obj) => {
+                return {
+                    ...obj,
+                    sectionTitle: `${obj.sectionTitle}`,
+                    orcid: `ORCID: ${obj.orcidId}`,
+                    publications: `${obj.publications}`,
+                }
+            },)
         },
         parsedItems() {
             return this.page.entries.map((obj) => {
@@ -78,6 +108,9 @@ export default {
         margin-left: auto;
         margin-right: auto;
         margin-top: 70px;
+    }
+    .staff-orcid-publications {
+        background-color: aqua;
     }
     .staff-article-list-section {
         background-color: var(--color-secondary-grey-01);

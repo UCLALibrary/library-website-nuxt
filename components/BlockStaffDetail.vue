@@ -153,9 +153,17 @@ export default {
             type: String,
             default: "",
         },
+        departments: {
+            type: Array,
+            default: () => [],
+        },
         locations: {
             type: Array,
             default: () => [],
+        },
+        pronouns: {
+            type: String,
+            default: "",
         },
         email: {
             type: String,
@@ -164,14 +172,6 @@ export default {
         phone: {
             type: String,
             default: "",
-        },
-        pronouns: {
-            type: String,
-            default: "",
-        },
-        departments: {
-            type: Array,
-            default: () => [],
         },
         topics: {
             // ask-me-about
