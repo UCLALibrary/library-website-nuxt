@@ -3,22 +3,16 @@ query StaffDetail($slug: [String]!) {
     entry(section: "staffMember", slug: $slug) {
         ... on staffMember_staffMember_Entry {
             id
-            email
-            phone: phoneNumber
-            jobTitle: staffMemberJobTitle
+            image: staffMemberImage {
+                staffMemberImage {
+                    ...Image
+                }
+                staffMemberImageAltText
+            }
+            to: slug
             nameFirst
             nameLast
-            pronouns
-            subjectLibrarian
-            bookAConsultation
-            to: slug
-            orcid: orcidId
-            publications
-            topics: askMeAbout {
-                title
-                id
-            }
-            biography
+            jobTitle: staffMemberJobTitle
             departments: department {
                 id
                 title
@@ -28,12 +22,18 @@ query StaffDetail($slug: [String]!) {
                 to: uri
                 id
             }
-            image: staffMemberImage {
-                staffMemberImage {
-                    ...Image
-                }
-                staffMemberImageAltText
+            pronouns
+            email
+            phone: phoneNumber
+            consultation: bookAConsultation
+            topics: askMeAbout {
+                title
+                id
             }
+            biography
+            subjectLibrarian
+            orcid: orcidId
+            publications
         }
     }
     entries(

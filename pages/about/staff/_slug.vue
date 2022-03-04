@@ -18,22 +18,30 @@
             :biography="page.entry.biography"
         />
 
-        <h2
+        <section
             v-if="page.entry.orcid || page.entry.publications"
             class="staff-orcid-publications"
         >
-            PUBLICATIONS
-        </h2>
-        <div
-            v-if="page.entry.orcid"
-            class="orcid"
-            v-html="page.entry.orcid"
-        />
-        <rich-text
-            v-if="page.entry.publications"
-            class="publications"
-            :rich-text-content="page.entry.publications"
-        />
+            <divider-way-finder
+                class="divider divider-first"
+                color="visit"
+            />
+            <h2 class="secondary-header">
+                Publications
+            </h2>
+            <smart-link
+                :to="page.entry.orcid"
+                target="_blank"
+                class="orcid"
+                v-html="`ORCID: <span style='font-size: 20px'>${page.entry.orcid}</span>`"
+            />
+            <rich-text
+                v-if="page.entry.publications"
+                class="publications"
+                :rich-text-content="page.entry.publications"
+            />
+        </section>
+
         <section-staff-article-list
             v-if="parsedItems.length"
             class="staff-article-list-section"
@@ -57,7 +65,7 @@
 // Helpers
 import _get from "lodash/get"
 
-// gql
+// GQL
 import STAFF_DETAIL from "~/gql/queries/StaffDetail"
 
 export default {
@@ -77,16 +85,6 @@ export default {
         parsedStaffName() {
             console.log(this.page.entry)
             return `${this.page.entry.nameFirst} ${this.page.entry.nameLast}`
-        },
-        parsedPublications() {
-            return this.page.entries.map((obj) => {
-                return {
-                    ...obj,
-                    sectionTitle: `${obj.sectionTitle}`,
-                    orcid: `ORCID: ${obj.orcidId}`,
-                    publications: `${obj.publications}`,
-                }
-            },)
         },
         parsedItems() {
             return this.page.entries.map((obj) => {
@@ -109,11 +107,44 @@ export default {
         margin-right: auto;
         margin-top: 70px;
     }
-    .staff-orcid-publications {
-        background-color: aqua;
+
+    .divider {
+        margin: 45px 0px;
+        width: 100%;
     }
-    .staff-article-list-section {
-        background-color: var(--color-secondary-grey-01);
+
+    .staff-orcid-publications {
+        max-width: $container-l-main + px;
+        padding: 0 var(--unit-gutter) 46px;
+        margin: auto;
+        .secondary-header {
+            margin-bottom: 48px;
+            @include step-3;
+            color: var(--color-primary-blue-03);
+        }
+        .orcid {
+            font-size: 26px;
+            font-weight: 500;
+            color: var(--color-primary-blue-03);
+        }
+        .publications {
+            font-size: 20px;
+        }
+        .rich-text {
+            margin: 20px auto;
+            margin-left: -20px;
+        }
+        ul, li {
+            margin-bottom: 24px;
+        }
+            // Hover states
+        @media #{$has-hover} {
+            .orcid:hover {
+                text-decoration: underline;
+                text-decoration-color: var(--color-primary-blue-03);
+                text-decoration-thickness: 1.5px;
+            }
+        }
     }
 }
 </style>
