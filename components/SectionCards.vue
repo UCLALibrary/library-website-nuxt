@@ -75,9 +75,10 @@ export default {
 
 <style lang="scss" scoped>
 .section-cards {
-    max-width: 924px;
+    max-width: $container-l-main + px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0;
 
     .meta {
         margin-bottom: 90px;

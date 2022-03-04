@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="rich-text">
-        <rich-text :html="parsedContent" />
+        <rich-text :rich-text-content="parsedContent" />
     </div>
 </template>
 
@@ -23,9 +23,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.rich-text {
-    max-width: $container-l-text + px;
-    margin: var(--unit-gutter) auto;
-    padding-right: 96px;
-}
+
 </style>

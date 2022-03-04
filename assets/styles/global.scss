@@ -41,11 +41,6 @@ ol {
     padding: 0;
 }
 
-li,
-p {
-    @include step-0;
-}
-
 a {
     text-decoration: none;
     color: inherit;
