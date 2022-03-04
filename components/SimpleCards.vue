@@ -54,8 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .simple-cards {
-    max-width: 960px;
-    height: 100%;
+    max-width: $container-l-main + px;
 
     display: flex;
     flex-direction: row;
@@ -68,10 +67,10 @@ export default {
         margin: 12px 16px 0 0;
     }
     .card-large {
-        width: 100%;
+        width: calc(50% - 16px)
     }
     .card-small {
-        width: 300px;
+        width: calc(33.33% - 16px);
     }
     .card-five {
         &:nth-child(-n + 2) {
