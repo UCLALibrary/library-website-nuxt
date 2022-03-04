@@ -22,19 +22,21 @@ export default {
 
 <style lang="scss" scoped>
 .rich-text {
-    max-width: $container-l-text + px;
+    max-width: $container-l-main + px;
     margin: var(--unit-gutter) auto;
     padding-right: 96px;
 
     ::v-deep h3 {
         font-family: var(--font-primary);
-        color: var(--color-black);
+        color: var(--color-primary-blue-03);
         @include step-3;
+        margin-bottom: 32px;
     }
     ::v-deep h4 {
         font-family: var(--font-primary);
-        color: var(--color-black);
+        color: var(--color-primary-blue-03);
         @include step-2;
+        margin-bottom: 24px;
     }
     ::v-deep h5 {
         font-family: var(--font-primary);
@@ -46,6 +48,7 @@ export default {
         font-family: var(--font-primary);
         color: var(--color-black);
         @include step-0;
+        margin: 0 0 32px;
     }
 
     ::v-deep blockquote {
@@ -125,14 +128,17 @@ export default {
     ::v-deep ul,
     ::v-deep ol {
         padding: 0 16px;
-        margin-bottom: 24px;
-    }
-    ::v-deep ol {
+        margin: 0 0 2rem;
+
         li {
-            padding-left: 16px;
             margin-bottom: 20px;
+            padding-left: 16px;
             @include step-0;
         }
+    }
+    ::v-deep ol {
+        margin-left: 32px;
+
         ::marker {
             font-family: var(--font-secondary);
             font-size: 20px;
@@ -143,15 +149,8 @@ export default {
 
     ::v-deep ul {
         list-style: none;
-        padding: 0 16px;
-        margin: 0 0 2rem;
-        font-size: 20px;
 
         li {
-            margin-bottom: 24px;
-            padding-left: 16px;
-            line-height: 1.6;
-
             display: flex;
             align-items: flex-start;
             justify-content: flex-start;

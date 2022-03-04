@@ -1,68 +1,74 @@
 <template lang="html">
     <div :class="classes">
-        <div class="meta">
-            <svg-heading-vector class="heading-line" />
-            <div
-                :class="categoryClasses"
-                v-html="category"
-            />
-        </div>
-        <h1
-            class="title"
-            v-html="title"
-        />
-        <div
-            v-if="date"
-            class="schedule"
-        >
-            <time
-                v-if="date"
-                class="schedule-item"
-                v-html="parsedDate"
-            />
-            <time
-                v-if="date"
-                class="schedule-item"
-                v-html="parsedTime"
-            />
-            <!-- TODO this can be multiple locations, on own line with icon -->
-            <div
-                v-if="isOnline"
-                class="schedule-item"
-            >
-                Online
-            </div>
-        </div>
-        <div
-            v-if="locations.length"
-            class="location-group"
-        >
-            <nuxt-link
-                v-for="location in locations"
-                :key="`location-${location.id}`"
-                :to="location.to"
-                class="location-link"
-            >
-                <svg-icon-location class="location-svg" />
-                <span
-                    class="location"
-                    v-html="location.title"
+        
+        <div class="banner-text-content-container">
+            <div class="meta">
+                <svg-heading-vector class="heading-line" />
+                <div
+                    :class="categoryClasses"
+                    v-html="category"
                 />
-            </nuxt-link>
+            </div> 
+            <div class="content">
+                <h1
+                    class="title"
+                    v-html="title"
+                />
+                <div
+                    v-if="date"
+                    class="schedule"
+                >
+                    <time
+                        v-if="date"
+                        class="schedule-item"
+                        v-html="parsedDate"
+                    />
+                    <time
+                        v-if="date"
+                        class="schedule-item"
+                        v-html="parsedTime"
+                    />
+                    <!-- TODO this can be multiple locations, on own line with icon -->
+                    <div
+                        v-if="isOnline"
+                        class="schedule-item"
+                    >
+                        Online
+                    </div>
+                </div>
+                <div
+                    v-if="locations.length"
+                    class="location-group"
+                >
+                    <nuxt-link
+                        v-for="location in locations"
+                        :key="`location-${location.id}`"
+                        :to="location.to"
+                        class="location-link"
+                    >
+                        <svg-icon-location class="location-svg" />
+                        <span
+                            class="location"
+                            v-html="location.title"
+                        />
+                    </nuxt-link>
+                </div>
+                <div
+                    v-if="text"
+                    class="text"
+                    v-html="text"
+                />
+                <button-link
+                    v-if="to"
+                    :label="buttonText"
+                    :to="to"
+                    :is-secondary="true"
+                    icon-name="svg-arrow-diagonal"
+                />
+            </div> 
         </div>
-        <div
-            v-if="text"
-            class="text"
-            v-html="text"
-        />
-        <button-link
-            v-if="to"
-            :label="buttonText"
-            :to="to"
-            :is-secondary="true"
-            icon-name="svg-arrow-diagonal"
-        />
-        <svg-molecule-two-facets class="molecule" />
+        
+        <!-- <svg-molecule-two-facets class="molecule" /> -->
     </div>
 </template>
 
@@ -188,19 +194,21 @@ export default {
     --hover-background-color: var(--color-primary-blue-03);
 }
 .banner-text {
-    max-width: $container-xl-full-width + px;
-    padding-left: 204px;
-    padding-right: var(--unit-gutter);
-    padding-top: 84px;
-    padding-bottom: 128px;
+    padding: calc(var(--space-2xl) - 22px) 0 var(--space-2xl);
     margin: 0 auto;
     background-color: var(--background-color);
     position: relative;
     z-index: 0;
+    background-image: url("~/assets/svg/molecule-two-facets.svg?url");
+    background-position: 100% 50%;
+    background-size: 144px;
+    background-repeat: no-repeat;
+    max-width: 1680px;
     .meta {
         display: flex;
         align-items: center;
         justify-content: flex-start;
+        margin-left: -52px;
     }
     // Themes for category outline
     --color-theme: var(--color-primary-blue-03);
@@ -216,9 +224,11 @@ export default {
     .category {
         color: var(--category-title-color);
         font-size: 26px;
+        @include step-0;
+        line-height: 1;
         text-transform: capitalize;
         border: 1px solid var(--color-theme);
-        padding: 15px 20px 13px 22px;
+        padding: 15px 20px;
         margin-left: -10px;
         clip-path: polygon(17px 0, 100% 0, 100% 100%, 1px 100%);
     }
@@ -226,14 +236,20 @@ export default {
         flex-shrink: 0;
         padding-right: 0;
     }
+    .banner-text-content-container {
+        max-width: $container-l-main + px;
+        margin: auto;
+
+        .content {
+            max-width: 788px;
+        }
+    }
     .title {
-        font-size: 80px;
-        line-height: 1;
         color: var(--title-color);
-        margin-top: 48px;
-        text-align: left;
-        max-width: 788px;
-        padding-left: 52px;
+        margin-top: calc(var(--space-2xl) - 22px);
+        // max-width: 788px;
+        // padding-left: 52px;
+        @include step-5;
     }
     .schedule {
         font-size: 20px;
@@ -242,7 +258,7 @@ export default {
         font-family: var(--font-secondary);
         color: var(--schedule-item-color);
         margin: 24px 0 8px 0;
-        padding-left: 52px;
+        // padding-left: 52px;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -269,7 +285,7 @@ export default {
         font-family: var(--font-secondary);
         font-size: 20px;
         line-height: 1;
-        padding-left: 52px;
+        // padding-left: 52px;
     }
     .location-link {
         display: flex;
@@ -287,22 +303,14 @@ export default {
             stroke: var(--location-icon-color);
         }
     }
-    .text {
-        font-size: 20px;
-        line-height: 1.5;
-        text-align: left;
-        max-width: 70%;
+    ::v-deep .text p {
         margin-top: 24px;
-        padding-left: 52px;
+        // padding-left: 52px;
         color: var(--text-color);
+        @include step-0;
+        font-weight: $font-weight-regular;
     }
     .button-link {
-        margin-top: 40px;
-        max-width: 160px;
-        margin-left: 52px;
-        margin-bottom: 40px;
-        // background-color: var(--color-primary-blue-03);
-        // color: var(--color-white);
         border: 1px solid var(--button-border-color);
     }
     .molecule {
@@ -341,7 +349,7 @@ export default {
 // Breakpoints
 @media #{$extra-large} {
     .banner-text {
-        margin-top: 72px;
+        // margin-top: 72px;
         .text {
             max-width: 788px;
         }

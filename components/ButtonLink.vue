@@ -17,8 +17,8 @@
 export default {
     components: {
         SvgArrowRight: () => import("~/assets/svg/arrow-right-small"),
-        SvgArrowDiagonal: () => import("~/assets/svg/arrow-diagonal"),
-        SvgArrowDownload: () => import("~/assets/svg/arrow-download"),
+        SvgArrowDiagonal: () => import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-external-link"),
+        SvgArrowDownload: () => import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-download"),
     },
     props: {
         /**
@@ -61,7 +61,7 @@ export default {
 
 <style lang="scss" scoped>
 .button-link {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     height: 50px;
@@ -90,12 +90,15 @@ export default {
         .line {
             stroke: var(--color-white);
         }
-        .arrow-diagonal {
-            fill: var(--color-white);
-        }
-        .arrow-download {
-            fill: var(--color-white);
-            stroke: var(--color-white);
+        .svg__icon-external-link,
+        .svg__icon-download {
+            .svg__stroke--primary-blue-03 {
+                stroke: var(--color-white);
+            }
+            .svg__fill--primary-blue-03 {
+                fill: var(--color-white);
+                stroke: transparent;
+            }
         }
     }
     // Hover states
@@ -116,12 +119,15 @@ export default {
                 .arrow {
                     stroke: var(--color-default-cyan-03);
                 }
-                .arrow-diagonal {
-                    fill: var(--color-default-cyan-03);
-                }
-                .arrow-download {
-                    fill: var(--color-default-cyan-03);
-                    stroke: var(--color-default-cyan-03);
+                .svg__icon-external-link,
+                .svg__icon-download {
+                    .svg__stroke--primary-blue-03 {
+                        stroke: var(--color-default-cyan-03);
+                    }
+                    .svg__fill--primary-blue-03 {
+                        fill: var(--color-default-cyan-03);
+                        stroke: transparent;
+                    }
                 }
                 .line {
                     stroke: var(--color-default-cyan-03);

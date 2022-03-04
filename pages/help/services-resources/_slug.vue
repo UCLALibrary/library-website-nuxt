@@ -42,6 +42,7 @@
             button-text="All Services and Resources "
             to="/help/services-resources"
         />
+        <!-- TODO pull data from Globals entry for Ask a Librarian CTA -->
         <block-call-to-action
             class="block-call-to-action"
             svg-name="svg-call-to-action-chat"
@@ -103,17 +104,20 @@ export default {
 
 <style lang="scss" scoped>
 .page-service-detail {
-    .banner-text {
-        max-width: $container-xl-full-width + px;
-    }
+    // .banner-text {
+        // max-width: $container-xl-full-width + px;
+    // }
     .banner-header {
         margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
         margin: var(--unit-gutter) auto;
     }
+    .banner-text + .divider-way-finder {
+        margin: 0 auto var(--space-2xl);
+    }
     .divider-way-finder {
-        max-width: $container-xl-banner + px;
+        max-width: $container-l-main + px;
         margin: var(--space-3xl) auto;
     }
     .content {
@@ -121,17 +125,16 @@ export default {
         ::v-deep .pull-quote,
         ::v-deep .simple-cards,
         ::v-deep .section-media-with-text,
-        ::v-deep .rich-text,
         ::v-deep .divider-general {
             margin: var(--unit-gutter) auto;
-            max-width: $container-xl-banner + px;
+            max-width: $container-l-main + px;
         }
     }
     .section-cards {
         margin: var(--space-3xl) auto;
     }
     .more-info {
-        display: none;
+        @include visually-hidden;
     }
     .block-call-to-action {
         margin: var(--space-3xl) auto;
