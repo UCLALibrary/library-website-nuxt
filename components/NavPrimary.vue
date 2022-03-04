@@ -143,8 +143,6 @@ export default {
     padding: 0 var(--unit-gutter);
     position: relative;
     width: 100%;
-    box-sizing: border-box;
-
     z-index: 10;
 
     display: flex;
@@ -174,10 +172,12 @@ export default {
             color: var(--color-primary-blue-03);
         }
     }
+
     .logo-ucla {
         height: 23px;
         width: auto;
     }
+
     .menu {
         margin: 0;
         padding: 0;
@@ -185,10 +185,10 @@ export default {
         position: relative;
         z-index: 10;
     }
+
     .support-links {
         position: relative;
         z-index: 10;
-
         &::before {
             content: "";
             position: absolute;
@@ -198,7 +198,6 @@ export default {
             width: 1px;
             background-color: var(--color-secondary-grey-02);
         }
-
         .item-top {
             display: inline-flex;
             margin-left: 30px;
@@ -215,6 +214,7 @@ export default {
         border-bottom: 1px solid var(--color-secondary-grey-02);
         z-index: 0;
     }
+
     .background-blue {
         background-color: var(--color-primary-blue-03);
         position: absolute;
@@ -227,6 +227,7 @@ export default {
         border-bottom: 1px solid var(--color-secondary-grey-02);
         z-index: 0;
     }
+
     .click-blocker {
         position: fixed;
         top: 0;
@@ -249,15 +250,5 @@ export default {
             opacity: 1;
         }
     }
-    // @media #{$has-hover} {
-    //     .menu:hover .submenu {
-    //         background-color: var(--color-primary-blue-03);
-    //         display: block;
-    //     }
-    //     .menu-item:hover {
-    //         text-decoration: underline;
-    //         text-decoration-color: yellow;
-    //     }
-    // }
 }
 </style>

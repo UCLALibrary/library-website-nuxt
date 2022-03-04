@@ -159,37 +159,39 @@ export default {
     .tabs {
         display: flex;
         justify-content: flex-end;
+
         cursor: pointer;
     }
+
     .tab {
         padding: 20px 25px;
         background-color: var(--color-primary-blue-01);
         border: 1px solid transparent;
         border-radius: var(--rounded-slightly-top);
         transition: background-color 400ms ease-in-out;
-
         &.is-active {
             background-color: var(--color-white);
             margin-right: 0;
         }
-
         &:not(.is-active) {
             margin: 0 4px 4px 4px;
         }
-
         &:last-child {
             margin-right: 0;
         }
     }
+
     .box {
         background-color: var(--color-white);
         padding: 30px 50px;
         border: 1px solid transparent;
         border-top-left-radius: 4px;
     }
+
     .input-container {
         position: relative;
     }
+
     .icon {
         padding: 25px 40px 25px 32px;
         position: absolute;
@@ -205,13 +207,10 @@ export default {
         font-size: 20px;
         line-height: 100%;
         letter-spacing: 0.01em;
-
         background-color: var(--color-primary-blue-01);
         border-color: transparent;
         padding: 27px 37px 27px 95px;
         width: 100%;
-        box-sizing: border-box;
-
         &::placeholder {
             text-transform: uppercase;
         }
@@ -227,12 +226,11 @@ export default {
         display: flex;
         margin: 25px 0;
     }
+
     .regular-links {
         display: flex;
-
         .link {
             display: flex;
-
             &:after {
                 content: "";
                 border-right: 2px solid #efefef;
@@ -243,6 +241,7 @@ export default {
             }
         }
     }
+
     .advanced-links {
         color: var(--color-primary-blue-03);
         margin-left: auto;
@@ -268,14 +267,12 @@ export default {
                 padding: 20px 60px;
             }
         }
-
         .links {
             display: unset;
             font-size: 12px;
         }
         .regular-links {
             margin-top: 20px;
-
             .vertical-divider {
                 margin: 0 4px;
             }

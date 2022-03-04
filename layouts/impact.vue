@@ -150,7 +150,6 @@ export default {
 
     > * {
         width: 100%;
-        box-sizing: border-box;
     }
 
     .page {
