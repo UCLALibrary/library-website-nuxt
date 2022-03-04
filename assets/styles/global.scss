@@ -69,6 +69,7 @@ button {
 .header-sticky {
     z-index: 100;
 }
+
 .header-main {
     z-index: 200;
 }
@@ -80,7 +81,6 @@ button {
         padding-left: $whitespace-m-sides + px;
         padding-right: $whitespace-m-sides + px;
         max-width: $container-xl-banner + px;
-
         @media #{$small} {
             padding-left: $whitespace-s-sides + px;
             padding-right: $whitespace-s-sides + px;
@@ -93,12 +93,9 @@ button {
         max-width: $container-l-main + px;
         margin-left: auto;
         margin-right: auto;
-        box-sizing: border-box;
-
         @media #{$medium} {
             padding: 0 $whitespace-m-sides + px;
         }
-
         @media #{$small} {
             padding: 0 $whitespace-s-sides + px;
         }
@@ -134,6 +131,7 @@ button {
 .fade-leave-active {
     transition: opacity 400ms ease-in-out;
 }
+
 .fade-enter,
 .fade-leave-active {
     opacity: 0;

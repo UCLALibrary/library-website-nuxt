@@ -231,7 +231,6 @@ export default {
         position: absolute;
         width: 112px;
         height: 72px;
-        box-sizing: border-box;
         background-color: var(--color-theme);
 
         clip-path: polygon(
@@ -346,7 +345,6 @@ export default {
                 position: absolute;
                 width: 112px;
                 height: 72px;
-                box-sizing: border-box;
                 background-color: var(--color-theme);
 
                 clip-path: polygon(

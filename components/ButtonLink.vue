@@ -64,7 +64,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
     height: 50px;
     background-color: var(--color-white);
     border: 1.5px solid var(--color-primary-blue-02);

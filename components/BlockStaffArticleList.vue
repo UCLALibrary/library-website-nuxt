@@ -84,7 +84,6 @@ export default {
 <style lang="scss" scoped>
 .block-staff-article-list {
     padding: 0 10px;
-    box-sizing: border-box;
 
     display: flex;
     flex-direction: row;

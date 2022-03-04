@@ -346,7 +346,6 @@ export default {
     .clipped-box {
         width: 75%;
         background-color: var(--color-white);
-        box-sizing: border-box;
         position: relative;
         z-index: 20;
         height: 100px;
@@ -369,13 +368,9 @@ export default {
     }
 
     .meta {
-        // padding: 0 0 10px 50px;
         margin: -60px auto 0;
         position: relative;
         z-index: 40;
-        // width: 65%;
-        box-sizing: border-box;
-        // padding-left: 240px;
         padding-right: 300px;
         max-width: $container-l-main + px;
 
@@ -504,13 +499,6 @@ export default {
         }
     }
 
-    // Breakpoints
-    // @media #{$large} {
-    //     .meta {
-    //         margin: -60px 0 0 0;
-    //     }
-    // }
-
     @media #{$medium} {
         .meta {
             padding-left: $whitespace-m-sides + px;
@@ -530,12 +518,6 @@ export default {
             }
         }
     }
-
-    // @media #{$large} {
-    //     .meta {
-    //         padding-left: 148px;
-    //     }
-    // }
 
     @media #{$small} {
         .media {
@@ -572,7 +554,6 @@ export default {
             margin-top: 0;
             padding-left: var(--unit-gutter);
             padding-right: var(--unit-gutter);
-            box-sizing: border-box;
             position: static;
             margin: 0 0 0 0;
         }
@@ -612,7 +593,6 @@ export default {
                 margin: 0 0 0 0;
                 padding-left: var(--unit-gutter);
                 padding-right: var(--unit-gutter);
-                box-sizing: border-box;
                 position: static;
             }
             .button {
