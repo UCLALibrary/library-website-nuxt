@@ -114,7 +114,7 @@
                     <h2 class="bio-header">
                         Biography
                     </h2>
-                    <rich-text v-html="biography" />
+                    <rich-text :rich-text-content="biography" />
                 </div>
             </div>
         </div>
