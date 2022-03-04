@@ -121,14 +121,7 @@ export default {
         margin: var(--space-3xl) auto;
     }
     .content {
-        margin: var(--unit-gutter) auto;
-        ::v-deep .pull-quote,
-        ::v-deep .simple-cards,
-        ::v-deep .section-media-with-text,
-        ::v-deep .divider-general {
-            margin: var(--unit-gutter) auto;
-            max-width: $container-l-main + px;
-        }
+        margin: 0 auto;
     }
     .section-cards {
         margin: var(--space-3xl) auto;

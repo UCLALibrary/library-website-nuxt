@@ -54,6 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .simple-cards {
+    margin: 0 auto;
     max-width: $container-l-main + px;
 
     display: flex;

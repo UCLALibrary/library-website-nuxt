@@ -23,7 +23,7 @@ export default {
 <style lang="scss" scoped>
 .rich-text {
     max-width: $container-l-main + px;
-    margin: var(--unit-gutter) auto;
+    margin: 0 auto;
     padding-right: 96px;
 
     ::v-deep h3 {
