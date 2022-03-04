@@ -32,7 +32,7 @@
                     <li
                         v-for="(department, index) in departments"
                         :key="index"
-                        v-html="department"
+                        v-html="department.title"
                     />
                 </ul>
             </div>
