@@ -157,6 +157,7 @@ export default {
     flex-wrap: nowrap;
     align-content: center;
     align-items: center;
+    justify-content: space-between;
 
     max-width: $container-xl-full-width + px;
 
@@ -258,10 +259,6 @@ export default {
         margin-left: -40px;
         top: 50%;
         margin-top: -40px;
-    }
-
-    .button {
-        width: 176px;
     }
 
     // Breakpoints
