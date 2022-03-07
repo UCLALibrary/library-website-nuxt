@@ -32,7 +32,6 @@ export default {
     left: 0;
     width: 100%;
     position: fixed;
-    background-color: var(--color-white);
     border-bottom: 1px solid var(--color-secondary-grey-02);
 
     display: flex;

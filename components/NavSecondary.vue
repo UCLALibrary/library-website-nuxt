@@ -42,7 +42,6 @@ export default {
 
 <style lang="scss" scoped>
 .nav-secondary {
-    background-color: var(--color-white);
     height: 48px;
     padding: 0 94px;
     border-bottom: 1px solid var(--color-secondary-grey-02);
