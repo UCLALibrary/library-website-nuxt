@@ -42,5 +42,6 @@ export default {
     .primary {
         position: absolute;
     }
+    // TODO nav on smaller viewports
 }
 </style>
