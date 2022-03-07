@@ -65,13 +65,10 @@ export default {
     .brick {
         width: 50%;
         margin: 0;
-        box-sizing: border-box;
         border: 8px solid white;
-
         &:nth-child(1) {
             order: 1;
             border-left: 0;
-
             ::v-deep {
                 .molecule {
                     transform: rotate(180deg);
@@ -81,10 +78,8 @@ export default {
         &:nth-child(2) {
             order: 4;
             border-right: 0;
-
             // Half of 37.5
             margin-top: calc(-19.1% + 6.5px);
-
             ::v-deep {
                 .molecule {
                     bottom: 0;
@@ -105,6 +100,7 @@ export default {
             border-left: 0;
         }
     }
+
     .more {
         display: block;
         padding: 30px 0px;
@@ -116,7 +112,6 @@ export default {
     @media #{$small} {
         flex-direction: column;
         flex-wrap: nowrap;
-
         .brick {
             width: 100%;
             border: 0;

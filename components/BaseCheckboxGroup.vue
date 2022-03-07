@@ -81,9 +81,7 @@ export default {
     border-radius: var(--rounded-slightly-all);
     border: 1.5px solid var(--color-fushia-03);
     margin: 0;
-
     padding: 22px 16px;
-    box-sizing: border-box;
 
     .list {
         column-count: 3;
@@ -93,14 +91,11 @@ export default {
         font-family: var(--font-secondary);
         display: inline-block;
         width: 100%;
-        box-sizing: border-box;
-
         margin: 4px 0;
         padding: 6px 14px 8px 45px;
         cursor: pointer;
         position: relative;
         border-radius: var(--rounded-slightly-all);
-
         background-color: rgba(255, 255, 255, 0);
         transition: background-color 400ms ease-in-out;
     }
@@ -117,7 +112,6 @@ export default {
         position: absolute;
         left: 14px;
         top: 5px;
-
         .filler {
             opacity: 0;
             transition: opacity 200ms ease-in-out;

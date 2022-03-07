@@ -32,7 +32,7 @@
                     <li
                         v-for="(department, index) in departments"
                         :key="index"
-                        v-html="department"
+                        v-html="department.title"
                     />
                 </ul>
             </div>
@@ -168,7 +168,6 @@ export default {
     background-color: var(--color-white);
     border: 2px solid var(--color-primary-blue-01);
     border-radius: var(--rounded-slightly-all);
-    box-sizing: border-box;
 
     .image {
         width: 352px;

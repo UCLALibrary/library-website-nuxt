@@ -1,8 +1,9 @@
 <template lang="html">
-    <nuxt-link
+    <smart-link
         v-if="to"
         :to="to"
         :class="classes"
+        :target="parsedTarget"
     >
         <component
             :is="parsedSvgName"
@@ -18,7 +19,7 @@
                 v-html="text"
             />
         </div>
-    </nuxt-link>
+    </smart-link>
 </template>
 
 <script>
@@ -71,6 +72,12 @@ export default {
         parsedSvgName() {
             return `${this.iconName}`
         },
+        isExternalLink() {
+            return this.to.includes("http") ? true : false
+        },
+        parsedTarget() {
+            return this.isExternalLink ? "blank" : "_self"
+        },
     },
 }
 </script>
@@ -91,7 +98,6 @@ export default {
     height: 400px;
     overflow: hidden;
     border-radius: var(--rounded-slightly-all);
-    box-sizing: border-box;
 
     transition-property: box-shadow, transform;
     transition-duration: 400ms;

@@ -130,7 +130,6 @@ export default {
     }
     .selected {
         width: 100%;
-        box-sizing: border-box;
         text-align: center;
 
         .svg {
@@ -182,7 +181,6 @@ export default {
     .list-item {
         height: 72px;
         padding: 12px 8px;
-        box-sizing: border-box;
         background-color: rgba(255, 255, 255, 0);
         border-radius: var(--rounded-slightly-all);
         transition: background-color 400ms ease-in-out;

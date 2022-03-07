@@ -15,7 +15,7 @@
                 class="divider"
             />
 
-            <rich-text
+            <impact-rich-text
                 :text-blocks="mainStory.textBlocks"
                 :pull-quote="mainStory.pullQuote"
                 :images="parsedMainStoryImages"

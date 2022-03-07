@@ -173,9 +173,7 @@ export default {
             background-color: var(--color-lightest-blue);
             border-color: transparent;
             padding: 27px 95px;
-
             width: 100%;
-            box-sizing: border-box;
 
             &::placeholder {
                 text-transform: uppercase;

@@ -1,30 +1,32 @@
 <template lang="html">
     <div :class="classes">
-        <h2 class="visually-hidden">
-            Resources
-        </h2>
-        <div
-            v-for="(item, index) in parsedContent"
-            :key="index"
-            class="meta"
-        >
-            <block-media-with-text
-                :section-header="item.sectionHeader"
-                :short-description="item.shortDescription"
-                :image="item.parsedImage"
-                :button-text="item.buttonText"
-                :icon-name="item.parsedIcon"
-                :to="item.parsedTo"
-                :is-audio="item.parsedIsAudio"
-                :is-video="item.parsedIsVideo"
-                :is-vertical="item.parsedIsVertical"
-                class="flexible-media-with-text"
-            />
+        <div class="flexible-page-block-container">
+            <h2 class="visually-hidden">
+                Resources
+            </h2>
+            <div
+                v-for="(item, index) in parsedContent"
+                :key="index"
+                class="meta"
+            >
+                <block-media-with-text
+                    :section-header="item.sectionHeader"
+                    :short-description="item.shortDescription"
+                    :image="item.parsedImage"
+                    :button-text="item.buttonText"
+                    :icon-name="item.parsedIcon"
+                    :to="item.parsedTo"
+                    :is-audio="item.parsedIsAudio"
+                    :is-video="item.parsedIsVideo"
+                    :is-vertical="item.parsedIsVertical"
+                    class="flexible-media-with-text"
+                />
 
-            <divider-general
-                class="divider"
-                :is-bold="isBoldDivider"
-            />
+                <divider-general
+                    class="divider"
+                    :is-bold="isBoldDivider"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -89,16 +91,22 @@ export default {
     flex-wrap: nowrap;
     align-content: center;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     background-color: var(--color-theme);
+    
+    width: 100%;
 
-    max-width: $container-xl-full-width + px;
+    .flexible-page-block-container {
+        max-width: $container-l-main + px;
+        // padding: var(--unit-gutter);
+    }
+
+    > .meta {
+        width: 100%;
+    }
 
     .visually-hidden {
-        display: none;
-    }
-    .meta {
-        margin: 0 var(--unit-gutter);
+        @include visually-hidden;
     }
     .flexible-media-with-text {
         margin-bottom: 56px;

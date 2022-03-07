@@ -6,14 +6,14 @@
             :category="page.type"
             :title="page.title"
             :text="page.text"
-            :button-text="page.button[0].buttonText"
-            :to="page.button[0].buttonUrl"
+            :button-text="parsedButtonText"
+            :to="parsedButtonTo"
         />
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
-            :to="page.button[0].buttonUrl"
-            :prompt="page.button[0].buttonText"
+            :to="parsedButtonTo"
+            :prompt="parsedButtonText"
             :title="page.title"
             :category="page.type"
             :text="page.text"
@@ -35,12 +35,14 @@
             class="divider-way-finder"
         />
         <section-cards
+            v-if="parsedAssociatedTopics.length"
             class="section-cards"
             :items="parsedAssociatedTopics"
             title="Associated Topics"
             button-text="All Services and Resources "
             to="/help/services-resources"
         />
+        <!-- TODO pull data from Globals entry for Ask a Librarian CTA -->
         <block-call-to-action
             class="block-call-to-action"
             svg-name="svg-call-to-action-chat"
@@ -78,9 +80,23 @@ export default {
             return this.page.associatedTopics.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.researchGuideUrl ? obj.researchGuideUrl : obj.slug,
+                    to: obj.researchGuideUrl ? obj.researchGuideUrl : obj.uri,
                 }
             })
+        },
+        parsedButtonText() {
+            let output = ""
+            if (this.page.button[0]) {
+                output = this.page.button[0].buttonText
+            }
+            return output
+        },
+        parsedButtonTo() {
+            let output = ""
+            if (this.page.button[0]) {
+                output = this.page.button[0].buttonUrl
+            }
+            return output
         },
     },
 }
@@ -88,35 +104,30 @@ export default {
 
 <style lang="scss" scoped>
 .page-service-detail {
-    .banner-text {
-        max-width: $container-xl-full-width + px;
-    }
+    // .banner-text {
+        // max-width: $container-xl-full-width + px;
+    // }
     .banner-header {
         margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
         margin: var(--unit-gutter) auto;
     }
+    .banner-text + .divider-way-finder {
+        margin: 0 auto var(--space-2xl);
+    }
     .divider-way-finder {
-        max-width: $container-xl-banner + px;
+        max-width: $container-l-main + px;
         margin: var(--space-3xl) auto;
     }
     .content {
-        margin: var(--unit-gutter) auto;
-        ::v-deep .pull-quote,
-        ::v-deep .simple-cards,
-        ::v-deep .section-media-with-text,
-        ::v-deep .rich-text,
-        ::v-deep .divider-general {
-            margin: var(--unit-gutter) auto;
-            max-width: $container-xl-banner + px;
-        }
+        margin: 0 auto;
     }
     .section-cards {
         margin: var(--space-3xl) auto;
     }
     .more-info {
-        display: none;
+        @include visually-hidden;
     }
     .block-call-to-action {
         margin: var(--space-3xl) auto;

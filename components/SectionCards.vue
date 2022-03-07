@@ -75,9 +75,10 @@ export default {
 
 <style lang="scss" scoped>
 .section-cards {
-    max-width: 924px;
+    max-width: $container-l-main + px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0;
 
     .meta {
         margin-bottom: 90px;
@@ -122,11 +123,14 @@ export default {
         width: 281px;
         height: 400px;
         border-radius: var(--rounded-slightly-all);
-        box-sizing: border-box;
-
         transition-property: box-shadow, transform;
         transition-duration: 400ms;
         transition-timing-function: ease-in-out;
+        .button {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+        }
 
         display: flex;
         flex-direction: column;
@@ -134,12 +138,6 @@ export default {
         justify-content: center;
         align-content: center;
         align-items: center;
-
-        .button {
-            width: 100%;
-            max-width: 100%;
-            height: 100%;
-        }
     }
 
     // Hovers
@@ -157,7 +155,6 @@ export default {
         .meta {
             padding: 0 var(--unit-gutter);
             margin-bottom: 40px;
-
             .title {
                 font-size: 40px;
             }

@@ -64,7 +64,10 @@
                 v-html="description"
             />
 
-            <div class="schedule" v-if="startDate || endDate">
+            <div
+                v-if="startDate || endDate"
+                class="schedule"
+            >
                 <time
                     v-if="startDate"
                     class="schedule-item"
@@ -357,7 +360,6 @@ export default {
     .clipped-box {
         width: 65%;
         background-color: var(--color-white);
-        box-sizing: border-box;
         position: relative;
         z-index: 20;
         height: 100px;
@@ -386,24 +388,14 @@ export default {
         margin: -60px auto 0;
         position: relative;
         z-index: 40;
-
         padding-right: clamp(360px, 35%, 600px);
         max-width: $container-l-main + px;
-
-        // width: 65%;
-        box-sizing: border-box;
-        // padding-left: 240px;
 
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-content: flex-end;
-
-        // > * {
-        //     max-width: 550px;
-        //     width: 100%;
-        // }
     }
 
     .category {
@@ -479,7 +471,7 @@ export default {
         margin-top: 16px;
     }
 
-    // Varient
+    // Variant
     &.hatch-left {
         .clipped-box {
             margin-left: auto;
@@ -503,15 +495,6 @@ export default {
             align-content: flex-start;
             align-items: flex-start;
         }
-    }
-
-    // Hovers
-    @media #{$has-hover} {
-        /*.title:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-default-cyan-03);
-            text-decoration-thickness: 1.5px;
-        }*/
     }
 
     // Breakpoints
@@ -555,7 +538,6 @@ export default {
             padding-left: var(--unit-gutter);
             height: 40px;
             padding-top: 7px;
-            box-sizing: border-box;
 
             display: flex;
             flex-direction: column;
@@ -570,13 +552,7 @@ export default {
             margin-top: 0;
             padding-right: var(--unit-gutter);
             padding-left: $whitespace-s-sides + px;
-            box-sizing: border-box;
             position: static;
-
-            // > * {
-            //     max-width: 100%;
-            // }
-
         }
         .category-desktop {
             display: none;
@@ -608,15 +584,9 @@ export default {
                 margin-top: 0;
                 padding-left: var(--unit-gutter);
                 padding-right: var(--unit-gutter);
-                box-sizing: border-box;
                 position: static;
             }
         }
     }
-    // @media (min-width: 928px) and (max-width: 1050px) {
-    //     .meta {
-    //         padding-left: 0;
-    //     }
-    // }
 }
 </style>

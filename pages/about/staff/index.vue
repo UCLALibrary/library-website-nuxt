@@ -40,7 +40,7 @@ export default {
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,
-                    to: `/staff/${obj.to}`,
+                    to: `/about/staff/${obj.to}`,
                     image: _get(obj, "image[0]staffMemberImage[0]", null),
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }

@@ -1,39 +1,29 @@
 <template lang="html">
     <div class="block-staff-detail">
-        <!-- TODO Split this into HeadingStaff and SectionStaffBio -->
+        <!-- HeadingStaff  -->
+        <div class="heading-staff">
+            <svg-heading-arrow />
 
-        <!-- HEADING -->
-        <div class="staff-detail-heading">
-            <svg-heading-arrow class="arrow-svg" />
+            <div class="heading-container">
+                <h1
+                    class="staffName"
+                    v-html="staffName"
+                />
 
-        
-            <div class="meta-heading">
-                <div class="heading">
-                    
+                <div
+                    class="job-title"
+                    v-html="jobTitle"
+                />
 
-                    <h1
-                        class="staffName"
-                        v-html="staffName"
+                <ul class="departments">
+                    <li
+                        v-for="(department, index) in departments"
+                        :key="index"
+                        class="department"
+                        v-html="department.title"
                     />
-                </div>
+                </ul>
 
-                <div class="dept-location">
-                    <div
-                        class="job-title"
-                        v-html="jobTitle"
-                    />
-
-                    <div class="department-group">
-                        <ul class="departments">
-                            <li
-                                v-for="(department, index) in departments"
-                                :key="index"
-                                class="department"
-                                v-html="department"
-                            />
-                        </ul>
-                    </div>
-                </div>
                 <div class="location-group">
                     <nuxt-link
                         v-for="location in locations"
@@ -51,8 +41,8 @@
             </div>
         </div>
 
-            <!-- ---------BODY----------- -->
-        <div class="staff-detail-body">
+        <!-- SectionStaffBio -->
+        <div class="section-staff-bio">
             <div class="body-contact">
                 <responsive-image
                     v-if="image"
@@ -101,7 +91,7 @@
 
             <div class="body-bio">
                 <div v-if="topics.length">
-                    <h2 class="bio-header">
+                    <h2 class="secondary-header">
                         Ask me About
                     </h2>
 
@@ -119,11 +109,12 @@
                     class="divider"
                 />
 
+                <!-- RICH TEXT-->
                 <div v-if="biography">
-                    <h2 class="bio-header">
+                    <h2 class="secondary-header">
                         Biography
                     </h2>
-                    <div v-html="biography" />
+                    <rich-text :rich-text-content="biography" />
                 </div>
             </div>
         </div>
@@ -131,7 +122,7 @@
 </template>
 
 <script>
-import SvgHeadingArrow from "~/assets/svg/heading-arrow"
+import SvgHeadingArrow from "~/node_modules/ucla-library-design-tokens/assets/svgs/graphic-chevron-right"
 import SvgIconLocation from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
 import SvgIconEmail from "~/assets/svg/icon-email"
 import SvgIconPhone from "~/assets/svg/icon-phone"
@@ -162,9 +153,17 @@ export default {
             type: String,
             default: "",
         },
+        departments: {
+            type: Array,
+            default: () => [],
+        },
         locations: {
             type: Array,
             default: () => [],
+        },
+        pronouns: {
+            type: String,
+            default: "",
         },
         email: {
             type: String,
@@ -173,14 +172,6 @@ export default {
         phone: {
             type: String,
             default: "",
-        },
-        pronouns: {
-            type: String,
-            default: "",
-        },
-        departments: {
-            type: Array,
-            default: () => [],
         },
         topics: {
             // ask-me-about
@@ -206,80 +197,70 @@ export default {
 <style lang="scss" scoped>
 .block-staff-detail {
     max-width: calc($container-l-main + 128) + px;
-    background-color: var(--color-white);
-
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-
-    .staff-detail-heading {
+    .heading-staff {
         width: 100%;
-        margin-left: -64px;
+        // margin-left: calc(var(--space-2xl) * -1);
         margin-bottom: 64px;
+
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         gap: 48px;
     }
 
-    .arrow-svg {
+    .svg__graphic-chevron-right {
         flex-shrink: 0;
         flex-basis: 80px;
+        .svg__stroke--wayfinder {
+            stroke: var(--color-about-purple-03);
+        }
     }
 
-    .meta-heading {
-        // -------HEADING------------
-        .heading {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-            align-content: center;
-            align-items: flex-start;
-            .arrow-svg {
-                margin-right: 48px;
-            }
-            .staffName {
-                letter-spacing: 0.01em;
-                color: var(--color-primary-blue-03);
-                @include step-4;
-                margin-bottom: 8px;
-            }
-        }
-        .dept-location {
-            font-size: 20px;
+    .heading-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: flex-start;
 
+        .staffName,
+        .job-title,
+        .department,
+        .location-link {
+            margin-bottom: 8px;
+            @include step-0;
+            line-height: $line-height--2;
+        }
+        .staffName {
+            letter-spacing: 0.01em;
+            color: var(--color-primary-blue-03);
+            @include step-4;
+        }
+
+        .departments,
+        .location-group {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            justify-content: flex-start;
-            align-content: center;
-            align-items: flex-start;
 
-            .job-title {
-                padding-right: 14px;
-                margin-bottom: 8px;
+            color: var(--color-secondary-grey-05);
+            list-style: none;
+        }
+
+        .department,
+        .location-link {
+            border-right: 1px solid var(--color-secondary-grey-02);
+            padding: 0 8px;
+            &:first-child {
+                padding-left: 0;
             }
-
-            .departments {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-
-                list-style: none;
-                padding-left: 14px;
-                margin-bottom: 8px;
-                .department {
-                    padding-right: 14px;
-                }
+            &:last-child {
+                border-right: 0;
             }
         }
+
         .location-group {
             color: var(--color-primary-blue-03);
-            font-family: var(--font-secondary);
-
             .location-link {
                 display: flex;
                 flex-direction: row;
@@ -290,13 +271,24 @@ export default {
             }
             .location {
                 @include button;
-                font-size: 20px;
+            }
+            .svg {
+                width: 28px;
+                height: 28px;
             }
         }
     }
+    // Hover states
+    @media #{$has-hover} {
+        .location-link:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary-blue-03);
+            text-decoration-thickness: 1.5px;
+        }
+    }
 
-    // -------BODY-----------------------
-    .staff-detail-body {
+    // BODY
+    .section-staff-bio {
         max-width: $container-l-main + px;
         margin: 0 auto 96px;
         width: 100%;
@@ -307,7 +299,7 @@ export default {
         justify-content: flex-start;
         gap: 80px;
 
-        // -------CONTACT------------
+        // CONTACT
         .body-contact {
             flex: 1 1 300px;
             font-size: 20px;
@@ -332,22 +324,13 @@ export default {
             }
         }
 
-        // -------BIO------------
+        // SectionStaffBio
         .body-bio {
             flex: 3 1 calc(100% - 380px);
 
-            font-family: Karbon;
-            font-size: 20px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 24px;
-            letter-spacing: 0.01em;
-            text-align: left;
-            line-height: 32px;
-
-            .bio-header {
+            .secondary-header {
                 margin-bottom: 18px;
-                @include step-1;
+                @include step-3;
                 color: var(--color-primary-blue-03);
             }
             .divider {
@@ -375,90 +358,6 @@ export default {
 
             ::v-deep a {
                 @include link-default;
-            }
-        }
-    }
-
-    // Hover states
-    @media #{$has-hover} {
-        .location-link:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue-03);
-            text-decoration-thickness: 1.5px;
-        }
-    }
-
-    // Breakpoints
-    @media #{$medium} {
-        max-width: 95%;
-        padding-left: 5px;
-        padding-right: 5px;
-
-        .meta-heading {
-            .dept-location {
-                display: flex;
-                flex-direction: column;
-            }
-        }
-        .departments {
-            display: flex;
-            flex-direction: column;
-            margin-left: 0px;
-        }
-    }
-
-    @media #{$small} {
-        display: flex;
-        flex-direction: column;
-
-        width: 400px;
-        max-height: unset;
-        max-width: 100%;
-        padding-right: 5px;
-
-        .meta-heading {
-            .dept-location {
-                margin-left: 15px;
-
-                display: flex;
-                flex-direction: column;
-                .department {
-                    padding-right: 0px;
-                }
-            }
-            .location-group {
-                display: flex;
-                flex-direction: column;
-
-                .location-link {
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: nowrap;
-                    justify-content: flex-start;
-                    align-content: center;
-                    align-items: center;
-                }
-                .svg {
-                    padding-left: 14px;
-                    //padding-bottom: -30px;
-                }
-            }
-        }
-
-        .meta {
-            margin-left: 15px;
-
-            .body-contact {
-                .image {
-                    margin-top: 45px;
-                }
-            }
-
-            display: flex;
-            flex-direction: column;
-            .body-bio {
-                margin-top: 43px;
-                margin-left: 10px;
             }
         }
     }

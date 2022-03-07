@@ -157,6 +157,7 @@ export default {
     flex-wrap: nowrap;
     align-content: center;
     align-items: center;
+    justify-content: space-between;
 
     max-width: $container-xl-full-width + px;
 
@@ -231,7 +232,6 @@ export default {
         position: absolute;
         width: 112px;
         height: 72px;
-        box-sizing: border-box;
         background-color: var(--color-theme);
 
         clip-path: polygon(
@@ -259,10 +259,6 @@ export default {
         margin-left: -40px;
         top: 50%;
         margin-top: -40px;
-    }
-
-    .button {
-        width: 176px;
     }
 
     // Breakpoints
@@ -346,7 +342,6 @@ export default {
                 position: absolute;
                 width: 112px;
                 height: 72px;
-                box-sizing: border-box;
                 background-color: var(--color-theme);
 
                 clip-path: polygon(

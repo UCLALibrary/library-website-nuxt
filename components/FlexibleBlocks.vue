@@ -79,7 +79,35 @@ function convertName(typeHandle) {
 </script>
 
 <style lang="scss" scoped>
-:where(.flexible-blocks) {
-    // TODO Style the basics here
-}
+.flexible-blocks {
+    .flexible-block {
+        padding: var(--unit-gutter) 0;
+
+        &:first-child {
+            padding-top: 0;
+        }
+
+        &.divider-general,
+        &.pull-quote {
+            padding: 0;
+            margin: var(--unit-gutter) auto;
+            max-width: $container-l-main + px;
+        }
+    }
+
+    .flexible-block:nth-child(even) {
+        background-color: var(--color-secondary-grey-01);
+        --color-theme: var(--color-secondary-grey-01);
+
+        &.simple-cards,
+        &.divider-general,
+        &.pull-quote {
+            background-color: var(--color-white);
+        }
+
+        &.divider-general {
+            padding: 0;
+        }
+    }
+} 
 </style>
