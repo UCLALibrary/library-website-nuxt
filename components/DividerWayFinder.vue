@@ -60,5 +60,12 @@ export default {
 
         flex: 1 1 auto;
     }
+
+    @media #{$medium} {
+        padding: 0 $whitespace-m-sides + px;
+    }
+    @media #{$small} {
+        padding: 0 $whitespace-s-sides + px;
+    }
 }
 </style>

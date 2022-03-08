@@ -83,10 +83,12 @@ export default {
     }
     // Breakpoints
     @media #{$medium} {
-        max-width: 632px;
+        &.flexible-block {
+            padding: var(--unit-gutter);
+        }
 
         .card {
-            width: 300px;
+            width: 50%;
         }
         .card-five {
             &:nth-child(-n + 2) {
@@ -98,10 +100,8 @@ export default {
         display: flex;
         flex-direction: column;
 
-        .card-five {
-            &:nth-last-child(-n + 3) {
-                width: 300px;
-            }
+        .card {
+            width: 100%;
         }
     }
 }

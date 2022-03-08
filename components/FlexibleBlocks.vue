@@ -87,8 +87,7 @@ function convertName(typeHandle) {
             padding-top: 0;
         }
 
-        &.divider-general,
-        &.pull-quote {
+        &.divider-general {
             padding: 0;
             margin: var(--unit-gutter) auto;
             max-width: $container-l-main + px;

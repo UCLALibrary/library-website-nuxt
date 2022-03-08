@@ -95,10 +95,10 @@ export default {
     background-color: var(--color-theme);
     
     width: 100%;
+    
 
     .flexible-page-block-container {
         max-width: $container-l-main + px;
-        // padding: var(--unit-gutter);
     }
 
     > .meta {
@@ -127,6 +127,10 @@ export default {
     // Breakpoints
 
     @media #{$medium} {
+        .flexible-page-block-container {
+            padding: 0 var(--unit-gutter);
+        }
+
         &.section-media-with-text {
             padding-top: 40px;
 
@@ -139,6 +143,10 @@ export default {
         }
     }
     @media #{$small} {
+        .flexible-page-block-container {
+            padding: 0 var(--unit-gutter);
+        }
+        
         &.section-media-with-text {
             padding-top: 32px;
             .flexible-media-with-text {

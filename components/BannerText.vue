@@ -223,33 +223,46 @@ export default {
     }
     .category {
         color: var(--category-title-color);
-        font-size: 26px;
         @include step-0;
         line-height: 1;
         text-transform: capitalize;
         border: 1px solid var(--color-theme);
-        padding: 15px 20px;
+        padding: 12px 20px;
         margin-left: -10px;
         clip-path: polygon(17px 0, 100% 0, 100% 100%, 1px 100%);
     }
     .heading-line {
         flex-shrink: 0;
         padding-right: 0;
+        height: 96px;
     }
     .banner-text-content-container {
         max-width: $container-l-main + px;
         margin: auto;
 
+        .meta {
+            margin-bottom: var(--space-l);
+        }
+
         .content {
-            max-width: 788px;
+            max-width: calc(100% - 144px);
+            
+            > *:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        ::v-deep .text p {
+            margin: 0;
         }
     }
     .title {
         color: var(--title-color);
-        margin-top: calc(var(--space-2xl) - 22px);
-        // max-width: 788px;
-        // padding-left: 52px;
         @include step-5;
+        margin-bottom: var(--space-s);
+    }
+    .text {
+        margin-bottom: var(--space-m);
     }
     .schedule {
         font-size: 20px;
@@ -304,8 +317,7 @@ export default {
         }
     }
     ::v-deep .text p {
-        margin-top: 24px;
-        // padding-left: 52px;
+        margin-bottom: 24px;
         color: var(--text-color);
         @include step-0;
         font-weight: $font-weight-regular;
@@ -357,13 +369,10 @@ export default {
 }
 @media #{$medium} {
     .banner-text {
-        padding-left: 40px;
-        padding-bottom: 60px;
-        padding-top: 40px;
-        .title {
-            font-size: 52px;
-            margin-top: 32px;
-            padding-right: 120px;
+        background-size: 128px;
+        padding-top: var(--unit-gutter);
+        .banner-text-content-container {
+            padding-left: var(--unit-gutter);
         }
         .text {
             padding-right: 120px;
@@ -371,20 +380,17 @@ export default {
         .button-link {
             margin-top: 32px;
         }
-        .molecule {
-            height: 300px;
-            width: auto;
-        }
     }
 }
 @media #{$small} {
     .banner-text {
-        padding: 32px 32px 48px 32px;
-        .title {
-            font-size: 42px;
-            padding-right: 88px;
-            padding-left: 0;
-            margin-top: 32px;
+        background-size: 96px;
+        background-position-y: 40px;
+        .meta {
+            margin-left: 0;
+        }
+        .banner-text-content-container .content {
+            max-width: calc(100% - 96px);
         }
         .schedule {
             display: flex;
