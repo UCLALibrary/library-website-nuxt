@@ -1,15 +1,17 @@
 <template>
-    <div class-"nav-breadcrumb">
+    <div class-"nav-breadcrumb subtitle">
+        {% for crumb in craft.navigation.breadcrumbs() %}
+            {{ crumb.link }}
+        {% endfor %}
         <span class="parent-page-title" />
-        <arrow-left-small.svg>
-            <span class="slug-page-title" />
-        </arrow-left-small.svg>
+        <arrow-left-small.svg />
+        <span class="slug-page-title" />
     </div>
 </template>
 
 <script>
 // SVGs
-import SvgArrowRightSmall from "~/assets/svg/arrow-left-small"
+import SvgArrowLeftSmall from "~/assets/svg/arrow-left-small"
 
 export default {
     components: {
