@@ -133,6 +133,7 @@ All Heading tags are `var(--font-primary)` (Karbon)
 
 <details><summary>DOCS & TOOLS</summary>
 
++ [ORG Chart](https://jira.library.ucla.edu/secure/attachment/72225/lib_org_chart.txt)
 + [Current UCLA Library Site](https://www.library.ucla.edu/)
 + [Team - Youtube](https://www.youtube.com/playlist?list=PLD6zTMdoCybJKdTBgm0UesCY_sTMOSOAn)
 + [Clippy](https://bennettfeely.com/clippy/)
