@@ -4,7 +4,7 @@
             {{ crumb.link }}
         {% endfor %}
         <span class="parent-page-title" />
-        <arrow-left-small.svg />
+        <arrow-left-small.svg class="arrow"/>
         <span class="slug-page-title" />
     </div>
 </template>
@@ -43,10 +43,13 @@ export default {
     .parent-page-title{
         @include step-1;
         color: var(--color-primary-blue-03);
-        margin: 16px 0 0 0;
+    }
+    .arrow {
+        margin: 0 10px;
     }
     .slug-page-title {
         font-size: 20px;
+        color: var(--color-black);
     }
 }
 </style>
