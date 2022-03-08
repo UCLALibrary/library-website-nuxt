@@ -2,10 +2,8 @@
     <main class="page page-staff-detail">
         <!-- staff page here -->
         <!-- no search on this page -->
-        <!-- TODO: Add Breadcrumb Component -->
-        <nav-breadcrumb
-            :parent-page-title="page.entry.slug"
-        />
+        <nav-breadcrumb />
+
         <block-staff-detail
             class="staff-detail-block"
             :image="parsedImage"
@@ -88,7 +86,6 @@ export default {
         },
         parsedStaffName() {
             console.log(this.page.entry)
-            console.log(this.page.slug)
             return `${this.page.entry.nameFirst} ${this.page.entry.nameLast}`
         },
         parsedItems() {
@@ -110,6 +107,7 @@ export default {
     .staff-detail-block {
         margin-left: auto;
         margin-right: auto;
+        margin-top: 70px;
     }
 
     .divider {

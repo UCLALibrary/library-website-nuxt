@@ -1,12 +1,9 @@
 <template>
     <div class="nav-breadcrumb subtitle">
-        <!-- {% for crumb in craft.navigation.breadcrumbs() %}
-            {{ crumb.link }}
-        {% endfor %} -->
         <div class="parent-page-title">
-            Parent
+            {{ getUrl }}
             <svg-chevron-left class="svg-chevron-left" />
-            <span class="slug-page-title">Slug</span>
+            <span class="slug-page-title">{{ getSlug }}</span>
         </div>
     </div>
 </template>
@@ -15,20 +12,27 @@
 // SVGs
 import SvgChevronLeft from "~/assets/svg/chevron-left"
 
+// Helpers
+import getParentPageTitle from "~/utils/getParentPageTitle"
+
 export default {
     components: {
         SvgChevronLeft,
     },
     props: {
-        parentPageTitle: {
-            type: String,
-            default: "",
-        },
         slugPageTitle: {
             type: String,
             default: "",
         },
-    }
+    },
+    computed: {
+        getUrl() {
+            return getParentPageTitle(this.$route.path)
+        },
+        getSlug() {
+            return this.$route.params.slug
+        },
+    },
 }
 </script>
 
@@ -47,6 +51,7 @@ export default {
     .parent-page-title {
         @include step-1;
         color: var(--color-primary-blue-03);
+        text-transform: capitalize;
     }
     .svg-chevron-left {
         flex-shrink: 0;
