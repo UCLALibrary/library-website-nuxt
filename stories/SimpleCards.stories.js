@@ -5,7 +5,7 @@ const mock = {
     simpleCards: [
         {
             id: "5763",
-            titleSimpleCard: "simple cards",
+            title: "simple cards",
             contentLink: [
                 {
                     id: "1686",
@@ -19,7 +19,7 @@ const mock = {
         },
         {
             id: "7435",
-            titleSimpleCard: "Powell Library",
+            title: "Powell Library",
             contentLink: [
                 {
                     id: "523",
@@ -28,33 +28,33 @@ const mock = {
                     text: null,
                 },
             ],
-            summary: "subheader blah blah blah",
+            summary: "summary blah blah blah",
             externalLink: "https://calendar.library.ucla.edu/",
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
@@ -75,7 +75,7 @@ const twoCards = {
     simpleCards: [
         {
             id: "5763",
-            titleSimpleCard: "simple cards",
+            title: "simple cards",
             contentLink: [
                 {
                     id: "1686",
@@ -89,7 +89,7 @@ const twoCards = {
         },
         {
             id: "7435",
-            titleSimpleCard: "Powell Library",
+            title: "Powell Library",
             contentLink: [
                 {
                     id: "523",
@@ -98,7 +98,7 @@ const twoCards = {
                     text: null,
                 },
             ],
-            summary: "subheader blah blah blah",
+            summary: "summary blah blah blah",
             externalLink: "https://calendar.library.ucla.edu/",
         },
     ],
@@ -117,7 +117,7 @@ const threeCards = {
     simpleCards: [
         {
             id: "5763",
-            titleSimpleCard: "simple cards",
+            title: "simple cards",
             contentLink: [
                 {
                     id: "1686",
@@ -131,7 +131,7 @@ const threeCards = {
         },
         {
             id: "7435",
-            titleSimpleCard: "Powell Library",
+            title: "Powell Library",
             contentLink: [
                 {
                     id: "523",
@@ -140,12 +140,12 @@ const threeCards = {
                     text: null,
                 },
             ],
-            summary: "subheader blah blah blah",
+            summary: "summary blah blah blah",
             externalLink: "https://calendar.library.ucla.edu/",
         },
         {
             id: "7435",
-            titleSimpleCard: "Powell Library",
+            title: "Powell Library",
             contentLink: [
                 {
                     id: "523",
@@ -154,7 +154,7 @@ const threeCards = {
                     text: null,
                 },
             ],
-            summary: "subheader blah blah blah",
+            summary: "summary blah blah blah",
             externalLink: "https://calendar.library.ucla.edu/",
         },
     ],
@@ -173,7 +173,7 @@ const mockOne = {
     simpleCards: [
         {
             id: "3516",
-            linkText: "This is a new simple card",
+            title: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -182,12 +182,12 @@ const mockOne = {
                     text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: null,
+            summary: null,
             externalLink: null,
         },
         {
             id: "3516",
-            linkText: "This is a new simple card",
+            title: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -196,12 +196,12 @@ const mockOne = {
                     text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: null,
+            summary: null,
             externalLink: null,
         },
         {
             id: "3516",
-            linkText: "This is a new simple card",
+            title: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -210,12 +210,12 @@ const mockOne = {
                     text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: null,
+            summary: null,
             externalLink: null,
         },
         {
             id: "3516",
-            linkText: "This is a new simple card",
+            title: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -224,7 +224,7 @@ const mockOne = {
                     text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader:
+            summary:
                 "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
             externalLink: null,
         },
@@ -244,7 +244,7 @@ const fiveCards = {
     simpleCards: [
         {
             id: "3516",
-            linkText: "This is a new simple card",
+            title: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -253,12 +253,12 @@ const fiveCards = {
                     text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: null,
+            summary: null,
             externalLink: null,
         },
         {
             id: "3516",
-            linkText: "This is a new simple card",
+            title: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -267,26 +267,26 @@ const fiveCards = {
                     text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: null,
+            summary: null,
             externalLink: null,
         },
         {
             id: "3516",
-            linkText: "This is a new simple card",
+            title: "This is a new simple card",
             contentLink: [],
-            subheader: "a new simple card without a content link",
+            summary: "a new simple card without a content link",
             externalLink: "http://google.com",
         },
         {
             id: "3516",
-            linkText: "This is a new simple card",
+            title: "This is a new simple card",
             contentLink: [],
-            subheader: "a new simple card without a content link",
+            summary: "a new simple card without a content link",
             externalLink: "http://google.com",
         },
         {
             id: "3516",
-            linkText: "This is a new simple card",
+            title: "This is a new simple card",
             contentLink: [
                 {
                     id: "1750",
@@ -295,7 +295,7 @@ const fiveCards = {
                     text: "this is a lot of sample test to see how wide this card will get",
                 },
             ],
-            subheader: "a new simple card without a content link",
+            summary: "a new simple card without a content link",
             externalLink: "http://google.com",
         },
     ],
