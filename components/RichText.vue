@@ -48,7 +48,7 @@ export default {
         font-family: var(--font-primary);
         color: var(--color-black);
         @include step-0;
-        margin: 0 0 32px;
+        margin-bottom: 32px;
     }
 
     ::v-deep blockquote {
@@ -128,7 +128,7 @@ export default {
     ::v-deep ul,
     ::v-deep ol {
         padding: 0 16px;
-        margin: 0 0 2rem;
+        margin: 0 0 32px;
 
         li {
             margin-bottom: 20px;
@@ -137,7 +137,7 @@ export default {
         }
     }
     ::v-deep ol {
-        margin-left: 32px;
+        margin-left: 24px;
 
         ::marker {
             font-family: var(--font-secondary);
@@ -149,25 +149,15 @@ export default {
 
     ::v-deep ul {
         list-style: none;
-
-        li {
-            display: flex;
-            align-items: flex-start;
-            justify-content: flex-start;
-            flex-direction: row;
-        }
+        list-style-position: outside;
     }
 
-    ::v-deep ul li:before {
-        content: "";
-        height: 24px;
-        width: 24px;
-        padding: 0 24px 0 16px;
-        flex-basis: 0;
-
+    ::v-deep ul li {
         background-image: url(~/assets/svg/molecule-bullet.svg?url);
         background-repeat: no-repeat;
-        background-position-y: 4px; // This will shift the bullet down as needed
+        background-position-y: 5px; // This will shift the bullet down as needed
+        background-size: 24px;
+        padding-left: 40px;
     }
 
     // Hover states
@@ -181,12 +171,15 @@ export default {
     // Breakpoints
     @media #{$medium} {
         .rich-text {
-            padding: 0 $whitespace-s-sides + px;
+            padding: 0 $whitespace-m-sides + px;
             max-width: $container-l-main + px;
         }
     }
 
     @media #{$small} {
+        .rich-text {
+            padding: 0 $whitespace-s-sides + px;
+        }
         ::v-deep .figure {
             width: 100%;
             height: auto;

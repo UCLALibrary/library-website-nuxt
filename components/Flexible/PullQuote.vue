@@ -18,6 +18,16 @@ export default {
 
 <style lang="scss" scoped>
 .pull-quote {
+    &.flexible-block {
+        margin: var(--unit-gutter) auto;
+        padding: 0 var(--unit-gutter);
+        max-width: $container-l-main + px;
+
+        @media #{$medium} {
+            margin: var(--unit-gutter);
+            
+        }
+    }
     
 }
 </style>

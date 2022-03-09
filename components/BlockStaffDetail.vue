@@ -91,7 +91,7 @@
 
             <div class="body-bio">
                 <div v-if="topics.length">
-                    <h2 class="bio-header">
+                    <h2 class="secondary-header">
                         Ask me About
                     </h2>
 
@@ -111,7 +111,7 @@
 
                 <!-- RICH TEXT-->
                 <div v-if="biography">
-                    <h2 class="bio-header">
+                    <h2 class="secondary-header">
                         Biography
                     </h2>
                     <rich-text :rich-text-content="biography" />
@@ -153,9 +153,17 @@ export default {
             type: String,
             default: "",
         },
+        departments: {
+            type: Array,
+            default: () => [],
+        },
         locations: {
             type: Array,
             default: () => [],
+        },
+        pronouns: {
+            type: String,
+            default: "",
         },
         email: {
             type: String,
@@ -164,14 +172,6 @@ export default {
         phone: {
             type: String,
             default: "",
-        },
-        pronouns: {
-            type: String,
-            default: "",
-        },
-        departments: {
-            type: Array,
-            default: () => [],
         },
         topics: {
             // ask-me-about
@@ -328,7 +328,7 @@ export default {
         .body-bio {
             flex: 3 1 calc(100% - 380px);
 
-            .bio-header {
+            .secondary-header {
                 margin-bottom: 18px;
                 @include step-3;
                 color: var(--color-primary-blue-03);

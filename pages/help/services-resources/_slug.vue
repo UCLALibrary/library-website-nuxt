@@ -104,9 +104,9 @@ export default {
 
 <style lang="scss" scoped>
 .page-service-detail {
-    // .banner-text {
-    // max-width: $container-xl-full-width + px;
-    // }
+    .banner-text {
+        --color-theme: var(--color-help-green-03);
+    }
     .banner-header {
         margin-bottom: var(--space-xl);
         padding: 0;

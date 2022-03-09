@@ -84,8 +84,8 @@ export default {
 
 <style lang="scss" scoped>
 .block-simple-card {
-    max-width: 458px;
-    height: 314px;
+    width: 100%;
+    min-height: 300px;
     border-radius: var(--rounded-slightly-all);
     overflow: hidden;
     background-color: var(--color-primary-blue-01);

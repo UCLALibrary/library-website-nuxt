@@ -27,7 +27,7 @@ export default {
     components: {
         SvgCallToActionMoney: () => import("~/assets/svg/call-to-action-money"),
         SvgCallToActionChat: () => import("~/assets/svg/call-to-action-chat"),
-        SvgCallToActionMail: () => import("~/assets/svg/call-to-action-mail"),
+        SvgCallToActionMail: () => import("~/node_modules/ucla-library-design-tokens/assets/svgs/call-to-action-mail"),
         SvgCallToActionFind: () => import("~/assets/svg/call-to-action-find"),
     },
     props: {
@@ -205,14 +205,6 @@ export default {
         &.half-width {
             --block-padding-title: 48px;
             --block-padding-text: 48px;
-        }
-
-        .title {
-            max-width: 234px;
-        }
-
-        .text {
-            max-width: 234px;
         }
     }
 
