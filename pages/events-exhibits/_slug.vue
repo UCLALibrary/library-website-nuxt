@@ -1,5 +1,6 @@
 <template lang="html">
     <section class="page-event-detail">
+        <nav-breadcrumb />
         <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."

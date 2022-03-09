@@ -1,5 +1,6 @@
 <template lang="html">
     <section class="page-service-detail">
+        <nav-breadcrumb />
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"

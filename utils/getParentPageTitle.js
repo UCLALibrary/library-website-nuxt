@@ -20,6 +20,11 @@ function getParentPageTitle(uri = "") {
         case uri.includes("/events-exhibits"):
             output = "Visit"
             break
+
+        case uri.includes("/help"):
+        case uri.includes("/services-resources"):
+            output = "Services / Resources"
+            break
     }
 
     return output
