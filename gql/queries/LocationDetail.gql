@@ -1,0 +1,102 @@
+#import "~/gql/fragments/Image"
+query LocationDetail($slug: [String!]) {
+    entry(section: "location", slug: $slug) {
+        ... on location_location_Entry {
+            id
+            locationType
+            title
+            heroImage {
+                image {
+                    ...Image
+                }
+            }
+            summary
+            email
+            phoneNumber
+            address {
+                id
+                addressLine1
+                addressLine2
+                addressCity
+                addressState
+                addressZipCode
+                addressCountry
+            }
+            howToGetHere
+            amenities
+            resourceServiceWorkshop {
+                id
+                text: summary
+                title
+                slug
+                uri
+                researchGuideUrl
+            }
+            campusMapId
+            libcalLocationIdForHours
+            libcalLocationIdForHoursInteriorLocations {
+                id
+                interiorLocationName
+                interiorLocationId
+            }
+            libcalLocationIdForSpaces
+            libcalLocationIdForSpacesInteriorLocations {
+                id
+                interiorLocationName
+                interiorLocationId
+            }
+            ...FlexibleBlocksLocation
+        }
+    }
+}
+
+fragment FlexibleBlocksLocation on ElementInterface {
+    blocks: locationFlexiblePageBlocks {
+        id
+        typeHandle
+        ...BlockDivider
+        ...BlockPullQuote
+        ...BlockRichText
+        ...BlockMediaWithText
+    }
+}
+
+fragment BlockRichText on locationFlexiblePageBlocks_richText_BlockType {
+    richText
+}
+
+fragment BlockPullQuote on locationFlexiblePageBlocks_pullQuote_BlockType {
+    id
+    pullQuote {
+        ... on pullQuote_pullQuote_BlockType {
+            text
+            attribution
+        }
+    }
+}
+
+fragment BlockDivider on locationFlexiblePageBlocks_divider_BlockType {
+    id
+    divider
+}
+
+fragment BlockMediaWithText on locationFlexiblePageBlocks_mediaWithText_BlockType {
+    id
+    mediaWithText {
+        ... on mediaWithText_mediaWithText_BlockType {
+            id
+            titleMediaWithText
+            description
+            buttonText
+            mediaType
+            mediaWithTextLink
+            media {
+                id
+                url
+            }
+            image: coverImage {
+                ...Image
+            }
+        }
+    }
+}
