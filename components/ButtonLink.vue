@@ -1,29 +1,41 @@
 <template lang="html">
-    <div :class="classes">
+    <smart-link
+        :to="to"
+        :target="parsedTarget"
+        :class="classes"
+    >
         <span class="label">{{ label }}</span>
-        <span
-            v-if="iconName"
-            class="icon"
-        >
-            <component
-                :is="parsedIconName"
-                class="arrow"
-            />
-        </span>
-    </div>
+        <component
+            :is="parsedIconName"
+            class="arrow"
+        />
+    </smart-link>
 </template>
 
 <script>
+// Helper functions
+import isInternalLink from "~/utils/isInternalLink"
+
 export default {
     components: {
         SvgArrowRight: () => import("~/assets/svg/arrow-right-small"),
-        SvgArrowDiagonal: () => import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-external-link"),
-        SvgArrowDownload: () => import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-download"),
+        SvgArrowDiagonal: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-external-link"
+            ),
+        SvgArrowDownload: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-download"
+            ),
     },
     props: {
         /**
          * Determines what text the button should have.
          */
+        to: {
+            type: String,
+            default: "",
+        },
         label: {
             type: String,
             default: "",
@@ -52,8 +64,17 @@ export default {
                 },
             ]
         },
+        // parsedIconName() {
+        //     return `${this.iconName}`
+        // },
+
+        parsedTarget() {
+            return isInternalLink(this.to) ? "_self" : "blank"
+        },
         parsedIconName() {
-            return `${this.iconName}`
+            return isInternalLink(this.to)
+                ? "svg-arrow-right"
+                : "svg-arrow-diagonal"
         },
     },
 }

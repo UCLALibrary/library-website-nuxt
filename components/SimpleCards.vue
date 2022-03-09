@@ -35,12 +35,8 @@ export default {
             return this.block.simpleCards.map((obj) => {
                 return {
                     ...obj,
-                    text: obj.subheader
-                        ? obj.subheader
-                        : obj.contentLink[0].text,
-                    title: obj.linkText
-                        ? obj.linkText
-                        : obj.contentLink[0].title,
+                    text: obj.summary ? obj.summary : obj.contentLink[0].text,
+                    title: obj.title ? obj.title : obj.contentLink[0].title,
                     to: obj.externalLink
                         ? obj.externalLink
                         : obj.contentLink[0].url,
@@ -68,7 +64,7 @@ export default {
         margin: 12px 16px 0 0;
     }
     .card-large {
-        width: calc(50% - 16px)
+        width: calc(50% - 16px);
     }
     .card-small {
         width: calc(33.33% - 16px);

@@ -42,10 +42,9 @@
             <button-link
                 v-if="to"
                 class="button"
+                :to="to"
                 :label="buttonText"
                 :is-secondary="true"
-                :to="to"
-                :icon-name="parsedIconName"
             />
         </div>
         <div class="meta">
@@ -85,6 +84,9 @@
 </template>
 
 <script>
+// Helper functions
+import isInternalLink from "~/utils/isInternalLink"
+
 export default {
     components: {
         SvgIconHeadphones: () =>
@@ -135,17 +137,15 @@ export default {
         },
     },
     computed: {
-        isInternalLink() {
-            return this.to.includes("library.ucla.edu") ? true : false
-        },
-        parsedTarget() {
-            return this.isInternalLink ? "_self" : "blank"
-        },
-        parsedIconName() {
-            return this.iconName == "svg-arrow-right" && !this.isInternalLink
-                ? "svg-arrow-diagonal"
-                : this.iconName
-        },
+        // parsedTarget() {
+        //     return isInternalLink(this.to) ? "_self" : "blank"
+        // },
+        // parsedIconName() {
+        //     return this.iconName == "svg-arrow-right" &&
+        //         !isInternalLink(this.to)
+        //         ? "svg-arrow-diagonal"
+        //         : this.iconName
+        // },
     },
 }
 </script>

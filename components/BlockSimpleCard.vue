@@ -38,6 +38,7 @@
 <script>
 // Helper functions
 import getSectionName from "~/utils/getSectionName"
+import isInternalLink from "~/utils/isInternalLink"
 
 // SVGs
 import SvgArrowRightSmall from "~/assets/svg/arrow-right-small"
@@ -69,14 +70,11 @@ export default {
         sectionName() {
             return getSectionName(this.to)
         },
-        isInternalLink() {
-            return this.to.includes("library.ucla.edu") ? true : false
-        },
         parsedTarget() {
-            return this.isInternalLink ? "_self" : "blank"
+            return isInternalLink(this.to) ? "_self" : "blank"
         },
         parsedIconName() {
-            return this.isInternalLink
+            return isInternalLink(this.to)
                 ? "svg-arrow-right-small"
                 : "svg-arrow-diagonal"
         },

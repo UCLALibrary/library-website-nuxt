@@ -114,18 +114,13 @@
                     />
                 </div>
             </div>
-
-            <nuxt-link
+            <button-link
                 v-if="to"
+                :label="prompt"
                 :to="to"
                 aria-labelledby="banner-featured"
-            >
-                <button-link
-                    v-if="prompt"
-                    :label="prompt"
-                    class="button"
-                />
-            </nuxt-link>
+                class="button"
+            />
         </div>
     </div>
 </template>
@@ -489,7 +484,7 @@ export default {
         }
         .meta {
             padding-left: clamp(368px, 35%, 600px);
-            padding-right: $whitespace-s-sides + px;;
+            padding-right: $whitespace-s-sides + px;
             margin-left: auto;
 
             align-content: flex-start;
@@ -498,7 +493,7 @@ export default {
     }
 
     // Breakpoints
-    
+
     @media #{$medium} {
         .meta {
             padding-left: $whitespace-m-sides + px;

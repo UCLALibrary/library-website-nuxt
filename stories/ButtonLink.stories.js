@@ -29,18 +29,18 @@ export const Default = () => ({
 })
 
 export const NotPrimary = () => ({
-    template: `<button-link label="Etiam et Ultrices" :isSecondary="true"/>`,
+    template: `<button-link label="Etiam et Ultrices" :isSecondary="true" :to='/help/more'/>`,
 })
 
 export const LongLabel = () => ({
-    template: `<button-link label="Proin sodales dolor sit amet." iconName="svg-arrow-right"/>`,
+    template: `<button-link label="Proin sodales dolor sit amet." iconName="svg-arrow-right" :to='/help/more'/>`,
 })
 
 export const HasGlyph = () => ({
-    template: `<button-link label="Aug id Dignissim" :isSecondary="true" iconName="svg-arrow-right"/>`,
+    template: `<button-link label="Aug id Dignissim" :isSecondary="true" iconName="svg-arrow-right" :to='/help/more'/>`,
 })
 export const HasExternalGlyph = () => ({
-    template: `<button-link label="Aug id Dignissim" :isSecondary="true" iconName="svg-arrow-diagonal"/>`,
+    template: `<button-link label="Aug id Dignissim" :isSecondary="true" iconName="svg-arrow-diagonal" :to='www.google.com'/>`,
 })
 export const HasDownloadGlyph = () => ({
     template: `<button-link label="Aug id Dignissim" :isSecondary="true" iconName="svg-arrow-download"/>`,

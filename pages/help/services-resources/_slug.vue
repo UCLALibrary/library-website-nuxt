@@ -105,7 +105,7 @@ export default {
 <style lang="scss" scoped>
 .page-service-detail {
     // .banner-text {
-        // max-width: $container-xl-full-width + px;
+    // max-width: $container-xl-full-width + px;
     // }
     .banner-header {
         margin-bottom: var(--space-xl);

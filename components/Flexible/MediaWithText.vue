@@ -11,7 +11,7 @@
             >
                 <block-media-with-text
                     :section-header="item.sectionHeader"
-                    :short-description="item.shortDescription"
+                    :short-description="item.description"
                     :image="item.parsedImage"
                     :button-text="item.buttonText"
                     :icon-name="item.parsedIcon"
@@ -50,14 +50,13 @@ export default {
                 let to = ""
                 if (obj.mediaWithTextLink) {
                     to = obj.mediaWithTextLink
-                } else if (obj.downloadAssetLink) {
-                    to = obj.downloadAssetLink
+                } else if (obj.media[0].url) {
+                    to = obj.media[0].url
                 }
                 return {
                     ...obj,
                     parsedIsVideo: obj.mediaType == "video" ? true : false,
                     parsedIsAudio: obj.mediaType == "audio" ? true : false,
-                    parsedIsVertical: obj.verticalImage == "yes" ? true : false,
                     parsedTo: to,
                     parsedImage: obj.image ? obj.image[0] : "",
                     parsedIcon: obj.mediaWithTextLink
@@ -93,7 +92,7 @@ export default {
     align-items: center;
     justify-content: flex-end;
     background-color: var(--color-theme);
-    
+
     width: 100%;
 
     .flexible-page-block-container {
