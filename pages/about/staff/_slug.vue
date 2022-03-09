@@ -30,12 +30,15 @@
             <h2 class="secondary-header">
                 Publications
             </h2>
-            <smart-link
-                :to="page.entry.orcid"
-                target="_blank"
-                class="orcid"
-                v-html="`ORCID: <span style='font-size: 20px'>${page.entry.orcid}</span>`"
-            />
+            <h6 class="orcid-key">
+                ORCID: 
+                <smart-link
+                    :to="page.entry.orcid"
+                    target="_blank"
+                    class="orcid-value"
+                    v-html="`${page.entry.orcid}`"
+                />
+            </h6>
             <rich-text
                 v-if="page.entry.publications"
                 class="publications"
@@ -124,10 +127,13 @@ export default {
             @include step-3;
             color: var(--color-primary-blue-03);
         }
-        .orcid {
+        .orcid-key {
             font-size: 26px;
             font-weight: 500;
             color: var(--color-primary-blue-03);
+        }
+        .orcid-value {
+            font-size: 20px;
         }
         .publications {
             font-size: 20px;
@@ -147,6 +153,15 @@ export default {
                 text-decoration-thickness: 1.5px;
             }
         }
+    }
+}
+
+// Hovers
+@media #{$has-hover} {
+    .orcid-value:hover {
+        text-decoration: underline;
+        text-decoration-color: var(--color-default-cyan-03);
+        text-decoration-thickness: 1.5px;
     }
 }
 </style>
