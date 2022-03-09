@@ -68,9 +68,13 @@ export default {
             return isInternalLink(this.to) ? "_self" : "blank"
         },
         parsedIconName() {
-            return isInternalLink(this.to)
-                ? "svg-arrow-right"
-                : "svg-arrow-diagonal"
+            let output = ""
+            if (this.iconName) {
+                output = this.iconName
+            } else if (!this.iconName && isInternalLink(this.to)) {
+                output = "svg-arrow-right"
+            } else output = "svg-arrow-diagonal"
+            return output
         },
     },
 }

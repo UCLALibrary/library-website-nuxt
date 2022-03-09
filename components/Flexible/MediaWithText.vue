@@ -59,9 +59,10 @@ export default {
                     parsedIsAudio: obj.mediaType == "audio" ? true : false,
                     parsedTo: to,
                     parsedImage: obj.image ? obj.image[0] : "",
-                    parsedIcon: obj.mediaWithTextLink
-                        ? "svg-arrow-right"
-                        : "svg-arrow-download",
+                    parsedIcon:
+                        obj.mediaType == "otherResource"
+                            ? "svg-arrow-download"
+                            : "",
                 }
             })
         },
@@ -94,7 +95,6 @@ export default {
     background-color: var(--color-theme);
 
     width: 100%;
-    
 
     .flexible-page-block-container {
         max-width: $container-l-main + px;
@@ -145,7 +145,7 @@ export default {
         .flexible-page-block-container {
             padding: 0 var(--unit-gutter);
         }
-        
+
         &.section-media-with-text {
             padding-top: 32px;
             .flexible-media-with-text {

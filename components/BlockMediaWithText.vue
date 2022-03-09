@@ -45,6 +45,7 @@
                 :to="to"
                 :label="buttonText"
                 :is-secondary="true"
+                :icon-name="iconName"
             />
         </div>
         <div class="meta">
