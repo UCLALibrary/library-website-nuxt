@@ -42,6 +42,6 @@ export const HasGlyph = () => ({
 export const HasExternalGlyph = () => ({
     template: `<button-link label="Aug id Dignissim" :isSecondary="true" iconName="svg-arrow-diagonal" to='www.google.com'/>`,
 })
-export const HasDownloadGlyph = () => ({
-    template: `<button-link label="Aug id Dignissim" :isSecondary="true" iconName="svg-arrow-download" to='/downloads'/>`,
-})
+// export const HasDownloadGlyph = () => ({
+//     template: `<button-link label="Aug id Dignissim" :isSecondary="true" iconName="svg-arrow-download" to='/downloads'/>`,
+// })
