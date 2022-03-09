@@ -73,10 +73,10 @@ export default {
     }
     .card-five {
         &:nth-child(-n + 2) {
-            width: 100%;
+            width: calc(50% - 16px);
         }
         &:nth-last-child(-n + 3) {
-            width: 300px;
+            width: calc(33.33% - 16px);
         }
     }
     // Breakpoints
