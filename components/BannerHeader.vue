@@ -95,17 +95,13 @@
                     />
                 </div>
             </div>
-
-            <nuxt-link
+            <button-link
                 v-if="to"
+                :label="prompt"
+                :is-secondary="true"
+                class="button"
                 :to="to"
-            >
-                <button-link
-                    :label="prompt"
-                    :is-secondary="true"
-                    class="button"
-                />
-            </nuxt-link>
+            />
         </div>
     </div>
 </template>

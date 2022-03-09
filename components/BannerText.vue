@@ -1,6 +1,5 @@
 <template lang="html">
     <div :class="classes">
-        
         <div class="banner-text-content-container">
             <div class="meta">
                 <svg-heading-vector class="heading-line" />
@@ -8,7 +7,7 @@
                     :class="categoryClasses"
                     v-html="category"
                 />
-            </div> 
+            </div>
             <div class="content">
                 <h1
                     class="title"
@@ -65,9 +64,9 @@
                     :is-secondary="true"
                     icon-name="svg-arrow-diagonal"
                 />
-            </div> 
+            </div>
         </div>
-        
+
         <!-- <svg-molecule-two-facets class="molecule" /> -->
     </div>
 </template>

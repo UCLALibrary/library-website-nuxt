@@ -5,87 +5,60 @@ export default {
 const mock = {
     simpleCards: [
         {
-            id: "3496",
-            linkText: "Different Link text",
+            id: "5763",
+            title: "simple cards",
             contentLink: [
                 {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/visit/awards-grants/scholarship-award",
-                    text: "Here is some text. that should get overwritten",
+                    id: "1686",
+                    url: "https://test-craft.library.ucla.edu/visit/events-exhibits/a-new-exhibit",
+                    title: "a new exhibit",
+                    text: "description",
                 },
             ],
-            subheader: "Here is some text. so many different names",
+            summary: "a simple card",
             externalLink: null,
         },
         {
-            id: "3497",
-            linkText: null,
+            id: "7435",
+            title: "Powell Library",
             contentLink: [
                 {
-                    id: "483",
-                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
-                    title: "Staff",
+                    id: "523",
+                    url: "https://test-craft.library.ucla.edu/visit/locations/powell-library",
+                    title: "Powell Library",
+                    text: null,
                 },
             ],
-            subheader:
-                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar.Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
-            externalLink: null,
+            summary: "subheader blah blah blah",
+            externalLink: "https://calendar.library.ucla.edu/",
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
-            contentLink: [
-                {
-                    id: "483",
-                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
-                },
-            ],
-            subheader:
-                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
-            externalLink: null,
+            id: "7481",
+            title: "Go to this exhibit",
+            contentLink: [],
+            summary: "it will be great",
+            externalLink: "https://github.com/",
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
-            contentLink: [
-                {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    title: "Scholarship Award",
-                    text: "this is a lot of sample test to see how wide this card will get",
-                },
-            ],
-            subheader:
-                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
-            externalLink: null,
+            id: "7481",
+            title: "Go to this exhibit",
+            contentLink: [],
+            summary: "it will be great",
+            externalLink: "https://github.com/",
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
-            contentLink: [
-                {
-                    id: "483",
-                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
-                },
-            ],
-            subheader:
-                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
-            externalLink: null,
+            id: "7481",
+            title: "Go to this exhibit",
+            contentLink: [],
+            summary: "it will be great",
+            externalLink: "https://github.com/",
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
-            contentLink: [
-                {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    title: "Scholarship Award",
-                    text: "this is a lot of sample test to see how wide this card will get",
-                },
-            ],
-            subheader:
-                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
-            externalLink: null,
+            id: "7481",
+            title: "Go to this exhibit",
+            contentLink: [],
+            summary: "it will be great",
+            externalLink: "https://github.com/",
         },
     ],
 }
@@ -105,33 +78,18 @@ export const Default = () => ({
 const twoCards = {
     simpleCards: [
         {
-            id: "3496",
-            linkText: null,
-            contentLink: [
-                {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    text: "Learn more here",
-                    title: "Scholarships",
-                },
-            ],
-            subheader: null,
-            externalLink: null,
+            id: "7481",
+            title: "Go to this exhibit",
+            contentLink: [],
+            summary: "it will be great",
+            externalLink: "https://github.com/",
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
-            contentLink: [
-                {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    title: "Scholarship Award",
-                    text: "this is a lot of sample test to see how wide this card will get",
-                },
-            ],
-            subheader:
-                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
-            externalLink: null,
+            id: "7481",
+            title: "Go to this exhibit",
+            contentLink: [],
+            summary: "it will be great",
+            externalLink: "https://github.com/",
         },
     ],
 }
@@ -210,61 +168,46 @@ export const ThreeCards = () => ({
 const mockOne = {
     simpleCards: [
         {
-            id: "3516",
-            linkText: "This is a new simple card",
+            id: "5763",
+            title: "simple cards",
             contentLink: [
                 {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    title: "Scholarship Award",
-                    text: "this is a lot of sample test to see how wide this card will get",
+                    id: "1686",
+                    url: "https://test-craft.library.ucla.edu/visit/events-exhibits/a-new-exhibit",
+                    title: "a new exhibit",
+                    text: "description",
                 },
             ],
-            subheader: null,
+            summary: "a simple card",
             externalLink: null,
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
+            id: "7435",
+            title: "Powell Library",
             contentLink: [
                 {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    title: "Scholarship Award",
-                    text: "this is a lot of sample test to see how wide this card will get",
+                    id: "523",
+                    url: "https://test-craft.library.ucla.edu/visit/locations/powell-library",
+                    title: "Powell Library",
+                    text: null,
                 },
             ],
-            subheader: null,
-            externalLink: null,
+            summary: "subheader blah blah blah",
+            externalLink: "https://calendar.library.ucla.edu/",
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
-            contentLink: [
-                {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    title: "Scholarship Award",
-                    text: "this is a lot of sample test to see how wide this card will get",
-                },
-            ],
-            subheader: null,
-            externalLink: null,
+            id: "7481",
+            title: "Go to this exhibit",
+            contentLink: [],
+            summary: "it will be great",
+            externalLink: "https://github.com/",
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
-            contentLink: [
-                {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    title: "Scholarship Award",
-                    text: "this is a lot of sample test to see how wide this card will get",
-                },
-            ],
-            subheader:
-                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
-            externalLink: null,
+            id: "7481",
+            title: "Go to this exhibit",
+            contentLink: [],
+            summary: "it will be great",
+            externalLink: "https://github.com/",
         },
     ],
 }
@@ -284,60 +227,53 @@ export const FourCards = () => ({
 const fiveCards = {
     simpleCards: [
         {
-            id: "3516",
-            linkText: "This is a new simple card",
+            id: "5763",
+            title: "simple cards",
             contentLink: [
                 {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    title: "Scholarship Award",
-                    text: "this is a lot of sample test to see how wide this card will get",
+                    id: "1686",
+                    url: "https://test-craft.library.ucla.edu/visit/events-exhibits/a-new-exhibit",
+                    title: "a new exhibit",
+                    text: "description",
                 },
             ],
-            subheader: null,
+            summary: "a simple card",
             externalLink: null,
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
+            id: "7435",
+            title: "Powell Library",
             contentLink: [
                 {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    title: "Scholarship Award",
-                    text: "this is a lot of sample test to see how wide this card will get",
+                    id: "523",
+                    url: "https://test-craft.library.ucla.edu/visit/locations/powell-library",
+                    title: "Powell Library",
+                    text: null,
                 },
             ],
-            subheader: null,
-            externalLink: null,
+            summary: "subheader blah blah blah",
+            externalLink: "https://calendar.library.ucla.edu/",
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
+            id: "7481",
+            title: "Go to this exhibit",
             contentLink: [],
-            subheader: "a new simple card without a content link",
-            externalLink: "http://google.com",
+            summary: "it will be great",
+            externalLink: "https://github.com/",
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
+            id: "7481",
+            title: "Go to this exhibit",
             contentLink: [],
-            subheader: "a new simple card without a content link",
-            externalLink: "http://google.com",
+            summary: "it will be great",
+            externalLink: "https://github.com/",
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
-            contentLink: [
-                {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    title: "Scholarship Award",
-                    text: "this is a lot of sample test to see how wide this card will get",
-                },
-            ],
-            subheader: "a new simple card without a content link",
-            externalLink: "http://google.com",
+            id: "7481",
+            title: "Go to this exhibit",
+            contentLink: [],
+            summary: "it will be great",
+            externalLink: "https://github.com/",
         },
     ],
 }

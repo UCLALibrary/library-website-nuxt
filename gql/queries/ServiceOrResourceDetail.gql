@@ -76,14 +76,14 @@ fragment BlockSimpleCards on serviceOrResourceBlocks_simpleCards_BlockType {
     simpleCards {
         ... on simpleCards_simpleCard_BlockType {
             id
-            linkText
+            title: titleSimpleCard
             contentLink {
                 id
                 url
                 title
-                text: shortDescription
+                text: summary
             }
-            subheader
+            summary
             externalLink
         }
     }
@@ -94,16 +94,17 @@ fragment BlockMediaWithText on serviceOrResourceBlocks_mediaWithText_BlockType {
     mediaWithText {
         ... on mediaWithText_mediaWithText_BlockType {
             id
-            sectionHeader
-            shortDescription
+            titleMediaWithText
+            description
             buttonText
             mediaType
             mediaWithTextLink
-            downloadAssetLink {
+            media {
                 id
                 url
             }
-            image {
+
+            image: coverImage {
                 ...Image
             }
         }

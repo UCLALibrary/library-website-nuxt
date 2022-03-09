@@ -5,75 +5,46 @@ export default {
 const mock = {
     mediaWithText: [
         {
-            id: "4527",
-            sectionHeader:
-                "This is a Media With Text with a Really Really Really Long Title Like Really Long",
-            shortDescription:
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-            mediaType: "resource",
-
+            id: "8405",
+            titleMediaWithText: "Some media with text",
+            description: "A super cool dog",
+            buttonText: "See more about this cool dog",
+            mediaType: "otherResource",
+            mediaWithTextLink: "http://www.dogs.com",
+            media: [],
             image: [
                 {
-                    id: "2338",
-                    src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/long-llama.jpg",
-                    height: 2113,
+                    id: "6093",
+                    src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/PXL_20220219_233308350.jpg",
+                    height: 3414,
                     width: 2560,
-                    srcset: "https://test-craft.library.ucla.edu/assets/images/_375xAUTO_crop_center-center_none/long-llama.jpg 375w, https://test-craft.library.ucla.edu/assets/images/_960xAUTO_crop_center-center_none/long-llama.jpg 960w, https://test-craft.library.ucla.edu/assets/images/_1280xAUTO_crop_center-center_none/long-llama.jpg 1280w, https://test-craft.library.ucla.edu/assets/images/_1920xAUTO_crop_center-center_none/long-llama.jpg 1920w, https://test-craft.library.ucla.edu/assets/images/_2560xAUTO_crop_center-center_none/long-llama.jpg 2560w",
-                    alt: "Long llama",
+                    srcset: "https://test-craft.library.ucla.edu/assets/images/_375xAUTO_crop_center-center_none/PXL_20220219_233308350.jpg 375w, https://test-craft.library.ucla.edu/assets/images/_960xAUTO_crop_center-center_none/PXL_20220219_233308350.jpg 960w, https://test-craft.library.ucla.edu/assets/images/_1280xAUTO_crop_center-center_none/PXL_20220219_233308350.jpg 1280w, https://test-craft.library.ucla.edu/assets/images/_1920xAUTO_crop_center-center_none/PXL_20220219_233308350.jpg 1920w, https://test-craft.library.ucla.edu/assets/images/_2560xAUTO_crop_center-center_none/PXL_20220219_233308350.jpg 2560w",
+                    alt: "PXL 20220219 233308350",
                     focalPoint: [0.5, 0.5],
                 },
             ],
         },
         {
-            id: "4527",
-            buttonText: "External",
-            mediaWithTextLink: "http://google.com",
-            sectionHeader: "This is a Media With Text",
-            shortDescription:
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-
-            mediaType: "audio",
-        },
-        {
-            id: "4527",
-            sectionHeader: "This is a Media With Text",
-            shortDescription:
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-            buttonText: "More",
-            mediaWithTextLink: "library.ucla.edu/help/topic",
-            mediaType: "video",
-            image: [
+            id: "8445",
+            titleMediaWithText: "A video",
+            description: "A video to view",
+            buttonText: "view the video",
+            mediaType: "otherResource",
+            mediaWithTextLink: "http://www.youtube.com",
+            media: [
                 {
-                    id: "2338",
-                    src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/long-llama.jpg",
-                    height: 2113,
-                    width: 2560,
-                    srcset: "https://test-craft.library.ucla.edu/assets/images/_375xAUTO_crop_center-center_none/long-llama.jpg 375w, https://test-craft.library.ucla.edu/assets/images/_960xAUTO_crop_center-center_none/long-llama.jpg 960w, https://test-craft.library.ucla.edu/assets/images/_1280xAUTO_crop_center-center_none/long-llama.jpg 1280w, https://test-craft.library.ucla.edu/assets/images/_1920xAUTO_crop_center-center_none/long-llama.jpg 1920w, https://test-craft.library.ucla.edu/assets/images/_2560xAUTO_crop_center-center_none/long-llama.jpg 2560w",
-                    alt: "Long llama",
-                    focalPoint: [0.5, 0.5],
-                },
-            ],
-        },
-        {
-            id: "4527",
-            sectionHeader: "This is a Media With Text",
-            shortDescription:
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-            buttonText: "Download",
-            downloadAssetLink: [
-                {
-                    id: "3101",
-                    url: "http://ucla-craft.nitro/assets/IMG_20210803_081620186.jpg",
+                    id: "2003",
+                    url: "https://test-craft.library.ucla.edu/assets/Documents/Parking-Pass-Chargers-vs-49ers.pdf",
                 },
             ],
             image: [
                 {
-                    id: "2338",
-                    src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/long-llama.jpg",
-                    height: 2113,
+                    id: "6615",
+                    src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/PXL_20220207_005115918.jpg",
+                    height: 1920,
                     width: 2560,
-                    srcset: "https://test-craft.library.ucla.edu/assets/images/_375xAUTO_crop_center-center_none/long-llama.jpg 375w, https://test-craft.library.ucla.edu/assets/images/_960xAUTO_crop_center-center_none/long-llama.jpg 960w, https://test-craft.library.ucla.edu/assets/images/_1280xAUTO_crop_center-center_none/long-llama.jpg 1280w, https://test-craft.library.ucla.edu/assets/images/_1920xAUTO_crop_center-center_none/long-llama.jpg 1920w, https://test-craft.library.ucla.edu/assets/images/_2560xAUTO_crop_center-center_none/long-llama.jpg 2560w",
-                    alt: "Long llama",
+                    srcset: "https://test-craft.library.ucla.edu/assets/images/_375xAUTO_crop_center-center_none/PXL_20220207_005115918.jpg 375w, https://test-craft.library.ucla.edu/assets/images/_960xAUTO_crop_center-center_none/PXL_20220207_005115918.jpg 960w, https://test-craft.library.ucla.edu/assets/images/_1280xAUTO_crop_center-center_none/PXL_20220207_005115918.jpg 1280w, https://test-craft.library.ucla.edu/assets/images/_1920xAUTO_crop_center-center_none/PXL_20220207_005115918.jpg 1920w, https://test-craft.library.ucla.edu/assets/images/_2560xAUTO_crop_center-center_none/PXL_20220207_005115918.jpg 2560w",
+                    alt: "PXL 20220207 005115918",
                     focalPoint: [0.5, 0.5],
                 },
             ],
