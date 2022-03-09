@@ -47,6 +47,7 @@ export default {
         parsedContent() {
             const mediaWithText = this.block.mediaWithText
             return mediaWithText.map((obj) => {
+                console.log(obj)
                 let to = ""
                 if (obj.mediaWithTextLink) {
                     to = obj.mediaWithTextLink

@@ -69,8 +69,8 @@ export default {
         },
         parsedIconName() {
             let output = ""
-            if (this.iconName) {
-                output = this.iconName
+            if (this.iconName == "svg-arrow-download") {
+                output = "svg-arrow-download"
             } else if (!this.iconName && isInternalLink(this.to)) {
                 output = "svg-arrow-right"
             } else output = "svg-arrow-diagonal"
