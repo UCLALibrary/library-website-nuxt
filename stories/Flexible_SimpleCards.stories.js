@@ -6,7 +6,7 @@ const mock = {
     simpleCards: [
         {
             id: "5763",
-            titleSimpleCard: "simple cards",
+            title: "simple cards",
             contentLink: [
                 {
                     id: "1686",
@@ -20,7 +20,7 @@ const mock = {
         },
         {
             id: "7435",
-            titleSimpleCard: "Powell Library",
+            title: "Powell Library",
             contentLink: [
                 {
                     id: "523",
@@ -34,28 +34,28 @@ const mock = {
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
@@ -79,14 +79,14 @@ const twoCards = {
     simpleCards: [
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
@@ -169,7 +169,7 @@ const mockOne = {
     simpleCards: [
         {
             id: "5763",
-            titleSimpleCard: "simple cards",
+            title: "simple cards",
             contentLink: [
                 {
                     id: "1686",
@@ -183,7 +183,7 @@ const mockOne = {
         },
         {
             id: "7435",
-            titleSimpleCard: "Powell Library",
+            title: "Powell Library",
             contentLink: [
                 {
                     id: "523",
@@ -197,14 +197,14 @@ const mockOne = {
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
@@ -228,7 +228,7 @@ const fiveCards = {
     simpleCards: [
         {
             id: "5763",
-            titleSimpleCard: "simple cards",
+            title: "simple cards",
             contentLink: [
                 {
                     id: "1686",
@@ -242,7 +242,7 @@ const fiveCards = {
         },
         {
             id: "7435",
-            titleSimpleCard: "Powell Library",
+            title: "Powell Library",
             contentLink: [
                 {
                     id: "523",
@@ -256,21 +256,21 @@ const fiveCards = {
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
         },
         {
             id: "7481",
-            titleSimpleCard: "Go to this exhibit",
+            title: "Go to this exhibit",
             contentLink: [],
             summary: "it will be great",
             externalLink: "https://github.com/",
