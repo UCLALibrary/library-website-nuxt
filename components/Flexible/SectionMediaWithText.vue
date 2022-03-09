@@ -9,15 +9,14 @@
             class="meta"
         >
             <flexible-media-with-text
-                :section-header="item.sectionHeader"
-                :short-description="item.shortDescription"
-                :image="item.image"
+                :section-header="item.titleMediaWithText"
+                :short-description="item.description"
+                :image="item.image[0]"
                 :button-text="item.buttonText"
                 :icon-name="item.parsedIcon"
                 :to="item.parsedTo"
                 :is-audio="item.parsedIsAudio"
                 :is-video="item.parsedIsVideo"
-                :is-vertical="item.parsedIsVertical"
                 class="flexible-media-with-text"
             />
 
