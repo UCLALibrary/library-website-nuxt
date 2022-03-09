@@ -1,9 +1,17 @@
+
 <template>
     <div class="nav-breadcrumb subtitle">
         <div class="parent-page-title">
-            {{ getUrl }}
+            <nuxt-link
+                :to="getUrl"
+                class="parent-page-url"
+            >
+                {{ getParentPage }}
+            </nuxt-link>
             <svg-chevron-left class="svg-chevron-left" />
-            <span class="slug-page-title">{{ getSlug }}</span>
+            <span class="slug-page-title">
+                {{ getSlug }}
+            </span>
         </div>
     </div>
 </template>
@@ -14,23 +22,27 @@ import SvgChevronLeft from "~/assets/svg/chevron-left"
 
 // Helpers
 import getParentPageTitle from "~/utils/getParentPageTitle"
+import getParentPageUrl from "~/utils/getParentPageUrl"
 
 export default {
     components: {
         SvgChevronLeft,
     },
     props: {
-        slugPageTitle: {
+        to: {
             type: String,
             default: "",
         },
     },
     computed: {
         getUrl() {
+            return getParentPageUrl(this.$route.fullPath)
+        },
+        getParentPage() {
             return getParentPageTitle(this.$route.path)
         },
         getSlug() {
-            return this.$route.params.slug
+            return this.$route.params.slug.split('-').join(" ")
         },
     },
 }
@@ -62,6 +74,15 @@ export default {
     .slug-page-title {
         font-size: 20px;
         color: var(--color-black);
+    }
+}
+
+// Hovers
+@media #{$has-hover} {
+    .parent-page-url:hover {
+        text-decoration: underline;
+        text-decoration-color: var(--color-default-cyan-03);
+        text-decoration-thickness: 1.5px;
     }
 }
 </style>
