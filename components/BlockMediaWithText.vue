@@ -136,17 +136,6 @@ export default {
             default: false,
         },
     },
-    computed: {
-        // parsedTarget() {
-        //     return isInternalLink(this.to) ? "_self" : "blank"
-        // },
-        // parsedIconName() {
-        //     return this.iconName == "svg-arrow-right" &&
-        //         !isInternalLink(this.to)
-        //         ? "svg-arrow-diagonal"
-        //         : this.iconName
-        // },
-    },
 }
 </script>
 

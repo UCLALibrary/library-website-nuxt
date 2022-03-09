@@ -1,5 +1,5 @@
 /**
- * Take a URI and figure out what if it an external or internal link
+ * Take a URI and determine if it is an internal link
  * @param {String} uri
  * @returns {Boolean}
  */

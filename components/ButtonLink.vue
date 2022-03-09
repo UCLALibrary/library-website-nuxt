@@ -64,10 +64,6 @@ export default {
                 },
             ]
         },
-        // parsedIconName() {
-        //     return `${this.iconName}`
-        // },
-
         parsedTarget() {
             return isInternalLink(this.to) ? "_self" : "blank"
         },
