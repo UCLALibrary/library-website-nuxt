@@ -30,7 +30,7 @@
             <h2 class="secondary-header">
                 Publications
             </h2>
-            <h6 class="orcid-key">
+            <div class="orcid-key">
                 ORCID: 
                 <smart-link
                     :to="page.entry.orcid"
@@ -38,7 +38,7 @@
                     class="orcid-value"
                     v-html="`${page.entry.orcid}`"
                 />
-            </h6>
+            </div>
             <rich-text
                 v-if="page.entry.publications"
                 class="publications"
@@ -83,12 +83,16 @@ export default {
             page: data,
         }
     },
+    head() {
+        return {
+            title: this.page.entry.title,
+        }
+    },
     computed: {
         parsedImage() {
-            return _get(this.page.entry, "image[0]staffMemberImage[0]", null)
+            return _get(this.page.entry, "image[0]", null)
         },
         parsedStaffName() {
-            console.log(this.page.entry)
             return `${this.page.entry.nameFirst} ${this.page.entry.nameLast}`
         },
         parsedItems() {

@@ -5,13 +5,12 @@
             <nuxt-link
                 :to="getUrl"
                 class="parent-page-url"
-            >
-                {{ getParentPage }}
-            </nuxt-link>
+                v-html="getParentPage"
+            />
             <svg-chevron-left class="svg-chevron-left" />
-            <span class="slug-page-title">
-                {{ getSlug }}
-            </span>
+            <span
+                class="slug-page-title"
+            />
         </div>
     </div>
 </template>
@@ -33,6 +32,10 @@ export default {
             type: String,
             default: "",
         },
+        title: {
+            type: String,
+            default: "",
+        }
     },
     computed: {
         getUrl() {
@@ -72,7 +75,7 @@ export default {
         stroke: var(--color-primary-blue-03);
     }
     .slug-page-title {
-        font-size: 20px;
+        @include step-0;
         color: var(--color-black);
     }
 }

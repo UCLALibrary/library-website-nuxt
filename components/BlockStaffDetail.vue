@@ -190,7 +190,7 @@ export default {
         parsedPronouns() {
             return `Pronouns: ${this.pronouns}`
         },
-    },
+    }
 }
 </script>
 
