@@ -49,9 +49,11 @@ query LocationDetail($slug: [String!]) {
             staffMember {
                 id
                 email
+                uri
             }
             exhibitsAndEvents {
                 id
+                uri
                 title
                 summary
                 heroImage {
@@ -73,10 +75,13 @@ query LocationDetail($slug: [String!]) {
             }
             endowment {
                 id
+                uri
                 title
+                summary
             }
             associatedArticles {
                 id
+                uri
                 title
                 summary
                 articleType
