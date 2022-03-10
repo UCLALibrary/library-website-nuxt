@@ -4,7 +4,6 @@ export default {
 }
 
 const mock = {
-    to: "about/staff",
     title: "jane-doe"
 }
 
@@ -15,5 +14,5 @@ export const Default = () => ({
             ...mock
         }
     },
-    template: `<nav-breadcrumb :to="to" :title="title"/>`,
+    template: `<nav-breadcrumb :title="title"/>`,
 })

@@ -137,10 +137,6 @@ export default {
         SvgIconConsultation,
     },
     props: {
-        title: {
-            type: String,
-            default: "",
-        },
         image: {
             type: Object,
             default: () => {},
