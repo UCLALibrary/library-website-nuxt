@@ -10,6 +10,7 @@
             <svg-chevron-left class="svg-chevron-left" />
             <span
                 class="slug-page-title"
+                v-html="title"
             />
         </div>
     </div>
@@ -43,9 +44,6 @@ export default {
         },
         getParentPage() {
             return getParentPageTitle(this.$route.path)
-        },
-        getSlug() {
-            return this.$route.params.slug.split('-').join(" ")
         },
     },
 }

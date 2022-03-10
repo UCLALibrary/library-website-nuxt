@@ -8,7 +8,7 @@ export default {
 
 const mock = {
     image: API.image,
-    to: "/visit/foo/bar/",
+    to: "/about/foo/bar/",
     category: "Ullamco",
     title: "Fames ac turpis egestas sed tempus lorem ipsum",
     date: "1995-12-17T03:24:00",

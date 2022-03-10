@@ -2,7 +2,9 @@
     <main class="page page-staff-detail">
         <!-- staff page here -->
         <!-- no search on this page -->
-        <nav-breadcrumb />
+        <nav-breadcrumb
+            :title="page.entry.title"
+        />
 
         <block-staff-detail
             class="staff-detail-block"
