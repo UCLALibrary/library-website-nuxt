@@ -31,6 +31,7 @@ query LocationDetail($slug: [String!]) {
                 slug
                 uri
                 researchGuideUrl
+                type: serviceOrResourceType
             }
             campusMapId
             libcalLocationIdForHours
@@ -52,6 +53,23 @@ query LocationDetail($slug: [String!]) {
             exhibitsAndEvents {
                 id
                 title
+                summary
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+                date {
+                    startDate
+                    endDate
+                }
+                associatedLocations {
+                    id
+                    title
+                }
             }
             endowment {
                 id
@@ -61,6 +79,20 @@ query LocationDetail($slug: [String!]) {
                 id
                 title
                 summary
+                articleType
+                dateCreated
+                associatedLocations {
+                    id
+                    title
+                }
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                    }
+                }
             }
             ...FlexibleBlocksLocation
         }
@@ -68,7 +100,7 @@ query LocationDetail($slug: [String!]) {
 }
 
 fragment FlexibleBlocksLocation on ElementInterface {
-    blocks: locationFlexiblePageBlocks {
+    blocks: defaultFpb {
         id
         typeHandle
         ...BlockDivider
@@ -80,11 +112,11 @@ fragment FlexibleBlocksLocation on ElementInterface {
     }
 }
 
-fragment BlockRichText on locationFlexiblePageBlocks_richText_BlockType {
+fragment BlockRichText on defaultFpb_richText_BlockType {
     richText
 }
 
-fragment BlockPullQuote on locationFlexiblePageBlocks_pullQuote_BlockType {
+fragment BlockPullQuote on defaultFpb_pullQuote_BlockType {
     id
     pullQuote {
         ... on pullQuote_pullQuote_BlockType {
@@ -94,12 +126,12 @@ fragment BlockPullQuote on locationFlexiblePageBlocks_pullQuote_BlockType {
     }
 }
 
-fragment BlockDivider on locationFlexiblePageBlocks_divider_BlockType {
+fragment BlockDivider on defaultFpb_divider_BlockType {
     id
     divider
 }
 
-fragment BlockMediaWithText on locationFlexiblePageBlocks_mediaWithText_BlockType {
+fragment BlockMediaWithText on defaultFpb_mediaWithText_BlockType {
     id
     mediaWithText {
         ... on mediaWithText_mediaWithText_BlockType {
@@ -120,7 +152,7 @@ fragment BlockMediaWithText on locationFlexiblePageBlocks_mediaWithText_BlockTyp
     }
 }
 
-fragment BlockSimpleCards on locationFlexiblePageBlocks_simpleCard_BlockType {
+fragment BlockSimpleCards on defaultFpb_simpleCard_BlockType {
     id
     simpleCards {
         ... on simpleCards_simpleCard_BlockType {
@@ -138,7 +170,7 @@ fragment BlockSimpleCards on locationFlexiblePageBlocks_simpleCard_BlockType {
     }
 }
 
-fragment BlockCallToAction on allFlexiblePageBlocks_callToAction_BlockType {
+fragment BlockCallToAction on defaultFpb_callToAction_BlockType {
     id
     callToAction {
         ... on callToAction_callToAction_BlockType {

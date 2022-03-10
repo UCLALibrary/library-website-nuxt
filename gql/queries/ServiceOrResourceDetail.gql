@@ -41,7 +41,7 @@ query ServiceOrResourceDetail($slug: [String!]) {
     }
 }
 fragment FlexibleBlocksServiceOrResource on ElementInterface {
-    blocks: serviceOrResourceBlocks {
+    blocks: defaultFpbWithNoCta {
         id
         typeHandle
         ...BlockDivider
@@ -52,11 +52,11 @@ fragment FlexibleBlocksServiceOrResource on ElementInterface {
     }
 }
 
-fragment BlockRichText on serviceOrResourceBlocks_richText_BlockType {
+fragment BlockRichText on defaultFpbWithNoCta_richText_BlockType {
     richText
 }
 
-fragment BlockPullQuote on serviceOrResourceBlocks_pullQuote_BlockType {
+fragment BlockPullQuote on defaultFpbWithNoCta_pullQuote_BlockType {
     id
     pullQuote {
         ... on pullQuote_pullQuote_BlockType {
@@ -66,12 +66,12 @@ fragment BlockPullQuote on serviceOrResourceBlocks_pullQuote_BlockType {
     }
 }
 
-fragment BlockDivider on serviceOrResourceBlocks_divider_BlockType {
+fragment BlockDivider on defaultFpbWithNoCta_divider_BlockType {
     id
     divider
 }
 
-fragment BlockSimpleCards on serviceOrResourceBlocks_simpleCards_BlockType {
+fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
     id
     simpleCards {
         ... on simpleCards_simpleCard_BlockType {
@@ -89,7 +89,7 @@ fragment BlockSimpleCards on serviceOrResourceBlocks_simpleCards_BlockType {
     }
 }
 
-fragment BlockMediaWithText on serviceOrResourceBlocks_mediaWithText_BlockType {
+fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
     id
     mediaWithText {
         ... on mediaWithText_mediaWithText_BlockType {
