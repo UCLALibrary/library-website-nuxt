@@ -1,0 +1,191 @@
+#import "~/gql/fragments/Image"
+query LocationDetail($slug: [String!]) {
+    entry(section: "location", slug: $slug) {
+        ... on location_location_Entry {
+            id
+            locationType
+            title
+            heroImage {
+                image {
+                    ...Image
+                }
+            }
+            summary
+            email
+            phoneNumber
+            address {
+                id
+                addressLine1
+                addressLine2
+                addressCity
+                addressState
+                addressZipCode
+                addressCountry
+            }
+            howToGetHere
+            amenities(label: true)
+            resourceServiceWorkshop {
+                id
+                text: summary
+                title
+                slug
+                uri
+                researchGuideUrl
+                type: serviceOrResourceType
+            }
+            campusMapId
+            libcalLocationIdForHours
+            libcalLocationIdForHoursInteriorLocations {
+                id
+                interiorLocationName
+                interiorLocationId
+            }
+            libcalLocationIdForSpaces
+            libcalLocationIdForSpacesInteriorLocations {
+                id
+                interiorLocationName
+                interiorLocationId
+            }
+            staffMember {
+                id
+                email
+                uri
+            }
+            exhibitsAndEvents {
+                id
+                uri
+                title
+                summary
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+                date {
+                    startDate
+                    endDate
+                }
+                associatedLocations {
+                    id
+                    title
+                }
+            }
+            endowment {
+                id
+                uri
+                title
+                summary
+            }
+            associatedArticles {
+                id
+                uri
+                title
+                summary
+                articleType
+                dateCreated
+                associatedLocations {
+                    id
+                    title
+                }
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+            }
+            ...FlexibleBlocksLocation
+        }
+    }
+}
+
+fragment FlexibleBlocksLocation on ElementInterface {
+    blocks: defaultFpb {
+        id
+        typeHandle
+        ...BlockDivider
+        ...BlockPullQuote
+        ...BlockRichText
+        ...BlockMediaWithText
+        ...BlockSimpleCards
+        ...BlockCallToAction
+    }
+}
+
+fragment BlockRichText on defaultFpb_richText_BlockType {
+    richText
+}
+
+fragment BlockPullQuote on defaultFpb_pullQuote_BlockType {
+    id
+    pullQuote {
+        ... on pullQuote_pullQuote_BlockType {
+            text
+            attribution
+        }
+    }
+}
+
+fragment BlockDivider on defaultFpb_divider_BlockType {
+    id
+    divider
+}
+
+fragment BlockMediaWithText on defaultFpb_mediaWithText_BlockType {
+    id
+    mediaWithText {
+        ... on mediaWithText_mediaWithText_BlockType {
+            id
+            titleMediaWithText
+            description
+            buttonText
+            mediaType
+            mediaWithTextLink
+            media {
+                id
+                url
+            }
+            image: coverImage {
+                ...Image
+            }
+        }
+    }
+}
+
+fragment BlockSimpleCards on defaultFpb_simpleCard_BlockType {
+    id
+    simpleCards {
+        ... on simpleCards_simpleCard_BlockType {
+            id
+            title: titleSimpleCard
+            contentLink {
+                id
+                url
+                title
+                text: summary
+            }
+            summary
+            externalLink
+        }
+    }
+}
+
+fragment BlockCallToAction on defaultFpb_callToAction_BlockType {
+    id
+    callToAction {
+        ... on callToAction_callToAction_BlockType {
+            id
+            titleCta
+            summary
+            icon
+            buttonText
+            buttonLink
+            backgroundColor
+        }
+    }
+}
