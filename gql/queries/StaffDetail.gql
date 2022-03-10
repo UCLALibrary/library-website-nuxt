@@ -3,11 +3,9 @@ query StaffDetail($slug: [String]!) {
     entry(section: "staffMember", slug: $slug) {
         ... on staffMember_staffMember_Entry {
             id
-            image: staffMemberImage {
-                staffMemberImage {
-                    ...Image
-                }
-                staffMemberImageAltText
+            title
+            image {
+                ...Image
             }
             to: slug
             nameFirst

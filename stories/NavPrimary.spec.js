@@ -6,4 +6,3 @@ describe('NAV / Primary', () => {
         cy.percySnapshot('NAV / Primary: Default')
     })
 })
-                    

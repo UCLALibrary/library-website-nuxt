@@ -2,7 +2,10 @@
     <main class="page page-staff-detail">
         <!-- staff page here -->
         <!-- no search on this page -->
-        <!-- TODO: Add Breadcrumb Component -->
+        <nav-breadcrumb
+            :title="page.entry.title"
+        />
+
         <block-staff-detail
             class="staff-detail-block"
             :image="parsedImage"
@@ -29,12 +32,15 @@
             <h2 class="secondary-header">
                 Publications
             </h2>
-            <smart-link
-                :to="page.entry.orcid"
-                target="_blank"
-                class="orcid"
-                v-html="`ORCID: <span style='font-size: 20px'>${page.entry.orcid}</span>`"
-            />
+            <div class="orcid-key">
+                ORCID: 
+                <smart-link
+                    :to="page.entry.orcid"
+                    target="_blank"
+                    class="orcid-value"
+                    v-html="`${page.entry.orcid}`"
+                />
+            </div>
             <rich-text
                 v-if="page.entry.publications"
                 class="publications"
@@ -58,6 +64,7 @@
             title="Not sure who you should reach out to?"
             text="Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
         />
+        </nav-breadcrumb>
     </main>
 </template>
 
@@ -78,12 +85,16 @@ export default {
             page: data,
         }
     },
+    head() {
+        return {
+            title: this.page.entry.title,
+        }
+    },
     computed: {
         parsedImage() {
-            return _get(this.page.entry, "image[0]staffMemberImage[0]", null)
+            return _get(this.page.entry, "image[0]", null)
         },
         parsedStaffName() {
-            console.log(this.page.entry)
             return `${this.page.entry.nameFirst} ${this.page.entry.nameLast}`
         },
         parsedItems() {
@@ -122,10 +133,13 @@ export default {
             @include step-3;
             color: var(--color-primary-blue-03);
         }
-        .orcid {
+        .orcid-key {
             font-size: 26px;
             font-weight: 500;
             color: var(--color-primary-blue-03);
+        }
+        .orcid-value {
+            font-size: 20px;
         }
         .publications {
             font-size: 20px;
@@ -145,6 +159,15 @@ export default {
                 text-decoration-thickness: 1.5px;
             }
         }
+    }
+}
+
+// Hovers
+@media #{$has-hover} {
+    .orcid-value:hover {
+        text-decoration: underline;
+        text-decoration-color: var(--color-default-cyan-03);
+        text-decoration-thickness: 1.5px;
     }
 }
 </style>

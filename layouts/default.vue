@@ -36,60 +36,50 @@ export default {
         // TODO Fetch real data from Craft here
         this.footerSockItems = await MOCK_API.links
     },
-    head() {
-        return {
-            htmlAttrs: {
-                lang: "en",
+    head: {
+        htmlAttrs: {
+            lang: "en",
+        },
+        titleTemplate: "%s | UCLA Library",
+        meta: [
+            { charset: "utf-8" },
+            {
+                name: "viewport",
+                content: "width=device-width, initial-scale=1",
             },
-            bodyAttrs: {
-                class: this.bodyClasses,
-            },
-            titleTemplate: (pageTitle) => {
-                const siteTitle = this.pageMeta.title
-                let output = this.pageMeta.title
-
-                switch (true) {
-                    case siteTitle == pageTitle:
-                        output = site
-                        break
-                    case Boolean(pageTitle):
-                        output = `${siteTitle} - ${pageTitle}`
-                        break
-                }
-                return output
-            },
-            meta: [
-                {
-                    hid: "description",
-                    name: "description",
-                    property: "og:description",
-                    content: this.pageMeta.description,
-                },
-                {
-                    hid: "og:image",
-                    property: "og:image",
-                    content: this.pageMeta.socailShareUrl,
-                },
-                {
-                    property: "og:url",
-                    content: `${this.pageMeta.url}${this.$route.path}`,
-                },
-                {
-                    property: "og:site_name",
-                    content: this.pageMeta.title,
-                },
-                {
-                    property: "og:type",
-                    content: "website",
-                },
-                {
-                    hid: "og:title",
-                    property: "og:title",
-                    content: this.pageMeta.title,
-                },
-            ],
-        }
+        ],
     },
+    // meta: [
+    //     {
+    //         hid: "description",
+    //         name: "description",
+    //         property: "og:description",
+    //         content: this.pageMeta.description,
+    //     },
+    //     {
+    //         hid: "og:image",
+    //         property: "og:image",
+    //         content: this.pageMeta.socailShareUrl,
+    //     },
+    //     {
+    //         property: "og:url",
+    //         content: `${this.pageMeta.url}${this.$route.path}`,
+    //     },
+    //     {
+    //         property: "og:site_name",
+    //         content: this.pageMeta.title,
+    //     },
+    //     {
+    //         property: "og:type",
+    //         content: "website",
+    //     },
+    //     {
+    //         hid: "og:title",
+    //         property: "og:title",
+    //         content: this.pageMeta.title,
+    //     },
+    // ],
+    // },
     computed: {
         bodyClasses() {
             const classes = ["body", "theme-default"]

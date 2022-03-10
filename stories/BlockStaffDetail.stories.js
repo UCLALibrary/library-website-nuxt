@@ -8,7 +8,7 @@ export default {
 
 const mock = {
     // image: API.image_people,
-    to: "/staff/id/",
+    to: "about/staff/id/",
     staffName: "Ada Lovelace",
     jobTitle: "Librateria",
     locations: [

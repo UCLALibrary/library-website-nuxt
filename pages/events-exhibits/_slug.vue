@@ -1,5 +1,8 @@
 <template lang="html">
     <section class="page-event-detail">
+        <nav-breadcrumb
+            :title="page.title"
+        />
         <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
@@ -59,49 +62,22 @@ export default {
         this.allEvents = [...this.allEvents, ...data.events]
         console.log(data.events[0].title)
     },
-    computed: {
-        /*shareData() {
-            return {
-                title: "Test title",
-                text: "Test text",
-            }
-        },*/
-        /* crumbs() {
-            const fullPath = this.$route.fullPath
-            const params = fullPath.startsWith("/")
-                ? fullPath.substring(1).split("/")
-                : fullPath.split("/")
-            const crumbs = []
-            let path = ""
-            params.forEach((param, index) => {
-                path = `${path}/${param}`
-                const match = this.$router.match(path)
-                if (match.name !== null) {
-                    crumbs.push({
-                        title: startCase(param.replace(/-/g, " ")),
-                        ...match,
-                    })
-                }
-            })
-            return crumbs
-        }, */
-    },
 }
 </script>
 
 <style lang="scss" scoped>
 .page-event-detail {
     height: 400vh;
+
     .sticky-header {
         top: 0;
         left: 0;
         width: 100%;
         position: fixed;
-        // background-color: red;
-        // height: 96px;
         transform: translateY(-100%);
         transition: transform 400ms ease-in-out;
-        // States
+
+    // States
         .has-scrolled-past-header & {
             transform: translateY(0);
         }
