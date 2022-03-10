@@ -23,7 +23,7 @@ query LocationDetail($slug: [String!]) {
                 addressCountry
             }
             howToGetHere
-            amenities
+            amenities(label: true)
             resourceServiceWorkshop {
                 id
                 text: summary
@@ -45,6 +45,23 @@ query LocationDetail($slug: [String!]) {
                 interiorLocationName
                 interiorLocationId
             }
+            staffMember {
+                id
+                email
+            }
+            exhibitsAndEvents {
+                id
+                title
+            }
+            endowment {
+                id
+                title
+            }
+            associatedArticles {
+                id
+                title
+                summary
+            }
             ...FlexibleBlocksLocation
         }
     }
@@ -58,6 +75,8 @@ fragment FlexibleBlocksLocation on ElementInterface {
         ...BlockPullQuote
         ...BlockRichText
         ...BlockMediaWithText
+        ...BlockSimpleCards
+        ...BlockCallToAction
     }
 }
 
@@ -97,6 +116,39 @@ fragment BlockMediaWithText on locationFlexiblePageBlocks_mediaWithText_BlockTyp
             image: coverImage {
                 ...Image
             }
+        }
+    }
+}
+
+fragment BlockSimpleCards on locationFlexiblePageBlocks_simpleCard_BlockType {
+    id
+    simpleCards {
+        ... on simpleCards_simpleCard_BlockType {
+            id
+            title: titleSimpleCard
+            contentLink {
+                id
+                url
+                title
+                text: summary
+            }
+            summary
+            externalLink
+        }
+    }
+}
+
+fragment BlockCallToAction on allFlexiblePageBlocks_callToAction_BlockType {
+    id
+    callToAction {
+        ... on callToAction_callToAction_BlockType {
+            id
+            titleCta
+            summary
+            icon
+            buttonText
+            buttonLink
+            backgroundColor
         }
     }
 }
