@@ -52,8 +52,7 @@ export const Default = () => ({
     },
     template: `
     <block-staff-detail
-    v-bind="item"
-
+        v-bind="item"
     />
   `,
 })

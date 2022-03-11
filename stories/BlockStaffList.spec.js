@@ -6,4 +6,3 @@ describe('BLOCK / Staff / List', () => {
         cy.percySnapshot('BLOCK / Staff / List: Default')
     })
 })
-                    
