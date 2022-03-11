@@ -1,21 +1,26 @@
 <template lang="html">
     <div class="block-campus-map">
-        <iframe
-            class="iframe"
-            :src="parsedSrc"
-            :title="locationName"
-        />
-        <div
-            v-if="buildingAccess"
-            class="text-grouping"
-        >
-            <h4 class="subheading-small">
-                Building Access
-            </h4>
-            <rich-text
-                class="building-access-text"
-                :rich-text-content="buildingAccess"
+        <h3 class="title">
+            Campus Map
+        </h3>
+        <div class="content">
+            <iframe
+                class="iframe"
+                :src="parsedSrc"
+                :title="locationName"
             />
+            <div
+                v-if="buildingAccess"
+                class="text-grouping"
+            >
+                <h4 class="subheading-small">
+                    Building Access
+                </h4>
+                <rich-text
+                    class="building-access-text"
+                    :rich-text-content="buildingAccess"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -46,13 +51,23 @@ export default {
 
 <style lang="scss" scoped>
 .block-campus-map {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: center;
-    align-items: stretch;
-
     max-width: $container-xl-full-width + px;
+    margin: 0 auto;
+
+    .title {
+        color: var(--color-primary-blue-03);
+        @include step-3;
+        margin-bottom: 16px;
+        font-weight: 500;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: center;
+        align-items: stretch;
+    }
 
     .iframe {
         max-width: 50%;
@@ -75,6 +90,31 @@ export default {
         color: var(--color-primary-blue-05);
         @include overline;
         margin-bottom: 14px;
+    }
+
+    // Breakpoints
+    @media #{$medium} {
+    }
+    @media #{$small} {
+        .content {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-content: center;
+            align-items: center;
+        }
+
+        .iframe {
+            width: 100%;
+            max-width: 100%;
+            // min-width: 320px;
+            // min-height: 220px;
+            height: auto;
+        }
+
+        .text-grouping {
+            max-width: 100%;
+        }
     }
 }
 </style>
