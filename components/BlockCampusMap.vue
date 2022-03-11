@@ -92,6 +92,10 @@ export default {
         margin-bottom: 14px;
     }
 
+    ::v-deep .rich-text {
+        padding-right: unset;
+    }
+
     // Breakpoints
     @media #{$medium} {
     }
@@ -114,6 +118,11 @@ export default {
 
         .text-grouping {
             max-width: 100%;
+            margin-top: 16px;
+        }
+
+        .subheading-small {
+            margin-bottom: 0;
         }
     }
 }
