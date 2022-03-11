@@ -89,7 +89,7 @@ export default {
     border: 2px solid var(--color-primary-blue-01);
     border-radius: var(--rounded-slightly-all);
     .container {
-        margin: 48px auto;
+        margin: 64px auto;
         width: 90%;
 
         display: flex;
@@ -113,21 +113,25 @@ export default {
             align-items: flex-start;
 
             margin-left: 40px;
-            .title{
+            .space-title{
                     font-weight: 500;
                     font-size: 36px;
                     line-height: 120%;
                     color: var(--color-primary-blue-03);
+                    margin-bottom: 24px;
                 }
             .location {
                 color: var(--color-primary-blue-03);
-                padding-bottom: 2px;
+                padding-bottom: 24px;
                 .icon {
                     margin-bottom: -10px;
                 }
                 .location-title {
                     line-height: 20px;
                 }
+            }
+            .text {
+                margin-bottom: 24px;
             }
             .button {
                 .icon-name {
