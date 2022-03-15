@@ -82,7 +82,8 @@ export default {
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
-        align-content: flex-start;
+        justify-content: flex-start;
+        align-content: stretch;
         align-items: flex-start;
     }
 
@@ -94,6 +95,7 @@ export default {
 
     ::v-deep .rich-text {
         padding-right: unset;
+        margin: unset;
     }
 
     // Breakpoints
@@ -104,15 +106,11 @@ export default {
             display: flex;
             flex-direction: column;
             flex-wrap: nowrap;
-            align-content: center;
-            align-items: center;
         }
 
         .iframe {
             width: 100%;
             max-width: 100%;
-            // min-width: 320px;
-            // min-height: 220px;
             height: auto;
         }
 
