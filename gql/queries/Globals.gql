@@ -6,5 +6,15 @@ query Globals {
                 theUrl
             }
         }
+        ... on askALibrarian_GlobalSet {
+            id
+            name
+            titleGeneral
+            summary
+            buttonUrl {
+                buttonText
+                buttonUrl
+            }
+        }
     }
 }
