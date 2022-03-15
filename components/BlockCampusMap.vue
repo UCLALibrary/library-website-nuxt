@@ -1,13 +1,17 @@
 <template lang="html">
     <div class="block-campus-map">
-        <h3 class="title">
+        <nuxt-link
+            class="title"
+            to="modal"
+        >
             Campus Map
-        </h3>
+        </nuxt-link>
         <div class="content">
             <iframe
                 class="iframe"
                 :src="parsedSrc"
                 :title="locationName"
+                allowfullscreen
             />
             <div
                 v-if="buildingAccess"
@@ -57,7 +61,15 @@ export default {
     .title {
         color: var(--color-primary-blue-03);
         @include step-2;
-        margin-bottom: var(--space-m) + px;
+        margin-bottom: var(--space-m);
+    }
+    .title::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
     }
 
     .content {
@@ -90,7 +102,7 @@ export default {
     .subheading-small {
         color: var(--color-primary-blue-05);
         @include overline;
-        margin-bottom: var(--space-m) + px;
+        margin-bottom: var(--space-m);
     }
 
     ::v-deep .rich-text {
@@ -99,8 +111,6 @@ export default {
     }
 
     // Breakpoints
-    @media #{$medium} {
-    }
     @media #{$small} {
         .content {
             display: flex;
@@ -116,7 +126,7 @@ export default {
 
         .text-grouping {
             max-width: 100%;
-            margin-top: var(--space-m) + px;
+            margin-top: var(--space-m);
         }
     }
 }
