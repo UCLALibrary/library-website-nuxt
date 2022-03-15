@@ -38,10 +38,11 @@ export default {
     computed: {
         parsedStaffList() {
             return this.page.entries.map((obj) => {
+                console.log(obj)
                 return {
                     ...obj,
                     to: `/about/staff/${obj.to}`,
-                    image: _get(obj, "image[0]staffMemberImage[0]", null),
+                    image: _get(obj, "image[0]", null),
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
