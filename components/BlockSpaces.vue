@@ -38,6 +38,7 @@
 </template>
 
 <script>
+// https://calendar.library.ucla.edu/admin/api/1.1/endpoint/space_locations
 import SvgHeadingArrow from "~/node_modules/ucla-library-design-tokens/assets/svgs/graphic-chevron-right"
 import SvgIconLocation from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
 
@@ -83,8 +84,6 @@ export default {
 
 <style lang="scss" scoped>
 .block-spaces {
-
-
     max-width: calc($container-l-main + 128) + px;
     border: 2px solid var(--color-primary-blue-01);
     border-radius: var(--rounded-slightly-all);
@@ -100,7 +99,7 @@ export default {
             flex-basis: 80px;
 
             .svg__stroke--wayfinder {
-                stroke: var(--color-about-purple-03);
+                stroke: var(--color-visit-fushia-03);
             }
         }
 
@@ -143,7 +142,7 @@ export default {
 
     // Hover states
     @media #{$has-hover} {
-        .title:hover {
+        .space-title:hover {
             text-decoration: underline;
             text-decoration-color: var(--color-primary-blue-03);
             text-decoration-thickness: 1.5px;
@@ -155,33 +154,5 @@ export default {
         }
     }
 }
-    // Breakpoints
-    // @media #{$small} {
-    //     display: flex;
-    //     flex-direction: column;
-    //     justify-content: center;
-    //     align-content: center;
-    //     align-items: center;
-
-    //     .image {
-    //         margin: 27px 56px 64px;
-    //     }
-    //     .meta {
-    //         margin-bottom: 48px;
-    //         margin-right: 0px;
-    //     }
-    //     .icon-block {
-    //         .location {
-    //             display: flex;
-    //             flex-direction: column;
-    //         }
-    //         .location-link + .location-link {
-    //             border-style: hidden;
-    //             margin-left: 0px;
-    //             margin-top: 5px;
-    //             padding-left: 0px;
-    //         }
-    //     }
-    // }
 
 </style>
