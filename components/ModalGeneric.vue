@@ -1,15 +1,15 @@
 <template lang="html">
     <div
-        class="modal-backdrop"
+        class="modal"
         @click="close"
     >
-        <button
-            class="btn-close"
-            @click="close"
-        >
-            x
-        </button>
-        <div class="modal">
+        <div class="content">
+            <button
+                class="btn-close"
+                @click="close"
+            >
+                x
+            </button>
             <slot />
         </div>
     </div>
@@ -28,34 +28,49 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-backdrop {
+.modal {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     background-color: var(--color-primary-blue-05);
+    max-width: $container-l-main + px;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: $container-l-main + px;
 }
 
-.modal {
-    overflow-x: auto;
+.content {
     display: flex;
     flex-direction: column;
-    max-width: $container-l-main + px;
-    @include shadow-lightbox-01;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: flex-end;
 }
 
 .btn-close {
-    position: absolute;
     top: 0;
     right: 0;
     font-size: 20px;
     cursor: pointer;
     color: var(--color-white);
     background: transparent;
+}
+
+.svg-glyph-close {
+    height: 50px;
+    width: 50px;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 50;
+
+    path {
+        stroke: var(--color-black);
+    }
 }
 </style>

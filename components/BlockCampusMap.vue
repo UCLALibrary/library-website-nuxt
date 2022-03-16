@@ -103,12 +103,10 @@ export default {
     }
     .iframe-modal {
         border: none;
-        width: 700px;
-        height: 700px;
-        // min-width: 90%;
-        // width: 90%;
-        // min-height: 80%;
-        // max-width: 90%;
+        max-width: 90%;
+        min-width: 826px;
+        min-height: 726px;
+        @include shadow-lightbox-01;
     }
 
     .content {
