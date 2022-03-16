@@ -10,7 +10,7 @@ query Globals {
             id
             askALibrarianTitle: titleGeneral
             askALibrarianText: summary
-            askALibrarianButtonUrl: buttonUrl {
+            buttonUrl {
                 buttonText
                 buttonUrl
             }

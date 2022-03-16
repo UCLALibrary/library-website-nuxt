@@ -49,8 +49,8 @@
             svg-name="svg-call-to-action-chat"
             :title="askALibrarian.askALibrarianTitle"
             :text="askALibrarian.askALibrarianText"
-            :name="askALibrarian.askALibrarianButtonUrl[0].buttonText"
-            :to="askALibrarian.askALibrarianButtonUrl[0].buttonUrl"
+            :name="askALibrarian.buttonUrl[0].buttonText"
+            :to="askALibrarian.buttonUrl[0].buttonUrl"
         />
     </section>
 </template>
