@@ -4,6 +4,7 @@
             <div class="arrow-and-title">
                 <svg-heading-arrow class="heading-arrow" />
                 <h3 class="space-title">
+                    <!-- if no buttonUrl -  do not display as a link -->
                     <smart-link
                         :to="to"
                         target="_blank"
@@ -26,6 +27,7 @@
                     class="text"
                     v-html="text"
                 />
+                <!-- if no buttonUrl -  do not display button -->
                 <button-link
                     v-if="to"
                     class="button"

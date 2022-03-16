@@ -73,7 +73,7 @@ export default {
             let output = ""
             if (this.iconName == "svg-arrow-download") {
                 output = "svg-arrow-download"
-            } else if (this.iconName && isInternalLink(this.to)) {
+            } else if (!this.iconName && isInternalLink(this.to)) {
                 output = "svg-arrow-right"
             } else output = "svg-arrow-diagonal"
             return output
@@ -83,6 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// the button bg starts white with blue icons
 .button-link {
     display: inline-flex;
     align-items: center;
@@ -102,13 +103,14 @@ export default {
         padding-left: 5px;
     }
 
+    // the button bg starts blue with white icons
     &.is-secondary {
         background-color: var(--color-primary-blue-03);
         border: unset;
         color: var(--color-white);
         .arrow {
-            g {
-                stroke: var(--color-white);;
+            .svg__stroke--primary-blue-03 {
+                stroke: var(--color-white);
             }
         }
         .svg__icon-external-link,
@@ -122,6 +124,7 @@ export default {
             }
         }
     }
+
     // Hover states
     @media #{$has-hover} {
         &:hover {
@@ -138,7 +141,7 @@ export default {
                 border: 1.5px solid var(--color-primary-blue-02);
                 color: var(--color-black);
                 .arrow {
-                    g {
+                    .svg__stroke--primary-blue-03 {
                         stroke: var(--color-default-cyan-03);
                     }
                 }
