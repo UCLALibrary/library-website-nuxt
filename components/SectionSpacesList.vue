@@ -33,12 +33,11 @@ export default {
     flex-wrap: nowrap;
     justify-content: center;
 
-    background-color: var(--color-white);
     max-width: 990px;
     margin: 0 auto;
 
     .block {
-        margin-bottom: 25px;
+        margin-bottom: var(--space-m);
     }
 }
 </style>

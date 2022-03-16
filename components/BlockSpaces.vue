@@ -3,12 +3,12 @@
         <div class="container">
             <div class="arrow-and-title">
                 <svg-heading-arrow class="heading-arrow" />
-                <h1 class="space-title">
+                <h3 class="space-title">
                     <nuxt-link
                         :to="to"
                         v-html="title"
                     />
-                </h1>
+                </h3>
             </div>
             <div class="meta">
                 <nuxt-link
@@ -85,7 +85,7 @@ export default {
 .block-spaces {
     max-width: calc($container-l-main + 128) + px;
     border: 2px solid var(--color-primary-blue-01);
-    border-radius: var(--rounded-slightly-all);
+    border-radius: $rounded-slightly + px;
     .container {
         margin: 64px auto;
         width: 90%;
@@ -96,14 +96,14 @@ export default {
             .arrow-and-title {
                 display: flex;
                 flex-direction: row;
+                gap: var(--space-l);
 
                 width: 90%;
 
                 .space-title {
                     @include step-2;
                     color: var(--color-primary-blue-03);
-                    margin-bottom: 24px;
-                    padding-left: 32px;
+                    margin-bottom: var(--space-m);
                 }
             }
 
@@ -124,12 +124,12 @@ export default {
             align-content: flex-start;
             align-items: flex-start;
 
-            margin-left: 120px;
+            margin-left: calc(80px + var(--space-l));
 
             .location {
                 @include step-0;
                 color: var(--color-primary-blue-03);
-                padding-bottom: 24px;
+                margin-bottom: var(--space-m);
                 .icon {
                     margin-bottom: -10px;
                 }
@@ -138,7 +138,9 @@ export default {
                 }
             }
             .text {
-                margin-bottom: 24px;
+                @include step-0;
+                margin-top: 0;
+                margin-bottom: var(--space-m);
             }
         }
     }
@@ -170,29 +172,32 @@ export default {
                 justify-content: flex-start;
                 align-content: stretch;
                 align-items: center;
+
+                .space-title {
+                    margin-left: 0;
+
+                }
             }
             .svg__graphic-chevron-right {
-                margin-bottom: 24px;
+                margin-bottom: var(--space-m);
             }
             .meta {
                 margin-left: 0px;
+            }
+
+            .heading-arrow {
+                width: 40px;
+                height: 40px;
+                flex-basis: 40px;
             }
         }
     }
 
     @media #{$small} {
         .container {
-            display: flex;
-            flex-direction: column;
-
             width: 90%;
-            .arrow-and-title {
-                .space-title {
-                    margin-left: 0px;
-                }
-            }
             .heading-arrow {
-                margin-bottom: 24px;
+                margin-bottom: var(--space-m);
             }
         }
 
