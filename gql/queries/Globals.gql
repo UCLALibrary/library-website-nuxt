@@ -7,11 +7,10 @@ query Globals {
             }
         }
         ... on askALibrarian_GlobalSet {
-            id
-            name
-            titleGeneral
-            summary
-            buttonUrl {
+            askALibrarianId: id
+            askALibrarianTitle: titleGeneral
+            askALibrarianText: summary
+            askALibrarianButtonUrl: buttonUrl {
                 buttonText
                 buttonUrl
             }
