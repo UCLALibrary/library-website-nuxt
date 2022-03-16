@@ -146,5 +146,43 @@ export default {
             text-decoration-thickness: 1.5px;
         }
     }
+
+    // Breakpoints
+    @media #{$small} {
+        .container {
+            display: flex;
+            flex-direction: column;
+
+            width: 90%;
+
+            heading-arrow {
+                margin-bottom: 24px;
+            }
+        }
+        ::v-deep .button-link {
+            margin: 0 ;
+        }
+
+        ::v-deep .button {
+            width: 100%;
+        }
+    }
+
+    @media #{$medium} {
+        .container {
+            display: flex;
+            flex-direction: column;
+
+            width: 90%;
+
+            .svg__graphic-chevron-right {
+                margin-bottom: 24px;
+            }
+
+            .meta {
+                margin-left: 0px;
+            }
+        }
+    }
 }
 </style>
