@@ -43,6 +43,7 @@
 
 <script>
 // https://calendar.library.ucla.edu/admin/api/1.1/endpoint/space_locations
+
 import SvgHeadingArrow from "~/node_modules/ucla-library-design-tokens/assets/svgs/graphic-chevron-right"
 import SvgIconLocation from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
 

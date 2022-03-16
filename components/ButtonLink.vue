@@ -73,7 +73,7 @@ export default {
             let output = ""
             if (this.iconName == "svg-arrow-download") {
                 output = "svg-arrow-download"
-            } else if (!this.iconName && isInternalLink(this.to)) {
+            } else if (this.iconName && isInternalLink(this.to)) {
                 output = "svg-arrow-right"
             } else output = "svg-arrow-diagonal"
             return output
@@ -107,11 +107,9 @@ export default {
         border: unset;
         color: var(--color-white);
         .arrow {
-            stroke: var(--color-white);
-            // fill: var(--color-white);
-        }
-        .line {
-            stroke: var(--color-white);
+            g {
+                stroke: var(--color-white);;
+            }
         }
         .svg__icon-external-link,
         .svg__icon-download {
@@ -140,7 +138,9 @@ export default {
                 border: 1.5px solid var(--color-primary-blue-02);
                 color: var(--color-black);
                 .arrow {
-                    stroke: var(--color-default-cyan-03);
+                    g {
+                        stroke: var(--color-default-cyan-03);
+                    }
                 }
                 .svg__icon-external-link,
                 .svg__icon-download {

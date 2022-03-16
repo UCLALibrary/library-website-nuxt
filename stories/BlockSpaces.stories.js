@@ -8,7 +8,7 @@ const mock = {
     title: "Turpis Portico",
     location: "Fames Turpis Building",
     text: "Etiam faucibus tellus quis magna finibus auctor. Fusce sagittis vel lectus sed ullamcorper. Proin faucibus nibh ut purus consequat lobortis. Aenean eu fermentum leo, vitae egestas eros. Vivamus urna nibh, porttitor in egestas eu, eleifend ac felis. Praesent sed tristique nibh. Nulla dignissim purus at metus consequat, vitae pharetra orci efficitur. Vivamus facilisis massa vel ipsum vestibulum, porta efficitur dolor aliquam.",
-    buttonUrl: "/help"
+    buttonUrl: "https://calendar.library.ucla.edu/r/new/availability?lid=4361&zone=0&gid=7748&capacity=2&_ga=2.67369617.1259852155.1647299416-1441825369.1643758196"
 }
 
 const mock2 = {
@@ -16,7 +16,7 @@ const mock2 = {
     title: "Turpis Portico",
     location: "Fames Turpis Building",
     text: "Etiam faucibus tellus quis magna finibus auctor. Fusce sagittis vel lectus sed ullamcorper. Proin faucibus nibh ut purus consequat lobortis. Aenean eu fermentum leo, vitae egestas eros. Vivamus urna nibh, porttitor in egestas eu, eleifend ac felis. Praesent sed tristique nibh. Nulla dignissim purus at metus consequat, vitae pharetra orci efficitur. Vivamus facilisis massa vel ipsum vestibulum, porta efficitur dolor aliquam.",
-    buttonUrl: "http://google.com"
+    buttonUrl: "https://www.google.com/"
 }
 
 // Variations of stories below
