@@ -35,7 +35,6 @@ export default {
     justify-content: center;
 
     background-color: var(--color-white);
-    // padding: 0 var(--unit-gutter);
     max-width: 990px;
     margin: 0 auto;
 
