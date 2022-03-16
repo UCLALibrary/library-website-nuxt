@@ -8,7 +8,6 @@ query Globals {
         }
         ... on askALibrarian_GlobalSet {
             id
-            name
             askALibrarianTitle: titleGeneral
             askALibrarianText: summary
             buttonUrl {
