@@ -6,4 +6,3 @@ describe('GLOBAL / Header Sticky', () => {
         cy.percySnapshot('GLOBAL / Header Sticky: Default')
     })
 })
-                    

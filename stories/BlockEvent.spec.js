@@ -6,4 +6,3 @@ describe('BLOCK / Event', () => {
         cy.percySnapshot('BLOCK / Event: Short Text')
     })
 })
-                    

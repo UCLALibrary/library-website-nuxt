@@ -6,4 +6,3 @@ describe('FOOTER / Sock', () => {
         cy.percySnapshot('FOOTER / Sock: Default')
     })
 })
-                    

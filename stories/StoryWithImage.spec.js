@@ -6,4 +6,3 @@ describe('IMPACT REPORT / Story With Image', () => {
         cy.percySnapshot('IMPACT REPORT / Story With Image: Default')
     })
 })
-                    

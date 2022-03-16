@@ -6,4 +6,3 @@ describe('Section / Post Small', () => {
         cy.percySnapshot('Section / Post Small: Default')
     })
 })
-                    

@@ -6,4 +6,3 @@ describe('DIVIDER / Way Finder', () => {
         cy.percySnapshot('DIVIDER / Way Finder: Default')
     })
 })
-                    

@@ -6,4 +6,3 @@ describe('FLEXIBLE / Banner Featured', () => {
         cy.percySnapshot('FLEXIBLE / Banner Featured: Default')
     })
 })
-                    

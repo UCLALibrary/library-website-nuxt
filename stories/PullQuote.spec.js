@@ -6,4 +6,3 @@ describe('FLEXIBLE / Pull Quote', () => {
         cy.percySnapshot('FLEXIBLE / Pull Quote: Default')
     })
 })
-                    

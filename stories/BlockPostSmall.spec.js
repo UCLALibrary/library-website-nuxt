@@ -6,4 +6,3 @@ describe('BLOCK / PostSmall', () => {
         cy.percySnapshot('BLOCK / Post Small: Default')
     })
 })
-                    
