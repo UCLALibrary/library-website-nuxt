@@ -4,25 +4,24 @@
             <div class="arrow-and-title">
                 <svg-heading-arrow class="heading-arrow" />
                 <h3 class="space-title">
-                    <nuxt-link
+                    <smart-link
                         :to="to"
+                        target="_blank"
                         v-html="title"
                     />
                 </h3>
             </div>
             <div class="meta">
-                <smart-link
-                    v-if="to"
+                <nuxt-link
                     :to="location.to"
-                    :class="location"
-                    target="_blank"
+                    class="location"
                 >
                     <svg-icon-location class="icon" />
                     <span
                         class="location-title"
                         v-html="location"
                     />
-                </smart-link>
+                </nuxt-link>
                 <p
                     class="text"
                     v-html="text"
@@ -34,6 +33,8 @@
                     :label="buttonText"
                     icon-name="svg-arrow-right"
                     :is-secondary="true"
+                    :to="to"
+                    target="_blank"
                 />
             </div>
         </div>
@@ -58,6 +59,10 @@ export default {
         title: {
             type: String,
             default: "",
+        },
+        isOnline: {
+            type: Boolean,
+            default: false,
         },
         location: {
             type: String,
