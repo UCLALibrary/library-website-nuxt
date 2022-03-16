@@ -1,17 +1,16 @@
 <template lang="html">
     <div class="block-campus-map">
-        <nuxt-link
+        <button
             class="title"
-            to="modal"
+            @click="showModal"
         >
             Campus Map
-        </nuxt-link>
+        </button>
         <div class="content">
             <iframe
                 class="iframe"
                 :src="parsedSrc"
                 :title="locationName"
-                allowfullscreen
             />
             <div
                 v-if="buildingAccess"
@@ -26,6 +25,18 @@
                 />
             </div>
         </div>
+
+        <modal-generic
+            v-show="isModalVisible"
+            class="modal"
+            @close="closeModal"
+        >
+            <iframe
+                class="iframe-modal"
+                :src="parsedSrc"
+                :title="locationName"
+            />
+        </modal-generic>
     </div>
 </template>
 
@@ -45,9 +56,22 @@ export default {
             default: "",
         },
     },
+    data() {
+        return {
+            isModalVisible: false,
+        }
+    },
     computed: {
         parsedSrc() {
             return `https://map.ucla.edu/?id=${this.campusLocationId}&e=true`
+        },
+    },
+    methods: {
+        showModal() {
+            this.isModalVisible = true
+        },
+        closeModal() {
+            this.isModalVisible = false
         },
     },
 }
@@ -70,6 +94,16 @@ export default {
         bottom: 0;
         right: 0;
         left: 0;
+    }
+
+    .modal {
+        height: 800px;
+        width: 800px;
+    }
+    .iframe-modal {
+        border: none;
+        width: 800px;
+        height: 800px;
     }
 
     .content {
