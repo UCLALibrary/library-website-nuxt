@@ -18,7 +18,9 @@ import isInternalLink from "~/utils/isInternalLink"
 
 export default {
     components: {
-        SvgArrowRight: () => import("~/assets/svg/arrow-right-small"),
+        SvgArrowRight: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-arrow-right"),
         SvgArrowDiagonal: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-external-link"

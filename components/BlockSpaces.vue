@@ -30,10 +30,8 @@
                     class="button"
                     :button-url="to"
                     :label="buttonText"
-                    :icon-name="iconName"
+                    icon-name="svg-arrow-right"
                     :is-secondary="true"
-                    :to="buttonUrl"
-                    aria-labelledby="block-spaces"
                 />
             </div>
         </div>
@@ -42,12 +40,8 @@
 
 <script>
 // https://calendar.library.ucla.edu/admin/api/1.1/endpoint/space_locations
-// https://calendar.library.ucla.edu/admin/api/1.1/endpoint/space_items
 import SvgHeadingArrow from "~/node_modules/ucla-library-design-tokens/assets/svgs/graphic-chevron-right"
 import SvgIconLocation from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
-// Use button component with icon-arrow-right svg
-// arrow-horizontal svg (desktop)
-// arrow-horizontal-small svg (tablet and mobile)
 
 export default {
     components: {
@@ -118,12 +112,10 @@ export default {
 
             margin-left: 40px;
             .space-title{
-                    font-weight: 500;
-                    font-size: 36px;
-                    line-height: 120%;
-                    color: var(--color-primary-blue-03);
-                    margin-bottom: 24px;
-                }
+                @include step-2;
+                color: var(--color-primary-blue-03);
+                margin-bottom: 24px;
+            }
             .location {
                 color: var(--color-primary-blue-03);
                 padding-bottom: 24px;
@@ -136,10 +128,6 @@ export default {
             }
             .text {
                 margin-bottom: 24px;
-            }
-            .button {
-                .icon-name {
-                }
             }
         }
     }
@@ -158,5 +146,4 @@ export default {
         }
     }
 }
-
 </style>

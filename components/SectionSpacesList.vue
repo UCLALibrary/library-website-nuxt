@@ -3,6 +3,7 @@
         <block-spaces
             v-for="item in items"
             v-bind="item"
+            class="block"
         />
     </section>
 </template>
@@ -26,12 +27,10 @@ export default {
     justify-content: center;
 
     background-color: var(--color-white);
-    // padding: 0 var(--unit-gutter);
     max-width: 990px;
-    margin: 0 auto;
 
     .block {
-        margin-bottom: 25px;
+        margin-bottom: 30px; // $space-m
     }
 }
 </style>
