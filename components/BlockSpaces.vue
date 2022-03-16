@@ -117,6 +117,7 @@ export default {
                 margin-bottom: 24px;
             }
             .location {
+                @include step-0;
                 color: var(--color-primary-blue-03);
                 padding-bottom: 24px;
                 .icon {
