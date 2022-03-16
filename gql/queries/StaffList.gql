@@ -18,11 +18,8 @@ query StaffList {
                 title
                 to: slug
             }
-            image: staffMemberImage {
-                staffMemberImage {
-                    ...Image
-                }
-                staffMemberImageAltText
+            image {
+                ...Image
             }
         }
     }
