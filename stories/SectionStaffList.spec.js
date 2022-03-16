@@ -6,4 +6,3 @@ describe('SECTION / Staff / List', () => {
         cy.percySnapshot('SECTION / Staff / List: Default')
     })
 })
-                    
