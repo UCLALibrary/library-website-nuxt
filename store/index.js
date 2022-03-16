@@ -49,14 +49,19 @@ export const actions = {
                 "Libcal API error, see nuxtServerInit function for source. " + e
             )
         }
-        try{
+        try {
             // console.log("Get Global data from Craft")
             let globalData = await this.$graphql.default.request(GLOBALS)
             globalData = removeEmpties(globalData.globalSets || [])
 
             // Shape data from Craft
             globalData = {
-                appointmentsLink: _get(globalData, "[0].appointmentsLink[0]", {}),
+                appointmentsLink: _get(
+                    globalData,
+                    "[0].appointmentsLink[0]",
+                    {}
+                ),
+                askALibrarian: globalData[1],
             }
             commit("SET_GLOBALS", globalData)
         } catch (e) {

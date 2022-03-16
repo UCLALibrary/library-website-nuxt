@@ -2,9 +2,7 @@
     <main class="page page-staff-detail">
         <!-- staff page here -->
         <!-- no search on this page -->
-        <nav-breadcrumb
-            :title="page.entry.title"
-        />
+        <nav-breadcrumb :title="page.entry.title" />
 
         <block-staff-detail
             class="staff-detail-block"
@@ -33,7 +31,7 @@
                 Publications
             </h2>
             <div class="orcid-key">
-                ORCID: 
+                ORCID:
                 <smart-link
                     :to="page.entry.orcid"
                     target="_blank"
@@ -64,7 +62,6 @@
             title="Not sure who you should reach out to?"
             text="Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
         />
-        </nav-breadcrumb>
     </main>
 </template>
 
@@ -148,10 +145,11 @@ export default {
             margin: 20px auto;
             margin-left: -20px;
         }
-        ul, li {
+        ul,
+        li {
             margin-bottom: 24px;
         }
-            // Hover states
+        // Hover states
         @media #{$has-hover} {
             .orcid:hover {
                 text-decoration: underline;
