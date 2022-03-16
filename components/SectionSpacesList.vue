@@ -1,17 +1,8 @@
 <template lang="html">
     <section class="section-spaces-list">
-        <block-spaces-list
+        <block-spaces
             v-for="item in items"
-            :key="item.to"
-            :image="item.image"
-            :to="item.to"
-            :spaces-name="item.spacesName"
-            :job-title="item.jobTitle"
-            :locations="item.locations"
-            :email="item.email"
-            :phone="item.phone"
-            :departments="item.departments"
-            class="block"
+            v-bind="item"
         />
     </section>
 </template>
