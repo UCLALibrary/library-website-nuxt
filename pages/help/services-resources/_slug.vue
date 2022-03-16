@@ -1,8 +1,6 @@
 <template lang="html">
     <section class="page-service-detail">
-        <nav-breadcrumb
-            :title="page.title"
-        />
+        <nav-breadcrumb :title="page.title" />
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -49,12 +47,10 @@
         <block-call-to-action
             class="block-call-to-action"
             svg-name="svg-call-to-action-chat"
-            title="Lorem ipsum dolor sit amet?"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-            name="Lorem ipsum dolor"
-            to="/"
-            :is-dark="isDark"
-            :is-small-size="isSmallSize"
+            :title="askALibrarian.askALibrarianTitle"
+            :text="askALibrarian.askALibrarianText"
+            :name="askALibrarian.buttonUrl[0].buttonText"
+            :to="askALibrarian.buttonUrl[0].buttonUrl"
         />
     </section>
 </template>
@@ -88,18 +84,13 @@ export default {
             })
         },
         parsedButtonText() {
-            let output = ""
-            if (this.page.button[0]) {
-                output = this.page.button[0].buttonText
-            }
-            return output
+            return _get(this.page, "button[0].buttonText", null)
         },
         parsedButtonTo() {
-            let output = ""
-            if (this.page.button[0]) {
-                output = this.page.button[0].buttonUrl
-            }
-            return output
+            return _get(this.page, "button[0].buttonUrl", null)
+        },
+        askALibrarian() {
+            return this.$store.state.globals.askALibrarian
         },
     },
 }
