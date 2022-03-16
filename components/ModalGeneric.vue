@@ -1,13 +1,15 @@
 <template lang="html">
-    <div class="modal-backdrop">
+    <div
+        class="modal-backdrop"
+        @click="close"
+    >
+        <button
+            class="btn-close"
+            @click="close"
+        >
+            x
+        </button>
         <div class="modal">
-            <button
-                type="button"
-                class="btn-close"
-                @click="close"
-            >
-                x
-            </button>
             <slot />
         </div>
     </div>
@@ -51,11 +53,8 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
-    border: none;
     font-size: 20px;
-    padding: 10px;
     cursor: pointer;
-    font-weight: bold;
     color: var(--color-white);
     background: transparent;
 }
