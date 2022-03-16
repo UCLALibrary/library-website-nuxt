@@ -11,16 +11,18 @@
                 </h3>
             </div>
             <div class="meta">
-                <nuxt-link
+                <smart-link
+                    v-if="to"
                     :to="location.to"
-                    class="location"
+                    :class="location"
+                    target="_blank"
                 >
                     <svg-icon-location class="icon" />
                     <span
                         class="location-title"
                         v-html="location"
                     />
-                </nuxt-link>
+                </smart-link>
                 <p
                     class="text"
                     v-html="text"
@@ -56,10 +58,6 @@ export default {
         title: {
             type: String,
             default: "",
-        },
-        isOnline: {
-            type: Boolean,
-            default: false,
         },
         location: {
             type: String,
