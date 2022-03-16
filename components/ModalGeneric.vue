@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import SvgGlyphClose from "~/assets/svg/glyph-close"
+
 export default {
     methods: {
         close() {
@@ -30,32 +32,19 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: var(--color-primary-blue-05);
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 410px;
-    height: auto;
+    max-width: $container-l-main + px;
 }
 
 .modal {
-    background: #ffffff;
-    box-shadow: 2px 2px 20px 1px;
     overflow-x: auto;
     display: flex;
     flex-direction: column;
-}
-
-.modal-header,
-.modal-footer {
-    padding: 15px;
-    display: flex;
-}
-
-.modal-footer {
-    border-top: 1px solid #eeeeee;
-    flex-direction: column;
-    justify-content: flex-end;
+    max-width: $container-l-main + px;
+    @include shadow-lightbox-01;
 }
 
 .btn-close {
@@ -67,14 +56,7 @@ export default {
     padding: 10px;
     cursor: pointer;
     font-weight: bold;
-    color: #4aae9b;
+    color: var(--color-white);
     background: transparent;
-}
-
-.btn-green {
-    color: white;
-    background: #4aae9b;
-    border: 1px solid #4aae9b;
-    border-radius: 2px;
 }
 </style>

@@ -97,13 +97,18 @@ export default {
     }
 
     .modal {
-        height: 800px;
-        width: 800px;
+        min-width: 100%;
+        max-width: $container-l-main + px;
+        margin: 0 auto;
     }
     .iframe-modal {
         border: none;
-        width: 800px;
-        height: 800px;
+        width: 700px;
+        height: 700px;
+        // min-width: 90%;
+        // width: 90%;
+        // min-height: 80%;
+        // max-width: 90%;
     }
 
     .content {
