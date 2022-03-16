@@ -1,16 +1,16 @@
 <template lang="html">
     <div class="block-spaces">
         <div class="container">
-            <svg-heading-arrow class="heading-arrow" />
-
-            <div class="meta">
+            <div class="arrow-and-title">
+                <svg-heading-arrow class="heading-arrow" />
                 <h1 class="space-title">
                     <nuxt-link
                         :to="to"
                         v-html="title"
                     />
                 </h1>
-
+            </div>
+            <div class="meta">
                 <nuxt-link
                     :to="location.to"
                     class="location"
@@ -91,7 +91,21 @@ export default {
         width: 90%;
 
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+
+            .arrow-and-title {
+                display: flex;
+                flex-direction: row;
+
+                width: 90%;
+
+                .space-title {
+                    @include step-2;
+                    color: var(--color-primary-blue-03);
+                    margin-bottom: 24px;
+                    padding-left: 32px;
+                }
+            }
 
         .svg__graphic-chevron-right {
             flex-shrink: 0;
@@ -110,12 +124,8 @@ export default {
             align-content: flex-start;
             align-items: flex-start;
 
-            margin-left: 40px;
-            .space-title{
-                @include step-2;
-                color: var(--color-primary-blue-03);
-                margin-bottom: 24px;
-            }
+            margin-left: 120px;
+
             .location {
                 @include step-0;
                 color: var(--color-primary-blue-03);
@@ -148,40 +158,50 @@ export default {
     }
 
     // Breakpoints
+    @media #{$medium} {
+        .container {
+            display: flex;
+            flex-direction: column;
+
+            .arrow-and-title {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                align-content: stretch;
+                align-items: center;
+            }
+            .svg__graphic-chevron-right {
+                margin-bottom: 24px;
+            }
+            .meta {
+                margin-left: 0px;
+            }
+        }
+    }
+
     @media #{$small} {
         .container {
             display: flex;
             flex-direction: column;
 
             width: 90%;
-
-            heading-arrow {
+            .arrow-and-title {
+                .space-title {
+                    margin-left: 0px;
+                }
+            }
+            .heading-arrow {
                 margin-bottom: 24px;
             }
         }
+
         ::v-deep .button-link {
             margin: 0 ;
         }
 
         ::v-deep .button {
             width: 100%;
-        }
-    }
-
-    @media #{$medium} {
-        .container {
-            display: flex;
-            flex-direction: column;
-
-            width: 90%;
-
-            .svg__graphic-chevron-right {
-                margin-bottom: 24px;
-            }
-
-            .meta {
-                margin-left: 0px;
-            }
         }
     }
 }
