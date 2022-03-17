@@ -7,12 +7,17 @@
             Campus Map
         </button>
         <div class="content">
-            <iframe
-                class="iframe"
-                :src="parsedSrc"
-                :title="locationName"
-            />
-            <div class="hover-gradient" />
+            <div class="iframe-hover">
+                <iframe
+                    class="iframe"
+                    :src="parsedSrc"
+                    :title="locationName"
+                />
+                <div
+                    class="hover-gradient"
+                    @click="showModal"
+                />
+            </div>
             <div
                 v-if="buildingAccess"
                 class="text-grouping"
@@ -118,23 +123,27 @@ export default {
         align-content: center;
         align-items: stretch;
     }
-    .hover-gradient {
-        z-index: 10;
-        position: relative;
+    .iframe-hover {
         max-width: 50%;
         min-width: 426px;
         min-height: 220px;
-
         margin-right: 50px;
+        position: relative;
     }
 
     .iframe {
-        max-width: 50%;
-        min-width: 426px;
-        min-height: 220px;
-        margin-right: 50px;
         border: none;
         position: absolute;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+    }
+    .hover-gradient {
+        z-index: 20;
+        position: relative;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
     }
 
     .text-grouping {
