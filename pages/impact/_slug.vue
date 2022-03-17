@@ -198,7 +198,7 @@ export default {
 
         .hover-text:hover {
             color: var(--color-primary-blue-03);
-            @include hover;
+            @include link-hover;
         }
     }
 }
