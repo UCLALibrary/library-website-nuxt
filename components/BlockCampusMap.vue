@@ -12,6 +12,7 @@
                 :src="parsedSrc"
                 :title="locationName"
             />
+            <div class="hover-gradient" />
             <div
                 v-if="buildingAccess"
                 class="text-grouping"
@@ -97,9 +98,10 @@ export default {
     }
 
     .modal {
-        min-width: 100%;
         max-width: $container-l-main + px;
         margin: 0 auto;
+        z-index: 20;
+        position: absolute;
     }
     .iframe-modal {
         border: none;
@@ -116,6 +118,15 @@ export default {
         align-content: center;
         align-items: stretch;
     }
+    .hover-gradient {
+        z-index: 10;
+        position: relative;
+        max-width: 50%;
+        min-width: 426px;
+        min-height: 220px;
+
+        margin-right: 50px;
+    }
 
     .iframe {
         max-width: 50%;
@@ -123,6 +134,7 @@ export default {
         min-height: 220px;
         margin-right: 50px;
         border: none;
+        position: absolute;
     }
 
     .text-grouping {
@@ -145,6 +157,13 @@ export default {
     ::v-deep .rich-text {
         padding-right: unset;
         margin: unset;
+    }
+
+    // Hovers
+    @media #{$has-hover} {
+        .hover-gradient:hover {
+            background: $overlay-03;
+        }
     }
 
     // Breakpoints

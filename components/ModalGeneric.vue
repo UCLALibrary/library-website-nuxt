@@ -4,12 +4,10 @@
         @click="close"
     >
         <div class="content">
-            <button
-                class="btn-close"
+            <svg-glyph-close
+                class="svg-glyph-close"
                 @click="close"
-            >
-                x
-            </button>
+            />
             <slot />
         </div>
     </div>
@@ -19,6 +17,9 @@
 import SvgGlyphClose from "~/assets/svg/glyph-close"
 
 export default {
+    components: {
+        SvgGlyphClose,
+    },
     methods: {
         close() {
             this.$emit("close")
@@ -36,6 +37,7 @@ export default {
     right: 0;
     background-color: var(--color-primary-blue-05);
     max-width: $container-l-main + px;
+    cursor: pointer;
 
     display: flex;
     justify-content: center;
@@ -51,26 +53,12 @@ export default {
     align-items: flex-end;
 }
 
-.btn-close {
-    top: 0;
-    right: 0;
-    font-size: 20px;
-    cursor: pointer;
-    color: var(--color-white);
-    background: transparent;
-}
-
 .svg-glyph-close {
-    height: 50px;
-    width: 50px;
-
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 50;
-
+    circle {
+        fill: var(--color-primary-blue-05);
+    }
     path {
-        stroke: var(--color-black);
+        stroke: var(--color-white);
     }
 }
 </style>
