@@ -42,6 +42,8 @@
         </div>
 
         <!-- SectionStaffBio -->
+        <divider-general v-if="!image" class="no-image-divider" />
+
         <div class="section-staff-bio">
             <div class="body-contact">
                 <responsive-image
@@ -50,19 +52,20 @@
                     :aspect-ratio="100"
                     class="image"
                 />
-                <!-- TODO fix divider to go all the way across  heading if there is no picture -->
-                <divider-general class="divider" />
+
                 <div
                     v-if="pronouns"
-                    class="pronouns"
-                    v-html="parsedPronouns"
-                />
+                    class="contact-info"
+                >
+                    <svg-icon-person class="svg" />
+                    {{ parsedPronouns }}
+                </div>
                 <div class="contact-info">
                     <svg-icon-email class="svg" />
                     <smart-link
                         :to="`mailto:${email}`"
                         target="_blank"
-                        class="text-link"
+                        class="link-icon"
                         v-html="email"
                     />
                 </div>
@@ -74,7 +77,7 @@
                     <smart-link
                         :to="`tel:${phone}`"
                         target="_blank"
-                        class="text-link"
+                        class="link-icon"
                         v-html="phone"
                     />
                 </div>
@@ -83,34 +86,30 @@
                     <smart-link
                         :to="getBookingLink"
                         target="_blank"
-                        class="text-link"
+                        class="link-icon"
                         v-html="`Book a consultation`"
                     />
                 </div>
             </div>
 
             <div class="body-bio">
-                <div v-if="topics.length">
+                <div v-if="topics.length" class="ask-me-about">
                     <h2 class="secondary-header">
                         Ask me About
                     </h2>
-
-                    <ul class="topics">
+                    <rich-text>
+                    <ul class="list topics">
                         <li
                             v-for="topic in topics"
                             :key="topic.id"
                             v-html="topic.title"
                         />
                     </ul>
+                    </rich-text>
                 </div>
 
-                <divider-general
-                    v-if="biography"
-                    class="divider"
-                />
-
                 <!-- RICH TEXT-->
-                <div v-if="biography">
+                <div v-if="biography" class="biography">
                     <h2 class="secondary-header">
                         Biography
                     </h2>
@@ -124,9 +123,10 @@
 <script>
 import SvgHeadingArrow from "~/node_modules/ucla-library-design-tokens/assets/svgs/graphic-chevron-right"
 import SvgIconLocation from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
-import SvgIconEmail from "~/assets/svg/icon-email"
-import SvgIconPhone from "~/assets/svg/icon-phone"
-import SvgIconConsultation from "~/assets/svg/icon-consultation"
+import SvgIconEmail from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-email"
+import SvgIconPhone from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-phone"
+import SvgIconConsultation from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-chat"
+import SvgIconPerson from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-person"
 
 export default {
     components: {
@@ -135,6 +135,7 @@ export default {
         SvgIconEmail,
         SvgIconPhone,
         SvgIconConsultation,
+        SvgIconPerson,
     },
     props: {
         image: {
@@ -199,8 +200,8 @@ export default {
     max-width: calc($container-l-main + 128) + px;
     .heading-staff {
         width: 100%;
-        // margin-left: calc(var(--space-2xl) * -1);
-        margin-bottom: 64px;
+        margin-left: -64px;
+        margin-bottom: var(--space-xl);
 
         display: flex;
         flex-direction: row;
@@ -225,16 +226,21 @@ export default {
 
         .staffName,
         .job-title,
-        .department,
-        .location-link {
+        .departments {
             margin-bottom: 8px;
-            @include step-0;
-            line-height: $line-height--2;
         }
+
         .staffName {
             letter-spacing: 0.01em;
             color: var(--color-primary-blue-03);
             @include step-4;
+            line-height: $line-height--1;
+        }
+
+        .job-title,
+        .department,
+        .location-link {
+            @include step-0;
         }
 
         .departments,
@@ -247,8 +253,10 @@ export default {
             list-style: none;
         }
 
-        .department,
-        .location-link {
+        .department {
+            margin: 6px 0;
+            line-height: $line-height--2;
+
             border-right: 1px solid var(--color-secondary-grey-02);
             padding: 0 8px;
             &:first-child {
@@ -261,22 +269,26 @@ export default {
 
         .location-group {
             color: var(--color-primary-blue-03);
+            gap: var(--space-s);
+
             .location-link {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
                 justify-content: flex-start;
-                align-content: center;
                 align-items: center;
+                gap: 4px;
             }
+
             .location {
-                @include button;
-            }
-            .svg {
-                width: 28px;
-                height: 28px;
+                @include step-0;
             }
         }
+    }
+
+    .no-image-divider {
+        margin: var(--space-xl) auto;
+        max-width: $container-l-main + px;
     }
     // Hover states
     @media #{$has-hover} {
@@ -290,74 +302,151 @@ export default {
     // BODY
     .section-staff-bio {
         max-width: $container-l-main + px;
-        margin: 0 auto 96px;
+        margin: 0 auto var(--space-3xl);
         width: 100%;
 
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: flex-start;
-        gap: 80px;
+        gap: var(--space-2xl);
 
         // CONTACT
         .body-contact {
-            flex: 1 1 300px;
-            font-size: 20px;
+            flex-basis: 300px;
+            @include step-0;
 
             .image {
+                width: 100%;
                 max-width: 300px;
-                max-height: 300px;
+                height: auto;
+                margin-bottom: var(--space-l);
             }
 
             .contact-info {
                 color: var(--color-primary-blue-03);
-                margin-top: 10px;
-            }
-
-            .svg {
-                margin-bottom: -10px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 8px;
             }
 
             .divider {
-                margin: 45px 0px;
+                margin-bottom: var(--space-l);
                 width: 100%;
             }
         }
 
         // SectionStaffBio
         .body-bio {
-            flex: 3 1 calc(100% - 380px);
+            width: calc(100% - (300px + var(--space-2xl)));
+
+            ::v-deep .rich-text {
+                padding-right: 0;
+            }
+
+            .ask-me-about {
+                margin-bottom: var(--space-2xl);
+            }
 
             .secondary-header {
-                margin-bottom: 18px;
+                margin-bottom: var(--space-l);
                 @include step-3;
                 color: var(--color-primary-blue-03);
             }
             .divider {
-                margin: 45px 0px;
+                margin: var(--space-l) 0px;
                 width: 100%;
             }
 
-            .topics {
-                li {
-                    background: url("~/assets/svg/molecule-bullet.svg?url")
-                        no-repeat left center;
-                    padding: 0px 10px 0px 35px;
-                    list-style: none;
-                    margin: 0;
-                    vertical-align: middle;
-                    li::marker {
-                        border-bottom: 2px solid var(--color-default-cyan-03);
-                        display: inline-block;
-                        line-height: 1.25;
-                        color: var(--color-primary-blue-03);
-                        font-size: 2em;
-                    }
+            .topics li {
+                margin: 0;
+            }
+
+            ::v-deep .rich-text p:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    @media #{$medium} {
+        width: 100%;
+        padding: 0 var(--unit-gutter);
+
+        .heading-staff {
+            margin-left: 0;
+            gap: 8px;
+        }
+
+        .svg__graphic-chevron-right {
+            width: 40px;
+            height: 40px;
+            flex-basis: 40px;
+            margin-top: 6px;
+        }
+
+        .section-staff-bio {
+            padding: 0 48px;
+
+            .body-contact {
+                flex-basis: 264px;
+                width: 264px;
+                flex-grow: 0;
+
+                .image {
+                    max-width: 264px;
+                }
+
+                .contact-info .svg {
+                    width: 28px;
                 }
             }
 
-            ::v-deep a {
-                @include link-default;
+            .body-bio {
+                width: calc(100% - (264px + var(--space-2xl)));
+            }
+        }
+    }
+
+    @media #{$small} {
+        .svg__graphic-chevron-right {
+            width: 28px;
+            height: 28px;
+            flex-basis: 28px;
+            margin-top: 6px;
+        }
+
+        .heading-container {
+            .job-title,
+            .departments,
+            .location-group {
+                margin-left: -36px;
+            }
+
+        }
+
+        .section-staff-bio {
+            padding: 0;
+
+            .body-contact {
+                flex-basis: 100%;
+                width: 100%;
+                flex-grow: 0;
+
+                .image {
+                    max-width: 100%;
+                }
+
+                .contact-info .svg {
+                    width: 28px;
+                }
+            }
+
+            .body-bio {
+                width: 100%;
             }
         }
     }

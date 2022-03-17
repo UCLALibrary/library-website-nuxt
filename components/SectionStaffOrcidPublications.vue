@@ -59,11 +59,13 @@ export default {
         padding-bottom: 10px;
     }
 
-    .orcid {
-        color: forestgreen;
-    }
-    .publications {
-        color: coral;
+
+    @media #{$has-hover} {
+        .orcid-value:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--color-default-cyan-03);
+            text-decoration-thickness: 1.5px;
+        }
     }
 }
 </style>

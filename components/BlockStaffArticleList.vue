@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="block-staff-article-list">
+    <div class="block-staff-article-item">
         <responsive-image
             :image="image"
             :aspect-ratio="60"
@@ -31,6 +31,7 @@
                 />
             </div>
 
+            <!-- TODO strip html tags coming out of WYSIWYG -->
             <div
                 v-if="description"
                 class="description"
@@ -82,9 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.block-staff-article-list {
-    padding: 0 10px;
-
+.block-staff-article-item {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -93,30 +92,27 @@ export default {
     align-items: center;
     width: 100%;
 
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+
     .image {
         width: 50%;
-        margin-right: 56px;
+        margin-right: var(--space-xl);
     }
+
     .meta {
-        width: calc(50% - 56px);
-        overflow: hidden;
-        padding: 10px 0;
+        width: calc(50% - var(--space-xl));
     }
+
     .category {
-        font-size: 16px;
-        line-height: 100%;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
+        @include overline;
         color: var(--color-secondary-grey-05);
-        font-weight: 500;
-        padding-bottom: 16px;
+        padding-bottom: var(--space-s);
     }
     .title {
-        font-size: 26px;
-        line-height: 130%;
+        @include step-1;
         color: var(--color-primary-blue-03);
-        font-weight: 500;
-        margin-bottom: 5px;
+        margin-bottom: 4px;
         overflow: hidden;
 
         display: -webkit-box;
@@ -125,9 +121,8 @@ export default {
     }
 
     .byline {
-        padding-bottom: 24px;
-        font-size: 18px;
-        line-height: 140%;
+        @include step--1;
+        margin-bottom: var(--space-m);
         color: #434343;
 
         display: flex;
@@ -147,8 +142,7 @@ export default {
         padding-left: 20px;
     }
     .description {
-        font-size: 18px;
-        line-height: 140%;
+        @include step--1;
         color: var(--color-black);
         display: -webkit-box;
         -webkit-line-clamp: 4;
@@ -159,35 +153,28 @@ export default {
 // Hovers
 @media #{$has-hover} {
     .title:hover {
-        text-decoration: underline;
-        text-decoration-color: var(--color-default-cyan-03);
-        text-decoration-thickness: 1.5px;
+        @include link-hover;
     }
 }
 
 // Breakpoints
-@media #{$medium} {
-    .block-staff-article-list {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-}
-
 @media #{$small} {
-    .block-staff-article-list {
+    .block-staff-article-item {
         display: flex;
         flex-direction: column;
-        flex-wrap: nowrap;
-
-        padding-left: 5px;
-        padding-right: 5px;
+        flex-wrap: wrap;
 
         .image {
             width: 100%;
             margin-right: 0;
+            margin-bottom: var(--space-l);
         }
         .meta {
             width: 100%;
+
+            > *:last-child {
+                padding-bottom: 0;
+            }
         }
     }
 }

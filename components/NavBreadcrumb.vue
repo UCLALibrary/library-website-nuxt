@@ -1,24 +1,22 @@
 
 <template>
     <div class="nav-breadcrumb subtitle">
-        <div class="parent-page-title">
-            <nuxt-link
-                :to="getUrl"
-                class="parent-page-url"
-                v-html="getParentPage"
-            />
-            <svg-chevron-left class="svg-chevron-left" />
-            <span
-                class="slug-page-title"
-                v-html="title"
-            />
-        </div>
+        <nuxt-link
+            :to="getUrl"
+            class="parent-page-url"
+            v-html="getParentPage"
+        />
+        <svg-icon-caret-left />
+        <span
+            class="current-page-title"
+            v-html="title"
+        />
     </div>
 </template>
 
 <script>
 // SVGs
-import SvgChevronLeft from "~/assets/svg/chevron-left"
+import SvgIconCaretLeft from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-caret-left"
 
 // Helpers
 import getParentPageTitle from "~/utils/getParentPageTitle"
@@ -26,7 +24,7 @@ import getParentPageUrl from "~/utils/getParentPageUrl"
 
 export default {
     components: {
-        SvgChevronLeft,
+        SvgIconCaretLeft,
     },
     props: {
         to: {
@@ -55,24 +53,20 @@ export default {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
+    align-items: center;
 
     max-width: 990px;
-    height: 80px;
-    margin: 30px 0;
+    margin: var(--space-l) 0;
     padding: 0 var(--unit-gutter);
 
-    .parent-page-title {
-        @include step-1;
-        color: var(--color-primary-blue-03);
-        text-transform: capitalize;
-    }
-    .svg-chevron-left {
+    @include step-1;
+    color: var(--color-primary-blue-03);
+    text-transform: capitalize;
+
+    .svg__icon-caret-left {
         flex-shrink: 0;
-        position: relative;
-        top: 7px;
-        stroke: var(--color-primary-blue-03);
     }
-    .slug-page-title {
+    .current-page-title {
         @include step-0;
         color: var(--color-black);
     }
@@ -81,9 +75,7 @@ export default {
 // Hovers
 @media #{$has-hover} {
     .parent-page-url:hover {
-        text-decoration: underline;
-        text-decoration-color: var(--color-default-cyan-03);
-        text-decoration-thickness: 1.5px;
+        @include link-hover;
     }
 }
 </style>

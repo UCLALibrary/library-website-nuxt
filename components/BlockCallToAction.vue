@@ -80,10 +80,9 @@ export default {
 <style lang="scss" scoped>
 .block-call-to-action {
     max-width: var(--block-width);
-    max-height: var(--block-height);
     background-color: var(--color-background);
-    padding: 20px 0;
-    height: 100%;
+    height: auto;
+    margin: var(--unit-gutter) auto;
 
     display: flex;
     flex-direction: column;
@@ -94,14 +93,14 @@ export default {
 
     // Sizes
     &.full-width {
-        --block-width: 1046px;
+        --block-width: #{$container-l-cta}px;
         --block-height: 700px;
         --block-padding-title: 70px;
         --block-padding-text: 10px;
     }
 
     &.half-width {
-        --block-width: calc((1046px / 2) - 10px);
+        --block-width: calc(($container-l-cta / 2) - 10px);
         --block-height: 566px;
         --block-padding-title: 114px;
         --block-padding-text: 112px;
@@ -123,7 +122,7 @@ export default {
 
     &.theme-dark {
         --color-background:  var(--color-primary-blue-03);
-        --color-title: var(--color-white); 
+        --color-title: var(--color-white);
         --color-text: var(--color-white);
         --color-svg-molecule-outline: var(--color-primary-blue-02);
         --color-svg-molecule-inner-highlight: var(--color-white);
@@ -152,9 +151,9 @@ export default {
 
     .title {
         @include step-2;
+        line-height: $line-height--1;
         text-align: center;
         letter-spacing: .0025em;
-        line-height: 100%;
         color: var(--color-title);
         padding-left: var(--block-padding-title);
         padding-right: var(--block-padding-title);
@@ -163,11 +162,8 @@ export default {
     }
 
     .text {
-        font-family: var(--font-primary);
-        font-size: 20px;
+        @include step-0;
         text-align: center;
-        line-height: 30px;
-        letter-spacing: .01em;
         color: var(--color-text);
         padding-left: var(--block-padding-text);
         padding-right: var(--block-padding-text);
@@ -194,12 +190,13 @@ export default {
     }
 
     // Breakpoints
-    @media #{$small} {
-        width: 100%;
+    @media #{$medium}{
 
         &.full-width {
             --block-padding-title: 48px;
             --block-padding-text: 48px;
+
+            margin: var(--unit-gutter);
         }
 
         &.half-width {
@@ -208,11 +205,14 @@ export default {
         }
     }
 
-    @media #{$medium}{
+    @media #{$small} {
+        width: 100%;
 
         &.full-width {
             --block-padding-title: 48px;
             --block-padding-text: 48px;
+
+            margin: 0;
         }
 
         &.half-width {

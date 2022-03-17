@@ -57,7 +57,7 @@ query StaffDetail($slug: [String]!) {
                 slug
                 title
             }
-            description: shortDescription
+            description: summary
             category: typeHandle
             date: dateUpdated
         }
