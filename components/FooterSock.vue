@@ -1,6 +1,9 @@
 <template lang="html">
     <footer class="footer-sock">
         <div class="container">
+            <div class="regents">
+                &#169;{{ year }} Regents of the University of California
+            </div>
             <ul class="links">
                 <li
                     v-for="item in items"
@@ -15,10 +18,6 @@
                     />
                 </li>
             </ul>
-
-            <div class="regents">
-                &#169;{{ year }} Regents of the University of California
-            </div>
         </div>
     </footer>
 </template>
@@ -95,8 +94,7 @@ export default {
 
     // Breakpoints
     @media #{$medium} {
-        padding-top: 40px;
-        padding-bottom: 40px;
+        padding: var(--unit-gutter);
 
         .container {
             display: block;
@@ -112,7 +110,6 @@ export default {
 
             .regents {
                 display: block;
-                margin: 50px 0 0 0;
             }
         }
     }
