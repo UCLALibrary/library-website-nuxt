@@ -42,7 +42,6 @@
                     class="button"
                     :button-url="to"
                     :label="buttonText"
-                    icon-name="svg-arrow-right"
                     :is-secondary="true"
                     :to="to"
                     target="_blank"

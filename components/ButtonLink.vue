@@ -44,13 +44,14 @@ export default {
         },
         /**
          * Determines what icon should be used in button.
+         * Do not include this prop if it is an internal link.
          */
         iconName: {
             type: String,
             default: "",
         },
         /**
-         * Determines if the button should be displayed with secondary styles.
+         * Determines if the button should be displayed with secondary styles. (blue)
          */
         isSecondary: {
             type: Boolean,
@@ -69,6 +70,9 @@ export default {
         parsedTarget() {
             return isInternalLink(this.to) ? "_self" : "blank"
         },
+        // if -> the iconName is svg-download then the download icon will display
+        // else if -> if there is no iconName prop given & it is an internal link then the svg-arrow-right will display 
+        // else svg-arrow-diagonal will display 
         parsedIconName() {
             let output = ""
             if (this.iconName == "svg-arrow-download") {
