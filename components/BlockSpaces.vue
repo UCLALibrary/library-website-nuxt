@@ -3,14 +3,23 @@
         <div class="container">
             <div class="arrow-and-title">
                 <svg-heading-arrow class="heading-arrow" />
-                <h3 class="space-title">
-                    <!-- if no buttonUrl -  do not display as a link -->
+                <!-- if the is a link (:to) - display as a link -->
+                <h3
+                    v-if="to"
+                    class="space-title"
+                >
                     <smart-link
                         :to="to"
                         target="_blank"
                         v-html="title"
                     />
                 </h3>
+                <!-- if no link (:to)  - do not display as a link -->
+                <h3
+                    v-else
+                    class="space-title-no-link"
+                    v-html="title"
+                />
             </div>
             <div class="meta">
                 <nuxt-link
@@ -79,10 +88,6 @@ export default {
             type: String,
             default: "Reserve",
         },
-        buttonUrl: {
-            type: String,
-            default: "",
-        },
     },
 }
 </script>
@@ -92,6 +97,7 @@ export default {
     max-width: calc($container-l-main + 128) + px;
     border: 2px solid var(--color-primary-blue-01);
     border-radius: $rounded-slightly + px;
+
     .container {
         margin: 64px auto;
         width: 90%;
@@ -99,19 +105,25 @@ export default {
         display: flex;
         flex-direction: column;
 
-            .arrow-and-title {
-                display: flex;
-                flex-direction: row;
-                gap: var(--space-l);
+        .arrow-and-title {
+            display: flex;
+            flex-direction: row;
+            gap: var(--space-l);
 
-                width: 90%;
+            width: 90%;
 
-                .space-title {
-                    @include step-2;
-                    color: var(--color-primary-blue-03);
-                    margin-bottom: var(--space-m);
-                }
+            .space-title {
+                @include step-2;
+                color: var(--color-primary-blue-03);
+                margin-bottom: var(--space-m);
             }
+        }
+
+        .space-title-no-link {
+            @include step-2;
+            color: var(--color-primary-blue-03);
+            margin-bottom: var(--space-m);
+        }
 
         .svg__graphic-chevron-right {
             flex-shrink: 0;

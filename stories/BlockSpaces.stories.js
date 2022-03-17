@@ -4,19 +4,24 @@ export default {
 }
 
 const mock = {
-    to: "/staff/foo",
-    title: "Turpis Portico",
-    location: "Fames Turpis Building",
-    text: "Etiam faucibus tellus quis magna finibus auctor. Fusce sagittis vel lectus sed ullamcorper. Proin faucibus nibh ut purus consequat lobortis. Aenean eu fermentum leo, vitae egestas eros. Vivamus urna nibh, porttitor in egestas eu, eleifend ac felis. Praesent sed tristique nibh. Nulla dignissim purus at metus consequat, vitae pharetra orci efficitur. Vivamus facilisis massa vel ipsum vestibulum, porta efficitur dolor aliquam.",
-    buttonUrl: "https://calendar.library.ucla.edu/r/new/availability?lid=4361&zone=0&gid=7748&capacity=2&_ga=2.67369617.1259852155.1647299416-1441825369.1643758196"
+    to: "https://calendar.library.ucla.edu",
+    title: "Bureaux de Garçons",
+    location: "Fast Lane Building",
+    text: "Eclectic sophisticated carefully curated lovely Baggu Muji sharp finest efficient perfect. Hub Boeing 787 lovely Melbourne flat white ryokan. Global iconic Gaggenau Muji bulletin premium espresso delightful destination vibrant remarkable elegant bureaux boutique. Sunspel exclusive first-class espresso, Fast Lane intricate Melbourne Airbus A380 pintxos Shinkansen Swiss vibrant the highest quality."
 }
 
 const mock2 = {
-    to: "/staff/foo",
-    title: "Turpis Portico",
-    location: "Fames Turpis Building",
-    text: "Etiam faucibus tellus quis magna finibus auctor. Fusce sagittis vel lectus sed ullamcorper. Proin faucibus nibh ut purus consequat lobortis. Aenean eu fermentum leo, vitae egestas eros. Vivamus urna nibh, porttitor in egestas eu, eleifend ac felis. Praesent sed tristique nibh. Nulla dignissim purus at metus consequat, vitae pharetra orci efficitur. Vivamus facilisis massa vel ipsum vestibulum, porta efficitur dolor aliquam.",
-    buttonUrl: "https://www.google.com/"
+    to: "https://www.gettyimages.com/photos/cute-llamas",
+    title: "Tote Bag Boutique",
+    location: "Destination Building",
+    text: "Nordic classic hand-crafted Marylebone elegant soft power bespoke signature punctual pintxos handsome discerning Asia-Pacific global international. Exquisite Asia-Pacific Washlet sharp. Exquisite Lufthansa hub, concierge cosy bureaux finest joy global iconic Nordic Singapore. Hand-crafted joy alluring intricate.",
+}
+
+const mock3 = {
+    to: "",
+    title: "Ginza Tsutaya Lounge",
+    location: "K-pop Kanteen",
+    text: "Punctual tote bag the highest quality Nordic, sharp Singapore Gaggenau international Ginza Tsutaya conversation joy lovely Helsinki perfect. Uniforms classic izakaya Ettinger. Signature ANA sharp, liveable Shinkansen Asia-Pacific soft power. Efficient Scandinavian liveable international craftsmanship remarkable cutting-edge premium business class eclectic K-pop lovely Washlet classic.",
 }
 
 // Variations of stories below
@@ -40,6 +45,21 @@ export const ExternalLink = () => ({
         return {
             item: {
                 ...mock2,
+            },
+        }
+    },
+    template: `
+      <block-spaces
+        v-bind="item"
+      />
+  `,
+})
+
+export const NoLink = () => ({
+    data() {
+        return {
+            item: {
+                ...mock3,
             },
         }
     },
