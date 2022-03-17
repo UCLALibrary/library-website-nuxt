@@ -52,43 +52,44 @@
                     :aspect-ratio="100"
                     class="image"
                 />
-
-                <div
-                    v-if="pronouns"
-                    class="contact-info"
-                >
-                    <svg-icon-person class="svg" />
-                    {{ parsedPronouns }}
-                </div>
-                <div class="contact-info">
-                    <svg-icon-email class="svg" />
-                    <smart-link
-                        :to="`mailto:${email}`"
-                        target="_blank"
-                        class="link-icon"
-                        v-html="email"
-                    />
-                </div>
-                <div
-                    v-if="phone"
-                    class="contact-info"
-                >
-                    <svg-icon-phone class="svg" />
-                    <smart-link
-                        :to="`tel:${phone}`"
-                        target="_blank"
-                        class="link-icon"
-                        v-html="phone"
-                    />
-                </div>
-                <div class="contact-info">
-                    <svg-icon-consultation class="svg" />
-                    <smart-link
-                        :to="getBookingLink"
-                        target="_blank"
-                        class="link-icon"
-                        v-html="`Book a consultation`"
-                    />
+                <div class="contact-info-list">
+                    <div
+                        v-if="pronouns"
+                        class="contact-info"
+                    >
+                        <svg-icon-person class="svg" />
+                        {{ parsedPronouns }}
+                    </div>
+                    <div class="contact-info">
+                        <svg-icon-email class="svg" />
+                        <smart-link
+                            :to="`mailto:${email}`"
+                            target="_blank"
+                            class="link-icon"
+                            v-html="email"
+                        />
+                    </div>
+                    <div
+                        v-if="phone"
+                        class="contact-info"
+                    >
+                        <svg-icon-phone class="svg" />
+                        <smart-link
+                            :to="`tel:${phone}`"
+                            target="_blank"
+                            class="link-icon"
+                            v-html="phone"
+                        />
+                    </div>
+                    <div class="contact-info">
+                        <svg-icon-consultation class="svg" />
+                        <smart-link
+                            :to="consultation"
+                            target="_blank"
+                            class="link-icon"
+                            v-html="`Book a consultation`"
+                        />
+                    </div>
                 </div>
             </div>
 
@@ -206,7 +207,7 @@ export default {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        gap: 48px;
+        gap: var(--space-xl);
     }
 
     .svg__graphic-chevron-right {
@@ -227,7 +228,7 @@ export default {
         .staffName,
         .job-title,
         .departments {
-            margin-bottom: 8px;
+            margin-bottom: var(--space-xs);
         }
 
         .staffName {
@@ -258,7 +259,7 @@ export default {
             line-height: $line-height--2;
 
             border-right: 1px solid var(--color-secondary-grey-02);
-            padding: 0 8px;
+            padding: 0 var(--space-xs);
             &:first-child {
                 padding-left: 0;
             }
@@ -293,9 +294,7 @@ export default {
     // Hover states
     @media #{$has-hover} {
         .location-link:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue-03);
-            text-decoration-thickness: 1.5px;
+            @include link-hover;
         }
     }
 
@@ -330,8 +329,8 @@ export default {
                 flex-wrap: nowrap;
                 justify-content: flex-start;
                 align-items: center;
-                gap: 8px;
-                margin-bottom: 8px;
+                gap: var(--space-xs);
+                margin-bottom: var(--space-xs);
             }
 
             .divider {
@@ -372,13 +371,12 @@ export default {
         }
     }
 
-    @media #{$medium} {
-        width: 100%;
+    @media (min-width: 1025px) and (max-width: 1300px) {
         padding: 0 var(--unit-gutter);
 
         .heading-staff {
             margin-left: 0;
-            gap: 8px;
+            gap: var(--space-xs);
         }
 
         .svg__graphic-chevron-right {
@@ -389,7 +387,28 @@ export default {
         }
 
         .section-staff-bio {
-            padding: 0 48px;
+            padding: 0 calc(40px + var(--space-xs));
+        }
+    }
+
+    @media #{$medium} {
+        width: 100%;
+        padding: 0 var(--unit-gutter);
+
+        .heading-staff {
+            margin-left: 0;
+            gap: var(--space-xs);
+        }
+
+        .svg__graphic-chevron-right {
+            width: 40px;
+            height: 40px;
+            flex-basis: 40px;
+            margin-top: 6px;
+        }
+
+        .section-staff-bio {
+            padding: 0 calc(40px + var(--space-xs));
 
             .body-contact {
                 flex-basis: 264px;
@@ -420,12 +439,27 @@ export default {
         }
 
         .heading-container {
+            .staffName {
+                margin-bottom: 8px;
+            }
+
             .job-title,
             .departments,
             .location-group {
                 margin-left: -36px;
+                margin-bottom: 8px;
             }
+            .job-title {
+                line-height: $line-height--1;
+            }
+            .departments {
+                flex-direction: column;
 
+                .department {
+                    border-right: 0;
+                    padding: 0;
+                }
+            }
         }
 
         .section-staff-bio {
