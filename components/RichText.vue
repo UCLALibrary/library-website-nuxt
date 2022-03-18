@@ -162,10 +162,8 @@ export default {
 
     // Breakpoints
     @media #{$medium} {
-        .rich-text {
-            padding: 0 $whitespace-m-sides + px;
-            max-width: $container-l-main + px;
-        }
+        padding-right: 0;
+        max-width: $container-l-main + px;
     }
 
     @media #{$small} {

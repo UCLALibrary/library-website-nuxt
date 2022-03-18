@@ -4,45 +4,11 @@
         <div class="heading-staff">
             <svg-heading-arrow />
 
-            <div class="heading-container">
-                <h1
-                    class="staffName"
-                    v-html="staffName"
-                />
-
-                <div
-                    class="job-title"
-                    v-html="jobTitle"
-                />
-
-                <ul class="departments">
-                    <li
-                        v-for="(department, index) in departments"
-                        :key="index"
-                        class="department"
-                        v-html="department.title"
-                    />
-                </ul>
-
-                <div class="location-group">
-                    <nuxt-link
-                        v-for="location in locations"
-                        :key="`location-${location.id}`"
-                        :to="location.to"
-                        class="location-link"
-                    >
-                        <svg-icon-location class="svg" />
-                        <span
-                            class="location"
-                            v-html="location.title"
-                        />
-                    </nuxt-link>
-                </div>
-            </div>
+            <h1
+                class="staffName"
+                v-html="staffName"
+            />
         </div>
-
-        <!-- SectionStaffBio -->
-        <divider-general v-if="!image" class="no-image-divider" />
 
         <div class="section-staff-bio">
             <div class="body-contact">
@@ -52,14 +18,30 @@
                     :aspect-ratio="100"
                     class="image"
                 />
-                <div class="contact-info-list">
+                <div class="staff-info">
+                    <div
+                        class="job-title"
+                        v-html="jobTitle"
+                    />
+
+                    <ul class="departments">
+                        <li
+                            v-for="(department, index) in departments"
+                            :key="index"
+                            class="department"
+                            v-html="department.title"
+                        />
+                    </ul>
+
                     <div
                         v-if="pronouns"
-                        class="contact-info"
+                        class="pronouns"
                     >
-                        <svg-icon-person class="svg" />
                         {{ parsedPronouns }}
                     </div>
+                </div>
+                <div class="contact-info-list">
+
                     <div class="contact-info">
                         <svg-icon-email class="svg" />
                         <smart-link
@@ -90,10 +72,29 @@
                             v-html="`Book a consultation`"
                         />
                     </div>
+                    <div class="location-group">
+                        <nuxt-link
+                            v-for="location in locations"
+                            :key="`location-${location.id}`"
+                            :to="location.to"
+                            class="location-link"
+                        >
+                            <svg-icon-location class="svg" />
+                            <span
+                                class="location"
+                                v-html="location.title"
+                            />
+                        </nuxt-link>
+                    </div>
                 </div>
             </div>
 
             <div class="body-bio">
+                <!-- SectionStaffBio -->
+                <divider-way-finder
+                    class="divider divider-first"
+                    color="about"
+                />
                 <div v-if="topics.length" class="ask-me-about">
                     <h2 class="secondary-header">
                         Ask me About
@@ -184,6 +185,10 @@ export default {
             type: String,
             default: "",
         },
+        consultation: {
+            type: String,
+            default: "",
+        },
     },
     computed: {
         getBookingLink() {
@@ -207,6 +212,7 @@ export default {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
+        align-items: center;
         gap: var(--space-xl);
     }
 
@@ -218,73 +224,104 @@ export default {
         }
     }
 
-    .heading-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-content: center;
-        align-items: flex-start;
+    .staffName {
+        letter-spacing: 0.01em;
+        color: var(--color-primary-blue-03);
+        @include step-4;
+    }
 
-        .staffName,
-        .job-title,
-        .departments {
+    // CONTACT
+    .body-contact {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+        height: 352px;
+        gap: 16px 48px;
+        @include step-0;
+
+        .image {
+            width: 100%;
+            max-width: 352px;
+            height: auto;
+        }
+
+        .staff-info {
+            border-bottom: 2px dotted var(--color-secondary-grey-02);
+            padding-bottom: 16px;
+        }
+
+        .pronouns {
+            color: var(--color-secondary-grey-04);
+        }
+
+        .contact-info {
+            color: var(--color-primary-blue-03);
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            gap: var(--space-xs);
             margin-bottom: var(--space-xs);
         }
 
-        .staffName {
-            letter-spacing: 0.01em;
-            color: var(--color-primary-blue-03);
-            @include step-4;
-            line-height: $line-height--1;
+        .divider {
+            margin-bottom: var(--space-l);
+            width: 100%;
         }
+    }
 
-        .job-title,
-        .department,
+    .job-title,
+    .department,
+    .location-link {
+        @include step-0;
+    }
+
+    .departments,
+    .location-group {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        color: var(--color-secondary-grey-05);
+        list-style: none;
+    }
+
+    .department {
+        margin: 6px 0;
+        line-height: $line-height--2;
+
+        border-right: 1px solid var(--color-secondary-grey-02);
+        padding: 0 var(--space-xs);
+        &:first-child {
+            padding-left: 0;
+        }
+        &:last-child {
+            border-right: 0;
+        }
+    }
+
+    .location-group {
+        color: var(--color-primary-blue-03);
+        gap: var(--space-s);
+
         .location-link {
-            @include step-0;
-        }
-
-        .departments,
-        .location-group {
             display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
-
-            color: var(--color-secondary-grey-05);
-            list-style: none;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 4px;
         }
 
-        .department {
-            margin: 6px 0;
-            line-height: $line-height--2;
-
-            border-right: 1px solid var(--color-secondary-grey-02);
-            padding: 0 var(--space-xs);
-            &:first-child {
-                padding-left: 0;
-            }
-            &:last-child {
-                border-right: 0;
-            }
+        .location {
+            @include step-0;
         }
+    }
 
-        .location-group {
-            color: var(--color-primary-blue-03);
-            gap: var(--space-s);
-
-            .location-link {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                justify-content: flex-start;
-                align-items: center;
-                gap: 4px;
-            }
-
-            .location {
-                @include step-0;
-            }
-        }
+    .job-title,
+    .departments {
+        margin-bottom: var(--space-xs);
     }
 
     .no-image-divider {
@@ -305,46 +342,17 @@ export default {
         width: 100%;
 
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
         justify-content: flex-start;
-        gap: var(--space-2xl);
-
-        // CONTACT
-        .body-contact {
-            flex-basis: 300px;
-            @include step-0;
-
-            .image {
-                width: 100%;
-                max-width: 300px;
-                height: auto;
-                margin-bottom: var(--space-l);
-            }
-
-            .contact-info {
-                color: var(--color-primary-blue-03);
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                justify-content: flex-start;
-                align-items: center;
-                gap: var(--space-xs);
-                margin-bottom: var(--space-xs);
-            }
-
-            .divider {
-                margin-bottom: var(--space-l);
-                width: 100%;
-            }
-        }
 
         // SectionStaffBio
         .body-bio {
-            width: calc(100% - (300px + var(--space-2xl)));
+            width: 100%;
 
-            ::v-deep .rich-text {
-                padding-right: 0;
+            ::v-deep .divider-way-finder {
+                margin: var(--space-2xl) auto;
+                padding: 0;
             }
 
             .ask-me-about {
@@ -355,10 +363,6 @@ export default {
                 margin-bottom: var(--space-l);
                 @include step-3;
                 color: var(--color-primary-blue-03);
-            }
-            .divider {
-                margin: var(--space-l) 0px;
-                width: 100%;
             }
 
             .topics li {
@@ -411,54 +415,39 @@ export default {
             padding: 0 calc(40px + var(--space-xs));
 
             .body-contact {
-                flex-basis: 264px;
-                width: 264px;
+                height: unset;
                 flex-grow: 0;
 
                 .image {
-                    max-width: 264px;
+                    max-width: 327px;
                 }
 
                 .contact-info .svg {
                     width: 28px;
                 }
             }
-
-            .body-bio {
-                width: calc(100% - (264px + var(--space-2xl)));
-            }
         }
     }
 
     @media #{$small} {
         .svg__graphic-chevron-right {
-            width: 28px;
-            height: 28px;
-            flex-basis: 28px;
-            margin-top: 6px;
+            display: none;
         }
 
-        .heading-container {
-            .staffName {
-                margin-bottom: 8px;
-            }
+        .job-title,
+        .departments,
+        .location-group {
+            margin-bottom: 8px;
+        }
+        .job-title {
+            line-height: $line-height--1;
+        }
+        .departments {
+            flex-direction: column;
 
-            .job-title,
-            .departments,
-            .location-group {
-                margin-left: -36px;
-                margin-bottom: 8px;
-            }
-            .job-title {
-                line-height: $line-height--1;
-            }
-            .departments {
-                flex-direction: column;
-
-                .department {
-                    border-right: 0;
-                    padding: 0;
-                }
+            .department {
+                border-right: 0;
+                padding: 0;
             }
         }
 

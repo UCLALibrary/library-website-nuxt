@@ -62,9 +62,7 @@ export default {
 
     @media #{$has-hover} {
         .orcid-value:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-default-cyan-03);
-            text-decoration-thickness: 1.5px;
+            @include link-hover;
         }
     }
 }
