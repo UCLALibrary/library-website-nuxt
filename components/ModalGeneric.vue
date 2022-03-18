@@ -54,6 +54,8 @@ export default {
 }
 
 .svg-glyph-close {
+    margin-bottom: 16px;
+
     circle {
         fill: var(--color-primary-blue-05);
     }
