@@ -9,7 +9,7 @@ describe('Website Homepage', () => {
 
         // NavSecondary
         cy.get('.nav-secondary')
-            .should('contain', 'Location & Hours')
+            .should('contain', 'Locations & Hours')
             .and('contain', 'Ask a Librarian')
             .and('contain', 'My Account')
 
