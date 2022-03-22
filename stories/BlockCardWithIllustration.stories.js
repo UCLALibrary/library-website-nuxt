@@ -1,6 +1,6 @@
 // Storybook default settings
 export default {
-    title: "BLOCK / Card Vertical",
+    title: "BLOCK / With Illustration",
 }
 
 const mock = {
@@ -16,7 +16,7 @@ export const Default = () => ({
         }
     },
     template: `
-        <block-card-vertical
+        <block-card-with-illustration
             :to="to"
             :title="title"
             :text="text"
@@ -31,7 +31,7 @@ export const Visit = () => ({
         }
     },
     template: `
-        <block-card-vertical
+        <block-card-with-illustration
             icon-name="illustration-find-space"
             to="/about/foo/bar"
             :title="title"
@@ -47,7 +47,7 @@ export const LongText = () => ({
         }
     },
     template: `
-        <block-card-vertical
+        <block-card-with-illustration
             icon-name="illustration-digitized-resources"
             to="/help/foo/bar"
             :title="title"
@@ -64,7 +64,7 @@ export const Databases = () => ({
         }
     },
     template: `
-        <block-card-vertical
+        <block-card-with-illustration
             icon-name="illustration-databases"
             to="/visit/foo/bar"
             :title="title"
@@ -80,7 +80,7 @@ export const RemoteAccess = () => ({
         }
     },
     template: `
-        <block-card-vertical
+        <block-card-with-illustration
             icon-name= "illustration-remote-access"
             to="/visit/foo/bar"
             :title="title"
@@ -96,7 +96,7 @@ export const Research = () => ({
         }
     },
     template: `
-        <block-card-vertical
+        <block-card-with-illustration
             icon-name="illustration-research"
             to="/visit/foo/bar"
             :title="title"
@@ -112,7 +112,7 @@ export const Teaching = () => ({
         }
     },
     template: `
-        <block-card-vertical
+        <block-card-with-illustration
             icon-name="illustration-teaching"
             to="/visit/foo/bar"
             :title="title"
@@ -128,7 +128,7 @@ export const ExternalLink = () => ({
         }
     },
     template: `
-        <block-card-vertical
+        <block-card-with-illustration
             icon-name="illustration-teaching"
             to="https://guides.library.illinois.edu/openrefine/joiningprojects"
             :title="title"

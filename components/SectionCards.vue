@@ -16,7 +16,7 @@
             />
         </div>
         <div class="cards">
-            <block-card-vertical
+            <block-card-with-illustration
                 v-for="item in items"
                 :key="item.to"
                 class="card"

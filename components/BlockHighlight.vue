@@ -355,12 +355,10 @@ export default {
     // Variations
     &.is-vertical {
         flex-direction: column;
-        // margin-bottom: 50px;
 
         &:not(.has-triangle) {
             .meta {
                 margin-top: 16px;
-                // max-width: 300px;
             }
             .image {
                 width: 100%;

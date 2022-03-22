@@ -64,7 +64,7 @@ export default {
     },
     computed: {
         classes() {
-            return ["block-card-vertical", `color-${this.sectionName}`]
+            return ["block-card-with-illustration", `color-${this.sectionName}`]
         },
         sectionName() {
             return getSectionName(this.to)
@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.block-card-vertical {
+.block-card-with-illustration {
     background-color: var(--color-white);
 
     display: flex;

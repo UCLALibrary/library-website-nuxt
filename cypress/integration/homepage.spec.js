@@ -45,7 +45,7 @@ describe('Website Homepage', () => {
         // get help with
         cy.get('[data-cy=section-cards-get-help-with')
             .should('contain', 'Get Help with')
-            .and('have.descendants', '.block-card-vertical')
+            .and('have.descendants', '.block-card-with-illustration')
 
         cy.percySnapshot({ widths: [768, 992, 1200] })
 
