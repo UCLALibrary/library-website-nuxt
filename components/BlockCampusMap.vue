@@ -118,7 +118,6 @@ export default {
     .iframe-hover {
         max-width: 50%;
         min-width: 426px;
-        // min-height: 220px;
         margin-right: 50px;
         position: relative;
     }
@@ -184,7 +183,7 @@ export default {
 
     .iframe-container-modal {
         overflow: hidden;
-        /* 16:9 aspect ratio */
+        /* 4:3 aspect ratio */
         padding-top: 75%;
         position: relative;
     }
@@ -214,9 +213,6 @@ export default {
             flex-wrap: nowrap;
         }
 
-        .hover-gradient {
-            height: 150px;
-        }
         .text-grouping {
             max-width: 100%;
             margin-top: var(--space-m);
