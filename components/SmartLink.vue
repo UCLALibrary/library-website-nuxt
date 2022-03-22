@@ -1,5 +1,5 @@
 <template>
-    <component
+    <!-- <component
         :is="elementType"
         :to="to"
         :href="to"
@@ -8,10 +8,30 @@
         :class="classes"
     >
         <slot />
-    </component>
+    </component> -->
+    <div class="smart-link">
+        <nuxt-link
+            v-if="isRelative || isInternal"
+            class="is-nuxt-link"
+            :to="to"
+        >
+            <slot />
+        </nuxt-link>
+
+        <a
+            v-else-if="to"
+            :href="to"
+            :target="parsedTarget"
+            class="is-link"
+        >
+            <slot />
+        </a>
+    </div>
 </template>
 
 <script>
+// Helper functions
+import isInternalLink from "~/utils/isInternalLink"
 export default {
     props: {
         to: {
@@ -44,6 +64,12 @@ export default {
                 { "is-link": this.elementType == "a" },
                 { "is-nuxt-link": this.elementType == "nuxt-link" },
             ]
+        },
+        parsedTarget() {
+            return isInternalLink(this.to) ? "_self" : "blank"
+        },
+        isInternal() {
+            return isInternalLink(this.to) ? true : false
         },
     },
 }
