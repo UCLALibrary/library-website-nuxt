@@ -8,20 +8,6 @@
 </template>
 
 <script>
-import getSectionName from "~/utils/getSectionName"
-
-export default {
-    props: {
-        label: {
-            type: String,
-            default: "Expand",
-        },
-        isExpanded: {
-            type: Boolean,
-            default: false,
-        }
-    },
-}
 </script>
 
 <style lang="scss" scoped>
@@ -39,6 +25,8 @@ export default {
 
 
     .badge-content {
+        @include button;
+
         width: 100%;
         height: 100%;
     
@@ -50,10 +38,7 @@ export default {
         --color: var(--color-primary-blue-03);
         color: var(--color);
         stroke: var(--color);
-        font-family: var(--font-secondary);
-        font-size: 20px;
-        font-weight: medium;
-        background-color: var(--color-secondary-grey-01);
+        background-color: var(--color-white);
 
         --diagonal-width: calc(var(--badge-height) / var(--accent-slope));
         clip-path: polygon(
@@ -72,7 +57,7 @@ export default {
         top: -6px;
         left: -8px;
 
-        background: #ff00ff;
+        background: var(--color-visit-fushia-03);
 
         --diagonal-width: calc(var(--badge-height) / var(--accent-slope));
         clip-path: polygon(
