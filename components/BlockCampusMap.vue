@@ -115,6 +115,7 @@ export default {
         align-content: center;
         align-items: stretch;
     }
+
     .iframe-hover {
         max-width: 50%;
         min-width: 426px;
@@ -128,6 +129,7 @@ export default {
         padding-top: 56.25%;
         position: relative;
     }
+
     .iframe {
         border: 0;
         height: 100%;
@@ -137,6 +139,7 @@ export default {
         position: absolute;
         z-index: 10;
     }
+
     .hover-gradient {
         left: 0;
         top: 0;
