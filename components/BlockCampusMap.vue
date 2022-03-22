@@ -8,15 +8,16 @@
         </button>
         <div class="content">
             <div class="iframe-hover">
-                <iframe
-                    class="iframe"
-                    :src="parsedSrc"
-                    :title="locationName"
-                />
-                <div
-                    class="hover-gradient"
-                    @click="showModal"
-                />
+                <div class="iframe-container">
+                    <iframe
+                        :src="parsedSrc"
+                        allowfullscreen
+                    />
+                    <div
+                        class="hover-gradient"
+                        @click="showModal"
+                    />
+                </div>
             </div>
             <div
                 v-if="buildingAccess"
@@ -37,11 +38,14 @@
             class="modal"
             @close="closeModal"
         >
-            <iframe
-                class="iframe-modal"
-                :src="parsedSrc"
-                :title="locationName"
-            />
+            <div class="iframe-modal">
+                <div class="iframe-container-modal">
+                    <iframe
+                        :src="parsedSrc"
+                        allowfullscreen
+                    />
+                </div>
+            </div>
         </modal-generic>
     </div>
 </template>
@@ -117,16 +121,33 @@ export default {
         position: relative;
     }
 
-    .iframe {
-        border: none;
+    // .iframe {
+    //     border: none;
+    //     position: absolute;
+    //     z-index: 10;
+    //     width: 100%;
+    //     height: 100%;
+    // }
+    .iframe-container {
+        overflow: hidden;
+        /* 16:9 aspect ratio */
+        padding-top: 56.25%;
+        position: relative;
+    }
+    .iframe-container iframe {
+        border: 0;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
         position: absolute;
         z-index: 10;
-        width: 100%;
-        height: 100%;
     }
     .hover-gradient {
+        left: 0;
+        top: 0;
         z-index: 20;
-        position: relative;
+        position: absolute;
         cursor: pointer;
         width: 100%;
         height: 100%;
@@ -162,12 +183,25 @@ export default {
     }
 
     .iframe-modal {
-        border: none;
-        max-width: 90%;
         min-width: 768px;
         min-height: 600px;
-        max-height: 100%;
+    }
+
+    .iframe-container-modal {
+        overflow: hidden;
+        /* 16:9 aspect ratio */
+        padding-top: 75%;
+        position: relative;
+    }
+    .iframe-container-modal iframe {
+        border: 0;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
         @include shadow-lightbox-01;
+        position: absolute;
+        z-index: 10;
     }
 
     // Hovers
@@ -184,16 +218,16 @@ export default {
             flex-direction: column;
             flex-wrap: nowrap;
         }
-        .iframe-hover {
-            max-width: 100%;
-            margin-right: 0;
-        }
-
-        .iframe {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-        }
+        // .iframe-hover {
+        //     max-width: 100%;
+        //     margin-right: 0;
+        // }
+        //
+        // .iframe {
+        //     width: 100%;
+        //     max-width: 100%;
+        //     height: auto;
+        // }
         .hover-gradient {
             height: 150px;
         }
@@ -201,13 +235,13 @@ export default {
             max-width: 100%;
             margin-top: var(--space-m);
         }
-        .iframe-modal {
-            border: none;
-            width: 100%;
-            min-width: 100%;
-            // min-height: 726px;
-            @include shadow-lightbox-01;
-        }
+        // .iframe-modal {
+        //     border: none;
+        //     width: 100%;
+        //     min-width: 100%;
+        //     // min-height: 726px;
+        //     @include shadow-lightbox-01;
+        // }
     }
 }
 </style>
