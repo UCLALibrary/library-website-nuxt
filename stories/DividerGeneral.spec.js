@@ -6,4 +6,3 @@ describe('DIVIDER / General', () => {
         cy.percySnapshot('DIVIDER / General: Default')
     })
 })
-                    

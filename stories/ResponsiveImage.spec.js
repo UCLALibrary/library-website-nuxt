@@ -6,4 +6,3 @@ describe('GLOBAL / Responsive Image', () => {
         cy.percySnapshot('GLOBAL / Responsive Image: Default')
     })
 })
-                    

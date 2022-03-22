@@ -6,4 +6,3 @@ describe('Search / Home', () => {
         cy.percySnapshot('Search / Home: Default')
     })
 })
-                    

@@ -6,4 +6,3 @@ describe('FLEXIBLE / Call To Action Block Content Width', () => {
         cy.percySnapshot('FLEXIBLE / Call To Action Block Content Width: Default')
     })
 })
-                    

@@ -6,4 +6,3 @@ describe('BUTTON / Link', () => {
         cy.percySnapshot('BUTTON / Link: Default')
     })
 })
-                    

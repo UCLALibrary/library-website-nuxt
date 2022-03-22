@@ -6,4 +6,3 @@ describe('BLOCK / Highlight', () => {
         cy.percySnapshot('BLOCK / Highlight: Default')
     })
 })
-                    

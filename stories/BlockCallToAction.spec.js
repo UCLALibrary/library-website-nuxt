@@ -6,4 +6,3 @@ describe('BLOCK / Call to Action', () => {
         cy.percySnapshot('BLOCK / Call to Action: Default')
     })
 })
-                    

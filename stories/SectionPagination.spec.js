@@ -6,4 +6,3 @@ describe('SECTION / Pagination', () => {
         cy.percySnapshot('SECTION / Pagination: Default')
     })
 })
-                    

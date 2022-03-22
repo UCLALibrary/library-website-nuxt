@@ -6,4 +6,3 @@ describe('FLEXIBLE / Call To Action 2 Up', () => {
         cy.percySnapshot('FLEXIBLE / Call To Action 2 Up: Default')
     })
 })
-                    
