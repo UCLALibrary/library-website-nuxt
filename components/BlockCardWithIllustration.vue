@@ -1,25 +1,27 @@
 <template lang="html">
-    <smart-link
-        v-if="to"
-        :to="to"
-        :class="classes"
-        :target="parsedTarget"
-    >
-        <component
-            :is="parsedSvgName"
-            class="svg"
-        />
-        <div class="meta">
-            <h3
-                class="title"
-                v-html="title"
+    <div :class="classDirection">
+        <smart-link
+            v-if="to"
+            :to="to"
+            :class="classes"
+            :target="parsedTarget"
+        >
+            <component
+                :is="parsedSvgName"
+                class="svg"
             />
-            <div
-                class="text"
-                v-html="text"
-            />
-        </div>
-    </smart-link>
+            <div class="meta">
+                <h3
+                    class="title"
+                    v-html="title"
+                />
+                <div
+                    class="text"
+                    v-html="text"
+                />
+            </div>
+        </smart-link>
+    </div>
 </template>
 
 <script>
@@ -61,10 +63,22 @@ export default {
             type: String,
             default: "",
         },
+        isVerticalCard: {
+            type: Boolean,
+            default: false,
+        },
     },
     computed: {
         classes() {
-            return ["block-card-with-illustration", `color-${this.sectionName}`]
+            return [
+                "block-card-with-illustration",
+                `color-${this.sectionName}`,
+            ]
+        },
+        classDirection() {
+            return [
+                { "is-vertical-card": this.isVerticalCard }
+            ]
         },
         sectionName() {
             return getSectionName(this.to)
@@ -84,19 +98,17 @@ export default {
 
 <style lang="scss" scoped>
 .block-card-with-illustration {
-    background-color: var(--color-white);
-
     display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+    flex-direction: row;
     justify-content: center;
     align-content: center;
     align-items: center;
 
-    border: 2px solid var(--color-primary-blue-01);
-    width: 300px;
-    height: 400px;
+
+    background-color: var(--color-white);
+    max-width: calc((100% - 32px));
     overflow: hidden;
+    border: 2px solid var(--color-primary-blue-01);
     border-radius: var(--rounded-slightly-all);
 
     transition-property: box-shadow, transform;
@@ -157,6 +169,19 @@ export default {
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
         overflow: hidden;
+    }
+
+    // Variations
+    &.is-vertical-card {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+
+        width: 300px;
+        height: 400px;
     }
 
     // Hovers

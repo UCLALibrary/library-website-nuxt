@@ -1,6 +1,6 @@
 // Storybook default settings
 export default {
-    title: "BLOCK / With Illustration",
+    title: "BLOCK / Card With Illustration",
 }
 
 const mock = {
@@ -133,6 +133,23 @@ export const ExternalLink = () => ({
             to="https://guides.library.illinois.edu/openrefine/joiningprojects"
             :title="title"
             :text="text"
+        />
+    `,
+})
+
+export const VerticalCard = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <block-card-with-illustration
+            icon-name="illustration-teaching"
+            to="https://guides.library.illinois.edu/openrefine/joiningprojects"
+            :title="title"
+            :text="text"
+            :is-vertical-card="true"
         />
     `,
 })
