@@ -9,24 +9,23 @@
     >
         <slot />
     </component> -->
-    <div class="smart-link">
-        <nuxt-link
-            v-if="isRelative || isInternal"
-            class="is-nuxt-link"
-            :to="to"
-        >
-            <slot />
-        </nuxt-link>
 
-        <a
-            v-else-if="to"
-            :href="to"
-            :target="parsedTarget"
-            class="is-link"
-        >
-            <slot />
-        </a>
-    </div>
+    <nuxt-link
+        v-if="isInternal"
+        class="is-nuxt-link"
+        :to="to"
+    >
+        <slot />
+    </nuxt-link>
+
+    <a
+        v-else-if="to"
+        :href="to"
+        :target="parsedTarget"
+        class="is-link"
+    >
+        <slot />
+    </a>
 </template>
 
 <script>
@@ -44,27 +43,27 @@ export default {
         },
     },
     computed: {
-        elementType() {
-            let output = "a"
-            if (this.target == "_self" || this.target === "") {
-                output = "nuxt-link"
-            }
-            return output
-        },
-        rel() {
-            let output = false
-            if (this.elementType == "a") {
-                output = "noopener"
-            }
-            return output
-        },
-        classes() {
-            return [
-                "smart-link",
-                { "is-link": this.elementType == "a" },
-                { "is-nuxt-link": this.elementType == "nuxt-link" },
-            ]
-        },
+        // elementType() {
+        //     let output = "a"
+        //     if (this.target == "_self" || this.target === "") {
+        //         output = "nuxt-link"
+        //     }
+        //     return output
+        // },
+        // rel() {
+        //     let output = false
+        //     if (this.elementType == "a") {
+        //         output = "noopener"
+        //     }
+        //     return output
+        // },
+        // classes() {
+        //     return [
+        //         "smart-link",
+        //         { "is-link": this.elementType == "a" },
+        //         { "is-nuxt-link": this.elementType == "nuxt-link" },
+        //     ]
+        // },
         parsedTarget() {
             return isInternalLink(this.to) ? "_self" : "blank"
         },
