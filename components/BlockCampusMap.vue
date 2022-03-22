@@ -11,6 +11,7 @@
                 <div class="iframe-container">
                     <iframe
                         :src="parsedSrc"
+                        class="iframe"
                         allowfullscreen
                     />
                     <div
@@ -38,10 +39,11 @@
             class="modal"
             @close="closeModal"
         >
-            <div class="iframe-modal">
+            <div class="modal-content">
                 <div class="iframe-container-modal">
                     <iframe
                         :src="parsedSrc"
+                        class="iframe-modal"
                         allowfullscreen
                     />
                 </div>
@@ -121,20 +123,13 @@ export default {
         position: relative;
     }
 
-    // .iframe {
-    //     border: none;
-    //     position: absolute;
-    //     z-index: 10;
-    //     width: 100%;
-    //     height: 100%;
-    // }
     .iframe-container {
         overflow: hidden;
         /* 16:9 aspect ratio */
         padding-top: 56.25%;
         position: relative;
     }
-    .iframe-container iframe {
+    .iframe {
         border: 0;
         height: 100%;
         width: 100%;
@@ -182,7 +177,7 @@ export default {
         position: absolute;
     }
 
-    .iframe-modal {
+    .modal-content {
         min-width: 768px;
         min-height: 600px;
     }
@@ -193,7 +188,7 @@ export default {
         padding-top: 75%;
         position: relative;
     }
-    .iframe-container-modal iframe {
+    .iframe-modal {
         border: 0;
         height: 100%;
         width: 100%;
@@ -218,16 +213,7 @@ export default {
             flex-direction: column;
             flex-wrap: nowrap;
         }
-        // .iframe-hover {
-        //     max-width: 100%;
-        //     margin-right: 0;
-        // }
-        //
-        // .iframe {
-        //     width: 100%;
-        //     max-width: 100%;
-        //     height: auto;
-        // }
+
         .hover-gradient {
             height: 150px;
         }
@@ -235,13 +221,6 @@ export default {
             max-width: 100%;
             margin-top: var(--space-m);
         }
-        // .iframe-modal {
-        //     border: none;
-        //     width: 100%;
-        //     min-width: 100%;
-        //     // min-height: 726px;
-        //     @include shadow-lightbox-01;
-        // }
     }
 }
 </style>

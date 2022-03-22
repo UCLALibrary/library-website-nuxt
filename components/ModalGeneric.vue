@@ -42,25 +42,32 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-}
 
-.content {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-content: stretch;
-    align-items: flex-end;
-}
-
-.svg-glyph-close {
-    margin-bottom: 16px;
-
-    circle {
-        fill: var(--color-primary-blue-05);
+    .content {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: stretch;
+        align-items: flex-end;
     }
-    path {
-        stroke: var(--color-white);
+
+    .svg-glyph-close {
+        margin-bottom: 16px;
+
+        circle {
+            fill: var(--color-primary-blue-05);
+        }
+        path {
+            stroke: var(--color-white);
+        }
+    }
+
+    // Breakpoints
+    @media #{$small} {
+        .content {
+            max-width: 100%;
+        }
     }
 }
 </style>
