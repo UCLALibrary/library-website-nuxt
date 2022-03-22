@@ -190,6 +190,7 @@ export default {
         padding-top: 75%;
         position: relative;
     }
+
     .iframe-modal {
         border: 0;
         height: 100%;
