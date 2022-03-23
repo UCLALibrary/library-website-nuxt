@@ -1,7 +1,5 @@
 <template lang="html">
-    <div
-        :class="classes"
-    >
+    <div :class="classes">
         <component
             :is="parsedSvgName"
             class="svg"
@@ -27,7 +25,10 @@ export default {
     components: {
         SvgCallToActionMoney: () => import("~/assets/svg/call-to-action-money"),
         SvgCallToActionChat: () => import("~/assets/svg/call-to-action-chat"),
-        SvgCallToActionMail: () => import("~/node_modules/ucla-library-design-tokens/assets/svgs/call-to-action-mail"),
+        SvgCallToActionMail: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/call-to-action-mail"
+            ),
         SvgCallToActionFind: () => import("~/assets/svg/call-to-action-find"),
     },
     props: {
@@ -100,7 +101,7 @@ export default {
     }
 
     &.half-width {
-        --block-width: calc(($container-l-cta / 2) - 10px);
+        // --block-width: calc(($container-l-cta / 2) - 10px);
         --block-height: 566px;
         --block-padding-title: 114px;
         --block-padding-text: 112px;
@@ -116,12 +117,12 @@ export default {
         --color-svg-molecule-inner-highlight: var(--color-help-green-03);
         // Hover
         --button-link-border-hover: 2px solid var(--color-primary-blue-02);
-        --button-link-bg-color-hover:  var(--color-white);
+        --button-link-bg-color-hover: var(--color-white);
         --button-link-color-hover: var(--color-black);
     }
 
     &.theme-dark {
-        --color-background:  var(--color-primary-blue-03);
+        --color-background: var(--color-primary-blue-03);
         --color-title: var(--color-white);
         --color-text: var(--color-white);
         --color-svg-molecule-outline: var(--color-primary-blue-02);
@@ -153,7 +154,7 @@ export default {
         @include step-2;
         line-height: $line-height--1;
         text-align: center;
-        letter-spacing: .0025em;
+        letter-spacing: 0.0025em;
         color: var(--color-title);
         padding-left: var(--block-padding-title);
         padding-right: var(--block-padding-title);
@@ -190,8 +191,7 @@ export default {
     }
 
     // Breakpoints
-    @media #{$medium}{
-
+    @media #{$medium} {
         &.full-width {
             --block-padding-title: 48px;
             --block-padding-text: 48px;
