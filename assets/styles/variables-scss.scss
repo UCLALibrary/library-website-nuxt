@@ -19,20 +19,3 @@ $large: "only screen and (max-width: 1440px)";
 $medium: "only screen and (max-width: 1024px)";
 $small: "only screen and (max-width: 750px)";
 $has-hover: "(hover: hover)";
-
-@mixin hover {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-decoration-color: var(--color-default-cyan-03);
-    text-underline-offset: 1px;
-}
-
-@mixin visually-hidden {
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-}

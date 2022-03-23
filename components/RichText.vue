@@ -4,6 +4,7 @@
             class="parsed-content"
             v-html="richTextContent"
         />
+        <slot />
     </div>
 </template>
 
@@ -48,7 +49,7 @@ export default {
         font-family: var(--font-primary);
         color: var(--color-black);
         @include step-0;
-        margin-bottom: 32px;
+        margin: 32px 0;
     }
 
     ::v-deep blockquote {
@@ -116,14 +117,13 @@ export default {
     }
 
     ::v-deep a {
-        text-decoration: underline;
-        text-decoration-color: var(--color-default-cyan-03);
-        text-decoration-thickness: 2px;
-        text-underline-offset: 1px;
-
-        font-family: var(--font-primary);
-        color: var(--color-black);
+        @include link-default;
         @include step-0;
+        word-wrap: break-word;
+
+        &:hover {
+            @include link-hover;
+        }
     }
     ::v-deep ul,
     ::v-deep ol {
@@ -131,7 +131,7 @@ export default {
         margin: 0 0 32px;
 
         li {
-            margin-bottom: 20px;
+            margin: var(--space-m) 0;
             padding-left: 16px;
             @include step-0;
         }
@@ -160,20 +160,10 @@ export default {
         padding-left: 40px;
     }
 
-    // Hover states
-    @media #{$has-hover} {
-        ::v-deep a:hover {
-            color: var(--color-primary-blue-03);
-            @include hover;
-        }
-    }
-
     // Breakpoints
     @media #{$medium} {
-        .rich-text {
-            padding: 0 $whitespace-m-sides + px;
-            max-width: $container-l-main + px;
-        }
+        padding-right: 0;
+        max-width: $container-l-main + px;
     }
 
     @media #{$small} {

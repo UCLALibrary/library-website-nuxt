@@ -511,7 +511,7 @@ export default {
     @media #{$has-hover} {
         &:hover {
             .title {
-                @include hover;
+                @include link-hover;
             }
         }
     }

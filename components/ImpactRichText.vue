@@ -187,7 +187,7 @@ export default {
     @media #{$has-hover} {
         ::v-deep {
             .link:hover {
-                @include hover;
+                @include link-hover;
             }
         }
     }
