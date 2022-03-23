@@ -4,44 +4,69 @@
 
 <script src="https://calendar.library.ucla.edu/js/hours_grid.js?002"></script>
 
-<div id="s-lc-whw4690"></div>
+<h1 class="">Using the Library</h1>
+<h2 class="">Hours</h2>
+    <div id="s-lc-whw4690">
+
+    </div>
 
 <script>
     $(function(){
-        var week4690 = new $.LibCalWeeklyGrid( $("#s-lc-whw4690"), { iid: 3244, lid: 4690, systemTime: false });
+        var week4690 = new $.LibCalWeeklyGrid( $("#s-lc-whw4690"), 
+        {
+            iid: 3244,
+            lid: 4690,
+            systemTime: false 
+        });
     });
 </script>
 
 <!-- The following styles are optional, feel free to modify) -->
-<style>
+<style lang="scss">
 .s-lc-whw thead {
-    background-color: #F5F5F5;
+    /* background-color: #F5F5F5; */
+    background-color: pink;
+    border: 2px solid green;
 }
+
+/* Date */
 .s-lc-whw-head-date {
-    color: #5F5F5F;
+    /* color: #5F5F5F; */
+    color: coral;
 }
+
+/* Today */
 .s-lc-whw-today-h {
-    background-color: #ddd;
+    /* background-color: #ddd; */
+    background-color: aquamarine;
 }
 .s-lc-whw-today {
-    background-color: #F5F5F5;
+    /* background-color: #F5F5F5; */
+    background-color: lemonchiffon;
 }
 .s-lc-whw-bh {
     text-align: right;
     white-space: nowrap;
 }
+
+/* Location Name */
 .s-lc-whw-locname {
     font-weight: bold;
 }
+
+/* Sub-Location Name */
 .s-lc-whw-sublocname{
     padding-left: 10px!important;
 }
 .s-lc-whw-footnote {
-    color: #555;
+    /* color: #555; */
+    color: red;
+    background-color: skyblue!important;
     font-size: 80%;
 }
 .s-lc-whw-footnote td:hover {
-    background-color:#fff!important;
+    /* background-color:#fff!important; */
+    background-color: syellow!important;
 }
 
 /* The styles below can be removed if you are already using Bootstap v3 in host page */
