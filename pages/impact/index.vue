@@ -181,7 +181,7 @@ import updateImageData from "~/utils/updateImageData"
 import getS3Bucket from "~/utils/getS3Bucket"
 
 export default {
-    // layout: "impact",
+    layout: "impact",
     async asyncData() {
         const timelineGallery = IMPACT_API.timelineGallery
 
