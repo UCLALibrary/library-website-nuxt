@@ -31,7 +31,7 @@
                         {{ card.headlineText }}
                     </smart-link>
                 </h5>
-                <div
+                <p
                     v-if="!card.featured && card.snippet"
                     class="snippet"
                     v-html="card.snippet"
@@ -179,14 +179,14 @@ export default {
         -webkit-box-orient: vertical;
         overflow: hidden;*/
     }
-    // .link::after {
-    //     content: "";
-    //     position: absolute;
-    //     top: 0;
-    //     bottom: 0;
-    //     right: 0;
-    //     left: 0;
-    // }
+    .link::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
     .snippet {
         font-size: 18px;
         font-weight: 400;
