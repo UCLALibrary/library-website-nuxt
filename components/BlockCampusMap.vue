@@ -15,7 +15,7 @@
                         allowfullscreen
                     />
                     <div
-                        class="hover-gradient"
+                        class="iframe-click"
                         @click="showModal"
                     />
                 </div>
@@ -140,7 +140,7 @@ export default {
         z-index: 10;
     }
 
-    .hover-gradient {
+    .iframe-click {
         left: 0;
         top: 0;
         z-index: 20;
@@ -211,6 +211,25 @@ export default {
     }
 
     // Breakpoints
+
+    @media #{$medium} {
+        .content {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+        }
+
+        .text-grouping {
+            max-width: 100%;
+            margin-top: var(--space-m);
+        }
+
+        .iframe-hover {
+            max-width: 100%;
+            min-width: 600px;
+            margin: 0px 0px 24px;
+        }
+    }
     @media #{$small} {
         .content {
             display: flex;
@@ -221,6 +240,12 @@ export default {
         .text-grouping {
             max-width: 100%;
             margin-top: var(--space-m);
+        }
+
+        .iframe-hover {
+            max-width: 100%;
+            min-width: 320px;
+            margin-right: 0px 0px 24px;
         }
     }
 }
