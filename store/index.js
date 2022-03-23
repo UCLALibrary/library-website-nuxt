@@ -3,7 +3,6 @@ import GLOBALS from "~/gql/queries/Globals"
 
 // utils
 import removeEmpties from "~/utils/removeEmpties"
-import _get from "lodash/get"
 
 export const state = () => ({
     winHeight: 0,
