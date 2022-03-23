@@ -51,14 +51,13 @@ export default {
 
 <style lang="scss" scoped>
 .block-campus-map {
-    max-width: $container-xl-full-width + px;
+    max-width: $container-l-main + px;
     margin: 0 auto;
 
     .title {
         color: var(--color-primary-blue-03);
-        @include step-3;
-        margin-bottom: 16px;
-        font-weight: 500;
+        @include step-2;
+        margin-bottom: var(--space-m) + px;
     }
 
     .content {
@@ -74,6 +73,7 @@ export default {
         min-width: 426px;
         min-height: 220px;
         margin-right: 50px;
+        border: none;
     }
 
     .text-grouping {
@@ -90,7 +90,7 @@ export default {
     .subheading-small {
         color: var(--color-primary-blue-05);
         @include overline;
-        margin-bottom: 14px;
+        margin-bottom: var(--space-m) + px;
     }
 
     ::v-deep .rich-text {
@@ -116,11 +116,7 @@ export default {
 
         .text-grouping {
             max-width: 100%;
-            margin-top: 16px;
-        }
-
-        .subheading-small {
-            margin-bottom: 0;
+            margin-top: var(--space-m) + px;
         }
     }
 }
