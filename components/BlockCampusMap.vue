@@ -15,7 +15,7 @@
                         allowfullscreen
                     />
                     <div
-                        class="iframe-click"
+                        class="hover-gradient"
                         @click="showModal"
                     />
                 </div>
@@ -140,7 +140,7 @@ export default {
         z-index: 10;
     }
 
-    .iframe-click {
+    .hover-gradient {
         left: 0;
         top: 0;
         z-index: 20;
