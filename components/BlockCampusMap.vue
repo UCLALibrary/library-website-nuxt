@@ -8,18 +8,14 @@
         </button>
         <div class="content">
             <div class="iframe-hover">
-                <div
-                    class="iframe-container"
-                    @click="showModal"
-                >
+                <div class="iframe-container">
                     <iframe
                         :src="parsedSrc"
                         class="iframe"
                         allowfullscreen
-                        @click="showModal"
                     />
                     <div
-                        class="hover-gradient"
+                        class="iframe-click"
                         @click="showModal"
                     />
                 </div>
@@ -144,7 +140,7 @@ export default {
         z-index: 10;
     }
 
-    .hover-gradient {
+    .iframe-click {
         left: 0;
         top: 0;
         z-index: 20;
@@ -177,7 +173,7 @@ export default {
     }
 
     .modal {
-        // max-width: $container-l-main + px;
+        max-width: 100%;
         margin: 0 auto;
         z-index: 20;
         position: absolute;
