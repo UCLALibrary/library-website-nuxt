@@ -6,4 +6,3 @@ describe('FLEXIBLE / Simple Cards', () => {
         cy.percySnapshot('FLEXIBLE / Simple Cards: Default')
     })
 })
-                    

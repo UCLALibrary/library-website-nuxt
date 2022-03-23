@@ -6,4 +6,3 @@ describe('SECTION / Dual Masonry', () => {
         cy.percySnapshot('SECTION / Dual Masonry: Default')
     })
 })
-                    

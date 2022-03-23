@@ -44,13 +44,14 @@ export default {
         },
         /**
          * Determines what icon should be used in button.
+         * Do not include this prop if it is an internal link.
          */
         iconName: {
             type: String,
             default: "",
         },
         /**
-         * Determines if the button should be displayed with secondary styles.
+         * Determines if the button should be displayed with secondary styles. (blue)
          */
         isSecondary: {
             type: Boolean,
@@ -69,6 +70,9 @@ export default {
         parsedTarget() {
             return isInternalLink(this.to) ? "_self" : "blank"
         },
+        // if -> the iconName is svg-download then the download icon will display
+        // else if -> if there is no iconName prop given & it is an internal link then the svg-arrow-right will display 
+        // else svg-arrow-diagonal will display 
         parsedIconName() {
             let output = ""
             if (this.iconName == "svg-arrow-download") {
@@ -83,6 +87,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// the button bg starts white with blue icons
 .button-link {
     display: inline-flex;
     align-items: center;
@@ -102,16 +107,15 @@ export default {
         padding-left: 5px;
     }
 
+    // the button bg starts blue with white icons
     &.is-secondary {
         background-color: var(--color-primary-blue-03);
         border: unset;
         color: var(--color-white);
         .arrow {
-            stroke: var(--color-white);
-            // fill: var(--color-white);
-        }
-        .line {
-            stroke: var(--color-white);
+            .svg__stroke--primary-blue-03 {
+                stroke: var(--color-white);
+            }
         }
         .svg__icon-external-link,
         .svg__icon-download {
@@ -124,6 +128,7 @@ export default {
             }
         }
     }
+
     // Hover states
     @media #{$has-hover} {
         &:hover {
@@ -140,7 +145,9 @@ export default {
                 border: 1.5px solid var(--color-primary-blue-02);
                 color: var(--color-black);
                 .arrow {
-                    stroke: var(--color-default-cyan-03);
+                    .svg__stroke--primary-blue-03 {
+                        stroke: var(--color-default-cyan-03);
+                    }
                 }
                 .svg__icon-external-link,
                 .svg__icon-download {

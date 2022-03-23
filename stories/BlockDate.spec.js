@@ -6,4 +6,3 @@ describe('BLOCK / Date', () => {
         cy.percySnapshot('BLOCK / Date: Default')
     })
 })
-                    

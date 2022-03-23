@@ -6,4 +6,3 @@ describe('GLOBAL / Smart Link', () => {
         cy.percySnapshot('GLOBAL / Smart Link: Default')
     })
 })
-                    

@@ -6,4 +6,3 @@ describe('Masthead / Secondary', () => {
         cy.percySnapshot('Masthead / Secondary: Default')
     })
 })
-                    

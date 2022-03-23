@@ -6,4 +6,3 @@ describe('BLOCK / SimpleCard', () => {
         cy.percySnapshot('BLOCK / Simple Card: Default')
     })
 })
-                    
