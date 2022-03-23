@@ -81,7 +81,7 @@
                 <div class="contact-info">
                     <svg-icon-consultation class="svg" />
                     <smart-link
-                        :to="getBookingLink"
+                        :to="consultation"
                         target="_blank"
                         class="text-link"
                         v-html="`Book a consultation`"
@@ -182,6 +182,10 @@ export default {
             type: String,
             default: "",
         },
+        consultation: {
+            type: String,
+            default: "",
+        },
     },
     computed: {
         getBookingLink() {
@@ -190,7 +194,7 @@ export default {
         parsedPronouns() {
             return `Pronouns: ${this.pronouns}`
         },
-    }
+    },
 }
 </script>
 

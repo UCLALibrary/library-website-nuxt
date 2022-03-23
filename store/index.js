@@ -56,11 +56,6 @@ export const actions = {
 
             // Shape data from Craft
             globalData = {
-                appointmentsLink: _get(
-                    globalData,
-                    "[0].appointmentsLink[0]",
-                    {}
-                ),
                 askALibrarian: globalData[1],
             }
             commit("SET_GLOBALS", globalData)

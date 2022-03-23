@@ -10,9 +10,7 @@
             v-if="!image"
             class="no-image"
         >
-            <svg-heading-arrow
-                class="icon-heading-arrow"
-            />
+            <svg-heading-arrow class="icon-heading-arrow" />
         </div>
 
         <div class="meta">
@@ -82,14 +80,13 @@
                 <div class="consultation">
                     <svg-icon-consultation class="icon" />
                     <smart-link
-                        :to="bookingLink.theUrl"
+                        :to="consultation"
                         target="_blank"
                         class="text-link"
-                        v-html="bookingLink.urlText"
+                        v-html="`Book a consultation`"
                     />
                 </div>
             </div>
-        </div>
         </div>
     </section>
 </template>
@@ -143,17 +140,21 @@ export default {
             type: Array,
             default: () => [],
         },
+        consultation: {
+            type: String,
+            default: "",
+        },
     },
     computed: {
-        bookingLink() {
-            // TODO Make this a prop, and do the $store from the page
-            return !_isEmpty(this.$store.state.global)
-                ? this.$store.state.globals.appointmentsLink
-                : {
-                    theUrl: this.$config.libcalAppointment,
-                    urlText: "Book a consultation",
-                }
-        },
+        // bookingLink() {
+        //     // TODO Make this a prop, and do the $store from the page
+        //     return !_isEmpty(this.$store.state.global)
+        //         ? this.$store.state.globals.appointmentsLink
+        //         : {
+        //             theUrl: this.$config.libcalAppointment,
+        //             urlText: "Book a consultation",
+        //         }
+        // },
     },
 }
 </script>
@@ -185,7 +186,7 @@ export default {
         border: 1px solid var(--color-primary-blue-01);
         border-radius: var(--rounded-slightly-all);
         width: 267px;
-        height:  267px;
+        height: 267px;
         .icon-heading-arrow {
             margin: 0 auto;
         }
@@ -201,7 +202,7 @@ export default {
 
         margin-right: 64px;
 
-    .staff-name{
+        .staff-name {
             font-weight: 500;
             font-size: 36px;
             line-height: 120%;
@@ -281,7 +282,7 @@ export default {
             text-decoration-color: var(--color-primary-blue-03);
             text-decoration-thickness: 1.5px;
         }
-}
+    }
 
     // Breakpoints
     @media #{$small} {

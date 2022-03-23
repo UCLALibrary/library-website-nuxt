@@ -8,7 +8,7 @@ query StaffList {
             nameFirst
             nameLast
             to: slug
-            bookAConsultation
+            consultation: bookAConsultation
             departments: department {
                 id
                 title
