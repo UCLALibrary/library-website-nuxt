@@ -123,7 +123,7 @@
 
                     <dt>Lead UX Designer</dt>
                     <dd>Axa Liauw</dd>
-                    
+
                     <dt>UX Designer</dt>
                     <dd>Dianne Weinthal</dd>
 
@@ -394,7 +394,7 @@ export default {
     @media #{$has-hover} {
     .illustrator:hover {
         color: var(--color-primary-blue-03);
-        @include hover;
+        @include link-hover;
         }
     }
 
@@ -426,8 +426,8 @@ export default {
         }
     }
     @media #{$small} {
-        .meta {  
-            padding: 0 $whitespace-s-sides + px;     
+        .meta {
+            padding: 0 $whitespace-s-sides + px;
             .portrait-Ginny {
                 width: 100%;
             }

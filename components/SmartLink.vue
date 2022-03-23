@@ -48,3 +48,12 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+.link-icon {
+
+    &:hover {
+        @include link-hover;
+    }
+}
+</style>

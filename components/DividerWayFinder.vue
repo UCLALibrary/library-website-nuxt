@@ -46,6 +46,8 @@ export default {
     align-content: space-between;
     align-items: center;
 
+    margin: var(--space-3xl) auto;
+
     .solid {
         height: 1px;
         width: 96px;

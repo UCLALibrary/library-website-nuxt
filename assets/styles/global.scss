@@ -72,7 +72,7 @@ button {
 // Page Structure
 .page {
     .section {
-        margin: 100px auto;
+        margin: var(--space-3xl) auto;
         padding-left: $whitespace-m-sides + px;
         padding-right: $whitespace-m-sides + px;
         max-width: $container-xl-banner + px;
@@ -89,6 +89,7 @@ button {
         margin-left: auto;
         margin-right: auto;
         @media #{$medium} {
+            max-width: 100%;
             padding: 0 $whitespace-m-sides + px;
         }
         @media #{$small} {

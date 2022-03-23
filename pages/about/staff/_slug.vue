@@ -20,38 +20,46 @@
         />
 
         <section
-            v-if="page.entry.orcid || page.entry.publications"
-            class="staff-orcid-publications"
-        >
-            <divider-way-finder
-                class="divider divider-first"
-                color="visit"
-            />
-            <h2 class="secondary-header">
-                Publications
-            </h2>
-            <div class="orcid-key">
-                ORCID:
-                <smart-link
-                    :to="page.entry.orcid"
-                    target="_blank"
-                    class="orcid-value"
-                    v-html="`${page.entry.orcid}`"
+            v-if="parsedItems.length || page.entry.publications"
+            class="selected-articles"
+>
+            <section
+                v-if="page.entry.orcid || page.entry.publications"
+                class="staff-orcid-publications"
+            >
+
+                <h2 class="secondary-header">
+                    Publications
+                </h2>
+                <div class="orcid-key">
+                    ORCID:
+                    <smart-link
+                        :to="page.entry.orcid"
+                        target="_blank"
+                        class="orcid-value"
+                        v-html="`${page.entry.orcid}`"
+                    />
+                </div>
+                <rich-text
+                    v-if="page.entry.publications"
+                    class="publications"
+                    :rich-text-content="page.entry.publications"
                 />
-            </div>
-            <rich-text
-                v-if="page.entry.publications"
-                class="publications"
-                :rich-text-content="page.entry.publications"
+            </section>
+
+            <divider-way-finder
+                v-if="parsedItems && page.entry.publications"
+                class="divider divider-first"
+                color="about"
+            />
+
+            <section-staff-article-list
+                v-if="parsedItems.length"
+                class="staff-article-list-section"
+                section-title="Articles"
+                :items="parsedItems"
             />
         </section>
-
-        <section-staff-article-list
-            v-if="parsedItems.length"
-            class="staff-article-list-section"
-            section-title="Articles"
-            :items="parsedItems"
-        />
 
         <!-- this is different from flexible page blocks ctacontentwidth and will be hardcoded where required -->
         <block-call-to-action
@@ -113,59 +121,51 @@ export default {
     .staff-detail-block {
         margin-left: auto;
         margin-right: auto;
-        margin-top: 70px;
     }
 
-    .divider {
-        margin: 45px 0px;
-        width: 100%;
+    .selected-articles {
+        background-color: var(--color-secondary-grey-01);
+        padding: var(--space-3xl) 0;
+
+        ::v-deep .divider .dotted {
+            border-color: var(--color-secondary-grey-03);
+        }
     }
 
     .staff-orcid-publications {
         max-width: $container-l-main + px;
-        padding: 0 var(--unit-gutter) 46px;
-        margin: auto;
-        .secondary-header {
-            margin-bottom: 48px;
-            @include step-3;
-            color: var(--color-primary-blue-03);
-        }
-        .orcid-key {
-            font-size: 26px;
-            font-weight: 500;
-            color: var(--color-primary-blue-03);
-        }
+        margin: 0 auto var(--space-3xl) auto;
+    }
+
+    .secondary-header {
+        margin-bottom: var(--space-l);
+        @include step-3;
+        color: var(--color-primary-blue-03);
+    }
+
+    .orcid-key {
+        @include step-1;
+        color: var(--color-primary-blue-03);
+
         .orcid-value {
-            font-size: 20px;
-        }
-        .publications {
-            font-size: 20px;
-        }
-        .rich-text {
-            margin: 20px auto;
-            margin-left: -20px;
-        }
-        ul,
-        li {
-            margin-bottom: 24px;
-        }
-        // Hover states
-        @media #{$has-hover} {
-            .orcid:hover {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue-03);
-                text-decoration-thickness: 1.5px;
+            @include step-0;
+            @include link-default;
+
+            &:hover {
+                @include link-hover;
             }
         }
     }
-}
 
-// Hovers
-@media #{$has-hover} {
-    .orcid-value:hover {
-        text-decoration: underline;
-        text-decoration-color: var(--color-default-cyan-03);
-        text-decoration-thickness: 1.5px;
+    .publications {
+        padding-right: 0;
+    }
+
+    @media #{$medium} {
+        .staff-orcid-publications {
+            margin-left: var(--unit-gutter);
+            margin-right: var(--unit-gutter);
+        }
     }
 }
 </style>
