@@ -11,6 +11,7 @@
             :email="item.email"
             :phone="item.phone"
             :departments="item.departments"
+            :consultation="item.consultation"
             class="block"
         />
     </section>

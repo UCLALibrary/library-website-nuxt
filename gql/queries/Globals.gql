@@ -1,11 +1,5 @@
 query Globals {
     globalSets {
-        ... on siteSettings_GlobalSet {
-            appointmentsLink: externalUrl {
-                urlText
-                theUrl
-            }
-        }
         ... on askALibrarian_GlobalSet {
             id
             askALibrarianTitle: titleGeneral

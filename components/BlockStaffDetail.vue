@@ -200,13 +200,10 @@ export default {
         },
     },
     computed: {
-        getBookingLink() {
-            return this.$config.libcalAppointment
-        },
         parsedPronouns() {
             return `Pronouns: ${this.pronouns}`
         },
-    }
+    },
 }
 </script>
 
