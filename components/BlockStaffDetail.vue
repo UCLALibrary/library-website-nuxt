@@ -8,10 +8,16 @@
                 class="staffName"
                 v-html="staffName"
             />
+            <div
+                v-if="pronouns"
+                class="pronouns"
+            >
+                {{ parsedPronouns }}
+            </div>
         </div>
 
         <div class="section-staff-bio">
-            <div class="body-contact">
+            <div :class="image ? 'body-contact' : 'body-contact no-image'">
                 <responsive-image
                     v-if="image"
                     :image="image"
@@ -24,7 +30,9 @@
                         v-html="jobTitle"
                     />
 
-                    <ul class="departments">
+                    <ul
+                        v-if="departments.length"
+                        class="departments">
                         <li
                             v-for="(department, index) in departments"
                             :key="index"
@@ -32,13 +40,25 @@
                             v-html="department.title"
                         />
                     </ul>
-
-                    <div
-                        v-if="pronouns"
-                        class="pronouns"
-                    >
-                        {{ parsedPronouns }}
-                    </div>
+                    <ul
+                        v-if="locations.length"
+                        class="location-group">
+                        <li
+                            v-for="location in locations"
+                            :key="`location-${location.id}`"
+                            class="location">
+                            <nuxt-link
+                                :to="location.to"
+                                class="location-link"
+                            >
+                                <svg-icon-location class="svg" />
+                                <span
+                                    class="location-title"
+                                    v-html="location.title"
+                                />
+                            </nuxt-link>
+                        </li>
+                    </ul>
                 </div>
                 <div class="contact-info-list">
 
@@ -63,7 +83,9 @@
                             v-html="phone"
                         />
                     </div>
-                    <div class="contact-info">
+                    <div
+                        v-if="consultation"
+                        class="contact-info">
                         <svg-icon-consultation class="svg" />
                         <smart-link
                             :to="consultation"
@@ -72,26 +94,13 @@
                             v-html="`Book a consultation`"
                         />
                     </div>
-                    <div class="location-group">
-                        <nuxt-link
-                            v-for="location in locations"
-                            :key="`location-${location.id}`"
-                            :to="location.to"
-                            class="location-link"
-                        >
-                            <svg-icon-location class="svg" />
-                            <span
-                                class="location"
-                                v-html="location.title"
-                            />
-                        </nuxt-link>
-                    </div>
                 </div>
             </div>
 
             <div class="body-bio">
                 <!-- SectionStaffBio -->
                 <divider-way-finder
+                    v-if="topics.length || biography"
                     class="divider divider-first"
                     color="about"
                 />
@@ -207,13 +216,15 @@ export default {
     .heading-staff {
         width: 100%;
         margin-left: -64px;
-        margin-bottom: var(--space-xl);
+        margin-bottom: var(--space-l);
 
         display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
         align-items: center;
-        gap: var(--space-xl);
+        flex-flow: column wrap;
+        justify-content: center;
+        align-items: normal;
+        height: 80px;
+        gap: var(--space-xs) var(--space-xl);
     }
 
     .svg__graphic-chevron-right {
@@ -228,6 +239,13 @@ export default {
         letter-spacing: 0.01em;
         color: var(--color-primary-blue-03);
         @include step-4;
+        width: 100%;
+    }
+
+    .pronouns {
+        @include step-0;
+        line-height: 1;
+        color: var(--color-secondary-grey-05);
     }
 
     // CONTACT
@@ -236,7 +254,7 @@ export default {
         flex-flow: column wrap;
         justify-content: center;
         height: 352px;
-        gap: 16px 48px;
+        gap: var(--space-s) var(--space-xl);
         @include step-0;
 
         .image {
@@ -247,11 +265,8 @@ export default {
 
         .staff-info {
             border-bottom: 2px dotted var(--color-secondary-grey-02);
-            padding-bottom: 16px;
-        }
-
-        .pronouns {
-            color: var(--color-secondary-grey-04);
+            padding-bottom: var(--space-s);
+            width: calc(100% - 400px);
         }
 
         .contact-info {
@@ -266,7 +281,6 @@ export default {
         }
 
         .divider {
-            margin-bottom: var(--space-l);
             width: 100%;
         }
     }
@@ -275,27 +289,38 @@ export default {
     .department,
     .location-link {
         @include step-0;
+        line-height: $line-height--2;
     }
 
-    .departments,
-    .location-group {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-
-        color: var(--color-secondary-grey-05);
+    .location-group,
+    .departments {
+        margin: 6px 0 calc(var(--space-xs) + 6px);
         list-style: none;
+        line-height: $line-height--1;
     }
 
     .department {
-        margin: 6px 0;
-        line-height: $line-height--2;
+        display: inline;
+    }
+
+    .location {
+        display: inline-block;
+    }
+
+    .departments {
+        color: var(--color-secondary-grey-05);
+    }
+
+    .department {
+        line-height: $line-height--1;
 
         border-right: 1px solid var(--color-secondary-grey-02);
         padding: 0 var(--space-xs);
+
         &:first-child {
             padding-left: 0;
         }
+
         &:last-child {
             border-right: 0;
         }
@@ -303,7 +328,7 @@ export default {
 
     .location-group {
         color: var(--color-primary-blue-03);
-        gap: var(--space-s);
+        margin-bottom: 0;
 
         .location-link {
             display: flex;
@@ -311,23 +336,29 @@ export default {
             flex-wrap: nowrap;
             justify-content: flex-start;
             align-items: center;
-            gap: 4px;
+            gap: var(--space-xs);
         }
 
-        .location {
+        .location-title {
             @include step-0;
+            line-height: $line-height--1;
         }
     }
 
-    .job-title,
-    .departments {
-        margin-bottom: var(--space-xs);
+    .location-link .svg,
+    .contact-info .svg {
+        flex-shrink: 0;
+    }
+
+    .job-title {
+        margin: 6px 0 calc(var(--space-xs) + 6px);
     }
 
     .no-image-divider {
         margin: var(--space-xl) auto;
         max-width: $container-l-main + px;
     }
+
     // Hover states
     @media #{$has-hover} {
         .location-link:hover {
@@ -343,15 +374,18 @@ export default {
 
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
         justify-content: flex-start;
 
         // SectionStaffBio
         .body-bio {
             width: 100%;
 
+            > div:last-child {
+                margin-bottom: 0;
+            }
+
             ::v-deep .divider-way-finder {
-                margin: var(--space-2xl) auto;
+                margin: var(--space-xl) auto;
                 padding: 0;
             }
 
@@ -375,12 +409,20 @@ export default {
         }
     }
 
+        .body-contact.no-image {
+            height: unset;
+            .staff-info {
+                width: 100%;
+            }
+        }
+
     @media (min-width: 1025px) and (max-width: 1300px) {
         padding: 0 var(--unit-gutter);
 
         .heading-staff {
             margin-left: 0;
             gap: var(--space-xs);
+            justify-content: flex-start;
         }
 
         .svg__graphic-chevron-right {
@@ -388,6 +430,17 @@ export default {
             height: 40px;
             flex-basis: 40px;
             margin-top: 6px;
+        }
+
+        .location-link .svg,
+        .contact-info .svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .department,
+        .location-group .location-title {
+            line-height: 1;
         }
 
         .section-staff-bio {
@@ -401,6 +454,7 @@ export default {
 
         .heading-staff {
             margin-left: 0;
+            justify-content: flex-start;
             gap: var(--space-xs);
         }
 
@@ -411,8 +465,24 @@ export default {
             margin-top: 6px;
         }
 
+        .departments,
+        .location-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0 var(--space-xs);
+
+            .department {
+                border: 0;
+                padding: 0;
+            }
+        }
+
         .section-staff-bio {
             padding: 0 calc(40px + var(--space-xs));
+
+            .staff-info {
+                width: 100%;
+            }
 
             .body-contact {
                 height: unset;
@@ -420,10 +490,6 @@ export default {
 
                 .image {
                     max-width: 327px;
-                }
-
-                .contact-info .svg {
-                    width: 28px;
                 }
             }
         }
@@ -434,6 +500,10 @@ export default {
             display: none;
         }
 
+        .heading-staff {
+            height: unset;
+        }
+
         .job-title,
         .departments,
         .location-group {
@@ -441,14 +511,6 @@ export default {
         }
         .job-title {
             line-height: $line-height--1;
-        }
-        .departments {
-            flex-direction: column;
-
-            .department {
-                border-right: 0;
-                padding: 0;
-            }
         }
 
         .section-staff-bio {
@@ -461,10 +523,6 @@ export default {
 
                 .image {
                     max-width: 100%;
-                }
-
-                .contact-info .svg {
-                    width: 28px;
                 }
             }
 

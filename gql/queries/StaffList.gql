@@ -9,11 +9,11 @@ query StaffList {
             nameLast
             to: slug
             bookAConsultation
-            departments: department {
+            departments: staffDepartment {
                 id
                 title
             }
-            locations: associatedLocations {
+            locations: staffAssociatedLocations {
                 id
                 title
                 to: slug

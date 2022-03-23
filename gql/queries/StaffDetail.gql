@@ -11,11 +11,11 @@ query StaffDetail($slug: [String]!) {
             nameFirst
             nameLast
             jobTitle: staffMemberJobTitle
-            departments: department {
+            departments: staffDepartment {
                 id
                 title
             }
-            locations: associatedLocations {
+            locations: staffAssociatedLocations {
                 title
                 to: uri
                 id
