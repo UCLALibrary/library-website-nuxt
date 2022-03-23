@@ -8,14 +8,14 @@
         </button>
         <div class="content">
             <div class="iframe-hover">
-                <div class="iframe-container">
+                <div
+                    class="iframe-container"
+                    @click="showModal"
+                >
                     <iframe
                         :src="parsedSrc"
                         class="iframe"
                         allowfullscreen
-                    />
-                    <div
-                        class="hover-gradient"
                         @click="showModal"
                     />
                 </div>
@@ -182,6 +182,7 @@ export default {
     .modal-content {
         min-width: 768px;
         min-height: 600px;
+        max-width: $container-l-main + px;
     }
 
     .iframe-container-modal {
@@ -204,8 +205,8 @@ export default {
 
     // Hovers
     @media #{$has-hover} {
-        .hover-gradient:hover {
-            background: $overlay-03;
+        .iframe-container:hover {
+            @include shadow-01;
         }
     }
 

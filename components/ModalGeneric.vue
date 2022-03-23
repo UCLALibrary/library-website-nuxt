@@ -36,7 +36,7 @@ export default {
     left: 0;
     right: 0;
     background-color: var(--color-primary-blue-05);
-    max-width: $container-l-main + px;
+    max-width: 100%;
     cursor: pointer;
 
     display: flex;
