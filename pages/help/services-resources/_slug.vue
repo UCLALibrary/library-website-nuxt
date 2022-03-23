@@ -84,10 +84,10 @@ export default {
             })
         },
         parsedButtonText() {
-            return _get(this.page, "button[0].buttonText", null)
+            return _get(this.page, "button[0].buttonText", "")
         },
         parsedButtonTo() {
-            return _get(this.page, "button[0].buttonUrl", null)
+            return _get(this.page, "button[0].buttonUrl", "")
         },
         askALibrarian() {
             return this.$store.state.globals.askALibrarian
