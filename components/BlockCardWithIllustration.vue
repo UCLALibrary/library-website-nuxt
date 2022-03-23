@@ -105,7 +105,8 @@ export default {
     flex-direction: row;
 
     background-color: var(--color-white);
-    max-width: calc((100% - 32px));
+    width: 100%;
+    max-width: 990px;
     overflow: hidden;
     border: 2px solid var(--color-primary-blue-01);
     border-radius: var(--rounded-slightly-all);
@@ -127,11 +128,12 @@ export default {
     }
     .illustration {
         width: 30%;
+        background: pink;
     }
     .svg {
+        display: flex;
         flex-grow: 0;
         flex-shrink: 0;
-        padding: 20px 0;
     }
     .meta {
         width: 60%;
@@ -184,6 +186,9 @@ export default {
         width: 300px;
         height: 400px;
 
+        .svg {
+            padding: 20px 0;
+        }
         .title {
             text-align: center;
             padding-right: 60px;
