@@ -6,10 +6,13 @@
             :class="classes"
             :target="parsedTarget"
         >
-            <component
-                :is="parsedSvgName"
-                class="svg"
-            />
+            <div class="illustration">
+                <component
+                    :is="parsedSvgName"
+                    class="svg"
+                />
+            </div>
+
             <div class="meta">
                 <h3
                     class="title"
@@ -100,10 +103,6 @@ export default {
 .block-card-with-illustration {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-
 
     background-color: var(--color-white);
     max-width: calc((100% - 32px));
@@ -126,13 +125,16 @@ export default {
     &.color-about {
         --color-theme: var(--color-visit-fushia-01);
     }
-
+    .illustration {
+        width: 30%;
+    }
     .svg {
         flex-grow: 0;
         flex-shrink: 0;
         padding: 20px 0;
     }
     .meta {
+        width: 60%;
         transition: background-color 400ms ease-in-out;
         background-color: var(--color-primary-blue-01);
         flex: 1 1 auto;
@@ -141,14 +143,13 @@ export default {
         font-family: var(--font-primary);
         font-size: 24px;
         line-height: 110%;
-        text-align: center;
         letter-spacing: 0.01em;
         font-weight: 500;
         margin-top: 35px;
         margin-bottom: 10px;
         color: var(--color-primary-blue-05);
-        padding-right: 60px;
-        padding-left: 60px;
+        padding-right: 40px;
+        padding-left: 40px;
 
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -159,11 +160,11 @@ export default {
         font-family: var(--font-secondary);
         font-size: 16px;
         font-weight: normal;
+        color: var(--color-primary-blue-05);
         line-height: 150%;
-        text-align: center;
         padding-left: 40px;
         padding-right: 40px;
-        color: var(--color-primary-blue-05);
+        margin-bottom: 24px;
 
         display: -webkit-box;
         -webkit-line-clamp: 4;
@@ -182,6 +183,18 @@ export default {
 
         width: 300px;
         height: 400px;
+
+        .title {
+            text-align: center;
+            padding-right: 60px;
+            padding-left: 60px;
+        }
+        .text {
+            text-align: center;
+            padding-left: 40px;
+            padding-right: 40px;
+
+        }
     }
 
     // Hovers

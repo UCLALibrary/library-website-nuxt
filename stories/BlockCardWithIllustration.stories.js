@@ -6,7 +6,7 @@ export default {
 const mock = {
     to: "/help/foo/bar/",
     title: "Quisque Volutpat",
-    text: "Nisl felis, venenatis tristique, dignissim in, ultrices sit amet.",
+    text: "Watch it, Goldie. No, it was The Enchantment Under The Sea Dance. Our first date. It was the night of that terrible thunderstorm, remember George? Your father kissed me for the very first time on that dance floor. It was then I realized I was going to spend the rest of my life with him.",
 }
 
 export const Default = () => ({
