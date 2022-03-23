@@ -13,6 +13,12 @@ const mock = {
 
 // Variations of stories below
 export const Default = () => ({
+    components: {
+        SvgIconExpand: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-expand"
+            ),
+    },
     data() {
         return { ...mock }
     },
@@ -22,7 +28,7 @@ export const Default = () => ({
             :image="image"
             :image-aspect-ratio="60"
         >
-            5 Images +
+            5 Images <svg-icon-expand />
         </media-badge>
       </responsive-image>
   `,
