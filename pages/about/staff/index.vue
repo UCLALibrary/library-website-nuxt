@@ -38,7 +38,6 @@ export default {
     computed: {
         parsedStaffList() {
             return this.page.entries.map((obj) => {
-                console.log(obj)
                 return {
                     ...obj,
                     to: `/about/staff/${obj.to}`,
