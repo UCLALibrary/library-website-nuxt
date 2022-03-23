@@ -101,7 +101,7 @@ export default {
     }
 
     &.half-width {
-        // --block-width: calc(($container-l-cta / 2) - 10px);
+        --block-width: calc((#{$container-l-cta} / 2) - 10px);
         --block-height: 566px;
         --block-padding-title: 114px;
         --block-padding-text: 112px;
