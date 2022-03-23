@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import SvgGlyphClose from "~/assets/svg/glyph-close"
+import SvgGlyphClose from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-close"
 
 export default {
     components: {
@@ -53,8 +53,6 @@ export default {
     }
 
     .svg-glyph-close {
-        margin-bottom: 16px;
-
         circle {
             fill: var(--color-primary-blue-05);
         }
@@ -64,6 +62,11 @@ export default {
     }
 
     // Breakpoints
+    @media #{$medium} {
+        .content {
+            max-width: 100%;
+        }
+    }
     @media #{$small} {
         .content {
             max-width: 100%;
