@@ -14,14 +14,15 @@
 .media-badge {
     --badge-width: 268.57px;
     --badge-height: 61.16px;
-    --overhang-height: 20px;
     --accent-slope: 2.35;
+    --background-color: var(--color-white);
+    --accent-color: var(--color-visit-fushia-03);
 
     position: absolute;
     width: var(--badge-width);
     height: var(--badge-height);
     right: 0px;
-    bottom: calc(0% - var(--overhang-height));
+    bottom: 0px;
 
 
     .badge-content {
@@ -38,7 +39,7 @@
         --color: var(--color-primary-blue-03);
         color: var(--color);
         stroke: var(--color);
-        background-color: var(--color-white);
+        background-color: var(--background-color);
 
         --diagonal-width: calc(var(--badge-height) / var(--accent-slope));
         clip-path: polygon(
@@ -57,7 +58,7 @@
         top: -6px;
         left: -8px;
 
-        background: var(--color-visit-fushia-03);
+        background: var(--accent-color);
 
         --diagonal-width: calc(var(--badge-height) / var(--accent-slope));
         clip-path: polygon(
