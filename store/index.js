@@ -3,7 +3,6 @@ import GLOBALS from "~/gql/queries/Globals"
 
 // utils
 import removeEmpties from "~/utils/removeEmpties"
-import _get from "lodash/get"
 
 export const state = () => ({
     winHeight: 0,
@@ -56,12 +55,7 @@ export const actions = {
 
             // Shape data from Craft
             globalData = {
-                appointmentsLink: _get(
-                    globalData,
-                    "[0].appointmentsLink[0]",
-                    {}
-                ),
-                askALibrarian: globalData[1],
+                askALibrarian: globalData[0],
             }
             commit("SET_GLOBALS", globalData)
         } catch (e) {
