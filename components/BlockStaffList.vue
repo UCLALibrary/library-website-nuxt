@@ -145,17 +145,6 @@ export default {
             default: "",
         },
     },
-    computed: {
-        // bookingLink() {
-        //     // TODO Make this a prop, and do the $store from the page
-        //     return !_isEmpty(this.$store.state.global)
-        //         ? this.$store.state.globals.appointmentsLink
-        //         : {
-        //             theUrl: this.$config.libcalAppointment,
-        //             urlText: "Book a consultation",
-        //         }
-        // },
-    },
 }
 </script>
 
