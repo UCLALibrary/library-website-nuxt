@@ -18,6 +18,10 @@
                         allowfullscreen
                         @click="showModal"
                     />
+                    <div
+                        class="hover-gradient"
+                        @click="showModal"
+                    />
                 </div>
             </div>
             <div
@@ -173,14 +177,14 @@ export default {
     }
 
     .modal {
-        max-width: $container-l-main + px;
+        // max-width: $container-l-main + px;
         margin: 0 auto;
         z-index: 20;
         position: absolute;
     }
 
     .modal-content {
-        min-width: 768px;
+        min-width: 928px;
         min-height: 600px;
         max-width: $container-l-main + px;
     }
