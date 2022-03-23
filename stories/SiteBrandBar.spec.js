@@ -6,4 +6,3 @@ describe('GLOBAL / Site Brand Bar', () => {
         cy.percySnapshot('GLOBAL / Site Brand Bar: Default')
     })
 })
-                    

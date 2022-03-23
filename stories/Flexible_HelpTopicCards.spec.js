@@ -6,4 +6,3 @@ describe('FLEXIBLE / Help Topic Card', () => {
         cy.percySnapshot('FLEXIBLE / Help Topic Card: Default')
     })
 })
-                    

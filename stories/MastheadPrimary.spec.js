@@ -6,4 +6,3 @@ describe('MASTHEAD / Primary', () => {
         cy.percySnapshot('MASTHEAD / Primary: Default')
     })
 })
-                    

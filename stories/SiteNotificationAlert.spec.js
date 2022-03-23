@@ -6,4 +6,3 @@ describe('GLOBAL / SiteNotificationAlert', () => {
         cy.percySnapshot('GLOBAL / SiteNotificationAlert: Default')
     })
 })
-                    

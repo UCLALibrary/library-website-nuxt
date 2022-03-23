@@ -6,4 +6,3 @@ describe('BLOCK / CardVertical', () => {
         cy.percySnapshot('BLOCK / Card Vertical: Default')
     })
 })
-                    

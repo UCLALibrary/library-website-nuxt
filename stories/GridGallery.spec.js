@@ -6,4 +6,3 @@ describe('IMPACT REPORT / Grid Gallery', () => {
         cy.percySnapshot('IMPACT REPORT / Grid Gallery: Default')
     })
 })
-                    

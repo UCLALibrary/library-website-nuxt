@@ -6,4 +6,3 @@ describe('BannerText', () => {
         cy.percySnapshot('Banner Text: Default')
     })
 })
-                    

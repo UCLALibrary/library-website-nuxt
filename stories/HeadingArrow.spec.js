@@ -6,4 +6,3 @@ describe('Heading / Arrow', () => {
         cy.percySnapshot('Heading / Arrow: Default')
     })
 })
-                    

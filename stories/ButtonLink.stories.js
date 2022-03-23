@@ -28,8 +28,16 @@ export const Default = () => ({
     template: `<button-link label="Egest perl Conub"/>`,
 })
 
-export const NotPrimary = () => ({
-    template: `<button-link label="Etiam et Ultrices" :isSecondary="true" to='/help/more'/>`,
+export const SecondaryInternal = () => ({
+    template: `<button-link label="Etiam et Ultrices" :isSecondary="true" to='/help/more' />`,
+})
+
+export const SecondaryLibraryInternal = () => ({
+    template: `<button-link label="Etiam et Ultrices" :isSecondary="true" to='https://calendar.library.ucla.edu/' />`,
+})
+
+export const SecondaryExternal = () => ({
+    template: `<button-link label="Etiam et Ultrices" :isSecondary="true" to='https://www.google.com/' />`,
 })
 
 export const LongLabel = () => ({

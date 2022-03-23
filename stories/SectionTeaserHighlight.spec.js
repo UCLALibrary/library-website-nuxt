@@ -6,4 +6,3 @@ describe('SECTION / Teaser / Highlight', () => {
         cy.percySnapshot('SECTION / Teaser / Highlight: Default')
     })
 })
-                    
