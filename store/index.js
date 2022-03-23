@@ -55,7 +55,7 @@ export const actions = {
 
             // Shape data from Craft
             globalData = {
-                askALibrarian: globalData[1],
+                askALibrarian: globalData[0],
             }
             commit("SET_GLOBALS", globalData)
         } catch (e) {
