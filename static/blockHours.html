@@ -4,8 +4,8 @@
 
 <script src="https://calendar.library.ucla.edu/js/hours_grid.js?002"></script>
 
-<h1 class="">Using the Library</h1>
-<h2 class="">Hours</h2>
+<h1 class="heading-title">Using the Library</h1>
+<h2 class="heading-subtitle">Hours</h2>
     <div id="s-lc-whw4690">
 
     </div>
@@ -23,6 +23,14 @@
 
 <!-- The following styles are optional, feel free to modify) -->
 <style lang="scss">
+    .heading-title {
+        font-family: 'Trebuchet MS', sans-serif;
+        color: #0B6AB7;
+    }
+    .heading-subtitle {
+        font-family: 'Trebuchet MS', sans-serif;
+        color: #0B6AB7;
+    }
 .s-lc-whw thead {
     /* background-color: #F5F5F5; */
     background-color: pink;
@@ -66,20 +74,24 @@
 }
 .s-lc-whw-footnote td:hover {
     /* background-color:#fff!important; */
-    background-color: syellow!important;
+    background-color: yellow!important;
 }
 
 /* The styles below can be removed if you are already using Bootstap v3 in host page */
 .s-lc-whw-cont {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 12px;}
+    font-size: 12px;
+}
+
+/* Previous / Next */
 .s-lc-whw-pr, .s-lc-whw-ne{
     padding: 5px 10px;
     font-size: 12px;
     line-height: 1.5;
     border-radius: 3px;
     color: #333;
-    background-color: #fff;
+    /* background-color: #fff; */
+    background-color: rosybrown;
     border-color: #ccc;
     display: inline-block;
     margin-bottom: 0;
@@ -97,11 +109,13 @@
 .s-lc-whw-ne:disabled {
     background-color: #efefef;
 }
+/* Table body*/
 .s-lc-whw {
-    width: 100%;
+    width: 80%;
     margin-bottom: 20px;
-    max-width: 100%;
-    background-color: transparent;
+    max-width: 990px;
+    /* background-color: transparent; */
+    background-color: lavender;
     border-bottom: none;
     border-left: none;
     border-collapse: collapse;
