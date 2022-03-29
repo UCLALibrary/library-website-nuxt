@@ -3,8 +3,11 @@
         class="modal"
         @click="close"
     >
-        <button class="svg-glyph-close">
-            <svg-glyph-close @click="close" />
+        <button
+            class="svg-glyph-close"
+            @click="close"
+        >
+            <svg-glyph-close />
         </button>
         <div class="content">
             <slot />
@@ -45,7 +48,7 @@ export default {
     grid-template-columns:
         [left-col] 48px
         [middle-col] auto
-        [right-col] 64px;
+        [right-col] 48px;
     grid-template-rows:
         [top-row] 64px
         [middle-row] auto
