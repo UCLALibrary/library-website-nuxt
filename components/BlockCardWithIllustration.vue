@@ -76,11 +76,11 @@ export default {
                 { "is-horizontal": this.isHorizontal }
             ]
         },
-        classDirection() {
-            return [
-                { "is-horizontal": this.isHorizontal }
-            ]
-        },
+        // classDirection() {
+        //     return [
+        //         { "is-horizontal": this.isHorizontal }
+        //     ]
+        // },
         sectionName() {
             return getSectionName(this.to)
         },
@@ -99,10 +99,6 @@ export default {
 
 <style lang="scss" scoped>
 .block-card-with-illustration {
-    display: flex;
-    flex-direction: row;
-
-    background-color: var(--color-white);
     width: 100%;
     max-width: 990px;
     overflow: hidden;
@@ -122,23 +118,27 @@ export default {
         --color-theme: var(--color-help-green-01);
     }
     &.color-about {
-        --color-theme: var(--color-visit-fushia-01);
+        --color-theme: var(--color-about-fushia-01);
     }
 
     .svg {
         display: flex;
         flex-grow: 0;
         flex-shrink: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
 
         width: 300px;
         height: 400px;
+        background-color: var(--color-white);
     }
-    .meta {
-        width: 60%;
-        transition: background-color 400ms ease-in-out;
-        background-color: var(--color-primary-blue-01);
-        flex: 1 1 auto;
-    }
+    // .meta {
+    //     width: 60%;
+    //     transition: background-color 400ms ease-in-out;
+    //     background-color: var(--color-primary-blue-01);
+    //     flex: 1 1 auto;
+    // }
     .title {
         font-family: var(--font-primary);
         font-size: 24px;
@@ -151,10 +151,10 @@ export default {
         padding-right: 40px;
         padding-left: 40px;
 
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: horizontal;
-        overflow: hidden;
+        // display: -webkit-box;
+        // -webkit-line-clamp: 2;
+        // -webkit-box-orient: horizontal;
+        // overflow: hidden;
     }
     .text {
         font-family: var(--font-secondary);
@@ -173,32 +173,47 @@ export default {
     }
 
     // Variations
-    &.is-horizontal {
+    &:not(&.is-horizontal) {
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
         justify-content: center;
-        align-content: center;
-        align-items: center;
+        align-items: flex-start;
 
+        background-color: aqua;
         width: 300px;
         height: 400px;
 
-        .svg {
-            padding: 20px 0;
-            background-color: darkseagreen;
+        .meta {
+            background-color: var(--color-theme);
         }
-        .title {
-            text-align: center;
-            padding-right: 60px;
-            padding-left: 60px;
-        }
-        .text {
-            text-align: center;
-            padding-left: 40px;
-            padding-right: 40px;
+    }
 
+    &.is-horizontal {
+        display: flex;
+        flex-direction: row;
+
+        background-color: yellow;
+        .meta {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-content: stretch;
+            align-items: flex-start;
+
+            background-color: var(--color-theme);
         }
+        // .title {
+        //     text-align: center;
+        //     padding-right: 60px;
+        //     padding-left: 60px;
+        // }
+        // .text {
+        //     text-align: center;
+        //     padding-left: 40px;
+        //     padding-right: 40px;
+        // }
     }
 
     // Hovers

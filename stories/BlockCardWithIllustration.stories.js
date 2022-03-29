@@ -33,14 +33,14 @@ export const Visit = () => ({
     template: `
         <block-card-with-illustration
             icon-name="illustration-find-space"
-            to="/about/foo/bar"
+            to="/visit/foo/bar"
             :title="title"
             :text="text"
         />
     `,
 })
 
-export const LongText = () => ({
+export const LongTextAbout = () => ({
     data() {
         return {
             ...mock,
@@ -49,7 +49,7 @@ export const LongText = () => ({
     template: `
         <block-card-with-illustration
             icon-name="illustration-digitized-resources"
-            to="/help/foo/bar"
+            to="/about/foo/bar"
             :title="title"
             text="Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Morbi in dui quis est pulvinar ullamcorper.
             "
@@ -57,7 +57,7 @@ export const LongText = () => ({
     `,
 })
 
-export const Databases = () => ({
+export const DatabasesVisit = () => ({
     data() {
         return {
             ...mock,
@@ -73,7 +73,7 @@ export const Databases = () => ({
     `,
 })
 
-export const RemoteAccess = () => ({
+export const RemoteAccessHelp = () => ({
     data() {
         return {
             ...mock,
@@ -82,14 +82,14 @@ export const RemoteAccess = () => ({
     template: `
         <block-card-with-illustration
             icon-name= "illustration-remote-access"
-            to="/visit/foo/bar"
+            to="/help/foo/bar"
             :title="title"
             :text="text"
         />
     `,
 })
 
-export const Research = () => ({
+export const ResearchVisit = () => ({
     data() {
         return {
             ...mock,
@@ -105,7 +105,7 @@ export const Research = () => ({
     `,
 })
 
-export const Teaching = () => ({
+export const TeachingAbout = () => ({
     data() {
         return {
             ...mock,
@@ -114,9 +114,10 @@ export const Teaching = () => ({
     template: `
         <block-card-with-illustration
             icon-name="illustration-teaching"
-            to="/visit/foo/bar"
+            to="/about/foo/bar"
             :title="title"
             :text="text"
+            :is-horizontal="false"
         />
     `,
 })
@@ -133,11 +134,12 @@ export const ExternalLink = () => ({
             to="https://guides.library.illinois.edu/openrefine/joiningprojects"
             :title="title"
             :text="text"
+            :is-horizontal="false"
         />
     `,
 })
 
-export const VerticalCard = () => ({
+export const HorizontalCard = () => ({
     data() {
         return {
             ...mock,
@@ -146,10 +148,10 @@ export const VerticalCard = () => ({
     template: `
         <block-card-with-illustration
             icon-name="illustration-teaching"
-            to="https://guides.library.illinois.edu/openrefine/joiningprojects"
+            to="/about/foo/bar"
             :title="title"
             :text="text"
-            :is-vertical-card="true"
+            :is-horizontal="true"
         />
     `,
 })
