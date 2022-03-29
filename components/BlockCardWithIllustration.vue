@@ -1,29 +1,26 @@
 <template lang="html">
-    <div :class="classDirection">
-        <smart-link
-            v-if="to"
-            :to="to"
-            :class="classes"
-            :target="parsedTarget"
-        >
-            <div class="illustration">
-                <component
-                    :is="parsedSvgName"
-                    class="svg"
-                />
-            </div>
+    <div :class="classes">
+        <component
+            :is="parsedSvgName"
+            class="svg"
+        />
 
-            <div class="meta">
+        <div class="meta">
+            <smart-link
+                v-if="to"
+                :to="to"
+                :target="parsedTarget"
+            >
                 <h3
                     class="title"
                     v-html="title"
                 />
-                <div
-                    class="text"
-                    v-html="text"
-                />
-            </div>
-        </smart-link>
+            </smart-link>
+            <div
+                class="text"
+                v-html="text"
+            />
+        </div>
     </div>
 </template>
 
@@ -66,7 +63,7 @@ export default {
             type: String,
             default: "",
         },
-        isVerticalCard: {
+        isHorizontal: {
             type: Boolean,
             default: false,
         },
@@ -76,11 +73,12 @@ export default {
             return [
                 "block-card-with-illustration",
                 `color-${this.sectionName}`,
+                { "is-horizontal": this.isHorizontal }
             ]
         },
         classDirection() {
             return [
-                { "is-vertical-card": this.isVerticalCard }
+                { "is-horizontal": this.isHorizontal }
             ]
         },
         sectionName() {
@@ -126,14 +124,14 @@ export default {
     &.color-about {
         --color-theme: var(--color-visit-fushia-01);
     }
-    .illustration {
-        width: 30%;
-        background: pink;
-    }
+
     .svg {
         display: flex;
         flex-grow: 0;
         flex-shrink: 0;
+
+        width: 300px;
+        height: 400px;
     }
     .meta {
         width: 60%;
@@ -155,7 +153,7 @@ export default {
 
         display: -webkit-box;
         -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
+        -webkit-box-orient: horizontal;
         overflow: hidden;
     }
     .text {
@@ -170,12 +168,12 @@ export default {
 
         display: -webkit-box;
         -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
+        -webkit-box-orient: horizontal;
         overflow: hidden;
     }
 
     // Variations
-    &.is-vertical-card {
+    &.is-horizontal {
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
@@ -188,6 +186,7 @@ export default {
 
         .svg {
             padding: 20px 0;
+            background-color: darkseagreen;
         }
         .title {
             text-align: center;
