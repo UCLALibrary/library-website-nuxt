@@ -40,13 +40,11 @@
             @close="closeModal"
         >
             <div class="modal-content">
-                <div class="iframe-container-modal">
-                    <iframe
-                        :src="parsedSrc"
-                        class="iframe-modal"
-                        allowfullscreen
-                    />
-                </div>
+                <iframe
+                    :src="parsedSrc"
+                    class="iframe-modal"
+                    allowfullscreen
+                />
             </div>
         </modal-generic>
     </div>
@@ -183,13 +181,7 @@ export default {
         min-width: 928px;
         min-height: 600px;
         max-width: $container-l-main + px;
-    }
-
-    .iframe-container-modal {
-        overflow: hidden;
-        /* 4:3 aspect ratio */
         padding-top: 75%;
-        position: relative;
     }
 
     .iframe-modal {

@@ -3,11 +3,10 @@
         class="modal"
         @click="close"
     >
+        <button class="svg-glyph-close">
+            <svg-glyph-close @click="close" />
+        </button>
         <div class="content">
-            <svg-glyph-close
-                class="svg-glyph-close"
-                @click="close"
-            />
             <slot />
         </div>
     </div>
@@ -38,26 +37,47 @@ export default {
     background-color: var(--color-primary-blue-05);
     max-width: 100%;
     cursor: pointer;
+    overflow-y: auto;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-items: center;
+
+    display: grid;
+    grid-template-columns:
+        [left-col] 48px
+        [middle-col] auto
+        [right-col] 64px;
+    grid-template-rows:
+        [top-row] 64px
+        [middle-row] auto
+        [bottom-row] auto;
 
     .content {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        align-content: stretch;
-        align-items: flex-end;
+        grid-row: middle-row / span 1;
+        grid-column: middle-col / span 1;
+        position: absolute;
     }
 
     .svg-glyph-close {
+        grid-row: top-row / span 1;
+        grid-column: right-col / span 1;
+        justify-self: start;
+        align-self: end;
+        color: white;
+
         circle {
             fill: var(--color-primary-blue-05);
         }
         path {
             stroke: var(--color-white);
+        }
+    }
+
+    // Hovers
+    @media #{$has-hover} {
+        .svg-glyph-close:hover {
+            path {
+                stroke-width: 3px;
+            }
         }
     }
 
