@@ -11,10 +11,10 @@ const mock = {
     to: "http://google.com",
     image: {
         id: "2338",
-        src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/long-llama.jpg",
+        src: "https://test-craft.library.ucla.edu/assets/Images/_fullscreen/long-llama.jpg",
         height: 2113,
         width: 2560,
-        srcset: "https://test-craft.library.ucla.edu/assets/images/_375xAUTO_crop_center-center_none/long-llama.jpg 375w, https://test-craft.library.ucla.edu/assets/images/_960xAUTO_crop_center-center_none/long-llama.jpg 960w, https://test-craft.library.ucla.edu/assets/images/_1280xAUTO_crop_center-center_none/long-llama.jpg 1280w, https://test-craft.library.ucla.edu/assets/images/_1920xAUTO_crop_center-center_none/long-llama.jpg 1920w, https://test-craft.library.ucla.edu/assets/images/_2560xAUTO_crop_center-center_none/long-llama.jpg 2560w",
+        srcset: "https://test-craft.library.ucla.edu/assets/Images/_375xAUTO_crop_center-center_none/long-llama.jpg 375w, https://test-craft.library.ucla.edu/assets/Images/_960xAUTO_crop_center-center_none/long-llama.jpg 960w, https://test-craft.library.ucla.edu/assets/Images/_1280xAUTO_crop_center-center_none/long-llama.jpg 1280w, https://test-craft.library.ucla.edu/assets/Images/_1920xAUTO_crop_center-center_none/long-llama.jpg 1920w, https://test-craft.library.ucla.edu/assets/Images/_2560xAUTO_crop_center-center_none/long-llama.jpg 2560w",
         alt: "Long llama",
         focalPoint: [0.5, 0.5],
     },

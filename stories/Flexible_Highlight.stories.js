@@ -33,10 +33,10 @@ const mock = {
                             image: [
                                 {
                                     id: "1214",
-                                    src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/IMG_20210608_182730371.jpg",
+                                    src: "https://test-craft.library.ucla.edu/assets/Images/_fullscreen/IMG_20210608_182730371.jpg",
                                     height: 1920,
                                     width: 2560,
-                                    srcset: "https://test-craft.library.ucla.edu/assets/images/_375xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 375w, https://test-craft.library.ucla.edu/assets/images/_960xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 960w, https://test-craft.library.ucla.edu/assets/images/_1280xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 1280w, https://test-craft.library.ucla.edu/assets/images/_1920xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 1920w, https://test-craft.library.ucla.edu/assets/images/_2560xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 2560w",
+                                    srcset: "https://test-craft.library.ucla.edu/assets/Images/_375xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 375w, https://test-craft.library.ucla.edu/assets/Images/_960xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 960w, https://test-craft.library.ucla.edu/assets/Images/_1280xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 1280w, https://test-craft.library.ucla.edu/assets/Images/_1920xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 1920w, https://test-craft.library.ucla.edu/assets/Images/_2560xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 2560w",
                                     alt: "IMG 20210608 182730371",
                                     focalPoint: [0.5, 0.5],
                                 },
@@ -79,10 +79,10 @@ const mock = {
                             image: [
                                 {
                                     id: "2536",
-                                    src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/hollywood.jpeg",
+                                    src: "https://test-craft.library.ucla.edu/assets/Images/_fullscreen/hollywood.jpeg",
                                     height: 1344,
                                     width: 2560,
-                                    srcset: "https://test-craft.library.ucla.edu/assets/images/_375xAUTO_crop_center-center_none/hollywood.jpeg 375w, https://test-craft.library.ucla.edu/assets/images/_960xAUTO_crop_center-center_none/hollywood.jpeg 960w, https://test-craft.library.ucla.edu/assets/images/_1280xAUTO_crop_center-center_none/hollywood.jpeg 1280w, https://test-craft.library.ucla.edu/assets/images/_1920xAUTO_crop_center-center_none/hollywood.jpeg 1920w, https://test-craft.library.ucla.edu/assets/images/_2560xAUTO_crop_center-center_none/hollywood.jpeg 2560w",
+                                    srcset: "https://test-craft.library.ucla.edu/assets/Images/_375xAUTO_crop_center-center_none/hollywood.jpeg 375w, https://test-craft.library.ucla.edu/assets/Images/_960xAUTO_crop_center-center_none/hollywood.jpeg 960w, https://test-craft.library.ucla.edu/assets/Images/_1280xAUTO_crop_center-center_none/hollywood.jpeg 1280w, https://test-craft.library.ucla.edu/assets/Images/_1920xAUTO_crop_center-center_none/hollywood.jpeg 1920w, https://test-craft.library.ucla.edu/assets/Images/_2560xAUTO_crop_center-center_none/hollywood.jpeg 2560w",
                                     alt: "Hollywood",
                                     focalPoint: [0.5, 0.5],
                                 },
@@ -139,10 +139,10 @@ const mockTwo = {
                             image: [
                                 {
                                     id: "1214",
-                                    src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/IMG_20210608_182730371.jpg",
+                                    src: "https://test-craft.library.ucla.edu/assets/Images/_fullscreen/IMG_20210608_182730371.jpg",
                                     height: 1920,
                                     width: 2560,
-                                    srcset: "https://test-craft.library.ucla.edu/assets/images/_375xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 375w, https://test-craft.library.ucla.edu/assets/images/_960xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 960w, https://test-craft.library.ucla.edu/assets/images/_1280xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 1280w, https://test-craft.library.ucla.edu/assets/images/_1920xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 1920w, https://test-craft.library.ucla.edu/assets/images/_2560xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 2560w",
+                                    srcset: "https://test-craft.library.ucla.edu/assets/Images/_375xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 375w, https://test-craft.library.ucla.edu/assets/Images/_960xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 960w, https://test-craft.library.ucla.edu/assets/Images/_1280xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 1280w, https://test-craft.library.ucla.edu/assets/Images/_1920xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 1920w, https://test-craft.library.ucla.edu/assets/Images/_2560xAUTO_crop_center-center_none/IMG_20210608_182730371.jpg 2560w",
                                     alt: "IMG 20210608 182730371",
                                     focalPoint: [0.5, 0.5],
                                 },
@@ -185,10 +185,10 @@ const mockTwo = {
                             image: [
                                 {
                                     id: "2536",
-                                    src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/hollywood.jpeg",
+                                    src: "https://test-craft.library.ucla.edu/assets/Images/_fullscreen/hollywood.jpeg",
                                     height: 1344,
                                     width: 2560,
-                                    srcset: "https://test-craft.library.ucla.edu/assets/images/_375xAUTO_crop_center-center_none/hollywood.jpeg 375w, https://test-craft.library.ucla.edu/assets/images/_960xAUTO_crop_center-center_none/hollywood.jpeg 960w, https://test-craft.library.ucla.edu/assets/images/_1280xAUTO_crop_center-center_none/hollywood.jpeg 1280w, https://test-craft.library.ucla.edu/assets/images/_1920xAUTO_crop_center-center_none/hollywood.jpeg 1920w, https://test-craft.library.ucla.edu/assets/images/_2560xAUTO_crop_center-center_none/hollywood.jpeg 2560w",
+                                    srcset: "https://test-craft.library.ucla.edu/assets/Images/_375xAUTO_crop_center-center_none/hollywood.jpeg 375w, https://test-craft.library.ucla.edu/assets/Images/_960xAUTO_crop_center-center_none/hollywood.jpeg 960w, https://test-craft.library.ucla.edu/assets/Images/_1280xAUTO_crop_center-center_none/hollywood.jpeg 1280w, https://test-craft.library.ucla.edu/assets/Images/_1920xAUTO_crop_center-center_none/hollywood.jpeg 1920w, https://test-craft.library.ucla.edu/assets/Images/_2560xAUTO_crop_center-center_none/hollywood.jpeg 2560w",
                                     alt: "Hollywood",
                                     focalPoint: [0.5, 0.5],
                                 },
@@ -231,10 +231,10 @@ const mockTwo = {
                             image: [
                                 {
                                     id: "2536",
-                                    src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/hollywood.jpeg",
+                                    src: "https://test-craft.library.ucla.edu/assets/Images/_fullscreen/hollywood.jpeg",
                                     height: 1344,
                                     width: 2560,
-                                    srcset: "https://test-craft.library.ucla.edu/assets/images/_375xAUTO_crop_center-center_none/hollywood.jpeg 375w, https://test-craft.library.ucla.edu/assets/images/_960xAUTO_crop_center-center_none/hollywood.jpeg 960w, https://test-craft.library.ucla.edu/assets/images/_1280xAUTO_crop_center-center_none/hollywood.jpeg 1280w, https://test-craft.library.ucla.edu/assets/images/_1920xAUTO_crop_center-center_none/hollywood.jpeg 1920w, https://test-craft.library.ucla.edu/assets/images/_2560xAUTO_crop_center-center_none/hollywood.jpeg 2560w",
+                                    srcset: "https://test-craft.library.ucla.edu/assets/Images/_375xAUTO_crop_center-center_none/hollywood.jpeg 375w, https://test-craft.library.ucla.edu/assets/Images/_960xAUTO_crop_center-center_none/hollywood.jpeg 960w, https://test-craft.library.ucla.edu/assets/Images/_1280xAUTO_crop_center-center_none/hollywood.jpeg 1280w, https://test-craft.library.ucla.edu/assets/Images/_1920xAUTO_crop_center-center_none/hollywood.jpeg 1920w, https://test-craft.library.ucla.edu/assets/Images/_2560xAUTO_crop_center-center_none/hollywood.jpeg 2560w",
                                     alt: "Hollywood",
                                     focalPoint: [0.5, 0.5],
                                 },
