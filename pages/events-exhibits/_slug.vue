@@ -1,8 +1,6 @@
 <template lang="html">
     <section class="page-event-detail">
-        <nav-breadcrumb
-            :title="page.title"
-        />
+        <nav-breadcrumb :title="page.title" />
         <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
@@ -77,7 +75,7 @@ export default {
         transform: translateY(-100%);
         transition: transform 400ms ease-in-out;
 
-    // States
+        // States
         .has-scrolled-past-header & {
             transform: translateY(0);
         }
