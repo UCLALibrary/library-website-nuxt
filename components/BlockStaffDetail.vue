@@ -335,11 +335,11 @@ export default {
             align-items: center;
             gap: var(--space-xs);
         }
+    }
 
-        .location-title {
-            @include step-0;
-            line-height: $line-height--1;
-        }
+    .location-title,
+    .contact-info {
+        @include button;
     }
 
     .location-link .svg,
@@ -472,6 +472,12 @@ export default {
                 border: 0;
                 padding: 0;
             }
+        }
+
+        .contact-info .svg,
+        .location-link .svg {
+            width: 28px;
+            height: 28px;
         }
 
         .section-staff-bio {

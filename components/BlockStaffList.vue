@@ -201,6 +201,10 @@ export default {
         }
     }
 
+    .contact-info {
+        @include button;
+    }
+
     .email,
     .phone,
     .consultation {
@@ -230,8 +234,7 @@ export default {
 
         .image,
         .no-image {
-            width: 220px;
-            height: 220px;
+            --image-size: 220px;
             flex-shrink: 0;
         }
 
