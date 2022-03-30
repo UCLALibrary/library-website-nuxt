@@ -97,7 +97,7 @@
                 class="contact-info"
             >
                 <component
-                    :is="`svg-icon-location`"
+                    :is="`svg-icon-person`"
                     class="contact-svg"
                 />
                 <smart-link
