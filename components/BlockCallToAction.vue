@@ -203,6 +203,11 @@ export default {
             --block-padding-title: 48px;
             --block-padding-text: 48px;
         }
+
+        .title,
+        .text {
+            padding: 0;
+        }
     }
 
     @media #{$small} {
