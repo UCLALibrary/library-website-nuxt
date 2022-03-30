@@ -33,35 +33,6 @@
                 </ul>
             </div>
 
-            <div v-if="departments.length || locations.length" class="staff-info">
-                <!-- <div
-                    class="job-title"
-                    v-html="jobTitle"
-                /> -->
-
-                <!-- <ul
-                    v-if="locations.length"
-                    class="locations"
-                >
-                    <li
-                        v-for="location in locations"
-                        :key="`location-${location.id}`"
-                        class="location"
-                    >
-                        <svg-icon-location class="icon" />
-                        <nuxt-link
-                            :to="location.to"
-                            class="location-link"
-                        >
-                            <span
-                                class="location-title"
-                                v-html="location.title"
-                            />
-                        </nuxt-link>
-                    </li>
-                </ul> -->
-            </div>
-
             <div class="contact-info">
                 <div class="email">
                     <svg-icon-email class="icon" />
@@ -106,7 +77,6 @@
 <script>
 import _isEmpty from "lodash/isEmpty"
 import SvgHeadingArrow from "~/node_modules/ucla-library-design-tokens/assets/svgs/graphic-chevron-right"
-// import SvgIconLocation from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
 import SvgIconEmail from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-email"
 import SvgIconPhone from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-phone"
 import SvgIconConsultation from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-chat"
@@ -114,7 +84,6 @@ import SvgIconConsultation from "~/node_modules/ucla-library-design-tokens/asset
 export default {
     components: {
         SvgHeadingArrow,
-        // SvgIconLocation,
         SvgIconEmail,
         SvgIconPhone,
         SvgIconConsultation,
@@ -221,8 +190,7 @@ export default {
         .job-title {
             color: var(--color-black);
         }
-        .departments,
-        .locations {
+        .departments {
             display: flex;
             flex-direction: column;
 
@@ -233,7 +201,6 @@ export default {
         }
     }
 
-    .location,
     .email,
     .phone,
     .consultation {
@@ -252,7 +219,6 @@ export default {
     // Hover states
     @media #{$has-hover} {
         .staff-name a:hover,
-        .location-link:hover,
         .is-link:hover {
             @include link-hover;
         }
