@@ -145,6 +145,7 @@ export default {
     border-radius: var(--rounded-slightly-all);
 
     padding: var(--space-xl);
+    position: relative;
 
     .image {
         flex-shrink: 0;
@@ -186,6 +187,15 @@ export default {
         .staff-name {
             @include step-2;
             color: var(--color-primary-blue-03);
+
+            a::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+            }
         }
         .job-title {
             color: var(--color-black);
@@ -201,8 +211,9 @@ export default {
         }
     }
 
-    .contact-info {
+    .contact-info a {
         @include button;
+        z-index: 10;
     }
 
     .email,
