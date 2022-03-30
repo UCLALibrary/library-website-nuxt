@@ -44,13 +44,11 @@ export default {
         parsedBlocks() {
             // Shape blocks to work with components
             let output = this.blocks.map((obj) => {
-                // console.log(obj)
                 return {
                     ...obj,
                     componentName: convertName(obj.typeHandle),
                 }
             })
-            // console.log(output)
             // Remove any un-registered blocks
             output = output.filter((obj) => {
                 console.log(
@@ -108,5 +106,5 @@ function convertName(typeHandle) {
             padding: 0;
         }
     }
-} 
+}
 </style>

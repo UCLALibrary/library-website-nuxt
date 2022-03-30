@@ -96,7 +96,6 @@ export default {
     },
     methods: {
         viewModeChanger(slug) {
-            console.log(slug)
             this.selectedView = slug
         },
     },
