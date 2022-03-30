@@ -147,6 +147,10 @@ export default {
     padding: var(--space-xl);
     position: relative;
 
+    transition-property: box-shadow, transform;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+
     .image {
         flex-shrink: 0;
         width: var(--image-size);
@@ -236,6 +240,11 @@ export default {
         .staff-name a:hover,
         .is-link:hover {
             @include link-hover;
+        }
+
+        &:hover {
+            transform: scale(1.02);
+            @include shadow-search-01;
         }
     }
 
