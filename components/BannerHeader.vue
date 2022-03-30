@@ -62,7 +62,7 @@
                 />
             </div>
             <div
-                v-if="phone"
+                v-if="email"
                 class="contact-info"
             >
                 <component
