@@ -1,21 +1,17 @@
 <template lang="html">
     <div :class="classes">
-        <div class="background" />
-
         <div class="container">
             <div class="meta">
-                <h2
+                <h1
                     class="title"
                     v-html="title"
                 />
                 <div
+                    v-if="text"
                     class="text"
                     v-html="text"
                 />
             </div>
-            <slot>
-                <!-- TODO Search goes here -->
-            </slot>
         </div>
     </div>
 </template>
@@ -57,31 +53,19 @@ export default {
     --unit-height: 320px;
 
     position: relative;
-    z-index: 0;
+    background: var(--gradient-03), var(--text-overlay);
 
-    .background {
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: var(--unit-height);
-        background: var(--gradient-03);
-    }
     .container {
-        max-width: 990px;
-        height: var(--unit-height);
+        max-width: $container-l-cta + px;
 
         position: relative;
         z-index: 20;
         margin: 0 auto;
+        padding-top: var(--space-xl);
+        padding-bottom: var(--space-6xl);
     }
     .meta {
-        min-height: 264px;
-        height: 100%;
         color: var(--color-white);
-        margin: 0 auto;
-        padding: 0 var(--unit-gutter);
 
         display: flex;
         align-items: flex-start;
@@ -89,50 +73,40 @@ export default {
         flex-direction: column;
 
         .title {
-            font-size: 80px;
-            line-height: 100%;
-            letter-spacing: 0.01em;
-            font-weight: 400;
-            margin: 0 0 0 -5px; // Fixing buggy font that has extra space on left
+            @include step-5;
+            text-shadow: 0px 2px 8px rgba(113, 113, 113, 0.08);
         }
         .text {
-            font-size: 24px;
-            line-height: 140%;
-            letter-spacing: 0.02em;
-            margin-top: 15px;
+            @include step-0;
+            margin-top: var(--space-s);
+            text-shadow: 0px 2px 8px rgba(113, 113, 113, 0.08);
         }
     }
 
     // Variants
-    &.has-molecule {
-        .background {
-            background: url(~/assets/svg/molecule-background.svg?url) center -100px,
-                var(--gradient-03);
-            background-size: cover;
-        }
-    }
-    &.has-slot {
-        .container {
-            height: auto;
-        }
+    &.has-molecule:before {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: url('~/assets/svg/molecule-background.svg?url');
+        background-repeat: no-repeat;
+        background-position: center 60%;
+        filter: opacity(45%);
     }
 
     // Breakpoints
+    @media #{$medium} {
+        .container {
+            padding-left: var(--unit-gutter);
+            padding-right: var(--unit-gutter);
+        }
+    }
+
     @media #{$small} {
         --unit-height: 230px;
-
-        .meta {
-            min-height: 185px;
-
-            .title {
-                font-size: 40px;
-                margin-left: -2px;
-            }
-            .text {
-                font-size: 14px;
-                max-width: 400px;
-            }
-        }
     }
 }
 </style>

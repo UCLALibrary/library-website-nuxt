@@ -11,7 +11,7 @@ query StaffDetail($slug: [String]!) {
             nameFirst
             nameLast
             jobTitle: staffMemberJobTitle
-            departments: staffDepartment {
+            departments: staffDepartment(orderBy: "level") {
                 id
                 title
             }

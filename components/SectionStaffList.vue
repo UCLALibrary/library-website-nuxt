@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="section-staff-list">
+    <ul class="section-staff-list">
         <block-staff-list
             v-for="item in items"
             :key="item.to"
@@ -12,9 +12,9 @@
             :phone="item.phone"
             :departments="item.departments"
             :consultation="item.consultation"
-            class="block"
+            class="block-staff-list-item"
         />
-    </section>
+    </ul>
 </template>
 
 <script>
@@ -32,15 +32,14 @@ export default {
 .section-staff-list {
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
+    gap: var(--space-m);
 
-    background-color: var(--color-white);
-    max-width: 990px;
-    margin: 0 auto;
+    max-width: $container-l-main + px;
+    margin: 0 auto var(--space-3xl);
 
-    .block {
-        margin-bottom: 25px;
+    @media #{$medium} {
+        padding-left: var(--unit-gutter);
+        padding-right: var(--unit-gutter);
     }
 }
 </style>
