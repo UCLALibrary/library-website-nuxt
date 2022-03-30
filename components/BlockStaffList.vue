@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="block-staff-list">
+    <li class="block-staff-list">
         <responsive-image
             :image="image"
             :aspect-ratio="100"
@@ -14,46 +14,26 @@
         </div>
 
         <div class="meta">
-            <h3 class="staff-name">
-                <nuxt-link
-                    :to="to"
-                    v-html="staffName"
-                />
-            </h3>
-
-            <div class="title-department">
-                <h4
+            <div class="name-title">
+                <h3 class="staff-name">
+                    <nuxt-link
+                        :to="to"
+                        v-html="staffName"
+                    />
+                </h3>
+                <div
                     class="job-title"
                     v-html="jobTitle"
                 />
-                <ul class="department">
+                <ul v-if="departments.length" class="departments">
                     <li
-                        v-for="(department, index) in departments"
-                        :key="index"
-                        v-html="department.title"
+                        class="department"
+                        v-html="lastDepartment"
                     />
                 </ul>
             </div>
 
-            <div class="icon-block">
-                <div
-                    v-if="locations.length"
-                    class="location"
-                >
-                    <nuxt-link
-                        v-for="location in locations"
-                        :key="`location-${location.id}`"
-                        :to="location.to"
-                        class="location-link"
-                    >
-                        <svg-icon-location class="icon" />
-                        <span
-                            class="location-title"
-                            v-html="location.title"
-                        />
-                    </nuxt-link>
-                </div>
-
+            <div class="contact-info">
                 <div class="email">
                     <svg-icon-email class="icon" />
                     <smart-link
@@ -77,7 +57,10 @@
                     />
                 </div>
 
-                <div class="consultation">
+                <div
+                    v-if="consultation"
+                    class="consultation"
+                >
                     <svg-icon-consultation class="icon" />
                     <smart-link
                         :to="consultation"
@@ -88,21 +71,19 @@
                 </div>
             </div>
         </div>
-    </section>
+    </li>
 </template>
 
 <script>
 import _isEmpty from "lodash/isEmpty"
-import SvgHeadingArrow from "~/assets/svg/heading-arrow"
-import SvgIconLocation from "~/assets/svg/icon-location"
-import SvgIconEmail from "~/assets/svg/icon-email"
-import SvgIconPhone from "~/assets/svg/icon-phone"
-import SvgIconConsultation from "~/assets/svg/icon-consultation"
+import SvgHeadingArrow from "~/node_modules/ucla-library-design-tokens/assets/svgs/graphic-chevron-right"
+import SvgIconEmail from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-email"
+import SvgIconPhone from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-phone"
+import SvgIconConsultation from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-chat"
 
 export default {
     components: {
         SvgHeadingArrow,
-        SvgIconLocation,
         SvgIconEmail,
         SvgIconPhone,
         SvgIconConsultation,
@@ -124,10 +105,6 @@ export default {
             type: String,
             default: "",
         },
-        locations: {
-            type: Array,
-            default: () => [],
-        },
         email: {
             type: String,
             default: "",
@@ -145,23 +122,38 @@ export default {
             default: "",
         },
     },
+    computed: {
+        lastDepartment() {
+            return this.departments[this.departments.length - 1].title
+        },
+    },
 }
 </script>
 
 <style lang="scss" scoped>
 .block-staff-list {
+    --image-size: 272px;
+
     display: flex;
     flex-direction: row;
+    gap: var(--space-xl);
 
-    font-family: var(--font-primary);
-    font-size: 20px;
+    @include step-0;
+    line-height: $line-height--1;
     background-color: var(--color-white);
     border: 2px solid var(--color-primary-blue-01);
     border-radius: var(--rounded-slightly-all);
 
+    padding: var(--space-xl);
+    position: relative;
+
+    transition-property: box-shadow, transform;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+
     .image {
-        width: 352px;
-        margin: 48px 56px 48px 64px;
+        flex-shrink: 0;
+        width: var(--image-size);
     }
     .no-image {
         display: flex;
@@ -171,109 +163,112 @@ export default {
         align-content: stretch;
         align-items: center;
 
-        margin: 48px 56px 48px 64px;
         border: 1px solid var(--color-primary-blue-01);
         border-radius: var(--rounded-slightly-all);
-        width: 267px;
-        height: 267px;
+        width: var(--image-size);
+        height: var(--image-size);
         .icon-heading-arrow {
             margin: 0 auto;
+
+            .svg__stroke--wayfinder {
+                stroke: var(--color-about-purple-03);
+            }
         }
     }
 
     .meta {
         display: flex;
         flex-direction: column;
-        flex-wrap: nowrap;
         justify-content: center;
-        align-content: flex-start;
-        align-items: flex-start;
+        gap: var(--space-m);
 
-        margin-right: 64px;
+        .name-title {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
 
         .staff-name {
-            font-weight: 500;
-            font-size: 36px;
-            line-height: 120%;
+            @include step-2;
             color: var(--color-primary-blue-03);
-        }
-        .title-department {
-            .job-title {
-                font-weight: 400;
-                line-height: 30px;
-                color: var(--color-black);
-                margin-bottom: 2px;
-            }
-            .department {
-                display: flex;
-                flex-direction: column;
 
-                list-style: none;
-                margin-bottom: 15px;
-                font-weight: 400;
-                line-height: 140%;
-                color: var(--color-secondary-grey-04);
+            a::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
             }
+        }
+        .job-title {
+            color: var(--color-black);
+        }
+        .departments {
+            display: flex;
+            flex-direction: column;
+
+            list-style: none;
+        }
+        .department {
+            color: var(--color-secondary-grey-04);
         }
     }
 
-    .icon-block {
+    .contact-info a {
+        @include button;
+        z-index: 10;
+    }
+
+    .email,
+    .phone,
+    .consultation {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--space-xs);
+
         color: var(--color-primary-blue-03);
-        .location {
-            padding-bottom: 2px;
-        }
+
         .icon {
-            margin-bottom: -10px;
-        }
-        .location-link + .location-link {
-            border-left: solid 1px var(--color-primary-blue-03);
-            margin-left: 10px;
-            padding-left: 10px;
-        }
-        .location-title {
-            line-height: 20px;
-        }
-        .email {
-            margin-top: 10px;
-        }
-        .phone {
-            margin-top: 10px;
-        }
-        .consultation {
-            margin-top: 10px;
+            flex-shrink: 0;
         }
     }
 
     // Hover states
     @media #{$has-hover} {
-        .staff-name:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue-03);
-            text-decoration-thickness: 1.5px;
+        .staff-name a:hover,
+        .is-link:hover {
+            @include link-hover;
         }
-        .location-title:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue-03);
-            text-decoration-thickness: 1.5px;
-        }
-        .email:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue-03);
-            text-decoration-thickness: 1.5px;
-        }
-        .phone:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue-03);
-            text-decoration-thickness: 1.5px;
-        }
-        .consultation:hover {
-            text-decoration: underline;
-            text-decoration-color: var(--color-primary-blue-03);
-            text-decoration-thickness: 1.5px;
+
+        &:hover {
+            transform: scale(1.01);
+            @include shadow-search-01;
         }
     }
 
     // Breakpoints
+    @media #{$medium} {
+        align-items: center;
+
+        .image,
+        .no-image {
+            --image-size: 220px;
+            flex-shrink: 0;
+        }
+
+        .job-title,
+        .department,
+        .contact-info {
+            font-size: 18px;
+        }
+
+        .contact-info .icon {
+            width: 28px;
+            height: 28px;
+        }
+    }
     @media #{$small} {
         display: flex;
         flex-direction: column;
@@ -281,24 +276,25 @@ export default {
         align-content: center;
         align-items: center;
 
-        .image {
-            margin: 27px 56px 64px;
+        border: 0;
+
+        &.block-staff-list-item {
+            border-bottom: 2px dotted var(--color-secondary-grey-02);
+            padding-left: 0;
+            padding-right: 0;
+
+            &:last-child {
+                border-bottom: 0;
+            }
         }
+
+        .image,
+        .no-image {
+            display: none;
+        }
+
         .meta {
-            margin-bottom: 48px;
-            margin-right: 0px;
-        }
-        .icon-block {
-            .location {
-                display: flex;
-                flex-direction: column;
-            }
-            .location-link + .location-link {
-                border-style: hidden;
-                margin-left: 0px;
-                margin-top: 5px;
-                padding-left: 0px;
-            }
+            width: 100%;
         }
     }
 }

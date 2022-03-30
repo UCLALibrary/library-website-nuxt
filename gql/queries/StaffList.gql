@@ -1,6 +1,6 @@
 #import "~/gql/fragments/Image"
 query StaffList {
-    entries(section: "staffMember", orderBy: "staffMemberJobTitle") {
+    entries(section: "staffMember", orderBy: "nameLast") {
         ... on staffMember_staffMember_Entry {
             email
             phone: phoneNumber
@@ -9,7 +9,7 @@ query StaffList {
             nameLast
             to: slug
             consultation: bookAConsultation
-            departments: staffDepartment {
+            departments: staffDepartment(orderBy: "level") {
                 id
                 title
             }
