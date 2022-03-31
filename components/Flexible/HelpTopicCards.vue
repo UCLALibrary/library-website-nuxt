@@ -1,11 +1,12 @@
 <template lang="html">
     <div class="help-topic-card">
-        <section-cards
+        <section-cards-with-illustrations
             :items="parsedItems"
             title="Associated Topics"
             text="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
             to="/services-resources"
             button-text="All Services & Resources"
+            :is-horizontal="false"
         />
     </div>
 </template>
