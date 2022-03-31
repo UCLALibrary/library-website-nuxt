@@ -316,26 +316,22 @@ export default {
             return this.category ? "gradient" : "gradient-no-category"
         },
         parsedLocations() {
-            let parsedLocations = []
-            for (let location in this.locations) {
-                if (this.locations[location].title == "Online") {
-                    break
-                } else {
-                    this.locations[location].svg = "svg-icon-location"
-                    parsedLocations.push(this.locations[location])
+            return this.locations.reduce(function (filtered, location) {
+                if (location.title !== "Online") {
+                    location.svg = "svg-icon-location"
+                    filtered.push(location)
                 }
-            }
-            return parsedLocations
+                return filtered
+            }, [])
         },
         parsedIsOnline() {
-            let parsedOnline = []
-            for (let location in this.locations) {
-                if (this.locations[location].title == "Online") {
-                    this.locations[location].svg = "svg-icon-online"
-                    parsedOnline.push(this.locations[location])
+            return this.locations.reduce(function (filtered, location) {
+                if (location.title === "Online") {
+                    location.svg = "svg-icon-online"
+                    filtered.push(location)
                 }
-            }
-            return parsedOnline
+                return filtered
+            }, [])
         },
     },
 }
@@ -475,11 +471,10 @@ export default {
         @include step-4;
     }
     .snippet {
-        @include step-1;
+        @include step-0;
         color: var(--color-secondary-grey-04);
         font-weight: 400;
         margin-top: var(--space-m);
-        line-height: 120%;
         margin-bottom: var(--space-s);
     }
     .byline {
@@ -533,6 +528,7 @@ export default {
         align-items: center;
         gap: var(--space-xs);
         margin-bottom: var(--space-xs);
+        @include button;
     }
 
     .location-group {
