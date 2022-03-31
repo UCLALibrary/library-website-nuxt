@@ -5,13 +5,16 @@
             class="divider divider-first"
             color="help"
         />
-        <section-cards
+
+        <section-cards-with-illustrations
             class="section"
             :items="parsedSectionCards"
             title="Get Help with"
             text="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
             to="/help/foo/bar"
+            :is-horizontal="false"
         />
+
         <divider-way-finder
             class="divider"
             color="visit"
@@ -41,6 +44,7 @@
             :items="page.sectionDualMasonry"
             to="/visit/foo"
         />
+
         <divider-way-finder
             class="divider"
             color="about"
@@ -64,7 +68,9 @@
                 :to="bannerAbout.to"
             />
         </banner-featured>
+
         <divider-general class="divider" />
+
         <section-post-small
             class="section"
             :items="page.posts"

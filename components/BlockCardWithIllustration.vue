@@ -205,6 +205,7 @@ export default {
             flex-wrap: nowrap;
             justify-content: center;
 
+            width: 100%;
             height: 271px;
 
             .category {

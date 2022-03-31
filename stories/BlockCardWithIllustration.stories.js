@@ -197,3 +197,21 @@ export const HorizontalCardResearch = () => ({
         />
     `,
 })
+
+export const HorizontalCardShortDigitizedResources= () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <block-card-with-illustration
+            icon-name="illustration-digitized-resources"
+            to="/about/foo/bar"
+            category="Malesuada"
+            :title="title"
+            text="Watch it, Goldie. No, it was The Enchantment Under The Sea Dance."
+            :is-horizontal="true"
+        />
+    `,
+})
