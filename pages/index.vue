@@ -9,7 +9,7 @@
         <section-cards-with-illustrations
             class="section"
             :items="parsedSectionCards"
-            title="Get Help with"
+            title="Get Help With"
             text="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
             to="/help/foo/bar"
             :is-horizontal="false"

@@ -204,7 +204,6 @@ export default {
         }
     }
 
-
     // Horizontal
     &.is-horizontal {
         .card {
