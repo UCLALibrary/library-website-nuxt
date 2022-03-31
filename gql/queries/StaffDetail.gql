@@ -4,7 +4,7 @@ query StaffDetail($slug: [String]!) {
         ... on staffMember_staffMember_Entry {
             id
             title
-            image {
+            image: staffPortrait {
                 ...Image
             }
             to: slug
