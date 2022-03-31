@@ -157,7 +157,7 @@ export default {
         align-content: center;
         align-items: center;
 
-        width: 300px;
+        width: 281px;
         height: 400px;
 
         .svg {

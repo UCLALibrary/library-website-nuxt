@@ -1,6 +1,6 @@
 <template>
     <div
-        class="section-cards"
+        class="section-cards-with-illustrations"
         :data-cy="cypressSelector"
     >
         <div class="meta">
@@ -15,7 +15,7 @@
                 v-html="text"
             />
         </div>
-        <div class="cards">
+        <div :class="classes">
             <block-card-with-illustration
                 v-for="item in items"
                 :key="item.to"
@@ -24,6 +24,8 @@
                 :to="item.to"
                 :title="item.title"
                 :text="item.text"
+                :category="item.category"
+                :is-horizontal="item.isHorizontal"
             />
             <nuxt-link
                 v-if="to"
@@ -64,41 +66,53 @@ export default {
             type: String,
             default: "",
         },
+        isHorizontal: {
+            type: Boolean,
+            default: false,
+        },
     },
     computed: {
+        classes() {
+            return [
+                "card",
+                { "is-horizontal": this.isHorizontal }
+            ]
+        },
         cypressSelector() {
-            return `section-cards-${_kebabCase(this.title) || "untitled"}`
+            return `section-cards-with-illustrations-${_kebabCase(this.title) || "untitled"}`
         },
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.section-cards {
+.section-cards-with-illustrations {
     max-width: $container-l-main + px;
     margin-left: auto;
     margin-right: auto;
     padding: 0;
 
-    .meta {
-        margin-bottom: 90px;
+    // .meta {
+    //     margin-bottom: 90px;
 
-        .title {
-            font-weight: 400;
-            font-size: 44px;
-            line-height: 100%;
-            text-transform: capitalize;
-            color: var(--color-primary-blue-03);
-        }
-        .text {
-            max-width: 730px;
-            font-size: 24px;
-            line-height: 130%;
-            letter-spacing: 0.01em;
-            color: var(--color-black);
-            margin-top: 24px;
-        }
-    }
+    //     .title {
+    //         font-weight: 400;
+    //         font-size: 44px;
+    //         line-height: 100%;
+    //         text-transform: capitalize;
+    //         color: var(--color-primary-blue-03);
+    //     }
+    //     .text {
+    //         max-width: 730px;
+    //         font-size: 24px;
+    //         line-height: 130%;
+    //         letter-spacing: 0.01em;
+    //         color: var(--color-black);
+    //         margin-top: 24px;
+    //     }
+    // }
+// Variations
+    // Vertical
     .cards {
         display: flex;
         flex-direction: row;
@@ -109,7 +123,7 @@ export default {
     }
     .card {
         margin: 0 30px 0 0;
-        width: 281px;
+
 
         &:nth-child(3n) {
             margin-right: 0;
