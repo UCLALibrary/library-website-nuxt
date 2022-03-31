@@ -69,6 +69,18 @@
     --rounded-slightly-top: 4px 4px 0 0;
 
     // Gradients
+    --text-overlay: linear-gradient(
+        0deg,
+        hsla(0, 0%, 35.29%, 0) 0%,
+        hsla(0, 0%, 34.53%, 0.034375) 16.36%,
+        hsla(0, 0%, 32.42%, 0.125) 33.34%,
+        hsla(0, 0%, 29.18%, 0.253125) 50.1%,
+        hsla(0, 0%, 24.96%, 0.4) 65.75%,
+        hsla(0, 0%, 19.85%, 0.546875) 79.43%,
+        hsla(0, 0%, 13.95%, 0.675) 90.28%,
+        hsla(0, 0%, 7.32%, 0.765625) 97.43%,
+        hsla(0, 0%, 0%, 0.8) 100%
+    );
     --gradient-01: linear-gradient(
         142.22deg,
         #0b6ab7 0%,
@@ -77,9 +89,9 @@
     );
     --gradient-03: linear-gradient(
         144.09deg,
-        #0b6ab7 2.22%,
-        #1f75c5 50.99%,
-        #0a95eb 85.22%
+        #0B6AB7 2.22%,
+        #1F75C5 46.81%,
+        #0A95EB 85.22%
     );
     --gradient-image-01: linear-gradient(
         117.49deg,
