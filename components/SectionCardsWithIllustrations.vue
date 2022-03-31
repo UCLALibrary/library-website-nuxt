@@ -98,7 +98,6 @@ export default {
     &:not(&.is-horizontal) {
         .meta {
             margin-bottom: 90px;
-
             .title {
                 font-weight: 400;
                 font-size: 44px;
@@ -115,6 +114,7 @@ export default {
                 margin-top: 24px;
             }
         }
+
         .cards {
             display: flex;
             flex-direction: row;
@@ -123,6 +123,7 @@ export default {
             align-content: flex-start;
             align-items: flex-start;
         }
+
         .card {
             margin: 0 30px 0 0;
             width: 281px;
@@ -134,6 +135,7 @@ export default {
                 margin-top: 40px;
             }
         }
+
         .card-more {
             display: flex;
             flex-direction: column;
@@ -166,41 +168,42 @@ export default {
                     box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
                 }
             }
+        }
 
-            // Breakpoints
-            @media #{$medium} {
-                .meta {
-                    padding: 0 var(--unit-gutter);
-                    margin-bottom: 40px;
-                    .title {
-                        font-size: 40px;
-                    }
-                    .text {
-                        max-width: $container-m-text + px;
-                        font-size: 22px;
-                    }
+        // Breakpoints
+        @media #{$medium} {
+            .meta {
+                padding: 0 var(--unit-gutter);
+                margin-bottom: 40px;
+                .title {
+                    font-size: 40px;
                 }
-                .cards {
-                    width: auto;
-                    overflow-x: auto;
-                    overflow-y: visible;
-                    flex-wrap: nowrap;
-                    min-height: 420px;
-                    margin-right: var(--unit-gutter);
-                    .card {
-                        margin-top: 0;
-                        margin-right: 0;
-                        margin-left: 30px;
-                        flex-shrink: 0;
+                .text {
+                    max-width: $container-m-text + px;
+                    font-size: 22px;
+                }
+            }
+            .cards {
+                width: auto;
+                overflow-x: auto;
+                overflow-y: visible;
+                flex-wrap: nowrap;
+                min-height: 420px;
+                margin-right: var(--unit-gutter);
+                .card {
+                    margin-top: 0;
+                    margin-right: 0;
+                    margin-left: 30px;
+                    flex-shrink: 0;
 
-                        &:first-child {
-                            margin-left: var(--unit-gutter);
-                        }
+                    &:first-child {
+                        margin-left: var(--unit-gutter);
                     }
                 }
             }
         }
     }
+
 
     // Horizontal
     &.is-horizontal {
