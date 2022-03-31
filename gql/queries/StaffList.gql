@@ -18,7 +18,7 @@ query StaffList {
                 title
                 to: slug
             }
-            image {
+            image: staffPortrait {
                 ...Image
             }
         }
