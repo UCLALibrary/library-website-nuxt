@@ -16,18 +16,18 @@
             :phone="page.entry.phone"
             :consultation="page.entry.consultation"
             :topics="page.entry.topics"
+            :academic-departments="page.entry.academicDepartments"
             :biography="page.entry.biography"
         />
 
         <section
             v-if="parsedItems.length || page.entry.publications"
             class="selected-articles"
->
+        >
             <section
                 v-if="page.entry.orcid || page.entry.publications"
                 class="staff-orcid-publications"
             >
-
                 <h2 class="secondary-header">
                     Publications
                 </h2>
@@ -86,6 +86,7 @@ export default {
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
         })
+        console.log(data.entry)
         return {
             page: data,
         }

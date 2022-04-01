@@ -32,7 +32,8 @@
 
                     <ul
                         v-if="departments.length"
-                        class="departments">
+                        class="departments"
+                    >
                         <li
                             v-for="(department, index) in departments"
                             :key="index"
@@ -42,11 +43,13 @@
                     </ul>
                     <ul
                         v-if="locations.length"
-                        class="location-group">
+                        class="location-group"
+                    >
                         <li
                             v-for="location in locations"
                             :key="`location-${location.id}`"
-                            class="location">
+                            class="location"
+                        >
                             <nuxt-link
                                 :to="location.to"
                                 class="location-link"
@@ -61,7 +64,6 @@
                     </ul>
                 </div>
                 <div class="contact-info-list">
-
                     <div class="contact-info">
                         <svg-icon-email class="svg" />
                         <smart-link
@@ -85,7 +87,8 @@
                     </div>
                     <div
                         v-if="consultation"
-                        class="contact-info">
+                        class="contact-info"
+                    >
                         <svg-icon-consultation class="svg" />
                         <smart-link
                             :to="consultation"
@@ -104,23 +107,29 @@
                     class="divider divider-first"
                     color="about"
                 />
-                <div v-if="topics.length" class="ask-me-about">
+                <div
+                    v-if="topics.length || academicDepartments.length"
+                    class="ask-me-about"
+                >
                     <h2 class="secondary-header">
                         Ask me About
                     </h2>
                     <rich-text>
-                    <ul class="list topics">
-                        <li
-                            v-for="topic in topics"
-                            :key="topic.id"
-                            v-html="topic.title"
-                        />
-                    </ul>
+                        <ul class="list topics">
+                            <li
+                                v-for="topic in mergeSortTopics"
+                                :key="topic.id"
+                                v-html="topic.title"
+                            />
+                        </ul>
                     </rich-text>
                 </div>
 
                 <!-- RICH TEXT-->
-                <div v-if="biography" class="biography">
+                <div
+                    v-if="biography"
+                    class="biography"
+                >
                     <h2 class="secondary-header">
                         Biography
                     </h2>
@@ -190,6 +199,11 @@ export default {
             type: Array,
             default: () => [],
         },
+        academicDepartments: {
+            // merge this with ask-me-about data and then sort it
+            type: Array,
+            default: () => [],
+        },
         biography: {
             type: String,
             default: "",
@@ -202,6 +216,13 @@ export default {
     computed: {
         parsedPronouns() {
             return `Pronouns: ${this.pronouns}`
+        },
+        mergeSortTopics() {
+            return this.topics
+                .concat(this.academicDepartments)
+                .sort((a, b) =>
+                    a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+                )
         },
     },
 }
@@ -406,12 +427,12 @@ export default {
         }
     }
 
-        .body-contact.no-image {
-            height: unset;
-            .staff-info {
-                width: 100%;
-            }
+    .body-contact.no-image {
+        height: unset;
+        .staff-info {
+            width: 100%;
         }
+    }
 
     @media (min-width: 1025px) and (max-width: 1300px) {
         padding: 0 var(--unit-gutter);

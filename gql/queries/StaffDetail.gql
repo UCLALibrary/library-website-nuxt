@@ -28,6 +28,10 @@ query StaffDetail($slug: [String]!) {
                 title
                 id
             }
+            academicDepartments {
+                id
+                title
+            }
             biography
             subjectLibrarian
             orcid: orcidId
