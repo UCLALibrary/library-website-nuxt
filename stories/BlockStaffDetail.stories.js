@@ -40,6 +40,28 @@ const mock2 = {
     departments: ["DIIT", "Other Departments"],
 }
 
+const mock3 = {
+    // image: API.image_people,
+    to: "/staff/id/",
+    staffName: "Ada Lovelace",
+    jobTitle: "Librateria",
+    locations: [
+        { title: "Powellarium", to: "/location/bar" },
+        { title: "Research Library (Charles E. Young)", to: "/location/baz" },
+    ],
+    email: "ada@somewhere.com",
+    phone: "555-555-5555",
+    departments: ["DIIT", "Other Departments"],
+    topics:[
+        { title: "topic1", id: "bar1" },
+        { title: "topic2", id: "baz2" },
+    ],
+    academicDepartments:[
+        { title: "acadept1", id: "acbar1" },
+        { title: "acadept2", id: "acbaz2" },
+    ],
+}
+
 // Variations of stories below
 export const Default = () => ({
     data() {
@@ -77,6 +99,22 @@ export const NoImageOrBio = () => ({
         return {
             item: {
                 ...mock2,
+            },
+        }
+    },
+    template: `
+    <block-staff-detail
+    v-bind="item"
+
+    />
+  `,
+})
+
+export const AskMeAboutAndAcademicDeaprtments = () => ({
+    data() {
+        return {
+            item: {
+                ...mock3,
             },
         }
     },
