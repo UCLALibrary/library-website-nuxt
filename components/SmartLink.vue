@@ -67,7 +67,15 @@ export default {
         parsedTarget() {
             return isInternalLink(this.to) ? "_self" : "blank"
         },
+        isEmail() {
+            return this.to.includes("mailto:")
+        },
+        isTelephone() {
+            return this.to.includes("tel:")
+        },
         isInternal() {
+            console.log(this.to)
+            console.log(isInternalLink(this.to))
             return isInternalLink(this.to) ? true : false
         },
     },
@@ -76,7 +84,6 @@ export default {
 
 <style lang="scss" scoped>
 .link-icon {
-
     &:hover {
         @include link-hover;
     }

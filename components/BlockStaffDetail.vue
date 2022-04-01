@@ -70,8 +70,9 @@
                             :to="`mailto:${email}`"
                             target="_blank"
                             class="link-icon"
-                            v-html="email"
-                        />
+                        >
+                            {{ email }}
+                        </smart-link>
                     </div>
                     <div
                         v-if="phone"
@@ -82,8 +83,9 @@
                             :to="`tel:${phone}`"
                             target="_blank"
                             class="link-icon"
-                            v-html="phone"
-                        />
+                        >
+                            {{ phone }}
+                        </smart-link>
                     </div>
                     <div
                         v-if="consultation"
@@ -92,7 +94,6 @@
                         <svg-icon-consultation class="svg" />
                         <smart-link
                             :to="consultation"
-                            target="_blank"
                             class="link-icon"
                             v-html="`Book a consultation`"
                         />

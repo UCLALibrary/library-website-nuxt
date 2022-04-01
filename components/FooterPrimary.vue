@@ -43,8 +43,9 @@
                         <smart-link
                             :to="item.to"
                             :target="item.target"
-                            v-html="item.text"
-                        />
+                        >
+                            {{ item.text }}
+                        </smart-link>
                     </li>
                 </ul>
             </div>
