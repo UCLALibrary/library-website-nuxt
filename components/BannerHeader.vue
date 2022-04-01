@@ -559,6 +559,9 @@ export default {
     .location {
         padding: 0 0 5px 5px;
     }
+    .location-svg {
+        flex-shrink: 0;
+    }
     .button {
         width: 180px;
         height: 50px;
