@@ -2,12 +2,35 @@
 export default {
     title: "IconWithLink",
 }
-
+const mock = {
+    locations: [
+        {
+            id: "523",
+            title: "Powell Library",
+            to: "visit/locations/powell-library",
+        },
+        {
+            id: "801",
+            title: "YRL",
+            to: "visit/locations/yrl",
+        },
+        {
+            id: "3062",
+            title: "Online",
+            to: "visit/locations/online",
+        },
+    ],
+}
 // Variations of stories below
 export const Default = () => ({
-    template: `<icon-with-link/>`,
-})
-
-export const WithAlternateText = () => ({
-    template: `<icon-with-link text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>`,
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <icon-with-link
+        :locations="locations"
+        />
+    `,
 })
