@@ -1,5 +1,8 @@
 <template lang="html">
     <div class="icon-with-link">
+        icon-component-is
+        text
+        icon-name
         <div
             v-if="locations.length"
             class="location-group"
