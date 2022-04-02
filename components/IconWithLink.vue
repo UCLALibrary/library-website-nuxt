@@ -1,28 +1,16 @@
 <template lang="html">
     <div class="icon-with-link">
-        icon-component-is
-        text
-        icon-name
-        <div
-            v-if="locations.length"
-            class="location-group"
+        <nuxt-link
+            v-for="location in parsedLocations"
+            :key="`location-${location.id}`"
+            :to="location.to"
+            class="location-link"
         >
-            <nuxt-link
-                v-for="location in parsedLocations"
-                :key="`location-${location.id}`"
-                :to="location.to"
-                class="location-link"
-            >
-                <component
-                    :is="location.svg"
-                    class="location-svg"
-                />
-                <span
-                    class="location"
-                    v-html="location.title"
-                />
-            </nuxt-link>
-        </div>
+            <component
+                :is="parsedIcon"
+                class="arrow"
+            />
+        </nuxt-link>
     </div>
 </template>
 
@@ -31,7 +19,7 @@
 // SVGs
 export default {
     components: {
-        SvgIconLCalendar: () =>
+        SvgIconCalendar: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-calendar"
             ),
@@ -90,13 +78,13 @@ export default {
             ),
     },
     props: {
-        title: {
+        text: {
             type: String,
             required: true,
         },
-        locations: {
-            type: Array,
-            default: () => [],
+        iconName: {
+            type: String,
+            required: true,
         },
         to: {
             // URL to link to, if blank won't link
@@ -105,34 +93,7 @@ export default {
         },
     },
     computed: {
-        classes() {
-            return [
-                "banner-featured",
-                { "hatch-left": !this.alignRight },
-                `color-${this.sectionName}`,
-            ]
-        },
-        parsedLocations() {
-            let parsedLocations = []
-            for (let location in this.locations) {
-                if (this.locations[location].title == "Online") {
-                    break
-                } else {
-                    this.locations[location].svg = "svg-icon-location"
-                    parsedLocations.push(this.locations[location])
-                }
-            }
-            return parsedLocations
-        },
-        parsedIsOnline() {
-            let parsedOnline = []
-            for (let location in this.locations) {
-                if (this.locations[location].title == "Online") {
-                    this.locations[location].svg = "svg-icon-online"
-                    parsedOnline.push(this.locations[location])
-                }
-            }
-            return parsedOnline
+        parsedIcon() {
         },
     },
 }
@@ -141,11 +102,9 @@ export default {
 <style lang="scss" scoped>
 .icon-with-link {
     .location-group {
-        font-family: var(--font-secondary);
-        font-size: 20px;
-        line-height: 1;
+        @include step-0;
     }
-    .location-link {
+    .link {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -155,18 +114,29 @@ export default {
 
         color: var(--color-primary-blue-03);
     }
-    .location-online {
-        color: var(--color-secondary-grey-05);
-
+    .icon {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-content: center;
         align-items: center;
-    }
-    .location {
+
+        color: var(--color-secondary-grey-05);
         padding: 0 0 5px 5px;
     }
 }
+    // icon-calendar
+    // icon-card
+    // icon-consultation
+    // icon-ellipsis
+    // icon-email
+    // icon-list
+    // icon-location
+    // icon-online
+    // icon-phone
+    // icon-search
+    // icon-virtual
+    // icon-share-email
+    // icon-share-printer
 </style>
