@@ -1,27 +1,27 @@
 <template lang="html">
-    <section class="section-staff-orcid-publications">
-        <divider-way-finder
-            class="divider divider-first"
-            color="about"
-        />
-        <div
-            v-if="sectionTitle"
-            class="section-title"
-            v-html="sectionTitle"
-        />
+    <section
+        v-if="orcid || publications"
+        class="section-staff-orcid-publications"
+    >
+        <h2 class="secondary-header">
+            Publications
+        </h2>
         <div
             v-if="orcid"
-            class="orcid"
-            v-html="orcid"
-        />
-        <div
+            class="orcid-key"
+        >
+            ORCID:
+            <smart-link
+                :to="orcid"
+                target="_blank"
+                class="orcid-value"
+                v-html="orcid"
+            />
+        </div>
+        <rich-text
             v-if="publications"
             class="publications"
-            v-html="publications"
-        />
-        <divider-way-finder
-            class="divider divider-first"
-            color="about"
+            :rich-text-content="publications"
         />
     </section>
 </template>
@@ -29,11 +29,6 @@
 <script>
 export default {
     props: {
-        sectionTitle: {
-            type: String,
-            default: "",
-            required: true,
-        },
         orcid: {
             type: String,
             default: "",
@@ -48,15 +43,31 @@ export default {
 
 <style lang="scss" scoped>
 .section-staff-orcid-publications {
-    max-width: 100%;
-    margin: auto;
+    max-width: $container-l-main + px;
+    margin: 0 auto;
 
-    .section-title {
+    .secondary-header {
+        margin-bottom: var(--space-l);
         @include step-3;
-        text-transform: capitalize;
         color: var(--color-primary-blue-03);
-        padding-top: 100px;
-        padding-bottom: 10px;
+    }
+
+    .orcid-key {
+        @include step-1;
+        color: var(--color-primary-blue-03);
+
+        .orcid-value {
+            @include step-0;
+            @include link-default;
+
+            &:hover {
+                @include link-hover;
+            }
+        }
+    }
+
+    .publications {
+        padding-right: 0;
     }
 
 
@@ -64,6 +75,11 @@ export default {
         .orcid-value:hover {
             @include link-hover;
         }
+    }
+
+    @media #{$medium} {
+        margin-left: var(--unit-gutter);
+        margin-right: var(--unit-gutter);
     }
 }
 </style>
