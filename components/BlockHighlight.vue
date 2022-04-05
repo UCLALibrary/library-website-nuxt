@@ -83,6 +83,7 @@
                     />
                 </nuxt-link>
             </div>
+            <!-- changing p tag to div fixes nodemismatch errors -->
             <p
                 v-if="text"
                 class="text"

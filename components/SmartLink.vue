@@ -74,8 +74,6 @@ export default {
                     output = "_self"
                     break
             }
-            console.log(this.to)
-            console.log(output)
             return output
         },
         isRelative() {
