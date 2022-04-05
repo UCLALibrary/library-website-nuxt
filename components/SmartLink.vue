@@ -11,7 +11,7 @@
     </component> -->
 
     <nuxt-link
-        v-if="isInternal"
+        v-if="isRelative"
         class="is-nuxt-link"
         :to="to"
     >
@@ -30,7 +30,8 @@
 
 <script>
 // Helper functions
-import isInternalLink from "~/utils/isInternalLink"
+import isRelativeLink from "~/utils/isRelativeLink"
+
 export default {
     props: {
         to: {
@@ -65,7 +66,7 @@ export default {
         //     ]
         // },
         parsedTarget() {
-            return isInternalLink(this.to) ? "_self" : "blank"
+            return isRelativeLink(this.to) ? "_self" : "blank"
         },
         isEmail() {
             return this.to.includes("mailto:")
@@ -73,10 +74,10 @@ export default {
         isTelephone() {
             return this.to.includes("tel:")
         },
-        isInternal() {
+        isRelative() {
             console.log(this.to)
-            console.log(isInternalLink(this.to))
-            return isInternalLink(this.to) ? true : false
+            console.log(isRelativeLink(this.to))
+            return isRelativeLink(this.to) ? true : false
         },
     },
 }
