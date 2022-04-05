@@ -25,7 +25,7 @@ WithControls.args = {
 
 // Variations of stories below
 export const Default = () => ({
-    template: `<button-link label="Egest perl Conub"/>`,
+    template: `<button-link label="Egest perl Conub" to='/help/more'/>`,
 })
 
 export const SecondaryInternal = () => ({
