@@ -9,23 +9,24 @@
     >
         <slot />
     </component> -->
+    <div class="smart-link>">
+        <nuxt-link
+            v-if="isRelative"
+            class="is-nuxt-link"
+            :to="to"
+        >
+            <slot />
+        </nuxt-link>
 
-    <nuxt-link
-        v-if="isRelative"
-        class="is-nuxt-link"
-        :to="to"
-    >
-        <slot />
-    </nuxt-link>
-
-    <a
-        v-else-if="to"
-        :href="to"
-        :target="parsedTarget"
-        class="is-link"
-    >
-        <slot />
-    </a>
+        <a
+            v-else-if="to"
+            :href="to"
+            :target="parsedTarget"
+            class="is-link"
+        >
+            <slot />
+        </a>
+    </div>
 </template>
 
 <script>
