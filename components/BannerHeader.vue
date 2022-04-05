@@ -559,7 +559,8 @@ export default {
     .location {
         padding: 0 0 5px 5px;
     }
-    .location-svg {
+    .location-svg,
+    .contact-svg {
         flex-shrink: 0;
     }
     .button {
