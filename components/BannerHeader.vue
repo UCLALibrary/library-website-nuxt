@@ -62,6 +62,66 @@
                 />
             </div>
             <div
+                v-if="email"
+                class="contact-info"
+            >
+                <component
+                    :is="`svg-icon-email`"
+                    class="contact-svg"
+                />
+                <smart-link
+                    :to="`mailto:${email}`"
+                    target="_blank"
+                    class="link-icon"
+                    v-html="email"
+                />
+            </div>
+            <div
+                v-if="phone"
+                class="contact-info"
+            >
+                <component
+                    :is="`svg-icon-phone`"
+                    class="contact-svg"
+                />
+
+                <smart-link
+                    :to="`tel:${phone}`"
+                    target="_blank"
+                    class="link-icon"
+                    v-html="phone"
+                />
+            </div>
+            <div
+                v-if="staffDirectoryLink"
+                class="contact-info"
+            >
+                <component
+                    :is="`svg-icon-person`"
+                    class="contact-svg"
+                />
+                <smart-link
+                    :to="staffDirectoryLink"
+                    class="link-icon"
+                    v-html="`View staff directory`"
+                />
+            </div>
+            <div
+                v-if="addressLink"
+                class="contact-info"
+            >
+                <component
+                    :is="`svg-icon-location`"
+                    class="contact-svg"
+                />
+                <smart-link
+                    :to="addressLink"
+                    target="_blank"
+                    class="link-icon"
+                    v-html="address"
+                />
+            </div>
+            <div
                 v-if="locations.length"
                 class="location-group"
             >
@@ -129,6 +189,18 @@ export default {
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-virtual"
             ),
+        SvgIconEmail: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-email"
+            ),
+        SvgIconPhone: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-phone"
+            ),
+        SvgIconPerson: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-person"
+            ),
     },
     props: {
         image: {
@@ -185,6 +257,27 @@ export default {
             type: Number,
             default: 56.25,
         },
+        //contact info for Location Detail Page
+        email: {
+            type: String,
+            default: "",
+        },
+        phone: {
+            type: String,
+            default: "",
+        },
+        address: {
+            type: String,
+            default: "",
+        },
+        addressLink: {
+            type: String,
+            default: "",
+        },
+        staffDirectoryLink: {
+            type: String,
+            default: "",
+        },
     },
     computed: {
         classes() {
@@ -223,26 +316,22 @@ export default {
             return this.category ? "gradient" : "gradient-no-category"
         },
         parsedLocations() {
-            let parsedLocations = []
-            for (let location in this.locations) {
-                if (this.locations[location].title == "Online") {
-                    break
-                } else {
-                    this.locations[location].svg = "svg-icon-location"
-                    parsedLocations.push(this.locations[location])
+            return this.locations.reduce(function (filtered, location) {
+                if (location.title !== "Online") {
+                    location.svg = "svg-icon-location"
+                    filtered.push(location)
                 }
-            }
-            return parsedLocations
+                return filtered
+            }, [])
         },
         parsedIsOnline() {
-            let parsedOnline = []
-            for (let location in this.locations) {
-                if (this.locations[location].title == "Online") {
-                    this.locations[location].svg = "svg-icon-online"
-                    parsedOnline.push(this.locations[location])
+            return this.locations.reduce(function (filtered, location) {
+                if (location.title === "Online") {
+                    location.svg = "svg-icon-online"
+                    filtered.push(location)
                 }
-            }
-            return parsedOnline
+                return filtered
+            }, [])
         },
     },
 }
@@ -382,11 +471,11 @@ export default {
         @include step-4;
     }
     .snippet {
-        @include step-1;
+        @include step-0;
         color: var(--color-secondary-grey-04);
         font-weight: 400;
         margin-top: var(--space-m);
-        line-height: 120%;
+        margin-bottom: var(--space-s);
     }
     .byline {
         display: flex;
@@ -430,6 +519,18 @@ export default {
             display: none;
         }
     }
+    .contact-info {
+        color: var(--color-primary-blue-03);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: var(--space-xs);
+        margin-bottom: var(--space-xs);
+        @include button;
+    }
+
     .location-group {
         font-family: var(--font-secondary);
         font-size: 20px;
@@ -458,10 +559,15 @@ export default {
     .location {
         padding: 0 0 5px 5px;
     }
+    .location-svg,
+    .contact-svg {
+        flex-shrink: 0;
+    }
     .button {
         width: 180px;
         height: 50px;
         padding: 0px 0px;
+        margin: 16px 0 0 0;
     }
 
     // Variant
@@ -491,7 +597,6 @@ export default {
             width: 180px;
             height: 50px;
             padding: 0px 0px;
-            margin: 16px 0 0 0;
         }
     }
 

@@ -141,3 +141,27 @@ export const Video = () => ({
        />
     `,
 })
+
+export const WithContactInfo = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <banner-header
+           :image="image"
+           :to="to"
+           :title="title"
+           text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+           email="ada@somewhere.com"
+           phone="555-555-5555"
+           address="1337 Trails End Road Fort Lauderdale, FL 33301"
+           staff-directory-link="/about/staff?q=*&location=slug"
+           address-link="https://map.ucla.edu/?k=false&id=81516"
+           :prompt="prompt"
+           
+       />
+    `,
+})
+
