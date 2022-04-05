@@ -66,18 +66,26 @@ export default {
         //     ]
         // },
         parsedTarget() {
-            return isRelativeLink(this.to) ? "_self" : "blank"
-        },
-        isEmail() {
-            return this.to.includes("mailto:")
-        },
-        isTelephone() {
-            return this.to.includes("tel:")
+            let output = "blank"
+
+            switch (true) {
+                case this.isRelative:
+                case this.isInternal:
+                    output = "_self"
+                    break
+            }
+            console.log(this.to)
+            console.log(output)
+            return output
         },
         isRelative() {
-            console.log(this.to)
-            console.log(isRelativeLink(this.to))
             return isRelativeLink(this.to) ? true : false
+        },
+        isInternal() {
+            return this.to.includes("library.ucla.edu") &&
+                !this.to.includes("mailto:")
+                ? true
+                : false
         },
     },
 }

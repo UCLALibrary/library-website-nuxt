@@ -9,8 +9,9 @@
                     class="link underline-hover"
                     :to="item.to"
                     :target="item.target"
-                    v-html="item.name"
-                />
+                >
+                    {{ item.name }}
+                </smart-link>
             </li>
         </ul>
     </nav>

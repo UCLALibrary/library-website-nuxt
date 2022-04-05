@@ -57,7 +57,7 @@
                                 {{ card.headlineText }}
                             </smart-link>
                         </h5>
-                        <div
+                        <p
                             class="snippet"
                             v-html="card.snippet"
                         />

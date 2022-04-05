@@ -83,7 +83,7 @@
                     />
                 </nuxt-link>
             </div>
-            <div
+            <p
                 v-if="text"
                 class="text"
                 v-html="text"

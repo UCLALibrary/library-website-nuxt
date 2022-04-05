@@ -95,8 +95,9 @@
                         <smart-link
                             :to="consultation"
                             class="link-icon"
-                            v-html="`Book a consultation`"
-                        />
+                        >
+                            {{ "Book a consultation" }}
+                        </smart-link>
                     </div>
                 </div>
             </div>
