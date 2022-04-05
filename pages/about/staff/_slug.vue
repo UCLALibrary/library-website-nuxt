@@ -21,34 +21,17 @@
         />
 
         <section
-            v-if="parsedItems.length || page.entry.publications"
+            v-if="parsedItems.length || page.entry.publications || page.entry.orcid"
             class="selected-articles"
         >
-            <section
-                v-if="page.entry.orcid || page.entry.publications"
+            <section-staff-orcid-publications
                 class="staff-orcid-publications"
-            >
-                <h2 class="secondary-header">
-                    Publications
-                </h2>
-                <div class="orcid-key">
-                    ORCID:
-                    <smart-link
-                        :to="page.entry.orcid"
-                        target="_blank"
-                        class="orcid-value"
-                        v-html="`${page.entry.orcid}`"
-                    />
-                </div>
-                <rich-text
-                    v-if="page.entry.publications"
-                    class="publications"
-                    :rich-text-content="page.entry.publications"
-                />
-            </section>
+                :orcid="page.entry.orcid"
+                :publications="page.entry.publications"
+            />
 
             <divider-way-finder
-                v-if="parsedItems && page.entry.publications"
+                v-if="parsedItems.length && (page.entry.publications || page.entry.orcid)"
                 class="divider divider-first"
                 color="about"
             />
@@ -130,42 +113,6 @@ export default {
 
         ::v-deep .divider .dotted {
             border-color: var(--color-secondary-grey-03);
-        }
-    }
-
-    .staff-orcid-publications {
-        max-width: $container-l-main + px;
-        margin: 0 auto var(--space-3xl) auto;
-    }
-
-    .secondary-header {
-        margin-bottom: var(--space-l);
-        @include step-3;
-        color: var(--color-primary-blue-03);
-    }
-
-    .orcid-key {
-        @include step-1;
-        color: var(--color-primary-blue-03);
-
-        .orcid-value {
-            @include step-0;
-            @include link-default;
-
-            &:hover {
-                @include link-hover;
-            }
-        }
-    }
-
-    .publications {
-        padding-right: 0;
-    }
-
-    @media #{$medium} {
-        .staff-orcid-publications {
-            margin-left: var(--unit-gutter);
-            margin-right: var(--unit-gutter);
         }
     }
 }

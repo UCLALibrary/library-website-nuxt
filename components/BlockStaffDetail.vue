@@ -146,7 +146,6 @@ import SvgIconLocation from "~/node_modules/ucla-library-design-tokens/assets/sv
 import SvgIconEmail from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-email"
 import SvgIconPhone from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-phone"
 import SvgIconConsultation from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-chat"
-import SvgIconPerson from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-person"
 
 export default {
     components: {
@@ -155,7 +154,6 @@ export default {
         SvgIconEmail,
         SvgIconPhone,
         SvgIconConsultation,
-        SvgIconPerson,
     },
     props: {
         image: {
@@ -409,6 +407,9 @@ export default {
 
             .ask-me-about {
                 margin-bottom: var(--space-2xl);
+                ul {
+                    margin: 0;
+                }
             }
 
             .secondary-header {
