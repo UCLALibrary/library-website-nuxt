@@ -1,7 +1,6 @@
 <template lang="html">
     <div class="icon-with-link">
         <smart-link
-            v-if="to"
             :to="to"
             class="link"
         >
