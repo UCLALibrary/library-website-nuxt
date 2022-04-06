@@ -8,7 +8,7 @@
     </nuxt-link>
 
     <a
-        v-else-if="to"
+        v-else
         :href="to"
         :target="parsedTarget"
         class="smart-link is-link"
