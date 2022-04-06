@@ -2,9 +2,7 @@
 export default {
     title: "Icon With Link",
 }
-const mock = {}
-// Variations of stories below
-// Default = WithLink
+
 export const Default = () => ({
     template: `
         <icon-with-link
