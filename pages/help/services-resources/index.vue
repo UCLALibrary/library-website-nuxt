@@ -1,18 +1,41 @@
 <template lang="html">
     <div class="page page-help">
-        Help page goes here.
+        <nuxt-link
+            v-for="item in parsedServiceAndResourceList"
+            :to="item.to"
+        >
+            <div
+                class="text"
+                v-html="item.to"
+            />
+        </nuxt-link>
     </div>
 </template>
 
 <script>
+// gql
+import SERVICE_AND_RESOURCE_LIST from "~/gql/queries/ServiceAndResourceList"
+
 export default {
-    components: {},
-    async asyncData() {
-        //const data = await this.$graphql(QUERY);
+    async asyncData({ $graphql, params }) {
+        console.log("live preview enters staff list")
+        const data = await $graphql.default.request(SERVICE_AND_RESOURCE_LIST, {
+            uri: params.path,
+        })
 
         return {
-            page: {},
+            page: data,
         }
+    },
+    computed: {
+        parsedServiceAndResourceList() {
+            return this.page.entries.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/help/services-resources/${obj.to}`,
+                }
+            })
+        },
     },
 }
 </script>

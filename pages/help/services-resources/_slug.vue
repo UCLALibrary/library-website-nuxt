@@ -44,6 +44,7 @@
             to="/help/services-resources"
         />
         <block-call-to-action
+            v-if="askALibrarian"
             class="block-call-to-action"
             svg-name="svg-call-to-action-chat"
             :title="askALibrarian.askALibrarianTitle"
