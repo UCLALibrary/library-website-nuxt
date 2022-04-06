@@ -1,21 +1,23 @@
 <template lang="html">
     <div class="icon-with-link">
-        <nuxt-link
-            v-for="location in parsedLocations"
-            :key="`location-${location.id}`"
-            :to="location.to"
-            class="location-link"
+        <smart-link
+            v-if="to"
+            :to="to"
+            class="link"
         >
             <component
-                :is="parsedIcon"
-                class="arrow"
+                :is="iconName"
+                class="icon"
             />
-        </nuxt-link>
+            <span
+                class="text"
+                v-html="text"
+            />
+        </smart-link>
     </div>
 </template>
 
 <script>
-
 // SVGs
 export default {
     components: {
@@ -92,51 +94,48 @@ export default {
             default: "",
         },
     },
-    computed: {
-        parsedIcon() {
-        },
-    },
 }
 </script>
 
 <style lang="scss" scoped>
 .icon-with-link {
-    .location-group {
-        @include step-0;
+    display: inline-block;
+    .text {
+        @include button;
     }
     .link {
+        color: var(--color-primary-blue-03);
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: flex-start;
-        align-content: center;
         align-items: center;
-
-        color: var(--color-primary-blue-03);
+        gap: var(--space-xs);
     }
     .icon {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        align-content: center;
-        align-items: center;
+        // color: var(--color-secondary-grey-05);
+        // padding: 0 0 5px 5px;
+        flex-shrink: 0;
+    }
 
-        color: var(--color-secondary-grey-05);
-        padding: 0 0 5px 5px;
+    // Hover states
+    @media #{$has-hover} {
+        .link:hover {
+            @include link-hover;
+        }
     }
 }
-    // icon-calendar
-    // icon-card
-    // icon-consultation
-    // icon-ellipsis
-    // icon-email
-    // icon-list
-    // icon-location
-    // icon-online
-    // icon-phone
-    // icon-search
-    // icon-virtual
-    // icon-share-email
-    // icon-share-printer
+// icon-calendar
+// icon-card
+// icon-consultation
+// icon-ellipsis
+// icon-email
+// icon-list
+// icon-location
+// icon-online
+// icon-phone
+// icon-search
+// icon-virtual
+// icon-share-email
+// icon-share-printer
 </style>

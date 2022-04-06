@@ -2,33 +2,15 @@
 export default {
     title: "IconWithLink",
 }
-const mock = {
-    locations: [
-        {
-            id: "523",
-            title: "Powell Library",
-            to: "visit/locations/powell-library",
-        },
-        {
-            id: "801",
-            title: "YRL",
-            to: "visit/locations/yrl",
-        },
-        {
-            id: "3062",
-            title: "Online",
-            to: "visit/locations/online",
-        },
-    ],
-}
+const mock = {}
 // Variations of stories below
 // Default = WithLink
 export const Default = () => ({
     template: `
         <icon-with-link
-        :text="Powell"
-        :icon-name="icon-location"
-        :to="/visit/library/powell"
+            text="Powell"
+            icon-name="svg-icon-location"
+            to="/visit/library/powell"
         />
     `,
 })
@@ -36,18 +18,19 @@ export const Default = () => ({
 export const WithExternalLink = () => ({
     template: `
         <icon-with-link
-        :text="Powell"
-        :icon-name="con-search"
-        :to="https://www.google.com/"
+            text="Powell"
+            icon-name="svg-icon-search"
+            to="https://www.google.com/"
         />
     `,
 })
 
-export const WithoutLink = () => ({
+export const InternalLink = () => ({
     template: `
         <icon-with-link
-        :text="Emergency Phone Booth"
-        :icon-name="icon-phone"
+            text="Emergency Phone Booth"
+            icon-name="svg-icon-phone"
+            to= "/help/services-and-resources"
         />
     `,
 })
