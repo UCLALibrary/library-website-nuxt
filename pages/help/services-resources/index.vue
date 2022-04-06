@@ -6,7 +6,7 @@
         >
             <div
                 class="text"
-                v-html="item.to"
+                v-html="item.title"
             />
         </nuxt-link>
     </div>

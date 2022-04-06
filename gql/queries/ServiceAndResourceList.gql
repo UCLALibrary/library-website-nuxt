@@ -1,8 +1,12 @@
-query ServiceAndResourceList {
+query ServiceOrResourceList {
     entries(section: "serviceOrResource") {
         ... on serviceOrResource_serviceOrResource_Entry {
             id
             to: slug
+            title
+            summary
+            serviceOrResourceType
+            illustrationsResourcesAndServices
         }
     }
 }
