@@ -44,16 +44,13 @@ export const ConsultationIconLink = () => ({
         />
     `,
 })
-// icon-calendar
-// icon-card
-// icon-consultation
-// icon-ellipsis
-// icon-email
-// icon-list
-// icon-location
-// icon-online
-// icon-phone
-// icon-search
-// icon-virtual
-// icon-share-email
-// icon-share-printer
+
+export const LongText = () => ({
+    template: `
+        <icon-with-link
+            text="A Icon with Link with Very Very Long Text What Happens?"
+            icon-name="svg-icon-consultation"
+            to= "/help/services-and-resources"
+        />
+    `,
+})
