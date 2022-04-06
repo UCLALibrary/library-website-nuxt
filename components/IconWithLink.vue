@@ -21,29 +21,9 @@
 // SVGs
 export default {
     components: {
-        SvgIconCalendar: () =>
+        SvgIconConsultation: () =>
             import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-calendar"
-            ),
-        SvgIconCard: () =>
-            import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-card"
-            ),
-
-        // needs to be added to the ucla-library-design-tokens/
-        // SvgIconConsultation: () =>
-        //     import(
-        //         "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-consultation"
-        //     ),
-
-        // needs to be added to the ucla-library-design-tokens/
-        // SvgIconEllipsis: () =>
-        //     import(
-        //         "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-ellipsis"
-        //     ),
-        SvgIconEmail: () =>
-            import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-email"
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-chat"
             ),
         SvgIconList: () =>
             import(
@@ -53,11 +33,6 @@ export default {
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
             ),
-        // needs to be added to the ucla-library-design-tokens/
-        // SvgIconOnline: () =>
-        //     import(
-        //         "~/node_modules/ucla-library-design-tokens/assets/svgs/online"
-        //     ),
         SvgIconPhone: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-phone"
@@ -78,6 +53,94 @@ export default {
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-share-printer"
             ),
+        SvgIconHeadphones: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-headphones"
+            ),
+        SvgIconVideo: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-video"
+            ),
+        SvgIconImageStack: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-image-stack"
+            ),
+        SvgIconMoney: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-money"
+            ),
+        SvgIconMessage: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-message"
+            ),
+        SvgIconPlay: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-play"
+            ),
+        SvgIconPlayFilled: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-play-filled"
+            ),
+        SvgIconEye: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-eye"
+            ),
+        SvgIconCheck: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-check"
+            ),
+        SvgIconEmail: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-email"
+            ),
+        SvgIconCard: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-card"
+            ),
+        SvgIconCalendar: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-calendar"
+            ),
+        SvgIconLaptop: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-laptop"
+            ),
+        SvgIconBook: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-book"
+            ),
+        SvgIconLocker: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-locker"
+            ),
+        SvgIconPerson: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-person"
+            ),
+        SvgIconAccessible: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-accessible"
+            ),
+        SvgIconClock: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-clock"
+            ),
+        SvgIconChair: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-chair"
+            ),
+        SvgIconLight: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-light"
+            ),
+        SvgIconLocationFilled: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location-filled"
+            ),
+        SvgIconAlert: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-alert"
+            ),
     },
     props: {
         text: {
@@ -89,7 +152,7 @@ export default {
             required: true,
         },
         to: {
-            // URL to link to, if blank won't link
+            // URL to link to
             type: String,
             default: "",
         },
@@ -125,17 +188,4 @@ export default {
         }
     }
 }
-// icon-calendar
-// icon-card
-// icon-consultation
-// icon-ellipsis
-// icon-email
-// icon-list
-// icon-location
-// icon-online
-// icon-phone
-// icon-search
-// icon-virtual
-// icon-share-email
-// icon-share-printer
 </style>

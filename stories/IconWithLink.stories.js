@@ -18,7 +18,7 @@ export const Default = () => ({
 export const WithExternalLink = () => ({
     template: `
         <icon-with-link
-            text="Powell"
+            text="See More"
             icon-name="svg-icon-search"
             to="https://www.google.com/"
         />
@@ -35,6 +35,15 @@ export const InternalLink = () => ({
     `,
 })
 
+export const ConsultationIconLink = () => ({
+    template: `
+        <icon-with-link
+            text="Book a Consultation"
+            icon-name="svg-icon-consultation"
+            to= "/help/services-and-resources"
+        />
+    `,
+})
 // icon-calendar
 // icon-card
 // icon-consultation
