@@ -92,7 +92,6 @@ export default {
         supportLinks() {
             // Generally this is just the last "Support Us" link, but we are going to allwo it to be more than 1
             return this.items.filter((obj) => {
-                console.log(obj)
                 // Return items that don't have sub-menu children
                 return !obj.children || !obj.children.length
             })
