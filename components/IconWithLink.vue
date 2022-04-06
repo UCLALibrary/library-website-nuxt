@@ -44,14 +44,6 @@ export default {
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-virtual"
             ),
-        SvgIconShareEmail: () =>
-            import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-share-email"
-            ),
-        SvgIconSharePrinter: () =>
-            import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-share-printer"
-            ),
         SvgIconHeadphones: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-headphones"
@@ -139,6 +131,34 @@ export default {
         SvgIconAlert: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-alert"
+            ),
+        SvgIconShareEmail: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-share-email"
+            ),
+        SvgIconSharePrinter: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-share-printer"
+            ),
+        SvgIconShareFacebook: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-share-facebook"
+            ),
+        SvgIconShareInstagram: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-share-instagram"
+            ),
+        SvgIconShareLinkedin: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-share-linkedin"
+            ),
+        SvgIconShareTwitter: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-share-twitter"
+            ),
+        SvgIconShareWhatsapp: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-share-whatsapp"
             ),
     },
     props: {

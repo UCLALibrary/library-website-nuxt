@@ -47,7 +47,7 @@ export const LongText = () => ({
     template: `
         <icon-with-link
             text="A Icon with Link with Very Very Long Text What Happens?"
-            icon-name="svg-icon-consultation"
+            icon-name="svg-icon-share-twitter"
             to= "/help/services-and-resources"
         />
     `,
