@@ -12,14 +12,28 @@
             />
 
             <p class="text">
-                It&#39;s no coincidence that the top universities in the nation are also home to its top academic libraries, including UCLA and UCLA Library. You can&#39;t have one without the other. So when the pandemic hit, UCLA Library struck back, ramping up remote services that kept knowledge moving forward. This report is designed to make visible the work of our Library community, whether by Zoom, from a home office, or in&#45;person at one of our eight campus locations. While none of us can predict what the future holds, one thing is certain&#58; the pandemic has revealed how vital the work of UCLA Library is to the life of the university, our students, faculty and researchers around the world.
+                It&#39;s no coincidence that the top universities in the nation
+                are also home to its top academic libraries, including UCLA and
+                UCLA Library. You can&#39;t have one without the other. So when
+                the pandemic hit, UCLA Library struck back, ramping up remote
+                services that kept knowledge moving forward. This report is
+                designed to make visible the work of our Library community,
+                whether by Zoom, from a home office, or in&#45;person at one of
+                our eight campus locations. While none of us can predict what
+                the future holds, one thing is certain&#58; the pandemic has
+                revealed how vital the work of UCLA Library is to the life of
+                the university, our students, faculty and researchers around the
+                world.
             </p>
             <p class="signature">
-                &#8212; <strong>Virginia Steel</strong>, Norman and Armena Powell University Librarian
+                &#8212; <strong>Virginia Steel</strong>, Norman and Armena
+                Powell University Librarian
             </p>
         </div>
 
-        <h2 class="visually-hidden">Main Story</h2>
+        <h2 class="visually-hidden">
+            Main Story
+        </h2>
 
         <banner-featured
             class="banner"
@@ -84,16 +98,19 @@
 
         <divider-general class="divider divider-general" />
 
-
         <div class="credits">
             <em>
-                <h2 class="credit-header">
-                    Acknowledgements
-                </h2>
+                <h2 class="credit-header">Acknowledgements</h2>
                 <dl class="credit-list">
                     <dt>Project Leads</dt>
-                    <dd>Ariane Bicho, Director of Library Communications and Marketing; </dd>
-                    <dd>Joshua Gomez, Head of Software Development and Library Systems </dd>
+                    <dd>
+                        Ariane Bicho, Director of Library Communications and
+                        Marketing;
+                    </dd>
+                    <dd>
+                        Joshua Gomez, Head of Software Development and Library
+                        Systems
+                    </dd>
 
                     <dt>Illustrations and Animation</dt>
                     <dd class="illustrator">
@@ -107,19 +124,26 @@
                     <dd>Cynthia Lee</dd>
 
                     <dt>Contributing Writers</dt>
-                    <dd>Ben Alkaly,</dd> <dd>Courtney Hoffner,</dd> <dd> Jennifer Rhee</dd>
+                    <dd>Ben Alkaly,</dd>
+                    <dd>Courtney Hoffner,</dd>
+                    <dd>Jennifer Rhee</dd>
 
                     <dt>Photo Editors</dt>
-                    <dd>Ben Alkaly,</dd> <dd>Jennifer Rhee</dd>
+                    <dd>Ben Alkaly,</dd>
+                    <dd>Jennifer Rhee</dd>
 
                     <dt>Editorial and Research Contributors</dt>
-                    <dd>Suzy Lee,</dd> <dd>Marisa Soto</dd>
+                    <dd>Suzy Lee,</dd>
+                    <dd>Marisa Soto</dd>
 
-                    <dt>Lead Developer </dt>
+                    <dt>Lead Developer</dt>
                     <dd>Parinita Mulak</dd>
 
                     <dt>Developers</dt>
-                    <dd>Jen Diamond,</dd> <dd>Casey Grzecka,</dd> <dd>Ashton Prigge,</dd> <dd>Andrew Wallace</dd>
+                    <dd>Jen Diamond,</dd>
+                    <dd>Casey Grzecka,</dd>
+                    <dd>Ashton Prigge,</dd>
+                    <dd>Andrew Wallace</dd>
 
                     <dt>Lead UX Designer</dt>
                     <dd>Axa Liauw</dd>
@@ -128,17 +152,18 @@
                     <dd>Dianne Weinthal</dd>
 
                     <dt>Data Services</dt>
-                    <dd>Dana Peterman,</dd> <dd>Jack Schwada,</dd> <dd>Sharon Shafer</dd>
+                    <dd>Dana Peterman,</dd>
+                    <dd>Jack Schwada,</dd>
+                    <dd>Sharon Shafer</dd>
 
                     <dt>Graphic Design</dt>
                     <dd>Sean Deyoe</dd>
 
                     <dt>Student Assistants</dt>
-                    <dd>Dana Binfet,</dd> <dd>Marley Rodriguez</dd>
+                    <dd>Dana Binfet,</dd>
+                    <dd>Marley Rodriguez</dd>
                 </dl></em>
-            </dl>
         </div>
-
 
         <divider-way-finder
             class="divider"
@@ -156,7 +181,6 @@ import updateImageData from "~/utils/updateImageData"
 import getS3Bucket from "~/utils/getS3Bucket"
 
 export default {
-    components: {},
     layout: "impact",
     async asyncData() {
         const timelineGallery = IMPACT_API.timelineGallery
@@ -170,9 +194,9 @@ export default {
             page: data,
         }
     },
-    head(){
+    head() {
         return {
-            title: '2020-2021 UCLA Library Impact Report',
+            title: "2020-2021 UCLA Library Impact Report",
         }
     },
     computed: {
@@ -364,18 +388,20 @@ export default {
         margin-bottom: var(--space-3xl);
         max-width: $container-l-main + px;
     }
-    .credits dt, dd {
-      display: inline;
-      font-family: var(--font-secondary);
-      line-height: 26px;
+    .credits dt,
+    dd {
+        display: inline;
+        font-family: var(--font-secondary);
+        line-height: 26px;
     }
-    .credits dd,.credits dl {
+    .credits dd,
+    .credits dl {
         margin: 0;
         color: var(--color-secondary-grey-04);
     }
     dt {
-    font-weight: 600;
-          padding-left: 2px;
+        font-weight: 600;
+        padding-left: 2px;
     }
     .credit-header {
         display: inline;
@@ -384,7 +410,7 @@ export default {
         font-size: 18px;
         padding-right: 5px;
     }
-    .illustrator a{
+    .illustrator a {
         text-decoration: underline;
         text-decoration-color: var(--color-default-cyan-03);
         text-decoration-thickness: 2px;
@@ -392,9 +418,9 @@ export default {
     }
     // Hover states
     @media #{$has-hover} {
-    .illustrator:hover {
-        color: var(--color-primary-blue-03);
-        @include link-hover;
+        .illustrator:hover {
+            color: var(--color-primary-blue-03);
+            @include link-hover;
         }
     }
 
@@ -411,7 +437,7 @@ export default {
         }
 
         .divider-general {
-            width: calc(100% - (var(--unit-gutter)*2));
+            width: calc(100% - (var(--unit-gutter) * 2));
         }
 
         .section {

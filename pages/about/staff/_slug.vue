@@ -21,7 +21,11 @@
         />
 
         <section
-            v-if="parsedItems.length || page.entry.publications || page.entry.orcid"
+            v-if="
+                parsedItems.length ||
+                    page.entry.publications ||
+                    page.entry.orcid
+            "
             class="selected-articles"
         >
             <section-staff-orcid-publications
@@ -31,7 +35,10 @@
             />
 
             <divider-way-finder
-                v-if="parsedItems.length && (page.entry.publications || page.entry.orcid)"
+                v-if="
+                    parsedItems.length &&
+                        (page.entry.publications || page.entry.orcid)
+                "
                 class="divider divider-first"
                 color="about"
             />
@@ -69,7 +76,6 @@ export default {
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
         })
-        console.log(data.entry)
         return {
             page: data,
         }

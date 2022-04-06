@@ -14,8 +14,9 @@
                     :to="to"
                     :target="parsedTarget"
                     class="title"
-                    v-html="title"
-                />
+                >
+                    {{ title }}
+                </smart-link>
             </h3>
             <div
                 v-if="text"

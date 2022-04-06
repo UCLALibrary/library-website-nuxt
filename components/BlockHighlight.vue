@@ -41,8 +41,9 @@
                 :target="parsedTarget"
                 :to="to"
                 class="title"
-                v-html="title"
-            />
+            >
+                {{ title }}
+            </smart-link>
             <h3
                 v-else
                 class="title-no-link"
@@ -82,6 +83,7 @@
                     />
                 </nuxt-link>
             </div>
+            <!-- changing p tag to div fixes nodemismatch errors -->
             <p
                 v-if="text"
                 class="text"

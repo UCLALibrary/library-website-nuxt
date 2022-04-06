@@ -8,11 +8,9 @@
                     v-if="to"
                     class="space-title"
                 >
-                    <smart-link
-                        :to="to"
-                        target="_blank"
-                        v-html="title"
-                    />
+                    <smart-link :to="to">
+                        {{ title }}
+                    </smart-link>
                 </h3>
                 <!-- if no link (:to)  - do not display as a link -->
                 <h3
@@ -192,7 +190,6 @@ export default {
 
                 .space-title {
                     margin-left: 0;
-
                 }
             }
             .svg__graphic-chevron-right {
@@ -219,7 +216,7 @@ export default {
         }
 
         ::v-deep .button-link {
-            margin: 0 ;
+            margin: 0;
         }
 
         ::v-deep .button {

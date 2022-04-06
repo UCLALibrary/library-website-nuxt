@@ -33,10 +33,10 @@
             >
                 <smart-link
                     class="support-link underline-hover"
-                    :to="item.url"
-                    target="_blank"
-                    v-html="item.name"
-                />
+                    :to="item.to"
+                >
+                    {{ item.name }}
+                </smart-link>
             </div>
         </div>
 
