@@ -1,15 +1,4 @@
 <template>
-    <!-- <component
-        :is="elementType"
-        :to="to"
-        :href="to"
-        :target="target"
-        :rel="rel"
-        :class="classes"
-    >
-        <slot />
-    </component> -->
-
     <nuxt-link
         v-if="isRelative"
         class="smart-link is-nuxt-link"
@@ -31,6 +20,7 @@
 <script>
 // Helper functions
 import isRelativeLink from "~/utils/isRelativeLink"
+import isInternalLink from "~/utils/isInternalLink"
 
 export default {
     props: {
@@ -44,33 +34,11 @@ export default {
         },
     },
     computed: {
-        // elementType() {
-        //     let output = "a"
-        //     if (this.target == "_self" || this.target === "") {
-        //         output = "nuxt-link"
-        //     }
-        //     return output
-        // },
-        // rel() {
-        //     let output = false
-        //     if (this.elementType == "a") {
-        //         output = "noopener"
-        //     }
-        //     return output
-        // },
-        // classes() {
-        //     return [
-        //         "smart-link",
-        //         { "is-link": this.elementType == "a" },
-        //         { "is-nuxt-link": this.elementType == "nuxt-link" },
-        //     ]
-        // },
         parsedTarget() {
             let output = "blank"
 
             switch (true) {
-                case this.isRelative:
-                case this.isInternal:
+                case isInternalLink(this.to):
                     output = "_self"
                     break
             }
@@ -78,12 +46,6 @@ export default {
         },
         isRelative() {
             return isRelativeLink(this.to) ? true : false
-        },
-        isInternal() {
-            return this.to.includes("library.ucla.edu") &&
-                !this.to.includes("mailto:")
-                ? true
-                : false
         },
     },
 }

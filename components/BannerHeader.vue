@@ -102,7 +102,7 @@
                     :is="`svg-icon-person`"
                     class="contact-svg"
                 />
-                <nut-link
+                <nuxt-link
                     :to="staffDirectoryLink"
                     class="link-icon"
                     v-html="`View staff directory`"
