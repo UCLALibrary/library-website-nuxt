@@ -25,7 +25,10 @@
                     class="job-title"
                     v-html="jobTitle"
                 />
-                <ul v-if="departments.length" class="departments">
+                <ul
+                    v-if="departments.length"
+                    class="departments"
+                >
                     <li
                         class="department"
                         v-html="lastDepartment"
@@ -40,8 +43,9 @@
                         :to="`mailto:${email}`"
                         target="_blank"
                         class="text-link"
-                        v-html="email"
-                    />
+                    >
+                        {{ email }}
+                    </smart-link>
                 </div>
 
                 <div
@@ -53,8 +57,9 @@
                         :to="`tel:${phone}`"
                         target="_blank"
                         class="text-link"
-                        v-html="phone"
-                    />
+                    >
+                        {{ phone }}
+                    </smart-link>
                 </div>
 
                 <div
@@ -66,8 +71,9 @@
                         :to="consultation"
                         target="_blank"
                         class="text-link"
-                        v-html="`Book a consultation`"
-                    />
+                    >
+                        {{ "Book a consultation" }}
+                    </smart-link>
                 </div>
             </div>
         </div>
@@ -193,7 +199,7 @@ export default {
             color: var(--color-primary-blue-03);
 
             a::after {
-                content: '';
+                content: "";
                 position: absolute;
                 left: 0;
                 top: 0;

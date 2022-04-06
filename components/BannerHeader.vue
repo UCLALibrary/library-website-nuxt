@@ -73,8 +73,9 @@
                     :to="`mailto:${email}`"
                     target="_blank"
                     class="link-icon"
-                    v-html="email"
-                />
+                >
+                    {{ email }}
+                </smart-link>
             </div>
             <div
                 v-if="phone"
@@ -89,8 +90,9 @@
                     :to="`tel:${phone}`"
                     target="_blank"
                     class="link-icon"
-                    v-html="phone"
-                />
+                >
+                    {{ phone }}
+                </smart-link>
             </div>
             <div
                 v-if="staffDirectoryLink"
@@ -100,7 +102,7 @@
                     :is="`svg-icon-person`"
                     class="contact-svg"
                 />
-                <smart-link
+                <nuxt-link
                     :to="staffDirectoryLink"
                     class="link-icon"
                     v-html="`View staff directory`"
@@ -118,8 +120,9 @@
                     :to="addressLink"
                     target="_blank"
                     class="link-icon"
-                    v-html="address"
-                />
+                >
+                    {{ address }}
+                </smart-link>
             </div>
             <div
                 v-if="locations.length"

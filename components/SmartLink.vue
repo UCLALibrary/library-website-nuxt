@@ -1,17 +1,27 @@
 <template>
-    <component
-        :is="elementType"
+    <nuxt-link
+        v-if="isRelative"
+        class="smart-link is-nuxt-link"
         :to="to"
-        :href="to"
-        :target="target"
-        :rel="rel"
-        :class="classes"
     >
         <slot />
-    </component>
+    </nuxt-link>
+
+    <a
+        v-else
+        :href="to"
+        :target="parsedTarget"
+        class="smart-link is-link"
+    >
+        <slot />
+    </a>
 </template>
 
 <script>
+// Helper functions
+import isRelativeLink from "~/utils/isRelativeLink"
+import isInternalLink from "~/utils/isInternalLink"
+
 export default {
     props: {
         to: {
@@ -24,26 +34,18 @@ export default {
         },
     },
     computed: {
-        elementType() {
-            let output = "a"
-            if (this.target == "_self" || this.target === "") {
-                output = "nuxt-link"
+        parsedTarget() {
+            let output = "blank"
+
+            switch (true) {
+                case isInternalLink(this.to):
+                    output = "_self"
+                    break
             }
             return output
         },
-        rel() {
-            let output = false
-            if (this.elementType == "a") {
-                output = "noopener"
-            }
-            return output
-        },
-        classes() {
-            return [
-                "smart-link",
-                { "is-link": this.elementType == "a" },
-                { "is-nuxt-link": this.elementType == "nuxt-link" },
-            ]
+        isRelative() {
+            return isRelativeLink(this.to) ? true : false
         },
     },
 }
@@ -51,7 +53,6 @@ export default {
 
 <style lang="scss" scoped>
 .link-icon {
-
     &:hover {
         @include link-hover;
     }

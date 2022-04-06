@@ -83,7 +83,7 @@ export default {
         console.log("in asyncdata calling axios get event")
         const libcalData = await $axios.$get(`/events`, {
             params: {
-                cal_id: 7056,
+                cal_id: 2190,
             },
         })
 

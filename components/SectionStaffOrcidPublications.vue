@@ -13,10 +13,10 @@
             ORCID:
             <smart-link
                 :to="orcid"
-                target="_blank"
                 class="orcid-value"
-                v-html="orcid"
-            />
+            >
+                {{ orcid }}
+            </smart-link>
         </div>
         <rich-text
             v-if="publications"
@@ -69,7 +69,6 @@ export default {
     .publications {
         padding-right: 0;
     }
-
 
     @media #{$has-hover} {
         .orcid-value:hover {

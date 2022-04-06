@@ -35,7 +35,7 @@
             color="help"
             class="divider-way-finder"
         />
-        <section-cards
+        <section-cards-with-illustrations
             v-if="parsedAssociatedTopics.length"
             class="section-cards"
             :items="parsedAssociatedTopics"

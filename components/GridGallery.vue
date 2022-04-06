@@ -27,7 +27,9 @@
                         target="_blank"
                         class="link"
                         v-html="card.headlineText"
-                    />
+                    >
+                        {{ card.headlineText }}
+                    </smart-link>
                 </h5>
                 <p
                     v-if="!card.featured && card.snippet"
@@ -51,8 +53,9 @@
                                 :to="card.to"
                                 target="_blank"
                                 class="link"
-                                v-html="card.headlineText"
-                            />
+                            >
+                                {{ card.headlineText }}
+                            </smart-link>
                         </h5>
                         <p
                             class="snippet"

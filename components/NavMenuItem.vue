@@ -15,8 +15,9 @@
                     :class="child.classes"
                     :to="child.to"
                     :target="child.target"
-                    v-html="child.name"
-                />
+                >
+                    {{ child.name }}
+                </smart-link>
             </li>
         </ul>
     </li>
