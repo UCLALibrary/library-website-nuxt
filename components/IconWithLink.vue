@@ -176,8 +176,6 @@ export default {
         gap: var(--space-xs);
     }
     .icon {
-        // color: var(--color-secondary-grey-05);
-        // padding: 0 0 5px 5px;
         flex-shrink: 0;
     }
 
