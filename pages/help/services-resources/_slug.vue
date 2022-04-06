@@ -43,7 +43,6 @@
             button-text="All Services and Resources "
             to="/help/services-resources"
         />
-        <!-- TODO pull data from Globals entry for Ask a Librarian CTA -->
         <block-call-to-action
             class="block-call-to-action"
             svg-name="svg-call-to-action-chat"
@@ -74,6 +73,11 @@ export default {
             page: _get(data, "entry", {}),
         }
     },
+    data() {
+        return {
+            askALibrarian: this.$store.state.globals.askALibrarian,
+        }
+    },
     computed: {
         parsedAssociatedTopics() {
             return this.page.associatedTopics.map((obj) => {
@@ -84,14 +88,15 @@ export default {
             })
         },
         parsedButtonText() {
-            return _get(this.page, "button[0].buttonText", null)
+            return _get(this.page, "button[0].buttonText", "")
         },
         parsedButtonTo() {
-            return _get(this.page, "button[0].buttonUrl", null)
+            return _get(this.page, "button[0].buttonUrl", "")
         },
-        askALibrarian() {
-            return this.$store.state.globals.askALibrarian
-        },
+        // Does not always show up?
+        // askALibrarian() {
+        //     return this.$store.state.globals.askALibrarian
+        // },
     },
 }
 </script>
