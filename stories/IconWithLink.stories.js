@@ -1,6 +1,6 @@
 // Storybook default settings
 export default {
-    title: "IconWithLink",
+    title: "Icon With Link",
 }
 const mock = {}
 // Variations of stories below
