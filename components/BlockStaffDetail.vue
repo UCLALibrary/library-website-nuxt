@@ -221,7 +221,11 @@ export default {
             return this.topics
                 .concat(this.academicDepartments)
                 .sort((a, b) =>
-                    a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+                    a.title.toUpperCase() > b.title.toUpperCase()
+                        ? 1
+                        : b.title.toUpperCase() > a.title.toUpperCase()
+                            ? -1
+                            : 0
                 )
         },
     },
