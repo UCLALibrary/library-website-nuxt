@@ -43,7 +43,6 @@
             button-text="All Services and Resources "
             to="/help/services-resources"
         />
-        <!-- TODO pull data from Globals entry for Ask a Librarian CTA -->
         <block-call-to-action
             class="block-call-to-action"
             svg-name="svg-call-to-action-chat"
@@ -84,10 +83,10 @@ export default {
             })
         },
         parsedButtonText() {
-            return _get(this.page, "button[0].buttonText", null)
+            return _get(this.page, "button[0].buttonText", "")
         },
         parsedButtonTo() {
-            return _get(this.page, "button[0].buttonUrl", null)
+            return _get(this.page, "button[0].buttonUrl", "")
         },
         askALibrarian() {
             return this.$store.state.globals.askALibrarian
