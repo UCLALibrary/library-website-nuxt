@@ -73,11 +73,6 @@ export default {
             page: _get(data, "entry", {}),
         }
     },
-    data() {
-        return {
-            askALibrarian: this.$store.state.globals.askALibrarian,
-        }
-    },
     computed: {
         parsedAssociatedTopics() {
             return this.page.associatedTopics.map((obj) => {
@@ -93,10 +88,9 @@ export default {
         parsedButtonTo() {
             return _get(this.page, "button[0].buttonUrl", "")
         },
-        // Does not always show up?
-        // askALibrarian() {
-        //     return this.$store.state.globals.askALibrarian
-        // },
+        askALibrarian() {
+            return this.$store.state.globals.askALibrarian
+        },
     },
 }
 </script>
