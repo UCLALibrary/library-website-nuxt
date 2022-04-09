@@ -63,11 +63,11 @@
 <style lang="scss">
    .s-lc-whw{
 }
- .toggle {
+ /*.toggle {
      margin-top: 26px;
      border: none;
      background-color: white;
-}
+}*/
  .s-lc-whw {
      border-collapse: collapse;
 }
@@ -82,27 +82,43 @@
     /* color: coral;
      */
 }
+
 /* Today */
  .s-lc-whw-today-h {
-     background-color: #ddd;
+     background-color: #eaf2fb;
+     border-radius: 4px;
 }
  .s-lc-whw-today {
-     background-color: #F5F5F5;
+     background-color: #eaf2fb;
+     border-radius: 4px;
 }
  .s-lc-whw-bh {
      text-align: right;
      white-space: nowrap;
 }
 /* Location Name */
- .s-lc-whw-locname {
-     color:#032d5b 
+ .s-lc-whw-locname a {
+    font-family: "Karbon", sans-serif;;
+     font-size: 20px;
+     font-weight: 400;
+     line-height: 1.6;
+     letter-spacing: 0.01em;
+    color:#032d5b 
 }
  .s-lc-whw-subloc{
 }
 /* Sub-Location Name */
- .s-lc-whw-sublocname{
+ .s-lc-whw-sublocname a{
     /*padding-left: 10px!important;
     */
+    font-family: "Karbon", sans-serif;;
+     font-size: 20px;
+     font-weight: 400;
+     line-height: 1.6;
+     letter-spacing: 0.01em;
+     
+    color:#032d5b 
+    
 }
  .s-lc-whw-footnote {
     /* color: #555;
@@ -115,14 +131,14 @@
 }
 /* The styles below can be removed if you are already using Bootstap v3 in host page */
  .s-lc-whw-cont {
-     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-     font-size: 12px;
+     /*font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+     font-size: 12px;*/
 }
 /* Previous / Next */
  .s-lc-whw-pr, .s-lc-whw-ne{
      padding: 5px 10px;
-     font-weight: 600;
-     font-size: 12px;
+     
+     font-size: 19px;
      line-height: 150%;
      border-radius: 3px;
      color: #0B6AB7;
@@ -147,14 +163,31 @@
      border-bottom:2px dotted #999999;
 }
  .s-lc-whw>tbody>tr>td {
-     padding: 15px 5px;
+     padding: 5px;
+     text-align: center;
 }
  .s-lc-whw>thead>tr>th {
-     vertical-align: bottom;
+    text-align: center; 
+    vertical-align: bottom;
     /* border-bottom: 2px solid #ddd;
      */
      padding-top: 15px;
      padding-bottom: 15px;
+     font-family: "Karbon", sans-serif;;
+     font-size: 20px;
+     font-weight: 400;
+     line-height: 1.6;
+     letter-spacing: 0.01em;
+     color: #0B6AB7;
+     
+}
+.s-lc-whw th:not(.s-lc-whw-bh) {
+    font-family: "Karbon", sans-serif;;
+     font-size: 20px;
+     font-weight: 400;
+     line-height: 1.6;
+     letter-spacing: 0.01em;
+     color: #0B6AB7;
 }
  .s-lc-whw th {
      border-top: none;

@@ -1,15 +1,26 @@
 <template>
     <div class="block-hours">
-        <h2 class="heading-subtitle">
+        <h2 class="title">
             Hours
         </h2>
+
         <div class="content">
-            <iframe
-                class="iframe"
-                :src="`/blockHours.html?lid=${lid}`"
-                allowfullscreen
-                frameBorder="0"
-            />
+            <div class="iframe-container">
+                <iframe
+                    refs="hours_iframe"
+                    class="iframe"
+                    :src="`/blockHours.html?lid=${lid}`"
+                    frameBorder="0"
+                    scrolling="no"
+                    @load="resizeIframe"
+                    @resize="resizeIframe"
+                />
+            </div>
+            <!--div
+                class="hours-data"
+                v-html="hoursData"
+            /-->
+
             <button-link
                 label="All Library Hours"
                 :is-secondary="true"
@@ -27,24 +38,77 @@ export default {
             default: "",
         },
     },
+    /* data() {
+        return {
+            hoursData: "",
+        }
+    },
+    async fetch() {
+        const response = await fetch("/blockHours.html")
+        const html = await response.text()
+        var parser = new DOMParser()
+        var doc = parser.parseFromString(html, "text/html")
+        // this.hoursData = doc.body.innerHTML
+        // Get the image file
+
+        console.log(doc.body)
+        this.hoursData = doc.body.innerHTML
+    },
+    fetchKey(getCounter) {
+        return `block-hours-${getCounter("block-hours")}`
+    },*/
+
+    methods: {
+        resizeIframe(obj) {
+            // TODO why is this not working?
+            console.log(obj.target.contentWindow.document.body.scrollHeight)
+
+            obj.target.style.height = "460px"
+            console.log(obj.target.contentWindow.document.body.scrollHeight)
+            /*obj.style.height =
+                obj.contentWindow.document.body.scrollHeight + "px"*/
+        },
+    },
 }
 </script>
 <style lang="scss" scoped>
 .block-hours {
+    max-width: 930px;
+    width: 100%;
+
+    .title {
+        color: var(--color-primary-blue-03);
+        @include step-2;
+        margin-bottom: var(--space-m);
+    }
     .content {
         border-radius: var(--rounded-slightly-all);
         border: 1.5px solid var(--color-primary-blue-01);
-
         display: flex;
         flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: space-between;
 
         .iframe {
-            max-width: $container-l-main + px;
-            width: 100%;
-
-            min-height: 500px;
-            height: 100%;
+            width: 900px;
         }
+        // .iframe-container {
+        //     position: relative;
+        //     overflow: hidden;
+        //     width: 100%;
+        //     padding-top: 25.25%;
+        // }
+
+        // .iframe {
+        //     position: absolute;
+        //     top: 0;
+        //     left: 0;
+        //     width: 100%;
+        //     height: 100%;
+        //     border: 0;
+        // }
+
         .btn-lnk {
             max-width: 300px;
             margin-left: 10px;
