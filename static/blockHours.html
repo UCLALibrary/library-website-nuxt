@@ -74,6 +74,7 @@
  .s-lc-whw thead {
     /* background-color: #F5F5F5;
      */
+     text-align: left;
 }
 /* Date */
  .s-lc-whw-head-date {
@@ -83,14 +84,11 @@
      */
 }
 
-/* Today */
- .s-lc-whw-today-h {
-     background-color: #eaf2fb;
-     border-radius: 4px;
-}
+
  .s-lc-whw-today {
      background-color: #eaf2fb;
      border-radius: 4px;
+     font-weight: bold;
 }
  .s-lc-whw-bh {
      text-align: right;
@@ -103,7 +101,8 @@
      font-weight: 400;
      line-height: 1.6;
      letter-spacing: 0.01em;
-    color:#032d5b 
+    color:#032d5b;
+    text-align: left; 
 }
  .s-lc-whw-subloc{
 }
@@ -116,7 +115,7 @@
      font-weight: 400;
      line-height: 1.6;
      letter-spacing: 0.01em;
-     
+     text-align: left; 
     color:#032d5b 
     
 }
@@ -137,8 +136,8 @@
 /* Previous / Next */
  .s-lc-whw-pr, .s-lc-whw-ne{
      padding: 5px 10px;
-     
-     font-size: 19px;
+     font-family: "Karbon", sans-serif;
+     font-size: 20px;
      line-height: 150%;
      border-radius: 3px;
      color: #0B6AB7;
@@ -163,22 +162,32 @@
      border-bottom:2px dotted #999999;
 }
  .s-lc-whw>tbody>tr>td {
-     padding: 5px;
-     text-align: center;
+     padding: 12px 0;
+     text-align: left;
 }
+.s-lc-whw>tbody>tr>td:not(.s-lc-whw-locname) {
+    text-align: center;
+}
+.s-lc-whw>tbody>tr>td.s-lc-whw-sublocname:not(.s-lc-whw-locname) {
+    text-align: left;
+}
+.s-lc-time, .s-lc-allday, .s-lc-closed{
+    font-family: "Proxima", sans-serif;
+}
+ 
+
  .s-lc-whw>thead>tr>th {
     text-align: center; 
     vertical-align: bottom;
     /* border-bottom: 2px solid #ddd;
      */
-     padding-top: 15px;
-     padding-bottom: 15px;
-     font-family: "Karbon", sans-serif;;
+     padding: 12px;
+     font-family: "Karbon", sans-serif;
      font-size: 20px;
      font-weight: 400;
      line-height: 1.6;
      letter-spacing: 0.01em;
-     color: #0B6AB7;
+     color: #032D5B;
      
 }
 .s-lc-whw th:not(.s-lc-whw-bh) {
@@ -187,8 +196,15 @@
      font-weight: 400;
      line-height: 1.6;
      letter-spacing: 0.01em;
-     color: #0B6AB7;
 }
+
+/* Today */
+.s-lc-whw-today-h {
+     background-color: #eaf2fb;
+     border-radius: 4px;
+     font-weight: bold;
+}
+
  .s-lc-whw th {
      border-top: none;
      border-bottom: none;
@@ -203,6 +219,9 @@
      overflow: hidden;
      clip: rect(0,0,0,0);
      border: 0;
+}
+.s-lc-whw-locname {
+    text-align: left;
 }
  @media (max-width: 768px) {
      .s-lc-whw-cont .table-responsive {

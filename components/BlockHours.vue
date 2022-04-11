@@ -11,7 +11,6 @@
                     class="iframe"
                     :src="`/blockHours.html?lid=${lid}`"
                     frameBorder="0"
-                    scrolling="no"
                     @load="resizeIframe"
                     @resize="resizeIframe"
                 />
@@ -63,7 +62,7 @@ export default {
             // TODO why is this not working?
             console.log(obj.target.contentWindow.document.body.scrollHeight)
 
-            obj.target.style.height = "460px"
+            obj.target.style.height = "524px"
             console.log(obj.target.contentWindow.document.body.scrollHeight)
             /*obj.style.height =
                 obj.contentWindow.document.body.scrollHeight + "px"*/
@@ -91,7 +90,7 @@ export default {
         align-content: space-between;
 
         .iframe {
-            width: 900px;
+            width: 928px;
         }
         // .iframe-container {
         //     position: relative;
