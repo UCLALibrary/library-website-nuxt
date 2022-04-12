@@ -5,16 +5,18 @@
         </h2>
 
         <div class="content">
-            <div class="iframe-container">
-                <iframe
-                    refs="hours_iframe"
-                    class="iframe"
-                    :src="`/blockHours.html?lid=${lid}`"
-                    frameBorder="0"
-                    @load="resizeIframe"
-                    @resize="resizeIframe"
-                />
-            </div>
+            <!--div class="iframe-container"-->
+            <iframe
+                refs="hours_iframe"
+                class="iframe"
+                :src="`/blockHours.html?lid=${lid}`"
+                frameBorder="0"
+                width="100%"
+                height="100%"
+                @load="resizeIframe"
+                @resize="resizeIframe"
+            />
+            <!--/div-->
             <!--div
                 class="hours-data"
                 v-html="hoursData"
@@ -90,8 +92,11 @@ export default {
         align-content: space-between;
 
         .iframe {
-            width: 928px;
+            max-width: 928px;
+            padding: 12px;
+            // resize: both;
         }
+
         // .iframe-container {
         //     position: relative;
         //     overflow: hidden;
