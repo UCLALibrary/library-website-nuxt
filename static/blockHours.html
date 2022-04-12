@@ -1,28 +1,29 @@
 <!-- https://nuxtjs.org/docs/directory-structure/static/ -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script src="https://calendar.library.ucla.edu/js/hours_grid.js?002"></script>
-<div id="s-lc-whw" class="s-lc-whw">
+
+<div
+    id="s-lc-whw"
+    class="s-lc-whw">
 </div>
+
 <script>
    $(function(){
        const queryString = window.location.search;
-       
        const urlParams = new URLSearchParams(queryString);
        const lid = urlParams.get('lid')
-       
        const week = new $.LibCalWeeklyGrid( $("#s-lc-whw"), 
        {
            iid: 3244,
            lid: lid,
            systemTime: false 
        });
-       
-       
-   
    });
-   /* let curLength=0;
+
+/* let curLength=0;
    let  secondsRemaining = 10;
-   
+
    let interval = setInterval(function(){
        if ($('.s-lc-whw-subloc').length!=curLength ){
            curLength=$('.s-lc-whw-subloc').length;
@@ -44,7 +45,6 @@
                        }
                    })
                }
-                   
                clearInterval(interval);
            }
            // time is up
@@ -53,93 +53,95 @@
            }
            secondsRemaining--;
        }
-   },100);*/
-   
-   
-   
-   
+   },100); */
+
 </script>
+
 <!-- The following styles are optional, feel free to modify) -->
 <style lang="scss">
-   .s-lc-whw{
-}
- /*.toggle {
+   .s-lc-whw{}
+
+/* .toggle {
      margin-top: 26px;
      border: none;
      background-color: white;
-}*/
- .s-lc-whw {
-     border-collapse: collapse;
+} */
+
+.s-lc-whw {
+    border-collapse: collapse;
 }
- .s-lc-whw thead {
-    /* background-color: #F5F5F5;
-     */
-     text-align: left;
+
+.s-lc-whw thead {
+    /* background-color: #F5F5F5; */
+    text-align: left;
 }
+
 /* Date */
  .s-lc-whw-head-date {
-    /* color: #5F5F5F;
-     */
-    /* color: coral;
-     */
+    /* color: #5F5F5F; */
 }
 
+.s-lc-whw-today {
+    background-color: #eaf2fb;
+    border-radius: 4px;
+    font-weight: bold;
+}
 
- .s-lc-whw-today {
-     background-color: #eaf2fb;
-     border-radius: 4px;
-     font-weight: bold;
+.s-lc-whw-bh {
+    text-align: right;
+    white-space: nowrap;
 }
- .s-lc-whw-bh {
-     text-align: right;
-     white-space: nowrap;
-}
+
 /* Location Name */
- .s-lc-whw-locname a {
+.s-lc-whw-locname a {
     font-family: "Karbon", sans-serif;;
-     font-size: 20px;
-     font-weight: 400;
-     line-height: 1.6;
-     letter-spacing: 0.01em;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
     color:#032d5b;
     text-align: left; 
 }
+
 .s-lc-whw-locname a:hover, .s-lc-whw-subloc a:hover{
     color:#0B6AB7;
     text-decoration: underline;
     text-decoration-color: #0aa5ff;
 }
- .s-lc-whw-subloc{
+
+.s-lc-whw-subloc{
 }
+
 /* Sub-Location Name */
- .s-lc-whw-sublocname a{
-    /*padding-left: 10px!important;
-    */
+.s-lc-whw-sublocname a{
     font-family: "Karbon", sans-serif;;
-     font-size: 20px;
-     font-weight: 400;
-     line-height: 1.6;
-     letter-spacing: 0.01em;
-     text-align: left; 
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    text-align: left; 
     color:#032d5b 
-    
 }
- .s-lc-whw-footnote {
+
+.s-lc-whw-footnote {
     /* color: #555;
      */
      display: none;
 }
- .s-lc-whw-footnote td:hover {
+
+.s-lc-whw-footnote td:hover {
     /* background-color:#fff!important;
      */
 }
+
 /* The styles below can be removed if you are already using Bootstap v3 in host page */
- .s-lc-whw-cont {
+.s-lc-whw-cont {
      /*font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
      font-size: 12px;*/
 }
+
 /* Previous / Next */
- .s-lc-whw-pr, .s-lc-whw-ne{
+.s-lc-whw-pr, .s-lc-whw-ne{
      padding: 5px 10px;
      font-family: "Karbon", sans-serif;
      font-size: 20px;
@@ -157,31 +159,37 @@
      border: 1px solid transparent;
      white-space: nowrap;
 }
- .s-lc-whw-pr:disabled {
+
+.s-lc-whw-pr:disabled {
      background-color: #efefef;
 }
- .s-lc-whw-ne:disabled {
+
+.s-lc-whw-ne:disabled {
      background-color: #efefef;
 }
- .s-lc-whw tr {
+
+.s-lc-whw tr {
      border-bottom:2px dotted #999999;
 }
- .s-lc-whw>tbody>tr>td {
+
+.s-lc-whw>tbody>tr>td {
      padding: 12px 0;
      text-align: left;
 }
+
 .s-lc-whw>tbody>tr>td:not(.s-lc-whw-locname) {
     text-align: center;
 }
+
 .s-lc-whw>tbody>tr>td.s-lc-whw-sublocname:not(.s-lc-whw-locname) {
     text-align: left;
 }
+
 .s-lc-time, .s-lc-allday, .s-lc-closed{
     font-family: "Proxima", sans-serif;
 }
- 
 
- .s-lc-whw>thead>tr>th {
+.s-lc-whw>thead>tr>th {
     text-align: center; 
     vertical-align: bottom;
     /* border-bottom: 2px solid #ddd;
@@ -193,15 +201,17 @@
      line-height: 1.6;
      letter-spacing: 0.01em;
      color: #032D5B;
-     
 }
+
 .s-lc-whw th:not(.s-lc-whw-bh) {
     font-family: "Karbon", sans-serif;;
      font-size: 20px;
      font-weight: 400;
      line-height: 1.6;
      letter-spacing: 0.01em;
+     min-width: 65px;
 }
+
 .s-lc-whw th.s-lc-whw-today-h:not(.s-lc-whw-bh) {
     font-family: "Karbon", sans-serif;;
      font-size: 20px;
@@ -218,12 +228,13 @@
      font-weight: bold;
 }
 
- .s-lc-whw th {
+.s-lc-whw th {
      border-top: none;
      border-bottom: none;
      border-right: none;
 }
- .sr-only {
+
+.sr-only {
      position: absolute;
      width: 1px;
      height: 1px;
@@ -233,6 +244,7 @@
      clip: rect(0,0,0,0);
      border: 0;
 }
+
 .s-lc-whw-locname {
     text-align: left;
 }
@@ -250,6 +262,4 @@
          white-space: nowrap;
     }
 }
-
-
 </style>

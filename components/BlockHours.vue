@@ -82,6 +82,7 @@ export default {
         @include step-2;
         margin-bottom: var(--space-m);
     }
+
     .content {
         border-radius: var(--rounded-slightly-all);
         border: 1.5px solid var(--color-primary-blue-01);
@@ -90,6 +91,13 @@ export default {
         justify-content: flex-start;
         align-items: flex-start;
         align-content: space-between;
+
+        .btn-lnk {
+            max-width: 300px;
+            margin-left: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
 
         .iframe {
             max-width: 928px;
@@ -112,13 +120,6 @@ export default {
         //     height: 100%;
         //     border: 0;
         // }
-
-        .btn-lnk {
-            max-width: 300px;
-            margin-left: 10px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
     }
 }
 </style>
