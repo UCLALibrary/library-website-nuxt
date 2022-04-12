@@ -105,7 +105,9 @@
             <div class="body-bio">
                 <!-- SectionStaffBio -->
                 <divider-way-finder
-                    v-if="topics.length || biography"
+                    v-if="
+                        topics.length || academicDepartments.length || biography
+                    "
                     class="divider divider-first"
                     color="about"
                 />
@@ -221,7 +223,11 @@ export default {
             return this.topics
                 .concat(this.academicDepartments)
                 .sort((a, b) =>
-                    a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+                    a.title.toUpperCase() > b.title.toUpperCase()
+                        ? 1
+                        : b.title.toUpperCase() > a.title.toUpperCase()
+                            ? -1
+                            : 0
                 )
         },
     },
