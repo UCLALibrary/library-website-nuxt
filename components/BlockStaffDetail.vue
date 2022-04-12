@@ -105,7 +105,9 @@
             <div class="body-bio">
                 <!-- SectionStaffBio -->
                 <divider-way-finder
-                    v-if="topics.length || biography"
+                    v-if="
+                        topics.length || academicDepartments.length || biography
+                    "
                     class="divider divider-first"
                     color="about"
                 />
