@@ -31,6 +31,11 @@ export default {
     fetchKey(getCounter) {
         return `header-main-${getCounter("header-main")}`
     },
+    beforeCreate() {
+        if (process.client && window.__NUXT__ === undefined) {
+            window.__NUXT__ = { fetch: {} }
+        }
+    },
 }
 </script>
 

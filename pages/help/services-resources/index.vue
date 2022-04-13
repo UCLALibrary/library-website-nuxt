@@ -2,6 +2,7 @@
     <div class="page page-help">
         <nuxt-link
             v-for="item in parsedServiceAndResourceList"
+            :key="item.to"
             :to="item.to"
         >
             <div
