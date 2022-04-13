@@ -9,6 +9,8 @@ export const state = () => ({
     winWidth: 0,
     sTop: 0,
     globals: {},
+    header: {},
+    footer: {},
 })
 
 export const mutations = {
@@ -21,6 +23,12 @@ export const mutations = {
     },
     SET_GLOBALS(state, data) {
         state.globals = data
+    },
+    SET_HEADER(state, data) {
+        state.header = data
+    },
+    SET_FOOTER(state, data) {
+        state.footer = data
     },
 }
 
@@ -58,6 +66,8 @@ export const actions = {
                 askALibrarian: globalData[0],
             }
             commit("SET_GLOBALS", globalData)
+
+            // console.log("Get Header data from Craft")
         } catch (e) {
             throw new Error("Craft API error, trying to set gobals. " + e)
         }
