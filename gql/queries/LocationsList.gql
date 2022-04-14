@@ -1,0 +1,10 @@
+query LocationsList {
+    entries(section: "location") {
+        ... on location_location_Entry {
+            id
+            to: slug
+            title
+            summary
+        }
+    }
+}
