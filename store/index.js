@@ -5,9 +5,6 @@ import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
 // utils
 import removeEmpties from "~/utils/removeEmpties"
 
-// Helpers
-import _get from "lodash/get"
-
 export const state = () => ({
     winHeight: 0,
     winWidth: 0,

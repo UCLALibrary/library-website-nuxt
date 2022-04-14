@@ -82,7 +82,7 @@ export default {
     },
     head() {
         return {
-            // title: this.page.entry.title,
+            title: this.page.entry.title,
         }
     },
     computed: {
