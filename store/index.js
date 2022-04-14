@@ -1,5 +1,6 @@
 // gql
 import GLOBALS from "~/gql/queries/Globals"
+import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
 
 // utils
 import removeEmpties from "~/utils/removeEmpties"
@@ -9,6 +10,8 @@ export const state = () => ({
     winWidth: 0,
     sTop: 0,
     globals: {},
+    header: {},
+    footer: {},
 })
 
 export const mutations = {
@@ -21,6 +24,12 @@ export const mutations = {
     },
     SET_GLOBALS(state, data) {
         state.globals = data
+    },
+    SET_HEADER(state, data) {
+        state.header = data
+    },
+    SET_FOOTER(state, data) {
+        state.footer = data
     },
 }
 
@@ -58,6 +67,11 @@ export const actions = {
                 askALibrarian: globalData[0],
             }
             commit("SET_GLOBALS", globalData)
+
+            // console.log("Get Header data from Craft")
+            let headerData = await this.$graphql.default.request(HEADER_MAIN_MENU_ITEMS)
+            commit("SET_HEADER", headerData)
+            //  let footerData = await this.$graphql.default.request(FOOTER)
         } catch (e) {
             throw new Error("Craft API error, trying to set gobals. " + e)
         }
