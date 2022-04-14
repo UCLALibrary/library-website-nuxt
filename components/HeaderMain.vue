@@ -28,6 +28,7 @@ export default {
         this.primaryItems = _get(data, "primary", [])
         this.secondaryItems = _get(data, "secondary", [])
     },
+    fetchKey: "header-main",
 }
 </script>
 
