@@ -10,25 +10,15 @@
 </template>
 
 <script>
-// GQL
-import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
-
-// Helpers
-import _get from "lodash/get"
-
 export default {
-    data() {
-        return {
-            secondaryItems: [],
-            primaryItems: [],
-        }
+    computed: {
+        primaryItems() {
+            return this.$store.state.header.primary
+        },
+        secondaryItems() {
+            return this.$store.state.header.secondary
+        },
     },
-    async fetch() {
-        const data = await this.$graphql.default.request(HEADER_MAIN_MENU_ITEMS)
-        this.primaryItems = _get(data, "primary", [])
-        this.secondaryItems = _get(data, "secondary", [])
-    },
-    fetchKey: "header-main",
 }
 </script>
 

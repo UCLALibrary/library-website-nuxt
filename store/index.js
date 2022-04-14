@@ -1,8 +1,12 @@
 // gql
 import GLOBALS from "~/gql/queries/Globals"
+import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
 
 // utils
 import removeEmpties from "~/utils/removeEmpties"
+
+// Helpers
+import _get from "lodash/get"
 
 export const state = () => ({
     winHeight: 0,
@@ -68,6 +72,9 @@ export const actions = {
             commit("SET_GLOBALS", globalData)
 
             // console.log("Get Header data from Craft")
+            let headerData = await this.$graphql.default.request(HEADER_MAIN_MENU_ITEMS)
+            commit("SET_HEADER", headerData)
+            //  let footerData = await this.$graphql.default.request(FOOTER)
         } catch (e) {
             throw new Error("Craft API error, trying to set gobals. " + e)
         }
