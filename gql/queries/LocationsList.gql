@@ -1,0 +1,27 @@
+#import "~/gql/fragments/Image"
+query LocationsList {
+    entries(section: "location") {
+        ... on location_location_Entry {
+            id
+            locationType
+            to: slug
+            title
+            summary
+            address {
+                id
+                addressLine1
+                addressLine2
+                addressCity
+                addressState
+                addressZipCode
+                addressCountry
+            }
+            amenities(label: true)
+            heroImage {
+                image {
+                    ...Image
+                }
+            }
+        }
+    }
+}
