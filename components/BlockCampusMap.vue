@@ -1,11 +1,11 @@
 <template lang="html">
     <div class="block-campus-map">
-        <button
+        <!-- <button
             class="title"
             @click="showModal"
         >
             Campus Map
-        </button>
+        </button> -->
         <div class="content">
             <div class="iframe-hover">
                 <div class="iframe-container">

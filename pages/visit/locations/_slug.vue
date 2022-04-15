@@ -11,7 +11,6 @@
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
-            :prompt="parsedButtonText"
             :title="page.title"
             :text="page.summary"
             :address="parsedAddress"
@@ -42,20 +41,33 @@
         />
 
         <divider-way-finder
+            v-if="page.resourceServiceWorkshop.length"
             color="visit"
             class="divider-way-finder"
         />
 
-        <simple-cards :items="page.resourceServiceWorkshop" />
+        <simple-cards
+            v-if="page.resourceServiceWorkshop"
+            :items="page.resourceServiceWorkshop"
+        />
+        <nuxt-link to="/help/services-resources">
+            <button-more
+                v-if="page.resourceServiceWorkshop"
+                text="See More"
+            />
+        </nuxt-link>
         <divider-way-finder
+            v-if="page.blocks.length"
             color="visit"
             class="divider-way-finder"
         />
+        <!-- TO DO add associated events and exhibits -->
 
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
         />
+        <!-- TO DO add news -->
     </div>
 </template>
 
@@ -73,13 +85,13 @@ export default {
         })
 
         // https://calendar.library.ucla.edu/api/1.1/space/items/:id
-        const libcalData = await $axios.$get(`/events`, {
-            params: {
-                cal_id: 8312,
-            },
-        })
-
-        console.log(libcalData)
+        // const libcalData = await $axios.$get(`/events`, {
+        //     params: {
+        //         cal_id: 8312,
+        //     },
+        // })
+        //
+        // console.log(libcalData)
 
         return {
             page: _get(data, "entry", {}),

@@ -1,7 +1,10 @@
 <template lang="html">
     <div :class="classes">
         <div class="banner-text-content-container">
-            <div class="meta">
+            <div
+                v-if="category"
+                class="meta"
+            >
                 <svg-heading-vector class="heading-line" />
                 <div
                     :class="categoryClasses"
@@ -245,7 +248,7 @@ export default {
 
         .content {
             max-width: calc(100% - 144px);
-            
+
             > *:last-child {
                 margin-bottom: 0;
             }
