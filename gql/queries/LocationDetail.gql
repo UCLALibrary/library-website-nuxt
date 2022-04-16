@@ -84,6 +84,11 @@ query LocationDetail($slug: [String!]) {
                 uri
                 title
                 summary
+                authors: staffMember {
+                    id
+                    slug
+                    title
+                }
                 articleType
                 dateCreated
                 associatedLocations {

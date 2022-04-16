@@ -1,6 +1,5 @@
 <template lang="html">
     <div class="page-location-detail">
-        <div v-html="parsedEvents" />
         <nav-breadcrumb :title="page.title" />
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
@@ -34,7 +33,10 @@
             :location-name="page.title"
             :building-access="page.howToGetHere"
         />
-        <div class="block-spaces">
+        <div
+            v-if="mockBlockSpaces.length"
+            class="block-spaces"
+        >
             <h3>Spaces</h3>
             <p>Placeholder descriptor text</p>
             <block-spaces
@@ -52,12 +54,12 @@
         />
 
         <simple-cards
-            v-if="page.resourceServiceWorkshop"
+            v-if="page.resourceServiceWorkshop.length"
             class="simple-cards"
             :items="page.resourceServiceWorkshop"
         />
         <nuxt-link
-            v-if="page.resourceServiceWorkshop"
+            v-if="page.resourceServiceWorkshop.length"
             class="button-more"
             to="/help/services-resources"
         >
@@ -71,13 +73,19 @@
             class="divider-way-finder"
         />
         <!-- TO DO add associated events and exhibits -->
-        <div class="events-exhibitions">
+        <div
+            v-if="parsedEvents.length"
+            class="events-exhibitions"
+        >
             <section-teaser-list
                 class="section-teaser-list"
                 :items="parsedEvents"
             />
         </div>
-
+        <section-post-small
+            v-if="parsedArticles.length"
+            :items="parsedArticles"
+        />
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
@@ -153,6 +161,17 @@ export default {
                     text: obj.summary,
                     startDate: _get(obj, "startDate", ""),
                     locations: _get(obj, "associatedLocations", ""),
+                }
+            })
+        },
+        parsedArticles() {
+            return this.page.associatedArticles.map((obj) => {
+                return {
+                    ...obj,
+                    to: obj.uri,
+                    image: _get(obj, "heroImage[0].image[0]", {}),
+                    text: obj.summary,
+                    author: obj.authors,
                 }
             })
         },
