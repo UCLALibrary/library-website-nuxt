@@ -1,6 +1,6 @@
 <template lang="html">
-    <div class="page">
-        <div v-html="page" />
+    <div class="page-location-detail">
+        <div v-html="parsedEvents" />
         <nav-breadcrumb :title="page.title" />
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
@@ -19,7 +19,10 @@
             address-link="maps.google.com"
         />
         <!-- TO DO need address link for header in craft -->
-        <block-hours :lid="page.libcalLocationIdForHours" />
+        <block-hours
+            class="block-hours"
+            :lid="page.libcalLocationIdForHours"
+        />
         <!-- TO DO add amenties -->
         <div
             v-for="(item, index) in page.amenities"
@@ -31,14 +34,16 @@
             :location-name="page.title"
             :building-access="page.howToGetHere"
         />
-        <h3>Spaces</h3>
-        <p>Placeholder descriptor text</p>
-        <block-spaces
-            v-for="(space, index) in mockBlockSpaces"
-            :key="index"
-            :title="space.title"
-            :text="space.text"
-        />
+        <div class="block-spaces">
+            <h3>Spaces</h3>
+            <p>Placeholder descriptor text</p>
+            <block-spaces
+                v-for="(space, index) in mockBlockSpaces"
+                :key="index"
+                :title="space.title"
+                :text="space.text"
+            />
+        </div>
 
         <divider-way-finder
             v-if="page.resourceServiceWorkshop.length"
@@ -48,20 +53,30 @@
 
         <simple-cards
             v-if="page.resourceServiceWorkshop"
+            class="simple-cards"
             :items="page.resourceServiceWorkshop"
         />
-        <nuxt-link to="/help/services-resources">
+        <nuxt-link
+            v-if="page.resourceServiceWorkshop"
+            class="button-more"
+            to="/help/services-resources"
+        >
             <button-more
                 v-if="page.resourceServiceWorkshop"
                 text="See More"
             />
         </nuxt-link>
         <divider-way-finder
-            v-if="page.blocks.length"
             color="visit"
             class="divider-way-finder"
         />
         <!-- TO DO add associated events and exhibits -->
+        <div class="events-exhibitions">
+            <section-teaser-list
+                class="section-teaser-list"
+                :items="parsedEvents"
+            />
+        </div>
 
         <flexible-blocks
             class="content"
@@ -112,29 +127,65 @@ export default {
                 this.page.address[0].addressZipCode
             )
         },
+        // TO DO replace with data from libcal query
         mockBlockSpaces() {
             return [
                 {
                     to: "https://calendar.library.ucla.edu",
                     title: "Bureaux de Garcons",
                     location: "Fast Lane Building",
-                    text: "Eclectic sophisticated carefully curated lovely Baggu Muji sharp finest efficient perfect. Hub Boeing 787 lovely Melbourne flat white ryokan. Global iconic Gaggenau Muji bulletin premium espresso delightful destination vibrant remarkable elegant bureaux boutique. Sunspel exclusive first-class espresso, Fast Lane intricate Melbourne Airbus A380 pintxos Shinkansen Swiss vibrant the highest quality.",
+                    text: "Eclectic sophisticated carefully curated lovely Baggu Muji sharp finest efficient perfect. Hub Boeing 787 lovely Melbourne flat white ryokan.",
                 },
                 {
                     to: "https://calendar.library.ucla.edu",
                     title: "Bureaux de Garcons",
                     location: "Fast Lane Building",
-                    text: "Eclectic sophisticated carefully curated lovely Baggu Muji sharp finest efficient perfect. Hub Boeing 787 lovely Melbourne flat white ryokan. Global iconic Gaggenau Muji bulletin premium espresso delightful destination vibrant remarkable elegant bureaux boutique. Sunspel exclusive first-class espresso, Fast Lane intricate Melbourne Airbus A380 pintxos Shinkansen Swiss vibrant the highest quality.",
+                    text: "Eclectic sophisticated carefully curated lovely Baggu Muji sharp finest efficient perfect. Hub Boeing 787 lovely Melbourne flat white ryokan.",
                 },
             ]
+        },
+        parsedEvents() {
+            return this.page.exhibitsAndEvents.map((obj) => {
+                return {
+                    ...obj,
+                    to: `events-exhibtions/${obj.id}`,
+                    image: _get(obj, "heroImage[0].image[0]", {}),
+                    text: obj.summary,
+                    startDate: _get(obj, "startDate", ""),
+                    locations: _get(obj, "associatedLocations", ""),
+                }
+            })
         },
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.divider-way-finder {
-    max-width: $container-l-main + px;
-    margin: var(--space-3xl) auto;
+.page-location-detail {
+    .banner-text {
+        --color-theme: var(--color-help-green-03);
+    }
+    .banner-header {
+        margin-bottom: var(--space-xl);
+        padding: 0;
+        max-width: $container-xl-full-width + px;
+        margin: var(--unit-gutter) auto;
+    }
+    .banner-text + .divider-way-finder {
+        margin: 0 auto var(--space-2xl);
+    }
+    .divider-way-finder {
+        max-width: $container-l-main + px;
+        margin: var(--space-3xl) auto;
+    }
+    .content {
+        margin: 0 auto;
+    }
+    .block-hours,
+    .button-more,
+    .block-spaces,
+    .section-teaser-list {
+        margin: var(--space-3xl) auto;
+    }
 }
 </style>
