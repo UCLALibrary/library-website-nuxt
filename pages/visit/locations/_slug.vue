@@ -27,17 +27,17 @@
             :key="index"
             v-html="item"
         />
-        <block-campus-map
+        <!-- <block-campus-map
             :campus-location-id="page.campusMapId"
             :location-name="page.title"
             :building-access="page.howToGetHere"
-        />
+        /> -->
         <div
-            v-if="mockBlockSpaces.length"
+            v-if="libCalSpaces.length"
             class="block-spaces"
         >
             <h3>Spaces</h3>
-            <p>Placeholder descriptor text</p>
+            <div>Placeholder descriptor text</div>
             <block-spaces
                 v-for="(space, index) in libCalSpaces"
                 :key="index"
@@ -103,20 +103,23 @@ export default {
         const data = await $graphql.default.request(LOCATION_DETAIL, {
             slug: params.slug,
         })
-        // TO DO pull out libcal spaces location id
-
-        let test = 4361
-        let libcalId = data.entry.libcalLocationIdForSpaces
+        // TO DO get a list of libcalids
+        const libcalspaceslist = []
+        const libcalID = data.entry.libcalLocationIdForSpaces
 
         const libcalData = await $axios.$get(
-            `https://calendar.library.ucla.edu/api/1.1/space/items/${test}`
+            `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
         )
 
         console.log(libcalData)
-
         return {
             page: _get(data, "entry", {}),
             libCalSpaces: libcalData,
+        }
+    },
+    head() {
+        return {
+            title: this.page.title,
         }
     },
     computed: {
@@ -133,23 +136,6 @@ export default {
                 " " +
                 this.page.address[0].addressZipCode
             )
-        },
-        // TO DO replace with data from libcal query
-        mockBlockSpaces() {
-            return [
-                {
-                    to: "https://calendar.library.ucla.edu",
-                    title: "Bureaux de Garcons",
-                    location: "Fast Lane Building",
-                    text: "Eclectic sophisticated carefully curated lovely Baggu Muji sharp finest efficient perfect. Hub Boeing 787 lovely Melbourne flat white ryokan.",
-                },
-                {
-                    to: "https://calendar.library.ucla.edu",
-                    title: "Bureaux de Garcons",
-                    location: "Fast Lane Building",
-                    text: "Eclectic sophisticated carefully curated lovely Baggu Muji sharp finest efficient perfect. Hub Boeing 787 lovely Melbourne flat white ryokan.",
-                },
-            ]
         },
         parsedEvents() {
             return this.page.exhibitsAndEvents.map((obj) => {
