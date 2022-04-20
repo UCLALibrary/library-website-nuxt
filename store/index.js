@@ -35,7 +35,7 @@ export const mutations = {
         state.footerPrimary = data
     },
     SET_FOOTER_SOCK(state, data) {
-        state.FooterSock = data
+        state.footerSock = data
     }
 }
 
@@ -80,8 +80,8 @@ export const actions = {
             let footerPrimaryData = await this.$graphql.default.request(FOOTER_PRIMARY_ITEMS)
             commit("SET_FOOTER_PRIMARY", footerPrimaryData)
 
-            let FooterSockData = await this.$graphql.default.request(FOOTER_SOCK_ITEMS)
-            commit("SET_FOOTER_SOCK", FooterSockData)
+            let footerSockData = await this.$graphql.default.request(FOOTER_SOCK_ITEMS)
+            commit("SET_FOOTER_SOCK", footerSockData)
         } catch (e) {
             throw new Error("Craft API error, trying to set gobals. " + e)
         }

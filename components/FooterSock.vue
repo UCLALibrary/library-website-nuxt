@@ -15,8 +15,9 @@
                         class="link"
                         :to="item.to"
                         :target="item.target"
-                        v-html="item.name"
-                    />
+                    >
+                        {{ item.name }}
+                    </smart-link>
                 </li>
             </ul>
         </div>
@@ -24,15 +25,27 @@
 </template>
 
 <script>
+// Helpers
+import formatLinkTarget from "~/utils/formatLinkTarget"
+
 export default {
     computed: {
         year() {
+            console.log(this.$store.state.footerSock)
             const current_year = new Date().getFullYear()
             return current_year
         },
         footerSockItems() {
             return this.$store.state.footerSock
         },
+        parsedSockItems() {
+            return this.$store.state.footerSock.nodes.map((obj) => {
+                return {
+                    ...obj,
+                    target: formatLinkTarget(obj.target),
+                }
+            })
+        }
     },
 }
 </script>

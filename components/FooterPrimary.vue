@@ -2,6 +2,9 @@
     <footer class="footer-primary">
         <svg-molecule-half class="molecule-half-svg" />
         <div :class="classes">
+            footerPrimary:<h1>
+                {{ parsedSocialItems }}
+            </h1>
             <div class="footer-links">
                 <svg-logo-ucla-library class="logo-svg" />
 
@@ -69,6 +72,7 @@
                     </button>
                 </div>
             </form>
+            </h1>
         </div>
     </footer>
 </template>
@@ -96,6 +100,7 @@ export default {
     },
     computed: {
         classes() {
+            //console.log(this.$store.state.footerPrimary)
             return this.form ? ["container"] : ["container no-form"]
         },
         footerPrimaryItems() {
@@ -108,6 +113,7 @@ export default {
                     target: formatLinkTarget(obj.target),
                 }
             })
+
         },
         parsedPressItems() {
             return this.$store.state.footerPrimary.nodes[1].children.map((obj) => {

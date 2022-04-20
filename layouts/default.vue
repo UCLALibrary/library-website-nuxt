@@ -68,7 +68,6 @@ export default {
     // },
     computed: {
         bodyClasses() {
-            console.log(footerSockItems)
             const classes = ["body", "theme-default"]
             classes.push(`route-${kebabCase(this.$route.name || "error")}`)
             return classes.join(" ")
