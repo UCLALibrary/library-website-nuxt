@@ -1,13 +1,9 @@
 <template lang="html">
     <footer class="footer-sock">
         <div class="container">
-            footerSock:<h1>{{ footerSockItems }}</h1>
-            <div class="regents">
-                &#169;{{ year }} Regents of the University of California
-            </div>
             <ul class="links">
                 <li
-                    v-for="item in footerSockItems"
+                    v-for="item in parsedSockItems"
                     :key="item.id"
                     class="item"
                 >
@@ -20,6 +16,10 @@
                     </smart-link>
                 </li>
             </ul>
+
+            <div class="regents">
+                &#169;{{ year }} Regents of the University of California
+            </div>
         </div>
     </footer>
 </template>

@@ -72,24 +72,6 @@ export default {
             classes.push(`route-${kebabCase(this.$route.name || "error")}`)
             return classes.join(" ")
         },
-        // parsedSocialItems() {
-        //     // Restructuring item to support text key
-        //     return this.footerPrimaryItems.map((obj) => {
-        //         return {
-        //             ...obj,
-        //             text: obj.name,
-        //         }
-        //     })
-        // },
-        // parsedPressItems() {
-        //     // Restructuring item to support text key
-        //     return this.pressItems.map((obj) => {
-        //         return {
-        //             ...obj,
-        //             text: obj.name,
-        //         }
-        //     })
-        // },
         classes() {
             return [
                 "layout",
