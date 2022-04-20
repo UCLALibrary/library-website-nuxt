@@ -6,45 +6,35 @@
                 <svg-logo-ucla-library class="logo-svg" />
 
                 <ul class="socials">
-                    <li class="social-item">
+                    <li
+                        v-for="item in parsedSocialItems"
+                        :key="item.id"
+                        class="social-item"
+                    >
                         <a
-                            href="https://www.facebook.com/uclalibrary/"
-                            target="_blank"
-                        >Facebook</a>
-                    </li>
-                    <li class="social-item">
-                        <a
-                            href="https://twitter.com/UCLALibrary"
-                            target="_blank"
-                        >Twitter</a>
-                    </li>
-                    <li class="social-item">
-                        <a
-                            href="https://www.instagram.com/uclalibrary/"
-                            target="_blank"
-                        >Instagram</a>
-                    </li>
-                    <li class="social-item">
-                        <a
-                            href="https://www.youtube.com/channel/UCRPedAkolOOC6z-iP2S-clQ"
-                            target="_blank"
-                        >Youtube</a>
+                            :href="item.to"
+                            :target="item.target"
+                            a
+                        >
+                            {{ item.name }}
+                        </a>
                     </li>
                 </ul>
 
                 <ul
-                    v-if="form"
-                    class="press-room"
+                    v-show="form"
+                    class="press-links"
                 >
                     <li
-                        v-for="item in pressItems"
-                        :key="item.text"
+                        v-for="item in parsedPressItems"
+                        :key="item.id"
+                        class="press-item"
                     >
                         <smart-link
                             :to="item.to"
                             :target="item.target"
                         >
-                            {{ item.text }}
+                            {{ item.name }}
                         </smart-link>
                     </li>
                 </ul>
@@ -59,8 +49,7 @@
                 </h2>
 
                 <p class="statement">
-                    Subscribe to get the latest updates on what's happening with
-                    UCLA Library.
+                    Subscribe to get the latest updates on what's happening with  UCLA Library.
                 </p>
 
                 <div class="input-block">
@@ -89,6 +78,9 @@ import SvgLogoUclaLibrary from "~/assets/svg/logo-ucla-library"
 import SvgMoleculeHalf from "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-half"
 import SvgArrowRight from "~/assets/svg/arrow-right"
 
+// Helpers
+import formatLinkTarget from "~/utils/formatLinkTarget"
+
 export default {
     // name: "FooterPrimary",
     components: {
@@ -97,16 +89,6 @@ export default {
         SvgArrowRight,
     },
     props: {
-        socialItems: {
-            // Mock with api.links
-            type: Array,
-            default: () => [],
-        },
-        pressItems: {
-            // Mock with api.links
-            type: Array,
-            default: () => [],
-        },
         form: {
             type: Boolean,
             default: true,
@@ -115,6 +97,25 @@ export default {
     computed: {
         classes() {
             return this.form ? ["container"] : ["container no-form"]
+        },
+        footerPrimaryItems() {
+            return this.$store.state.footerPrimary
+        },
+        parsedSocialItems() {
+            return this.$store.state.footerPrimary.nodes[0].children.map((obj) => {
+                return {
+                    ...obj,
+                    target: formatLinkTarget(obj.target),
+                }
+            })
+        },
+        parsedPressItems() {
+            return this.$store.state.footerPrimary.nodes[1].children.map((obj) => {
+                return {
+                    ...obj,
+                    target: formatLinkTarget(obj.target),
+                }
+            })
         },
     },
 }
@@ -212,15 +213,17 @@ export default {
                 }
             } // socials
 
-            .press-room {
+            .press-links {
                 display: inline-block;
-
+            }
+            .press-item {
                 text-transform: uppercase;
                 color: var(--color-white);
                 list-style-type: none;
                 font-family: var(--font-secondary);
                 border-bottom: 2px solid var(--color-primary-yellow-01);
                 line-height: 1.25;
+                margin-bottom: 12px;
             }
         } // footer-links
 
@@ -328,7 +331,7 @@ export default {
                 color: var(--color-primary-yellow-01);
             }
 
-            .press-room:hover {
+            .press-item:hover {
                 color: var(--color-primary-yellow-01);
                 text-decoration: none;
             }

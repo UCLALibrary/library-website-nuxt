@@ -1,22 +1,22 @@
 <template lang="html">
     <footer class="footer-sock">
         <div class="container">
+            footerSock:<h1>{{ footerSockItems }}</h1>
             <div class="regents">
                 &#169;{{ year }} Regents of the University of California
             </div>
             <ul class="links">
                 <li
-                    v-for="item in items"
-                    :key="item.text"
+                    v-for="item in footerSockItems"
+                    :key="item.id"
                     class="item"
                 >
                     <smart-link
                         class="link"
                         :to="item.to"
                         :target="item.target"
-                    >
-                        {{ item.text }}
-                    </smart-link>
+                        v-html="item.name"
+                    />
                 </li>
             </ul>
         </div>
@@ -25,17 +25,13 @@
 
 <script>
 export default {
-    props: {
-        items: {
-            // Mock: api.links
-            type: Array,
-            default: () => [],
-        },
-    },
     computed: {
         year() {
             const current_year = new Date().getFullYear()
             return current_year
+        },
+        footerSockItems() {
+            return this.$store.state.footerSock
         },
     },
 }
