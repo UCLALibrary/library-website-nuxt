@@ -1,5 +1,5 @@
 export default {
-    title: "block / Location List Item",
+    title: "BLOCK / Location List Item",
 }
 
 const mock = {
@@ -11,15 +11,20 @@ const mock = {
         alt: "UCLA Library",
         focalPoint: [0.5, 0.5],
     },
-    sectionHeader: "Arts Library",
-    workingHours: { // TODO: See how this is getting back from the backend
-        day: "Today",
-        hours: {
-            opening: "8am",
-            closing: "5pm",
-        }
-    },
-    to: "http://google.com",
+    title: "Arts Library",
+    day: "Today",
+    startTime: "8am",
+    endTime: "5pm",
+    reserveSeat: "http://google.com",
+    address: "1337 Trails End Road Fort Lauderdale, FL 33301",
+    addressLink: "http://google.com",
+    amenities: [
+        "3dPrintingEtchingEtc",
+        "24HourStudySpace",
+        "adaStations",
+        "cafe"
+    ],
+    to: "http://google.com"
 
 }
 
@@ -29,13 +34,16 @@ export const Default = () => ({
     },
     template: `
         <block-location-list-item
-            :section-header="sectionHeader"
+            :title="title"
             :short-description="shortDescription"
-            :button-text="buttonText"
             :to="to"
-            :is-video="false"
-            :is-audio="false"
             :image="image"
+            :day="day"
+            :startTime="startTime"
+            :endTime="endTime"
+            :address="address"
+            :addressLink="addressLink"
+            :amenities="amenities"
         />
     `,
 })
