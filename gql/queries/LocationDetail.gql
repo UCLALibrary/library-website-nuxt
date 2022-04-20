@@ -82,6 +82,14 @@ query LocationDetail($slug: [String!]) {
                 uri
                 title
                 summary
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                    }
+                }
             }
             associatedArticles {
                 id

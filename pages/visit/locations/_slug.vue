@@ -15,36 +15,35 @@
             :address="parsedAddress"
             :email="page.email"
             :phone="page.phoneNumber"
-            address-link="maps.google.com"
+            :address-link="addressLink"
         />
         <block-hours
             class="block-hours"
             :lid="page.libcalLocationIdForHours"
         />
-        <!-- TO DO add amenties component -->
-        <div
-            v-for="(item, index) in page.amenities"
-            :key="index"
-            v-html="item"
+        <divider-general class="divider-general" />
+        <block-amenities
+            :items="page.amenities"
+            class="amenities"
         />
+        <divider-general class="divider-general" />
         <!-- <block-campus-map
             :campus-location-id="page.campusMapId"
             :location-name="page.title"
             :building-access="page.howToGetHere"
         /> -->
-        <div
+        <!-- <div
             v-if="libCalSpaces.length"
             class="block-spaces"
         >
-            <h3>Spaces</h3>
-            <div>Placeholder descriptor text</div>
+            <h3>{{ page.title }} Spaces</h3>
             <block-spaces
                 v-for="(space, index) in libCalSpaces"
                 :key="index"
                 :title="space.name"
                 :text="space.description"
             />
-        </div>
+        </div> -->
 
         <divider-way-finder
             v-if="page.resourceServiceWorkshop.length"
@@ -80,13 +79,24 @@
                 :items="parsedEvents"
             />
         </div>
-        <section-post-small
-            v-if="parsedArticles.length"
-            :items="parsedArticles"
-        />
+        <!-- Card with image for associated exhibitions -->
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
+        />
+        <block-highlight
+            v-for="(item, index) in parsedEndowments"
+            :key="index"
+            class="endowments"
+            :image="item.image"
+            :title="item.title"
+            :text="item.text"
+            :is-vertical="true"
+        />
+        <section-post-small
+            v-if="parsedArticles.length"
+            :items="parsedArticles"
+            class="articles"
         />
     </div>
 </template>
@@ -104,17 +114,19 @@ export default {
             slug: params.slug,
         })
         // TO DO get a list of libcalids
-        const libcalspaceslist = []
-        const libcalID = data.entry.libcalLocationIdForSpaces
-
-        const libcalData = await $axios.$get(
-            `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
-        )
-
-        console.log(libcalData)
+        // const libcalID = data.entry.libcalLocationIdForSpaces
+        // // console.log(data.entry.libcalLocationIdForSpacesInteriorLocations[0])
+        // // const libcalIDInteriorSpaces = data.entry.libcalLocationIdForInteriorSpaces
+        //
+        // // Only want to query this if there is a not null id
+        // const libcalData = await $axios.$get(
+        //     `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
+        // )
+        //
+        // console.log(libcalData)
         return {
             page: _get(data, "entry", {}),
-            libCalSpaces: libcalData,
+            // libCalSpaces: libcalData,
         }
     },
     head() {
@@ -128,14 +140,17 @@ export default {
             return (
                 this.page.address[0].addressLine1 +
                 " " +
-                this.page.address[0].addressLine2 +
-                " " +
+                // _get(this.page, "address[0].addressLine2", "") +
+                // " " +
                 this.page.address[0].addressCity +
                 " " +
                 this.page.address[0].addressState +
                 " " +
                 this.page.address[0].addressZipCode
             )
+        },
+        addressLink() {
+            return `https://map.ucla.edu/?id=${this.page.campusMapId}&e=true`
         },
         parsedEvents() {
             return this.page.exhibitsAndEvents.map((obj) => {
@@ -147,6 +162,16 @@ export default {
                     startDate: _get(obj, "seriesDate[0].startDate", ""),
                     endDate: _get(obj, "seriesDate[0].endDate", ""),
                     locations: _get(obj, "associatedLocations", ""),
+                }
+            })
+        },
+        parsedEndowments() {
+            return this.page.endowment.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "heroImage[0].image[0]", {}),
+                    text: obj.summary,
                 }
             })
         },
@@ -179,7 +204,8 @@ export default {
     .banner-text + .divider-way-finder {
         margin: 0 auto var(--space-2xl);
     }
-    .divider-way-finder {
+    .divider-way-finder,
+    .divider-general {
         max-width: $container-l-main + px;
         margin: var(--space-3xl) auto;
     }
@@ -188,8 +214,10 @@ export default {
     }
     .block-hours,
     .button-more,
+    .amenities,
     .block-spaces,
-    .section-teaser-list {
+    .section-teaser-list,
+    .endowments {
         margin: var(--space-3xl) auto;
     }
 }
