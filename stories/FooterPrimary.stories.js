@@ -5,7 +5,7 @@ export default {
     title: "FOOTER / Primary",
 }
 
-const mock =  {
+const mock = {
     nodes: [
         {
             id: "12121",
@@ -77,23 +77,24 @@ export const Default = () => ({
             ...mock,
         }
     },
-    parsedSocialItems() {
-        this.nodes[0].children.map((obj) => {
-            return {
-                ...obj,
-                target: formatLinkTarget(obj.target),
-            }
-        })
+    computed: {
+        parsedSocialItems() {
+            this.nodes[0].children.map((obj) => {
+                return {
+                    ...obj,
+                    target: formatLinkTarget(obj.target),
+                }
+            })
+        },
+        parsedPressItems() {
+            this.nodes[1].children.map((obj) => {
+                return {
+                    ...obj,
+                    target: formatLinkTarget(obj.target),
+                }
+            })
+        },
     },
-    parsedPressItems() {
-        this.nodes[1].children.map((obj) => {
-            return {
-                ...obj,
-                target: formatLinkTarget(obj.target),
-            }
-        })
-    },
-
     template: `<footer-primary :social-items="parsedSocialItems" :press-items="parsedPressItems" :form="true" />`,
 })
 
@@ -103,22 +104,23 @@ export const NoForm = () => ({
             ...mock,
         }
     },
-    parsedSocialItems() {
-        this.nodes.children.map((obj) => {
-            return {
-                ...obj,
-                target: formatLinkTarget(obj.target),
-            }
-        })
+    computed: {
+        parsedSocialItems() {
+            this.nodes[0].children.map((obj) => {
+                return {
+                    ...obj,
+                    target: formatLinkTarget(obj.target),
+                }
+            })
+        },
+        parsedPressItems() {
+            this.nodes[1].children.map((obj) => {
+                return {
+                    ...obj,
+                    target: formatLinkTarget(obj.target),
+                }
+            })
+        },
     },
-    parsedPressItems() {
-        this.nodes[1].children.map((obj) => {
-            return {
-                ...obj,
-                target: formatLinkTarget(obj.target),
-            }
-        })
-    },
-
     template: `<footer-primary :social-items="parsedSocialItems" :press-items="parsedPressItems" :form="false" />`,
 })
