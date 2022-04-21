@@ -41,7 +41,7 @@
             :building-access="page.howToGetHere"
         /> -->
         <div
-            v-if="libCalSpaces.length"
+            v-if="libCalSpaces"
             class="block-spaces"
         >
             <h3 class="spaces-title">
@@ -126,42 +126,33 @@ export default {
         // TO DO get a list of libcalids
         const libcalID = data.entry.libcalLocationIdForSpaces
         if (libcalID) {
-            const libcalData = await $axios.$get(
-                `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
-            )
+            const libcalData = await $axios.$get(`space/items/${libcalID}`)
             return {
                 page: _get(data, "entry", {}),
                 libCalSpaces: libcalData,
             }
         } else {
-            const libcalData = []
             return {
                 page: _get(data, "entry", {}),
-                libCalSpaces: libcalData,
             }
         }
-
-        // const libcalIDInteriorSpaces = data.entry.libCalIDforSpace[0]
-        // console.log(libcalIDInteriorSpaces)
-        // let clone = { ...libcalIDInteriorSpaces }
-        // console.log("this is the clone" + clone.spaceID)
-        //
-        // // Only want to query this if there is a not null id
-        // Don't want this to be async, need first query to return , then do this
-
-        // console.log(libcalData)
-        // return {
-        //     page: _get(data, "entry", {}),
-        //     libCalSpaces: libcalData,
-        // }
     },
+    // async asyncData({ $axios }) {
+    //     const libcalData = await $axios.$get(
+    //         `https://calendar.library.ucla.edu/api/1.1/space/items/4361`
+    //         console.log(we are in the seperate asyncdata now)
+    //     )
+    //     return {
+    //         libCalSpaces: libcalData,
+    //     }
+    // },
     head() {
         return {
             title: this.page.title,
         }
     },
     computed: {
-        // TO DO refactor to loop through adderss list and remove empties then concat
+        // TO DO refactor to remove empties then concat
         parsedAddress() {
             return (
                 this.page.address[0].addressLine1 +
