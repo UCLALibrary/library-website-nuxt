@@ -17,6 +17,7 @@ jobs:
     - run: npm run lint
 
   percy-instructions:
+    if: startsWith(github.ref, "refs/pull/")
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
