@@ -202,9 +202,12 @@ export default {
             } // socials
 
             .press-links {
-                display: inline-block;
+                display: inline-flex;
+                flex-direction: column;
+                align-self: flex-start;
             }
             .press-item {
+                align-self: flex-start;
                 text-transform: uppercase;
                 color: var(--color-white);
                 list-style-type: none;
@@ -361,20 +364,19 @@ export default {
                 align-items: flex-end;
 
                 .logo-svg {
-                    margin-right: -35px;
                     margin-bottom: 25px;
                 }
 
-                .socials {
-                    .social-item {
-                        &:last-child {
-                            margin-right: -45px;
-                        }
+                 .social-item:last-child {
+                        padding-right: 0;
                     }
+
+                .press-item {
+                    align-self: flex-end;
                 }
-                .press-room {
-                    margin-right: -35px;
-                    margin-bottom: 133px;
+
+                .press-links {
+                    align-self: flex-end;
                 }
             }
 
