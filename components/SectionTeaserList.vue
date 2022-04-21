@@ -14,6 +14,7 @@
                 :start-date="item.startDate"
                 :end-date="item.endDate"
                 :text="item.text"
+                :locations="item.locations"
                 class="block"
             />
         </div>

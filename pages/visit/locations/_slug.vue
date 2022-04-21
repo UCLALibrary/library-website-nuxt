@@ -6,6 +6,10 @@
             class="banner-text"
             :title="page.title"
             :text="page.summary"
+            :address="parsedAddress"
+            :email="page.email"
+            :phone="page.phoneNumber"
+            :address-link="addressLink"
         />
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
@@ -32,18 +36,20 @@
             :location-name="page.title"
             :building-access="page.howToGetHere"
         /> -->
-        <!-- <div
+        <div
             v-if="libCalSpaces.length"
             class="block-spaces"
         >
-            <h3>{{ page.title }} Spaces</h3>
+            <h3 class="spaces-title">
+                {{ page.title }} Spaces
+            </h3>
             <block-spaces
                 v-for="(space, index) in libCalSpaces"
                 :key="index"
                 :title="space.name"
                 :text="space.description"
             />
-        </div> -->
+        </div>
 
         <divider-way-finder
             v-if="page.resourceServiceWorkshop.length"
@@ -114,19 +120,19 @@ export default {
             slug: params.slug,
         })
         // TO DO get a list of libcalids
-        // const libcalID = data.entry.libcalLocationIdForSpaces
-        // // console.log(data.entry.libcalLocationIdForSpacesInteriorLocations[0])
-        // // const libcalIDInteriorSpaces = data.entry.libcalLocationIdForInteriorSpaces
+        const libcalID = data.entry.libcalLocationIdForSpaces
+        const libcalIDInteriorSpaces = data.entry.libCalIDforSpace[0]
+        console.log(libcalIDInteriorSpaces)
         //
         // // Only want to query this if there is a not null id
-        // const libcalData = await $axios.$get(
-        //     `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
-        // )
-        //
-        // console.log(libcalData)
+        const libcalData = await $axios.$get(
+            `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
+        )
+
+        console.log(libcalData)
         return {
             page: _get(data, "entry", {}),
-            // libCalSpaces: libcalData,
+            libCalSpaces: libcalData,
         }
     },
     head() {
@@ -154,6 +160,7 @@ export default {
         },
         parsedEvents() {
             return this.page.exhibitsAndEvents.map((obj) => {
+                console.log(obj.associatedLocations)
                 return {
                     ...obj,
                     to: `/events-exhibtions/${obj.id}`,
@@ -161,7 +168,7 @@ export default {
                     text: _get(obj, "summary", ""),
                     startDate: _get(obj, "seriesDate[0].startDate", ""),
                     endDate: _get(obj, "seriesDate[0].endDate", ""),
-                    locations: _get(obj, "associatedLocations", ""),
+                    locations: _get(obj, "associatedLocations", []),
                 }
             })
         },
@@ -211,6 +218,11 @@ export default {
     }
     .content {
         margin: 0 auto;
+    }
+    .spaces-title {
+        @include step-2;
+        color: var(--color-primary-blue-03);
+        margin: var(--space-3xl) auto;
     }
     .block-hours,
     .button-more,

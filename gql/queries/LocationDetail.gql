@@ -41,10 +41,10 @@ query LocationDetail($slug: [String!]) {
                 interiorLocationId
             }
             libcalLocationIdForSpaces
-            libcalLocationIdForSpacesInteriorLocations {
+            libCalIDforSpace {
                 id
-                interiorLocationName
-                interiorLocationId
+                spaceName
+                spaceID
             }
             staffMember {
                 id
@@ -75,6 +75,7 @@ query LocationDetail($slug: [String!]) {
                 associatedLocations {
                     id
                     title
+                    to: uri
                 }
             }
             endowment {
