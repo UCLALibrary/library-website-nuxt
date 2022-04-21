@@ -10,6 +10,7 @@ on:
 jobs:
   eslint:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
     - uses: ./.github/workflows/setup-workspace
@@ -17,6 +18,7 @@ jobs:
 
   percy-instructions:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Comment with percy instructions
         uses: bubkoo/auto-comment@c907eece18ad79480d1058c2577e63fb5b5f1604
@@ -34,6 +36,7 @@ jobs:
     env:
       GITHUB_ENV_NAME: ${{ github.event_name }}-${{ github.event.number }}
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
     - uses: ./.github/workflows/setup-workspace
@@ -70,6 +73,7 @@ jobs:
       GITHUB_ENV_NAME: ${{ github.event_name }}-${{ github.event.number }}
     name: Nuxt build / Cypress tests / Netlify deploy
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
     - uses: ./.github/workflows/setup-workspace
