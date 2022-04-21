@@ -1,53 +1,59 @@
-// Import mock api data
-import * as API from "~/stories/mock-api.json"
+import formatLinkTarget from "~/utils/formatLinkTarget"
 
 // Storybook default settings
 export default {
     title: "FOOTER / Sock",
 }
 
+const mock = {
+    nodes: [
+        {
+            id: "1628",
+            name: "EEEmergency",
+            to: "https://test-craft.library.ucla.edu/emergency",
+            classes: null,
+            target: ""
+        },
+        {
+            id: "1627",
+            name: "AAAccessibility",
+            to: "https://test-craft.library.ucla.edu/accessibility",
+            classes: null,
+            target: ""
+        },
+        {
+            id: "1629",
+            name: "PPPrivacy & Terms of Use",
+            to: "https://test-craft.library.ucla.edu/privacy-terms-of-use",
+            classes: null,
+            target: ""
+        },
+        {
+            id: "9511",
+            name: "CCCreative Commons Attribution 4.0",
+            to: "https://creativecommons.org/licenses/by/4.0/",
+            classes: null,
+            target: "1"
+        }
+    ]
+}
+
 // Variations of stories below
 export const Default = () => ({
     data() {
         return {
-            items: [...API.links],
+            ...mock,
         }
     },
     computed: {
-        parsedItems() {
-            // Restructuring item to support text key
-            return this.items.map((obj) => {
+        parsedSockItems() {
+            return this.nodes.map((obj) => {
                 return {
                     ...obj,
-                    text: obj.name,
+                    target: formatLinkTarget(obj.target),
                 }
             })
         },
     },
-    template: `<footer-sock :items="items"/>`,
-})
-export const LongLink = () => ({
-    data() {
-        return {
-            items: [...API.links],
-        }
-    },
-    computed: {
-        parsedItems() {
-            // Restructuring item to support text key
-            return this.items.map((obj, i) => {
-                let text = obj.name
-
-                if (i == 0) {
-                    text = "UCLA Library Copyright Policies"
-                }
-
-                return {
-                    ...obj,
-                    text,
-                }
-            })
-        },
-    },
-    template: `<footer-sock :items="parsedItems"/>`,
+    template: `<footer-sock :sock-items="parsedSockItems" />`,
 })

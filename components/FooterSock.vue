@@ -1,13 +1,10 @@
 <template lang="html">
     <footer class="footer-sock">
         <div class="container">
-            <div class="regents">
-                &#169;{{ year }} Regents of the University of California
-            </div>
             <ul class="links">
                 <li
-                    v-for="item in items"
-                    :key="item.text"
+                    v-for="item in sockItems"
+                    :key="item.id"
                     class="item"
                 >
                     <smart-link
@@ -15,10 +12,14 @@
                         :to="item.to"
                         :target="item.target"
                     >
-                        {{ item.text }}
+                        {{ item.name }}
                     </smart-link>
                 </li>
             </ul>
+
+            <div class="regents">
+                &#169;{{ year }} Regents of the University of California
+            </div>
         </div>
     </footer>
 </template>
@@ -26,14 +27,14 @@
 <script>
 export default {
     props: {
-        items: {
-            // Mock: api.links
+        sockItems: {
             type: Array,
             default: () => [],
         },
     },
     computed: {
         year() {
+            console.log(this.$store.state.footerSock)
             const current_year = new Date().getFullYear()
             return current_year
         },
