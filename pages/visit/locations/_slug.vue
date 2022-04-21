@@ -21,12 +21,16 @@
             :phone="page.phoneNumber"
             :address-link="addressLink"
         />
+        <h3 class="using-the-library">
+            Using the Library
+        </h3>
         <block-hours
             class="block-hours"
             :lid="page.libcalLocationIdForHours"
         />
         <divider-general class="divider-general" />
         <block-amenities
+            v-if="page.amenities.length"
             :items="page.amenities"
             class="amenities"
         />
@@ -121,19 +125,35 @@ export default {
         })
         // TO DO get a list of libcalids
         const libcalID = data.entry.libcalLocationIdForSpaces
-        const libcalIDInteriorSpaces = data.entry.libCalIDforSpace[0]
-        console.log(libcalIDInteriorSpaces)
+        if (libcalID) {
+            const libcalData = await $axios.$get(
+                `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
+            )
+            return {
+                page: _get(data, "entry", {}),
+                libCalSpaces: libcalData,
+            }
+        } else {
+            const libcalData = []
+            return {
+                page: _get(data, "entry", {}),
+                libCalSpaces: libcalData,
+            }
+        }
+
+        // const libcalIDInteriorSpaces = data.entry.libCalIDforSpace[0]
+        // console.log(libcalIDInteriorSpaces)
+        // let clone = { ...libcalIDInteriorSpaces }
+        // console.log("this is the clone" + clone.spaceID)
         //
         // // Only want to query this if there is a not null id
-        const libcalData = await $axios.$get(
-            `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
-        )
+        // Don't want this to be async, need first query to return , then do this
 
-        console.log(libcalData)
-        return {
-            page: _get(data, "entry", {}),
-            libCalSpaces: libcalData,
-        }
+        // console.log(libcalData)
+        // return {
+        //     page: _get(data, "entry", {}),
+        //     libCalSpaces: libcalData,
+        // }
     },
     head() {
         return {
@@ -160,7 +180,6 @@ export default {
         },
         parsedEvents() {
             return this.page.exhibitsAndEvents.map((obj) => {
-                console.log(obj.associatedLocations)
                 return {
                     ...obj,
                     to: `/events-exhibtions/${obj.id}`,
@@ -218,6 +237,11 @@ export default {
     }
     .content {
         margin: 0 auto;
+    }
+    .using-the-library {
+        @include step-3;
+        color: var(--color-primary-blue-03);
+        margin: var(--space-3xl) auto;
     }
     .spaces-title {
         @include step-2;
