@@ -11,7 +11,6 @@
                         class="link"
                         :to="item.to"
                         :target="item.target"
-                        :sock-items=
                     >
                         {{ item.name }}
                     </smart-link>

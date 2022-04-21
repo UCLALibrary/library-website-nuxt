@@ -101,7 +101,8 @@ export default {
         },
     },
     computed: {
-        classes() {
+        classes( socialItems) {
+            console.log()
             return this.form ? ["container"] : ["container no-form"]
         },
     },
