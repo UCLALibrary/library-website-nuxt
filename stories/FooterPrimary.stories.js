@@ -1,70 +1,124 @@
-// // Import mock api data
-// import * as API from "~/stories/mock-api.json"
+import formatLinkTarget from "~/utils/formatLinkTarget"
 
-// // Storybook default settings
-// export default {
-//     title: "FOOTER / Primary",
-// }
+// Storybook default settings
+export default {
+    title: "FOOTER / Primary",
+}
 
-// // Variations of stories below
-// export const Default = () => ({
-//     data() {
-//         return {
-//             items: [...API.footerPrimaryLinks],
-//         }
-//     },
-//     computed: {
-//         footerPrimaryItems() {
-//             return {
-//                 items: [...API.footerPrimaryLinks],
-//             }
-//         },
-//         parsedSocialItems() {
-//             return this.footerPrimaryItems[0].children.map((obj) => {
-//                 return {
-//                     ...obj,
-//                     target: formatLinkTarget(obj.target),
-//                 }
-//             })
-//         },
-//         parsedPressItems() {
-//             return this.footerPrimaryItems[1].children.map((obj) => {
-//                 return {
-//                     ...obj,
-//                     target: formatLinkTarget(obj.target),
-//                 }
-//             })
-//         },
-//     },
-//     template: `<footer-primary :form="true" />`,
-// })
+const mock =  {
+    nodes: [
+        {
+            id: "12121",
+            name: "SocialLinks",
+            to: null,
+            classes: null,
+            target: "",
+            children: [
+                {
+                    id: "11777",
+                    name: "Twotter",
+                    to: "https://twitter.com/",
+                    classes: null,
+                    target: "1"
+                },
+                {
+                    id: "11778",
+                    name: "Fatebook",
+                    to: "https://www.facebook.com/",
+                    classes: null,
+                    target: "1"
+                },
+                {
+                    id: "11779",
+                    name: "Instagrim",
+                    to: "https://www.instagram.com/",
+                    classes: null,
+                    target: "1"
+                },
+                {
+                    id: "11780",
+                    name: "FooTube",
+                    to: "https://www.youtube.com/",
+                    classes: null,
+                    target: "1"
+                }
+            ]
+        },
+        {
+            id: "12122",
+            name: "PressLinks",
+            to: null,
+            classes: null,
+            target: "",
+            children: [
+                {
+                    id: "11781",
+                    name: "Dress Doom",
+                    to: "https://test-craft.library.ucla.edu/press-room",
+                    classes: null,
+                    target: ""
+                },
+                {
+                    id: "11782",
+                    name: "Careers at USC",
+                    to: "https://test-craft.library.ucla.edu/careers-at-ucla",
+                    classes: null,
+                    target: ""
+                }
+            ]
+        }
+    ]
+}
 
-// export const NoForm = () => ({
-//     data() {
-//         return {
-//             items: [...API.shortLinks],
-//             pressItems: [{ ...API.links[0] }],
-//         }
-//     },
-//     computed: {
-//         parsedItems() {
-//             // Restructuring item to support text key
-//             return this.items.map((obj) => {
-//                 return {
-//                     ...obj,
-//                     text: obj.name,
-//                 }
-//             })
-//         },
-//         parsedPressItems() {
-//             // Restructuring item to support text key
-//             return this.pressItems.map((obj) => {
-//                 return {
-//                     ...obj,
-//                     text: obj.name,
-//                 }
-//             })
-//         },
-//     },
-//     template: `<footer-primary :form="false" />`,
-// })
+// Variations of stories below
+export const Default = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    parsedSocialItems() {
+        this.nodes[0].children.map((obj) => {
+            return {
+                ...obj,
+                target: formatLinkTarget(obj.target),
+            }
+        })
+    },
+    parsedPressItems() {
+        this.nodes[1].children.map((obj) => {
+            return {
+                ...obj,
+                target: formatLinkTarget(obj.target),
+            }
+        })
+    },
+
+    template: `<footer-primary :social-items="parsedSocialItems" :press-items="parsedPressItems" :form="true" />`,
+})
+
+export const NoForm = () => ({
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    parsedSocialItems() {
+        this.nodes.children.map((obj) => {
+            return {
+                ...obj,
+                target: formatLinkTarget(obj.target),
+            }
+        })
+    },
+    parsedPressItems() {
+        this.nodes[1].children.map((obj) => {
+            return {
+                ...obj,
+                target: formatLinkTarget(obj.target),
+            }
+        })
+    },
+
+    template: `<footer-primary :social-items="parsedSocialItems" :press-items="parsedPressItems" :form="false" />`,
+})

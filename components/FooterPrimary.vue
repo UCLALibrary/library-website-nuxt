@@ -7,7 +7,7 @@
 
                 <ul class="socials">
                     <li
-                        v-for="item in parsedSocialItems"
+                        v-for="item in socialItems"
                         :key="item.id"
                         class="social-item"
                     >
@@ -26,7 +26,7 @@
                     class="press-links"
                 >
                     <li
-                        v-for="item in parsedPressItems"
+                        v-for="item in pressItems"
                         :key="item.id"
                         class="press-item"
                     >
@@ -79,9 +79,6 @@ import SvgLogoUclaLibrary from "~/assets/svg/logo-ucla-library"
 import SvgMoleculeHalf from "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-half"
 import SvgArrowRight from "~/assets/svg/arrow-right"
 
-// Helpers
-import formatLinkTarget from "~/utils/formatLinkTarget"
-
 export default {
     // name: "FooterPrimary",
     components: {
@@ -90,6 +87,14 @@ export default {
         SvgArrowRight,
     },
     props: {
+        socialItems: {
+            type: Array,
+            default: () => [],
+        },
+        pressItems: {
+            type: Array,
+            default: () => [],
+        },
         form: {
             type: Boolean,
             default: true,
@@ -98,25 +103,6 @@ export default {
     computed: {
         classes() {
             return this.form ? ["container"] : ["container no-form"]
-        },
-        footerPrimaryItems() {
-            return this.$store.state.footerPrimary
-        },
-        parsedSocialItems() {
-            return this.$store.state.footerPrimary.nodes[0].children.map((obj) => {
-                return {
-                    ...obj,
-                    target: formatLinkTarget(obj.target),
-                }
-            })
-        },
-        parsedPressItems() {
-            return this.$store.state.footerPrimary.nodes[1].children.map((obj) => {
-                return {
-                    ...obj,
-                    target: formatLinkTarget(obj.target),
-                }
-            })
         },
     },
 }

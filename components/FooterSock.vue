@@ -3,7 +3,7 @@
         <div class="container">
             <ul class="links">
                 <li
-                    v-for="item in parsedSockItems"
+                    v-for="item in sockItems"
                     :key="item.id"
                     class="item"
                 >
@@ -11,6 +11,7 @@
                         class="link"
                         :to="item.to"
                         :target="item.target"
+                        :sock-items=
                     >
                         {{ item.name }}
                     </smart-link>
@@ -25,27 +26,19 @@
 </template>
 
 <script>
-// Helpers
-import formatLinkTarget from "~/utils/formatLinkTarget"
-
 export default {
+    props: {
+        sockItems: {
+            type: Array,
+            default: () => [],
+        },
+    },
     computed: {
         year() {
             console.log(this.$store.state.footerSock)
             const current_year = new Date().getFullYear()
             return current_year
         },
-        footerSockItems() {
-            return this.$store.state.footerSock
-        },
-        parsedSockItems() {
-            return this.$store.state.footerSock.nodes.map((obj) => {
-                return {
-                    ...obj,
-                    target: formatLinkTarget(obj.target),
-                }
-            })
-        }
     },
 }
 </script>
