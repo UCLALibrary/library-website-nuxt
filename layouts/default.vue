@@ -59,28 +59,37 @@ export default {
             ]
         },
         parsedSocialItems() {
-            return this.$store.state.footerPrimary.nodes[0].children.map((obj) => {
-                return {
-                    ...obj,
-                    target: formatLinkTarget(obj.target),
-                }
-            })
+            if(this.$store.state.footerPrimary) {
+                return this.$store.state.footerPrimary.nodes[0].children.map((obj) => {
+                    return {
+                        ...obj,
+                        target: formatLinkTarget(obj.target),
+                    }
+                })
+            }
+            return []
         },
         parsedPressItems() {
-            return this.$store.state.footerPrimary.nodes[1].children.map((obj) => {
-                return {
-                    ...obj,
-                    target: formatLinkTarget(obj.target),
-                }
-            })
+            if(this.$store.state.footerPrimary) {
+                return this.$store.state.footerPrimary.nodes[1].children.map((obj) => {
+                    return {
+                        ...obj,
+                        target: formatLinkTarget(obj.target),
+                    }
+                })
+            }
+            return []
         },
         parsedSockItems() {
-            return this.$store.state.footerSock.nodes.map((obj) => {
-                return {
-                    ...obj,
-                    target: formatLinkTarget(obj.target),
-                }
-            })
+            if(this.$store.state.footerSock) {
+                return this.$store.state.footerSock.nodes.map((obj) => {
+                    return {
+                        ...obj,
+                        target: formatLinkTarget(obj.target),
+                    }
+                })
+            }
+            return []
         }
     },
     // meta: [
