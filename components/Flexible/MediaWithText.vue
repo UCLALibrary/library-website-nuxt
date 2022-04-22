@@ -47,12 +47,13 @@ export default {
         parsedContent() {
             const mediaWithText = this.block.mediaWithText
             return mediaWithText.map((obj) => {
-                let to = ""
-                if (obj.mediaWithTextLink) {
-                    to = obj.mediaWithTextLink
-                } else if (obj.media[0].url) {
-                    to = obj.media[0].url
-                }
+                let to = "/"
+                // TODO
+                // if (obj.mediaWithTextLink) {
+                //     to = obj.mediaWithTextLink
+                // } else if (obj.media.length && obj.media[0].url) {
+                //     to = obj.media[0].url
+                // }
                 return {
                     ...obj,
                     parsedIsVideo: obj.mediaType == "video" ? true : false,

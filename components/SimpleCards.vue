@@ -37,9 +37,11 @@ export default {
                     ...obj,
                     text: obj.summary ? obj.summary : obj.contentLink[0].text,
                     title: obj.title ? obj.title : obj.contentLink[0].title,
-                    to: obj.externalLink
-                        ? obj.externalLink
-                        : obj.contentLink[0].url,
+                    to: "/",
+                    // TODO
+                    // to: obj.externalLink
+                    //     ? obj.externalLink
+                    //     : obj.contentLink[0].url,
                     classes: output,
                 }
             })
