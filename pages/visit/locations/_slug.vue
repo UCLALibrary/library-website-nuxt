@@ -64,7 +64,7 @@
         <simple-cards
             v-if="page.resourceServiceWorkshop.length"
             class="simple-cards"
-            :items="page.resourceServiceWorkshop"
+            :items="parsedServicesAndResources"
         />
         <nuxt-link
             v-if="page.resourceServiceWorkshop.length"
@@ -94,15 +94,17 @@
             class="content"
             :blocks="page.blocks"
         />
-        <block-highlight
-            v-for="(item, index) in parsedEndowments"
-            :key="index"
-            class="endowments"
-            :image="item.image"
-            :title="item.title"
-            :text="item.text"
-            :is-vertical="true"
-        />
+        <div class="endowment-group">
+            <block-highlight
+                v-for="(item, index) in parsedEndowments"
+                :key="index"
+                class="endowments"
+                :image="item.image"
+                :title="item.title"
+                :text="item.text"
+                :is-vertical="true"
+            />
+        </div>
         <section-post-small
             v-if="parsedArticles.length"
             :items="parsedArticles"
@@ -126,26 +128,28 @@ export default {
         // TO DO get a list of libcalids
         const libcalID = data.entry.libcalLocationIdForSpaces
         if (libcalID) {
-            const libcalData = await $axios.$get(`space/items/${libcalID}`)
+            const libcalData = await $axios.$get(
+                `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
+            )
+            // Check the repsonse code isn't an error
             return {
                 page: _get(data, "entry", {}),
-                libCalSpaces: libcalData,
+                // libCalSpaces: libcalData,
             }
         } else {
             return {
                 page: _get(data, "entry", {}),
             }
         }
+        // async asyncData({ $axios }) {
+        //     const libcalData = await $axios.$get(
+        //         `https://calendar.library.ucla.edu/api/1.1/space/items/4361`
+        //         console.log(we are in the seperate asyncdata now)
+        //     )
+        //     return {
+        //         libCalSpaces: libcalData,
+        //     }
     },
-    // async asyncData({ $axios }) {
-    //     const libcalData = await $axios.$get(
-    //         `https://calendar.library.ucla.edu/api/1.1/space/items/4361`
-    //         console.log(we are in the seperate asyncdata now)
-    //     )
-    //     return {
-    //         libCalSpaces: libcalData,
-    //     }
-    // },
     head() {
         return {
             title: this.page.title,
@@ -168,6 +172,16 @@ export default {
         },
         addressLink() {
             return `https://map.ucla.edu/?id=${this.page.campusMapId}&e=true`
+        },
+        parsedServicesAndResources() {
+            return this.page.resourceServiceWorkshop.map((obj) => {
+                return {
+                    ...obj,
+                    to: obj.researchGuideUrl
+                        ? obj.researchGuideUrl
+                        : `/${obj.uri}`,
+                }
+            })
         },
         parsedEvents() {
             return this.page.exhibitsAndEvents.map((obj) => {
@@ -243,9 +257,26 @@ export default {
     .button-more,
     .amenities,
     .block-spaces,
-    .section-teaser-list,
+    .section-teaser-list {
+        margin: var(--space-3xl) auto;
+    }
+
     .endowments {
         margin: var(--space-3xl) auto;
+        // margin: 0 8px 50px 8px;
+    }
+    .endowment-group {
+        max-width: 960px;
+        padding: 0 calc(var(--unit-gutter) - 16px);
+        background-color: var(--color-white);
+        margin: 0 auto;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: flex-start;
+        align-items: flex-start;
     }
 }
 </style>
