@@ -250,7 +250,7 @@ export default {
 
         &:hover {
             transform: scale(1.01);
-            @include shadow-search-01;
+            // @include shadow-search-01;
         }
     }
 

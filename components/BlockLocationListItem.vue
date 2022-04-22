@@ -1,17 +1,15 @@
 <template lang="html">
     <div :class="classes">
         <div class="card-container">
-            <component
-                :is="parsedMediaComponent"
+            <responsive-image
                 v-if="image"
                 class="image"
-                :image="parsedMediaProp"
-                :aspect-ratio="parsedRatio"
+                :image="image"
             />
             <component
                 :is="parsedSvgName"
                 v-else
-                :class="['image', isUclaLibrary ? 'ucla' : 'affiliate']"
+                :class="['image affiliate']"
             />
 
             <div
@@ -37,6 +35,7 @@
                         </div>
                     </div>
                     <icon-with-link 
+                        v-if="reserveSeat"
                         text="Reserve a Seat"
                         icon-name="svg-icon-calendar"
                         :to="reserveSeat"
@@ -200,17 +199,6 @@ export default {
         parsedTarget() {
             return this.isExternalLink ? "blank" : "_self"
         },
-        parsedMediaComponent() {
-            return this.image ? "responsive-image" : ""
-        },
-        parsedMediaProp() {
-            return this.image
-        },
-        parsedRatio() {
-            // If on mobile, change ratio of image
-            let output = this.ratio
-            return output
-        },
         parsedSvgName() {
             return `${this.iconName}`
         }
@@ -223,13 +211,11 @@ export default {
     overflow: hidden;
     border: 2px solid var(--color-theme);
     border-radius: var(--rounded-slightly-all);
-    //TODO: It's saying box-shadow-01 but I don't think we have this variable
 
     width: 100%;
     max-width: 928px;
     padding: 48px 64px;
 
-    
     transition-property: box-shadow;
     transition-duration: 400ms;
     transition-timing-function: ease-in-out;
@@ -254,12 +240,6 @@ export default {
             width: 352px;
             height: 352px;
             background: var(--gradient-01);
-        }
-
-        .ucla {
-            background: url(~/node_modules/ucla-library-design-tokens/assets/svgs/molecule.svg?url) center, var(--gradient-01);
-            background-size: 352px;
-            background-repeat: no-repeat;
         }
         
         .affiliate {

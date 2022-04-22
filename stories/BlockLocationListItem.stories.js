@@ -39,12 +39,6 @@ const Template = (args, { argTypes }) => ({
     template: `<block-location-list-item v-bind="$props"/>`,
 })
 
-export const WithControls = Template.bind({})
-WithControls.args = { ...mock }
-
-export const WithControlsAndNoImage = Template.bind({})
-WithControlsAndNoImage.args = { ...mock, image: "" }
-
 export const Default = () => ({
     data() {
         return { ...mock }
@@ -65,3 +59,10 @@ export const Default = () => ({
         />
     `,
 })
+
+export const WithControls = Template.bind({})
+WithControls.args = { ...mock }
+
+export const WithControlsAndNoImage = Template.bind({})
+WithControlsAndNoImage.args = { ...mock, image: "" }
+
