@@ -6,8 +6,7 @@
                 class="image"
                 :image="image"
             />
-            <component
-                :is="parsedSvgName"
+            <div
                 v-else
                 :class="['image affiliate']"
             />
@@ -177,11 +176,7 @@ export default {
         isUclaLibrary: {
             type: Boolean,
             default: true
-        },
-        iconName: {
-            type: String,
-            default: "molecule-background",
-        },
+        }
     },
     computed: {
         classes() {
@@ -198,9 +193,6 @@ export default {
         },
         parsedTarget() {
             return this.isExternalLink ? "blank" : "_self"
-        },
-        parsedSvgName() {
-            return `${this.iconName}`
         }
     },
 }
@@ -243,9 +235,9 @@ export default {
         }
         
         .affiliate {
-            background: url(~/assets/svg/molecule-background.svg?url) center -50px,
+            background: url(~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-placeholder.svg?url) left -60px,
             var(--gradient-01);
-            background-size: 800px;
+            background-size: 700px;
         }
 
         .library {
