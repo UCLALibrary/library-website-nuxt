@@ -6,6 +6,7 @@
 
         <footer-primary :form="true" />
         <footer-sock />
+
     </div>
 </template>
 
@@ -49,6 +50,7 @@ export default {
                 { "has-scrolled-past-header": this.$store.state.sTop >= 150 },
             ]
         },
+
     },
     // meta: [
     //     {
