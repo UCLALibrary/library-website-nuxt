@@ -63,12 +63,17 @@ import _get from "lodash/get"
 
 export default {
     async asyncData({ $graphql, params }) {
+        // Do not remove testing live preview
+        console.log(
+            "fetching graphql data for Service or Resource detail from Craft for live preview"
+        )
         const data = await $graphql.default.request(
             SERVICE_OR_RESOURCE_DETAIL,
             {
                 slug: params.slug,
             }
         )
+        console.log("Data fetched: " + data)
         return {
             page: _get(data, "entry", {}),
         }

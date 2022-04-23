@@ -49,7 +49,8 @@
                 </h2>
 
                 <p class="statement">
-                    Subscribe to get the latest updates on what's happening with  UCLA Library.
+                    Subscribe to get the latest updates on what's happening with
+                    UCLA Library.
                 </p>
 
                 <div class="input-block">
@@ -69,7 +70,6 @@
                     </button>
                 </div>
             </form>
-            </h1>
         </div>
     </footer>
 </template>
@@ -101,8 +101,7 @@ export default {
         },
     },
     computed: {
-        classes( socialItems) {
-            console.log()
+        classes() {
             return this.form ? ["container"] : ["container no-form"]
         },
     },
@@ -367,9 +366,9 @@ export default {
                     margin-bottom: 25px;
                 }
 
-                 .social-item:last-child {
-                        padding-right: 0;
-                    }
+                .social-item:last-child {
+                    padding-right: 0;
+                }
 
                 .press-item {
                     align-self: flex-end;

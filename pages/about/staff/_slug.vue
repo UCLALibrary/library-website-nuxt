@@ -72,10 +72,14 @@ import STAFF_DETAIL from "~/gql/queries/StaffDetail"
 
 export default {
     async asyncData({ $graphql, params }) {
-        // console.log("fecthing graphql data for staff from Craft")
+        // Do not remove testing live preview
+        console.log(
+            "fetching graphql data for staff detail from Craft for live preview"
+        )
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
         })
+        console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: data,
         }

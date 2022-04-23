@@ -4,14 +4,12 @@
 
         <nuxt class="page" />
 
-        <footer-primary 
+        <footer-primary
             :social-items="parsedSocialItems"
             :press-items="parsedPressItems"
             :form="true"
         />
-        <footer-sock 
-            :sock-items="parsedSockItems"
-        />
+        <footer-sock :sock-items="parsedSockItems" />
     </div>
 </template>
 
@@ -59,29 +57,46 @@ export default {
             ]
         },
         parsedSocialItems() {
-            if(this.$store.state.footerPrimary) {
-                return this.$store.state.footerPrimary.nodes[0].children.map((obj) => {
-                    return {
-                        ...obj,
-                        target: formatLinkTarget(obj.target),
+            console.log(JSON.stringify(this.$store.state))
+            if (this.$store.state.footerPrimary) {
+                return this.$store.state.footerPrimary.nodes[0].children.map(
+                    (obj) => {
+                        return {
+                            ...obj,
+                            target: formatLinkTarget(obj.target),
+                        }
                     }
-                })
+                )
+            } else {
+                console.log(
+                    "Vuex state data not present: is it client side:" +
+                        process.client
+                )
             }
             return []
         },
         parsedPressItems() {
-            if(this.$store.state.footerPrimary) {
-                return this.$store.state.footerPrimary.nodes[1].children.map((obj) => {
-                    return {
-                        ...obj,
-                        target: formatLinkTarget(obj.target),
+            console.log(JSON.stringify(this.$store.state))
+            if (this.$store.state.footerPrimary) {
+                return this.$store.state.footerPrimary.nodes[1].children.map(
+                    (obj) => {
+                        return {
+                            ...obj,
+                            target: formatLinkTarget(obj.target),
+                        }
                     }
-                })
+                )
+            } else {
+                console.log(
+                    "Vuex state data not present: is it client side:" +
+                        process.client
+                )
             }
             return []
         },
         parsedSockItems() {
-            if(this.$store.state.footerSock) {
+            console.log(JSON.stringify(this.$store.state))
+            if (this.$store.state.footerSock) {
                 return this.$store.state.footerSock.nodes.map((obj) => {
                     return {
                         ...obj,
@@ -90,7 +105,7 @@ export default {
                 })
             }
             return []
-        }
+        },
     },
     // meta: [
     //     {
