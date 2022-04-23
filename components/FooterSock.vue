@@ -34,7 +34,6 @@ export default {
     },
     computed: {
         year() {
-            console.log(this.$store.state.footerSock)
             const current_year = new Date().getFullYear()
             return current_year
         },
