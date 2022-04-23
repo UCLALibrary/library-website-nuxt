@@ -68,6 +68,8 @@ export default {
         baseURL:
             process.env.LIBCAL_ENDPOINT ||
             "https://calendar.library.ucla.edu/api/1.1/",
+        retry: { retries: 3 },
+        debug: true,
     },
 
     /*
