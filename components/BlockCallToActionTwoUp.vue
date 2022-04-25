@@ -1,8 +1,8 @@
 <template lang="html">
     <section class="block-call-to-action-two-up">
         <block-call-to-action
-            v-for="item in items"
-            :key="item.to"
+            v-for="(item, index) in items"
+            :key="`BlockCallToActionTwoUpKey${index}`"
             :svg-name="item.svgName"
             :title="item.title"
             :text="item.text"
@@ -21,7 +21,7 @@ export default {
             type: Array,
             default: () => [],
         },
-    }
+    },
 }
 </script>
 
@@ -31,11 +31,10 @@ export default {
     flex-direction: row;
     column-gap: 48px;
 
-        @media #{$medium}{
+    @media #{$medium} {
         display: flex;
         flex-direction: column;
         row-gap: 48px;
     }
 }
-
 </style>

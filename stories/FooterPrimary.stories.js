@@ -1,4 +1,10 @@
 // Storybook default settings
+import Vue from "vue"
+import Vuex from "vuex"
+
+
+Vue.use(Vuex)
+
 export default {
     title: "FOOTER / Primary",
 }
@@ -55,6 +61,20 @@ const mock = {
 
 // Variations of stories below
 export const Default = () => ({
+    store: new Vuex.Store({
+        state: {
+            footerPrimary: {
+                nodes:[
+                    {
+                        children:mock.socialItems,
+                    },
+                    {
+                        children:mock.pressItems,
+                    },
+                ],
+            },
+        },      
+    }),
     data() {
         return {
             ...mock,
@@ -65,6 +85,20 @@ export const Default = () => ({
 })
 
 export const NoForm = () => ({
+    store: new Vuex.Store({
+        state: {
+            footerPrimary: {
+                nodes:[
+                    {
+                        children:mock.socialItems,
+                    },
+                    {
+                        children:mock.pressItems,
+                    },
+                ],
+            },
+        },      
+    }),
     data() {
         return {
             ...mock,

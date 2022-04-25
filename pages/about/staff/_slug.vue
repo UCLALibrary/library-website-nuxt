@@ -80,13 +80,16 @@ export default {
             slug: params.slug,
         })
         console.log("Data fetched: " + JSON.stringify(data))
+        // _get(data, "entry", {}),
         return {
             page: data,
         }
     },
     head() {
+        let title =
+            this.page && this.page.entry ? this.page.entry.title : "... loading"
         return {
-            title: this.page.entry.title,
+            title: title,
         }
     },
     computed: {
