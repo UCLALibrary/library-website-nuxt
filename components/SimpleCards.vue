@@ -1,8 +1,8 @@
 <template>
     <ul class="simple-cards">
         <block-simple-card
-            v-for="item in parsedContent"
-            :key="item.to"
+            v-for="(item, index) in parsedContent"
+            :key="`SimpleCardsKey${index}`"
             :class="item.classes"
             :to="item.to"
             :title="item.title"

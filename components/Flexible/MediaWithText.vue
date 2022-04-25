@@ -6,7 +6,7 @@
             </h2>
             <div
                 v-for="(item, index) in parsedContent"
-                :key="index"
+                :key="`MediaWithTextKey${index}`"
                 class="meta"
             >
                 <block-media-with-text
