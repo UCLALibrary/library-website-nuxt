@@ -7,8 +7,7 @@ const mock = {
     title: "Arts Library",
     image:  API.image,
     day: "Today",
-    startTime: "8am",
-    endTime: "5pm",
+    hour: "8am - 5pm",
     reserveSeat: "http://google.com/reserveSeat",
     address: "1400 Public Affairs Building Los Angeles, CA 90095-1392",
     addressLink: "http://google.com/address",
@@ -49,8 +48,7 @@ export const Default = () => ({
             :to="to"
             :image="image"
             :day="day"
-            :startTime="startTime"
-            :endTime="endTime"
+            :hour="hour"
             :address="address"
             :addressLink="addressLink"
             :amenities="amenities"
@@ -61,7 +59,9 @@ export const Default = () => ({
 })
 
 export const WithControls = Template.bind({})
-WithControls.args = { ...mock }
+WithControls.args = { 
+    ...mock
+}
 
 export const WithControlsAndNoImage = Template.bind({})
 WithControlsAndNoImage.args = { ...mock, image: "" }

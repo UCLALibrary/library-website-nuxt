@@ -23,14 +23,13 @@
                 </smart-link>
                 <div class="text">
                     <div
+                        v-if="day || hour"
                         class="time"
                     >
                         <SvgIconClock />
                         <span>{{ day }}</span>
-                        <div class="time-hour">
-                            <span>{{ startTime }}</span>
-                            <span>-</span>
-                            <span>{{ endTime }}</span>
+                        <div class="hour">
+                            <span>{{ hour }}</span>
                         </div>
                     </div>
                     <icon-with-link 
@@ -149,11 +148,7 @@ export default {
             type: String,
             default: "",
         },
-        startTime: {
-            type: String,
-            default: "",
-        },
-        endTime: {
+        hour: {
             type: String,
             default: "",
         },
@@ -209,8 +204,7 @@ export default {
     padding: 48px 64px;
 
     transition-property: box-shadow;
-    transition-duration: 400ms;
-    transition-timing-function: ease-in-out;
+    @include animate-normal;
 
     // Themes
     &.color-ucla {
@@ -233,11 +227,15 @@ export default {
             height: 352px;
             background: var(--gradient-01);
         }
-        
+
+        $positionKey: random(3);
+        $positions: left, center, right;
+        $nth: nth($positions, $positionKey);
+
         .affiliate {
-            background: url(~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-placeholder.svg?url) left -60px,
+            background: url(~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-placeholder.svg?url),
             var(--gradient-01);
-            background-size: 700px;
+            background-position-x: random(500) + px;
         }
 
         .library {
@@ -287,7 +285,7 @@ export default {
             border-right: 2px solid var(--color-secondary-grey-02);
         }
 
-        .time-hour {
+        .hour {
             padding: 0 10px;
         }
 
@@ -299,6 +297,17 @@ export default {
         .svg {
             max-width: 25px;
             margin-right: 20px;
+        }
+
+        // Fix: svg shareprinter to white bg and blue stroke
+        .svg__fill--secondary-grey-01 {
+            fill: var(--color-white);
+        }
+        .svg__stroke--black {
+            stroke: var(--color-primary-blue-03);
+        }
+        .svg__fill--black {
+            fill: var(--color-primary-blue-03);
         }
     }
 
@@ -315,6 +324,9 @@ export default {
         .image {
             max-width: 256px;
             max-height: 256px;
+        }
+        .affiliate {
+            background-size: 650px !important;
         }
         .text {
             padding: 8px 0;
@@ -341,7 +353,7 @@ export default {
     // Hovers
     @media #{$has-hover} {
         &:hover {
-            box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
+            @include card-horizontal-hover;
 
             .title {
                 text-decoration: underline;
