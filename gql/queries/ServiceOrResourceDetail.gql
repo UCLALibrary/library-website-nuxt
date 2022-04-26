@@ -73,16 +73,23 @@ fragment BlockDivider on defaultFpbWithNoCta_divider_BlockType {
 
 fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
     id
+    titleGeneral
+    summary
     simpleCards {
-        ... on simpleCards_simpleCard_BlockType {
+        ... on simpleCards_internalServiceOrResource_BlockType {
             id
-            title: titleSimpleCard
+            title: titleGeneral
+            summary
             contentLink {
-                id
-                url
-                title
-                text: summary
+            id
+            title
+            text: summary
+            url
             }
+        }
+        ... on simpleCards_externalServiceOrResource_BlockType {
+            id
+            title: titleGeneral
             summary
             externalLink
         }
