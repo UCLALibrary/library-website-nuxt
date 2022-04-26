@@ -1,13 +1,30 @@
 <template>
     <ul class="simple-cards">
-        <block-simple-card
+        <li>BLOCK: {{ block }}</li>
+        <li>TITLE: {{ block.sectionTitle }}</li>
+        <li>SUMMARY: {{ block.sectionSummary }}</li>
+        <li>-----------</li>
+        <li>BLOCK CARDS: {{ block.cards }}</li>
+        <li>BLOCK CARDS First: {{ block.cards[0] }}</li>
+        <li>Title: {{ block.cards[0].title }}</li>
+        <li>Summary: {{ block.cards[0].summary }}</li>
+        <li>External Link: {{ block.cards[0].externalLink }}</li>
+        <li>-----------</li>
+        <li>BLOCK CARDS Second: {{ block.cards[1] }}</li>
+        <li>Title: {{ block.cards[1].title }}</li>
+        <li>Summary: {{ block.cards[1].summary }}</li>
+        <li>Content Link Slug: {{ block.cards[1].contentLink[0].slug }}</li>
+        <!-- <block-simple-card
+            :sectionTitle="item.sectionTitle"
+            :sectionSummary="sectionSummary"
+
             v-for="(item, index) in parsedContent"
             :key="`SimpleCardsKey${index}`"
             :class="item.classes"
             :to="item.to"
             :title="item.title"
             :text="item.text"
-        />
+        /> -->
     </ul>
 </template>
 
@@ -32,21 +49,50 @@ export default {
                     output = ["card", "card-five"]
                     break
             }
-            return this.block.simpleCards.map((obj) => {
-                return {
-                    ...obj,
-                    text: obj.summary ? obj.summary : obj.contentLink[0].text,
-                    title: obj.title ? obj.title : obj.contentLink[0].title,
-                    to: "/",
-                    // TODO
-                    // to: obj.externalLink
-                    //     ? obj.externalLink
-                    //     : obj.contentLink[0].url,
-                    classes: output,
-                }
-            })
+
+            // return this.block.simpleCards.map((obj) => {
+            //     return {
+            //         ...obj,
+            //         sectionTitle: obj.title,
+            //         summary: obj.summary,
+            //         classes: output,
+            //     }
+            // })
         },
+
+
     },
+    //x.data.entry.blocks[0].cards[0]
+    // return this.block.simpleCards.map((obj) => {
+    //     return {
+    //         ...obj,
+    //         titleGeneral: obj.title,
+    //         summary: obj.summary,
+    //         simpleCards
+    //         if contentLink
+    //         title: ,
+    //         text: ,
+    //         to: obj.url: ,
+    //         to: "/",
+
+    //         classes: output,
+    //     }
+    // })
+    // return this.block.simpleCards.map((obj) => {
+    //     return {
+    //         ...obj,
+    //         title: obj.title ? obj.title : obj.contentLink[0].title,
+    //         text: obj.summary ? obj.summary : obj.contentLink[0].text,
+    //         to: "/",
+    //         // TODO
+    //         // to: obj.externalLink
+    //         //     ? obj.externalLink
+    //         //     : obj.contentLink[0].url,
+    //         classes: output,
+    //     }
+    // })
+    //},
+
 }
 </script>
 
