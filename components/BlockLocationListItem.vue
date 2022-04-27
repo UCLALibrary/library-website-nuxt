@@ -1,17 +1,22 @@
 <template lang="html">
     <div :class="classes">
         <div class="card-container">
-            <responsive-image
-                v-if="image"
-                class="image"
-                :image="image"
-            />
-            <div
-                v-else
-                class="image-container"
+            <nuxt-link
+                class="image-container" 
+                :to="to"
             >
-                <div class="image" /><div class="affiliate" />
-            </div>
+                <responsive-image
+                    v-if="image"
+                    class="image"
+                    :image="image"
+                />
+                <div
+                    v-else
+                    class="placeholder-container"
+                >
+                    <div class="image" /><div class="affiliate" />
+                </div>
+            </nuxt-link>
 
             <div
                 class="library"
@@ -216,6 +221,10 @@ export default {
         --color-theme: var(--color-primary-blue-02);
     }
 
+    
+    $large-width: 352px;
+    $large-height: 352px;
+
     .card-container {
         display: flex;
         flex-direction: row;
@@ -224,24 +233,28 @@ export default {
         max-width: 800px;
 
         .image-container {
-            position: relative;
-            width: 352px;
-            height: 352px;
+            width: $large-width;
+            height: $large-height;
             margin-right: var(--space-xl);
         }
 
+        .placeholder-container {
+            position: relative;
+            width: $large-width;
+            height: $large-height;
+        }
+
         .image {
-            margin-right: var(--space-xl);
-            width: 352px;
-            height: 352px;
+            width: 100%;
+            height: 100%;
             background: var(--gradient-01);
         }
 
         .affiliate {
             background: url(~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-placeholder.svg?url);
             background-size: 900px;
-            width: 352px;
-            height: 352px;
+            width: 100%;
+            height: 100%;
             position: absolute;
             top: 0;
             left: 0;
@@ -335,10 +348,15 @@ export default {
         }
 
         .image-container {
-            position: relative;
-            width: $medium-width;
-            height: $medium-height;
+            width: $medium-width !important;
+            height: $medium-height !important;
             margin-right: var(--space-xl);
+        }
+
+        .placeholder-container {
+            position: relative;
+            max-width: $medium-width;
+            max-height: $medium-height;
         }
 
         .image {
@@ -367,7 +385,7 @@ export default {
             width: 100%;
             max-width: 320px;
         }
-        .image, .image-container {
+        .image-container {
             display: none;
         }
         .text {
