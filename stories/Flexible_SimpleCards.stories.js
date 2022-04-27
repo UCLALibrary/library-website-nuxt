@@ -101,7 +101,6 @@ export const TwoCards = () => ({
     template: `
         <flexible-simple-cards
         :block="block"
-
         />
     `,
 })

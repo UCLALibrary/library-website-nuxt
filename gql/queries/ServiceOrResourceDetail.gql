@@ -81,7 +81,7 @@ fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
       title: titleGeneral
       summary
       contentLink {
-        slug
+        uri
       }
     }
     ... on simpleCards_externalServiceOrResource_BlockType {
