@@ -257,6 +257,15 @@ export default {
             color: var(--color-primary-blue-03);
             margin: 0px 0 12px 0;
             line-height: $line-height--1;
+            
+            &:hover {
+
+                text-decoration: underline;
+                text-decoration-color: var(--color-primary-blue-03);
+                text-decoration-thickness: 1.5px;
+                @include link-hover;
+                color: var(--color-primary-blue-03);
+            }
         }
 
         .text {
@@ -372,14 +381,6 @@ export default {
     @media #{$has-hover} {
         &:hover {
             @include card-horizontal-hover;
-
-            .title {
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-blue-03);
-                text-decoration-thickness: 1.5px;
-                @include link-hover;
-                color: var(--color-primary-blue-03);
-            }
         }
     }
 }
