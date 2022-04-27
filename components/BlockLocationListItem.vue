@@ -8,8 +8,10 @@
             />
             <div
                 v-else
-                :class="['image affiliate']"
-            />
+                class="image-container"
+            >
+                <div class="image" /><div class="affiliate" />
+            </div>
 
             <div
                 class="library"
@@ -221,6 +223,13 @@ export default {
         width: 100%;
         max-width: 800px;
 
+        .image-container {
+            position: relative;
+            width: 352px;
+            height: 352px;
+            margin-right: var(--space-xl);
+        }
+
         .image {
             margin-right: var(--space-xl);
             width: 352px;
@@ -228,14 +237,14 @@ export default {
             background: var(--gradient-01);
         }
 
-        $positionKey: random(3);
-        $positions: left, center, right;
-        $nth: nth($positions, $positionKey);
-
         .affiliate {
-            background: url(~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-placeholder.svg?url),
-            var(--gradient-01);
-            background-position-x: random(500) + px;
+            background: url(~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-placeholder.svg?url);
+            background-size: 900px;
+            width: 352px;
+            height: 352px;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .library {
@@ -243,14 +252,6 @@ export default {
             flex-direction: column;
         }
         
-        .title::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-        }
         .title {
             @include step-2;
             color: var(--color-primary-blue-03);
@@ -315,19 +316,36 @@ export default {
     // BREAKPOINTS
     @media #{$medium}{
         // max-width: 640px;
+        $medium-width: 256px;
+        $medium-height: 256px;
         max-width: 640px;
         padding: 24px;
         .card-container {
             width: 100%;
             max-width: 592px;
         }
-        .image {
-            max-width: 256px;
-            max-height: 256px;
+
+        .image-container {
+            position: relative;
+            width: $medium-width;
+            height: $medium-height;
+            margin-right: var(--space-xl);
         }
+
+        .image {
+            max-width: $medium-width;
+            max-height: $medium-height;
+        }
+
         .affiliate {
             background-size: 650px !important;
+            width: $medium-width !important;
+            height: $medium-height !important;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
+
         .text {
             padding: 8px 0;
         }
@@ -340,7 +358,7 @@ export default {
             width: 100%;
             max-width: 320px;
         }
-        .image {
+        .image, .image-container {
             display: none;
         }
         .text {
