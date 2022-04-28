@@ -5,7 +5,9 @@ export default {
     title: "FLEXIBLE / Simple Cards",
 }
 
-const mockGqlTwoCards = {
+// Variations of stories below
+// mockGqlTwoCards
+export const Default = () => ({
     cards: [
         {
             title: GQL.cards[0].title,
@@ -75,7 +77,7 @@ export const TwoCards = () => ({
         return { block: mockGqlTwoCards }
     },
     template: `
-        <flexible-simple-cards :block="block" />
+        <simple-cards :block="block" />
     `,
 })
 
@@ -84,7 +86,7 @@ export const ThreeCards = () => ({
         return { block: mockGqlThreeCards }
     },
     template: `
-        <flexible-simple-cards :block="block" />
+        <simple-cards :block="block" />
     `,
 })
 
@@ -93,16 +95,6 @@ export const FiveCards = () => ({
         return { block: mockGqlFiveCards  }
     },
     template: `
-        <flexible-simple-cards :block="block" />
+        <simple-cards :block="block" />
     `,
 })
-
-
-// export const FiveCards = () => ({
-//     data() {
-//         return { block: fiveCards }
-//     },
-//     template: `
-//         <flexible-simple-cards :block="block" />
-//     `,
-// })

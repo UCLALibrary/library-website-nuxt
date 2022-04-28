@@ -8,6 +8,8 @@ export default {
 const mockGqlTwoCards = {
     cards: [
         {
+            sectionTitle: "Mammals",
+            sectionSummary: "<p>Mammals include humans and all other animals that are warm-blooded vertebrates (vertebrates have backbones) with hair. They feed their young with milk and have a more well-developed brain than other types of animals. </p>",
             title: GQL.cards[0].title,
             summary: GQL.cards[0].summary,
             to: GQL.cards[0].externalLink
@@ -70,7 +72,9 @@ const mockGqlFiveCards = {
     ]
 }
 
-export const TwoCards = () => ({
+// Variations of stories below
+// TwoCards
+export const Default = () => ({
     data() {
         return { block: mockGqlTwoCards }
     },

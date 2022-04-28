@@ -18,10 +18,8 @@
                 :title="item.title"
                 :text="item.text"
             />
-            </block-simple-card>
         </ul>
     </div>
-    </divclass="simple-cards">
 </template>
 
 <script>

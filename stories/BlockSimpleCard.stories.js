@@ -17,7 +17,9 @@ const mockGqlInternal = {
     to: GQL.cards[1].contentLink[0].slug
 }
 
-export const ExternalLinkMockGql = () => ({
+// Variations of stories below
+// ExternalLinkMockGql
+export const Default = () => ({
     data() {
         return { ...mockGqlExternal }
     },
