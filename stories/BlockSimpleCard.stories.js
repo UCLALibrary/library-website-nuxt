@@ -6,15 +6,15 @@ export default {
 }
 
 const mockGqlExternal = {
-    title: GQL.simpleCards[2].title,
-    text: GQL.simpleCards[2].summary,
-    to: GQL.simpleCards[2].externalLink
+    title: GQL.cards[2].title,
+    text: GQL.cards[2].summary,
+    to: GQL.cards[2].externalLink
 }
 
 const mockGqlInternal = {
-    title: GQL.simpleCards[1].title,
-    text: GQL.simpleCards[1].summary,
-    to: GQL.simpleCards[1].contentLink[0].slug
+    title: GQL.cards[1].title,
+    text: GQL.cards[1].summary,
+    to: GQL.cards[1].contentLink[0].slug
 }
 
 export const ExternalLinkMockGql = () => ({

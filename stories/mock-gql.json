@@ -1,5 +1,5 @@
 {
-    "simpleCards": [
+    "cards": [
         {
             "id": "12716",
             "title": "Bunnies & Rabbits",
@@ -24,19 +24,19 @@
         },
         {
             "id": "12719",
-            "title": "Foxes",
-            "summary": "Foxes are small to medium-sized, omnivorous mammals belonging to several genera of the family Canidae. They have a flattened skull, upright triangular ears, a pointed, slightly upturned snout, and a long bushy tail.",
+            "title": "Puppies",
+            "summary": "A puppy is a juvenile dog.",
             "contentLink": [
                 {
-                    "slug": "foxes"
+                    "slug": "puppies"
                 }
             ]
         },
         {
             "id": "12720",
-            "title": "Bunnies & Rabbits",
-            "summary": "Bunny refers to the small, bun-shaped tail. A rabbit is a type of mammal. They are small, furry animals with large ears and powerful back legs that can be seen hopping around in meadows in the springtime.",
-            "externalLink": "https://petkeen.com/bunny-vs-rabbit/"
+            "title": "Tigers",
+            "summary": "The tiger (Panthera tigris) is the largest living cat species and a member of the genus Panthera. It is most recognisable for its dark vertical stripes on orange fur with a white underside.",
+            "externalLink": "https://en.wikipedia.org/wiki/Tiger"
         },
         {
             "id": "12721",
@@ -44,7 +44,7 @@
             "summary": "Whales are a widely distributed and diverse group of fully aquatic placental marine mammals. They are an informal grouping within the infraorder Cetacea, which usually excludes dolphins and porpoises.",
             "contentLink": [
                 {
-                    "slug": "foxes"
+                    "slug": "whales"
                 }
             ]
         }
