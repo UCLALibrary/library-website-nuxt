@@ -14,7 +14,8 @@
                     v-else
                     class="placeholder-container"
                 >
-                    <div class="image" /><div class="affiliate" />
+                    <div class="image" />
+                    <div class="affiliate" />
                 </div>
             </nuxt-link>
 
@@ -189,12 +190,6 @@ export default {
         },
         cardTheme() {
             return this.isUclaLibrary ? "ucla" : "affiliate"
-        },
-        isExternalLink() {
-            return this.to.includes("http") ? true : false
-        },
-        parsedTarget() {
-            return this.isExternalLink ? "blank" : "_self"
         }
     },
 }
@@ -220,7 +215,6 @@ export default {
     &.color-affiliate {
         --color-theme: var(--color-primary-blue-02);
     }
-
     
     $large-width: 352px;
     $large-height: 352px;
@@ -272,7 +266,6 @@ export default {
             line-height: $line-height--1;
             
             &:hover {
-
                 text-decoration: underline;
                 text-decoration-color: var(--color-primary-blue-03);
                 text-decoration-thickness: 1.5px;
@@ -322,7 +315,7 @@ export default {
             margin-right: 20px;
         }
 
-        // Fix: svg shareprinter to white bg and blue stroke
+        // Adjusts: Svg shareprinter to white bg and blue stroke
         .svg__fill--secondary-grey-01 {
             fill: var(--color-white);
         }
@@ -334,10 +327,8 @@ export default {
         }
     }
 
-
     // BREAKPOINTS
     @media #{$medium}{
-        // max-width: 640px;
         $medium-width: 256px;
         $medium-height: 256px;
         max-width: 640px;
@@ -345,36 +336,36 @@ export default {
         .card-container {
             width: 100%;
             max-width: 592px;
-        }
 
-        .image-container {
-            width: $medium-width !important;
-            height: $medium-height !important;
-            margin-right: var(--space-xl);
-        }
+            .image-container {
+                width: $medium-width;
+                height: $medium-height;
+                margin-right: var(--space-xl);
+            }
 
-        .placeholder-container {
-            position: relative;
-            max-width: $medium-width;
-            max-height: $medium-height;
-        }
+            .placeholder-container {
+                position: relative;
+                max-width: $medium-width;
+                height: $medium-height;
+            }
 
-        .image {
-            max-width: $medium-width;
-            max-height: $medium-height;
-        }
+            .image {
+                width: $medium-width;
+                height: $medium-height;
+            }
 
-        .affiliate {
-            background-size: 650px !important;
-            width: $medium-width !important;
-            height: $medium-height !important;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
+            .affiliate {
+                background-size: 650px;
+                width: $medium-width;
+                height: $medium-height;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
 
-        .text {
-            padding: 8px 0;
+            .text {
+                padding: 8px 0;
+            }
         }
     }
 

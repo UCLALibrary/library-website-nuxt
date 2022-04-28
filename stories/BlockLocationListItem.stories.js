@@ -23,14 +23,12 @@ const mock = {
         "SvgIconShareBook",
     ],
     to: "http://google.com/title",
-
 }
 
 export default {
     title: "BLOCK / Location List Item",
     component: BlockLocationListItem
 }
-
 
 const Template = (args, { argTypes }) => ({
     components: { BlockLocationListItem },
@@ -65,4 +63,3 @@ WithControls.args = {
 
 export const WithControlsAndNoImage = Template.bind({})
 WithControlsAndNoImage.args = { ...mock, image: "" }
-
