@@ -1,0 +1,52 @@
+{
+    "simpleCards": [
+        {
+            "id": "12716",
+            "title": "Bunnies & Rabbits",
+            "summary": "Bunny refers to the small, bun-shaped tail of the rabbit. A rabbit is a type of mammal. They are small, furry animals with large ears and powerful back legs that can be seen hopping around in meadows in the springtime.",
+            "externalLink": "https://petkeen.com/bunny-vs-rabbit/"
+        },
+        {
+            "id": "12717",
+            "title": "Foxes",
+            "summary": "Foxes are small to medium-sized, omnivorous mammals belonging to several genera of the family Canidae. They have a flattened skull, upright triangular ears, a pointed, slightly upturned snout, and a long bushy tail.",
+            "contentLink": [
+                {
+                    "slug": "foxes"
+                }
+            ]
+        },
+        {
+            "id": "12718",
+            "title": "LLamas",
+            "summary": "Llamas are social animals and live with others as a herd. Their wool is soft and contains only a small amount of lanolin. Llamas can learn simple tasks after a few repetitions.",
+            "externalLink": "https://cosleyzoo.org/llama/"
+        },
+        {
+            "id": "12719",
+            "title": "Foxes",
+            "summary": "Foxes are small to medium-sized, omnivorous mammals belonging to several genera of the family Canidae. They have a flattened skull, upright triangular ears, a pointed, slightly upturned snout, and a long bushy tail.",
+            "contentLink": [
+                {
+                    "slug": "foxes"
+                }
+            ]
+        },
+        {
+            "id": "12720",
+            "title": "Bunnies & Rabbits",
+            "summary": "Bunny refers to the small, bun-shaped tail. A rabbit is a type of mammal. They are small, furry animals with large ears and powerful back legs that can be seen hopping around in meadows in the springtime.",
+            "externalLink": "https://petkeen.com/bunny-vs-rabbit/"
+        },
+        {
+            "id": "12721",
+            "title": "Whales",
+            "summary": "Whales are a widely distributed and diverse group of fully aquatic placental marine mammals. They are an informal grouping within the infraorder Cetacea, which usually excludes dolphins and porpoises.",
+            "contentLink": [
+                {
+                    "slug": "foxes"
+                }
+            ]
+        }
+    ]
+}
