@@ -5,9 +5,7 @@ export default {
     title: "FLEXIBLE / Simple Cards",
 }
 
-// Variations of stories below
-// mockGqlTwoCards
-export const Default = () => ({
+const mockGqlTwoCards = {
     cards: [
         {
             title: GQL.cards[0].title,
@@ -72,7 +70,9 @@ const mockGqlFiveCards = {
     ]
 }
 
-export const TwoCards = () => ({
+// Variations of stories below
+// mockGqlTwoCards
+export const Default= () => ({
     data() {
         return { block: mockGqlTwoCards }
     },

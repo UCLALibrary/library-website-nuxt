@@ -2,13 +2,13 @@
     "cards": [
         {
             "id": "12716",
-            "title": "Bunnies & Rabbits",
+            "title": "Bunnies & Rabbits - external",
             "summary": "Bunny refers to the small, bun-shaped tail of the rabbit. A rabbit is a type of mammal. They are small, furry animals with large ears and powerful back legs that can be seen hopping around in meadows in the springtime. ",
             "externalLink": "https://petkeen.com/bunny-vs-rabbit/"
         },
         {
             "id": "12717",
-            "title": "Foxes",
+            "title": "Foxes- internal",
             "summary": "Foxes are small to medium-sized, omnivorous mammals belonging to several genera of the family Canidae. They have a flattened skull, upright triangular ears, a pointed, slightly upturned snout, and a long bushy tail.",
             "contentLink": [
                 {
@@ -18,13 +18,13 @@
         },
         {
             "id": "12718",
-            "title": "LLamas",
+            "title": "LLamas- external",
             "summary": "Llamas are social animals and live with others as a herd. Their wool is soft and contains only a small amount of lanolin. Llamas can learn simple tasks after a few repetitions.",
             "externalLink": "https://cosleyzoo.org/llama/"
         },
         {
             "id": "12719",
-            "title": "Puppies",
+            "title": "Puppies- internal",
             "summary": "A puppy is a juvenile dog.",
             "contentLink": [
                 {
@@ -34,13 +34,13 @@
         },
         {
             "id": "12720",
-            "title": "Tigers",
+            "title": "Tigers- external",
             "summary": "The tiger (Panthera tigris) is the largest living cat species and a member of the genus Panthera. It is most recognisable for its dark vertical stripes on orange fur.",
             "externalLink": "https://en.wikipedia.org/wiki/Tiger"
         },
         {
             "id": "12721",
-            "title": "Whales",
+            "title": "Whales- internal",
             "summary": "Whales are a widely distributed and diverse group of fully aquatic placental marine mammals. They are an informal grouping within the infraorder Cetacea, which usually excludes dolphins and porpoises.",
             "contentLink": [
                 {
