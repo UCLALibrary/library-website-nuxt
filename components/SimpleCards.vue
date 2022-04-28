@@ -76,12 +76,13 @@ export default {
     .section-title {
         @include step-4;
         color: var(--color-primary-blue-03);
-        font-size: 44px;
     }
 
     .section-summary {
-        
+        @include step-0;
+        margin-bottom: var(--space-xl);
     }
+
     .card {
         margin: 12px 16px 0 0;
     }
