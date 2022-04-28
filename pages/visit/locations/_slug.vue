@@ -125,30 +125,36 @@ export default {
         const data = await $graphql.default.request(LOCATION_DETAIL, {
             slug: params.slug,
         })
-        // TO DO get a list of libcalids
+
         const libcalID = data.entry.libcalLocationIdForSpaces
-        if (libcalID) {
-            const libcalData = await $axios.$get(
+        const interiorIDs = data.entry.libCalIDforSpace
+
+        if (libcalID && interiorIDs) {
+            const allSpaces = []
+            const interiorIDsList = interiorIDs.map((obj) => {
+                return obj.spaceID
+            })
+            const mainSpace = await $axios.$get(
                 `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
             )
-            // Check the repsonse code isn't an error
+            allSpaces.push(...mainSpace)
+            for (let id in interiorIDsList) {
+                console.log(id)
+                const libcalData = await $axios.$get(
+                    `https://calendar.library.ucla.edu/api/1.1/space/items/${interiorIDsList[id]}`
+                )
+                allSpaces.push(...libcalData)
+            }
+
             return {
                 page: _get(data, "entry", {}),
-                // libCalSpaces: libcalData,
+                libCalSpaces: allSpaces,
             }
         } else {
             return {
                 page: _get(data, "entry", {}),
             }
         }
-        // async asyncData({ $axios }) {
-        //     const libcalData = await $axios.$get(
-        //         `https://calendar.library.ucla.edu/api/1.1/space/items/4361`
-        //         console.log(we are in the seperate asyncdata now)
-        //     )
-        //     return {
-        //         libCalSpaces: libcalData,
-        //     }
     },
     head() {
         return {
@@ -173,6 +179,9 @@ export default {
         addressLink() {
             return `https://map.ucla.edu/?id=${this.page.campusMapId}&e=true`
         },
+        // parsedSpaces() {
+        //     return combine regualr and interior locations
+        // },
         parsedServicesAndResources() {
             return this.page.resourceServiceWorkshop.map((obj) => {
                 return {
