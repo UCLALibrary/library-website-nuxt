@@ -8,11 +8,12 @@
                 class="section"
                 v-html="sectionName"
             />
-            <h3 class="title">
+            <h3 class="title2">
                 <smart-link
                     v-if="title"
                     :to="to"
                     :target="parsedTarget"
+                    class="title"
                 >
                     {{ title }}
                 </smart-link>
@@ -124,8 +125,7 @@ export default {
         right: 0;
         left: 0;
     }
-
-    .title {
+    .title2 {
         @include step-1;
         color: var(--color-primary-blue-03);
         margin-bottom: 16px;

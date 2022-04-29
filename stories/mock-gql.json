@@ -12,7 +12,7 @@
             "summary": "Foxes are small to medium-sized, omnivorous mammals belonging to several genera of the family Canidae. They have upright triangular ears and a long bushy tail.",
             "contentLink": [
                 {
-                    "slug": "foxes"
+                    "slug": "/foxes"
                 }
             ]
         },
@@ -28,7 +28,7 @@
             "summary": "A puppy is a juvenile dog.",
             "contentLink": [
                 {
-                    "slug": "puppies"
+                    "slug": "/puppies"
                 }
             ]
         },
@@ -44,7 +44,7 @@
             "summary": "Whales breathe air, are warm-blooded, give live birth, the young suckles on milk and have hair. They are the largest animal on Earth up to 100 ft long and live in every ocean.",
             "contentLink": [
                 {
-                    "slug": "whales"
+                    "slug": "/whales"
                 }
             ]
         }

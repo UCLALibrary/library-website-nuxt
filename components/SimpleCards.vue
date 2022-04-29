@@ -44,11 +44,17 @@ export default {
             }
 
             return this.block.cards.map((card) => {
-                let contentLink = "/"
+                let internalLink = "/"
                 if (card.contentLink && card.contentLink.length != 0){
-                    contentLink = card.contentLink[0].slug
+                    if (card.contentLink[0].slug.indexOf("/") === 0){
+                        internalLink = card.contentLink[0].slug
+                        console.log(internalLink)
+                    }else {
+                        internalLink = "/" + card.contentLink[0].slug
+                        console.log(internalLink)
+                    }
                 }
-                let link = card.externalLink ? card.externalLink : contentLink
+                let link = card.externalLink ? card.externalLink : internalLink
                 return {
                     title: card.title,
                     text: card.summary,
