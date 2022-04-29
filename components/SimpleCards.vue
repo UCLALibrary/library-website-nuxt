@@ -1,14 +1,25 @@
 <template>
-    <ul class="simple-cards">
-        <block-simple-card
-            v-for="(item, index) in parsedContent"
-            :key="`SimpleCardsKey${index}`"
-            :class="item.classes"
-            :to="item.to"
-            :title="item.title"
-            :text="item.text"
+    <div class="simple-cards">
+        <h3
+            class="section-title"
+            v-html="block.sectionTitle"
         />
-    </ul>
+        <p
+            class="section-summary"
+            v-html="block.sectionSummary"
+        />
+
+        <ul class="simple-cards">
+            <block-simple-card
+                v-for="(item, index) in parsedContent"
+                :key="`SimpleCardsKey${index}`"
+                :class="item.classes"
+                :to="item.to"
+                :title="item.title"
+                :text="item.text"
+            />
+        </ul>
+    </div>
 </template>
 
 <script>
@@ -20,10 +31,9 @@ export default {
         },
     },
     computed: {
-        // Determines whether content link or new content is used for props
         parsedContent() {
             let output = ["card", "card-small"]
-            switch (this.block.simpleCards.length) {
+            switch (this.block.cards.length) {
                 case 2:
                 case 4:
                     output = ["card", "card-large"]
@@ -32,21 +42,28 @@ export default {
                     output = ["card", "card-five"]
                     break
             }
-            return this.block.simpleCards.map((obj) => {
+
+            return this.block.cards.map((card) => {
+                let internalLink = "/"
+                if (card.contentLink && card.contentLink.length != 0){
+                    if (card.contentLink[0].slug.indexOf("/") === 0){
+                        internalLink = card.contentLink[0].slug
+                        console.log(internalLink)
+                    }else {
+                        internalLink = "/" + card.contentLink[0].slug
+                        console.log(internalLink)
+                    }
+                }
+                let link = card.externalLink ? card.externalLink : internalLink
                 return {
-                    ...obj,
-                    text: obj.summary ? obj.summary : obj.contentLink[0].text,
-                    title: obj.title ? obj.title : obj.contentLink[0].title,
-                    to: "/",
-                    // TODO
-                    // to: obj.externalLink
-                    //     ? obj.externalLink
-                    //     : obj.contentLink[0].url,
+                    title: card.title,
+                    text: card.summary,
+                    to: link,
                     classes: output,
                 }
             })
         },
-    },
+    }
 }
 </script>
 
@@ -61,6 +78,16 @@ export default {
     justify-content: flex-start;
     align-content: flex-start;
     align-items: flex-start;
+
+    .section-title {
+        @include step-4;
+        color: var(--color-primary-blue-03);
+    }
+
+    .section-summary {
+        @include step-0;
+        margin-bottom: var(--space-xl);
+    }
 
     .card {
         margin: 12px 16px 0 0;

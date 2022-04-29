@@ -11,6 +11,7 @@
         "storybook": "nuxt storybook --port 3009",
         "storybook-build": "nuxt storybook build",
         "cypress": "cypress open",
+        "cypress-storybook": "cypress open --config-file cypress.storybook.json",
         "cypress-run": "cypress run",
         "lint": "eslint ./",
         "lint-fix": "eslint --fix ./",
