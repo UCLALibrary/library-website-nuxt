@@ -28,7 +28,10 @@
             class="block-hours"
             :lid="page.libcalLocationIdForHours"
         />
-        <divider-general class="divider-general" />
+        <divider-general
+            v-if="page.amenities.length"
+            class="divider-general"
+        />
         <block-amenities
             v-if="page.amenities.length"
             :items="page.amenities"
@@ -122,6 +125,7 @@ import _get from "lodash/get"
 
 export default {
     async asyncData({ $graphql, params, $axios }) {
+        console.log("rendered client side" + process.client)
         const data = await $graphql.default.request(LOCATION_DETAIL, {
             slug: params.slug,
         })
@@ -138,13 +142,23 @@ export default {
                 `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
             )
             allSpaces.push(...mainSpace)
+            // Get interior location spae dtails
             for (let id in interiorIDsList) {
-                console.log(id)
                 const libcalData = await $axios.$get(
                     `https://calendar.library.ucla.edu/api/1.1/space/items/${interiorIDsList[id]}`
                 )
                 allSpaces.push(...libcalData)
             }
+
+            return {
+                page: _get(data, "entry", {}),
+                libCalSpaces: allSpaces,
+            }
+        } else if (libcalID) {
+            const allSpaces = []
+            const mainSpace = await $axios.$get(
+                `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
+            )
 
             return {
                 page: _get(data, "entry", {}),
@@ -164,24 +178,25 @@ export default {
     computed: {
         // TO DO refactor to remove empties then concat
         parsedAddress() {
-            return (
-                this.page.address[0].addressLine1 +
-                " " +
-                // _get(this.page, "address[0].addressLine2", "") +
-                // " " +
-                this.page.address[0].addressCity +
-                " " +
-                this.page.address[0].addressState +
-                " " +
-                this.page.address[0].addressZipCode
-            )
+            if (this.page.address.length) {
+                return (
+                    this.page.address[0].addressLine1 +
+                    " " +
+                    // _get(this.page, "address[0].addressLine2", "") +
+                    // " " +
+                    this.page.address[0].addressCity +
+                    " " +
+                    this.page.address[0].addressState +
+                    " " +
+                    this.page.address[0].addressZipCode
+                )
+            } else {
+                return ""
+            }
         },
         addressLink() {
             return `https://map.ucla.edu/?id=${this.page.campusMapId}&e=true`
         },
-        // parsedSpaces() {
-        //     return combine regualr and interior locations
-        // },
         parsedServicesAndResources() {
             return this.page.resourceServiceWorkshop.map((obj) => {
                 return {
