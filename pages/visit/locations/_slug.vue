@@ -38,11 +38,12 @@
             class="amenities"
         />
         <divider-general class="divider-general" />
-        <!-- <block-campus-map
+        <block-campus-map
+            v-if="page.campusMapId"
             :campus-location-id="page.campusMapId"
             :location-name="page.title"
             :building-access="page.howToGetHere"
-        /> -->
+        />
         <div
             v-if="libCalSpaces"
             class="block-spaces"

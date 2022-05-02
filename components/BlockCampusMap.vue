@@ -1,11 +1,8 @@
 <template lang="html">
     <div class="block-campus-map">
-        <!-- <button
-            class="title"
-            @click="showModal"
-        >
+        <button class="title">
             Campus Map
-        </button> -->
+        </button>
         <div class="content">
             <div class="iframe-hover">
                 <div class="iframe-container">
@@ -34,7 +31,7 @@
             </div>
         </div>
 
-        <modal-generic
+        <!-- <modal-generic
             v-show="isModalVisible"
             class="modal"
             @close="closeModal"
@@ -46,7 +43,7 @@
                     allowfullscreen
                 />
             </div>
-        </modal-generic>
+        </modal-generic> -->
     </div>
 </template>
 
