@@ -1,5 +1,6 @@
 // Import mock api data
 import * as API from "~/stories/mock-api.json"
+import HeaderMainResponsive from "~/components/HeaderMainResponsive"
 
 // Storybook default settings
 export default {
@@ -20,7 +21,19 @@ const primaryItems = [
     },
     { ...API.primaryNavlinks[3] },
 ]
-const secondaryItems= [{ ...API.links[0] },{ ...API.links[1] },{ ...API.links[2] }]
+
+const secondaryItems = [
+    ...API.links, 
+    { 
+        ...API.links[0]
+    }
+]
+
+const Template = (args, { argTypes }) => ({
+    components: { HeaderMainResponsive },
+    props: Object.keys(argTypes),
+    template: '<header-main-responsive v-bind="$props" />',
+})
 
 // Variations of stories below
 export const Default = () => ({
@@ -42,9 +55,11 @@ export const Default = () => ({
         },
     },
     template: `
-        <header-sticky
-            :primary-items="primaryItems"
-            :secondary-items="parsedSecondaryItems"
-        />
+        <header-main-responsive :primary-nav="primaryItems" 
+        :secondary-nav="parsedSecondaryItems"
+        current-path="/about/foo/bar"/>
     `,
 })
+
+export const WithControls = Template.bind({})
+WithControls.args = { ...primaryItems }
