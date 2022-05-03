@@ -4,19 +4,13 @@
 
         <nuxt class="page" />
 
-        <footer-primary
-            :social-items="parsedItems"
-            :press-items="parsedPressItems"
-            :form="true"
-        />
-        <footer-sock :items="footerSockItems" />
+        <footer-primary :form="true" />
+        <footer-sock />
+
     </div>
 </template>
 
 <script>
-// Mock data
-import * as MOCK_API from "~/stories/mock-api.json"
-
 // Helpers
 import kebabCase from "~/utils/kebabCase"
 
@@ -27,14 +21,7 @@ export default {
             pageMeta: {
                 title: "UCLA Library",
             },
-            footerSockItems: [],
-            footerPrimaryItems: [...MOCK_API.shortLinks],
-            pressItems: [{ ...MOCK_API.links[0] }],
         }
-    },
-    async fetch() {
-        // TODO Fetch real data from Craft here
-        this.footerSockItems = await MOCK_API.links
     },
     head: {
         htmlAttrs: {
@@ -48,6 +35,22 @@ export default {
                 content: "width=device-width, initial-scale=1",
             },
         ],
+    },
+    computed: {
+        bodyClasses() {
+            const classes = ["body", "theme-default"]
+            classes.push(`route-${kebabCase(this.$route.name || "error")}`)
+            return classes.join(" ")
+        },
+        classes() {
+            return [
+                "layout",
+                "layout-default",
+                { "has-scrolled": this.$store.state.sTop },
+                { "has-scrolled-past-header": this.$store.state.sTop >= 150 },
+            ]
+        },
+
     },
     // meta: [
     //     {
@@ -80,39 +83,6 @@ export default {
     //     },
     // ],
     // },
-    computed: {
-        bodyClasses() {
-            const classes = ["body", "theme-default"]
-            classes.push(`route-${kebabCase(this.$route.name || "error")}`)
-            return classes.join(" ")
-        },
-        parsedItems() {
-            // Restructuring item to support text key
-            return this.footerPrimaryItems.map((obj) => {
-                return {
-                    ...obj,
-                    text: obj.name,
-                }
-            })
-        },
-        parsedPressItems() {
-            // Restructuring item to support text key
-            return this.pressItems.map((obj) => {
-                return {
-                    ...obj,
-                    text: obj.name,
-                }
-            })
-        },
-        classes() {
-            return [
-                "layout",
-                "layout-default",
-                { "has-scrolled": this.$store.state.sTop },
-                { "has-scrolled-past-header": this.$store.state.sTop >= 150 },
-            ]
-        },
-    },
 }
 </script>
 

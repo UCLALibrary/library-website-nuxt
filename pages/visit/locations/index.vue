@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="page page-help">
         <nuxt-link
-            v-for="item in parsedServiceAndResourceList"
+            v-for="item in parsedLocationsList"
             :key="item.to"
             :to="item.to"
         >
@@ -15,11 +15,11 @@
 
 <script>
 // gql
-import SERVICE_AND_RESOURCE_LIST from "~/gql/queries/ServiceAndResourceList"
+import LOCATIONS_LIST from "~/gql/queries/LocationsList"
 
 export default {
     async asyncData({ $graphql, params }) {
-        const data = await $graphql.default.request(SERVICE_AND_RESOURCE_LIST, {
+        const data = await $graphql.default.request(LOCATIONS_LIST, {
             uri: params.path,
         })
 
@@ -28,11 +28,11 @@ export default {
         }
     },
     computed: {
-        parsedServiceAndResourceList() {
+        parsedLocationsList() {
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,
-                    to: `/help/services-resources/${obj.to}`,
+                    to: `/visit/locations/${obj.to}`,
                 }
             })
         },

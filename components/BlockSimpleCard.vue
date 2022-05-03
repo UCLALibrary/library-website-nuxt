@@ -8,7 +8,7 @@
                 class="section"
                 v-html="sectionName"
             />
-            <h3>
+            <h3 class="title2">
                 <smart-link
                     v-if="title"
                     :to="to"
@@ -125,28 +125,18 @@ export default {
         right: 0;
         left: 0;
     }
-    .title {
-        font-family: var(--font-primary);
-        font-style: normal;
-        font-weight: 500;
-        font-size: 28px;
-        line-height: 110%;
-        letter-spacing: 0.0015em;
+    .title2 {
+        @include step-1;
         color: var(--color-primary-blue-03);
-        padding-bottom: 16px;
+        margin-bottom: 16px;
     }
+
     .text {
-        font-family: var(--font-secondary);
-        color: var(--color-black);
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 160%;
-        letter-spacing: 0.01em;
+        @include step--1;
         max-height: 175px;
-        margin-bottom: 20px;
-        overflow: hidden;
+        margin-bottom: 24px;
     }
+
     .svg-meta {
         display: flex;
         flex-direction: row;
@@ -155,6 +145,7 @@ export default {
         align-content: flex-end;
         align-items: center;
     }
+
     .svg {
         right: 44px;
         bottom: 20px;

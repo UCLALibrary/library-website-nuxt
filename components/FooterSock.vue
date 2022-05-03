@@ -1,13 +1,10 @@
 <template lang="html">
     <footer class="footer-sock">
         <div class="container">
-            <div class="regents">
-                &#169;{{ year }} Regents of the University of California
-            </div>
             <ul class="links">
                 <li
-                    v-for="item in items"
-                    :key="item.text"
+                    v-for="item in parsedSockItems"
+                    :key="item.id"
                     class="item"
                 >
                     <smart-link
@@ -15,27 +12,45 @@
                         :to="item.to"
                         :target="item.target"
                     >
-                        {{ item.text }}
+                        {{ item.name }}
                     </smart-link>
                 </li>
             </ul>
+
+            <div class="regents">
+                &#169;{{ year }} Regents of the University of California
+            </div>
         </div>
     </footer>
 </template>
 
 <script>
+// Helpers
+import formatLinkTarget from "~/utils/formatLinkTarget"
+
 export default {
     props: {
-        items: {
-            // Mock: api.links
+        /*sockItems: {
             type: Array,
             default: () => [],
-        },
+        },*/
     },
     computed: {
         year() {
             const current_year = new Date().getFullYear()
             return current_year
+        },
+        parsedSockItems() {
+            if (Object.keys(this.$store.state.footerSock).length !== 0) {
+                return this.$store.state.footerSock.nodes.map((obj) => {
+                    console.log("url" + JSON.stringify(obj))
+                    return {
+                        ...obj,
+                        target: formatLinkTarget(obj.target),
+                    }
+                })
+            }
+            return []
         },
     },
 }

@@ -1,0 +1,10 @@
+#import "~/gql/fragments/MenuItem"
+
+query FooterPrimaryItems {
+    nodes(navHandle: "footerPrimary", level: 1) {
+        ...MenuItem
+        children {
+            ...MenuItem
+        }
+    }
+}
