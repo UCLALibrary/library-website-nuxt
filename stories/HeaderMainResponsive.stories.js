@@ -29,6 +29,12 @@ const secondaryItems = [
     }
 ]
 
+const mock = {
+    label: "Support Us",
+    isSecondary: false,
+    buttonLink: "#"
+}
+
 const Template = (args, { argTypes }) => ({
     components: { HeaderMainResponsive },
     props: Object.keys(argTypes),
@@ -40,7 +46,8 @@ export const Default = () => ({
     data() {
         return {
             primaryItems,
-            secondaryItems
+            secondaryItems,
+            ...mock
         }
     },
     computed: {
@@ -57,7 +64,10 @@ export const Default = () => ({
     template: `
         <header-main-responsive :primary-nav="primaryItems" 
         :secondary-nav="parsedSecondaryItems"
-        current-path="/about/foo/bar"/>
+        current-path="/about/foo/bar"
+        :label="label"
+        :isSecondary="isSecondary"
+        :buttonLink="buttonLink"/>
     `,
 })
 

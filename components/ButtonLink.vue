@@ -79,6 +79,8 @@ export default {
                 output = "svg-arrow-download"
             } else if (!this.iconName && isInternalLink(this.to)) {
                 output = "svg-arrow-right"
+            } else if (this.iconName == "none") {
+                output = ""
             } else output = "svg-arrow-diagonal"
             return output
         },

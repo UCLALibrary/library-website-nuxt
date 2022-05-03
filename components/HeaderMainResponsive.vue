@@ -3,7 +3,7 @@
         <div class="collapse-menu">
             <component
                 :is="parsedSvgName"
-                class="close-svg"
+                :class="activeMenuIndex == -1 ? 'close-svg' : 'go-back-svg'"
             />
         </div>
         <div 
@@ -23,8 +23,8 @@
                     <li :class="classes">
                         <span
                             class="section-name"
-                            v-html="item.name"
-                        />
+                        > {{ item.name }}
+                        </span>
 
                         <ul class="sub-menu">
                             <li
@@ -62,6 +62,16 @@
                 </li>
             </ul>
         </div>
+        <div class="support-us-container">
+            <button-link
+                v-if="buttonLink"
+                :label="label"
+                :is-secondary="true"
+                class="button"
+                :to="buttonLink"
+                icon-name="none"
+            />
+        </div>
     </div>
 </template>
 
@@ -74,11 +84,17 @@ export default {
     components: {
         IconCloseLarge: () =>
             import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-close-large"),
+        IconCaretLeft: () =>
+            import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-caret-left"),
     },
     props: {
-        iconName: {
+        iconCloseName: {
             type: String,
             default: "icon-close-large",
+        },
+        iconGoBackName: {
+            type: String,
+            default: "icon-caret-left",
         },
         primaryNav: {
             // This is an array of objects, with each object shaped like {name, url, items:[{text, to, target}]}
@@ -93,15 +109,27 @@ export default {
             type: String,
             default: "",
         },
+        label: {
+            type: String,
+            default: "",
+        },
+        isSecondary: {
+            type: Boolean,
+            default: true,
+        },
+        buttonLink: {
+            type: String,
+            default: "",
+        },
     },
     data() {
         return {
-            activeMenuIndex: -1,
+            activeMenuIndex: 1,
         }
     },
     computed: {
         parsedSvgName() {
-            return `${this.iconName}`
+            return this.activeMenuIndex == -1 ? `${this.iconCloseName}` : `${this.iconGoBackName}`
         },
         parsedPrimaryMenuItems() {
             // Add an isActive property to all menu items
@@ -145,7 +173,7 @@ export default {
 <style lang="scss" scoped>
 .header-main-responsive {
     width: 375px;
-    height: 800px;
+    height: 100vh;
     background-color: var(--color-primary-blue-03);
     display: flex;
     flex-direction: column;
@@ -162,6 +190,18 @@ export default {
             // Adjustments: Set svg to blue background
             .svg__fill--primary-blue-01 {
                 fill: var(--color-primary-blue-03);
+            }
+
+        }
+        .go-back-svg {
+            cursor: pointer;
+            transform: scale(3.5);
+            height: 48px;
+
+            .svg__stroke--primary-blue-03 {
+                fill: none;
+                stroke-width: 0.5;
+                stroke: var(--color-default-cyan-02);
             }
         }
     }
@@ -184,9 +224,9 @@ export default {
             display: block;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            cursor: pointer;
             position: relative;
             color: white;
+            cursor: pointer;
         }
 
         // Sub menu columns
@@ -263,6 +303,24 @@ export default {
                 font-size: 20px;
                 font-weight: 400;
             }
+        }
+    }
+
+    .support-us-container {
+        padding-top: 173px;
+        padding-left: 44px;
+        padding-bottom: 107px;
+        position:fixed;
+        bottom:0;
+        
+        .button {
+            margin: 0px;
+            // background-color: var(--color-primary-blue-03);
+            border: 1.5px solid var(--color-primary-blue-02);
+            // color: var(--color-primary-blue-01);
+        }
+        .button > svg .svg__icon-external-link .arrow {
+            display: none !important;
         }
     }
 }
