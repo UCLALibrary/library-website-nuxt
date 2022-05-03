@@ -51,6 +51,7 @@
             <h3 class="spaces-title">
                 {{ page.title }} Spaces
             </h3>
+
             <block-spaces
                 v-for="(space, index) in libCalSpaces"
                 :key="index"
@@ -140,16 +141,17 @@ export default {
                 return obj.spaceID
             })
             const mainSpace = await $axios.$get(
-                `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
+                `https://calendar.library.ucla.edu/1.1/space/categories/${libcalID}`
             )
             allSpaces.push(...mainSpace)
             // Get interior location spae dtails
             for (let id in interiorIDsList) {
                 const libcalData = await $axios.$get(
-                    `https://calendar.library.ucla.edu/api/1.1/space/items/${interiorIDsList[id]}`
+                    `https://calendar.library.ucla.edu/1.1/space/categories/${interiorIDsList[id]}`
                 )
                 allSpaces.push(...libcalData)
             }
+            console.log(allSpaces)
 
             return {
                 page: _get(data, "entry", {}),
@@ -158,7 +160,7 @@ export default {
         } else if (libcalID) {
             const allSpaces = []
             const mainSpace = await $axios.$get(
-                `https://calendar.library.ucla.edu/api/1.1/space/items/${libcalID}`
+                `https://calendar.library.ucla.edu/1.1/space/categories/${libcalID}`
             )
 
             return {
