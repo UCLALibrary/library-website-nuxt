@@ -1,17 +1,10 @@
 <template lang="html">
     <div class="flexible-simple-cards">
-        <h3
-            v-if="block.sectionTitle"
-            class="section-title"
-            v-html="block.sectionTitle"
+        <simple-cards
+            :section-title="block.sectionTitle"
+            :section-summary="block.sectionSummary"
+            :items="parsedContent"
         />
-        <p
-            v-if="block.sectionSummary"
-            class="section-summary"
-            v-html="block.sectionSummary"
-        />
-
-        <simple-cards :items="parsedContent" />
     </div>
 </template>
 
@@ -48,27 +41,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.flexible-simple-cards {
-    margin: 0 auto;
-    max-width: $container-l-main + px;
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: flex-start;
-    align-items: flex-start;
-
-    .section-title {
-        @include step-4;
-        color: var(--color-primary-blue-03);
-    }
-
-    .section-summary {
-        @include step-0;
-        margin-bottom: var(--space-xl);
-    }
-}
-</style>

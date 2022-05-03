@@ -1,5 +1,15 @@
 <template>
     <div class="simple-cards">
+        <h3
+            v-if="sectionTitle"
+            class="section-title"
+            v-html="sectionTitle"
+        />
+        <p
+            v-if="sectionSummary"
+            class="section-summary"
+            v-html="sectionSummary"
+        />
         <ul class="simple-cards">
             <block-simple-card
                 v-for="(item, index) in parsedContent"
@@ -16,6 +26,14 @@
 <script>
 export default {
     props: {
+        sectionTitle: {
+            type: String,
+            default: "",
+        },
+        sectionSummary: {
+            type: String,
+            default: "",
+        },
         items: {
             type: Array,
             default: () => [],
@@ -98,6 +116,16 @@ export default {
     justify-content: flex-start;
     align-content: flex-start;
     align-items: flex-start;
+
+    .section-title {
+        @include step-4;
+        color: var(--color-primary-blue-03);
+    }
+
+    .section-summary {
+        @include step-0;
+        margin-bottom: var(--space-xl);
+    }
 
     .card {
         margin: 12px 16px 0 0;
