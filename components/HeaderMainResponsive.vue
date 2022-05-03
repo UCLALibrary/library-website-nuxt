@@ -3,7 +3,8 @@
         <div class="collapse-menu">
             <component
                 :is="parsedSvgName"
-                :class="activeMenuIndex == -1 ? 'close-svg' : 'go-back-svg'"
+                :class="isOpened ? 'go-back-svg' : 'close-svg'"
+                @click="toggleMenu"
             />
         </div>
         <div 
@@ -72,6 +73,7 @@
                 icon-name="none"
             />
         </div>
+        <div class="molecule" />
     </div>
 </template>
 
@@ -125,11 +127,12 @@ export default {
     data() {
         return {
             activeMenuIndex: 1,
+            isOpened: false
         }
     },
     computed: {
         parsedSvgName() {
-            return this.activeMenuIndex == -1 ? `${this.iconCloseName}` : `${this.iconGoBackName}`
+            return this.isOpened ? `${this.iconGoBackName}` : `${this.iconCloseName}`
         },
         parsedPrimaryMenuItems() {
             // Add an isActive property to all menu items
@@ -322,6 +325,24 @@ export default {
         .button > svg .svg__icon-external-link .arrow {
             display: none !important;
         }
+    }
+
+    .molecule {
+        background: url(~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-3d.svg?url);
+        // background-size: 900px;
+        background-repeat: no-repeat;
+        width: 74%;
+        height: 100%;
+        position: absolute;
+        bottom: -16%;
+        left: 100%;
+
+        -moz-transform: scaleY(-1);
+        -o-transform: scaleY(-1);
+        -webkit-transform: scaleY(-1);
+        transform: scaleY(-1);
+        filter: FlipV;
+        -ms-filter: "FlipV";
     }
 }
 </style>
