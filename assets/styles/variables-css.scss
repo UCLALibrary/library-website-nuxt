@@ -26,11 +26,11 @@
     --color-secondary-blue-02: #1678d0;
     --color-secondary-blue-03: #1f75c5;
 
-    --color-secondary-grey-01: #f2f2f2;
-    --color-secondary-grey-02: #dcdcdb;
-    --color-secondary-grey-03: #999999;
-    --color-secondary-grey-04: #717171;
-    --color-secondary-grey-05: #434343;
+    --color-secondary-grey-01: #{$secondary-grey-01};
+    --color-secondary-grey-02: #{$secondary-grey-02};
+    --color-secondary-grey-03: #{$secondary-grey-03};
+    --color-secondary-grey-04: #{$secondary-grey-04};
+    --color-secondary-grey-05: #{$secondary-grey-05};
 
     // Way Finder - Tertiary colors
 
@@ -100,12 +100,7 @@
         rgba(15, 15, 15, 0) 58.42%
     );
 
-    --gradient-radial: radial-gradient(
-        50% 50% at 50% 50%,
-        rgba(15, 15, 15, 0) 0%,
-        rgba(15, 15, 15, 0.555208) 85.42%,
-        rgba(15, 15, 15, 0.65) 100%
-    );
+    --gradient-radial: #{$overlay-03};
 
     // Breakponts
     @media #{$medium} {
