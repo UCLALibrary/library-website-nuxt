@@ -75,9 +75,6 @@ export default {
                 { "theme-dark": this.isDark },
             ]
         },
-        parsedSvgName() {
-            return `${this.svgName}`
-        },
         askALibrarian() {
             return this.$store.state.globals.askALibrarian
         },
