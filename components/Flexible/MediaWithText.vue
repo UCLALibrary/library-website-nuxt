@@ -10,7 +10,7 @@
                 class="meta"
             >
                 <block-media-with-text
-                    :section-header="item.sectionHeader"
+                    :section-header="item.titleMediaWithText"
                     :short-description="item.description"
                     :image="item.parsedImage"
                     :button-text="item.buttonText"
