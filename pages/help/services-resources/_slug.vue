@@ -45,11 +45,7 @@
         />
         <block-call-to-action
             class="block-call-to-action"
-            svg-name="svg-call-to-action-chat"
-            :title="askALibrarian.askALibrarianTitle"
-            :text="askALibrarian.askALibrarianText"
-            :name="askALibrarian.buttonUrl[0].buttonText"
-            :to="askALibrarian.buttonUrl[0].buttonUrl"
+            :is-global="true"
         />
     </section>
 </template>
@@ -67,10 +63,6 @@ export default {
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
         )
-        console.log(
-            "vuex ask a librarian " +
-                JSON.stringify(store.state.globals.askALibrarian)
-        )
         const data = await $graphql.default.request(
             SERVICE_OR_RESOURCE_DETAIL,
             {
@@ -80,7 +72,6 @@ export default {
         console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
-            askALibrarian: store.state.globals.askALibrarian,
         }
     },
     head() {
@@ -104,13 +95,6 @@ export default {
         parsedButtonTo() {
             return _get(this.page, "button[0].buttonUrl", "")
         },
-        /* askALibrarian() {
-            console.log(
-                "vuex ask a librarian " +
-                    JSON.stringify(this.$store.state.globals.askALibrarian)
-            )
-            return this.$store.state.globals.askALibrarian
-        },*/
     },
 }
 </script>
