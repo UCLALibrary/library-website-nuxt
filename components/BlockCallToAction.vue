@@ -78,6 +78,7 @@ export default {
         askALibrarian() {
             return this.$store.state.globals.askALibrarian
         },
+        // Use Global Ask A Libarian data if isGlobal is true
         parsedContent() {
             if (this.isGlobal) {
                 return {
