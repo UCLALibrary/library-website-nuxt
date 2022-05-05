@@ -1,20 +1,20 @@
 <template lang="html">
     <div :class="classes">
         <component
-            :is="parsedSvgName"
+            :is="parsedContent.svgName"
             class="svg"
         />
         <div
             class="title"
-            v-html="title"
+            v-html="parsedContent.title"
         />
         <div
             class="text"
-            v-html="text"
+            v-html="parsedContent.text"
         />
         <button-link
-            :label="name"
-            :to="to"
+            :label="parsedContent.label"
+            :to="parsedContent.to"
             class="button-link"
         />
     </div>
@@ -60,6 +60,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        isGlobal: {
+            type: Boolean,
+            default: false,
+        },
     },
     computed: {
         classes() {
@@ -73,6 +77,28 @@ export default {
         },
         parsedSvgName() {
             return `${this.svgName}`
+        },
+        askALibrarian() {
+            return this.$store.state.globals.askALibrarian
+        },
+        parsedContent() {
+            if (this.isGlobal) {
+                return {
+                    to: this.askALibrarian.buttonUrl[0].buttonUrl,
+                    title: this.askALibrarian.askALibrarianTitle,
+                    text: this.askALibrarian.askALibrarianText,
+                    label: this.askALibrarian.buttonUrl[0].buttonText,
+                    svgName: "svg-call-to-action-chat",
+                }
+            } else {
+                return {
+                    to: this.to,
+                    title: this.title,
+                    text: this.text,
+                    label: this.name,
+                    svgName: this.svgName,
+                }
+            }
         },
     },
 }
@@ -91,7 +117,6 @@ export default {
     justify-content: center;
     align-content: center;
     align-items: center;
-
     // Sizes
     &.full-width {
         --block-width: #{$container-l-cta}px;

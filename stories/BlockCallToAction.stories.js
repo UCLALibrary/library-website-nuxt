@@ -1,4 +1,9 @@
 // Storybook default settings
+import Vue from "vue"
+import Vuex from "vuex"
+
+Vue.use(Vuex)
+
 export default {
     title: "BLOCK / Call to Action",
 }
@@ -86,6 +91,37 @@ export const SmallCTADarkBlue = () => ({
             :to="to"
             is-small-size=true
             is-dark=true
+        />
+    `,
+})
+
+export const GlobalAskALibrarian = () => ({
+    store: new Vuex.Store({
+        state: {
+            globals: {
+                askALibrarian: {
+                    id: "7322",
+                    askALibrarianTitle: "Have further questions?",
+                    askALibrarianText:
+                        "<p>We're here to help. Chat with a librarian 24/7, schedule a research consultation or email us your quick questions.</p>",
+                    buttonUrl: [
+                        {
+                            buttonText: "Contact us",
+                            buttonUrl: "/help/",
+                        },
+                    ],
+                },
+            },
+        },
+    }),
+    data() {
+        return {
+            ...mock,
+        }
+    },
+    template: `
+        <block-call-to-action
+            :is-global="true"
         />
     `,
 })
