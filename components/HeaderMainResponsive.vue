@@ -4,49 +4,25 @@
             <component
                 :is="parsedSvgName"
                 :class="isOpened ? 'go-back-svg' : 'close-svg'"
-                @click="toggleMenu"
+                @click="handleCloseOrReturn"
             />
         </div>
-        <div 
+        <ul 
             class="nav-menu-primary"
         >
-            <div
-                v-for="(item) in parsedPrimaryMenuItems"
+            <nav-menu-item-responsive
+                v-for="(item, index) in parsedPrimaryMenuItems"
                 :key="item.id"
                 :item="item"
-                :is-active="item.isActive"
-                :is-opened="isOpened"
-                @click.native="toggleMenu"
-                @mouseover.native="setActive(index)"
-                @mouseleave.native="clearActive"
-            >
-                <ul class="menu">
-                    <li :class="classes">
-                        <span
-                            class="section-name"
-                        > {{ item.name }}
-                        </span>
-
-                        <ul class="sub-menu">
-                            <li
-                                v-for="child in parsedChildren"
-                                :key="child.id"
-                                class="sub-menu-item"
-                            >
-                                <smart-link
-                                    :class="child.classes"
-                                    :to="child.to"
-                                    :target="child.target"
-                                >
-                                    {{ child.name }}
-                                </smart-link>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="nav-menu-secondary">
+                :index="index"
+                :go-back="goBack"
+                @shouldOpen="shouldOpen"
+            />
+        </ul>
+        <div
+            v-if="!isOpened"
+            class="nav-menu-secondary"
+        >
             <ul class="list">
                 <li
                     v-for="item in parsedSecondaryMenuItems"
@@ -87,7 +63,7 @@ export default {
         IconCloseLarge: () =>
             import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-close-large"),
         IconCaretLeft: () =>
-            import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-caret-left"),
+            import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-caret-left")
     },
     props: {
         iconCloseName: {
@@ -107,17 +83,9 @@ export default {
             type: Array,
             default: () => []
         },
-        currentPath: {
-            type: String,
-            default: "",
-        },
         label: {
             type: String,
             default: "",
-        },
-        isSecondary: {
-            type: Boolean,
-            default: true,
         },
         buttonLink: {
             type: String,
@@ -126,8 +94,8 @@ export default {
     },
     data() {
         return {
-            activeMenuIndex: 1,
-            isOpened: false
+            isOpened: false,
+            goBack: false,
         }
     },
     computed: {
@@ -135,16 +103,8 @@ export default {
             return this.isOpened ? `${this.iconGoBackName}` : `${this.iconCloseName}`
         },
         parsedPrimaryMenuItems() {
-            // Add an isActive property to all menu items
-            const items = this.primaryNav.map((obj, index) => {
-                return {
-                    ...obj,
-                    isActive: index == this.activeMenuIndex,
-                }
-            })
-
             // Return only items that have children (assume these are dropdowns)
-            return items.filter((obj) => {
+            return this.primaryNav.filter((obj) => {
                 return obj.children && obj.children.length
             })
         },
@@ -158,17 +118,16 @@ export default {
         },
     },
     methods: {
-        toggleMenu() {
+        shouldOpen() {
             this.isOpened = !this.isOpened
+            this.goBack = false
         },
-        setActive(index) {
-            // On hover, set current active menu item
-            this.activeMenuIndex = index
+        handleCloseOrReturn() {
+            this.isOpened ? this.goBack = !this.goBack : this.closeMenu()
         },
-        clearActive() {
-            // Reset active item back to the one from the route URL
-            this.activeMenuIndex = this.currentPathActiveIndex
-        },
+        closeMenu() {
+            console.log('close')
+        }
     }
 }
 </script>
@@ -180,6 +139,7 @@ export default {
     background-color: var(--color-primary-blue-03);
     display: flex;
     flex-direction: column;
+    position: relative;
     
     .collapse-menu {
         display: flex;
@@ -216,81 +176,6 @@ export default {
     .nav-menu-primary {
         width: 100%;
         padding-inline: 43px;
-
-        // Top level menu
-        .section-name {
-            margin-bottom: 24px;
-            line-height: 28px;
-            font-size: 28px;
-            font-weight: 600;
-            text-align: left;
-            display: block;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            position: relative;
-            color: white;
-            cursor: pointer;
-        }
-
-        // Sub menu columns
-        .sub-menu {
-            z-index: 10;
-            list-style: none;
-            font-size: 16px;
-            font-weight: 600;
-            font-family: var(--font-secondary);
-            line-height: 120%;
-            letter-spacing: 0.01em;
-            color: var(--color-white);
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-
-            transition-property: max-height, opacity;
-            transition-duration: 400ms, 400ms;
-            transition-timing-function: ease-in-out;
-        }
-        .sub-menu-item {
-            transition: background-color 400ms ease-in-out;
-
-            &:first-child {
-                margin-top: 36px;
-            }
-            &:last-child {
-                margin-bottom: 36px;
-            }
-        }
-        .sub-menu-link {
-            padding: 12px 32px;
-            display: block;
-        }
-
-        // States
-        &.is-active {
-            .section-name::after {
-                opacity: 1;
-            }
-        }
-        &.is-opened {
-            .sub-menu {
-                max-height: 200px; // TODO Change this number once you know what max menu height is
-                opacity: 0.45;
-            }
-        }
-        &.is-opened.is-active {
-            .sub-menu {
-                opacity: 1;
-            }
-        }
-
-        // Hover
-        @media #{$has-hover} {
-            .sub-menu-item:hover {
-                background-color: rgba(#ffffff, 0.1);
-                text-decoration: underline;
-                text-decoration-color: var(--color-primary-yellow-01);
-            }
-        }
     }
 
     .nav-menu-secondary {
@@ -310,11 +195,11 @@ export default {
     }
 
     .support-us-container {
-        padding-top: 173px;
+        padding-top: 100px;
         padding-left: 44px;
-        padding-bottom: 107px;
-        position:fixed;
-        bottom:0;
+        padding-bottom: 108px;
+        position: absolute;
+        bottom: 0;
         
         .button {
             margin: 0px;
@@ -322,20 +207,18 @@ export default {
             border: 1.5px solid var(--color-primary-blue-02);
             // color: var(--color-primary-blue-01);
         }
-        .button > svg .svg__icon-external-link .arrow {
-            display: none !important;
-        }
     }
 
     .molecule {
         background: url(~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-3d.svg?url);
         // background-size: 900px;
+        background-position-y: -55px;
         background-repeat: no-repeat;
-        width: 74%;
-        height: 100%;
+        width: 150px;
+        height: 250px;
         position: absolute;
-        bottom: -16%;
-        left: 100%;
+        bottom: 0;
+        right: 0;
 
         -moz-transform: scaleY(-1);
         -o-transform: scaleY(-1);
@@ -343,6 +226,18 @@ export default {
         transform: scaleY(-1);
         filter: FlipV;
         -ms-filter: "FlipV";
+    }
+
+    
+    // @media #{$medium} {
+    //     .support-us-container {
+    //         padding-top: 0px;
+    //     }
+    // }
+    @media #{$small} {
+        .support-us-container {
+            padding-top: 0px;
+        }
     }
 }
 </style>
