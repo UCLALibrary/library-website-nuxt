@@ -136,7 +136,7 @@ export default {
         }
     }
 
-    // Sub menu columns
+    // Sub menu
     .sub-menu {
         list-style: none;
         font-size: 20px;

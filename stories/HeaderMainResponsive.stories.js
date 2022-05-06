@@ -31,14 +31,28 @@ const secondaryItems = [
 
 const mock = {
     label: "Support Us",
-    isSecondary: false,
     buttonLink: "#"
 }
 
 const Template = (args, { argTypes }) => ({
     components: { HeaderMainResponsive },
     props: Object.keys(argTypes),
-    template: '<header-main-responsive v-bind="$props" />',
+    computed: {
+        parsedSecondaryItems() {
+            // Restructuring item to support text key
+            return this.secondaryItems.map((obj) => {
+                return {
+                    ...obj,
+                    text: obj.name,
+                }
+            })
+        },
+    },
+    template: `<header-main-responsive :primary-nav="primaryItems" 
+        :secondary-nav="parsedSecondaryItems"
+        current-path="/about/foo/bar"
+        :label="label"
+        :buttonLink="buttonLink" />`,
 })
 
 // Variations of stories below
@@ -66,10 +80,13 @@ export const Default = () => ({
         :secondary-nav="parsedSecondaryItems"
         current-path="/about/foo/bar"
         :label="label"
-        :isSecondary="isSecondary"
         :buttonLink="buttonLink"/>
     `,
 })
 
 export const WithControls = Template.bind({})
-WithControls.args = { ...primaryItems }
+WithControls.args = { 
+    primaryItems,
+    secondaryItems,
+    ...mock 
+}
