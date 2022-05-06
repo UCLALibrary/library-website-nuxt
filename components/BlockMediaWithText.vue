@@ -40,9 +40,9 @@
                 v-html="shortDescription"
             />
             <button-link
-                v-if="to"
+                v-if="buttonUrl"
                 class="button"
-                :to="to"
+                :to="buttonUrl"
                 :label="buttonText"
                 :is-secondary="true"
                 :icon-name="iconName"
@@ -96,7 +96,7 @@ export default {
             ),
         SvgIconPlayFilled: () =>
             import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-play"
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-play-filled"
             ),
     },
     props: {
@@ -112,14 +112,19 @@ export default {
             type: String,
             default: "",
         },
+        buttonUrl: {
+            type: String,
+            default: "",
+        },
+        mediaLink: {
+            type: String,
+            default: "",
+        },
         iconName: {
             type: String,
             default: "",
         },
-        to: {
-            type: String,
-            default: "",
-        },
+
         image: {
             type: Object,
             default: () => {},

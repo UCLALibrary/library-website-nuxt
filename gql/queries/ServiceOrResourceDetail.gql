@@ -40,6 +40,7 @@ query ServiceOrResourceDetail($slug: [String!]) {
         ...FlexibleBlocksServiceOrResource
     }
 }
+
 fragment FlexibleBlocksServiceOrResource on ElementInterface {
     blocks: defaultFpbWithNoCta {
         id
@@ -72,45 +73,57 @@ fragment BlockDivider on defaultFpbWithNoCta_divider_BlockType {
 }
 
 fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
-  id
-  sectionTitle: titleGeneral
-  sectionSummary: summary
-  cards: simpleCards {
-    ... on simpleCards_internalServiceOrResource_BlockType {
-      id
-      title: titleGeneral
-      summary
-      contentLink {
-        slug
-      }
+    id
+    sectionTitle: titleGeneral
+    sectionSummary: summary
+    cards: simpleCards {
+        ... on simpleCards_internalServiceOrResource_BlockType {
+            id
+            title: titleGeneral
+            summary
+            contentLink {
+                slug
+            }
+        }
+        ... on simpleCards_externalServiceOrResource_BlockType {
+            id
+            title: titleGeneral
+            summary
+            externalLink
+        }
     }
-    ... on simpleCards_externalServiceOrResource_BlockType {
-      id
-      title: titleGeneral
-      summary
-      externalLink
-    }
-  }
 }
 
 fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
     id
+    sectionTitle: titleGeneral
+    sectionSummary: summary
     mediaWithText {
-        ... on mediaWithText_mediaWithText_BlockType {
+        ... on mediaWithText_mediaLink_BlockType {
             id
-            titleMediaWithText
+            titleLink
             description
-            buttonText
-            mediaType
-            mediaWithTextLink
-            media {
-                id
-                url
-            }
-
-            image: coverImage {
+            coverImage {
                 ...Image
             }
+            buttonText
+            buttonUrl
+            linkToMedia
+            typeMedia
+        }
+        ... on mediaWithText_mediaUpload_BlockType {
+            id
+            titleUpload
+            description
+            buttonText
+            buttonUrl
+            coverImage {
+                ...Image
+            }
+            upload {
+                ...Image
+            }
+            typeMedia
         }
     }
 }
