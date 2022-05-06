@@ -49,7 +49,7 @@ fragment FlexibleBlocksServiceOrResource on ElementInterface {
         ...BlockPullQuote
         ...BlockSimpleCards
         ...BlockRichText
-        ...BlockMediaWithText
+        # ...BlockMediaWithText
     }
 }
 
@@ -70,28 +70,6 @@ fragment BlockPullQuote on defaultFpbWithNoCta_pullQuote_BlockType {
 fragment BlockDivider on defaultFpbWithNoCta_divider_BlockType {
     id
     divider
-}
-
-fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
-    id
-    sectionTitle: titleGeneral
-    sectionSummary: summary
-    cards: simpleCards {
-        ... on simpleCards_internalServiceOrResource_BlockType {
-            id
-            title: titleGeneral
-            summary
-            contentLink {
-                slug
-            }
-        }
-        ... on simpleCards_externalServiceOrResource_BlockType {
-            id
-            title: titleGeneral
-            summary
-            externalLink
-        }
-    }
 }
 
 fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
@@ -124,6 +102,39 @@ fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
                 ...Image
             }
             typeMedia
+        }
+    }
+}
+
+fragment BlockSimpleCards on defaultFpb_simpleCard_BlockType {
+    id
+    simpleCards {
+        ... on simpleCards_simpleCard_BlockType {
+            id
+            title: titleSimpleCard
+            contentLink {
+                id
+                url
+                title
+                text: summary
+            }
+            summary
+            externalLink
+        }
+    }
+}
+
+fragment BlockCallToAction on defaultFpb_callToAction_BlockType {
+    id
+    callToAction {
+        ... on callToAction_callToAction_BlockType {
+            id
+            titleCta
+            summary
+            icon
+            buttonText
+            buttonLink
+            backgroundColor
         }
     }
 }
