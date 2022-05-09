@@ -139,10 +139,6 @@ export default {
             type: Object,
             default: () => {},
         },
-        isVertical: {
-            type: Boolean,
-            default: false,
-        },
         isVideo: {
             type: Boolean,
             default: false,
