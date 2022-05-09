@@ -9,6 +9,7 @@
                 v-html="block.sectionTitle"
             />
             <p
+                v-if="block.sectionSummary"
                 class="section-summary"
                 v-html="block.sectionSummary"
             />

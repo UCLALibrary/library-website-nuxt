@@ -1,6 +1,14 @@
+import MediaWithText from "~/components/Flexible/MediaWithText"
+
 export default {
     title: "FLEXIBLE / Media With Text",
 }
+
+const Template = (args, { argTypes }) => ({
+    components: { MediaWithText },
+    props: Object.keys(argTypes),
+    template: `<flexible-media-with-text v-bind="$props"/>`,
+})
 
 const mock = {
     id: "13669",
@@ -173,3 +181,8 @@ export const Single = () => ({
         />
     `,
 })
+
+export const WithControls = Template.bind({})
+WithControls.args = {
+    block: mock,
+}
