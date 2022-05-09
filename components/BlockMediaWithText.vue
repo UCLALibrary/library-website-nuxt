@@ -6,13 +6,24 @@
                 v-html="sectionHeader"
             />
             <div class="meta-mobile">
+                <smart-link
+                    v-if="mediaLink"
+                    :to="mediaLink"
+                    class="media-link"
+                >
+                    <responsive-image
+                        v-if="image"
+                        :image="image"
+                        class="image-mobile"
+                    />
+                </smart-link>
                 <responsive-image
-                    v-if="image"
+                    v-if="image && !mediaLink"
                     :image="image"
                     class="image-mobile"
                 />
                 <div
-                    v-else
+                    v-if="!image"
                     class="no-image-mobile"
                 />
                 <div class="clippy">
