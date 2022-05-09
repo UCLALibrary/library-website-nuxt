@@ -22,11 +22,11 @@
                     :short-description="item.description"
                     :image="item.coverImage[0]"
                     :button-text="item.buttonText"
-                    :icon-name="item.parsedIcon"
-                    :button-url="item.buttonUrl"
+                    :button-url="item.parsedButtonUrl"
                     :media-link="item.linkToMedia"
                     :is-audio="item.parsedIsAudio"
                     :is-video="item.parsedIsVideo"
+                    :type-media="item.typeMedia"
                     class="flexible-media-with-text"
                 />
 
@@ -47,16 +47,19 @@ export default {
     computed: {
         parsedContent() {
             const mediaWithText = this.block.mediaWithText
+            console.log(mediaWithText)
             return mediaWithText.map((obj) => {
                 return {
                     ...obj,
                     parsedTitle: obj.titleLink
                         ? obj.titleLink
                         : obj.titleUpload,
-                    parsedIsVideo: obj.mediaType == "video" ? true : false,
-                    parsedIsAudio: obj.mediaType == "audio" ? true : false,
-                    parsedIcon:
-                        obj.typeMedia == "other" ? "svg-arrow-download" : "",
+                    parsedIsVideo: obj.typeMedia == "video" ? true : false,
+                    parsedIsAudio: obj.typeMedia == "audio" ? true : false,
+                    parsedButtonUrl:
+                        obj.upload && obj.typeMedia == "other"
+                            ? obj.upload[0].src
+                            : obj.buttonUrl,
                 }
             })
         },

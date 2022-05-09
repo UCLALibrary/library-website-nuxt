@@ -42,10 +42,9 @@
             <button-link
                 v-if="buttonUrl"
                 class="button"
-                :to="parsedButtonUrl"
+                :to="buttonUrl"
                 :label="buttonText"
                 :is-secondary="true"
-                :icon-name="iconName"
                 :is-download="parsedIsDownload"
             />
         </div>
@@ -136,11 +135,6 @@ export default {
             type: String,
             default: "",
         },
-        iconName: {
-            type: String,
-            default: "",
-        },
-
         image: {
             type: Object,
             default: () => {},

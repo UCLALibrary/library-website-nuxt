@@ -1,6 +1,6 @@
 <template>
     <nuxt-link
-        v-if="isRelative"
+        v-if="isRelative && !isDownload"
         class="smart-link is-nuxt-link"
         :to="to"
     >
