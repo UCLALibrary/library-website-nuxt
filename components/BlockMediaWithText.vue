@@ -42,10 +42,11 @@
             <button-link
                 v-if="buttonUrl"
                 class="button"
-                :to="buttonUrl"
+                :to="parsedButtonUrl"
                 :label="buttonText"
                 :is-secondary="true"
                 :icon-name="iconName"
+                :is-download="parsedIsDownload"
             />
         </div>
         <div class="meta">
@@ -71,13 +72,24 @@
                 v-if="isAudio"
                 class="icon-headphones"
             />
+            <smart-link
+                v-if="mediaLink"
+                :to="mediaLink"
+                class="media-link"
+            >
+                <responsive-image
+                    v-if="image"
+                    :image="image"
+                    class="image"
+                />
+            </smart-link>
             <responsive-image
-                v-if="image"
+                v-if="image && !mediaLink"
                 :image="image"
                 class="image"
             />
             <div
-                v-else
+                v-if="!image"
                 class="no-image"
             />
         </div>
@@ -120,6 +132,10 @@ export default {
             type: String,
             default: "",
         },
+        typeMedia: {
+            type: String,
+            default: "",
+        },
         iconName: {
             type: String,
             default: "",
@@ -140,6 +156,11 @@ export default {
         isAudio: {
             type: Boolean,
             default: false,
+        },
+    },
+    computed: {
+        parsedIsDownload() {
+            return this.buttonUrl && this.typeMedia === "other" ? true : false
         },
     },
 }

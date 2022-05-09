@@ -8,6 +8,15 @@
     </nuxt-link>
 
     <a
+        v-else-if="isDownload"
+        :href="to"
+        class="smart-link is-link"
+        download
+    >
+        <slot />
+    </a>
+
+    <a
         v-else
         :href="to"
         :target="parsedTarget"
@@ -31,6 +40,10 @@ export default {
         target: {
             type: String,
             default: "_self",
+        },
+        isDownload: {
+            type: Boolean,
+            default: false,
         },
     },
     computed: {
