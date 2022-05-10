@@ -177,6 +177,11 @@ export default {
     justify-content: space-between;
 
     max-width: $container-xl-full-width + px;
+    // Themes
+    --color-theme: var(--color-white);
+    &.color-grey {
+        --color-theme: var(--color-secondary-grey-02);
+    }
 
     .text-grouping {
         margin-right: 50px;
