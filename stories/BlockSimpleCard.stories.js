@@ -1,94 +1,73 @@
-// Import mock gql data
-import * as GQL from "~/stories/mock-gql.json"
-
 export default {
     title: "BLOCK / Simple Card",
 }
 
-const mockGqlExternal = {
-    title: GQL.cards[2].title,
-    text: GQL.cards[2].summary,
-    to: GQL.cards[2].externalLink
+const mockExternal = {
+    title: "Types of Sinkholes",
+    summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+    externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
 }
 
-const mockGqlInternal = {
-    title: GQL.cards[1].title,
-    text: GQL.cards[1].summary,
-    to: GQL.cards[1].contentLink[0].slug
+const mockInternal = {
+    "id": "13785",
+    "contentLink": [
+        {
+            "slug": "sink-hole",
+            "title": "Sink Hole",
+            "summary": "<p>Man-made sinkholes are the result of a variety of practices, from drilling to mining to changes in water diversion systems to broken pipes.</p>"
+        }
+    ]
+}
+
+const mockInternalGuide = {
+    "id": "13899",
+    "contentLink": [
+        {
+            "slug": "road-work",
+            "title": "Road Work Guide",
+            "summary": "<p>A research guide</p>",
+            "researchGuideUrl": "http://libguides.library.ucla.edu"
+        }
+    ]
 }
 
 // Variations of stories below
-// ExternalLinkMockGql
+// ExternalLink
 export const Default = () => ({
     data() {
-        return { ...mockGqlExternal }
+        return { ...mockExternal }
     },
     template: `
         <block-simple-card
             :title="title"
-            :text="text"
-            :to="to"
+            :text="summary"
+            :to="externalLink"
         />
     `,
 })
 
-export const InternalLinkMockGql = () => ({
+export const InternalLink = () => ({
     data() {
-        return { ...mockGqlInternal }
+        return { ...mockInternal }
     },
     template: `
         <block-simple-card
-            :title="title"
-            :text="text"
-            :to="to"
+            :title="contentLink[0].title"
+            :text="contentLink[0].summary"
+            :to="contentLink[0].slug"
         />
     `,
 })
 
-// --------------
-
-// const mockExternal = {
-//     "id": "12716",
-//     "title": "Bunnies & Rabbits",
-//     "summary": "Bunny refers to the small, bun-shaped tail. A rabbit is a type of mammal. They are small, furry animals with large ears and powerful back legs that can be seen hopping around in meadows in the springtime.",
-//     "externalLink": "https://petkeen.com/bunny-vs-rabbit/"
-// }
-
-// export const ExternalLink = () => ({
-//     data() {
-//         return { ...mockExternal }
-//     },
-//     template: `
-//         <block-simple-card
-//             :title="title"
-//             :text="summary"
-//             :to="externalLink"
-//         />
-//     `,
-// })
-
-// const mockInternal = {
-//     "id": "12717",
-//     "title": "Foxes",
-//     "summary": "Foxes are small to medium-sized, omnivorous mammals belonging to several genera of the family Canidae. They have a flattened skull, upright triangular ears, a pointed, slightly upturned snout, and a long bushy tail.",
-//     "contentLink": [
-//         {
-//             "slug": "foxes",
-//         }
-//     ]
-// }
-
-
-
-// export const ExternalLink = () => ({
-//     data() {
-//         return { block: mockInternal }
-//     },
-//     template: `
-//         <block-simple-card
-//             :title="title"
-//             :text="summary"
-//             :to="contentLink[0].slug"
-//         />
-//     `,
-// })
+export const InternalLinkGuide = () => ({
+    data() {
+        return { ...mockInternalGuide }
+    },
+    template: `
+        <block-simple-card
+            :title="contentLink[0].title"
+            :text="contentLink[0].summary"
+            :to="contentLink[0].researchGuideUrl"
+        />
+    `,
+})
