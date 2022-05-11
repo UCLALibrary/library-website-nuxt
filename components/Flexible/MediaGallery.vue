@@ -7,14 +7,8 @@
         <media-gallery-lightbox
             v-if="showLightboxModal"
             :image="block.mediaGallery[selectionIndex].image[0]"
-            :caption-title="block.mediaGallery[selectionIndex].captionTitle"
-            :caption-text="block.mediaGallery[selectionIndex].captionText"
-            :selection-index="selectionIndex"
             :n-items="nItems"
             @closeModal="hideLightboxModal"
-            @clickPrev="clickPrev"
-            @clickNext="clickNext"
-            @selectItem="selectItem"
         />
         <media-gallery-banner-image
             :image="block.mediaGallery[selectionIndex].image[0]"

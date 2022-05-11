@@ -3,25 +3,41 @@ export default {
     title: "Media Gallery / Lightbox",
 }
 
-const mock = {
-    "src": "https://via.placeholder.com/1920x1080",
-    "height": 1080,
-    "width": 1920,
-    "sizes": "100vw",
-    "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "title": "Lorem ipsum"
-}
+const mock = [
+    {
+        "src": "https://via.placeholder.com/1920x1080",
+        "height": 1080,
+        "width": 1920,
+        "sizes": "100vw",
+        "alt": "1-Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "title": "1x-Lorem ipsum"
+    },
+    {
+        "src": "https://via.placeholder.com/1920x1080",
+        "height": 1080,
+        "width": 1920,
+        "sizes": "100vw",
+        "alt": "2-Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "title": "2x-Lorem ipsum"
+    },
+    {
+        "src": "https://via.placeholder.com/1920x1080",
+        "height": 1080,
+        "width": 1920,
+        "sizes": "100vw",
+        "alt": "3-Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "title": "3x-Lorem ipsum"
+    },
+]
 
 // Variations of stories below
 export const Default = () => ({
     data() {
         return {
-            image: mock,
-            captionTitle: mock.title,
-            captionText: mock.alt,
+            image: mock
         }
     },
-    template: `<media-gallery-lightbox :image="image" :caption-title="captionTitle" :caption-text="captionText" :selection-index="3" :n-items="5" />`,
+    template: `<media-gallery-lightbox :image="image" :n-items="image.length" />`,
 })
 
 export const FirstItem = () => ({

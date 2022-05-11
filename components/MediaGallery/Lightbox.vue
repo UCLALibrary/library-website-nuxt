@@ -1,40 +1,62 @@
 <template>
     <div class="lightbox">
-        <responsive-image
-            class="media-container"
-            object-fit="contain"
-            :image="image"
-        />
         <button
             class="button-close"
             @click="$emit('closeModal')"
         >
             <svg-icon-close />
         </button>
-        <button
-            v-if="nItems > 1"
-            class="button-prev"
-            :disabled="selectionIndex <= 0"
-            @click="$emit('clickPrev')"
+        <vue-glide
+            ref="slider"
+            :active="selectionIndex"
+            :per-view="1"
+            :rewind="false"
+            class="media-container"
+            type="carousel"
+            @change="setCurrentSlide"
         >
-            <svg-icon-caret-left />
-        </button>
-        <button
-            v-if="nItems > 1"
-            class="button-next"
-            :disabled="selectionIndex >= nItems - 1"
-            @click="$emit('clickNext')"
-        >
-            <svg-icon-caret-right />
-        </button>
+            <vue-glide-slide
+                v-for="(img, index) in image"
+                :key="index"
+            >
+                <responsive-image
+                    :key="index"
+                    object-fit="contain"
+                    :image="img"
+                />
+            </vue-glide-slide>
+            <template
+                slot="control"
+            >
+                <button
+                    v-if="nItems > 1"
+                    class="button-prev"
+                    :disabled="selectionIndex <= 0"
+                    data-glide-dir="<"
+                >
+                    <svg-icon-caret-left />
+                </button>
+                <button
+                    v-if="nItems > 1"
+                    class="button-next"
+                    :disabled="selectionIndex >= nItems - 1"
+                    data-glide-dir=">"
+                >
+                    <svg-icon-caret-right />
+                </button>
+            </template>
+        </vue-glide>
         <div class="caption-block">
-            <div class="media-counter">
+            <div
+                class="media-counter" 
+                role="tablist"
+            >
                 <button
                     v-for="index in nItems"
                     :key="index"
                     class="media-counter-item"
-                    :disabled="index-1 == selectionIndex"
-                    @click="$emit('selectItem', index-1)"
+                    :disabled="index - 1 == selectionIndex"
+                    @click="setCurrentSlide(index - 1)"
                 >
                     <svg-icon-molecule-bullet
                         width="12px"
@@ -45,21 +67,24 @@
             </div>
             <h4
                 class="media-object-title"
-                v-text="captionTitle"
+                v-text="image[selectionIndex].title"
             />
             <p
                 class="media-object-caption"
-                v-text="captionText"
+                v-text="image[selectionIndex].alt"
             />
         </div>
     </div>
 </template>
 
 <script>
+import { Glide, GlideSlide } from 'vue-glide-js'
+import 'vue-glide-js/dist/vue-glide.css'
 
-export default 
-{
+export default {
     components: {
+        [Glide.name]: Glide,
+        [GlideSlide.name]: GlideSlide,
         SvgIconCaretLeft: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-caret-left"
@@ -79,26 +104,40 @@ export default
     },
     props: {
         image: {
-            type: Object,
+            type: Array,
+            default: () => [],
             required: true,
-        },
-        captionTitle: {
-            type: String,
-            default: "",
-        },
-        captionText: {
-            type: String,
-            default: "",
-        },
-        selectionIndex: {
-            type: Number,
-            default: 0,
         },
         nItems: {
             type: Number,
-            default: 1,
+            default: 0,
         }
     },
+    data() {
+        return {
+            selectionIndex: 1,
+        }
+    },
+    methods: {
+        clickPrev() {
+            if (this.selectionIndex > 0) {
+                this.selectionIndex -= 1
+            }
+        },
+        clickNext() {
+            if (this.selectionIndex + 1 < this.nItems) {
+                this.selectionIndex += 1
+            }
+        },
+        checkCurrentSlide(index) {
+            if (index === this.currentSlide) {
+                return 'current-slide'
+            }
+        },
+        setCurrentSlide(currentSlide) {
+            this.selectionIndex = currentSlide
+        },
+    }
 }
 </script>
 
@@ -136,6 +175,7 @@ export default
     grid-gap: var(--gap-width);
 
     .media-container {
+        position: relative;
         grid-row: middle-row / span 1;
         grid-column: middle-col / span 1;
 
@@ -178,24 +218,41 @@ export default
         }
     }
 
+    .controls {
+        width: 110%;
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        top: 250px;
+        left: -50px;
+    }
+
     .button-close {
         grid-row: top-row / span 1;
         grid-column: right-col / span 1;
         justify-self: start;
         align-self: end;
     }
+    --media-height-half: calc(var(--media-height) / 2);
 
     .button-prev {
-        grid-row: middle-row / span 1;
-        grid-column: left-col / span 1;
+        // grid-row: middle-row / span 1;
+        // grid-column: left-col / span 1;
+        position: absolute;
+        // top: 279px;
+        top: var(--media-height-half);
+        left: -40px;
         justify-self: end;
         align-self: center;
         color: white;
     }
 
     .button-next {
-        grid-row: middle-row / span 1;
-        grid-column: right-col / span 1;
+        // grid-row: middle-row / span 1;
+        // grid-column: right-col / span 1;
+        position: absolute;
+        top: var(--media-height-half);
+        right: -40px;
         justify-self: start;
         align-self: center;
         color: white;
