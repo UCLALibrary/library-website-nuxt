@@ -17,6 +17,7 @@
                 :index="index"
                 :go-back="goBack"
                 @shouldOpen="shouldOpen"
+                @itemOpened="itemOpened"
             />
         </ul>
         <div
@@ -49,7 +50,14 @@
                 icon-name="none"
             />
         </div>
-        <div class="molecule" />
+        <component
+            :is="`Molecule3d`"
+            width="150"
+            height="247"
+            viewBox="50 57 50 250"
+            class="molecule"
+            :class="moleculeColor"
+        />
     </div>
 </template>
 
@@ -63,7 +71,9 @@ export default {
         IconCloseLarge: () =>
             import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-close-large"),
         IconCaretLeft: () =>
-            import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-caret-left")
+            import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-caret-left"),
+        Molecule3d: () =>
+            import("~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-3d"),
     },
     props: {
         iconCloseName: {
@@ -96,6 +106,7 @@ export default {
         return {
             isOpened: false,
             goBack: false,
+            moleculeColor: "cyan"
         }
     },
     computed: {
@@ -123,10 +134,28 @@ export default {
             this.goBack = false
         },
         handleCloseOrReturn() {
-            this.isOpened ? this.goBack = !this.goBack : this.closeMenu()
+            if(this.isOpened) {
+                this.goBack = !this.goBack
+                this.moleculeColor = "cyan"
+            } else {
+                this.closeMenu()
+            }
         },
         closeMenu() {
             console.log('close')
+        },
+        itemOpened(itemIndex) {
+            if(itemIndex === 0) {
+                this.moleculeColor = "green"
+            } else if(itemIndex === 1) {
+                this.moleculeColor = "pink"
+            } else if(itemIndex === 2)  {
+                this.moleculeColor = "purple"
+            }
+
+            if(this.isOpened === false) {
+                this.moleculeColor = "cyan"
+            }
         }
     }
 }
@@ -135,7 +164,7 @@ export default {
 <style lang="scss" scoped>
 .header-main-responsive {
     width: 375px;
-    height: 100vh;
+    min-height: 100vh;
     background-color: var(--color-primary-blue-03);
     display: flex;
     flex-direction: column;
@@ -198,27 +227,43 @@ export default {
         padding-top: 100px;
         padding-left: 44px;
         padding-bottom: 108px;
-        position: absolute;
-        bottom: 0;
+        margin-top: auto;
         
         .button {
             margin: 0px;
-            // background-color: var(--color-primary-blue-03);
             border: 1.5px solid var(--color-primary-blue-02);
-            // color: var(--color-primary-blue-01);
+        }
+    }
+
+    .cyan {
+        .svg__stroke--default-cyan-03 {
+            stroke: var(--color-default-cyan-02);
+        }
+    }
+
+    .green {
+        .svg__stroke--default-cyan-03 {
+            stroke: var(--color-help-green-02);
+        }
+    }
+
+    .pink {
+        .svg__stroke--default-cyan-03 {
+            stroke: var(--color-visit-fushia-02);
+        }
+    }
+
+    .purple {
+        .svg__stroke--default-cyan-03 {
+            stroke: var(--color-about-purple-03);
         }
     }
 
     .molecule {
-        background: url(~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-3d.svg?url);
-        // background-size: 900px;
-        background-position-y: -55px;
-        background-repeat: no-repeat;
-        width: 150px;
-        height: 250px;
         position: absolute;
         bottom: 0;
         right: 0;
+        z-index: 0;
 
         -moz-transform: scaleY(-1);
         -o-transform: scaleY(-1);

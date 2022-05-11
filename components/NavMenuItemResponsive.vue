@@ -87,6 +87,7 @@ export default {
                 }
             }
             this.$emit("shouldOpen")
+            this.$emit('itemOpened', itemIndex)
         },
         resetAccordion() {
             this.$emit("shouldOpen")
