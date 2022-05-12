@@ -213,7 +213,7 @@ export const FiveCards = () => ({
         return { block: mockFiveCards }
     },
     template: `
-        <simple-cards :block="block" />
+        <simple-cards :items="block" />
     `,
 })
 
@@ -293,6 +293,6 @@ export const SixCards = () => ({
         return { block: mockSixCards }
     },
     template: `
-        <simple-cards :block="block" />
+        <simple-cards :items="block" />
     `,
 })

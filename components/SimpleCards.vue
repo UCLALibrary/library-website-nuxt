@@ -1,14 +1,5 @@
 <template>
     <div class="simple-cards">
-        <h3
-            class="section-title"
-            v-html="block.sectionTitle"
-        />
-        <p
-            class="section-summary"
-            v-html="block.sectionSummary"
-        />
-
         <ul class="simple-cards">
             <block-simple-card
                 v-for="(item, index) in parsedContent"
@@ -34,7 +25,7 @@ export default {
         parsedContent() {
             // CLASSES -----------------
             let output = ["card", "card-small"]
-            switch (this.block.cards.length) {
+            switch (this.items.length) {
                 case 2:
                 case 4:
                     output = ["card", "card-large"]
@@ -44,6 +35,7 @@ export default {
                     break
             }
 
+<<<<<<< HEAD
             return this.block.cards.map((card) => {
                 // TITLE -----------------
                 let cardTitle = ""
@@ -82,6 +74,11 @@ export default {
                     title: simpleCardTitle,
                     text: simpleCardSummary,
                     to: simpleCardLink,
+=======
+            return this.items.map((obj) => {
+                return {
+                    ...obj,
+>>>>>>> 4aa1f2c (Big rebase, update simple cards to work as non flexible component)
                     classes: output,
                 }
             })
@@ -101,16 +98,6 @@ export default {
     justify-content: flex-start;
     align-content: flex-start;
     align-items: flex-start;
-
-    .section-title {
-        @include step-4;
-        color: var(--color-primary-blue-03);
-    }
-
-    .section-summary {
-        @include step-0;
-        margin-bottom: var(--space-xl);
-    }
 
     .card {
         margin: 12px 16px 0 0;

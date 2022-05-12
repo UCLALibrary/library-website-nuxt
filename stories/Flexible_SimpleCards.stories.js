@@ -2,6 +2,7 @@ export default {
     title: "FLEXIBLE / Simple Cards",
 }
 
+<<<<<<< HEAD
 const mockTwoCards = {
     id: "13783",
     typeHandle: "simpleCards",
@@ -129,17 +130,97 @@ const mockFourCards = {
             "title": "Types of Sinkholes",
             "summary": "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
             "externalLink": "https://www.heliconusa.com/types-of-sinkholes/"
+=======
+const mockGqlTwoCards = {
+    sectionTitle: "Mammals",
+    sectionSummary:
+        "<p>Mammals include humans and all other animals that are warm-blooded vertebrates (vertebrates have backbones) with hair. They feed their young with milk and have a more well-developed brain than other types of animals. </p>",
+    cards: [
+        {
+            title: GQL.cards[0].title,
+            summary: GQL.cards[0].text,
+            to: GQL.cards[0].externalLink,
         },
-    ]
+        {
+            title: GQL.cards[1].title,
+            summary: GQL.cards[1].text,
+            to: GQL.cards[1].contentLink[0].slug,
+        },
+    ],
 }
 
+const mockGqlThreeCards = {
+    sectionTitle: "Mammals",
+    cards: [
+        {
+            sectionTitle: "Mammals",
+            title: GQL.cards[0].title,
+            summary: GQL.cards[0].text,
+            to: GQL.cards[0].externalLink,
+        },
+        {
+            title: GQL.cards[1].title,
+            summary: GQL.cards[1].text,
+            to: GQL.cards[1].contentLink[0].slug,
+        },
+        {
+            title: GQL.cards[2].title,
+            summary: GQL.cards[2].text,
+            to: GQL.cards[2].externalLink,
+        },
+    ],
+}
+
+const mockGqlFiveCards = {
+    sectionTitle: "Mammals",
+    cards: [
+        {
+            title: GQL.cards[0].title,
+            summary: GQL.cards[0].text,
+            to: GQL.cards[0].externalLink,
+        },
+        {
+            title: GQL.cards[1].title,
+            summary: GQL.cards[1].text,
+            to: GQL.cards[1].contentLink[0].slug,
+        },
+        {
+            title: GQL.cards[2].title,
+            summary: GQL.cards[2].text,
+            to: GQL.cards[2].externalLink,
+        },
+        {
+            title: GQL.cards[3].title,
+            summary: GQL.cards[3].text,
+            to: GQL.cards[3].contentLink[0].slug,
+        },
+        {
+            title: GQL.cards[4].title,
+            summary: GQL.cards[4].text,
+            to: GQL.cards[4].externalLink,
+>>>>>>> 4aa1f2c (Big rebase, update simple cards to work as non flexible component)
+        },
+    ],
+}
+
+<<<<<<< HEAD
 export const FourCards = () => ({
+=======
+// Variations of stories below
+// mockGqlTwoCards
+export const Default = () => ({
+>>>>>>> 4aa1f2c (Big rebase, update simple cards to work as non flexible component)
     data() {
         return { block: mockFourCards  }
     },
     template: `
+<<<<<<< HEAD
       <simple-cards :block="block" />
   `,
+=======
+        <flexible-simple-cards :block="block" />
+    `,
+>>>>>>> 4aa1f2c (Big rebase, update simple cards to work as non flexible component)
 })
 
 // -------5----------------
@@ -202,8 +283,13 @@ export const FiveCards = () => ({
         return { block: mockFiveCards  }
     },
     template: `
+<<<<<<< HEAD
       <simple-cards :block="block" />
   `,
+=======
+        <flexible-simple-cards :block="block" />
+    `,
+>>>>>>> 4aa1f2c (Big rebase, update simple cards to work as non flexible component)
 })
 
 // -------6----------------
@@ -274,9 +360,17 @@ const mockSixCards = {
 
 export const SixCards = () => ({
     data() {
+<<<<<<< HEAD
         return { block: mockSixCards  }
     },
     template: `
       <simple-cards :block="block" />
   `,
+=======
+        return { block: mockGqlFiveCards }
+    },
+    template: `
+        <flexible-simple-cards :block="block" />
+    `,
+>>>>>>> 4aa1f2c (Big rebase, update simple cards to work as non flexible component)
 })
