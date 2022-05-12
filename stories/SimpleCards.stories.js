@@ -6,7 +6,8 @@ const mockTwoCards = {
     id: "13783",
     typeHandle: "simpleCards",
     sectionTitle: "Fix Potholes",
-    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    sectionSummary:
+        "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
     cards: [
         {
             id: "13899",
@@ -15,17 +16,18 @@ const mockTwoCards = {
                     slug: "road-work",
                     title: "Road Work Guide",
                     summary: "<p>A research guide</p>",
-                    researchGuideUrl: "http://libguides.library.ucla.edu"
-                }
-            ]
+                    researchGuideUrl: "http://libguides.library.ucla.edu",
+                },
+            ],
         },
         {
             id: "13900",
             title: "Types of Sinkholes",
-            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
-        }
-    ]
+            summary:
+                "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/",
+        },
+    ],
 }
 
 // Variations of stories below
@@ -46,7 +48,8 @@ const mockThreeCards = {
     id: "13783",
     typeHandle: "simpleCards",
     sectionTitle: "Fix Potholes",
-    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    sectionSummary:
+        "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
     cards: [
         {
             id: "13899",
@@ -55,28 +58,29 @@ const mockThreeCards = {
                     slug: "road-work",
                     title: "Road Work Guide",
                     summary: "<p>A research guide</p>",
-                    researchGuideUrl: "http://libguides.library.ucla.edu"
-                }
-            ]
+                    researchGuideUrl: "http://libguides.library.ucla.edu",
+                },
+            ],
         },
         {
             id: "13900",
             title: "Types of Sinkholes",
-            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
+            summary:
+                "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/",
         },
         {
-            "id": "13899",
-            "contentLink": [
+            id: "13899",
+            contentLink: [
                 {
-                    "slug": "road-work",
-                    "title": "Road Work Guide",
-                    "summary": "<p>A research guide</p>",
-                    "researchGuideUrl": "http://libguides.library.ucla.edu"
-                }
-            ]
-        }
-    ]
+                    slug: "road-work",
+                    title: "Road Work Guide",
+                    summary: "<p>A research guide</p>",
+                    researchGuideUrl: "http://libguides.library.ucla.edu",
+                },
+            ],
+        },
+    ],
 }
 
 export const ThreeCards = () => ({
@@ -94,7 +98,8 @@ const mockFourCards = {
     id: "13783",
     typeHandle: "simpleCards",
     sectionTitle: "Fix Potholes",
-    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    sectionSummary:
+        "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
     cards: [
         {
             id: "13899",
@@ -103,39 +108,41 @@ const mockFourCards = {
                     slug: "road-work",
                     title: "Road Work Guide",
                     summary: "<p>A research guide</p>",
-                    researchGuideUrl: "http://libguides.library.ucla.edu"
-                }
-            ]
+                    researchGuideUrl: "http://libguides.library.ucla.edu",
+                },
+            ],
         },
         {
             id: "13900",
             title: "Types of Sinkholes",
-            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
+            summary:
+                "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/",
         },
         {
-            "id": "13899",
-            "contentLink": [
+            id: "13899",
+            contentLink: [
                 {
-                    "slug": "road-work",
-                    "title": "Road Work Guide",
-                    "summary": "<p>A research guide</p>",
-                    "researchGuideUrl": "http://libguides.library.ucla.edu"
-                }
-            ]
+                    slug: "road-work",
+                    title: "Road Work Guide",
+                    summary: "<p>A research guide</p>",
+                    researchGuideUrl: "http://libguides.library.ucla.edu",
+                },
+            ],
         },
         {
-            "id": "13900",
-            "title": "Types of Sinkholes",
-            "summary": "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            "externalLink": "https://www.heliconusa.com/types-of-sinkholes/"
+            id: "13900",
+            title: "Types of Sinkholes",
+            summary:
+                "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/",
         },
-    ]
+    ],
 }
 
 export const FourCards = () => ({
     data() {
-        return { block: mockFourCards  }
+        return { block: mockFourCards }
     },
     template: `
         <simple-cards :block="block" />
@@ -148,7 +155,8 @@ const mockFiveCards = {
     id: "13783",
     typeHandle: "simpleCards",
     sectionTitle: "Fix Potholes",
-    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    sectionSummary:
+        "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
     cards: [
         {
             id: "13899",
@@ -157,49 +165,52 @@ const mockFiveCards = {
                     slug: "road-work",
                     title: "Road Work Guide",
                     summary: "<p>A research guide</p>",
-                    researchGuideUrl: "http://libguides.library.ucla.edu"
-                }
-            ]
+                    researchGuideUrl: "http://libguides.library.ucla.edu",
+                },
+            ],
         },
         {
             id: "13900",
             title: "Types of Sinkholes",
-            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
+            summary:
+                "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/",
         },
         {
-            "id": "13899",
-            "contentLink": [
+            id: "13899",
+            contentLink: [
                 {
-                    "slug": "road-work",
-                    "title": "Road Work Guide",
-                    "summary": "<p>A research guide</p>",
-                    "researchGuideUrl": "http://libguides.library.ucla.edu"
-                }
-            ]
+                    slug: "road-work",
+                    title: "Road Work Guide",
+                    summary: "<p>A research guide</p>",
+                    researchGuideUrl: "http://libguides.library.ucla.edu",
+                },
+            ],
         },
         {
-            "id": "13900",
-            "title": "Types of Sinkholes",
-            "summary": "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            "externalLink": "https://www.heliconusa.com/types-of-sinkholes/"
+            id: "13900",
+            title: "Types of Sinkholes",
+            summary:
+                "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/",
         },
         {
-            "id": "13958",
-            "contentLink": [
+            id: "13958",
+            contentLink: [
                 {
-                    "slug": "frost-heave",
-                    "title": "Frost Heave",
-                    "summary": "<p>Frost heave refers to <strong>the upward or outward movement of the ground surface (or objects on, or in, ground) caused by formation of ice in soil</strong>.</p>"
-                }
-            ]
-        }
-    ]
+                    slug: "frost-heave",
+                    title: "Frost Heave",
+                    summary:
+                        "<p>Frost heave refers to <strong>the upward or outward movement of the ground surface (or objects on, or in, ground) caused by formation of ice in soil</strong>.</p>",
+                },
+            ],
+        },
+    ],
 }
 
 export const FiveCards = () => ({
     data() {
-        return { block: mockFiveCards  }
+        return { block: mockFiveCards }
     },
     template: `
         <simple-cards :block="block" />
@@ -212,7 +223,8 @@ const mockSixCards = {
     id: "13783",
     typeHandle: "simpleCards",
     sectionTitle: "Fix Potholes",
-    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    sectionSummary:
+        "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
     cards: [
         {
             id: "13899",
@@ -221,60 +233,64 @@ const mockSixCards = {
                     slug: "road-work",
                     title: "Road Work Guide",
                     summary: "<p>A research guide</p>",
-                    researchGuideUrl: "http://libguides.library.ucla.edu"
-                }
-            ]
+                    researchGuideUrl: "http://libguides.library.ucla.edu",
+                },
+            ],
         },
         {
             id: "13900",
             title: "Types of Sinkholes",
-            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
+            summary:
+                "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/",
         },
         {
-            "id": "13899",
-            "contentLink": [
+            id: "13899",
+            contentLink: [
                 {
-                    "slug": "road-work",
-                    "title": "Road Work Guide",
-                    "summary": "<p>A research guide</p>",
-                    "researchGuideUrl": "http://libguides.library.ucla.edu"
-                }
-            ]
+                    slug: "road-work",
+                    title: "Road Work Guide",
+                    summary: "<p>A research guide</p>",
+                    researchGuideUrl: "http://libguides.library.ucla.edu",
+                },
+            ],
         },
         {
-            "id": "13900",
-            "title": "Types of Sinkholes",
-            "summary": "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            "externalLink": "https://www.heliconusa.com/types-of-sinkholes/"
+            id: "13900",
+            title: "Types of Sinkholes",
+            summary:
+                "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/",
         },
         {
-            "id": "13958",
-            "contentLink": [
+            id: "13958",
+            contentLink: [
                 {
-                    "slug": "frost-heave",
-                    "title": "Frost Heave",
-                    "summary": "<p>Frost heave refers to <strong>the upward or outward movement of the ground surface (or objects on, or in, ground) caused by formation of ice in soil</strong>.</p>"
-                }
-            ]
+                    slug: "frost-heave",
+                    title: "Frost Heave",
+                    summary:
+                        "<p>Frost heave refers to <strong>the upward or outward movement of the ground surface (or objects on, or in, ground) caused by formation of ice in soil</strong>.</p>",
+                },
+            ],
         },
         {
-            "id": "13784",
-            "contentLink": [
+            id: "13784",
+            contentLink: [
                 {
-                    "slug": "foxes",
-                    "title": "Foxes - Guides",
-                    "summary": "<p>Foxes are small to medium-sized, omnivorous mammals belonging to several genera of the family Canidae.</p>",
-                    "researchGuideUrl": "http://libguides.library.ucla.edu"
-                }
-            ]
+                    slug: "foxes",
+                    title: "Foxes - Guides",
+                    summary:
+                        "<p>Foxes are small to medium-sized, omnivorous mammals belonging to several genera of the family Canidae.</p>",
+                    researchGuideUrl: "http://libguides.library.ucla.edu",
+                },
+            ],
         },
-    ]
+    ],
 }
 
 export const SixCards = () => ({
     data() {
-        return { block: mockSixCards  }
+        return { block: mockSixCards }
     },
     template: `
         <simple-cards :block="block" />

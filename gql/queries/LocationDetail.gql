@@ -49,7 +49,7 @@ query LocationDetail($slug: [String!]) {
             staffMember {
                 id
                 email
-                uri
+                to: uri
             }
             exhibitsAndEvents {
                 id
@@ -68,6 +68,10 @@ query LocationDetail($slug: [String!]) {
                     startDate
                     endDate
                 }
+                seriesDate {
+                    startDate
+                    endDate
+                }
                 associatedLocations {
                     id
                     title
@@ -82,9 +86,10 @@ query LocationDetail($slug: [String!]) {
             associatedArticles {
                 id
                 uri
+                slug
                 title
                 summary
-                authors: staffMember {
+                author: staffMember {
                     id
                     slug
                     title

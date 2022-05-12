@@ -17,12 +17,11 @@
             :phone="page.phoneNumber"
             address-link="maps.google.com"
         />
-        <!-- TO DO need address link for header in craft -->
         <block-hours
             class="block-hours"
             :lid="page.libcalLocationIdForHours"
         />
-        <!-- TO DO add amenties -->
+        <!-- TO DO add amenties component -->
         <div
             v-for="(item, index) in page.amenities"
             :key="index"
@@ -40,10 +39,10 @@
             <h3>Spaces</h3>
             <p>Placeholder descriptor text</p>
             <block-spaces
-                v-for="(space, index) in mockBlockSpaces"
+                v-for="(space, index) in libCalSpaces"
                 :key="index"
-                :title="space.title"
-                :text="space.text"
+                :title="space.name"
+                :text="space.description"
             />
         </div>
 
@@ -72,7 +71,6 @@
             color="visit"
             class="divider-way-finder"
         />
-        <!-- TO DO add associated events and exhibits -->
         <div
             v-if="parsedEvents.length"
             class="events-exhibitions"
@@ -90,7 +88,6 @@
             class="content"
             :blocks="page.blocks"
         />
-        <!-- TO DO add news -->
     </div>
 </template>
 
@@ -106,18 +103,20 @@ export default {
         const data = await $graphql.default.request(LOCATION_DETAIL, {
             slug: params.slug,
         })
+        // TO DO pull out libcal spaces location id
 
-        // https://calendar.library.ucla.edu/api/1.1/space/items/:id
-        // const libcalData = await $axios.$get(`/events`, {
-        //     params: {
-        //         cal_id: 8312,
-        //     },
-        // })
-        //
-        // console.log(libcalData)
+        let test = 4361
+        let libcalId = data.entry.libcalLocationIdForSpaces
+
+        const libcalData = await $axios.$get(
+            `https://calendar.library.ucla.edu/api/1.1/space/items/${test}`
+        )
+
+        console.log(libcalData)
 
         return {
             page: _get(data, "entry", {}),
+            libCalSpaces: libcalData,
         }
     },
     computed: {
@@ -156,10 +155,11 @@ export default {
             return this.page.exhibitsAndEvents.map((obj) => {
                 return {
                     ...obj,
-                    to: `events-exhibtions/${obj.id}`,
+                    to: `/events-exhibtions/${obj.id}`,
                     image: _get(obj, "heroImage[0].image[0]", {}),
-                    text: obj.summary,
-                    startDate: _get(obj, "startDate", ""),
+                    text: _get(obj, "summary", ""),
+                    startDate: _get(obj, "seriesDate[0].startDate", ""),
+                    endDate: _get(obj, "seriesDate[0].endDate", ""),
                     locations: _get(obj, "associatedLocations", ""),
                 }
             })
@@ -168,10 +168,10 @@ export default {
             return this.page.associatedArticles.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.uri,
+                    to: `/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", {}),
                     text: obj.summary,
-                    author: obj.authors,
+                    author: _get(obj, "author[0].title", ""),
                 }
             })
         },
