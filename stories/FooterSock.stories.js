@@ -1,4 +1,9 @@
 import formatLinkTarget from "~/utils/formatLinkTarget"
+import Vue from "vue"
+import Vuex from "vuex"
+
+
+Vue.use(Vuex)
 
 // Storybook default settings
 export default {
@@ -23,7 +28,7 @@ const mock = {
         },
         {
             id: "1629",
-            name: "PPPrivacy & Terms of Use",
+            name: "Privacy & Terms of Use",
             to: "https://test-craft.library.ucla.edu/privacy-terms-of-use",
             classes: null,
             target: ""
@@ -40,6 +45,16 @@ const mock = {
 
 // Variations of stories below
 export const Default = () => ({
+    store: new Vuex.Store({
+        state: {
+            footerSock: {
+                nodes:mock.nodes,
+            },
+        },
+        
+    
+           
+    }),
     data() {
         return {
             ...mock,

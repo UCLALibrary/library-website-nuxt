@@ -45,11 +45,7 @@
         />
         <block-call-to-action
             class="block-call-to-action"
-            svg-name="svg-call-to-action-chat"
-            :title="askALibrarian.askALibrarianTitle"
-            :text="askALibrarian.askALibrarianText"
-            :name="askALibrarian.buttonUrl[0].buttonText"
-            :to="askALibrarian.buttonUrl[0].buttonUrl"
+            :is-global="true"
         />
     </section>
 </template>
@@ -62,15 +58,26 @@ import SERVICE_OR_RESOURCE_DETAIL from "~/gql/queries/ServiceOrResourceDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, store }) {
+        // Do not remove testing live preview
+        console.log(
+            "fetching graphql data for Service or Resource detail from Craft for live preview"
+        )
         const data = await $graphql.default.request(
             SERVICE_OR_RESOURCE_DETAIL,
             {
                 slug: params.slug,
             }
         )
+        console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
+        }
+    },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        return {
+            title: title,
         }
     },
     computed: {
@@ -87,9 +94,6 @@ export default {
         },
         parsedButtonTo() {
             return _get(this.page, "button[0].buttonUrl", "")
-        },
-        askALibrarian() {
-            return this.$store.state.globals.askALibrarian
         },
     },
 }

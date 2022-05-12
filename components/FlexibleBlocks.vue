@@ -105,6 +105,12 @@ function convertName(typeHandle) {
         &.divider-general {
             padding: 0;
         }
+        ::v-deep .flexible-media-with-text {
+            .clipped-play,
+            .clipped-play-mobile {
+                background-color: var(--color-secondary-grey-01);
+            }
+        }
     }
 }
 </style>

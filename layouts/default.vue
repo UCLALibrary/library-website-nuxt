@@ -4,23 +4,15 @@
 
         <nuxt class="page" />
 
-        <footer-primary 
-            :social-items="parsedSocialItems"
-            :press-items="parsedPressItems"
-            :form="true"
-        />
-        <footer-sock 
-            :sock-items="parsedSockItems"
-        />
+        <footer-primary :form="true" />
+        <footer-sock />
+
     </div>
 </template>
 
 <script>
 // Helpers
 import kebabCase from "~/utils/kebabCase"
-
-// Helpers
-import formatLinkTarget from "~/utils/formatLinkTarget"
 
 export default {
     components: {},
@@ -58,39 +50,7 @@ export default {
                 { "has-scrolled-past-header": this.$store.state.sTop >= 150 },
             ]
         },
-        parsedSocialItems() {
-            if(this.$store.state.footerPrimary) {
-                return this.$store.state.footerPrimary.nodes[0].children.map((obj) => {
-                    return {
-                        ...obj,
-                        target: formatLinkTarget(obj.target),
-                    }
-                })
-            }
-            return []
-        },
-        parsedPressItems() {
-            if(this.$store.state.footerPrimary) {
-                return this.$store.state.footerPrimary.nodes[1].children.map((obj) => {
-                    return {
-                        ...obj,
-                        target: formatLinkTarget(obj.target),
-                    }
-                })
-            }
-            return []
-        },
-        parsedSockItems() {
-            if(this.$store.state.footerSock) {
-                return this.$store.state.footerSock.nodes.map((obj) => {
-                    return {
-                        ...obj,
-                        target: formatLinkTarget(obj.target),
-                    }
-                })
-            }
-            return []
-        }
+
     },
     // meta: [
     //     {

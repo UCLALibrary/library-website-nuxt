@@ -2,290 +2,281 @@ export default {
     title: "FLEXIBLE / Simple Cards",
 }
 
-const mock = {
-    simpleCards: [
+const mockTwoCards = {
+    id: "13783",
+    typeHandle: "simpleCards",
+    sectionTitle: "Fix Potholes",
+    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    cards: [
         {
-            id: "5763",
-            title: "simple cards",
+            id: "13899",
             contentLink: [
                 {
-                    id: "1686",
-                    url: "https://test-craft.library.ucla.edu/visit/events-exhibits/a-new-exhibit",
-                    title: "a new exhibit",
-                    text: "description",
-                },
-            ],
-            summary: "a simple card",
-            externalLink: null,
+                    slug: "road-work",
+                    title: "Road Work Guide",
+                    summary: "<p>A research guide</p>",
+                    researchGuideUrl: "http://libguides.library.ucla.edu"
+                }
+            ]
         },
         {
-            id: "7435",
-            title: "Powell Library",
-            contentLink: [
-                {
-                    id: "523",
-                    url: "https://test-craft.library.ucla.edu/visit/locations/powell-library",
-                    title: "Powell Library",
-                    text: null,
-                },
-            ],
-            summary: "subheader blah blah blah",
-            externalLink: "https://calendar.library.ucla.edu/",
-        },
-        {
-            id: "7481",
-            title: "Go to this exhibit",
-            contentLink: [],
-            summary: "it will be great",
-            externalLink: "https://github.com/",
-        },
-        {
-            id: "7481",
-            title: "Go to this exhibit",
-            contentLink: [],
-            summary: "it will be great",
-            externalLink: "https://github.com/",
-        },
-        {
-            id: "7481",
-            title: "Go to this exhibit",
-            contentLink: [],
-            summary: "it will be great",
-            externalLink: "https://github.com/",
-        },
-        {
-            id: "7481",
-            title: "Go to this exhibit",
-            contentLink: [],
-            summary: "it will be great",
-            externalLink: "https://github.com/",
-        },
-    ],
+            id: "13900",
+            title: "Types of Sinkholes",
+            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
+        }
+    ]
 }
 
+// Variations of stories below
+// TwoCards
 export const Default = () => ({
     data() {
-        return { block: mock }
+        return { block: mockTwoCards }
     },
     template: `
-        <flexible-simple-cards
-        :block="block"
-
-        />
-    `,
+      <simple-cards
+          :block="block"
+      />
+  `,
 })
 
-const twoCards = {
-    simpleCards: [
+// -------3----------------
+const mockThreeCards = {
+    id: "13783",
+    typeHandle: "simpleCards",
+    sectionTitle: "Fix Potholes",
+    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    cards: [
         {
-            id: "7481",
-            title: "Go to this exhibit",
-            contentLink: [],
-            summary: "it will be great",
-            externalLink: "https://github.com/",
-        },
-        {
-            id: "7481",
-            title: "Go to this exhibit",
-            contentLink: [],
-            summary: "it will be great",
-            externalLink: "https://github.com/",
-        },
-    ],
-}
-
-export const TwoCards = () => ({
-    data() {
-        return { block: twoCards }
-    },
-    template: `
-        <flexible-simple-cards
-        :block="block"
-
-        />
-    `,
-})
-
-const threeCards = {
-    simpleCards: [
-        {
-            id: "3516",
-            linkText: "This is a new simple card",
+            id: "13899",
             contentLink: [
                 {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    title: "Scholarship Award",
-                    text: "this is a lot of sample test to see how wide this card will get",
-                },
-            ],
-            subheader:
-                "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
-            externalLink: "http://google.com",
+                    slug: "road-work",
+                    title: "Road Work Guide",
+                    summary: "<p>A research guide</p>",
+                    researchGuideUrl: "http://libguides.library.ucla.edu"
+                }
+            ]
         },
         {
-            id: "3497",
-            linkText: null,
-            contentLink: [
-                {
-                    id: "483",
-                    url: "https://test-craft.library.ucla.edu/about/staff/ashton-prigge",
-                    title: "Ashton Prigge",
-                    text: "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
-                },
-            ],
-            subheader: null,
-            externalLink: "http://google.com",
+            id: "13900",
+            title: "Types of Sinkholes",
+            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
         },
         {
-            id: "3516",
-            linkText: "This is a new simple card",
-            contentLink: [
+            "id": "13899",
+            "contentLink": [
                 {
-                    id: "1750",
-                    url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-                    title: "Scholarship Award",
-                    text: "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar",
-                },
-            ],
-            subheader: null,
-            externalLink: "http://google.com",
-        },
-    ],
+                    "slug": "road-work",
+                    "title": "Road Work Guide",
+                    "summary": "<p>A research guide</p>",
+                    "researchGuideUrl": "http://libguides.library.ucla.edu"
+                }
+            ]
+        }
+    ]
 }
 
 export const ThreeCards = () => ({
     data() {
-        return { block: threeCards }
+        return { block: mockThreeCards }
     },
     template: `
-        <flexible-simple-cards
-        :block="block"
-        />
-    `,
+      <simple-cards :block="block" />
+  `,
 })
 
-const mockOne = {
-    simpleCards: [
+// -------4----------------
+
+const mockFourCards = {
+    id: "13783",
+    typeHandle: "simpleCards",
+    sectionTitle: "Fix Potholes",
+    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    cards: [
         {
-            id: "5763",
-            title: "simple cards",
+            id: "13899",
             contentLink: [
                 {
-                    id: "1686",
-                    url: "https://test-craft.library.ucla.edu/visit/events-exhibits/a-new-exhibit",
-                    title: "a new exhibit",
-                    text: "description",
-                },
-            ],
-            summary: "a simple card",
-            externalLink: null,
+                    slug: "road-work",
+                    title: "Road Work Guide",
+                    summary: "<p>A research guide</p>",
+                    researchGuideUrl: "http://libguides.library.ucla.edu"
+                }
+            ]
         },
         {
-            id: "7435",
-            title: "Powell Library",
-            contentLink: [
+            id: "13900",
+            title: "Types of Sinkholes",
+            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
+        },
+        {
+            "id": "13899",
+            "contentLink": [
                 {
-                    id: "523",
-                    url: "https://test-craft.library.ucla.edu/visit/locations/powell-library",
-                    title: "Powell Library",
-                    text: null,
-                },
-            ],
-            summary: "subheader blah blah blah",
-            externalLink: "https://calendar.library.ucla.edu/",
+                    "slug": "road-work",
+                    "title": "Road Work Guide",
+                    "summary": "<p>A research guide</p>",
+                    "researchGuideUrl": "http://libguides.library.ucla.edu"
+                }
+            ]
         },
         {
-            id: "7481",
-            title: "Go to this exhibit",
-            contentLink: [],
-            summary: "it will be great",
-            externalLink: "https://github.com/",
+            "id": "13900",
+            "title": "Types of Sinkholes",
+            "summary": "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            "externalLink": "https://www.heliconusa.com/types-of-sinkholes/"
         },
-        {
-            id: "7481",
-            title: "Go to this exhibit",
-            contentLink: [],
-            summary: "it will be great",
-            externalLink: "https://github.com/",
-        },
-    ],
+    ]
 }
 
 export const FourCards = () => ({
     data() {
-        return { block: mockOne }
+        return { block: mockFourCards  }
     },
     template: `
-        <flexible-simple-cards
-        :block="block"
-
-        />
-    `,
+      <simple-cards :block="block" />
+  `,
 })
 
-const fiveCards = {
-    simpleCards: [
+// -------5----------------
+
+const mockFiveCards = {
+    id: "13783",
+    typeHandle: "simpleCards",
+    sectionTitle: "Fix Potholes",
+    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    cards: [
         {
-            id: "5763",
-            title: "simple cards",
+            id: "13899",
             contentLink: [
                 {
-                    id: "1686",
-                    url: "https://test-craft.library.ucla.edu/visit/events-exhibits/a-new-exhibit",
-                    title: "a new exhibit",
-                    text: "description",
-                },
-            ],
-            summary: "a simple card",
-            externalLink: null,
+                    slug: "road-work",
+                    title: "Road Work Guide",
+                    summary: "<p>A research guide</p>",
+                    researchGuideUrl: "http://libguides.library.ucla.edu"
+                }
+            ]
         },
         {
-            id: "7435",
-            title: "Powell Library",
-            contentLink: [
+            id: "13900",
+            title: "Types of Sinkholes",
+            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
+        },
+        {
+            "id": "13899",
+            "contentLink": [
                 {
-                    id: "523",
-                    url: "https://test-craft.library.ucla.edu/visit/locations/powell-library",
-                    title: "Powell Library",
-                    text: null,
-                },
-            ],
-            summary: "subheader blah blah blah",
-            externalLink: "https://calendar.library.ucla.edu/",
+                    "slug": "road-work",
+                    "title": "Road Work Guide",
+                    "summary": "<p>A research guide</p>",
+                    "researchGuideUrl": "http://libguides.library.ucla.edu"
+                }
+            ]
         },
         {
-            id: "7481",
-            title: "Go to this exhibit",
-            contentLink: [],
-            summary: "it will be great",
-            externalLink: "https://github.com/",
+            "id": "13900",
+            "title": "Types of Sinkholes",
+            "summary": "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            "externalLink": "https://www.heliconusa.com/types-of-sinkholes/"
         },
         {
-            id: "7481",
-            title: "Go to this exhibit",
-            contentLink: [],
-            summary: "it will be great",
-            externalLink: "https://github.com/",
-        },
-        {
-            id: "7481",
-            title: "Go to this exhibit",
-            contentLink: [],
-            summary: "it will be great",
-            externalLink: "https://github.com/",
-        },
-    ],
+            "id": "13958",
+            "contentLink": [
+                {
+                    "slug": "frost-heave",
+                    "title": "Frost Heave",
+                    "summary": "<p>Frost heave refers to <strong>the upward or outward movement of the ground surface (or objects on, or in, ground) caused by formation of ice in soil</strong>.</p>"
+                }
+            ]
+        }
+    ]
 }
 
 export const FiveCards = () => ({
     data() {
-        return { block: fiveCards }
+        return { block: mockFiveCards  }
     },
     template: `
-        <flexible-simple-cards
-        :block="block"
+      <simple-cards :block="block" />
+  `,
+})
 
-        />
-    `,
+// -------6----------------
+
+const mockSixCards = {
+    id: "13783",
+    typeHandle: "simpleCards",
+    sectionTitle: "Fix Potholes",
+    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    cards: [
+        {
+            id: "13899",
+            contentLink: [
+                {
+                    slug: "road-work",
+                    title: "Road Work Guide",
+                    summary: "<p>A research guide</p>",
+                    researchGuideUrl: "http://libguides.library.ucla.edu"
+                }
+            ]
+        },
+        {
+            id: "13900",
+            title: "Types of Sinkholes",
+            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
+        },
+        {
+            "id": "13899",
+            "contentLink": [
+                {
+                    "slug": "road-work",
+                    "title": "Road Work Guide",
+                    "summary": "<p>A research guide</p>",
+                    "researchGuideUrl": "http://libguides.library.ucla.edu"
+                }
+            ]
+        },
+        {
+            "id": "13900",
+            "title": "Types of Sinkholes",
+            "summary": "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+            "externalLink": "https://www.heliconusa.com/types-of-sinkholes/"
+        },
+        {
+            "id": "13958",
+            "contentLink": [
+                {
+                    "slug": "frost-heave",
+                    "title": "Frost Heave",
+                    "summary": "<p>Frost heave refers to <strong>the upward or outward movement of the ground surface (or objects on, or in, ground) caused by formation of ice in soil</strong>.</p>"
+                }
+            ]
+        },
+        {
+            "id": "13784",
+            "contentLink": [
+                {
+                    "slug": "foxes",
+                    "title": "Foxes - Guides",
+                    "summary": "<p>Foxes are small to medium-sized, omnivorous mammals belonging to several genera of the family Canidae.</p>",
+                    "researchGuideUrl": "http://libguides.library.ucla.edu"
+                }
+            ]
+        },
+    ]
+}
+
+export const SixCards = () => ({
+    data() {
+        return { block: mockSixCards  }
+    },
+    template: `
+      <simple-cards :block="block" />
+  `,
 })

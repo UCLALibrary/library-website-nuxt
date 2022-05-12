@@ -3,7 +3,7 @@
         <div class="container">
             <ul class="links">
                 <li
-                    v-for="item in sockItems"
+                    v-for="item in parsedSockItems"
                     :key="item.id"
                     class="item"
                 >
@@ -25,18 +25,32 @@
 </template>
 
 <script>
+// Helpers
+import formatLinkTarget from "~/utils/formatLinkTarget"
+
 export default {
     props: {
-        sockItems: {
+        /*sockItems: {
             type: Array,
             default: () => [],
-        },
+        },*/
     },
     computed: {
         year() {
-            console.log(this.$store.state.footerSock)
             const current_year = new Date().getFullYear()
             return current_year
+        },
+        parsedSockItems() {
+            if (Object.keys(this.$store.state.footerSock).length !== 0) {
+                return this.$store.state.footerSock.nodes.map((obj) => {
+                    console.log("url" + JSON.stringify(obj))
+                    return {
+                        ...obj,
+                        target: formatLinkTarget(obj.target),
+                    }
+                })
+            }
+            return []
         },
     },
 }

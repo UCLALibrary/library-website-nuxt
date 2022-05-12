@@ -2,30 +2,72 @@ export default {
     title: "BLOCK / Simple Card",
 }
 
-const mock = {
-    id: "3496",
-    linkText: null,
-    contentLink: [
-        {
-            id: "1750",
-            url: "https://test-craft.library.ucla.edu/about/awards-grants/scholarship-award",
-            title: "Scholarship Award",
-            text: "this is a lot of sample test to see how wide this card will get",
-        },
-    ],
-    subheader: null,
-    externalLink: null,
+const mockExternal = {
+    title: "Types of Sinkholes",
+    summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
+    externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
 }
 
+const mockInternal = {
+    "id": "13785",
+    "contentLink": [
+        {
+            "slug": "sink-hole",
+            "title": "Sink Hole",
+            "summary": "<p>Man-made sinkholes are the result of a variety of practices, from drilling to mining to changes in water diversion systems to broken pipes.</p>"
+        }
+    ]
+}
+
+const mockInternalGuide = {
+    "id": "13899",
+    "contentLink": [
+        {
+            "slug": "road-work",
+            "title": "Road Work Guide",
+            "summary": "<p>A research guide</p>",
+            "researchGuideUrl": "http://libguides.library.ucla.edu"
+        }
+    ]
+}
+
+// Variations of stories below
+// ExternalLink
 export const Default = () => ({
     data() {
-        return { block: mock }
+        return { ...mockExternal }
     },
     template: `
         <block-simple-card
-            :title="block.contentLink[0].title"
-            :text="block.contentLink[0].text"
-            :to="block.contentLink[0].to"
+            :title="title"
+            :text="summary"
+            :to="externalLink"
+        />
+    `,
+})
+
+export const InternalLink = () => ({
+    data() {
+        return { ...mockInternal }
+    },
+    template: `
+        <block-simple-card
+            :title="contentLink[0].title"
+            :text="contentLink[0].summary"
+            :to="contentLink[0].slug"
+        />
+    `,
+})
+
+export const InternalLinkGuide = () => ({
+    data() {
+        return { ...mockInternalGuide }
+    },
+    template: `
+        <block-simple-card
+            :title="contentLink[0].title"
+            :text="contentLink[0].summary"
+            :to="contentLink[0].researchGuideUrl"
         />
     `,
 })

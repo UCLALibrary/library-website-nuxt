@@ -11,6 +11,7 @@
         "storybook": "nuxt storybook --port 3009",
         "storybook-build": "nuxt storybook build",
         "cypress": "cypress open",
+        "cypress-storybook": "cypress open --config-file cypress.storybook.json",
         "cypress-run": "cypress run",
         "lint": "eslint ./",
         "lint-fix": "eslint --fix ./",
@@ -31,6 +32,7 @@
         "@percy/storybook": "^4.0.2",
         "core-js": "^3.11.0",
         "cypress": "^8.5.0",
+        "cz-conventional-changelog": "^3.3.0",
         "date-fns": "^2.22.1",
         "eslint": "^7.25.0",
         "eslint-plugin-cypress": "^2.12.1",
@@ -43,9 +45,14 @@
         "prettier-eslint": "^12.0.0",
         "sass": "^1.45.2",
         "sass-loader": "^10.1.1",
-        "ucla-library-design-tokens": "^2.4.3",
+        "ucla-library-design-tokens": "^3.0.0",
         "vue-svg-loader": "^0.16.0",
         "vue-template-compiler": "^2.6.12",
         "webfontloader": "^1.6.28"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
     }
 }

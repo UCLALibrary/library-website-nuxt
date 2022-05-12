@@ -223,3 +223,11 @@ All Heading tags are `var(--font-primary)` (Karbon)
 2. Token needs to be given to client side, so that search works
 
 </details>
+
+## If your repo is Commitizen friendly:
+
+Simply use git cz or just cz instead of git commit when committing. 
+
+When you're working in a Commitizen-friendly repository, you'll be prompted to fill in any required fields, and your commit messages will be formatted according to the standards defined by project maintainers.
+
+[![Add and commit with Commitizen](https://github.com/commitizen/cz-cli/raw/master/meta/screenshots/add-commit.png)](https://github.com/commitizen/cz-cli/raw/master/meta/screenshots/add-commit.png)

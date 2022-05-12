@@ -116,7 +116,7 @@
                     class="ask-me-about"
                 >
                     <h2 class="secondary-header">
-                        Ask me About
+                        Ask Me About
                     </h2>
                     <rich-text>
                         <ul class="list topics">

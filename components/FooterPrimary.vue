@@ -7,7 +7,7 @@
 
                 <ul class="socials">
                     <li
-                        v-for="item in socialItems"
+                        v-for="item in parsedSocialItems"
                         :key="item.id"
                         class="social-item"
                     >
@@ -26,7 +26,7 @@
                     class="press-links"
                 >
                     <li
-                        v-for="item in pressItems"
+                        v-for="item in parsedPressItems"
                         :key="item.id"
                         class="press-item"
                     >
@@ -49,7 +49,8 @@
                 </h2>
 
                 <p class="statement">
-                    Subscribe to get the latest updates on what's happening with  UCLA Library.
+                    Subscribe to get the latest updates on what's happening with
+                    UCLA Library.
                 </p>
 
                 <div class="input-block">
@@ -69,41 +70,77 @@
                     </button>
                 </div>
             </form>
-            </h1>
         </div>
     </footer>
 </template>
 
 <script>
+// Helpers
+import formatLinkTarget from "~/utils/formatLinkTarget"
+
 import SvgLogoUclaLibrary from "~/assets/svg/logo-ucla-library"
 import SvgMoleculeHalf from "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-half"
 import SvgArrowRight from "~/assets/svg/arrow-right"
 
 export default {
-    // name: "FooterPrimary",
     components: {
         SvgLogoUclaLibrary,
         SvgMoleculeHalf,
         SvgArrowRight,
     },
     props: {
-        socialItems: {
+        /*socialItems: {
             type: Array,
             default: () => [],
         },
         pressItems: {
             type: Array,
             default: () => [],
-        },
+        },*/
         form: {
             type: Boolean,
             default: true,
         },
     },
     computed: {
-        classes( socialItems) {
-            console.log()
+        classes() {
             return this.form ? ["container"] : ["container no-form"]
+        },
+        parsedSocialItems() {
+            if (Object.keys(this.$store.state.footerPrimary).length !== 0) {
+                return this.$store.state.footerPrimary.nodes[0].children.map(
+                    (obj) => {
+                        return {
+                            ...obj,
+                            target: formatLinkTarget(obj.target),
+                        }
+                    }
+                )
+            } else {
+                console.log(
+                    "Vuex state data not present: is it client side:" +
+                        process.client
+                )
+            }
+            return []
+        },
+        parsedPressItems() {
+            if (Object.keys(this.$store.state.footerPrimary).length !== 0) {
+                return this.$store.state.footerPrimary.nodes[1].children.map(
+                    (obj) => {
+                        return {
+                            ...obj,
+                            target: formatLinkTarget(obj.target),
+                        }
+                    }
+                )
+            } else {
+                console.log(
+                    "Vuex state data not present: is it client side:" +
+                        process.client
+                )
+            }
+            return []
         },
     },
 }
@@ -367,9 +404,9 @@ export default {
                     margin-bottom: 25px;
                 }
 
-                 .social-item:last-child {
-                        padding-right: 0;
-                    }
+                .social-item:last-child {
+                    padding-right: 0;
+                }
 
                 .press-item {
                     align-self: flex-end;
