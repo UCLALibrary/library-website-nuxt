@@ -1,15 +1,14 @@
 <template>
     <div class="simple-cards">
         <h3
-            v-if="sectionTitle"
             class="section-title"
-            v-html="sectionTitle"
+            v-html="block.sectionTitle"
         />
         <p
-            v-if="sectionSummary"
             class="section-summary"
-            v-html="sectionSummary"
+            v-html="block.sectionSummary"
         />
+
         <ul class="simple-cards">
             <block-simple-card
                 v-for="(item, index) in parsedContent"
@@ -26,24 +25,16 @@
 <script>
 export default {
     props: {
-        sectionTitle: {
-            type: String,
-            default: "",
-        },
-        sectionSummary: {
-            type: String,
-            default: "",
-        },
-        items: {
-            type: Array,
-            default: () => [],
+        block: {
+            type: Object,
+            default: () => {},
         },
     },
     computed: {
         parsedContent() {
             // CLASSES -----------------
             let output = ["card", "card-small"]
-            switch (this.items.length) {
+            switch (this.block.cards.length) {
                 case 2:
                 case 4:
                     output = ["card", "card-large"]
@@ -52,8 +43,6 @@ export default {
                     output = ["card", "card-five"]
                     break
             }
-
-<<<<<<< HEAD
             return this.block.cards.map((card) => {
                 // TITLE -----------------
                 let cardTitle = ""
@@ -61,7 +50,6 @@ export default {
                     cardTitle = card.contentLink[0].title
                 }
                 let simpleCardTitle = card.title ? card.title : cardTitle
-
                 // SUMMARY -----------------
                 let cardSummary = ""
                 if (card.contentLink && card.contentLink.length != 0) {
@@ -70,7 +58,6 @@ export default {
                 let simpleCardSummary = card.summary
                     ? card.summary
                     : cardSummary
-
                 // LINK -----------------
                 let internalLink = "/"
                 if (card.contentLink && card.contentLink.length != 0) {
@@ -87,16 +74,10 @@ export default {
                 let simpleCardLink = card.externalLink
                     ? card.externalLink
                     : internalLink
-
                 return {
                     title: simpleCardTitle,
                     text: simpleCardSummary,
                     to: simpleCardLink,
-=======
-            return this.items.map((obj) => {
-                return {
-                    ...obj,
->>>>>>> 4aa1f2c (Big rebase, update simple cards to work as non flexible component)
                     classes: output,
                 }
             })
@@ -109,24 +90,20 @@ export default {
 .simple-cards {
     margin: 0 auto;
     max-width: $container-l-main + px;
-
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-content: flex-start;
     align-items: flex-start;
-
     .section-title {
         @include step-4;
         color: var(--color-primary-blue-03);
     }
-
     .section-summary {
         @include step-0;
         margin-bottom: var(--space-xl);
     }
-
     .card {
         margin: 12px 16px 0 0;
     }
@@ -149,7 +126,6 @@ export default {
         &.flexible-block {
             padding: var(--unit-gutter);
         }
-
         .card {
             width: 50%;
         }
@@ -162,7 +138,6 @@ export default {
     @media #{$small} {
         display: flex;
         flex-direction: column;
-
         .card {
             width: 100%;
         }

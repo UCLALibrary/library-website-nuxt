@@ -49,7 +49,7 @@ fragment FlexibleBlocksServiceOrResource on ElementInterface {
         ...BlockPullQuote
         ...BlockSimpleCards
         ...BlockRichText
-        # ...BlockMediaWithText
+        ...BlockMediaWithText
     }
 }
 
@@ -73,27 +73,26 @@ fragment BlockDivider on defaultFpbWithNoCta_divider_BlockType {
 }
 
 fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
-<<<<<<< HEAD
-  id
-  sectionTitle: titleGeneral
-  sectionSummary: summary
-  cards: simpleCards {
-    ... on simpleCards_internalServiceOrResource_BlockType {
-        id
-        title: titleGeneral
-        summary
-        contentLink {
-            slug
-            title
+    id
+    sectionTitle: titleGeneral
+    sectionSummary: summary
+    cards: simpleCards {
+        ... on simpleCards_internalServiceOrResource_BlockType {
+            id
+            title: titleGeneral
             summary
-            researchGuideUrl
+            contentLink {
+                slug
+                title
+                summary
+                researchGuideUrl
+            }
         }
-    }
-    ... on simpleCards_externalServiceOrResource_BlockType {
-        id
-        title: titleGeneral
-        summary
-        externalLink
+        ... on simpleCards_externalServiceOrResource_BlockType {
+            id
+            title: titleGeneral
+            summary
+            externalLink
         }
     }
 }
@@ -126,48 +125,8 @@ fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
             }
             upload {
                 ...Image
-=======
-    id
-    sectionTitle: titleGeneral
-    sectionSummary: summary
-    cards: simpleCards {
-        ... on simpleCards_internalServiceOrResource_BlockType {
-            id
-            title: titleGeneral
-            summary
-            contentLink {
-                slug
->>>>>>> 9e78171 (refactoring components for location page)
             }
             typeMedia
         }
-        ... on simpleCards_externalServiceOrResource_BlockType {
-            id
-            title: titleGeneral
-            summary
-            externalLink
-        }
     }
 }
-
-# fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
-#     id
-#     mediaWithText {
-#         ... on mediaWithText_mediaWithText_BlockType {
-#             id
-#             titleMediaWithText
-#             description
-#             buttonText
-#             mediaType
-#             mediaWithTextLink
-#             media {
-#                 id
-#                 url
-#             }
-#
-#             image: coverImage {
-#                 ...Image
-#             }
-#         }
-#     }
-# }

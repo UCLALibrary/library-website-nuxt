@@ -66,12 +66,12 @@
             class="divider-way-finder"
         />
 
-        <simple-cards
+        <!-- <simple-cards
             v-if="page.resourceServiceWorkshop.length"
             class="simple-cards"
             section-title="Services & Resources"
             :items="parsedServicesAndResources"
-        />
+        /> -->
         <nuxt-link
             v-if="page.resourceServiceWorkshop.length"
             class="button-more"
