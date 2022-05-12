@@ -24,6 +24,26 @@ query LocationDetail($slug: [String!]) {
             }
             howToGetHere
             amenities(label: true)
+            space {
+                title
+                summary
+                mediatedBooking
+                mediatorEmail
+                externalUrl {
+                    theUrl
+                    urlText
+                }
+                capacity
+                spaceType {
+                    title
+                }
+                spaceAmenities {
+                    title
+                }
+                associatedLocations {
+                    title
+                }
+            }
             resourceServiceWorkshop {
                 id
                 text: summary

@@ -44,8 +44,8 @@
             :location-name="page.title"
             :building-access="page.howToGetHere"
         />
-        <!-- <div
-            v-if="libCalSpaces"
+        <div
+            v-if="page.space"
             class="block-spaces"
         >
             <h3 class="spaces-title">
@@ -53,12 +53,15 @@
             </h3>
 
             <block-spaces
-                v-for="(space, index) in libCalSpaces"
+                v-for="(space, index) in parsedSpaces"
                 :key="index"
-                :title="space.name"
-                :text="space.description"
+                :title="space.title"
+                :text="space.summary"
+                :location="space.associatedLocations.title"
+                :to="space.to"
+                :button-text="space.buttonText"
             />
-        </div> -->
+        </div>
 
         <divider-way-finder
             v-if="page.resourceServiceWorkshop.length"
@@ -170,6 +173,21 @@ export default {
         },
         addressLink() {
             return `https://map.ucla.edu/?id=${this.page.campusMapId}&e=true`
+        },
+        parsedSpaces() {
+            return this.page.space.map((obj) => {
+                return {
+                    ...obj,
+                    buttonText:
+                        obj.mediatedBooking === "yes"
+                            ? obj.mediatorEmail
+                            : "Reserve",
+                    to:
+                        obj.mediatedBooking === "yes"
+                            ? `mailto:${obj.mediatorEmail}`
+                            : obj.externalUrl.theUrl,
+                }
+            })
         },
         parsedServicesAndResources() {
             return this.page.resourceServiceWorkshop.map((obj) => {

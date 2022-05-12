@@ -21,8 +21,8 @@
             </div>
             <div class="meta">
                 <nuxt-link
-                    v-if="location.to"
-                    :to="location.to"
+                    v-if="location"
+                    :to="`/visit/${location}`"
                     class="location"
                 >
                     <svg-icon-location class="icon" />
