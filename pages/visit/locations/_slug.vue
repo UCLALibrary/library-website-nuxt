@@ -44,7 +44,7 @@
             :location-name="page.title"
             :building-access="page.howToGetHere"
         />
-        <div
+        <!-- <div
             v-if="libCalSpaces"
             class="block-spaces"
         >
@@ -58,7 +58,7 @@
                 :title="space.name"
                 :text="space.description"
             />
-        </div>
+        </div> -->
 
         <divider-way-finder
             v-if="page.resourceServiceWorkshop.length"
@@ -66,12 +66,12 @@
             class="divider-way-finder"
         />
 
-        <!-- <simple-cards
+        <simple-cards
             v-if="page.resourceServiceWorkshop.length"
             class="simple-cards"
             section-title="Services & Resources"
             :items="parsedServicesAndResources"
-        /> -->
+        />
         <nuxt-link
             v-if="page.resourceServiceWorkshop.length"
             class="button-more"

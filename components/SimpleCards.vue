@@ -1,12 +1,14 @@
 <template>
     <div class="simple-cards">
         <h3
+            v-if="sectionTitle"
             class="section-title"
-            v-html="block.sectionTitle"
+            v-html="sectionTitle"
         />
         <p
+            v-if="sectionSummary"
             class="section-summary"
-            v-html="block.sectionSummary"
+            v-html="sectionSummary"
         />
 
         <ul class="simple-cards">
@@ -25,16 +27,23 @@
 <script>
 export default {
     props: {
-        block: {
-            type: Object,
-            default: () => {},
+        items: {
+            type: Array,
+            default: () => [],
+        },
+        sectionTitle: {
+            type: String,
+            default: "",
+        },
+        sectionSummary: {
+            type: String,
+            default: "",
         },
     },
     computed: {
         parsedContent() {
-            // CLASSES -----------------
             let output = ["card", "card-small"]
-            switch (this.block.cards.length) {
+            switch (this.items.length) {
                 case 2:
                 case 4:
                     output = ["card", "card-large"]
@@ -43,41 +52,10 @@ export default {
                     output = ["card", "card-five"]
                     break
             }
-            return this.block.cards.map((card) => {
-                // TITLE -----------------
-                let cardTitle = ""
-                if (card.contentLink && card.contentLink.length != 0) {
-                    cardTitle = card.contentLink[0].title
-                }
-                let simpleCardTitle = card.title ? card.title : cardTitle
-                // SUMMARY -----------------
-                let cardSummary = ""
-                if (card.contentLink && card.contentLink.length != 0) {
-                    cardSummary = card.contentLink[0].summary
-                }
-                let simpleCardSummary = card.summary
-                    ? card.summary
-                    : cardSummary
-                // LINK -----------------
-                let internalLink = "/"
-                if (card.contentLink && card.contentLink.length != 0) {
-                    if (card.contentLink[0].slug.indexOf("/") === 0) {
-                        internalLink = card.contentLink[0].slug
-                        console.log(internalLink)
-                    } else if (card.contentLink[0].researchGuideUrl) {
-                        internalLink = card.contentLink[0].researchGuideUrl
-                    } else {
-                        internalLink = "/" + card.contentLink[0].slug
-                        console.log(internalLink)
-                    }
-                }
-                let simpleCardLink = card.externalLink
-                    ? card.externalLink
-                    : internalLink
+
+            return this.items.map((obj) => {
                 return {
-                    title: simpleCardTitle,
-                    text: simpleCardSummary,
-                    to: simpleCardLink,
+                    ...obj,
                     classes: output,
                 }
             })
