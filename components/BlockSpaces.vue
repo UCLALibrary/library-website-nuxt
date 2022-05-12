@@ -21,6 +21,7 @@
             </div>
             <div class="meta">
                 <nuxt-link
+                    v-if="location.to"
                     :to="location.to"
                     class="location"
                 >

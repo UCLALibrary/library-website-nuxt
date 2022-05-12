@@ -112,7 +112,7 @@ fragment FlexibleBlocksLocation on ElementInterface {
         ...BlockPullQuote
         ...BlockRichText
         ...BlockMediaWithText
-        ...BlockSimpleCards
+        # ...BlockSimpleCards
         ...BlockCallToAction
     }
 }
@@ -170,23 +170,23 @@ fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
     }
 }
 
-fragment BlockSimpleCards on defaultFpb_simpleCard_BlockType {
-    id
-    simpleCards {
-        ... on simpleCards_simpleCard_BlockType {
-            id
-            title: titleSimpleCard
-            contentLink {
-                id
-                url
-                title
-                text: summary
-            }
-            summary
-            externalLink
-        }
-    }
-}
+# fragment BlockSimpleCards on defaultFpb_simpleCard_BlockType {
+#     id
+#     simpleCards {
+#         ... on simpleCards_simpleCard_BlockType {
+#             id
+#             title: titleSimpleCard
+#             contentLink {
+#                 id
+#                 url
+#                 title
+#                 text: summary
+#             }
+#             summary
+#             externalLink
+#         }
+#     }
+# }
 
 fragment BlockCallToAction on defaultFpb_callToAction_BlockType {
     id

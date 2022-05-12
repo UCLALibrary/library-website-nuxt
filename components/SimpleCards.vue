@@ -25,9 +25,9 @@
 <script>
 export default {
     props: {
-        block: {
-            type: Object,
-            default: () => {},
+        items: {
+            type: Array,
+            default: () => [],
         },
     },
     computed: {
@@ -45,7 +45,6 @@ export default {
             }
 
             return this.block.cards.map((card) => {
-
                 // TITLE -----------------
                 let cardTitle = ""
                 if (card.contentLink && card.contentLink.length != 0) {
@@ -58,12 +57,14 @@ export default {
                 if (card.contentLink && card.contentLink.length != 0) {
                     cardSummary = card.contentLink[0].summary
                 }
-                let simpleCardSummary = card.summary ?  card.summary : cardSummary
+                let simpleCardSummary = card.summary
+                    ? card.summary
+                    : cardSummary
 
                 // LINK -----------------
                 let internalLink = "/"
-                if (card.contentLink && card.contentLink.length != 0){
-                    if (card.contentLink[0].slug.indexOf("/") === 0){
+                if (card.contentLink && card.contentLink.length != 0) {
+                    if (card.contentLink[0].slug.indexOf("/") === 0) {
                         internalLink = card.contentLink[0].slug
                         console.log(internalLink)
                     } else if (card.contentLink[0].researchGuideUrl) {
@@ -73,7 +74,9 @@ export default {
                         console.log(internalLink)
                     }
                 }
-                let simpleCardLink = card.externalLink ? card.externalLink : internalLink
+                let simpleCardLink = card.externalLink
+                    ? card.externalLink
+                    : internalLink
 
                 return {
                     title: simpleCardTitle,
@@ -83,7 +86,7 @@ export default {
                 }
             })
         },
-    }
+    },
 }
 </script>
 

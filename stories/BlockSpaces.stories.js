@@ -5,9 +5,9 @@ export default {
 
 const mock = {
     to: "https://calendar.library.ucla.edu",
-    title: "Bureaux de Garçons",
+    title: "Bureaux de Garcons",
     location: "Fast Lane Building",
-    text: "Eclectic sophisticated carefully curated lovely Baggu Muji sharp finest efficient perfect. Hub Boeing 787 lovely Melbourne flat white ryokan. Global iconic Gaggenau Muji bulletin premium espresso delightful destination vibrant remarkable elegant bureaux boutique. Sunspel exclusive first-class espresso, Fast Lane intricate Melbourne Airbus A380 pintxos Shinkansen Swiss vibrant the highest quality."
+    text: "Eclectic sophisticated carefully curated lovely Baggu Muji sharp finest efficient perfect. Hub Boeing 787 lovely Melbourne flat white ryokan. Global iconic Gaggenau Muji bulletin premium espresso delightful destination vibrant remarkable elegant bureaux boutique. Sunspel exclusive first-class espresso, Fast Lane intricate Melbourne Airbus A380 pintxos Shinkansen Swiss vibrant the highest quality.",
 }
 
 const mock2 = {
@@ -28,14 +28,15 @@ const mock3 = {
 export const Default = () => ({
     data() {
         return {
-            item: {
-                ...mock,
-            },
+            ...mock,
         }
     },
     template: `
       <block-spaces
-        v-bind="item"
+        :to="to"
+        :title="title"
+        :location="location"
+        :text="text"
       />
   `,
 })
