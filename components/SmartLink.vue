@@ -1,11 +1,20 @@
 <template>
     <nuxt-link
-        v-if="isRelative"
+        v-if="isRelative && !isDownload"
         class="smart-link is-nuxt-link"
         :to="to"
     >
         <slot />
     </nuxt-link>
+
+    <a
+        v-else-if="isDownload"
+        :href="to"
+        class="smart-link is-link"
+        download
+    >
+        <slot />
+    </a>
 
     <a
         v-else
@@ -31,6 +40,10 @@ export default {
         target: {
             type: String,
             default: "_self",
+        },
+        isDownload: {
+            type: Boolean,
+            default: false,
         },
     },
     computed: {

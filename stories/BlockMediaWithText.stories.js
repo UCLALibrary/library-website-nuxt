@@ -3,21 +3,34 @@ export default {
 }
 
 const mock = {
-    id: "4527",
-    sectionHeader: "This is a Media With Text",
-    shortDescription:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-    buttonText: "Download",
-    to: "http://google.com",
-    image: {
-        id: "2338",
-        src: "https://test-craft.library.ucla.edu/assets/images/_fullscreen/long-llama.jpg",
-        height: 2113,
-        width: 2560,
-        srcset: "https://test-craft.library.ucla.edu/assets/images/_375xAUTO_crop_center-center_none/long-llama.jpg 375w, https://test-craft.library.ucla.edu/assets/images/_960xAUTO_crop_center-center_none/long-llama.jpg 960w, https://test-craft.library.ucla.edu/assets/images/_1280xAUTO_crop_center-center_none/long-llama.jpg 1280w, https://test-craft.library.ucla.edu/assets/images/_1920xAUTO_crop_center-center_none/long-llama.jpg 1920w, https://test-craft.library.ucla.edu/assets/images/_2560xAUTO_crop_center-center_none/long-llama.jpg 2560w",
-        alt: "Long llama",
-        focalPoint: [0.5, 0.5],
-    },
+    id: "13669",
+    typeHandle: "mediaWithText",
+    sectionTitle: "A section of media with text",
+    sectionSummary: "<p>A section of media with text</p>",
+    mediaWithText: [
+        {
+            id: "13670",
+            titleLink: "A media Link",
+            description: "Citation Integration",
+            coverImage: [
+                {
+                    id: "5115",
+                    src: "https://static.library.ucla.edu/craftassetstest/_fullscreen/Screen-Shot-2022-02-17-at-11.42.39-AM.png",
+                    height: 2151,
+                    width: 2560,
+                    srcset: "https://static.library.ucla.edu/craftassetstest/_375xAUTO_crop_center-center_none/Screen-Shot-2022-02-17-at-11.42.39-AM.png 375w, https://static.library.ucla.edu/craftassetstest/_960xAUTO_crop_center-center_none/Screen-Shot-2022-02-17-at-11.42.39-AM.png 960w, https://static.library.ucla.edu/craftassetstest/_1280xAUTO_crop_center-center_none/Screen-Shot-2022-02-17-at-11.42.39-AM.png 1280w, https://static.library.ucla.edu/craftassetstest/_1920xAUTO_crop_center-center_none/Screen-Shot-2022-02-17-at-11.42.39-AM.png 1920w, https://static.library.ucla.edu/craftassetstest/_2560xAUTO_crop_center-center_none/Screen-Shot-2022-02-17-at-11.42.39-AM.png 2560w",
+                    alt: "Screen Shot 2022 02 17 at 11 42 39 AM",
+                    focalPoint: [0.5, 0.5],
+                },
+            ],
+            buttonText: "Download this",
+            buttonUrl:
+                "https://uclalibrary.github.io/research-tips/assets/handouts/citation-integration-final.pdf",
+            linkToMedia:
+                "https://uclalibrary.github.io/research-tips/assets/handouts/citation-integration-final.pdf",
+            typeMedia: "other",
+        },
+    ],
 }
 
 export const Default = () => ({
@@ -26,30 +39,33 @@ export const Default = () => ({
     },
     template: `
         <block-media-with-text
-            :section-header="sectionHeader"
-            :short-description="shortDescription"
-            :button-text="buttonText"
-            :to="to"
+            :section-header="mediaWithText[0].titleLink"
+            :short-description="mediaWithText[0].description"
+            :button-text="mediaWithText[0].buttonText"
+            :button-url="mediaWithText[0].buttonUrl"
+            :media-link="mediaWithText[0].linkToMedia"
             :is-video="false"
             :is-audio="false"
-            :image="image"
+            :image="mediaWithText[0].coverImage[0]"
+            :type-media="mediaWithText[0].typeMedia"
         />
     `,
 })
 
-export const VerticalImage = () => ({
+export const NoMediaLink = () => ({
     data() {
         return { ...mock }
     },
     template: `
         <block-media-with-text
-            :section-header="sectionHeader"
-            :short-description="shortDescription"
-            :button-text="buttonText"
+            :section-header="mediaWithText[0].titleLink"
+            :short-description="mediaWithText[0].description"
+            :button-text="mediaWithText[0].buttonText"
+            :button-url="mediaWithText[0].buttonUrl"
             :is-video="false"
             :is-audio="false"
-            :is-vertical="true"
-            :image="image"
+            :image="mediaWithText[0].coverImage[0]"
+            :type-media="mediaWithText[0].typeMedia"
         />
     `,
 })
@@ -60,12 +76,14 @@ export const IsVideo = () => ({
     },
     template: `
         <block-media-with-text
-            :section-header="sectionHeader"
-            :short-description="shortDescription"
-            :button-text="buttonText"
+            :section-header="mediaWithText[0].titleLink"
+            :short-description="mediaWithText[0].description"
+            :button-text="mediaWithText[0].buttonText"
+            :button-url="mediaWithText[0].buttonUrl"
             :is-video="true"
             :is-audio="false"
-            :image="image"
+            :image="mediaWithText[0].coverImage[0]"
+            type-media="video"
         />
     `,
 })
@@ -76,12 +94,14 @@ export const IsAudio = () => ({
     },
     template: `
         <block-media-with-text
-            :section-header="sectionHeader"
-            :short-description="shortDescription"
-            :button-text="buttonText"
+            :section-header="mediaWithText[0].titleLink"
+            :short-description="mediaWithText[0].description"
+            :button-text="mediaWithText[0].buttonText"
+            :button-url="mediaWithText[0].buttonUrl"
             :is-video="false"
             :is-audio="true"
-            :image="image"
+            :image="mediaWithText[0].coverImage[0]"
+            type-media="audio"
         />
     `,
 })
@@ -92,11 +112,13 @@ export const NoImage = () => ({
     },
     template: `
         <block-media-with-text
-            :section-header="sectionHeader"
-            :short-description="shortDescription"
-            :button-text="buttonText"
+            :section-header="mediaWithText[0].titleLink"
+            :short-description="mediaWithText[0].description"
+            :button-text="mediaWithText[0].buttonText"
+            :button-url="mediaWithText[0].buttonUrl"
             :is-video="false"
-            :is-audio="true"
+            :is-audio="false"
+            :type-media="mediaWithText[0].typeMedia"
         />
     `,
 })

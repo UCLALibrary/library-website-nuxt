@@ -7,15 +7,16 @@
         <div class="content">
             <!--div class="iframe-container"-->
             <iframe
+                id="the-iframe"
                 refs="hours_iframe"
                 class="iframe"
                 :src="`/blockHours.html?lid=${lid}`"
                 frameBorder="0"
                 width="100%"
                 height="100%"
-                @load="resizeIframe"
-                @resize="resizeIframe"
             />
+            <!-- @load="resizeIframe"
+                @resize="resizeIframe" -->
             <!--/div-->
             <!--div
                 class="hours-data"
@@ -58,7 +59,24 @@ export default {
     fetchKey(getCounter) {
         return `block-hours-${getCounter("block-hours")}`
     },*/
+    mounted() {
+        window.addEventListener(
+            "message",
+            function (e) {
+                var hours_iframe = document.getElementById("the-iframe")
+                console.log(hours_iframe.height)
+                var eventName = e.data[0]
+                var data = e.data[1]
 
+                switch (eventName) {
+                    case "setHeight":
+                        hours_iframe.height = data + 20
+                        break
+                }
+            },
+            false
+        )
+    },
     methods: {
         resizeIframe(obj) {
             // TODO why is this not working?
