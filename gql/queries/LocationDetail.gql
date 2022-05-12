@@ -136,23 +136,36 @@ fragment BlockDivider on defaultFpb_divider_BlockType {
     divider
 }
 
-fragment BlockMediaWithText on defaultFpb_mediaWithText_BlockType {
+fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
     id
+    sectionTitle: titleGeneral
+    sectionSummary: summary
     mediaWithText {
-        ... on mediaWithText_mediaWithText_BlockType {
+        ... on mediaWithText_mediaLink_BlockType {
             id
-            titleMediaWithText
+            titleLink
             description
-            buttonText
-            mediaType
-            mediaWithTextLink
-            media {
-                id
-                url
-            }
-            image: coverImage {
+            coverImage {
                 ...Image
             }
+            buttonText
+            buttonUrl
+            linkToMedia
+            typeMedia
+        }
+        ... on mediaWithText_mediaUpload_BlockType {
+            id
+            titleUpload
+            description
+            buttonText
+            buttonUrl
+            coverImage {
+                ...Image
+            }
+            upload {
+                ...Image
+            }
+            typeMedia
         }
     }
 }

@@ -32,6 +32,7 @@ export default {
     },
     computed: {
         parsedContent() {
+            // CLASSES -----------------
             let output = ["card", "card-small"]
             switch (this.block.cards.length) {
                 case 2:
@@ -44,21 +45,40 @@ export default {
             }
 
             return this.block.cards.map((card) => {
+
+                // TITLE -----------------
+                let cardTitle = ""
+                if (card.contentLink && card.contentLink.length != 0) {
+                    cardTitle = card.contentLink[0].title
+                }
+                let simpleCardTitle = card.title ? card.title : cardTitle
+
+                // SUMMARY -----------------
+                let cardSummary = ""
+                if (card.contentLink && card.contentLink.length != 0) {
+                    cardSummary = card.contentLink[0].summary
+                }
+                let simpleCardSummary = card.summary ?  card.summary : cardSummary
+
+                // LINK -----------------
                 let internalLink = "/"
                 if (card.contentLink && card.contentLink.length != 0){
                     if (card.contentLink[0].slug.indexOf("/") === 0){
                         internalLink = card.contentLink[0].slug
                         console.log(internalLink)
-                    }else {
+                    } else if (card.contentLink[0].researchGuideUrl) {
+                        internalLink = card.contentLink[0].researchGuideUrl
+                    } else {
                         internalLink = "/" + card.contentLink[0].slug
                         console.log(internalLink)
                     }
                 }
-                let link = card.externalLink ? card.externalLink : internalLink
+                let simpleCardLink = card.externalLink ? card.externalLink : internalLink
+
                 return {
-                    title: card.title,
-                    text: card.summary,
-                    to: link,
+                    title: simpleCardTitle,
+                    text: simpleCardSummary,
+                    to: simpleCardLink,
                     classes: output,
                 }
             })

@@ -6,13 +6,24 @@
                 v-html="sectionHeader"
             />
             <div class="meta-mobile">
+                <smart-link
+                    v-if="mediaLink"
+                    :to="mediaLink"
+                    class="media-link"
+                >
+                    <responsive-image
+                        v-if="image"
+                        :image="image"
+                        class="image-mobile"
+                    />
+                </smart-link>
                 <responsive-image
-                    v-if="image"
+                    v-if="image && !mediaLink"
                     :image="image"
                     class="image-mobile"
                 />
                 <div
-                    v-else
+                    v-if="!image"
                     class="no-image-mobile"
                 />
                 <div class="clippy">
@@ -40,12 +51,12 @@
                 v-html="shortDescription"
             />
             <button-link
-                v-if="to"
+                v-if="buttonUrl"
                 class="button"
-                :to="to"
+                :to="buttonUrl"
                 :label="buttonText"
                 :is-secondary="true"
-                :icon-name="iconName"
+                :is-download="parsedIsDownload"
             />
         </div>
         <div class="meta">
@@ -71,13 +82,24 @@
                 v-if="isAudio"
                 class="icon-headphones"
             />
+            <smart-link
+                v-if="mediaLink"
+                :to="mediaLink"
+                class="media-link"
+            >
+                <responsive-image
+                    v-if="image"
+                    :image="image"
+                    class="image"
+                />
+            </smart-link>
             <responsive-image
-                v-if="image"
+                v-if="image && !mediaLink"
                 :image="image"
                 class="image"
             />
             <div
-                v-else
+                v-if="!image"
                 class="no-image"
             />
         </div>
@@ -96,7 +118,7 @@ export default {
             ),
         SvgIconPlayFilled: () =>
             import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-play"
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-play-filled"
             ),
     },
     props: {
@@ -112,21 +134,21 @@ export default {
             type: String,
             default: "",
         },
-        iconName: {
+        buttonUrl: {
             type: String,
             default: "",
         },
-        to: {
+        mediaLink: {
+            type: String,
+            default: "",
+        },
+        typeMedia: {
             type: String,
             default: "",
         },
         image: {
             type: Object,
             default: () => {},
-        },
-        isVertical: {
-            type: Boolean,
-            default: false,
         },
         isVideo: {
             type: Boolean,
@@ -135,6 +157,11 @@ export default {
         isAudio: {
             type: Boolean,
             default: false,
+        },
+    },
+    computed: {
+        parsedIsDownload() {
+            return this.buttonUrl && this.typeMedia === "other" ? true : false
         },
     },
 }
@@ -150,6 +177,11 @@ export default {
     justify-content: space-between;
 
     max-width: $container-xl-full-width + px;
+    // Themes
+    --color-theme: var(--color-white);
+    &.color-grey {
+        --color-theme: var(--color-secondary-grey-02);
+    }
 
     .text-grouping {
         margin-right: 50px;
