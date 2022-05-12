@@ -1,64 +1,99 @@
 <template lang="html">
-    <div class="header-main-responsive">
-        <div class="collapse-menu">
-            <component
-                :is="parsedSvgName"
-                :class="isOpened ? 'go-back-svg' : 'close-svg'"
-                @click="handleCloseOrReturn"
-            />
-        </div>
-        <ul 
-            class="nav-menu-primary"
-        >
-            <nav-menu-item-responsive
-                v-for="(item, index) in parsedPrimaryMenuItems"
-                :key="item.id"
-                :item="item"
-                :index="index"
-                :go-back="goBack"
-                @shouldOpen="shouldOpen"
-                @itemOpened="itemOpened"
-            />
-        </ul>
+    <nav
+        role="navigation"
+        aria-label="Menu"
+        class="header-main-responsive"
+        :class="isCollapsed ? 'fullHeight' : 'collapsedHeight'"
+    >
         <div
-            v-if="!isOpened"
-            class="nav-menu-secondary"
+            v-if="!isCollapsed"
+            class="collapsed-menu"
         >
-            <ul class="list">
-                <li
-                    v-for="item in parsedSecondaryMenuItems"
-                    :key="item.id"
-                    class="list-item"
-                >
-                    <smart-link
-                        class="link underline-hover"
-                        :to="item.to"
-                        :target="item.target"
-                    >
-                        {{ item.name }}
-                    </smart-link>
-                </li>
-            </ul>
-        </div>
-        <div class="support-us-container">
-            <button-link
-                v-if="buttonLink"
-                :label="label"
-                :is-secondary="true"
-                class="button"
-                :to="buttonLink"
-                icon-name="none"
+            <component
+                :is="`LogoLibrary`"
+                width="155"
+                height="55"
+                class="collapsed-logo"
+                role="button"
+            />
+            <component
+                :is="`IconMenu`"
+                class="hamburguer"
+                role="button"
+                aria-label="Hamburguer button"
+                @click="() => isCollapsed = true"
             />
         </div>
-        <component
-            :is="`Molecule3d`"
-            width="150"
-            height="247"
-            viewBox="50 57 50 250"
-            class="molecule"
-            :class="moleculeColor"
-        />
-    </div>
+        <div v-else>
+            <div
+                class="expanded-menu"
+            >
+                <component
+                    :is="`LogoLibrary`"
+                    width="155"
+                    height="55"
+                    class="expanded-logo"
+                />
+                <component
+                    :is="parsedSvgName"
+                    :class="isOpened ? 'go-back-svg' : 'close-svg'"
+                    :aria-label="isOpened ? 'Go back button' : 'Close button'"
+                    @click="handleCloseOrReturn"
+                />
+            </div>
+            <ul 
+                class="nav-menu-primary"
+            >
+                <nav-menu-item-responsive
+                    v-for="(item, index) in parsedPrimaryMenuItems"
+                    :key="item.id"
+                    :item="item"
+                    :index="index"
+                    :go-back="goBack"
+                    @shouldOpen="shouldOpen"
+                    @itemOpened="itemOpened"
+                />
+            </ul>
+            <div
+                v-if="!isOpened"
+                class="nav-menu-secondary"
+            >
+                <ul class="list">
+                    <li
+                        v-for="item in parsedSecondaryMenuItems"
+                        :key="item.id"
+                        class="list-item"
+                    >
+                        <smart-link
+                            class="link underline-hover"
+                            :to="item.to"
+                            :target="item.target"
+                        >
+                            {{ item.name }}
+                        </smart-link>
+                    </li>
+                </ul>
+            </div>
+            <div class="support-us-container">
+                <button-link
+                    v-if="buttonLink"
+                    :label="label"
+                    :is-secondary="true"
+                    class="button"
+                    :to="buttonLink"
+                    icon-name="none"
+                />
+            </div>
+            <component
+                :is="`Molecule3d`"
+                width="150"
+                height="247"
+                viewBox="50 57 50 250"
+                class="molecule"
+                :class="moleculeColor"
+            />
+        </div>
+    </nav>
 </template>
 
 <script>
@@ -74,6 +109,10 @@ export default {
             import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-caret-left"),
         Molecule3d: () =>
             import("~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-3d"),
+        IconMenu: () =>
+            import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-menu"),
+        LogoLibrary: () =>
+            import("~/node_modules/ucla-library-design-tokens/assets/svgs/logo-library"),
     },
     props: {
         iconCloseName: {
@@ -106,7 +145,8 @@ export default {
         return {
             isOpened: false,
             goBack: false,
-            moleculeColor: "cyan"
+            moleculeColor: "cyan",
+            isCollapsed: false
         }
     },
     computed: {
@@ -138,11 +178,8 @@ export default {
                 this.goBack = !this.goBack
                 this.moleculeColor = "cyan"
             } else {
-                this.closeMenu()
+                this.isCollapsed = false
             }
-        },
-        closeMenu() {
-            console.log('close')
         },
         itemOpened(itemIndex) {
             if(itemIndex === 0) {
@@ -162,20 +199,45 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.fullHeight {
+    min-height: 100vh;
+}
+
+.collapsedHeight {
+    height: 100%;
+    box-shadow: 0px 2px 8px rgba(113, 113, 113, 0.08);
+}
+
 .header-main-responsive {
     width: 375px;
-    min-height: 100vh;
     background-color: var(--color-primary-blue-03);
     display: flex;
     flex-direction: column;
     position: relative;
+
+    .collapsed-menu {
+        width: 375px;
+        background-color: var(--color-white);
+        display: flex;
+        justify-content: space-between;
+        padding: 21px 26px;
+
+        .hamburguer {
+            cursor: pointer;
+        }
+    }
     
-    .collapse-menu {
+    .expanded-menu {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         width: 100%;
-        justify-content: end;
-        padding: 38px 43px 114px 43px;
+        padding: 21px 26px 114px 26px;
+
+        .svg__logo-library > g > path {
+                fill: var(--color-white);
+        }
 
         .close-svg {
             cursor: pointer;
