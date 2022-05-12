@@ -130,7 +130,7 @@ fragment FlexibleBlocksLocation on ElementInterface {
         ...BlockDivider
         ...BlockPullQuote
         ...BlockRichText
-        ...BlockMediaWithText
+        # ...BlockMediaWithText
         ...BlockSimpleCards
         ...BlockCallToAction
     }

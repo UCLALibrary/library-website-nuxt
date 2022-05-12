@@ -50,7 +50,7 @@ export default {
 
 <style lang="scss" scoped>
 .block-amenities {
-    max-width: 930px;
+    max-width: $container-l-main + px;
     width: 100%;
 
     .amenities-title {

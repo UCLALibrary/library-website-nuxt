@@ -5,7 +5,6 @@
             :key="item.to"
             class="meta"
         >
-            <divider-general class="divider" />
             <block-highlight
                 :image="item.image"
                 :to="item.to"
@@ -17,6 +16,7 @@
                 :locations="item.locations"
                 class="block"
             />
+            <divider-general class="divider" />
         </div>
     </section>
 </template>
@@ -55,6 +55,12 @@ export default {
 
     .divider {
         width: 100%;
+    }
+
+    .meta:last-child {
+        .divider {
+            display: none;
+        }
     }
 }
 </style>

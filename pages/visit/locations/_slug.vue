@@ -69,6 +69,7 @@
         <simple-cards
             v-if="page.resourceServiceWorkshop.length"
             class="simple-cards"
+            section-title="Services & Resources"
             :items="parsedServicesAndResources"
         />
         <nuxt-link
@@ -76,10 +77,7 @@
             class="button-more"
             to="/help/services-resources"
         >
-            <button-more
-                v-if="page.resourceServiceWorkshop"
-                text="See More"
-            />
+            <button-more text="See More" />
         </nuxt-link>
         <divider-way-finder
             color="visit"
@@ -89,10 +87,20 @@
             v-if="parsedEvents.length"
             class="events-exhibitions"
         >
+            <h3 class="using-the-library">
+                Events & Exhibits
+            </h3>
             <section-teaser-list
                 class="section-teaser-list"
                 :items="parsedEvents"
             />
+            <nuxt-link
+                v-if="parsedEvents.length"
+                class="button-more"
+                to="/visit/events-exhibits"
+            >
+                <button-more text="See More" />
+            </nuxt-link>
         </div>
         <!-- Card with image for associated exhibitions -->
         <flexible-blocks
@@ -114,6 +122,7 @@
             v-if="parsedArticles.length"
             :items="parsedArticles"
             class="articles"
+            to="/about/news"
         />
     </div>
 </template>
@@ -131,46 +140,8 @@ export default {
         const data = await $graphql.default.request(LOCATION_DETAIL, {
             slug: params.slug,
         })
-
-        const libcalID = data.entry.libcalLocationIdForSpaces
-        const interiorIDs = data.entry.libCalIDforSpace
-
-        if (libcalID && interiorIDs) {
-            const allSpaces = []
-            const interiorIDsList = interiorIDs.map((obj) => {
-                return obj.spaceID
-            })
-            const mainSpace = await $axios.$get(
-                `https://calendar.library.ucla.edu/1.1/space/categories/${libcalID}`
-            )
-            allSpaces.push(...mainSpace)
-            // Get interior location spae dtails
-            for (let id in interiorIDsList) {
-                const libcalData = await $axios.$get(
-                    `https://calendar.library.ucla.edu/1.1/space/categories/${interiorIDsList[id]}`
-                )
-                allSpaces.push(...libcalData)
-            }
-            console.log(allSpaces)
-
-            return {
-                page: _get(data, "entry", {}),
-                libCalSpaces: allSpaces,
-            }
-        } else if (libcalID) {
-            const allSpaces = []
-            const mainSpace = await $axios.$get(
-                `https://calendar.library.ucla.edu/1.1/space/categories/${libcalID}`
-            )
-
-            return {
-                page: _get(data, "entry", {}),
-                libCalSpaces: allSpaces,
-            }
-        } else {
-            return {
-                page: _get(data, "entry", {}),
-            }
+        return {
+            page: _get(data, "entry", {}),
         }
     },
     head() {
@@ -274,11 +245,13 @@ export default {
         @include step-3;
         color: var(--color-primary-blue-03);
         margin: var(--space-3xl) auto;
+        max-width: $container-l-main + px;
     }
     .spaces-title {
         @include step-2;
         color: var(--color-primary-blue-03);
         margin: var(--space-3xl) auto;
+        max-width: $container-l-main + px;
     }
     .block-hours,
     .button-more,
@@ -293,7 +266,7 @@ export default {
         // margin: 0 8px 50px 8px;
     }
     .endowment-group {
-        max-width: 960px;
+        max-width: $container-l-main + px;
         padding: 0 calc(var(--unit-gutter) - 16px);
         background-color: var(--color-white);
         margin: 0 auto;

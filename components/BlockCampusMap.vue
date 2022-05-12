@@ -1,6 +1,22 @@
 <template lang="html">
     <div class="block-campus-map">
-        <button class="title">
+        <modal-generic
+            v-show="isModalVisible"
+            class="modal"
+            @close="closeModal"
+        >
+            <div class="modal-content">
+                <iframe
+                    :src="parsedSrc"
+                    class="iframe-modal"
+                    allowfullscreen
+                />
+            </div>
+        </modal-generic>
+        <button
+            class="title"
+            @click="showModal"
+        >
             Campus Map
         </button>
         <div class="content">
@@ -30,20 +46,6 @@
                 />
             </div>
         </div>
-
-        <!-- <modal-generic
-            v-show="isModalVisible"
-            class="modal"
-            @close="closeModal"
-        >
-            <div class="modal-content">
-                <iframe
-                    :src="parsedSrc"
-                    class="iframe-modal"
-                    allowfullscreen
-                />
-            </div>
-        </modal-generic> -->
     </div>
 </template>
 
@@ -94,14 +96,14 @@ export default {
         @include step-2;
         margin-bottom: var(--space-m);
     }
-    .title::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-    }
+    // .title::after {
+    //     content: "";
+    //     position: absolute;
+    //     top: 0;
+    //     bottom: 0;
+    //     right: 0;
+    //     left: 0;
+    // }
 
     .content {
         display: flex;
@@ -168,9 +170,10 @@ export default {
     }
 
     .modal {
-        max-width: 100%;
+        width: 100vw;
+        height: 100vh;
         margin: 0 auto;
-        z-index: 20;
+        z-index: 500;
         position: absolute;
     }
 
