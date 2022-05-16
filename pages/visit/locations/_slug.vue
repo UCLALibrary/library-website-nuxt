@@ -21,7 +21,7 @@
             :phone="page.phoneNumber"
             :address-link="addressLink"
         />
-        <h3 class="using-the-library">
+        <h3 class="section-heading">
             Using the Library
         </h3>
         <block-hours
@@ -90,7 +90,7 @@
             v-if="parsedEvents.length"
             class="events-exhibitions"
         >
-            <h3 class="using-the-library">
+            <h3 class="section-heading">
                 Events & Exhibits
             </h3>
             <section-teaser-list
@@ -110,6 +110,12 @@
             class="content"
             :blocks="page.blocks"
         />
+        <h3
+            v-if="parsedEndowments.length"
+            class="section-heading"
+        >
+            Endowments
+        </h3>
         <div class="endowment-group">
             <block-highlight
                 v-for="(item, index) in parsedEndowments"
@@ -121,6 +127,12 @@
                 :is-vertical="true"
             />
         </div>
+        <h3
+            v-if="parsedArticles.length"
+            class="section-heading"
+        >
+            News
+        </h3>
         <section-post-small
             v-if="parsedArticles.length"
             :items="parsedArticles"
@@ -262,7 +274,7 @@ export default {
     .content {
         margin: 0 auto;
     }
-    .using-the-library {
+    .section-heading {
         @include step-3;
         color: var(--color-primary-blue-03);
         margin: var(--space-3xl) auto;
