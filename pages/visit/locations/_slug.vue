@@ -45,7 +45,7 @@
             :building-access="page.howToGetHere"
         />
         <div
-            v-if="page.space"
+            v-if="parsedSpaces.length"
             class="block-spaces"
         >
             <h3 class="spaces-title">

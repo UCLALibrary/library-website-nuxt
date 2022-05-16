@@ -81,7 +81,6 @@ import formatEventTimes from "~/utils/formatEventTimes"
 export default {
     async asyncData({ $axios }) {
         console.log("in asyncdata calling axios get event")
-        console.log("rendered client side" + process.client)
         const libcalData = await $axios.$get(`/events`, {
             params: {
                 cal_id: 2190,
