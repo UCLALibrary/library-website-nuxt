@@ -68,8 +68,8 @@
                 class="location-group"
             >
                 <nuxt-link
-                    v-for="(location, index) in parsedLocations"
-                    :key="index"
+                    v-for="location in parsedLocations"
+                    :key="`location-${location.id}`"
                     :to="location.to"
                     class="location-link"
                 >
