@@ -21,14 +21,14 @@
             </div>
             <div class="meta">
                 <nuxt-link
-                    v-if="location"
-                    :to="`/visit/${location}`"
+                    v-if="location.to"
+                    :to="`/visit/${location.to}`"
                     class="location"
                 >
                     <svg-icon-location class="icon" />
                     <span
                         class="location-title"
-                        v-html="location"
+                        v-html="location.title"
                     />
                 </nuxt-link>
                 <p
@@ -75,8 +75,8 @@ export default {
             default: false,
         },
         location: {
-            type: String,
-            default: "",
+            type: Object,
+            default: () => {},
         },
         text: {
             type: String,

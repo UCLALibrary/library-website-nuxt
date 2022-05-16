@@ -57,7 +57,7 @@
                 :key="index"
                 :title="space.title"
                 :text="space.summary"
-                :location="space.associatedLocations.title"
+                :location="space.location"
                 :to="space.to"
                 :button-text="space.buttonText"
             />
@@ -186,6 +186,9 @@ export default {
                         obj.mediatedBooking === "yes"
                             ? `mailto:${obj.mediatorEmail}`
                             : obj.reservationUrl,
+                    location: obj.associatedLocations
+                        ? obj.associatedLocations[0]
+                        : "",
                 }
             })
         },
