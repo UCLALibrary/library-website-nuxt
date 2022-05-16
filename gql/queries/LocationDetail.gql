@@ -29,18 +29,17 @@ query LocationDetail($slug: [String!]) {
                 summary
                 mediatedBooking
                 mediatorEmail
-                externalUrl {
-                    theUrl
-                    urlText
-                }
-                capacity
+                reservationUrl
                 spaceType {
+                    id
                     title
                 }
                 spaceAmenities {
+                    id
                     title
                 }
                 associatedLocations {
+                    id
                     title
                 }
             }

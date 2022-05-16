@@ -185,7 +185,7 @@ export default {
                     to:
                         obj.mediatedBooking === "yes"
                             ? `mailto:${obj.mediatorEmail}`
-                            : obj.externalUrl.theUrl,
+                            : obj.reservationUrl,
                 }
             })
         },
