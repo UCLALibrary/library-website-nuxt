@@ -51,9 +51,9 @@ export default {
             })
             // Remove any un-registered blocks
             output = output.filter((obj) => {
-                // console.log(
-                //     this.registeredComponents.includes(obj.componentName)
-                // )
+                console.log(
+                    this.registeredComponents.includes(obj.componentName)
+                )
                 return this.registeredComponents.includes(obj.componentName)
             })
 
