@@ -11,6 +11,7 @@
             :start-date="card.startDate"
             :end-date="card.endDate"
             :text="card.text"
+            :image-aspect-ratio="60"
             :is-vertical="true"
             :is-online="card.isOnline"
         />

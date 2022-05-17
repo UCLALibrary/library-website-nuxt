@@ -90,6 +90,7 @@ export default {
 .block-campus-map {
     max-width: $container-l-main + px;
     margin: 0 auto;
+    position: relative;
 
     .title {
         color: var(--color-primary-blue-03);

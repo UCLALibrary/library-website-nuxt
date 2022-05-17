@@ -114,7 +114,8 @@ query LocationDetail($slug: [String!]) {
                     title
                 }
                 category: articleType
-                dateCreated
+                startDate: dateUpdated
+                endDate: dateUpdated
                 associatedLocations {
                     id
                     title
