@@ -11,7 +11,6 @@
             :start-date="card.startDate"
             :end-date="card.endDate"
             :text="card.text"
-            :image-aspect-ratio="60"
             :is-vertical="true"
             :is-online="card.isOnline"
         />
@@ -46,7 +45,7 @@ export default {
         width: 100%;
         // margin-right: 16px;
         // &:nth-child(3n) {
-            // margin-right: 0px;
+        // margin-right: 0px;
         // }
     }
 

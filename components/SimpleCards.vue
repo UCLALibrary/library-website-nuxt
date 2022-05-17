@@ -1,6 +1,6 @@
 <template>
     <div class="simple-cards">
-        <h3
+        <h2
             v-if="sectionTitle"
             class="section-title"
             v-html="sectionTitle"
@@ -77,6 +77,7 @@ export default {
     .section-title {
         @include step-4;
         color: var(--color-primary-blue-03);
+        margin-bottom: var(--space-xl);
     }
     .section-summary {
         @include step-0;

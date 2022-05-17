@@ -102,8 +102,14 @@ import getSectionName from "~/utils/getSectionName"
 
 export default {
     components: {
-        SvgIconLocation: () => import("~/assets/svg/icon-location"),
-        SvgIconOnline: () => import("~/assets/svg/icon-online"),
+        SvgIconLocation: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
+            ),
+        SvgIconOnline: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-virtual"
+            ),
     },
     props: {
         image: {
@@ -332,11 +338,14 @@ export default {
         }
     }
     .text {
-        font-size: 18px;
-        font-weight: 400;
-        line-height: 140%;
+        @include step-0;
         margin: 24px 0 0 0;
         color: var(--color-black);
+
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
     .location-group {
         color: var(--color-primary-blue-03);
@@ -379,7 +388,6 @@ export default {
         // position: relative;
         .meta {
             max-width: 412px;
-            margin-top: 16px;
             padding-bottom: 16px;
             overflow: hidden;
         }

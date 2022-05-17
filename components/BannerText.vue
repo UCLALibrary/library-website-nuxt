@@ -144,7 +144,6 @@ import format from "date-fns/format"
 // SVGs
 import SvgMoleculeTwoFacets from "~/assets/svg/molecule-two-facets"
 import SvgHeadingVector from "~/assets/svg/vector-blue"
-import SvgIconLocation from "~/assets/svg/icon-location"
 
 // Utility functions
 import formatEventTimes from "~/utils/formatEventTimes"
@@ -155,7 +154,6 @@ export default {
     components: {
         SvgMoleculeTwoFacets,
         SvgHeadingVector,
-        SvgIconLocation,
         SvgIconOnline: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-virtual"
@@ -167,6 +165,10 @@ export default {
         SvgIconPhone: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-phone"
+            ),
+        SvgIconLocation: () =>
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
             ),
         SvgIconPerson: () =>
             import(

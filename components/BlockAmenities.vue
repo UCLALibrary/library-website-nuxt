@@ -56,6 +56,7 @@ export default {
     .amenities-title {
         color: var(--color-primary-blue-03);
         @include step-2;
+        margin-bottom: 16px;
     }
     .amenitiy-row {
         display: inline-flex;

@@ -21,6 +21,10 @@
             :phone="page.phoneNumber"
             :address-link="addressLink"
         />
+        <divider-way-finder
+            color="visit"
+            class="divider-way-finder"
+        />
         <h3 class="section-heading">
             Using the Library
         </h3>
@@ -44,9 +48,13 @@
             :location-name="page.title"
             :building-access="page.howToGetHere"
         />
+        <divider-general
+            v-if="parsedSpaces.length"
+            class="divider-general"
+        />
         <div
             v-if="parsedSpaces.length"
-            class="block-spaces"
+            class="section-block-spaces"
         >
             <h3 class="spaces-title">
                 {{ page.title }} Spaces
@@ -57,7 +65,6 @@
                 :key="index"
                 :title="space.title"
                 :text="space.summary"
-                :location="space.location"
                 :to="space.to"
                 :button-text="space.buttonText"
             />
@@ -83,6 +90,7 @@
             <button-more text="See More" />
         </nuxt-link>
         <divider-way-finder
+            v-if="page.resourceServiceWorkshop.length"
             color="visit"
             class="divider-way-finder"
         />
@@ -90,9 +98,9 @@
             v-if="parsedEvents.length"
             class="events-exhibitions"
         >
-            <h3 class="section-heading">
-                Events & Exhibits
-            </h3>
+            <h2 class="section-heading">
+                Events & Exhibtions
+            </h2>
             <section-teaser-list
                 class="section-teaser-list"
                 :items="parsedEvents"
@@ -105,7 +113,11 @@
                 <button-more text="See More" />
             </nuxt-link>
         </div>
-        <!-- Card with image for associated exhibitions -->
+        <divider-way-finder
+            v-if="parsedEvents.length"
+            color="visit"
+            class="divider-way-finder"
+        />
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
@@ -116,29 +128,31 @@
         >
             Endowments
         </h3>
-        <div class="endowment-group">
-            <block-highlight
-                v-for="(item, index) in parsedEndowments"
-                :key="index"
-                class="endowments"
-                :image="item.image"
-                :title="item.title"
-                :text="item.text"
-                :is-vertical="true"
-            />
-        </div>
+
+        <section-teaser-card
+            :items="parsedEndowments"
+            class="endowments"
+        />
+
         <h3
             v-if="parsedArticles.length"
             class="section-heading"
         >
             News
         </h3>
-        <section-post-small
+        <section-teaser-card
             v-if="parsedArticles.length"
             :items="parsedArticles"
             class="articles"
             to="/about/news"
         />
+        <nuxt-link
+            v-if="parsedArticles.length"
+            class="button-more"
+            to="/about/news"
+        >
+            <button-more text="See More" />
+        </nuxt-link>
     </div>
 </template>
 
@@ -269,35 +283,41 @@ export default {
     .divider-way-finder,
     .divider-general {
         max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
+        margin: var(--space-2xl) auto;
     }
     .content {
         margin: 0 auto;
     }
     .section-heading {
-        @include step-3;
+        @include step-4;
         color: var(--color-primary-blue-03);
-        margin: var(--space-3xl) auto;
+        margin: var(--space-xl) auto;
         max-width: $container-l-main + px;
+    }
+    .section-teaser-list {
+        margin: var(--space-xl) auto;
     }
     .spaces-title {
         @include step-2;
         color: var(--color-primary-blue-03);
-        margin: var(--space-3xl) auto;
+        margin: var(--space-2xl) auto 16px;
         max-width: $container-l-main + px;
-    }
-    .block-hours,
-    .button-more,
-    .amenities,
-    .block-spaces,
-    .section-teaser-list {
-        margin: var(--space-3xl) auto;
+        // margin-bottom: 16px;
     }
 
-    .endowments {
-        margin: var(--space-3xl) auto;
-        // margin: 0 8px 50px 8px;
+    .block-hours,
+    .button-more,
+    .section-block-spaces,
+    .amenities {
+        margin: var(--space-2xl) auto;
     }
+
+    .block-spaces,
+    .endowments,
+    .articles {
+        margin: 16px auto;
+    }
+
     .endowment-group {
         max-width: $container-l-main + px;
         padding: 0 calc(var(--unit-gutter) - 16px);

@@ -96,7 +96,7 @@ function convertName(typeHandle) {
         background-color: var(--color-secondary-grey-01);
         --color-theme: var(--color-secondary-grey-01);
 
-        &.simple-cards,
+        &.flexible-simple-cards,
         &.divider-general,
         &.pull-quote {
             background-color: var(--color-white);

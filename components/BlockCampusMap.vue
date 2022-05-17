@@ -94,16 +94,16 @@ export default {
     .title {
         color: var(--color-primary-blue-03);
         @include step-2;
-        margin-bottom: var(--space-m);
+        margin-bottom: 16px;
     }
-    // .title::after {
-    //     content: "";
-    //     position: absolute;
-    //     top: 0;
-    //     bottom: 0;
-    //     right: 0;
-    //     left: 0;
-    // }
+    .title::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
 
     .content {
         display: flex;
@@ -173,8 +173,8 @@ export default {
         width: 100vw;
         height: 100vh;
         margin: 0 auto;
+        top: 0;
         z-index: 500;
-        position: absolute;
     }
 
     .modal-content {

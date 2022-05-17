@@ -55,17 +55,7 @@ query LocationDetail($slug: [String!]) {
             }
             campusMapId
             libcalLocationIdForHours
-            libcalLocationIdForHoursInteriorLocations {
-                id
-                interiorLocationName
-                interiorLocationId
-            }
-            libcalLocationIdForSpaces
-            libCalIDforSpace {
-                id
-                spaceName
-                spaceID
-            }
+
             staffMember {
                 id
                 email
@@ -123,7 +113,7 @@ query LocationDetail($slug: [String!]) {
                     slug
                     title
                 }
-                articleType
+                category: articleType
                 dateCreated
                 associatedLocations {
                     id
