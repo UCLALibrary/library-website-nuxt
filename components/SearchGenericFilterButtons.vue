@@ -74,16 +74,17 @@ export default {
     .button {
         flex: 1 1 auto;
 
-    height: 60px;
+        height: 60px;
         font-size: 18px;
         font-family: var(--font-secondary);
         color: var(--color-white);
-        background-color: var(--color-blue-03);
+        background-color: var(--color-primary-blue-03);
         margin-right: 8px;
         padding: 0;
         position: relative;
         overflow: hidden;
         border: 1.5px solid transparent;
+
         transition-property: border, border-radius;
         transition-duration: 400ms;
         transition-timing-function: ease-in-out;
