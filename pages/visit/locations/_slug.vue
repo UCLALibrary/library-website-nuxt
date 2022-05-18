@@ -171,7 +171,7 @@ import LOCATION_DETAIL from "~/gql/queries/LocationDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params, $axios }) {
+    async asyncData({ $graphql, params }) {
         console.log("rendered client side" + process.client)
         const data = await $graphql.default.request(LOCATION_DETAIL, {
             slug: params.slug,
@@ -186,7 +186,6 @@ export default {
         }
     },
     computed: {
-        // TO DO refactor to remove empties then concat
         parsedAddress() {
             if (this.page.address.length && this.page.address[0].addressLine2) {
                 return (
