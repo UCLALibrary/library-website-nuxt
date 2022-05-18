@@ -108,12 +108,13 @@ query LocationDetail($slug: [String!]) {
                 slug
                 title
                 summary
+                articleType
                 author: staffMember {
                     id
                     slug
                     title
                 }
-                category: articleType
+                articleType
                 startDate: dateUpdated
                 endDate: dateUpdated
                 associatedLocations {
@@ -200,7 +201,7 @@ fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
     }
 }
 
-fragment BlockSimpleCards on defaultFpb_simpleCard_BlockType {
+fragment BlockSimpleCards on defaultFpb_simpleCards_BlockType {
     id
     sectionTitle: titleGeneral
     sectionSummary: summary
@@ -211,6 +212,8 @@ fragment BlockSimpleCards on defaultFpb_simpleCard_BlockType {
             summary
             contentLink {
                 slug
+                title
+                summary
             }
         }
         ... on simpleCards_externalServiceOrResource_BlockType {
