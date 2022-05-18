@@ -214,6 +214,7 @@ fragment BlockSimpleCards on defaultFpb_simpleCards_BlockType {
                 slug
                 title
                 summary
+                researchGuideUrl
             }
         }
         ... on simpleCards_externalServiceOrResource_BlockType {
