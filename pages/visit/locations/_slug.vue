@@ -188,12 +188,22 @@ export default {
     computed: {
         // TO DO refactor to remove empties then concat
         parsedAddress() {
-            if (this.page.address.length) {
+            if (this.page.address.length && this.page.address[0].addressLine2) {
                 return (
                     this.page.address[0].addressLine1 +
                     " " +
-                    // _get(this.page, "address[0].addressLine2", "") +
-                    // " " +
+                    this.page.address[0].addressLine2 +
+                    " " +
+                    this.page.address[0].addressCity +
+                    " " +
+                    this.page.address[0].addressState +
+                    " " +
+                    this.page.address[0].addressZipCode
+                )
+            } else if (this.page.address.length) {
+                return (
+                    this.page.address[0].addressLine1 +
+                    " " +
                     this.page.address[0].addressCity +
                     " " +
                     this.page.address[0].addressState +
