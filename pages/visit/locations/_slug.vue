@@ -25,9 +25,9 @@
             color="visit"
             class="divider-way-finder"
         />
-        <h3 class="section-heading">
+        <h2 class="section-heading">
             Using the Library
-        </h3>
+        </h2>
         <block-hours
             class="block-hours"
             :lid="page.libcalLocationIdForHours"
@@ -122,12 +122,12 @@
             class="content"
             :blocks="page.blocks"
         />
-        <h3
+        <h2
             v-if="parsedEndowments.length"
             class="section-heading"
         >
             Endowments
-        </h3>
+        </h2>
 
         <section-teaser-card
             :items="parsedEndowments"
@@ -141,12 +141,12 @@
             <button-more text="See More" />
         </nuxt-link>
 
-        <h3
+        <h2
             v-if="parsedArticles.length"
             class="section-heading"
         >
             News
-        </h3>
+        </h2>
         <section-teaser-card
             v-if="parsedArticles.length"
             :items="parsedArticles"

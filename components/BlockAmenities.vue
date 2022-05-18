@@ -1,9 +1,8 @@
 <template lang="html">
     <div class="block-amenities">
-        <div
-            class="amenities-title"
-            v-html="`Amenities`"
-        />
+        <h3 class="amenities-title">
+            Amenities
+        </h3>
         <ul class="amenities-list">
             <li
                 v-for="(item, index) in parsedAmenities"
