@@ -130,7 +130,7 @@
         </h3>
 
         <section-teaser-card
-            :items="parsedEndowments.slice(0, 3)"
+            :items="parsedEndowments"
             class="endowments"
         />
         <nuxt-link
@@ -149,7 +149,7 @@
         </h3>
         <section-teaser-card
             v-if="parsedArticles.length"
-            :items="parsedArticles.slice(0, 3)"
+            :items="parsedArticles"
             class="articles"
             to="/about/news"
         />

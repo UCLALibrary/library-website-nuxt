@@ -4,27 +4,28 @@
             class="amenities-title"
             v-html="`Amenities`"
         />
-
-        <div
-            v-for="(item, index) in parsedAmenities"
-            :key="index"
-        >
-            <div class="amenitiy-row">
+        <ul class="amenities-list">
+            <li
+                v-for="(item, index) in parsedAmenities"
+                :key="index"
+                class="amenitiy-row"
+            >
                 <component
                     :is="parsedIconName"
                     v-if="parsedIconName"
                 />
-                <div
+                <span
                     class="amenitiy-name"
                     v-html="item"
                 />
-            </div>
-        </div>
+            </li>
+        </ul>
     </div>
 </template>
 
 <script>
 export default {
+    // TO DO import all amenitites svgs
     components: {
         SvgIconPhone: () =>
             import(
@@ -57,6 +58,10 @@ export default {
         color: var(--color-primary-blue-03);
         @include step-2;
         margin-bottom: 16px;
+    }
+    .amenities-list {
+        display: flex;
+        flex-direction: column;
     }
     .amenitiy-row {
         display: inline-flex;
