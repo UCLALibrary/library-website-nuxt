@@ -13,16 +13,19 @@
             :rewind="false"
             class="media-container"
             type="carousel"
+            style="height: 100%"
             @change="setCurrentSlide"
         >
             <vue-glide-slide
-                v-for="(img, index) in image"
+                v-for="(img, index) in images"
                 :key="index"
+                style="height: 100%"
             >
                 <responsive-image
                     :key="index"
                     object-fit="contain"
                     :image="img"
+                    class="vue-glide-slide"
                 />
             </vue-glide-slide>
             <template
@@ -67,11 +70,11 @@
             </div>
             <h4
                 class="media-object-title"
-                v-text="image[selectionIndex].title"
+                v-text="images[selectionIndex].title"
             />
             <p
                 class="media-object-caption"
-                v-text="image[selectionIndex].alt"
+                v-text="images[selectionIndex].alt"
             />
         </div>
     </div>
@@ -103,7 +106,7 @@ export default {
             ),
     },
     props: {
-        image: {
+        block: {
             type: Array,
             default: () => [],
             required: true,
@@ -116,6 +119,11 @@ export default {
     data() {
         return {
             selectionIndex: 1,
+        }
+    },
+    computed: {
+        images() {
+            return this.block.map((item) => item.image[0])
         }
     },
     methods: {
@@ -180,7 +188,8 @@ export default {
         grid-column: middle-col / span 1;
 
         width: var(--media-width);
-        height: var(--media-height);
+        // height: var(--media-height);
+        height: 100%;
     }
 
     // Override colors of all the SVG icons
@@ -216,6 +225,39 @@ export default {
                 stroke: var(--color-secondary-grey-03);
             }
         }
+    }
+
+    ::v-deep .responsive-image {
+        height: var(--media-height);
+    }
+    
+    @media #{$medium} {
+        grid-template-rows:
+        [top-row] 1fr
+        [middle-row] 2fr
+        [bottom-row] 1fr;
+
+        ::v-deep .responsive-image {
+            // height: calc(var(--media-height) * 1.5);
+            min-height: 100%;
+        }
+
+    }
+        
+    @media #{$small} {
+        grid-template-rows:
+        [top-row] 1fr
+        [middle-row] 2fr
+        [bottom-row] 1fr;
+
+        ::v-deep .responsive-image {
+            // height: calc(var(--media-height) * 1.5);
+            min-height: 100%;
+            .glide__track {
+                height: 100%;
+            }
+        }
+
     }
 
     .controls {

@@ -6,7 +6,7 @@
 
         <media-gallery-lightbox
             v-if="showLightboxModal"
-            :image="block.mediaGallery[selectionIndex].image[0]"
+            :block="block.mediaGallery"
             :n-items="nItems"
             @closeModal="hideLightboxModal"
         />
