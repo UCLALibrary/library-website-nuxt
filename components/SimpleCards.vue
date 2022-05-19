@@ -105,8 +105,11 @@ export default {
         &.flexible-block {
             padding: var(--unit-gutter);
         }
-        .card {
-            width: 50%;
+        // .card {
+        //     width: 50%;
+        // }
+        .card-small {
+            width: calc(50% - 16px);
         }
         .card-five {
             &:nth-child(-n + 2) {

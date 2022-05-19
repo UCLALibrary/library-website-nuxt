@@ -7,6 +7,7 @@
             :block="block"
             class="flexible-block"
         />
+        <divider-way-finder class="divider-way-finder" />
     </div>
 </template>
 
