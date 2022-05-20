@@ -473,6 +473,10 @@ export default {
 
     // Breakpoints
     @media #{$medium} {
+        .text {
+            margin-top: 0;
+        }
+        
         &:not(&.is-vertical) {
             max-width: 95%;
             padding-left: 5px;

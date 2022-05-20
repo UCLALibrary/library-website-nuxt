@@ -112,5 +112,43 @@ function convertName(typeHandle) {
             }
         }
     }
+
+    .flexible-block:nth-child(even).flexible-simple-cards {
+        padding-top: 0;
+
+        ::v-deep > .simple-cards::before {
+            content: "";
+            display: block;
+            height: 1px;
+            width: 100%;
+            max-width: $container-l-main + px;
+            border-top: 2px dotted var(--color-secondary-grey-02);
+            margin-bottom: var(--space-2xl);
+        }
+    }
+
+    // .flexible-block:nth-child(even).pull-quote {
+    //     padding-top: 0;
+
+    //     ::v-deep > &::before {
+    //         content: "";
+    //         display: block;
+    //         height: 1px;
+    //         width: 100%;
+    //         max-width: $container-l-main + px;
+    //         border-top: 2px dotted var(--color-secondary-grey-02);
+    //         margin-bottom: var(--space-2xl);
+    //     }
+    // }
+
+    .flexible-block:last-child.flexible-simple-cards {
+        padding-bottom: 0;
+    }
+
+    @media #{$medium} {
+        .flexible-block {
+            padding: var(--space-2xl) var(--unit-gutter);
+        }
+    }
 }
 </style>

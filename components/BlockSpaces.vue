@@ -82,8 +82,7 @@ export default {
     border-radius: $rounded-slightly + px;
 
     .container {
-        margin: 64px auto;
-        width: 90%;
+        padding: var(--space-2xl);
 
         display: flex;
         flex-direction: column;

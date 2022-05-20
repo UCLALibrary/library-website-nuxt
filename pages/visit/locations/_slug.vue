@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="page page-location-detail">
         <nav-breadcrumb :title="page.title" />
-        <div class="page-container">
+        <!-- <div class="page-container"> -->
             <banner-text
                 v-if="!page.heroImage || page.heroImage.length == 0"
                 class="banner-text"
@@ -32,7 +32,6 @@
             </h2>
             <block-hours
                 v-if="page.libcalLocationIdForHours"
-                class="block-hours"
                 :lid="page.libcalLocationIdForHours"
             />
             <divider-general
@@ -81,8 +80,7 @@
 
             <simple-cards
                 v-if="page.resourceServiceWorkshop.length"
-                class="simple-cards"
-                section-title="Services & Resources"
+                section-title="Services &amp; Resources"
                 :items="parsedServicesAndResources"
             />
             <nuxt-link
@@ -102,7 +100,7 @@
                 class="events-exhibitions"
             >
                 <h2 class="section-heading">
-                    Events & Exhibtions
+                    Events &amp; Exhibtions
                 </h2>
                 <section-teaser-list
                     class="section-teaser-list"
@@ -128,7 +126,7 @@
             <divider-way-finder
                 v-if="parsedEndowments.length"
                 color="visit"
-                class="divider-way-finder"
+                class="divider-way-finder endowment"
             />
             <h2
                 v-if="parsedEndowments.length"
@@ -168,7 +166,7 @@
             >
                 <button-more text="See More" />
             </nuxt-link>
-        </div>
+        <!-- </div> -->
     </div>
 </template>
 
@@ -305,15 +303,9 @@ export default {
         margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
     }
     .banner-text + .divider-way-finder {
-        margin: 0 auto var(--space-2xl);
-    }
-    .divider-way-finder,
-    .divider-general {
-        max-width: $container-l-main + px;
-        margin: var(--space-2xl) auto;
+        margin: 0 auto var(--space-3xl);
     }
     .content {
         margin: 0 auto;
@@ -362,10 +354,20 @@ export default {
         align-items: flex-start;
     }
 
+    // ::v-deep .flexible-block:last-child:not(.flexible-simple-cards) {
+    //     background: red;
+    // }
+
     @media #{$medium} {
-        .page-container {
-            max-width: $container-l-main + px;
-            margin: 0 var(--space-2xl) auto;
+        .section-heading,
+        .block-campus-map,
+        .section-block-spaces,
+        .block-hours,
+        .block-amenities,
+        .simple-cards,
+        .section-teaser-list,
+        .section-teaser-card {
+            padding: 0 var(--unit-gutter);
         }
     }
 

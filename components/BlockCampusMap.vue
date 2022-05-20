@@ -13,12 +13,12 @@
                 />
             </div>
         </modal-generic>
-        <button
+        <h3
             class="title"
             @click="showModal"
         >
             Campus Map
-        </button>
+        </h3>
         <div class="content">
             <div class="iframe-hover">
                 <div class="iframe-container">
@@ -237,8 +237,8 @@ export default {
 
         .iframe-hover {
             max-width: 100%;
-            min-width: 320px;
-            margin-right: 0px 0px 24px;
+            min-width: 272px;
+            margin-right: 0;
         }
     }
 }
