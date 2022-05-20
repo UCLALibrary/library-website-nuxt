@@ -55,7 +55,6 @@ query LocationDetail($slug: [String!]) {
             }
             campusMapId
             libcalLocationIdForHours
-
             staffMember {
                 id
                 email
