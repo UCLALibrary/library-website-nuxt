@@ -1,8 +1,8 @@
 <template>
     <div class="block-hours">
-        <h2 class="title">
+        <h3 class="title">
             Hours
-        </h2>
+        </h3>
 
         <div class="content">
             <!--div class="iframe-container"-->

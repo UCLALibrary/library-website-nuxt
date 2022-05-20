@@ -5,7 +5,6 @@
             :key="item.to"
             class="meta"
         >
-            <divider-general class="divider" />
             <block-highlight
                 :image="item.image"
                 :to="item.to"
@@ -14,8 +13,10 @@
                 :start-date="item.startDate"
                 :end-date="item.endDate"
                 :text="item.text"
+                :locations="item.locations"
                 class="block"
             />
+            <!-- <divider-general class="divider" /> -->
         </div>
     </section>
 </template>
@@ -35,25 +36,27 @@ export default {
 <style lang="scss" scoped>
 .section-teaser-list {
     background-color: var(--color-white);
-    padding: 0 var(--unit-gutter);
-    max-width: 990px;
+    // padding: 0 var(--unit-gutter);
+    max-width: $container-l-main + px;
 
     .meta {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
+        // display: flex;
+        // flex-direction: column;
+        // flex-wrap: nowrap;
+        // justify-content: center;
+        // align-content: center;
+        // align-items: center;
+
+        border-bottom: 2px dotted var(--color-secondary-grey-02);
+
+        &:last-child {
+            border: 0;
+        }
     }
 
     .block {
         margin-top: 50px;
         margin-bottom: 50px;
-    }
-
-    .divider {
-        width: 100%;
     }
 }
 </style>

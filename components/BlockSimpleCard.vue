@@ -135,6 +135,11 @@ export default {
         @include step--1;
         max-height: 175px;
         margin-bottom: 24px;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     .svg-meta {

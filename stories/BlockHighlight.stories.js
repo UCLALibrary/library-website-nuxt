@@ -11,7 +11,7 @@ const mock = {
     to: "/visit/foo/bar/",
     category: "Ullamco",
     title: "Fames ac turpis egestas sed tempus",
-    startDate: "2021-11-26T11:00:00-08:00",
+    startDate: "2022-03-31T07:00:00+00:00",
     endDate: "2021-11-26T11:00:00-08:00",
     text: "Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Egestas integer eget aliquet nibh praesent tristique. Quis imperdiet massa tincidunt nunc pulvinar sapien.",
     imageAspectRatio: 60,
@@ -35,7 +35,6 @@ const mock2 = {
         { title: "Research Library (Charles E. Young)", to: "/location/baz" },
     ],
 }
-
 
 // Variations of stories below
 export const Default = () => ({

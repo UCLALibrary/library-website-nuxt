@@ -4,39 +4,40 @@ export default {
 
 const mockTwoCards = {
     id: "13783",
-    typeHandle: "simpleCards",
     sectionTitle: "Fix Potholes",
-    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    sectionSummary:
+        "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
     cards: [
         {
-            id: "13899",
-            contentLink: [
-                {
-                    slug: "road-work",
-                    title: "Road Work Guide",
-                    summary: "<p>A research guide</p>",
-                    researchGuideUrl: "http://libguides.library.ucla.edu"
-                }
-            ]
+            id: "6622",
+            text: "<p>Learn how to use a VPN or proxy server to access Library resources with your UCLA Logon ID through a series of helpful videos.</p>",
+            title: "Connecting from Off-Campus",
+            slug: "connecting-from-off-campus",
+            uri: "help/services-resources/connecting-from-off-campus",
+            type: "resource",
         },
         {
-            id: "13900",
-            title: "Types of Sinkholes",
-            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
-        }
-    ]
+            id: "6407",
+            text: "<p>A research guide</p>",
+            title: "A new research guide",
+            slug: "a-new-research-guide",
+            uri: null,
+            researchGuideUrl: "http://libguides.library.ucla.edu",
+        },
+    ],
 }
 
 // Variations of stories below
 // -------2----------------
 export const Default = () => ({
     data() {
-        return { block: mockTwoCards }
+        return { ...mockTwoCards }
     },
     template: `
         <simple-cards
-            :block="block"
+            :items="cards"
+            :section-title="sectionTitle"
+            :section-summary="sectionSummary"
         />
     `,
 })
@@ -44,47 +45,42 @@ export const Default = () => ({
 // -------3----------------
 const mockThreeCards = {
     id: "13783",
-    typeHandle: "simpleCards",
-    sectionTitle: "Fix Potholes",
-    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
     cards: [
         {
-            id: "13899",
-            contentLink: [
-                {
-                    slug: "road-work",
-                    title: "Road Work Guide",
-                    summary: "<p>A research guide</p>",
-                    researchGuideUrl: "http://libguides.library.ucla.edu"
-                }
-            ]
+            id: "8203",
+            text: "<h3>The Library Prize for Undergraduate Research recognizes and honors excellence in undergraduate research at UCLA. The application period for the 2022 Library Prize for Undergraduate Research closes on March 30, 2022 at 11:59 p.m. PT.</h3>",
+            title: "Library Prize for Undergraduate Research",
+            slug: "library-prize-for-undergraduate-research",
+            uri: "about/awards-grants/library-prize-for-undergraduate-research",
         },
         {
-            id: "13900",
-            title: "Types of Sinkholes",
-            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
+            id: "6622",
+            text: "<p>Learn how to use a VPN or proxy server to access Library resources with your UCLA Logon ID through a series of helpful videos.</p>",
+            title: "Connecting from Off-Campus",
+            slug: "connecting-from-off-campus",
+            uri: "help/services-resources/connecting-from-off-campus",
+            type: "resource",
         },
         {
-            "id": "13899",
-            "contentLink": [
-                {
-                    "slug": "road-work",
-                    "title": "Road Work Guide",
-                    "summary": "<p>A research guide</p>",
-                    "researchGuideUrl": "http://libguides.library.ucla.edu"
-                }
-            ]
-        }
-    ]
+            id: "6407",
+            text: "<p>A research guide</p>",
+            title: "A new research guide",
+            slug: "a-new-research-guide",
+            uri: null,
+            researchGuideUrl: "http://libguides.library.ucla.edu",
+        },
+    ],
 }
 
 export const ThreeCards = () => ({
     data() {
-        return { block: mockThreeCards }
+        return { ...mockThreeCards }
     },
     template: `
-        <simple-cards :block="block" />
+        <simple-cards
+            :items="cards"
+            :section-title="sectionTitle"
+            :section-summary="sectionSummary" />
     `,
 })
 
@@ -94,51 +90,52 @@ const mockFourCards = {
     id: "13783",
     typeHandle: "simpleCards",
     sectionTitle: "Fix Potholes",
-    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    sectionSummary:
+        "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
     cards: [
         {
-            id: "13899",
-            contentLink: [
-                {
-                    slug: "road-work",
-                    title: "Road Work Guide",
-                    summary: "<p>A research guide</p>",
-                    researchGuideUrl: "http://libguides.library.ucla.edu"
-                }
-            ]
+            id: "8203",
+            text: "<h3>The Library Prize for Undergraduate Research recognizes and honors excellence in undergraduate research at UCLA. The application period for the 2022 Library Prize for Undergraduate Research closes on March 30, 2022 at 11:59 p.m. PT.</h3>",
+            title: "Library Prize for Undergraduate Research",
+            slug: "library-prize-for-undergraduate-research",
+            uri: "about/awards-grants/library-prize-for-undergraduate-research",
         },
         {
-            id: "13900",
-            title: "Types of Sinkholes",
-            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
+            id: "6622",
+            text: "<p>Learn how to use a VPN or proxy server to access Library resources with your UCLA Logon ID through a series of helpful videos.</p>",
+            title: "Connecting from Off-Campus",
+            slug: "connecting-from-off-campus",
+            uri: "help/services-resources/connecting-from-off-campus",
+            type: "resource",
         },
         {
-            "id": "13899",
-            "contentLink": [
-                {
-                    "slug": "road-work",
-                    "title": "Road Work Guide",
-                    "summary": "<p>A research guide</p>",
-                    "researchGuideUrl": "http://libguides.library.ucla.edu"
-                }
-            ]
+            id: "6407",
+            text: "<p>A research guide</p>",
+            title: "A new research guide",
+            slug: "a-new-research-guide",
+            uri: null,
+            researchGuideUrl: "http://libguides.library.ucla.edu",
         },
         {
-            "id": "13900",
-            "title": "Types of Sinkholes",
-            "summary": "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            "externalLink": "https://www.heliconusa.com/types-of-sinkholes/"
+            id: "6407",
+            text: "<p>A research guide</p>",
+            title: "A new research guide",
+            slug: "a-new-research-guide",
+            uri: null,
+            researchGuideUrl: "http://libguides.library.ucla.edu",
         },
-    ]
+    ],
 }
 
 export const FourCards = () => ({
     data() {
-        return { block: mockFourCards  }
+        return { ...mockFourCards }
     },
     template: `
-        <simple-cards :block="block" />
+    <simple-cards
+        :items="cards"
+        :section-title="sectionTitle"
+        :section-summary="sectionSummary" />
     `,
 })
 
@@ -148,61 +145,60 @@ const mockFiveCards = {
     id: "13783",
     typeHandle: "simpleCards",
     sectionTitle: "Fix Potholes",
-    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
+    sectionSummary:
+        "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
     cards: [
         {
-            id: "13899",
-            contentLink: [
-                {
-                    slug: "road-work",
-                    title: "Road Work Guide",
-                    summary: "<p>A research guide</p>",
-                    researchGuideUrl: "http://libguides.library.ucla.edu"
-                }
-            ]
+            id: "8203",
+            text: "<h3>The Library Prize for Undergraduate Research recognizes and honors excellence in undergraduate research at UCLA. The application period for the 2022 Library Prize for Undergraduate Research closes on March 30, 2022 at 11:59 p.m. PT.</h3>",
+            title: "Library Prize for Undergraduate Research",
+            slug: "library-prize-for-undergraduate-research",
+            uri: "about/awards-grants/library-prize-for-undergraduate-research",
         },
         {
-            id: "13900",
-            title: "Types of Sinkholes",
-            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
+            id: "6622",
+            text: "<p>Learn how to use a VPN or proxy server to access Library resources with your UCLA Logon ID through a series of helpful videos.</p>",
+            title: "Connecting from Off-Campus",
+            slug: "connecting-from-off-campus",
+            uri: "help/services-resources/connecting-from-off-campus",
+            type: "resource",
         },
         {
-            "id": "13899",
-            "contentLink": [
-                {
-                    "slug": "road-work",
-                    "title": "Road Work Guide",
-                    "summary": "<p>A research guide</p>",
-                    "researchGuideUrl": "http://libguides.library.ucla.edu"
-                }
-            ]
+            id: "6407",
+            text: "<p>A research guide</p>",
+            title: "A new research guide",
+            slug: "a-new-research-guide",
+            uri: null,
+            researchGuideUrl: "http://libguides.library.ucla.edu",
         },
         {
-            "id": "13900",
-            "title": "Types of Sinkholes",
-            "summary": "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            "externalLink": "https://www.heliconusa.com/types-of-sinkholes/"
+            id: "6407",
+            text: "<p>A research guide</p>",
+            title: "A new research guide",
+            slug: "a-new-research-guide",
+            uri: null,
+            researchGuideUrl: "http://libguides.library.ucla.edu",
         },
         {
-            "id": "13958",
-            "contentLink": [
-                {
-                    "slug": "frost-heave",
-                    "title": "Frost Heave",
-                    "summary": "<p>Frost heave refers to <strong>the upward or outward movement of the ground surface (or objects on, or in, ground) caused by formation of ice in soil</strong>.</p>"
-                }
-            ]
-        }
-    ]
+            id: "6407",
+            text: "<p>A research guide</p>",
+            title: "A new research guide",
+            slug: "a-new-research-guide",
+            uri: null,
+            researchGuideUrl: "http://libguides.library.ucla.edu",
+        },
+    ],
 }
 
 export const FiveCards = () => ({
     data() {
-        return { block: mockFiveCards  }
+        return { ...mockFiveCards }
     },
     template: `
-        <simple-cards :block="block" />
+    <simple-cards
+        :items="cards"
+        :section-title="sectionTitle"
+        :section-summary="sectionSummary" />
     `,
 })
 
@@ -210,73 +206,65 @@ export const FiveCards = () => ({
 
 const mockSixCards = {
     id: "13783",
-    typeHandle: "simpleCards",
-    sectionTitle: "Fix Potholes",
-    sectionSummary: "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
     cards: [
         {
-            id: "13899",
-            contentLink: [
-                {
-                    slug: "road-work",
-                    title: "Road Work Guide",
-                    summary: "<p>A research guide</p>",
-                    researchGuideUrl: "http://libguides.library.ucla.edu"
-                }
-            ]
+            id: "8203",
+            text: "<h3>The Library Prize for Undergraduate Research recognizes and honors excellence in undergraduate research at UCLA. The application period for the 2022 Library Prize for Undergraduate Research closes on March 30, 2022 at 11:59 p.m. PT.</h3>",
+            title: "Library Prize for Undergraduate Research",
+            slug: "library-prize-for-undergraduate-research",
+            uri: "about/awards-grants/library-prize-for-undergraduate-research",
         },
         {
-            id: "13900",
-            title: "Types of Sinkholes",
-            summary: "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            externalLink: "https://www.heliconusa.com/types-of-sinkholes/"
+            id: "6622",
+            text: "<p>Learn how to use a VPN or proxy server to access Library resources with your UCLA Logon ID through a series of helpful videos.</p>",
+            title: "Connecting from Off-Campus",
+            slug: "connecting-from-off-campus",
+            uri: "help/services-resources/connecting-from-off-campus",
+            type: "resource",
         },
         {
-            "id": "13899",
-            "contentLink": [
-                {
-                    "slug": "road-work",
-                    "title": "Road Work Guide",
-                    "summary": "<p>A research guide</p>",
-                    "researchGuideUrl": "http://libguides.library.ucla.edu"
-                }
-            ]
+            id: "6407",
+            text: "<p>A research guide</p>",
+            title: "A new research guide",
+            slug: "a-new-research-guide",
+            uri: null,
+            researchGuideUrl: "http://libguides.library.ucla.edu",
         },
         {
-            "id": "13900",
-            "title": "Types of Sinkholes",
-            "summary": "Dissolution sinkholes, Cover-subsidence sinkholes, Cover-collapse sinkholes",
-            "externalLink": "https://www.heliconusa.com/types-of-sinkholes/"
+            id: "6407",
+            text: "<p>A research guide</p>",
+            title: "A new research guide",
+            slug: "a-new-research-guide",
+            uri: null,
+            researchGuideUrl: "http://libguides.library.ucla.edu",
         },
         {
-            "id": "13958",
-            "contentLink": [
-                {
-                    "slug": "frost-heave",
-                    "title": "Frost Heave",
-                    "summary": "<p>Frost heave refers to <strong>the upward or outward movement of the ground surface (or objects on, or in, ground) caused by formation of ice in soil</strong>.</p>"
-                }
-            ]
+            id: "6407",
+            text: "<p>A research guide</p>",
+            title: "A new research guide",
+            slug: "a-new-research-guide",
+            uri: null,
+            researchGuideUrl: "http://libguides.library.ucla.edu",
         },
         {
-            "id": "13784",
-            "contentLink": [
-                {
-                    "slug": "foxes",
-                    "title": "Foxes - Guides",
-                    "summary": "<p>Foxes are small to medium-sized, omnivorous mammals belonging to several genera of the family Canidae.</p>",
-                    "researchGuideUrl": "http://libguides.library.ucla.edu"
-                }
-            ]
+            id: "6407",
+            text: "<p>A research guide</p>",
+            title: "A new research guide",
+            slug: "a-new-research-guide",
+            uri: null,
+            researchGuideUrl: "http://libguides.library.ucla.edu",
         },
-    ]
+    ],
 }
 
 export const SixCards = () => ({
     data() {
-        return { block: mockSixCards  }
+        return { ...mockSixCards }
     },
     template: `
-        <simple-cards :block="block" />
+    <simple-cards
+        :items="cards"
+        :section-title="sectionTitle"
+        :section-summary="sectionSummary" />
     `,
 })
