@@ -2,7 +2,7 @@
 export default {
     server: {
         port: 3000,
-        host: "0.0.0.0",
+        host: "0.0.0.0"
     },
     target: "static",
     components: true,
@@ -20,7 +20,7 @@ export default {
         libcalClientId:
             process.env.LIVE_PREVIEW === "dev"
                 ? process.env.LIBCAL_CLIENT_ID
-                : "test",
+                : "test", 
         s3Bucket: process.env.S3_BUCKET,
     },
     /*
@@ -29,11 +29,8 @@ export default {
     head: {
         meta: [
             { charset: "utf-8" },
-            {
-                name: "viewport",
-                content: "width=device-width, initial-scale=1",
-            },
-        ],
+            { name: "viewport", content: "width=device-width, initial-scale=1" },
+        ]
     },
     /*
      ** Global CSS
@@ -122,23 +119,23 @@ export default {
         stories: ["~/stories/**/*.stories.js"],
         parameters: {
             layout: "fullscreen",
-            viewport: {
-                viewports: {
+            viewport: { 
+                viewports:{
                     extraLarge: {
-                        name: "Extra Large",
-                        styles: { width: "1920px", height: "1080px" },
+                        name: 'Extra Large',
+                        styles:{ width: '1920px', height: '1080px', },
                     },
                     Large: {
-                        name: "Large",
-                        styles: { width: "1440px", height: "1024px" },
+                        name: 'Large',
+                        styles:{ width: '1440px', height: '1024px', },
                     },
                     Medium: {
-                        name: "Medium",
-                        styles: { width: "768px", height: "1024px" },
+                        name: 'Medium',
+                        styles:{ width: '768px', height: '1024px', },
                     },
                     Small: {
-                        name: "Small",
-                        styles: { width: "375px", height: "812px" },
+                        name: 'Small',
+                        styles:{ width: '375px', height: '812px', },
                     },
                 },
             },
@@ -180,10 +177,13 @@ export default {
     /*
      * Nuxt modules
      */
-    modules: ["@nuxtjs/axios", "@nuxtjs/gtm"],
+    modules: [
+        "@nuxtjs/axios",
+        "@nuxtjs/gtm",
+    ],
 
     gtm: {
-        id: "GTM-T2SXV2",
+        id: 'GTM-T2SXV2'
     },
 
     /*
