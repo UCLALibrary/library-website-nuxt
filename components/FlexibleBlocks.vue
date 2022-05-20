@@ -17,7 +17,8 @@ import _kebabCase from "lodash/kebabCase"
 export default {
     components: {
         // TODO register all other block types
-        FlexibleCta: () => import("~/components/Flexible/CtaBlockContentWidth"),
+        FlexibleCallToAction: () =>
+            import("~/components/Flexible/CtaBlockContentWidth"),
         FlexibleCtaBlock2Up: () => import("~/components/Flexible/CtaBlock2Up"),
         FlexibleDivider: () => import("~/components/Flexible/Divider"),
         FlexibleHelpTopicCards: () =>

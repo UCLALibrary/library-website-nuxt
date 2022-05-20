@@ -1,172 +1,166 @@
 <template lang="html">
     <div class="page page-location-detail">
         <nav-breadcrumb :title="page.title" />
-        <!-- <div class="page-container"> -->
-            <banner-text
-                v-if="!page.heroImage || page.heroImage.length == 0"
-                class="banner-text"
-                :title="page.title"
-                :text="page.summary"
-                :address="parsedAddress"
-                :email="page.email"
-                :phone="page.phoneNumber"
-                :address-link="addressLink"
+        <banner-text
+            v-if="!page.heroImage || page.heroImage.length == 0"
+            class="banner-text"
+            :title="page.title"
+            :text="page.summary"
+            :address="parsedAddress"
+            :email="page.email"
+            :phone="page.phoneNumber"
+            :address-link="addressLink"
+            :staff-directory-link="parsedStaffDirectory"
+        />
+        <banner-header
+            v-if="page.heroImage && page.heroImage.length == 1"
+            :image="page.heroImage[0].image[0]"
+            :title="page.title"
+            :text="page.summary"
+            :address="parsedAddress"
+            :email="page.email"
+            :phone="page.phoneNumber"
+            :staff-directory-link="parsedStaffDirectory"
+            :address-link="addressLink"
+        />
+        <divider-way-finder
+            color="visit"
+            class="divider-way-finder"
+        />
+        <h2 class="section-heading">
+            Using the Library
+        </h2>
+        <block-hours
+            v-if="page.libcalLocationIdForHours"
+            :lid="page.libcalLocationIdForHours"
+        />
+        <divider-general
+            v-if="page.amenities.length"
+            class="divider-general"
+        />
+        <block-amenities
+            v-if="page.amenities.length"
+            :items="page.amenities"
+            class="amenities"
+        />
+        <divider-general class="divider-general" />
+        <block-campus-map
+            v-if="page.campusMapId"
+            :campus-location-id="page.campusMapId"
+            :location-name="page.title"
+            :building-access="page.howToGetHere"
+        />
+        <divider-general
+            v-if="parsedSpaces.length"
+            class="divider-general"
+        />
+        <div
+            v-if="parsedSpaces.length"
+            class="section-block-spaces"
+        >
+            <h3 class="spaces-title">
+                {{ page.title }} Spaces
+            </h3>
+
+            <block-spaces
+                v-for="(space, index) in parsedSpaces"
+                :key="index"
+                :title="space.title"
+                :text="space.summary"
+                :to="space.to"
+                :button-text="space.buttonText"
             />
-            <banner-header
-                v-if="page.heroImage && page.heroImage.length == 1"
-                :image="page.heroImage[0].image[0]"
-                :title="page.title"
-                :text="page.summary"
-                :address="parsedAddress"
-                :email="page.email"
-                :phone="page.phoneNumber"
-                :staff-directory-link="`/about/staff-directory`"
-                :address-link="addressLink"
-            />
-            <divider-way-finder
-                color="visit"
-                class="divider-way-finder"
-            />
+        </div>
+
+        <divider-way-finder
+            v-if="page.resourceServiceWorkshop.length"
+            color="visit"
+            class="divider-way-finder"
+        />
+
+        <simple-cards
+            v-if="page.resourceServiceWorkshop.length"
+            section-title="Services &amp; Resources"
+            :items="parsedServicesAndResources"
+        />
+        <nuxt-link
+            v-if="page.resourceServiceWorkshop.length"
+            class="button-more"
+            to="/help/services-resources"
+        >
+            <button-more text="See More" />
+        </nuxt-link>
+        <divider-way-finder
+            v-if="page.resourceServiceWorkshop.length"
+            color="visit"
+            class="divider-way-finder"
+        />
+        <div
+            v-if="parsedEvents.length"
+            class="events-exhibitions"
+        >
             <h2 class="section-heading">
-                Using the Library
+                Events &amp; Exhibtions
             </h2>
-            <block-hours
-                v-if="page.libcalLocationIdForHours"
-                :lid="page.libcalLocationIdForHours"
-            />
-            <divider-general
-                v-if="page.amenities.length"
-                class="divider-general"
-            />
-            <block-amenities
-                v-if="page.amenities.length"
-                :items="page.amenities"
-                class="amenities"
-            />
-            <divider-general class="divider-general" />
-            <block-campus-map
-                v-if="page.campusMapId"
-                :campus-location-id="page.campusMapId"
-                :location-name="page.title"
-                :building-access="page.howToGetHere"
-            />
-            <divider-general
-                v-if="parsedSpaces.length"
-                class="divider-general"
-            />
-            <div
-                v-if="parsedSpaces.length"
-                class="section-block-spaces"
-            >
-                <h3 class="spaces-title">
-                    {{ page.title }} Spaces
-                </h3>
-
-                <block-spaces
-                    v-for="(space, index) in parsedSpaces"
-                    :key="index"
-                    :title="space.title"
-                    :text="space.summary"
-                    :to="space.to"
-                    :button-text="space.buttonText"
-                />
-            </div>
-
-            <divider-way-finder
-                v-if="page.resourceServiceWorkshop.length"
-                color="visit"
-                class="divider-way-finder"
-            />
-
-            <simple-cards
-                v-if="page.resourceServiceWorkshop.length"
-                section-title="Services &amp; Resources"
-                :items="parsedServicesAndResources"
+            <section-teaser-list
+                class="section-teaser-list"
+                :items="parsedEvents"
             />
             <nuxt-link
-                v-if="page.resourceServiceWorkshop.length"
-                class="button-more"
-                to="/help/services-resources"
-            >
-                <button-more text="See More" />
-            </nuxt-link>
-            <divider-way-finder
-                v-if="page.resourceServiceWorkshop.length"
-                color="visit"
-                class="divider-way-finder"
-            />
-            <div
                 v-if="parsedEvents.length"
-                class="events-exhibitions"
-            >
-                <h2 class="section-heading">
-                    Events &amp; Exhibtions
-                </h2>
-                <section-teaser-list
-                    class="section-teaser-list"
-                    :items="parsedEvents"
-                />
-                <nuxt-link
-                    v-if="parsedEvents.length"
-                    class="button-more"
-                    to="/visit/events-exhibits"
-                >
-                    <button-more text="See More" />
-                </nuxt-link>
-            </div>
-            <divider-way-finder
-                v-if="parsedEvents.length"
-                color="visit"
-                class="divider-way-finder"
-            />
-            <flexible-blocks
-                class="content"
-                :blocks="page.blocks"
-            />
-            <divider-way-finder
-                v-if="parsedEndowments.length"
-                color="visit"
-                class="divider-way-finder endowment"
-            />
-            <h2
-                v-if="parsedEndowments.length"
-                class="section-heading"
-            >
-                Endowments
-            </h2>
-
-            <section-teaser-card
-                :items="parsedEndowments"
-                class="endowments"
-            />
-            <nuxt-link
-                v-if="parsedEndowments.length"
                 class="button-more"
-                to="/about/endowments"
+                to="/visit/events-exhibits"
             >
                 <button-more text="See More" />
             </nuxt-link>
+        </div>
+        <divider-way-finder
+            v-if="parsedEvents.length"
+            color="visit"
+            class="divider-way-finder"
+        />
+        <flexible-blocks
+            class="content"
+            :blocks="page.blocks"
+        />
+        <h2
+            v-if="parsedEndowments.length"
+            class="section-heading"
+        >
+            Endowments
+        </h2>
 
-            <h2
-                v-if="parsedArticles.length"
-                class="section-heading"
-            >
-                News
-            </h2>
-            <section-teaser-card
-                v-if="parsedArticles.length"
-                :items="parsedArticles"
-                class="articles"
-                to="/about/news"
-            />
-            <nuxt-link
-                v-if="parsedArticles.length"
-                class="button-more"
-                to="/about/news"
-            >
-                <button-more text="See More" />
-            </nuxt-link>
-        <!-- </div> -->
+        <section-teaser-card
+            :items="parsedEndowments"
+            class="endowments"
+        />
+        <nuxt-link
+            v-if="parsedEndowments.length"
+            class="button-more"
+            to="/about/endowments"
+        >
+            <button-more text="See More" />
+        </nuxt-link>
+
+        <h2
+            v-if="parsedArticles.length"
+            class="section-heading"
+        >
+            News
+        </h2>
+        <section-teaser-card
+            v-if="parsedArticles.length"
+            :items="parsedArticles"
+            class="articles"
+            to="/about/news"
+        />
+        <nuxt-link
+            v-if="parsedArticles.length"
+            class="button-more"
+            to="/about/news"
+        >
+            <button-more text="See More" />
+        </nuxt-link>
     </div>
 </template>
 
@@ -194,8 +188,10 @@ export default {
     },
     computed: {
         parsedStaffDirectory() {
-            if (this.page.locationType != "affiliate") {
-                return "/about/staf-directory"
+            if (this.page.locationType != "affiliateLibrary") {
+                return "/about/staff"
+            } else {
+                return ""
             }
         },
         parsedAddress() {
@@ -303,6 +299,7 @@ export default {
         margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
+        margin: var(--unit-gutter) auto;
     }
     .banner-text + .divider-way-finder {
         margin: 0 auto var(--space-3xl);

@@ -169,7 +169,7 @@ fragment BlockDivider on defaultFpb_divider_BlockType {
     divider
 }
 
-fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
+fragment BlockMediaWithText on defaultFpb_mediaWithText_BlockType {
     id
     sectionTitle: titleGeneral
     sectionSummary: summary
