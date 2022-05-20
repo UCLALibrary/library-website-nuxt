@@ -3,17 +3,17 @@ export default {
 }
 
 const mock = {
-    ctaBlockContentWidth: [
+    callToAction: [
         {
-            "id": "3378",
-            "title": "Tootsie Roll Danish Shortbread Croissant",
-            "description": "Tootsie roll danish shortbread croissant bear claw chocolate marshmallow cupcake.",
-            "buttonUrl": "http://www.cupcakeipsum.com/",
-            "buttonText": "Get the Recipe",
-            "icon": "svg-call-to-action-money",
-            "backgroundColor": "true"
-        }
-    ]
+            id: "3378",
+            title: "Tootsie Roll Danish Shortbread Croissant",
+            text: "Tootsie roll danish shortbread croissant bear claw chocolate marshmallow cupcake.",
+            to: "http://www.cupcakeipsum.com/",
+            name: "Get the Recipe",
+            icon: "svg-call-to-action-money",
+            backgroundColor: "true",
+        },
+    ],
 }
 
 export const Default = () => ({
