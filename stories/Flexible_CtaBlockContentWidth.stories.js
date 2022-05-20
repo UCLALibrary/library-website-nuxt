@@ -3,15 +3,17 @@ export default {
 }
 
 const mock = {
+    id: "16983",
+    typeHandle: "callToAction",
     callToAction: [
         {
-            id: "3378",
-            title: "Tootsie Roll Danish Shortbread Croissant",
-            text: "Tootsie roll danish shortbread croissant bear claw chocolate marshmallow cupcake.",
-            to: "http://www.cupcakeipsum.com/",
-            name: "Get the Recipe",
-            icon: "svg-call-to-action-money",
-            backgroundColor: "true",
+            id: "16984",
+            titleCta: "Call to action",
+            summary: "a call to action",
+            icon: "svg-call-to-action-find",
+            buttonText: "click me",
+            buttonLink: "http://google.com",
+            backgroundColor: "false",
         },
     ],
 }
