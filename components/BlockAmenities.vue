@@ -42,7 +42,7 @@ export default {
             return this.items
         },
         parsedIconName() {
-            return "svg-icon-phone"
+            return ""
         },
     },
 }

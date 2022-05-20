@@ -18,7 +18,6 @@
                 v-html="title"
             />
             <div
-                v-if="author"
                 class="author"
                 v-html="parsedAuthor"
             />
