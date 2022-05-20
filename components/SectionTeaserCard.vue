@@ -42,31 +42,26 @@ export default {
     justify-content: left;
     gap: 32px 16px;
 
-    .card {
-        width: 100%;
-        // margin-right: 16px;
-        // &:nth-child(3n) {
-        // margin-right: 0px;
-        // }
-    }
-
     // Breakpoints
     @media #{$medium} {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
-        align-content: center;
         align-items: flex-start;
 
-        // margin-top: 35px;
-        // margin-bottom: 25px;
+        ::v-deep .block-highlight {
+            max-width: calc(50% - 32px);
+        }
     }
     @media #{$small} {
         align-items: center;
         flex-direction: column;
 
         margin-left: 0px;
+
+        ::v-deep .block-highlight {
+            max-width: 100%;
+        }
     }
 }
 </style>

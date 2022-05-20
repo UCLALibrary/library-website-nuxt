@@ -36,16 +36,16 @@ export default {
 <style lang="scss" scoped>
 .section-teaser-list {
     background-color: var(--color-white);
-    padding: 0 var(--unit-gutter);
-    max-width: 990px;
+    // padding: 0 var(--unit-gutter);
+    max-width: $container-l-main + px;
 
     .meta {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
+        // display: flex;
+        // flex-direction: column;
+        // flex-wrap: nowrap;
+        // justify-content: center;
+        // align-content: center;
+        // align-items: center;
     }
 
     .block {

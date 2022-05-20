@@ -125,6 +125,11 @@
                 class="content"
                 :blocks="page.blocks"
             />
+            <divider-way-finder
+                v-if="parsedEndowments.length"
+                color="visit"
+                class="divider-way-finder"
+            />
             <h2
                 v-if="parsedEndowments.length"
                 class="section-heading"
@@ -357,12 +362,6 @@ export default {
         align-items: flex-start;
     }
 
-    // @media #{$medium} {
-    //     .page.page-location-detail {
-    //         margin: var(--unit-gutter) auto;
-    //     }
-    // }
-
     @media #{$medium} {
         .page-container {
             max-width: $container-l-main + px;
@@ -371,7 +370,7 @@ export default {
     }
 
     @media #{$small} {
-        .page-container {
+        .page {
             width: 100%;
         }
     }
