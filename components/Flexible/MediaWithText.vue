@@ -5,6 +5,7 @@
                 Resources
             </h2>
             <h3
+                v-if="block.sectionTitle"
                 class="section-title"
                 v-html="block.sectionTitle"
             />
