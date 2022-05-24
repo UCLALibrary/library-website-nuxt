@@ -1,6 +1,5 @@
 // Import mock api data
 import * as API from "~/stories/mock-api.json"
-import BlockLocationListItem from "~/components/BlockLocationListItem"
 
 const mock = {
     isUclaLibrary: false,
@@ -27,11 +26,9 @@ const mock = {
 
 export default {
     title: "BLOCK / Location List Item",
-    component: BlockLocationListItem
 }
 
 const Template = (args, { argTypes }) => ({
-    components: { BlockLocationListItem },
     props: Object.keys(argTypes),
     template: `<block-location-list-item v-bind="$props"/>`,
 })

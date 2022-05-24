@@ -21,13 +21,11 @@
                 class="hamburguer"
                 role="button"
                 aria-label="Hamburguer button"
-                @click="() => isCollapsed = true"
+                @click="() => (isCollapsed = true)"
             />
         </div>
         <div v-else>
-            <div
-                class="expanded-menu"
-            >
+            <div class="expanded-menu">
                 <component
                     :is="`LogoLibrary`"
                     width="155"
@@ -41,9 +39,7 @@
                     @click="handleCloseOrReturn"
                 />
             </div>
-            <ul 
-                class="nav-menu-primary"
-            >
+            <ul class="nav-menu-primary">
                 <nav-menu-item-responsive
                     v-for="(item, index) in parsedPrimaryMenuItems"
                     :key="item.id"
@@ -101,18 +97,27 @@
 import formatLinkTarget from "~/utils/formatLinkTarget"
 
 export default {
-    name: 'HeaderMainResponsive',
     components: {
         IconCloseLarge: () =>
-            import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-close-large"),
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-close-large"
+            ),
         IconCaretLeft: () =>
-            import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-caret-left"),
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-caret-left"
+            ),
         Molecule3d: () =>
-            import("~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-3d"),
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-3d"
+            ),
         IconMenu: () =>
-            import("~/node_modules/ucla-library-design-tokens/assets/svgs/icon-menu"),
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-menu"
+            ),
         LogoLibrary: () =>
-            import("~/node_modules/ucla-library-design-tokens/assets/svgs/logo-library"),
+            import(
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/logo-library"
+            ),
     },
     props: {
         iconCloseName: {
@@ -126,11 +131,11 @@ export default {
         primaryNav: {
             // This is an array of objects, with each object shaped like {name, url, items:[{text, to, target}]}
             type: Array,
-            default: () => []
+            default: () => [],
         },
         secondaryNav: {
             type: Array,
-            default: () => []
+            default: () => [],
         },
         label: {
             type: String,
@@ -146,12 +151,14 @@ export default {
             isOpened: false,
             goBack: false,
             moleculeColor: "cyan",
-            isCollapsed: false
+            isCollapsed: false,
         }
     },
     computed: {
         parsedSvgName() {
-            return this.isOpened ? `${this.iconGoBackName}` : `${this.iconCloseName}`
+            return this.isOpened
+                ? `${this.iconGoBackName}`
+                : `${this.iconCloseName}`
         },
         parsedPrimaryMenuItems() {
             // Return only items that have children (assume these are dropdowns)
@@ -174,7 +181,7 @@ export default {
             this.goBack = false
         },
         handleCloseOrReturn() {
-            if(this.isOpened) {
+            if (this.isOpened) {
                 this.goBack = !this.goBack
                 this.moleculeColor = "cyan"
             } else {
@@ -182,24 +189,23 @@ export default {
             }
         },
         itemOpened(itemIndex) {
-            if(itemIndex === 0) {
+            if (itemIndex === 0) {
                 this.moleculeColor = "green"
-            } else if(itemIndex === 1) {
+            } else if (itemIndex === 1) {
                 this.moleculeColor = "pink"
-            } else if(itemIndex === 2)  {
+            } else if (itemIndex === 2) {
                 this.moleculeColor = "purple"
             }
 
-            if(this.isOpened === false) {
+            if (this.isOpened === false) {
                 this.moleculeColor = "cyan"
             }
-        }
-    }
+        },
+    },
 }
 </script>
 
 <style lang="scss" scoped>
-
 .fullHeight {
     min-height: 100vh;
 }
@@ -227,7 +233,7 @@ export default {
             cursor: pointer;
         }
     }
-    
+
     .expanded-menu {
         display: flex;
         flex-direction: row;
@@ -236,7 +242,7 @@ export default {
         padding: 21px 26px 114px 26px;
 
         .svg__logo-library > g > path {
-                fill: var(--color-white);
+            fill: var(--color-white);
         }
 
         .close-svg {
@@ -245,7 +251,6 @@ export default {
             .svg__fill--primary-blue-01 {
                 fill: var(--color-primary-blue-03);
             }
-
         }
         .go-back-svg {
             cursor: pointer;
@@ -290,7 +295,7 @@ export default {
         padding-left: 44px;
         padding-bottom: 108px;
         margin-top: auto;
-        
+
         .button {
             margin: 0px;
             border: 1.5px solid var(--color-primary-blue-02);
@@ -335,7 +340,6 @@ export default {
         -ms-filter: "FlipV";
     }
 
-    
     // @media #{$medium} {
     //     .support-us-container {
     //         padding-top: 0px;
