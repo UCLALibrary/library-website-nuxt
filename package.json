@@ -1,8 +1,8 @@
 {
     "name": "library-website-nuxt",
     "engines": {
-        "npm" : "8.10.0",
-        "node": "14.15.4"
+        "npm": "8.5.5",
+        "node": "16.15.0"
     },
     "scripts": {
         "dev": "nuxt",

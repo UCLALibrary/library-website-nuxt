@@ -170,7 +170,7 @@ export default {
         input {
             font-size: 20px;
             line-height: 100%;
-            background-color: var(--color-lightest-blue);
+            background-color: var(--color-primary-blue-01);
             border-color: transparent;
             padding: 27px 95px;
             width: 100%;

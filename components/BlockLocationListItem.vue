@@ -2,7 +2,7 @@
     <div :class="classes">
         <div class="card-container">
             <nuxt-link
-                class="image-container" 
+                class="image-container"
                 :to="to"
             >
                 <responsive-image
@@ -19,9 +19,7 @@
                 </div>
             </nuxt-link>
 
-            <div
-                class="library"
-            >
+            <div class="library">
                 <smart-link
                     v-if="to"
                     :to="to"
@@ -40,14 +38,14 @@
                             <span>{{ hour }}</span>
                         </div>
                     </div>
-                    <icon-with-link 
+                    <icon-with-link
                         v-if="reserveSeat"
                         text="Reserve a Seat"
                         icon-name="svg-icon-calendar"
                         :to="reserveSeat"
                         class="reserve"
                     />
-                    <icon-with-link 
+                    <icon-with-link
                         :text="address"
                         icon-name="svg-icon-location"
                         :to="addressLink"
@@ -76,11 +74,10 @@
 <script>
 import IconWithLink from "~/components/IconWithLink"
 export default {
-    name: "BlockLocationListItem",
     components: {
         IllustrationBookBinding: () =>
             import("~/assets/svg/illustration-book-binding"),
-        
+
         SvgIconLight: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-light"
@@ -137,7 +134,7 @@ export default {
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-placeholder"
             ),
-        IconWithLink
+        IconWithLink,
     },
     props: {
         image: {
@@ -178,19 +175,16 @@ export default {
         },
         isUclaLibrary: {
             type: Boolean,
-            default: true
-        }
+            default: true,
+        },
     },
     computed: {
         classes() {
-            return [
-                "block-location-list-item",
-                `color-${this.cardTheme}`,
-            ]
+            return ["block-location-list-item", `color-${this.cardTheme}`]
         },
         cardTheme() {
             return this.isUclaLibrary ? "ucla" : "affiliate"
-        }
+        },
     },
 }
 </script>
@@ -215,7 +209,7 @@ export default {
     &.color-affiliate {
         --color-theme: var(--color-primary-blue-02);
     }
-    
+
     $large-width: 352px;
     $large-height: 352px;
 
@@ -258,13 +252,13 @@ export default {
             display: flex;
             flex-direction: column;
         }
-        
+
         .title {
             @include step-2;
             color: var(--color-primary-blue-03);
             margin: 0px 0 12px 0;
             line-height: $line-height--1;
-            
+
             &:hover {
                 text-decoration: underline;
                 text-decoration-color: var(--color-primary-blue-03);
@@ -281,7 +275,10 @@ export default {
             color: var(--color-primary-blue-03);
         }
 
-        .time, .amenities, .location, .reserve {
+        .time,
+        .amenities,
+        .location,
+        .reserve {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -328,7 +325,7 @@ export default {
     }
 
     // BREAKPOINTS
-    @media #{$medium}{
+    @media #{$medium} {
         $medium-width: 256px;
         $medium-height: 256px;
         max-width: 640px;
@@ -369,7 +366,7 @@ export default {
         }
     }
 
-    @media #{$small}{
+    @media #{$small} {
         max-width: 320px;
         padding: 24px;
         .card-container {

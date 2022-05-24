@@ -1,6 +1,5 @@
 // Import mock api data
 import * as API from "~/stories/mock-api.json"
-import HeaderMainResponsive from "~/components/HeaderMainResponsive"
 
 // Storybook default settings
 export default {
@@ -35,7 +34,7 @@ const mock = {
 }
 
 const Template = (args, { argTypes }) => ({
-    components: { HeaderMainResponsive },
+   
     props: Object.keys(argTypes),
     computed: {
         parsedSecondaryItems() {
