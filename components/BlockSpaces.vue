@@ -20,16 +20,6 @@
                 />
             </div>
             <div class="meta">
-                <nuxt-link
-                    :to="location.to"
-                    class="location"
-                >
-                    <svg-icon-location class="icon" />
-                    <span
-                        class="location-title"
-                        v-html="location"
-                    />
-                </nuxt-link>
                 <p
                     class="text"
                     v-html="text"
@@ -73,10 +63,6 @@ export default {
             type: Boolean,
             default: false,
         },
-        location: {
-            type: String,
-            default: "",
-        },
         text: {
             type: String,
             default: "",
@@ -91,13 +77,12 @@ export default {
 
 <style lang="scss" scoped>
 .block-spaces {
-    max-width: calc($container-l-main + 128) + px;
+    max-width: $container-l-main + px;
     border: 2px solid var(--color-primary-blue-01);
     border-radius: $rounded-slightly + px;
 
     .container {
-        margin: 64px auto;
-        width: 90%;
+        padding: var(--space-2xl);
 
         display: flex;
         flex-direction: column;

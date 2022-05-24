@@ -3,8 +3,8 @@
         class="cta-block-content-width"
         :to="parsedItems.buttonUrl"
         :name="parsedItems.buttonText"
-        :title="parsedItems.title"
-        :text="parsedItems.description"
+        :title="parsedItems.titleCta"
+        :text="parsedItems.summary"
         :svg-name="parsedItems.icon"
         :is-dark-blue="parsedItems.backgroundColor"
     />
@@ -20,7 +20,7 @@ export default {
     },
     computed: {
         parsedItems() {
-            return this.block.ctaBlockContentWidth[0]
+            return this.block.callToAction[0]
         },
     },
 }
