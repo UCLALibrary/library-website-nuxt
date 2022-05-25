@@ -253,7 +253,7 @@ export default {
             })
         },
         parsedEvents() {
-            return this.page.exhibitsAndEvents.map((obj) => {
+            return this.page.associatedExhibitions.map((obj) => {
                 return {
                     ...obj,
                     to: `/events-exhibtions/${obj.id}`,
@@ -266,7 +266,7 @@ export default {
             })
         },
         parsedEndowments() {
-            return this.page.endowment.map((obj) => {
+            return this.page.associatedEndowments.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.uri}`,

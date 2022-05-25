@@ -105,26 +105,26 @@ fragment BlockMediaGallery on defaultFpbWithNoCta_mediaGallery_BlockType {
 }
 
 fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
-  id
-  sectionTitle: titleGeneral
-  sectionSummary: summary
-  cards: simpleCards {
-    ... on simpleCards_internalServiceOrResource_BlockType {
-        id
-        title: titleGeneral
-        summary
-        contentLink {
-            slug
-            title
+    id
+    sectionTitle: titleGeneral
+    sectionSummary: summary
+    cards: simpleCards {
+        ... on simpleCards_internalServiceOrResource_BlockType {
+            id
+            title: titleGeneral
             summary
-            researchGuideUrl
+            contentLink {
+                slug
+                title
+                summary
+                researchGuideUrl
+            }
         }
-    }
-    ... on simpleCards_externalServiceOrResource_BlockType {
-        id
-        title: titleGeneral
-        summary
-        externalLink
+        ... on simpleCards_externalServiceOrResource_BlockType {
+            id
+            title: titleGeneral
+            summary
+            externalLink
         }
     }
 }
