@@ -1,0 +1,4 @@
+fragment BlockDividerFragment on ElementInterface {
+    id
+    divider
+}

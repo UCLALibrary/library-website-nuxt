@@ -1,4 +1,6 @@
 #import "~/gql/fragments/Image"
+#import "~/gql/fragments/Grouping"
+#import "~/gql/fragments/BlockDividerFragment"
 query ServiceOrResourceDetail($slug: [String!]) {
     entry(section: "serviceOrResource", slug: $slug) {
         ... on serviceOrResource_serviceOrResource_Entry {
@@ -37,6 +39,7 @@ query ServiceOrResourceDetail($slug: [String!]) {
                 researchGuideUrl
             }
         }
+<<<<<<< HEAD
         ...FlexibleBlocksServiceOrResource
     }
 }
@@ -126,39 +129,53 @@ fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
             summary
             externalLink
         }
+=======
+
+        ...FlexibleBlocksServiceOrResource
+>>>>>>> fix: gql refactor example
     }
 }
+#import "~/gql/fragments/DefaultFpbWithNoCta"
 
-fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
-    id
-    sectionTitle: titleGeneral
-    sectionSummary: summary
-    mediaWithText {
-        ... on mediaWithText_mediaLink_BlockType {
+query ServiceOrResourceDetail($slug: [String!]) {
+    entry(section: "serviceOrResource", slug: $slug) {
+        ... on serviceOrResource_serviceOrResource_Entry {
             id
-            titleLink
-            description
-            coverImage {
-                ...Image
+            button: buttonUrl {
+                ... on buttonUrl_button_BlockType {
+                    id
+                    buttonText
+                    buttonUrl
+                }
             }
-            buttonText
-            buttonUrl
-            linkToMedia
-            typeMedia
+            illustrationsResourcesAndServices
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                    altText
+                }
+            }
+            type: serviceOrResourceType
+            title
+            text: summary
+            locations: associatedLocations {
+                id
+                to: slug
+                title
+            }
+            associatedTopics {
+                id
+                text: summary
+                title
+                slug
+                uri
+                researchGuideUrl
+            }
         }
-        ... on mediaWithText_mediaUpload_BlockType {
-            id
-            titleUpload
-            description
-            buttonText
-            buttonUrl
-            coverImage {
-                ...Image
-            }
-            upload {
-                ...Image
-            }
-            typeMedia
-        }
+
+        ...DefaultFpbWithNoCta
     }
 }
