@@ -4,10 +4,11 @@
             {{ block.titleGeneral }}
         </h2>
 
-        <media-gallery-lightbox
+        <media-gallery-new-lightbox
             v-if="showLightboxModal"
             :block="block.mediaGallery"
             :n-items="nItems"
+            :selected-item="selectionIndex"
             @closeModal="hideLightboxModal"
         />
         <media-gallery-banner-image
