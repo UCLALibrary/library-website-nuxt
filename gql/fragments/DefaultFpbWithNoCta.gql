@@ -1,27 +1,19 @@
+#import "~/gql/fragments/Image"
 #import "~/gql/fragments/BlockDividerFragment"
-fragment FlexibleBlocksServiceOrResource on ElementInterface {
+#import "~/gql/fragments/BlockMediaWithTextFragment"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+
+fragment DefaultFpbWithNoCta on ElementInterface {
     blocks: defaultFpbWithNoCta {
         id
         typeHandle
         ...BlockDivider
-        ...BlockPullQuote
-        ...BlockSimpleCards
-        ...BlockRichText
         ...BlockMediaWithText
-    }
-}
-
-fragment BlockRichText on defaultFpbWithNoCta_richText_BlockType {
-    richText
-}
-
-fragment BlockPullQuote on defaultFpbWithNoCta_pullQuote_BlockType {
-    id
-    pullQuote {
-        ... on pullQuote_pullQuote_BlockType {
-            text
-            attribution
-        }
+        ...BlockPullQuote
+        ...BlockRichText
+        ...BlockSimpleCards
     }
 }
 
@@ -29,29 +21,20 @@ fragment BlockDivider on defaultFpbWithNoCta_divider_BlockType {
     ...BlockDividerFragment
 }
 
+fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
+    ...BlockMediaWithTextFragment
+}
+
+fragment BlockPullQuote on defaultFpbWithNoCta_pullQuote_BlockType {
+    ...BlockPullQuoteFragment
+}
+
+fragment BlockRichText on defaultFpbWithNoCta_richText_BlockType {
+    ...BlockRichTextFragment
+}
+
 fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
-    id
-    sectionTitle: titleGeneral
-    sectionSummary: summary
-    cards: simpleCards {
-        ... on simpleCards_internalServiceOrResource_BlockType {
-            id
-            title: titleGeneral
-            summary
-            contentLink {
-                slug
-                title
-                summary
-                researchGuideUrl
-            }
-        }
-        ... on simpleCards_externalServiceOrResource_BlockType {
-            id
-            title: titleGeneral
-            summary
-            externalLink
-        }
-    }
+    ...BlockSimpleCardsFragment
 }
 
 fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
