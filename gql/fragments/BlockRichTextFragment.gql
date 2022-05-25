@@ -1,0 +1,3 @@
+fragment BlockRichTextFragment on ElementInterface {
+    richText
+}

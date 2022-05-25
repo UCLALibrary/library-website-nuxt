@@ -1,6 +1,8 @@
 #import "~/gql/fragments/Image"
-#import "~/gql/fragments/Grouping"
+#import "~/gql/fragments/DefaultFpbWithNoCta"
 #import "~/gql/fragments/BlockDividerFragment"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+
 query ServiceOrResourceDetail($slug: [String!]) {
     entry(section: "serviceOrResource", slug: $slug) {
         ... on serviceOrResource_serviceOrResource_Entry {
@@ -131,6 +133,7 @@ fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
         }
 =======
 
+<<<<<<< HEAD
         ...FlexibleBlocksServiceOrResource
 >>>>>>> fix: gql refactor example
     }
@@ -175,7 +178,6 @@ query ServiceOrResourceDetail($slug: [String!]) {
                 researchGuideUrl
             }
         }
-
         ...DefaultFpbWithNoCta
     }
 }
