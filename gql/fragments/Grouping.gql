@@ -1,0 +1,89 @@
+#import "~/gql/fragments/BlockDividerFragment"
+fragment FlexibleBlocksServiceOrResource on ElementInterface {
+    blocks: defaultFpbWithNoCta {
+        id
+        typeHandle
+        ...BlockDivider
+        ...BlockPullQuote
+        ...BlockSimpleCards
+        ...BlockRichText
+        ...BlockMediaWithText
+    }
+}
+
+fragment BlockRichText on defaultFpbWithNoCta_richText_BlockType {
+    richText
+}
+
+fragment BlockPullQuote on defaultFpbWithNoCta_pullQuote_BlockType {
+    id
+    pullQuote {
+        ... on pullQuote_pullQuote_BlockType {
+            text
+            attribution
+        }
+    }
+}
+
+fragment BlockDivider on defaultFpbWithNoCta_divider_BlockType {
+    ...BlockDividerFragment
+}
+
+fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
+    id
+    sectionTitle: titleGeneral
+    sectionSummary: summary
+    cards: simpleCards {
+        ... on simpleCards_internalServiceOrResource_BlockType {
+            id
+            title: titleGeneral
+            summary
+            contentLink {
+                slug
+                title
+                summary
+                researchGuideUrl
+            }
+        }
+        ... on simpleCards_externalServiceOrResource_BlockType {
+            id
+            title: titleGeneral
+            summary
+            externalLink
+        }
+    }
+}
+
+fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
+    id
+    sectionTitle: titleGeneral
+    sectionSummary: summary
+    mediaWithText {
+        ... on mediaWithText_mediaLink_BlockType {
+            id
+            titleLink
+            description
+            coverImage {
+                ...Image
+            }
+            buttonText
+            buttonUrl
+            linkToMedia
+            typeMedia
+        }
+        ... on mediaWithText_mediaUpload_BlockType {
+            id
+            titleUpload
+            description
+            buttonText
+            buttonUrl
+            coverImage {
+                ...Image
+            }
+            upload {
+                ...Image
+            }
+            typeMedia
+        }
+    }
+}
