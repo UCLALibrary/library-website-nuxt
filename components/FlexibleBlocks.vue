@@ -34,6 +34,8 @@ export default {
         FlexibleRichText: () => import("~/components/Flexible/RichText.vue"),
         FlexibleMediaWithText: () =>
             import("~/components/Flexible/MediaWithText.vue"),
+        FlexibleMediaGallery: () =>
+            import("~/components/Flexible/MediaGallery.vue"),
     },
     props: {
         blocks: {

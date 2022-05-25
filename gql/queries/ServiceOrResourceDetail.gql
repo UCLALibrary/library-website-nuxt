@@ -46,6 +46,7 @@ fragment FlexibleBlocksServiceOrResource on ElementInterface {
         id
         typeHandle
         ...BlockDivider
+        ...BlockMediaGallery
         ...BlockPullQuote
         ...BlockSimpleCards
         ...BlockRichText
@@ -70,6 +71,37 @@ fragment BlockPullQuote on defaultFpbWithNoCta_pullQuote_BlockType {
 fragment BlockDivider on defaultFpbWithNoCta_divider_BlockType {
     id
     divider
+}
+
+fragment BlockMediaGallery on defaultFpbWithNoCta_mediaGallery_BlockType {
+    id
+    titleGeneral
+    mediaGallery {
+        id
+        ... on mediaGallery_image_BlockType {
+          id
+          # ...Image
+          # image { id url }
+
+          captionTitle: captionHeading
+          captionText: caption
+          altText
+          sortOrder
+          image: imageFile(altText: "") {
+                id
+                img
+                title
+                ... on mediaAndDocuments_Asset {
+                    id
+                    title
+                    kind
+                    width
+                    src: url
+                    height
+                }
+            }
+        }
+    }
 }
 
 fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
