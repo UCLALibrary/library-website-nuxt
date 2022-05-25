@@ -4,7 +4,10 @@
 #import "~/gql/fragments/BlockPullQuoteFragment"
 #import "~/gql/fragments/BlockRichTextFragment"
 #import "~/gql/fragments/BlockSimpleCardsFragment"
+<<<<<<< HEAD
 #import "~/gql/fragments/BlockMediaWithTextFragment"
+=======
+>>>>>>> refactor: BlockSimpleCardsFragment
 
 fragment DefaultFpbWithNoCta on ElementInterface {
     blocks: defaultFpbWithNoCta {
