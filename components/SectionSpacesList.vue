@@ -4,8 +4,8 @@
             Spaces
         </h3>
         <block-spaces
-            v-for="item in items"
-            :key="item.to"
+            v-for="(item, index) in items"
+            :key="`BlockSpace${index}`"
             :to="item.to"
             :title="item.title"
             :is-online="item.isOnline"
