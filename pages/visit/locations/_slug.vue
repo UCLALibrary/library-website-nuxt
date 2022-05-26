@@ -54,24 +54,11 @@
             v-if="parsedSpaces.length"
             class="divider-general"
         />
-        <div
+        <section-spaces-list
             v-if="parsedSpaces.length"
             class="section-block-spaces"
-        >
-            <h3 class="spaces-title">
-                {{ page.title }} Spaces
-            </h3>
-
-            <block-spaces
-                v-for="(space, index) in parsedSpaces"
-                :key="index"
-                :title="space.title"
-                :text="space.summary"
-                :to="space.to"
-                :button-text="space.buttonText"
-            />
-        </div>
-
+            :items="parsedSpaces"
+        />
         <divider-way-finder
             v-if="page.resourceServiceWorkshop.length"
             color="visit"
@@ -315,13 +302,6 @@ export default {
     }
     .section-teaser-list {
         margin: var(--space-xl) auto;
-    }
-    .spaces-title {
-        @include step-2;
-        color: var(--color-primary-blue-03);
-        margin: var(--space-2xl) auto 16px;
-        max-width: $container-l-main + px;
-        // margin-bottom: 16px;
     }
 
     .block-hours,
