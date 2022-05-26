@@ -1,4 +1,4 @@
-fragment BlockMediaGalleryFragment on ElementInterface  {
+fragment BlockMediaGalleryFragment on ElementInterface {
     id
     titleGeneral
     mediaGallery {

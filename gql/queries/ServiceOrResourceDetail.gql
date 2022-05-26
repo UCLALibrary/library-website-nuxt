@@ -1,11 +1,4 @@
-#import "~/gql/fragments/DefaultFpbWithNoCta"
-#import "~/gql/fragments/Image"
-#import "~/gql/fragments/BlockDividerFragment"
-
-#import "~/gql/fragments/BlockMediaWithTextFragment"
-#import "~/gql/fragments/BlockPullQuoteFragment"
-#import "~/gql/fragments/BlockRichTextFragment"
-#import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/collections/DefaultFpbWithNoCta"
 
 query ServiceOrResourceDetail($slug: [String!]) {
     entry(section: "serviceOrResource", slug: $slug) {

@@ -1,0 +1,29 @@
+fragment BlockCardWithImageFragment on ElementInterface {
+    id
+    cardWithImage {
+        id
+        ... on cardWithImage_cardWithImage_BlockType {
+            id
+            image {
+                ...Image
+            }
+            imageAltText
+            contentLink {
+                id
+                to: url
+                uri
+                title
+                date {
+                    startDate
+                    endDate
+                }
+                associatedLocations {
+                    id
+                    title
+                    to: uri
+                }
+            }
+            shortDescription
+        }
+    }
+}
