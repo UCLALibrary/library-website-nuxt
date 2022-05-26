@@ -1,31 +1,38 @@
 <template lang="html">
-    <div :class="classes">
+    <div class="section-media-with-text">
         <div class="flexible-page-block-container">
             <h2 class="visually-hidden">
                 Resources
             </h2>
+            <h3
+                v-if="block.sectionTitle"
+                class="section-title"
+                v-html="block.sectionTitle"
+            />
+            <p
+                v-if="block.sectionSummary"
+                class="section-summary"
+                v-html="block.sectionSummary"
+            />
             <div
                 v-for="(item, index) in parsedContent"
                 :key="`MediaWithTextKey${index}`"
                 class="meta"
             >
                 <block-media-with-text
-                    :section-header="item.titleMediaWithText"
+                    :section-header="item.parsedTitle"
                     :short-description="item.description"
-                    :image="item.parsedImage"
+                    :image="item.coverImage[0]"
                     :button-text="item.buttonText"
-                    :icon-name="item.parsedIcon"
-                    :to="item.parsedTo"
+                    :button-url="item.parsedButtonUrl"
+                    :media-link="item.linkToMedia"
                     :is-audio="item.parsedIsAudio"
                     :is-video="item.parsedIsVideo"
-                    :is-vertical="item.parsedIsVertical"
+                    :type-media="item.typeMedia"
                     class="flexible-media-with-text"
                 />
 
-                <divider-general
-                    class="divider"
-                    :is-bold="isBoldDivider"
-                />
+                <divider-general class="divider" />
             </div>
         </div>
     </div>
@@ -38,42 +45,25 @@ export default {
             type: Object,
             default: () => {},
         },
-        isGreyBackground: {
-            type: Boolean,
-            default: false,
-        },
     },
     computed: {
         parsedContent() {
             const mediaWithText = this.block.mediaWithText
+            console.log(mediaWithText)
             return mediaWithText.map((obj) => {
-                let to = "/"
-                // TODO
-                // if (obj.mediaWithTextLink) {
-                //     to = obj.mediaWithTextLink
-                // } else if (obj.media.length && obj.media[0].url) {
-                //     to = obj.media[0].url
-                // }
                 return {
                     ...obj,
-                    parsedIsVideo: obj.mediaType == "video" ? true : false,
-                    parsedIsAudio: obj.mediaType == "audio" ? true : false,
-                    parsedTo: to,
-                    parsedImage: obj.image ? obj.image[0] : "",
-                    parsedIcon:
-                        obj.mediaType == "otherResource"
-                            ? "svg-arrow-download"
-                            : "",
+                    parsedTitle: obj.titleLink
+                        ? obj.titleLink
+                        : obj.titleUpload,
+                    parsedIsVideo: obj.typeMedia == "video" ? true : false,
+                    parsedIsAudio: obj.typeMedia == "audio" ? true : false,
+                    parsedButtonUrl:
+                        obj.upload && obj.typeMedia == "other"
+                            ? obj.upload[0].src
+                            : obj.buttonUrl,
                 }
             })
-        },
-        isBoldDivider() {
-            return this.isGreyBackground ? true : false
-        },
-        classes() {
-            return this.isGreyBackground
-                ? ["section-media-with-text", "color-grey"]
-                : ["section-media-with-text"]
         },
     },
 }
@@ -108,6 +98,17 @@ export default {
     .visually-hidden {
         @include visually-hidden;
     }
+
+    .section-title {
+        @include step-4;
+        color: var(--color-primary-blue-03);
+    }
+
+    .section-summary {
+        @include step-0;
+        margin-bottom: var(--space-xl);
+    }
+
     .flexible-media-with-text {
         margin-bottom: 56px;
     }

@@ -52,6 +52,14 @@ export default {
         margin: 32px 0;
     }
 
+    ::v-deep p:only-child {
+        margin: 0;
+    }
+    
+    ::v-deep p:last-child {
+        margin-bottom: 0;
+    }
+
     ::v-deep blockquote {
         border-left: 4px solid var(--color-default-cyan-03);
         border-radius: 2px;
@@ -167,9 +175,6 @@ export default {
     }
 
     @media #{$small} {
-        .rich-text {
-            padding: 0 $whitespace-s-sides + px;
-        }
         ::v-deep .figure {
             width: 100%;
             height: auto;

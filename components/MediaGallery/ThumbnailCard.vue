@@ -17,9 +17,7 @@
 </template>
 
 <script>
-export default 
-{
-    components: true,
+export default {
     props: {
         image: {
             type: Object,
@@ -62,7 +60,6 @@ export default
 
     .caption-text {
         @include step-0;
-
 
         padding: 0;
         line-height: 140%;

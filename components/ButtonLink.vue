@@ -3,6 +3,7 @@
         :to="to"
         :target="parsedTarget"
         :class="classes"
+        :is-download="isDownload"
     >
         <span class="label">{{ label }}</span>
         <component
@@ -20,7 +21,8 @@ export default {
     components: {
         SvgArrowRight: () =>
             import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-arrow-right"),
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-arrow-right"
+            ),
         SvgArrowDiagonal: () =>
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-external-link"
@@ -57,6 +59,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        isDownload: {
+            type: Boolean,
+            default: false,
+        },
     },
     computed: {
         classes() {
@@ -71,14 +77,16 @@ export default {
             return isInternalLink(this.to) ? "_self" : "blank"
         },
         // if -> the iconName is svg-download then the download icon will display
-        // else if -> if there is no iconName prop given & it is an internal link then the svg-arrow-right will display 
-        // else svg-arrow-diagonal will display 
+        // else if -> if there is no iconName prop given & it is an internal link then the svg-arrow-right will display
+        // else svg-arrow-diagonal will display
         parsedIconName() {
             let output = ""
-            if (this.iconName == "svg-arrow-download") {
+            if (this.isDownload) {
                 output = "svg-arrow-download"
-            } else if (!this.iconName && isInternalLink(this.to)) {
+            } else if (isInternalLink(this.to)) {
                 output = "svg-arrow-right"
+            } else if (this.iconName == "none") {
+                output = ""
             } else output = "svg-arrow-diagonal"
             return output
         },

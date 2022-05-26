@@ -40,11 +40,13 @@ query ServiceOrResourceDetail($slug: [String!]) {
         ...FlexibleBlocksServiceOrResource
     }
 }
+
 fragment FlexibleBlocksServiceOrResource on ElementInterface {
     blocks: defaultFpbWithNoCta {
         id
         typeHandle
         ...BlockDivider
+        ...BlockMediaGallery
         ...BlockPullQuote
         ...BlockSimpleCards
         ...BlockRichText
@@ -71,46 +73,92 @@ fragment BlockDivider on defaultFpbWithNoCta_divider_BlockType {
     divider
 }
 
+fragment BlockMediaGallery on defaultFpbWithNoCta_mediaGallery_BlockType {
+    id
+    titleGeneral
+    mediaGallery {
+        id
+        ... on mediaGallery_image_BlockType {
+          id
+          # ...Image
+          # image { id url }
+
+          captionTitle: captionHeading
+          captionText: caption
+          altText
+          sortOrder
+          image: imageFile(altText: "") {
+                id
+                img
+                title
+                ... on mediaAndDocuments_Asset {
+                    id
+                    title
+                    kind
+                    width
+                    src: url
+                    height
+                }
+            }
+        }
+    }
+}
+
 fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
   id
   sectionTitle: titleGeneral
   sectionSummary: summary
   cards: simpleCards {
     ... on simpleCards_internalServiceOrResource_BlockType {
-      id
-      title: titleGeneral
-      summary
-      contentLink {
-        slug
-      }
+        id
+        title: titleGeneral
+        summary
+        contentLink {
+            slug
+            title
+            summary
+            researchGuideUrl
+        }
     }
     ... on simpleCards_externalServiceOrResource_BlockType {
-      id
-      title: titleGeneral
-      summary
-      externalLink
+        id
+        title: titleGeneral
+        summary
+        externalLink
+        }
     }
-  }
 }
 
 fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
     id
+    sectionTitle: titleGeneral
+    sectionSummary: summary
     mediaWithText {
-        ... on mediaWithText_mediaWithText_BlockType {
+        ... on mediaWithText_mediaLink_BlockType {
             id
-            titleMediaWithText
+            titleLink
             description
-            buttonText
-            mediaType
-            mediaWithTextLink
-            media {
-                id
-                url
-            }
-
-            image: coverImage {
+            coverImage {
                 ...Image
             }
+            buttonText
+            buttonUrl
+            linkToMedia
+            typeMedia
+        }
+        ... on mediaWithText_mediaUpload_BlockType {
+            id
+            titleUpload
+            description
+            buttonText
+            buttonUrl
+            coverImage {
+                ...Image
+            }
+            upload {
+                ...Image
+            }
+            typeMedia
         }
     }
 }

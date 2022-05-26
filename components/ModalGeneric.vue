@@ -33,12 +33,13 @@ export default {
 <style lang="scss" scoped>
 .modal {
     position: fixed;
-    top: 0;
-    bottom: 0;
+    // top: 0;
+    // bottom: 0;
     left: 0;
     right: 0;
     background-color: var(--color-primary-blue-05);
-    max-width: 100%;
+    width: 100vw;
+    height: 100vh;
     cursor: pointer;
     overflow-y: auto;
 

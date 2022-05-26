@@ -1,11 +1,24 @@
 <template lang="html">
     <div class="block-campus-map">
-        <button
+        <modal-generic
+            v-show="isModalVisible"
+            class="modal"
+            @close="closeModal"
+        >
+            <div class="modal-content">
+                <iframe
+                    :src="parsedSrc"
+                    class="iframe-modal"
+                    allowfullscreen
+                />
+            </div>
+        </modal-generic>
+        <h3
             class="title"
             @click="showModal"
         >
             Campus Map
-        </button>
+        </h3>
         <div class="content">
             <div class="iframe-hover">
                 <div class="iframe-container">
@@ -33,20 +46,6 @@
                 />
             </div>
         </div>
-
-        <modal-generic
-            v-show="isModalVisible"
-            class="modal"
-            @close="closeModal"
-        >
-            <div class="modal-content">
-                <iframe
-                    :src="parsedSrc"
-                    class="iframe-modal"
-                    allowfullscreen
-                />
-            </div>
-        </modal-generic>
     </div>
 </template>
 
@@ -91,11 +90,12 @@ export default {
 .block-campus-map {
     max-width: $container-l-main + px;
     margin: 0 auto;
+    position: relative;
 
     .title {
         color: var(--color-primary-blue-03);
         @include step-2;
-        margin-bottom: var(--space-m);
+        margin-bottom: 16px;
     }
     .title::after {
         content: "";
@@ -171,10 +171,11 @@ export default {
     }
 
     .modal {
-        max-width: 100%;
+        width: 100vw;
+        height: 100vh;
         margin: 0 auto;
-        z-index: 20;
-        position: absolute;
+        top: 0;
+        z-index: 500;
     }
 
     .modal-content {
@@ -236,8 +237,8 @@ export default {
 
         .iframe-hover {
             max-width: 100%;
-            min-width: 320px;
-            margin-right: 0px 0px 24px;
+            min-width: 272px;
+            margin-right: 0;
         }
     }
 }

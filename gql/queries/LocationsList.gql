@@ -6,7 +6,6 @@ query LocationsList {
             locationType
             to: slug
             title
-            summary
             address {
                 id
                 addressLine1

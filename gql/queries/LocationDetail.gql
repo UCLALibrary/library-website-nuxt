@@ -24,6 +24,26 @@ query LocationDetail($slug: [String!]) {
             }
             howToGetHere
             amenities(label: true)
+            space {
+                title
+                summary
+                mediatedBooking
+                mediatorEmail
+                reservationUrl
+                spaceType {
+                    id
+                    title
+                }
+                spaceAmenities {
+                    id
+                    title
+                }
+                associatedLocations {
+                    id
+                    to: slug
+                    title
+                }
+            }
             resourceServiceWorkshop {
                 id
                 text: summary
@@ -35,27 +55,17 @@ query LocationDetail($slug: [String!]) {
             }
             campusMapId
             libcalLocationIdForHours
-            libcalLocationIdForHoursInteriorLocations {
-                id
-                interiorLocationName
-                interiorLocationId
-            }
-            libcalLocationIdForSpaces
-            libcalLocationIdForSpacesInteriorLocations {
-                id
-                interiorLocationName
-                interiorLocationId
-            }
             staffMember {
                 id
                 email
-                uri
+                to: uri
             }
-            exhibitsAndEvents {
+            exhibitsAndEvents(orderBy: "dateUpdated desc", limit: 3) {
                 id
                 uri
                 title
                 summary
+                dateUpdated
                 heroImage {
                     ... on heroImage_heroImage_BlockType {
                         id
@@ -68,24 +78,46 @@ query LocationDetail($slug: [String!]) {
                     startDate
                     endDate
                 }
+                seriesDate {
+                    startDate
+                    endDate
+                }
                 associatedLocations {
                     id
                     title
+                    to: uri
                 }
             }
-            endowment {
+            endowment(orderBy: "dateUpdated desc", limit: 3) {
                 id
                 uri
                 title
                 summary
+                dateUpdated
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                    }
+                }
             }
-            associatedArticles {
+            associatedArticles(orderBy: "dateUpdated desc", limit: 3) {
                 id
                 uri
+                slug
                 title
                 summary
                 articleType
-                dateCreated
+                author: staffMember {
+                    id
+                    slug
+                    title
+                }
+                articleType
+                startDate: dateUpdated
+                endDate: dateUpdated
                 associatedLocations {
                     id
                     title
@@ -138,37 +170,57 @@ fragment BlockDivider on defaultFpb_divider_BlockType {
 
 fragment BlockMediaWithText on defaultFpb_mediaWithText_BlockType {
     id
+    sectionTitle: titleGeneral
+    sectionSummary: summary
     mediaWithText {
-        ... on mediaWithText_mediaWithText_BlockType {
+        ... on mediaWithText_mediaLink_BlockType {
             id
-            titleMediaWithText
+            titleLink
             description
-            buttonText
-            mediaType
-            mediaWithTextLink
-            media {
-                id
-                url
-            }
-            image: coverImage {
+            coverImage {
                 ...Image
             }
+            buttonText
+            buttonUrl
+            linkToMedia
+            typeMedia
+        }
+        ... on mediaWithText_mediaUpload_BlockType {
+            id
+            titleUpload
+            description
+            buttonText
+            buttonUrl
+            coverImage {
+                ...Image
+            }
+            upload {
+                ...Image
+            }
+            typeMedia
         }
     }
 }
 
-fragment BlockSimpleCards on defaultFpb_simpleCard_BlockType {
+fragment BlockSimpleCards on defaultFpb_simpleCards_BlockType {
     id
-    simpleCards {
-        ... on simpleCards_simpleCard_BlockType {
+    sectionTitle: titleGeneral
+    sectionSummary: summary
+    cards: simpleCards {
+        ... on simpleCards_internalServiceOrResource_BlockType {
             id
-            title: titleSimpleCard
+            title: titleGeneral
+            summary
             contentLink {
-                id
-                url
+                slug
                 title
-                text: summary
+                summary
+                researchGuideUrl
             }
+        }
+        ... on simpleCards_externalServiceOrResource_BlockType {
+            id
+            title: titleGeneral
             summary
             externalLink
         }

@@ -198,7 +198,7 @@ export default {
             border-color: var(--color-fushia-03);
         }
         .view-list {
-            max-height: 220px;
+            max-height: 275px;
             opacity: 1;
             border-color: var(--color-fushia-03);
         }
