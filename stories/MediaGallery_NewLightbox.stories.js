@@ -144,9 +144,9 @@ export const Default = () => ({
     data() {
         return {
             block: mock,
-            captionTitle: mock.title,
-            captionText: mock.alt,
+            nItems: 6,
+            selectedItem: 0,
         }
     },
-    template: `<media-gallery-new-lightbox :block="block" :n-items="5" />`,
+    template: `<media-gallery-new-lightbox :block="block" :n-items="6" />`,
 })

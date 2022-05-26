@@ -70,6 +70,13 @@ export default
             return this.expandThumbnails ? "－" : "＋"
         }
     },
+    created() {
+        window.addEventListener('keydown', (e) => {
+            if (e.key == 'Escape') {
+                this.showLightboxModal = !this.showLightboxModal
+            }
+        })
+    },
     methods: {
         hideLightboxModal() {
             console.log('click!')

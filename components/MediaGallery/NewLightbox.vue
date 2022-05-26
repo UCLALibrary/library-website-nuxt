@@ -136,7 +136,7 @@ export default {
         },
         setCurrentSlide(currentSlide) {
             this.selectionIndex = currentSlide
-        },
+        }
     }
 }
 </script>
