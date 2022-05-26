@@ -1,0 +1,69 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/BlockCardWithImageFragment"
+#import "~/gql/fragments/BlockDividerFragment"
+#import "~/gql/fragments/BlockHighlight"
+#import "~/gql/fragments/BlockImpactNumbersCarouselFragment"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaWithTexFragmentt"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/BlockCtaFragment"
+
+fragment AllFpbWithNoBanner on ElementInterface {
+    blocks: AllFpbWithNoBanner {
+        id
+        typeHandle
+
+        ...BlockCardWithImage
+        ...BlockDivider
+        ...BlockHighlight
+        ...BlockImpactNumbersCarousel
+        ...BlockMediaGallery
+        ...BlockMediaWithText
+        ...BlockPullQuote
+        ...BlockRichText
+        ...BlockSimpleCards
+        ...BlockCta
+    }
+}
+
+fragment BlockCardWithImage on AllFpbWithNoBanner_cardWithImage_BlockType {
+    ...BlockCardWithImageFragment
+}
+
+fragment BlockDivider on AllFpbWithNoBanner_divider_BlockType {
+    ...BlockDividerFragment
+}
+
+fragment BlockHighlight on AllFpbWithNoBanner_highlight_BlockType {
+    ...BlockHighlightFragment
+}
+
+fragment BlockImpactNumbersCarousel on AllFpbWithNoBanner_impactNumbersCarousel_BlockType {
+    ...BlockImpactNumbersCarouselFragment
+}
+
+fragment BlockMediaGallery on AllFpbWithNoBanner_mediaGallery_BlockType {
+    ...BlockMediaGalleryFragment
+}
+
+fragment BlockMediaWithText on AllFpbWithNoBanner_mediaWithText_BlockType {
+    ...BlockMediaWithTextFragment
+}
+
+fragment BlockPullQuote on AllFpbWithNoBanner_pullQuote_BlockType {
+    ...BlockPullQuoteFragment
+}
+
+fragment BlockRichText on AllFpbWithNoBanner_richText_BlockType {
+    ...BlockRichTextFragment
+}
+
+fragment BlockSimpleCards on AllFpbWithNoBanner_simpleCards_BlockType {
+    ...BlockSimpleCardsFragment
+}
+
+fragment BlockCta on AllFpbWithNoBanner_callToAction_BlockType {
+    ...BlockCtaFragment
+}

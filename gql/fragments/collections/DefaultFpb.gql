@@ -1,0 +1,51 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/BlockDividerFragment"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaWithTexFragmentt"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/BlockCtaFragment"
+
+fragment DefaultFpb on ElementInterface {
+    blocks: defaultFpb {
+        id
+        typeHandle
+
+        ...BlockDivider
+        ...BlockMediaGallery
+        ...BlockMediaWithText
+        ...BlockPullQuote
+        ...BlockRichText
+        ...BlockSimpleCards
+        ...BlockCta
+    }
+}
+
+fragment BlockDivider on defaultFpb_divider_BlockType {
+    ...BlockDividerFragment
+}
+
+fragment BlockMediaGallery on defaultFpb_mediaGallery_BlockType {
+    ...BlockMediaGalleryFragment
+}
+
+fragment BlockMediaWithText on defaultFpb_mediaWithText_BlockType {
+    ...BlockMediaWithTextFragment
+}
+
+fragment BlockPullQuote on defaultFpb_pullQuote_BlockType {
+    ...BlockPullQuoteFragment
+}
+
+fragment BlockRichText on defaultFpb_richText_BlockType {
+    ...BlockRichTextFragment
+}
+
+fragment BlockSimpleCards on defaultFpb_simpleCards_BlockType {
+    ...BlockSimpleCardsFragment
+}
+
+fragment BlockCta on defaultFpb_callToAction_BlockType {
+    ...BlockCtaFragment
+}

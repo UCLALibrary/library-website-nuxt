@@ -1,0 +1,12 @@
+fragment BlockCtaFragment on ElementInterface {
+    innerBlocks: ctaBlockContentWidth {
+        ... on ctaBlockContentWidth_ctaBlockContentWidth_BlockType {
+            id
+            title: titleCtaContentWidth
+            description: shortDescription
+            buttonUrl: urlButtonUrl
+            buttonText: urlButtonText
+            icon
+        }
+    }
+}

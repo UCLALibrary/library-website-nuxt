@@ -1,0 +1,57 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/BlockCardWithImageFragment"
+#import "~/gql/fragments/BlockDividerFragment"
+#import "~/gql/fragments/BlockHighlight"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaWithTexFragmentt"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+
+fragment DefaultFpbWithCardsAndHighlight on ElementInterface {
+    blocks: defaultFpbWithCardsAndHighlight {
+        id
+        typeHandle
+
+        ...BlockCardWithImage
+        ...BlockDivider
+        ...BlockHighlight
+        ...BlockMediaGallery
+        ...BlockMediaWithText
+        ...BlockPullQuote
+        ...BlockRichText
+        ...BlockSimpleCards
+    }
+}
+
+fragment BlockCardWithImage on defaultFpbWithCardsAndHighlight_cardWithImage_BlockType {
+    ...BlockCardWithImageFragment
+}
+
+fragment BlockDivider on defaultFpbWithCardsAndHighlight_divider_BlockType {
+    ...BlockDividerFragment
+}
+
+fragment BlockHighlight on defaultFpbWithCardsAndHighlight_highlight_BlockType {
+    ...BlockHighlightFragment
+}
+
+fragment BlockMediaGallery on defaultFpbWithCardsAndHighlight_mediaGallery_BlockType {
+    ...BlockMediaGalleryFragment
+}
+
+fragment BlockMediaWithText on defaultFpbWithCardsAndHighlight_mediaWithText_BlockType {
+    ...BlockMediaWithTextFragment
+}
+
+fragment BlockPullQuote on defaultFpbWithCardsAndHighlight_pullQuote_BlockType {
+    ...BlockPullQuoteFragment
+}
+
+fragment BlockRichText on defaultFpbWithCardsAndHighlight_richText_BlockType {
+    ...BlockRichTextFragment
+}
+
+fragment BlockSimpleCards on defaultFpbWithCardsAndHighlight_simpleCards_BlockType {
+    ...BlockSimpleCardsFragment
+}
