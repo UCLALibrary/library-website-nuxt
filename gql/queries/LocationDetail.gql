@@ -67,6 +67,8 @@ query LocationDetail($slug: [String!]) {
     associatedArticles: entries(
         section: "article"
         relatedToEntries: { section: "location", slug: $slug }
+        orderBy: "dateUpdated desc"
+        limit: 3
     ) {
         ... on article_article_Entry {
             id
@@ -116,41 +118,41 @@ query LocationDetail($slug: [String!]) {
             }
         }
     }
-    associatedEvents: entries(
-        section: "event"
-        relatedToEntries: { section: "location", slug: $slug }
-    ) {
-        ... on event_event_Entry {
-            id
-            title
-            id
-            uri
-            title
-            summary
-            dateUpdated
-            heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    id
-                    image {
-                        ...Image
-                    }
-                }
-            }
-            date {
-                startDate
-                endDate
-            }
-            seriesDate {
-                startDate
-                endDate
-            }
-            associatedLocations {
-                id
-                title
-                to: uri
-            }
-        }
-    }
+    # associatedEvents: entries(
+    #     section: "event"
+    #     relatedToEntries: { section: "location", slug: $slug }
+    # ) {
+    #     ... on event_event_Entry {
+    #         id
+    #         title
+    #         id
+    #         uri
+    #         title
+    #         summary
+    #         dateUpdated
+    #         heroImage {
+    #             ... on heroImage_heroImage_BlockType {
+    #                 id
+    #                 image {
+    #                     ...Image
+    #                 }
+    #             }
+    #         }
+    #         date {
+    #             startDate
+    #             endDate
+    #         }
+    #         seriesDate {
+    #             startDate
+    #             endDate
+    #         }
+    #         associatedLocations {
+    #             id
+    #             title
+    #             to: uri
+    #         }
+    #     }
+    # }
     associatedExhibitions: entries(
         section: "exhibition"
         relatedToEntries: { section: "location", slug: $slug }

@@ -50,7 +50,7 @@
             :location-name="page.title"
             :building-access="page.howToGetHere"
         />
-        <divider-general
+        <!-- <divider-general
             v-if="parsedSpaces.length"
             class="divider-general"
         />
@@ -58,7 +58,7 @@
             v-if="parsedSpaces.length"
             class="section-block-spaces"
             :items="parsedSpaces"
-        />
+        /> -->
         <divider-way-finder
             v-if="page.resourceServiceWorkshop.length"
             color="visit"
@@ -83,7 +83,7 @@
             class="divider-way-finder"
         />
         <div
-            v-if="parsedEvents.length"
+            v-if="parsedExhibtions.length"
             class="events-exhibitions"
         >
             <h2 class="section-heading">
@@ -91,10 +91,10 @@
             </h2>
             <section-teaser-list
                 class="section-teaser-list"
-                :items="parsedEvents"
+                :items="parsedExhibtions"
             />
             <nuxt-link
-                v-if="parsedEvents.length"
+                v-if="parsedExhibtions.length"
                 class="button-more"
                 to="/visit/events-exhibits"
             >
@@ -102,7 +102,7 @@
             </nuxt-link>
         </div>
         <divider-way-finder
-            v-if="parsedEvents.length"
+            v-if="parsedExhibtions.length"
             color="visit"
             class="divider-way-finder"
         />
@@ -164,8 +164,12 @@ export default {
         const data = await $graphql.default.request(LOCATION_DETAIL, {
             slug: params.slug,
         })
+        console.log(data)
         return {
             page: _get(data, "entry", {}),
+            associatedArticles: _get(data, "associatedArticles", {}),
+            associatedExhibitions: _get(data, "associatedExhibitions", {}),
+            associatedEndowments: _get(data, "associatedEndowments", {}),
         }
     },
     head() {
@@ -239,8 +243,8 @@ export default {
                 }
             })
         },
-        parsedEvents() {
-            return this.page.associatedExhibitions.map((obj) => {
+        parsedExhibtions() {
+            return this.associatedExhibitions.map((obj) => {
                 return {
                     ...obj,
                     to: `/events-exhibtions/${obj.id}`,
@@ -253,7 +257,7 @@ export default {
             })
         },
         parsedEndowments() {
-            return this.page.associatedEndowments.map((obj) => {
+            return this.associatedEndowments.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.uri}`,
@@ -263,7 +267,7 @@ export default {
             })
         },
         parsedArticles() {
-            return this.page.associatedArticles.map((obj) => {
+            return this.associatedArticles.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.uri}`,
