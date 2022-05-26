@@ -1,11 +1,12 @@
 #import "~/gql/fragments/Image"
 #import "~/gql/fragments/BlockDividerFragment"
 #import "~/gql/fragments/BlockMediaGalleryFragment"
-#import "~/gql/fragments/BlockMediaWithTexFragmentt"
+#import "~/gql/fragments/BlockMediaWithTextFragment"
 #import "~/gql/fragments/BlockPullQuoteFragment"
 #import "~/gql/fragments/BlockRichTextFragment"
 #import "~/gql/fragments/BlockSimpleCardsFragment"
 #import "~/gql/fragments/BlockCtaFragment"
+#import "~/gql/fragments/BlockCallToActionFragment"
 
 fragment DefaultFpb on ElementInterface {
     blocks: defaultFpb {
@@ -19,6 +20,7 @@ fragment DefaultFpb on ElementInterface {
         ...BlockRichText
         ...BlockSimpleCards
         ...BlockCta
+        ...BlockCallToAction 
     }
 }
 
@@ -48,4 +50,8 @@ fragment BlockSimpleCards on defaultFpb_simpleCards_BlockType {
 
 fragment BlockCta on defaultFpb_callToAction_BlockType {
     ...BlockCtaFragment
+}
+
+fragment BlockCallToAction on defaultFpb_callToAction_BlockType {
+    ...BlockCallToActionFragment
 }
