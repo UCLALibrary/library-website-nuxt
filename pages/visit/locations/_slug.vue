@@ -220,11 +220,11 @@ export default {
                 return {
                     ...obj,
                     buttonText:
-                        obj.mediatedBooking === "yes"
+                        obj.reservationRequired === "email"
                             ? obj.mediatorEmail
                             : "Reserve",
                     to:
-                        obj.mediatedBooking === "yes"
+                        obj.reservationRequired === "email"
                             ? `mailto:${obj.mediatorEmail}`
                             : obj.reservationUrl,
                     location: obj.associatedLocations
