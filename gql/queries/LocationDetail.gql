@@ -26,8 +26,8 @@ query LocationDetail($slug: [String!]) {
             amenities(label: true)
             space {
                 title
-                summary
-                mediatedBooking
+                text: summary
+                reservationRequired
                 mediatorEmail
                 reservationUrl
                 spaceType {
@@ -60,78 +60,133 @@ query LocationDetail($slug: [String!]) {
                 email
                 to: uri
             }
-            exhibitsAndEvents(orderBy: "dateUpdated desc", limit: 3) {
+
+            ...FlexibleBlocksLocation
+        }
+    }
+    associatedArticles: entries(
+        section: "article"
+        relatedToEntries: { section: "location", slug: $slug }
+        orderBy: "dateUpdated desc"
+        limit: 3
+    ) {
+        ... on article_article_Entry {
+            id
+            title
+            articleType
+            associatedLocations {
                 id
-                uri
                 title
-                summary
-                dateUpdated
-                heroImage {
-                    ... on heroImage_heroImage_BlockType {
-                        id
-                        image {
-                            ...Image
-                        }
-                    }
-                }
-                date {
-                    startDate
-                    endDate
-                }
-                seriesDate {
-                    startDate
-                    endDate
-                }
-                associatedLocations {
+            }
+            to: slug
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
                     id
-                    title
-                    to: uri
-                }
-            }
-            endowment(orderBy: "dateUpdated desc", limit: 3) {
-                id
-                uri
-                title
-                summary
-                dateUpdated
-                heroImage {
-                    ... on heroImage_heroImage_BlockType {
-                        id
-                        image {
-                            ...Image
-                        }
+                    image {
+                        ...Image
                     }
+                    altText
                 }
             }
-            associatedArticles(orderBy: "dateUpdated desc", limit: 3) {
+
+            authors: staffMember {
                 id
-                uri
                 slug
                 title
-                summary
-                articleType
-                author: staffMember {
+            }
+            description: summary
+            category: typeHandle
+            startDate: dateUpdated
+            endDate: dateUpdated
+        }
+    }
+    associatedEndowments: entries(
+        section: "endowments"
+        relatedToEntries: { section: "location", slug: $slug }
+    ) {
+        ... on endowment_endowments_Entry {
+            id
+            slug
+            title
+            summary
+            dateUpdated
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
                     id
-                    slug
-                    title
-                }
-                articleType
-                startDate: dateUpdated
-                endDate: dateUpdated
-                associatedLocations {
-                    id
-                    title
-                }
-                heroImage {
-                    ... on heroImage_heroImage_BlockType {
-                        id
-                        image {
-                            ...Image
-                        }
+                    image {
+                        ...Image
                     }
                 }
             }
-            ...FlexibleBlocksLocation
+        }
+    }
+    associatedEvents: entries(
+        section: "event"
+        relatedToEntries: { section: "location", slug: $slug }
+    ) {
+        ... on event_event_Entry {
+            id
+            slug
+            title
+            date {
+                startTime
+                endTime
+            }
+            associatedLocations {
+                id
+                title
+                to: uri
+            }
+            requiresRegistration
+            eventDescription
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
+            eventType
+            eventLocation
+            isOnline: onlineEventUrl
+            moreInformation
+            eventOwner
+        }
+    }
+    associatedExhibitions: entries(
+        section: "exhibition"
+        relatedToEntries: { section: "location", slug: $slug }
+    ) {
+        ... on exhibition_exhibition_Entry {
+            id
+            title
+            id
+            uri
+            title
+            summary
+            dateUpdated
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
+            date {
+                startDate
+                endDate
+            }
+            seriesDate {
+                startDate
+                endDate
+            }
+            associatedLocations {
+                id
+                title
+                to: uri
+            }
         }
     }
 }

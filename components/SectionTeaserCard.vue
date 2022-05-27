@@ -1,8 +1,8 @@
 <template lang="html">
     <section class="section-teaser-card">
         <block-highlight
-            v-for="card in items"
-            :key="card.to"
+            v-for="(card, index) in items"
+            :key="`Card${index}`"
             class="card"
             :image="card.image"
             :to="card.to"
