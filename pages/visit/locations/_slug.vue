@@ -102,7 +102,7 @@
             </nuxt-link>
         </div>
         <divider-way-finder
-            v-if="parsedExhibtions.length"
+            v-if="mergeSortEventsExhibitions.length"
             color="visit"
             class="divider-way-finder"
         />
