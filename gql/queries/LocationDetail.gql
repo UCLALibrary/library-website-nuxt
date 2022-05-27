@@ -135,6 +135,7 @@ query LocationDetail($slug: [String!]) {
             associatedLocations {
                 id
                 title
+                to: uri
             }
             requiresRegistration
             eventDescription

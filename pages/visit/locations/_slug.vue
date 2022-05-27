@@ -265,6 +265,7 @@ export default {
                     text: _get(obj, "eventDescription", ""),
                     startDate: _get(obj, "date[0].startTime", ""),
                     endDate: _get(obj, "date[0].endTime", ""),
+                    locations: _get(obj, "associatedLocations", []),
                 }
             })
         },
