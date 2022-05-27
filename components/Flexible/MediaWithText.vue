@@ -49,7 +49,6 @@ export default {
     computed: {
         parsedContent() {
             const mediaWithText = this.block.mediaWithText
-            console.log(mediaWithText)
             return mediaWithText.map((obj) => {
                 return {
                     ...obj,

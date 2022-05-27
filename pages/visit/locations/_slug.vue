@@ -54,24 +54,11 @@
             v-if="parsedSpaces.length"
             class="divider-general"
         />
-        <div
+        <section-spaces-list
             v-if="parsedSpaces.length"
             class="section-block-spaces"
-        >
-            <h3 class="spaces-title">
-                {{ page.title }} Spaces
-            </h3>
-
-            <block-spaces
-                v-for="(space, index) in parsedSpaces"
-                :key="index"
-                :title="space.title"
-                :text="space.summary"
-                :to="space.to"
-                :button-text="space.buttonText"
-            />
-        </div>
-
+            :items="parsedSpaces"
+        />
         <divider-way-finder
             v-if="page.resourceServiceWorkshop.length"
             color="visit"
@@ -96,7 +83,7 @@
             class="divider-way-finder"
         />
         <div
-            v-if="parsedEvents.length"
+            v-if="mergeSortEventsExhibitions.length"
             class="events-exhibitions"
         >
             <h2 class="section-heading">
@@ -104,10 +91,10 @@
             </h2>
             <section-teaser-list
                 class="section-teaser-list"
-                :items="parsedEvents"
+                :items="mergeSortEventsExhibitions"
             />
             <nuxt-link
-                v-if="parsedEvents.length"
+                v-if="mergeSortEventsExhibitions.length"
                 class="button-more"
                 to="/visit/events-exhibits"
             >
@@ -115,7 +102,7 @@
             </nuxt-link>
         </div>
         <divider-way-finder
-            v-if="parsedEvents.length"
+            v-if="mergeSortEventsExhibitions.length"
             color="visit"
             class="divider-way-finder"
         />
@@ -179,6 +166,10 @@ export default {
         })
         return {
             page: _get(data, "entry", {}),
+            associatedArticles: _get(data, "associatedArticles", {}),
+            associatedExhibitions: _get(data, "associatedExhibitions", {}),
+            associatedEndowments: _get(data, "associatedEndowments", {}),
+            associatedEvents: _get(data, "associatedEvents", {}),
         }
     },
     head() {
@@ -229,11 +220,11 @@ export default {
                 return {
                     ...obj,
                     buttonText:
-                        obj.mediatedBooking === "yes"
+                        obj.reservationRequired === "email"
                             ? obj.mediatorEmail
                             : "Reserve",
                     to:
-                        obj.mediatedBooking === "yes"
+                        obj.reservationRequired === "email"
                             ? `mailto:${obj.mediatorEmail}`
                             : obj.reservationUrl,
                     location: obj.associatedLocations
@@ -252,11 +243,11 @@ export default {
                 }
             })
         },
-        parsedEvents() {
-            return this.page.exhibitsAndEvents.map((obj) => {
+        parsedExhibtions() {
+            return this.associatedExhibitions.map((obj) => {
                 return {
                     ...obj,
-                    to: `/events-exhibtions/${obj.id}`,
+                    to: `/events-exhibtions/${obj.slug}`,
                     image: _get(obj, "heroImage[0].image[0]", {}),
                     text: _get(obj, "summary", ""),
                     startDate: _get(obj, "seriesDate[0].startDate", ""),
@@ -265,8 +256,33 @@ export default {
                 }
             })
         },
+        parsedEvents() {
+            return this.associatedEvents.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/events-exhibtions/${obj.slug}`,
+                    image: _get(obj, "heroImage[0].image[0]", {}),
+                    text: _get(obj, "eventDescription", ""),
+                    startDate: _get(obj, "date[0].startTime", ""),
+                    endDate: _get(obj, "date[0].endTime", ""),
+                    locations: _get(obj, "associatedLocations", []),
+                }
+            })
+        },
+        mergeSortEventsExhibitions() {
+            return this.parsedEvents
+                .concat(this.parsedExhibtions)
+                .sort((a, b) =>
+                    a.startDate > b.startDate
+                        ? 1
+                        : b.startDate > a.startDate
+                            ? -1
+                            : 0
+                )
+        },
         parsedEndowments() {
-            return this.page.endowment.map((obj) => {
+            console.log(this.mergeSortEventsExhibitions)
+            return this.associatedEndowments.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.uri}`,
@@ -276,12 +292,13 @@ export default {
             })
         },
         parsedArticles() {
-            return this.page.associatedArticles.map((obj) => {
+            return this.associatedArticles.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", {}),
-                    text: obj.summary,
+                    text: obj.description,
+                    category: obj.articleType,
                     author: _get(obj, "author[0].title", ""),
                 }
             })
@@ -315,13 +332,6 @@ export default {
     }
     .section-teaser-list {
         margin: var(--space-xl) auto;
-    }
-    .spaces-title {
-        @include step-2;
-        color: var(--color-primary-blue-03);
-        margin: var(--space-2xl) auto 16px;
-        max-width: $container-l-main + px;
-        // margin-bottom: 16px;
     }
 
     .block-hours,

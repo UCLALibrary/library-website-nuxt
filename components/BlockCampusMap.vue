@@ -13,12 +13,12 @@
                 />
             </div>
         </modal-generic>
-        <h3
+        <button
             class="title"
             @click="showModal"
         >
             Campus Map
-        </h3>
+        </button>
         <div class="content">
             <div class="iframe-hover">
                 <div class="iframe-container">
