@@ -1,0 +1,33 @@
+fragment BlockMediaWithTextFragment on ElementInterface  {
+    id
+    sectionTitle: titleGeneral
+    sectionSummary: summary
+    mediaWithText {
+        ... on mediaWithText_mediaLink_BlockType {
+            id
+            titleLink
+            description
+            coverImage {
+                ...Image
+            }
+            buttonText
+            buttonUrl
+            linkToMedia
+            typeMedia
+        }
+        ... on mediaWithText_mediaUpload_BlockType {
+            id
+            titleUpload
+            description
+            buttonText
+            buttonUrl
+            coverImage {
+                ...Image
+            }
+            upload {
+                ...Image
+            }
+            typeMedia
+        }
+    }
+}
