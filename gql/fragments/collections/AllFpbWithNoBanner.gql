@@ -4,7 +4,7 @@
 #import "~/gql/fragments/BlockHighlight"
 #import "~/gql/fragments/BlockImpactNumbersCarouselFragment"
 #import "~/gql/fragments/BlockMediaGalleryFragment"
-#import "~/gql/fragments/BlockMediaWithTexFragmentt"
+#import "~/gql/fragments/BlockMediaWithTextFragment"
 #import "~/gql/fragments/BlockPullQuoteFragment"
 #import "~/gql/fragments/BlockRichTextFragment"
 #import "~/gql/fragments/BlockSimpleCardsFragment"
