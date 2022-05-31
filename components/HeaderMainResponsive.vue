@@ -160,19 +160,25 @@ export default {
                 ? `${this.iconGoBackName}`
                 : `${this.iconCloseName}`
         },
+        // parsedPrimaryMenuItems() {
+        //     // Return only items that have children (assume these are dropdowns)
+        //     return this.primaryNav.filter((obj) => {
+        //         return obj.children && obj.children.length
+        //     })
+        // },
+        // parsedSecondaryMenuItems() {
+        //     return this.secondaryNav.map((obj) => {
+        //         return {
+        //             ...obj,
+        //             target: formatLinkTarget(obj.target),
+        //         }
+        //     })
+        // },
         parsedPrimaryMenuItems() {
-            // Return only items that have children (assume these are dropdowns)
-            return this.primaryNav.filter((obj) => {
-                return obj.children && obj.children.length
-            })
+            return this.$store.state.header.primary
         },
         parsedSecondaryMenuItems() {
-            return this.secondaryNav.map((obj) => {
-                return {
-                    ...obj,
-                    target: formatLinkTarget(obj.target),
-                }
-            })
+            return this.$store.state.header.secondary
         },
     },
     methods: {
@@ -216,14 +222,16 @@ export default {
 }
 
 .header-main-responsive {
-    width: 375px;
+    width: 100vw;
+    height: 100%;
     background-color: var(--color-primary-blue-03);
     display: flex;
     flex-direction: column;
     position: relative;
 
     .collapsed-menu {
-        width: 375px;
+        width: 100vw;
+        height: 100%;
         background-color: var(--color-white);
         display: flex;
         justify-content: space-between;

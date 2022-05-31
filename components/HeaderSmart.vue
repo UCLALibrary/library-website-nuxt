@@ -9,7 +9,7 @@
 export default {
     computed: {
         isMobile() {
-            return this.$store.state.winWidth <= 1200 ? true : false
+            return this.$store.state.winWidth <= 1024 ? true : false
         },
         whichHeader() {
             console.log(this.$store.state.winWidth)
@@ -23,6 +23,8 @@ export default {
 .mobile-header {
     top: 0;
     right: 0;
+    z-index: 400;
+    position: relative;
 }
 
 .desktop-header {
