@@ -1,6 +1,6 @@
 // Storybook default settings
 export default {
-    title: "Media Gallery / Lightbox",
+    title: "Media Gallery / New Lightbox",
 }
 
 const mock = [
@@ -144,42 +144,9 @@ export const Default = () => ({
     data() {
         return {
             block: mock,
-            captionTitle: mock.title,
-            captionText: mock.alt,
+            nItems: 6,
+            selectedItem: 0,
         }
     },
-    template: `<media-gallery-lightbox :block="block" :n-items="5" />`,
-})
-
-export const FirstItem = () => ({
-    data() {
-        return {
-            block: mock,
-            captionTitle: mock.title,
-            captionText: mock.alt,
-        }
-    },
-    template: `<media-gallery-lightbox :image="image" :captionTitle="caption-title" :caption-text="captionText" :selection-index="0" :n-items="9" />`,
-})
-
-export const LastItem = () => ({
-    data() {
-        return {
-            image: mock,
-            captionTitle: mock.title,
-            captionText: mock.alt,
-        }
-    },
-    template: `<media-gallery-lightbox :image="image" :captionTitle="caption-title" :caption-text="captionText" :selection-index="3" :n-items="4" />`,
-})
-
-export const OnlyItem = () => ({
-    data() {
-        return {
-            image: mock,
-            captionTitle: mock.title,
-            captionText: mock.alt,
-        }
-    },
-    template: `<media-gallery-lightbox :image="image" :captionTitle="caption-title" :caption-text="captionText" />`,
+    template: `<media-gallery-new-lightbox :block="block" :n-items="6" />`,
 })
