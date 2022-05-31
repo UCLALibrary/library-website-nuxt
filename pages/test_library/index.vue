@@ -1,10 +1,10 @@
 <template>
     <div id="app">
         <h1>Hello I'm consuming the component library</h1>
-        <Hello />
-        <test-vue-component-rollup-sfc-sample />
+        <!--Hello /-->
+        <!--test-vue-component-rollup-sfc-sample /-->
         <ucla-library-website-component-sample />
-        <divider-general-test />
+        <!--divider-general-test /-->
         <br>
     </div>
 </template>
