@@ -160,12 +160,12 @@ export default {
                 ? `${this.iconGoBackName}`
                 : `${this.iconCloseName}`
         },
-        // parsedPrimaryMenuItems() {
-        //     // Return only items that have children (assume these are dropdowns)
-        //     return this.primaryNav.filter((obj) => {
-        //         return obj.children && obj.children.length
-        //     })
-        // },
+        parsedPrimaryMenuItems() {
+            // Return only items that have children (assume these are dropdowns)
+            return this.$store.state.header.primary.filter((obj) => {
+                return obj.children && obj.children.length
+            })
+        },
         // parsedSecondaryMenuItems() {
         //     return this.secondaryNav.map((obj) => {
         //         return {
@@ -174,9 +174,9 @@ export default {
         //         }
         //     })
         // },
-        parsedPrimaryMenuItems() {
-            return this.$store.state.header.primary
-        },
+        // parsedPrimaryMenuItems() {
+        //     return this.$store.state.header.primary
+        // },
         parsedSecondaryMenuItems() {
             return this.$store.state.header.secondary
         },
