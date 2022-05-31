@@ -4,17 +4,12 @@
             {{ block.titleGeneral }}
         </h2>
 
-        <media-gallery-lightbox
+        <media-gallery-new-lightbox
             v-if="showLightboxModal"
-            :image="block.mediaGallery[selectionIndex].image[0]"
-            :caption-title="block.mediaGallery[selectionIndex].captionTitle"
-            :caption-text="block.mediaGallery[selectionIndex].captionText"
-            :selection-index="selectionIndex"
+            :block="block.mediaGallery"
             :n-items="nItems"
+            :selected-item="selectionIndex"
             @closeModal="hideLightboxModal"
-            @clickPrev="clickPrev"
-            @clickNext="clickNext"
-            @selectItem="selectItem"
         />
         <media-gallery-banner-image
             :image="block.mediaGallery[selectionIndex].image[0]"
@@ -74,6 +69,13 @@ export default
             // These are the "fullwidth" unicode plus (U+FF0B) & minus (U+FF0D)
             return this.expandThumbnails ? "－" : "＋"
         }
+    },
+    created() {
+        window.addEventListener('keydown', (e) => {
+            if (e.key == 'Escape') {
+                this.showLightboxModal = !this.showLightboxModal
+            }
+        })
     },
     methods: {
         hideLightboxModal() {
