@@ -1,19 +1,17 @@
 #import "~/gql/fragments/Image"
 #import "~/gql/fragments/BlockDividerFragment"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
 #import "~/gql/fragments/BlockMediaWithTextFragment"
 #import "~/gql/fragments/BlockPullQuoteFragment"
 #import "~/gql/fragments/BlockRichTextFragment"
 #import "~/gql/fragments/BlockSimpleCardsFragment"
-<<<<<<< HEAD
-#import "~/gql/fragments/BlockMediaWithTextFragment"
-=======
->>>>>>> refactor: BlockSimpleCardsFragment
 
 fragment DefaultFpbWithNoCta on ElementInterface {
     blocks: defaultFpbWithNoCta {
         id
         typeHandle
         ...BlockDivider
+        ...BlockMediaGallery
         ...BlockMediaWithText
         ...BlockPullQuote
         ...BlockRichText
@@ -27,6 +25,10 @@ fragment BlockDivider on defaultFpbWithNoCta_divider_BlockType {
 
 fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
     ...BlockMediaWithTextFragment
+}
+
+fragment BlockMediaGallery on defaultFpbWithNoCta_mediaGallery_BlockType {
+    ...BlockMediaGalleryFragment
 }
 
 fragment BlockPullQuote on defaultFpbWithNoCta_pullQuote_BlockType {
