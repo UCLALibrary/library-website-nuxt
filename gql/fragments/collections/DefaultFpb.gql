@@ -20,7 +20,7 @@ fragment DefaultFpb on ElementInterface {
         ...BlockRichText
         ...BlockSimpleCards
         ...BlockCta
-        ...BlockCallToAction 
+        ...BlockCallToAction
     }
 }
 
