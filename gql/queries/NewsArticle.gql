@@ -1,0 +1,45 @@
+query NewsArticle($slug: [String!]) {
+  entry(section: "article", slug: $slug) {
+    ... on article_article_Entry {
+      id
+      articleType
+      title
+      heroImage {
+        ... on heroImage_heroImage_BlockType {
+          id
+          image {
+            ... on mediaAndDocuments_Asset {
+              id
+              altText
+              title
+            }
+          }
+        }
+      }
+      articleCategories {
+        id
+        title
+        uri
+      }
+      staffMember {
+        id
+        ... on staffMember_staffMember_Entry {
+          id
+          nameFirst
+          nameLast
+        }
+      }
+      associatedLocations {
+        id
+        title
+        uri
+      }
+      department {
+        id
+        title
+        uri
+      }
+      summary
+    }
+  }
+}
