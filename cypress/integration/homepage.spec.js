@@ -21,6 +21,12 @@ describe("Website Homepage", () => {
             .and("contain", "Visit")
             .and("contain", "About")
             .and("contain", "Support us")
+        cy.viewport(900, 900)
+        cy.get(".header-main-responsive")
+            .should("contain", "Get help with...")
+            .and("contain", "Visit")
+            .and("contain", "About")
+            .and("contain", "Support us")
 
         // MastheadPrimary
         cy.get(".masthead-primary").find(".logo").should("be.visible")
@@ -51,8 +57,10 @@ describe("Website Homepage", () => {
             )
 
         // get help with
-        cy.get('.section-cards-with-illustrations')
-            .should('contain', 'Get Help With')
+        cy.get(".section-cards-with-illustrations").should(
+            "contain",
+            "Get Help With"
+        )
 
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
