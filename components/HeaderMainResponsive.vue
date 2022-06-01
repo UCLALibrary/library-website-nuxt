@@ -72,11 +72,11 @@
             </div>
             <div class="support-us-container">
                 <button-link
-                    v-if="buttonLink"
-                    :label="label"
+                    v-if="supportLinks.length"
+                    :label="supportLinks[0].name"
                     :is-secondary="true"
                     class="button"
-                    :to="buttonLink"
+                    :to="supportLinks[0].to"
                     icon-name="none"
                 />
             </div>
@@ -128,23 +128,6 @@ export default {
             type: String,
             default: "icon-caret-left",
         },
-        primaryNav: {
-            // This is an array of objects, with each object shaped like {name, url, items:[{text, to, target}]}
-            type: Array,
-            default: () => [],
-        },
-        secondaryNav: {
-            type: Array,
-            default: () => [],
-        },
-        label: {
-            type: String,
-            default: "",
-        },
-        buttonLink: {
-            type: String,
-            default: "",
-        },
     },
     data() {
         return {
@@ -166,19 +149,21 @@ export default {
                 return obj.children && obj.children.length
             })
         },
-        // parsedSecondaryMenuItems() {
-        //     return this.secondaryNav.map((obj) => {
-        //         return {
-        //             ...obj,
-        //             target: formatLinkTarget(obj.target),
-        //         }
-        //     })
-        // },
-        // parsedPrimaryMenuItems() {
-        //     return this.$store.state.header.primary
-        // },
         parsedSecondaryMenuItems() {
-            return this.$store.state.header.secondary
+            return this.$store.state.header.secondary.map((obj) => {
+                return {
+                    ...obj,
+                    target: formatLinkTarget(obj.target),
+                }
+            })
+        },
+
+        supportLinks() {
+            // Generally this is just the last "Support Us" link, but we are going to allow it to be more than 1
+            return this.$store.state.header.primary.filter((obj) => {
+                // Return items that don't have sub-menu children
+                return !obj.children || !obj.children.length
+            })
         },
     },
     methods: {
