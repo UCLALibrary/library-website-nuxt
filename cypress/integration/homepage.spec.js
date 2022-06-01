@@ -1,6 +1,7 @@
 describe("Website Homepage", () => {
     it("Visit the Homepage", () => {
         cy.visit("/")
+        cy.viewport(1200, 1200)
 
         // UCLA brand
         cy.get(".site-brand-bar").should("be.visible")
