@@ -13,7 +13,7 @@
                 :is="`LogoLibrary`"
                 width="155"
                 height="55"
-                class="collapsed-logo"
+                class="logo-ucla"
                 role="button"
             />
             <component
