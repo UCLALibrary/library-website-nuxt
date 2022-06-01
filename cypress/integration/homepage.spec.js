@@ -21,12 +21,6 @@ describe("Website Homepage", () => {
             .and("contain", "Visit")
             .and("contain", "About")
             .and("contain", "Support us")
-        cy.viewport(900, 900)
-        cy.get(".header-main-responsive")
-            .should("contain", "Get help with...")
-            .and("contain", "Visit")
-            .and("contain", "About")
-            .and("contain", "Support us")
 
         // MastheadPrimary
         cy.get(".masthead-primary").find(".logo").should("be.visible")
