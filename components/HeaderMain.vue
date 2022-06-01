@@ -1,6 +1,5 @@
 <template lang="html">
     <header class="header-main">
-        <site-brand-bar />
         <nav-secondary :items="secondaryItems" />
         <nav-primary
             class="primary"

@@ -1,8 +1,11 @@
 <template lang="html">
-    <component
-        :is="whichHeader"
-        :class="isMobile ? 'mobile-header' : 'desktop-header'"
-    />
+    <header class="header-smart">
+        <site-brand-bar />
+        <component
+            :is="whichHeader"
+            :class="isMobile ? 'mobile-header' : 'desktop-header'"
+        />
+    </header>
 </template>
 
 <script>
