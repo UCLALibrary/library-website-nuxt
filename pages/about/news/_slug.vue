@@ -1,5 +1,16 @@
+// articleType
+// title
+// heroImage
+// articleCategories
+// staffMember
+// summary
+// associatedLocations
+// department
+// allFpb
+
 <template lang="html">
     <div class="page page-news">
+        <h1>NEWS</h1>
         <banner-header
             class="section banner-header"
             :title="bannerHeader.title"

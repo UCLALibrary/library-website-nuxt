@@ -1,4 +1,4 @@
-query NewsArticle($slug: [String!]) {
+query ArticleNewsDetail($slug: [String!]) {
   entry(section: "article", slug: $slug) {
     ... on article_article_Entry {
       id
