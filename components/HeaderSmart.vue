@@ -15,7 +15,6 @@ export default {
             return this.$store.state.winWidth <= 1024 ? true : false
         },
         whichHeader() {
-            console.log(this.$store.state.winWidth)
             return this.isMobile ? "header-main-responsive" : "header-main"
         },
     },
