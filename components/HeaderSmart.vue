@@ -4,6 +4,8 @@
         <component
             :is="whichHeader"
             :class="isMobile ? 'mobile-header' : 'desktop-header'"
+            :primary-nav="primaryMenuItems"
+            :secondary-nav="secondaryMenuItems"
         />
     </header>
 </template>
@@ -11,6 +13,12 @@
 <script>
 export default {
     computed: {
+        primaryMenuItems() {
+            return this.$store.state.header.primary
+        },
+        secondaryMenuItems() {
+            return this.$store.state.header.secondary
+        },
         isMobile() {
             return this.$store.state.winWidth <= 1024 ? true : false
         },

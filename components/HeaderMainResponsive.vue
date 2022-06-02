@@ -128,6 +128,15 @@ export default {
             type: String,
             default: "icon-caret-left",
         },
+        primaryNav: {
+            // This is an array of objects, with each object shaped like {name, url, items:[{text, to, target}]}
+            type: Array,
+            default: () => [],
+        },
+        secondaryNav: {
+            type: Array,
+            default: () => [],
+        },
     },
     data() {
         return {
@@ -145,12 +154,12 @@ export default {
         },
         parsedPrimaryMenuItems() {
             // Return only items that have children (assume these are dropdowns)
-            return this.$store.state.header.primary.filter((obj) => {
+            return this.primaryNav.filter((obj) => {
                 return obj.children && obj.children.length
             })
         },
         parsedSecondaryMenuItems() {
-            return this.$store.state.header.secondary.map((obj) => {
+            return this.secondaryNav.map((obj) => {
                 return {
                     ...obj,
                     target: formatLinkTarget(obj.target),
@@ -160,7 +169,7 @@ export default {
 
         supportLinks() {
             // Generally this is just the last "Support Us" link, but we are going to allow it to be more than 1
-            return this.$store.state.header.primary.filter((obj) => {
+            return this.primaryNav.filter((obj) => {
                 // Return items that don't have sub-menu children
                 return !obj.children || !obj.children.length
             })

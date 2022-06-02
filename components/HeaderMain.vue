@@ -1,21 +1,24 @@
 <template lang="html">
     <header class="header-main">
-        <nav-secondary :items="secondaryItems" />
+        <nav-secondary :items="secondaryNav" />
         <nav-primary
             class="primary"
-            :items="primaryItems"
+            :items="primaryNav"
         />
     </header>
 </template>
 
 <script>
 export default {
-    computed: {
-        primaryItems() {
-            return this.$store.state.header.primary
+    props: {
+        primaryNav: {
+            // This is an array of objects, with each object shaped like {name, url, items:[{text, to, target}]}
+            type: Array,
+            default: () => [],
         },
-        secondaryItems() {
-            return this.$store.state.header.secondary
+        secondaryNav: {
+            type: Array,
+            default: () => [],
         },
     },
 }

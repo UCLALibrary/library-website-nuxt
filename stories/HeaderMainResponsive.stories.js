@@ -22,19 +22,18 @@ const primaryItems = [
 ]
 
 const secondaryItems = [
-    ...API.links, 
-    { 
-        ...API.links[0]
-    }
+    ...API.links,
+    {
+        ...API.links[0],
+    },
 ]
 
 const mock = {
     label: "Support Us",
-    buttonLink: "#"
+    buttonLink: "#",
 }
 
 const Template = (args, { argTypes }) => ({
-   
     props: Object.keys(argTypes),
     computed: {
         parsedSecondaryItems() {
@@ -47,7 +46,7 @@ const Template = (args, { argTypes }) => ({
             })
         },
     },
-    template: `<header-main-responsive :primary-nav="primaryItems" 
+    template: `<header-main-responsive :primary-nav="primaryItems"
         :secondary-nav="parsedSecondaryItems"
         current-path="/about/foo/bar"
         :label="label"
@@ -60,7 +59,7 @@ export const Default = () => ({
         return {
             primaryItems,
             secondaryItems,
-            ...mock
+            ...mock,
         }
     },
     computed: {
@@ -75,7 +74,7 @@ export const Default = () => ({
         },
     },
     template: `
-        <header-main-responsive :primary-nav="primaryItems" 
+        <header-main-responsive :primary-nav="primaryItems"
         :secondary-nav="parsedSecondaryItems"
         current-path="/about/foo/bar"
         :label="label"
@@ -84,8 +83,8 @@ export const Default = () => ({
 })
 
 export const WithControls = Template.bind({})
-WithControls.args = { 
+WithControls.args = {
     primaryItems,
     secondaryItems,
-    ...mock 
+    ...mock,
 }
