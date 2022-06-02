@@ -31,14 +31,7 @@ export default {
 
 <style lang="scss" scoped>
 .mobile-header {
-    top: 0;
-    right: 0;
     z-index: 400;
     position: relative;
-}
-
-.desktop-header {
-    top: 0;
-    left: 0;
 }
 </style>
