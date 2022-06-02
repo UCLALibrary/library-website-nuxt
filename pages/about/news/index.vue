@@ -1,23 +1,26 @@
 <template>
     <main class="page page-news">
         <h1>NEWS LIST</h1>
-        <section-news-list
-            :items="parsedNewsList"
-            class="news-list"
-        />
+        <p>{{ parsedNewsList }}</p>
+        <nuxt-link
+            v-for="item in parsedNewsList"
+            :key="item.to"
+            :to="item.to"
+        >
+            <div
+                class="text"
+                v-html="item.title"
+            />
+        </nuxt-link>
     </main>
 </template>
 
 <script>
-// Helpers
-import _get from "lodash/get"
-
-// gql
+// GQL
 import ARTICLE_NEWS_LIST from "~/gql/queries/ArticleNewsList"
 
 export default {
     async asyncData({ $graphql, params }) {
-        console.log("live preview enters news list")
         const data = await $graphql.default.request(ARTICLE_NEWS_LIST, {
             uri: params.path,
         })
@@ -32,8 +35,6 @@ export default {
                 return {
                     ...obj,
                     to: `/about/news/${obj.to}`,
-                    newsName: `${obj.nameFirst} ${obj.nameLast}`,
-                    title: `${obj.title}`
                 }
             })
         },

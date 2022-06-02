@@ -1,28 +1,29 @@
-#import "~/gql/fragments/collections/DefaultFpb"
+#import "~/gql/fragments/collections/AllFpb"
 #import "~/gql/fragments/Image"
 
 query ArticleNewsList {
-  entries(section: "article", orderBy: "dateCreated") {
-    ... on article_article_Entry {
-      id
-      author {
-        email
-        fullName
-      }
-      title
-      uri
-      slug
-      heroImage {
-        ... on heroImage_heroImage_BlockType {
-          id
-					image {
-            ...Image
-          }
+    entries(section: "article", orderBy: "dateCreated") {
+        ... on article_article_Entry {
+            id
+            author {
+                email
+                fullName
+            }
+            title
+            uri
+            to: slug
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
+            ...AllFpb
         }
-      }
-    ...AllFpb
-  }
-  entryCount
+        entryCount
+    }
 }
 
 # {

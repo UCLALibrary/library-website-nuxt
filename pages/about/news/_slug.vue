@@ -1,216 +1,149 @@
 // articleType
 // title
-// heroImage
-// articleCategories
+// heroImage banner Image
+// articleCategories (library news)
 // staffMember
-// summary
-// associatedLocations
-// department
+// summary - nowhere
+// associatedLocations - nowhere
+// department - nowhere
 // allFpb
+// bannerheader
+// date published
+// ServiceOrResources
+// share links & icons component
+// pipe instead of purple dot
+// fancy wayfinder divider
 
 <template lang="html">
-    <div class="page page-news">
-        <h1>NEWS</h1>
+    <section class="page-news-detail">
+        <nav-breadcrumb :title="page.title" />
+        <banner-text
+            v-if="!page.heroImage || page.heroImage.length == 0"
+            class="banner-text"
+            :category="page.type"
+            :title="page.title"
+            :text="page.text"
+            :button-text="parsedButtonText"
+            :to="parsedButtonTo"
+        />
         <banner-header
-            class="section banner-header"
-            :title="bannerHeader.title"
-            :text="bannerHeader.text"
-            :byline="bannerHeader.byline"
-            :video="parseVideo"
-            :to="bannerHeader.to"
-            :align-right="true"
+            v-if="page.heroImage && page.heroImage.length == 1"
+            :image="page.heroImage[0].image[0]"
+            :to="parsedButtonTo"
+            :prompt="parsedButtonText"
+            :title="page.title"
+            :category="page.type"
+            :text="page.text"
         />
-        <div class="meta">
-            <divider-way-finder
-                color="about"
-                class="divider"
-            />
-
-            <impact-rich-text
-                :text-blocks="mainStory.textBlocks"
-                :pull-quote="mainStory.pullQuote"
-                :images="parsedMainStoryImages"
-                class="rich-text"
-            />
-        </div>
-        <div class="breadcrumb-link">
-            <nuxt-link
-                to="/impact/"
-                class="hover-text"
-            >
-                Read 2020-2021 UCLA Library Impact Report
-            </nuxt-link>
-            <svg-arrow-right class="svg-arrow-right" />
-        </div>
-
         <divider-way-finder
-            class="divider"
-            color="about"
+            color="help"
+            class="divider-way-finder"
         />
-        <div class="call-to-action">
-            <a
-                href="https://giveto.ucla.edu/area/libraries/"
-                target="_blank"
-                class="hover-text"
-            >Find ways to give to UCLA Library</a>
-            <svg-arrow-diagonal class="svg" />
-        </div>
-    </div>
+        <h2 class="more-info">
+            More Information
+        </h2>
+
+        <flexible-blocks
+            class="content"
+            :blocks="page.blocks"
+        />
+        <divider-way-finder
+            color="help"
+            class="divider-way-finder"
+        />
+        <section-cards-with-illustrations
+            v-if="parsedAssociatedTopics.length"
+            class="section-cards"
+            :items="parsedAssociatedTopics"
+            title="Associated Topics"
+            button-text="All Services and Resources "
+            to="/help/services-resources"
+        />
+        <block-call-to-action
+            class="block-call-to-action"
+            :is-global="true"
+        />
+    </section>
 </template>
 
 <script>
-import * as MOCK_IMPACT_API from "~/data/impact-report_slug.json"
+// GQL
+import ARTICLE_NEWS_DETAIL from "~/gql/queries/ArticleNewsDetail"
 
-// Utilities
-import getS3Bucket from "~/utils/getS3Bucket"
+// Helpers
+import _get from "lodash/get"
 
 export default {
-    components: {
-        SvgArrowDiagonal: () => import("~/assets/svg/arrow-diagonal"),
-        SvgArrowRight: () => import("~/assets/svg/arrow-right-small"),
-    },
-    layout: "impact",
-    data() {
+    async asyncData({ $graphql, params, store }) {
+        // Do not remove testing live preview
+        console.log(
+            "fetching graphql data for Service or Resource detail from Craft for live preview"
+        )
+        const data = await $graphql.default.request(
+            ARTICLE_NEWS_DETAIL,
+            {
+                slug: params.slug,
+            }
+        )
+        console.log("Data fetched: " + JSON.stringify(data))
         return {
-            bannerHeader: MOCK_IMPACT_API.bannerHeader,
-            mainStory: MOCK_IMPACT_API.mainStory,
+            page: _get(data, "entry", {}),
         }
     },
     head() {
+        let title = this.page ? this.page.title : "... loading"
         return {
-            title: this.bannerHeader.title,
+            title: title,
         }
     },
     computed: {
-        parseVideo() {
-            let video = {
-                videoUrl: getS3Bucket(
-                    this.$config,
-                    "ucla-impact-report-feature-story-animation.mp4"
-                ),
-            }
-            return video
-        },
-        parsedMainStoryImages() {
-            const mainStory = MOCK_IMPACT_API.mainStory
-            return this.mainStory.images.map((obj) => {
+        parsedAssociatedTopics() {
+            return this.page.associatedTopics.map((obj) => {
                 return {
-                    src: getS3Bucket(this.$config, obj.src),
-                    sizes: "100vw",
-                    height: 1080,
-                    width: 1920,
-                    alt: obj.alt,
-                    caption: obj.caption,
+                    ...obj,
+                    to: obj.researchGuideUrl ? obj.researchGuideUrl : obj.uri,
                 }
             })
+        },
+        parsedButtonText() {
+            return _get(this.page, "button[0].buttonText", "")
+        },
+        parsedButtonTo() {
+            return _get(this.page, "button[0].buttonUrl", "")
         },
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.page-news {
-    margin: 0 0 0 0;
-    .section {
-        margin: 1px auto;
+.page-news-detail {
+    .banner-text {
+        --color-theme: var(--color-help-green-03);
     }
     .banner-header {
         margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
-    }
-    .rich-text {
         margin: var(--unit-gutter) auto;
     }
-    .breadcrumb-link {
-        margin: var(--space-xl) auto;
-        padding: 0 $whitespace-m-sides + px;
-        max-width: $container-l-main + px;
-        font-style: var(--font-secondary);
-        font-size: 20px;
-        color: var(--color-primary-blue-03);
-        font-weight: 400;
-
-        display: flex;
-        align-items: center;
-    }
-    .divider {
-        margin: var(--space-xl) auto;
+    .banner-text + .divider-way-finder {
+        margin: 0 auto var(--space-2xl);
     }
     .divider-way-finder {
         max-width: $container-l-main + px;
         margin: var(--space-3xl) auto;
-        &.divider {
-            box-sizing: unset;
-        }
     }
-    .divider-general {
+    .content {
+        margin: 0 auto;
+    }
+    .section-cards {
         margin: var(--space-3xl) auto;
-        max-width: $container-l-main + px;
     }
-    .call-to-action {
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 100%;
+    .more-info {
+        @include visually-hidden;
+    }
+    .block-call-to-action {
         margin: var(--space-3xl) auto;
-        padding: 0 $whitespace-m-sides + px;
-        max-width: $container-l-main + px;
-
-        display: flex;
-        align-items: center;
-    }
-    .svg {
-        text-decoration: underline;
-        text-decoration-color: var(--color-primary-blue-03);
-        padding-left: 5px;
-        .line {
-            stroke: var(--color-primary-blue-03);
-        }
-        .arrow-diagonal {
-            fill: var(--color-primary-blue-03);
-        }
-    }
-    .svg-arrow-right {
-        flex-shrink: 0;
-        .arrow-right {
-            stroke: var(--color-primary-blue-03);
-        }
-    }
-
-    @media #{$medium} {
-        .divider-general {
-            width: calc(100% - (var(--unit-gutter) * 2));
-        }
-
-        .rich-text {
-            padding: 0 var(--unit-gutter);
-        }
-
-        .call-to-action,
-        .breadcrumb-link {
-            padding: 0 var(--unit-gutter);
-        }
-    }
-
-    @media #{$has-hover} {
-        .svg:hover {
-            .arrow {
-                path {
-                    fill: var(--color-primary-blue-03);
-                }
-            }
-            path {
-                fill: var(--color-primary-blue-03);
-                .arrow-diagonal {
-                    color: var(--color-primary-blue-03);
-                }
-            }
-        }
-
-        .hover-text:hover {
-            color: var(--color-primary-blue-03);
-            @include link-hover;
-        }
     }
 }
 </style>
