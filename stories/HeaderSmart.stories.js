@@ -121,7 +121,7 @@ export const Default = () => ({
                 primary: mock.primary,
                 secondary: mock.secondary,
             },
-            winWidth: 1200,
+            winWidth: 824,
         },
     }),
     data() {
@@ -133,14 +133,14 @@ export const Default = () => ({
     template: `<header-smart  />`,
 })
 
-export const MobileWindowWidth = () => ({
+export const DesktopWindowWidth = () => ({
     store: new Vuex.Store({
         state: {
             header: {
                 primary: mock.primary,
                 secondary: mock.secondary,
             },
-            winWidth: 824,
+            winWidth: 1200,
         },
     }),
     data() {
