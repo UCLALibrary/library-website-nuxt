@@ -13,7 +13,7 @@
                 :is="`LogoLibrary`"
                 width="155"
                 height="55"
-                class="collapsed-logo"
+                class="logo-ucla"
                 role="button"
             />
             <component
@@ -72,11 +72,11 @@
             </div>
             <div class="support-us-container">
                 <button-link
-                    v-if="buttonLink"
-                    :label="label"
+                    v-if="supportLinks.length"
+                    :label="supportLinks[0].name"
                     :is-secondary="true"
                     class="button"
-                    :to="buttonLink"
+                    :to="supportLinks[0].to"
                     icon-name="none"
                 />
             </div>
@@ -137,14 +137,6 @@ export default {
             type: Array,
             default: () => [],
         },
-        label: {
-            type: String,
-            default: "",
-        },
-        buttonLink: {
-            type: String,
-            default: "",
-        },
     },
     data() {
         return {
@@ -172,6 +164,14 @@ export default {
                     ...obj,
                     target: formatLinkTarget(obj.target),
                 }
+            })
+        },
+
+        supportLinks() {
+            // Generally this is just the last "Support Us" link, but we are going to allow it to be more than 1
+            return this.primaryNav.filter((obj) => {
+                // Return items that don't have sub-menu children
+                return !obj.children || !obj.children.length
             })
         },
     },
@@ -216,14 +216,16 @@ export default {
 }
 
 .header-main-responsive {
-    width: 375px;
+    width: 100vw;
+    height: 100%;
     background-color: var(--color-primary-blue-03);
     display: flex;
     flex-direction: column;
     position: relative;
 
     .collapsed-menu {
-        width: 375px;
+        width: 100vw;
+        height: 100%;
         background-color: var(--color-white);
         display: flex;
         justify-content: space-between;
