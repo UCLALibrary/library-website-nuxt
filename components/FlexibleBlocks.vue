@@ -83,6 +83,7 @@ function convertName(typeHandle) {
 .flexible-blocks {
     .flexible-block {
         padding: var(--unit-gutter) 0;
+        margin-bottom: var(--space-3xl);
 
         &:first-child {
             padding-top: 0;
