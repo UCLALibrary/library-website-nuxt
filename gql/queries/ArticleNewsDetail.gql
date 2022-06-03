@@ -10,6 +10,9 @@ query ArticleNewsDetail($slug: [String!]) {
           image {
             ... on mediaAndDocuments_Asset {
               id
+              image {
+                ...Image
+              }
               altText
               title
             }
@@ -39,7 +42,8 @@ query ArticleNewsDetail($slug: [String!]) {
         title
         uri
       }
-      summary
+      description: summary
     }
+    ...AllFpb
   }
 }

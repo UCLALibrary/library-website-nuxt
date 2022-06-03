@@ -99,33 +99,5 @@ export default {
         @include step-1;
         color: var(--color-primary-blue-03);
     }
-
-    @media #{$medium} {
-        .search-container {
-            margin-top: -64px;
-            width: calc(100% - (var(--unit-gutter) * 2));
-        }
-        .browse-by {
-            padding: 0 var(--unit-gutter);
-        }
-    }
-
-    @media #{$small} {
-        .search-container {
-            margin-top: -48px;
-        }
-
-        .browse-by-options {
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 4px 0;
-        }
-
-        li {
-            padding: 4px;
-            min-width: 44px;
-        }
-    }
 }
 </style>

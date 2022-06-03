@@ -39,27 +39,10 @@
             color="about"
             class="divider-way-finder"
         />
-        <h2 class="highlighted-news">
-            Highlighted News
-        </h2>
 
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
-        />
-        <divider-way-finder
-            color="help"
-            class="divider-way-finder"
-        />
-
-        <section-staff-article-list
-            :items="items"
-            section-title="Articles"
-        />
-
-        <block-call-to-action
-            class="block-call-to-action"
-            :is-global="true"
         />
     </section>
 </template>

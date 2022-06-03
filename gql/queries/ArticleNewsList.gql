@@ -1,4 +1,3 @@
-#import "~/gql/fragments/collections/AllFpb"
 #import "~/gql/fragments/Image"
 
 query ArticleNewsList {
@@ -24,43 +23,7 @@ query ArticleNewsList {
                 title
             }
             date: dateCreated
-            ...AllFpb
         }
     }
     entryCount
 }
-
-# {
-#   "data": {
-#     "entries": [
-#       {
-#         "id": "4416",
-#         "author": {
-#           "email": "choffner@library.ucla.edu",
-#           "fullName": "Courtney Hoffner"
-#         },
-#         "title": "I like Turtles",
-#         "uri": "about/news/turtles",
-#         "slug": "turtles",
-#         "heroImage": [
-#           {
-#             "id": "5227",
-#             "image": [
-#               {
-#                 "id": "17566",
-#                 "src": "http://dev-uclalib-craft.nitro/assets/_fullscreen/iliketurtles.jpg",
-#                 "height": 2560,
-#                 "width": 2560,
-#                 "srcset": "http://dev-uclalib-craft.nitro/assets/_375xAUTO_crop_center-center_none/iliketurtles.jpg 375w, http://dev-uclalib-craft.nitro/assets/_960xAUTO_crop_center-center_none/iliketurtles.jpg 960w, http://dev-uclalib-craft.nitro/assets/_1280xAUTO_crop_center-center_none/iliketurtles.jpg 1280w, http://dev-uclalib-craft.nitro/assets/_1920xAUTO_crop_center-center_none/iliketurtles.jpg 1920w, http://dev-uclalib-craft.nitro/assets/_2560xAUTO_crop_center-center_none/iliketurtles.jpg 2560w",
-#                 "alt": "I like turtles",
-#                 "focalPoint": [
-#                   0.5,
-#                   0.5
-#                 ]
-#               }
-#             ]
-#           }
-#         ]
-#       },
-#   }
-# }
