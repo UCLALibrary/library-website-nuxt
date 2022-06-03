@@ -36,7 +36,7 @@ export default {
     flex-wrap: nowrap;
     justify-content: flex-start;
 
-    max-width: 990px;
+    max-width: $container-l-main + px;
     margin: 0 auto;
 
     .spaces-title {

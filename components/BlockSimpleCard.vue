@@ -91,8 +91,7 @@ export default {
     overflow: hidden;
     background-color: var(--color-primary-blue-01);
     transition-property: box-shadow, transform;
-    transition-duration: 400ms;
-    transition-timing-function: ease-in-out;
+    @include animate-normal;
     position: relative;
     z-index: 0;
 
@@ -174,8 +173,7 @@ export default {
     @media #{$has-hover} {
         &:hover,
         &:focus {
-            transform: scale(1.1);
-            box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.04);
+            @include card-horizontal-hover;
             background-color: var(--color-theme);
             z-index: 30;
 
