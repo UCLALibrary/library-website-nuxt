@@ -1,6 +1,5 @@
 #import "~/gql/fragments/Image"
 #import "~/gql/fragments/BlockCardWithImageFragment"
-#import "~/gql/fragments/BlockDividerFragment"
 #import "~/gql/fragments/BlockHighlight"
 #import "~/gql/fragments/BlockMediaGalleryFragment"
 #import "~/gql/fragments/BlockMediaWithTextFragment"
@@ -14,7 +13,6 @@ fragment DefaultFpbWithCardsAndHighlight on ElementInterface {
         typeHandle
 
         ...BlockCardWithImage
-        ...BlockDivider
         ...BlockHighlight
         ...BlockMediaGallery
         ...BlockMediaWithText
@@ -26,10 +24,6 @@ fragment DefaultFpbWithCardsAndHighlight on ElementInterface {
 
 fragment BlockCardWithImage on defaultFpbWithCardsAndHighlight_cardWithImage_BlockType {
     ...BlockCardWithImageFragment
-}
-
-fragment BlockDivider on defaultFpbWithCardsAndHighlight_divider_BlockType {
-    ...BlockDividerFragment
 }
 
 fragment BlockHighlight on defaultFpbWithCardsAndHighlight_highlight_BlockType {
