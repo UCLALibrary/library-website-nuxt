@@ -26,12 +26,17 @@
         </div>
         <div v-else>
             <div class="expanded-menu">
-                <component
-                    :is="`LogoLibrary`"
-                    width="155"
-                    height="55"
-                    class="expanded-logo"
-                />
+                <nuxt-link
+                    to="/"
+                    aria-label="UCLA Library home page"
+                >
+                    <component
+                        :is="`LogoLibrary`"
+                        width="155"
+                        height="55"
+                        class="expanded-logo"
+                    />
+                </nuxt-link>
                 <component
                     :is="parsedSvgName"
                     :class="isOpened ? 'go-back-svg' : 'close-svg'"
@@ -54,11 +59,13 @@
                 v-if="!isOpened"
                 class="nav-menu-secondary"
             >
+                <!-- TODO anything here is clicked and collapses menu -->
                 <ul class="list">
                     <li
                         v-for="item in parsedSecondaryMenuItems"
                         :key="item.id"
                         class="list-item"
+                        @click="onClick"
                     >
                         <smart-link
                             class="link underline-hover"
@@ -201,6 +208,9 @@ export default {
                 this.moleculeColor = "cyan"
             }
         },
+        onClick() {
+            this.isOpen = !this.isOpen
+        },
     },
 }
 </script>
@@ -221,7 +231,6 @@ export default {
     background-color: var(--color-primary-blue-03);
     display: flex;
     flex-direction: column;
-    position: relative;
 
     .collapsed-menu {
         width: 100vw;
