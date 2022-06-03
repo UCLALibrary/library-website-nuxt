@@ -472,13 +472,17 @@ export default {
     .title {
         color: var(--color-primary-blue-03);
         @include step-4;
+        margin-bottom: var(--space-m);
     }
     .snippet {
         @include step-0;
         color: var(--color-secondary-grey-04);
         font-weight: 400;
-        margin-top: var(--space-m);
-        margin-bottom: var(--space-s);
+        margin-bottom: var(--space-m);
+
+        ::v-deep p {
+            margin: 0;
+        }
     }
     .byline {
         display: flex;
@@ -570,7 +574,7 @@ export default {
         width: 180px;
         height: 50px;
         padding: 0px 0px;
-        margin: 16px 0 0 0;
+        margin: var(--space-m) 0 0 0;
     }
 
     // Variant

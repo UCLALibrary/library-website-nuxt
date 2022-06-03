@@ -176,7 +176,7 @@ export default {
     align-items: center;
     justify-content: space-between;
 
-    max-width: $container-xl-full-width + px;
+    max-width: $container-l-main + px;
     // Themes
     --color-theme: var(--color-white);
     &.color-grey {
