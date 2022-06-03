@@ -31,7 +31,8 @@ export default {
         font-family: var(--font-primary);
         color: var(--color-primary-blue-03);
         @include step-3;
-        margin-bottom: var(--space-xl);
+        margin-bottom: var(--space-l);
+        margin-top: var(--space-xl);
     }
     ::v-deep h4 {
         font-family: var(--font-primary);
@@ -49,7 +50,7 @@ export default {
         font-family: var(--font-primary);
         color: var(--color-black);
         @include step-0;
-        margin: 32px 0;
+        margin: var(--space-l) 0;
     }
 
     ::v-deep p:only-child {
