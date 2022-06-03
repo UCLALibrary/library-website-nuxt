@@ -20,7 +20,6 @@ export default {
         FlexibleCallToAction: () =>
             import("~/components/Flexible/CtaBlockContentWidth"),
         FlexibleCtaBlock2Up: () => import("~/components/Flexible/CtaBlock2Up"),
-        FlexibleDivider: () => import("~/components/Flexible/Divider"),
         FlexibleHelpTopicCards: () =>
             import("~/components/Flexible/HelpTopicCards.vue"),
         FlexibleBannerFeatured: () =>

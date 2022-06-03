@@ -1,5 +1,4 @@
 #import "~/gql/fragments/Image"
-#import "~/gql/fragments/BlockDividerFragment"
 #import "~/gql/fragments/BlockMediaGalleryFragment"
 #import "~/gql/fragments/BlockMediaWithTextFragment"
 #import "~/gql/fragments/BlockPullQuoteFragment"
@@ -10,17 +9,12 @@ fragment DefaultFpbWithNoCta on ElementInterface {
     blocks: defaultFpbWithNoCta {
         id
         typeHandle
-        ...BlockDivider
         ...BlockMediaGallery
         ...BlockMediaWithText
         ...BlockPullQuote
         ...BlockRichText
         ...BlockSimpleCards
     }
-}
-
-fragment BlockDivider on defaultFpbWithNoCta_divider_BlockType {
-    ...BlockDividerFragment
 }
 
 fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {

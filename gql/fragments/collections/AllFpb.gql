@@ -2,7 +2,6 @@
 #import "~/gql/fragments/BlockAssociatedTopicCardsFragment"
 #import "~/gql/fragments/BlockBannerFeaturedFragment"
 #import "~/gql/fragments/BlockCardWithImageFragment"
-#import "~/gql/fragments/BlockDividerFragment"
 #import "~/gql/fragments/BlockHighlight"
 #import "~/gql/fragments/BlockImpactNumbersCarouselFragment"
 #import "~/gql/fragments/BlockMediaGalleryFragment"
@@ -20,7 +19,6 @@ fragment AllFpb on ElementInterface {
         ...BlockAssociatedTopicCards
         ...BlockBannerFeatured
         ...BlockCardWithImage
-        ...BlockDivider
         ...BlockHighlight
         ...BlockImpactNumbersCarousel
         ...BlockMediaGallery
@@ -42,10 +40,6 @@ fragment BlockBannerFeatured on allFpb_bannerFeatured_BlockType {
 
 fragment BlockCardWithImage on allFpb_cardWithImage_BlockType {
     ...BlockCardWithImageFragment
-}
-
-fragment BlockDivider on allFpb_divider_BlockType {
-    ...BlockDividerFragment
 }
 
 fragment BlockHighlight on allFpb_highlight_BlockType {
