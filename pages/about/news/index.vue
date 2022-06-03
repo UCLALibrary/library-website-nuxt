@@ -1,21 +1,43 @@
 <template>
     <main class="page page-news">
-        <h1>NEWS LIST</h1>
-        <p>{{ parsedNewsList }}</p>
-        <nuxt-link
-            v-for="item in parsedNewsList"
-            :key="item.to"
-            :to="item.to"
-        >
-            <div
-                class="text"
-                v-html="item.title"
-            />
-        </nuxt-link>
+        <!-- <banner-featured
+            class="section banner-featured"
+            :title="firstEvent.title"
+            :image="firstEvent.image"
+            :to="firstEvent.to"
+            prompt="View exhibit"
+            :breadcrumb="firstEvent.breadcrumb.text"
+            :align-right="false"
+            :dates="firstEvent.dates"
+            :start-date="firstEvent.startDate"
+            :end-date="firstEvent.endDate"
+        /> -->
+
+        <!-- <section-teaser-highlight
+            class="section"
+            :items="highlightEvents"
+        /> -->
+
+        <h2 class="entry-count">
+            Entry Count: {{ entryCount }}
+        </h2>
+
+        <divider-way-finder
+            class="divider"
+            color="about"
+        />
+
+        <section-staff-article-list
+            :items="parsedNewsList"
+            section-title="All News"
+        />
     </main>
 </template>
 
 <script>
+// Helpers
+import _get from "lodash/get"
+
 // GQL
 import ARTICLE_NEWS_LIST from "~/gql/queries/ArticleNewsList"
 
@@ -30,11 +52,18 @@ export default {
         }
     },
     computed: {
+        entryCount() {
+            return `${this.page.entryCount}`
+        },
+
         parsedNewsList() {
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,
                     to: `/about/news/${obj.to}`,
+                    image: _get(obj, "heroImage[0].image[0]", null),
+                    staffName: `${obj.fullName}`,
+                    category: _get(obj, "articleCategories[0].title", null),
                 }
             })
         },
@@ -44,13 +73,26 @@ export default {
 
 <style lang="scss" scoped>
 .page-news {
+    padding-left: 50px;
+
+    .entry-count {
+        @include step-2;
+        color: var(--color-primary-blue-03);
+        margin: var(--space-m);
+    }
+
     .section-heading {
         @include step-2;
         color: var(--color-primary-blue-03);
         margin-bottom: var(--space-m);
     }
 
-    .news-list {
+    .all-news-heading {
+        @include step-1;
+        color: var(--color-primary-blue-03);
+    }
+
+    .news-item-link {
         list-style: none;
         display: flex;
         justify-content: space-between;

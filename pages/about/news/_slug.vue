@@ -36,11 +36,11 @@
             :text="page.text"
         />
         <divider-way-finder
-            color="help"
+            color="about"
             class="divider-way-finder"
         />
-        <h2 class="more-info">
-            More Information
+        <h2 class="highlighted-news">
+            Highlighted News
         </h2>
 
         <flexible-blocks
@@ -51,14 +51,12 @@
             color="help"
             class="divider-way-finder"
         />
-        <section-cards-with-illustrations
-            v-if="parsedAssociatedTopics.length"
-            class="section-cards"
-            :items="parsedAssociatedTopics"
-            title="Associated Topics"
-            button-text="All Services and Resources "
-            to="/help/services-resources"
+
+        <section-staff-article-list
+            :items="items"
+            section-title="Articles"
         />
+
         <block-call-to-action
             class="block-call-to-action"
             :is-global="true"
@@ -139,7 +137,7 @@ export default {
     .section-cards {
         margin: var(--space-3xl) auto;
     }
-    .more-info {
+    .highlighted-news {
         @include visually-hidden;
     }
     .block-call-to-action {

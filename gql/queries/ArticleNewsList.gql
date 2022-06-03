@@ -5,9 +5,8 @@ query ArticleNewsList {
     entries(section: "article", orderBy: "dateCreated") {
         ... on article_article_Entry {
             id
-            author {
-                email
-                fullName
+            articleCategories {
+                title
             }
             title
             uri
@@ -20,10 +19,15 @@ query ArticleNewsList {
                     }
                 }
             }
+            description: summary
+            authors: staffMember {
+                title
+            }
+            date: dateCreated
             ...AllFpb
         }
-        entryCount
     }
+    entryCount
 }
 
 # {
