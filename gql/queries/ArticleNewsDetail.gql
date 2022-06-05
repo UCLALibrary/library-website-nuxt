@@ -1,3 +1,6 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/collections/AllFpb"
+
 query ArticleNewsDetail($slug: [String!]) {
   entry(section: "article", slug: $slug) {
     ... on article_article_Entry {
@@ -8,14 +11,7 @@ query ArticleNewsDetail($slug: [String!]) {
         ... on heroImage_heroImage_BlockType {
           id
           image {
-            ... on mediaAndDocuments_Asset {
-              id
-              image {
                 ...Image
-              }
-              altText
-              title
-            }
           }
         }
       }
@@ -47,3 +43,23 @@ query ArticleNewsDetail($slug: [String!]) {
     ...AllFpb
   }
 }
+
+# "heroImage": [
+#   {
+#     "id": "4423",
+#     "image": [
+#       {
+#         "id": "5230",
+#         "src": "https://static.library.ucla.edu/craftassetstest/_fullscreen/lirary-workshop.jpg",
+#         "height": 1277,
+#         "width": 2560,
+#         "srcset": "https://static.library.ucla.edu/craftassetstest/_375xAUTO_crop_center-center_none/lirary-workshop.jpg 375w, https://static.library.ucla.edu/craftassetstest/_960xAUTO_crop_center-center_none/lirary-workshop.jpg 960w, https://static.library.ucla.edu/craftassetstest/_1280xAUTO_crop_center-center_none/lirary-workshop.jpg 1280w, https://static.library.ucla.edu/craftassetstest/_1920xAUTO_crop_center-center_none/lirary-workshop.jpg 1920w, https://static.library.ucla.edu/craftassetstest/_2560xAUTO_crop_center-center_none/lirary-workshop.jpg 2560w",
+#         "alt": "Library Workshop",
+#         "focalPoint": [
+#           0.5,
+#           0.5
+#         ]
+#       }
+#     ]
+#   }
+# ],

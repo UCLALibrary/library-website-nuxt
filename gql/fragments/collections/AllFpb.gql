@@ -2,7 +2,7 @@
 #import "~/gql/fragments/BlockAssociatedTopicCardsFragment"
 #import "~/gql/fragments/BlockBannerFeaturedFragment"
 #import "~/gql/fragments/BlockCardWithImageFragment"
-#import "~/gql/fragments/BlockHighlight"
+#import "~/gql/fragments/BlockHighlightFragment"
 #import "~/gql/fragments/BlockImpactNumbersCarouselFragment"
 #import "~/gql/fragments/BlockMediaGalleryFragment"
 #import "~/gql/fragments/BlockMediaWithTextFragment"
