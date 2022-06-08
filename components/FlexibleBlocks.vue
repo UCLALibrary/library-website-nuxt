@@ -20,7 +20,6 @@ export default {
         FlexibleCallToAction: () =>
             import("~/components/Flexible/CtaBlockContentWidth"),
         FlexibleCtaBlock2Up: () => import("~/components/Flexible/CtaBlock2Up"),
-        FlexibleDivider: () => import("~/components/Flexible/Divider"),
         FlexibleHelpTopicCards: () =>
             import("~/components/Flexible/HelpTopicCards.vue"),
         FlexibleBannerFeatured: () =>
@@ -82,7 +81,7 @@ function convertName(typeHandle) {
 <style lang="scss" scoped>
 .flexible-blocks {
     .flexible-block {
-        padding: var(--unit-gutter) 0;
+        margin-bottom: var(--space-3xl);
 
         &:first-child {
             padding-top: 0;

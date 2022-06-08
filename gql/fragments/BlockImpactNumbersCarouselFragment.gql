@@ -1,0 +1,16 @@
+fragment BlockImpactNumbersCarouselFragment on ElementInterface {
+    id
+    impactNumbersCarousel {
+        id
+        ... on impactNumbersCarousel_impactNumbersCarousel_BlockType {
+            id
+            largeText
+            mediumText
+            smallDescriptor
+            image {
+                url
+            }
+            imageAltText
+        }
+    }
+}

@@ -1,4 +1,6 @@
+#import "~/gql/fragments/collections/DefaultFpb"
 #import "~/gql/fragments/Image"
+
 query LocationDetail($slug: [String!]) {
     entry(section: "location", slug: $slug) {
         ... on location_location_Entry {
@@ -61,7 +63,7 @@ query LocationDetail($slug: [String!]) {
                 to: uri
             }
 
-            ...FlexibleBlocksLocation
+            ...DefaultFpb
         }
     }
     associatedArticles: entries(
@@ -187,112 +189,6 @@ query LocationDetail($slug: [String!]) {
                 title
                 to: uri
             }
-        }
-    }
-}
-
-fragment FlexibleBlocksLocation on ElementInterface {
-    blocks: defaultFpb {
-        id
-        typeHandle
-        ...BlockDivider
-        ...BlockPullQuote
-        ...BlockRichText
-        ...BlockMediaWithText
-        ...BlockSimpleCards
-        ...BlockCallToAction
-    }
-}
-
-fragment BlockRichText on defaultFpb_richText_BlockType {
-    richText
-}
-
-fragment BlockPullQuote on defaultFpb_pullQuote_BlockType {
-    id
-    pullQuote {
-        ... on pullQuote_pullQuote_BlockType {
-            text
-            attribution
-        }
-    }
-}
-
-fragment BlockDivider on defaultFpb_divider_BlockType {
-    id
-    divider
-}
-
-fragment BlockMediaWithText on defaultFpb_mediaWithText_BlockType {
-    id
-    sectionTitle: titleGeneral
-    sectionSummary: summary
-    mediaWithText {
-        ... on mediaWithText_mediaLink_BlockType {
-            id
-            titleLink
-            description
-            coverImage {
-                ...Image
-            }
-            buttonText
-            buttonUrl
-            linkToMedia
-            typeMedia
-        }
-        ... on mediaWithText_mediaUpload_BlockType {
-            id
-            titleUpload
-            description
-            buttonText
-            buttonUrl
-            coverImage {
-                ...Image
-            }
-            upload {
-                ...Image
-            }
-            typeMedia
-        }
-    }
-}
-
-fragment BlockSimpleCards on defaultFpb_simpleCards_BlockType {
-    id
-    sectionTitle: titleGeneral
-    sectionSummary: summary
-    cards: simpleCards {
-        ... on simpleCards_internalServiceOrResource_BlockType {
-            id
-            title: titleGeneral
-            summary
-            contentLink {
-                slug
-                title
-                summary
-                researchGuideUrl
-            }
-        }
-        ... on simpleCards_externalServiceOrResource_BlockType {
-            id
-            title: titleGeneral
-            summary
-            externalLink
-        }
-    }
-}
-
-fragment BlockCallToAction on defaultFpb_callToAction_BlockType {
-    id
-    callToAction {
-        ... on callToAction_callToAction_BlockType {
-            id
-            titleCta
-            summary
-            icon
-            buttonText
-            buttonLink
-            backgroundColor
         }
     }
 }

@@ -1,0 +1,9 @@
+fragment BlockPullQuoteFragment on ElementInterface {
+    id
+    pullQuote {
+        ... on pullQuote_pullQuote_BlockType {
+            text
+            attribution
+        }
+    }
+}

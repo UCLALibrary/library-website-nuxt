@@ -90,7 +90,7 @@ export default {
     align-items: center;
     justify-content: center;
 
-    max-width: $container-xl-full-width + px;
+    max-width: $container-l-main + px;
     background-color: var(--color-theme);
     padding-top: 96px;
     padding-bottom: 114px;

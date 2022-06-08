@@ -4,16 +4,18 @@
             <h2 class="visually-hidden">
                 Resources
             </h2>
-            <h3
-                v-if="block.sectionTitle"
-                class="section-title"
-                v-html="block.sectionTitle"
-            />
-            <p
-                v-if="block.sectionSummary"
-                class="section-summary"
-                v-html="block.sectionSummary"
-            />
+            <div class="section-header">
+                <h3
+                    v-if="block.sectionTitle"
+                    class="section-title"
+                    v-html="block.sectionTitle"
+                />
+                <p
+                    v-if="block.sectionSummary"
+                    class="section-summary"
+                    v-html="block.sectionSummary"
+                />
+            </div>
             <div
                 v-for="(item, index) in parsedContent"
                 :key="`MediaWithTextKey${index}`"
@@ -98,14 +100,18 @@ export default {
         @include visually-hidden;
     }
 
+    .section-header {
+        margin-bottom: var(--space-xl);
+    }
+
     .section-title {
         @include step-4;
         color: var(--color-primary-blue-03);
+        margin-bottom: var(--space-m);
     }
 
     .section-summary {
         @include step-0;
-        margin-bottom: var(--space-xl);
     }
 
     .flexible-media-with-text {

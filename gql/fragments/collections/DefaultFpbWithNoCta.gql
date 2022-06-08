@@ -1,0 +1,38 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaWithTextFragment"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+
+fragment DefaultFpbWithNoCta on ElementInterface {
+    blocks: defaultFpbWithNoCta {
+        id
+        typeHandle
+        ...BlockMediaGallery
+        ...BlockMediaWithText
+        ...BlockPullQuote
+        ...BlockRichText
+        ...BlockSimpleCards
+    }
+}
+
+fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
+    ...BlockMediaWithTextFragment
+}
+
+fragment BlockMediaGallery on defaultFpbWithNoCta_mediaGallery_BlockType {
+    ...BlockMediaGalleryFragment
+}
+
+fragment BlockPullQuote on defaultFpbWithNoCta_pullQuote_BlockType {
+    ...BlockPullQuoteFragment
+}
+
+fragment BlockRichText on defaultFpbWithNoCta_richText_BlockType {
+    ...BlockRichTextFragment
+}
+
+fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
+    ...BlockSimpleCardsFragment
+}

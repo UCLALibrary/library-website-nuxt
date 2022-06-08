@@ -1,6 +1,6 @@
 <template lang="html">
     <div :class="classes">
-        <header-main />
+        <header-smart />
 
         <nuxt class="page" />
 

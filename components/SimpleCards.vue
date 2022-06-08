@@ -1,15 +1,17 @@
 <template>
     <div class="simple-cards">
-        <h2
-            v-if="sectionTitle"
-            class="section-title"
-            v-html="sectionTitle"
-        />
-        <p
-            v-if="sectionSummary"
-            class="section-summary"
-            v-html="sectionSummary"
-        />
+        <div class="section-header">
+            <h2
+                v-if="sectionTitle"
+                class="section-title"
+                v-html="sectionTitle"
+            />
+            <div
+                v-if="sectionSummary"
+                class="section-summary"
+                v-html="sectionSummary"
+            />
+        </div>
 
         <ul class="simple-cards">
             <block-simple-card
@@ -74,17 +76,24 @@ export default {
     justify-content: flex-start;
     align-content: flex-start;
     align-items: flex-start;
+    gap: var(--space-s);
+
+    .section-header {
+        margin-bottom: var(--space-xl);
+    }
     .section-title {
         @include step-4;
         color: var(--color-primary-blue-03);
-        margin-bottom: var(--space-xl);
+        margin-bottom: var(--space-m);
     }
     .section-summary {
         @include step-0;
-        margin-bottom: var(--space-xl);
+
+        ::v-deep p {
+            margin: 0;
+        }
     }
     .card {
-        margin: 12px 16px 0 0;
     }
     .card-large {
         width: calc(50% - 16px);
