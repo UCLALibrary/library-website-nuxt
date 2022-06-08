@@ -4,6 +4,7 @@
         <!--Hello /-->
         <!--test-vue-component-rollup-sfc-sample /-->
         <ucla-library-website-component-sample />
+        <alphabetical-browse-by />
         <!--divider-general-test /-->
         <br>
     </div>
