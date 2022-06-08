@@ -8,10 +8,14 @@ function getParentPageTitle(uri = "") {
     let output = "default"
 
     switch (true) {
-        case uri.includes("/about"):
-        case uri.includes("/staff"):
+        case uri.includes("/about") && uri.includes("/news"):
+            output = "Library News"
+            break
+            
+        case uri.includes("/about") && uri.includes("/staff"):
             output = "Staff Directory"
             break
+
 
         case uri.includes("/locations"):
             output = "Locations"
