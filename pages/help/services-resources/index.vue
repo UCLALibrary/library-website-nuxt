@@ -1,6 +1,5 @@
 <template lang="html">
     <div class="page page-help">
-        <h2>{{ parsedServiceAndResourceList }}</h2>
         <nuxt-link
             v-for="item in parsedServiceAndResourceList"
             :key="item.to"

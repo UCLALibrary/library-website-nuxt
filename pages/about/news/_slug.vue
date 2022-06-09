@@ -19,9 +19,9 @@
 
 <template lang="html">
     <section class="page-news-detail">
-        <h2>{{ page }}</h2>
+        <!-- <h2>{{ page }}</h2> -->
         <br>
-        <h1>DATE: {{ page.dateCreated }}</h1>
+        <h1>LOCATIONS: {{ parsedLocations }}</h1>
 
         <nav-breadcrumb :title="page.title" />
 
@@ -31,8 +31,8 @@
             :title="page.title"
             category="Library News"
             :byline="parsedBylines"
-            :date-created="page.dateCreated"
             :locations="locations"
+            :date-created="parsedDate"
             :align-right="true"
         />
 
@@ -93,11 +93,13 @@ export default {
             })
         },
 
-        parsedDate(){
-            let articleDate = this.page.dateCreated
-            return format(new Date(articleDate), "MMMM d, Y")
+        parsedDate() {
+            return format(new Date(this.page.dateCreated), "MMMM d, Y")
         },
-        // :date="parsedDate"
+
+        parsedLocations() {
+            return this.page.locations
+        }
     }
 }
 

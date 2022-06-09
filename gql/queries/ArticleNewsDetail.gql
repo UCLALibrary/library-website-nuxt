@@ -8,6 +8,7 @@ query ArticleNewsDetail($slug: [String!]) {
       articleType
       title
       text: summary
+      dateCreated
       heroImage {
         ... on heroImage_heroImage_BlockType {
           id

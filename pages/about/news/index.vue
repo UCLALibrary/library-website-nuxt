@@ -1,16 +1,16 @@
 <template>
     <main class="page page-news">
-        <!-- <banner-featured
-            class="section banner-featured"
-            :title="firstEvent.title"
-            :image="firstEvent.image"
-            :to="firstEvent.to"
-            prompt="View exhibit"
-            :breadcrumb="firstEvent.breadcrumb.text"
-            :align-right="false"
-            :dates="firstEvent.dates"
-            :start-date="firstEvent.startDate"
-            :end-date="firstEvent.endDate"
+        <!-- <banner-header
+            v-if="page.heroImage && page.heroImage.length == 1"
+            :image="page.heroImage[0].image[0]"
+            :title="page.title"
+            category="Library News"
+            :byline="parsedBylines"
+            :locations="locations"
+            :date-created="parsedDate"
+            :to="to"
+            :authors="authors"
+            :align-right="true"
         /> -->
 
         <!-- <section-teaser-highlight
@@ -36,7 +36,9 @@
 
 <script>
 // Helpers
+// Helpers
 import _get from "lodash/get"
+import format from "date-fns/format"
 
 // GQL
 import ARTICLE_NEWS_LIST from "~/gql/queries/ArticleNewsList"
@@ -66,6 +68,10 @@ export default {
                     category: _get(obj, "articleCategories[0].title", null),
                 }
             })
+        },
+
+        parsedDate() {
+            return format(new Date(this.page.dateCreated), "MMMM d, Y")
         },
     },
 }
