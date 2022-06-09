@@ -225,12 +225,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.body.expanded-menu {
-    height: 100vh;
-    overflow-y: hidden;
-}
 .fullHeight {
-    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 400;
 }
 
 .collapsedHeight {
@@ -263,10 +264,8 @@ export default {
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
-        height: 100%;
+
         padding: 21px 26px 114px 26px;
-        z-index: 400;
-        position: relative;
         background-color: var(--color-primary-blue-03);
 
         .svg__logo-library > g > path {
