@@ -9,12 +9,12 @@
         <ul
             :data-sub-menu-item-id="index"
             class="sub-menu hidden"
-            @click="toggleMainMenu"
         >
             <li
                 v-for="child in parsedChildren"
                 :key="child.id"
                 class="sub-menu-item"
+                @click="closeMenu"
             >
                 <smart-link
                     :class="child.classes"
@@ -48,6 +48,7 @@ export default {
             default: false,
         },
     },
+
     computed: {
         parsedChildren() {
             return this.item.children.map((obj) => {
@@ -109,9 +110,8 @@ export default {
                 item.classList.add("hidden")
             }
         },
-        toggleMainMenu() {
-            this.isOpened = !this.isOpened
-            this.$emit("isOpened")
+        closeMenu() {
+            this.$emit("closeMainMenu")
         },
     },
 }

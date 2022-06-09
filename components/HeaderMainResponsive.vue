@@ -40,8 +40,10 @@
                 </nuxt-link>
                 <component
                     :is="parsedSvgName"
-                    :class="isOpened ? 'go-back-svg' : 'close-svg'"
-                    :aria-label="isOpened ? 'Go back button' : 'Close button'"
+                    :class="isItemOpened ? 'go-back-svg' : 'close-svg'"
+                    :aria-label="
+                        isItemOpened ? 'Go back button' : 'Close button'
+                    "
                     @click="handleCloseOrReturn"
                 />
             </div>
@@ -54,6 +56,7 @@
                     :go-back="goBack"
                     @shouldOpen="shouldOpen"
                     @itemOpened="itemOpened"
+                    @closeMainMenu="toggleMenu"
                 />
             </ul>
             <div
@@ -147,13 +150,14 @@ export default {
     data() {
         return {
             isOpened: false,
+            isItemOpened: false,
             goBack: false,
             moleculeColor: "cyan",
         }
     },
     computed: {
         parsedSvgName() {
-            return this.isOpened
+            return this.isItemOpened
                 ? `${this.iconGoBackName}`
                 : `${this.iconCloseName}`
         },
@@ -182,15 +186,15 @@ export default {
     },
     methods: {
         shouldOpen() {
-            this.isOpened = !this.isOpened
+            this.isItemOpened = !this.isItemOpened
             this.goBack = false
         },
         handleCloseOrReturn() {
-            if (this.isOpened) {
+            if (this.isItemOpened) {
                 this.goBack = !this.goBack
                 this.moleculeColor = "cyan"
             } else {
-                this.isCollapsed = false
+                this.isOpen = false
             }
         },
         itemOpened(itemIndex) {
@@ -202,7 +206,7 @@ export default {
                 this.moleculeColor = "purple"
             }
 
-            if (this.isOpened === false) {
+            if (this.isItemOpened === false) {
                 this.moleculeColor = "cyan"
             }
         },
