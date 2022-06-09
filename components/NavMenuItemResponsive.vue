@@ -1,16 +1,15 @@
 <template lang="html">
-    <li
-        class="nav-menu-item"
-    >
+    <li class="nav-menu-item">
         <span
             class="section-name block"
             :data-sub-menu-title-id="index"
-            @click="toggleMenu(index)"
+            @click="toggleItem(index)"
         >{{ item.name }}</span>
 
         <ul
             :data-sub-menu-item-id="index"
             class="sub-menu hidden"
+            @click="toggleMainMenu"
         >
             <li
                 v-for="child in parsedChildren"
@@ -34,7 +33,7 @@
 import formatLinkTarget from "~/utils/formatLinkTarget"
 
 export default {
-    name: 'NavMenuItemResponsive',
+    name: "NavMenuItemResponsive",
     props: {
         item: {
             type: Object,
@@ -46,8 +45,8 @@ export default {
         },
         goBack: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     computed: {
         parsedChildren() {
@@ -61,48 +60,60 @@ export default {
         },
     },
     watch: {
-        goBack: function(newVal) {
+        goBack: function (newVal) {
             newVal ? this.resetAccordion() : null
-        }
+        },
     },
     methods: {
-        toggleMenu (itemIndex) {
-            const subMenuItemInfoElement = document.querySelectorAll('[data-sub-menu-item-id="' + itemIndex + '"]')[0]
-            const subMenuTitleElement = document.querySelectorAll('li span:not([data-sub-menu-title-id="' + itemIndex + '"]')
-            if (subMenuItemInfoElement.classList.contains('block')) {
-                subMenuItemInfoElement.classList.remove('block')
-                subMenuItemInfoElement.classList.add('hidden')
-                
-                for(let title of subMenuTitleElement) {
-                    title.classList.remove('hidden')
-                    title.classList.add('block')
+        toggleItem(itemIndex) {
+            const subMenuItemInfoElement = document.querySelectorAll(
+                '[data-sub-menu-item-id="' + itemIndex + '"]'
+            )[0]
+            const subMenuTitleElement = document.querySelectorAll(
+                'li span:not([data-sub-menu-title-id="' + itemIndex + '"]'
+            )
+            if (subMenuItemInfoElement.classList.contains("block")) {
+                subMenuItemInfoElement.classList.remove("block")
+                subMenuItemInfoElement.classList.add("hidden")
+
+                for (let title of subMenuTitleElement) {
+                    title.classList.remove("hidden")
+                    title.classList.add("block")
                 }
             } else {
-                subMenuItemInfoElement.classList.remove('hidden')
-                subMenuItemInfoElement.classList.add('block')
+                subMenuItemInfoElement.classList.remove("hidden")
+                subMenuItemInfoElement.classList.add("block")
 
-                for(let title of subMenuTitleElement) {
-                    title.classList.remove('block')
-                    title.classList.add('hidden')
+                for (let title of subMenuTitleElement) {
+                    title.classList.remove("block")
+                    title.classList.add("hidden")
                 }
             }
             this.$emit("shouldOpen")
-            this.$emit('itemOpened', itemIndex)
+            this.$emit("itemOpened", itemIndex)
         },
         resetAccordion() {
             this.$emit("shouldOpen")
-            const subMenuTitleElement = document.querySelectorAll('[data-sub-menu-title-id]')
-            for(let title of subMenuTitleElement) {
-                title.classList.remove('hidden')
-                title.classList.add('block')
+            const subMenuTitleElement = document.querySelectorAll(
+                "[data-sub-menu-title-id]"
+            )
+            for (let title of subMenuTitleElement) {
+                title.classList.remove("hidden")
+                title.classList.add("block")
             }
-            const subMenuItemInfoElement = document.querySelectorAll('[data-sub-menu-item-id]')
-            for(let item of subMenuItemInfoElement) {
-                item.classList.remove('block')
-                item.classList.add('hidden')
+            const subMenuItemInfoElement = document.querySelectorAll(
+                "[data-sub-menu-item-id]"
+            )
+            for (let item of subMenuItemInfoElement) {
+                item.classList.remove("block")
+                item.classList.add("hidden")
             }
-        }
-    }
+        },
+        toggleMainMenu() {
+            this.isOpened = !this.isOpened
+            this.$emit("isOpened")
+        },
+    },
 }
 </script>
 
@@ -127,7 +138,7 @@ export default {
         position: relative;
         color: white;
         cursor: pointer;
-    
+
         &.block {
             display: block;
         }
@@ -146,7 +157,7 @@ export default {
         line-height: 24px;
         letter-spacing: 0.01em;
         color: var(--color-white);
-    
+
         &.block {
             display: block;
         }

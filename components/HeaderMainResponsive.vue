@@ -3,10 +3,10 @@
         role="navigation"
         aria-label="Menu"
         class="header-main-responsive"
-        :class="isCollapsed ? 'fullHeight' : 'collapsedHeight'"
+        :class="isOpened ? 'fullHeight' : 'collapsedHeight'"
     >
         <div
-            v-if="!isCollapsed"
+            v-if="!isOpened"
             class="collapsed-menu"
         >
             <component
@@ -21,7 +21,8 @@
                 class="hamburguer"
                 role="button"
                 aria-label="Hamburguer button"
-                @click="() => (isCollapsed = true)"
+                :is-opened="isOpened"
+                @click="toggleMenu"
             />
         </div>
         <div v-else>
@@ -56,16 +57,14 @@
                 />
             </ul>
             <div
-                v-if="!isOpened"
+                v-if="isOpened"
                 class="nav-menu-secondary"
             >
-                <!-- TODO anything here is clicked and collapses menu -->
                 <ul class="list">
                     <li
                         v-for="item in parsedSecondaryMenuItems"
                         :key="item.id"
                         class="list-item"
-                        @click="onClick"
                     >
                         <smart-link
                             class="link underline-hover"
@@ -150,7 +149,6 @@ export default {
             isOpened: false,
             goBack: false,
             moleculeColor: "cyan",
-            isCollapsed: false,
         }
     },
     computed: {
@@ -208,8 +206,8 @@ export default {
                 this.moleculeColor = "cyan"
             }
         },
-        onClick() {
-            this.isOpen = !this.isOpen
+        toggleMenu() {
+            this.isOpened = !this.isOpened
         },
     },
 }
