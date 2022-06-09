@@ -242,10 +242,10 @@ export default {
     .collapsed-menu {
         width: 100vw;
         height: 100%;
+        padding-top: var(--space-2xl);
         background-color: var(--color-white);
         display: flex;
         justify-content: space-between;
-        padding: 21px 26px;
 
         .hamburguer {
             cursor: pointer;
@@ -257,7 +257,11 @@ export default {
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
+        height: 100%;
         padding: 21px 26px 114px 26px;
+        z-index: 400;
+        position: relative;
+        background-color: var(--color-primary-blue-03);
 
         .svg__logo-library > g > path {
             fill: var(--color-white);

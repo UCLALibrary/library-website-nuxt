@@ -30,11 +30,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.brand-bar {
-    position: relative;
-}
-.mobile-header {
-    z-index: 400;
-    position: relative;
+@media #{$medium} {
+    .brand-bar {
+        position: absolute;
+        width: 100%;
+    }
 }
 </style>
