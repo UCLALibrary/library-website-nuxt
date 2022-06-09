@@ -160,7 +160,6 @@ export const WithContactInfo = () => ({
            staff-directory-link="/about/staff?q=*&location=slug"
            address-link="https://map.ucla.edu/?k=false&id=81516"
            :prompt="prompt"
-           
        />
     `,
 })
@@ -179,8 +178,15 @@ const article = {
             title: "Powell Library",
             to: "visit/locations/powell-library",
         },
+        {
+            id: "3062",
+            title: "Online",
+            to: "visit/locations/online",
+        },
+    ],
     alignRight: true,
 }
+
 
 export const ArticleDetail= () => ({
     data() {
@@ -192,8 +198,8 @@ export const ArticleDetail= () => ({
         <banner-header
            :image="image"
            :title="title"
-           :byline:"byline"
-           :dateCreated="dateCreated"
+           :byline="byline"
+           :dateCreated="parsedDate"
        />
     `,
 })

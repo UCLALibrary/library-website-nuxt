@@ -53,7 +53,7 @@
                 <time
                     v-if="dateCreated"
                     class="date-created"
-                    v-html="dateCreated"
+                    v-html="parsedDateCreated"
                 />
                 <time
                     v-if="startDate"
@@ -177,6 +177,7 @@
 <script>
 // Helpers
 import getSectionName from "~/utils/getSectionName"
+import format from "date-fns/format"
 import formatEventTimes from "~/utils/formatEventTimes"
 import formatEventDates from "~/utils/formatEventDates"
 
@@ -298,6 +299,9 @@ export default {
                 { "hatch-left": !this.alignRight },
                 `color-${this.sectionName}`,
             ]
+        },
+        parsedDateCreated() {
+            return format(new Date(this.dateCreated), "MMMM d, Y")
         },
         parsedDate() {
             return formatEventDates(this.startDate, this.endDate)
@@ -513,9 +517,8 @@ export default {
     }
     .date-created {
         margin-top: 24px;
-        color: coral;
+        color: var(--color-secondary-grey-04);
     }
-
 
     .schedule {
         line-height: 24px;

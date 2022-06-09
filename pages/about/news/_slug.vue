@@ -21,7 +21,7 @@
     <section class="page-news-detail">
         <!-- <h2>{{ page }}</h2> -->
         <br>
-        <h1>LOCATIONS: {{ parsedLocations }}</h1>
+        <h1>LOCATIONS: {{ page.locations }}</h1>
 
         <nav-breadcrumb :title="page.title" />
 
@@ -31,8 +31,8 @@
             :title="page.title"
             category="Library News"
             :byline="parsedBylines"
-            :locations="locations"
-            :date-created="parsedDate"
+
+            :date-created="page.dateCreated"
             :align-right="true"
         />
 
@@ -97,9 +97,16 @@ export default {
             return format(new Date(this.page.dateCreated), "MMMM d, Y")
         },
 
-        parsedLocations() {
-            return this.page.locations
-        }
+        // parsedLocations() {
+        //     let places= this.page.locations.map((place) => {
+        //         return {
+        //             linkedLocation: `<a href="${place.uri}">${place.title}</a>`
+        //         }
+        //     })
+        //     return places.map(({linkedLocation})=>{ 
+        //         return (`${linkedLocation}`)
+        //     })
+        // }
     }
 }
 
