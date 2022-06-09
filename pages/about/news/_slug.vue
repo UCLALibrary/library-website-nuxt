@@ -19,10 +19,6 @@
 
 <template lang="html">
     <section class="page-news-detail">
-        <!-- <h2>{{ page }}</h2> -->
-        <br>
-        <h1>LOCATIONS: {{ page.locations }}</h1>
-
         <nav-breadcrumb :title="page.title" />
 
         <banner-header
@@ -31,7 +27,7 @@
             :title="page.title"
             category="Library News"
             :byline="parsedBylines"
-
+            :locations="page.locations"
             :date-created="page.dateCreated"
             :align-right="true"
         />

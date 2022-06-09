@@ -199,7 +199,8 @@ export const ArticleDetail= () => ({
            :image="image"
            :title="title"
            :byline="byline"
-           :dateCreated="parsedDate"
+           :dateCreated="dateCreated"
+           :locations="locations"
        />
     `,
 })

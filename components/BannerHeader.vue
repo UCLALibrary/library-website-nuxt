@@ -48,8 +48,9 @@
                     v-if="byline"
                     :key="index"
                     class="byline-item"
-                    v-html="item"
-                />
+                >
+                    By {{ item }}
+                </div>
                 <time
                     v-if="dateCreated"
                     class="date-created"
@@ -501,8 +502,9 @@ export default {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        font-size: 20px;
 
+        font-size: 20px;
+        margin-bottom: 24px;
     }
     .byline-item {
         display: flex;
@@ -511,13 +513,12 @@ export default {
         font-size: 20px;
         line-height: 24px;
         text-align: left;
-        color: var(--color-secondary-grey-04);
+        color: var(--color-primary-blue-03);
         margin-top: 24px;
-
     }
     .date-created {
         margin-top: 24px;
-        color: var(--color-secondary-grey-04);
+        color: var(--color-primary-blue-03);
     }
 
     .schedule {

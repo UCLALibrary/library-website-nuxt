@@ -34,7 +34,7 @@ query ArticleNewsDetail($slug: [String!]) {
       locations: associatedLocations {
         id
         title
-        uri
+        to: uri
         ... on location_location_Entry {
           id
           email
