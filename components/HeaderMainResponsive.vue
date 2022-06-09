@@ -36,6 +36,7 @@
                         width="155"
                         height="55"
                         class="expanded-logo"
+                        @click="toggleMenu"
                     />
                 </nuxt-link>
                 <component
