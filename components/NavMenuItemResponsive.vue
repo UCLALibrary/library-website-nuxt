@@ -91,7 +91,7 @@ export default {
                 }
             }
             this.$emit("shouldOpen")
-            this.$emit("itemOpened", itemIndex)
+            this.$emit("itemOpenedColor", itemIndex)
         },
         resetAccordion() {
             this.$emit("shouldOpen")
@@ -112,6 +112,7 @@ export default {
         },
         closeMenu() {
             this.$emit("closeMainMenu")
+            this.$emit("closeMenuItem")
         },
     },
 }

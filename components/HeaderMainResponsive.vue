@@ -55,8 +55,9 @@
                     :index="index"
                     :go-back="goBack"
                     @shouldOpen="shouldOpen"
-                    @itemOpened="itemOpened"
+                    @itemOpenedColor="itemOpenedColor"
                     @closeMainMenu="toggleMenu"
+                    @closeMenuItem="closeItem"
                 />
             </ul>
             <div
@@ -194,10 +195,10 @@ export default {
                 this.goBack = !this.goBack
                 this.moleculeColor = "cyan"
             } else {
-                this.isOpen = false
+                this.isOpened = false
             }
         },
-        itemOpened(itemIndex) {
+        itemOpenedColor(itemIndex) {
             if (itemIndex === 0) {
                 this.moleculeColor = "green"
             } else if (itemIndex === 1) {
@@ -212,6 +213,9 @@ export default {
         },
         toggleMenu() {
             this.isOpened = !this.isOpened
+        },
+        closeItem() {
+            this.isItemOpened = false
         },
     },
 }
