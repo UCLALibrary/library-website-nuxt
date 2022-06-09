@@ -225,6 +225,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.body.expanded-menu {
+    height: 100vh;
+    overflow-y: hidden;
+}
 .fullHeight {
     min-height: 100vh;
 }
@@ -364,11 +368,6 @@ export default {
         -ms-filter: "FlipV";
     }
 
-    // @media #{$medium} {
-    //     .support-us-container {
-    //         padding-top: 0px;
-    //     }
-    // }
     @media #{$small} {
         .support-us-container {
             padding-top: 0px;
