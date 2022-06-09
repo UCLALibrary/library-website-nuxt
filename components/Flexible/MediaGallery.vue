@@ -9,8 +9,9 @@
             :block="block.mediaGallery"
             :n-items="nItems"
             :selected-item="selectionIndex"
+            tabindex="0"
             @closeModal="hideLightboxModal"
-            @keydown.esc="hideLightboxModal"
+            @keydown.native.esc="hideLightboxModal"
         />
         <media-gallery-banner-image
             :image="block.mediaGallery[selectionIndex].image[0]"
