@@ -70,6 +70,7 @@
                         v-for="item in parsedSecondaryMenuItems"
                         :key="item.id"
                         class="list-item"
+                        @click="toggleMenu"
                     >
                         <smart-link
                             class="link underline-hover"
@@ -89,6 +90,7 @@
                     class="button"
                     :to="supportLinks[0].to"
                     icon-name="none"
+                    @click="toggleMenu"
                 />
             </div>
             <component
