@@ -20,7 +20,7 @@
     <section class="page-news-detail">
         <h2>{{ page }}</h2>
         <br>
-        <h1>DATE: {{ page.to }}</h1>
+        <h1>DATE: {{ page.dateCreated }}</h1>
 
         <nav-breadcrumb :title="page.title" />
 
@@ -28,10 +28,9 @@
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
             :title="page.title"
-            :category="page.type"
-            :text="page.text"
+            category="Library News"
             :byline="parsedBylines"
-            :date="parsedDate"
+            :date-created="page.dateCreated"
             :align-right="true"
         />
         <divider-way-finder
@@ -43,6 +42,7 @@
             class="content"
             :blocks="page.blocks"
         />
+        </banner-header>
     </section>
 </template>
 
@@ -86,13 +86,15 @@ export default {
             })
 
             return bylines.map(({fullName})=>{ 
-                return (`By ${fullName}`)
+                return (`${fullName}`)
             })
         },
+
         parsedDate(){
             let articleDate = this.page.dateCreated
             return format(new Date(articleDate), "MMMM d, Y")
-        }
+        },
+        // :date="parsedDate"
     }
 }
 

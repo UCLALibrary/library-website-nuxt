@@ -42,13 +42,18 @@
                 class="snippet"
                 v-html="text"
             />
-            <div class="byline">
+            <div class="byline-and-time">
                 <div
                     v-for="(item, index) in byline"
                     v-if="byline"
                     :key="index"
                     class="byline-item"
                     v-html="item"
+                />
+                <time
+                    v-if="dateCreated"
+                    class="date-created"
+                    v-html="parsedDateCreated"
                 />
                 <time
                     v-if="startDate"
@@ -172,6 +177,7 @@
 <script>
 // Helpers
 import getSectionName from "~/utils/getSectionName"
+import format from "date-fns/format"
 import formatEventTimes from "~/utils/formatEventTimes"
 import formatEventDates from "~/utils/formatEventDates"
 
@@ -225,6 +231,10 @@ export default {
         byline: {
             type: Array,
             default: () => [],
+        },
+        dateCreated: {
+            type: String,
+            default: "",
         },
         startDate: {
             type: String,
@@ -289,6 +299,9 @@ export default {
                 { "hatch-left": !this.alignRight },
                 `color-${this.sectionName}`,
             ]
+        },
+        parsedDateCreated(){
+            return format(new Date(this.dateCreated), "MMMM d, Y")
         },
         parsedDate() {
             return formatEventDates(this.startDate, this.endDate)
@@ -484,20 +497,27 @@ export default {
             margin: 0;
         }
     }
-    .byline {
+    .byline-and-time {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: nowrap;
+        font-size: 20px;
     }
     .byline-item {
-        font-size: 20px;
+        display: flex;
+        flex-direction: row;
+
         line-height: 24px;
         text-align: left;
         color: var(--color-secondary-grey-04);
         margin-top: 24px;
     }
+
+    .date-created {
+        color: pink;
+    }
     .schedule {
-        font-size: 20px;
+
         line-height: 24px;
         text-align: left;
         color: var(--color-primary-blue-03);
@@ -507,7 +527,6 @@ export default {
         flex-direction: row;
         flex-wrap: wrap;
     }
-
     .schedule-item,
     .byline-item {
         &:after {
@@ -526,6 +545,7 @@ export default {
             display: none;
         }
     }
+
     .contact-info {
         color: var(--color-primary-blue-03);
         display: flex;

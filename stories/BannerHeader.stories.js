@@ -13,7 +13,7 @@ const mock = {
     category: "Lectus",
     startDate: "1995-12-17T03:24:00",
     endDate: "1995-12-17T03:24:00",
-    byline: "By Cursus Quis",
+    byline: ["Cursus Quis"],
     locations: [
         {
             id: "523",
@@ -165,3 +165,29 @@ export const WithContactInfo = () => ({
     `,
 })
 
+// --------- ARTICLE --------------
+
+const article = {
+    image: API.image,
+    title: "I Like Turtles",
+    category: "Library News",
+    dateCreated: "2022-02-09T10:57:46-08:00",
+    byline: ["Jen Diamond", "Courtney Hoffner"],
+    alignRight: true,
+}
+
+export const ArticleDetail= () => ({
+    data() {
+        return {
+            ...article,
+        }
+    },
+    template: `
+        <banner-header
+           :image="image"
+           :title="title"
+           :byline:"byline"
+           :dateCreated="dateCreated"
+       />
+    `,
+})
