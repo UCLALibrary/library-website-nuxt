@@ -11,6 +11,7 @@
 // allFpb
 // bannerheader
 // date published
+
 // ServiceOrResources
 // share links & icons component
 // pipe instead of purple dot
@@ -31,8 +32,10 @@
             category="Library News"
             :byline="parsedBylines"
             :date-created="page.dateCreated"
+            :locations="locations"
             :align-right="true"
         />
+
         <divider-way-finder
             color="about"
             class="divider-way-finder"

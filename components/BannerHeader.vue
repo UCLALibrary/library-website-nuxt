@@ -42,7 +42,7 @@
                 class="snippet"
                 v-html="text"
             />
-            <div class="byline-and-time">
+            <div class="byline">
                 <div
                     v-for="(item, index) in byline"
                     v-if="byline"
@@ -497,9 +497,9 @@ export default {
             margin: 0;
         }
     }
-    .byline-and-time {
+    .byline {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         flex-wrap: nowrap;
         font-size: 20px;
     }
@@ -507,6 +507,7 @@ export default {
         display: flex;
         flex-direction: row;
 
+        font-size: 20px;
         line-height: 24px;
         text-align: left;
         color: var(--color-secondary-grey-04);
@@ -514,8 +515,9 @@ export default {
     }
 
     .date-created {
-        color: pink;
+        color: coral;
     }
+
     .schedule {
 
         line-height: 24px;

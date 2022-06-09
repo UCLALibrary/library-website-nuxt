@@ -7,14 +7,12 @@ query ArticleNewsDetail($slug: [String!]) {
       id
       articleType
       title
-      dateCreated
-      to: slug
-      uri
+      text: summary
       heroImage {
         ... on heroImage_heroImage_BlockType {
           id
           image {
-                ...Image
+            ...Image
           }
         }
       }
@@ -32,17 +30,20 @@ query ArticleNewsDetail($slug: [String!]) {
           fullName
         }
       }
-      associatedLocations {
+      locations: associatedLocations {
         id
         title
         uri
+        ... on location_location_Entry {
+          id
+          email
+        }
       }
       department {
         id
         title
         uri
       }
-      text: summary
     }
     ...AllFpb
   }

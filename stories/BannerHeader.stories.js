@@ -173,6 +173,12 @@ const article = {
     category: "Library News",
     dateCreated: "2022-02-09T10:57:46-08:00",
     byline: ["Jen Diamond", "Courtney Hoffner"],
+    locations: [
+        {
+            id: "523",
+            title: "Powell Library",
+            to: "visit/locations/powell-library",
+        },
     alignRight: true,
 }
 
