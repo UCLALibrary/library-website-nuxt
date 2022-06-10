@@ -8,7 +8,6 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockCardWithImage
         ...BlockCtaBlockTwoUp
         ...BlockCta
-        ...BlockDivider
         ...BlockMediaWithText
         ...BlockBannerFeatured
         ...BlockImageWithTextOverlay
@@ -82,11 +81,6 @@ fragment BlockCta on allFlexiblePageBlocks_ctaBlockContentWidth_BlockType {
             icon
         }
     }
-}
-
-fragment BlockDivider on allFlexiblePageBlocks_divider_BlockType {
-    id
-    divider
 }
 
 fragment BlockMediaWithText on allFlexiblePageBlocks_mediaWithText_BlockType {
