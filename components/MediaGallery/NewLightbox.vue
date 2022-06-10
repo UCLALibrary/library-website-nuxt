@@ -1,5 +1,8 @@
 <template>
-    <div class="lightbox">
+    <div
+        ref="lightbox"
+        class="lightbox"
+    >
         <button
             class="button-close"
             @click="$emit('closeModal')"
@@ -127,6 +130,9 @@ export default {
         images() {
             return this.block.map((item) => item.image[0])
         }
+    },
+    mounted() {
+        this.$refs.lightbox.focus()
     },
     methods: {
         checkCurrentSlide(index) {

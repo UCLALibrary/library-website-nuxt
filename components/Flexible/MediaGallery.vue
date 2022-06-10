@@ -9,7 +9,9 @@
             :block="block.mediaGallery"
             :n-items="nItems"
             :selected-item="selectionIndex"
+            tabindex="0"
             @closeModal="hideLightboxModal"
+            @keydown.native.esc="hideLightboxModal"
         />
         <media-gallery-banner-image
             :image="block.mediaGallery[selectionIndex].image[0]"
@@ -70,16 +72,8 @@ export default
             return this.expandThumbnails ? "－" : "＋"
         }
     },
-    created() {
-        window.addEventListener('keydown', (e) => {
-            if (e.key == 'Escape') {
-                this.showLightboxModal = !this.showLightboxModal
-            }
-        })
-    },
     methods: {
         hideLightboxModal() {
-            console.log('click!')
             this.showLightboxModal = false
         },
         toggleThumbnails() {
