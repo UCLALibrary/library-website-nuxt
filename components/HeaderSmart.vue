@@ -1,6 +1,6 @@
 <template lang="html">
     <header class="header-smart">
-        <site-brand-bar />
+        <site-brand-bar class="brand-bar" />
         <component
             :is="whichHeader"
             :class="isMobile ? 'mobile-header' : 'desktop-header'"
@@ -30,8 +30,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.mobile-header {
-    z-index: 400;
-    position: relative;
+@media #{$medium} {
+    .brand-bar {
+        position: absolute;
+        width: 100%;
+    }
 }
 </style>

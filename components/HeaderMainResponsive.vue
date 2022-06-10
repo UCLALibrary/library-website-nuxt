@@ -3,10 +3,10 @@
         role="navigation"
         aria-label="Menu"
         class="header-main-responsive"
-        :class="isCollapsed ? 'fullHeight' : 'collapsedHeight'"
+        :class="isOpened ? 'fullHeight' : 'collapsedHeight'"
     >
         <div
-            v-if="!isCollapsed"
+            v-if="!isOpened"
             class="collapsed-menu"
         >
             <component
@@ -21,21 +21,30 @@
                 class="hamburguer"
                 role="button"
                 aria-label="Hamburguer button"
-                @click="() => (isCollapsed = true)"
+                :is-opened="isOpened"
+                @click="toggleMenu"
             />
         </div>
         <div v-else>
             <div class="expanded-menu">
-                <component
-                    :is="`LogoLibrary`"
-                    width="155"
-                    height="55"
-                    class="expanded-logo"
-                />
+                <nuxt-link
+                    to="/"
+                    aria-label="UCLA Library home page"
+                >
+                    <component
+                        :is="`LogoLibrary`"
+                        width="155"
+                        height="55"
+                        class="expanded-logo"
+                        @click="toggleMenu"
+                    />
+                </nuxt-link>
                 <component
                     :is="parsedSvgName"
-                    :class="isOpened ? 'go-back-svg' : 'close-svg'"
-                    :aria-label="isOpened ? 'Go back button' : 'Close button'"
+                    :class="isItemOpened ? 'go-back-svg' : 'close-svg'"
+                    :aria-label="
+                        isItemOpened ? 'Go back button' : 'Close button'
+                    "
                     @click="handleCloseOrReturn"
                 />
             </div>
@@ -47,11 +56,13 @@
                     :index="index"
                     :go-back="goBack"
                     @shouldOpen="shouldOpen"
-                    @itemOpened="itemOpened"
+                    @itemOpenedColor="itemOpenedColor"
+                    @closeMainMenu="toggleMenu"
+                    @closeMenuItem="closeItem"
                 />
             </ul>
             <div
-                v-if="!isOpened"
+                v-if="isOpened"
                 class="nav-menu-secondary"
             >
                 <ul class="list">
@@ -59,6 +70,7 @@
                         v-for="item in parsedSecondaryMenuItems"
                         :key="item.id"
                         class="list-item"
+                        @click="toggleMenu"
                     >
                         <smart-link
                             class="link underline-hover"
@@ -78,6 +90,7 @@
                     class="button"
                     :to="supportLinks[0].to"
                     icon-name="none"
+                    @click="toggleMenu"
                 />
             </div>
             <component
@@ -141,14 +154,14 @@ export default {
     data() {
         return {
             isOpened: false,
+            isItemOpened: false,
             goBack: false,
             moleculeColor: "cyan",
-            isCollapsed: false,
         }
     },
     computed: {
         parsedSvgName() {
-            return this.isOpened
+            return this.isItemOpened
                 ? `${this.iconGoBackName}`
                 : `${this.iconCloseName}`
         },
@@ -177,18 +190,18 @@ export default {
     },
     methods: {
         shouldOpen() {
-            this.isOpened = !this.isOpened
+            this.isItemOpened = !this.isItemOpened
             this.goBack = false
         },
         handleCloseOrReturn() {
-            if (this.isOpened) {
+            if (this.isItemOpened) {
                 this.goBack = !this.goBack
                 this.moleculeColor = "cyan"
             } else {
-                this.isCollapsed = false
+                this.isOpened = false
             }
         },
-        itemOpened(itemIndex) {
+        itemOpenedColor(itemIndex) {
             if (itemIndex === 0) {
                 this.moleculeColor = "green"
             } else if (itemIndex === 1) {
@@ -197,9 +210,15 @@ export default {
                 this.moleculeColor = "purple"
             }
 
-            if (this.isOpened === false) {
+            if (this.isItemOpened === false) {
                 this.moleculeColor = "cyan"
             }
+        },
+        toggleMenu() {
+            this.isOpened = !this.isOpened
+        },
+        closeItem() {
+            this.isItemOpened = false
         },
     },
 }
@@ -207,7 +226,12 @@ export default {
 
 <style lang="scss" scoped>
 .fullHeight {
-    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 400;
 }
 
 .collapsedHeight {
@@ -221,15 +245,14 @@ export default {
     background-color: var(--color-primary-blue-03);
     display: flex;
     flex-direction: column;
-    position: relative;
 
     .collapsed-menu {
         width: 100vw;
         height: 100%;
+        padding-top: var(--space-2xl);
         background-color: var(--color-white);
         display: flex;
         justify-content: space-between;
-        padding: 21px 26px;
 
         .hamburguer {
             cursor: pointer;
@@ -241,7 +264,9 @@ export default {
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
+
         padding: 21px 26px 114px 26px;
+        background-color: var(--color-primary-blue-03);
 
         .svg__logo-library > g > path {
             fill: var(--color-white);
@@ -342,11 +367,6 @@ export default {
         -ms-filter: "FlipV";
     }
 
-    // @media #{$medium} {
-    //     .support-us-container {
-    //         padding-top: 0px;
-    //     }
-    // }
     @media #{$small} {
         .support-us-container {
             padding-top: 0px;
