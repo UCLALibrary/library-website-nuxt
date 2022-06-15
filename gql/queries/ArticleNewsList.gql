@@ -1,0 +1,29 @@
+#import "~/gql/fragments/Image"
+
+query ArticleNewsList {
+    entries(section: "article", orderBy: "dateCreated") {
+        ... on article_article_Entry {
+            id
+            articleCategories {
+                title
+            }
+            title
+            uri
+            to: slug
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
+            description: summary
+            authors: staffMember {
+                title
+            }
+            date: dateCreated
+        }
+    }
+    entryCount
+}
