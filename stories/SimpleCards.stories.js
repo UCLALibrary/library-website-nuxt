@@ -22,7 +22,7 @@ const mockTwoCards = {
             title: "A new research guide",
             slug: "a-new-research-guide",
             uri: null,
-            researchGuideUrl: "http://libguides.library.ucla.edu",
+            externalResourceUrl: "http://libguides.library.ucla.edu",
         },
     ],
 }
@@ -67,7 +67,7 @@ const mockThreeCards = {
             title: "A new research guide",
             slug: "a-new-research-guide",
             uri: null,
-            researchGuideUrl: "http://libguides.library.ucla.edu",
+            externalResourceUrl: "http://libguides.library.ucla.edu",
         },
     ],
 }
@@ -114,7 +114,7 @@ const mockFourCards = {
             title: "A new research guide",
             slug: "a-new-research-guide",
             uri: null,
-            researchGuideUrl: "http://libguides.library.ucla.edu",
+            externalResourceUrl: "http://libguides.library.ucla.edu",
         },
         {
             id: "6407",
@@ -122,7 +122,7 @@ const mockFourCards = {
             title: "A new research guide",
             slug: "a-new-research-guide",
             uri: null,
-            researchGuideUrl: "http://libguides.library.ucla.edu",
+            externalResourceUrl: "http://libguides.library.ucla.edu",
         },
     ],
 }
@@ -169,7 +169,7 @@ const mockFiveCards = {
             title: "A new research guide",
             slug: "a-new-research-guide",
             uri: null,
-            researchGuideUrl: "http://libguides.library.ucla.edu",
+            externalResourceUrl: "http://libguides.library.ucla.edu",
         },
         {
             id: "6407",
@@ -177,7 +177,7 @@ const mockFiveCards = {
             title: "A new research guide",
             slug: "a-new-research-guide",
             uri: null,
-            researchGuideUrl: "http://libguides.library.ucla.edu",
+            externalResourceUrl: "http://libguides.library.ucla.edu",
         },
         {
             id: "6407",
@@ -185,7 +185,7 @@ const mockFiveCards = {
             title: "A new research guide",
             slug: "a-new-research-guide",
             uri: null,
-            researchGuideUrl: "http://libguides.library.ucla.edu",
+            externalResourceUrl: "http://libguides.library.ucla.edu",
         },
     ],
 }
@@ -228,7 +228,7 @@ const mockSixCards = {
             title: "A new research guide",
             slug: "a-new-research-guide",
             uri: null,
-            researchGuideUrl: "http://libguides.library.ucla.edu",
+            externalResourceUrl: "http://libguides.library.ucla.edu",
         },
         {
             id: "6407",
@@ -236,7 +236,7 @@ const mockSixCards = {
             title: "A new research guide",
             slug: "a-new-research-guide",
             uri: null,
-            researchGuideUrl: "http://libguides.library.ucla.edu",
+            externalResourceUrl: "http://libguides.library.ucla.edu",
         },
         {
             id: "6407",
@@ -244,7 +244,7 @@ const mockSixCards = {
             title: "A new research guide",
             slug: "a-new-research-guide",
             uri: null,
-            researchGuideUrl: "http://libguides.library.ucla.edu",
+            externalResourceUrl: "http://libguides.library.ucla.edu",
         },
         {
             id: "6407",
@@ -252,7 +252,7 @@ const mockSixCards = {
             title: "A new research guide",
             slug: "a-new-research-guide",
             uri: null,
-            researchGuideUrl: "http://libguides.library.ucla.edu",
+            externalResourceUrl: "http://libguides.library.ucla.edu",
         },
     ],
 }

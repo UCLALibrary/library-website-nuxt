@@ -237,8 +237,8 @@ export default {
             return this.page.resourceServiceWorkshop.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.researchGuideUrl
-                        ? obj.researchGuideUrl
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
                         : `/${obj.uri}`,
                 }
             })

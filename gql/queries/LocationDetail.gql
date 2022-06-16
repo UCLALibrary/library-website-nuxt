@@ -52,7 +52,7 @@ query LocationDetail($slug: [String!]) {
                 title
                 slug
                 uri
-                researchGuideUrl
+                externalResourceUrl
                 type: serviceOrResourceType
             }
             campusMapId
