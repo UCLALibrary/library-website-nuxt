@@ -62,7 +62,6 @@ query LocationDetail($slug: [String!]) {
                 email
                 to: uri
             }
-
             ...DefaultFpb
         }
     }

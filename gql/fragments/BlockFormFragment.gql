@@ -1,0 +1,4 @@
+fragment BlockFormFragment on ElementInterface {
+    id
+    form
+}

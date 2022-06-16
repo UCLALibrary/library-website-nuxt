@@ -6,6 +6,7 @@
 #import "~/gql/fragments/BlockPullQuoteFragment"
 #import "~/gql/fragments/BlockRichTextFragment"
 #import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/BlockFormFragment"
 
 fragment DefaultFpbWithCardsAndHighlight on ElementInterface {
     blocks: defaultFpbWithCardsAndHighlight {
@@ -19,6 +20,7 @@ fragment DefaultFpbWithCardsAndHighlight on ElementInterface {
         ...BlockPullQuote
         ...BlockRichText
         ...BlockSimpleCards
+        ...BlockForm
     }
 }
 
@@ -48,4 +50,8 @@ fragment BlockRichText on defaultFpbWithCardsAndHighlight_richText_BlockType {
 
 fragment BlockSimpleCards on defaultFpbWithCardsAndHighlight_simpleCards_BlockType {
     ...BlockSimpleCardsFragment
+}
+
+fragment BlockForm on allFpb_form_BlockType {
+    ...BlockFormFragment
 }
