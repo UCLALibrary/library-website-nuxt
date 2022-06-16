@@ -1,11 +1,12 @@
 <template lang="html">
     <div class="block-staff-detail">
         <!-- HeadingStaff  -->
-        <div class="heading-staff">
+        <div 
+            v-if="alternativeName.length >= 1"
+            class="heading-staff"
+        >
             <svg-heading-arrow />
-
             <h1
-                v-if="alternativeName.length >= 1"
                 class="staffName"
             >
                 {{ staffName }}
@@ -16,8 +17,21 @@
                 </span>
             </h1>
 
+            <div
+                v-if="pronouns"
+                class="pronouns"
+            >
+                {{ parsedPronouns }}
+            </div>
+        </div>
+
+        <div 
+            v-else
+            class="heading-staff"
+        >
+            <svg-heading-arrow />
+
             <h1
-                v-if="alternativeName.length < 1"
                 class="staffName"
                 v-html="staffName"
             />
