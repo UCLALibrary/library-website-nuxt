@@ -4,10 +4,10 @@
         <div class="heading-staff">
             <svg-heading-arrow />
 
-            <h1
-                class="staffName"
-                v-html="staffName"
-            />
+            <h1 class="staffName">
+                Yun-Hee Lee <span lang="ko">이윤희</span>
+            </h1>
+
             <div
                 v-if="pronouns"
                 class="pronouns"
