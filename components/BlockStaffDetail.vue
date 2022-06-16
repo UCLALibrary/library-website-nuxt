@@ -4,9 +4,23 @@
         <div class="heading-staff">
             <svg-heading-arrow />
 
-            <h1 class="staffName">
-                Yun-Hee Lee <span lang="ko">이윤희</span>
+            <h1
+                v-if="alternativeName.length >= 1"
+                class="staffName"
+            >
+                {{ staffName }}
+                <span
+                    :lang="parsedLanguage"
+                >
+                    {{ parsedAlternativeName }}
+                </span>
             </h1>
+
+            <h1
+                v-if="alternativeName.length < 1"
+                class="staffName"
+                v-html="staffName"
+            />
 
             <div
                 v-if="pronouns"
@@ -142,6 +156,7 @@
             </div>
         </div>
     </div>
+    </div>
 </template>
 
 <script>
@@ -171,6 +186,10 @@ export default {
         staffName: {
             type: String,
             default: "",
+        },
+        alternativeName: {
+            type: Array,
+            default: () => [],
         },
         jobTitle: {
             type: String,
@@ -230,6 +249,12 @@ export default {
                             : 0
                 )
         },
+        parsedAlternativeName() {
+            return `${this.alternativeName[0].fullName}`
+        },
+        parsedLanguage() {
+            return `${this.alternativeName[0].languageAltName}`
+        }
     },
 }
 </script>

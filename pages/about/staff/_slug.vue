@@ -4,10 +4,12 @@
         <!-- no search on this page -->
         <nav-breadcrumb :title="page.entry.title" />
 
+
         <block-staff-detail
             class="staff-detail-block"
             :image="parsedImage"
             :staff-name="parsedStaffName"
+            :alternative-name="page.entry.alternativeName"
             :job-title="page.entry.jobTitle"
             :departments="page.entry.departments"
             :locations="page.entry.locations"

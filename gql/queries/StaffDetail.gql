@@ -12,9 +12,10 @@ query StaffDetail($slug: [String]!) {
             nameLast
             alternativeName {
                 ... on alternativeName_alternativeName_BlockType {
-                id
-                fullName
-                language
+                    id
+                    fullName
+                    language
+                    languageAltName
                 }
             }
             jobTitle: staffMemberJobTitle
