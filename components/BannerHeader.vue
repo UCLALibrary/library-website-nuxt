@@ -49,7 +49,7 @@
                     :key="index"
                     class="byline-item"
                 >
-                    By {{ item }}
+                    {{ item }}
                 </div>
                 <time
                     v-if="dateCreated"
@@ -292,6 +292,10 @@ export default {
             type: String,
             default: "",
         },
+        associatedStaffMember: {
+            type: Array,
+            default: () => [],
+        },
     },
     computed: {
         classes() {
@@ -349,6 +353,16 @@ export default {
                 }
                 return filtered
             }, [])
+        },
+        parsedAssociatedStaffMember() {
+            return this.page.entries.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/about/staff/${obj.to}`,
+                    image: _get(obj, "image[0]", null),
+                    staffName: `${obj.nameFirst} ${obj.nameLast}`,
+                }
+            })
         },
     },
 }
