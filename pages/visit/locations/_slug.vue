@@ -77,11 +77,13 @@
         >
             <button-more text="See More" />
         </nuxt-link>
+
         <divider-way-finder
             v-if="page.resourceServiceWorkshop.length"
             color="visit"
             class="divider-way-finder"
         />
+
         <div
             v-if="mergeSortEventsExhibitions.length"
             class="events-exhibitions"
@@ -101,11 +103,13 @@
                 <button-more text="See More" />
             </nuxt-link>
         </div>
+
         <divider-way-finder
             v-if="mergeSortEventsExhibitions.length"
             color="visit"
             class="divider-way-finder"
         />
+
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
@@ -141,6 +145,20 @@
             class="articles"
             to="/about/news"
         />
+
+        <div class="section">
+            <h2
+                v-if="parsedRichTextSimplified"
+                class="section-heading"
+            >
+                About
+            </h2>
+            <p
+                class="about-text"
+                v-html="parsedRichTextSimplified"
+            />
+        </div>
+
         <nuxt-link
             v-if="parsedArticles.length"
             class="button-more"
@@ -303,6 +321,10 @@ export default {
                 }
             })
         },
+        parsedRichTextSimplified() {
+            let richTextBlock = this.page.richTextSimplified
+            return `${richTextBlock}`
+        },
     },
 }
 </script>
@@ -361,6 +383,10 @@ export default {
         align-items: flex-start;
     }
 
+    .about-text {
+        @include step-0;
+        margin: 0 auto;
+    }
     // ::v-deep .flexible-block:last-child:not(.flexible-simple-cards) {
     //     background: red;
     // }
