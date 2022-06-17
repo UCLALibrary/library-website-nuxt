@@ -1,6 +1,7 @@
 <template lang="html">
     <div class="page page-location-detail">
         <nav-breadcrumb :title="page.title" />
+        Resourse: {{ parsedServicesAndResource }}
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -146,18 +147,16 @@
             to="/about/news"
         />
 
-        <div class="section">
-            <h2
-                v-if="parsedRichTextSimplified"
-                class="section-heading"
-            >
-                About
-            </h2>
-            <p
-                class="about-text"
-                v-html="parsedRichTextSimplified"
-            />
-        </div>
+        <h2
+            v-if="parsedRichTextSimplified"
+            class="section-heading"
+        >
+            About
+        </h2>
+        <div
+            class="about-text"
+            v-html="parsedRichTextSimplified"
+        />
 
         <nuxt-link
             v-if="parsedArticles.length"
@@ -385,8 +384,17 @@ export default {
 
     .about-text {
         @include step-0;
-        margin: 0 auto;
+        max-width: $container-l-text + px;
+        margin: var(--space-l) auto;
+
+        ::v-deep p {
+            font-family: var(--font-primary);
+            color: var(--color-black);
+            @include step-0;
+            margin: var(--space-l) 0;
+        }
     }
+
     // ::v-deep .flexible-block:last-child:not(.flexible-simple-cards) {
     //     background: red;
     // }
