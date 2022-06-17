@@ -169,6 +169,31 @@ export default {
         padding-left: 40px;
     }
 
+    ::v-deep table {
+        padding: var(--space-xl);
+        border: 2px solid var(--color-primary-blue-01);
+        border-radius: 4px;
+        width: 100%;
+
+        th {
+            @include step-0;
+            font-weight: $font-weight-medium;
+            color: var(--color-primary-blue-5);
+        }
+        tr {
+            border-bottom: 2px dotted var(---color-secondary-grey-03);
+            margin-bottom: 16px;
+        }
+        // no border on last row
+        tr:last-child > td {
+            border-bottom: 0;
+        }
+        td {
+            @include step-0;
+            color: var(--color-black);
+        }
+    }
+
     // Breakpoints
     @media #{$medium} {
         padding-right: 0;
