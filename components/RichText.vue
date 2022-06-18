@@ -175,22 +175,24 @@ export default {
         border-radius: 4px;
         width: 100%;
 
-        th {
+        th,
+        strong {
             @include step-0;
             font-weight: $font-weight-medium;
-            color: var(--color-primary-blue-5);
+            color: var(--color-primary-blue-05);
         }
-        tr {
-            border-bottom: 2px dotted var(---color-secondary-grey-03);
-            margin-bottom: 16px;
-        }
+
         // no border on last row
         tr:last-child > td {
             border-bottom: 0;
+            padding-bottom: 0;
         }
         td {
             @include step-0;
             color: var(--color-black);
+            border-bottom: 2px dotted var(--color-secondary-grey-03);
+            padding-top: 16px;
+            padding-bottom: 16px;
         }
     }
 

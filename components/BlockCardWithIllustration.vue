@@ -82,11 +82,11 @@ export default {
             return [
                 "block-card-with-illustration",
                 `color-${this.sectionName}`,
-                { "is-horizontal": this.isHorizontal }
+                { "is-horizontal": this.isHorizontal },
             ]
         },
         sectionName() {
-            return getSectionName(this.to)
+            return this.to ? getSectionName(this.to) : getSectionName("")
         },
         parsedSvgName() {
             return `${this.iconName}`
@@ -147,7 +147,7 @@ export default {
         margin-bottom: 24px;
     }
 
-// Variations
+    // Variations
     // Vertical
     &:not(&.is-horizontal) {
         display: flex;
@@ -194,10 +194,9 @@ export default {
         max-width: 990px;
 
         .svg {
-        flex-grow: 0;
-        flex-shrink: 0;
-        padding: 0 20px;
-
+            flex-grow: 0;
+            flex-shrink: 0;
+            padding: 0 20px;
         }
         .meta {
             display: flex;
@@ -234,12 +233,12 @@ export default {
             }
         }
 
-    // BREAKPOINTS
-        @media #{$medium}{
+        // BREAKPOINTS
+        @media #{$medium} {
             max-width: 640px;
         }
 
-        @media #{$small}{
+        @media #{$small} {
             max-width: 320px;
             .svg {
                 display: none;

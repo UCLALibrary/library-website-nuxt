@@ -69,7 +69,7 @@ export default {
             return ["block-simple-card", `color-${this.sectionName}`]
         },
         sectionName() {
-            return getSectionName(this.to)
+            return this.to ? getSectionName(this.to) : getSectionName("")
         },
         parsedTarget() {
             return isInternalLink(this.to) ? "_self" : "blank"
