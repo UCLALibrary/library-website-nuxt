@@ -104,7 +104,6 @@ export default {
         width: calc(50% - 16px);
     }
     .card-small {
-        // TODO not sure why this is not working when there is only 1 card and a more card
         width: calc(33.33% - 16px);
     }
     .card-five {
