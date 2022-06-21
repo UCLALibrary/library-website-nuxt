@@ -145,6 +145,9 @@
 </template>
 
 <script>
+// Helpers
+import titleCase from "~/utils/titleCase"
+
 import SvgHeadingArrow from "~/node_modules/ucla-library-design-tokens/assets/svgs/graphic-chevron-right"
 import SvgIconLocation from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-location"
 import SvgIconEmail from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-email"
@@ -220,15 +223,18 @@ export default {
             return `Pronouns: ${this.pronouns}`
         },
         mergeSortTopics() {
-            return this.topics
+            let titleCaseTopics = this.topics
                 .concat(this.academicDepartments)
-                .sort((a, b) =>
-                    a.title.toUpperCase() > b.title.toUpperCase()
-                        ? 1
-                        : b.title.toUpperCase() > a.title.toUpperCase()
-                            ? -1
-                            : 0
-                )
+                .map((obj) => {
+                    obj.title = titleCase(obj.title)
+                    return {
+                        ...obj,
+                    }
+                })
+
+            return titleCaseTopics.sort((a, b) => {
+                return a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+            })
         },
     },
 }
