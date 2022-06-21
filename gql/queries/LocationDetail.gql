@@ -7,7 +7,7 @@ query LocationDetail($slug: [String!]) {
             id
             locationType
             title
-            richTextSimplified
+            about: richTextSimplified
             heroImage {
                 image {
                     ...Image

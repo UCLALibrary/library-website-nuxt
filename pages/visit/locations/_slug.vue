@@ -133,29 +133,28 @@
         >
             <button-more text="See More" />
         </nuxt-link>
-
+        <h2
+            v-if="page.about"
+            class="section-heading"
+        >
+            About
+        </h2>
+        <rich-text
+            class="about-text"
+            :rich-text-content="page.about"
+        />
         <h2
             v-if="parsedArticles.length"
             class="section-heading"
         >
             News
         </h2>
+
         <section-teaser-card
             v-if="parsedArticles.length"
             :items="parsedArticles"
             class="articles"
             to="/about/news"
-        />
-
-        <h2
-            v-if="parsedRichTextSimplified"
-            class="section-heading"
-        >
-            About
-        </h2>
-        <div
-            class="about-text"
-            v-html="parsedRichTextSimplified"
         />
 
         <nuxt-link
@@ -320,10 +319,6 @@ export default {
                 }
             })
         },
-        parsedRichTextSimplified() {
-            let richTextBlock = this.page.richTextSimplified
-            return `${richTextBlock}`
-        },
     },
 }
 </script>
@@ -382,18 +377,18 @@ export default {
         align-items: flex-start;
     }
 
-    .about-text {
-        @include step-0;
-        max-width: $container-l-text + px;
-        margin: var(--space-l) auto;
-
-        ::v-deep p {
-            font-family: var(--font-primary);
-            color: var(--color-black);
-            @include step-0;
-            margin: var(--space-l) 0;
-        }
-    }
+    // .about-text {
+    //     @include step-0;
+    //     max-width: $container-l-text + px;
+    //     margin: var(--space-l) auto;
+    //
+    //     ::v-deep p {
+    //         font-family: var(--font-primary);
+    //         color: var(--color-black);
+    //         @include step-0;
+    //         margin: var(--space-l) 0;
+    //     }
+    // }
 
     // ::v-deep .flexible-block:last-child:not(.flexible-simple-cards) {
     //     background: red;
