@@ -45,6 +45,9 @@ export const Default = () => ({
 // -------3----------------
 const mockThreeCards = {
     id: "13783",
+    sectionTitle: "Fix Potholes",
+    sectionSummary:
+    "<p>Get pothole repair service in Los Angeles and surrounding areas. We look forward to serving all your needs. Contact us now for fast service. Get A Free Quote.</p>",
     cards: [
         {
             id: "8203",
@@ -264,7 +267,7 @@ export const SixCards = () => ({
     template: `
     <simple-cards
         :items="cards"
-        :section-title="sectionTitle"
-        :section-summary="sectionSummary" />
+        section-title="Test Services and Resources Cards"
+        section-summary="Test summary page, for Services and Resources Card" />
     `,
 })
