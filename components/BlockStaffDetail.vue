@@ -179,6 +179,14 @@ export default {
             type: String,
             default: "",
         },
+        fullName:{
+            type: String,
+            default: "",
+        },
+        languageAltName: {
+            type: String,
+            default: "",
+        },
         alternativeName: {
             type: String,
             default: "",
