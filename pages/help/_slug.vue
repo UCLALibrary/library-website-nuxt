@@ -1,5 +1,5 @@
 <template lang="html">
-    <main class="page-help-topic">
+    <main class="page page-help-topic">
         <MastheadSecondary
             :title="page.title"
             :text="page.summary"
@@ -10,15 +10,22 @@
             :rich-text-content="page.richText"
         />
         <DividerWayFinder color="help" />
-
-        <simple-cards
+        <div
             v-for="(block, index) in page.helpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
-            class="help-topic-block"
-            :section-title="block.sectionTitle"
-            :section-summary="block.sectionSummary"
-            :items="block.associatedEntries"
-        />
+            class="help-topic-section"
+        >
+            <simple-cards
+                class="help-topic-block"
+                :section-title="block.sectionTitle"
+                :section-summary="block.sectionSummary"
+                :items="block.associatedEntries"
+            />
+            <DividerWayFinder
+                color="help"
+                class="help-topic-divider"
+            />
+        </div>
 
         <flexible-blocks
             class="content"
@@ -53,20 +60,6 @@ export default {
             title: title,
         }
     },
-    computed: {
-        allBlocks() {
-            return this.page.helpTopicBlocks
-                .map((block) =>
-                    Object.assign(block, {
-                        typeHandle: "simpleCards",
-                        title: block.sectionTitle,
-                        text: block.sectionSummary,
-                        cards: block.associatedEntries,
-                    })
-                )
-                .concat(this.page.blocks)
-        },
-    },
 }
 </script>
 
@@ -78,6 +71,7 @@ export default {
     }
 
     .help-topic-block {
+        margin-bottom: var(--space-xl);
     }
 }
 </style>
