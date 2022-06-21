@@ -7,11 +7,10 @@
             <h1 class="staffName">
                 {{ staffName }}
                 <span
-                    v-if="alternativeName.length > 0"
-                    :lang="parsedLanguage"
-                >
-                    {{ parsedAlternativeName }}
-                </span>
+                    v-if="alternativeFullName"
+                    :lang="language"
+                    v-html="alternativeFullName"
+                />
             </h1>
 
             <div
@@ -179,15 +178,11 @@ export default {
             type: String,
             default: "",
         },
-        fullName:{
+        alternativeFullName: {
             type: String,
             default: "",
         },
-        languageAltName: {
-            type: String,
-            default: "",
-        },
-        alternativeName: {
+        language: {
             type: String,
             default: "",
         },
@@ -249,14 +244,6 @@ export default {
                             : 0
                 )
         },
-
-        parsedAlternativeName() {
-            return `${this.alternativeName[0].fullName}`
-        },
-
-        parsedLanguage() {
-            return `${this.alternativeName[0].languageAltName}`
-        }
     },
 }
 </script>

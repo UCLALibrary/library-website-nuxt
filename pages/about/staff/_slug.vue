@@ -4,12 +4,12 @@
         <!-- no search on this page -->
         <nav-breadcrumb :title="page.entry.title" />
 
-
         <block-staff-detail
             class="staff-detail-block"
             :image="parsedImage"
             :staff-name="parsedStaffName"
-            :alternative-name="page.entry.alternativeName"
+            :alternative-full-name="parsedAlternativeFullName"
+            :language="parsedLanguage"
             :job-title="page.entry.jobTitle"
             :departments="page.entry.departments"
             :locations="page.entry.locations"
@@ -21,6 +21,7 @@
             :academic-departments="page.entry.academicDepartments"
             :biography="page.entry.biography"
         />
+
 
         <section
             v-if="
@@ -101,6 +102,15 @@ export default {
         parsedStaffName() {
             return `${this.page.entry.nameFirst} ${this.page.entry.nameLast}`
         },
+
+        parsedAlternativeFullName() {
+            return _get(this.page.entry, "alternativeName[0].fullName", "")
+        },
+
+        parsedLanguage() {
+            return _get(this.page.entry, "alternativeName[0].languageAltName", "")
+        },
+
         parsedItems() {
             return this.page.entries.map((obj) => {
                 return {
