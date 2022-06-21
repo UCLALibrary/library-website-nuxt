@@ -10,9 +10,19 @@
             :rich-text-content="page.richText"
         />
         <DividerWayFinder color="help" />
+
+        <simple-cards
+            v-for="(block, index) in page.helpTopicBlocks"
+            :key="`HelpTopicBlocksKey${index}`"
+            class="help-topic-block"
+            :section-title="block.sectionTitle"
+            :section-summary="block.sectionSummary"
+            :items="block.associatedEntries"
+        />
+
         <flexible-blocks
             class="content"
-            :blocks="allBlocks"
+            :blocks="page.blocks"
         />
     </main>
 </template>
@@ -45,16 +55,18 @@ export default {
     },
     computed: {
         allBlocks() {
-            return this.page.helpTopicBlocks.map(
-                (block) => Object.assign(block, {
-                    typeHandle: 'simpleCards',
-                    title: block.sectionTitle,
-                    text: block.sectionSummary,
-                    cards: block.associatedEntries,
-                })
-            ).concat(this.page.blocks)
-        }
-    }
+            return this.page.helpTopicBlocks
+                .map((block) =>
+                    Object.assign(block, {
+                        typeHandle: "simpleCards",
+                        title: block.sectionTitle,
+                        text: block.sectionSummary,
+                        cards: block.associatedEntries,
+                    })
+                )
+                .concat(this.page.blocks)
+        },
+    },
 }
 </script>
 
@@ -66,7 +78,6 @@ export default {
     }
 
     .help-topic-block {
-
     }
 }
 </style>
