@@ -48,7 +48,13 @@
                     v-if="byline"
                     :key="index"
                     class="byline-item"
-                    v-html="item"
+                >
+                    By {{ item }}
+                </div>
+                <time
+                    v-if="dateCreated"
+                    class="date-created"
+                    v-html="parsedDateCreated"
                 />
                 <time
                     v-if="startDate"
@@ -172,6 +178,7 @@
 <script>
 // Helpers
 import getSectionName from "~/utils/getSectionName"
+import format from "date-fns/format"
 import formatEventTimes from "~/utils/formatEventTimes"
 import formatEventDates from "~/utils/formatEventDates"
 
@@ -225,6 +232,10 @@ export default {
         byline: {
             type: Array,
             default: () => [],
+        },
+        dateCreated: {
+            type: String,
+            default: "",
         },
         startDate: {
             type: String,
@@ -289,6 +300,9 @@ export default {
                 { "hatch-left": !this.alignRight },
                 `color-${this.sectionName}`,
             ]
+        },
+        parsedDateCreated() {
+            return format(new Date(this.dateCreated), "MMMM d, Y")
         },
         parsedDate() {
             return formatEventDates(this.startDate, this.endDate)
@@ -488,16 +502,26 @@ export default {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
+
+        font-size: 20px;
+        margin-bottom: 24px;
     }
     .byline-item {
+        display: flex;
+        flex-direction: row;
+
         font-size: 20px;
         line-height: 24px;
         text-align: left;
-        color: var(--color-secondary-grey-04);
+        color: var(--color-primary-blue-03);
         margin-top: 24px;
     }
+    .date-created {
+        margin-top: 24px;
+        color: var(--color-primary-blue-03);
+    }
+
     .schedule {
-        font-size: 20px;
         line-height: 24px;
         text-align: left;
         color: var(--color-primary-blue-03);
@@ -507,7 +531,6 @@ export default {
         flex-direction: row;
         flex-wrap: wrap;
     }
-
     .schedule-item,
     .byline-item {
         &:after {
@@ -526,6 +549,7 @@ export default {
             display: none;
         }
     }
+
     .contact-info {
         color: var(--color-primary-blue-03);
         display: flex;
