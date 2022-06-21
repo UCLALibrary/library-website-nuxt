@@ -70,8 +70,14 @@ export default {
         max-width: $container-l-main + px;
     }
 
-    .help-topic-block {
-        margin-bottom: var(--space-xl);
+    .help-topic-section {
+        margin: var(--space-2xl) auto;
+    }
+
+    @media #{$medium} {
+        .help-topic-section {
+            padding: 0 var(--unit-gutter);
+        }
     }
 }
 </style>
