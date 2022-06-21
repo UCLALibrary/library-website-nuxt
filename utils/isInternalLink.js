@@ -14,6 +14,7 @@ function isInternalLink(uri = "") {
     switch (true) {
         case uri.includes("library.ucla.edu") && !uri.includes("mailto:"):
         case String(uri).indexOf("/") === 0:
+        case !uri.includes("."):
             output = true
             break
     }
