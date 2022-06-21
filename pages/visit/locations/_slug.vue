@@ -1,7 +1,6 @@
 <template lang="html">
     <div class="page page-location-detail">
         <nav-breadcrumb :title="page.title" />
-        Resourse: {{ parsedServicesAndResource }}
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
