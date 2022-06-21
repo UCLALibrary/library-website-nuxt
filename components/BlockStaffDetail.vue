@@ -1,40 +1,18 @@
 <template lang="html">
     <div class="block-staff-detail">
         <!-- HeadingStaff  -->
-        <div 
-            v-if="alternativeName.length >= 1"
-            class="heading-staff"
-        >
+        <div class="heading-staff">
             <svg-heading-arrow />
-            <h1
-                class="staffName"
-            >
+
+            <h1 class="staffName">
                 {{ staffName }}
                 <span
+                    v-if="alternativeName.length > 0"
                     :lang="parsedLanguage"
                 >
                     {{ parsedAlternativeName }}
                 </span>
             </h1>
-
-            <div
-                v-if="pronouns"
-                class="pronouns"
-            >
-                {{ parsedPronouns }}
-            </div>
-        </div>
-
-        <div 
-            v-else
-            class="heading-staff"
-        >
-            <svg-heading-arrow />
-
-            <h1
-                class="staffName"
-                v-html="staffName"
-            />
 
             <div
                 v-if="pronouns"
@@ -202,8 +180,8 @@ export default {
             default: "",
         },
         alternativeName: {
-            type: Array,
-            default: () => [],
+            type: String,
+            default: "",
         },
         jobTitle: {
             type: String,
@@ -263,9 +241,11 @@ export default {
                             : 0
                 )
         },
+
         parsedAlternativeName() {
             return `${this.alternativeName[0].fullName}`
         },
+
         parsedLanguage() {
             return `${this.alternativeName[0].languageAltName}`
         }
