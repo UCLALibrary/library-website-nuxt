@@ -45,7 +45,31 @@ query ArticleNewsDetail($slug: [String!]) {
         title
         uri
       }
+      associatedStaffMember {
+        ... on staffMember_staffMember_Entry {
+          id
+          email
+          phone: phoneNumber
+          jobTitle: staffMemberJobTitle
+          nameFirst
+          nameLast
+          to: slug
+          consultation: bookAConsultation
+          departments: staffDepartment(orderBy: "level") {
+            id
+            title
+          }
+          locations: staffAssociatedLocations {
+            id
+            title
+            to: slug
+          }
+          image: staffPortrait {
+            ...Image
+          }
+        }
+      }
     }
-    ...AllFpb
-  }
+      ...AllFpb
+    }
 }

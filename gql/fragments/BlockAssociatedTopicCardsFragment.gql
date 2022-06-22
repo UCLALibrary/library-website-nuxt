@@ -1,3 +1,8 @@
 fragment BlockAssociatedTopicCardsFragment on ElementInterface {
     id
+    text: summary
+    title
+    slug
+    uri
+    to: externalResourceUrl
 }

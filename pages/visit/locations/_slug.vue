@@ -77,11 +77,13 @@
         >
             <button-more text="See More" />
         </nuxt-link>
+
         <divider-way-finder
             v-if="page.resourceServiceWorkshop.length"
             color="visit"
             class="divider-way-finder"
         />
+
         <div
             v-if="mergeSortEventsExhibitions.length"
             class="events-exhibitions"
@@ -101,11 +103,13 @@
                 <button-more text="See More" />
             </nuxt-link>
         </div>
+
         <divider-way-finder
             v-if="mergeSortEventsExhibitions.length"
             color="visit"
             class="divider-way-finder"
         />
+
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
@@ -128,19 +132,30 @@
         >
             <button-more text="See More" />
         </nuxt-link>
-
+        <h2
+            v-if="page.about"
+            class="section-heading"
+        >
+            About
+        </h2>
+        <rich-text
+            class="about-text"
+            :rich-text-content="page.about"
+        />
         <h2
             v-if="parsedArticles.length"
             class="section-heading"
         >
             News
         </h2>
+
         <section-teaser-card
             v-if="parsedArticles.length"
             :items="parsedArticles"
             class="articles"
             to="/about/news"
         />
+
         <nuxt-link
             v-if="parsedArticles.length"
             class="button-more"
@@ -237,8 +252,8 @@ export default {
             return this.page.resourceServiceWorkshop.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.researchGuideUrl
-                        ? obj.researchGuideUrl
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
                         : `/${obj.uri}`,
                 }
             })
@@ -360,6 +375,19 @@ export default {
         align-content: flex-start;
         align-items: flex-start;
     }
+
+    // .about-text {
+    //     @include step-0;
+    //     max-width: $container-l-text + px;
+    //     margin: var(--space-l) auto;
+    //
+    //     ::v-deep p {
+    //         font-family: var(--font-primary);
+    //         color: var(--color-black);
+    //         @include step-0;
+    //         margin: var(--space-l) 0;
+    //     }
+    // }
 
     // ::v-deep .flexible-block:last-child:not(.flexible-simple-cards) {
     //     background: red;

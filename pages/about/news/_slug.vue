@@ -12,10 +12,10 @@
 // bannerheader
 // date published
 
-// ServiceOrResources
-// share links & icons component
-// pipe instead of purple dot
-// fancy wayfinder divider
+// TODO
+// fix: ServiceOrResources
+// add: share links & icons component
+// fix: author
 
 <template lang="html">
     <section class="page-news-detail">
@@ -32,16 +32,29 @@
             :align-right="true"
         />
 
-        <divider-way-finder
-            color="about"
-            class="divider-way-finder"
-        />
+        <div v-if="page.blocks">
+            <divider-way-finder
+                color="about"
+                class="divider-way-finder"
+            />
 
-        <flexible-blocks
-            class="content"
-            :blocks="page.blocks"
-        />
-        </banner-header>
+            <flexible-blocks
+                class="content"
+                :blocks="page.blocks"
+            />
+        </div>
+
+        <div v-if="parsedAssociatedStaffMember.length > 0">
+            <divider-way-finder
+                color="about"
+                class="divider-way-finder"
+            />
+
+            <h2 class="section-heading">
+                Associated Staff Member
+            </h2>
+            <section-staff-list :items="parsedAssociatedStaffMember" />
+        </div>
     </section>
 </template>
 
@@ -93,6 +106,17 @@ export default {
             return format(new Date(this.page.dateCreated), "MMMM d, Y")
         },
 
+        parsedAssociatedStaffMember() {
+            return this.page.associatedStaffMember.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/about/staff/${obj.to}`,
+                    image: _get(obj, "image[0]", null),
+                    staffName: `${obj.nameFirst} ${obj.nameLast}`,
+                }
+            })
+        },
+
         // parsedLocations() {
         //     let places= this.page.locations.map((place) => {
         //         return {
@@ -107,6 +131,45 @@ export default {
 }
 
 </script>
+
+<style lang="scss" scoped>
+.page-news-detail {
+    .banner-text {
+        --color-theme: var(--color-help-green-03);
+    }
+    .banner-header {
+        margin-bottom: var(--space-xl);
+        padding: 0;
+        max-width: $container-xl-full-width + px;
+        margin: var(--unit-gutter) auto;
+    }
+    .banner-text + .divider-way-finder {
+        margin: 0 auto var(--space-2xl);
+    }
+    .divider-way-finder {
+        max-width: $container-l-main + px;
+        margin: var(--space-3xl) auto;
+    }
+    .content {
+        margin: 0 auto;
+    }
+    .section-cards {
+        margin: var(--space-3xl) auto;
+    }
+    .highlighted-news {
+        @include visually-hidden;
+    }
+    .block-call-to-action {
+        margin: var(--space-3xl) auto;
+    }
+    .section-heading {
+        @include step-4;
+        color: var(--color-primary-blue-03);
+        margin: var(--space-xl) auto;
+        max-width: $container-l-main + px;
+    }
+}
+</style>
 
 <style lang="scss" scoped>
 .page-news-detail {

@@ -26,7 +26,7 @@ const mockInternalGuide = {
             "slug": "road-work",
             "title": "Road Work Guide",
             "summary": "<p>A research guide</p>",
-            "researchGuideUrl": "http://libguides.library.ucla.edu"
+            "externalResourceUrl": "http://libguides.library.ucla.edu"
         }
     ]
 }
@@ -67,7 +67,7 @@ export const InternalLinkGuide = () => ({
         <block-simple-card
             :title="contentLink[0].title"
             :text="contentLink[0].summary"
-            :to="contentLink[0].researchGuideUrl"
+            :to="contentLink[0].externalResourceUrl"
         />
     `,
 })
