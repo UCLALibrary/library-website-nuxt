@@ -3,12 +3,10 @@
         <div class="item-top">
             <nuxt-link
                 to="/"
-                aria-label="UCLA Library home page"
+                class="logo-ucla"
             >
-                <svg-logo-ucla-library
-                    class="svg logo-ucla"
-                    alt="UCLA Library logo blue"
-                />
+                <svg-logo-ucla-library />
+                <span class="visually-hidden">UCLA Library Home</span>
             </nuxt-link>
         </div>
 
@@ -55,7 +53,7 @@
 </template>
 
 <script>
-import SvgLogoUclaLibrary from "~/assets/svg/logo-ucla-library"
+import SvgLogoUclaLibrary from "~/node_modules/ucla-library-design-tokens/assets/svgs/logo-library"
 
 // TODO Handle "click outside" event to close menu. Or just add a "click-blocker" DIV to the page.
 // SEE https://stackoverflow.com/questions/53013471/vuejs-2-custom-directive-to-close-when-clicked-outside-not-working
@@ -156,7 +154,7 @@ export default {
         height: var(--unit-height);
         position: relative;
         z-index: 10;
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.1em;
@@ -174,8 +172,12 @@ export default {
     }
 
     .logo-ucla {
-        height: 23px;
-        width: auto;
+        @include clickable-area;
+
+        .svg__logo-library {
+            height: 24px;
+            width: auto;
+        }
     }
 
     .menu {
@@ -189,6 +191,7 @@ export default {
     .support-links {
         position: relative;
         z-index: 10;
+        
         &::before {
             content: "";
             position: absolute;
@@ -198,9 +201,14 @@ export default {
             width: 1px;
             background-color: var(--color-secondary-grey-02);
         }
+        
         .item-top {
             display: inline-flex;
             margin-left: 30px;
+        }
+
+        .support-link {
+            @include clickable-area;
         }
     }
 
@@ -218,14 +226,14 @@ export default {
     .background-blue {
         background-color: var(--color-primary-blue-03);
         position: absolute;
-        top: calc(var(--unit-height) + 1px);
+        top: var(--unit-height);
         bottom: 0;
         width: 100%;
         left: 0;
         opacity: 0;
-        transition: opacity 1000ms ease-in-out;
-        border-bottom: 1px solid var(--color-secondary-grey-02);
+        transition: opacity 500ms ease-in-out;
         z-index: 0;
+        @include shadow-navigation-02;
     }
 
     .click-blocker {
@@ -240,7 +248,7 @@ export default {
     // States
     &.is-opened {
         .background-blue {
-            opacity: 0.9;
+            opacity: 0.975;
         }
     }
 

@@ -81,7 +81,7 @@ export default {
         line-height: var(--unit-height);
         text-align: center;
         display: block;
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.1em;
@@ -93,11 +93,11 @@ export default {
             position: absolute;
             bottom: -1px;
             left: 0;
-            height: 5px;
+            height: 4px;
             width: 100%;
             opacity: 0;
             background-color: var(--color-primary-yellow-01);
-            transition: opacity 400ms ease-in-out;
+            transition: opacity $transition-timing-normal ease-in-out;
         }
     }
 
@@ -117,21 +117,21 @@ export default {
         opacity: 0;
 
         transition-property: max-height, opacity;
-        transition-duration: 400ms, 400ms;
+        transition-duration: $transition-timing-normal;
         transition-timing-function: ease-in-out;
     }
     .sub-menu-item {
-        transition: background-color 400ms ease-in-out;
+        transition: background-color $transition-timing-normal ease-in-out;
 
         &:first-child {
-            margin-top: 36px;
+            margin-top: 32px;
         }
         &:last-child {
-            margin-bottom: 36px;
+            margin-bottom: 32px;
         }
     }
     .sub-menu-link {
-        padding: 12px 32px;
+        padding: 10px 32px;
         display: block;
     }
 
@@ -155,10 +155,11 @@ export default {
 
     // Hover
     @media #{$has-hover} {
-        .sub-menu-item:hover {
+        .sub-menu-item .sub-menu-link:hover {
             background-color: rgba(#ffffff, 0.1);
             text-decoration: underline;
             text-decoration-color: var(--color-primary-yellow-01);
+            border-radius: 2px;
         }
     }
 }
