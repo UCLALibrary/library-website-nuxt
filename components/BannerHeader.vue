@@ -541,6 +541,7 @@ export default {
             display: inline-block;
             vertical-align: middle;
             position: relative;
+            padding-top: 24px;
         }
         &:last-child {
             margin-right: 0;

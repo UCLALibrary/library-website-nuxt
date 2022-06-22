@@ -19,6 +19,8 @@
 
 <template lang="html">
     <section class="page-news-detail">
+        <nav-breadcrumb :title="page.title" />
+
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
