@@ -502,6 +502,7 @@ export default {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
+        align-items: center;
 
         font-size: 20px;
         margin-bottom: 24px;
@@ -514,10 +515,8 @@ export default {
         line-height: 24px;
         text-align: left;
         color: var(--color-primary-blue-03);
-        margin-top: 24px;
     }
     .date-created {
-        margin-top: 24px;
         color: var(--color-primary-blue-03);
     }
 
@@ -541,7 +540,6 @@ export default {
             display: inline-block;
             vertical-align: middle;
             position: relative;
-            padding-top: 24px;
         }
         &:last-child {
             margin-right: 0;
@@ -642,6 +640,7 @@ export default {
             display: flex;
             flex-direction: column;
             padding-left: 0;
+            align-items: flex-start;
         }
         .schedule-item,
         .byline-item {
@@ -649,6 +648,9 @@ export default {
             &:after {
                 display: none;
             }
+        }
+        .date-created {
+            margin-top: 24px;
         }
     }
 
