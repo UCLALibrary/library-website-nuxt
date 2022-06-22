@@ -44,7 +44,7 @@ export default {
 <style lang="scss" scoped>
 .nav-secondary {
     height: 48px;
-    padding: 0 94px;
+    padding: 0 var(--unit-gutter);
     border-bottom: 1px solid var(--color-secondary-grey-02);
 
     display: flex;
@@ -58,22 +58,27 @@ export default {
         list-style-type: none;
         margin: 0;
         padding: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        gap: 48px;
     }
 
     .list-item {
-        display: inline-block;
-        margin-left: 50px;
-        font-size: 18px;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-size: 20px;
         line-height: 1;
-
-        &:first-child {
-            margin-left: 0;
-        }
+        letter-spacing: 0.01em;
     }
 
     .link {
         color: var(--color-black);
         text-decoration: none;
+        position: relative;
+
+        @include clickable-area;
     }
 
     // Hover states
