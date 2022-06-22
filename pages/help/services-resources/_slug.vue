@@ -40,7 +40,7 @@
             class="section-cards"
             :items="parsedAssociatedTopics"
             title="Associated Topics"
-            button-text="All Services and Resources "
+            button-text="All Services and Resources"
             to="/help/services-resources"
         />
         <block-call-to-action
@@ -85,7 +85,7 @@ export default {
             return this.page.associatedTopics.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.researchGuideUrl ? obj.researchGuideUrl : obj.uri,
+                    to: obj.externalResourceUrl ? obj.externalResourceUrl : obj.uri,
                 }
             })
         },

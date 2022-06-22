@@ -7,6 +7,7 @@ query LocationDetail($slug: [String!]) {
             id
             locationType
             title
+            about: richTextSimplified
             heroImage {
                 image {
                     ...Image
@@ -52,7 +53,7 @@ query LocationDetail($slug: [String!]) {
                 title
                 slug
                 uri
-                researchGuideUrl
+                externalResourceUrl
                 type: serviceOrResourceType
             }
             campusMapId
@@ -62,7 +63,6 @@ query LocationDetail($slug: [String!]) {
                 email
                 to: uri
             }
-
             ...DefaultFpb
         }
     }

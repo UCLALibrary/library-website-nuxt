@@ -39,8 +39,8 @@ export default {
                     if (card.contentLink[0].slug.indexOf("/") === 0) {
                         internalLink = card.contentLink[0].slug
                         console.log(internalLink)
-                    } else if (card.contentLink[0].researchGuideUrl) {
-                        internalLink = card.contentLink[0].researchGuideUrl
+                    } else if (card.contentLink[0].externalResourceUrl) {
+                        internalLink = card.contentLink[0].externalResourceUrl
                     } else {
                         internalLink = "/" + card.contentLink[0].slug
                         console.log(internalLink)

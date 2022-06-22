@@ -4,10 +4,15 @@
         <div class="heading-staff">
             <svg-heading-arrow />
 
-            <h1
-                class="staffName"
-                v-html="staffName"
-            />
+            <h1 class="staffName">
+                {{ staffName }}
+                <span
+                    v-if="alternativeFullName"
+                    :lang="language"
+                    v-html="alternativeFullName"
+                />
+            </h1>
+
             <div
                 v-if="pronouns"
                 class="pronouns"
@@ -142,6 +147,7 @@
             </div>
         </div>
     </div>
+    </div>
 </template>
 
 <script>
@@ -169,6 +175,14 @@ export default {
             default: "",
         },
         staffName: {
+            type: String,
+            default: "",
+        },
+        alternativeFullName: {
+            type: String,
+            default: "",
+        },
+        language: {
             type: String,
             default: "",
         },
