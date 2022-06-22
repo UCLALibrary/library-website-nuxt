@@ -20,9 +20,9 @@
                 />
             </div>
             <div class="meta">
-                <p
+                <rich-text
                     class="text"
-                    v-html="text"
+                    :rich-text-content="text"
                 />
                 <!-- if no buttonUrl -  do not display button -->
                 <button-link
