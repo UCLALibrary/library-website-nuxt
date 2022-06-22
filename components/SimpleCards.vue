@@ -13,7 +13,7 @@
             />
         </div>
 
-        <ul class="simple-cards">
+        <ul class="simple-cards-list">
             <block-simple-card
                 v-for="(item, index) in parsedContent"
                 :key="`SimpleCardsKey${index}`"
@@ -46,6 +46,9 @@ export default {
         parsedContent() {
             let output = ["card", "card-small"]
             switch (this.items.length) {
+                case 1:
+                    output = ["card"]
+                    break
                 case 2:
                 case 4:
                     output = ["card", "card-large"]
@@ -70,13 +73,6 @@ export default {
 .simple-cards {
     margin: 0 auto;
     max-width: $container-l-main + px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: flex-start;
-    align-items: flex-start;
-    gap: var(--space-s);
 
     .section-header {
         margin-bottom: var(--space-xl);
@@ -92,6 +88,15 @@ export default {
         ::v-deep p {
             margin: 0;
         }
+    }
+    .simple-cards-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: flex-start;
+        align-items: flex-start;
+        gap: var(--space-s);
     }
     .card {
     }
