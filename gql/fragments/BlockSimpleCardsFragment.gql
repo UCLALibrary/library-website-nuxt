@@ -11,7 +11,7 @@ fragment BlockSimpleCardsFragment on ElementInterface {
                 slug
                 title
                 summary
-                researchGuideUrl
+                externalResourceUrl
             }
         }
         ... on simpleCards_externalServiceOrResource_BlockType {

@@ -35,7 +35,7 @@ query ServiceOrResourceDetail($slug: [String!]) {
                 title
                 slug
                 uri
-                researchGuideUrl
+                externalResourceUrl
             }
         }
         ...DefaultFpbWithNoCta

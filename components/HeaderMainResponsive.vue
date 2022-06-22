@@ -25,7 +25,7 @@
                 @click="toggleMenu"
             />
         </div>
-        <div v-else>
+        <div v-else class="expanded-menu-container">
             <div class="expanded-menu">
                 <nuxt-link
                     to="/"
@@ -117,7 +117,7 @@ export default {
             ),
         IconCaretLeft: () =>
             import(
-                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-caret-left"
+                "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-caret-circle-left"
             ),
         Molecule3d: () =>
             import(
@@ -249,45 +249,56 @@ export default {
     .collapsed-menu {
         width: 100vw;
         height: 100%;
-        padding-top: var(--space-2xl);
+        padding: 32px var(--unit-gutter) 0;
         background-color: var(--color-white);
         display: flex;
         justify-content: space-between;
+        align-items: center;
 
         .hamburguer {
             cursor: pointer;
         }
     }
 
+    .expanded-menu-container {
+        overflow-y: auto;
+    }
+
     .expanded-menu {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
         width: 100%;
 
-        padding: 21px 26px 114px 26px;
+        padding: 0 var(--unit-gutter);
+        margin: 32px 0;
         background-color: var(--color-primary-blue-03);
 
-        .svg__logo-library > g > path {
-            fill: var(--color-white);
+        .svg__logo-library {
+            .svg__fill--primary-blue-03,
+            .svg__fill--black {
+                fill: var(--color-white);
+            }
         }
 
         .close-svg {
             cursor: pointer;
-            // Adjustments: Set svg to blue background
+
             .svg__fill--primary-blue-01 {
-                fill: var(--color-primary-blue-03);
+                fill: transparent;
             }
         }
         .go-back-svg {
             cursor: pointer;
-            transform: scale(3.5);
             height: 48px;
 
-            .svg__stroke--primary-blue-03 {
-                fill: none;
-                stroke-width: 0.5;
-                stroke: var(--color-default-cyan-02);
+            .svg__fill--primary-blue-01 {
+                fill: transparent;
+            }
+
+            .svg__fill--primary-blue-03 {
+                fill: var(--color-default-cyan-02);
             }
         }
     }
@@ -297,31 +308,30 @@ export default {
     }
 
     .nav-menu-primary {
-        width: 100%;
-        padding-inline: 43px;
+        margin: 64px var(--unit-gutter);
     }
 
     .nav-menu-secondary {
-        width: 100%;
-        padding-inline: 43px;
-        padding-top: 40px;
+        margin: 64px var(--unit-gutter);
 
         .list {
             color: white;
 
             .list-item {
-                padding-bottom: 24px;
+                margin-bottom: 24px;
+                font-family: var(--font-primary);
                 font-size: 20px;
                 font-weight: 400;
+
+                .link {
+                    @include clickable-area;
+                }
             }
         }
     }
 
     .support-us-container {
-        padding-top: 100px;
-        padding-left: 44px;
-        padding-bottom: 108px;
-        margin-top: auto;
+        margin: 64px var(--unit-gutter);
 
         .button {
             margin: 0px;

@@ -5,7 +5,7 @@ describe("Website Homepage", () => {
 
         // UCLA brand
         cy.get(".site-brand-bar").should("be.visible")
-        cy.get(".ucla-logo").should("have.attr", "alt", "UCLA logo")
+        cy.get(".visually-hidden").should("contain", "UCLA Home")
         cy.get(".ucla-logo")
             .parent()
             .should("have.attr", "href", "https://www.ucla.edu")

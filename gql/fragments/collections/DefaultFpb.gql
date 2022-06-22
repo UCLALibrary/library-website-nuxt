@@ -5,6 +5,7 @@
 #import "~/gql/fragments/BlockRichTextFragment"
 #import "~/gql/fragments/BlockSimpleCardsFragment"
 #import "~/gql/fragments/BlockCallToActionFragment"
+#import "~/gql/fragments/BlockFormFragment"
 
 fragment DefaultFpb on ElementInterface {
     blocks: defaultFpb {
@@ -17,6 +18,7 @@ fragment DefaultFpb on ElementInterface {
         ...BlockRichText
         ...BlockSimpleCards
         ...BlockCallToAction
+        ...BlockForm
     }
 }
 
@@ -42,4 +44,8 @@ fragment BlockSimpleCards on defaultFpb_simpleCards_BlockType {
 
 fragment BlockCallToAction on defaultFpb_callToAction_BlockType {
     ...BlockCallToActionFragment
+}
+
+fragment BlockForm on allFpb_form_BlockType {
+    ...BlockFormFragment
 }

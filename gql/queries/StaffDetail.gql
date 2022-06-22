@@ -10,6 +10,12 @@ query StaffDetail($slug: [String]!) {
             to: slug
             nameFirst
             nameLast
+            alternativeName {
+                ... on alternativeName_alternativeName_BlockType {
+                    fullName
+                    languageAltName
+                }
+            }
             jobTitle: staffMemberJobTitle
             departments: staffDepartment(orderBy: "level") {
                 id

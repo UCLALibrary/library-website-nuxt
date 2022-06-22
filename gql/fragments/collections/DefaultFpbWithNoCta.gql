@@ -4,6 +4,7 @@
 #import "~/gql/fragments/BlockPullQuoteFragment"
 #import "~/gql/fragments/BlockRichTextFragment"
 #import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/BlockFormFragment"
 
 fragment DefaultFpbWithNoCta on ElementInterface {
     blocks: defaultFpbWithNoCta {
@@ -14,6 +15,7 @@ fragment DefaultFpbWithNoCta on ElementInterface {
         ...BlockPullQuote
         ...BlockRichText
         ...BlockSimpleCards
+        ...BlockForm
     }
 }
 
@@ -35,4 +37,8 @@ fragment BlockRichText on defaultFpbWithNoCta_richText_BlockType {
 
 fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
     ...BlockSimpleCardsFragment
+}
+
+fragment BlockForm on allFpb_form_BlockType {
+    ...BlockFormFragment
 }
