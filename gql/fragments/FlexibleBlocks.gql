@@ -19,6 +19,7 @@ fragment FlexibleBlocks on ElementInterface {
         ...BlockHelpTopicCards
         ...BlockSimpleCards
         ...BlockHighlight
+        ...BlockForm
     }
 }
 
@@ -279,4 +280,9 @@ fragment BlockHighlight on allFlexiblePageBlocks_highlight_BlockType {
             }
         }
     }
+}
+
+fragment BlockFormFragment on ElementInterface {
+    id
+    form
 }
