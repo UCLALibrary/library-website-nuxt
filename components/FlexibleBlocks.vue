@@ -35,6 +35,8 @@ export default {
             import("~/components/Flexible/MediaWithText.vue"),
         FlexibleMediaGallery: () =>
             import("~/components/Flexible/MediaGallery.vue"),
+        FlexibleForm: () =>
+            import("~/components/Flexible/Form.vue"),
     },
     props: {
         blocks: {
@@ -46,6 +48,7 @@ export default {
         parsedBlocks() {
             // Shape blocks to work with components
             let output = this.blocks.map((obj) => {
+                console.log( convertName(obj.typeHandle))
                 return {
                     ...obj,
                     componentName: convertName(obj.typeHandle),

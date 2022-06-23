@@ -117,6 +117,10 @@ export default {
             })
         },
 
+        parsedForm() {
+
+        }
+
         // parsedLocations() {
         //     let places= this.page.locations.map((place) => {
         //         return {

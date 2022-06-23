@@ -282,7 +282,6 @@ fragment BlockHighlight on allFlexiblePageBlocks_highlight_BlockType {
     }
 }
 
-fragment BlockFormFragment on ElementInterface {
-    id
+fragment BlockFormFragment on allFlexiblePageBlocks_form_BlockType {
     form
 }
