@@ -49,7 +49,7 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         publish-dir: './storybook-static'
         fails-without-credentials: true
-        github-deployment-environment: production
+        github-deployment-environment: test
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_STORYBOOK }}
