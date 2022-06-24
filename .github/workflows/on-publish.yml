@@ -48,4 +48,5 @@ jobs:
         fails-without-credentials: true
         github-deployment-environment: production
       env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_LIBRARY_SITE_ID }}
