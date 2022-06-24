@@ -122,7 +122,7 @@
             class="divider-way-finder"
         />
         <h2
-            v-if="page.about"
+            v-if="page.campusMapId"
             class="section-heading"
         >
             Location & Access
