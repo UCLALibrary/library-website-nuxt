@@ -3,8 +3,13 @@
         <svg-molecule-half class="molecule-half-svg" />
         <div :class="classes">
             <div class="footer-links">
-                <svg-logo-ucla-library class="logo-svg" />
-
+                <nuxt-link
+                    to="/"
+                    class="logo-ucla"
+                >
+                    <svg-logo-ucla-library class="logo-svg" />
+                    <span class="visually-hidden">UCLA Library Home</span>
+                </nuxt-link>
                 <ul class="socials">
                     <li
                         v-for="item in parsedSocialItems"
@@ -22,7 +27,6 @@
                 </ul>
 
                 <ul
-                    v-show="form"
                     class="press-links"
                 >
                     <li
@@ -44,23 +48,26 @@
                 v-if="form"
                 class="form"
             >
-                <h2 class="title">
-                    Stay updated
-                </h2>
+                <div class="form-header">
+                    <h2 class="title">Stay updated</h2>
 
-                <p class="statement">
-                    Subscribe to get the latest updates on what's happening with
-                    UCLA Library.
-                </p>
+                    <p class="statement">
+                        Subscribe to get the latest updates on what's happening with
+                        UCLA Library.
+                    </p>
+                </div>
 
                 <div class="input-block">
-                    <label class="label">
-                        <span class="description">Email Address *</span>
+                    <div class="field">
                         <input
-                            placeholder="Email Address"
+                            name="email"
+                            id="email"
+                            placeholder="asdf@ucla.edu"
                             class="input-email"
                         >
-                    </label>
+                        <label for="email" class="label">Email Address</label>
+                    </div>
+                    
                     <button
                         class="button-submit"
                         type="submit"
@@ -78,9 +85,9 @@
 // Helpers
 import formatLinkTarget from "~/utils/formatLinkTarget"
 
-import SvgLogoUclaLibrary from "~/assets/svg/logo-ucla-library"
+import SvgLogoUclaLibrary from "~/node_modules/ucla-library-design-tokens/assets/svgs/logo-library"
 import SvgMoleculeHalf from "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-half"
-import SvgArrowRight from "~/assets/svg/arrow-right"
+import SvgArrowRight from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-arrow-right"
 
 export default {
     components: {
@@ -148,38 +155,46 @@ export default {
 
 <style lang="scss" scoped>
 .footer-primary {
+    --unit-content-width: #{$container-l-cta}px;
+
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+    justify-content: space-between;
 
     background-color: var(--color-primary-blue-03);
     border-bottom: 4px solid var(--color-primary-yellow-01);
     position: relative;
     z-index: 0;
-    min-height: 375px;
-    padding: 0 var(--unit-gutter);
+    padding: var(--unit-gutter);
 
     .molecule-half-svg {
         position: absolute;
         z-index: 10;
-        opacity: 0.45;
-        mix-blend-mode: screen;
+        opacity: 0.5;
         top: 30px;
         left: -55px;
         height: 287px;
         transform: rotate(180deg);
+
+        .svg__fill-bottom,
+        .svg__fill-top {
+            fill: var(--color-primary-blue-02);
+            opacity: 0.25;
+        }
+
+        .svg__fill-accent {
+            fill: var(--color-primary-blue-02);
+            opacity: 0.55;
+        }
     }
 
     .container {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 128px;
 
         width: 100%;
         max-width: var(--unit-content-width);
@@ -198,42 +213,45 @@ export default {
 
         // Footer Links - Left / Top
         .footer-links {
-            padding-right: 50px;
-            margin-right: 25px;
-
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            
             .logo-svg {
                 height: auto;
-                width: 100%;
+                width: 304px;
+                max-width: 100%;
+
                 path {
                     fill: var(--color-white);
                 }
-                margin-bottom: 35px;
             }
 
             .socials {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
-                justify-content: center;
+                justify-content: flex-start;
                 align-content: flex-start;
                 align-items: flex-start;
 
                 color: var(--color-white);
                 text-decoration: none;
                 list-style-type: none;
-                z-index: 10px;
-                margin-bottom: 45px;
+                z-index: 10;
 
                 .social-item {
                     line-height: 1em;
-                    padding-right: 10px;
-                    padding-left: 10px;
+                    padding-right: 8px;
+                    padding-left: 8px;
+
                     &:first-child {
                         padding-left: 0;
                     }
                     border-right: 1px solid var(--color-white);
+                    
                     &:last-child {
-                        border-right: 0px;
+                        border-right: 0;
                     }
                 }
             } // socials
@@ -242,65 +260,119 @@ export default {
                 display: inline-flex;
                 flex-direction: column;
                 align-self: flex-start;
+                gap: 16px;
             }
             .press-item {
                 align-self: flex-start;
                 text-transform: uppercase;
                 color: var(--color-white);
                 list-style-type: none;
-                font-family: var(--font-secondary);
+                font-weight: 600;
+                font-size: 20px;
+                letter-spacing: .1em;
                 border-bottom: 2px solid var(--color-primary-yellow-01);
-                line-height: 1.25;
-                margin-bottom: 12px;
+                line-height: 1.2;
+
+                .is-link {
+                    position: relative;
+
+                    @include clickable-area;
+                }
             }
         } // footer-links
 
         // Form - Right / Bottom
         .form {
-            flex: 1 1 auto;
-
             color: var(--color-white);
-            margin-left: 25px;
+            padding-top: 16px;
 
             input {
                 background-color: transparent;
-                border: none;
+            }
+
+            input:placeholder-shown + label {
+            cursor: text;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transform-origin: left bottom;
+            transform: translate(0, 2.125rem) scale(1.25);
+            }
+
+            ::-webkit-input-placeholder {
+            opacity: 0;
+            transition: inherit;
+            }
+
+            input:focus::-webkit-input-placeholder {
+            opacity: 1;
+            color: white;
+            }
+
+            input:not(:placeholder-shown) + label,
+            input:focus + label {
+                color: var(--color-help-green-02);
+                font-size: 16px;
+                font-weight: 500;
+            transform: translate(0, -8px) scale(1);
+            cursor: pointer;
+            }
+
+            .field {
+            display: flex;
+            flex-flow: column-reverse;
+            width: 100%;
+            }
+
+            label, input {
+            transition: all 0.2s;
+            touch-action: manipulation;
+            }
+
+            input {
+                @include step-0;
+                line-height: 1.2;
+                color: white;
+            border: 0;
+            border-radius: 4px;
+            padding: 8px 12px;
+            -webkit-appearance: none;
+            cursor: text;
+            }
+
+            input:focus {
+            outline: 0;
+            background-color: rgba(#fff, .1);
+            color: var(--color-white);
+            }
+
+            .form-header {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 32px;
             }
 
             .title {
-                font-size: 2em;
-                font-weight: 200;
+                @include step-3;
             }
 
             .statement {
-                margin-bottom: 35px;
+                @include step-0;
+                margin: 0;
             }
 
             .input-block {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
-                justify-content: flex-start;
+                justify-content: space-between;
                 align-content: center;
-                align-items: center;
+                align-items: flex-end;
+                padding-bottom: 8px;
 
                 position: relative;
-                padding-top: 15px;
-                padding-bottom: 2px;
                 border-bottom: 2px solid var(--color-help-green-03);
-                font-size: 18px;
                 font-family: var(--font-primary);
-
-                .label {
-                    width: 100%;
-                    font-family: var(--font-secondary);
-
-                    &:focus-within {
-                        .description {
-                            opacity: 1;
-                        }
-                    }
-                }
 
                 .description {
                     position: absolute;
@@ -311,24 +383,24 @@ export default {
                     transition: opacity 400ms ease-in-out;
                 }
 
-                .input-email {
-                    font-size: 18px;
-                    color: var(--color-white);
-                    background-color: none;
-                    width: calc(100% - 20px);
+                // .input-email {
+                //     font-size: 18px;
+                //     color: var(--color-white);
+                //     background-color: none;
+                //     width: calc(100% - 20px);
 
-                    &::placeholder {
-                        color: white;
-                    }
+                //     &::placeholder {
+                //         color: white;
+                //     }
 
-                    &:focus-visible {
-                        color: var(--color-white);
-                        outline: none;
-                        background-color: rgba(255, 255, 255, 0.1);
-                        padding: 10px;
-                        border-radius: 4px;
-                    }
-                }
+                //     &:focus-visible {
+                //         color: var(--color-white);
+                //         outline: none;
+                //         background-color: rgba(255, 255, 255, 0.1);
+                //         padding: 10px;
+                //         border-radius: 4px;
+                //     }
+                // }
 
                 .button-submit {
                     display: flex;
@@ -337,9 +409,11 @@ export default {
                     justify-content: center;
                     align-content: center;
                     align-items: center;
+                    height: 40px;
+                    padding-left: 16px;
 
                     color: var(--color-white);
-                    font-size: 18px;
+                    @include button;
                 }
 
                 .arrow-svg {
@@ -368,10 +442,7 @@ export default {
 
     // Breakpoints
     @media #{$medium} {
-        display: block;
-        padding-top: 25px;
-        padding-bottom: 54px;
-        height: 646;
+        padding: var(--unit-gutter);
 
         .container {
             display: flex;
@@ -380,8 +451,7 @@ export default {
             justify-content: space-between;
             align-content: flex-end;
             align-items: flex-end;
-
-            padding-top: 100px;
+            gap: 32px;
 
             &.no-form {
                 display: flex;
@@ -392,17 +462,17 @@ export default {
                 align-items: flex-end;
             }
 
-            .footer-links {
-                display: flex;
-                flex-direction: column;
-                flex-wrap: nowrap;
-                justify-content: center;
-                align-content: center;
-                align-items: flex-end;
+            .form {
+                width: 100%;
 
-                .logo-svg {
-                    margin-bottom: 25px;
+                .form-header {
+                    margin-bottom: 24px;
                 }
+            }
+
+            .footer-links {
+                flex-wrap: nowrap;
+                align-items: flex-end;
 
                 .social-item:last-child {
                     padding-right: 0;
@@ -416,19 +486,36 @@ export default {
                     align-self: flex-end;
                 }
             }
-
-            .form {
-                margin-right: 37px;
-                margin-bottom: 88px;
-            }
         }
     }
 
     @media #{$small} {
+        padding-top: 48px;
+        padding-bottom: 48px;
+
         .container {
-            .footer-links {
-                margin-right: 0;
+            gap: 48px;
+
+            .form {
+                .statement {
+                    line-height: 1.4;
+                    font-size: 16px;
+                }
+                
+                .form-header {
+                    margin-bottom: 16px;
+                }
+
+                .field {
+                    width: calc(100% - 108px);
+                }
             }
+        }
+    }
+
+    @media (max-width: 375px) {
+        .container {
+            align-items: center;
         }
     }
 }
