@@ -107,24 +107,6 @@
             class="content"
             :blocks="page.blocks"
         />
-        <!-- <h2
-            v-if="parsedEndowments.length"
-            class="section-heading"
-        >
-            Endowments
-        </h2>
-
-        <section-teaser-card
-            :items="parsedEndowments"
-            class="endowments"
-        />
-        <nuxt-link
-            v-if="parsedEndowments.length"
-            class="button-more"
-            to="/about/endowments"
-        >
-            <button-more text="See More" />
-        </nuxt-link> -->
         <h2
             v-if="page.about"
             class="section-heading"
