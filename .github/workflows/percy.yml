@@ -14,14 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
     - uses: ./.github/workflows/setup-workspace
-    - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v10
-        id: verify-changed-files
-        with:
-          files: |
-             **/*.yml
     - name: Cache Storybook Build
-      if: steps.verify-changed-files.outputs.files_changed != 'true'
       id: cache-storybook
       uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353
       with:
@@ -45,19 +38,12 @@ jobs:
     steps:
     - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
     - uses: ./.github/workflows/setup-workspace
-    - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v10
-        id: verify-changed-files
-        with:
-          files: |
-             **/*.yml
     - name: Cache built static site
       id: cache-nuxt
       uses: actions/cache@v2
       with:
         path: ./dist
         key: nuxt-site-${{ github.sha }}
-      if: steps.verify-changed-files.outputs.files_changed != 'true'
     - run: npm run generate
       if: steps.cache-nuxt.outputs.cache-hit != 'true'
       env:
