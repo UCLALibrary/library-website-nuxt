@@ -44,7 +44,6 @@ export default {
                     testiframe.style.height = testiframe.contentDocument.body.scrollHeight + form_iframe.height
                 })
 
-
                 switch (eventName) {
                     case "setHeight":
                         form_iframe.height = testiframe.style.height
@@ -53,17 +52,6 @@ export default {
             },
             false
         )
-    },
-    methods: {
-        resizeIframe(obj) {
-            // TODO why is this not working?
-            console.log(obj.target.contentWindow.document.body.scrollHeight)
-
-            obj.target.style.height = "524px"
-            console.log(obj.target.contentWindow.document.body.scrollHeight)
-            /*obj.style.height =
-                obj.contentWindow.document.body.scrollHeight + "px"*/
-        },
     },
 }
 </script>

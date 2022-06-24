@@ -1,4 +1,4 @@
 fragment BlockFormFragment on ElementInterface {
-    formid: id
+    id
     form
 }
