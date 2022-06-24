@@ -137,7 +137,7 @@
             v-if="page.campusMapId"
             class="section-heading"
         >
-            Location & Access
+            Location &amp; Access
         </h2>
         <block-campus-map
             v-if="page.campusMapId"
