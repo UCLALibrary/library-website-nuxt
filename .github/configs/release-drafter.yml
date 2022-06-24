@@ -1,4 +1,3 @@
-
 categories:
   - title: '🚀 Features and Improvements'
     labels:
@@ -35,7 +34,6 @@ version-resolver:
       - 'chore'
       - 'test'
       - 'ci'
-
   default: patch
 tag-template: '$RESOLVED_VERSION'
 name-template: 'v$RESOLVED_VERSION'
