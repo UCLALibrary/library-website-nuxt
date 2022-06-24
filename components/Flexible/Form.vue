@@ -3,6 +3,7 @@
         <div class="content">
             <iframe
                 id="form-iframe"
+                refs="form_iframe"
                 class="iframe"
                 :srcdoc="parsedFormContent"
                 frameBorder="0"
@@ -32,14 +33,21 @@ export default {
         window.addEventListener(
             "message",
             function (e) {
-                var form_iframe = document.getElementById("form-iframe")
-                console.log("FORM HEIGHT" + form_iframe.height)
+                // var form_iframe = document.getElementById("form-iframe")
+                var form_iframe = document.getElementById("form-iframe").height
                 var eventName = e.data[0]
                 var data = e.data[1]
 
+                let testiframe = document.querySelector("#form-iframe")
+
+                testiframe.addEventListener('load', function() {
+                    testiframe.style.height = testiframe.contentDocument.body.scrollHeight + form_iframe.height
+                })
+
+
                 switch (eventName) {
                     case "setHeight":
-                        form_iframe.height = data + 20
+                        form_iframe.height = testiframe.style.height
                         break
                 }
             },
@@ -69,32 +77,7 @@ export default {
     max-width: $container-l-main + px;
 
     .content {
-        border-radius: var(--rounded-slightly-all);
-        border: 1.5px solid var(--color-primary-blue-01);
-        background-color: var(--color-primary-blue-01);
-        height: 500px;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        align-content: space-between;
-
-        .page-title {
-            color: coral;
-        }
-        button {
-            .btn-primary {
-                background-color: pink;
-                color: green;
-                border: 1px solid coral;
-                max-width: 300px;
-                margin-left: 10px;
-                margin-top: 20px;
-                margin-bottom: 20px;
-            }
-        }
-
+        height: 375px;
     }
 }
 </style>

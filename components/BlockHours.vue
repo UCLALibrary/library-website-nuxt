@@ -68,6 +68,7 @@ export default {
                 console.log(hours_iframe.height)
                 var eventName = e.data[0]
                 var data = e.data[1]
+                console.log("DATA: " + hours_iframe )
 
                 switch (eventName) {
                     case "setHeight":
