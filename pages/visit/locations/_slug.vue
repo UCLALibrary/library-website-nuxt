@@ -24,10 +24,22 @@
             :address-link="addressLink"
         />
         <divider-way-finder
+            v-if="
+                page.libcalLocationIdForHours ||
+                    page.amenities.length ||
+                    parsedSpaces.length
+            "
             color="visit"
             class="divider-way-finder"
         />
-        <h2 class="section-heading">
+        <h2
+            v-if="
+                page.libcalLocationIdForHours ||
+                    page.amenities.length ||
+                    parsedSpaces.length
+            "
+            class="section-heading"
+        >
             Using the Library
         </h2>
         <block-hours
