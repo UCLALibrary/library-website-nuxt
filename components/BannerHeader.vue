@@ -37,10 +37,10 @@
                 class="title"
                 v-html="title"
             />
-            <div
+            <rich-text
                 v-if="text"
                 class="snippet"
-                v-html="text"
+                :rich-text-content="text"
             />
             <div class="byline">
                 <div
@@ -108,7 +108,7 @@
                     :is="`svg-icon-person`"
                     class="contact-svg"
                 />
-                <nuxt-link
+                <smart-link
                     :to="staffDirectoryLink"
                     class="link-icon"
                     v-html="`View staff directory`"

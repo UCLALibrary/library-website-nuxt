@@ -16,10 +16,10 @@
                     class="title"
                     v-html="title"
                 />
-                <div
+                <rich-text
                     v-if="text"
                     class="text"
-                    v-html="text"
+                    :rich-text-content="text"
                 />
                 <div
                     v-if="date"
