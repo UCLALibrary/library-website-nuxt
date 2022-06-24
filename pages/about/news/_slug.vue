@@ -1,21 +1,8 @@
-// articleType - nowhere
-// summary - nowhere
-// associatedLocations - nowhere
-// department - nowhere
-
-// title
-// heroImage banner Image
-// articleCategories (library news)
-// staffMember
-
-// allFpb
-// bannerheader
-// date published
-
-// TODO
-// fix: ServiceOrResources
-// add: share links & icons component
-// fix: author
+// articleType - nowhere // summary - nowhere // associatedLocations - nowhere
+// department - nowhere // title // heroImage banner Image // articleCategories
+(library news) // staffMember // allFpb // bannerheader // date published //
+TODO // fix: ServiceOrResources // add: share links & icons component // fix:
+author
 
 <template lang="html">
     <section class="page-news-detail">
@@ -72,12 +59,9 @@ export default {
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
         )
-        const data = await $graphql.default.request(
-            ARTICLE_NEWS_DETAIL,
-            {
-                slug: params.slug,
-            }
-        )
+        const data = await $graphql.default.request(ARTICLE_NEWS_DETAIL, {
+            slug: params.slug,
+        })
         console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
@@ -93,12 +77,12 @@ export default {
         parsedBylines() {
             let bylines = this.page.byline.map((name) => {
                 return {
-                    fullName: `${name.nameFirst} ${name.nameLast}`
+                    fullName: `${name.nameFirst} ${name.nameLast}`,
                 }
             })
 
-            return bylines.map(({fullName})=>{ 
-                return (`${fullName}`)
+            return bylines.map(({ fullName }) => {
+                return `${fullName}`
             })
         },
 
@@ -123,13 +107,12 @@ export default {
         //             linkedLocation: `<a href="${place.uri}">${place.title}</a>`
         //         }
         //     })
-        //     return places.map(({linkedLocation})=>{ 
+        //     return places.map(({linkedLocation})=>{
         //         return (`${linkedLocation}`)
         //     })
         // }
-    }
+    },
 }
-
 </script>
 
 <style lang="scss" scoped>

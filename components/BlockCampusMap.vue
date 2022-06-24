@@ -16,9 +16,7 @@
         <button
             class="title"
             @click="showModal"
-        >
-            Campus Map
-        </button>
+        />
         <div class="content">
             <div class="iframe-hover">
                 <div class="iframe-container">
@@ -92,11 +90,6 @@ export default {
     margin: 0 auto;
     position: relative;
 
-    .title {
-        color: var(--color-primary-blue-03);
-        @include step-2;
-        margin-bottom: 16px;
-    }
     .title::after {
         content: "";
         position: absolute;
