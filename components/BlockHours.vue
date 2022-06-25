@@ -32,6 +32,7 @@
         </div>
     </div>
 </template>
+
 <script>
 export default {
     props: {
@@ -67,6 +68,7 @@ export default {
                 console.log(hours_iframe.height)
                 var eventName = e.data[0]
                 var data = e.data[1]
+                console.log("DATA: " + hours_iframe )
 
                 switch (eventName) {
                     case "setHeight":
@@ -90,6 +92,7 @@ export default {
     },
 }
 </script>
+
 <style lang="scss" scoped>
 .block-hours {
     max-width: 930px;
