@@ -137,6 +137,9 @@ export default {
                     line-height: 20px;
                 }
             }
+            ::v-deep .rich-text {
+                margin: 0;
+            }
             .text {
                 @include step-0;
                 margin-top: 0;

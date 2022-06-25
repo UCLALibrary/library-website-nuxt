@@ -24,10 +24,22 @@
             :address-link="addressLink"
         />
         <divider-way-finder
+            v-if="
+                page.libcalLocationIdForHours ||
+                    page.amenities.length ||
+                    parsedSpaces.length
+            "
             color="visit"
             class="divider-way-finder"
         />
-        <h2 class="section-heading">
+        <h2
+            v-if="
+                page.libcalLocationIdForHours ||
+                    page.amenities.length ||
+                    parsedSpaces.length
+            "
+            class="section-heading"
+        >
             Using the Library
         </h2>
         <block-hours
@@ -42,13 +54,6 @@
             v-if="page.amenities.length"
             :items="page.amenities"
             class="amenities"
-        />
-        <divider-general class="divider-general" />
-        <block-campus-map
-            v-if="page.campusMapId"
-            :campus-location-id="page.campusMapId"
-            :location-name="page.title"
-            :building-access="page.howToGetHere"
         />
         <divider-general
             v-if="parsedSpaces.length"
@@ -115,24 +120,6 @@
             :blocks="page.blocks"
         />
         <h2
-            v-if="parsedEndowments.length"
-            class="section-heading"
-        >
-            Endowments
-        </h2>
-
-        <section-teaser-card
-            :items="parsedEndowments"
-            class="endowments"
-        />
-        <nuxt-link
-            v-if="parsedEndowments.length"
-            class="button-more"
-            to="/about/endowments"
-        >
-            <button-more text="See More" />
-        </nuxt-link>
-        <h2
             v-if="page.about"
             class="section-heading"
         >
@@ -142,27 +129,23 @@
             class="about-text"
             :rich-text-content="page.about"
         />
+        <divider-way-finder
+            color="visit"
+            class="divider-way-finder"
+        />
         <h2
-            v-if="parsedArticles.length"
+            v-if="page.campusMapId"
             class="section-heading"
         >
-            News
+            Location &amp; Access
         </h2>
-
-        <section-teaser-card
-            v-if="parsedArticles.length"
-            :items="parsedArticles"
-            class="articles"
-            to="/about/news"
+        <block-campus-map
+            v-if="page.campusMapId"
+            :campus-location-id="page.campusMapId"
+            :location-name="page.title"
+            :building-access="page.howToGetHere"
+            class="campus-map"
         />
-
-        <nuxt-link
-            v-if="parsedArticles.length"
-            class="button-more"
-            to="/about/news"
-        >
-            <button-more text="See More" />
-        </nuxt-link>
     </div>
 </template>
 
@@ -295,29 +278,6 @@ export default {
                             : 0
                 )
         },
-        parsedEndowments() {
-            console.log(this.mergeSortEventsExhibitions)
-            return this.associatedEndowments.map((obj) => {
-                return {
-                    ...obj,
-                    to: `/${obj.uri}`,
-                    image: _get(obj, "heroImage[0].image[0]", {}),
-                    text: obj.summary,
-                }
-            })
-        },
-        parsedArticles() {
-            return this.associatedArticles.map((obj) => {
-                return {
-                    ...obj,
-                    to: `/${obj.uri}`,
-                    image: _get(obj, "heroImage[0].image[0]", {}),
-                    text: obj.description,
-                    category: obj.articleType,
-                    author: _get(obj, "author[0].title", ""),
-                }
-            })
-        },
     },
 }
 </script>
@@ -356,38 +316,13 @@ export default {
         margin: var(--space-2xl) auto;
     }
 
-    .block-spaces,
-    .endowments,
-    .articles {
+    .block-spaces {
         margin: 16px auto;
     }
 
-    .endowment-group {
-        max-width: $container-l-main + px;
-        padding: 0 calc(var(--unit-gutter) - 16px);
-        background-color: var(--color-white);
-        margin: 0 auto;
-
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        align-content: flex-start;
-        align-items: flex-start;
+    .campus-map {
+        margin-bottom: var(--space-2xl);
     }
-
-    // .about-text {
-    //     @include step-0;
-    //     max-width: $container-l-text + px;
-    //     margin: var(--space-l) auto;
-    //
-    //     ::v-deep p {
-    //         font-family: var(--font-primary);
-    //         color: var(--color-black);
-    //         @include step-0;
-    //         margin: var(--space-l) 0;
-    //     }
-    // }
 
     // ::v-deep .flexible-block:last-child:not(.flexible-simple-cards) {
     //     background: red;

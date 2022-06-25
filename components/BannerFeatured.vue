@@ -58,10 +58,10 @@
                 /-->
             </h3>
 
-            <p
+            <rich-text
                 v-if="description"
                 class="description"
-                v-html="description"
+                :rich-text-content="description"
             />
 
             <div
