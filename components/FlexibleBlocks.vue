@@ -35,6 +35,8 @@ export default {
             import("~/components/Flexible/MediaWithText.vue"),
         FlexibleMediaGallery: () =>
             import("~/components/Flexible/MediaGallery.vue"),
+        FlexibleForm: () =>
+            import("~/components/Flexible/Form.vue"),
     },
     props: {
         blocks: {
@@ -46,6 +48,7 @@ export default {
         parsedBlocks() {
             // Shape blocks to work with components
             let output = this.blocks.map((obj) => {
+                console.log( convertName(obj.typeHandle))
                 return {
                     ...obj,
                     componentName: convertName(obj.typeHandle),
@@ -98,6 +101,7 @@ function convertName(typeHandle) {
         background-color: var(--color-secondary-grey-01);
         --color-theme: var(--color-secondary-grey-01);
 
+        &.forms,
         &.flexible-simple-cards,
         &.divider-general,
         &.pull-quote {
