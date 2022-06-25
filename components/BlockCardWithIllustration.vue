@@ -8,7 +8,7 @@
         <div class="meta">
             <smart-link
                 v-if="to"
-                :to="to"
+                :to="`/${to}`"
                 :target="parsedTarget"
             >
                 <div
