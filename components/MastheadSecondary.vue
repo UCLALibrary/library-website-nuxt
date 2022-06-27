@@ -61,8 +61,8 @@ export default {
         position: relative;
         z-index: 20;
         margin: 0 auto;
-        padding-top: var(--sapce-3xl);
-        padding-bottom: var(--space-4xl);
+        padding-top: var(--space-2xl);
+        padding-bottom: var(--space-3xl);
     }
     .meta {
         color: var(--color-white);
