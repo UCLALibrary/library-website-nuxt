@@ -5,13 +5,6 @@ html {
     box-sizing: inherit;
 }
 
-ol,
-ul,
-li {
-    padding: 0;
-    margin: 0;
-}
-
 body {
     font-family: var(--font-primary);
     font-weight: 400;
@@ -36,7 +29,8 @@ strong {
 }
 
 ul,
-ol {
+ol,
+li {
     margin: 0;
     padding: 0;
 }
@@ -44,7 +38,7 @@ ol {
 a {
     text-decoration: none;
     color: inherit;
-    transition: color 400ms ease-in-out;
+    transition: color $transition-timing-normal ease-in-out;
 }
 
 button {
