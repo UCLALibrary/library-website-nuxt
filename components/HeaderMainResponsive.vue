@@ -9,13 +9,18 @@
             v-if="!isOpened"
             class="collapsed-menu"
         >
-            <component
-                :is="`LogoLibrary`"
-                width="155"
-                height="55"
-                class="logo-ucla"
-                role="button"
-            />
+            <nuxt-link
+                    to="/"
+                    aria-label="UCLA Library home page"
+                >
+                <component
+                    :is="`LogoLibrary`"
+                    width="155"
+                    height="55"
+                    class="logo-ucla"
+                    role="button"
+                />
+            </nuxt-link>
             <component
                 :is="`IconMenu`"
                 class="hamburguer"
@@ -322,6 +327,7 @@ export default {
                 font-family: var(--font-primary);
                 font-size: 20px;
                 font-weight: 400;
+                line-height: 1;
 
                 .link {
                     @include clickable-area;
