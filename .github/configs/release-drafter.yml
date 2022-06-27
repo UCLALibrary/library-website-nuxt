@@ -1,0 +1,51 @@
+categories:
+  - title: '🚀 Features and Improvements'
+    labels:
+      - 'feature'
+      - 'enhancement'
+      - 'performance'
+  - title: '🌈 Chore Updates'
+    labels:
+      - 'documentation'
+      - 'chore'
+      - 'test'
+      - 'ci'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'bugfix'
+      - 'fix'
+  - title: '🧰 Breaking Changes'
+    label: 'breaking'
+version-resolver:
+  major:
+    labels:
+      - 'breaking'
+  minor:
+    labels:
+      - 'enhancement'
+      - 'feature'
+      - 'performance'
+      - 'refactor'
+  patch:
+    labels:
+      - 'bugfix'
+      - 'documentation'
+      - 'fix'
+      - 'chore'
+      - 'test'
+      - 'ci'
+  default: patch
+tag-template: '$RESOLVED_VERSION'
+name-template: 'v$RESOLVED_VERSION'
+change-template: '* $TITLE (#$NUMBER)'
+change-title-escapes: ''
+exclude-labels:
+  - 'skip-changelog'
+template: |
+  ## What’s Changed
+
+  $CHANGES
+
+  ## Contributors
+
+  $CONTRIBUTORS

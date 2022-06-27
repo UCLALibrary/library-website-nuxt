@@ -1,6 +1,10 @@
 <template lang="html">
     <footer class="footer-sock">
         <div class="container">
+            <div class="regents">
+                &#169; {{ year }} Regents of the University of California
+            </div>
+
             <ul class="links">
                 <li
                     v-for="item in parsedSockItems"
@@ -16,10 +20,6 @@
                     </smart-link>
                 </li>
             </ul>
-
-            <div class="regents">
-                &#169;{{ year }} Regents of the University of California
-            </div>
         </div>
     </footer>
 </template>
@@ -58,12 +58,13 @@ export default {
 
 <style lang="scss" scoped>
 .footer-sock {
+    --unit-content-width: #{$container-l-cta}px;
+
     background-color: var(--color-white);
-    padding: 0 var(--unit-gutter);
+    padding: var(--space-l) var(--unit-gutter);
 
     .container {
         max-width: var(--unit-content-width);
-        min-height: 89px;
         margin: auto;
 
         display: flex;
@@ -71,7 +72,7 @@ export default {
         flex-wrap: wrap;
         justify-content: space-between;
         align-content: center;
-        align-items: stretch;
+        align-items: center;
 
         .links {
             display: flex;
@@ -79,23 +80,26 @@ export default {
             flex-wrap: nowrap;
             justify-content: flex-start;
             align-content: flex-start;
-            align-items: flex-start;
+            align-items: center;
+            gap: 48px;
 
             list-style-type: none;
-            margin: 15px 0;
-        }
-        .item {
-            margin-right: 48px;
         }
         .link {
-            border-bottom: 2px solid var(--color-default-cyan-03);
+            text-decoration: underline;
+            text-decoration-thickness: 1.5px;
+            text-underline-offset: 4px;
+            text-decoration-color: var(--color-default-cyan-03);
             display: inline-block;
             line-height: 1.25;
             color: var(--color-black);
+
+            position: relative;
+            @include clickable-area;
         }
         .regents {
             color: var(--color-secondary-grey-04);
-            margin: 15px 0;
+            letter-spacing: 0.01em;
         }
     }
 
@@ -109,25 +113,41 @@ export default {
     }
 
     // Breakpoints
-    @media #{$medium} {
-        padding: var(--unit-gutter);
-
+    @media (max-width: 1120px) {
         .container {
-            display: block;
+            flex-direction: column;
+            gap: 32px;
 
             .links {
-                display: block;
-                margin: 0;
-            }
-            .item {
-                display: block;
-                line-height: 2em;
+                justify-content: space-between;
+                align-content: center;
+                gap: 32px;
+                order: 1;
             }
 
             .regents {
-                display: block;
+                order: 2;
             }
         }
+    }
+
+    @media #{$small} {
+        padding: var(--unit-gutter);
+
+        .container {
+            align-content: flex-start;
+            align-items: flex-start;
+            gap: 48px;
+            
+            .links {
+                flex-direction: column;
+                justify-content: flex-start;
+                align-content: flex-start;
+                align-items: flex-start;
+                margin: 0;
+                gap: 24px;
+            }
+        } 
     }
 }
 </style>

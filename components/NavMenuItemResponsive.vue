@@ -120,11 +120,8 @@ export default {
 
 <style lang="scss" scoped>
 .nav-menu-item {
-    margin: 0px;
-    padding: 0px;
-    position: inherit;
-    justify-content: left;
-    text-align: left;
+    margin: 0;
+    padding: 0;
 
     // Top level menu
     .section-name {
@@ -170,15 +167,18 @@ export default {
 
     .sub-menu-item {
         &:first-child {
-            margin-top: 36px;
+            margin-top: 32px;
         }
         &:last-child {
-            margin-bottom: 36px;
+            margin-bottom: 32px;
         }
     }
     .sub-menu-link {
-        padding: 12px 0px;
+        margin-bottom: 24px;
         display: block;
+        position: relative;
+
+        @include clickable-area;
     }
 }
 </style>

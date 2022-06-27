@@ -1,21 +1,8 @@
-// articleType - nowhere
-// summary - nowhere
-// associatedLocations - nowhere
-// department - nowhere
-
-// title
-// heroImage banner Image
-// articleCategories (library news)
-// staffMember
-
-// allFpb
-// bannerheader
-// date published
-
-// TODO
-// fix: ServiceOrResources
-// add: share links & icons component
-// fix: author
+// articleType - nowhere // summary - nowhere // associatedLocations - nowhere
+// department - nowhere // title // heroImage banner Image // articleCategories
+(library news) // staffMember // allFpb // bannerheader // date published //
+TODO // fix: ServiceOrResources // add: share links & icons component // fix:
+author
 
 <template lang="html">
     <section class="page-news-detail">
@@ -72,12 +59,9 @@ export default {
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
         )
-        const data = await $graphql.default.request(
-            ARTICLE_NEWS_DETAIL,
-            {
-                slug: params.slug,
-            }
-        )
+        const data = await $graphql.default.request(ARTICLE_NEWS_DETAIL, {
+            slug: params.slug,
+        })
         console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
@@ -93,12 +77,12 @@ export default {
         parsedBylines() {
             let bylines = this.page.byline.map((name) => {
                 return {
-                    fullName: `${name.nameFirst} ${name.nameLast}`
+                    fullName: `${name.nameFirst} ${name.nameLast}`,
                 }
             })
 
-            return bylines.map(({fullName})=>{ 
-                return (`${fullName}`)
+            return bylines.map(({ fullName }) => {
+                return `${fullName}`
             })
         },
 
@@ -117,19 +101,22 @@ export default {
             })
         },
 
+        parsedForm() {
+
+        }
+
         // parsedLocations() {
         //     let places= this.page.locations.map((place) => {
         //         return {
         //             linkedLocation: `<a href="${place.uri}">${place.title}</a>`
         //         }
         //     })
-        //     return places.map(({linkedLocation})=>{ 
+        //     return places.map(({linkedLocation})=>{
         //         return (`${linkedLocation}`)
         //     })
         // }
-    }
+    },
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -168,38 +155,24 @@ export default {
         margin: var(--space-xl) auto;
         max-width: $container-l-main + px;
     }
-}
-</style>
 
-<style lang="scss" scoped>
-.page-news-detail {
-    .banner-text {
-        --color-theme: var(--color-help-green-03);
+    @media #{$medium} {
+        .section-heading,
+        .block-campus-map,
+        .section-block-spaces,
+        .block-hours,
+        .block-amenities,
+        .simple-cards,
+        .section-teaser-list,
+        .section-teaser-card {
+            padding: 0 var(--unit-gutter);
+        }
     }
-    .banner-header {
-        margin-bottom: var(--space-xl);
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
-    }
-    .banner-text + .divider-way-finder {
-        margin: 0 auto var(--space-2xl);
-    }
-    .divider-way-finder {
-        max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
-    }
-    .content {
-        margin: 0 auto;
-    }
-    .section-cards {
-        margin: var(--space-3xl) auto;
-    }
-    .highlighted-news {
-        @include visually-hidden;
-    }
-    .block-call-to-action {
-        margin: var(--space-3xl) auto;
+
+    @media #{$small} {
+        .page {
+            width: 100%;
+        }
     }
 }
 </style>

@@ -27,7 +27,7 @@ export default {
 <style lang="scss" scoped>
 .header-main {
     position: relative;
-    height: 168px;
+    height: 128px;
 
     .primary {
         position: absolute;

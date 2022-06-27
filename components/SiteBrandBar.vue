@@ -6,14 +6,14 @@
         >
             <svg-logo-ucla
                 class="svg ucla-logo"
-                alt="UCLA logo"
             />
+            <span class="visually-hidden">UCLA Home</span>
         </a>
     </div>
 </template>
 
 <script>
-import SvgLogoUcla from "~/assets/svg/logo-ucla"
+import SvgLogoUcla from "~/node_modules/ucla-library-design-tokens/assets/svgs/logo-ucla"
 
 export default {
     components: {
@@ -29,18 +29,20 @@ export default {
     padding: 0 var(--unit-gutter);
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: center;
-    align-content: center;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: center;
 
-    .ucla-logo {
+    .svg__logo-ucla {
+        display: block;
         height: 16px;
         width: auto;
-        path {
-            fill: var(--color-white);
-        }
+    }
+
+    @media #{$medium} {
+        height: 32px;
     }
 }
 </style>
