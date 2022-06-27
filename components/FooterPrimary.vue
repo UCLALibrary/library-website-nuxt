@@ -62,7 +62,7 @@
                         <input
                             name="email"
                             id="email"
-                            placeholder="asdf@ucla.edu"
+                            placeholder="email@ucla.edu"
                             class="input-email"
                         >
                         <label for="email" class="label">Email Address</label>
@@ -291,22 +291,24 @@ export default {
             }
 
             input:placeholder-shown + label {
-            cursor: text;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            transform-origin: left bottom;
-            transform: translate(0, 2.125rem) scale(1.25);
+                cursor: text;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                transform-origin: left bottom;
+                transform: translate(0, 2.125rem) scale(1.25);
             }
 
+            ::placeholder,
             ::-webkit-input-placeholder {
-            opacity: 0;
-            transition: inherit;
+                opacity: 0;
+                transition: inherit;
             }
 
+            input:focus::placeholder,
             input:focus::-webkit-input-placeholder {
-            opacity: 1;
-            color: white;
+                opacity: 1;
+                color: white;
             }
 
             input:not(:placeholder-shown) + label,
@@ -314,36 +316,36 @@ export default {
                 color: var(--color-help-green-02);
                 font-size: 16px;
                 font-weight: 500;
-            transform: translate(0, -8px) scale(1);
-            cursor: pointer;
+                transform: translate(0, -8px) scale(1);
+                cursor: pointer;
             }
 
             .field {
-            display: flex;
-            flex-flow: column-reverse;
-            width: 100%;
+                display: flex;
+                flex-flow: column-reverse;
+                width: 100%;
             }
 
             label, input {
-            transition: all 0.2s;
-            touch-action: manipulation;
+                transition: all 0.2s;
+                touch-action: manipulation;
             }
 
             input {
                 @include step-0;
                 line-height: 1.2;
                 color: white;
-            border: 0;
-            border-radius: 4px;
-            padding: 8px 12px;
-            -webkit-appearance: none;
-            cursor: text;
+                border: 0;
+                border-radius: 4px;
+                padding: 8px 12px;
+                -webkit-appearance: none;
+                cursor: text;
             }
 
             input:focus {
-            outline: 0;
-            background-color: rgba(#fff, .1);
-            color: var(--color-white);
+                outline: 0;
+                background-color: rgba(#fff, .1);
+                color: var(--color-white);
             }
 
             .form-header {
@@ -382,25 +384,6 @@ export default {
                     opacity: 0;
                     transition: opacity 400ms ease-in-out;
                 }
-
-                // .input-email {
-                //     font-size: 18px;
-                //     color: var(--color-white);
-                //     background-color: none;
-                //     width: calc(100% - 20px);
-
-                //     &::placeholder {
-                //         color: white;
-                //     }
-
-                //     &:focus-visible {
-                //         color: var(--color-white);
-                //         outline: none;
-                //         background-color: rgba(255, 255, 255, 0.1);
-                //         padding: 10px;
-                //         border-radius: 4px;
-                //     }
-                // }
 
                 .button-submit {
                     display: flex;
