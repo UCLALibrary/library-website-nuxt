@@ -1,0 +1,10 @@
+query HelpTopicList {
+    entries(section: "helpTopic") {
+        ... on helpTopic_helpTopic_Entry {
+            id
+            to: slug
+            title
+            summary
+        }
+    }
+}
