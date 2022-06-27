@@ -61,8 +61,8 @@ export default {
         position: relative;
         z-index: 20;
         margin: 0 auto;
-        padding-top: var(--space-xl);
-        padding-bottom: var(--space-6xl);
+        padding-top: var(--sapce-3xl);
+        padding-bottom: var(--space-4xl);
     }
     .meta {
         color: var(--color-white);
@@ -85,13 +85,13 @@ export default {
 
     // Variants
     &.has-molecule:before {
-        content: ' ';
+        content: " ";
         position: absolute;
         top: 0;
         left: 0;
         bottom: 0;
         right: 0;
-        background: url('~/assets/svg/molecule-background.svg?url');
+        background: url("~/assets/svg/molecule-background.svg?url");
         background-repeat: no-repeat;
         background-position: center 60%;
         filter: opacity(45%);
