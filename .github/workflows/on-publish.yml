@@ -7,7 +7,7 @@ on:
 
 jobs:
   nuxt-prod:
-    name: Nuxt build / Cypress tests / Netlify deploy
+    name: Netlify deploy
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -20,19 +20,7 @@ jobs:
         key: nuxt-site-${{ github.sha }}
     - run: npm run generate
       env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
-        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
-        LIBCAL_CLIENT_SECRET: ${{ secrets.LIBCAL_CLIENT_SECRET }}
-        LIBCAL_CLIENT_ID: ${{ secrets.LIBCAL_CLIENT_ID }}
-        S3_BUCKET: "https://static.library.ucla.edu/"
-        LIVE_PREVIEW: "dev"
-    - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
-      with:
-        start: npx http-server ./dist -p 3000
-        command-prefix: 'npx'
-        wait-on: http://localhost:3000
-      env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+        CRAFT_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
         LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
         LIBCAL_CLIENT_SECRET: ${{ secrets.LIBCAL_CLIENT_SECRET }}
         LIBCAL_CLIENT_ID: ${{ secrets.LIBCAL_CLIENT_ID }}
@@ -50,4 +38,3 @@ jobs:
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_LIBRARY_SITE_ID }}
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
