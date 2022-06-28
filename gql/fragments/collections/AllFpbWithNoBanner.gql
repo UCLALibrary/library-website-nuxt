@@ -64,6 +64,6 @@ fragment BlockCta on AllFpbWithNoBanner_callToAction_BlockType {
     ...BlockCtaFragment
 }
 
-fragment BlockForm on allFpb_form_BlockType {
+fragment BlockForm on AllFpbWithNoBanner_callToAction_form_BlockType {
     ...BlockFormFragment
 }

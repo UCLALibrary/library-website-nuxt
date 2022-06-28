@@ -1,6 +1,7 @@
 <template lang="html">
     <section class="page-service-detail">
         <nav-breadcrumb :title="page.title" />
+
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -10,6 +11,7 @@
             :button-text="parsedButtonText"
             :to="parsedButtonTo"
         />
+
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
@@ -19,10 +21,12 @@
             :category="page.type"
             :text="page.text"
         />
+
         <divider-way-finder
             color="help"
             class="divider-way-finder"
         />
+
         <h2 class="more-info">
             More Information
         </h2>
@@ -31,10 +35,12 @@
             class="content"
             :blocks="page.blocks"
         />
+
         <divider-way-finder
             color="help"
             class="divider-way-finder"
         />
+
         <section-cards-with-illustrations
             v-if="parsedAssociatedTopics.length"
             class="section-cards"
@@ -43,6 +49,7 @@
             button-text="All Services and Resources"
             to="/help/services-resources"
         />
+
         <block-call-to-action
             class="block-call-to-action"
             :is-global="true"
