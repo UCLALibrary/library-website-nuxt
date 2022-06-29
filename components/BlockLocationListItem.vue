@@ -72,7 +72,6 @@
 </template>
 
 <script>
-import IconWithLink from "~/components/IconWithLink"
 export default {
     components: {
         IllustrationBookBinding: () =>
@@ -134,7 +133,6 @@ export default {
             import(
                 "~/node_modules/ucla-library-design-tokens/assets/svgs/molecule-placeholder"
             ),
-        IconWithLink,
     },
     props: {
         image: {

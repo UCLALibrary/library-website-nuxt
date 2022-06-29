@@ -38,7 +38,6 @@ export default {
     css: [
         "~/assets/styles/variables-css.scss",
         "~/assets/styles/global.scss",
-        "~/assets/styles/fonts.css",
     ],
 
     /*
@@ -240,6 +239,5 @@ export default {
                 ],
             })
         },
-        transpile: ['test-vue-component-rollup-sfc']
     },
 }
