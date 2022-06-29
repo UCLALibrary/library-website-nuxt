@@ -46,6 +46,6 @@ fragment BlockCallToAction on defaultFpb_callToAction_BlockType {
     ...BlockCallToActionFragment
 }
 
-fragment BlockForm on allFpb_form_BlockType {
+fragment BlockForm on defaultFpb_form_BlockType {
     ...BlockFormFragment
 }

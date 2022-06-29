@@ -52,6 +52,6 @@ fragment BlockSimpleCards on defaultFpbWithCardsAndHighlight_simpleCards_BlockTy
     ...BlockSimpleCardsFragment
 }
 
-fragment BlockForm on allFpb_form_BlockType {
+fragment BlockForm on defaultFpbWithCardsAndHighlight_form_BlockType {
     ...BlockFormFragment
 }
