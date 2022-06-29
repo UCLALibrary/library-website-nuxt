@@ -28,7 +28,11 @@
         </smart-link>
         <br>
         <br>
-        <block-call-to-action
+        <heading-arrow
+            text="Featured "
+            to="/visit/"
+        />
+        <!--block-call-to-action
             svg-name="svg-call-to-action-chat"
             title="test block call to action"
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
@@ -36,7 +40,7 @@
             to="/help/foo"
             is-dark="false"
             is-small-size="false"
-        />
+        /-->
     </div>
 </template>
 <script>
