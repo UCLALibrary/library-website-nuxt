@@ -155,7 +155,7 @@ export default {
     .subheading-small {
         color: var(--color-primary-blue-05);
         @include overline;
-        // margin-bottom: var(--space-m);
+        margin-bottom: var(--space-s);
     }
 
     ::v-deep .rich-text {
