@@ -4,6 +4,7 @@
         <!--Hello /-->
         <!--test-vue-component-rollup-sfc-sample /-->
         <ucla-library-website-component-sample />
+        <br>
         <!--divider-general-test /-->
         <divider-general />
         <br>
@@ -11,6 +12,21 @@
             label="Egest perl Conub"
             to="/help/more"
         />
+        <br>
+        <br>
+        <divider-general />
+        <br>
+        <divider-general
+            
+            :is-bold="true"
+        />
+        <br>
+        <alphabetical-browse-by />
+        <br>
+        <smart-link to="/">
+            This will render as a vue-router link
+        </smart-link>
+        <br>
         <br>
         <block-call-to-action
             svg-name="svg-call-to-action-chat"
@@ -21,7 +37,6 @@
             is-dark="false"
             is-small-size="false"
         />
-        </divider-general>
     </div>
 </template>
 <script>
