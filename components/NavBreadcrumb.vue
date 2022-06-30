@@ -61,7 +61,6 @@ export default {
 
     @include step-1;
     color: var(--color-primary-blue-03);
-    text-transform: capitalize;
 
     .svg__icon-caret-left {
         flex-shrink: 0;
