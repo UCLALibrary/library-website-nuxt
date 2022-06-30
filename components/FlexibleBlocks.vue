@@ -101,7 +101,7 @@ function convertName(typeHandle) {
         background-color: var(--color-secondary-grey-01);
         --color-theme: var(--color-secondary-grey-01);
 
-        &.flexible-form,
+        &.form,
         &.flexible-simple-cards,
         &.divider-general,
         &.pull-quote {

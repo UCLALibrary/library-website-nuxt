@@ -564,6 +564,7 @@ export default {
         font-family: var(--font-secondary);
         font-size: 20px;
         line-height: 1;
+        margin-top: var(--space-m);
     }
     .location-link {
         display: flex;

@@ -129,7 +129,8 @@
             class="about-text"
             :rich-text-content="page.about"
         />
-        <divider-way-finder
+          <divider-way-finder
+            v-if="page.about"
             color="visit"
             class="divider-way-finder"
         />
