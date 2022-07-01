@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="page page-location-detail">
+    <main class="page page-location-detail">
         <nav-breadcrumb :title="page.title" />
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
@@ -115,6 +115,10 @@
             class="divider-way-finder"
         />
 
+        <h2 class="more-info">
+            More Information
+        </h2>   
+
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
@@ -147,7 +151,11 @@
             :building-access="page.howToGetHere"
             class="campus-map"
         />
-    </div>
+        <divider-way-finder
+            color="visit"
+            class="divider-way-finder"
+        />
+    </main>
 </template>
 
 <script>
@@ -326,6 +334,10 @@ export default {
 
     .about-text {
         padding: 0 var(--unit-gutter);
+    }
+    
+    .more-info {
+        @include visually-hidden;
     }
 
     // ::v-deep .flexible-block:last-child:not(.flexible-simple-cards) {
