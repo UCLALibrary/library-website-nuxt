@@ -66,6 +66,8 @@ export default {
 
     .content {
         height: 375px;
+        border: 1px var(--color-primary-blue-01) solid;
+        border-radius: 4px;
     }
 }
 </style>

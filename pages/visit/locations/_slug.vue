@@ -129,7 +129,8 @@
             class="about-text"
             :rich-text-content="page.about"
         />
-        <divider-way-finder
+          <divider-way-finder
+            v-if="page.about"
             color="visit"
             class="divider-way-finder"
         />
@@ -288,10 +289,9 @@ export default {
         --color-theme: var(--color-help-green-03);
     }
     .banner-header {
-        margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
+        margin: var(--space-l) auto 0;
     }
     .banner-text + .divider-way-finder {
         margin: 0 auto var(--space-3xl);
@@ -321,7 +321,11 @@ export default {
     }
 
     .campus-map {
-        margin-bottom: var(--space-2xl);
+        margin-bottom: var(--space-3xl);
+    }
+
+    .about-text {
+        padding: 0 var(--unit-gutter);
     }
 
     // ::v-deep .flexible-block:last-child:not(.flexible-simple-cards) {
