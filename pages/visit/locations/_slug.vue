@@ -315,12 +315,12 @@ export default {
         margin: 0 auto;
     }
     .section-header {
-        margin-bottom: var(--space-xl);
+        margin: var(--space-xl) auto;
+        max-width: $container-l-main + px;
     }
    .section-title {
         @include step-4;
         color: var(--color-primary-blue-03);
-        max-width: $container-l-main + px;
     }
     .section-summary {
          @include step-0;
@@ -356,7 +356,6 @@ export default {
     }
 
     .about-text {
-        padding: 0 var(--unit-gutter);
         margin-bottom: var(--space-3xl);
     }
     
@@ -369,6 +368,8 @@ export default {
     // }
 
     @media #{$medium} {
+        .about-text,
+        .section-header,
         .section-heading,
         .block-campus-map,
         .section-block-spaces,
