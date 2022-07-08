@@ -32,16 +32,23 @@
             color="visit"
             class="divider-way-finder"
         />
+        <div class="section-header">
         <h2
             v-if="
                 page.libcalLocationIdForHours ||
                     page.amenities.length ||
                     parsedSpaces.length
             "
-            class="section-heading"
+            class="section-title"
         >
             Using the Library
         </h2>
+            <div
+                v-if="page.howToGetHere"
+                class="section-summary"
+                v-html="page.howToGetHere"
+            />
+        </div>
         <block-hours
             v-if="page.libcalLocationIdForHours"
             :lid="page.libcalLocationIdForHours"
@@ -133,12 +140,12 @@
             class="about-text"
             :rich-text-content="page.about"
         />
-          <divider-way-finder
+        <!--  <divider-way-finder
             v-if="page.about"
             color="visit"
             class="divider-way-finder"
         />
-        <h2
+         <h2
             v-if="page.campusMapId"
             class="section-heading"
         >
@@ -154,7 +161,7 @@
         <divider-way-finder
             color="visit"
             class="divider-way-finder"
-        />
+        /> -->
     </main>
 </template>
 
@@ -307,6 +314,22 @@ export default {
     .content {
         margin: 0 auto;
     }
+    .section-header {
+        margin: var(--space-xl) auto;
+        max-width: $container-l-main + px;
+    }
+   .section-title {
+        @include step-4;
+        color: var(--color-primary-blue-03);
+    }
+    .section-summary {
+         @include step-0;
+        margin-top: var(--space-m);
+
+        ::v-deep p {
+            margin: 0;
+        }
+    }
     .section-heading {
         @include step-4;
         color: var(--color-primary-blue-03);
@@ -333,7 +356,7 @@ export default {
     }
 
     .about-text {
-        padding: 0 var(--unit-gutter);
+        margin-bottom: var(--space-3xl);
     }
     
     .more-info {
@@ -345,6 +368,8 @@ export default {
     // }
 
     @media #{$medium} {
+        .about-text,
+        .section-header,
         .section-heading,
         .block-campus-map,
         .section-block-spaces,
