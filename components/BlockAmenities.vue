@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="block-amenities">
         <h3 class="amenities-title">
-            Amenities
+            At This Location
         </h3>
         <ul class="amenities-list">
             <li
@@ -68,7 +68,7 @@ export default {
     .amenitiy-name {
         color: var(--color-black);
         @include step-0;
-        margin-bottom: 23px; // TO Do replace with spacing token
+        margin-bottom: 16px;
     }
 }
 </style>

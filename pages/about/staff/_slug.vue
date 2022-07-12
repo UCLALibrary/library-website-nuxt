@@ -54,6 +54,10 @@
             />
         </section>
 
+        <divider-way-finder
+                class="divider divider-first"
+                color="about"
+            />
         <!-- this is different from flexible page blocks ctacontentwidth and will be hardcoded where required -->
         <block-call-to-action
             class="section block-call-to-action"
@@ -133,8 +137,7 @@ export default {
     }
 
     .selected-articles {
-        background-color: var(--color-secondary-grey-01);
-        padding: var(--space-3xl) 0;
+        margin: var(--space-3xl) auto;
 
         ::v-deep .divider .dotted {
             border-color: var(--color-secondary-grey-03);

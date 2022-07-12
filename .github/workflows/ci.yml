@@ -114,12 +114,12 @@ jobs:
       if: github.ref_name=='main'
       uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
       with:
-        production-deploy: false
+        production-deploy: true
         deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
         publish-dir: './dist'
         fails-without-credentials: true
-        github-deployment-environment: test
+        github-deployment-environment: production
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

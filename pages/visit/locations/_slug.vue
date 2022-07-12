@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="page page-location-detail">
+    <main class="page page-location-detail">
         <nav-breadcrumb :title="page.title" />
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
@@ -32,16 +32,23 @@
             color="visit"
             class="divider-way-finder"
         />
+        <div class="section-header">
         <h2
             v-if="
                 page.libcalLocationIdForHours ||
                     page.amenities.length ||
                     parsedSpaces.length
             "
-            class="section-heading"
+            class="section-title"
         >
             Using the Library
         </h2>
+            <div
+                v-if="page.howToGetHere"
+                class="section-summary"
+                v-html="page.howToGetHere"
+            />
+        </div>
         <block-hours
             v-if="page.libcalLocationIdForHours"
             :lid="page.libcalLocationIdForHours"
@@ -115,6 +122,10 @@
             class="divider-way-finder"
         />
 
+        <h2 class="more-info">
+            More Information
+        </h2>   
+
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
@@ -129,11 +140,12 @@
             class="about-text"
             :rich-text-content="page.about"
         />
-        <divider-way-finder
+        <!--  <divider-way-finder
+            v-if="page.about"
             color="visit"
             class="divider-way-finder"
         />
-        <h2
+         <h2
             v-if="page.campusMapId"
             class="section-heading"
         >
@@ -146,7 +158,11 @@
             :building-access="page.howToGetHere"
             class="campus-map"
         />
-    </div>
+        <divider-way-finder
+            color="visit"
+            class="divider-way-finder"
+        /> -->
+    </main>
 </template>
 
 <script>
@@ -288,16 +304,31 @@ export default {
         --color-theme: var(--color-help-green-03);
     }
     .banner-header {
-        margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
+        margin: var(--space-l) auto 0;
     }
     .banner-text + .divider-way-finder {
         margin: 0 auto var(--space-3xl);
     }
     .content {
         margin: 0 auto;
+    }
+    .section-header {
+        margin: var(--space-xl) auto;
+        max-width: $container-l-main + px;
+    }
+   .section-title {
+        @include step-4;
+        color: var(--color-primary-blue-03);
+    }
+    .section-summary {
+         @include step-0;
+        margin-top: var(--space-m);
+
+        ::v-deep p {
+            margin: 0;
+        }
     }
     .section-heading {
         @include step-4;
@@ -321,7 +352,15 @@ export default {
     }
 
     .campus-map {
-        margin-bottom: var(--space-2xl);
+        margin-bottom: var(--space-3xl);
+    }
+
+    .about-text {
+        margin-bottom: var(--space-3xl);
+    }
+    
+    .more-info {
+        @include visually-hidden;
     }
 
     // ::v-deep .flexible-block:last-child:not(.flexible-simple-cards) {
@@ -329,6 +368,8 @@ export default {
     // }
 
     @media #{$medium} {
+        .about-text,
+        .section-header,
         .section-heading,
         .block-campus-map,
         .section-block-spaces,

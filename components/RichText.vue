@@ -90,7 +90,7 @@ export default {
     }
 
     ::v-deep .figure {
-        width: 50%;
+        width: 100%;
         margin: var(--space-s);
 
         display: flex;
