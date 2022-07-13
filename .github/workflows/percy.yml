@@ -23,7 +23,7 @@ jobs:
     - run: npm run generate
       if: steps.cache-nuxt.outputs.cache-hit != 'true'
       env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+        CRAFT_TEST_ENDPOINT: ${{ secrets.CRAFT_TEST_ENDPOINT }}
         LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
         LIBCAL_CLIENT_SECRET: ${{ secrets.LIBCAL_CLIENT_SECRET }}
         LIBCAL_CLIENT_ID: ${{ secrets.LIBCAL_CLIENT_ID }}
@@ -35,4 +35,4 @@ jobs:
         command-prefix: 'percy exec -- npx'
         wait-on: http://localhost:3000
       env: 
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_E2E }}
+        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

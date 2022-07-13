@@ -73,7 +73,7 @@ export default {
     graphql: {
         clients: {
             default: {
-                endpoint: process.env.CRAFT_ENDPOINT,
+                endpoint: process.env.CRAFT_TEST_ENDPOINT,
                 options: {},
             },
         },

@@ -20,7 +20,7 @@ jobs:
         key: nuxt-site-${{ github.sha }}
     - run: npm run generate
       env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
+        CRAFT_TEST_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
         LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
         LIBCAL_CLIENT_SECRET: ${{ secrets.LIBCAL_CLIENT_SECRET }}
         LIBCAL_CLIENT_ID: ${{ secrets.LIBCAL_CLIENT_ID }}
@@ -37,4 +37,4 @@ jobs:
         github-deployment-environment: production
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_LIBRARY_SITE_ID }}
+        NETLIFY_TEST_LIBRARY_SITE_ID: ${{ secrets.NETLIFY_PROD_LIBRARY_SITE_ID }}
