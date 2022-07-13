@@ -1,5 +1,5 @@
 {
-    "name": "library-website-nuxt",
+    "name": "meap-website-nuxt",
     "engines": {
         "npm": "8.5.5",
         "node": "16.15.0"

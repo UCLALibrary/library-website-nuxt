@@ -29,7 +29,7 @@ jobs:
             # Percy Screenshots
 
             In order to conserve our percy screenshot allowance, percy is not configured to run automatically. Please make sure the PR is ready and all other checks are passing, then start it manually:
-            1. Visit https://github.com/UCLALibrary/library-website-nuxt/actions/workflows/percy.yml
+            1. Visit https://github.com/UCLALibrary/meap-website-nuxt/actions/workflows/percy.yml
             2. Click the 'Run workflow' button in the blue bar. 
             3. Select the correct branch for this PR and click 'Run workflow' again to confirm.
 
@@ -70,7 +70,7 @@ jobs:
       uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
       with:
         production-deploy: true
-        deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
+        deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
         publish-dir: './dist'
         fails-without-credentials: true
@@ -83,7 +83,7 @@ jobs:
       uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
       with:
         production-deploy: false
-        deploy-message: https://github.com/UCLALibrary/library-website-nuxt/pull/${{ github.event.pull_request.number }}
+        deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/pull/${{ github.event.pull_request.number }}
         alias: deploy-preview-${{ github.event.pull_request.number }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
         overwrites-pull-request-comment: true
