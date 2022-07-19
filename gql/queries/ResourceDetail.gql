@@ -1,0 +1,37 @@
+#import "~/gql/fragments/collections/MEAPDefaultFpbWithNoCta"
+
+query ResourceDetail($slug: [String!]) {
+    entry(section: "meapResource", slug: $slug) {
+        ... on meapResource_meapResource_Entry {
+            id
+            button: buttonUrl {
+                ... on buttonUrl_button_BlockType {
+                    id
+                    buttonText
+                    buttonUrl
+                }
+            }
+            illustrationsResourcesAndServices
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                    altText
+                }
+            }
+            title
+            text: summary
+            associatedTopics: meapAssociatedContent {
+                id
+                text: summary
+                title
+                slug
+                uri
+                externalResourceUrl
+            }
+        }
+        ...MEAPDefaultFpbWithNoCta
+    }
+}

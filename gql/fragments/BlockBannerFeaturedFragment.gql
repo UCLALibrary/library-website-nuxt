@@ -1,7 +1,7 @@
 fragment BlockBannerFeaturedFragment on ElementInterface {
     id
-    bannerFeatured {
-        ... on bannerFeatured_bannerFeatured_BlockType {
+    meapflexiblePageBlocks_bannerFeatured {
+        ... on meapflexiblePageBlocks_bannerFeatured_bannerFeatured_BlockType {
             id
             contentLink {
                 url

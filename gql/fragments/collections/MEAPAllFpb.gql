@@ -1,0 +1,53 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/BlockAssociatedTopicCardsFragment"
+#import "~/gql/fragments/BlockBannerFeaturedFragment"
+#import "~/gql/fragments/BlockCardWithImageFragment"
+#import "~/gql/fragments/BlockHighlightFragment"
+#import "~/gql/fragments/BlockImpactNumbersCarouselFragment"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaWithTextFragment"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/BlockCallToActionFragment"
+
+fragment MEAPAllFpb on ElementInterface {
+    blocks: meapFlexiblePageBlockCollections_allFpb {
+        id
+        typeHandle
+
+        ... on meapFlexiblePageBlockCollections_allFpb_associatedTopicCards_BlockType {
+            ...BlockAssociatedTopicCardsFragment
+        }
+        ... on meapFlexiblePageBlockCollections_allFpb_bannerFeatured_BlockType {
+            ...BlockBannerFeaturedFragment
+        }
+        ... on meapFlexiblePageBlockCollections_allFpb_cardWithImage_BlockType {
+            ...BlockCardWithImageFragment
+        }
+        ... on meapFlexiblePageBlockCollections_allFpb_highlight_BlockType {
+            ...BlockHighlightFragment
+        }
+        ... on meapFlexiblePageBlockCollections_allFpb_impactNumbersCarousel_BlockType {
+            ...BlockImpactNumbersCarouselFragment
+        }
+        ... on meapFlexiblePageBlockCollections_allFpb_mediaGallery_BlockType {
+            ...BlockMediaGalleryFragment
+        }
+        ... on meapFlexiblePageBlockCollections_allFpb_mediaWithText_BlockType {
+            ...BlockMediaWithTextFragment
+        }
+        ... on meapFlexiblePageBlockCollections_allFpb_pullQuote_BlockType {
+            ...BlockPullQuoteFragment
+        }
+        ... on meapFlexiblePageBlockCollections_allFpb_richText_BlockType {
+            ...BlockRichTextFragment
+        }
+        ... on meapFlexiblePageBlockCollections_allFpb_simpleCards_BlockType {
+            ...BlockSimpleCardsFragment
+        }
+        ... on meapFlexiblePageBlockCollections_allFpb_callToAction_BlockType {
+            ...BlockCallToActionFragment
+        }
+    }
+}

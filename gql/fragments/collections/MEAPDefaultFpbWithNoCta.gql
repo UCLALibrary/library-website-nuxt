@@ -1,0 +1,28 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaWithTextFragment"
+
+fragment MEAPDefaultFpbWithNoCta on ElementInterface {
+    blocks: meapFlexiblePageBlockCollections_defaultFpbWithNoCta {
+        id
+        typeHandle
+        ... on meapFlexiblePageBlockCollections_defaultFpbWithNoCta_simpleCards_BlockType {
+            ...BlockSimpleCardsFragment
+        }
+        ... on meapFlexiblePageBlockCollections_defaultFpbWithNoCta_richText_BlockType {
+            ...BlockRichTextFragment
+        }
+        ... on meapFlexiblePageBlockCollections_defaultFpbWithNoCta_pullQuote_BlockType {
+            ...BlockPullQuoteFragment
+        }
+        ... on meapFlexiblePageBlockCollections_defaultFpbWithNoCta_mediaWithText_BlockType {
+            ...BlockMediaWithTextFragment
+        }
+        ... on meapFlexiblePageBlockCollections_defaultFpbWithNoCta_mediaGallery_BlockType {
+            ...BlockMediaGalleryFragment
+        }
+    }
+}

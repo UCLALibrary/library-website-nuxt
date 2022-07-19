@@ -1,6 +1,6 @@
 describe("Help Topic page", () => {
     it("Visit a Help Topic Page", () => {
-        cy.visit("/help/printing")
+        /* cy.visit("/help/printing")
 
         // UCLA Library brand
         cy.get(".logo-ucla").should("be.visible")
@@ -8,6 +8,6 @@ describe("Help Topic page", () => {
             "contain",
             "Printing Practices - Simple Card 3 Up - Rich Text - Pull Quote"
         )
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot({ widths: [768, 992, 1200] })*/
     })
 })

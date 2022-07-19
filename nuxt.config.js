@@ -7,22 +7,7 @@ export default {
     target: "static",
     components: true,
 
-    privateRuntimeConfig: {
-        libcalClientSecret: process.env.LIBCAL_CLIENT_SECRET,
-        libcalClientId: process.env.LIBCAL_CLIENT_ID,
-    },
-    publicRuntimeConfig: {
-        libcalAppointment: process.env.LIBCAL_APPOINTMENTS,
-        libcalClientSecret:
-            process.env.LIVE_PREVIEW === "dev"
-                ? process.env.LIBCAL_CLIENT_SECRET
-                : "test",
-        libcalClientId:
-            process.env.LIVE_PREVIEW === "dev"
-                ? process.env.LIBCAL_CLIENT_ID
-                : "test", 
-        s3Bucket: process.env.S3_BUCKET,
-    },
+   
     /*
      ** Required charset and viewport meta tags
      */
@@ -38,7 +23,6 @@ export default {
     css: [
         "~/assets/styles/variables-css.scss",
         "~/assets/styles/global.scss",
-        "~/assets/styles/fonts.css",
     ],
 
     /*
@@ -53,9 +37,9 @@ export default {
      */
     plugins: [
         "~/plugins/preview.client.js",
-        "~/plugins/web-font-loader.client.js",
         "~/plugins/browser-events.client.js",
         "~/plugins/craft.js",
+        "~/plugins/add-library-website-vue-components.js",
     ],
 
     /*
@@ -64,7 +48,7 @@ export default {
     axios: {
         baseURL:
             process.env.LIBCAL_ENDPOINT ||
-            "https://calendar.library.ucla.edu/1.1",
+            "https://test.proxy.calendar.library.ucla.edu/",
     },
 
     /*

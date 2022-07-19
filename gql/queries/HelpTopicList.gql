@@ -1,6 +1,6 @@
 query HelpTopicList {
-    entries(section: "helpTopic") {
-        ... on helpTopic_helpTopic_Entry {
+    entries(section: "meapHelpTopic") {
+        ... on meapHelpTopic_meapHelpTopic_Entry {
             id
             to: slug
             title

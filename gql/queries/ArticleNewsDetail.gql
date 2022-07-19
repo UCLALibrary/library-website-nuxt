@@ -1,5 +1,5 @@
 #import "~/gql/fragments/Image"
-#import "~/gql/fragments/collections/AllFpb"
+#import "~/gql/fragments/collections/MEAPAllFpb"
 
 query ArticleNewsDetail($slug: [String!]) {
   entry(section: "article", slug: $slug) {
@@ -70,6 +70,6 @@ query ArticleNewsDetail($slug: [String!]) {
         }
       }
     }
-      ...AllFpb
+      ...MEAPAllFpb
     }
 }

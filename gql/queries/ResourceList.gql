@@ -1,0 +1,11 @@
+query ResourceList {
+    entries(section: "meapResource") {
+        ... on meapResource_meapResource_Entry {
+            id
+            to: slug
+            title
+            summary
+            illustrationsResourcesAndServices
+        }
+    }
+}

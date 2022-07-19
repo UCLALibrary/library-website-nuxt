@@ -20,12 +20,8 @@ jobs:
         key: nuxt-site-${{ github.sha }}
     - run: npm run generate
       env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT_PROD }}
-        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
-        LIBCAL_CLIENT_SECRET: ${{ secrets.LIBCAL_CLIENT_SECRET }}
-        LIBCAL_CLIENT_ID: ${{ secrets.LIBCAL_CLIENT_ID }}
+        CRAFT_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
         S3_BUCKET: "https://static.library.ucla.edu/"
-        LIVE_PREVIEW: "dev"
     - name: Deploy to Netlify on release
       uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
       with:
@@ -37,4 +33,4 @@ jobs:
         github-deployment-environment: production
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_TEST_LIBRARY_SITE_ID: ${{ secrets.NETLIFY_PROD_LIBRARY_SITE_ID }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_MEAP_SITE_ID }}

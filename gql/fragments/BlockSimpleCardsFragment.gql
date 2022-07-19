@@ -2,8 +2,8 @@ fragment BlockSimpleCardsFragment on ElementInterface {
     id
     sectionTitle: titleGeneral
     sectionSummary: summary
-    cards: simpleCards {
-        ... on simpleCards_internalServiceOrResource_BlockType {
+    cards: meapflexiblePageBlocks_simpleCards {
+        ... on meapflexiblePageBlocks_simpleCards_internalResource_BlockType {
             id
             title: titleGeneral
             summary
@@ -14,7 +14,7 @@ fragment BlockSimpleCardsFragment on ElementInterface {
                 externalResourceUrl
             }
         }
-        ... on simpleCards_externalServiceOrResource_BlockType {
+        ... on meapflexiblePageBlocks_simpleCards_externalResource_BlockType {
             id
             title: titleGeneral
             summary

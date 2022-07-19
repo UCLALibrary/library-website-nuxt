@@ -1,0 +1,34 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaWithTextFragment"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/BlockCallToActionFragment"
+
+fragment MEAPDefaultFpb on ElementInterface {
+    blocks: meapFlexiblePageBlockCollections_defaultFpb {
+        id
+        typeHandle
+
+        ... on meapFlexiblePageBlockCollections_defaultFpb_mediaGallery_BlockType {
+            ...BlockMediaGalleryFragment
+        }
+        ...on meapFlexiblePageBlockCollections_defaultFpb_mediaWithText_BlockType {
+            ...BlockMediaWithTextFragment
+        }
+        ... on meapFlexiblePageBlockCollections_defaultFpb_pullQuote_BlockType {
+            ...BlockPullQuoteFragment
+        }
+        ... on meapFlexiblePageBlockCollections_defaultFpb_richText_BlockType {
+            ...BlockRichTextFragment
+        }
+        ... on meapFlexiblePageBlockCollections_defaultFpb_simpleCards_BlockType {
+            ...BlockSimpleCardsFragment
+        }
+        ... on meapFlexiblePageBlockCollections_defaultFpb_callToAction_BlockType {
+            ...BlockCallToActionFragment
+        }
+    }
+}
+
