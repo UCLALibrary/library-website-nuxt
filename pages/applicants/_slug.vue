@@ -1,5 +1,9 @@
 <template lang="html">
     <main class="page page-help-topic">
+        <nav-breadcrumb
+            :title="page.title"
+            class="breadcrumb"
+        />
         <MastheadSecondary
             :title="page.title"
             :text="page.summary"
@@ -9,27 +13,30 @@
             class="content"
             :rich-text-content="page.richText"
         />
-        <DividerWayFinder color="help" />
+
+        <DividerWayFinder />
         <div
             v-for="(block, index) in page.helpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
             class="help-topic-section"
         >
-            <simple-cards
+            <SimpleCards
                 class="help-topic-block"
                 :section-title="block.sectionTitle"
                 :section-summary="block.sectionSummary"
                 :items="block.associatedEntries"
             />
-            <DividerWayFinder
-                color="help"
-                class="help-topic-divider"
-            />
+            <!-- TO Do match width to general divider -->
+            <DividerWayFinder class="help-topic-divider" />
         </div>
 
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
+        />
+        <DividerWayFinder
+            v-if="page.blocks"
+            class="help-topic-divider"
         />
     </main>
 </template>
@@ -70,9 +77,13 @@ export default {
     .help-topic-section {
         margin: var(--space-2xl) auto;
     }
+    .breadcrumb {
+        margin-top: var(--space-l);
+        margin-bottom: var(--space-l);
+    }
 
     @media #{$medium} {
-        .help-topic-section {
+        .help-topic-block {
             padding: 0 var(--unit-gutter);
         }
     }
