@@ -1,5 +1,6 @@
 fragment BlockMediaWithTextFragment on ElementInterface  {
     id
+    typeHandle
     sectionTitle: titleGeneral
     sectionSummary: summary
     mediaWithText {

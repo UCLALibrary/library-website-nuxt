@@ -1,5 +1,8 @@
 <template lang="html">
-    <div class="card-with-image">
+    <div
+        v-if="block.cardWithImage.contentLink"
+        class="card-with-image"
+    >
         <block-highlight
             v-for="item in parsedContent"
             :key="item.contentLink[0].to"

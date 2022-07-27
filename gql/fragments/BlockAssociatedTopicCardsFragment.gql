@@ -1,6 +1,7 @@
 fragment BlockAssociatedTopicCardsFragment on ElementInterface {
     id
-    sectionSummary: plainText
+    typeHandle
+    sectionText: plainText
     sectionTitle: titleGeneral
     associatedTopicsFlexiblePageBlock {
         ... on associatedTopicsFlexiblePageBlock_associatedTopics_BlockType {

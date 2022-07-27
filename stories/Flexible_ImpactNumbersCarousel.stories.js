@@ -1,5 +1,5 @@
 export default {
-    title: "Impact Numbers Carousel",
+    title: "FLEXIBLE / Impact Numbers Carousel",
 }
 
 const Template = (args, { argTypes }) => ({

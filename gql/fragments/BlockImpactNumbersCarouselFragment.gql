@@ -1,7 +1,7 @@
 fragment BlockImpactNumbersCarouselFragment on ElementInterface {
     id
     typeHandle
-    impactNumbersCarousel {
+    blocks: impactNumbersCarousel {
         ... on impactNumbersCarousel_impactNumbersCarousel_BlockType {
             id
             largeText: impactNumber

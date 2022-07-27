@@ -20,8 +20,6 @@ export default {
         FlexibleCallToAction: () =>
             import("~/components/Flexible/CtaBlockContentWidth"),
         FlexibleCtaBlock2Up: () => import("~/components/Flexible/CtaBlock2Up"),
-        FlexibleHelpTopicCards: () =>
-            import("~/components/Flexible/HelpTopicCards.vue"),
         FlexibleBannerFeatured: () =>
             import("~/components/Flexible/BannerFeatured.vue"),
         FlexibleHighlight: () => import("~/components/Flexible/Highlight.vue"),
@@ -35,8 +33,11 @@ export default {
             import("~/components/Flexible/MediaWithText.vue"),
         FlexibleMediaGallery: () =>
             import("~/components/Flexible/MediaGallery.vue"),
-        FlexibleForm: () =>
-            import("~/components/Flexible/Form.vue"),
+        FlexibleForm: () => import("~/components/Flexible/Form.vue"),
+        FlexibleImpactNumbersCarousel: () =>
+            import("~/components/Flexible/ImpactNumbersCarousel.vue"),
+        FlexibleAssociatedTopicCards: () =>
+            import("~/components/Flexible/AssociatedTopicCards.vue"),
     },
     props: {
         blocks: {
@@ -48,7 +49,7 @@ export default {
         parsedBlocks() {
             // Shape blocks to work with components
             let output = this.blocks.map((obj) => {
-                console.log( convertName(obj.typeHandle))
+                console.log(convertName(obj.typeHandle))
                 return {
                     ...obj,
                     componentName: convertName(obj.typeHandle),
@@ -104,7 +105,9 @@ function convertName(typeHandle) {
         &.form,
         &.flexible-simple-cards,
         &.divider-general,
-        &.pull-quote {
+        &.pull-quote,
+        &.section-cards-with-illustrations,
+        &.impact-numbers-carousel {
             background-color: var(--color-white);
         }
 

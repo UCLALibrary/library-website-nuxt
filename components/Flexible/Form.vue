@@ -40,8 +40,10 @@ export default {
 
                 let testiframe = document.querySelector("#form-iframe")
 
-                testiframe.addEventListener('load', function() {
-                    testiframe.style.height = testiframe.contentDocument.body.scrollHeight + form_iframe.height
+                testiframe.addEventListener("load", function () {
+                    testiframe.style.height =
+                        testiframe.contentDocument.body.scrollHeight +
+                        form_iframe.height
                 })
 
                 switch (eventName) {

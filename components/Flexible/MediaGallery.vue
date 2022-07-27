@@ -36,15 +36,14 @@
 </template>
 
 <script>
-export default 
-{
+export default {
     props: {
         block: {
             type: Object,
             required: true,
         },
     },
-    data: function() {
+    data: function () {
         return {
             expandThumbnails: false,
             selectionIndex: 0,
@@ -53,16 +52,21 @@ export default
     },
     computed: {
         expand_toggle_text() {
-            return `${this.block.mediaGallery.length} images ${this.expandThumbnails ? "-" : "+"}`
+            return `${this.block.mediaGallery.length} images ${
+                this.expandThumbnails ? "-" : "+"
+            }`
         },
         glyphExpandClass() {
-            return [ "glyph-expand", this.isExpanded ? "glyph-expand-minus" : "glyph-expand-plus" ]
+            return [
+                "glyph-expand",
+                this.isExpanded ? "glyph-expand-minus" : "glyph-expand-plus",
+            ]
         },
         glyphExpandSVGContent() {
-            return (
-                '<line x1="0%" y1="50%" x2="100%" y2="50%" stroke="black" />'
-                + this.expandThumbnails ? "" : '<line x1="0" y1="80" x2="100" y2="20" stroke="black" />'
-            )
+            return '<line x1="0%" y1="50%" x2="100%" y2="50%" stroke="black" />' +
+                this.expandThumbnails
+                ? ""
+                : '<line x1="0" y1="80" x2="100" y2="20" stroke="black" />'
         },
         nItems() {
             return this.block.mediaGallery.length
@@ -70,7 +74,7 @@ export default
         plusMinusIcon() {
             // These are the "fullwidth" unicode plus (U+FF0B) & minus (U+FF0D)
             return this.expandThumbnails ? "－" : "＋"
-        }
+        },
     },
     methods: {
         hideLightboxModal() {
@@ -117,7 +121,7 @@ export default
 
         display: grid;
         $column-gap: 32px;
-        grid-template-columns: repeat(3, calc((100% - 2*$column-gap) / 3));
+        grid-template-columns: repeat(3, calc((100% - 2 * $column-gap) / 3));
         column-gap: $column-gap;
         row-gap: var(--space-xl);
     }

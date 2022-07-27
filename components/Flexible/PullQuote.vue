@@ -1,8 +1,9 @@
 <template lang="html">
-    <pull-quote v-if="block.pullQuote"
-            :text="block.pullQuote[0].text"
-            :attribution="block.pullQuote[0].attribution"
-        />
+    <pull-quote
+        v-if="block.pullQuote"
+        :text="block.pullQuote[0].text"
+        :attribution="block.pullQuote[0].attribution"
+    />
 </template>
 
 <script>
@@ -25,9 +26,7 @@ export default {
 
         @media #{$medium} {
             margin: var(--unit-gutter);
-            
         }
     }
-    
 }
 </style>

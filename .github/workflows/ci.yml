@@ -33,51 +33,6 @@ jobs:
             2. Click the 'Run workflow' button in the blue bar. 
             3. Select the correct branch for this PR and click 'Run workflow' again to confirm.
 
-  storybook:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-    - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
-    - uses: ./.github/workflows/setup-workspace
-    - run: npx nuxt storybook build --output-dir ./storybook-static
-    - name: Deploy to Netlify (merged)
-      if: github.ref_name=='main'
-      uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
-      with:
-        production-deploy: true
-        deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        publish-dir: './storybook-static'
-        fails-without-credentials: true
-        github-deployment-environment: test
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_STORYBOOK }}
-    - name: Deploy to Netlify (preview)
-      if: github.ref_name!='main'
-      uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
-      with:
-        production-deploy: false
-        deploy-message: https://github.com/UCLALibrary/library-website-nuxt/pull/${{ github.event.pull_request.number }}
-        alias: deploy-preview-${{ github.event.pull_request.number }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        overwrites-pull-request-comment: true
-        publish-dir: './storybook-static'
-        fails-without-credentials: true
-        github-deployment-environment: storybook--${{ github.event_name }}-${{ github.event.number }}
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_STORYBOOK }}
-    - name: Cypress test for Storybook Components
-      uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
-      with:
-        start: npx http-server ./storybook-static -p 3009
-        command-prefix: 'npx'
-        config-file: cypress.storybook.json
-        wait-on: http://localhost:3009
-      env: 
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_STORYBOOK }}
-
   nuxt:
     name: Nuxt build / Cypress tests / Netlify deploy
     runs-on: ubuntu-latest
@@ -93,11 +48,7 @@ jobs:
     - run: npm run generate
       env:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
-        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
-        LIBCAL_CLIENT_SECRET: ${{ secrets.LIBCAL_CLIENT_SECRET }}
-        LIBCAL_CLIENT_ID: ${{ secrets.LIBCAL_CLIENT_ID }}
         S3_BUCKET: "https://static.library.ucla.edu/"
-        LIVE_PREVIEW: "dev"
     - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
       with:
         start: npx http-server ./dist -p 3000
@@ -105,11 +56,7 @@ jobs:
         wait-on: http://localhost:3000
       env:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
-        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
-        LIBCAL_CLIENT_SECRET: ${{ secrets.LIBCAL_CLIENT_SECRET }}
-        LIBCAL_CLIENT_ID: ${{ secrets.LIBCAL_CLIENT_ID }}
         S3_BUCKET: "https://static.library.ucla.edu/"
-        LIVE_PREVIEW: "dev"
     - name: Deploy to Netlify (merged)
       if: github.ref_name=='main'
       uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3

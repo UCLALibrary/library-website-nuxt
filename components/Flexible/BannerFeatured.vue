@@ -1,5 +1,6 @@
 <template lang="html">
     <banner-featured
+        v-if="block.contentLink"
         class="flexible-banner-featured"
         :image="block.contentLink[0].heroImage[0].image[0]"
         :to="block.contentLink[0].to"

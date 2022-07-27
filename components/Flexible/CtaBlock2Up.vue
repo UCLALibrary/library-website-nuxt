@@ -1,8 +1,6 @@
 <template lang="html">
     <section>
-        <block-call-to-action-two-up
-            :items="parsedItems"
-        />
+        <block-call-to-action-two-up :items="parsedItems" />
     </section>
 </template>
 

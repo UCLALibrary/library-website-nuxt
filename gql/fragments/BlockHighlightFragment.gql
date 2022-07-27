@@ -1,5 +1,6 @@
 fragment BlockHighlightFragment on ElementInterface {
     id
+    typeHandle
     highlight {
         ... on highlight_highlight_BlockType {
             id

@@ -2,7 +2,7 @@
     <section-cards-with-illustrations
         :items="block.associatedTopicsFlexiblePageBlock[0].topics"
         :title="block.sectionTitle"
-        :text="block.sectionSummary"
+        :text="block.sectionText"
         :is-horizontal="false"
     />
 </template>

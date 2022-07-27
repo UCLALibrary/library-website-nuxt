@@ -4,7 +4,8 @@ categories:
       - 'feature'
       - 'enhancement'
       - 'performance'
-  - title: '🌈 Chore Updates'
+      - 'refactor'
+  - title: '🌈 Chore and Updates'
     labels:
       - 'documentation'
       - 'chore'

@@ -1,5 +1,6 @@
 fragment BlockBannerFeaturedFragment on ElementInterface {
     id
+    typeHandle
     bannerFeatured {
         ... on bannerFeatured_bannerFeatured_BlockType {
             id

@@ -1,14 +1,14 @@
 ---
-name: Component Request
-about: Use this to define a component that a developer can build.
-title: Component Request - {ComponentName}
+name: Page Request
+about: Use this to define a Page that a developer can build.
+title: Page Request - {PageRoute}
 labels: ""
 assignees: ""
 ---
 
-## Component Description
+## Page Description
 
-This component is used {where} to display {what}. Be sure to explain any variants or hover states.
+This Page is used {where} to display {what}. Be sure to explain any variants or hover states.
 
 ## Design
 
@@ -66,7 +66,7 @@ Describe any events that should be emitted by this component.
 
 ## Child components
 
-List out any components that are used by this new component. For example, if you are building a grid that is made up of block components.
+List out any components that are used by this new Page. 
 
 1. `required-component` is used for {what}
 
