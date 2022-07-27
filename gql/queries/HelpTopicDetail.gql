@@ -6,7 +6,7 @@ query HelpTopicDetail($slug: [String!]) {
         title
         summary
         richText
-        helpTopicBlocks: helpTopicBlock {
+        helpTopicBlocks: meapHelpTopicBlock {
             id
             sectionTitle
             sectionSummary

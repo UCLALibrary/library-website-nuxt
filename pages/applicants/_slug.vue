@@ -1,15 +1,24 @@
 <template lang="html">
     <main class="page page-help-topic">
-        <MastheadSecondary
+        <nav-breadcrumb
+            :title="page.title"
+            class="breadcrumb"
+        />
+        <masthead-secondary
             :title="page.title"
             :text="page.summary"
         />
-        <RichText
+        <divider-way-finder
+            v-if="page.richText"
+            color="help"
+        />
+        <rich-text
             v-if="page.richText"
             class="content"
             :rich-text-content="page.richText"
         />
-        <DividerWayFinder color="help" />
+
+        <divider-way-finder color="help" />
         <div
             v-for="(block, index) in page.helpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
@@ -21,15 +30,19 @@
                 :section-summary="block.sectionSummary"
                 :items="block.associatedEntries"
             />
-            <DividerWayFinder
+            <divider-way-finder
                 color="help"
                 class="help-topic-divider"
             />
         </div>
-
         <flexible-blocks
-            class="content"
+            class="flexible-content"
             :blocks="page.blocks"
+        />
+        <divider-way-finder
+            v-if="page.blocks.length"
+            class="help-topic-divider"
+            color="help"
         />
     </main>
 </template>
@@ -62,7 +75,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-help-topic {
-    .content {
+    .content,
+    .flexible-content {
         margin: 0 auto;
         max-width: $container-l-main + px;
     }
@@ -70,9 +84,16 @@ export default {
     .help-topic-section {
         margin: var(--space-2xl) auto;
     }
+    .breadcrumb {
+        margin-top: var(--space-l);
+        margin-bottom: var(--space-l);
+    }
 
     @media #{$medium} {
-        .help-topic-section {
+        .content {
+            padding: 0 var(--unit-gutter);
+        }
+        .help-topic-block {
             padding: 0 var(--unit-gutter);
         }
     }
