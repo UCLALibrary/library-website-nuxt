@@ -1,12 +1,19 @@
 <template lang="html">
     <div :class="classes">
-        <a href="#main" ref="skipLink" class="skip-link">Skip to main content</a>
+        <a
+            ref="skipLink"
+            href="#main"
+            class="skip-link"
+        >Skip to main content</a>
         
         <header-smart />
         <main id="main">
             <nuxt class="page" />
         </main>
-        <footer-primary :form="true" />
+        <footer-sponsor />
+        <footer-primary
+            :form="true"
+        />
         <footer-sock />
     </div>
 </template>
@@ -57,37 +64,6 @@ export default {
             this.$refs.skipLink.focus()
         }
     }
-    // meta: [
-    //     {
-    //         hid: "description",
-    //         name: "description",
-    //         property: "og:description",
-    //         content: this.pageMeta.description,
-    //     },
-    //     {
-    //         hid: "og:image",
-    //         property: "og:image",
-    //         content: this.pageMeta.socailShareUrl,
-    //     },
-    //     {
-    //         property: "og:url",
-    //         content: `${this.pageMeta.url}${this.$route.path}`,
-    //     },
-    //     {
-    //         property: "og:site_name",
-    //         content: this.pageMeta.title,
-    //     },
-    //     {
-    //         property: "og:type",
-    //         content: "website",
-    //     },
-    //     {
-    //         hid: "og:title",
-    //         property: "og:title",
-    //         content: this.pageMeta.title,
-    //     },
-    // ],
-    // },
 }
 </script>
 
