@@ -2,10 +2,9 @@
 #import "~/gql/fragments/collections/MEAPAllFpb"
 
 query ArticleNewsDetail($slug: [String!]) {
-  entry(section: "article", slug: $slug) {
-    ... on article_article_Entry {
+  entry(section: "meapArticle", slug: $slug) {
+    ... on meapArticle_meapArticle_Entry {
       id
-      articleType
       title
       text: summary
       dateCreated
@@ -17,59 +16,25 @@ query ArticleNewsDetail($slug: [String!]) {
           }
         }
       }
+
       category: articleCategories {
         id
         title
         uri
       }
-      byline: staffMember {
-        id
-        ... on staffMember_staffMember_Entry {
-          id
-          nameFirst
-          nameLast
-          fullName
-        }
-      }
-      locations: associatedLocations {
-        id
+      articleTopics {
         title
-        to: uri
-        ... on location_location_Entry {
-          id
-          email
-        }
       }
-      department {
-        id
-        title
-        uri
-      }
-      associatedStaffMember {
-        ... on staffMember_staffMember_Entry {
-          id
-          email
-          phone: phoneNumber
-          jobTitle: staffMemberJobTitle
-          nameFirst
-          nameLast
-          to: slug
-          consultation: bookAConsultation
-          departments: staffDepartment(orderBy: "level") {
-            id
-            title
-          }
-          locations: staffAssociatedLocations {
-            id
-            title
-            to: slug
-          }
-          image: staffPortrait {
-            ...Image
-          }
-        }
-      }
-    }
+      
+      # author field is not enable in public schema may be
+      #byline: author {
+       # firstName
+        #lastName
+        #id
+        #fullName
+      #}
+
       ...MEAPAllFpb
-    }
+    } 
+  }
 }

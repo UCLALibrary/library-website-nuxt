@@ -1,16 +1,16 @@
 fragment BlockImpactNumbersCarouselFragment on ElementInterface {
     id
-    impactNumbersCarousel {
+    typeHandle
+    blocks: impactNumbersCarousel {
         id
         ... on impactNumbersCarousel_impactNumbersCarousel_BlockType {
             id
-            largeText
-            mediumText
-            smallDescriptor
+            largeText: impactNumber
+            mediumText: impactText
+            smallDescriptor: summary
             image {
-                url
+                ...Image
             }
-            imageAltText
         }
     }
 }

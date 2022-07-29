@@ -1,5 +1,6 @@
 fragment BlockSimpleCardsFragment on ElementInterface {
     id
+    typeHandle
     sectionTitle: titleGeneral
     sectionSummary: summary
     cards: meapflexiblePageBlocks_simpleCards {

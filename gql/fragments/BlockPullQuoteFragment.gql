@@ -1,5 +1,6 @@
 fragment BlockPullQuoteFragment on ElementInterface {
     id
+    typeHandle
     pullQuote {
         ... on pullQuote_pullQuote_BlockType {
             text

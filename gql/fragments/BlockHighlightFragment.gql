@@ -1,7 +1,8 @@
 fragment BlockHighlightFragment on ElementInterface {
     id
-    highlight {
-        ... on highlight_highlight_BlockType {
+    typeHandle
+    meapflexiblePageBlocks_highlight {
+        ... on meapflexiblePageBlocks_highlight_highlight_BlockType {
             id
             contentLink {
                 id

@@ -10,6 +10,7 @@ This took me {x} hours to build this.
 
 **Checklist:**
 
+-   [ ] I double checked it has a GitHub Label for semantic versioning.
 -   [ ] I double checked it looks like the designs
 -   [ ] I completed any required mobile breakpoint styling
 -   [ ] I completed any required hover state styling

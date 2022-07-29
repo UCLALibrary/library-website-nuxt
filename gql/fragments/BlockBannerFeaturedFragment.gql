@@ -1,5 +1,6 @@
 fragment BlockBannerFeaturedFragment on ElementInterface {
     id
+    typeHandle
     meapflexiblePageBlocks_bannerFeatured {
         ... on meapflexiblePageBlocks_bannerFeatured_bannerFeatured_BlockType {
             id

@@ -30,18 +30,6 @@ author
                 :blocks="page.blocks"
             />
         </div>
-
-        <div v-if="parsedAssociatedStaffMember.length > 0">
-            <divider-way-finder
-                color="about"
-                class="divider-way-finder"
-            />
-
-            <h2 class="section-heading">
-                Associated Staff Member
-            </h2>
-            <section-staff-list :items="parsedAssociatedStaffMember" />
-        </div>
     </section>
 </template>
 
@@ -75,46 +63,16 @@ export default {
     },
     computed: {
         parsedBylines() {
-            let bylines = this.page.byline.map((name) => {
-                return {
-                    fullName: `${name.nameFirst} ${name.nameLast}`,
-                }
-            })
-
-            return bylines.map(({ fullName }) => {
-                return `${fullName}`
-            })
+            if (this.page.byline)
+                return [
+                    `${this.page.byline.firstName} ${this.page.byline.lastName}`,
+                ]
+            return []
         },
 
         parsedDate() {
             return format(new Date(this.page.dateCreated), "MMMM d, Y")
         },
-
-        parsedAssociatedStaffMember() {
-            return this.page.associatedStaffMember.map((obj) => {
-                return {
-                    ...obj,
-                    to: `/about/staff/${obj.to}`,
-                    image: _get(obj, "image[0]", null),
-                    staffName: `${obj.nameFirst} ${obj.nameLast}`,
-                }
-            })
-        },
-
-        parsedForm() {
-
-        }
-
-        // parsedLocations() {
-        //     let places= this.page.locations.map((place) => {
-        //         return {
-        //             linkedLocation: `<a href="${place.uri}">${place.title}</a>`
-        //         }
-        //     })
-        //     return places.map(({linkedLocation})=>{
-        //         return (`${linkedLocation}`)
-        //     })
-        // }
     },
 }
 </script>

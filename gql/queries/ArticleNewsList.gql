@@ -1,8 +1,8 @@
 #import "~/gql/fragments/Image"
 
 query ArticleNewsList {
-    entries(section: "article", orderBy: "dateCreated") {
-        ... on article_article_Entry {
+    entries(section: "meapArticle", orderBy: "dateCreated") {
+        ... on meapArticle_meapArticle_Entry {
             id
             articleCategories {
                 title
