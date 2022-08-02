@@ -21,7 +21,7 @@ query ArticleNewsDetail($slug: [String!]) {
             title
         }
 
-        staffMember {
+        byline: staffMember {
                 id
                 slug
                 title

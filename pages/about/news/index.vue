@@ -1,7 +1,6 @@
 <template>
     <main class="page page-news">
         <h2>ENTRIES-- {{ entryCount }}</h2>
-        <!-- <h2>parsedDate-- {{ parsedDate }}</h2> -->
         <!-- <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
