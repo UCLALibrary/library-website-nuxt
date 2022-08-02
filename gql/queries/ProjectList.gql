@@ -1,0 +1,10 @@
+query ProjectList {
+    entries(section: "meapProject") {
+        ... on meapProject_meapProject_Entry {
+            id
+            to: slug
+            title
+            summary
+        }
+    }
+}

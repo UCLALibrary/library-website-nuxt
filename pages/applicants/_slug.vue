@@ -10,7 +10,7 @@
         />
         <divider-way-finder
             v-if="page.richText"
-            color="help"
+            color="about"
         />
         <rich-text
             v-if="page.richText"
@@ -18,7 +18,7 @@
             :rich-text-content="page.richText"
         />
 
-        <divider-way-finder color="help" />
+        <divider-way-finder color="about" />
         <div
             v-for="(block, index) in page.helpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
@@ -31,7 +31,7 @@
                 :items="block.associatedEntries"
             />
             <divider-way-finder
-                color="help"
+                color="about"
                 class="help-topic-divider"
             />
         </div>
@@ -42,7 +42,7 @@
         <divider-way-finder
             v-if="page.blocks.length"
             class="help-topic-divider"
-            color="help"
+            color="about"
         />
     </main>
 </template>

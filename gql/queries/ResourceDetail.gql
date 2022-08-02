@@ -1,4 +1,5 @@
 #import "~/gql/fragments/collections/MEAPDefaultFpbWithNoCta"
+#import "~/gql/fragments/Image"
 
 query ResourceDetail($slug: [String!]) {
     entry(section: "meapResource", slug: $slug) {
