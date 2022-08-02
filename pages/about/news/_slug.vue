@@ -1,12 +1,8 @@
-// articleType - nowhere // summary - nowhere // associatedLocations - nowhere
-// department - nowhere // title // heroImage banner Image // articleCategories
-(library news) // staffMember // allFpb // bannerheader // date published //
-TODO // fix: ServiceOrResources // add: share links & icons component // fix:
-author
-
 <template lang="html">
     <section class="page-news-detail">
-        <nav-breadcrumb :title="page.title" />
+        <h2>{{ page }}</h2>
+        <h2>{{ page.title }}</h2>
+        <!-- <nav-breadcrumb :title="page.title" /> 
 
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
@@ -29,7 +25,7 @@ author
                 class="content"
                 :blocks="page.blocks"
             />
-        </div>
+        </div>-->
     </section>
 </template>
 
@@ -42,10 +38,10 @@ import format from "date-fns/format"
 import ARTICLE_NEWS_DETAIL from "~/gql/queries/ArticleNewsDetail"
 
 export default {
-    async asyncData({ $graphql, params, store }) {
+    async asyncData({ $graphql, params, store  }) {
         // Do not remove testing live preview
         console.log(
-            "fetching graphql data for Service or Resource detail from Craft for live preview"
+            "fetching graphql data for News detail from Craft for live preview"
         )
         const data = await $graphql.default.request(ARTICLE_NEWS_DETAIL, {
             slug: params.slug,

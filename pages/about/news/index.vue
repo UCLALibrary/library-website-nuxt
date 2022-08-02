@@ -1,5 +1,7 @@
 <template>
     <main class="page page-news">
+        <h2>ENTRIES-- {{ entryCount }}</h2>
+        <!-- <h2>parsedDate-- {{ parsedDate }}</h2> -->
         <!-- <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
@@ -36,7 +38,6 @@
 
 <script>
 // Helpers
-// Helpers
 import _get from "lodash/get"
 import format from "date-fns/format"
 
@@ -64,8 +65,7 @@ export default {
                     ...obj,
                     to: `/about/news/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    staffName: `${obj.fullName}`,
-                    category: _get(obj, "articleCategories[0].title", null),
+                    authors: `${obj.fullName}`,
                 }
             })
         },
