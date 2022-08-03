@@ -24,12 +24,12 @@
    // Iframe
 function resize() {
     var height = $(document).height();
-    console.log("Height iframe: "+height)
+    console.log("Height iframe from blockHour.html: "+height)
     // Backwards – send message to parent
     window.parent.postMessage(['setHeight', height], '*');
 }
 window.onload = () => resize();
- window.onresize = () => resize();
+window.onresize = () => resize();
 
 /* let curLength=0;
    let  secondsRemaining = 10;
@@ -111,9 +111,9 @@ window.onload = () => resize();
     font-display: auto;
 }
 
-table  {
+/* table  {
     height: auto;
-}
+} */
 
 .s-lc-whw {
     border-collapse: collapse;
