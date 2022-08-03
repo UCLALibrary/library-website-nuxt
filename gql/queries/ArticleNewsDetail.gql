@@ -2,39 +2,35 @@
 #import "~/gql/fragments/collections/MEAPAllFpb"
 
 query ArticleNewsDetail($slug: [String!]) {
-  entry(section: "meapArticle", slug: $slug) {
-    ... on meapArticle_meapArticle_Entry {
-      id
-      title
-      text: summary
-      dateCreated
-      heroImage {
-        ... on heroImage_heroImage_BlockType {
-          id
-          image {
-            ...Image
-          }
-        }
-      }
-
-      category: articleCategories {
+    entry(section: "meapArticle", slug: $slug) {
+        ... on meapArticle_meapArticle_Entry {
         id
         title
-        uri
-      }
-      articleTopics {
-        title
-      }
-      
-      # author field is not enable in public schema may be
-      #byline: author {
-       # firstName
-        #lastName
-        #id
-        #fullName
-      #}
+        text: summary
+        dateCreated
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+            id
+            image {
+                ...Image
+            }
+            }
+        }
 
-      ...MEAPAllFpb
-    } 
-  }
+        articleTopics {
+            title
+        }
+
+        staffMember {
+                id
+                slug
+                title
+            }
+            description: summary
+            category: typeHandle
+            date: dateUpdated
+        }
+
+        ...MEAPAllFpb
+    }
 }

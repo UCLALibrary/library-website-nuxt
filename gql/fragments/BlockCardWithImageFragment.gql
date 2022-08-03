@@ -5,7 +5,7 @@ fragment BlockCardWithImageFragment on ElementInterface {
         id
         ... on meapflexiblePageBlocks_cardWithImage_cardWithImage_BlockType {
             id
-            image {
+            src: image {
                 ...Image
             }
             imageAltText
@@ -24,7 +24,7 @@ fragment BlockCardWithImageFragment on ElementInterface {
                     to: uri
                 }
             }
-            shortDescription
+            summary: shortDescription
         }
     }
 }

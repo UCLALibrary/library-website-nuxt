@@ -1,19 +1,13 @@
-// articleType - nowhere // summary - nowhere // associatedLocations - nowhere
-// department - nowhere // title // heroImage banner Image // articleCategories
-(library news) // staffMember // allFpb // bannerheader // date published //
-TODO // fix: ServiceOrResources // add: share links & icons component // fix:
-author
-
 <template lang="html">
     <section class="page-news-detail">
-        <nav-breadcrumb :title="page.title" />
+        <nav-breadcrumb :title="page.title" /> 
 
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
             :title="page.title"
             category="Library News"
-            :byline="parsedBylines"
+            :byline="page.staffMember.title"
             :locations="page.locations"
             :date-created="page.dateCreated"
             :align-right="true"
@@ -42,10 +36,10 @@ import format from "date-fns/format"
 import ARTICLE_NEWS_DETAIL from "~/gql/queries/ArticleNewsDetail"
 
 export default {
-    async asyncData({ $graphql, params, store }) {
+    async asyncData({ $graphql, params, store  }) {
         // Do not remove testing live preview
         console.log(
-            "fetching graphql data for Service or Resource detail from Craft for live preview"
+            "fetching graphql data for News detail from Craft for live preview"
         )
         const data = await $graphql.default.request(ARTICLE_NEWS_DETAIL, {
             slug: params.slug,
@@ -65,7 +59,7 @@ export default {
         parsedBylines() {
             if (this.page.byline)
                 return [
-                    `${this.page.byline.firstName} ${this.page.byline.lastName}`,
+                    `${this.page.byline.title}`,
                 ]
             return []
         },
