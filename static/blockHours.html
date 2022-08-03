@@ -111,12 +111,15 @@ window.onload = () => resize();
     font-display: auto;
 }
 
+table  {
+    height: auto;
+}
+
 .s-lc-whw {
     border-collapse: collapse;
 }
 
 .s-lc-whw thead {
-    /* background-color: #F5F5F5; */
     text-align: left;
 }
 
@@ -151,9 +154,6 @@ window.onload = () => resize();
     color:#0B6AB7;
     text-decoration: underline;
     text-decoration-color: #0aa5ff;
-}
-
-.s-lc-whw-subloc{
 }
 
 /* Sub-Location Name */
@@ -213,12 +213,13 @@ window.onload = () => resize();
 }
 
 .s-lc-whw tr {
-     border-bottom:2px dotted #999999;
+    border-bottom: 2px dotted #999999;
 }
 
-.s-lc-whw tr:last-child {
-    border-bottom: 0;
-}
+/* To delete the border-bottom of the last table row
+.s-lc-whw-subloc:last-child {
+    border-bottom: none;
+} */
 
 .s-lc-whw>tbody>tr>td {
      padding: 12px 0;
