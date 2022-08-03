@@ -112,17 +112,16 @@ export default {
         --color-theme: var(--color-help-green-03);
     }
     .banner-header {
-        margin-bottom: var(--space-xl);
+       // margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
+        margin: auto;
     }
-    .banner-text + .divider-way-finder {
-        margin: 0 auto var(--space-2xl);
-    }
+    // .banner-text + .divider-way-finder {
+    //     margin: 0 auto var(--space-2xl);
+    // }
     .divider-way-finder {
         max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
     }
     .content {
         margin: 0 auto;

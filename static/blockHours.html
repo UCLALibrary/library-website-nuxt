@@ -69,13 +69,47 @@ window.onload = () => resize();
 
 <!-- The following styles are optional, feel free to modify) -->
 <style lang="scss">
-   .s-lc-whw{}
+@import url("https://use.typekit.net/xso3wzv.css");
 
-/* .toggle {
-     margin-top: 26px;
-     border: none;
-     background-color: white;
-} */
+@font-face {
+    font-family: "Karbon";
+    src: url(//libapps.s3.amazonaws.com/sites/705/include/karbon-web-light.woff) format("woff");
+    font-style: normal;
+    font-weight: 300;
+    font-display: auto;
+}
+
+@font-face {
+    font-family: "Karbon";
+    src: url(//libapps.s3.amazonaws.com/sites/705/include/karbon-web-regular.woff) format("woff");
+    font-style: normal;
+    font-weight: 400;
+    font-display: auto;
+}
+
+@font-face {
+    font-family: "Karbon";
+    src: url(//libapps.s3.amazonaws.com/sites/705/include/karbon-web-medium.woff) format("woff");
+    font-style: normal;
+    font-weight: 500;
+    font-display: auto;
+}
+
+@font-face {
+    font-family: "Karbon";
+    src: url(//libapps.s3.amazonaws.com/sites/705/include/karbon-web-semibold.woff) format("woff");
+    font-style: normal;
+    font-weight: 600;
+    font-display: auto;
+}
+
+@font-face {
+    font-family: "Karbon";
+    src: url(//libapps.s3.amazonaws.com/sites/705/include/karbon-web-bold.woff) format("woff");
+    font-style: normal;
+    font-weight: 700;
+    font-display: auto;
+}
 
 .s-lc-whw {
     border-collapse: collapse;
@@ -94,7 +128,7 @@ window.onload = () => resize();
 .s-lc-whw-today {
     background-color: #eaf2fb;
     border-radius: 4px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .s-lc-whw-bh {
@@ -182,6 +216,10 @@ window.onload = () => resize();
      border-bottom:2px dotted #999999;
 }
 
+.s-lc-whw tr:last-child {
+    border-bottom: 0;
+}
+
 .s-lc-whw>tbody>tr>td {
      padding: 12px 0;
      text-align: left;
@@ -228,14 +266,14 @@ window.onload = () => resize();
      
      line-height: 1.6;
      letter-spacing: 0.01em;
-     font-weight: bold;
+     font-weight: 500;
 }
 
 /* Today */
 .s-lc-whw-today-h {
      background-color: #eaf2fb;
      border-radius: 4px;
-     font-weight: bold;
+     font-weight: 500;
 }
 
 .s-lc-whw th {
