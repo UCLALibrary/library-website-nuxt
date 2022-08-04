@@ -3,9 +3,11 @@
 
 <script src="https://calendar.library.ucla.edu/js/hours_grid.js?002"></script>
 
+<div class="test">
 <div
     id="s-lc-whw"
     class="s-lc-whw">
+</div>
 </div>
 
 <script>
@@ -24,13 +26,16 @@
    // Iframe
 function resize() {
     var height = $(document).height();
-    console.log("Height iframe from blockHour.html: "+height)
+    height = height + 3
+    console.log("JEN Height iframe from blockHour.html: "+height)
     // Backwards – send message to parent
     window.parent.postMessage(['setHeight', height], '*');
 }
 window.onload = () => resize();
 window.onresize = () => resize();
 
+
+/* ------------------------- */
 /* let curLength=0;
    let  secondsRemaining = 10;
 
@@ -69,6 +74,10 @@ window.onresize = () => resize();
 
 <!-- The following styles are optional, feel free to modify) -->
 <style lang="scss">
+body {
+  overflow: hidden; /* Hide scrollbars */
+}
+
 @import url("https://use.typekit.net/xso3wzv.css");
 
 @font-face {
