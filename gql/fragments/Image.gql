@@ -6,4 +6,5 @@ fragment Image on AssetInterface {
     srcset(sizes: ["375", "960", "1280", "1920", "2560"])
     alt: title
     focalPoint
+    altText
 }
