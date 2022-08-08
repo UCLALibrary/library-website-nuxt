@@ -6,7 +6,7 @@
             class="skip-link"
         >Skip to main content</a>
         
-        <header-smart />
+        <header-smart title="Modern Endangered Archives Program" />
         <main id="main">
             <nuxt class="page" />
         </main>
