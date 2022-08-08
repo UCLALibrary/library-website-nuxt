@@ -17,11 +17,20 @@ describe("Website Homepage", () => {
             .and("contain", "My Account")
 
         // NavPrimary
-        cy.get(".nav-primary")
-            .should("contain", "Get help with...")
-            .and("contain", "Visit")
-            .and("contain", "About")
-            .and("contain", "Support us")
+        cy.get(".nav-primary").then(elem => {
+            if(elem[0].textContent.startsWith('Modern Endangered Archives Program Get help with')) {
+                cy.get(".nav-primary").should("contain", "Get help with...")
+                    .and("contain", "Visit")
+                    .and("contain", "About")
+            }
+            else {
+                cy.get(".nav-primary").should("contain", "Get help with...")
+                    .and("contain", "Visit")
+                    .and("contain", "About")
+                    .and("contain", "Support us")
+
+            }
+        })
 
         // MastheadPrimary
         cy.get(".masthead-primary").find(".logo").should("be.visible")
