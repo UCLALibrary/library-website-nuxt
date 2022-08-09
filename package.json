@@ -9,15 +9,10 @@
         "build": "nuxt build",
         "generate": "nuxt generate",
         "start": "nuxt start",
-        "storybook": "nuxt storybook --port 3009",
-        "storybook-build": "nuxt storybook build",
         "cypress": "cypress open",
-        "cypress-storybook": "cypress open --config-file cypress.storybook.json",
         "cypress-run": "cypress run",
         "lint": "eslint ./",
-        "lint-fix": "eslint --fix ./",
-        "percy": "percy storybook http://localhost:3003",
-        "percy-static": "percy storybook ./storybook-static"
+        "lint-fix": "eslint --fix ./"
     },
     "dependencies": {
         "@nuxtjs/gtm": "^2.4.0",

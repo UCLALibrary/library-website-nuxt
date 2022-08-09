@@ -173,7 +173,7 @@
 </template>
 
 <script>
-import * as API from "~/stories/mock-api.json"
+import * as API from "~/data/mock-api.json"
 import _ from "lodash"
 import * as IMPACT_API from "~/data/impact-report_index.json"
 // Utilities

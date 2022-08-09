@@ -55,8 +55,10 @@ import getS3Bucket from "~/utils/getS3Bucket"
 
 export default {
     components: {
-        SvgArrowDiagonal: () => import("~/assets/svg/arrow-diagonal"),
-        SvgArrowRight: () => import("~/assets/svg/arrow-right-small"),
+        SvgArrowDiagonal: () =>
+            import("ucla-library-design-tokens/assets/svgs/icon-external-link"),
+        SvgArrowRight: () =>
+            import("ucla-library-design-tokens/assets/svgs/icon-arrow-right"),
     },
     layout: "impact",
     data() {

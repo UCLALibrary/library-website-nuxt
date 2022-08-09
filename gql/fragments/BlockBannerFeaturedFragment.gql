@@ -1,7 +1,7 @@
 fragment BlockBannerFeaturedFragment on ElementInterface {
     id
     typeHandle
-    bannerFeatured {
+    content: bannerFeatured {
         ... on bannerFeatured_internalContent_BlockType {
             id
             contentLink {
@@ -55,7 +55,12 @@ fragment BlockBannerFeaturedFragment on ElementInterface {
             title: titleGeneral
             summary
             alignment
-            location
+            # TODO using internal locations for external content will need component update
+            # locations: associatedLocations {
+            #       id
+            #       title
+            #       to: uri
+            # }
             byline1
             byline2
             to: buttonUrl
