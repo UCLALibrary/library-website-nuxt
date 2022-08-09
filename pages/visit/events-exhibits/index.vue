@@ -81,9 +81,10 @@ import formatEventTimes from "~/utils/formatEventTimes"
 export default {
     async asyncData({ $axios }) {
         console.log("in asyncdata calling axios get event")
-        const libcalData = await $axios.$get(`/events`, {
+        const libcalData = await $axios.$get(`/event_search`, {
             params: {
-                cal_id: 2190,
+                search:'*',
+                limit:100,
             },
         })
 
@@ -121,20 +122,17 @@ export default {
 
             const mockEvents = [
                 ...this.page.events,
-                ...this.page.events,
-                ...this.page.events,
-                ...this.page.events,
-                ...this.page.events,
+                
             ]
 
             // Shape events
             // return this.events.map((obj) => {
-            return mockEvents.map((obj, index) => {
+            return mockEvents.map((obj) => {
                 const event = obj || {}
 
                 return {
                     ...event,
-                    to: `${this.$route.path}/${index}-${event.id}`, // added index to avoid duplicate errors
+                    to: `${this.$route.path}/${event.id}`, // added index to avoid duplicate errors
                     location: _get(event, "location.name", "Online"),
                     image: {
                         src: event.featured_image,

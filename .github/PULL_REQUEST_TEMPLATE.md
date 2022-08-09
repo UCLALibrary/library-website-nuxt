@@ -1,3 +1,5 @@
+Connected to [APPS-](https://jira.library.ucla.edu/browse/APPS-)
+
 **Page/Pages Created/updated:** {filename}.vue from #{issue number}
 
 **Notes:**

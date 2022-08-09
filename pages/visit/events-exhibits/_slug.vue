@@ -46,11 +46,12 @@ export default {
         const navData = await this.$graphql.default.request(
             HEADER_MAIN_MENU_ITEMS
         )
+        // sample event id = 9383207
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
         const data = await this.$axios.$get(`/events`, {
             params: {
-                cal_id: 7056,
+                event_id: params.slug,
             },
         })
         // TODO get event data from Craft

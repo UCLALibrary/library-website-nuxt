@@ -7,20 +7,8 @@ export default {
     target: "static",
     components: true,
 
-    privateRuntimeConfig: {
-        libcalClientSecret: process.env.LIBCAL_CLIENT_SECRET,
-        libcalClientId: process.env.LIBCAL_CLIENT_ID,
-    },
+    
     publicRuntimeConfig: {
-        libcalAppointment: process.env.LIBCAL_APPOINTMENTS,
-        libcalClientSecret:
-            process.env.LIVE_PREVIEW === "dev"
-                ? process.env.LIBCAL_CLIENT_SECRET
-                : "test",
-        libcalClientId:
-            process.env.LIVE_PREVIEW === "dev"
-                ? process.env.LIBCAL_CLIENT_ID
-                : "test", 
         s3Bucket: process.env.S3_BUCKET,
     },
     /*
@@ -38,7 +26,6 @@ export default {
     css: [
         "~/assets/styles/variables-css.scss",
         "~/assets/styles/global.scss",
-        "~/assets/styles/fonts.css",
     ],
 
     /*
@@ -53,7 +40,6 @@ export default {
      */
     plugins: [
         "~/plugins/preview.client.js",
-        "~/plugins/web-font-loader.client.js",
         "~/plugins/browser-events.client.js",
         "~/plugins/craft.js",
     ],
@@ -64,7 +50,7 @@ export default {
     axios: {
         baseURL:
             process.env.LIBCAL_ENDPOINT ||
-            "https://calendar.library.ucla.edu/1.1",
+            "https://test.proxy.calendar.library.ucla.edu/",
     },
 
     /*
@@ -111,68 +97,6 @@ export default {
         trailingSlash: false,
     },*/
 
-    /*
-     ** Storybook
-     ** SEE https://storybook.nuxtjs.org/options
-     */
-    storybook: {
-        stories: ["~/stories/**/*.stories.js"],
-        parameters: {
-            layout: "fullscreen",
-            viewport: { 
-                viewports:{
-                    extraLarge: {
-                        name: 'Extra Large',
-                        styles:{ width: '1920px', height: '1080px', },
-                    },
-                    Large: {
-                        name: 'Large',
-                        styles:{ width: '1440px', height: '1024px', },
-                    },
-                    Medium: {
-                        name: 'Medium',
-                        styles:{ width: '768px', height: '1024px', },
-                    },
-                    Small: {
-                        name: 'Small',
-                        styles:{ width: '375px', height: '812px', },
-                    },
-                },
-            },
-            backgrounds: {
-                default: "default",
-                values: [
-                    {
-                        name: "White",
-                        value: "#ffffff",
-                    },
-                    {
-                        name: "Grey",
-                        value: "#F2F2F2",
-                    },
-                    {
-                        name: "Dark blue",
-                        value: "#032D5B",
-                    },
-                    {
-                        name: "Blue",
-                        value: "#0B6AB7",
-                    },
-                    {
-                        name: "Light blue",
-                        value: "#EAF2FB",
-                    },
-                ],
-            },
-        },
-        // eslint-disable-next-line no-unused-vars
-        webpackFinal(config, { configDir }) {
-            // Allow webpack to auto-load .gql and .svg files
-            config.resolve.extensions.push(".svg", ".gql")
-
-            return config
-        },
-    },
 
     /*
      * Nuxt modules

@@ -2,33 +2,65 @@ fragment BlockBannerFeaturedFragment on ElementInterface {
     id
     typeHandle
     bannerFeatured {
-        ... on bannerFeatured_bannerFeatured_BlockType {
+        ... on bannerFeatured_internalContent_BlockType {
             id
             contentLink {
-                url
-                to: uri
+                contentType: sectionHandle
                 title
-                prompt: buttonText
-                date {
-                    startDate
-                    endDate
+                to: uri
+                summary
+                projectCategory: format
+                articleCategory: articleCategories {
+                  title
                 }
-                associatedLocations {
+                projectByline1: meapProjectTopic {
+                  ... on meapProjectTopics_Category {
                     id
                     title
-                    to: uri
+                  }
+                }
+                articleByline1: staffMember {
+                  id
+                  slug
+                  uri
+                  url
+                  title
+                }
+                articleByline2: postDate
+                articleLocations: associatedLocations {
+                  id
+                  title
+                  to: uri
+                }
+                projectLocations: region {
+                  ... on meapProjectRegion_Category {
+                    id
+                    title
+                  }
                 }
                 heroImage {
-                    ... on heroImage_heroImage_BlockType {
-                        id
-                        image {
-                            ...Image
-                        }
-                        altText
+                  ... on heroImage_heroImage_BlockType {
+                    image {
+                      ...Image
                     }
+                  }
                 }
             }
+        }
+        ... on bannerFeatured_externalContent_BlockType {
+            id
+            image {
+                ...Image
+            }
+            title: titleGeneral
+            summary
             alignment
+            location
+            byline1
+            byline2
+            to: buttonUrl
+            category
+            contentType
         }
     }
 }
