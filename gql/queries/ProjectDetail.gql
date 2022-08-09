@@ -50,6 +50,7 @@ query ProjectDetail($slug: [String!]) {
         languageOfOrigin
         format
         periodDateRange
+        institutionSubheading
         ...MEAPAllFpb
     }
 }

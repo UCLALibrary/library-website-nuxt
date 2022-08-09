@@ -11,7 +11,6 @@
             :category="page.format"
             :title="page.title"
             :text="page.summary"
-            :byline="parsedByline"
             :button-text="parsedButtonText"
             :to="parsedButtonTo"
         />
@@ -22,7 +21,6 @@
             :category="page.format"
             :title="page.title"
             :text="page.summary"
-            :byline="parsedByline"
             :to="parsedButtonTo"
             :prompt="parsedButtonText"
         />
@@ -70,9 +68,21 @@
                 class="contributors-subheading"
                 v-html="page.projectContributorsSubheading"
             />
+
             <rich-text
                 v-if="page.projectContributors"
                 :rich-text-content="page.projectContributors"
+            />
+
+            <div
+                v-if="page.institutionSubheading"
+                class="institution-subheading"
+                v-html="page.institutionSubheading"
+            />
+
+            <rich-text
+                v-if="page.institution"
+                :rich-text-content="page.institution"
             />
         </div>
 
@@ -134,9 +144,6 @@ export default {
         },
         parsedButtonTo() {
             return _get(this.page, "meapProjectCallToAction[0].externalUrl", "")
-        },
-        parsedByline() {
-            return [this.page.institution]
         },
     },
 }
@@ -200,7 +207,7 @@ export default {
             color: var(--color-secondary-grey-04);
         }
     }
-    .contributors-subheading {
+    .contributors-subheading, institution-subheading {
         @include step-1;
         max-width: $container-l-main + px;
         margin: 0 auto var(--space-m);
