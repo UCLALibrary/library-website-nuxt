@@ -154,41 +154,50 @@ export default {
     .nav-breadcrumb {
         max-width: $container-xl-full-width + px;
     }
+
     .banner-text {
         --color-theme: var(--color-help-green-03);
     }
+
     .banner-header {
         margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
         margin: var(--unit-gutter) auto;
     }
+
     .banner-text + .divider-way-finder {
         margin: 0 auto var(--space-2xl);
     }
+
     .divider-way-finder {
         max-width: $container-l-main + px;
         margin: var(--space-3xl) auto;
     }
+
     .divider-general {
         max-width: $container-l-main + px;
         margin: var(--space-l) auto;
     }
+
     .content {
         margin: 0 auto;
     }
+    
     .about-the-project {
         @include step-3;
         color: var(--color-primary-blue-03);
         max-width: $container-l-main + px;
         margin: 0 auto var(--space-xl);
     }
+
     .title-general {
         @include step-1;
         color: var(--color-secondary-grey-05);
         max-width: $container-l-main + px;
         margin: 0 auto 12px;
     }
+
     .project-type {
         @include step-0;
         font-weight: $font-weight-medium;
@@ -198,8 +207,10 @@ export default {
         max-width: $container-l-main + px;
         margin: 0 auto var(--space-m);
     }
+
     .project-description {
     }
+
     .citation {
         margin-top: var(--space-m);
         :deep p {
@@ -207,12 +218,14 @@ export default {
             color: var(--color-secondary-grey-04);
         }
     }
-    .contributors-subheading, institution-subheading {
+
+    .contributors-subheading, .institution-subheading {
         @include step-1;
         max-width: $container-l-main + px;
         margin: 0 auto var(--space-m);
         color: var(--color-secondary-grey-05);
     }
+
     .block-call-to-action {
         margin: var(--space-3xl) auto;
     }
