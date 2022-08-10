@@ -44,7 +44,11 @@ fragment BlockHighlightFragment on ElementInterface {
             byline1
             byline2
             category
-            location
+            location {
+                id
+                title
+                to: uri
+            }
             text: summary
         }
     }
