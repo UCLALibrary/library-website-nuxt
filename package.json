@@ -41,6 +41,6 @@
         "ucla-library-design-tokens": "^3.9.1",
         "vue-svg-loader": "^0.16.0",
         "vue-template-compiler": "^2.6.12",
-        "ucla-library-website-components": "^v1.40.0"
+        "ucla-library-website-components": "^v1.43.3"
     }
 }
