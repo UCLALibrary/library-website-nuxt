@@ -81,10 +81,10 @@ import formatEventTimes from "~/utils/formatEventTimes"
 export default {
     async asyncData({ $axios }) {
         console.log("in asyncdata calling axios get event")
-        const libcalData = await $axios.$get(`/event_search`, {
+        const libcalData = await $axios.$get(`/1.1/event_search`, {
             params: {
-                search:'*',
-                limit:100,
+                search: "*",
+                limit: 100,
             },
         })
 
@@ -120,10 +120,7 @@ export default {
         parsedEvents() {
             // TODO Remove this one we have more events
 
-            const mockEvents = [
-                ...this.page.events,
-                
-            ]
+            const mockEvents = [...this.page.events]
 
             // Shape events
             // return this.events.map((obj) => {

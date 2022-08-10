@@ -1,6 +1,9 @@
 <template lang="html">
     <section class="page-event-detail">
-        <nav-breadcrumb :title="page.title" />
+        <nav-breadcrumb
+            v-if="allEvents[0]"
+            :title="allEvents[0].title"
+        />
         <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
@@ -43,23 +46,21 @@ export default {
         }
     },
     async fetch() {
+        console.log("In fetch start")
         const navData = await this.$graphql.default.request(
             HEADER_MAIN_MENU_ITEMS
         )
         // sample event id = 9383207
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
-        const data = await this.$axios.$get(`/events`, {
-            params: {
-                event_id: params.slug,
-            },
-        })
+        console.log("params " + this.$route.query)
+        const data = await this.$axios.$get(`/1.1/events/${this.params.slug}`)
         // TODO get event data from Craft
         // return {
         //     page: {},
         // }
         this.allEvents = [...this.allEvents, ...data.events]
-        console.log(data.events[0].title)
+        console.log(data.events)
     },
 }
 </script>
