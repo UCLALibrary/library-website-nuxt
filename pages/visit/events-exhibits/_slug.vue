@@ -1,6 +1,9 @@
 <template lang="html">
     <section class="page-event-detail">
-        <nav-breadcrumb :title="page.title" />
+        <nav-breadcrumb
+            v-if="allEvents[0]"
+            :title="allEvents[0].title"
+        />
         <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
@@ -14,7 +17,12 @@
                 :view-modes="searchFilters.views"
                 @view-mode-change="viewModeChanger"-->
         </masthead-secondary>
+        <p v-if="$fetchState.pending" />
+        <p v-else-if="$fetchState.error">
+            An error occurred :(
+        </p>
         <header-sticky
+            v-else
             class="sticky-header"
             :primary-items="primaryItems"
             :secondary-items="secondaryItems"
@@ -43,22 +51,24 @@ export default {
         }
     },
     async fetch() {
+        console.log("In fetch start")
         const navData = await this.$graphql.default.request(
             HEADER_MAIN_MENU_ITEMS
         )
+        console.log(navData)
+        // sample event id = 9383207
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
-        const data = await this.$axios.$get(`/events`, {
-            params: {
-                cal_id: 7056,
-            },
-        })
+        console.log("params " + this.$route.params.slug)
+        const data = await this.$axios.$get(
+            `/1.1/events/${this.$route.params.slug}`
+        )
         // TODO get event data from Craft
         // return {
         //     page: {},
         // }
         this.allEvents = [...this.allEvents, ...data.events]
-        console.log(data.events[0].title)
+        console.log(data.events)
     },
 }
 </script>

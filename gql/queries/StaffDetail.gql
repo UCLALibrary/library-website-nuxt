@@ -51,7 +51,7 @@ query StaffDetail($slug: [String]!) {
         ... on article_article_Entry {
             id
             title
-            to: slug
+            to: uri
             heroImage {
                 ... on heroImage_heroImage_BlockType {
                     id
@@ -65,6 +65,7 @@ query StaffDetail($slug: [String]!) {
             authors: staffMember {
                 id
                 slug
+                to: uri
                 title
             }
             description: summary

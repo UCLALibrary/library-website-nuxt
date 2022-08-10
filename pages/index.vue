@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import * as MOCK_API from "~/stories/mock-api.json"
+import * as MOCK_API from "~/data/mock-api.json"
 
 export default {
     components: {},

@@ -17,65 +17,42 @@ fragment AllFpb on ElementInterface {
         id
         typeHandle
 
-        ...BlockAssociatedTopicCards
-        ...BlockBannerFeatured
-        ...BlockCardWithImage
-        ...BlockHighlight
-        ...BlockImpactNumbersCarousel
-        ...BlockMediaGallery
-        ...BlockMediaWithText
-        ...BlockPullQuote
-        ...BlockRichText
-        ...BlockSimpleCards
-        ...BlockCallToAction
-        ...BlockForm
+        ... on allFpb_associatedTopicCards_BlockType {
+            ...BlockAssociatedTopicCardsFragment
+        }
+        ... on allFpb_bannerFeatured_BlockType {
+            ...BlockBannerFeaturedFragment
+        }
+        ... on allFpb_cardWithImage_BlockType {
+            ...BlockCardWithImageFragment
+        }
+        ... on allFpb_highlight_BlockType {
+            ...BlockHighlightFragment
+        }
+        ... on allFpb_impactNumbersCarousel_BlockType {
+            ...BlockImpactNumbersCarouselFragment
+        }
+        ... on allFpb_mediaGallery_BlockType {
+            ...BlockMediaGalleryFragment
+        }
+        ... on allFpb_mediaWithText_BlockType {
+            ...BlockMediaWithTextFragment
+        }
+        ... on allFpb_pullQuote_BlockType {
+            ...BlockPullQuoteFragment
+        }
+        ... on allFpb_richText_BlockType {
+            ...BlockRichTextFragment
+        }
+        ...on allFpb_simpleCards_BlockType {
+            ...BlockSimpleCardsFragment
+        }
+        ... on allFpb_callToAction_BlockType {
+            ...BlockCallToActionFragment
+        }
+        ... on allFpb_form_BlockType {
+            ...BlockFormFragment
+        }
     }
-}
+} 
 
-fragment BlockAssociatedTopicCards on allFpb_associatedTopicCards_BlockType {
-    ...BlockAssociatedTopicCardsFragment
-}
-
-fragment BlockBannerFeatured on allFpb_bannerFeatured_BlockType {
-    ...BlockBannerFeaturedFragment
-}
-
-fragment BlockCardWithImage on allFpb_cardWithImage_BlockType {
-    ...BlockCardWithImageFragment
-}
-
-fragment BlockHighlight on allFpb_highlight_BlockType {
-    ...BlockHighlightFragment
-}
-
-fragment BlockImpactNumbersCarousel on allFpb_impactNumbersCarousel_BlockType {
-    ...BlockImpactNumbersCarouselFragment
-}
-
-fragment BlockMediaGallery on allFpb_mediaGallery_BlockType {
-    ...BlockMediaGalleryFragment
-}
-
-fragment BlockMediaWithText on allFpb_mediaWithText_BlockType {
-    ...BlockMediaWithTextFragment
-}
-
-fragment BlockPullQuote on allFpb_pullQuote_BlockType {
-    ...BlockPullQuoteFragment
-}
-
-fragment BlockRichText on allFpb_richText_BlockType {
-    ...BlockRichTextFragment
-}
-
-fragment BlockSimpleCards on allFpb_simpleCards_BlockType {
-    ...BlockSimpleCardsFragment
-}
-
-fragment BlockCallToAction on allFpb_callToAction_BlockType {
-    ...BlockCallToActionFragment
-}
-
-fragment BlockForm on allFpb_form_BlockType {
-    ...BlockFormFragment
-}

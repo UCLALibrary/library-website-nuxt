@@ -42,6 +42,7 @@ author
             </h2>
             <section-staff-list :items="parsedAssociatedStaffMember" />
         </div>
+        </div>
     </section>
 </template>
 
@@ -101,9 +102,7 @@ export default {
             })
         },
 
-        parsedForm() {
-
-        }
+        parsedForm() {},
 
         // parsedLocations() {
         //     let places= this.page.locations.map((place) => {

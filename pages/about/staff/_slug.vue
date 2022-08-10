@@ -22,7 +22,6 @@
             :biography="page.entry.biography"
         />
 
-
         <section
             v-if="
                 parsedItems.length ||
@@ -55,9 +54,9 @@
         </section>
 
         <divider-way-finder
-                class="divider divider-first"
-                color="about"
-            />
+            class="divider divider-first"
+            color="about"
+        />
         <!-- this is different from flexible page blocks ctacontentwidth and will be hardcoded where required -->
         <block-call-to-action
             class="section block-call-to-action"
@@ -112,14 +111,18 @@ export default {
         },
 
         parsedLanguage() {
-            return _get(this.page.entry, "alternativeName[0].languageAltName", "")
+            return _get(
+                this.page.entry,
+                "alternativeName[0].languageAltName",
+                ""
+            )
         },
 
         parsedItems() {
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,
-                    to: `/news/${obj.to}`,
+                    to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }

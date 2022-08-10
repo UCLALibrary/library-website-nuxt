@@ -15,7 +15,7 @@
 
 <script>
 // Mock data
-import * as MOCK_API from "~/stories/mock-api.json"
+import * as MOCK_API from "~/data/mock-api.json"
 
 // Helpers
 import kebabCase from "~/utils/kebabCase"
