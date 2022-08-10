@@ -1,8 +1,18 @@
 fragment BlockAssociatedTopicCardsFragment on ElementInterface {
     id
-    text: summary
-    title
-    slug
-    uri
-    to: externalResourceUrl
+    typeHandle
+    sectionText: summary
+    sectionTitle: titleGeneral
+    associatedTopicsFlexiblePageBlock {
+        ... on associatedTopicsFlexiblePageBlock_associatedTopics_BlockType {
+            id
+            topics {
+                title
+                typeHandle
+                to: uri
+                text: summary
+                uri
+            }
+        }
+    }
 }

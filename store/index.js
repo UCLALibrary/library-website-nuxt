@@ -41,28 +41,7 @@ export const mutations = {
 
 // Define actions
 export const actions = {
-    async nuxtServerInit({ commit }, { $config }) {
-        try {
-            // console.log("client side public config client id "+$config.libcalClientId)
-            const libcaldata = await this.$axios.$post("/oauth/token", {
-                client_id: $config.libcalClientId,
-                client_secret: $config.libcalClientSecret,
-                grant_type: "client_credentials",
-            })
-
-            if (libcaldata.access_token) {
-                this.$axios.setToken(libcaldata.access_token, "Bearer")
-                // console.log(libcaldata.access_token)
-            } else {
-                throw new Error(
-                    "Auth error. Libcal returned: " + JSON.stringify(libcaldata)
-                )
-            }
-        } catch (e) {
-            throw new Error(
-                "Libcal API error, see nuxtServerInit function for source. " + e
-            )
-        }
+    async nuxtServerInit({ commit }) {
         try {
             // console.log("Get Global data from Craft")
             let globalData = await this.$graphql.default.request(GLOBALS)

@@ -1,7 +1,11 @@
 <template lang="html">
     <div :class="classes">
-        <a href="#main" ref="skipLink" class="skip-link">Skip to main content</a>
-        
+        <a
+            ref="skipLink"
+            href="#main"
+            class="skip-link"
+        >Skip to main content</a>
+
         <header-smart />
         <main id="main">
             <nuxt class="page" />
@@ -55,8 +59,8 @@ export default {
     watch: {
         $route() {
             this.$refs.skipLink.focus()
-        }
-    }
+        },
+    },
     // meta: [
     //     {
     //         hid: "description",

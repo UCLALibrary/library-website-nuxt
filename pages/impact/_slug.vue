@@ -53,10 +53,14 @@ import * as MOCK_IMPACT_API from "~/data/impact-report_slug.json"
 // Utilities
 import getS3Bucket from "~/utils/getS3Bucket"
 
+//svg components
+import SvgArrowDiagonal from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-external-link"
+import SvgArrowRight from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-arrow-right"
+
 export default {
     components: {
-        SvgArrowDiagonal: () => import("~/assets/svg/arrow-diagonal"),
-        SvgArrowRight: () => import("~/assets/svg/arrow-right-small"),
+        SvgArrowDiagonal,
+        SvgArrowRight,
     },
     layout: "impact",
     data() {

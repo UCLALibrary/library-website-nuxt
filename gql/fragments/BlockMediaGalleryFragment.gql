@@ -1,5 +1,6 @@
 fragment BlockMediaGalleryFragment on ElementInterface {
     id
+    typeHandle
     titleGeneral
     mediaGallery {
         id

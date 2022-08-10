@@ -40,16 +40,15 @@ import HELP_TOPIC_DETAIL from "~/gql/queries/HelpTopicDetail"
 
 // Helpers
 import _get from "lodash/get"
-import RichText from "../../components/RichText.vue"
-import DividerGeneral from "../../components/DividerGeneral.vue"
 
 export default {
-    components: { RichText, DividerGeneral },
     async asyncData({ $graphql, params, store }) {
         // Do not remove testing live preview
+
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
             slug: params.slug,
         })
+        console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
         }

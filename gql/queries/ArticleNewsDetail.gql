@@ -69,7 +69,8 @@ query ArticleNewsDetail($slug: [String!]) {
           }
         }
       }
-    }
       ...AllFpb
+    }
+      
     }
 }
