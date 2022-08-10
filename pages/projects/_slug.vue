@@ -71,6 +71,7 @@
 
             <rich-text
                 v-if="page.projectContributors"
+                class="contributors-content"
                 :rich-text-content="page.projectContributors"
             />
 
@@ -82,6 +83,7 @@
 
             <rich-text
                 v-if="page.institution"
+                class="institution-content"
                 :rich-text-content="page.institution"
             />
         </div>
@@ -177,7 +179,7 @@ export default {
 
     .divider-general {
         max-width: $container-l-main + px;
-        margin: var(--space-l) auto;
+        margin: var(--space-2xl) auto;
     }
 
     .content {
@@ -224,6 +226,10 @@ export default {
         max-width: $container-l-main + px;
         margin: 0 auto var(--space-m);
         color: var(--color-secondary-grey-05);
+    }
+
+    .contributors-content, .institution-content {
+        margin-bottom: var(--space-xl);
     }
 
     .block-call-to-action {
