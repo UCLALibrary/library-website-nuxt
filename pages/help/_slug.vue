@@ -44,9 +44,11 @@ import _get from "lodash/get"
 export default {
     async asyncData({ $graphql, params, store }) {
         // Do not remove testing live preview
+
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
             slug: params.slug,
         })
+        console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
         }
