@@ -1,35 +1,51 @@
 fragment BlockHighlightFragment on ElementInterface {
     id
     typeHandle
-    # highlight {
-    #     ... on highlight_highlight_BlockType {
-    #         id
-    #         contentLink {
-    #             id
-    #             url
-    #             to: uri
-    #             title
-    #             prompt: buttonText
-    #             text: shortDescription
-    #             date {
-    #                 startDate
-    #                 endDate
-    #             }
-    #             associatedLocations {
-    #                 id
-    #                 title
-    #                 to: uri
-    #             }
-    #             heroImage {
-    #                 ... on heroImage_heroImage_BlockType {
-    #                     id
-    #                     image {
-    #                         ...Image
-    #                     }
-    #                     altText
-    #                 }
-    #             }
-    #         }
-    #     }
-    # }
+    titleGeneral
+    summary
+    highlight {
+        ... on highlight_internalContent_BlockType {
+            id
+            typeHandle
+            contentLink {
+                id
+                category: typeHandle
+                to: uri
+                title
+                text: summary
+                # prompt: buttonText
+                date {
+                    startDate
+                    endDate
+                }
+                associatedLocations {
+                    id
+                    title
+                    to: uri
+                }
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                        altText
+                    }
+                }
+            }
+        }
+        ... on highlight_externalContent_BlockType {
+            id
+            typeHandle
+            title
+            image {
+                ...Image
+            }
+            byline1
+            byline2
+            category
+            location
+            text: summary
+        }
+    }
 }
