@@ -11,7 +11,6 @@
             :category="page.format"
             :title="page.title"
             :text="page.summary"
-            :byline="parsedByline"
             :button-text="parsedButtonText"
             :to="parsedButtonTo"
         />
@@ -22,7 +21,6 @@
             :category="page.format"
             :title="page.title"
             :text="page.summary"
-            :byline="parsedByline"
             :to="parsedButtonTo"
             :prompt="parsedButtonText"
         />
@@ -70,9 +68,23 @@
                 class="contributors-subheading"
                 v-html="page.projectContributorsSubheading"
             />
+
             <rich-text
                 v-if="page.projectContributors"
+                class="contributors-content"
                 :rich-text-content="page.projectContributors"
+            />
+
+            <div
+                v-if="page.institutionSubheading"
+                class="institution-subheading"
+                v-html="page.institutionSubheading"
+            />
+
+            <rich-text
+                v-if="page.institution"
+                class="institution-content"
+                :rich-text-content="page.institution"
             />
         </div>
 
@@ -135,9 +147,6 @@ export default {
         parsedButtonTo() {
             return _get(this.page, "meapProjectCallToAction[0].externalUrl", "")
         },
-        parsedByline() {
-            return [this.page.institution]
-        },
     },
 }
 </script>
@@ -147,41 +156,50 @@ export default {
     .nav-breadcrumb {
         max-width: $container-xl-full-width + px;
     }
+
     .banner-text {
         --color-theme: var(--color-help-green-03);
     }
+
     .banner-header {
         margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
         margin: var(--unit-gutter) auto;
     }
+
     .banner-text + .divider-way-finder {
         margin: 0 auto var(--space-2xl);
     }
+
     .divider-way-finder {
         max-width: $container-l-main + px;
         margin: var(--space-3xl) auto;
     }
+
     .divider-general {
         max-width: $container-l-main + px;
-        margin: var(--space-l) auto;
+        margin: var(--space-2xl) auto;
     }
+
     .content {
         margin: 0 auto;
     }
+    
     .about-the-project {
         @include step-3;
         color: var(--color-primary-blue-03);
         max-width: $container-l-main + px;
         margin: 0 auto var(--space-xl);
     }
+
     .title-general {
         @include step-1;
         color: var(--color-secondary-grey-05);
         max-width: $container-l-main + px;
         margin: 0 auto 12px;
     }
+
     .project-type {
         @include step-0;
         font-weight: $font-weight-medium;
@@ -191,8 +209,10 @@ export default {
         max-width: $container-l-main + px;
         margin: 0 auto var(--space-m);
     }
+
     .project-description {
     }
+
     .citation {
         margin-top: var(--space-m);
         :deep p {
@@ -200,12 +220,18 @@ export default {
             color: var(--color-secondary-grey-04);
         }
     }
-    .contributors-subheading {
+
+    .contributors-subheading, .institution-subheading {
         @include step-1;
         max-width: $container-l-main + px;
         margin: 0 auto var(--space-m);
         color: var(--color-secondary-grey-05);
     }
+
+    .contributors-content, .institution-content {
+        margin-bottom: var(--space-xl);
+    }
+
     .block-call-to-action {
         margin: var(--space-3xl) auto;
     }
