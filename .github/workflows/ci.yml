@@ -48,6 +48,7 @@ jobs:
     - run: npm run generate
       env:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
         S3_BUCKET: "https://static.library.ucla.edu/"
     - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
       with:
@@ -56,6 +57,7 @@ jobs:
         wait-on: http://localhost:3000
       env:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
         S3_BUCKET: "https://static.library.ucla.edu/"
     - name: Deploy to Netlify (merged)
       if: github.ref_name=='main'
