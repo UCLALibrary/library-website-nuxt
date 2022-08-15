@@ -1,6 +1,7 @@
 <template lang="html">
     <div class="page page-home">
         <masthead-primary />
+        <h4>Elastic search schema {{ page.mapping }}</h4>
         <divider-way-finder
             class="divider divider-first"
             color="help"
@@ -84,9 +85,9 @@ import * as MOCK_API from "~/data/mock-api.json"
 
 export default {
     components: {},
-    async asyncData() {
+    async asyncData({ $dataApi }) {
         //const data = await this.$graphql(QUERY);
-
+        const mapping = await $dataApi.getMapping()
         const mockCard = {
             to: "/help/foo/bar/",
             title: "Example Service",
@@ -148,6 +149,7 @@ export default {
             sectionDualMasonry: sectionDualMasonry,
             posts: posts,
             banner,
+            mapping,
         }
 
         return {
