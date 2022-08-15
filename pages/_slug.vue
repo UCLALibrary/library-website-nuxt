@@ -10,8 +10,6 @@
             :category="page.format"
             :title="page.title"
             :text="page.summary"
-            :button-text="parsedButtonText"
-            :to="parsedButtonTo"
         />
 
         <banner-header
@@ -20,8 +18,6 @@
             :category="page.format"
             :title="page.title"
             :text="page.summary"
-            :to="parsedButtonTo"
-            :prompt="parsedButtonText"
         />
 
         <divider-way-finder
