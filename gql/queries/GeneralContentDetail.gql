@@ -1,0 +1,23 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/collections/MEAPAllFpb"
+
+query GeneralContentDetail($slug: [String!]) {
+    entry(section: "meapGeneralContentPage", slug: $slug) {
+        ... on meapGeneralContentPage_meapGeneralContentPage_Entry {
+            id
+            title
+            slug
+            uri
+            summary
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
+        }
+        ...MEAPAllFpb
+    }
+}
