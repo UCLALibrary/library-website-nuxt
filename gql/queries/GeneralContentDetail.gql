@@ -8,7 +8,7 @@ query GeneralContentDetail($slug: [String!]) {
             title
             slug
             uri
-            text: summary
+            summary
             heroImage {
                 ... on heroImage_heroImage_BlockType {
                     id

@@ -19,7 +19,7 @@
         />
 
         <divider-way-finder color="about" />
-        <div
+        <!-- <div
             v-for="(block, index) in page.helpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
             class="help-topic-section"
@@ -34,7 +34,7 @@
                 color="about"
                 class="help-topic-divider"
             />
-        </div>
+        </div> -->
         <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
@@ -49,7 +49,7 @@
 
 <script>
 // GQL
-import HELP_TOPIC_DETAIL from "~/gql/queries/HelpTopicDetail"
+import GENERAL_CONTENT_DETAIL from "~/gql/queries/GeneralContentDetail"
 
 // Helpers
 import _get from "lodash/get"
@@ -57,7 +57,7 @@ import _get from "lodash/get"
 export default {
     async asyncData({ $graphql, params, store }) {
         // Do not remove testing live preview
-        const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
+        const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
             slug: params.slug,
         })
         return {
