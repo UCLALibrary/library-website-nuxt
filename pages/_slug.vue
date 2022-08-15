@@ -1,48 +1,41 @@
 <template lang="html">
-    <main class="page page-help-topic">
+    <main class="page page-general-content">
         <nav-breadcrumb
             :title="page.title"
             class="breadcrumb"
         />
-        <masthead-secondary
+        <banner-text
+            v-if="!page.heroImage || page.heroImage.length == 0"
+            class="banner-text"
+            :category="page.format"
             :title="page.title"
             :text="page.summary"
-        />
-        <divider-way-finder
-            v-if="page.richText"
-            color="about"
-        />
-        <rich-text
-            v-if="page.richText"
-            class="content"
-            :rich-text-content="page.richText"
+            :button-text="parsedButtonText"
+            :to="parsedButtonTo"
         />
 
-        <divider-way-finder color="about" />
-        <!-- <div
-            v-for="(block, index) in page.helpTopicBlocks"
-            :key="`HelpTopicBlocksKey${index}`"
-            class="help-topic-section"
-        >
-            <simple-cards
-                class="help-topic-block"
-                :section-title="block.sectionTitle"
-                :section-summary="block.sectionSummary"
-                :items="block.associatedEntries"
-            />
-            <divider-way-finder
-                color="about"
-                class="help-topic-divider"
-            />
-        </div> -->
+        <banner-header
+            v-if="page.heroImage && page.heroImage.length == 1"
+            :image="page.heroImage[0].image[0]"
+            :category="page.format"
+            :title="page.title"
+            :text="page.summary"
+            :to="parsedButtonTo"
+            :prompt="parsedButtonText"
+        />
+
+        <divider-way-finder
+            v-if="page.blocks"
+            class="divider-way-finder"
+        />
+
         <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
         />
         <divider-way-finder
             v-if="page.blocks.length"
-            class="help-topic-divider"
-            color="about"
+            class="divider-way-finder"
         />
     </main>
 </template>
@@ -74,26 +67,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-help-topic {
-    .content,
+.page-general-content {
+    .banner-text {
+        --color-theme: var(--color-help-green-03);
+    }
+
+    .banner-header {
+        margin-bottom: var(--space-xl);
+        padding: 0;
+        max-width: $container-xl-full-width + px;
+        margin: var(--unit-gutter) auto;
+    }
+
+    .banner-text + .divider-way-finder {
+        margin: 0 auto var(--space-2xl);
+    }
+
     .flexible-content {
         margin: 0 auto;
         max-width: $container-l-main + px;
     }
 
-    .help-topic-section {
-        margin: var(--space-2xl) auto;
-    }
     .breadcrumb {
         margin-top: var(--space-l);
         margin-bottom: var(--space-l);
     }
 
     @media #{$medium} {
-        .content {
-            padding: 0 var(--unit-gutter);
-        }
-        .help-topic-block {
+        .flexible-content {
             padding: 0 var(--unit-gutter);
         }
     }
