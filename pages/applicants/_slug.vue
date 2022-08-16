@@ -75,8 +75,7 @@ export default {
 
 <style lang="scss" scoped>
 .page-help-topic {
-    .content,
-    .flexible-content {
+    .content {
         margin: 0 auto;
         max-width: $container-l-main + px;
     }
