@@ -22,13 +22,16 @@ export default {
     /*
    ** Global CSS
    */
-    css: ['~/assets/styles/variables-css.scss', '~/assets/styles/global.scss'],
+    css: [
+        'ucla-library-design-tokens/scss/fonts.scss',
+        'ucla-library-design-tokens/scss/app-global.scss', 
+        '~/assets/styles/global.scss'],
 
     /*
    ** Load SCSS into each component
    */
     styleResources: {
-        scss: ['~/assets/styles/variables-scss.scss'],
+        scss: ['ucla-library-design-tokens/scss/app.scss'],
     },
 
     /*
