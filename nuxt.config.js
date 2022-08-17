@@ -96,68 +96,7 @@ export default {
         trailingSlash: false,
     },*/
 
-    /*
-     ** Storybook
-     ** SEE https://storybook.nuxtjs.org/options
-     */
-    storybook: {
-        stories: ["~/stories/**/*.stories.js"],
-        parameters: {
-            layout: "fullscreen",
-            viewport: { 
-                viewports:{
-                    extraLarge: {
-                        name: 'Extra Large',
-                        styles:{ width: '1920px', height: '1080px', },
-                    },
-                    Large: {
-                        name: 'Large',
-                        styles:{ width: '1440px', height: '1024px', },
-                    },
-                    Medium: {
-                        name: 'Medium',
-                        styles:{ width: '768px', height: '1024px', },
-                    },
-                    Small: {
-                        name: 'Small',
-                        styles:{ width: '375px', height: '812px', },
-                    },
-                },
-            },
-            backgrounds: {
-                default: "default",
-                values: [
-                    {
-                        name: "White",
-                        value: "#ffffff",
-                    },
-                    {
-                        name: "Grey",
-                        value: "#F2F2F2",
-                    },
-                    {
-                        name: "Dark blue",
-                        value: "#032D5B",
-                    },
-                    {
-                        name: "Blue",
-                        value: "#0B6AB7",
-                    },
-                    {
-                        name: "Light blue",
-                        value: "#EAF2FB",
-                    },
-                ],
-            },
-        },
-        // eslint-disable-next-line no-unused-vars
-        webpackFinal(config, { configDir }) {
-            // Allow webpack to auto-load .gql and .svg files
-            config.resolve.extensions.push(".svg", ".gql")
-
-            return config
-        },
-    },
+    
 
     /*
      * Nuxt modules
@@ -165,16 +104,22 @@ export default {
     modules: [
         "@nuxtjs/axios",
         "@nuxtjs/gtm",
+        "@nuxtjs/sitemap", // This needs to be last always
     ],
 
     gtm: {
         id: 'GTM-T2SXV2'
     },
 
+    sitemap: {
+        hostname: process.env.SITEMAP_HOST || "https://meap.library.ucla.edu",
+        routes:[],
+    },
+
     /*
      * Nuxt build modules
      */
-    buildModules: ["@nuxtjs/style-resources", "nuxt-graphql-request"],
+    buildModules: ["@nuxtjs/style-resources", "nuxt-graphql-request","@/modules/sitemapRouteGenerator",],
 
     /*
      ** Nuxt webpack build configuration
