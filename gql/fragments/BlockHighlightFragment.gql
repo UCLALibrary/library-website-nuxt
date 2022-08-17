@@ -9,19 +9,45 @@ fragment BlockHighlightFragment on ElementInterface {
             typeHandle
             contentLink {
                 id
-                category: typeHandle
+                # category: typeHandle
+                contentType: sectionHandle
                 to: uri
                 title
                 text: summary
                 # prompt: buttonText
-                date {
-                    startDate
-                    endDate
+                # date {
+                #     startDate
+                #     endDate
+                # }
+                projectCategory: format
+                # eventCategory: eventType
+                articleCategory: articleCategories {
+                    title
                 }
+                projectByline1: meapProjectTopic {
+                    ... on meapProjectTopics_Category {
+                        id
+                        title
+                    }
+                }
+                articleByline1: staffMember {
+                    id
+                    to: uri
+                    title
+                }
+                articleByline2: postDate
+                # eventByline1: dateStartTime
+                # eventByline2: dateEndTime
                 associatedLocations {
                     id
                     title
                     to: uri
+                }
+                projectLocations: region {
+                    ... on meapProjectRegion_Category {
+                        id
+                        title
+                    }
                 }
                 heroImage {
                     ... on heroImage_heroImage_BlockType {
