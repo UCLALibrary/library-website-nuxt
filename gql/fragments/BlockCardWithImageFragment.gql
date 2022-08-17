@@ -1,31 +1,81 @@
 fragment BlockCardWithImageFragment on ElementInterface {
-    sectionSummary: summary
-    sectionTitle: titleGeneral
+    id
     typeHandle
-    # cardWithImage {
-    #     id
-    #     ... on cardWithImage_cardWithImage_BlockType {
-    #         id
-    #         image {
-    #             ...Image
-    #         }
-    #         imageAltText
-    #         contentLink {
-    #             id
-    #             to: url
-    #             uri
-    #             title
-    #             date {
-    #                 startDate
-    #                 endDate
-    #             }
-    #             associatedLocations {
-    #                 id
-    #                 title
-    #                 to: uri
-    #             }
-    #         }
-    #         shortDescription
-    #     }
-    # }
+    titleGeneral
+    summary
+    cardWithImage {
+        id
+        ... on cardWithImage_internalContent_BlockType {
+            id
+            typeHandle
+            contentLink {
+                id
+                # category: typeHandle
+                contentType: sectionHandle
+                to: uri
+                title
+                text: summary
+                # prompt: buttonText
+                # date {
+                #     startDate
+                #     endDate
+                # }
+                projectCategory: format
+                # eventCategory: eventType
+                articleCategory: articleCategories {
+                    title
+                }
+                projectByline1: meapProjectTopic {
+                    ... on meapProjectTopics_Category {
+                        id
+                        title
+                    }
+                }
+                articleByline1: staffMember {
+                    id
+                    to: uri
+                    title
+                }
+                articleByline2: postDate
+                # eventByline1: dateStartTime
+                # eventByline2: dateEndTime
+                associatedLocations {
+                    id
+                    title
+                    to: uri
+                }
+                projectLocations: region {
+                    ... on meapProjectRegion_Category {
+                        id
+                        title
+                    }
+                }
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                        altText
+                    }
+                }
+            }
+        }
+        ... on cardWithImage_externalContent_BlockType {
+            id
+            typeHandle
+            title
+            image {
+                ...Image
+            }
+            byline1
+            byline2
+            category
+            # location {
+            #     id
+            #     title
+            # }
+            text: summary
+        }
+    }
 }
