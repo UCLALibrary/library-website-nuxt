@@ -13,18 +13,21 @@ fragment BlockMediaGalleryFragment on ElementInterface {
           captionText: caption
           altText
           sortOrder
-          image: imageFile(altText: "") {
-                id
-                img
-                title
-                ... on mediaAndDocuments_Asset {
-                    id
-                    title
-                    kind
-                    width
-                    src: url
-                    height
-                }
+        #   image: imageFile(altText: "") {
+        #         id
+        #         img
+        #         title
+        #         ... on mediaAndDocuments_Asset {
+        #             id
+        #             title
+        #             kind
+        #             width
+        #             src: url
+        #             height
+        #         }
+        #     }
+            image: imageFile {
+                ...Image
             }
         }
     }
