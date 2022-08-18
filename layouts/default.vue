@@ -7,14 +7,12 @@
         >Skip to main content</a>
         
         <header-smart title="Modern Endangered Archives Program" />
+
         <main id="main">
             <nuxt class="page" />
         </main>
-        <footer-sponsor />
-        <footer-primary
-            :form="true"
-        />
-        <footer-sock />
+
+        <footer-main />
     </div>
 </template>
 
@@ -23,7 +21,6 @@
 import kebabCase from "~/utils/kebabCase"
 
 export default {
-    components: {},
     data() {
         return {
             pageMeta: {

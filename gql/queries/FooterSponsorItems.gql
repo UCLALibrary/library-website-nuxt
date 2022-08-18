@@ -1,0 +1,22 @@
+#import "~/gql/fragments/Image"
+
+query FooterSponsorItems {
+  footerSponsor: globalSets {
+    ... on meapFunders_GlobalSet {
+      id
+      funders {
+        ... on funders_funder_BlockType {
+          id
+          funderName
+          funderLogo {
+            id
+            ... on mediaAndDocuments_Asset {
+              ...Image
+            }
+          }
+          funderUrl
+        }
+      }
+    }
+  }
+}
