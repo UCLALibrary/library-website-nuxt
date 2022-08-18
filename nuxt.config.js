@@ -100,16 +100,21 @@ export default {
     /*
    * Nuxt modules
    */
-    modules: ['@nuxtjs/axios', '@nuxtjs/gtm'],
+    modules: ['@nuxtjs/axios', '@nuxtjs/gtm',"@nuxtjs/sitemap",], // This needs to be last always,
 
     gtm: {
         id: 'GTM-T2SXV2',
     },
 
+    sitemap: {
+        hostname: process.env.SITEMAP_HOST || "https://uclalibrary.library.ucla.edu",
+        routes:[],
+    },
+
     /*
    * Nuxt build modules
    */
-    buildModules: ['@nuxtjs/style-resources', 'nuxt-graphql-request'],
+    buildModules: ['@nuxtjs/style-resources', 'nuxt-graphql-request',"@/modules/sitemapRouteGenerator",],
 
     /*
    ** Nuxt webpack build configuration
