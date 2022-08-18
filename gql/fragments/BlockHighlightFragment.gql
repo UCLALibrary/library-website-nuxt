@@ -1,35 +1,81 @@
 fragment BlockHighlightFragment on ElementInterface {
     id
     typeHandle
-    # highlight {
-    #     ... on highlight_highlight_BlockType {
-    #         id
-    #         contentLink {
-    #             id
-    #             url
-    #             to: uri
-    #             title
-    #             prompt: buttonText
-    #             text: shortDescription
-    #             date {
-    #                 startDate
-    #                 endDate
-    #             }
-    #             associatedLocations {
-    #                 id
-    #                 title
-    #                 to: uri
-    #             }
-    #             heroImage {
-    #                 ... on heroImage_heroImage_BlockType {
-    #                     id
-    #                     image {
-    #                         ...Image
-    #                     }
-    #                     altText
-    #                 }
-    #             }
-    #         }
-    #     }
-    # }
+    titleGeneral
+    summary
+    highlight {
+        ... on highlight_internalContent_BlockType {
+            id
+            typeHandle
+            contentLink {
+                id
+                # category: typeHandle
+                contentType: sectionHandle
+                to: uri
+                title
+                text: summary
+                # prompt: buttonText
+                # date {
+                #     startDate
+                #     endDate
+                # }
+                projectCategory: format
+                # eventCategory: eventType
+                articleCategory: articleCategories {
+                    title
+                }
+                projectByline1: meapProjectTopic {
+                    ... on meapProjectTopics_Category {
+                        id
+                        title
+                    }
+                }
+                articleByline1: staffMember {
+                    id
+                    to: uri
+                    title
+                }
+                articleByline2: postDate
+                # eventByline1: dateStartTime
+                # eventByline2: dateEndTime
+                associatedLocations {
+                    id
+                    title
+                    to: uri
+                }
+                projectLocations: region {
+                    ... on meapProjectRegion_Category {
+                        id
+                        title
+                    }
+                }
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                        altText
+                    }
+                }
+            }
+        }
+        ... on highlight_externalContent_BlockType {
+            id
+            typeHandle
+            title
+            image {
+                ...Image
+            }
+            byline1
+            byline2
+            category
+            # location {
+            #     id
+            #     title
+            #     to: uri
+            # }
+            text: summary
+        }
+    }
 }
