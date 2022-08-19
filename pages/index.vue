@@ -1,195 +1,216 @@
 <template lang="html">
-    <div class="page page-home">
-        <masthead-primary />
-        <divider-way-finder
-            class="divider divider-first"
-            color="help"
+    <main class="page">
+        <masthead-secondary
+            title="Modern Endangered Archives Program"
+            text="Our grants enable digitization and access to at-risk cultural heritage collections from around the world. Explore our projects and learn more about available grant opportunities."
+            :hero-image="parsedMastheadHeroImage"
         />
 
-        <section-cards-with-illustrations
-            class="section"
-            :items="parsedSectionCards"
-            title="Get Help With"
-            text="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
-            to="/help/foo/bar"
-            :is-horizontal="false"
-        />
-
-        <divider-way-finder
-            class="divider"
-            color="visit"
-        />
-
-        <banner-featured
-            class="section banner banner-visit"
-            :image="bannerVisit.image"
-            :to="bannerVisit.to"
-            :title="bannerVisit.title"
-            :category="bannerVisit.category"
-            :breadcrumb="bannerVisit.breadcrumb"
-            :start-date="bannerVisit.startDate"
-            :end-date="bannerVisit.endDate"
-            :prompt="bannerVisit.prompt"
-            :ratio="bannerVisit.ratio"
-            :align-right="false"
+        <div
+            v-if="featuredProjects"
         >
-            <heading-arrow
-                :text="bannerVisit.breadcrumb"
-                :to="bannerVisit.to"
-            />
-        </banner-featured>
+            <!-- TODO Add the divider back in when we add the searchbar -->
+            <!-- <divider-way-finder
+                color="about"
+                class="divider-way-finder"
+            /> -->
+            <div class="section">
+                <h2
+                    v-if="featuredProjects"
+                    class="visually-hidden"
+                >
+                    Featured Projects
+                </h2>
 
-        <section-dual-masonry
+                <banner-featured
+                    class="banner banner-visit"
+                    :image="featuredProjects[0].heroImage[0].image[0]"
+                    :to="featuredProjects[0].to"
+                    :title="featuredProjects[0].title"
+                    :category="featuredProjects[0].category"
+                    breadcrumb="Featured Projects"
+                    :start-date="featuredProjects[0].startDate"
+                    :end-date="featuredProjects[0].endDate"
+                    :prompt="featuredProjects[0].prompt"
+                    :ratio="featuredProjects[0].ratio"
+                    :align-right="true"
+                    prompt="View project"
+                />
+            </div>
+
+            <div class="section">
+                <div
+                    class="
+                block-highlight-list"
+                >
+                    <section-teaser-highlight
+                        :items="featuredProjects"
+                    />
+                </div>
+                <nuxt-link
+                    v-if="featuredProjects.length"
+                    class="button-more"
+                    to="/funded-projects"
+                >
+                    <button-more text="Explore Projects" />
+                </nuxt-link>
+            </div>
+        </div>
+
+        <!-- Program Resources -->
+        <div
+            v-if="featuredMeapResources"
             class="section"
-            :items="page.sectionDualMasonry"
-            to="/visit/foo"
-        />
-
-        <divider-way-finder
-            class="divider"
-            color="about"
-        />
-
-        <banner-featured
-            class="banner banner-about"
-            :image="bannerAbout.image"
-            :to="bannerAbout.to"
-            :title="bannerAbout.title"
-            :category="bannerAbout.category"
-            :breadcrumb="bannerAbout.breadcrumb"
-            :start-date="bannerVisit.startDate"
-            :end-date="bannerVisit.endDate"
-            :prompt="bannerAbout.prompt"
-            :ratio="bannerAbout.ratio"
-            :locations="bannerAbout.locations"
         >
-            <heading-arrow
-                :text="bannerAbout.breadcrumb"
-                :to="bannerAbout.to"
+            <divider-way-finder
+                color="about"
+                class="divider-way-finder"
             />
-        </banner-featured>
+            <h2
+                v-if="featuredMeapResources"
+                class="section-heading"
+            >
+                Program Resources
+            </h2>
+            <ul class="simple-cards-list">
+                <simple-cards
+                    :items="featuredMeapResources"
+                />
+            </ul>
+            <nuxt-link
+                v-if="featuredMeapResources.length"
+                class="button-more"
+                to="/applicants/resources"
+            >
+                <button-more text="See all resources" />
+            </nuxt-link>
+        </div>
 
-        <divider-general class="divider" />
-
-        <!--section-post-small
+        <!-- Announcements -->
+        <div
+            v-if="meapNews"
             class="section"
-            :items="page.posts"
-            to="/news/"
-        /-->
-    </div>
+        >
+            <divider-way-finder
+                color="about"
+                class="divider-way-finder"
+            />
+
+            <h2 class="section-heading">
+                News
+            </h2>
+            <section-teaser-card
+                :items="meapNews"
+                :image="meapNews[0].heroImage[0].image[0]"
+                class="meap-news"
+            />
+
+            <nuxt-link
+                v-if="featuredMeapResources.length"
+                class="button-more"
+                to="/about/news"
+            >
+                <button-more text="See all news" />
+            </nuxt-link>
+        </div>
+    </main>
 </template>
 
 <script>
-import * as MOCK_API from "~/data/mock-api.json"
+// GQL
+import MEAP_HOMEPAGE from "~/gql/queries/HomePage"
+
+// Helpers
+import _get from "lodash/get"
 
 export default {
-    components: {},
-    async asyncData() {
-        //const data = await this.$graphql(QUERY);
-
-        const mockCard = {
-            to: "/help/foo/bar/",
-            title: "Example Service",
-            text: "Here is a decent amount of text to explain this get help with.",
-        }
-        const sectionCardsData = {
-            items: [
-                { ...mockCard },
-                { ...mockCard, to: "/about/foo/bar" },
-                { ...mockCard, to: "/help/foo/baz" },
-                { ...mockCard, to: "/visit/foo/bar" },
-                { ...mockCard, to: "/help/foo/fred/" },
-            ],
-            title: "Get Help with",
-            text: "Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more.",
-            to: "/help/foo/bar",
-        }
-
-        const sectionDualMasonry = MOCK_API.bricks
-
-        const posts = [
-            {
-                ...MOCK_API.article,
-                image: MOCK_API.image,
-            },
-            {
-                ...MOCK_API.article,
-                image: MOCK_API.image,
-                to: "/about/foo/bar",
-            },
-            {
-                ...MOCK_API.article,
-                image: MOCK_API.image,
-                to: "/help/foo/bar",
-            },
-        ]
-
-        const banner = {
-            image: MOCK_API.image,
-            to: "/help/foo/bar/",
-            title: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
-            category: "Quisque",
-            breadcrumb: "Lorem ipsum dolor sit amet",
-            startDate: "1995-12-17T03:24:00",
-            endDate: "1995-12-17T03:24:00",
-            locations: [
-                {
-                    id: "523",
-                    title: "Online",
-                    to: "visit/locations/Online",
-                },
-            ],
-            prompt: "Read More",
-            alignRight: true,
-        }
-
-        const data = {
-            sectionCardsData: sectionCardsData,
-            sectionDualMasonry: sectionDualMasonry,
-            posts: posts,
-            banner,
-        }
-
+    async asyncData({ $graphql, params}) {
+        // Do not remove testing live preview
+        
+        const data = await $graphql.default.request(MEAP_HOMEPAGE, {
+            slug: params.slug
+        })
         return {
-            page: data,
+            page: _get(data, "entries", {}),
+        }
+    },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        return {
+            title: title,
         }
     },
     computed: {
-        parsedSectionCards() {
-            return this.page.sectionCardsData.items.map((obj, i) => {
-                switch (i) {
-                    case 0:
-                        obj.iconName = "illustration-digitized-resources"
-                        break
-                    case 1:
-                        obj.iconName = "illustration-find-space"
-                        break
-                }
+        homePage() {
+            return this.page.map((obj) => {
                 return {
                     ...obj,
+                    to: `/homepage/${obj.to}`,
+                }
+            })[0]
+        },
+        parsedMastheadHeroImage() {
+            return this.homePage.heroImage[0].image[0]
+        },
+        featuredMeapResources() {
+            return this.homePage.featuredMeapResources
+        },
+        featuredProjects() {
+            return  this.homePage.featuredProjects.map((obj) => {
+                return {
+                    ...obj,
+                    image: obj.heroImage[0].image[0]
                 }
             })
         },
-        bannerVisit() {
-            return {
-                ...this.page.banner,
-                ratio: 56.25,
-            }
-        },
-        bannerAbout() {
-            return {
-                ...this.page.banner,
-                ratio: 40,
-                alignRight: false,
-            }
+        meapNews() {
+            return this.homePage.meapNews.map((obj) => {
+                return {
+                    ...obj,
+                    image: obj.heroImage[0].image[0]
+                }
+            })
         },
     },
 }
 </script>
+
 <style lang="scss" scoped>
-.page-home {
-    .banner {
-        margin: var(--unit-vertical-gap) auto;
+    ::v-deep .masthead-secondary .meta {
+        background-color: var(--color-primary-blue-03);
+        padding: 0 18px 20px 24px;
+    }
+
+    .visually-hidden {
+        @include visually-hidden;
+    }
+    .section-heading {
+        @include step-3;
+        color: var(--color-primary-blue-03);
+        margin: var(--space-l) auto;
+        margin-bottom: var(--space-xl);
+        max-width: 928px;
+    }
+    
+    .button-more {
+        margin: var(--space-2xl) auto;
+        white-space: nowrap;
+    }
+    
+    .meap-news, .block-highlight-list {
+        margin: var(--space-2xl) auto;
+    }
+
+    @media #{$medium} {
+    .content {
+        padding: 0 var(--unit-gutter);
+    }
+    .meap-news {
+        padding: 0 var(--unit-gutter);
+    }
+
+    .featured {
+        padding: 0 var(--unit-gutter);
     }
 }
 </style>

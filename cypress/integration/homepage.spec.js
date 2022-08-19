@@ -11,10 +11,12 @@ describe("Website Homepage", () => {
             .should("have.attr", "href", "https://www.ucla.edu")
 
         // NavSecondary
-        cy.get(".nav-secondary")
-            .should("contain", "Locations & Hours")
-            .and("contain", "Ask a Librarian")
-            .and("contain", "My Account")
+        // cy.get(".nav-secondary")
+        //     .should("contain", "Modern Endangered Archives Program")
+        //     .and("contain", "Who we are")
+        //     .and("contain", "For applicants")
+        //     .and("contain", "Funded projects")
+        //     .and("contain", "Browse collections")
 
         // NavPrimary
         cy.get(".nav-primary").then(elem => {
@@ -28,44 +30,58 @@ describe("Website Homepage", () => {
                     .and("contain", "Visit")
                     .and("contain", "About")
                     .and("contain", "Support us")
-
             }
         })
 
-        // MastheadPrimary
-        cy.get(".masthead-primary").find(".logo").should("be.visible")
-        cy.get(".masthead-primary")
-            .find(".search-home")
-            .should("be.visible")
-            .and("contain", "Search the Library Site")
-            .and("contain", "Search Materials")
-        cy.get(".masthead-primary")
-            .find("input.input-search")
-            .should("have.attr", "placeholder", "Search by keyword")
-        cy.get(".masthead-primary")
-            .contains("a", "Course Reserves")
-            .should(
-                "have.attr",
-                "href",
-                "https://catalog.library.ucla.edu/vwebv/enterCourseReserve.do"
-            )
-        cy.get(".masthead-primary")
-            .contains("a", "UCLA Research Guides")
-            .should("have.attr", "href", "https://guides.library.ucla.edu/")
-        cy.get(".masthead-primary")
-            .contains("a", "Databases A-Z")
-            .should(
-                "have.attr",
-                "href",
-                "https://guides.library.ucla.edu/az.php"
-            )
-
-        // get help with
-        cy.get(".section-cards-with-illustrations").should(
+        cy.get("h2.visually-hidden").should(
             "contain",
-            "Get Help With"
+            "Featured Projects"
         )
 
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.get("h2.section-heading").should(
+            "contain",
+            "Program Resources"
+        )
+
+        cy.get("h2.section-heading").should(
+            "contain",
+            "News"
+        )
+
+        // MastheadPrimary
+        // cy.get(".masthead-primary").find(".logo").should("be.visible")
+        // cy.get(".masthead-primary")
+        //     .find(".search-home")
+        //     .should("be.visible")
+        //     .and("contain", "Search the Library Site")
+        //     .and("contain", "Search Materials")
+        // cy.get(".masthead-primary")
+        //     .find("input.input-search")
+        //     .should("have.attr", "placeholder", "Search by keyword")
+        // cy.get(".masthead-primary")
+        //     .contains("a", "Course Reserves")
+        //     .should(
+        //         "have.attr",
+        //         "href",
+        //         "https://catalog.library.ucla.edu/vwebv/enterCourseReserve.do"
+        //    )
+        // cy.get(".masthead-primary")
+        //     .contains("a", "UCLA Research Guides")
+        //     .should("have.attr", "href", "https://guides.library.ucla.edu/")
+        // cy.get(".masthead-primary")
+        //     .contains("a", "Databases A-Z")
+        //     .should(
+        //         "have.attr",
+        //         "href",
+        //         "https://guides.library.ucla.edu/az.php"
+        //     )
+
+        // get help with
+        // cy.get(".section-cards-with-illustrations").should(
+        //     "contain",
+        //     "Get Help With"
+        // )
+
+        // cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 })
