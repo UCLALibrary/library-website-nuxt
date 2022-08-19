@@ -49,7 +49,7 @@ export default {
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,
-                    to: `/resources/${obj.to}`,
+                    to: `/applicants/resources/${obj.to}`,
                 }
             })
         },

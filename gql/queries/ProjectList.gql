@@ -1,10 +1,36 @@
+#import "~/gql/fragments/Image"
+
 query ProjectList {
     entries(section: "meapProject") {
         ... on meapProject_meapProject_Entry {
             id
-            to: slug
+            to: uri
             title
-            summary
+            text: summary
+            category: format
+            image: heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
+        }
+    }
+
+    entry(section: "meapListingProjects") {
+        ... on meapListingProjects_meapListingProjects_Entry {
+            meapID: id
+            projectListTitle: titleGeneral
+            projectListSummary: summary
+            featuredMeapResources {
+                id
+                title
+                text: summary
+                uri
+                externalResourceUrl
+            }
         }
     }
 }
