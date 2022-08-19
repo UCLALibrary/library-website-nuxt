@@ -1,11 +1,31 @@
+#import "~/gql/fragments/Image"
+
 query ResourceList {
-    entries(section: "meapResource") {
-        ... on meapResource_meapResource_Entry {
-            id
-            to: slug
-            title
-            summary
-            illustrationsResourcesAndServices
+  entries(section: "meapResource", orderBy: "title asc") {
+    ... on meapResource_meapResource_Entry {
+      id
+      to: slug
+      title
+      text: summary
+      iconName: illustrationsResourcesAndServices
+      image: heroImage {
+        ... on heroImage_heroImage_BlockType {
+          id
+          image {
+            ...Image
+          }
         }
+      }
     }
+    level
+  }
+  entry(section: "meapListingResources") {
+    ... on meapListingResources_meapListingResources_Entry {
+      id
+      title: titleGeneral
+      text: summary
+    }
+  }
 }
+
+
