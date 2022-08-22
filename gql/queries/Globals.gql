@@ -9,5 +9,15 @@ query Globals {
                 buttonUrl
             }
         }
+        ... on meapCallToAction_GlobalSet {
+            id
+            name
+            titleGeneral
+            summary
+            button: buttonUrl {
+                buttonText
+                buttonUrl
+            }
+        }
     }
 }

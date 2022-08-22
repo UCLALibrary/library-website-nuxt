@@ -41,13 +41,12 @@ export const mutations = {
     },
     SET_FOOTER_SOCK(state, data) {
         state.footerSock = data
-    }
+    },
 }
 
 // Define actions
 export const actions = {
     async nuxtServerInit({ commit }) {
-            
         try {
             // console.log("Get Global data from Craft")
             console.log("HELLO")
@@ -59,31 +58,40 @@ export const actions = {
             // Shape data from Craft
             globalData = {
                 askALibrarian: globalData[0],
+                meapCallToAction: globalData[1],
             }
             commit("SET_GLOBALS", globalData)
 
             // MAIN MENU Data -------------- --------------
-            let headerData = await this.$graphql.default.request(HEADER_MAIN_MENU_ITEMS)
+            let headerData = await this.$graphql.default.request(
+                HEADER_MAIN_MENU_ITEMS
+            )
             commit("SET_HEADER", headerData)
 
-
             // FOOTER SPONSOR Data -------------- --------------
-            let footerSponsorData = await this.$graphql.default.request(FOOTER_SPONSOR_ITEMS)
+            let footerSponsorData = await this.$graphql.default.request(
+                FOOTER_SPONSOR_ITEMS
+            )
 
             // Shape data from Craft
-            footerSponsorData = removeEmpties(footerSponsorData.footerSponsor || [])
+            footerSponsorData = removeEmpties(
+                footerSponsorData.footerSponsor || []
+            )
 
             commit("SET_FOOTER_SPONSOR", footerSponsorData[0])
             console.log(JSON.stringify(footerSponsorData))
             console.log("GOODBYE")
 
-
             // FOOTER PRIMARY Data -------------- --------------
-            let footerPrimaryData = await this.$graphql.default.request(FOOTER_PRIMARY_ITEMS)
+            let footerPrimaryData = await this.$graphql.default.request(
+                FOOTER_PRIMARY_ITEMS
+            )
             commit("SET_FOOTER_PRIMARY", footerPrimaryData)
 
             // FOOTER SOCK Data -------------- --------------
-            let footerSockData = await this.$graphql.default.request(FOOTER_SOCK_ITEMS)
+            let footerSockData = await this.$graphql.default.request(
+                FOOTER_SOCK_ITEMS
+            )
             commit("SET_FOOTER_SOCK", footerSockData)
         } catch (e) {
             throw new Error("Craft API error, trying to set gobals. " + e)

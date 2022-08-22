@@ -32,6 +32,7 @@
             :items="parsedNewsList"
             section-title="All News"
         />
+        <block-call-to-action :is-meap-global="true" />
     </main>
 </template>
 
