@@ -191,12 +191,12 @@ export default {
         margin-bottom: var(--space-xl);
         max-width: 928px;
     }
-    
+
     .button-more {
         margin: var(--space-2xl) auto;
         white-space: nowrap;
     }
-    
+
     .meap-news, .block-highlight-list {
         margin: var(--space-2xl) auto;
     }
