@@ -20,18 +20,9 @@
             :text="page.summary"
         />
 
-        <divider-way-finder
-            v-if="page.blocks"
-            class="divider-way-finder"
-        />
-
         <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
-        />
-        <divider-way-finder
-            v-if="page.blocks.length"
-            class="divider-way-finder"
         />
     </main>
 </template>

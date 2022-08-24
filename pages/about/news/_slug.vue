@@ -13,17 +13,12 @@
             :align-right="true"
         />
 
-        <div v-if="page.blocks">
-            <divider-way-finder
-                color="about"
-                class="divider-way-finder"
-            />
-
+        <section-wrapper v-if="page.blocks.length">
             <flexible-blocks
                 class="content"
                 :blocks="page.blocks"
             />
-        </div>
+        </section-wrapper>
     </section>
 </template>
 

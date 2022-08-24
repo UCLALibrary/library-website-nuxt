@@ -4,25 +4,27 @@
             :title="summaryData.projectListTitle"
             :text="summaryData.projectListSummary"
         />
-        <div class="section-header">
-            <h2 class="section-title">
-                All Projects
-            </h2>
-        </div>
 
-        <section-teaser-card
-            class="content"
-            :items="projectList"
-        />
-        <divider-way-finder color="help" />
-        <section-cards-with-illustrations
-            v-if="parsedAssociatedTopics.length"
-            class="section-cards"
-            :items="parsedAssociatedTopics"
-            title="Associated Topics"
-            button-text="All Resources"
-            to="/applicants/resources"
-        />
+        <section-wrapper>
+            <div class="section-header">
+                <h2 class="section-title">
+                    All Projects
+                </h2>
+            </div>
+            <section-teaser-card :items="projectList" />
+        </section-wrapper>
+
+        <section-wrapper v-if="(parsedAssociatedTopics && parsedAssociatedTopics.length)" theme="divider" >
+            <divider-way-finder color="help" />
+        </section-wrapper>
+        <section-wrapper v-if="(parsedAssociatedTopics && parsedAssociatedTopics.length)" >
+            <section-cards-with-illustrations
+                :items="parsedAssociatedTopics"
+                title="Associated Topics"
+                button-text="All Resources"
+                to="/applicants/resources"
+            />
+        </section-wrapper>
     </main>
 </template>
 
@@ -76,28 +78,11 @@ export default {
 <style lang="scss" scoped>
 .page-project-list {
     .section-header {
-        margin-top: var(--space-3xl);
         margin-bottom: var(--space-xl);
     }
     .section-title {
         @include step-4;
         color: var(--color-primary-blue-03);
-        margin: 0 auto;
-        max-width: $container-l-main + px;
-    }
-    .content {
-        margin: 0 auto;
-    }
-
-    .section-cards {
-        margin: var(--space-3xl) auto;
-    }
-
-    @media #{$medium} {
-        .content,
-        .section-title {
-            padding: 0 var(--unit-gutter);
-        }
     }
 }
 </style>
