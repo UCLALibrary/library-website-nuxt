@@ -24,7 +24,7 @@ query ProjectList {
             meapID: id
             projectListTitle: titleGeneral
             projectListSummary: summary
-            featuredMeapResources {
+            featuredMeapResourcesListing {
                 id
                 title
                 text: summary
