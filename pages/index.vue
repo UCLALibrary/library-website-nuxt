@@ -6,7 +6,7 @@
             :hero-image="parsedMastheadHeroImage"
         />
 
-        <div
+        <section-wrapper
             v-if="featuredProjects"
         >
             <!-- TODO Add the divider back in when we add the searchbar -->
@@ -16,7 +16,7 @@
             /> -->
             <div class="section">
                 <h2
-                    v-if="featuredProjects"
+                    v-if="featuredProjects && featuredProjects.length"
                     class="visually-hidden"
                 >
                     Featured Projects
@@ -33,12 +33,9 @@
                     :end-date="featuredProjects[0].endDate"
                     :prompt="featuredProjects[0].prompt"
                     :ratio="featuredProjects[0].ratio"
-                    :align-right="true"
+                    align-right="true"
                     prompt="View project"
                 />
-            </div>
-
-            <div class="section">
                 <div
                     class="
                 block-highlight-list"
@@ -55,23 +52,21 @@
                     <button-more text="Explore Projects" />
                 </nuxt-link>
             </div>
-        </div>
+        </section-wrapper>
 
-        <!-- Program Resources -->
-        <div
-            v-if="featuredMeapResources"
-            class="section"
-        >
+        <section-wrapper v-if="(featuredProjects && featuredProjects.length) && (featuredMeapResources && featuredMeapResources.length)"  theme="divider">
             <divider-way-finder
                 color="about"
                 class="divider-way-finder"
             />
-            <h2
-                v-if="featuredMeapResources"
-                class="section-heading"
-            >
-                Program Resources
-            </h2>
+        </section-wrapper>
+
+        <!-- Program Resources -->
+        <section-wrapper
+            v-if="featuredMeapResources && featuredMeapResources.length"
+            sectionTitle="Program Resources"
+            class="section"
+        >
             <ul class="simple-cards-list">
                 <simple-cards
                     :items="featuredMeapResources"
@@ -84,21 +79,24 @@
             >
                 <button-more text="See all resources" />
             </nuxt-link>
-        </div>
+        </section-wrapper>
 
-        <!-- Announcements -->
-        <div
-            v-if="meapNews"
-            class="section"
+        <section-wrapper
+            v-if="((featuredProjects && featuredProjects.length) || (featuredMeapResources && featuredMeapResources.length)) && (meapNews && meapNews.length)"
+            theme="divider"
         >
             <divider-way-finder
                 color="about"
                 class="divider-way-finder"
             />
+        </section-wrapper>
 
-            <h2 class="section-heading">
-                News
-            </h2>
+        <!-- Announcements -->
+        <section-wrapper
+            v-if="meapNews && meapNews.length"
+            section-title="News"
+            class="section"
+        >
             <section-teaser-card
                 :items="meapNews"
                 :image="meapNews[0].heroImage[0].image[0]"
@@ -112,7 +110,7 @@
             >
                 <button-more text="See all news" />
             </nuxt-link>
-        </div>
+        </section-wrapper>
     </main>
 </template>
 
@@ -187,33 +185,13 @@ export default {
     .visually-hidden {
         @include visually-hidden;
     }
-    .section-heading {
-        @include step-3;
-        color: var(--color-primary-blue-03);
-        margin: var(--space-l) auto;
-        margin-bottom: var(--space-xl);
-        max-width: 928px;
-    }
 
     .button-more {
         margin: var(--space-2xl) auto;
         white-space: nowrap;
     }
 
-    .meap-news, .block-highlight-list {
+    .meap-news, .block-highlight-list, .simple-cards-list {
         margin: var(--space-2xl) auto;
     }
-
-    @media #{$medium} {
-    .content {
-        padding: 0 var(--unit-gutter);
-    }
-    .meap-news {
-        padding: 0 var(--unit-gutter);
-    }
-
-    .featured {
-        padding: 0 var(--unit-gutter);
-    }
-}
 </style>
