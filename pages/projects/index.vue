@@ -30,18 +30,6 @@
                 to="/applicants/resources"
             />
         </section-wrapper>
-        <section-teaser-card
-            class="content"
-            :items="projectList"
-        />
-        <divider-way-finder color="help" />
-        <section-cards-with-illustrations
-            v-if="parsedAssociatedTopics.length"
-            class="section-cards"
-            :items="parsedAssociatedTopics"
-            title="Associated Topics"
-            button-text="All Resources"
-            to="/applicants/resources"
         />
     </main>
 </template>
@@ -78,7 +66,7 @@ export default {
             })
         },
         parsedAssociatedTopics() {
-            return this.summaryData.featuredMeapResources.map((obj) => {
+            return this.summaryData.featuredMeapResourcesListing.map((obj) => {
                 return {
                     ...obj,
                     to: obj.externalResourceUrl
