@@ -43,11 +43,11 @@
                 block-highlight-list"
                 >
                     <section-teaser-highlight
-                        :items="featuredProjects"
+                        :items="featuredHighlightedProjects"
                     />
                 </div>
                 <nuxt-link
-                    v-if="featuredProjects.length"
+                    v-if="featuredHighlightedProjects.length"
                     class="button-more"
                     to="/funded-projects"
                 >
@@ -143,7 +143,7 @@ export default {
             return this.page.map((obj) => {
                 return {
                     ...obj,
-                    to: `/homepage/${obj.to}`,
+                    to: `/${obj.to}`,
                 }
             })[0]
         },
@@ -161,6 +161,9 @@ export default {
                 }
             })
         },
+        featuredHighlightedProjects() {
+            return this.featuredProjects.slice(1)
+        },
         meapNews() {
             return this.homePage.meapNews.map((obj) => {
                 return {
@@ -174,7 +177,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    ::v-deep .masthead-secondary .meta {
+    :deep .masthead-secondary .meta {
         background-color: var(--color-primary-blue-03);
         padding: 0 18px 20px 24px;
     }

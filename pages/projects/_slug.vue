@@ -94,13 +94,13 @@
         />
 
         <flexible-blocks
-            v-if="page.blocks.length"
+            v-if="(page.blocks && page.blocks.length)"
             class="content"
             :blocks="page.blocks"
         />
 
         <divider-way-finder
-            v-if="page.blocks.length"
+            v-if="(page.blocks && page.blocks.length)"
             class="divider-way-finder"
             color="help"
         />

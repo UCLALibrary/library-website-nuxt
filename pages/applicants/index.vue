@@ -1,15 +1,17 @@
 <template lang="html">
     <main class="page page-help-topic">
-        <nuxt-link
-            v-for="item in helpTopicList"
-            :key="item.to"
-            :to="item.to"
-        >
-            <div
-                class="text"
-                v-html="item.title"
-            />
-        </nuxt-link>
+        <section-wrapper>
+            <nuxt-link
+                v-for="item in helpTopicList"
+                :key="item.to"
+                :to="item.to"
+            >
+                <div
+                    class="text"
+                    v-html="item.title"
+                />
+            </nuxt-link>
+        </section-wrapper>
     </main>
 </template>
 
