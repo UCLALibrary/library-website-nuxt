@@ -1,7 +1,7 @@
 #import "~/gql/fragments/Image"
 
 query ArticleNewsList {
-    entries(section: "meapArticle", orderBy: "dateCreated") {
+    entries(section: "meapArticle", orderBy: "dateCreated desc") {
         ... on meapArticle_meapArticle_Entry {
             id
             articleCategories {
@@ -18,12 +18,50 @@ query ArticleNewsList {
                     }
                 }
             }
+            category: articleCategories {
+                title
+            }
             description: summary
             authors: staffMember {
+                id
                 title
             }
             date: dateCreated
         }
     }
-    entryCount
+    entry(section: "meapListingNews") {
+        ... on meapListingNews_meapListingNews_Entry {
+            id
+            title: titleGeneral
+            summary
+            meapNewsListing {
+                id
+                title
+                to: slug
+                text: summary
+                articleStaff: staffMember {
+                    id
+                    slug
+                    title
+                }
+                category: articleCategories {
+                    title
+                }
+                locations: associatedLocations {
+                    id
+                    title
+                    uri
+                }
+                dateCreated
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

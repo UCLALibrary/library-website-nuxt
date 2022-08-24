@@ -14,10 +14,15 @@
             <section-teaser-card :items="projectList" />
         </section-wrapper>
 
-        <section-wrapper v-if="(parsedAssociatedTopics && parsedAssociatedTopics.length)" theme="divider" >
+        <section-wrapper
+            v-if="parsedAssociatedTopics && parsedAssociatedTopics.length"
+            theme="divider"
+        >
             <divider-way-finder color="help" />
         </section-wrapper>
-        <section-wrapper v-if="(parsedAssociatedTopics && parsedAssociatedTopics.length)" >
+        <section-wrapper
+            v-if="parsedAssociatedTopics && parsedAssociatedTopics.length"
+        >
             <section-cards-with-illustrations
                 :items="parsedAssociatedTopics"
                 title="Associated Topics"
@@ -25,16 +30,27 @@
                 to="/applicants/resources"
             />
         </section-wrapper>
+        <section-teaser-card
+            class="content"
+            :items="projectList"
+        />
+        <divider-way-finder color="help" />
+        <section-cards-with-illustrations
+            v-if="parsedAssociatedTopics.length"
+            class="section-cards"
+            :items="parsedAssociatedTopics"
+            title="Associated Topics"
+            button-text="All Resources"
+            to="/applicants/resources"
+        />
     </main>
 </template>
 
 <script>
 // GQL
 import PROJECT_LIST from "~/gql/queries/ProjectList"
-
 // Helpers
 import _get from "lodash/get"
-
 export default {
     async asyncData({ $graphql, params, store }) {
         const data = await $graphql.default.request(PROJECT_LIST, {})

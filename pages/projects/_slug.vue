@@ -76,10 +76,11 @@
             />
 
             <div
-                v-if="page.institutionSubheading"
+                v-if="page.institution"
                 class="institution-subheading"
-                v-html="page.institutionSubheading"
-            />
+            >
+                Host Institution
+            </div>
 
             <rich-text
                 v-if="page.institution"
@@ -94,13 +95,13 @@
         />
 
         <flexible-blocks
-            v-if="(page.blocks && page.blocks.length)"
+            v-if="page.blocks && page.blocks.length"
             class="content"
             :blocks="page.blocks"
         />
 
         <divider-way-finder
-            v-if="(page.blocks && page.blocks.length)"
+            v-if="page.blocks && page.blocks.length"
             class="divider-way-finder"
             color="help"
         />
@@ -108,7 +109,7 @@
         <!-- TO DO replace with content from meap -->
         <block-call-to-action
             class="block-call-to-action"
-            :is-global="true"
+            :is-meap-global="true"
         />
     </section>
 </template>
@@ -185,7 +186,7 @@ export default {
     .content {
         margin: 0 auto;
     }
-    
+
     .about-the-project {
         @include step-3;
         color: var(--color-primary-blue-03);
@@ -221,14 +222,16 @@ export default {
         }
     }
 
-    .contributors-subheading, .institution-subheading {
+    .contributors-subheading,
+    .institution-subheading {
         @include step-1;
         max-width: $container-l-main + px;
         margin: 0 auto var(--space-m);
         color: var(--color-secondary-grey-05);
     }
 
-    .contributors-content, .institution-content {
+    .contributors-content,
+    .institution-content {
         margin-bottom: var(--space-xl);
     }
 

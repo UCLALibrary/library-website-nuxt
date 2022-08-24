@@ -1,37 +1,53 @@
 <template>
     <main class="page page-news">
-        <h2>ENTRIES-- {{ entryCount }}</h2>
-        <!-- <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :title="page.title"
-            category="Library News"
-            :byline="parsedBylines"
-            :locations="locations"
-            :date-created="parsedDate"
-            :to="to"
-            :authors="authors"
-            :align-right="true"
-        /> -->
-
-        <!-- <section-teaser-highlight
-            class="section"
-            :items="highlightEvents"
-        /> -->
-
-        <h2 class="entry-count">
-            Entry Count: {{ entryCount }}
+        <masthead-secondary
+            :title="summaryData.title"
+            :text="summaryData.summary"
+        />
+        <h2 class="visually-hidden">
+            Highlighted News
         </h2>
 
-        <divider-way-finder
-            class="divider"
-            color="about"
+        <banner-header
+            :image="parsedBannerHeader.image"
+            :title="parsedBannerHeader.title"
+            category="Highlighted News"
+            :byline="parsedBannerHeader.byline"
+            :locations="parsedBannerHeader.locations"
+            :description="parsedBannerHeader.text"
+            :date-created="parsedBannerHeader.dateCreated"
+            :to="parsedBannerHeader.to"
+            :align-right="true"
+            prompt="Read More"
+            class="banner"
         />
+        <section-wrapper>
+            <section-teaser-highlight
+                class="section"
+                :items="parsedSectionHighlight"
+            />
+        </section-wrapper>
 
-        <section-staff-article-list
-            :items="parsedNewsList"
-            section-title="All News"
-        />
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+
+        <section-wrapper>
+            <section-staff-article-list
+                :items="parsedNewsList"
+                section-title="All News"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
         <block-call-to-action :is-meap-global="true" />
     </main>
 </template>
@@ -46,32 +62,57 @@ import ARTICLE_NEWS_LIST from "~/gql/queries/ArticleNewsList"
 
 export default {
     async asyncData({ $graphql, params }) {
-        const data = await $graphql.default.request(ARTICLE_NEWS_LIST, {
-            uri: params.path,
-        })
-
+        const data = await $graphql.default.request(ARTICLE_NEWS_LIST, {})
         return {
-            page: data,
+            summaryData: _get(data, "entry", {}),
+            page: _get(data, "entries", {}),
+        }
+    },
+    head() {
+        let title = this.summaryData ? this.summaryData.title : "... loading"
+        return {
+            title: title,
         }
     },
     computed: {
-        entryCount() {
-            return `${this.page.entryCount}`
-        },
-
-        parsedNewsList() {
-            return this.page.entries.map((obj) => {
+        parsedFeaturedNews() {
+            return this.summaryData.meapNewsListing.map((obj) => {
                 return {
                     ...obj,
                     to: `/about/news/${obj.to}`,
-                    image: _get(obj, "heroImage[0].image[0]", null),
-                    authors: `${obj.fullName}`,
+                    image: _get(obj, "heroImage[0].image[0]", {}),
+                    category: _get(obj, "category[0].title", ""),
+                    dateCreated: _get(obj, "dateCreated", ""),
+                    byline: _get(obj, "articleStaff", []),
+                    bylineOne: _get(obj, "articleStaff[0].title", ""),
+                    bylineTwo: _get(obj, "dateCreated", ""),
                 }
             })
         },
+        parsedBannerHeader() {
+            return this.parsedFeaturedNews[0]
+        },
+        parsedSectionHighlight() {
+            return this.parsedFeaturedNews.slice(1).map((obj) => {
+                return {
+                    ...obj,
 
-        parsedDate() {
-            return format(new Date(this.page.dateCreated), "MMMM d, Y")
+                    bylineTwo:
+                        obj.bylineTwo != null
+                            ? format(new Date(obj.bylineTwo), "MMMM d, yyyy")
+                            : "",
+                }
+            })
+        },
+        parsedNewsList() {
+            return this.page.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/about/news/${obj.to}`,
+                    image: _get(obj, "heroImage[0].image[0]", {}),
+                    category: _get(obj, "category[0].title", ""),
+                }
+            })
         },
     },
 }
@@ -79,31 +120,13 @@ export default {
 
 <style lang="scss" scoped>
 .page-news {
-    padding-left: 50px;
-
-    .entry-count {
-        @include step-2;
-        color: var(--color-primary-blue-03);
-        margin: var(--space-m);
+    .visually-hidden {
+        @include visually-hidden;
     }
-
-    .section-heading {
-        @include step-2;
-        color: var(--color-primary-blue-03);
-        margin-bottom: var(--space-m);
-    }
-
-    .all-news-heading {
-        @include step-1;
-        color: var(--color-primary-blue-03);
-    }
-
-    .news-item-link {
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        @include step-1;
-        color: var(--color-primary-blue-03);
+    .banner {
+        margin: 0 auto;
+        margin-top: var(--space-3xl);
+        margin-bottom: var(--space-xl);
     }
 }
 </style>
