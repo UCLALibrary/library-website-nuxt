@@ -10,7 +10,6 @@ fragment BlockCardWithImageFragment on ElementInterface {
             typeHandle
             contentLink {
                 id
-                # category: typeHandle
                 contentType: sectionHandle
                 to: uri
                 title
@@ -64,7 +63,7 @@ fragment BlockCardWithImageFragment on ElementInterface {
         ... on meapflexiblePageBlocks_cardWithImage_externalContent_BlockType {
             id
             typeHandle
-            title
+            title: titleGeneral
             image {
                 ...Image
             }
