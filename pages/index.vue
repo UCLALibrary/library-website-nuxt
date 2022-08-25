@@ -80,6 +80,7 @@
 
         <!-- Announcements -->
         <div
+            v-if="meapNews"
             class="section"
         >
             <divider-way-finder
