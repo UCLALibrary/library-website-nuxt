@@ -25,16 +25,14 @@
             :prompt="parsedButtonText"
         />
 
-        <divider-way-finder
-            class="divider-way-finder"
-            color="help"
-        />
-        <div class="content">
-            <div
-                class="about-the-project"
-                v-html="`About the Project`"
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider-way-finder"
+                color="help"
             />
+        </section-wrapper>
 
+        <section-wrapper section-title="About the Project">
             <div
                 class="title-general"
                 v-html="page.titleGeneral"
@@ -63,7 +61,7 @@
                 class="divider-general"
             />
 
-            <div
+            <h3
                 v-if="page.projectContributorsSubheading"
                 class="contributors-subheading"
                 v-html="page.projectContributorsSubheading"
@@ -75,24 +73,26 @@
                 :rich-text-content="page.projectContributors"
             />
 
-            <div
+            <h3
                 v-if="page.institution"
                 class="institution-subheading"
             >
                 Host Institution
-            </div>
+            </h3>
 
             <rich-text
                 v-if="page.institution"
                 class="institution-content"
                 :rich-text-content="page.institution"
             />
-        </div>
+        </section-wrapper>
 
-        <divider-way-finder
-            class="divider-way-finder"
-            color="help"
-        />
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider-way-finder"
+                color="help"
+            />
+        </section-wrapper>
 
         <flexible-blocks
             v-if="page.blocks && page.blocks.length"
@@ -100,11 +100,13 @@
             :blocks="page.blocks"
         />
 
-        <divider-way-finder
-            v-if="page.blocks && page.blocks.length"
-            class="divider-way-finder"
-            color="help"
-        />
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                v-if="page.blocks && page.blocks.length"
+                class="divider-way-finder"
+                color="help"
+            />
+        </section-wrapper>
 
         <!-- TO DO replace with content from meap -->
         <block-call-to-action
@@ -154,6 +156,9 @@ export default {
 
 <style lang="scss" scoped>
 .page-project-detail {
+    > * {
+        margin: 0 auto;
+    }
     .nav-breadcrumb {
         max-width: $container-xl-full-width + px;
     }
@@ -163,35 +168,7 @@ export default {
     }
 
     .banner-header {
-        margin-bottom: var(--space-xl);
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
-    }
-
-    .banner-text + .divider-way-finder {
-        margin: 0 auto var(--space-2xl);
-    }
-
-    .divider-way-finder {
-        max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
-    }
-
-    .divider-general {
-        max-width: $container-l-main + px;
-        margin: var(--space-2xl) auto;
-    }
-
-    .content {
-        margin: 0 auto;
-    }
-
-    .about-the-project {
-        @include step-3;
-        color: var(--color-primary-blue-03);
-        max-width: $container-l-main + px;
-        margin: 0 auto var(--space-xl);
+        margin-bottom: var(--space-3xl);
     }
 
     .title-general {
@@ -204,20 +181,15 @@ export default {
     .project-type {
         @include step-0;
         font-weight: $font-weight-medium;
-        // color: var(--color-secondary-grey-05);
         color: var(--color-primary-blue-03);
         text-transform: capitalize;
         max-width: $container-l-main + px;
         margin: 0 auto var(--space-m);
     }
 
-    .project-description {
-    }
-
     .citation {
         margin-top: var(--space-m);
         :deep p {
-            // @include step-1;
             color: var(--color-secondary-grey-04);
         }
     }
@@ -233,16 +205,6 @@ export default {
     .contributors-content,
     .institution-content {
         margin-bottom: var(--space-xl);
-    }
-
-    .block-call-to-action {
-        margin: var(--space-3xl) auto;
-    }
-
-    @media #{$medium} {
-        .content {
-            padding: 0 var(--unit-gutter);
-        }
     }
 }
 </style>
