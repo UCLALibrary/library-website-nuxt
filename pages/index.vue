@@ -29,7 +29,6 @@
                     breadcrumb="Featured Projects"
                     :start-date="featuredProjects[0].startDate"
                     :end-date="featuredProjects[0].endDate"
-                    :prompt="featuredProjects[0].prompt"
                     :ratio="featuredProjects[0].ratio"
                     :align-right="true"
                     prompt="View project"
