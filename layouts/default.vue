@@ -5,8 +5,31 @@
             href="#main"
             class="skip-link"
         >Skip to main content</a>
-        
-        <header-smart title="Modern Endangered Archives Program" />
+
+        <header
+            v-if="!isMobile"
+            class="header-main"
+        >
+            <site-brand-bar class="brand-bar" />
+            <nav-secondary
+                :items="secondaryMenuItems"
+                :is-microsite="true"
+            />
+            <nav-primary
+                class="primary"
+                :items="primaryMenuItems"
+                title="Modern Endangered Archives Program"
+            />
+        </header>
+        <header v-else>
+            <site-brand-bar class="brand-bar" />
+            <header-main-responsive
+                :primary-nav="primaryMenuItems"
+                :secondary-nav="secondaryMenuItems"
+                current-path="/about/foo/bar"
+                title="Modern Endangered Archives Program"
+            />
+        </header>
 
         <main id="main">
             <nuxt class="page" />
@@ -24,7 +47,7 @@ export default {
     data() {
         return {
             pageMeta: {
-                title: "UCLA Library",
+                title: "MEAP",
             },
         }
     },
@@ -32,7 +55,7 @@ export default {
         htmlAttrs: {
             lang: "en",
         },
-        titleTemplate: "%s | UCLA Library",
+        titleTemplate: "%s | MEAP",
         meta: [
             { charset: "utf-8" },
             {
@@ -42,6 +65,18 @@ export default {
         ],
     },
     computed: {
+        primaryMenuItems() {
+            return this.$store.state.header.primary
+        },
+        secondaryMenuItems() {
+            return this.$store.state.header.secondary
+        },
+        isMobile() {
+            return this.$store.state.winWidth <= 1024 ? true : false
+        },
+        whichHeader() {
+            return this.isMobile ? "header-main-responsive" : "header-main"
+        },
         bodyClasses() {
             const classes = ["body", "theme-default"]
             classes.push(`route-${kebabCase(this.$route.name || "error")}`)
@@ -59,8 +94,8 @@ export default {
     watch: {
         $route() {
             this.$refs.skipLink.focus()
-        }
-    }
+        },
+    },
 }
 </script>
 
@@ -99,5 +134,23 @@ export default {
 
 .skip-link:focus {
     transform: translateY(0%);
+}
+
+.header-main {
+    z-index: 200;
+
+    position: relative;
+    height: 168px;
+
+    .primary {
+        position: absolute;
+    }
+    // TODO nav on smaller viewports
+}
+@media #{$medium} {
+    .brand-bar {
+        position: absolute;
+        width: 100%;
+    }
 }
 </style>

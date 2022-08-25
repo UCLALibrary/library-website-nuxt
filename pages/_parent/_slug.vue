@@ -35,7 +35,7 @@ import GENERAL_CONTENT_DETAIL from "~/gql/queries/GeneralContentDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params, store }) {
+    async asyncData({ $graphql, params }) {
         // Do not remove testing live preview
         const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
             slug: params.slug,

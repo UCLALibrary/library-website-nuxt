@@ -10,26 +10,13 @@ describe("Website Homepage", () => {
             .parent()
             .should("have.attr", "href", "https://www.ucla.edu")
 
-        // NavSecondary
-        // cy.get(".nav-secondary")
-        //     .should("contain", "Modern Endangered Archives Program")
-        //     .and("contain", "Who we are")
-        //     .and("contain", "For applicants")
-        //     .and("contain", "Funded projects")
-        //     .and("contain", "Browse collections")
 
         // NavPrimary
         cy.get(".nav-primary").then(elem => {
             if(elem[0].textContent.startsWith('Modern Endangered Archives Program Get help with')) {
-                cy.get(".nav-primary").should("contain", "Get help with...")
-                    .and("contain", "Visit")
-                    .and("contain", "About")
-            }
-            else {
-                cy.get(".nav-primary").should("contain", "Get help with...")
-                    .and("contain", "Visit")
-                    .and("contain", "About")
-                    .and("contain", "Support us")
+                cy.get(".nav-primary").should("contain", "Who we are")
+                    .and("contain", "For applicants")
+                    .and("contain", "Funded projects")
             }
         })
 
