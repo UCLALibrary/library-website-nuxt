@@ -1,12 +1,25 @@
 <template lang="html">
-    <div class="page page-resources-list">
+    <main
+        id="main"
+        class="page page-resources-list"
+    >
         <masthead-secondary
             :title="summaryData.title"
             :text="summaryData.text"
         />
 
-        <div
-            v-if="sortedData"
+        <section-wrapper
+            v-if="resourceList"
+            class="section"
+        >
+            <divider-way-finder
+                class="divider-way-finder"
+                color="about"
+            />
+        </section-wrapper>
+
+        <section-wrapper
+            v-if="resourceList"
             class="section"
         >
             <section-cards-with-illustrations
@@ -14,18 +27,23 @@
                 :items="sortedData"
                 :is-horizontal="true"
             />
+        </section-wrapper>
 
+        <section-wrapper
+            v-if="resourceList"
+            class="section"
+        >
             <divider-way-finder
                 class="divider-way-finder"
                 color="about"
             />
-        </div>
+        </section-wrapper>
 
         <block-call-to-action
             class="block-call-to-action"
             :is-meap-global="true"
         />
-    </div>
+    </main>
 </template>
 <script>
 // Helpers
@@ -41,11 +59,14 @@ import _get from "lodash/get"
 export default {
     async asyncData({ $graphql, params, store }) {
         const data = await $graphql.default.request(RESOURCE_LIST, {})
-        const externalData = await $graphql.default.request(RESOURCE_EXTERNAL_LIST, {})
+        const externalData = await $graphql.default.request(
+            RESOURCE_EXTERNAL_LIST,
+            {}
+        )
         return {
             summaryData: _get(data, "entry", {}),
             page: _get(data, "entries", {}),
-            externalResourceData: _get(externalData, "entries", {})
+            externalResourceData: _get(externalData, "entries", {}),
         }
     },
     head() {
@@ -77,11 +98,10 @@ export default {
             })
         },
         sortedData() {
-            return this.allData.sort( sortByTitle )
-        }
-    }
+            return this.allData.sort(sortByTitle)
+        },
+    },
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -110,6 +130,5 @@ export default {
             padding: 0 var(--unit-gutter);
         }
     }
-    }
+}
 </style>
-</template>

@@ -1,5 +1,8 @@
 <template lang="html">
-    <section class="page-project-detail">
+    <main
+        id="main"
+        class="page page-project-detail"
+    >
         <nav-breadcrumb
             :title="page.title"
             class="nav-breadcrumb"
@@ -113,7 +116,7 @@
             class="block-call-to-action"
             :is-meap-global="true"
         />
-    </section>
+    </main>
 </template>
 
 <script>
@@ -156,19 +159,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-project-detail {
-    > * {
-        margin: 0 auto;
-    }
-    .nav-breadcrumb {
-        max-width: $container-xl-full-width + px;
-    }
-
     .banner-text {
         --color-theme: var(--color-help-green-03);
-    }
-
-    .banner-header {
-        margin-bottom: var(--space-3xl);
     }
 
     .title-general {
@@ -204,6 +196,7 @@ export default {
 
     .contributors-content,
     .institution-content {
+        @include step-0;
         margin-bottom: var(--space-xl);
     }
 }

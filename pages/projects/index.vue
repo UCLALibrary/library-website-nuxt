@@ -1,16 +1,14 @@
 <template lang="html">
-    <main class="page page-project-list">
+    <main
+        id="main"
+        class="page page-project-list"
+    >
         <masthead-secondary
             :title="summaryData.projectListTitle"
             :text="summaryData.projectListSummary"
         />
 
-        <section-wrapper>
-            <div class="section-header">
-                <h2 class="section-title">
-                    All Projects
-                </h2>
-            </div>
+        <section-wrapper section-title="All Projects">
             <section-teaser-card :items="projectList" />
         </section-wrapper>
 
@@ -83,13 +81,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-project-list {
-    .section-header {
-        margin-bottom: var(--space-xl);
-    }
-    .section-title {
-        @include step-4;
-        color: var(--color-primary-blue-03);
-    }
-}
 </style>

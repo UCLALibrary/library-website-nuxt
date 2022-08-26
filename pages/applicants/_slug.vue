@@ -1,5 +1,8 @@
 <template lang="html">
-    <main class="page page-help-topic">
+    <main
+        id="main"
+        class="page page-help-topic"
+    >
         <nav-breadcrumb
             :title="page.title"
             class="breadcrumb"
@@ -17,29 +20,39 @@
             />
         </section-wrapper>
 
-        <section-wrapper theme="divider" v-if="page.richText && (page.helpTopicBlocks && page.helpTopicBlocks.length)">
+        <section-wrapper
+            v-if="page.richText && page.helpTopicBlocks && page.helpTopicBlocks.length"
+            theme="divider"
+        >
             <divider-way-finder color="about" />
-        </section-wrapper>
-        <section-wrapper v-if="(page.helpTopicBlocks && page.helpTopicBlocks.length)">
-            <div
-                v-for="(block, index) in page.helpTopicBlocks"
-                :key="`HelpTopicBlocksKey${index}`"
-                class="help-topic-section"
-            >
-                <simple-cards
-                    class="help-topic-block"
-                    :section-title="block.sectionTitle"
-                    :section-summary="block.sectionSummary"
-                    :items="block.associatedEntries"
-                />
-            </div>
         </section-wrapper>
 
-        <section-wrapper theme="divider" v-if="(page.richText || (page.helpTopicBlocks && page.helpTopicBlocks.length)) && (page.blocks && page.blocks.length)">
+        <section-wrapper
+            v-for="(block, index) in page.helpTopicBlocks"
+            v-if="page.helpTopicBlocks && page.helpTopicBlocks.length"
+            :key="`HelpTopicBlocksKey${index}`"
+            class="help-topic-section"
+        >
+            <simple-cards
+                class="help-topic-block"
+                :section-title="block.sectionTitle"
+                :section-summary="block.sectionSummary"
+                :items="block.associatedEntries"
+            />
+        </section-wrapper>
+
+        <section-wrapper
+            v-if="(page.richText ||
+                (page.helpTopicBlocks && page.helpTopicBlocks.length)) &&
+                page.blocks &&
+                page.blocks.length"
+            theme="divider"
+        >
             <divider-way-finder color="about" />
         </section-wrapper>
+
         <flexible-blocks
-            v-if="(page.blocks && page.blocks.length)"
+            v-if="page.blocks && page.blocks.length"
             class="flexible-content"
             :blocks="page.blocks"
         />
@@ -73,10 +86,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-help-topic {
-    .breadcrumb {
-        margin-top: var(--space-l);
-        margin-bottom: var(--space-l);
-    }
-}
 </style>

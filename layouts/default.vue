@@ -31,9 +31,7 @@
             />
         </header>
 
-        <main id="main">
-            <nuxt class="page" />
-        </main>
+        <nuxt class="page" />
 
         <footer-main />
     </div>
@@ -47,22 +45,9 @@ export default {
     data() {
         return {
             pageMeta: {
-                title: "MEAP",
+                title: "Modern Endangered Archives Program",
             },
         }
-    },
-    head: {
-        htmlAttrs: {
-            lang: "en",
-        },
-        titleTemplate: "%s | MEAP",
-        meta: [
-            { charset: "utf-8" },
-            {
-                name: "viewport",
-                content: "width=device-width, initial-scale=1",
-            },
-        ],
     },
     computed: {
         primaryMenuItems() {

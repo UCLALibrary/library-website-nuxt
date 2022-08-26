@@ -1,5 +1,8 @@
 <template>
-    <main class="page page-news">
+    <main
+        id="main"
+        class="page page-news"
+    >
         <masthead-secondary
             :title="summaryData.title"
             :text="summaryData.summary"
@@ -120,9 +123,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-news {
-    .visually-hidden {
-        @include visually-hidden;
-    }
     .banner {
         margin: 0 auto;
         margin-top: var(--space-3xl);
