@@ -93,7 +93,7 @@ export default {
             return allResources.map((obj) => {
                 return {
                     ...obj,
-                    to: `/applicants/resources/${obj.to}`,
+                    to: obj.externalResourceUrl ? obj.externalResourceUrl : `/${obj.uri}`,
                 }
             })
         },
