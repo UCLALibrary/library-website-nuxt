@@ -1,6 +1,9 @@
 <template lang="html">
-    <section class="page-news-detail">
-        <nav-breadcrumb :title="page.title" /> 
+    <main
+        id="main"
+        class="page page-news-detail"
+    >
+        <nav-breadcrumb :title="page.title" />
 
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
@@ -13,13 +16,11 @@
             :align-right="true"
         />
 
-        <section-wrapper v-if="page.blocks.length">
-            <flexible-blocks
-                class="content"
-                :blocks="page.blocks"
-            />
-        </section-wrapper>
-    </section>
+        <flexible-blocks
+            class="content"
+            :blocks="page.blocks"
+        />
+    </main>
 </template>
 
 <script>
@@ -70,56 +71,6 @@ export default {
 .page-news-detail {
     .banner-text {
         --color-theme: var(--color-help-green-03);
-    }
-    .banner-header {
-        margin-bottom: var(--space-xl);
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
-    }
-    .banner-text + .divider-way-finder {
-        margin: 0 auto var(--space-2xl);
-    }
-    .divider-way-finder {
-        max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
-    }
-    .content {
-        margin: 0 auto;
-    }
-    .section-cards {
-        margin: var(--space-3xl) auto;
-    }
-    .highlighted-news {
-        @include visually-hidden;
-    }
-    .block-call-to-action {
-        margin: var(--space-3xl) auto;
-    }
-    .section-heading {
-        @include step-4;
-        color: var(--color-primary-blue-03);
-        margin: var(--space-xl) auto;
-        max-width: $container-l-main + px;
-    }
-
-    @media #{$medium} {
-        .section-heading,
-        .block-campus-map,
-        .section-block-spaces,
-        .block-hours,
-        .block-amenities,
-        .simple-cards,
-        .section-teaser-list,
-        .section-teaser-card {
-            padding: 0 var(--unit-gutter);
-        }
-    }
-
-    @media #{$small} {
-        .page {
-            width: 100%;
-        }
     }
 }
 </style>

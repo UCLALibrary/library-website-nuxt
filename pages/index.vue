@@ -1,9 +1,13 @@
 <template lang="html">
-    <section class="page">
+    <main
+        id="main"
+        class="page page-home"
+    >
         <masthead-secondary
             title="Modern Endangered Archives Program"
             text="Our grants enable digitization and access to at-risk cultural heritage collections from around the world. Explore our projects and learn more about available grant opportunities."
             :hero-image="parsedMastheadHeroImage"
+            theme="meap"
         />
 
         <section-wrapper
@@ -14,40 +18,38 @@
                 color="about"
                 class="divider-way-finder"
             /> -->
-            <div class="section">
-                <h2
-                    v-if="featuredProjects && featuredProjects.length"
-                    class="visually-hidden"
-                >
-                    Featured Projects
-                </h2>
+            <h2
+                v-if="featuredProjects && featuredProjects.length"
+                class="visually-hidden"
+            >
+                Featured Projects
+            </h2>
 
-                <banner-featured
-                    class="banner banner-visit"
-                    :image="featuredProjects[0].heroImage[0].image[0]"
-                    :to="featuredProjects[0].to"
-                    :title="featuredProjects[0].title"
-                    :category="featuredProjects[0].category"
-                    breadcrumb="Featured Projects"
-                    :start-date="featuredProjects[0].startDate"
-                    :end-date="featuredProjects[0].endDate"
-                    :ratio="featuredProjects[0].ratio"
-                    align-right="true"
-                    prompt="View project"
+            <banner-featured
+                class="banner banner-visit"
+                :image="featuredProjects[0].heroImage[0].image[0]"
+                :to="featuredProjects[0].to"
+                :title="featuredProjects[0].title"
+                :category="featuredProjects[0].category"
+                breadcrumb="Featured Projects"
+                :start-date="featuredProjects[0].startDate"
+                :end-date="featuredProjects[0].endDate"
+                :ratio="featuredProjects[0].ratio"
+                align-right="true"
+                prompt="View project"
+            />
+            <div class="block-highlight-list">
+                <section-teaser-highlight
+                    :items="featuredHighlightedProjects"
                 />
-                <div class="block-highlight-list">
-                    <section-teaser-highlight
-                        :items="featuredHighlightedProjects"
-                    />
-                </div>
-                <nuxt-link
-                    v-if="featuredHighlightedProjects.length"
-                    class="button-more"
-                    to="/projects"
-                >
-                    <button-more text="Explore Projects" />
-                </nuxt-link>
             </div>
+            <nuxt-link
+                v-if="featuredHighlightedProjects.length"
+                class="button-more"
+                to="/projects"
+            >
+                <button-more text="Explore Projects" />
+            </nuxt-link>
         </section-wrapper>
 
         <section-wrapper v-if="(featuredProjects && featuredProjects.length) && (featuredMeapResources && featuredMeapResources.length)"  theme="divider">
@@ -60,7 +62,7 @@
         <!-- Program Resources -->
         <section-wrapper
             v-if="featuredMeapResources && featuredMeapResources.length"
-            sectionTitle="Program Resources"
+            section-title="Program Resources"
             class="section"
         >
             <ul class="simple-cards-list">
@@ -105,7 +107,7 @@
                 <button-more text="See all news" />
             </nuxt-link>
         </section-wrapper>
-    </section>
+    </main>
 </template>
 
 <script>
@@ -167,21 +169,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    :deep .masthead-secondary .meta {
-        background-color: var(--color-primary-blue-03);
-        padding: 0 18px 20px 24px;
-    }
-
-    .visually-hidden {
-        @include visually-hidden;
-    }
-
+.page-home {
     .button-more {
-        margin: var(--space-2xl) auto;
+        margin: auto;
         white-space: nowrap;
     }
 
     .meap-news, .block-highlight-list, .simple-cards-list {
-        margin: var(--space-2xl) auto;
+        margin: var(--space-xl) auto var(--space-2xl);
     }
+}
 </style>

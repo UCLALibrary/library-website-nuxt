@@ -1,5 +1,8 @@
 <template lang="html">
-    <section class="page-service-detail">
+    <main
+        id="main"
+        class="page page-service-detail"
+    >
         <nav-breadcrumb :title="page.title" />
 
         <banner-text
@@ -22,9 +25,10 @@
             :text="page.text"
         />
 
-        <section-wrapper v-if="page.blocks && page.blocks.length">
-            <flexible-blocks :blocks="page.blocks" />
-        </section-wrapper>
+        <flexible-blocks
+            v-if="page.blocks && page.blocks.length"
+            :blocks="page.blocks"
+        />
 
         <section-wrapper
             v-if="
@@ -46,32 +50,32 @@
         />
 
         <block-call-to-action :is-global="true" />
-    </section>
+    </main>
 </template>
 
 <script>
 // GQL
-import RESOURCE_DETAIL from "~/gql/queries/ResourceDetail"
+import RESOURCE_DETAIL from "~/gql/queries/ResourceDetail";
 
 // Helpers
-import _get from "lodash/get"
+import _get from "lodash/get";
 
 export default {
     async asyncData({ $graphql, params, store }) {
-        // Do not remove testing live preview
+    // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
         )
         const data = await $graphql.default.request(RESOURCE_DETAIL, {
             slug: params.slug,
         })
-        console.log("Data fetched: " + JSON.stringify(data))
+        console.log("Data fetched: " + JSON.stringify(data));
         return {
             page: _get(data, "entry", {}),
         }
     },
     head() {
-        let title = this.page ? this.page.title : "... loading"
+        let title = this.page ? this.page.title : "... loading";
         return {
             title: title,
         }
@@ -88,27 +92,24 @@ export default {
             })
         },
         parsedButtonText() {
-            return _get(this.page, "button[0].buttonText", "")
+            return _get(this.page, "button[0].buttonText", "");
         },
         parsedButtonTo() {
-            return _get(this.page, "button[0].buttonUrl", "")
+            return _get(this.page, "button[0].buttonUrl", "");
         },
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.page-service-detail {
+  .page-service-detail {
+    > * {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .banner-text {
-        --color-theme: var(--color-help-green-03);
-        margin-top: 0; // TODO do this change in component later
+      --color-theme: var(--color-help-green-03);
     }
-    .banner-header {
-        margin-bottom: var(--space-xl);
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-        margin-top: 0; // TODO do this change in component later
-        margin: var(--unit-gutter) auto;
-    }
-}
+  }
 </style>

@@ -31,9 +31,7 @@
             />
         </header>
 
-        <main id="main">
-            <nuxt class="page" />
-        </main>
+        <nuxt class="page" />
 
         <footer-main />
     </div>

@@ -1,5 +1,8 @@
 <template lang="html">
-    <main class="page page-general-content">
+    <main
+        id="main"
+        class="page page-general-content"
+    >
         <nav-breadcrumb
             :title="page.title"
             class="breadcrumb"
@@ -20,19 +23,28 @@
             :text="page.summary"
         />
 
-        <divider-way-finder
+        <section-wrapper
             v-if="page.blocks"
-            class="divider-way-finder"
-        />
+            theme="divider"
+        >
+            <divider-way-finder
+                class="divider-way-finder"
+            />
+        </section-wrapper>
 
         <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
         />
-        <divider-way-finder
+
+        <section-wrapper
             v-if="page.blocks.length"
-            class="divider-way-finder"
-        />
+            theme="divider"
+        >
+            <divider-way-finder
+                class="divider-way-finder"
+            />
+        </section-wrapper>
     </main>
 </template>
 
@@ -67,33 +79,6 @@ export default {
 .page-general-content {
   .banner-text {
     --color-theme: var(--color-help-green-03);
-  }
-
-  .banner-header {
-    margin-bottom: var(--space-xl);
-    padding: 0;
-    max-width: $container-xl-full-width + px;
-    margin: var(--unit-gutter) auto;
-  }
-
-  .banner-text + .divider-way-finder {
-    margin: 0 auto var(--space-2xl);
-  }
-
-  .flexible-content {
-    margin: 0 auto;
-    max-width: $container-l-main + px;
-  }
-
-  .breadcrumb {
-    margin-top: var(--space-l);
-    margin-bottom: var(--space-l);
-  }
-
-  @media #{$medium} {
-    .flexible-content {
-      padding: 0 var(--unit-gutter);
-    }
   }
 }
 </style>

@@ -1,5 +1,8 @@
 <template lang="html">
-    <main class="page page-help-topic">
+    <main
+        id="main"
+        class="page page-help-topic"
+    >
         <section-wrapper>
             <nuxt-link
                 v-for="item in helpTopicList"
@@ -51,4 +54,5 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
