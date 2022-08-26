@@ -1,0 +1,9 @@
+query ResourceExternalList {
+  entries(section: "externalResourceMeap") {
+    id
+    title
+    text: summary
+    to: externalResourceUrl
+    iconName: illustrationsResourcesAndServices
+  }
+}

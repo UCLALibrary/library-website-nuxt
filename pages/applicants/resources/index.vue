@@ -6,17 +6,12 @@
         />
 
         <div
-            v-if="resourceList"
+            v-if="sortedData"
             class="section"
         >
-            <divider-way-finder
-                class="divider-way-finder"
-                color="about"
-            />
-
             <section-cards-with-illustrations
                 class="section"
-                :items="resourceList"
+                :items="sortedData"
                 :is-horizontal="true"
             />
 
@@ -33,8 +28,12 @@
     </div>
 </template>
 <script>
+// Helpers
+import sortByTitle from "~/utils/sortByTitle"
+
 // GQL
 import RESOURCE_LIST from "~/gql/queries/ResourceList"
+import RESOURCE_EXTERNAL_LIST from "~/gql/queries/ResourceExternalList"
 
 // Helpers
 import _get from "lodash/get"
@@ -42,9 +41,11 @@ import _get from "lodash/get"
 export default {
     async asyncData({ $graphql, params, store }) {
         const data = await $graphql.default.request(RESOURCE_LIST, {})
+        const externalData = await $graphql.default.request(RESOURCE_EXTERNAL_LIST, {})
         return {
             summaryData: _get(data, "entry", {}),
             page: _get(data, "entries", {}),
+            externalResourceData: _get(externalData, "entries", {})
         }
     },
     head() {
@@ -65,6 +66,19 @@ export default {
                 }
             })
         },
+        // merge external & internal meap resource entries
+        allData() {
+            const allResources = [...this.page, ...this.externalResourceData]
+            return allResources.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/applicants/resources/${obj.to}`,
+                }
+            })
+        },
+        sortedData() {
+            return this.allData.sort( sortByTitle )
+        }
     }
 }
 
