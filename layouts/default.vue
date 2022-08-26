@@ -1,11 +1,9 @@
 <template lang="html">
     <div :class="classes">
-        <a
-            ref="skipLink"
-            href="#main"
-            class="skip-link"
-        >Skip to main content</a>
-
+        <VueSkipTo
+            to="#main"
+            label="Skip to main content"
+        />
         <header
             v-if="!isMobile"
             class="header-main"
@@ -76,11 +74,6 @@ export default {
             ]
         },
     },
-    watch: {
-        $route() {
-            this.$refs.skipLink.focus()
-        },
-    },
 }
 </script>
 
@@ -103,22 +96,8 @@ export default {
         flex: 1 1 auto;
     }
 }
-
-.skip-link {
-    position: absolute;
-    transform: translateY(-100%);
-    display: inline-block;
-    background: var(--color-primary-yellow-01);
-    color: var(--color-black);
-    @include step-0;
-    padding: 4px 16px;
-    transition: transform 0.3s;
-    width: auto;
-    left: 0;
-}
-
-.skip-link:focus {
-    transform: translateY(0%);
+.vue-skip-to {
+    z-index: 300;
 }
 
 .header-main {

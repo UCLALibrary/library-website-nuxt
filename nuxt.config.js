@@ -44,6 +44,7 @@ export default {
         "~/plugins/browser-events.client.js",
         "~/plugins/craft.js",
         "~/plugins/add-library-website-vue-components.js",
+        "~/plugins/add-skip-to.js",
     ],
 
     /*
