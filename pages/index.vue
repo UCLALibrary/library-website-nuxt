@@ -1,12 +1,14 @@
 <template lang="html">
-    <main class="page">
+    <section class="page">
         <masthead-secondary
             title="Modern Endangered Archives Program"
             text="Our grants enable digitization and access to at-risk cultural heritage collections from around the world. Explore our projects and learn more about available grant opportunities."
             :hero-image="parsedMastheadHeroImage"
         />
 
-        <div v-if="featuredProjects">
+        <section-wrapper
+            v-if="featuredProjects"
+        >
             <!-- TODO Add the divider back in when we add the searchbar -->
             <!-- <divider-way-finder
                 color="about"
@@ -14,7 +16,7 @@
             /> -->
             <div class="section">
                 <h2
-                    v-if="featuredProjects"
+                    v-if="featuredProjects && featuredProjects.length"
                     class="visually-hidden"
                 >
                     Featured Projects
@@ -29,14 +31,10 @@
                     breadcrumb="Featured Projects"
                     :start-date="featuredProjects[0].startDate"
                     :end-date="featuredProjects[0].endDate"
-                    :prompt="featuredProjects[0].prompt"
                     :ratio="featuredProjects[0].ratio"
-                    :align-right="true"
+                    align-right="true"
                     prompt="View project"
                 />
-            </div>
-
-            <div class="section">
                 <div class="block-highlight-list">
                     <section-teaser-highlight
                         :items="featuredHighlightedProjects"
@@ -50,23 +48,21 @@
                     <button-more text="Explore Projects" />
                 </nuxt-link>
             </div>
-        </div>
+        </section-wrapper>
 
-        <!-- Program Resources -->
-        <div
-            v-if="featuredMeapResources"
-            class="section"
-        >
+        <section-wrapper v-if="(featuredProjects && featuredProjects.length) && (featuredMeapResources && featuredMeapResources.length)"  theme="divider">
             <divider-way-finder
                 color="about"
                 class="divider-way-finder"
             />
-            <h2
-                v-if="featuredMeapResources"
-                class="section-heading"
-            >
-                Program Resources
-            </h2>
+        </section-wrapper>
+
+        <!-- Program Resources -->
+        <section-wrapper
+            v-if="featuredMeapResources && featuredMeapResources.length"
+            sectionTitle="Program Resources"
+            class="section"
+        >
             <ul class="simple-cards-list">
                 <simple-cards :items="featuredMeapResources" />
             </ul>
@@ -77,21 +73,24 @@
             >
                 <button-more text="See all resources" />
             </nuxt-link>
-        </div>
+        </section-wrapper>
 
-        <!-- Announcements -->
-        <div
-            v-if="meapNews"
-            class="section"
+        <section-wrapper
+            v-if="((featuredProjects && featuredProjects.length) || (featuredMeapResources && featuredMeapResources.length)) && (meapNews && meapNews.length)"
+            theme="divider"
         >
             <divider-way-finder
                 color="about"
                 class="divider-way-finder"
             />
+        </section-wrapper>
 
-            <h2 class="section-heading">
-                News
-            </h2>
+        <!-- Announcements -->
+        <section-wrapper
+            v-if="meapNews && meapNews.length"
+            section-title="News"
+            class="section"
+        >
             <section-teaser-card
                 :items="meapNews"
                 :image="meapNews[0].heroImage[0].image[0]"
@@ -105,8 +104,8 @@
             >
                 <button-more text="See all news" />
             </nuxt-link>
-        </div>
-    </main>
+        </section-wrapper>
+    </section>
 </template>
 
 <script>
@@ -115,9 +114,7 @@ import MEAP_HOMEPAGE from "~/gql/queries/HomePage"
 // Helpers
 import _get from "lodash/get"
 export default {
-    async asyncData({ $graphql, params }) {
-        // Do not remove testing live preview
-
+    async asyncData({ $graphql, params, store }) {
         const data = await $graphql.default.request(MEAP_HOMEPAGE, {
             slug: params.slug,
         })
@@ -170,37 +167,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:deep .masthead-secondary .meta {
-    background-color: var(--color-primary-blue-03);
-    padding: 0 18px 20px 24px;
-}
-.visually-hidden {
-    @include visually-hidden;
-}
-.section-heading {
-    @include step-3;
-    color: var(--color-primary-blue-03);
-    margin: var(--space-l) auto;
-    margin-bottom: var(--space-xl);
-    max-width: 928px;
-}
-.button-more {
-    margin: var(--space-2xl) auto;
-    white-space: nowrap;
-}
-.meap-news,
-.block-highlight-list {
-    margin: var(--space-2xl) auto;
-}
-@media #{$medium} {
-    .content {
-        padding: 0 var(--unit-gutter);
+    :deep .masthead-secondary .meta {
+        background-color: var(--color-primary-blue-03);
+        padding: 0 18px 20px 24px;
     }
-    .meap-news {
-        padding: 0 var(--unit-gutter);
+
+    .visually-hidden {
+        @include visually-hidden;
     }
-    .featured {
-        padding: 0 var(--unit-gutter);
+
+    .button-more {
+        margin: var(--space-2xl) auto;
+        white-space: nowrap;
     }
-}
+
+    .meap-news, .block-highlight-list, .simple-cards-list {
+        margin: var(--space-2xl) auto;
+    }
 </style>

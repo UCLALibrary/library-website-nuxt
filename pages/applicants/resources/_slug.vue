@@ -22,27 +22,30 @@
             :text="page.text"
         />
 
-        <section-wrapper v-if="(page.blocks && page.blocks.length)">
-            <flexible-blocks
-                :blocks="page.blocks"
-            />
+        <section-wrapper v-if="page.blocks && page.blocks.length">
+            <flexible-blocks :blocks="page.blocks" />
         </section-wrapper>
 
-        <section-wrapper v-if="(page.blocks && page.blocks.length) && (page.parsedAssociatedTopics && page.parsedAssociatedTopics.length)">
+        <section-wrapper
+            v-if="
+                page.blocks &&
+                    page.blocks.length &&
+                    page.parsedAssociatedTopics &&
+                    page.parsedAssociatedTopics.length
+            "
+        >
             <divider-way-finder color="help" />
         </section-wrapper>
 
         <section-cards-with-illustrations
-            v-if="(parsedAssociatedTopics && parsedAssociatedTopics.length)"
+            v-if="parsedAssociatedTopics && parsedAssociatedTopics.length"
             :items="parsedAssociatedTopics"
             title="Associated Topics"
-            button-text="All Services and Resources"
-            to="/help/services-resources"
+            button-text="All Resources"
+            to="/applicants/resources"
         />
 
-        <block-call-to-action
-            :is-global="true"
-        />
+        <block-call-to-action :is-global="true" />
     </section>
 </template>
 
@@ -80,7 +83,7 @@ export default {
                     ...obj,
                     to: obj.externalResourceUrl
                         ? obj.externalResourceUrl
-                        : obj.uri,
+                        : `/${obj.uri}`,
                 }
             })
         },

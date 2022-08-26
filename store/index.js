@@ -49,7 +49,7 @@ export const actions = {
     async nuxtServerInit({ commit }) {
         try {
             // console.log("Get Global data from Craft")
-            console.log("HELLO")
+            
 
             // ASK A LIBRARIAN Data -------------- --------------
             let globalData = await this.$graphql.default.request(GLOBALS)
@@ -79,8 +79,8 @@ export const actions = {
             )
 
             commit("SET_FOOTER_SPONSOR", footerSponsorData[0])
-            console.log(JSON.stringify(footerSponsorData))
-            console.log("GOODBYE")
+            // console.log(JSON.stringify(footerSponsorData))
+            
 
             // FOOTER PRIMARY Data -------------- --------------
             let footerPrimaryData = await this.$graphql.default.request(

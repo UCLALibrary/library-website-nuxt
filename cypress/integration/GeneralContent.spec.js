@@ -1,6 +1,6 @@
 describe("General Content page", () => {
     it("Visit a General Content Page", () => {
-        cy.visit("/who-we-are")
+        cy.visit("/about")
 
         // UCLA Library brand
         cy.get(".logo-ucla").should("be.visible")

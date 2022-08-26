@@ -20,9 +20,18 @@
             :text="page.summary"
         />
 
+        <divider-way-finder
+            v-if="page.blocks"
+            class="divider-way-finder"
+        />
+
         <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
+        />
+        <divider-way-finder
+            v-if="page.blocks.length"
+            class="divider-way-finder"
         />
     </main>
 </template>
@@ -35,11 +44,12 @@ import GENERAL_CONTENT_DETAIL from "~/gql/queries/GeneralContentDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params }) {
-        // Do not remove testing live preview
+    async asyncData({ $graphql, params, store }) {
+    // Do not remove testing live preview
         const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
-            slug: params.slug,
+            slug: params.parent,
         })
+        console.log("parent SLUG:" + params.parent)
         return {
             page: _get(data, "entry", {}),
         }
@@ -55,35 +65,35 @@ export default {
 
 <style lang="scss" scoped>
 .page-general-content {
-    .banner-text {
-        --color-theme: var(--color-help-green-03);
-    }
+  .banner-text {
+    --color-theme: var(--color-help-green-03);
+  }
 
-    .banner-header {
-        margin-bottom: var(--space-xl);
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
-    }
+  .banner-header {
+    margin-bottom: var(--space-xl);
+    padding: 0;
+    max-width: $container-xl-full-width + px;
+    margin: var(--unit-gutter) auto;
+  }
 
-    .banner-text + .divider-way-finder {
-        margin: 0 auto var(--space-2xl);
-    }
+  .banner-text + .divider-way-finder {
+    margin: 0 auto var(--space-2xl);
+  }
 
+  .flexible-content {
+    margin: 0 auto;
+    max-width: $container-l-main + px;
+  }
+
+  .breadcrumb {
+    margin-top: var(--space-l);
+    margin-bottom: var(--space-l);
+  }
+
+  @media #{$medium} {
     .flexible-content {
-        margin: 0 auto;
-        max-width: $container-l-main + px;
+      padding: 0 var(--unit-gutter);
     }
-
-    .breadcrumb {
-        margin-top: var(--space-l);
-        margin-bottom: var(--space-l);
-    }
-
-    @media #{$medium} {
-        .flexible-content {
-            padding: 0 var(--unit-gutter);
-        }
-    }
+  }
 }
 </style>
