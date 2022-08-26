@@ -38,9 +38,7 @@
                 :ratio="featuredProjects[0].ratio"
                 prompt="View project"
             />
-            <section-teaser-highlight
-                :items="featuredHighlightedProjects"
-            />
+            <section-teaser-highlight :items="featuredHighlightedProjects" />
             <nuxt-link
                 v-if="featuredHighlightedProjects.length"
                 class="button-more-link"
@@ -50,7 +48,15 @@
             </nuxt-link>
         </section-wrapper>
 
-        <section-wrapper v-if="(featuredProjects && featuredProjects.length) && (featuredMeapResources && featuredMeapResources.length)"  theme="divider">
+        <section-wrapper
+            v-if="
+                featuredProjects &&
+                    featuredProjects.length &&
+                    featuredMeapResources &&
+                    featuredMeapResources.length
+            "
+            theme="divider"
+        >
             <divider-way-finder
                 color="about"
                 class="divider-way-finder"
@@ -76,7 +82,12 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="((featuredProjects && featuredProjects.length) || (featuredMeapResources && featuredMeapResources.length)) && (meapNews && meapNews.length)"
+            v-if="
+                ((featuredProjects && featuredProjects.length) ||
+                    (featuredMeapResources && featuredMeapResources.length)) &&
+                    meapNews &&
+                    meapNews.length
+            "
             theme="divider"
         >
             <divider-way-finder
@@ -123,7 +134,7 @@ export default {
         }
     },
     head() {
-        let title = this.page ? this.page.title : "... loading"
+        let title = "Modern Endagered Archives Program"
         return {
             title: title,
         }
@@ -141,7 +152,14 @@ export default {
             return this.homePage.heroImage[0].image[0]
         },
         featuredMeapResources() {
-            return this.homePage.featuredMeapResources
+            return this.homePage.featuredMeapResources.map((obj) => {
+                return {
+                    ...obj,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.uri}`,
+                }
+            })
         },
         featuredProjects() {
             return this.homePage.featuredProjects.map((obj) => {

@@ -1,71 +1,73 @@
 #import "~/gql/fragments/Image"
 
 query MeapHomePage {
-  entries(section: "meapHomepage", slug: "homepage-meap") {
-    ... on meapHomepage_meapHomepage_Entry {
-      id
-      title
-      summary
-      heroImage {
-        ... on heroImage_heroImage_BlockType {
-          image {
-            ...Image
-          }
-        }
-      }
-      featuredMeapResources {
-        to: uri
-        title
-        text: summary
-      }
-      featuredProjects {
-        title
-        text: summary
-        category: format
-        to: uri
-        byline: meapProjectTopic {
-          ... on meapProjectTopics_Category {
+    entries(section: "meapHomepage", slug: "homepage-meap") {
+        ... on meapHomepage_meapHomepage_Entry {
             id
             title
-          }
-        }
-        projectLocations: region {
-          ... on meapProjectRegion_Category {
-            id
-            title
-          }
-        }
-        heroImage {
-          ... on heroImage_heroImage_BlockType {
-            image {
-              ...Image
+            summary
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    image {
+                        ...Image
+                    }
+                }
             }
-          }
-        }
-      }
-      meapNews {
-        id
-        title
-        text: summary
-        to: uri
-        heroImage {
-          ... on heroImage_heroImage_BlockType {
-            image {
-              ...Image
+            featuredMeapResources {
+                id
+                externalResourceUrl
+                uri
+                title
+                text: summary
             }
-          }
+            featuredProjects {
+                title
+                text: summary
+                category: format
+                to: uri
+                byline: meapProjectTopic {
+                    ... on meapProjectTopics_Category {
+                        id
+                        title
+                    }
+                }
+                projectLocations: region {
+                    ... on meapProjectRegion_Category {
+                        id
+                        title
+                    }
+                }
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+            }
+            meapNews {
+                id
+                title
+                text: summary
+                to: uri
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+                articleCategories {
+                    id
+                    title
+                }
+                byline1: staffMember {
+                    id
+                    to: uri
+                    title
+                }
+                byline2: postDate
+            }
         }
-        articleCategories {
-          id
-          title
-        }
-        byline1: staffMember {
-          id
-          to: uri
-          title
-        }
-        byline2: postDate
-      }
     }
-  }
 }

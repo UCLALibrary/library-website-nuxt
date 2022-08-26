@@ -72,7 +72,7 @@ export default {
                     ...obj,
                     to: obj.externalResourceUrl
                         ? obj.externalResourceUrl
-                        : obj.uri,
+                        : `/${obj.uri}`,
                 }
             })
         },

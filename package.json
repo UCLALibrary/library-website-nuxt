@@ -40,7 +40,7 @@
         "sass": "^1.45.2",
         "sass-loader": "^10.1.1",
         "ucla-library-design-tokens": "^4.6.2",
-        "ucla-library-website-components": "^1.52.1",
+        "ucla-library-website-components": "^1.52.3",
         "vue-svg-loader": "^0.16.0",
         "vue-template-compiler": "^2.6.12"
     }
