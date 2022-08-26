@@ -9,11 +9,6 @@
             v-if="sortedData"
             class="section"
         >
-            <divider-way-finder
-                class="divider-way-finder"
-                color="about"
-            />
-
             <section-cards-with-illustrations
                 class="section"
                 :items="sortedData"
@@ -71,7 +66,7 @@ export default {
                 }
             })
         },
-        // merge external & internal meap data
+        // merge external & internal meap resource entries
         allData() {
             const allResources = [...this.page, ...this.externalResourceData]
             return allResources.map((obj) => {
