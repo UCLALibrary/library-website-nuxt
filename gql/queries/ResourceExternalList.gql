@@ -1,10 +1,10 @@
 query ResourceExternalList {
   entries(section: "externalResourceMeap") {
     id
+    to: slug
     title
     text: summary
     externalResourceUrl
-    illustrationsResourcesAndServices
-    to: slug
+    iconName: illustrationsResourcesAndServices
   }
 }
