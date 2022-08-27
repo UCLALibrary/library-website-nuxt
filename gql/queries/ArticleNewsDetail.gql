@@ -4,30 +4,31 @@
 query ArticleNewsDetail($slug: [String!]) {
     entry(section: "meapArticle", slug: $slug) {
         ... on meapArticle_meapArticle_Entry {
-        id
-        title
-        text: summary
-        dateCreated
-        heroImage {
-            ... on heroImage_heroImage_BlockType {
             id
-            image {
-                ...Image
-            }
-            }
-        }
-
-        articleTopics {
             title
-        }
+            text: summary
+            dateCreated
+            category: articleCategories {
+                title
+            }
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
 
-        staffMember {
+            articleTopics {
+                title
+            }
+
+            byline: staffMember {
                 id
                 slug
                 title
             }
-            description: summary
-            category: typeHandle
             date: dateUpdated
         }
 
