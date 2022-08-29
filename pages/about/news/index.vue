@@ -51,7 +51,10 @@
                 color="about"
             />
         </section-wrapper>
-        <block-call-to-action :is-meap-global="true" />
+
+        <section-wrapper>
+            <block-call-to-action :is-meap-global="true" />
+        </section-wrapper>
     </main>
 </template>
 

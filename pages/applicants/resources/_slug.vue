@@ -49,7 +49,9 @@
             to="/applicants/resources"
         />
 
-        <block-call-to-action :is-global="true" />
+        <section-wrapper>
+            <block-call-to-action :is-meap-global="true" />
+        </section-wrapper>
     </main>
 </template>
 

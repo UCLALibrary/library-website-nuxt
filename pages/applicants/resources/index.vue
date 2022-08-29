@@ -39,10 +39,12 @@
             />
         </section-wrapper>
 
-        <block-call-to-action
-            class="block-call-to-action"
-            :is-meap-global="true"
-        />
+        <section-wrapper>
+            <block-call-to-action
+                class="block-call-to-action"
+                :is-meap-global="true"
+            />
+        </section-wrapper>
     </main>
 </template>
 <script>
