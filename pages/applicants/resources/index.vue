@@ -12,16 +12,6 @@
             v-if="resourceList"
             class="section"
         >
-            <divider-way-finder
-                class="divider-way-finder"
-                color="about"
-            />
-        </section-wrapper>
-
-        <section-wrapper
-            v-if="resourceList"
-            class="section"
-        >
             <section-cards-with-illustrations
                 class="section"
                 :items="sortedData"

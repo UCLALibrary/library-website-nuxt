@@ -28,7 +28,6 @@
                 to="/applicants/resources"
             />
         </section-wrapper>
-        />
     </main>
 </template>
 

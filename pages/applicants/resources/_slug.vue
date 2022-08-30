@@ -38,7 +38,7 @@
                     page.parsedAssociatedTopics.length
             "
         >
-            <divider-way-finder color="help" />
+            <divider-way-finder color="about" />
         </section-wrapper>
 
         <section-cards-with-illustrations
@@ -105,8 +105,9 @@ export default {
 
 <style lang="scss" scoped>
 .page-resource-detail {
-    .banner-text {
-      --color-theme: var(--color-help-green-03);
+    .banner-text,
+    .banner-header {
+      --color-theme: var(--color-about-purple-03);
     }
 }
 </style>

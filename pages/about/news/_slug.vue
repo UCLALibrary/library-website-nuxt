@@ -25,6 +25,13 @@
             :align-right="true"
         />
 
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="visit"
+            />
+        </section-wrapper>
+
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
@@ -70,8 +77,9 @@ export default {
 
 <style lang="scss" scoped>
 .page-news-detail {
-    .banner-text {
-        --color-theme: var(--color-help-green-03);
+    .banner-text,
+    .banner-header {
+        --color-theme: var(--color-visit-fushia-03);
     }
 }
 </style>

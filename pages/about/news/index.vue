@@ -34,7 +34,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider"
-                color="about"
+                color="visit"
             />
         </section-wrapper>
 
@@ -48,7 +48,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider"
-                color="about"
+                color="visit"
             />
         </section-wrapper>
 
@@ -130,6 +130,20 @@ export default {
         margin: 0 auto;
         margin-top: var(--space-3xl);
         margin-bottom: var(--space-xl);
+    }
+
+    .banner-header.color-about {
+        --color-theme: var(--color-visit-fushia-03);
+    }
+
+    ::v-deep .block-highlight.color-about {
+        --floating-highlight-color-theme:  var(--color-visit-fushia-03);
+    }
+
+    @media #{$medium} {
+        .banner-header {
+            margin-top: 0;
+        }
     }
 }
 </style>

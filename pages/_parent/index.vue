@@ -59,7 +59,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-general-content {
-  .banner-text {
+  .banner-text,
+  .banner-header {
     --color-theme: var(--color-help-green-03);
   }
 }

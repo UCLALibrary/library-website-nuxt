@@ -39,15 +39,7 @@
                 :section-summary="block.sectionSummary"
                 :items="block.associatedEntries"
             />
-        </section-wrapper>
 
-        <section-wrapper
-            v-if="(page.richText ||
-                (page.helpTopicBlocks && page.helpTopicBlocks.length)) &&
-                page.blocks &&
-                page.blocks.length"
-            theme="divider"
-        >
             <divider-way-finder color="about" />
         </section-wrapper>
 
@@ -86,4 +78,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.page-help-topic {
+    .banner-text,
+    .banner-header {
+      --color-theme: var(--color-about-purple-03);
+    }
+
+    .help-topic-section:last-child {
+        .divider-way-finder {
+            display: none;
+        }
+    }
+}
 </style>

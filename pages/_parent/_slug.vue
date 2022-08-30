@@ -23,6 +23,13 @@
             :text="page.summary"
         />
 
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider-way-finder"
+                color="visit"
+            />
+        </section-wrapper>
+
         <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
@@ -58,8 +65,12 @@ export default {
 
 <style lang="scss" scoped>
 .page-general-content {
-    .banner-text {
-        --color-theme: var(--color-help-green-03);
+    .banner-text,
+    .banner-header {
+        --color-theme: var(--color-visit-fushia-03);
+    }
+    ::v-deep .divider-way-finder {
+        --color-border: var(--color-visit-fushia-03);
     }
 }
 </style>
