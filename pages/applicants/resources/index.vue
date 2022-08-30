@@ -63,7 +63,7 @@ export default {
     },
     head() {
         let title = this.summaryData
-            ? this.summaryData.resourceListTitle
+            ? this.summaryData.title
             : "... loading"
         return {
             title: title,

@@ -7,11 +7,14 @@ export default {
     target: "static",
     components: true,
 
-   
     /*
      ** Required charset and viewport meta tags
      */
     head: {
+        titleTemplate: (titleChunk) => {
+            // If undefined or blank then we don't need the pipe and space
+            return titleChunk ? `${titleChunk} | Modern Endangered Archives Program` : 'Modern Endangered Archives Program'
+        },
         htmlAttrs: {
             lang: "en",
         },

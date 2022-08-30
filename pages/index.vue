@@ -133,12 +133,6 @@ export default {
             page: _get(data, "entries", {}),
         }
     },
-    head() {
-        let title = "Modern Endagered Archives Program"
-        return {
-            title: title,
-        }
-    },
     computed: {
         homePage() {
             return this.page.map((obj) => {
