@@ -6,8 +6,7 @@ fragment BlockSimpleCardsFragment on ElementInterface {
     cards: meapflexiblePageBlocks_simpleCards {
         ... on meapflexiblePageBlocks_simpleCards_internalResource_BlockType {
             id
-            title: titleGeneral
-            summary
+            typeHandle
             contentLink {
                 id
                 uri
@@ -18,6 +17,7 @@ fragment BlockSimpleCardsFragment on ElementInterface {
         }
         ... on meapflexiblePageBlocks_simpleCards_externalResource_BlockType {
             id
+            typeHandle
             title: titleGeneral
             summary
             externalLink

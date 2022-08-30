@@ -11,7 +11,6 @@
             :title="page.title"
             :text="page.summary"
         />
-
         <section-wrapper>
             <rich-text
                 v-if="page.richText"
@@ -21,14 +20,17 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="page.richText && page.helpTopicBlocks && page.helpTopicBlocks.length"
+            v-if="
+                page.richText &&
+                    page.helpTopicBlocks &&
+                    page.helpTopicBlocks.length
+            "
             theme="divider"
         >
             <divider-way-finder color="about" />
         </section-wrapper>
-
         <section-wrapper
-            v-for="(block, index) in page.helpTopicBlocks"
+            v-for="(block, index) in parsedHelpTopicBlocks"
             v-if="page.helpTopicBlocks && page.helpTopicBlocks.length"
             :key="`HelpTopicBlocksKey${index}`"
             class="help-topic-section"
@@ -37,9 +39,8 @@
                 class="help-topic-block"
                 :section-title="block.sectionTitle"
                 :section-summary="block.sectionSummary"
-                :items="block.associatedEntries"
+                :items="block.parsedAssociatedEntries"
             />
-
             <divider-way-finder color="about" />
         </section-wrapper>
 
@@ -74,6 +75,25 @@ export default {
             title: title,
         }
     },
+    computed: {
+        parsedHelpTopicBlocks() {
+            return this.page.helpTopicBlocks.map((obj) => {
+                return {
+                    ...obj,
+                    parsedAssociatedEntries: obj.associatedEntries.map(
+                        (entry) => {
+                            return {
+                                ...entry,
+                                to: entry.externalResourceUrl
+                                    ? entry.externalResourceUrl
+                                    : `/${entry.uri}`,
+                            }
+                        }
+                    ),
+                }
+            })
+        },
+    },
 }
 </script>
 
@@ -81,7 +101,7 @@ export default {
 .page-help-topic {
     .banner-text,
     .banner-header {
-      --color-theme: var(--color-about-purple-03);
+        --color-theme: var(--color-about-purple-03);
     }
 
     .help-topic-section:last-child {
