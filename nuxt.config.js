@@ -7,11 +7,19 @@ export default {
     target: "static",
     components: true,
 
-   
     /*
      ** Required charset and viewport meta tags
      */
     head: {
+        // titleTemplate: "%s | Modern Endangered Archives Program",
+
+
+        titleTemplate: (titleChunk) => {
+            // If undefined or blank then we don't need the hyphen
+            return titleChunk ? `${titleChunk} | Modern Endangered Archives Program` : 'Modern Endangered Archives Program';
+        },
+
+
         htmlAttrs: {
             lang: "en",
         },
