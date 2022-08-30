@@ -17,6 +17,7 @@
                 class="primary"
                 :items="primaryMenuItems"
                 title="Modern Endangered Archives Program"
+                acronym="MEAP"
             />
         </header>
         <header v-else>
@@ -26,6 +27,7 @@
                 :secondary-nav="secondaryMenuItems"
                 current-path="/about/foo/bar"
                 title="Modern Endangered Archives Program"
+                acronym="MEAP"
             />
         </header>
 

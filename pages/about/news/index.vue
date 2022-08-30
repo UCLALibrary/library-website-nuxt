@@ -7,24 +7,26 @@
             :title="summaryData.title"
             :text="summaryData.summary"
         />
+
         <h2 class="visually-hidden">
             Highlighted News
         </h2>
 
-        <banner-header
-            :image="parsedBannerHeader.image"
-            :title="parsedBannerHeader.title"
-            category="Highlighted News"
-            :byline="parsedBannerHeader.byline"
-            :locations="parsedBannerHeader.locations"
-            :description="parsedBannerHeader.text"
-            :date-created="parsedBannerHeader.dateCreated"
-            :to="parsedBannerHeader.to"
-            :align-right="true"
-            prompt="Read More"
-            class="banner"
-        />
         <section-wrapper>
+            <banner-featured
+                :image="parsedBannerHeader.image"
+                :title="parsedBannerHeader.title"
+                breadcrumb="Featured"
+                :byline="parsedByline"
+                :locations="parsedBannerHeader.locations"
+                :description="parsedBannerHeader.text"
+                :date-created="parsedBannerHeader.dateCreated"
+                :to="parsedBannerHeader.to"
+                :align-right="true"
+                prompt="Read More"
+                class="banner"
+            />
+
             <section-teaser-highlight
                 class="section"
                 :items="parsedSectionHighlight"
@@ -120,6 +122,14 @@ export default {
                 }
             })
         },
+        parsedByline() {
+            let output = []
+            if (this.parsedBannerHeader.byline) {
+                output.push(this.parsedBannerHeader.byline[0].title)
+            }
+            console.log(output)
+            return output
+        }
     },
 }
 </script>
@@ -128,8 +138,11 @@ export default {
 .page-news {
     .banner {
         margin: 0 auto;
-        margin-top: var(--space-3xl);
-        margin-bottom: var(--space-xl);
+        margin-bottom: var(--space-2xl);
+    }
+
+    ::v-deep .block-staff-article-item {
+        --divider-color: var(--color-secondary-grey-02);
     }
 
     .banner-header.color-about {

@@ -64,5 +64,10 @@ export default {
             margin-bottom: var(--space-xl);
         }
     }
+    @media #{$small} {
+        .error {
+            font-size: 128px;
+        }
+    }
 }
 </style>
