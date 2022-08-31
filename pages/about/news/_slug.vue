@@ -3,7 +3,10 @@
         id="main"
         class="page page-news-detail"
     >
-        <nav-breadcrumb :title="page.title" />
+        <nav-breadcrumb
+            :is-meap="true"
+            :title="page.title"
+        />
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"

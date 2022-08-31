@@ -5,6 +5,7 @@
     >
         <nav-breadcrumb
             :title="page.title"
+            :is-meap="true"
             class="breadcrumb"
         />
         <banner-text
@@ -41,7 +42,7 @@ import _get from "lodash/get"
 
 export default {
     async asyncData({ $graphql, params, store }) {
-    // Do not remove testing live preview
+        // Do not remove testing live preview
         const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
             slug: params.parent,
         })
@@ -61,13 +62,13 @@ export default {
 
 <style lang="scss" scoped>
 .page-general-content {
-  .banner-text,
-  .banner-header {
-    --color-theme: var(--color-help-green-03);
-  }
+    .banner-text,
+    .banner-header {
+        --color-theme: var(--color-help-green-03);
+    }
 
-  .section-banner {
-    margin-top: 0;
-  }
+    .section-banner {
+        margin-top: 0;
+    }
 }
 </style>

@@ -3,7 +3,11 @@
         id="main"
         class="page page-resource-detail"
     >
-        <nav-breadcrumb :title="page.title" />
+        <nav-breadcrumb
+            :title="page.title"
+            :is-meap="true"
+            class="breadcrumb"
+        />
 
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
@@ -66,7 +70,7 @@ import _get from "lodash/get"
 
 export default {
     async asyncData({ $graphql, params, store }) {
-    // Do not remove testing live preview
+        // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
         )
@@ -109,7 +113,7 @@ export default {
 .page-resource-detail {
     .banner-text,
     .banner-header {
-      --color-theme: var(--color-about-purple-03);
+        --color-theme: var(--color-about-purple-03);
     }
 
     .section-banner {

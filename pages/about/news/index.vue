@@ -64,10 +64,8 @@
 // Helpers
 import _get from "lodash/get"
 import format from "date-fns/format"
-
 // GQL
 import ARTICLE_NEWS_LIST from "~/gql/queries/ArticleNewsList"
-
 export default {
     async asyncData({ $graphql, params }) {
         const data = await $graphql.default.request(ARTICLE_NEWS_LIST, {})
@@ -104,7 +102,6 @@ export default {
             return this.parsedFeaturedNews.slice(1).map((obj) => {
                 return {
                     ...obj,
-
                     bylineTwo:
                         obj.bylineTwo != null
                             ? format(new Date(obj.bylineTwo), "MMMM d, yyyy")
@@ -128,7 +125,7 @@ export default {
                 output.push(this.parsedBannerHeader.byline[0].title)
             }
             return output
-        }
+        },
     },
 }
 </script>
@@ -139,19 +136,15 @@ export default {
         margin: 0 auto;
         margin-bottom: var(--space-2xl);
     }
-
     ::v-deep .block-staff-article-item {
         --divider-color: var(--color-secondary-grey-02);
     }
-
     .banner-header.color-about {
         --color-theme: var(--color-visit-fushia-03);
     }
-
     ::v-deep .block-highlight.color-about {
-        --floating-highlight-color-theme:  var(--color-visit-fushia-03);
+        --floating-highlight-color-theme: var(--color-visit-fushia-03);
     }
-
     @media #{$medium} {
         .banner-header {
             margin-top: 0;

@@ -5,6 +5,7 @@
     >
         <nav-breadcrumb
             :title="page.title"
+            :is-meap="true"
             class="breadcrumb"
         />
         <banner-text
