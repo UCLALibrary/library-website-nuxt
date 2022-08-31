@@ -8,6 +8,43 @@ export default {
     components: true,
 
     /*
+    * Extend routes
+    // TO DO check why this is not working
+    router: {
+        extendRoutes(routes, resolve) {
+            console.log("In extend routes")
+            console.log("what are the routes? "+ JSON.stringify(routes))
+            routes.push(
+                {
+                    name: 'applicants',
+                    path: '/applicants+',
+                    component: resolve(__dirname,'pages/applicants/resources/index.vue'),
+                    chunkName : 'pages/applicants/resources/index.vue'
+                }
+            )
+            routes = routes.map((obj)=>{
+                let path = ""
+                let component = ""
+                let chunkname = ""
+                if(obj.name == "applicants-slug") {
+                    path = "/applicants/:slug+"
+                    component = resolve(__dirname,'pages/applicants/_slug.vue')
+                    chunkname = 'pages/applicants/_slug.vue'
+                }
+                return {
+                    name: obj.name,
+                    path: path ? path : obj.path,
+                    component: component ? component : obj.component,
+                    chunkName: chunkname ? chunkname : obj.chunkName
+                }
+            })
+            
+            console.log("Now are the routes? "+ JSON.stringify(routes))
+        }
+    },
+    */
+
+    /*
      ** Required charset and viewport meta tags
      */
     head: {
@@ -129,7 +166,7 @@ export default {
     /*
      * Nuxt build modules
      */
-    buildModules: ["@nuxtjs/style-resources", "nuxt-graphql-request","@/modules/sitemapRouteGenerator",],
+    buildModules: ["@nuxtjs/router-extras", "@nuxtjs/style-resources", "nuxt-graphql-request", "@/modules/sitemapRouteGenerator",],
 
     /*
      ** Nuxt webpack build configuration

@@ -37,6 +37,11 @@
         </section-wrapper>
     </main>
 </template>
+<router>
+  {
+    alias: '/applicants',
+  }
+</router>
 <script>
 // Helpers
 import sortByTitle from "~/utils/sortByTitle"
@@ -62,9 +67,7 @@ export default {
         }
     },
     head() {
-        let title = this.summaryData
-            ? this.summaryData.title
-            : "... loading"
+        let title = this.summaryData ? this.summaryData.title : "... loading"
         return {
             title: title,
         }
@@ -85,7 +88,9 @@ export default {
             return allResources.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.externalResourceUrl ? obj.externalResourceUrl : `/${obj.uri}`,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.uri}`,
                 }
             })
         },
