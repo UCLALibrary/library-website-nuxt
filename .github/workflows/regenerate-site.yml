@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment'     
+        description: 'Environment(test/prod)'     
         required: true
         default: 'test'
 
@@ -25,7 +25,7 @@ jobs:
         env:
           CRAFT_ENDPOINT: "${{ github.event.inputs.environment == 'test' && secrets.CRAFT_ENDPOINT_TEST || secrets.CRAFT_PROD_ENDPOINT }}"
           S3_BUCKET: "https://static.library.ucla.edu/"
-          SITEMAP_HOST: "https://test-meap.library.ucla.edu"
+          SITEMAP_HOST: "${{ github.event.inputs.environment == 'test' && 'https://test-meap.library.ucla.edu' || 'https://meap.library.ucla.edu' }}"
       - name: Deploy to Netlify on release
         uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
         with:
@@ -37,4 +37,4 @@ jobs:
           github-deployment-environment: production
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_MEAP_TEST }}
+          NETLIFY_SITE_ID: "${{ github.event.inputs.environment == 'test' && secrets.NETLIFY_SITE_ID_MEAP_TEST || secrets.NETLIFY_PROD_MEAP_SITE_ID }}"
