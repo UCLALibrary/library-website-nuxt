@@ -17,7 +17,7 @@
                 :image="parsedBannerHeader.image"
                 :title="parsedBannerHeader.title"
                 breadcrumb="Featured"
-                :byline="parsedByline"
+                :byline="parsedByline.title"
                 :locations="parsedBannerHeader.locations"
                 :description="parsedBannerHeader.text"
                 :date-created="parsedBannerHeader.dateCreated"
@@ -124,10 +124,9 @@ export default {
         },
         parsedByline() {
             let output = []
-            if (this.parsedBannerHeader.byline) {
+            if (this.parsedBannerHeader.byline.length > 0) {
                 output.push(this.parsedBannerHeader.byline[0].title)
             }
-            console.log(output)
             return output
         }
     },
