@@ -124,10 +124,9 @@ export default {
         },
         parsedByline() {
             let output = []
-            if (this.parsedBannerHeader.byline) {
+            if (this.parsedBannerHeader.byline.length > 0) {
                 output.push(this.parsedBannerHeader.byline[0].title)
             }
-            console.log(output)
             return output
         }
     },
