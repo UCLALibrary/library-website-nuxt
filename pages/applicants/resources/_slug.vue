@@ -15,15 +15,17 @@
             :to="parsedButtonTo"
         />
 
-        <banner-header
-            v-if="page.heroImage && page.heroImage.length >= 1"
-            :image="page.heroImage[0].image[0]"
-            :to="parsedButtonTo"
-            :prompt="parsedButtonText"
-            :title="page.title"
-            :category="page.type"
-            :text="page.text"
-        />
+        <section-wrapper class="section-banner">
+            <banner-header
+                v-if="page.heroImage && page.heroImage.length >= 1"
+                :image="page.heroImage[0].image[0]"
+                :to="parsedButtonTo"
+                :prompt="parsedButtonText"
+                :title="page.title"
+                :category="page.type"
+                :text="page.text"
+            />
+        </section-wrapper>
 
         <flexible-blocks
             v-if="page.blocks && page.blocks.length"
@@ -108,6 +110,10 @@ export default {
     .banner-text,
     .banner-header {
       --color-theme: var(--color-about-purple-03);
+    }
+
+    .section-banner {
+        margin-top: 0;
     }
 }
 </style>

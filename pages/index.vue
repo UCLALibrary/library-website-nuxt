@@ -197,11 +197,5 @@ export default {
             max-width: unset;
         }
     }
-
-    @media #{$small} {
-        .section-wrapper.section-featured-projects {
-            padding: 0;
-        }
-    }
 }
 </style>

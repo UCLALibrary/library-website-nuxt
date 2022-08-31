@@ -13,17 +13,19 @@
             :byline="page.byline"
         />
 
-        <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :title="page.title"
-            :text="page.text"
-            :category="parsedCategory"
-            :byline="page.byline"
-            :locations="page.locations"
-            :date-created="page.dateCreated"
-            :align-right="true"
-        />
+        <section-wrapper class="section-banner">
+            <banner-header
+                v-if="page.heroImage && page.heroImage.length == 1"
+                :image="page.heroImage[0].image[0]"
+                :title="page.title"
+                :text="page.text"
+                :category="parsedCategory"
+                :byline="page.byline"
+                :locations="page.locations"
+                :date-created="page.dateCreated"
+                :align-right="true"
+            />
+        </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -80,6 +82,10 @@ export default {
     .banner-text,
     .banner-header {
         --color-theme: var(--color-visit-fushia-03);
+    }
+
+    .section-banner {
+        margin-top: 0;
     }
 }
 </style>

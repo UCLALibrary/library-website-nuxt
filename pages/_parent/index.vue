@@ -15,13 +15,15 @@
             :text="page.summary"
         />
 
-        <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :category="page.format"
-            :title="page.title"
-            :text="page.summary"
-        />
+        <section-wrapper class="section-banner">
+            <banner-header
+                v-if="page.heroImage && page.heroImage.length == 1"
+                :image="page.heroImage[0].image[0]"
+                :category="page.format"
+                :title="page.title"
+                :text="page.summary"
+            />
+        </section-wrapper>
 
         <flexible-blocks
             class="flexible-content"
@@ -62,6 +64,10 @@ export default {
   .banner-text,
   .banner-header {
     --color-theme: var(--color-help-green-03);
+  }
+
+  .section-banner {
+    margin-top: 0;
   }
 }
 </style>
