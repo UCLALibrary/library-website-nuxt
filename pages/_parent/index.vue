@@ -26,6 +26,13 @@
             />
         </section-wrapper>
 
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider-way-finder"
+                color="visit"
+            />
+        </section-wrapper>
+
         <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
@@ -46,7 +53,6 @@ export default {
         const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
             slug: params.parent,
         })
-        console.log("parent SLUG:" + params.parent)
         return {
             page: _get(data, "entry", {}),
         }
@@ -69,6 +75,10 @@ export default {
 
     .section-banner {
         margin-top: 0;
+    }
+
+    ::v-deep .divider-way-finder {
+        --color-border: var(--color-visit-fushia-03);
     }
 }
 </style>
