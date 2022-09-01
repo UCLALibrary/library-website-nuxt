@@ -2,10 +2,6 @@ name: Regenerate static site when craft data is updated.
 
 on:
   workflow_dispatch:
-    branches-ignore:
-      - '*'
-    tags: 
-      - '*'
     inputs:
       environment:
         description: 'Environment(test/prod)'     
