@@ -3,12 +3,16 @@ describe("Website Homepage", () => {
         cy.visit("/")
         cy.viewport(1200, 1200)
 
+        // Inside Header Smart component from default.vue
+        // Header Smart #region
         // UCLA brand
         cy.get(".site-brand-bar").should("be.visible")
         cy.get(".visually-hidden").should("contain", "UCLA Home")
-        cy.get(".ucla-logo")
-            .parent()
-            .should("have.attr", "href", "https://www.ucla.edu")
+        cy.fixture('links').then((linksFixture) => {
+            cy.get(".ucla-logo")
+                .parent()
+                .should("have.attr", "href", linksFixture.uclaEduLink)
+        })
 
         // NavSecondary
         cy.get(".nav-secondary")
@@ -16,12 +20,26 @@ describe("Website Homepage", () => {
             .and("contain", "Ask a Librarian")
             .and("contain", "My Account")
 
+        
+        cy.fixture('altTexts').then((altTextsFixture) => {
+            cy.get(".logo-ucla")
+                .should("have.attr", "alt", altTextsFixture.uclaLibraryLogoBlue)
+        })
+
+        cy.fixture('links').then((linksFixture) => {
+            cy.get(".logo-ucla")
+                .parent()
+                .should("have.attr", "href", linksFixture.defaultLink)
+        })
+
         // NavPrimary
         cy.get(".nav-primary")
             .should("contain", "Get help with...")
             .and("contain", "Visit")
             .and("contain", "About")
             .and("contain", "Support us")
+
+        // Header Smart #endregion
 
         // MastheadPrimary
         cy.get(".masthead-primary").find(".logo").should("be.visible")
