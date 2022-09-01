@@ -35,6 +35,8 @@ describe("Website Homepage", () => {
             "News"
         )
 
+        cy.contains("a.smart-link", "Browse Collections").should("have.attr", "target", "_blank")
+
         // MastheadPrimary
         // cy.get(".masthead-primary").find(".logo").should("be.visible")
         // cy.get(".masthead-primary")
