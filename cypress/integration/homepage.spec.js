@@ -1,10 +1,54 @@
-describe("Website Homepage", () => {
-    it("Visit the Homepage", () => {
+class BasePage {
+    static loadHomePage() {
         cy.visit("/")
-        cy.viewport(1200, 1200)
+    }
 
-        // Inside Header Smart component from default.vue
-        // Header Smart #region
+    static wait(number) {
+        cy.visit(number)
+    }
+}
+
+class HomePage extends BasePage {
+    static scrollToTop() {
+        cy.get('header').scrollIntoView()
+    }
+}
+
+describe("Website Homepage", () => {
+
+    before(function() {
+        // Runs before all tests inside describe
+        // Setup test data or test context
+        // Send or reset the database
+        cy.log('Testing for Desktop Size')
+        cy.viewport(1200, 1200)
+        HomePage.loadHomePage()
+    })
+
+    after(function() {
+        // Runs after all tests inside describe blocks are done
+        // Test clean up
+        // Clean cookies or localStorage
+    })
+
+    beforeEach(function() {
+        // Runs after each it block in the describe
+    })
+
+    afterEach(function() {
+        // Runs after each it block in the describe
+    })
+
+    // Inside Header Smart component from default.vue
+    // Header Smart #region
+
+    it("Should test the Header", () => {
+        cy.get("header")
+            .children()
+            .should('have.length', 4)
+    })
+
+    it("Should test the Site Brand Bar", () => {
         // UCLA brand
         cy.get(".site-brand-bar").should("be.visible")
         cy.get(".visually-hidden").should("contain", "UCLA Home")
@@ -13,7 +57,9 @@ describe("Website Homepage", () => {
                 .parent()
                 .should("have.attr", "href", linksFixture.uclaEduLink)
         })
+    })
 
+    it.skip("Should test the NavSecondary", () => {
         // NavSecondary
         cy.get(".nav-secondary")
             .should("contain", "Locations & Hours")
@@ -31,6 +77,10 @@ describe("Website Homepage", () => {
                 .parent()
                 .should("have.attr", "href", linksFixture.defaultLink)
         })
+    })
+
+    it.skip("Should visit the Homepage", () => {
+        
 
         // NavPrimary
         cy.get(".nav-primary")
