@@ -155,7 +155,22 @@ export default {
             return _get(this.page, "meapProjectCallToAction[0].buttonText", "")
         },
         parsedButtonTo() {
-            return _get(this.page, "meapProjectCallToAction[0].externalUrl", "")
+            console.log(
+                "call to action data :" +
+                    JSON.stringify(this.page.meapProjectCallToAction[0])
+            )
+            let buttonTo = _get(
+                this.page,
+                "meapProjectCallToAction[0].externalUrl",
+                ""
+            )
+            return buttonTo
+                ? buttonTo
+                : _get(
+                    this.page,
+                    "meapProjectCallToAction[0].uploadAsset[0].url",
+                    ""
+                )
         },
     },
 }

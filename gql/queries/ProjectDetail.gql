@@ -23,8 +23,10 @@ query ProjectDetail($slug: [String!]) {
       }
       ... on meapProjectCallToAction_uploadAsset_BlockType {
         id
+        buttonText
         uploadAsset {
           id
+          url
         }
       }
     }
