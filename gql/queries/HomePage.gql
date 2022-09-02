@@ -5,6 +5,7 @@ query MeapHomePage {
         ... on meapHomepage_meapHomepage_Entry {
             id
             title
+            titleGeneral
             summary
             heroImage {
                 ... on heroImage_heroImage_BlockType {
