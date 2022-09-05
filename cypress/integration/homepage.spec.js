@@ -94,7 +94,7 @@ describe("Website Homepage", () => {
         })
     })
 
-    it.only("Should test the NavSecondary", () => {
+    it("Should test the NavSecondary", () => {
         cy.get(".nav-secondary")
             .should("contain", "Locations & Hours")
             .and("contain", "Ask a Librarian")
@@ -159,22 +159,26 @@ describe("Website Homepage", () => {
         
     })
 
-    it.skip("Should visit the Homepage", () => {
+    it("Should test the NavPrimary", () => {
         // NavPrimary
         cy.get(".nav-primary")
             .should("contain", "Get help with...")
             .and("contain", "Visit")
             .and("contain", "About")
             .and("contain", "Support us")
+    })
 
-        // Header Smart #endregion
+    it("Should test the Get Help With Section", () => {
 
         // get help with
         cy.get(".section-cards-with-illustrations").should(
             "contain",
             "Get Help With"
         )
+    })
 
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+    it.only("Should test the DividerWayFinder", () => {
+        cy.get(".divider.divider-first.divider-way-finder.color-help")
+            .should("be.visible")
     })
 })
