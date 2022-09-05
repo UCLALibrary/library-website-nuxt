@@ -94,7 +94,7 @@ describe("Website Homepage", () => {
         })
     })
 
-    it.only("Should test the NavSecondary", () => {
+    it("Should test the NavSecondary", () => {
         cy.get(".nav-secondary")
             .should("contain", "Locations & Hours")
             .and("contain", "Ask a Librarian")
@@ -146,14 +146,11 @@ describe("Website Homepage", () => {
 
         cy.get(".list")
             .children()
-            .not(".support-link")  // Excluding the one that opens a new tab
             .each((item, index) => {
                 cy.wrap(item)
                     .should('contain.text', navigationListItems[index].name)
-                    .click()
-                cy.url().should("include", navigationListItems[index].to)
+                    .children().should('have.attr', 'href', navigationListItems[index].to)
             })
-        
 
     })
 
