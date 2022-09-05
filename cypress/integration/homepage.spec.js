@@ -20,9 +20,6 @@ describe("Website Homepage", () => {
         // Runs before all tests inside describe
         // Setup test data or test context
         // Send or reset the database
-        cy.log('Testing for Desktop Size')
-        cy.viewport(1200, 1200)
-        HomePage.loadHomePage()
     })
 
     after(function() {
@@ -33,6 +30,9 @@ describe("Website Homepage", () => {
 
     beforeEach(function() {
         // Runs after each it block in the describe
+        cy.log('Testing for Desktop Size')
+        cy.viewport(1200, 1200)
+        HomePage.loadHomePage()
     })
 
     afterEach(function() {
@@ -42,55 +42,12 @@ describe("Website Homepage", () => {
     // Inside Header Smart component from default.vue
     // Header Smart #region
 
-    it("Should test the Header", () => {
-        cy.get("header")
-            .children()
-            .should('have.length', 4)
+    it("Should test the main div", () => {
+        cy.get("div.page.page-home")
+            .should("be.visible")
     })
 
-    it("Should test the Site Brand Bar", () => {
-        // UCLA brand
-        cy.get(".site-brand-bar").should("be.visible")
-        cy.get(".visually-hidden").should("contain", "UCLA Home")
-        cy.fixture('links').then((linksFixture) => {
-            cy.get(".ucla-logo")
-                .parent()
-                .should("have.attr", "href", linksFixture.uclaEduLink)
-        })
-    })
-
-    it.skip("Should test the NavSecondary", () => {
-        // NavSecondary
-        cy.get(".nav-secondary")
-            .should("contain", "Locations & Hours")
-            .and("contain", "Ask a Librarian")
-            .and("contain", "My Account")
-
-        
-        cy.fixture('altTexts').then((altTextsFixture) => {
-            cy.get(".logo-ucla")
-                .should("have.attr", "alt", altTextsFixture.uclaLibraryLogoBlue)
-        })
-
-        cy.fixture('links').then((linksFixture) => {
-            cy.get(".logo-ucla")
-                .parent()
-                .should("have.attr", "href", linksFixture.defaultLink)
-        })
-    })
-
-    it.skip("Should visit the Homepage", () => {
-        
-
-        // NavPrimary
-        cy.get(".nav-primary")
-            .should("contain", "Get help with...")
-            .and("contain", "Visit")
-            .and("contain", "About")
-            .and("contain", "Support us")
-
-        // Header Smart #endregion
-
+    it("Should test the masthead-primary", () => {
         // MastheadPrimary
         cy.get(".masthead-primary").find(".logo").should("be.visible")
         cy.get(".masthead-primary")
@@ -118,6 +75,97 @@ describe("Website Homepage", () => {
                 "href",
                 "https://guides.library.ucla.edu/az.php"
             )
+    })
+
+    it("Should test the Header", () => {
+        cy.get("header")
+            .children()
+            .should('have.length', 4)
+    })
+
+    it("Should test the Site Brand Bar", () => {
+        // UCLA brand
+        cy.get(".site-brand-bar").should("be.visible")
+        cy.get(".visually-hidden").should("contain", "UCLA Home")
+        cy.fixture('links').then((linksFixture) => {
+            cy.get(".ucla-logo")
+                .parent()
+                .should("have.attr", "href", linksFixture.uclaEduLink)
+        })
+    })
+
+    it.only("Should test the NavSecondary", () => {
+        cy.get(".nav-secondary")
+            .should("contain", "Locations & Hours")
+            .and("contain", "Ask a Librarian")
+            .and("contain", "My Account")
+
+        
+        cy.fixture('altTexts').then((altTextsFixture) => {
+            cy.get(".logo-ucla")
+                .should("have.attr", "alt", altTextsFixture.uclaLibraryLogoBlue)
+        })
+
+        cy.fixture('links').then((linksFixture) => {
+            cy.get(".svg.logo-ucla")
+                .parent()
+                .should("have.attr", "href",  linksFixture.defaultLink)
+        })
+
+        cy.log('TEST NAVIGATION LIST ITEMS')
+        const navigationListItems = [
+            {
+                id: "843",
+                name: "Locations & Hours",
+                to: "/locations",
+                classes: "",
+                target: "",
+            },
+            {
+                id: "844",
+                name: "Ask a Librarian",
+                to: "/research-teaching-support/research-help",
+                classes: null,
+                target: "",
+            },
+            {
+                id: "25315",
+                name: "Support Us",
+                to: "https://giving.ucla.edu/Standard/NetDonate.aspx?SiteNum=463",
+                classes: "support-link",
+                target: "1",
+            },
+            {
+                id: "845",
+                name: "My Account",
+                to: "https://search.library.ucla.edu/discovery/login?vid=01UCS_LAL:UCLA",
+                classes: "account-button",
+                target: "1",
+            },
+        ]
+
+        cy.get(".list")
+            .children()
+            .not(".support-link")  // Excluding the one that opens a new tab
+            .each((item, index) => {
+                cy.wrap(item)
+                    .should('contain.text', navigationListItems[index].name)
+                    .click()
+                cy.url().should("include", navigationListItems[index].to)
+            })
+        
+
+    })
+
+    it.skip("Should visit the Homepage", () => {
+        // NavPrimary
+        cy.get(".nav-primary")
+            .should("contain", "Get help with...")
+            .and("contain", "Visit")
+            .and("contain", "About")
+            .and("contain", "Support us")
+
+        // Header Smart #endregion
 
         // get help with
         cy.get(".section-cards-with-illustrations").should(
