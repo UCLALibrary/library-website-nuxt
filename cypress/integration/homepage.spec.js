@@ -94,7 +94,7 @@ describe("Website Homepage", () => {
         })
     })
 
-    it("Should test the NavSecondary", () => {
+    it.only("Should test the NavSecondary", () => {
         cy.get(".nav-secondary")
             .should("contain", "Locations & Hours")
             .and("contain", "Ask a Librarian")
@@ -149,9 +149,14 @@ describe("Website Homepage", () => {
             .each((item, index) => {
                 cy.wrap(item)
                     .should('contain.text', navigationListItems[index].name)
-                    .children().should('have.attr', 'href', navigationListItems[index].to)
+                    .children()
+                    .should('have.attr', 'href', navigationListItems[index].to)
             })
 
+        cy.log('TEST NAVIGATION ACCOUNT BUTTON')
+        cy.get(".account-button")
+            .should('have.attr', 'href', "https://search.library.ucla.edu/discovery/login?vid=01UCS_LAL:UCLA")
+        
     })
 
     it.skip("Should visit the Homepage", () => {
