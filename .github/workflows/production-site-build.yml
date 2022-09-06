@@ -4,6 +4,10 @@ name: Website Release
 on:
   release:
     types: [ published ]
+  workflow_dispatch:
+    inputs: {}
+  schedule:
+    - cron:  '00 7 * * *' # 7am UTC = midnight PDT, 11pm PST
 
 jobs:
   nuxt-prod:
@@ -11,7 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-    - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+    - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+    - name: 'Get Previous tag' # need to run after initial checkout to get tag list
+        if: github.event_name != "release"
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+    - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # check out again with most recent tag
+        if: github.event_name != "release"
+      with:
+        ref: ${{ steps.previoustag.outputs.tag }}
     - uses: ./.github/workflows/setup-workspace
     - name: Cache built static site
       uses: actions/cache@v2
