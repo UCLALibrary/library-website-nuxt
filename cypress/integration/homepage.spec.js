@@ -94,7 +94,7 @@ describe("Website Homepage", () => {
         })
     })
 
-    it("Should test the NavSecondary", () => {
+    it.only("Should test the NavSecondary", () => {
         cy.get(".nav-secondary")
             .should("contain", "Locations & Hours")
             .and("contain", "Ask a Librarian")
@@ -112,7 +112,12 @@ describe("Website Homepage", () => {
                 .should("have.attr", "href",  linksFixture.defaultLink)
         })
 
-        cy.log('TEST NAVIGATION LIST ITEMS')
+        Cypress.log({
+            name: 'navigation list items',
+            displayName: "TEST",
+            message: [`⚙️ Testing | Navigation list items`],
+            autoEnd: false,
+        })
         const navigationListItems = [
             {
                 id: "843",
@@ -168,6 +173,11 @@ describe("Website Homepage", () => {
             .and("contain", "Support us")
     })
 
+    it("Should test the DividerWayFinder", () => {
+        cy.get(".divider.divider-first.divider-way-finder.color-help")
+            .should("be.visible")
+    })
+
     it("Should test the Get Help With Section", () => {
 
         // get help with
@@ -175,10 +185,5 @@ describe("Website Homepage", () => {
             "contain",
             "Get Help With"
         )
-    })
-
-    it.only("Should test the DividerWayFinder", () => {
-        cy.get(".divider.divider-first.divider-way-finder.color-help")
-            .should("be.visible")
     })
 })
