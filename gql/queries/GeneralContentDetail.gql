@@ -1,0 +1,23 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/collections/AllFpb"
+
+query GeneralContentDetail($slug: [String!]) {
+    entry(section: "generalContentPage", slug: $slug) {
+        ... on generalContentPage_generalContentPage_Entry {
+            id
+            title
+            slug
+            uri
+            summary
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
+        }
+        ...AllFpb
+    }
+}
