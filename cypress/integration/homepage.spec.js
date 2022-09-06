@@ -20,6 +20,9 @@ describe("Website Homepage", () => {
         // Runs before all tests inside describe
         // Setup test data or test context
         // Send or reset the database
+        cy.log('Testing for Desktop Size')
+        cy.viewport(1200, 1200)
+        HomePage.loadHomePage()
     })
 
     after(function() {
@@ -28,12 +31,12 @@ describe("Website Homepage", () => {
         // Clean cookies or localStorage
     })
 
-    beforeEach(function() {
-        // Runs after each it block in the describe
-        cy.log('Testing for Desktop Size')
-        cy.viewport(1200, 1200)
-        HomePage.loadHomePage()
-    })
+    // beforeEach(function() {
+    //     // Runs after each it block in the describe
+    //     cy.log('Testing for Desktop Size')
+    //     cy.viewport(1200, 1200)
+    //     HomePage.loadHomePage()
+    // })
 
     afterEach(function() {
         // Runs after each it block in the describe
@@ -80,7 +83,7 @@ describe("Website Homepage", () => {
     it("Should test the Header", () => {
         cy.get("header")
             .children()
-            .should('have.length', 4)
+            .should('have.length', 2)
     })
 
     it("Should test the Site Brand Bar", () => {
@@ -94,7 +97,50 @@ describe("Website Homepage", () => {
         })
     })
 
+    it("Should test the NavPrimary", () => {
+        cy.log('Testing for Desktop Size')
+        cy.viewport(1200, 1200)
+        HomePage.loadHomePage()
+        
+        cy.get("nav")
+            .should("be.visible")
+        
+        cy.fixture('links').then((linksFixture) => {
+            cy.get(".item-top")
+                .children()
+                .should("have.attr", "href",  linksFixture.defaultLink)
+        })
+
+        cy.fixture('accessibility').then((accessibilityFixture) => {
+            cy.get(".item-top")
+                .children()
+                .should("have.attr", "aria-label",  accessibilityFixture.uclaLibraryHomePage)
+        })
+
+        cy.get("h1.title")
+            .should("not.exist")
+
+        cy.fixture('accessibility').then((accessibilityFixture) => {
+            cy.get(".svg.logo-ucla")
+                .should("be.visible")
+                .should("have.attr", "alt",  accessibilityFixture.uclaLibraryLogoBlue)
+        })
+
+        cy.get("ul.menu")
+            .children()
+            .should("have.length", "3")
+            .and("contain.text", "Get help with...")
+            .and("contain.text", "Visit")
+            .and("contain.text", "About")
+
+    })
+
     it("Should test the NavSecondary", () => {
+        cy.log('Testing for Desktop Size')
+        cy.viewport(1200, 1200)
+
+        HomePage.loadHomePage()
+        
         cy.get(".nav-secondary")
             .should("contain", "Locations & Hours")
             .and("contain", "Ask a Librarian")
@@ -163,41 +209,7 @@ describe("Website Homepage", () => {
         
     })
 
-    it.only("Should test the NavPrimary", () => {
-        cy.get("nav")
-            .should("be.visible")
-        
-        cy.fixture('links').then((linksFixture) => {
-            cy.get(".item-top")
-                .children()
-                .should("have.attr", "href",  linksFixture.defaultLink)
-        })
-
-        cy.fixture('accessibility').then((accessibilityFixture) => {
-            cy.get(".item-top")
-                .children()
-                .should("have.attr", "aria-label",  accessibilityFixture.uclaLibraryHomePage)
-        })
-
-        cy.get("h1.title")
-            .should("not.exist")
-
-        cy.fixture('accessibility').then((accessibilityFixture) => {
-            cy.get(".svg.logo-ucla")
-                .should("be.visible")
-                .should("have.attr", "alt",  accessibilityFixture.uclaLibraryLogoBlue)
-        })
-
-        cy.get("ul.menu")
-            .children()
-            .should("have.length", "3")
-            .and("contain.text", "Get help with...")
-            .and("contain.text", "Visit")
-            .and("contain.text", "About")
-
-    })
-
-    it("Should test the DividerWayFinder", () => {
+    it("Should test the first DividerWayFinder", () => {
         cy.get(".divider.divider-first.divider-way-finder.color-help")
             .should("be.visible")
     })
@@ -208,5 +220,20 @@ describe("Website Homepage", () => {
             "contain",
             "Get Help With"
         )
+    })
+
+    it("Should test the second DividerWayFinder", () => {
+        cy.get(".divider.divider-way-finder.color-visit")
+            .should("be.visible")
+    })
+
+    it("Should test the third DividerWayFinder", () => {
+        cy.get(".divider.divider-way-finder.color-about")
+            .should("be.visible")
+    })
+
+    it("Should test the fourth DividerWayFinder", () => {
+        cy.get(".divider.divider-way-finder.color-visit")
+            .should("be.visible")
     })
 })
