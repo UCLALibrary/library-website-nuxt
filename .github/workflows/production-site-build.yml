@@ -17,11 +17,11 @@ jobs:
     steps:
     - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
     - name: 'Get Previous tag' # need to run after initial checkout to get tag list
-        if: github.event_name != "release"
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+      if: github.event_name != "release"
+      id: previoustag
+      uses: "WyriHaximus/github-action-get-previous-tag@v1"
     - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # check out again with most recent tag
-        if: github.event_name != "release"
+      if: github.event_name != "release"
       with:
         ref: ${{ steps.previoustag.outputs.tag }}
     - uses: ./.github/workflows/setup-workspace
