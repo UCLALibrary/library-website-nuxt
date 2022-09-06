@@ -94,16 +94,15 @@ describe("Website Homepage", () => {
         })
     })
 
-    it.only("Should test the NavSecondary", () => {
+    it("Should test the NavSecondary", () => {
         cy.get(".nav-secondary")
             .should("contain", "Locations & Hours")
             .and("contain", "Ask a Librarian")
             .and("contain", "My Account")
 
-        
-        cy.fixture('altTexts').then((altTextsFixture) => {
+        cy.fixture('accessibility').then((accessibilityFixture) => {
             cy.get(".logo-ucla")
-                .should("have.attr", "alt", altTextsFixture.uclaLibraryLogoBlue)
+                .should("have.attr", "alt", accessibilityFixture.uclaLibraryLogoBlue)
         })
 
         cy.fixture('links').then((linksFixture) => {
@@ -112,7 +111,7 @@ describe("Website Homepage", () => {
                 .should("have.attr", "href",  linksFixture.defaultLink)
         })
 
-        Cypress.log({
+        cy.log({
             name: 'navigation list items',
             displayName: "TEST",
             message: [`⚙️ Testing | Navigation list items`],
@@ -164,13 +163,38 @@ describe("Website Homepage", () => {
         
     })
 
-    it("Should test the NavPrimary", () => {
-        // NavPrimary
-        cy.get(".nav-primary")
-            .should("contain", "Get help with...")
-            .and("contain", "Visit")
-            .and("contain", "About")
-            .and("contain", "Support us")
+    it.only("Should test the NavPrimary", () => {
+        cy.get("nav")
+            .should("be.visible")
+        
+        cy.fixture('links').then((linksFixture) => {
+            cy.get(".item-top")
+                .children()
+                .should("have.attr", "href",  linksFixture.defaultLink)
+        })
+
+        cy.fixture('accessibility').then((accessibilityFixture) => {
+            cy.get(".item-top")
+                .children()
+                .should("have.attr", "aria-label",  accessibilityFixture.uclaLibraryHomePage)
+        })
+
+        cy.get("h1.title")
+            .should("not.exist")
+
+        cy.fixture('accessibility').then((accessibilityFixture) => {
+            cy.get(".svg.logo-ucla")
+                .should("be.visible")
+                .should("have.attr", "alt",  accessibilityFixture.uclaLibraryLogoBlue)
+        })
+
+        cy.get("ul.menu")
+            .children()
+            .should("have.length", "3")
+            .and("contain.text", "Get help with...")
+            .and("contain.text", "Visit")
+            .and("contain.text", "About")
+
     })
 
     it("Should test the DividerWayFinder", () => {
@@ -179,7 +203,6 @@ describe("Website Homepage", () => {
     })
 
     it("Should test the Get Help With Section", () => {
-
         // get help with
         cy.get(".section-cards-with-illustrations").should(
             "contain",
