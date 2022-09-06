@@ -183,7 +183,7 @@ export default {
         --color-theme: var(--color-help-green-03);
     }
 
-    .section-banner {
+    .section-banner.section-wrapper.theme-white {
         margin-top: 0;
     }
 
