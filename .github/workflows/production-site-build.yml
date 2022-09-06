@@ -1,4 +1,4 @@
-name: Website Release
+name: Production Site Build
 
 # Performs a Website release using Netlify when a new GitHub release has been published
 on:
@@ -17,11 +17,11 @@ jobs:
     steps:
     - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
     - name: 'Get Previous tag' # need to run after initial checkout to get tag list
-      if: github.event_name != "release"
+      if: ${{ github.event_name != 'release' }}
       id: previoustag
-      uses: "WyriHaximus/github-action-get-previous-tag@v1"
+      uses: 'WyriHaximus/github-action-get-previous-tag@eaf1fb5bec4dfd28cebf179fe555507f8bbc0652'
     - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # check out again with most recent tag
-      if: github.event_name != "release"
+      if: ${{ github.event_name != 'release' }}
       with:
         ref: ${{ steps.previoustag.outputs.tag }}
     - uses: ./.github/workflows/setup-workspace
