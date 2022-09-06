@@ -209,11 +209,6 @@ describe("Website Homepage", () => {
         
     })
 
-    it("Should test the first DividerWayFinder", () => {
-        cy.get(".divider.divider-first.divider-way-finder.color-help")
-            .should("be.visible")
-    })
-
     it("Should test the Get Help With Section", () => {
         // get help with
         cy.get(".section-cards-with-illustrations").should(
@@ -222,18 +217,19 @@ describe("Website Homepage", () => {
         )
     })
 
-    it("Should test the second DividerWayFinder", () => {
-        cy.get(".divider.divider-way-finder.color-visit")
-            .should("be.visible")
-    })
-
-    it("Should test the third DividerWayFinder", () => {
-        cy.get(".divider.divider-way-finder.color-about")
-            .should("be.visible")
-    })
-
-    it("Should test the fourth DividerWayFinder", () => {
-        cy.get(".divider.divider-way-finder.color-visit")
-            .should("be.visible")
+    it.only("Should test all DividerWayFinder", () => {
+        cy.get("div.divider.divider-way-finder")
+            .should("have.length", "3")
+            
+        cy.get(".divider-way-finder").each((item, index, list) => {
+            // Returns the elements from the cy.get command
+            expect(list).to.have.length(3)
+    
+            let dividerWayFinderCss = [
+                "help", "visit", "about"
+            ]
+            // Returns the current element from the loop
+            expect(item).to.have.class(`color-${dividerWayFinderCss[index]}`)
+        })
     })
 })
