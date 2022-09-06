@@ -16,6 +16,8 @@ jobs:
     timeout-minutes: 20
     steps:
     - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+        with:
+          fetch-depth: 0 # Required due to the way Git works, without it this action won't be able to find any or the correct tags
     - name: 'Get Previous tag' # need to run after initial checkout to get tag list
       if: ${{ github.event_name != 'release' }}
       id: previoustag
