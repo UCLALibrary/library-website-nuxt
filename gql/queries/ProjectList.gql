@@ -1,36 +1,33 @@
-#import "~/gql/fragments/Image"
-
 query ProjectList {
-    entries(section: "meapProject") {
-        ... on meapProject_meapProject_Entry {
-            id
-            to: uri
-            title
-            text: summary
-            category: format
-            image: heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    id
-                    image {
-                        ...Image
-                    }
-                }
-            }
+  entries(section: "meapProject", orderBy: "dateCreated asc") {
+    ... on meapProject_meapProject_Entry {
+      id
+      to: uri
+      title
+      text: summary
+      category: format
+      image: heroImage {
+        ... on heroImage_heroImage_BlockType {
+          id
+          image {
+            ...Image
+          }
         }
+      }
     }
-
-    entry(section: "meapListingProjects") {
-        ... on meapListingProjects_meapListingProjects_Entry {
-            meapID: id
-            projectListTitle: titleGeneral
-            projectListSummary: summary
-            featuredMeapResourcesListing {
-                id
-                title
-                text: summary
-                uri
-                externalResourceUrl
-            }
-        }
+  }
+  entry(section: "meapListingProjects") {
+    ... on meapListingProjects_meapListingProjects_Entry {
+      meapID: id
+      projectListTitle: titleGeneral
+      projectListSummary: summary
+      featuredMeapResourcesListing {
+        id
+        title
+        text: summary
+        uri
+        externalResourceUrl
+      }
     }
+  }
 }
