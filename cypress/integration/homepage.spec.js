@@ -9,8 +9,12 @@ describe("Website Homepage", () => {
         cy.get(".ucla-logo")
             .parent()
             .should("have.attr", "href", "https://www.ucla.edu")
+        cy.get(".svg__logo-library")
+            .parent()
+            .should("have.attr", "href", "https://www.library.ucla.edu")
 
-
+        cy.get("a.logo-ucla")
+            .should("have.attr", "href", "https://www.library.ucla.edu")
         // NavPrimary
         cy.get(".nav-primary").then(elem => {
             if(elem[0].textContent.startsWith('Modern Endangered Archives Program Get help with')) {
