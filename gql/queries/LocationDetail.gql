@@ -63,7 +63,7 @@ query LocationDetail($slug: [String!]) {
                 email
                 to: uri
             }
-            ...DefaultFpb
+            ...AllFpb
         }
     }
     associatedArticles: entries(
