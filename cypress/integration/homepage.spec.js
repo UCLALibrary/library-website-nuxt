@@ -142,6 +142,9 @@ describe("Website Homepage", () => {
                 .should("have.attr", "href",  linksFixture.supportUsLink)
         })
 
+        cy.get("div.background-white")
+            .should("be.visible")
+
     })
 
     it("Should test the NavSecondary", () => {
