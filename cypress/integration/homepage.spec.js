@@ -50,14 +50,17 @@ describe("Website Homepage", () => {
     it("Should test the masthead-primary", () => {
         // MastheadPrimary
         cy.get(".masthead-primary").find(".logo").should("be.visible")
+        
         cy.get(".masthead-primary")
             .find(".search-home")
             .should("be.visible")
             .and("contain", "Search the Library Site")
             .and("contain", "Search Materials")
+        
         cy.get(".masthead-primary")
             .find("input.input-search")
             .should("have.attr", "placeholder", "Search by keyword")
+        
         cy.get(".masthead-primary")
             .contains("a", "Course Reserves")
             .should(
@@ -68,6 +71,7 @@ describe("Website Homepage", () => {
         cy.get(".masthead-primary")
             .contains("a", "UCLA Research Guides")
             .should("have.attr", "href", "https://guides.library.ucla.edu/")
+        
         cy.get(".masthead-primary")
             .contains("a", "Databases A-Z")
             .should(
@@ -94,7 +98,7 @@ describe("Website Homepage", () => {
         })
     })
 
-    it("Should test the NavPrimary", () => {
+    it.only("Should test the NavPrimary", () => {
         cy.log('Testing for Desktop Size')
         cy.viewport(1200, 1200)
         HomePage.loadHomePage()
@@ -129,6 +133,14 @@ describe("Website Homepage", () => {
             .and("contain.text", "Get help with...")
             .and("contain.text", "Visit")
             .and("contain.text", "About")
+
+        cy.get(".support-links")
+            .should("contain.text", "Support us")
+        
+        cy.fixture('links').then((linksFixture) => {
+            cy.get(".support-link.underline-hover")
+                .should("have.attr", "href",  linksFixture.supportUsLink)
+        })
 
     })
 
