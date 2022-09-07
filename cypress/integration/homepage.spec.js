@@ -31,12 +31,9 @@ describe("Website Homepage", () => {
         // Clean cookies or localStorage
     })
 
-    // beforeEach(function() {
-    //     // Runs after each it block in the describe
-    //     cy.log('Testing for Desktop Size')
-    //     cy.viewport(1200, 1200)
-    //     HomePage.loadHomePage()
-    // })
+    beforeEach(function() {
+        // Runs after each it block in the describe
+    })
 
     afterEach(function() {
         // Runs after each it block in the describe
@@ -217,7 +214,7 @@ describe("Website Homepage", () => {
         )
     })
 
-    it.only("Should test all DividerWayFinder", () => {
+    it("Should test all DividerWayFinder", () => {
         cy.get("div.divider.divider-way-finder")
             .should("have.length", "3")
             
