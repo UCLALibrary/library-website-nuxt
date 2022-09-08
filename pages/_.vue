@@ -4,12 +4,12 @@
         class="page page-general-content"
     >
         <nav-breadcrumb
+            v-if="page"
             :title="page.title"
-            :is-meap="true"
             class="breadcrumb"
         />
         <banner-text
-            v-if="!page.heroImage || page.heroImage.length == 0"
+            v-if="page && (!page.heroImage || page.heroImage.length == 0)"
             class="banner-text"
             :category="page.format"
             :title="page.title"
@@ -18,7 +18,7 @@
 
         <section-wrapper class="section-banner">
             <banner-header
-                v-if="page.heroImage && page.heroImage.length == 1"
+                v-if="page && page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
                 :category="page.format"
                 :title="page.title"
@@ -34,6 +34,7 @@
         </section-wrapper>
 
         <flexible-blocks
+            v-if="page"
             class="flexible-content"
             :blocks="page.blocks"
         />
@@ -48,8 +49,11 @@ import _get from "lodash/get"
 export default {
     async asyncData({ $graphql, params }) {
         // Do not remove testing live preview
+
         const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
-            slug: params.slug,
+            slug: params.pathMatch.substring(
+                params.pathMatch.lastIndexOf("/") + 1
+            ),
         })
         return {
             page: _get(data, "entry", {}),
