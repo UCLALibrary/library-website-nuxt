@@ -1,5 +1,19 @@
 {
-  "uclaEduLink": "https://www.ucla.edu",
-  "defaultLink": "/",
-  "supportUsLink": "https://giving.ucla.edu/Standard/NetDonate.aspx?SiteNum=463"
+  "uclaEdu": "https://www.ucla.edu",
+  "default": "/",
+  "supportUs": "https://giving.ucla.edu/Standard/NetDonate.aspx?SiteNum=463",
+  "mastheadPrimaryRegularLinks": [
+    {
+      "text": "Course Reserves",
+      "link": "https://catalog.library.ucla.edu/vwebv/enterCourseReserve.do"
+    },
+    {
+      "text": "UCLA Research Guides",
+      "link": "https://guides.library.ucla.edu/"
+    },
+    {
+      "text": "Databases A-Z",
+      "link": "https://guides.library.ucla.edu/az.php"
+    }
+  ]
 }

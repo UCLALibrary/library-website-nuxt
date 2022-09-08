@@ -47,38 +47,34 @@ describe("Website Homepage", () => {
             .should("be.visible")
     })
 
-    it("Should test the masthead-primary", () => {
-        // MastheadPrimary
-        cy.get(".masthead-primary").find(".logo").should("be.visible")
-        
+    it.only("Should test the mastheadPrimary", () => {
         cy.get(".masthead-primary")
-            .find(".search-home")
+            .should("be.visible")
+            .find(".logo")
+            .should("be.visible")
+        
+        cy.get(".search-home")
             .should("be.visible")
             .and("contain", "Search the Library Site")
             .and("contain", "Search Materials")
         
-        cy.get(".masthead-primary")
-            .find("input.input-search")
+        cy.get("input.input-search")
             .should("have.attr", "placeholder", "Search by keyword")
         
-        cy.get(".masthead-primary")
-            .contains("a", "Course Reserves")
-            .should(
-                "have.attr",
-                "href",
-                "https://catalog.library.ucla.edu/vwebv/enterCourseReserve.do"
-            )
-        cy.get(".masthead-primary")
-            .contains("a", "UCLA Research Guides")
-            .should("have.attr", "href", "https://guides.library.ucla.edu/")
-        
-        cy.get(".masthead-primary")
-            .contains("a", "Databases A-Z")
-            .should(
-                "have.attr",
-                "href",
-                "https://guides.library.ucla.edu/az.php"
-            )
+        cy.fixture('links').then((linksFixture) => {
+            cy.get(".masthead-primary")
+                .find(".regular-links")
+                .children()
+                .each((item, index) => {
+                    cy.wrap(item)
+                        .should('contain.text', linksFixture.mastheadPrimaryRegularLinks[index].text)
+                        .should('have.attr', "href", linksFixture.mastheadPrimaryRegularLinks[index].link)
+                })
+        })
+
+        cy.get(".advanced-links")
+            .should("be.visible")
+            .and("have.text", "Advanced Search")
     })
 
     it("Should test the Header", () => {
@@ -94,11 +90,11 @@ describe("Website Homepage", () => {
         cy.fixture('links').then((linksFixture) => {
             cy.get(".ucla-logo")
                 .parent()
-                .should("have.attr", "href", linksFixture.uclaEduLink)
+                .should("have.attr", "href", linksFixture.uclaEdu)
         })
     })
 
-    it.only("Should test the NavPrimary", () => {
+    it("Should test the NavPrimary", () => {
         cy.log('Testing for Desktop Size')
         cy.viewport(1200, 1200)
         HomePage.loadHomePage()
@@ -109,7 +105,7 @@ describe("Website Homepage", () => {
         cy.fixture('links').then((linksFixture) => {
             cy.get(".item-top")
                 .children()
-                .should("have.attr", "href",  linksFixture.defaultLink)
+                .should("have.attr", "href",  linksFixture.default)
         })
 
         cy.fixture('accessibility').then((accessibilityFixture) => {
@@ -139,7 +135,7 @@ describe("Website Homepage", () => {
         
         cy.fixture('links').then((linksFixture) => {
             cy.get(".support-link.underline-hover")
-                .should("have.attr", "href",  linksFixture.supportUsLink)
+                .should("have.attr", "href",  linksFixture.supportUs)
         })
 
         cy.get("div.background-white")
@@ -148,7 +144,12 @@ describe("Website Homepage", () => {
     })
 
     it("Should test the NavSecondary", () => {
-        cy.log('Testing for Desktop Size')
+        Cypress.log({
+            name: 'desktop size',
+            displayName: "VIEWPORT",
+            message: [`🖥️ Viewport | Desktop Size`],
+            autoEnd: false,
+        })
         cy.viewport(1200, 1200)
 
         HomePage.loadHomePage()
@@ -166,10 +167,10 @@ describe("Website Homepage", () => {
         cy.fixture('links').then((linksFixture) => {
             cy.get(".svg.logo-ucla")
                 .parent()
-                .should("have.attr", "href",  linksFixture.defaultLink)
+                .should("have.attr", "href",  linksFixture.default)
         })
 
-        cy.log({
+        Cypress.log({
             name: 'navigation list items',
             displayName: "TEST",
             message: [`⚙️ Testing | Navigation list items`],
@@ -215,7 +216,12 @@ describe("Website Homepage", () => {
                     .should('have.attr', 'href', navigationListItems[index].to)
             })
 
-        cy.log('TEST NAVIGATION ACCOUNT BUTTON')
+        Cypress.log({
+            name: 'navigation account button',
+            displayName: "TEST",
+            message: [`⚙️ Testing | Account button`],
+            autoEnd: false,
+        })
         cy.get(".account-button")
             .should('have.attr', 'href', "https://search.library.ucla.edu/discovery/login?vid=01UCS_LAL:UCLA")
         
@@ -230,8 +236,6 @@ describe("Website Homepage", () => {
     })
 
     it("Should test all DividerWayFinder", () => {
-        cy.get("div.divider.divider-way-finder")
-            .should("have.length", "3")
             
         cy.get(".divider-way-finder").each((item, index, list) => {
             // Returns the elements from the cy.get command
