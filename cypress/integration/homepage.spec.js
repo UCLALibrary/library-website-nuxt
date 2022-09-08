@@ -47,7 +47,13 @@ describe("Website Homepage", () => {
             .should("be.visible")
     })
 
-    it.only("Should test the mastheadPrimary", () => {
+    it("Should test the Header", () => {
+        cy.get("header")
+            .children()
+            .should('have.length', 2)
+    })
+
+    it("Should test the mastheadPrimary", () => {
         cy.get(".masthead-primary")
             .should("be.visible")
             .find(".logo")
@@ -77,12 +83,6 @@ describe("Website Homepage", () => {
             .and("have.text", "Advanced Search")
     })
 
-    it("Should test the Header", () => {
-        cy.get("header")
-            .children()
-            .should('have.length', 2)
-    })
-
     it("Should test the Site Brand Bar", () => {
         // UCLA brand
         cy.get(".site-brand-bar").should("be.visible")
@@ -94,7 +94,7 @@ describe("Website Homepage", () => {
         })
     })
 
-    it("Should test the NavPrimary", () => {
+    it.only("Should test the NavPrimary", () => {
         cy.log('Testing for Desktop Size')
         cy.viewport(1200, 1200)
         HomePage.loadHomePage()
@@ -129,6 +129,13 @@ describe("Website Homepage", () => {
             .and("contain.text", "Get help with...")
             .and("contain.text", "Visit")
             .and("contain.text", "About")
+
+        cy.get('ul.menu')
+            .children()
+            .first()
+            .click()
+            .find(".sub-menu-item")
+            .should("be.visible")
 
         cy.get(".support-links")
             .should("contain.text", "Support us")
