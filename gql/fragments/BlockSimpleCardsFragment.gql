@@ -6,9 +6,10 @@ fragment BlockSimpleCardsFragment on ElementInterface {
     cards: simpleCards {
         ... on simpleCards_internalServiceOrResource_BlockType {
             id
-            title: titleGeneral
-            summary
+            typeHandle
             contentLink {
+                id
+                uri
                 slug
                 title
                 summary
@@ -17,6 +18,7 @@ fragment BlockSimpleCardsFragment on ElementInterface {
         }
         ... on simpleCards_externalServiceOrResource_BlockType {
             id
+            typeHandle
             title: titleGeneral
             summary
             externalLink
