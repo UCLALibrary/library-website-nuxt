@@ -121,6 +121,11 @@ export default {
         margin: var(--space-3xl) auto;
     }
 
+    // All cards on this page should be about purple even if they are external
+    ::v-deep .block-card-with-illustration.color-default {
+        --color-theme: var(--color-about-purple-01);
+    }
+
     @media #{$medium} {
         .content,
         .section-title {
