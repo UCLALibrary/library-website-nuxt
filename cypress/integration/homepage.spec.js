@@ -94,7 +94,7 @@ describe("Website Homepage", () => {
         })
     })
 
-    it.only("Should test the NavPrimary", () => {
+    it("Should test the NavPrimary", () => {
         cy.log('Testing for Desktop Size')
         cy.viewport(1200, 1200)
         HomePage.loadHomePage()
@@ -183,63 +183,30 @@ describe("Website Homepage", () => {
             message: [`⚙️ Testing | Navigation list items`],
             autoEnd: false,
         })
-        const navigationListItems = [
-            {
-                id: "843",
-                name: "Locations & Hours",
-                to: "/locations",
-                classes: "",
-                target: "",
-            },
-            {
-                id: "844",
-                name: "Ask a Librarian",
-                to: "/research-teaching-support/research-help",
-                classes: null,
-                target: "",
-            },
-            {
-                id: "25315",
-                name: "Support Us",
-                to: "https://giving.ucla.edu/Standard/NetDonate.aspx?SiteNum=463",
-                classes: "support-link",
-                target: "1",
-            },
-            {
-                id: "845",
-                name: "My Account",
-                to: "https://search.library.ucla.edu/discovery/login?vid=01UCS_LAL:UCLA",
-                classes: "account-button",
-                target: "1",
-            },
-        ]
 
-        cy.get(".list")
-            .children()
-            .each((item, index) => {
-                cy.wrap(item)
-                    .should('contain.text', navigationListItems[index].name)
-                    .children()
-                    .should('have.attr', 'href', navigationListItems[index].to)
-            })
-
-        Cypress.log({
-            name: 'navigation account button',
-            displayName: "TEST",
-            message: [`⚙️ Testing | Account button`],
-            autoEnd: false,
+        cy.fixture('links').then((linksFixture) => {
+            cy.get(".list")
+                .children()
+                .each((item, index) => {
+                    cy.wrap(item)
+                        .should('contain.text', linksFixture.navigationListItems[index].name)
+                        .children()
+                        .should('have.attr', 'href', linksFixture.navigationListItems[index].to)
+                })
         })
-        cy.get(".account-button")
-            .should('have.attr', 'href', "https://search.library.ucla.edu/discovery/login?vid=01UCS_LAL:UCLA")
-        
     })
 
-    it("Should test the Get Help With Section", () => {
-        // get help with
-        cy.get(".section-cards-with-illustrations").should(
-            "contain",
-            "Get Help With"
-        )
+    it.only("Should test the Get Help With Section", () => {
+        cy.get(".section-cards-with-illustrations")
+            .should("be.visible")
+        
+        // cy.get("h2.section-title")
+        //     .should("be.visible")
+        // cy.get(".section-summary")
+        //     .should("be.visible")
+
+        // cy.get("ul.cards")
+        //     .should("be.visible")
     })
 
     it("Should test all DividerWayFinder", () => {
