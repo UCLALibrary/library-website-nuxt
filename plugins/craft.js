@@ -14,7 +14,7 @@ export default function ({ $graphql, query }) {
   
     // If `token` is set in query parameters, pass it along to Craft API endpoint
     // console.log("in craftjs plugin : token= ", query.token)
-    console.log("In craft.js "+ JSON.stringify(query))
+    // console.log("In craft.js "+ JSON.stringify(query))
     $graphql.default.setHeader( 'X-Craft-Token', query.token )
     // inject('craftToken', query.token ? query.token : '')
 }
