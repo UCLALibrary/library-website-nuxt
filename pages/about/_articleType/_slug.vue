@@ -1,11 +1,12 @@
-// articleType - nowhere // summary - nowhere // associatedLocations - nowhere
-// department - nowhere // title // heroImage banner Image // articleCategories
-(library news) // staffMember // allFpb // bannerheader // date published //
-TODO // fix: ServiceOrResources // add: share links & icons component // fix:
-author
+// TODO 
+// fix: ServiceOrResources 
+// add: share links & icons component 
+// fix: author
 
 <template lang="html">
     <section class="page-news-detail">
+        <h3>NEWS: {{ page }}</h3>
+
         <nav-breadcrumb :title="page.title" />
 
         <banner-header
