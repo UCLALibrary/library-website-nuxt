@@ -45,6 +45,6 @@
         "classes": "account-button",
         "target": "1"
     }
-  ]
-
+  ],
+  "sectionCardsWithIllustrationTo": "/help/foo/bar"
 }

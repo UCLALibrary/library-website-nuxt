@@ -29,6 +29,7 @@ describe("Website Homepage", () => {
         // Runs after all tests inside describe blocks are done
         // Test clean up
         // Clean cookies or localStorage
+        cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 
     beforeEach(function() {
@@ -199,14 +200,27 @@ describe("Website Homepage", () => {
     it.only("Should test the Get Help With Section", () => {
         cy.get(".section-cards-with-illustrations")
             .should("be.visible")
+            .find(".meta > .title")
+            .and("be.visible")
+            
+        cy.get(".meta > div.text")
+            .and("be.visible")
+            
+        cy.get(".cards")
+            .should("be.visible")
+            .find(".meta > .smart-link > .title")
+            .and("be.visible")
         
-        // cy.get("h2.section-title")
-        //     .should("be.visible")
-        // cy.get(".section-summary")
-        //     .should("be.visible")
-
-        // cy.get("ul.cards")
-        //     .should("be.visible")
+        cy.get(".cards")
+            .find(".meta > .text")
+            .and("be.visible")
+        
+        cy.fixture('accessibility').then((accessibilityFixture) => {
+            cy.get(".cards")
+                .find(".card .button-more")
+                .and("be.visible")
+                .and("have.attr", "href",  accessibilityFixture.sectionCardsWithIllustrationButtonMore)
+        })
     })
 
     it("Should test all DividerWayFinder", () => {
