@@ -46,6 +46,12 @@ author
     </section>
 </template>
 
+<router>
+    {
+      path: '/blog/:slug'
+    }
+  </router>
+
 <script>
 // Helpers
 import _get from "lodash/get"

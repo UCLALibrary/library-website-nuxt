@@ -34,6 +34,12 @@
     </main>
 </template>
 
+<router>
+    {
+      alias: '/blog',
+    }
+  </router>
+
 <script>
 // Helpers
 // Helpers
