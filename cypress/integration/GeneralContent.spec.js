@@ -7,9 +7,9 @@ describe("General Content page", () => {
     })
 
     it("Visits a Nested General Content Page", () => {
-        /*cy.visit("/accessibility/emergency")
+        cy.visit("/accessibility/emergency")
         cy.get(".logo-ucla").should("be.visible")
         cy.get("h1.title").should("contain", "Emergency")
-        cy.percySnapshot({ widths: [768, 992, 1200] })*/
+        cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 })
