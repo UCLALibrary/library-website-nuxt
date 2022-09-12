@@ -215,7 +215,7 @@ describe("Website Homepage - Desktop", () => {
     })
 })
 
-describe.only("Website Homepage - Mobile", () => {
+describe("Website Homepage - Mobile", () => {
     before(function() {
         // Runs before all tests inside describe
         // Setup test data or test context
@@ -242,12 +242,15 @@ describe.only("Website Homepage - Mobile", () => {
             .should('have.length.at.least', 2)
     })
 
-    it("Should test the open menu hamburguer", () => {
-        cy.get(".open-menu")
-            .should("be.visible")
-            .click()
-            .get(".expanded-menu-container")
-            .should("be.visible")
+    it.only("Should test the hamburguer menu", () => {
+        cy.fixture('accessibility').then((accessibilityFixture) => {
+            cy.get(".open-menu")
+                .should("be.visible")
+                .and("have.attr", "aria-label", accessibilityFixture.openMenu)
+                .click()
+                .get(".expanded-menu-container")
+                .should("be.visible")
+        })
         
         cy.get(".expanded-menu")
             .should("be.visible")
@@ -269,6 +272,41 @@ describe.only("Website Homepage - Mobile", () => {
         cy.get(".expanded-menu")
             .children(".close-menu")
             .should("be.visible")
+
+        cy.get(".nav-menu-primary")
+            .children()
+            .should("be.visible")
+            .and("contain.text", "Research")
+            .and("contain.text", "Get help with...")
+            .and("contain.text", "Visit")
+            .and("contain.text", "About")
+
+        cy.get('.nav-menu-primary')
+            .children()
+            .first()
+            .find(".section-name.block")
+            .click()
+        
+        cy.get(".sub-menu-item")
+            .should("be.visible")
+
+        cy.get('.nav-menu-primary')
+            .children()
+            .first()
+            .find(".section-name.block")
+            .click()
+
+        cy.get(".sub-menu-item")
+            .should("not.be.visible")
+
+        cy.get(".support-us-container")
+            .should("be.visible")
+            .and("contain.text", "Support us")
+        
+        cy.fixture('links').then((linksFixture) => {
+            cy.get(".support-us-container > a")
+                .should("have.attr", "href",  linksFixture.supportUs)
+        })
         
         cy.fixture('accessibility').then((accessibilityFixture) => {
             cy.get(".close-menu")
