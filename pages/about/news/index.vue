@@ -1,6 +1,6 @@
 <template>
     <main class="page page-news">
-        <!-- <banner-header
+        <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
             :title="page.title"
@@ -11,12 +11,12 @@
             :to="to"
             :authors="authors"
             :align-right="true"
-        /> -->
+        />
 
-        <!-- <section-teaser-highlight
+        <section-teaser-highlight
             class="section"
             :items="highlightEvents"
-        /> -->
+        />
 
         <h2 class="entry-count">
             Entry Count: {{ entryCount }}

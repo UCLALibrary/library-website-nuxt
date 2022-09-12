@@ -12,6 +12,7 @@
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
+            :to="page.to"
             :title="page.title"
             category="Library News"
             :byline="parsedBylines"
