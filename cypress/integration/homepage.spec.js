@@ -14,14 +14,13 @@ class HomePage extends BasePage {
     }
 }
 
-describe("Website Homepage", () => {
+describe("Website Homepage - Desktop", () => {
 
     before(function() {
         // Runs before all tests inside describe
         // Setup test data or test context
         // Send or reset the database
         cy.log('Testing for Desktop Size')
-        cy.viewport(1200, 1200)
         HomePage.loadHomePage()
     })
 
@@ -34,14 +33,12 @@ describe("Website Homepage", () => {
 
     beforeEach(function() {
         // Runs after each it block in the describe
+        cy.viewport(1920, 1080)
     })
 
     afterEach(function() {
         // Runs after each it block in the describe
     })
-
-    // Inside Header Smart component from default.vue
-    // Header Smart #region
 
     it("Should test the main div", () => {
         cy.get("div.page.page-home")
@@ -51,7 +48,7 @@ describe("Website Homepage", () => {
     it("Should test the Header", () => {
         cy.get("header")
             .children()
-            .should('have.length', 2)
+            .should('have.length.at.least', 2)
     })
 
     it("Should test the mastheadPrimary", () => {
@@ -95,11 +92,7 @@ describe("Website Homepage", () => {
         })
     })
 
-    it.only("Should test the NavPrimary", () => {
-        cy.log('Testing for Desktop Size')
-        cy.viewport(1200, 1200)
-        HomePage.loadHomePage()
-        
+    it("Should test the NavPrimary", () => {
         cy.get("nav")
             .should("be.visible")
         
@@ -137,10 +130,6 @@ describe("Website Homepage", () => {
             .click()
             .find(".sub-menu-item")
             .should("be.visible")
-            // .parent()
-            // .click()
-            // .find(".sub-menu-item")
-            // .should("not.be.visible")
 
         cy.get(".support-links")
             .should("contain.text", "Support us")
@@ -156,16 +145,6 @@ describe("Website Homepage", () => {
     })
 
     it("Should test the NavSecondary", () => {
-        Cypress.log({
-            name: 'desktop size',
-            displayName: "VIEWPORT",
-            message: [`🖥️ Viewport | Desktop Size`],
-            autoEnd: false,
-        })
-        cy.viewport(1200, 1200)
-
-        HomePage.loadHomePage()
-        
         cy.get(".nav-secondary")
             .should("contain", "Locations & Hours")
             .and("contain", "Ask a Librarian")
@@ -204,8 +183,6 @@ describe("Website Homepage", () => {
     it("Should test the Get Help With Section", () => {
         cy.get(".section-cards-with-illustrations")
             .should("be.visible")
-            .find(".meta > .title")
-            .and("be.visible")
             
         cy.get(".meta > div.text")
             .and("be.visible")
@@ -219,12 +196,8 @@ describe("Website Homepage", () => {
             .find(".meta > .text")
             .and("be.visible")
         
-        cy.fixture('accessibility').then((accessibilityFixture) => {
-            cy.get(".cards")
-                .find(".card .button-more")
-                .and("be.visible")
-                .and("have.attr", "href",  accessibilityFixture.sectionCardsWithIllustrationButtonMore)
-        })
+        cy.get(".card-more")
+            .and("be.visible")
     })
 
     it("Should test all DividerWayFinder", () => {
@@ -238,6 +211,70 @@ describe("Website Homepage", () => {
             ]
             // Returns the current element from the loop
             expect(item).to.have.class(`color-${dividerWayFinderCss[index]}`)
+        })
+    })
+})
+
+describe.only("Website Homepage - Mobile", () => {
+    before(function() {
+        // Runs before all tests inside describe
+        // Setup test data or test context
+        // Send or reset the database
+        cy.log('Testing for Mobile Size')
+        HomePage.loadHomePage()
+    })
+    
+    beforeEach(function() {
+        // Runs after each it block in the describe
+        cy.viewport(900, 1920)
+    })
+
+    after(function() {
+        // Runs after all tests inside describe blocks are done
+        // Test clean up
+        // Clean cookies or localStorage
+        cy.percySnapshot({ widths: [768, 992, 1200] })
+    })
+
+    it("Should test the Header", () => {
+        cy.get("header")
+            .children()
+            .should('have.length.at.least', 2)
+    })
+
+    it("Should test the open menu hamburguer", () => {
+        cy.get(".open-menu")
+            .should("be.visible")
+            .click()
+            .get(".expanded-menu-container")
+            .should("be.visible")
+        
+        cy.get(".expanded-menu")
+            .should("be.visible")
+        
+        cy.fixture('links').then((linksFixture) => {
+            cy.get(".expanded-menu")
+                .children()
+                .first()
+                .should("have.attr", "href", linksFixture.default)
+        })
+
+        cy.fixture('accessibility').then((accessibilityFixture) => {
+            cy.get(".expanded-menu")
+                .children()
+                .first()
+                .should("have.attr", "aria-label", accessibilityFixture.uclaLibraryHomePage)
+        })
+
+        cy.get(".expanded-menu")
+            .children(".close-menu")
+            .should("be.visible")
+        
+        cy.fixture('accessibility').then((accessibilityFixture) => {
+            cy.get(".close-menu")
+                .should("have.attr", "aria-label", accessibilityFixture.closeMenu)
+                .click()
+                .should("not.be.visible")
         })
     })
 })
