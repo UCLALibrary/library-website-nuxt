@@ -95,7 +95,7 @@ describe("Website Homepage", () => {
         })
     })
 
-    it("Should test the NavPrimary", () => {
+    it.only("Should test the NavPrimary", () => {
         cy.log('Testing for Desktop Size')
         cy.viewport(1200, 1200)
         HomePage.loadHomePage()
@@ -126,7 +126,7 @@ describe("Website Homepage", () => {
 
         cy.get("ul.menu")
             .children()
-            .should("have.length", "3")
+            .should("be.visible")
             .and("contain.text", "Get help with...")
             .and("contain.text", "Visit")
             .and("contain.text", "About")
@@ -137,6 +137,10 @@ describe("Website Homepage", () => {
             .click()
             .find(".sub-menu-item")
             .should("be.visible")
+            // .parent()
+            // .click()
+            // .find(".sub-menu-item")
+            // .should("not.be.visible")
 
         cy.get(".support-links")
             .should("contain.text", "Support us")
@@ -197,7 +201,7 @@ describe("Website Homepage", () => {
         })
     })
 
-    it.only("Should test the Get Help With Section", () => {
+    it("Should test the Get Help With Section", () => {
         cy.get(".section-cards-with-illustrations")
             .should("be.visible")
             .find(".meta > .title")
