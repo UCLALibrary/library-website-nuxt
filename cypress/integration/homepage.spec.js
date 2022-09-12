@@ -183,6 +183,9 @@ describe("Website Homepage - Desktop", () => {
     it("Should test the Get Help With Section", () => {
         cy.get(".section-cards-with-illustrations")
             .should("be.visible")
+
+        cy.get(".section-cards-with-illustrations > .cards")
+            .and("have.css", "flex-wrap", "wrap")
             
         cy.get(".meta > div.text")
             .and("be.visible")
@@ -295,6 +298,17 @@ describe("Website Homepage - Mobile", () => {
             .find(".section-name.block")
             .click()
 
+        cy.fixture('links').then((linksFixture) => {
+            cy.get(".list")
+                .children()
+                .each((item, index) => {
+                    cy.wrap(item)
+                        .should('contain.text', linksFixture.navigationListItems[index].name)
+                        .children()
+                        .should('have.attr', 'href', linksFixture.navigationListItems[index].to)
+                })
+        })
+
         cy.get(".sub-menu-item")
             .should("not.be.visible")
 
@@ -313,5 +327,11 @@ describe("Website Homepage - Mobile", () => {
                 .click()
                 .should("not.be.visible")
         })
+    })
+
+    it("Should test the Get Help With Section", () => {
+        cy.get(".section-cards-with-illustrations > .cards")
+            .should("be.visible")
+            .and("have.css", "flex-wrap", "nowrap")
     })
 })
