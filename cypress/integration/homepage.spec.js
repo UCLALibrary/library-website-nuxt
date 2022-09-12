@@ -221,7 +221,6 @@ describe("Website Homepage - Mobile", () => {
         // Setup test data or test context
         // Send or reset the database
         cy.log('Testing for Mobile Size')
-        HomePage.loadHomePage()
     })
     
     beforeEach(function() {
