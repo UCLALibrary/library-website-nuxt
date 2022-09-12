@@ -242,7 +242,7 @@ describe("Website Homepage - Mobile", () => {
             .should('have.length.at.least', 2)
     })
 
-    it.only("Should test the hamburguer menu", () => {
+    it("Should test the hamburguer menu", () => {
         cy.fixture('accessibility').then((accessibilityFixture) => {
             cy.get(".open-menu")
                 .should("be.visible")
