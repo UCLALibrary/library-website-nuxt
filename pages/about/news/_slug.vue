@@ -1,55 +1,50 @@
-// TODO 
+// TODO
+// not visible:
+//    articleType, summary, associatedLocations, department
 // fix: ServiceOrResources 
 // add: share links & icons component 
 // fix: author
+// add sections
+// fix breadcrumb for blog
+// Byline: 
+//    Staff Member links to staff detail page
+//    External Contributor does not link;
+//    both fields (Byline and Contributor) appear on one line, as seen in the banner from the impact report: https://www.library.ucla.edu/impact/main-story
 
 <template lang="html">
     <section class="page-news-detail">
-        <!-- <h3>NEWS: {{ page }}</h3>
-        <h3>{{ parsedBylines }}</h3>
-        <h3>{{ parsedDate }}</h3>
-        <h3>StaffMember: {{ parsedAssociatedStaffMember }}</h3> -->
-
-
         <nav-breadcrumb :title="page.title" />
 
-        <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :to="page.to"
-            :title="page.title"
-            category="Library News"
-            :locations="page.locations"
-            :date-created="page.dateCreated"
-            :align-right="true"
+        <section-wrapper class="section-banner">
+            <banner-header
+                v-if="page.heroImage && page.heroImage.length == 1"
+                :image="page.heroImage[0].image[0]"
+                :to="page.to"
+                :title="page.title"
+                category="Library News"
+                :byline="parsedByline"
+                :locations="page.locations"
+                :date-created="page.dateCreated"
+                :align-right="true"
+            />
+        </section-wrapper>
+        <h2>{{ parsedByline }}</h2>
+        <flexible-blocks
+            class="flexible-content"
+            :blocks="page.blocks"
         />
 
-        <div v-if="page.blocks">
-            <divider-way-finder
-                color="about"
-                class="divider-way-finder"
-            />
-
-            <flexible-blocks
-                class="content"
-                :blocks="page.blocks"
-            />
-        </div>
-
-        <div v-if="parsedAssociatedStaffMember.length > 0">
-            <divider-way-finder
-                color="about"
-                class="divider-way-finder"
-            />
-
+        <section-wrapper v-if="parsedAssociatedStaffMember.length > 0">
             <h2 class="section-heading">
                 Associated Staff Member
             </h2>
+
             <section-staff-list :items="parsedAssociatedStaffMember" />
-        </div>
+        </section-wrapper>
     </section>
 </template>
 
+<!-- https://www.npmjs.com/package/@nuxtjs/router-extras -->
 <router>
     {
       alias: '/about/blog/:slug'
@@ -85,18 +80,10 @@ export default {
         }
     },
     computed: {
-        parsedBylines() {
-
-            let bylines = this.page.byline.map((name) => {
-                return {
-                    fullName: `${name.nameFirst} ${name.nameLast}`,
-                }
+        parsedByline() {
+            return (this.page.contributors || []).map((entry) => {
+                return `${entry.byline} ${entry.contributor || entry.staffMember[0].title}`
             })
-
-            return bylines.map(({ fullName }) => {
-                return `${fullName}`
-            })
-
         },
 
         parsedDate() {
@@ -132,6 +119,9 @@ export default {
 
 <style lang="scss" scoped>
 .page-news-detail {
+    .section-banner {
+        margin-top: 0;
+    }
     .banner-text {
         --color-theme: var(--color-help-green-03);
     }
@@ -148,7 +138,7 @@ export default {
         max-width: $container-l-main + px;
         margin: var(--space-3xl) auto;
     }
-    .content {
+    .flexible-content {
         margin: 0 auto;
     }
     .section-cards {
