@@ -9,7 +9,7 @@ query ArticleNewsList {
             }
             title
             uri
-            to: slug
+            to: uri
             heroImage {
                 ... on heroImage_heroImage_BlockType {
                     id

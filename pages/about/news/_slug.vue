@@ -5,9 +5,13 @@
 
 <template lang="html">
     <section class="page-news-detail">
-        <h3>NEWS: {{ page }}</h3>
+        <!-- <h3>NEWS: {{ page }}</h3> -->
+        <!-- <h3>{{ parsedBylines }}</h3> -->
+        <h3>{{ parsedDate }}</h3>
+        <h3>StaffMember: {{ parsedAssociatedStaffMember }}</h3>
 
-        <nav-breadcrumb :title="page.title" />
+
+        <!-- <nav-breadcrumb :title="page.title" />
 
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
@@ -19,7 +23,7 @@
             :locations="page.locations"
             :date-created="page.dateCreated"
             :align-right="true"
-        />
+        /> -->
 
         <div v-if="page.blocks">
             <divider-way-finder
@@ -49,7 +53,7 @@
 
 <router>
     {
-      path: '/about/blog/'
+      alias: '/about/blog/:slug'
     }
 </router>
 

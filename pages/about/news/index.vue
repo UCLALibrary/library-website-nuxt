@@ -62,7 +62,7 @@ export default {
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,
-                    to: `/about/news/${obj.to}`,
+                    to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.fullName}`,
                     category: _get(obj, "articleCategories[0].title", null),
