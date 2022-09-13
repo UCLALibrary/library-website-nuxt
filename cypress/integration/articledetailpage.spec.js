@@ -1,4 +1,4 @@
-describe.skip("Article Detail page", () => {
+describe("Article Detail page", () => {
     it("Visits an Article Detail Page", () => {
         // the following data will not work in production
         cy.visit("/about/news/turtles")
