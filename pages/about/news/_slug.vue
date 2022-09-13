@@ -87,7 +87,7 @@ export default {
         --color-theme: var(--color-visit-fushia-03);
     }
 
-    .section-banner {
+    .section-banner{
         margin-top: 0;
     }
 }

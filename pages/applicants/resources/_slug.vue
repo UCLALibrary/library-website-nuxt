@@ -47,13 +47,16 @@
             <divider-way-finder color="about" />
         </section-wrapper>
 
-        <section-cards-with-illustrations
+        <section-wrapper
             v-if="parsedAssociatedTopics && parsedAssociatedTopics.length"
-            :items="parsedAssociatedTopics"
-            title="Associated Topics"
-            button-text="All Resources"
-            to="/applicants/resources"
-        />
+            >
+            <section-cards-with-illustrations
+                :items="parsedAssociatedTopics"
+                title="Associated Topics"
+                button-text="All Resources"
+                to="/applicants/resources"
+            />
+        </section-wrapper>
 
         <section-wrapper>
             <block-call-to-action :is-meap-global="true" />
