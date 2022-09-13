@@ -8,7 +8,6 @@ query ArticleNewsList {
                 title
             }
             title
-            uri
             to: uri
             heroImage {
                 ... on heroImage_heroImage_BlockType {

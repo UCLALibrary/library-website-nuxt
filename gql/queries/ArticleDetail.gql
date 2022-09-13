@@ -22,13 +22,16 @@ query ArticleNewsDetail($slug: [String!]) {
                 title
                 uri
             }
-            byline: staffMember {
-                id
-                ... on staffMember_staffMember_Entry {
-                    id
-                    nameFirst
-                    nameLast
-                    fullName
+            contributors {
+                ... on contributors_staffMember_BlockType {
+                    byline
+                    staffMember {
+                        title
+                    }
+                }
+                ... on contributors_externalContributor_BlockType {
+                byline
+                contributor
                 }
             }
             locations: associatedLocations {

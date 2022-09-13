@@ -5,13 +5,13 @@
 
 <template lang="html">
     <section class="page-news-detail">
-        <!-- <h3>NEWS: {{ page }}</h3> -->
-        <!-- <h3>{{ parsedBylines }}</h3> -->
+        <!-- <h3>NEWS: {{ page }}</h3>
+        <h3>{{ parsedBylines }}</h3>
         <h3>{{ parsedDate }}</h3>
-        <h3>StaffMember: {{ parsedAssociatedStaffMember }}</h3>
+        <h3>StaffMember: {{ parsedAssociatedStaffMember }}</h3> -->
 
 
-        <!-- <nav-breadcrumb :title="page.title" />
+        <nav-breadcrumb :title="page.title" />
 
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
@@ -19,11 +19,10 @@
             :to="page.to"
             :title="page.title"
             category="Library News"
-            :byline="parsedBylines"
             :locations="page.locations"
             :date-created="page.dateCreated"
             :align-right="true"
-        /> -->
+        />
 
         <div v-if="page.blocks">
             <divider-way-finder
@@ -87,6 +86,7 @@ export default {
     },
     computed: {
         parsedBylines() {
+
             let bylines = this.page.byline.map((name) => {
                 return {
                     fullName: `${name.nameFirst} ${name.nameLast}`,
@@ -96,6 +96,7 @@ export default {
             return bylines.map(({ fullName }) => {
                 return `${fullName}`
             })
+
         },
 
         parsedDate() {
