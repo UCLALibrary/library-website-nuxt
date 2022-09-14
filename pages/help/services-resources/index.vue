@@ -50,8 +50,8 @@ export default {
     computed: {
         parsedServiceAndResourceList() {
             return [
-                ...this.page.serviceOrResource,
-                ...this.page.workshopseries,
+                ...(this.page.serviceOrResource || []),
+                ...(this.page.workshopseries || []),
             ].map((obj) => {
                 return {
                     ...obj,
