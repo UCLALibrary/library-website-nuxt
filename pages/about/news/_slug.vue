@@ -3,7 +3,7 @@
 //    articleType, summary, associatedLocations, department
 // fix: ServiceOrResources 
 // add: share links & icons component 
-// fix: author
+
 // add sections
 // fix breadcrumb for blog
 // Byline: 
@@ -28,7 +28,11 @@
                 :align-right="true"
             />
         </section-wrapper>
-        <h2>{{ parsedByline }}</h2>
+        <h2>{{ page }}</h2>
+        <h2>
+            test 
+            {{ parsedByline }}
+        </h2>
         <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
@@ -82,7 +86,7 @@ export default {
     computed: {
         parsedByline() {
             return (this.page.contributors || []).map((entry) => {
-                return `${entry.byline} ${entry.contributor || entry.staffMember[0].title}`
+                return `${entry.byline} ${entry.title || entry.staffMember[0].title}`
             })
         },
 
@@ -99,20 +103,7 @@ export default {
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
-        },
-
-        parsedForm() {},
-
-        // parsedLocations() {
-        //     let places= this.page.locations.map((place) => {
-        //         return {
-        //             linkedLocation: `<a href="${place.uri}">${place.title}</a>`
-        //         }
-        //     })
-        //     return places.map(({linkedLocation})=>{
-        //         return (`${linkedLocation}`)
-        //     })
-        // }
+        }
     },
 }
 </script>

@@ -27,11 +27,12 @@ query ArticleNewsDetail($slug: [String!]) {
                     byline
                     staffMember {
                         title
+                        to: slug
                     }
                 }
                 ... on contributors_externalContributor_BlockType {
                 byline
-                contributor
+                title: contributor
                 }
             }
             locations: associatedLocations {
