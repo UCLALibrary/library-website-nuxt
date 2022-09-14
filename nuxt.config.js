@@ -114,7 +114,7 @@ export default {
     /*
    * Nuxt build modules
    */
-    buildModules: ['@nuxtjs/style-resources', 'nuxt-graphql-request',"@/modules/sitemapRouteGenerator",],
+    buildModules: ['@nuxtjs/router-extras', '@nuxtjs/style-resources', 'nuxt-graphql-request',"@/modules/sitemapRouteGenerator",],
 
     /*
    ** Nuxt webpack build configuration

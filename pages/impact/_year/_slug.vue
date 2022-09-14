@@ -1,5 +1,6 @@
 <template lang="html">
     <div class="page page-impact-report">
+        <!-- This is template for Impact report main  story -->
         <banner-header
             class="section banner-header"
             :title="bannerHeader.title"
@@ -48,6 +49,9 @@
 </template>
 
 <script>
+// gql
+import IMPACT_REPORT_STORY from "~/gql/queries/ImpactReportStory"
+
 import * as MOCK_IMPACT_API from "~/data/impact-report_slug.json"
 
 // Utilities
@@ -63,8 +67,14 @@ export default {
         SvgArrowRight,
     },
     layout: "impact",
-    data() {
+    async asyncData({ $graphql, params }) {
+        const data = await $graphql.default.request(IMPACT_REPORT_STORY, {
+            slug: params.slug,
+        })
+        console.log("Data fetched: " + JSON.stringify(data))
+
         return {
+            page: data,
             bannerHeader: MOCK_IMPACT_API.bannerHeader,
             mainStory: MOCK_IMPACT_API.mainStory,
         }

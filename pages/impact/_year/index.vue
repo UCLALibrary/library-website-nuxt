@@ -1,5 +1,6 @@
 <template lang="html">
     <div class="page page-impact-report">
+        <!-- This is template for impact reports -->
         <div class="meta">
             <h1 class="intro">
                 2020-2021 UCLA Library Impact Report
@@ -171,8 +172,15 @@
         />
     </div>
 </template>
-
+<router>
+  {
+    alias: '/impact',
+  }
+</router>
 <script>
+// gql
+import IMPACT_REPORT from "~/gql/queries/ImpactReport"
+
 import * as API from "~/data/mock-api.json"
 import _ from "lodash"
 import * as IMPACT_API from "~/data/impact-report_index.json"
@@ -182,7 +190,18 @@ import getS3Bucket from "~/utils/getS3Bucket"
 
 export default {
     layout: "impact",
-    async asyncData() {
+    async asyncData({ $graphql, params }) {
+        // TO DO since we are using alias to use this template for both /impact which will bring up the latest impact report and /impact/{2021} for past report based on path
+        let path =
+            params.match === "/impact"
+                ? "*"
+                : params.pathMatch.substring(
+                    params.pathMatch.firstIndexOf("/") + 1
+                )
+        const craftresponse = await $graphql.default.request(IMPACT_REPORT, {
+            path: path,
+        })
+        console.log(JSON.stringify(craftresponse))
         const timelineGallery = IMPACT_API.timelineGallery
 
         const data = {
