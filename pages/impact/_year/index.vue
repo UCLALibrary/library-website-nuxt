@@ -174,7 +174,9 @@
 </template>
 <router>
   {
+    path:'/impact/:year?',
     alias: '/impact',
+    
   }
 </router>
 <script>
@@ -191,13 +193,11 @@ import getS3Bucket from "~/utils/getS3Bucket"
 export default {
     layout: "impact",
     async asyncData({ $graphql, params }) {
+        console.log("looking for impact report")
         // TO DO since we are using alias to use this template for both /impact which will bring up the latest impact report and /impact/{2021} for past report based on path
-        let path =
-            params.match === "/impact"
-                ? "*"
-                : params.pathMatch.substring(
-                    params.pathMatch.firstIndexOf("/") + 1
-                )
+        console.log(params)
+        let path = params && params.year ? `impact/${params.year}` : "*"
+        console.log("path is " + path)
         const craftresponse = await $graphql.default.request(IMPACT_REPORT, {
             path: path,
         })

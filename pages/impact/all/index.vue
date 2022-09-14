@@ -1,18 +1,15 @@
 <template>
     <main class="page page-news">
-        <h2 class="entry-count">
-            Entry Count: {{ entryCount }}
-        </h2>
-
-        <divider-way-finder
-            class="divider"
-            color="about"
-        />
-
-        <section-staff-article-list
-            :items="parsedNewsList"
-            section-title="All News"
-        />
+        <ul>
+            <li
+                v-for="(item, index) in page.entries"
+                :key="`impact-${index}`"
+            >
+                <nuxt-link :to="`/${item.to}`">
+                    {{ item.title }}
+                </nuxt-link>
+            </li>
+        </ul>
     </main>
 </template>
 
@@ -23,13 +20,11 @@ import _get from "lodash/get"
 import format from "date-fns/format"
 
 // GQL
-import ARTICLE_NEWS_LIST from "~/gql/queries/ArticleNewsList"
+import IMPACT_REPORTS_LIST from "~/gql/queries/ImpactReportsList"
 
 export default {
     async asyncData({ $graphql, params }) {
-        const data = await $graphql.default.request(ARTICLE_NEWS_LIST, {
-            uri: params.path,
-        })
+        const data = await $graphql.default.request(IMPACT_REPORTS_LIST)
 
         return {
             page: data,

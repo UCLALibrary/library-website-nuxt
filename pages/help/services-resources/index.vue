@@ -49,10 +49,13 @@ export default {
     },
     computed: {
         parsedServiceAndResourceList() {
-            return this.page.entries.map((obj) => {
+            return [
+                ...this.page.serviceOrResource,
+                ...this.page.workshopseries,
+            ].map((obj) => {
                 return {
                     ...obj,
-                    to: `/help/services-resources/${obj.to}`,
+                    to: `/${obj.to}`,
                 }
             })
         },

@@ -18,7 +18,7 @@ query ServiceResourceWorkshopSeriesList {
       id
       to: uri
       title
-      typehandle
+      typehandle:sectionHandle
     }
   }
 }
