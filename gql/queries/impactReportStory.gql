@@ -1,4 +1,4 @@
-query impactReportStory($slug: [String!]) {
+query ImpactReportStory($slug: [String!]) {
     entry(section: "impactReportStory", uri: $slug) {
         ... on impactReportStory_impactReportStory_Entry {
         id
