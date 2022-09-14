@@ -278,7 +278,7 @@ export default {
                         this.page.mainStoryData.asset
                     ),
                 },
-                to: this.page.mainStoryData.link,
+                to: "/impact/2021/ucla-library-reimagined", // this.page.mainStoryData.link
                 title: this.page.mainStoryData.title,
                 description: this.page.mainStoryData.description,
                 prompt: this.page.mainStoryData.buttonText,
