@@ -9,7 +9,8 @@
 // Byline: 
 //    Staff Member links to staff detail page
 //    External Contributor does not link;
-//    both fields (Byline and Contributor) appear on one line, as seen in the banner from the impact report: https://www.library.ucla.edu/impact/main-story
+//    both fields (Byline and Contributor) appear on one line, 
+//    All "byline text in in a column"
 
 <template lang="html">
     <section class="page-news-detail">
@@ -28,11 +29,7 @@
                 :align-right="true"
             />
         </section-wrapper>
-        <h2>{{ page }}</h2>
-        <h2>
-            test 
-            {{ parsedByline }}
-        </h2>
+
         <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
@@ -84,9 +81,23 @@ export default {
         }
     },
     computed: {
+        // parsedByline Changes this:
+        // [ { "byline": "Written by", 
+        //      "title": "Jen Diamond and Lars Lehtonen" }, 
+        //   { "byline": "Other Contributor", 
+        //      "staffMember": [ 
+        //          { "title": "Sylvia Page",
+        //              "to": "sylvia-page" } ] } ]
+        // Into this:
+        // [ {title: "Written by Jen Diamond and Lars Lehtonen"},
+        //   {title: "Other Contributor Sylvia Page"} ]
+
         parsedByline() {
-            return (this.page.contributors || []).map((entry) => {
+            let byline = (this.page.contributors || []).map((entry) => {
                 return `${entry.byline} ${entry.title || entry.staffMember[0].title}`
+            })
+            return byline.map((entry) => {
+                return {"title": entry}
             })
         },
 
@@ -167,4 +178,20 @@ export default {
         }
     }
 }
+
+// .banner-header {
+//     ::v-deep .byline,  {
+//         background-color: pink;
+//         display: flex;
+//         flex-direction: row;
+//         flex-wrap: nowrap;
+//         align-items: center;
+//         margin-bottom: var(--space-m);
+//         }
+//         ::v-deep .schedule-item, .byline-item {
+//             &:after {
+//                 display: none;
+//             }
+//         }
+//     }
 </style>
