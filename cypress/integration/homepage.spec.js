@@ -1,337 +1,275 @@
-class BasePage {
-    static loadHomePage() {
-        cy.visit("/")
-    }
-
-    static wait(number) {
-        cy.visit(number)
-    }
-}
-
-class HomePage extends BasePage {
-    static scrollToTop() {
-        cy.get('header').scrollIntoView()
-    }
-}
-
-describe("Website Homepage - Desktop", () => {
+describe("Website Homepage", () => {
 
     before(function() {
-        // Runs before all tests inside describe
-        // Setup test data or test context
-        // Send or reset the database
-        cy.log('Testing for Desktop Size')
-        HomePage.loadHomePage()
+        cy.visit('/')
     })
 
-    after(function() {
-        // Runs after all tests inside describe blocks are done
-        // Test clean up
-        // Clean cookies or localStorage
-        cy.percySnapshot({ widths: [768, 992, 1200] })
-    })
+    describe("Desktop", () => {
 
-    beforeEach(function() {
-        // Runs after each it block in the describe
-        cy.viewport(1920, 1080)
-    })
-
-    afterEach(function() {
-        // Runs after each it block in the describe
-    })
-
-    it("Should test the main div", () => {
-        cy.get("div.page.page-home")
-            .should("be.visible")
-    })
-
-    it("Should test the Header", () => {
-        cy.get("header")
-            .children()
-            .should('have.length.at.least', 2)
-    })
-
-    it("Should test the mastheadPrimary", () => {
-        cy.get(".masthead-primary")
-            .should("be.visible")
-            .find(".logo")
-            .should("be.visible")
-        
-        cy.get(".search-home")
-            .should("be.visible")
-            .and("contain", "Search the Library Site")
-            .and("contain", "Search Materials")
-        
-        cy.get("input.input-search")
-            .should("have.attr", "placeholder", "Search by keyword")
-        
-        cy.fixture('links').then((linksFixture) => {
-            cy.get(".masthead-primary")
-                .find(".regular-links")
-                .children()
-                .each((item, index) => {
-                    cy.wrap(item)
-                        .should('contain.text', linksFixture.mastheadPrimaryRegularLinks[index].text)
-                        .should('have.attr', "href", linksFixture.mastheadPrimaryRegularLinks[index].link)
-                })
+        beforeEach(function() {
+            cy.viewport(1200, 1080)
         })
 
-        cy.get(".advanced-links")
-            .should("be.visible")
-            .and("have.text", "Advanced Search")
-    })
-
-    it("Should test the Site Brand Bar", () => {
-        // UCLA brand
-        cy.get(".site-brand-bar").should("be.visible")
-        cy.get(".visually-hidden").should("contain", "UCLA Home")
-        cy.fixture('links').then((linksFixture) => {
-            cy.get(".ucla-logo")
-                .parent()
-                .should("have.attr", "href", linksFixture.uclaEdu)
-        })
-    })
-
-    it("Should test the NavPrimary", () => {
-        cy.get("nav")
-            .should("be.visible")
-        
-        cy.fixture('links').then((linksFixture) => {
-            cy.get(".item-top")
-                .children()
-                .should("have.attr", "href",  linksFixture.default)
+        after(function() {
+            cy.percySnapshot({ widths: [1200] })
         })
 
-        cy.fixture('accessibility').then((accessibilityFixture) => {
-            cy.get(".item-top")
-                .children()
-                .should("have.attr", "aria-label",  accessibilityFixture.uclaLibraryHomePage)
-        })
-
-        cy.get("h1.title")
-            .should("not.exist")
-
-        cy.fixture('accessibility').then((accessibilityFixture) => {
-            cy.get(".svg.logo-ucla")
+        it("is visible", () => {
+            cy.get("div.page.page-home")
                 .should("be.visible")
-                .should("have.attr", "alt",  accessibilityFixture.uclaLibraryLogoBlue)
         })
 
-        cy.get("ul.menu")
-            .children()
-            .should("be.visible")
-            .and("contain.text", "Get help with...")
-            .and("contain.text", "Visit")
-            .and("contain.text", "About")
-
-        cy.get('ul.menu')
-            .children()
-            .first()
-            .click()
-            .find(".sub-menu-item")
-            .should("be.visible")
-
-        cy.get(".support-links")
-            .should("contain.text", "Support us")
-        
-        cy.fixture('links').then((linksFixture) => {
-            cy.get(".support-link.underline-hover")
-                .should("have.attr", "href",  linksFixture.supportUs)
-        })
-
-        cy.get("div.background-white")
-            .should("be.visible")
-
-    })
-
-    it("Should test the NavSecondary", () => {
-        cy.get(".nav-secondary")
-            .should("contain", "Locations & Hours")
-            .and("contain", "Ask a Librarian")
-            .and("contain", "My Account")
-
-        cy.fixture('accessibility').then((accessibilityFixture) => {
-            cy.get(".logo-ucla")
-                .should("have.attr", "alt", accessibilityFixture.uclaLibraryLogoBlue)
-        })
-
-        cy.fixture('links').then((linksFixture) => {
-            cy.get(".svg.logo-ucla")
-                .parent()
-                .should("have.attr", "href",  linksFixture.default)
-        })
-
-        Cypress.log({
-            name: 'navigation list items',
-            displayName: "TEST",
-            message: [`⚙️ Testing | Navigation list items`],
-            autoEnd: false,
-        })
-
-        cy.fixture('links').then((linksFixture) => {
-            cy.get(".list")
+        it("has content in the header", () => {
+            cy.get("header")
                 .children()
-                .each((item, index) => {
-                    cy.wrap(item)
-                        .should('contain.text', linksFixture.navigationListItems[index].name)
+                .should('have.length.at.least', 2)
+        })
+
+        describe("Primary Masthead", () => {
+            it("has the logo", () => {
+                cy.get(".masthead-primary")
+                    .should("be.visible")
+                    .find(".logo")
+                    .should("be.visible")
+            })
+
+            it("includes the search bar", () => {
+                cy.get(".search-home")
+                    .should("be.visible")
+                    .and("contain", "Search the Library Site")
+                    .and("contain", "Search Materials")
+                
+                cy.get("input.input-search")
+                    .should("have.attr", "placeholder", "Search by keyword")
+            })
+
+            it("has the right header content", () => {
+                cy.fixture('links').then((linksFixture) => {
+                    cy.get(".masthead-primary")
+                        .find(".regular-links")
                         .children()
-                        .should('have.attr', 'href', linksFixture.navigationListItems[index].to)
+                        .each((item, index) => {
+                            cy.wrap(item)
+                                .should('contain.text', linksFixture.mastheadPrimaryRegularLinks[index].text)
+                                .should('have.attr', "href", linksFixture.mastheadPrimaryRegularLinks[index].link)
+                        })
                 })
-        })
-    })
+            })
 
-    it("Should test the Get Help With Section", () => {
-        cy.get(".section-cards-with-illustrations")
-            .should("be.visible")
-
-        cy.get(".section-cards-with-illustrations > .cards")
-            .and("have.css", "flex-wrap", "wrap")
-            
-        cy.get(".meta > div.text")
-            .and("be.visible")
-            
-        cy.get(".cards")
-            .should("be.visible")
-            .find(".meta > .smart-link > .title")
-            .and("be.visible")
-        
-        cy.get(".cards")
-            .find(".meta > .text")
-            .and("be.visible")
-        
-        cy.get(".card-more")
-            .and("be.visible")
-    })
-
-    it("Should test all DividerWayFinder", () => {
-            
-        cy.get(".divider-way-finder").each((item, index, list) => {
-            // Returns the elements from the cy.get command
-            expect(list).to.have.length(3)
-    
-            let dividerWayFinderCss = [
-                "help", "visit", "about"
-            ]
-            // Returns the current element from the loop
-            expect(item).to.have.class(`color-${dividerWayFinderCss[index]}`)
-        })
-    })
-})
-
-describe("Website Homepage - Mobile", () => {
-    before(function() {
-        // Runs before all tests inside describe
-        // Setup test data or test context
-        // Send or reset the database
-        cy.log('Testing for Mobile Size')
-    })
-    
-    beforeEach(function() {
-        // Runs after each it block in the describe
-        cy.viewport(900, 1920)
-    })
-
-    after(function() {
-        // Runs after all tests inside describe blocks are done
-        // Test clean up
-        // Clean cookies or localStorage
-        cy.percySnapshot({ widths: [768, 992, 1200] })
-    })
-
-    it("Should test the Header", () => {
-        cy.get("header")
-            .children()
-            .should('have.length.at.least', 2)
-    })
-
-    it("Should test the hamburguer menu", () => {
-        cy.fixture('accessibility').then((accessibilityFixture) => {
-            cy.get(".open-menu")
-                .should("be.visible")
-                .and("have.attr", "aria-label", accessibilityFixture.openMenu)
-                .click()
-                .get(".expanded-menu-container")
-                .should("be.visible")
-        })
-        
-        cy.get(".expanded-menu")
-            .should("be.visible")
-        
-        cy.fixture('links').then((linksFixture) => {
-            cy.get(".expanded-menu")
-                .children()
-                .first()
-                .should("have.attr", "href", linksFixture.default)
+            it("links to advanced search", () => {
+                cy.get(".advanced-links")
+                    .should("be.visible")
+                    .and("have.text", "Advanced Search")
+            })
         })
 
-        cy.fixture('accessibility').then((accessibilityFixture) => {
-            cy.get(".expanded-menu")
-                .children()
-                .first()
-                .should("have.attr", "aria-label", accessibilityFixture.uclaLibraryHomePage)
+        it("includes UCLA brand bar", () => {
+            // UCLA brand
+            cy.get(".site-brand-bar").should("be.visible")
+            cy.get(".site-brand-bar .visually-hidden").should("contain", "UCLA Home")
+            cy.get(".site-brand-bar a")
+                .should("have.attr", "href", "https://www.ucla.edu")
         })
 
-        cy.get(".expanded-menu")
-            .children(".close-menu")
-            .should("be.visible")
+        describe("Primary Nav Bar", () => {
+            it("is visible", () => {
+                cy.get("nav")
+                    .should("be.visible")
+            })
 
-        cy.get(".nav-menu-primary")
-            .children()
-            .should("be.visible")
-            .and("contain.text", "Research")
-            .and("contain.text", "Get help with...")
-            .and("contain.text", "Visit")
-            .and("contain.text", "About")
+            it("has the UCLA Library logo", () => {
+                cy.get(".item-top a")
+                    .should("have.attr", "href",  "/")
+                    .and("have.attr", "aria-label",  "UCLA Library home page")
+                
+                cy.get("h1.title")
+                    .should("not.exist")
 
-        cy.get('.nav-menu-primary')
-            .children()
-            .first()
-            .find(".section-name.block")
-            .click()
-        
-        cy.get(".sub-menu-item")
-            .should("be.visible")
+                cy.get(".item-top svg.svg__logo-library")
+                    .should("be.visible")
+                    .and("have.attr", "alt",  "UCLA Library logo blue")
+            })
 
-        cy.get('.nav-menu-primary')
-            .children()
-            .first()
-            .find(".section-name.block")
-            .click()
+            it("has the right menu content", () => {
+                cy.get("ul.menu")
+                    .children()
+                    .should("be.visible")
+                    .and("contain.text", "Get help with...")
+                    .and("contain.text", "Visit")
+                    .and("contain.text", "About")
 
-        cy.fixture('links').then((linksFixture) => {
-            cy.get(".list")
-                .children()
-                .each((item, index) => {
-                    cy.wrap(item)
-                        .should('contain.text', linksFixture.navigationListItems[index].name)
+                cy.get('ul.menu')
+                    .children()
+                    .first()
+                    .click()
+                    .find(".sub-menu-item")
+                    .should("be.visible")
+            })
+
+            it("has the 'support us' link", () => {
+                cy.get(".support-link a")
+                    .should("contain.text", "Support Us")
+                    .and("have.attr", "href",  "https://giving.ucla.edu/Standard/NetDonate.aspx?SiteNum=463")
+            })
+
+            it("uses a white background", () => {
+                cy.get("div.background-white")
+                    .should("be.visible")
+            })
+
+        })
+
+        describe("Secondary Nav Bar", () => {
+            it("has the right menu items", () => {
+                cy.fixture('links').then((linksFixture) => {
+                    cy.get(".list")
                         .children()
-                        .should('have.attr', 'href', linksFixture.navigationListItems[index].to)
+                        .each((item, index) => {
+                            cy.wrap(item)
+                                .should('contain.text', linksFixture.navigationListItems[index].name)
+                                .children()
+                                .should('have.attr', 'href', linksFixture.navigationListItems[index].to)
+                        })
                 })
+            })
         })
 
-        cy.get(".sub-menu-item")
-            .should("not.be.visible")
+        describe("'Get Help With' Section", () => {
+            it("is visible", () => {
+                cy.get("[data-cy='section-cards-with-illustrations-get-help-with']")
+                    .should("be.visible")
+            })
 
-        cy.get(".support-us-container")
-            .should("be.visible")
-            .and("contain.text", "Support us")
-        
-        cy.fixture('links').then((linksFixture) => {
-            cy.get(".support-us-container > a")
-                .should("have.attr", "href",  linksFixture.supportUs)
+            it("has the descriptive paragraph", () => {
+                cy.get("[data-cy='section-cards-with-illustrations-get-help-with'] .section-summary")
+                    .should("be.visible")
+                    .and("contain", "Need guidance on how to make the most of UCLA Libraries?")
+            })
+
+            it("has help topic cards", () => {
+                cy.get("[data-cy='section-cards-with-illustrations-get-help-with'] > .cards")
+                    .should("be.visible")
+                    .and("have.css", "flex-wrap", "wrap")
+                    .and("contain", "Example Service")
+            })
         })
-        
-        cy.fixture('accessibility').then((accessibilityFixture) => {
-            cy.get(".close-menu")
-                .should("have.attr", "aria-label", accessibilityFixture.closeMenu)
-                .click()
-                .should("not.be.visible")
+
+        describe("Section divider", () => {
+            it("have the correct wafinder theme colors", () => {
+            
+                let dividerWayFinderThemes = [
+                    "help", "visit", "about"
+                ]
+                cy.get(".divider-way-finder").should("have.length", 3)
+                    
+                cy.get(".divider-way-finder").each((item, index) => {
+                    expect(item).to.have.class(`color-${dividerWayFinderThemes[index]}`)
+                })
+            })
         })
     })
 
-    it("Should test the Get Help With Section", () => {
-        cy.get(".section-cards-with-illustrations > .cards")
-            .should("be.visible")
-            .and("have.css", "flex-wrap", "nowrap")
+    describe("Website Homepage - Mobile", () => {
+        beforeEach(function() {
+            cy.viewport(992, 1920)
+        })
+
+        after(function() {
+            cy.percySnapshot({ widths: [768, 992] })
+        })
+
+        describe("Header", () => {
+            it("has content", () => {
+                cy.get("header")
+                    .children()
+                    .should('have.length.at.least', 2)
+            })
+        })
+
+        describe("Hamburger Menu", () => {
+            it("can be opened to see content", () => {
+                cy.get(".open-menu")
+                    .should("be.visible")
+                    .and("have.attr", "aria-label", "Open menu")
+                    .click()
+                    .get(".expanded-menu-container")
+                    .should("be.visible")
+            
+                cy.get(".expanded-menu")
+                    .should("be.visible")
+                
+                cy.fixture('links').then((linksFixture) => {
+                    cy.get(".expanded-menu")
+                        .children()
+                        .first()
+                        .should("have.attr", "href", linksFixture.default)
+                })
+
+                cy.fixture('accessibility').then((accessibilityFixture) => {
+                    cy.get(".expanded-menu")
+                        .children()
+                        .first()
+                        .should("have.attr", "aria-label", accessibilityFixture.uclaLibraryHomePage)
+                })
+
+                cy.get(".expanded-menu")
+                    .children(".close-menu")
+                    .should("be.visible")
+
+                cy.get(".nav-menu-primary")
+                    .children()
+                    .should("be.visible")
+                    .and("contain.text", "Research")
+                    .and("contain.text", "Get help with...")
+                    .and("contain.text", "Visit")
+                    .and("contain.text", "About")
+
+                cy.get('.nav-menu-primary')
+                    .children()
+                    .first()
+                    .find(".section-name.block")
+                    .click()
+                
+                cy.get(".sub-menu-item")
+                    .should("be.visible")
+
+                cy.get('.nav-menu-primary')
+                    .children()
+                    .first()
+                    .find(".section-name.block")
+                    .click()
+
+                cy.fixture('links').then((linksFixture) => {
+                    cy.get(".list")
+                        .children()
+                        .each((item, index) => {
+                            cy.wrap(item)
+                                .should('contain.text', linksFixture.navigationListItems[index].name)
+                                .children()
+                                .should('have.attr', 'href', linksFixture.navigationListItems[index].to)
+                        })
+                })
+
+                cy.get(".sub-menu-item")
+                    .should("not.be.visible")
+
+                cy.contains("a", "Support Us", { matchCase: false })
+                    .should("be.visible")
+                    .and("have.attr", "href",  "https://giving.ucla.edu/Standard/NetDonate.aspx?SiteNum=463")
+                
+                cy.fixture('accessibility').then((accessibilityFixture) => {
+                    cy.get(".close-menu")
+                        .should("have.attr", "aria-label", accessibilityFixture.closeMenu)
+                        .click()
+                        .should("not.be.visible")
+                })
+            })
+        })
+
+        it("Should test the Get Help With Section", () => {
+            cy.get(".section-cards-with-illustrations > .cards")
+                .should("be.visible")
+                .and("have.css", "flex-wrap", "nowrap")
+        })
     })
 })
