@@ -22,13 +22,16 @@ export default {
     /*
    ** Global CSS
    */
-    css: ['~/assets/styles/variables-css.scss', '~/assets/styles/global.scss'],
+    css: [
+        'ucla-library-design-tokens/scss/fonts.scss',
+        'ucla-library-design-tokens/scss/app-global.scss', 
+        '~/assets/styles/global.scss'],
 
     /*
    ** Load SCSS into each component
    */
     styleResources: {
-        scss: ['~/assets/styles/variables-scss.scss'],
+        scss: ['ucla-library-design-tokens/scss/app.scss'],
     },
 
     /*
@@ -97,16 +100,21 @@ export default {
     /*
    * Nuxt modules
    */
-    modules: ['@nuxtjs/axios', '@nuxtjs/gtm'],
+    modules: ['@nuxtjs/axios', '@nuxtjs/gtm',"@nuxtjs/sitemap",], // This needs to be last always,
 
     gtm: {
         id: 'GTM-T2SXV2',
     },
 
+    sitemap: {
+        hostname: process.env.SITEMAP_HOST || "https://uclalibrary.library.ucla.edu",
+        routes:[],
+    },
+
     /*
    * Nuxt build modules
    */
-    buildModules: ['@nuxtjs/style-resources', 'nuxt-graphql-request'],
+    buildModules: ['@nuxtjs/router-extras', '@nuxtjs/style-resources', 'nuxt-graphql-request',"@/modules/sitemapRouteGenerator",],
 
     /*
    ** Nuxt webpack build configuration

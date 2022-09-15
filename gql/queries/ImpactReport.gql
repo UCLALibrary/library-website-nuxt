@@ -1,0 +1,9 @@
+query ImpactReport($path: [String!]) {
+    entry(section: "impactReport", uri: $path, orderBy:"postDate desc") {
+        ... on impactReport_impactReport_Entry {
+        id
+        title
+        to: uri
+        }
+  }
+}

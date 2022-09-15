@@ -62,7 +62,7 @@ export const actions = {
             let footerSockData = await this.$graphql.default.request(FOOTER_SOCK_ITEMS)
             commit("SET_FOOTER_SOCK", footerSockData)
         } catch (e) {
-            throw new Error("Craft API error, trying to set gobals. " + e)
+            throw new Error("Craft API error, trying to set globals. " + e)
         }
     },
 }
