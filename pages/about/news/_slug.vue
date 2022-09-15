@@ -76,7 +76,7 @@ export default {
     },
     computed: {
         parsedBylines() {
-            let bylines = this.page.byline.map((name) => {
+            let bylines = (this.page.byline || []).map((name) => {
                 return {
                     fullName: `${name.nameFirst} ${name.nameLast}`,
                 }

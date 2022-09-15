@@ -1,7 +1,7 @@
 <template lang="html">
     <section class="page-service-detail">
+        <!-- TODO create separate sectionpage component based on typehandle will either use serviceorresource or workshopseries component-->
         <nav-breadcrumb :title="page.title" />
-
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -59,7 +59,7 @@
 
 <script>
 // GQL
-import SERVICE_OR_RESOURCE_DETAIL from "~/gql/queries/ServiceOrResourceDetail"
+import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceOrResourceOrWorkshopDetail"
 
 // Helpers
 import _get from "lodash/get"
@@ -71,14 +71,16 @@ export default {
             "fetching graphql data for Service or Resource detail from Craft for live preview"
         )
         const data = await $graphql.default.request(
-            SERVICE_OR_RESOURCE_DETAIL,
+            SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL,
             {
                 slug: params.slug,
             }
         )
         console.log("Data fetched: " + JSON.stringify(data))
         return {
-            page: _get(data, "entry", {}),
+            page:
+                _get(data, "serviceOrResource", {}) ||
+                _get(data, "workshopseries", {}),
         }
     },
     head() {
@@ -89,10 +91,13 @@ export default {
     },
     computed: {
         parsedAssociatedTopics() {
+            if (!this.page.associatedTopics) return []
             return this.page.associatedTopics.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.externalResourceUrl ? obj.externalResourceUrl : obj.uri,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : obj.uri,
                 }
             })
         },

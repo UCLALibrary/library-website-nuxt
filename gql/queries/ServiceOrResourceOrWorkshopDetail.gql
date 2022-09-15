@@ -1,7 +1,7 @@
 #import "~/gql/fragments/collections/DefaultFpbWithNoCta"
 
-query ServiceOrResourceDetail($slug: [String!]) {
-    entry(section: "serviceOrResource", slug: $slug) {
+query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
+    serviceOrResource: entry(section: "serviceOrResource", slug: $slug) {
         ... on serviceOrResource_serviceOrResource_Entry {
             id
             button: buttonUrl {
@@ -39,5 +39,12 @@ query ServiceOrResourceDetail($slug: [String!]) {
             }
         }
         ...DefaultFpbWithNoCta
+    }
+    workshopseries: entry(section: "workshopOrEventSeries", slug: $slug) {
+        ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
+            id
+            title
+            to: uri
+        }
     }
 }
