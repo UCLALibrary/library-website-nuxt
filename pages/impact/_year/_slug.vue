@@ -1,8 +1,18 @@
 <template lang="html">
     <div class="page page-impact-report">
         <!-- This is template for Impact report main  story -->
+        <h2>{{ page }}</h2>
+        <je
+            v-if="!page.heroImage || page.heroImage.length == 0"
+            <banner-text
+            class="banner-text"
+            :category="parsedCategory"
+            :title="page.title"
+            :text="page.text"
+        />
+
         <banner-header
-            class="section banner-header"
+            v-if="page.heroImage && page.heroImage.length >= 1"
             :title="bannerHeader.title"
             :text="bannerHeader.text"
             :byline="bannerHeader.byline"
@@ -10,41 +20,54 @@
             :to="bannerHeader.to"
             :align-right="true"
         />
-        <div class="meta">
+
+        <section-wrapper theme="divider">
             <divider-way-finder
-                color="about"
                 class="divider"
+                color="about"
             />
+        </section-wrapper>
 
-            <impact-rich-text
-                :text-blocks="mainStory.textBlocks"
-                :pull-quote="mainStory.pullQuote"
-                :images="parsedMainStoryImages"
-                class="rich-text"
+        <section-wrapper>
+            <div class="meta">
+                <impact-rich-text
+                    :text-blocks="mainStory.textBlocks"
+                    :pull-quote="mainStory.pullQuote"
+                    :images="parsedMainStoryImages"
+                    class="rich-text"
+                />
+            </div>
+        </section-wrapper>
+
+        <section-wrapper>
+            <div class="breadcrumb-link">
+                <nuxt-link
+                    to="/impact/"
+                    class="hover-text"
+                >
+                    Read 2020-2021 UCLA Library Impact Report
+                </nuxt-link>
+                <svg-arrow-right class="svg-arrow-right" />
+            </div>
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
             />
-        </div>
-        <div class="breadcrumb-link">
-            <nuxt-link
-                to="/impact/"
-                class="hover-text"
-            >
-                Read 2020-2021 UCLA Library Impact Report
-            </nuxt-link>
-            <svg-arrow-right class="svg-arrow-right" />
-        </div>
+        </section-wrapper>
 
-        <divider-way-finder
-            class="divider"
-            color="about"
-        />
-        <div class="call-to-action">
-            <a
-                href="https://giveto.ucla.edu/area/libraries/"
-                target="_blank"
-                class="hover-text"
-            >Find ways to give to UCLA Library</a>
-            <svg-arrow-diagonal class="svg" />
-        </div>
+        <section-wrapper>
+            <div class="call-to-action">
+                <a
+                    href="https://giveto.ucla.edu/area/libraries/"
+                    target="_blank"
+                    class="hover-text"
+                >Find ways to give to UCLA Library</a>
+                <svg-arrow-diagonal class="svg" />
+            </div>
+        </section-wrapper>
     </div>
 </template>
 
@@ -52,7 +75,7 @@
 // gql
 import IMPACT_REPORT_STORY from "~/gql/queries/ImpactReportStory"
 
-import * as MOCK_IMPACT_API from "~/data/impact-report_slug.json"
+// import * as MOCK_IMPACT_API from "~/data/impact-report_slug.json"
 
 // Utilities
 import getS3Bucket from "~/utils/getS3Bucket"
@@ -75,8 +98,8 @@ export default {
 
         return {
             page: data,
-            bannerHeader: MOCK_IMPACT_API.bannerHeader,
-            mainStory: MOCK_IMPACT_API.mainStory,
+            // bannerHeader: MOCK_IMPACT_API.bannerHeader,
+            // mainStory: MOCK_IMPACT_API.mainStory,
         }
     },
     head() {
@@ -94,17 +117,25 @@ export default {
             }
             return video
         },
-        parsedMainStoryImages() {
-            const mainStory = MOCK_IMPACT_API.mainStory
-            return this.mainStory.images.map((obj) => {
-                return {
-                    src: getS3Bucket(this.$config, obj.src),
-                    sizes: "100vw",
-                    height: 1080,
-                    width: 1920,
-                    alt: obj.alt,
-                    caption: obj.caption,
-                }
+        // parsedMainStoryImages() {
+        //     const mainStory = MOCK_IMPACT_API.mainStory
+        //     return this.mainStory.images.map((obj) => {
+        //         return {
+        //             src: getS3Bucket(this.$config, obj.src),
+        //             sizes: "100vw",
+        //             height: 1080,
+        //             width: 1920,
+        //             alt: obj.alt,
+        //             caption: obj.caption,
+        //         }
+        //     })
+        // },
+        parsedByline() {
+            let byline = (this.page.contributors || []).map((entry) => {
+                return `${entry.byline} ${entry.title || entry.staffMember[0].title}`
+            })
+            return byline.map((entry) => {
+                return {"title": entry}
             })
         },
     },
@@ -116,6 +147,9 @@ export default {
     margin: 0 0 0 0;
     .section {
         margin: 1px auto;
+    }
+    .section-banner {
+        margin-top: 0;
     }
     .banner-header {
         margin-bottom: var(--space-xl);
