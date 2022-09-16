@@ -87,17 +87,6 @@ export default {
         }
     },
     computed: {
-        // parsedByline Changes this:
-        // [ { "byline": "Written by", 
-        //      "title": "Jen Diamond and Lars Lehtonen" }, 
-        //   { "byline": "Other Contributor", 
-        //      "staffMember": [ 
-        //          { "title": "Sylvia Page",
-        //              "to": "sylvia-page" } ] } ]
-        // Into this:
-        // [ {title: "Written by Jen Diamond and Lars Lehtonen"},
-        //   {title: "Other Contributor Sylvia Page"} ]
-
         parsedByline() {
             let byline = (this.page.contributors || []).map((entry) => {
                 return `${entry.byline} ${entry.title || entry.staffMember[0].title}`

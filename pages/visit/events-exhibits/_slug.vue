@@ -1,5 +1,6 @@
 <template lang="html">
     <section class="page-event-detail">
+        <!-- this template will pick the section page component based on typehandle -->
         <nav-breadcrumb
             v-if="allEvents[0]"
             :title="allEvents[0].title"
