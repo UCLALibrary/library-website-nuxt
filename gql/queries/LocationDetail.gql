@@ -1,4 +1,4 @@
-#import "~/gql/fragments/collections/DefaultFpb"
+#import "~/gql/fragments/collections/AllFpb"
 #import "~/gql/fragments/Image"
 
 query LocationDetail($slug: [String!]) {
