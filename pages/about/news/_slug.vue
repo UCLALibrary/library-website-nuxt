@@ -1,50 +1,62 @@
-// articleType - nowhere // summary - nowhere // associatedLocations - nowhere
-// department - nowhere // title // heroImage banner Image // articleCategories
-(library news) // staffMember // allFpb // bannerheader // date published //
-TODO // fix: ServiceOrResources // add: share links & icons component // fix:
-author
-
 <template lang="html">
     <section class="page-news-detail">
         <nav-breadcrumb :title="page.title" />
 
-        <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :title="page.title"
-            category="Library News"
-            :byline="parsedBylines"
-            :locations="page.locations"
-            :date-created="page.dateCreated"
-            :align-right="true"
+        <section-wrapper class="section-banner">
+            <banner-header
+                v-if="page.heroImage && page.heroImage.length == 1"
+                :image="page.heroImage[0].image[0]"
+                :to="page.to"
+                :title="page.title"
+                category="Library News"
+                :byline="parsedByline"
+                :locations="page.locations"
+                :date-created="page.dateCreated"
+                :align-right="true"
+                :text="page.text"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+
+        <flexible-blocks
+            class="flexible-content"
+            :blocks="page.blocks"
         />
 
-        <div v-if="page.blocks">
+        <section-wrapper
+            v-if="parsedAssociatedStaffMember.length > 0"
+            theme="divider"
+        >
             <divider-way-finder
+                class="divider"
                 color="about"
-                class="divider-way-finder"
             />
+        </section-wrapper>
 
-            <flexible-blocks
-                class="content"
-                :blocks="page.blocks"
-            />
-        </div>
-
-        <div v-if="parsedAssociatedStaffMember.length > 0">
-            <divider-way-finder
-                color="about"
-                class="divider-way-finder"
-            />
-
+        <section-wrapper v-if="parsedAssociatedStaffMember.length > 0">
             <h2 class="section-heading">
                 Associated Staff Member
             </h2>
-            <section-staff-list :items="parsedAssociatedStaffMember" />
-        </div>
-        </div>
+
+            <section-staff-list 
+                :items="parsedAssociatedStaffMember"
+            />
+        </section-wrapper>
     </section>
 </template>
+
+<!-- https://www.npmjs.com/package/@nuxtjs/router-extras -->
+<router>
+    {
+      alias: '/about/blog/:slug'
+    }
+</router>
 
 <script>
 // Helpers
@@ -52,7 +64,7 @@ import _get from "lodash/get"
 import format from "date-fns/format"
 
 // GQL
-import ARTICLE_NEWS_DETAIL from "~/gql/queries/ArticleNewsDetail"
+import ARTICLE_DETAIL from "~/gql/queries/ArticleDetail"
 
 export default {
     async asyncData({ $graphql, params, store }) {
@@ -60,7 +72,7 @@ export default {
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
         )
-        const data = await $graphql.default.request(ARTICLE_NEWS_DETAIL, {
+        const data = await $graphql.default.request(ARTICLE_DETAIL, {
             slug: params.slug,
         })
         console.log("Data fetched: " + JSON.stringify(data))
@@ -75,15 +87,12 @@ export default {
         }
     },
     computed: {
-        parsedBylines() {
-            let bylines = (this.page.byline || []).map((name) => {
-                return {
-                    fullName: `${name.nameFirst} ${name.nameLast}`,
-                }
+        parsedByline() {
+            let byline = (this.page.contributors || []).map((entry) => {
+                return `${entry.byline} ${entry.title || entry.staffMember[0].title}`
             })
-
-            return bylines.map(({ fullName }) => {
-                return `${fullName}`
+            return byline.map((entry) => {
+                return {"title": entry}
             })
         },
 
@@ -100,26 +109,16 @@ export default {
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
-        },
-
-        parsedForm() {},
-
-        // parsedLocations() {
-        //     let places= this.page.locations.map((place) => {
-        //         return {
-        //             linkedLocation: `<a href="${place.uri}">${place.title}</a>`
-        //         }
-        //     })
-        //     return places.map(({linkedLocation})=>{
-        //         return (`${linkedLocation}`)
-        //     })
-        // }
+        }
     },
 }
 </script>
 
 <style lang="scss" scoped>
 .page-news-detail {
+    .section-banner {
+        margin-top: 0;
+    }
     .banner-text {
         --color-theme: var(--color-help-green-03);
     }
@@ -136,7 +135,7 @@ export default {
         max-width: $container-l-main + px;
         margin: var(--space-3xl) auto;
     }
-    .content {
+    .flexible-content {
         margin: 0 auto;
     }
     .section-cards {
