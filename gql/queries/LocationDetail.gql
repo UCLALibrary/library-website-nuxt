@@ -1,4 +1,4 @@
-#import "~/gql/fragments/collections/DefaultFpb"
+#import "~/gql/fragments/collections/AllFpb"
 #import "~/gql/fragments/Image"
 
 query LocationDetail($slug: [String!]) {
@@ -63,7 +63,7 @@ query LocationDetail($slug: [String!]) {
                 email
                 to: uri
             }
-            ...DefaultFpb
+            ...AllFpb
         }
     }
     associatedArticles: entries(

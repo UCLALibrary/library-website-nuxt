@@ -54,5 +54,4 @@ fragment AllFpb on ElementInterface {
             ...BlockFormFragment
         }
     }
-} 
-
+}
