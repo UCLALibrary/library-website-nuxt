@@ -1,6 +1,6 @@
 <template>
     <main class="page page-news">
-        <!-- <banner-header
+        <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
             :title="page.title"
@@ -11,12 +11,12 @@
             :to="to"
             :authors="authors"
             :align-right="true"
-        /> -->
+        />
 
-        <!-- <section-teaser-highlight
+        <section-teaser-highlight
             class="section"
             :items="highlightEvents"
-        /> -->
+        />
 
         <h2 class="entry-count">
             Entry Count: {{ entryCount }}
@@ -41,11 +41,11 @@ import _get from "lodash/get"
 import format from "date-fns/format"
 
 // GQL
-import ARTICLE_NEWS_LIST from "~/gql/queries/ArticleNewsList"
+import ARTICLE_LIST from "~/gql/queries/ArticleList"
 
 export default {
     async asyncData({ $graphql, params }) {
-        const data = await $graphql.default.request(ARTICLE_NEWS_LIST, {
+        const data = await $graphql.default.request(ARTICLE_LIST, {
             uri: params.path,
         })
 
@@ -62,7 +62,7 @@ export default {
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,
-                    to: `/about/news/${obj.to}`,
+                    to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.fullName}`,
                     category: _get(obj, "articleCategories[0].title", null),
