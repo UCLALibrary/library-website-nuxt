@@ -1,17 +1,3 @@
-// TODO
-// not visible:
-//    articleType, summary, associatedLocations, department
-// fix: ServiceOrResources 
-// add: share links & icons component 
-
-// add sections
-// fix breadcrumb for blog
-// Byline: 
-//    Staff Member links to staff detail page
-//    External Contributor does not link;
-//    both fields (Byline and Contributor) appear on one line, 
-//    All "byline text in in a column"
-
 <template lang="html">
     <section class="page-news-detail">
         <nav-breadcrumb :title="page.title" />
@@ -27,6 +13,14 @@
                 :locations="page.locations"
                 :date-created="page.dateCreated"
                 :align-right="true"
+                :text="page.text"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
             />
         </section-wrapper>
 
@@ -35,12 +29,24 @@
             :blocks="page.blocks"
         />
 
+        <section-wrapper
+            v-if="parsedAssociatedStaffMember.length > 0"
+            theme="divider"
+        >
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+
         <section-wrapper v-if="parsedAssociatedStaffMember.length > 0">
             <h2 class="section-heading">
                 Associated Staff Member
             </h2>
 
-            <section-staff-list :items="parsedAssociatedStaffMember" />
+            <section-staff-list 
+                :items="parsedAssociatedStaffMember"
+            />
         </section-wrapper>
     </section>
 </template>
@@ -178,20 +184,4 @@ export default {
         }
     }
 }
-
-// .banner-header {
-//     ::v-deep .byline,  {
-//         background-color: pink;
-//         display: flex;
-//         flex-direction: row;
-//         flex-wrap: nowrap;
-//         align-items: center;
-//         margin-bottom: var(--space-m);
-//         }
-//         ::v-deep .schedule-item, .byline-item {
-//             &:after {
-//                 display: none;
-//             }
-//         }
-//     }
 </style>
