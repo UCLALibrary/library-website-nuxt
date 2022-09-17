@@ -1,9 +1,59 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/collections/ImpactReportFpb"
+
 query ImpactReport($path: [String!]) {
-    entry(section: "impactReport", uri: $path, orderBy:"postDate desc") {
-        ... on impactReport_impactReport_Entry {
-        id
-        title
-        to: uri
+  entry(section: "impactReport", uri: $path, orderBy:"postDate desc") {
+    ... on impactReport_impactReport_Entry {
+      id
+      title
+      to: uri
+      portrait: image {
+        ...Image
+      }
+      text: richText
+
+      ...ImpactReportFpb
+
+      timelineTitle: titleGeneral
+      impactReportTimeline {
+        ... on impactReportTimeline_gridGalleryCards_BlockType {
+          id
+          titleGeneral
+          summary
+          gridGalleryCards {
+            ... on gridGalleryCards_internalContent_BlockType {
+              id
+              featured
+              contentLink {
+                contentType: sectionHandle
+                title
+                snippet: summary
+                to: uri
+                heroImage {
+                  ... on heroImage_heroImage_BlockType {
+                    image {
+                      ...Image
+                    }
+                  }
+                }
+              }
+            }
+            ... on gridGalleryCards_externalContent_BlockType {
+              id
+              featured
+              externalLink
+              titleGeneral
+              snippet: summary
+              image {
+                ...Image
+              }
+            }
+          }
         }
+      }
+      acknowledgements
+
+        
+    }
   }
 }

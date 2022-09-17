@@ -1,0 +1,51 @@
+#import "~/gql/fragments/BlockBannerFeaturedFragment"
+#import "~/gql/fragments/BlockCallToActionFragment"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaWithTextFragment"
+#import "~/gql/fragments/BlockImpactNumbersCarouselFragment"
+#import "~/gql/fragments/BlockCardWithImageFragment"
+#import "~/gql/fragments/BlockHighlightFragment"
+#import "~/gql/fragments/BlockImpactNumberCardsFragment"
+
+fragment ImpactReportFpb on ElementInterface {
+    blocks: impactReportFpb {
+        id
+        typeHandle
+
+        ... on impactReportFpb_bannerFeatured_BlockType {
+          ...BlockBannerFeaturedFragment
+        }
+        ... on impactReportFpb_callToAction_BlockType {
+          ...BlockCallToActionFragment
+        }
+        ... on impactReportFpb_simpleCards_BlockType {
+          ...BlockSimpleCardsFragment
+        }
+        ... on impactReportFpb_pullQuote_BlockType {
+          ...BlockPullQuoteFragment
+        }
+        ... on impactReportFpb_mediaWithText_BlockType {
+          ...BlockMediaWithTextFragment
+        }
+        ... on impactReportFpb_mediaGallery_BlockType {
+          ...BlockMediaGalleryFragment
+        }
+        ... on impactReportFpb_impactNumbersCarousel_BlockType {
+          ...BlockImpactNumbersCarouselFragment
+        }
+        ... on impactReportFpb_impactNumberCards_BlockType {
+          ...BlockImpactNumberCardsFragment
+        }
+        ... on impactReportFpb_highlight_BlockType {
+          ...BlockHighlightFragment
+        }
+        ... on impactReportFpb_gridGalleryCards_BlockType {
+          id
+        }
+        ... on impactReportFpb_cardWithImage_BlockType {
+          ...BlockCardWithImageFragment
+        }
+    }
+}

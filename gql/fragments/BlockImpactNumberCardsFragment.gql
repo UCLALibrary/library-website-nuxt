@@ -1,0 +1,18 @@
+fragment BlockImpactNumberCardsFragment on ElementInterface {
+    ... on impactReportFpb_impactNumberCards_BlockType {
+        id
+        sectionSummary: summary
+        sectionTitle: titleGeneral
+        impactNumberCards {
+            ... on impactNumberCards_impactNumberCard_BlockType {
+                id
+                title: titleGeneral
+                text: description
+                impactNumber
+                icon: graphic {
+                    ...Image
+                }
+            }
+        }
+    }
+}
