@@ -1,3 +1,5 @@
+#import "~/gql/fragments/collections/AllFpb"
+
 query ImpactReportStory($slug: [String!]) {
   entry(section: "impactReportStory", uri: $slug) {
     ... on impactReportStory_impactReportStory_Entry {
@@ -23,27 +25,5 @@ query ImpactReportStory($slug: [String!]) {
   }
 }
 
-# {"slug": "ucla-library-reimagined"}
-
-# nav
-# banner*
-# if HeroImage is present, BannerHeader
-# else BannerText
-# pulling in Title, Summary, and Contributor fields
-# divider-way-finder (color: about-purple)
-# flexible page blocks
-# link back to "Read [year] Impact Report"
-# divider-way-finder (color: about-purple)
-# link "Find ways to give to UCLA Library"
-# footer
-
 # query ImpactReportStory {
-#   entry(section: "impactReportStory", uri: "impact/2021/ucla-library-reimagined") {
-#     ... on impactReportStory_impactReportStory_Entry {
-#       id
-#       title
-      
-
-#     }
-#   }
-# }
+#  entry(section: "impactReportStory", uri: "impact/2022/test-main-story") {

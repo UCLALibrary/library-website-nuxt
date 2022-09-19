@@ -2,7 +2,7 @@
     <div class="page page-impact-report">
         <!-- This is template for Impact report main  story -->
         <h2>{{ page }}</h2>
-        <je
+        <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             <banner-text
             class="banner-text"
@@ -28,7 +28,7 @@
             />
         </section-wrapper>
 
-        <section-wrapper>
+        <!-- <section-wrapper>
             <div class="meta">
                 <impact-rich-text
                     :text-blocks="mainStory.textBlocks"
@@ -37,7 +37,7 @@
                     class="rich-text"
                 />
             </div>
-        </section-wrapper>
+        </section-wrapper> -->
 
         <section-wrapper>
             <div class="breadcrumb-link">
