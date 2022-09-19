@@ -1,23 +1,24 @@
 <template lang="html">
     <div class="page page-impact-report">
         <!-- This is template for Impact report main  story -->
-        <h2>{{ page }}</h2>
+        <h2>parsedVideo: {{ parsedVideo }}</h2>
+        <h2>parsedByline: {{ parsedByline }}</h2>
+        <h2>parsedMainStoryImages: {{ parsedMainStoryImages }}</h2>
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             <banner-text
             class="banner-text"
-            :category="parsedCategory"
             :title="page.title"
             :text="page.text"
         />
 
         <banner-header
-            v-if="page.heroImage && page.heroImage.length >= 1"
+            
             :title="bannerHeader.title"
             :text="bannerHeader.text"
-            :byline="bannerHeader.byline"
-            :video="parseVideo"
+            :video="parsedVideo"
             :to="bannerHeader.to"
+
             :align-right="true"
         />
 
@@ -75,7 +76,7 @@
 // gql
 import IMPACT_REPORT_STORY from "~/gql/queries/ImpactReportStory"
 
-// import * as MOCK_IMPACT_API from "~/data/impact-report_slug.json"
+import * as MOCK_IMPACT_API from "~/data/impact-report_slug.json"
 
 // Utilities
 import getS3Bucket from "~/utils/getS3Bucket"
@@ -98,17 +99,17 @@ export default {
 
         return {
             page: data,
-            // bannerHeader: MOCK_IMPACT_API.bannerHeader,
-            // mainStory: MOCK_IMPACT_API.mainStory,
+            bannerHeader: MOCK_IMPACT_API.bannerHeader,
+            mainStory: MOCK_IMPACT_API.mainStory,
         }
     },
-    head() {
-        return {
-            title: this.bannerHeader.title,
-        }
-    },
+    // head() {
+    //     return {
+    //         title: this.bannerHeader.title,
+    //     }
+    // },
     computed: {
-        parseVideo() {
+        parsedVideo() {
             let video = {
                 videoUrl: getS3Bucket(
                     this.$config,
@@ -117,19 +118,22 @@ export default {
             }
             return video
         },
-        // parsedMainStoryImages() {
-        //     const mainStory = MOCK_IMPACT_API.mainStory
-        //     return this.mainStory.images.map((obj) => {
-        //         return {
-        //             src: getS3Bucket(this.$config, obj.src),
-        //             sizes: "100vw",
-        //             height: 1080,
-        //             width: 1920,
-        //             alt: obj.alt,
-        //             caption: obj.caption,
-        //         }
-        //     })
+        // parsedCategory() {
+        //     return _get(this.page, "category[0].title", "")
         // },
+        parsedMainStoryImages() {
+            const mainStory = MOCK_IMPACT_API.mainStory
+            return this.mainStory.images.map((obj) => {
+                return {
+                    src: getS3Bucket(this.$config, obj.src),
+                    sizes: "100vw",
+                    height: 1080,
+                    width: 1920,
+                    alt: obj.alt,
+                    caption: obj.caption,
+                }
+            })
+        },
         parsedByline() {
             let byline = (this.page.contributors || []).map((entry) => {
                 return `${entry.byline} ${entry.title || entry.staffMember[0].title}`
