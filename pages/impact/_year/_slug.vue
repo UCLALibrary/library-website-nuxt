@@ -1,24 +1,17 @@
 <template lang="html">
     <div class="page page-impact-report">
-        <!-- This is template for Impact report main  story -->
-        <h2>parsedVideo: {{ parsedVideo }}</h2>
-        <h2>parsedByline: {{ parsedByline }}</h2>
-        <h2>parsedMainStoryImages: {{ parsedMainStoryImages }}</h2>
         <banner-text
-            v-if="!page.heroImage || page.heroImage.length == 0"
-            <banner-text
+            v-if="!parsedVideo"
             class="banner-text"
             :title="page.title"
             :text="page.text"
         />
 
         <banner-header
-            
             :title="bannerHeader.title"
             :text="bannerHeader.text"
             :video="parsedVideo"
             :to="bannerHeader.to"
-
             :align-right="true"
         />
 
@@ -29,16 +22,12 @@
             />
         </section-wrapper>
 
-        <!-- <section-wrapper>
-            <div class="meta">
-                <impact-rich-text
-                    :text-blocks="mainStory.textBlocks"
-                    :pull-quote="mainStory.pullQuote"
-                    :images="parsedMainStoryImages"
-                    class="rich-text"
-                />
-            </div>
-        </section-wrapper> -->
+        <section-wrapper>
+            <flexible-blocks
+                class="content"
+                :blocks="page.entry.blocks"
+            />
+        </section-wrapper>
 
         <section-wrapper>
             <div class="breadcrumb-link">
@@ -46,7 +35,7 @@
                     to="/impact/"
                     class="hover-text"
                 >
-                    Read 2020-2021 UCLA Library Impact Report
+                    Read the 2022 UCLA Library Impact Report
                 </nuxt-link>
                 <svg-arrow-right class="svg-arrow-right" />
             </div>
@@ -68,6 +57,7 @@
                 >Find ways to give to UCLA Library</a>
                 <svg-arrow-diagonal class="svg" />
             </div>
+        </section-wrapper>
         </section-wrapper>
     </div>
 </template>

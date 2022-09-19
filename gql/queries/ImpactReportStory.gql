@@ -1,11 +1,8 @@
 #import "~/gql/fragments/collections/AllFpb"
 #import "~/gql/fragments/Image"
 
-# query ImpactReportStory($slug: [String!]) {
-#     entry(section: "impactReportStory", uri: $slug) {
-
-query ImpactReportStory {
-  entry(section: "impactReportStory", uri: "impact/2022/test-main-story") {
+query ImpactReportStory($uri: [String!]) {
+    entry(section: "impactReportStory", uri: $uri) {
     ... on impactReportStory_impactReportStory_Entry {
       id
       title
@@ -39,7 +36,6 @@ query ImpactReportStory {
   }
 }
 
-# impactRichText
 # query ImpactReportStory {
 #  entry(section: "impactReportStory", uri: "impact/2022/test-main-story") {
 # and uri: "impact/2021/ucla-library-reimagined") {
