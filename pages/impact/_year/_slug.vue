@@ -93,11 +93,11 @@ export default {
             mainStory: MOCK_IMPACT_API.mainStory,
         }
     },
-    // head() {
-    //     return {
-    //         title: this.bannerHeader.title,
-    //     }
-    // },
+    head() {
+        return {
+            title: this.page.entry.title,
+        }
+    },
     computed: {
         parsedVideo() {
             let video = {
@@ -108,9 +108,6 @@ export default {
             }
             return video
         },
-        // parsedCategory() {
-        //     return _get(this.page, "category[0].title", "")
-        // },
         parsedMainStoryImages() {
             const mainStory = MOCK_IMPACT_API.mainStory
             return this.mainStory.images.map((obj) => {
