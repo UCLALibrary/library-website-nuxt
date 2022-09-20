@@ -26,42 +26,10 @@
             />
         </section-wrapper>
 
-        <section-wrapper>
-            <flexible-blocks
-                class="content"
-                :blocks="page.entry.blocks"
-            />
-        </section-wrapper>
-
-        <section-wrapper>
-            <div class="breadcrumb-link">
-                <nuxt-link
-                    to="/impact/"
-                    class="hover-text"
-                >
-                    Read the 2022 UCLA Library Impact Report
-                </nuxt-link>
-                <svg-arrow-right class="svg-arrow-right" />
-            </div>
-        </section-wrapper>
-
-        <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
-        </section-wrapper>
-
-        <section-wrapper>
-            <div class="call-to-action">
-                <a
-                    href="https://giveto.ucla.edu/area/libraries/"
-                    target="_blank"
-                    class="hover-text"
-                >Find ways to give to UCLA Library</a>
-                <svg-arrow-diagonal class="svg" />
-            </div>
-        </section-wrapper>
+        <flexible-blocks
+            class="content"
+            :blocks="page.entry.blocks"
+        />
     </div>
 </template>
 
