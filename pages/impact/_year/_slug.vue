@@ -1,19 +1,23 @@
 <template lang="html">
     <div class="page page-impact-report">
-        <banner-text
-            v-if="!parsedVideo"
-            class="banner-text"
-            :title="page.title"
-            :text="page.text"
-        />
+        <section-wrapper class="section-banner">
+            <banner-text
+                v-if="!parsedVideo"
+                class="banner-text"
+                :title="page.title"
+                :text="page.text"
+                :byline="parsedByline"
+            />
 
-        <banner-header
-            :title="bannerHeader.title"
-            :text="bannerHeader.text"
-            :video="parsedVideo"
-            :to="bannerHeader.to"
-            :align-right="true"
-        />
+            <banner-header
+                :title="bannerHeader.title"
+                :text="bannerHeader.text"
+                :video="parsedVideo"
+                :to="bannerHeader.to"
+                :align-right="true"
+                :byline="parsedByline"
+            />
+        </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -57,7 +61,6 @@
                 >Find ways to give to UCLA Library</a>
                 <svg-arrow-diagonal class="svg" />
             </div>
-        </section-wrapper>
         </section-wrapper>
     </div>
 </template>
@@ -122,7 +125,7 @@ export default {
             })
         },
         parsedByline() {
-            let byline = (this.page.contributors || []).map((entry) => {
+            let byline = (this.page.entry.contributors || []).map((entry) => {
                 return `${entry.byline} ${entry.title || entry.staffMember[0].title}`
             })
             return byline.map((entry) => {
@@ -141,11 +144,15 @@ export default {
     }
     .section-banner {
         margin-top: 0;
+        margin-bottom: 0;
     }
     .banner-header {
-        margin-bottom: var(--space-xl);
+        // margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
+    }
+    ::v-deep .banner-header {
+        margin-bottom: 0px;
     }
     .rich-text {
         margin: var(--unit-gutter) auto;
