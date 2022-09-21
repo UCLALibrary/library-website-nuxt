@@ -1,8 +1,8 @@
 fragment BlockCardWithImageFragment on ElementInterface {
     id
     typeHandle
-    titleGeneral
-    summary
+    sectionTitle: titleGeneral
+    sectionSummary: summary
     cardWithImage: meapflexiblePageBlocks_cardWithImage {
         id
         ... on meapflexiblePageBlocks_cardWithImage_internalContent_BlockType {

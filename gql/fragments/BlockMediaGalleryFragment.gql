@@ -1,8 +1,8 @@
 fragment BlockMediaGalleryFragment on ElementInterface {
     id
     typeHandle
-    titleGeneral
-  	sectionSummary: summary
+    sectionTitle: titleGeneral
+    sectionSummary: summary
     mediaGallery {
         id
         ... on mediaGallery_image_BlockType {
