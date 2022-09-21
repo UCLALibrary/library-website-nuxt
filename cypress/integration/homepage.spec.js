@@ -11,6 +11,7 @@ describe("Website Homepage", () => {
         })
 
         after(function() {
+            cy.get("ul.menu .sub-menu-item").should("exist").and("not.be.visible")
             cy.percySnapshot({ widths: [1200] })
         })
 
@@ -97,13 +98,18 @@ describe("Website Homepage", () => {
                     .and("contain.text", "Get help with...")
                     .and("contain.text", "Visit")
                     .and("contain.text", "About")
+            })
 
+            it("expands and collapses", () => {
                 cy.get('ul.menu')
                     .children()
                     .first()
                     .click()
                     .find(".sub-menu-item")
                     .should("be.visible")
+                
+                cy.get(".click-blocker").click()
+                cy.get("ul.menu .sub-menu-item").should("not.be.visible")
             })
 
             it("has the 'support us' link", () => {

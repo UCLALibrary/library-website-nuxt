@@ -1,36 +1,15 @@
 <template>
     <main class="page page-news">
-        <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :title="page.title"
-            category="Library News"
-            :byline="parsedBylines"
-            :locations="locations"
-            :date-created="parsedDate"
-            :to="to"
-            :authors="authors"
-            :align-right="true"
-        />
-
-        <section-teaser-highlight
-            class="section"
-            :items="highlightEvents"
-        />
-
-        <h2 class="entry-count">
-            Entry Count: {{ entryCount }}
-        </h2>
-
-        <divider-way-finder
-            class="divider"
-            color="about"
-        />
-
-        <section-staff-article-list
-            :items="parsedNewsList"
-            section-title="All News"
-        />
+        <ul>
+            <li
+                v-for="(item, index) in page.entries"
+                :key="`impact-${index}`"
+            >
+                <nuxt-link :to="`/${item.to}`">
+                    {{ item.title }}
+                </nuxt-link>
+            </li>
+        </ul>
     </main>
 </template>
 
@@ -41,13 +20,11 @@ import _get from "lodash/get"
 import format from "date-fns/format"
 
 // GQL
-import ARTICLE_LIST from "~/gql/queries/ArticleList"
+import IMPACT_REPORTS_LIST from "~/gql/queries/ImpactReportsList"
 
 export default {
     async asyncData({ $graphql, params }) {
-        const data = await $graphql.default.request(ARTICLE_LIST, {
-            uri: params.path,
-        })
+        const data = await $graphql.default.request(IMPACT_REPORTS_LIST)
 
         return {
             page: data,
@@ -62,7 +39,7 @@ export default {
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.to}`,
+                    to: `/about/news/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.fullName}`,
                     category: _get(obj, "articleCategories[0].title", null),
