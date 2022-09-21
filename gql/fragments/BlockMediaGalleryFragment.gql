@@ -1,31 +1,15 @@
 fragment BlockMediaGalleryFragment on ElementInterface {
     id
-    typeHandle
-    titleGeneral
+    sectionTitle: titleGeneral
+    sectionSummary: summary
     mediaGallery {
         id
         ... on mediaGallery_image_BlockType {
           id
-          # ...Image
-          # image { id url }
-
           captionTitle: captionHeading
           captionText: caption
           altText
           sortOrder
-        #   image: imageFile(altText: "") {
-        #         id
-        #         img
-        #         title
-        #         ... on mediaAndDocuments_Asset {
-        #             id
-        #             title
-        #             kind
-        #             width
-        #             src: url
-        #             height
-        #         }
-        #     }
             image: imageFile {
                 ...Image
             }
