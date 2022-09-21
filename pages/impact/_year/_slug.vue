@@ -1,50 +1,35 @@
 <template lang="html">
     <div class="page page-impact-report">
-        <!-- This is template for Impact report main  story -->
-        <banner-header
-            class="section banner-header"
-            :title="bannerHeader.title"
-            :text="bannerHeader.text"
-            :byline="bannerHeader.byline"
-            :video="parseVideo"
-            :to="bannerHeader.to"
-            :align-right="true"
-        />
-        <div class="meta">
+        <section-wrapper class="section-banner">
+            <banner-text
+                v-if="!parsedVideo"
+                class="banner-text"
+                :title="page.title"
+                :text="page.text"
+                :byline="parsedByline"
+            />
+
+            <banner-header
+                :title="bannerHeader.title"
+                :text="bannerHeader.text"
+                :video="parsedVideo"
+                :to="bannerHeader.to"
+                :align-right="true"
+                :byline="parsedByline"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
             <divider-way-finder
-                color="about"
                 class="divider"
+                color="about"
             />
+        </section-wrapper>
 
-            <impact-rich-text
-                :text-blocks="mainStory.textBlocks"
-                :pull-quote="mainStory.pullQuote"
-                :images="parsedMainStoryImages"
-                class="rich-text"
-            />
-        </div>
-        <div class="breadcrumb-link">
-            <nuxt-link
-                to="/impact/"
-                class="hover-text"
-            >
-                Read 2020-2021 UCLA Library Impact Report
-            </nuxt-link>
-            <svg-arrow-right class="svg-arrow-right" />
-        </div>
-
-        <divider-way-finder
-            class="divider"
-            color="about"
+        <flexible-blocks
+            class="content"
+            :blocks="page.entry.blocks"
         />
-        <div class="call-to-action">
-            <a
-                href="https://giveto.ucla.edu/area/libraries/"
-                target="_blank"
-                class="hover-text"
-            >Find ways to give to UCLA Library</a>
-            <svg-arrow-diagonal class="svg" />
-        </div>
     </div>
 </template>
 
@@ -81,11 +66,11 @@ export default {
     },
     head() {
         return {
-            title: this.bannerHeader.title,
+            title: this.page.entry.title,
         }
     },
     computed: {
-        parseVideo() {
+        parsedVideo() {
             let video = {
                 videoUrl: getS3Bucket(
                     this.$config,
@@ -107,6 +92,14 @@ export default {
                 }
             })
         },
+        parsedByline() {
+            let byline = (this.page.entry.contributors || []).map((entry) => {
+                return `${entry.byline} ${entry.title || entry.staffMember[0].title}`
+            })
+            return byline.map((entry) => {
+                return {"title": entry}
+            })
+        },
     },
 }
 </script>
@@ -117,10 +110,17 @@ export default {
     .section {
         margin: 1px auto;
     }
+    .section-banner {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
     .banner-header {
-        margin-bottom: var(--space-xl);
+        // margin-bottom: var(--space-xl);
         padding: 0;
         max-width: $container-xl-full-width + px;
+    }
+    ::v-deep .banner-header {
+        margin-bottom: 0px;
     }
     .rich-text {
         margin: var(--unit-gutter) auto;
