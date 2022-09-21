@@ -1,4 +1,6 @@
 fragment BlockGridGalleryCardsFragment on ElementInterface {
+    id
+    typeHandle
      ... on impactReportFpb_gridGalleryCards_BlockType {
         id
         subtitle: titleGeneral

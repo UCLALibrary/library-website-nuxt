@@ -2,41 +2,35 @@
     <div class="page page-impact-report">
         <!-- This is template for impact reports -->
         <div class="meta">
-            <h1 class="intro">
-                2020-2021 UCLA Library Impact Report
-            </h1>
+            <h1
+                class="intro"
+                v-html="page.title"
+            />
+
             <responsive-image
-                :image="imagePortrait"
+                v-if="page.portrait && page.portrait.length > 0"
+                :image="page.portrait[0]"
                 :aspect-ratio="60"
                 class="portrait-Ginny"
                 alt="Sketch of Ginny Steel wearing glasses and a grey blazer, with a yellow background"
             />
 
-            <p class="text">
-                It&#39;s no coincidence that the top universities in the nation
-                are also home to its top academic libraries, including UCLA and
-                UCLA Library. You can&#39;t have one without the other. So when
-                the pandemic hit, UCLA Library struck back, ramping up remote
-                services that kept knowledge moving forward. This report is
-                designed to make visible the work of our Library community,
-                whether by Zoom, from a home office, or in&#45;person at one of
-                our eight campus locations. While none of us can predict what
-                the future holds, one thing is certain&#58; the pandemic has
-                revealed how vital the work of UCLA Library is to the life of
-                the university, our students, faculty and researchers around the
-                world.
-            </p>
-            <p class="signature">
-                &#8212; <strong>Virginia Steel</strong>, Norman and Armena
-                Powell University Librarian
-            </p>
+            <div
+                class="text"
+                v-html="page.text"
+            />
         </div>
 
         <h2 class="visually-hidden">
             Main Story
         </h2>
-
-        <banner-featured
+        
+        <flexible-blocks
+            v-if="page"
+            class="flexible-content"
+            :blocks="page.blocks"
+        />
+        <!--banner-featured
             class="banner"
             :title="impactBannerFeatured.title"
             :description="impactBannerFeatured.description"
@@ -46,9 +40,9 @@
             :prompt="impactBannerFeatured.prompt"
             :ratio="42"
             :align-right="true"
-        />
+        /-->
 
-        <div class="section section-grid">
+        <!--div class="section section-grid">
             <section-teaser-card
                 class="teaser-card"
                 :items="featuretteCard.items"
@@ -74,10 +68,11 @@
                 color="about"
             />
 
-            <h2 class="title">
-                2020-21: An Academic Year Like No Other
-            </h2>
-
+            
+        </div-->
+        <section-wrapper
+            :section-title="page.timelineTitle"
+        >
             <div
                 v-for="(value, propertyName) in timelineSortedBySubtitle"
                 :key="propertyName"
@@ -95,8 +90,7 @@
                     :items="subValue"
                 />
             </div>
-        </div>
-
+        </section-wrapper>
         <divider-general class="divider divider-general" />
 
         <div class="credits">
@@ -171,6 +165,7 @@
             color="about"
         />
     </div>
+    </div>
 </template>
 <router>
   {
@@ -184,7 +179,10 @@
 import IMPACT_REPORT from "~/gql/queries/ImpactReport"
 
 import * as API from "~/data/mock-api.json"
+// Helpers
+import _get from "lodash/get"
 import _ from "lodash"
+
 import * as IMPACT_API from "~/data/impact-report_index.json"
 // Utilities
 import updateImageData from "~/utils/updateImageData"
@@ -193,7 +191,7 @@ import getS3Bucket from "~/utils/getS3Bucket"
 export default {
     layout: "impact",
     async asyncData({ $graphql, params }) {
-        console.log("looking for impact report")
+        console.log("impact report query")
         // TO DO since we are using alias to use this template for both /impact which will bring up the latest impact report and /impact/{2021} for past report based on path
         console.log(params)
         let path = params && params.year ? `impact/${params.year}` : "*"
@@ -210,16 +208,16 @@ export default {
         }
 
         return {
-            page: data,
+            page: _get(craftresponse, "entry", {}),
         }
     },
     head() {
         return {
-            title: "2020-2021 UCLA Library Impact Report",
+            title: this.page.title,
         }
     },
     computed: {
-        imagePortrait() {
+        /* imagePortrait() {
             const portrait = {
                 src: getS3Bucket(this.$config, "ginny-steel-ucla-library.jpg"),
                 sizes: "100vw",
@@ -238,39 +236,38 @@ export default {
                 alt: "Signature image",
             }
             return signature
-        },
+        }, */
         timelineSortedBySubtitle() {
             const parsedTimeline = _.groupBy(
                 this.page.timelineGallery,
                 (row) => row.subtitle
             )
+            console.log("parsed timeline by subtitle: "+JSON.stringify(parsedTimeline))
             for (const key in parsedTimeline) {
-                const parsedTimelineByMonth = _.groupBy(
+                const parsedTimelineBySummary = _.groupBy(
                     parsedTimeline[key],
-                    (row) => row.monthYear
+                    (row) => row.summary
                 )
-                for (const innerKey in parsedTimelineByMonth) {
-                    parsedTimelineByMonth[innerKey] = parsedTimelineByMonth[
+                console.log("parsed timeline by summary: "+JSON.stringify(parsedTimelineBySummary))
+                for (const innerKey in parsedTimelineBySummary) {
+                    parsedTimelineBySummary[innerKey] = parsedTimelineBySummary[
                         innerKey
                     ].map((obj) => {
                         return {
                             ...obj,
-                            imgclasses: `image ${obj.class}`,
-                            image: updateImageData(
-                                obj.src,
-                                obj.alt,
-                                Object.assign({}, API.image),
-                                this.$config
+                            // imgclasses: `image ${obj.class}`,
+                            image:updateImageData(
+                                obj
                             ),
                         }
                     })
                     // console.log("key:" + innerKey)
                 }
-                parsedTimeline[key] = parsedTimelineByMonth
+                parsedTimeline[key] = parsedTimelineBySummary
             }
             return parsedTimeline
         },
-        impactBannerFeatured() {
+        /* impactBannerFeatured() {
             const mainStoryFeatured = {
                 video: {
                     videoUrl: getS3Bucket(
@@ -292,30 +289,24 @@ export default {
                 return {
                     ...obj,
                     image: updateImageData(
-                        obj.src,
-                        obj.alt,
-                        Object.assign({}, API.image),
-                        this.$config
+                        obj
                     ),
                 }
             })
             return { items: parsedFeaturettes }
-        },
-        remoteLearningCard() {
+        }, */
+        /* remoteLearningCard() {
             const remoteLearnings = IMPACT_API.remoteLearning
             const parsedremoteLearnings = remoteLearnings.map((obj) => {
                 return {
                     ...obj,
                     image: updateImageData(
-                        obj.src,
-                        obj.alt,
-                        Object.assign({}, API.image),
-                        this.$config
+                        obj
                     ),
                 }
             })
             return { items: parsedremoteLearnings }
-        },
+        }, */
     },
 }
 </script>

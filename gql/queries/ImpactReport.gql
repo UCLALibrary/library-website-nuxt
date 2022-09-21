@@ -15,10 +15,10 @@ query ImpactReport($path: [String!]) {
       ...ImpactReportFpb
 
       timelineTitle: titleGeneral
-      impactReportTimeline {
+      timelineGallery: impactReportTimeline {
         ... on impactReportTimeline_gridGalleryCards_BlockType {
           id
-          titleGeneral
+          subtitle: titleGeneral
           summary
           gridGalleryCards {
             ... on gridGalleryCards_internalContent_BlockType {
