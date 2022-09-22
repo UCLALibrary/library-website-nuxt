@@ -1,6 +1,7 @@
 fragment BlockImpactNumberCardsFragment on ElementInterface {
     ... on impactReportFpb_impactNumberCards_BlockType {
         id
+        typehandle
         sectionSummary: summary
         sectionTitle: titleGeneral
         impactNumberCards {

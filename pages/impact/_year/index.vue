@@ -15,7 +15,7 @@
                 alt="Sketch of Ginny Steel wearing glasses and a grey blazer, with a yellow background"
             />
 
-            <div
+            <rich-text
                 class="text"
                 v-html="page.text"
             />
@@ -24,7 +24,7 @@
         <h2 class="visually-hidden">
             Main Story
         </h2>
-        
+
         <flexible-blocks
             v-if="page"
             class="flexible-content"
@@ -70,9 +70,7 @@
 
             
         </div-->
-        <section-wrapper
-            :section-title="page.timelineTitle"
-        >
+        <section-wrapper :section-title="page.timelineTitle">
             <div
                 v-for="(value, propertyName) in timelineSortedBySubtitle"
                 :key="propertyName"
@@ -86,85 +84,22 @@
                 <grid-gallery
                     v-for="(subValue, propertySubName) in value"
                     :key="propertySubName"
-                    :month-year="propertySubName"
+                    :section-summary="propertySubName"
                     :items="subValue"
                 />
             </div>
         </section-wrapper>
         <divider-general class="divider divider-general" />
 
-        <div class="credits">
-            <em>
-                <h2 class="credit-header">Acknowledgements</h2>
-                <dl class="credit-list">
-                    <dt>Project Leads</dt>
-                    <dd>
-                        Ariane Bicho, Director of Library Communications and
-                        Marketing;
-                    </dd>
-                    <dd>
-                        Joshua Gomez, Head of Software Development and Library
-                        Systems
-                    </dd>
-
-                    <dt>Illustrations and Animation</dt>
-                    <dd class="illustrator">
-                        <a
-                            href="https://www.brettaffrunti.com/"
-                            target="_blank"
-                        >Brett Affrunti</a>
-                    </dd>
-
-                    <dt>Feature Writer</dt>
-                    <dd>Cynthia Lee</dd>
-
-                    <dt>Contributing Writers</dt>
-                    <dd>Ben Alkaly,</dd>
-                    <dd>Courtney Hoffner,</dd>
-                    <dd>Jennifer Rhee</dd>
-
-                    <dt>Photo Editors</dt>
-                    <dd>Ben Alkaly,</dd>
-                    <dd>Jennifer Rhee</dd>
-
-                    <dt>Editorial and Research Contributors</dt>
-                    <dd>Suzy Lee,</dd>
-                    <dd>Marisa Soto</dd>
-
-                    <dt>Lead Developer</dt>
-                    <dd>Parinita Mulak</dd>
-
-                    <dt>Developers</dt>
-                    <dd>Jen Diamond,</dd>
-                    <dd>Casey Grzecka,</dd>
-                    <dd>Ashton Prigge,</dd>
-                    <dd>Andrew Wallace</dd>
-
-                    <dt>Lead UX Designer</dt>
-                    <dd>Axa Liauw</dd>
-
-                    <dt>UX Designer</dt>
-                    <dd>Dianne Weinthal</dd>
-
-                    <dt>Data Services</dt>
-                    <dd>Dana Peterman,</dd>
-                    <dd>Jack Schwada,</dd>
-                    <dd>Sharon Shafer</dd>
-
-                    <dt>Graphic Design</dt>
-                    <dd>Sean Deyoe</dd>
-
-                    <dt>Student Assistants</dt>
-                    <dd>Dana Binfet,</dd>
-                    <dd>Marley Rodriguez</dd>
-                </dl></em>
-        </div>
+        <rich-text
+            class="credits"
+            v-html="page.acknowledgements"
+        />
 
         <divider-way-finder
             class="divider"
             color="about"
         />
-    </div>
     </div>
 </template>
 <router>
@@ -178,34 +113,35 @@
 // gql
 import IMPACT_REPORT from "~/gql/queries/ImpactReport"
 
-import * as API from "~/data/mock-api.json"
+// import * as API from "~/data/mock-api.json"
 // Helpers
 import _get from "lodash/get"
 import _ from "lodash"
 
-import * as IMPACT_API from "~/data/impact-report_index.json"
+// import * as IMPACT_API from "~/data/impact-report_index.json"
 // Utilities
-import updateImageData from "~/utils/updateImageData"
-import getS3Bucket from "~/utils/getS3Bucket"
+import flattenTimeLineStructure from "~/utils/flattenTimeLineStructure"
 
 export default {
     layout: "impact",
     async asyncData({ $graphql, params }) {
-        console.log("impact report query")
+        // console.log("impact report query")
         // TO DO since we are using alias to use this template for both /impact which will bring up the latest impact report and /impact/{2021} for past report based on path
-        console.log(params)
+        // console.log(params)
         let path = params && params.year ? `impact/${params.year}` : "*"
-        console.log("path is " + path)
+        // console.log("path is " + path)
         const craftresponse = await $graphql.default.request(IMPACT_REPORT, {
             path: path,
         })
-        console.log(JSON.stringify(craftresponse))
-        const timelineGallery = IMPACT_API.timelineGallery
+        /* console.log(
+            "craft-response:" + JSON.stringify(craftresponse.entry.blocks)
+        )*/
+        //const timelineGallery = IMPACT_API.timelineGallery
 
-        const data = {
+        /*const data = {
             timelineGallery: timelineGallery,
             mainStoryData: IMPACT_API.mainStoryData,
-        }
+        }*/
 
         return {
             page: _get(craftresponse, "entry", {}),
@@ -238,34 +174,39 @@ export default {
             return signature
         }, */
         timelineSortedBySubtitle() {
-            const parsedTimeline = _.groupBy(
-                this.page.timelineGallery,
+            const timelineData = flattenTimeLineStructure(
+                this.page.timelineGallery
+            )
+            // console.log("did it flatten?" + timelineData)
+            const groupBySubtitle = _.groupBy(
+                timelineData,
                 (row) => row.subtitle
             )
-            console.log("parsed timeline by subtitle: "+JSON.stringify(parsedTimeline))
-            for (const key in parsedTimeline) {
-                const parsedTimelineBySummary = _.groupBy(
-                    parsedTimeline[key],
-                    (row) => row.summary
+            /*console.log(
+                "parsed timeline by subtitle: " +
+                    JSON.stringify(groupBySubtitle)
+            )*/
+            for (const key in groupBySubtitle) {
+                const groupByTimelineBySummary = _.groupBy(
+                    groupBySubtitle[key],
+                    (row) => row.sectionSummary
                 )
-                console.log("parsed timeline by summary: "+JSON.stringify(parsedTimelineBySummary))
-                for (const innerKey in parsedTimelineBySummary) {
-                    parsedTimelineBySummary[innerKey] = parsedTimelineBySummary[
-                        innerKey
-                    ].map((obj) => {
-                        return {
-                            ...obj,
-                            // imgclasses: `image ${obj.class}`,
-                            image:updateImageData(
-                                obj
-                            ),
-                        }
-                    })
+                console.log(
+                    "parsed timeline by summary: " +
+                        JSON.stringify(groupByTimelineBySummary)
+                )
+                for (const innerKey in groupByTimelineBySummary) {
+                    groupByTimelineBySummary[innerKey] =
+                        groupByTimelineBySummary[innerKey].map((obj) => {
+                            return {
+                                ...obj,
+                            }
+                        })
                     // console.log("key:" + innerKey)
                 }
-                parsedTimeline[key] = parsedTimelineBySummary
+                groupBySubtitle[key] = groupByTimelineBySummary
             }
-            return parsedTimeline
+            return groupBySubtitle
         },
         /* impactBannerFeatured() {
             const mainStoryFeatured = {
@@ -322,12 +263,19 @@ export default {
             margin-bottom: var(--space-xl);
             color: var(--color-primary-blue-03);
         }
+        .rich-text {
+            margin: 0;
+            padding-right: 0;
+            margin-right: 0;
+            max-width: $container-xl-banner + px;
+        }
         .text {
             @include step-3;
             line-height: 120%;
-        }
-        .signature {
-            @include step-3;
+
+            ::v-deep p {
+                @include step-3;
+            }
         }
     }
     .portrait-Ginny {
@@ -335,11 +283,11 @@ export default {
         max-width: 50%;
         float: right;
     }
-    .banner {
+    /* .banner {
         margin: var(--space-3xl) auto;
-    }
+    }*/
 
-    .section-grid {
+    /* .section-grid {
         max-width: $container-l-main + px;
 
         display: flex;
@@ -374,6 +322,22 @@ export default {
             max-width: $container-l-main + px;
             margin: var(--space-3xl) 0;
         }
+    }*/
+    .sub-section-grid {
+        margin: 12px auto;
+        position: relative;
+    }
+    .grid-gallery-subtitle {
+        color: var(--color-primary-blue-03);
+        font-size: 35.538px;
+        line-height: 43px;
+        @include step-2;
+        position: sticky;
+        top: 0;
+        background-color: var(--color-white);
+        padding-top: 8px;
+        z-index: 30;
+        min-height: 46px;
     }
     .teaser-card {
         margin: 0 auto;
@@ -386,9 +350,9 @@ export default {
         font-size: 16px;
         line-height: 26px;
     }
-    .credit-list {
+    /* .credit-list {
         display: inline;
-    }
+    }*/
     .divider {
         max-width: $container-l-main + px;
         margin: var(--space-3xl) auto;
@@ -398,7 +362,7 @@ export default {
         margin-bottom: var(--space-3xl);
         max-width: $container-l-main + px;
     }
-    .credits dt,
+    /* .credits dt,
     dd {
         display: inline;
         font-family: var(--font-secondary);
@@ -425,13 +389,13 @@ export default {
         text-decoration-color: var(--color-default-cyan-03);
         text-decoration-thickness: 2px;
         text-underline-offset: 1px;
-    }
+    }*/
     // Hover states
     @media #{$has-hover} {
-        .illustrator:hover {
+        /* .illustrator:hover {
             color: var(--color-primary-blue-03);
             @include link-hover;
-        }
+        }*/
     }
 
     @media #{$medium} {
@@ -450,13 +414,12 @@ export default {
             width: calc(100% - (var(--unit-gutter) * 2));
         }
 
-        .section {
-            .sub-section-grid {
-                ::v-deep .grid-gallery {
-                    padding: unset;
-                }
+        .sub-section-grid {
+            ::v-deep .grid-gallery {
+                padding: unset;
             }
         }
+
         .credits {
             padding: 0 $whitespace-m-sides + px;
         }

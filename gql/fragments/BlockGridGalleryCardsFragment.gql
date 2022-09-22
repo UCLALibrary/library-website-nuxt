@@ -1,8 +1,7 @@
 fragment BlockGridGalleryCardsFragment on ElementInterface {
-    id
-    typeHandle
      ... on impactReportFpb_gridGalleryCards_BlockType {
         id
+        typehandle
         subtitle: titleGeneral
         summary
         gridGalleryCards {
@@ -10,7 +9,7 @@ fragment BlockGridGalleryCardsFragment on ElementInterface {
                 id
                 contentLink {
                     contentType: sectionHandle
-                    title
+                    headlineText: title
                     snippet: summary
                     to: uri
                     heroImage {
@@ -26,12 +25,12 @@ fragment BlockGridGalleryCardsFragment on ElementInterface {
             ... on gridGalleryCards_externalContent_BlockType {
                 id
                 featured
-                titleGeneral
+                headlineText: titleGeneral
                 snippet: summary
                 image {
                     ...Image
                 }
-                externalLink
+                to: externalLink
             }
         }
     }

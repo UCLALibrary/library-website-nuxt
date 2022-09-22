@@ -8,6 +8,7 @@
 #import "~/gql/fragments/BlockCardWithImageFragment"
 #import "~/gql/fragments/BlockHighlightFragment"
 #import "~/gql/fragments/BlockImpactNumberCardsFragment"
+#import "~/gql/fragments/BlockGridGalleryCardsFragment"
 
 fragment ImpactReportFpb on ElementInterface {
     blocks: impactReportFpb {
@@ -42,7 +43,7 @@ fragment ImpactReportFpb on ElementInterface {
           ...BlockHighlightFragment
         }
         ... on impactReportFpb_gridGalleryCards_BlockType {
-          id
+          ...BlockGridGalleryCardsFragment
         }
         ... on impactReportFpb_cardWithImage_BlockType {
           ...BlockCardWithImageFragment

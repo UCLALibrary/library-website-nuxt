@@ -26,7 +26,7 @@ query ImpactReport($path: [String!]) {
               featured
               contentLink {
                 contentType: sectionHandle
-                title
+                headlineText: title
                 snippet: summary
                 to: uri
                 heroImage {
@@ -41,8 +41,8 @@ query ImpactReport($path: [String!]) {
             ... on gridGalleryCards_externalContent_BlockType {
               id
               featured
-              externalLink
-              titleGeneral
+              to: externalLink
+              headlineText: titleGeneral
               snippet: summary
               image {
                 ...Image
@@ -52,8 +52,6 @@ query ImpactReport($path: [String!]) {
         }
       }
       acknowledgements
-
-        
     }
   }
 }
