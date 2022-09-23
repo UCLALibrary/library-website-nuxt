@@ -10,9 +10,6 @@ fragment BlockImpactNumberCardsFragment on ElementInterface {
                 title: titleGeneral
                 text: description
                 impactNumber
-                icon: graphic {
-                    ...Image
-                }
             }
         }
     }
