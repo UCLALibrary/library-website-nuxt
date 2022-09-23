@@ -20,13 +20,18 @@
                 v-html="page.text"
             />
         </div>
-
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
         <h2 class="visually-hidden">
             Main Story
         </h2>
 
         <flexible-blocks
-            v-if="page"
+            v-if="page.blocks"
             class="flexible-content"
             :blocks="page.blocks"
         />
@@ -89,17 +94,18 @@
                 />
             </div>
         </section-wrapper>
-        <divider-general class="divider divider-general" />
-
-        <rich-text
-            class="credits"
-            v-html="page.acknowledgements"
-        />
-
-        <divider-way-finder
-            class="divider"
-            color="about"
-        />
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+        <section-wrapper>
+            <rich-text
+                class="credits"
+                v-html="page.acknowledgements"
+            />
+        </section-wrapper>
     </div>
 </template>
 <router>
