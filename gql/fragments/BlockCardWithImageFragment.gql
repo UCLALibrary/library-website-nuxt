@@ -1,8 +1,8 @@
 fragment BlockCardWithImageFragment on ElementInterface {
     id
     typeHandle
-    titleGeneral
-    summary
+    sectionTitle: titleGeneral
+    sectionSummary: summary
     cardWithImage {
         id
         ... on cardWithImage_internalContent_BlockType {
