@@ -1,6 +1,7 @@
 fragment BlockBannerFeaturedFragment on ElementInterface {
     id
     typeHandle
+    sectionTitle: titleGeneral
     content: bannerFeatured {
         ... on bannerFeatured_internalContent_BlockType {
             id
