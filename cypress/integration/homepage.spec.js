@@ -52,10 +52,10 @@ describe("Website Homepage", () => {
             )
 
         // get help with
-        cy.get(".section-cards-with-illustrations").should(
-            "contain",
-            "Get Help With"
-        )
+        // cy.get(".section-cards-with-illustrations").should(
+        //     "contain",
+        //     "Get Help With"
+        // )
 
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
