@@ -1,6 +1,7 @@
 <template>
     <main class="page page-news">
-        <banner-header
+        <h2>{{ page }}</h2>
+        <!-- <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
             :title="page.title"
@@ -30,7 +31,7 @@
         <section-staff-article-list
             :items="parsedNewsList"
             section-title="All News"
-        />
+        /> -->
     </main>
 </template>
 
@@ -41,11 +42,11 @@ import _get from "lodash/get"
 import format from "date-fns/format"
 
 // GQL
-import ARTICLE_LIST from "~/gql/queries/ArticleList"
+import POLICIES_LIST from "~/gql/queries/PoliciesList"
 
 export default {
     async asyncData({ $graphql, params }) {
-        const data = await $graphql.default.request(ARTICLE_LIST, {
+        const data = await $graphql.default.request(POLICIES_LIST, {
             uri: params.path,
         })
 

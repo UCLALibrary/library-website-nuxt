@@ -1,0 +1,10 @@
+query PoliciesList {
+    entries(section: "policy") {
+        ... on policy_policy_Entry {
+            id
+            to: slug
+            title
+            summary
+        }
+    }
+}
