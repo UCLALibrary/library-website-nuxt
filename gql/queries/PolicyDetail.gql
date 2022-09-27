@@ -7,7 +7,14 @@ query PolicyDetail($slug: [String!]) {
         title
         summary
         richText
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
         ...DefaultFpbWithNoCta
-
     }
 }
