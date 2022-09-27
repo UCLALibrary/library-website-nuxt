@@ -1,0 +1,13 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/collections/DefaultFpbWithNoCta"
+
+query PolicyDetail($slug: [String!]) {
+    entry(section: "policy", slug: $slug) {
+        id
+        title
+        summary
+        richText
+        ...DefaultFpbWithNoCta
+
+    }
+}

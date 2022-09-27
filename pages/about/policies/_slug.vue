@@ -44,20 +44,23 @@
 <script>
 
 // GQL
-import GENERAL_CONTENT_DETAIL from "~/gql/queries/GeneralContentDetail"
+import POLICY_DETAIL from "~/gql/queries/PolicyDetail"
 
 // Helpers
 import _get from "lodash/get"
 
-export default {
-    async asyncData({ $graphql, params }) {
-        // Do not remove testing live preview
+// http://10.1.10.39:3000/about/policies/shhh
 
-        const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
-            slug: params.pathMatch.substring(
-                params.pathMatch.lastIndexOf("/") + 1
-            ),
+export default {
+    async asyncData({ $graphql, params, store }) {
+        // Do not remove testing live preview
+        console.log(
+            "fetching graphql data for Policy detail from Craft for live preview"
+        )
+        const data = await $graphql.default.request(POLICY_DETAIL, {
+            slug: params.slug,
         })
+        console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
         }
