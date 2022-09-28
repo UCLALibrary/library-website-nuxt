@@ -4,7 +4,7 @@
         class="page page-general-content"
     >
         <nav-breadcrumb :title="page.title" />
-        <h2 />
+
         <banner-text
             v-if="page && (!page.heroImage || page.heroImage.length == 0)"
             class="banner-text"
@@ -39,7 +39,6 @@
 </template>
 
 <script>
-
 // GQL
 import POLICY_DETAIL from "~/gql/queries/PolicyDetail"
 
