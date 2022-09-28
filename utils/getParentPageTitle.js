@@ -11,15 +11,19 @@ function getParentPageTitle(uri = "") {
         case uri.includes("/about") && uri.includes("/news"):
             output = "Library News"
             break
-            
+
+        case uri.includes("/about") && uri.includes("/policies"):
+            output = "Policies"
+            break
+
         case uri.includes("/about") && uri.includes("/staff"):
             output = "Staff Directory"
             break
 
-
         case uri.includes("/locations"):
             output = "Locations"
             break
+
         case uri.includes("/events-exhibits"):
             output = "Events & Exhibits"
             break

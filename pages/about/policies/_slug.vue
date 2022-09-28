@@ -3,11 +3,8 @@
         id="main"
         class="page page-general-content"
     >
-        <nav-breadcrumb
-            v-if="page"
-            :title="page.title"
-            class="breadcrumb"
-        />
+        <nav-breadcrumb :title="page.title" />
+        <h2 />
         <banner-text
             v-if="page && (!page.heroImage || page.heroImage.length == 0)"
             class="banner-text"
@@ -49,7 +46,7 @@ import POLICY_DETAIL from "~/gql/queries/PolicyDetail"
 // Helpers
 import _get from "lodash/get"
 
-// http://10.1.10.39:3000/about/policies/shhh
+// about/policies/shhh
 
 export default {
     async asyncData({ $graphql, params, store }) {
