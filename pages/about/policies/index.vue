@@ -1,37 +1,16 @@
 <template>
     <main class="page page-news">
         <h2>{{ page }}</h2>
-        <!-- <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :title="page.title"
-            category="Library News"
-            :byline="parsedBylines"
-            :locations="locations"
-            :date-created="parsedDate"
-            :to="to"
-            :authors="authors"
-            :align-right="true"
-        />
-
-        <section-teaser-highlight
-            class="section"
-            :items="highlightEvents"
-        />
-
-        <h2 class="entry-count">
-            Entry Count: {{ entryCount }}
-        </h2>
-
-        <divider-way-finder
-            class="divider"
-            color="about"
-        />
-
-        <section-staff-article-list
-            :items="parsedNewsList"
-            section-title="All News"
-        /> -->
+        <ul>
+            <li
+                v-for="(item, index) in page.entries"
+                :key="`impact-${index}`"
+            >
+                <nuxt-link :to="`/${item.to}`">
+                    {{ item.title }}
+                </nuxt-link>
+            </li>
+        </ul>
     </main>
 </template>
 
@@ -53,27 +32,6 @@ export default {
         return {
             page: data,
         }
-    },
-    computed: {
-        entryCount() {
-            return `${this.page.entryCount}`
-        },
-
-        parsedNewsList() {
-            return this.page.entries.map((obj) => {
-                return {
-                    ...obj,
-                    to: `/${obj.to}`,
-                    image: _get(obj, "heroImage[0].image[0]", null),
-                    staffName: `${obj.fullName}`,
-                    category: _get(obj, "articleCategories[0].title", null),
-                }
-            })
-        },
-
-        parsedDate() {
-            return format(new Date(this.page.dateCreated), "MMMM d, Y")
-        },
     },
 }
 </script>
