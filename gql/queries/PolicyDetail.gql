@@ -1,5 +1,5 @@
 #import "~/gql/fragments/Image"
-#import "~/gql/fragments/collections/AllFpb"
+#import "~/gql/fragments/collections/DefaultFpbWithNoCta"
 
 query PolicyDetail($slug: [String!]) {
     entry(section: "policy", slug: $slug) {
@@ -16,6 +16,6 @@ query PolicyDetail($slug: [String!]) {
                     }
                 }
             }
-        ...AllFpb
+        ...DefaultFpbWithNoCta
     }
 }
