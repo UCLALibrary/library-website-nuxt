@@ -51,11 +51,11 @@ describe("Website Homepage", () => {
                 "https://guides.library.ucla.edu/az.php"
             )
 
-        // get help with
-        // cy.get(".section-cards-with-illustrations").should(
-        //     "contain",
-        //     "Get Help With"
-        // )
+        //get help with
+        cy.get(".section-cards-with-illustrations").should(
+            "contain",
+            "Get Help With"
+        )
 
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
