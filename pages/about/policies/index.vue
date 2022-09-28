@@ -1,7 +1,7 @@
 <template>
     <main class="page page-news">
         <h2>{{ page }}</h2>
-        <ul>
+        <!-- <ul>
             <li
                 v-for="(item, index) in page.entries"
                 :key="`impact-${index}`"
@@ -10,7 +10,7 @@
                     {{ item.title }}
                 </nuxt-link>
             </li>
-        </ul>
+        </ul> -->
     </main>
 </template>
 
