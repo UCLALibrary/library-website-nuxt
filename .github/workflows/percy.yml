@@ -26,6 +26,8 @@ jobs:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
         LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
         S3_BUCKET: "https://static.library.ucla.edu/"
+        ES_URL: ${{ secrets.ES_URL }}
+        ESApiKey: ${{ secrets.ESApiKey }}
     - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
       with:
         start: npx http-server ./dist -p 3000
