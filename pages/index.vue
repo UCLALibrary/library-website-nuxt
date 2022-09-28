@@ -9,8 +9,8 @@
         <section-cards-with-illustrations
             class="section"
             :items="parsedSectionCards"
-            title="Get Help With"
-            text="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
+            section-title="Get Help With"
+            section-summary="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
             to="/help/foo/bar"
             :is-horizontal="false"
         />
@@ -100,8 +100,8 @@ export default {
                 { ...mockCard, to: "/visit/foo/bar" },
                 { ...mockCard, to: "/help/foo/fred/" },
             ],
-            title: "Get Help with",
-            text: "Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more.",
+            sectionTitle: "Get Help with",
+            sectionSummary: "Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more.",
             to: "/help/foo/bar",
         }
 
