@@ -5,7 +5,7 @@ export default function({$config}, inject) {
 
     async function keywordSearch(keyword){
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
-
+        console.log("keyowrd:"+keyword)
         // var params = {
         //     query: {
         //         query_string: {
