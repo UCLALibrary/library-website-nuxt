@@ -1,6 +1,11 @@
 <template lang="html">
     <div class="page page-home">
         <masthead-primary />
+        <!-- TODO elastis search testing -->
+        <!--h4>Mapping:</h4>
+        <p>{{ mapping }}</p>
+        <h4>Search Responsee</h4>
+        <p>{{ searchResponse }}</p-->
         <divider-way-finder
             class="divider divider-first"
             color="help"
@@ -9,8 +14,8 @@
         <section-cards-with-illustrations
             class="section"
             :items="parsedSectionCards"
-            title="Get Help With"
-            text="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
+            section-title="Get Help With"
+            section-summary="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
             to="/help/foo/bar"
             :is-horizontal="false"
         />
@@ -84,9 +89,13 @@ import * as MOCK_API from "~/data/mock-api.json"
 
 export default {
     components: {},
-    async asyncData() {
+    async asyncData({ $dataApi }) {
         //const data = await this.$graphql(QUERY);
 
+        const mapping = await $dataApi.getMapping()
+        // console.log(JSON.stringify(mapping))
+        const searchResponse = await $dataApi.keywordSearch("*")
+        // console.log("Search Response: " + JSON.stringify(searchResponse))
         const mockCard = {
             to: "/help/foo/bar/",
             title: "Example Service",
@@ -100,8 +109,8 @@ export default {
                 { ...mockCard, to: "/visit/foo/bar" },
                 { ...mockCard, to: "/help/foo/fred/" },
             ],
-            title: "Get Help with",
-            text: "Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more.",
+            sectionTitle: "Get Help with",
+            sectionSummary: "Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more.",
             to: "/help/foo/bar",
         }
 
@@ -152,6 +161,8 @@ export default {
 
         return {
             page: data,
+            mapping: mapping,
+            searchResponse: searchResponse,
         }
     },
     computed: {
