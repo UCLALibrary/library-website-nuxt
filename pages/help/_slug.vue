@@ -4,27 +4,35 @@
             :title="page.title"
             :text="page.summary"
         />
-        <RichText
-            v-if="page.richText"
-            class="content"
-            :rich-text-content="page.richText"
-        />
-        <DividerWayFinder color="help" />
+        <section-wrapper>
+            <RichText
+                v-if="page.richText"
+                class="content"
+                :rich-text-content="page.richText"
+            />
+        </section-wrapper>
+        <section-wrapper theme="divider">
+            <DividerWayFinder color="help" />
+        </section-wrapper>
         <div
             v-for="(block, index) in page.helpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
             class="help-topic-section"
         >
-            <simple-cards
-                class="help-topic-block"
-                :section-title="block.sectionTitle"
-                :section-summary="block.sectionSummary"
-                :items="block.associatedEntries"
-            />
-            <DividerWayFinder
-                color="help"
-                class="help-topic-divider"
-            />
+            <section-wrapper>
+                <simple-cards
+                    class="help-topic-block"
+                    :section-title="block.sectionTitle"
+                    :section-summary="block.sectionSummary"
+                    :items="block.associatedEntries"
+                />
+            </section-wrapper>
+            <section-wrapper theme="divider">
+                <DividerWayFinder
+                    color="help"
+                    class="help-topic-divider"
+                />
+            </section-wrapper>
         </div>
 
         <flexible-blocks

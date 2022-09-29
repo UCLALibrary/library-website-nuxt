@@ -22,38 +22,48 @@
             :text="page.text"
         />
 
-        <divider-way-finder
-            color="help"
-            class="divider-way-finder"
-        />
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="help"
+                class="divider-way-finder"
+            />
+        </section-wrapper>
 
-        <h2 class="more-info">
-            More Information
-        </h2>
+        <section-wrapper>
+            <h2 class="more-info">
+                More Information
+            </h2>
+        </section-wrapper>
 
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
         />
 
-        <divider-way-finder
-            color="help"
-            class="divider-way-finder"
-        />
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="help"
+                class="divider-way-finder"
+            />
+        </section-wrapper>
 
-        <section-cards-with-illustrations
-            v-if="parsedAssociatedTopics.length"
-            class="section-cards"
-            :items="parsedAssociatedTopics"
-            title="Associated Topics"
-            button-text="All Services and Resources"
-            to="/help/services-resources"
-        />
+        <section-wrapper>
+            <section-cards-with-illustrations
+                v-if="parsedAssociatedTopics.length"
+                class="section-cards"
+                :items="parsedAssociatedTopics"
+                title="Associated Topics"
+                button-text="All Services and Resources"
+                to="/help/services-resources"
+            />
+        </section-wrapper>
 
-        <block-call-to-action
-            class="block-call-to-action"
-            :is-global="true"
-        />
+        <section-wrapper>
+            <block-call-to-action
+                class="block-call-to-action"
+                :is-global="true"
+            />
+        </section-wrapper>
     </section>
 </template>
 

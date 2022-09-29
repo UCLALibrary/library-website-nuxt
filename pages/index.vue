@@ -1,10 +1,12 @@
 <template lang="html">
     <div class="page page-home">
         <masthead-primary />
-        <divider-way-finder
-            class="divider divider-first"
-            color="help"
-        />
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider divider-first"
+                color="help"
+            />
+        </section-wrapper>
 
         <section-cards-with-illustrations
             class="section"
@@ -15,10 +17,12 @@
             :is-horizontal="false"
         />
 
-        <divider-way-finder
-            class="divider"
-            color="visit"
-        />
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="visit"
+            />
+        </section-wrapper>
 
         <banner-featured
             class="section banner banner-visit"
@@ -45,10 +49,12 @@
             to="/visit/foo"
         />
 
-        <divider-way-finder
-            class="divider"
-            color="about"
-        />
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
 
         <banner-featured
             class="banner banner-about"
@@ -69,7 +75,9 @@
             />
         </banner-featured>
 
-        <divider-general class="divider" />
+        <section-wrapper theme="divider">
+            <divider-general class="divider" />
+        </section-wrapper>
 
         <section-post-small
             class="section"
@@ -191,5 +199,10 @@ export default {
     .banner {
         margin: var(--unit-vertical-gap) auto;
     }
+    .divider {
+        max-width: $container-l-main + px;
+        margin: var(--space-3xl) auto;
+    }
 }
+
 </style>
