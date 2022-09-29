@@ -11,7 +11,6 @@ describe("Website Homepage", () => {
         })
 
         after(function() {
-            cy.get("ul.menu .sub-menu-item").should("exist").and("not.be.visible")
             cy.percySnapshot({ widths: [1200] })
         })
 
@@ -110,12 +109,6 @@ describe("Website Homepage", () => {
                 
                 cy.get(".click-blocker").click()
                 cy.get("ul.menu .sub-menu-item").should("not.be.visible")
-            })
-
-            it("has the 'support us' link", () => {
-                cy.get(".support-link a")
-                    .should("contain.text", "Support Us")
-                    .and("have.attr", "href",  "https://giving.ucla.edu/Standard/NetDonate.aspx?SiteNum=463")
             })
 
             it("uses a white background", () => {
@@ -239,12 +232,6 @@ describe("Website Homepage", () => {
                 cy.get(".sub-menu-item")
                     .should("be.visible")
 
-                cy.get('.nav-menu-primary')
-                    .children()
-                    .first()
-                    .find(".section-name.block")
-                    .click()
-
                 cy.fixture('links').then((linksFixture) => {
                     cy.get(".list")
                         .children()
@@ -259,7 +246,7 @@ describe("Website Homepage", () => {
                 cy.get(".sub-menu-item")
                     .should("not.be.visible")
 
-                cy.contains("a", "Support Us", { matchCase: false })
+                cy.contains("a", "Give Now", { matchCase: false })
                     .should("be.visible")
                     .and("have.attr", "href",  "https://giving.ucla.edu/Standard/NetDonate.aspx?SiteNum=463")
                 
