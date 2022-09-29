@@ -1,6 +1,11 @@
 <template lang="html">
     <div class="page page-home">
         <masthead-primary />
+        <!-- TODO elastis search testing -->
+        <!--h4>Mapping:</h4>
+        <p>{{ mapping }}</p>
+        <h4>Search Responsee</h4>
+        <p>{{ searchResponse }}</p-->
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider divider-first"
@@ -92,9 +97,13 @@ import * as MOCK_API from "~/data/mock-api.json"
 
 export default {
     components: {},
-    async asyncData() {
+    async asyncData({ $dataApi }) {
         //const data = await this.$graphql(QUERY);
 
+        const mapping = await $dataApi.getMapping()
+        // console.log(JSON.stringify(mapping))
+        const searchResponse = await $dataApi.keywordSearch("*")
+        // console.log("Search Response: " + JSON.stringify(searchResponse))
         const mockCard = {
             to: "/help/foo/bar/",
             title: "Example Service",
@@ -160,6 +169,8 @@ export default {
 
         return {
             page: data,
+            mapping: mapping,
+            searchResponse: searchResponse,
         }
     },
     computed: {

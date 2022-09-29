@@ -9,6 +9,8 @@ export default {
 
     publicRuntimeConfig: {
         s3Bucket: process.env.S3_BUCKET,
+        esApiKey: process.env.ESApiKey,
+        esURL:process.env.ES_URL
     },
     /*
    ** Required charset and viewport meta tags
@@ -42,6 +44,7 @@ export default {
         '~/plugins/preview.client.js',
         '~/plugins/browser-events.client.js',
         '~/plugins/craft.js',
+        '~/plugins/data-api.js'
     ],
 
     /*
