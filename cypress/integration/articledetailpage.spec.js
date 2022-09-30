@@ -1,5 +1,5 @@
 describe("Article Detail page", () => {
-    it("Visits an News Detail Page", () => {
+    it("Visits a News Detail Page", () => {
         // the following data will not work in production
         cy.visit("/about/news/turtles")
 
@@ -11,7 +11,7 @@ describe("Article Detail page", () => {
         )
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
-    it("Visits an Blogs Detail Page", () => {
+    it("Visits a Blogs Detail Page", () => {
         // the following data will not work in production
         cy.visit("/about/blogs/giraffe")
 

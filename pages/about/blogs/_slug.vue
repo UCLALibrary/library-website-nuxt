@@ -55,8 +55,6 @@
 
 <script>
 // Helpers
-import getParentPageTitle from "~/utils/getParentPageTitle"
-import getParentPageUrl from "~/utils/getParentPageUrl"
 import _get from "lodash/get"
 import format from "date-fns/format"
 
