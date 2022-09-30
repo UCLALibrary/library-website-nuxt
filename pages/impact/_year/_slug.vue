@@ -1,5 +1,7 @@
 <template lang="html">
     <div class="page page-impact-report">
+        <h3>{{ isVideo }}</h3>
+
         <section-wrapper
             class="section-banner"
         >
@@ -18,10 +20,28 @@
                 :to="page.to"
                 :align-right="true"
                 :byline="parsedByline"
+                :video="isVideo"
             />
         </section-wrapper>
 
+        <!-- NEXT Steps
+            Why is the video not playing?
 
+            figure out how to call image and it run the check for it being video or image (look at the component)
+
+            if it is not video or image 
+                use banner-text
+            if it is video or image 
+                use banner-header
+                and then
+                if it is an image 
+                    display the image
+                if it is a video
+                    play the video
+
+            move the isVideo to utils
+            and re-write the parsedVideo method
+        -->
 
         <section-wrapper theme="divider">
             <divider-way-finder
