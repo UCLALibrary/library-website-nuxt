@@ -5,7 +5,8 @@ export default function({$config}, inject) {
 
     async function keywordSearch(keyword){
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
-        console.log("keyowrd:"+keyword)
+        if($config.esApiKey === "" || !$config.esURL === "") return
+        console.log("keyword:"+keyword)
         // var params = {
         //     query: {
         //         query_string: {
@@ -45,6 +46,7 @@ export default function({$config}, inject) {
 
 
     async function getMapping(){
+        if($config.esApiKey === "" || !$config.esURL === "") return
         const response = await fetch(`${$config.esURL}/apps-dev-library-website/_mapping`, {
             headers: {
                 'Authorization': `ApiKey ${$config.esApiKey}`,
