@@ -243,19 +243,17 @@ describe("Website Homepage", () => {
                         })
                 })
 
-                cy.get(".sub-menu-item")
-                    .should("not.be.visible")
-
                 cy.contains("a", "Give Now", { matchCase: false })
                     .should("be.visible")
                     .and("have.attr", "href",  "https://giving.ucla.edu/Standard/NetDonate.aspx?SiteNum=463")
                 
-                cy.fixture('accessibility').then((accessibilityFixture) => {
-                    cy.get(".close-menu")
-                        .should("have.attr", "aria-label", accessibilityFixture.closeMenu)
-                        .click()
-                        .should("not.be.visible")
-                })
+                cy.get("button.close-menu")
+                    .should("have.attr", "aria-label", "Close menu")
+                    .click()
+                    .should("not.be.visible")
+
+                cy.get(".sub-menu-item")
+                    .should("not.be.visible")
             })
         })
 
