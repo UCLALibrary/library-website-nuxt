@@ -1,9 +1,9 @@
 <template lang="html">
     <section class="page-news-detail">
         <nav-breadcrumb
-            :to="parsePath"
+            to="/about/blogs"
             :title="page.title"
-            :parent-title="parseParentTitle"
+            parent-title="All Blogs"
         />
 
         <section-wrapper class="section-banner">
@@ -53,13 +53,6 @@
     </section>
 </template>
 
-<!-- https://www.npmjs.com/package/@nuxtjs/router-extras -->
-<router>
-    {
-      alias: '/about/blogs/:slug'
-    }
-</router>
-
 <script>
 // Helpers
 import getParentPageTitle from "~/utils/getParentPageTitle"
@@ -91,12 +84,6 @@ export default {
         }
     },
     computed: {
-        parsePath() {
-            return getParentPageUrl(this.$route.path)
-        },
-        parseParentTitle() {
-            return getParentPageTitle(this.$route.path)
-        },
         parsedByline() {
             let byline = (this.page.contributors || []).map((entry) => {
                 return `${entry.byline} ${

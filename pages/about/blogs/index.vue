@@ -20,16 +20,10 @@
 
         <section-staff-article-list
             :items="parsedNewsList"
-            section-title="All News"
+            section-title="All Blogs"
         />
     </main>
 </template>
-<!-- https://www.npmjs.com/package/@nuxtjs/router-extras -->
-<router>
-    {
-      alias: '/about/blogs'
-    }
-</router>
 <script>
 // Helpers
 // Helpers
@@ -41,11 +35,11 @@ import ARTICLE_LIST from "~/gql/queries/ArticleList"
 
 export default {
     async asyncData({ $graphql, route }) {
-        console.log("route: " + route.path)
+        // console.log("route: " + route.path)
         const data = await $graphql.default.request(ARTICLE_LIST, {
-            articleType: route.path.includes("/about/news") ? "news" : "blogs",
+            articleType: "blogs",
         })
-        console.log("data:" + data)
+        // console.log("data:" + data)
         return {
             page: data,
         }
@@ -56,7 +50,6 @@ export default {
         },
 
         parsedNewsList() {
-            console.log("Entries: " + this.page.entries)
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,

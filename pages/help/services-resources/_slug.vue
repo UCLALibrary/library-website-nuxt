@@ -1,7 +1,11 @@
 <template lang="html">
     <section class="page-service-detail">
         <!-- TODO create separate sectionpage component based on typehandle will either use serviceorresource or workshopseries component-->
-        <nav-breadcrumb :title="page.title" />
+        <nav-breadcrumb
+            to="/help/services-resources"
+            :title="page.title"
+            parent-title="Services & Resources"
+        />
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"

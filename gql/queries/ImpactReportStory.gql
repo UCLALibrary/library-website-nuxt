@@ -1,8 +1,8 @@
 #import "~/gql/fragments/collections/AllFpb"
 #import "~/gql/fragments/Image"
 
-query ImpactReportStory($uri: [String!]) {
-    entry(section: "impactReportStory", uri: $uri) {
+query ImpactReportStory($slug: [String!]) {
+    entry(section: "impactReportStory", slug: $slug) {
     ... on impactReportStory_impactReportStory_Entry {
       id
       title
