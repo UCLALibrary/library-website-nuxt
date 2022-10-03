@@ -5,7 +5,8 @@
     >
         <nav-breadcrumb
             :title="page.title"
-            :is-meap="true"
+            parent-title="Resources"
+            to="/applicants/resources"
             class="breadcrumb"
         />
 
@@ -49,7 +50,7 @@
 
         <section-wrapper
             v-if="parsedAssociatedTopics && parsedAssociatedTopics.length"
-            >
+        >
             <section-cards-with-illustrations
                 :items="parsedAssociatedTopics"
                 title="Associated Topics"

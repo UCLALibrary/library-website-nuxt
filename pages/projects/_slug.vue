@@ -5,7 +5,8 @@
     >
         <nav-breadcrumb
             :title="page.title"
-            :is-meap="true"
+            to="/projects"
+            parent-title="Funded Projects"
             class="nav-breadcrumb"
         />
 

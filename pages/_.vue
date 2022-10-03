@@ -4,12 +4,14 @@
         class="page page-general-content"
     >
         <nav-breadcrumb
+            v-if="page"
             :title="page.title"
-            :is-meap="true"
             class="breadcrumb"
+            :to="parseParentPageURL"
+            :parent-title="parseParentTitle"
         />
         <banner-text
-            v-if="!page.heroImage || page.heroImage.length == 0"
+            v-if="page && (!page.heroImage || page.heroImage.length == 0)"
             class="banner-text"
             :category="page.format"
             :title="page.title"
@@ -18,7 +20,7 @@
 
         <section-wrapper class="section-banner">
             <banner-header
-                v-if="page.heroImage && page.heroImage.length == 1"
+                v-if="page && page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
                 :category="page.format"
                 :title="page.title"
@@ -34,6 +36,7 @@
         </section-wrapper>
 
         <flexible-blocks
+            v-if="page"
             class="flexible-content"
             :blocks="page.blocks"
         />
@@ -50,8 +53,11 @@ import _get from "lodash/get"
 export default {
     async asyncData({ $graphql, params }) {
         // Do not remove testing live preview
+
         const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
-            slug: params.slug,
+            slug: params.pathMatch.substring(
+                params.pathMatch.lastIndexOf("/") + 1
+            ),
         })
         return {
             page: _get(data, "entry", {}),
@@ -62,6 +68,20 @@ export default {
         return {
             title: title,
         }
+    },
+    computed: {
+        parseParentPageURL() {
+            if (this.page.parent && this.page.parent.uri)
+                return `/${this.page.parent.uri}`
+
+            return "/"
+        },
+        parseParentTitle() {
+            if (this.page.parent && this.page.parent.title)
+                return this.page.parent.title
+
+            return "Modern Endangered Archives Program"
+        },
     },
 }
 </script>
@@ -75,7 +95,6 @@ export default {
     ::v-deep .divider-way-finder {
         --color-border: var(--color-visit-fushia-03);
     }
-
     .section-banner {
         margin-top: 0;
     }

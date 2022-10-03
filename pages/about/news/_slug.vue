@@ -4,8 +4,9 @@
         class="page page-news-detail"
     >
         <nav-breadcrumb
-            :is-meap="true"
+            to="/about/news"
             :title="page.title"
+            parent-title="News"
         />
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
@@ -87,7 +88,7 @@ export default {
         --color-theme: var(--color-visit-fushia-03);
     }
 
-    .section-banner{
+    .section-banner {
         margin-top: 0;
     }
 }
