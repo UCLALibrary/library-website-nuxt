@@ -21,6 +21,7 @@ query GeneralContentDetail($slug: [String!]) {
         parent {
             slug
             title
+            uri
         }
         ...AllFpb
     }

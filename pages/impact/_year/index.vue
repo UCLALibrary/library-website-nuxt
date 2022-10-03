@@ -100,10 +100,21 @@
                 color="about"
             />
         </section-wrapper>
-        <section-wrapper>
+        <section-wrapper
+            v-if="page.acknowledgements && page.acknowledgements.length == 1"
+        >
+            <h2
+                :class="
+                    page.acknowledgements[0].displaySectionTitle === 'true'
+                        ? ''
+                        : 'visually-hidden'
+                "
+            >
+                {{ page.acknowledgements[0].titleGeneral }}
+            </h2>
             <rich-text
                 class="credits"
-                v-html="page.acknowledgements"
+                v-html="page.acknowledgements[0].acknowledgements"
             />
         </section-wrapper>
     </div>

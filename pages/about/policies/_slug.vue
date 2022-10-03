@@ -3,7 +3,11 @@
         id="main"
         class="page page-general-content"
     >
-        <nav-breadcrumb :title="page.title" />
+        <nav-breadcrumb
+            to="/about/policies"
+            :title="page.title"
+            parent-title="Policies"
+        />
 
         <banner-text
             v-if="page && (!page.heroImage || page.heroImage.length == 0)"
