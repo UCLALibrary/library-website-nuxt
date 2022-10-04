@@ -1,8 +1,8 @@
 fragment BlockHighlightFragment on ElementInterface {
     id
     typeHandle
-    titleGeneral
-    summary
+    sectionTitle: titleGeneral
+    sectionSummary: summary
     highlight: meapflexiblePageBlocks_highlight {
         ... on meapflexiblePageBlocks_highlight_internalContent_BlockType {
             id
