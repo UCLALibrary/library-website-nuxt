@@ -1,47 +1,21 @@
 <template lang="html">
     <div class="page page-impact-report">
-        <h3>{{ isVideo }}</h3>
-
-        <section-wrapper
-            class="section-banner"
-        >
+        <section-wrapper class="section-banner">
+            <banner-featured
+                v-if="page.heroImage"
+                :title="page.title"
+                :description="page.text"
+                :align-right="true"
+                :video="isVideo"
+                :byline="parsedByline"
+            />
             <banner-text
-                v-if="!page.image"
+                v-else
                 class="banner-text"
                 :title="page.title"
                 :text="page.text"
-                :byline="parsedByline"
-            />
-
-            <banner-header
-                :title="page.title"
-                :text="page.text"
-                :image="page.heroImage[0].image[0].src"
-                :to="page.to"
-                :align-right="true"
-                :byline="parsedByline"
-                :video="isVideo"
             />
         </section-wrapper>
-
-        <!-- NEXT Steps
-            Why is the video not playing?
-
-            figure out how to call image and it run the check for it being video or image (look at the component)
-
-            if it is not video or image 
-                use banner-text
-            if it is video or image 
-                use banner-header
-                and then
-                if it is an image 
-                    display the image
-                if it is a video
-                    play the video
-
-            move the isVideo to utils
-            and re-write the parsedVideo method
-        -->
 
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -92,18 +66,19 @@ export default {
     computed: {
         isVideo() {
             let fileName = this.page.heroImage[0].image[0].src.toLowerCase()
-            let extension = fileName.split('.').pop()
+            let extension = fileName.split(".").pop()
             let fileType = ""
-            if (extension == "mp4" || 
-                extension == "m4a"|| 
-                extension == "f4v" || 
-                extension == "m4b" || 
-                extension == "mov") {
+            if (
+                extension == "mp4" ||
+                extension == "m4a" ||
+                extension == "f4v" ||
+                extension == "m4b" ||
+                extension == "mov"
+            ) {
                 fileType = "video"
             }
             if (fileType == "video") {
                 let mainVideo = this.page.heroImage[0].image[0]
-                // return mainVideo
                 let video = {
                     videoUrl: mainVideo.src,
                     sizes: mainVideo.sizes,
@@ -111,46 +86,23 @@ export default {
                     width: mainVideo.width,
                     altText: mainVideo.alt,
                     caption: mainVideo.caption,
-                    poster: mainVideo.poster
+                    poster: mainVideo.poster,
                 }
                 return video
             }
         },
-        parsedVideo2() {
-            let mainVideo = this.page.heroImage[0].image[0]
-            // return mainVideo
-            let video = {
-                videoUrl: mainVideo.src,
-                sizes: mainVideo.sizes,
-                height: mainVideo.height,
-                width: mainVideo.width,
-                altText: mainVideo.alt,
-                caption: mainVideo.caption,
-                poster: mainVideo.poster
-            }
-            return video
+        parsedByline() {
+            let bannerFeaturedByline = this.page.contributors.map((obj) => {
+                if (obj.typeHandle === "externalContributor") {
+                    return obj.byline
+                } else if (obj.typeHandle === "internalContributor") {
+                    return obj.byline + " " + entry.staffMember[0].title
+                } else {
+                    return []
+                }
+            })
+            return bannerFeaturedByline
         },
-        // parsedMockMainStoryImages() {
-        //     const mainStory = MOCK_IMPACT_API.mainStory
-        //     return this.mainStory.images.map((obj) => {
-        //         return {
-        //             src: getS3Bucket(this.$config, obj.src),
-        //             sizes: "100vw",
-        //             height: 1080,
-        //             width: 1920,
-        //             alt: obj.alt,
-        //             caption: obj.caption,
-        //         }
-        //     })
-        // },
-        // parsedByline() {
-        //     let byline = (this.page.entry.contributors || []).map((entry) => {
-        //         return `${entry.byline} ${entry.title || entry.staffMember[0].title}`
-        //     })
-        //     return byline.map((entry) => {
-        //         return {"title": entry}
-        //     })
-        // },
     },
 }
 </script>
