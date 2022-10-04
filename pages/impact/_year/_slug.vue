@@ -1,10 +1,10 @@
 <template lang="html">
     <div class="page page-impact-report">
         <section-wrapper class="section-banner">
-            <banner-featured
+            <banner-header
                 v-if="page.heroImage"
                 :title="page.title"
-                :description="page.text"
+                :text="page.text"
                 :align-right="true"
                 :video="isVideo"
                 :byline="parsedByline"
@@ -94,9 +94,13 @@ export default {
         parsedByline() {
             let bannerFeaturedByline = this.page.contributors.map((obj) => {
                 if (obj.typeHandle === "externalContributor") {
-                    return obj.byline
+                    return { title: obj.byline }
                 } else if (obj.typeHandle === "internalContributor") {
-                    return obj.byline + " " + entry.staffMember[0].title
+                    return {
+                        title: `${
+                            obj.byline + " " + entry.staffMember[0].title
+                        }`,
+                    }
                 } else {
                     return []
                 }
