@@ -2,11 +2,11 @@
     <div class="page page-impact-report">
         <section-wrapper class="section-banner">
             <banner-header
-                v-if="page.heroImage"
+                v-if="isVideo"
                 :title="page.title"
                 :text="page.text"
                 :align-right="true"
-                :video="isVideo"
+                :video="parsedVideo"
                 :byline="parsedByline"
             />
             <banner-text
@@ -14,6 +14,7 @@
                 class="banner-text"
                 :title="page.title"
                 :text="page.text"
+                :byline="parsedByline"
             />
         </section-wrapper>
 
@@ -75,9 +76,12 @@ export default {
                 extension == "m4b" ||
                 extension == "mov"
             ) {
-                fileType = "video"
+                return true
             }
-            if (fileType == "video") {
+        },
+
+        parsedVideo() {
+            if (this.isVideo) {
                 let mainVideo = this.page.heroImage[0].image[0]
                 let video = {
                     videoUrl: mainVideo.src,
@@ -89,17 +93,17 @@ export default {
                     poster: mainVideo.poster,
                 }
                 return video
+            } else {
+                return {}
             }
         },
         parsedByline() {
             let bannerFeaturedByline = this.page.contributors.map((obj) => {
                 if (obj.typeHandle === "externalContributor") {
-                    return { title: obj.byline }
+                    return { title: `${obj.byline + " " + obj.title}` }
                 } else if (obj.typeHandle === "internalContributor") {
                     return {
-                        title: `${
-                            obj.byline + " " + entry.staffMember[0].title
-                        }`,
+                        title: `${obj.byline + " " + obj.staffMember[0].title}`,
                     }
                 } else {
                     return []
