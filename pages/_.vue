@@ -7,6 +7,8 @@
             v-if="page"
             :title="page.title"
             class="breadcrumb"
+            :to="parseParentPageURL"
+            :parent-title="parseParentTitle"
         />
         <banner-text
             v-if="page && (!page.heroImage || page.heroImage.length == 0)"
@@ -42,7 +44,6 @@
 </template>
 
 <script>
-
 // GQL
 import GENERAL_CONTENT_DETAIL from "~/gql/queries/GeneralContentDetail"
 
@@ -67,6 +68,20 @@ export default {
         return {
             title: title,
         }
+    },
+    computed: {
+        parseParentPageURL() {
+            if (this.page.parent && this.page.parent.uri)
+                return `/${this.page.parent.uri}`
+
+            return "/"
+        },
+        parseParentTitle() {
+            if (this.page.parent && this.page.parent.title)
+                return this.page.parent.title
+
+            return "Home"
+        },
     },
 }
 </script>

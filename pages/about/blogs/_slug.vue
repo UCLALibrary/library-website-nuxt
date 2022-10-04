@@ -1,9 +1,9 @@
 <template lang="html">
     <section class="page-news-detail">
         <nav-breadcrumb
-            to="/about/news"
+            to="/about/blogs"
             :title="page.title"
-            parent-title="All Library News"
+            parent-title="All Blogs"
         />
 
         <section-wrapper class="section-banner">

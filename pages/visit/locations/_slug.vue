@@ -1,6 +1,10 @@
 <template lang="html">
     <main class="page page-location-detail">
-        <nav-breadcrumb :title="page.title" />
+        <nav-breadcrumb
+            to="/visit/locations"
+            :title="page.title"
+            parent-title="Locations"
+        />
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -33,16 +37,16 @@
             class="divider-way-finder"
         />
         <div class="section-header">
-        <h2
-            v-if="
-                page.libcalLocationIdForHours ||
-                    page.amenities.length ||
-                    parsedSpaces.length
-            "
-            class="section-title"
-        >
-            Using the Library
-        </h2>
+            <h2
+                v-if="
+                    page.libcalLocationIdForHours ||
+                        page.amenities.length ||
+                        parsedSpaces.length
+                "
+                class="section-title"
+            >
+                Using the Library
+            </h2>
             <div
                 v-if="page.howToGetHere"
                 class="section-summary"
@@ -124,7 +128,7 @@
 
         <h2 class="more-info">
             More Information
-        </h2>   
+        </h2>
 
         <flexible-blocks
             class="content"
@@ -318,12 +322,12 @@ export default {
         margin: var(--space-xl) auto;
         max-width: $container-l-main + px;
     }
-   .section-title {
+    .section-title {
         @include step-4;
         color: var(--color-primary-blue-03);
     }
     .section-summary {
-         @include step-0;
+        @include step-0;
         margin-top: var(--space-m);
 
         ::v-deep p {
@@ -358,7 +362,7 @@ export default {
     .about-text {
         margin-bottom: var(--space-3xl);
     }
-    
+
     .more-info {
         @include visually-hidden;
     }

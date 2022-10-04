@@ -51,7 +51,13 @@ query ImpactReport($path: [String!]) {
           }
         }
       }
-      acknowledgements
+      acknowledgements {
+        ... on acknowledgements_richTextWithSectionTitle_BlockType {
+          titleGeneral
+          acknowledgements
+          displaySectionTitle
+        }
+      }
     }
   }
 }

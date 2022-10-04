@@ -20,7 +20,7 @@
 
         <section-staff-article-list
             :items="parsedNewsList"
-            section-title="All News"
+            section-title="All Blogs"
         />
     </main>
 </template>
@@ -37,7 +37,7 @@ export default {
     async asyncData({ $graphql, route }) {
         // console.log("route: " + route.path)
         const data = await $graphql.default.request(ARTICLE_LIST, {
-            articleType: "news",
+            articleType: "blogs",
         })
         // console.log("data:" + data)
         return {
@@ -50,7 +50,6 @@ export default {
         },
 
         parsedNewsList() {
-            console.log("Entries: " + this.page.entries)
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,

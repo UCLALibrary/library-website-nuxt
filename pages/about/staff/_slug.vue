@@ -2,7 +2,11 @@
     <main class="page page-staff-detail">
         <!-- staff page here -->
         <!-- no search on this page -->
-        <nav-breadcrumb :title="page.entry.title" />
+        <nav-breadcrumb
+            to="/about/staff"
+            :title="page.entry.title"
+            parent-title="Staff Directory"
+        />
 
         <section-wrapper>
             <block-staff-detail

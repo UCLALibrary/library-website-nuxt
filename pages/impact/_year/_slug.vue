@@ -1,20 +1,19 @@
 <template lang="html">
     <div class="page page-impact-report">
         <section-wrapper class="section-banner">
+            <banner-header
+                v-if="isVideo"
+                :title="page.title"
+                :text="page.text"
+                :align-right="true"
+                :video="parsedVideo"
+                :byline="parsedByline"
+            />
             <banner-text
-                v-if="!parsedVideo"
+                v-else
                 class="banner-text"
                 :title="page.title"
                 :text="page.text"
-                :byline="parsedByline"
-            />
-
-            <banner-header
-                :title="bannerHeader.title"
-                :text="bannerHeader.text"
-                :video="parsedVideo"
-                :to="bannerHeader.to"
-                :align-right="true"
                 :byline="parsedByline"
             />
         </section-wrapper>
@@ -28,7 +27,7 @@
 
         <flexible-blocks
             class="content"
-            :blocks="page.entry.blocks"
+            :blocks="page.blocks"
         />
     </div>
 </template>
@@ -37,10 +36,8 @@
 // gql
 import IMPACT_REPORT_STORY from "~/gql/queries/ImpactReportStory"
 
-import * as MOCK_IMPACT_API from "~/data/impact-report_slug.json"
-
-// Utilities
-import getS3Bucket from "~/utils/getS3Bucket"
+// Helpers
+import _get from "lodash/get"
 
 //svg components
 import SvgArrowDiagonal from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-external-link"
@@ -59,46 +56,60 @@ export default {
         console.log("Data fetched: " + JSON.stringify(data))
 
         return {
-            page: data,
-            bannerHeader: MOCK_IMPACT_API.bannerHeader,
-            mainStory: MOCK_IMPACT_API.mainStory,
+            page: _get(data, "entry", {}),
         }
     },
     head() {
         return {
-            title: this.page.entry.title,
+            title: this.page.title,
         }
     },
     computed: {
-        parsedVideo() {
-            let video = {
-                videoUrl: getS3Bucket(
-                    this.$config,
-                    "ucla-impact-report-feature-story-animation.mp4"
-                ),
+        isVideo() {
+            let fileName = this.page.heroImage[0].image[0].src.toLowerCase()
+            let extension = fileName.split(".").pop()
+            let fileType = ""
+            if (
+                extension == "mp4" ||
+                extension == "m4a" ||
+                extension == "f4v" ||
+                extension == "m4b" ||
+                extension == "mov"
+            ) {
+                return true
             }
-            return video
         },
-        parsedMainStoryImages() {
-            const mainStory = MOCK_IMPACT_API.mainStory
-            return this.mainStory.images.map((obj) => {
-                return {
-                    src: getS3Bucket(this.$config, obj.src),
-                    sizes: "100vw",
-                    height: 1080,
-                    width: 1920,
-                    alt: obj.alt,
-                    caption: obj.caption,
+
+        parsedVideo() {
+            if (this.isVideo) {
+                let mainVideo = this.page.heroImage[0].image[0]
+                let video = {
+                    videoUrl: mainVideo.src,
+                    sizes: mainVideo.sizes,
+                    height: mainVideo.height,
+                    width: mainVideo.width,
+                    altText: mainVideo.alt,
+                    caption: mainVideo.caption,
+                    poster: mainVideo.poster,
                 }
-            })
+                return video
+            } else {
+                return {}
+            }
         },
         parsedByline() {
-            let byline = (this.page.entry.contributors || []).map((entry) => {
-                return `${entry.byline} ${entry.title || entry.staffMember[0].title}`
+            let bannerFeaturedByline = this.page.contributors.map((obj) => {
+                if (obj.typeHandle === "externalContributor") {
+                    return { title: `${obj.byline + " " + obj.title}` }
+                } else if (obj.typeHandle === "staffMember") {
+                    return {
+                        title: `${obj.byline + " " + obj.staffMember[0].title}`,
+                    }
+                } else {
+                    return []
+                }
             })
-            return byline.map((entry) => {
-                return {"title": entry}
-            })
+            return bannerFeaturedByline
         },
     },
 }
