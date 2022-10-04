@@ -3,37 +3,38 @@
 
 query ImpactReportStory($slug: [String!]) {
     entry(section: "impactReportStory", slug: $slug) {
-    ... on impactReportStory_impactReportStory_Entry {
-      id
-      title
-      text: summary
-      uri
-      contributors {
-        ... on contributors_staffMember_BlockType {
-          byline
-          staffMember {
-            title
-            uri
+        ... on impactReportStory_impactReportStory_Entry {
             id
-          }
+            title
+            text: summary
+            uri
+            contributors {
+                ... on contributors_staffMember_BlockType {
+                    typeHandle
+                    byline
+                    staffMember {
+                        title
+                        uri
+                        id
+                    }
+                }
+                ... on contributors_externalContributor_BlockType {
+                    id
+                    byline
+                    typeHandle
+                    title: contributor
+                }
+            }
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    image {
+                        ...Image
+                    }
+                }
+            }
+            ...AllFpb
         }
-        ... on contributors_externalContributor_BlockType {
-          id
-          byline
-          typeHandle
-          title: contributor
-        }
-      }
-      heroImage {
-        ... on heroImage_heroImage_BlockType {
-          image {
-            ...Image
-          }
-        }
-      }
-      ...AllFpb
     }
-  }
 }
 
 # query ImpactReportStory {
