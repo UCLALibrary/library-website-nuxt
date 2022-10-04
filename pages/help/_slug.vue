@@ -4,17 +4,19 @@
             :title="page.title"
             :text="page.summary"
         />
+        
         <section-wrapper>
             <RichText
                 v-if="page.richText"
-                class="content"
                 :rich-text-content="page.richText"
             />
         </section-wrapper>
+        
         <section-wrapper theme="divider">
             <DividerWayFinder color="help" />
         </section-wrapper>
-        <div
+        
+        <section-wrapper
             v-for="(block, index) in page.helpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
             class="help-topic-section"
@@ -33,12 +35,14 @@
                     class="help-topic-divider"
                 />
             </section-wrapper>
-        </div>
+        </section-wrapper>
 
-        <flexible-blocks
-            class="content"
-            :blocks="page.blocks"
-        />
+        <section-wrapper>
+            <flexible-blocks
+                class="content"
+                :blocks="page.blocks"
+            />
+        </section-wrapper>
     </main>
 </template>
 
@@ -50,7 +54,7 @@ import HELP_TOPIC_DETAIL from "~/gql/queries/HelpTopicDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params, store }) {
+    async asyncData({ $graphql, params }) {
         // Do not remove testing live preview
 
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {

@@ -2,66 +2,62 @@
     <main class="page page-staff">
         <masthead-secondary title="Staff Directory" />
 
-        <section-wrapper>
-            <div class="search-container">
-                <div class="empty-search-box" />
-                <div class="input-indicator" />
-                <div class="filters">
-                    <div />
-                    <div />
-                    <div />
-                </div>
+        <section-wrapper class="search-container">
+            <div class="empty-search-box" />
+            <div class="input-indicator" />
+            <div class="filters">
+                <div />
+                <div />
+                <div />
+            </div>
             <!-- TODO Add SearchGenric here when complete
-                 Filter by location, department, subject libarian -->
+                Filter by location, department, subject libarian -->
             <!-- <search-generic search-type="about"
                     :filters="searchFilters.filters"
                     :view-modes="searchFilters.views"
                     class="generic-search"
                     @view-mode-change="viewModeChanger"
             /> -->
-            </div>
         </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
 
-        <section-wrapper>
-            <section class="browse-by">
-                <h2 class="section-heading">
-                    Browse by Last Name
-                </h2>
-                <!-- TODO Add Browse by A-Z links -->
-                <ul class="browse-by-options">
-                    <li>A</li>
-                    <li>B</li>
-                    <li>C</li>
-                    <li>D</li>
-                    <li>E</li>
-                    <li>F</li>
-                    <li>G</li>
-                    <li>H</li>
-                    <li>I</li>
-                    <li>J</li>
-                    <li>K</li>
-                    <li>L</li>
-                    <li>M</li>
-                    <li>N</li>
-                    <li>O</li>
-                    <li>P</li>
-                    <li>Q</li>
-                    <li>R</li>
-                    <li>S</li>
-                    <li>T</li>
-                    <li>U</li>
-                    <li>V</li>
-                    <li>W</li>
-                    <li>X</li>
-                    <li>Y</li>
-                    <li>Z</li>
+        <section-wrapper class="browse-by">
+            <h2 class="section-heading">
+                Browse by Last Name
+            </h2>
+            <!-- TODO Add Browse by A-Z links -->
+            <ul class="browse-by-options">
+                <li>A</li>
+                <li>B</li>
+                <li>C</li>
+                <li>D</li>
+                <li>E</li>
+                <li>F</li>
+                <li>G</li>
+                <li>H</li>
+                <li>I</li>
+                <li>J</li>
+                <li>K</li>
+                <li>L</li>
+                <li>M</li>
+                <li>N</li>
+                <li>O</li>
+                <li>P</li>
+                <li>Q</li>
+                <li>R</li>
+                <li>S</li>
+                <li>T</li>
+                <li>U</li>
+                <li>V</li>
+                <li>W</li>
+                <li>X</li>
+                <li>Y</li>
+                <li>Z</li>
                 <!-- <li>View All</li> -->
-                </ul>
-            </section>
+            </ul>
         </section-wrapper>
 
         <section-wrapper>

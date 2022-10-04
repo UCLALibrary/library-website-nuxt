@@ -75,7 +75,7 @@ import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceO
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params, store }) {
+    async asyncData({ $graphql, params }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"

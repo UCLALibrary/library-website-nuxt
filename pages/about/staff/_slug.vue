@@ -6,7 +6,6 @@
 
         <section-wrapper>
             <block-staff-detail
-                class="staff-detail-block"
                 :image="parsedImage"
                 :staff-name="parsedStaffName"
                 :alternative-full-name="parsedAlternativeFullName"
@@ -24,7 +23,7 @@
             />
         </section-wrapper>
 
-        <section
+        <section-wrapper
             v-if="
                 parsedItems.length ||
                     page.entry.publications ||
@@ -32,34 +31,33 @@
             "
             class="selected-articles"
         >
-            <section-wrapper>
-                <section-staff-orcid-publications
-                    class="staff-orcid-publications"
-                    :orcid="page.entry.orcid"
-                    :publications="page.entry.publications"
-                />
-            </section-wrapper>
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+            
+            <section-staff-orcid-publications
+                class="staff-orcid-publications"
+                :orcid="page.entry.orcid"
+                :publications="page.entry.publications"
+            />
 
-            <section-wrapper theme="divider">
-                <divider-way-finder
-                    v-if="
-                        parsedItems.length &&
-                            (page.entry.publications || page.entry.orcid)
-                    "
-                    class="divider divider-first"
-                    color="about"
-                />
-            </section-wrapper>
+            <divider-way-finder
+                v-if="
+                    parsedItems.length &&
+                        (page.entry.publications || page.entry.orcid)
+                "
+                class="divider divider-first"
+                color="about"
+            />
 
-            <section-wrapper>
-                <section-staff-article-list
-                    v-if="parsedItems.length"
-                    class="staff-article-list-section"
-                    section-title="Articles"
-                    :items="parsedItems"
-                />
-            </section-wrapper>
-        </section>
+            <section-staff-article-list
+                v-if="parsedItems.length"
+                class="staff-article-list-section"
+                section-title="Articles"
+                :items="parsedItems"
+            />
+        </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -68,7 +66,7 @@
             />
         </section-wrapper>
         <!-- this is different from flexible page blocks ctacontentwidth and will be hardcoded where required -->
-        <section-wrapper theme="divider">
+        <section-wrapper>
             <block-call-to-action
                 class="section block-call-to-action"
                 svg-name="svg-call-to-action-mail"
@@ -146,14 +144,7 @@ export default {
 
 <style lang="scss" scoped>
 .page-staff-detail {
-    .staff-detail-block {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
     .selected-articles {
-        margin: var(--space-3xl) auto;
-
         ::v-deep .divider .dotted {
             border-color: var(--color-secondary-grey-03);
         }
