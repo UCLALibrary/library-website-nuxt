@@ -16,37 +16,37 @@ fragment ImpactReportFpb on ElementInterface {
         typeHandle
 
         ... on impactReportFpb_bannerFeatured_BlockType {
-          ...BlockBannerFeaturedFragment
+            ...BlockBannerFeaturedFragment
         }
         ... on impactReportFpb_callToAction_BlockType {
-          ...BlockCallToActionFragment
+            ...BlockCallToActionFragment
         }
         ... on impactReportFpb_simpleCards_BlockType {
-          ...BlockSimpleCardsFragment
+            ...BlockSimpleCardsFragment
         }
         ... on impactReportFpb_pullQuote_BlockType {
-          ...BlockPullQuoteFragment
+            ...BlockPullQuoteFragment
         }
         ... on impactReportFpb_mediaWithText_BlockType {
-          ...BlockMediaWithTextFragment
+            ...BlockMediaWithTextFragment
         }
         ... on impactReportFpb_mediaGallery_BlockType {
-          ...BlockMediaGalleryFragment
+            ...BlockMediaGalleryFragment
         }
         ... on impactReportFpb_impactNumbersCarousel_BlockType {
-          ...BlockImpactNumbersCarouselFragment
+            ...BlockImpactNumbersCarouselFragment
         }
         ... on impactReportFpb_impactNumberCards_BlockType {
-          ...BlockImpactNumberCardsFragment
+            ...BlockImpactNumberCardsFragment
         }
         ... on impactReportFpb_highlight_BlockType {
-          ...BlockHighlightFragment
+            ...BlockHighlightFragment
         }
         ... on impactReportFpb_gridGalleryCards_BlockType {
-          ...BlockGridGalleryCardsFragment
+            ...BlockGridGalleryCardsFragment
         }
         ... on impactReportFpb_cardWithImage_BlockType {
-          ...BlockCardWithImageFragment
+            ...BlockCardWithImageFragment
         }
     }
 }
