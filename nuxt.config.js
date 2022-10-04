@@ -2,63 +2,67 @@
 export default {
     server: {
         port: 3000,
-        host: '0.0.0.0',
+        host: "0.0.0.0",
     },
-    target: 'static',
+    target: "static",
     components: true,
 
     publicRuntimeConfig: {
         s3Bucket: process.env.S3_BUCKET,
         esApiKey: process.env.ESApiKey || "",
-        esURL:process.env.ES_URL || ""
+        esURL: process.env.ES_URL || "",
     },
     /*
-   ** Required charset and viewport meta tags
-   */
+     ** Required charset and viewport meta tags
+     */
     head: {
         meta: [
-            { charset: 'utf-8' },
-            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+            { charset: "utf-8" },
+            {
+                name: "viewport",
+                content: "width=device-width, initial-scale=1",
+            },
         ],
     },
     /*
-   ** Global CSS
-   */
+     ** Global CSS
+     */
     css: [
-        'ucla-library-design-tokens/scss/fonts.scss',
-        'ucla-library-design-tokens/scss/app-global.scss', 
-        '~/assets/styles/global.scss'],
-
-    /*
-   ** Load SCSS into each component
-   */
-    styleResources: {
-        scss: ['ucla-library-design-tokens/scss/app.scss'],
-    },
-
-    /*
-   ** Plugins to load before mounting the App
-   */
-    plugins: [
-        '~/plugins/add-library-website-vue-components.js',
-        '~/plugins/preview.client.js',
-        '~/plugins/browser-events.client.js',
-        '~/plugins/craft.js',
-        '~/plugins/data-api.js'
+        "ucla-library-design-tokens/scss/fonts.scss",
+        "ucla-library-design-tokens/scss/app-global.scss",
+        "~/assets/styles/global.scss",
     ],
 
     /*
-   * Axios. Used for Libcal query.
-   */
-    axios: {
-        baseURL:
-      process.env.LIBCAL_ENDPOINT ||
-      'https://test.proxy.calendar.library.ucla.edu/',
+     ** Load SCSS into each component
+     */
+    styleResources: {
+        scss: ["ucla-library-design-tokens/scss/app.scss"],
     },
 
     /*
-   * GraphQL Request. Used for querying from Craft
-   */
+     ** Plugins to load before mounting the App
+     */
+    plugins: [
+        "~/plugins/add-library-website-vue-components.js",
+        "~/plugins/preview.client.js",
+        "~/plugins/browser-events.client.js",
+        "~/plugins/craft.js",
+        "~/plugins/data-api.js",
+    ],
+
+    /*
+     * Axios. Used for Libcal query.
+     */
+    axios: {
+        baseURL:
+            process.env.LIBCAL_ENDPOINT ||
+            "https://test.proxy.calendar.library.ucla.edu/",
+    },
+
+    /*
+     * GraphQL Request. Used for querying from Craft
+     */
     graphql: {
         clients: {
             default: {
@@ -69,68 +73,77 @@ export default {
     },
 
     /*
-   ** Nuxt generate configuration. Used when generating a static site.
-   */
+     ** Nuxt generate configuration. Used when generating a static site.
+     */
     generate: {
-        fallback: '404.html',
+        fallback: "404.html",
     },
 
     /*
-   ** Page transition
-   */
+     ** Page transition
+     */
     pageTransition: {
-        name: 'fade',
-        mode: 'out-in',
+        name: "fade",
+        mode: "out-in",
     },
 
     /*
-   ** Customize the progress-bar color
-   ** See: https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-loading
-   */
+     ** Customize the progress-bar color
+     ** See: https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-loading
+     */
     loading: {
-        color: '#ffe800',
-        height: '3px',
+        color: "#ffe800",
+        height: "3px",
     },
 
     /*
-   ** Nuxt router configuration. Used to define settingg for the router.
-   */
+     ** Nuxt router configuration. Used to define settingg for the router.
+     */
     // TODO find out later why this causing the live preview to not work
     /*router: {
         trailingSlash: false,
     },*/
 
     /*
-   * Nuxt modules
-   */
-    modules: ['@nuxtjs/axios', '@nuxtjs/gtm',"@nuxtjs/sitemap",], // This needs to be last always,
+     * Nuxt modules
+     */
+    modules: ["@nuxtjs/axios", "@nuxtjs/gtm", "@nuxtjs/sitemap"], // This needs to be last always,
 
     gtm: {
-        id: 'GTM-T2SXV2',
+        id: "GTM-T2SXV2",
     },
 
     sitemap: {
-        hostname: process.env.SITEMAP_HOST || "https://uclalibrary.library.ucla.edu",
-        routes:[],
+        hostname:
+            process.env.SITEMAP_HOST || "https://uclalibrary.library.ucla.edu",
+        routes: [],
     },
 
     /*
-   * Nuxt build modules
-   */
-    buildModules: [ "@nuxtjs/router-extras", "@nuxtjs/style-resources", "nuxt-graphql-request", "@/modules/sitemapRouteGenerator", ],
+     * Nuxt build modules
+     */
+    buildModules: [
+        "@nuxtjs/router-extras",
+        "@nuxtjs/style-resources",
+        "nuxt-graphql-request",
+        "@/modules/sitemapRouteGenerator",
+        "@/modules/elasticSearchModule",
+    ],
 
     /*
-   ** Nuxt webpack build configuration
-   */
+     ** Nuxt webpack build configuration
+     */
     build: {
-    // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line no-unused-vars
         extend(config, ctx) {
             // Remove SVG from default Nuxt webpack rules, add back in rule without SVGs
-            const svgRule = config.module.rules.find((rule) => rule.test.test('.svg'))
+            const svgRule = config.module.rules.find((rule) =>
+                rule.test.test(".svg")
+            )
             svgRule.test = /\.(png|jpe?g|gif|webp)$/i
 
             // Add custom loading of SVGs as Vue components
-            config.resolve.extensions.push('.svg')
+            config.resolve.extensions.push(".svg")
             config.module.rules.push({
                 test: /\.svg$/,
                 oneOf: [
@@ -139,9 +152,9 @@ export default {
                         // Good if you need unaltered SVGs for animations.
                         resourceQuery: /raw/,
                         use: [
-                            'babel-loader',
+                            "babel-loader",
                             {
-                                loader: 'vue-svg-loader',
+                                loader: "vue-svg-loader",
                                 options: {
                                     svgo: false,
                                 },
@@ -152,11 +165,11 @@ export default {
                         // ?url on import will give base64 encoded SVG.
                         // Good for use in CSS.
                         resourceQuery: /url/,
-                        use: ['url-loader'],
+                        use: ["url-loader"],
                     },
                     {
                         // Default SVG loader, custom SVGO options
-                        loader: 'vue-svg-loader',
+                        loader: "vue-svg-loader",
                         options: {
                             svgo: {
                                 plugins: [{ removeViewBox: false }],
