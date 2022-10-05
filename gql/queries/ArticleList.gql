@@ -1,6 +1,6 @@
 #import "~/gql/fragments/Image"
 
-query ArticleNewsList($articleType: QueryArgument!) {
+query ArticleList($articleType: QueryArgument!) {
   entries(section: "article", orderBy: "dateCreated", articleType: [$articleType]) {
         ... on article_article_Entry {
             id
