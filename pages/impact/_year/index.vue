@@ -35,46 +35,7 @@
             class="flexible-content"
             :blocks="page.blocks"
         />
-        <!--banner-featured
-            class="banner"
-            :title="impactBannerFeatured.title"
-            :description="impactBannerFeatured.description"
-            :category="impactBannerFeatured.category"
-            :video="impactBannerFeatured.video"
-            :to="impactBannerFeatured.to"
-            :prompt="impactBannerFeatured.prompt"
-            :ratio="42"
-            :align-right="true"
-        /-->
 
-        <!--div class="section section-grid">
-            <section-teaser-card
-                class="teaser-card"
-                :items="featuretteCard.items"
-            />
-
-            <divider-way-finder
-                class="divider-section"
-                color="about"
-            />
-
-            <h2 class="title">
-                Remote Learning by the Numbers:<br>Data from March 2020
-                through September 2021
-            </h2>
-
-            <section-teaser-card
-                class="teaser-card"
-                :items="remoteLearningCard.items"
-            />
-
-            <divider-way-finder
-                class="divider-section"
-                color="about"
-            />
-
-            
-        </div-->
         <section-wrapper :section-title="page.timelineTitle">
             <div
                 v-for="(value, propertyName) in timelineSortedBySubtitle"
