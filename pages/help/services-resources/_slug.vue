@@ -29,7 +29,6 @@
         <section-wrapper theme="divider">
             <divider-way-finder
                 color="help"
-                class="divider-way-finder"
             />
         </section-wrapper>
 
@@ -47,7 +46,6 @@
         <section-wrapper theme="divider">
             <divider-way-finder
                 color="help"
-                class="divider-way-finder"
             />
         </section-wrapper>
 
@@ -136,12 +134,8 @@ export default {
         max-width: $container-xl-full-width + px;
         margin: var(--unit-gutter) auto;
     }
-    .banner-text + .divider-way-finder {
+    .banner-text {
         margin: 0 auto var(--space-2xl);
-    }
-    .divider-way-finder {
-        max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
     }
     .content {
         margin: 0 auto;

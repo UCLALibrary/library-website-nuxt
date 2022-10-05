@@ -34,34 +34,50 @@
                     page.entry.orcid
             "
             class="selected-articles"
+            theme="divider"
         >
             <divider-way-finder
                 class="divider"
                 color="about"
             />
-            
-            <section-staff-orcid-publications
-                class="staff-orcid-publications"
-                :orcid="page.entry.orcid"
-                :publications="page.entry.publications"
-            />
-
-            <divider-way-finder
-                v-if="
-                    parsedItems.length &&
-                        (page.entry.publications || page.entry.orcid)
-                "
-                class="divider divider-first"
-                color="about"
-            />
-
-            <section-staff-article-list
-                v-if="parsedItems.length"
-                class="staff-article-list-section"
-                section-title="Articles"
-                :items="parsedItems"
-            />
         </section-wrapper>
+
+        <div
+            v-if="
+                parsedItems.length ||
+                    page.entry.publications ||
+                    page.entry.orcid
+            "
+            class="selected-articles"
+        >
+            <section-wrapper>
+                <section-staff-orcid-publications
+                    class="staff-orcid-publications"
+                    :orcid="page.entry.orcid"
+                    :publications="page.entry.publications"
+                />
+            </section-wrapper>
+
+            <section-wrapper theme="divider">
+                <divider-way-finder
+                    v-if="
+                        parsedItems.length &&
+                            (page.entry.publications || page.entry.orcid)
+                    "
+                    class="divider divider-first"
+                    color="about"
+                />
+            </section-wrapper>
+
+            <section-wrapper>
+                <section-staff-article-list
+                    v-if="parsedItems.length"
+                    class="staff-article-list-section"
+                    section-title="Articles"
+                    :items="parsedItems"
+                />
+            </section-wrapper>
+        </div>
 
         <section-wrapper theme="divider">
             <divider-way-finder

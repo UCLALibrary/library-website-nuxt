@@ -21,7 +21,7 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder class="divider divider-way-finder" />
+            <divider-way-finder />
         </section-wrapper>
 
         <section-wrapper class="browse-by">
@@ -155,10 +155,6 @@ export default {
                 flex-direction: column;
             }
         }
-    }
-
-    ::v-deep .divider-way-finder {
-        margin: var(--space-m) auto var(--space-xl);
     }
 
     .browse-by {

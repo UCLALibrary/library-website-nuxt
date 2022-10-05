@@ -5,9 +5,10 @@
             :text="page.summary"
         />
         
-        <section-wrapper>
+        <section-wrapper
+            v-if="page.richText"
+        >
             <RichText
-                v-if="page.richText"
                 :rich-text-content="page.richText"
             />
         </section-wrapper>
@@ -16,14 +17,12 @@
             <DividerWayFinder color="help" />
         </section-wrapper>
         
-        <section-wrapper
+        <div
             v-for="(block, index) in page.helpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
-            class="help-topic-section"
         >
             <section-wrapper>
                 <simple-cards
-                    class="help-topic-block"
                     :section-title="block.sectionTitle"
                     :section-summary="block.sectionSummary"
                     :items="block.associatedEntries"
@@ -32,17 +31,13 @@
             <section-wrapper theme="divider">
                 <DividerWayFinder
                     color="help"
-                    class="help-topic-divider"
                 />
             </section-wrapper>
-        </section-wrapper>
+        </div>
 
-        <section-wrapper>
-            <flexible-blocks
-                class="content"
-                :blocks="page.blocks"
-            />
-        </section-wrapper>
+        <flexible-blocks
+            :blocks="page.blocks"
+        />
     </main>
 </template>
 
@@ -76,19 +71,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-help-topic {
-    .content {
-        margin: 0 auto;
-        max-width: $container-l-main + px;
-    }
-
-    .help-topic-section {
-        margin: var(--space-2xl) auto;
-    }
-
-    @media #{$medium} {
-        .help-topic-section {
-            padding: 0 var(--unit-gutter);
-        }
-    }
 }
 </style>
