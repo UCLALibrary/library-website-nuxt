@@ -64,7 +64,7 @@ fragment BlockCardWithImageFragment on ElementInterface {
         ... on cardWithImage_externalContent_BlockType {
             id
             typeHandle
-            title
+            title: titleGeneral
             image {
                 ...Image
             }
@@ -76,6 +76,7 @@ fragment BlockCardWithImageFragment on ElementInterface {
             #     title
             # }
             text: summary
+            to: externalLink
         }
     }
 }

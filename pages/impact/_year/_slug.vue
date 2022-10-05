@@ -39,15 +39,7 @@ import IMPACT_REPORT_STORY from "~/gql/queries/ImpactReportStory"
 // Helpers
 import _get from "lodash/get"
 
-//svg components
-import SvgArrowDiagonal from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-external-link"
-import SvgArrowRight from "~/node_modules/ucla-library-design-tokens/assets/svgs/icon-arrow-right"
-
 export default {
-    components: {
-        SvgArrowDiagonal,
-        SvgArrowRight,
-    },
     layout: "impact",
     async asyncData({ $graphql, params }) {
         const data = await $graphql.default.request(IMPACT_REPORT_STORY, {
@@ -68,7 +60,7 @@ export default {
         isVideo() {
             let fileName = this.page.heroImage[0].image[0].src.toLowerCase()
             let extension = fileName.split(".").pop()
-            let fileType = ""
+
             if (
                 extension == "mp4" ||
                 extension == "m4a" ||
@@ -78,6 +70,7 @@ export default {
             ) {
                 return true
             }
+            return false
         },
 
         parsedVideo() {

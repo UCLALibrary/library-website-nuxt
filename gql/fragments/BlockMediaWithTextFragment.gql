@@ -6,14 +6,14 @@ fragment BlockMediaWithTextFragment on ElementInterface {
     mediaWithText {
         ... on mediaWithText_mediaEmbed_BlockType {
             id
-            titleEmbed
+            titleLink: titleEmbed
             description
             coverImage {
                 ...Image
             }
             buttonText
             buttonUrl
-            embedCode
+            linkToMedia: embedCode
             typeMedia
         }
         ... on mediaWithText_mediaUpload_BlockType {
