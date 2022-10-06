@@ -1,30 +1,33 @@
 <template>
     <main class="page page-staff">
-        <masthead-secondary title="Staff Directory">
-        </masthead-secondary>
+        <masthead-secondary title="Staff Directory" />
 
-        <div class="search-container">
-            <div class="empty-search-box"></div>
-            <div class="input-indicator"></div>
+        <section-wrapper class="search-container">
+            <div class="empty-search-box" />
+            <div class="input-indicator" />
             <div class="filters">
-                <div></div>
-                <div></div>
-                <div></div>
+                <div />
+                <div />
+                <div />
             </div>
             <!-- TODO Add SearchGenric here when complete
-                 Filter by location, department, subject libarian -->
+                Filter by location, department, subject libarian -->
             <!-- <search-generic search-type="about"
                     :filters="searchFilters.filters"
                     :view-modes="searchFilters.views"
                     class="generic-search"
                     @view-mode-change="viewModeChanger"
             /> -->
-        </div>
+        </section-wrapper>
 
-        <divider-way-finder class="divider divider-way-finder" />
+        <section-wrapper theme="divider">
+            <divider-way-finder />
+        </section-wrapper>
 
-        <section class="browse-by">
-            <h2 class="section-heading">Browse by Last Name</h2>
+        <section-wrapper class="browse-by">
+            <h2 class="section-heading">
+                Browse by Last Name
+            </h2>
             <!-- TODO Add Browse by A-Z links -->
             <ul class="browse-by-options">
                 <li>A</li>
@@ -55,9 +58,11 @@
                 <li>Z</li>
                 <!-- <li>View All</li> -->
             </ul>
-        </section>
+        </section-wrapper>
 
-        <section-staff-list :items="parsedStaffList" />
+        <section-wrapper>
+            <section-staff-list :items="parsedStaffList" />
+        </section-wrapper>
     </main>
 </template>
 
@@ -150,10 +155,6 @@ export default {
                 flex-direction: column;
             }
         }
-    }
-
-    ::v-deep .divider-way-finder {
-        margin: var(--space-m) auto var(--space-xl);
     }
 
     .browse-by {
