@@ -32,12 +32,6 @@
             />
         </section-wrapper>
 
-        <section-wrapper>
-            <h2 class="more-info">
-                More Information
-            </h2>
-        </section-wrapper>
-
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
@@ -136,9 +130,6 @@ export default {
     }
     .banner-text {
         margin: 0 auto var(--space-2xl);
-    }
-    .content {
-        margin: 0 auto;
     }
     .section-cards {
         margin: var(--space-3xl) auto;
