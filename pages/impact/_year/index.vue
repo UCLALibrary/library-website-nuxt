@@ -201,6 +201,9 @@ export default {
         max-width: 50%;
         float: right;
     }
+    ::v-deep .block-highlight .text {
+        display: initial;
+    }
     /* .banner {
         margin: var(--space-3xl) auto;
     }*/
