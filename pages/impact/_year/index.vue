@@ -272,13 +272,17 @@ export default {
     .credits {
         max-width: $container-l-main + px;
         font-style: italic;
-        font-weight: normal;
         line-height: 26px;
 
         ::v-deep p,
         ::v-deep a {
+            font-family: var(--font-secondary);
             font-size: var(--step--1);
             color: var(--color-secondary-grey-04);
+
+            strong {
+                font-weight: 600;
+            }
         }
     }
     /* .credit-list {
