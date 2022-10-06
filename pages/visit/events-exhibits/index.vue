@@ -19,13 +19,14 @@
             text="Browse upcoming remote events and online exhibits."
         >
             <!-- TODO Add SearchGenric here when complete  -->
-            <!--search-generic
+            <!--<search-generic
                 search-type="about"
                 class="generic-search"
             />
-            <!-- :filters="searchFilters.filters"
+            <:filters="searchFilters.filters"
                 :view-modes="searchFilters.views"
-                @view-mode-change="viewModeChanger"-->
+                @view-mode-change="viewModeChanger"
+                -->
         </masthead-secondary>
 
         <divider-way-finder class="section divider divider-way-finder" />
@@ -75,8 +76,8 @@
 <script>
 // Helpers
 import _get from "lodash/get"
-import formatEventDates from "~/utils/formatEventDates"
-import formatEventTimes from "~/utils/formatEventTimes"
+// import formatEventDates from "~/utils/formatEventDates"
+// import formatEventTimes from "~/utils/formatEventTimes"
 
 export default {
     async asyncData({ $axios }) {
