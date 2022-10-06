@@ -204,6 +204,12 @@ export default {
     ::v-deep .block-highlight .text {
         display: initial;
     }
+
+    h2 {
+        @include step-3;
+        color: var(--color-primary-blue-03);
+        margin-bottom: var(--space-xl);
+    }
     /* .banner {
         margin: var(--space-3xl) auto;
     }*/
@@ -265,11 +271,15 @@ export default {
     }
     .credits {
         max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
         font-style: italic;
         font-weight: normal;
-        font-size: 16px;
         line-height: 26px;
+
+        ::v-deep p,
+        ::v-deep a {
+            font-size: var(--step--1);
+            color: var(--color-secondary-grey-04);
+        }
     }
     /* .credit-list {
         display: inline;
@@ -340,10 +350,6 @@ export default {
                 padding: unset;
             }
         }
-
-        .credits {
-            padding: 0 $whitespace-m-sides + px;
-        }
     }
     @media #{$small} {
         .meta {
@@ -355,10 +361,6 @@ export default {
 
         .grid-gallery-subtitle {
             height: 80px;
-        }
-
-        .credits {
-            padding: 0 var(--unit-gutter);
         }
     }
 
