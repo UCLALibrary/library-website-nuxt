@@ -4,16 +4,16 @@ fragment BlockMediaWithTextFragment on ElementInterface  {
     sectionTitle: titleGeneral
     sectionSummary: summary
     mediaWithText {
-        ... on mediaWithText_mediaLink_BlockType {
+        ... on mediaWithText_mediaEmbed_BlockType {
             id
-            titleLink
+            titleEmbed
             description
             coverImage {
                 ...Image
             }
             buttonText
             buttonUrl
-            linkToMedia
+            embedCode
             typeMedia
         }
         ... on mediaWithText_mediaUpload_BlockType {
