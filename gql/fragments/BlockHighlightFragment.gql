@@ -63,7 +63,7 @@ fragment BlockHighlightFragment on ElementInterface {
         ... on highlight_externalContent_BlockType {
             id
             typeHandle
-            title
+            title: titleGeneral
             image {
                 ...Image
             }
@@ -76,6 +76,7 @@ fragment BlockHighlightFragment on ElementInterface {
             #     to: uri
             # }
             text: summary
+            to: externalLink
         }
     }
 }

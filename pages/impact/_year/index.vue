@@ -35,46 +35,7 @@
             class="flexible-content"
             :blocks="page.blocks"
         />
-        <!--banner-featured
-            class="banner"
-            :title="impactBannerFeatured.title"
-            :description="impactBannerFeatured.description"
-            :category="impactBannerFeatured.category"
-            :video="impactBannerFeatured.video"
-            :to="impactBannerFeatured.to"
-            :prompt="impactBannerFeatured.prompt"
-            :ratio="42"
-            :align-right="true"
-        /-->
 
-        <!--div class="section section-grid">
-            <section-teaser-card
-                class="teaser-card"
-                :items="featuretteCard.items"
-            />
-
-            <divider-way-finder
-                class="divider-section"
-                color="about"
-            />
-
-            <h2 class="title">
-                Remote Learning by the Numbers:<br>Data from March 2020
-                through September 2021
-            </h2>
-
-            <section-teaser-card
-                class="teaser-card"
-                :items="remoteLearningCard.items"
-            />
-
-            <divider-way-finder
-                class="divider-section"
-                color="about"
-            />
-
-            
-        </div-->
         <section-wrapper :section-title="page.timelineTitle">
             <div
                 v-for="(value, propertyName) in timelineSortedBySubtitle"
@@ -170,26 +131,6 @@ export default {
         }
     },
     computed: {
-        /* imagePortrait() {
-            const portrait = {
-                src: getS3Bucket(this.$config, "ginny-steel-ucla-library.jpg"),
-                sizes: "100vw",
-                height: 1080,
-                width: 1920,
-                alt: "Illustration of woman wearing glasses and a grey blazer, with a yellow background",
-            }
-            return portrait
-        },
-        imageSignature() {
-            const signature = {
-                src: getS3Bucket(this.$config, "ginny-steel-signature.jpg"),
-                sizes: "100vw",
-                height: 1080,
-                width: 1920,
-                alt: "Signature image",
-            }
-            return signature
-        }, */
         timelineSortedBySubtitle() {
             const timelineData = flattenTimeLineStructure(
                 this.page.timelineGallery
@@ -225,46 +166,6 @@ export default {
             }
             return groupBySubtitle
         },
-        /* impactBannerFeatured() {
-            const mainStoryFeatured = {
-                video: {
-                    videoUrl: getS3Bucket(
-                        this.$config,
-                        this.page.mainStoryData.asset
-                    ),
-                },
-                to: "/impact/2021/ucla-library-reimagined", // this.page.mainStoryData.link
-                title: this.page.mainStoryData.title,
-                description: this.page.mainStoryData.description,
-                prompt: this.page.mainStoryData.buttonText,
-                alignRight: true,
-            }
-            return mainStoryFeatured
-        },
-        featuretteCard() {
-            const featurettes = IMPACT_API.featurette
-            const parsedFeaturettes = featurettes.map((obj) => {
-                return {
-                    ...obj,
-                    image: updateImageData(
-                        obj
-                    ),
-                }
-            })
-            return { items: parsedFeaturettes }
-        }, */
-        /* remoteLearningCard() {
-            const remoteLearnings = IMPACT_API.remoteLearning
-            const parsedremoteLearnings = remoteLearnings.map((obj) => {
-                return {
-                    ...obj,
-                    image: updateImageData(
-                        obj
-                    ),
-                }
-            })
-            return { items: parsedremoteLearnings }
-        }, */
     },
 }
 </script>
