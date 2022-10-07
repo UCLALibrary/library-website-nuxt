@@ -30,6 +30,17 @@
             Main Story
         </h2>
 
+        <banner-featured
+            class="section-banner"
+            :image="page.keyArt[0].heroImage[0]"
+            ratio=42
+            :title="page.keyArt[0].titleGeneral"
+            :description="page.keyArt[0].summary"
+            :prompt="page.keyArt[0].buttonText"
+            :to="page.keyArt[0].buttonUrl"
+            :align-right="false"
+        />
+
         <flexible-blocks
             v-if="page.blocks"
             class="flexible-content"
@@ -200,6 +211,14 @@ export default {
         width: 100%;
         max-width: 50%;
         float: right;
+    }
+
+    .section-banner {
+        margin: 0 auto;
+
+        ::v-deep {
+            --banner-color-theme: var(--color-help-green-03);
+        }
     }
     ::v-deep .block-highlight .text {
         display: initial;
