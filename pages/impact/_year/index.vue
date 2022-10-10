@@ -33,7 +33,7 @@
         <banner-featured
             class="section-banner"
             :image="page.keyArt[0].heroImage[0]"
-            ratio=42
+            ratio=40
             :title="page.keyArt[0].titleGeneral"
             :description="page.keyArt[0].summary"
             :prompt="page.keyArt[0].buttonText"
@@ -215,6 +215,7 @@ export default {
 
     .section-banner {
         margin: 0 auto;
+        max-width: $container-xl-banner + px;
 
         ::v-deep {
             --banner-color-theme: var(--color-help-green-03);
