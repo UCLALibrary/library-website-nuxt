@@ -6,43 +6,49 @@
         <p>{{ mapping }}</p>
         <h4>Search Responsee</h4>
         <p>{{ searchResponse }}</p-->
-        <divider-way-finder
-            class="divider divider-first"
-            color="help"
-        />
-
-        <section-cards-with-illustrations
-            class="section"
-            :items="parsedSectionCards"
-            section-title="Get Help With"
-            section-summary="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
-            to="/help/foo/bar"
-            :is-horizontal="false"
-        />
-
-        <divider-way-finder
-            class="divider"
-            color="visit"
-        />
-
-        <banner-featured
-            class="section banner banner-visit"
-            :image="bannerVisit.image"
-            :to="bannerVisit.to"
-            :title="bannerVisit.title"
-            :category="bannerVisit.category"
-            :breadcrumb="bannerVisit.breadcrumb"
-            :start-date="bannerVisit.startDate"
-            :end-date="bannerVisit.endDate"
-            :prompt="bannerVisit.prompt"
-            :ratio="bannerVisit.ratio"
-            :align-right="false"
-        >
-            <heading-arrow
-                :text="bannerVisit.breadcrumb"
-                :to="bannerVisit.to"
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="help"
             />
-        </banner-featured>
+        </section-wrapper>
+
+        <section-wrapper>
+            <section-cards-with-illustrations
+                class="section"
+                :items="parsedSectionCards"
+                section-title="Get Help With"
+                section-summary="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
+                to="/help/foo/bar"
+                :is-horizontal="false"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="visit"
+            />
+        </section-wrapper>
+
+        <section-wrapper>
+            <banner-featured
+                class="section banner banner-visit"
+                :image="bannerVisit.image"
+                :to="bannerVisit.to"
+                :title="bannerVisit.title"
+                :category="bannerVisit.category"
+                :breadcrumb="bannerVisit.breadcrumb"
+                :start-date="bannerVisit.startDate"
+                :end-date="bannerVisit.endDate"
+                :prompt="bannerVisit.prompt"
+                :ratio="bannerVisit.ratio"
+                :align-right="false"
+            >
+                <heading-arrow
+                    :text="bannerVisit.breadcrumb"
+                    :to="bannerVisit.to"
+                />
+            </banner-featured>
+        </section-wrapper>
 
         <section-dual-masonry
             class="section"
@@ -50,31 +56,36 @@
             to="/visit/foo"
         />
 
-        <divider-way-finder
-            class="divider"
-            color="about"
-        />
-
-        <banner-featured
-            class="banner banner-about"
-            :image="bannerAbout.image"
-            :to="bannerAbout.to"
-            :title="bannerAbout.title"
-            :category="bannerAbout.category"
-            :breadcrumb="bannerAbout.breadcrumb"
-            :start-date="bannerVisit.startDate"
-            :end-date="bannerVisit.endDate"
-            :prompt="bannerAbout.prompt"
-            :ratio="bannerAbout.ratio"
-            :locations="bannerAbout.locations"
-        >
-            <heading-arrow
-                :text="bannerAbout.breadcrumb"
-                :to="bannerAbout.to"
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="about"
             />
-        </banner-featured>
+        </section-wrapper>
 
-        <divider-general class="divider" />
+        <section-wrapper>
+            <banner-featured
+                class="banner banner-about"
+                :image="bannerAbout.image"
+                :to="bannerAbout.to"
+                :title="bannerAbout.title"
+                :category="bannerAbout.category"
+                :breadcrumb="bannerAbout.breadcrumb"
+                :start-date="bannerVisit.startDate"
+                :end-date="bannerVisit.endDate"
+                :prompt="bannerAbout.prompt"
+                :ratio="bannerAbout.ratio"
+                :locations="bannerAbout.locations"
+            >
+                <heading-arrow
+                    :text="bannerAbout.breadcrumb"
+                    :to="bannerAbout.to"
+                />
+            </banner-featured>
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-general />
+        </section-wrapper>
 
         <section-post-small
             class="section"
@@ -203,4 +214,5 @@ export default {
         margin: var(--unit-vertical-gap) auto;
     }
 }
+
 </style>

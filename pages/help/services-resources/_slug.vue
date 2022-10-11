@@ -26,38 +26,40 @@
             :text="page.text"
         />
 
-        <divider-way-finder
-            color="help"
-            class="divider-way-finder"
-        />
-
-        <h2 class="more-info">
-            More Information
-        </h2>
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="help"
+            />
+        </section-wrapper>
 
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
         />
 
-        <divider-way-finder
-            color="help"
-            class="divider-way-finder"
-        />
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="help"
+            />
+        </section-wrapper>
 
-        <section-cards-with-illustrations
-            v-if="parsedAssociatedTopics.length"
-            class="section-cards"
-            :items="parsedAssociatedTopics"
-            title="Associated Topics"
-            button-text="All Services and Resources"
-            to="/help/services-resources"
-        />
+        <section-wrapper>
+            <section-cards-with-illustrations
+                v-if="parsedAssociatedTopics.length"
+                class="section-cards"
+                :items="parsedAssociatedTopics"
+                title="Associated Topics"
+                button-text="All Services and Resources"
+                to="/help/services-resources"
+            />
+        </section-wrapper>
 
-        <block-call-to-action
-            class="block-call-to-action"
-            :is-global="true"
-        />
+        <section-wrapper>
+            <block-call-to-action
+                class="block-call-to-action"
+                :is-global="true"
+            />
+        </section-wrapper>
     </section>
 </template>
 
@@ -69,7 +71,7 @@ import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceO
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params, store }) {
+    async asyncData({ $graphql, params }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
@@ -126,15 +128,8 @@ export default {
         max-width: $container-xl-full-width + px;
         margin: var(--unit-gutter) auto;
     }
-    .banner-text + .divider-way-finder {
+    .banner-text {
         margin: 0 auto var(--space-2xl);
-    }
-    .divider-way-finder {
-        max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
-    }
-    .content {
-        margin: 0 auto;
     }
     .section-cards {
         margin: var(--space-3xl) auto;
