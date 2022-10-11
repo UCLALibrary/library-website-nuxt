@@ -13,19 +13,23 @@
             :align-right="true"
         />
 
-        <divider-way-finder
-            class="divider"
-            color="about"
-        />
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
 
-        <section-staff-article-list
-            :items="parsedNewsList"
-            section-title="All News"
-        />
+        <section-wrapper>
+            <section-staff-article-list
+                :items="parsedNewsList"
+                section-title="All News"
+            />
+        </section-wrapper>
     </main>
 </template>
+
 <script>
-// Helpers
 // Helpers
 import _get from "lodash/get"
 import format from "date-fns/format"
@@ -45,10 +49,6 @@ export default {
         }
     },
     computed: {
-        entryCount() {
-            return `${this.page.entryCount}`
-        },
-
         parsedNewsList() {
             console.log("Entries: " + this.page.entries)
             return this.page.entries.map((obj) => {
