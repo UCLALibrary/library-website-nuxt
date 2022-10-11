@@ -31,6 +31,7 @@
         </h2>
 
         <banner-featured
+            v-if="page.keyArt && page.keyArt.length != 0"
             class="section-banner"
             :image="page.keyArt[0].heroImage[0]"
             :ratio="40"
@@ -372,7 +373,6 @@ export default {
         .divider-general {
             width: calc(100% - (var(--unit-gutter) * 2));
         }
-        
 
         ::v-deep .grid-gallery {
             padding: unset;

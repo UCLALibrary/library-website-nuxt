@@ -58,6 +58,7 @@ export default {
     },
     computed: {
         isVideo() {
+            if (!this.page.heroImage) return false
             let fileName = this.page.heroImage[0].image[0].src.toLowerCase()
             let extension = fileName.split(".").pop()
 
@@ -183,7 +184,20 @@ export default {
             stroke: var(--color-primary-blue-03);
         }
     }
-
+    .content {
+        ::v-deep .section-wrapper {
+            .flexible-block {
+                background-color: var(--color-white);
+                ul > * {
+                    background-color: var(--color-white);
+                }
+                div.clipped-box {
+                    background-color: var(--color-white);
+                }
+            }
+            background-color: var(--color-white);
+        }
+    }
     @media #{$medium} {
         .divider-general {
             width: calc(100% - (var(--unit-gutter) * 2));
