@@ -11,6 +11,19 @@ query ImpactReport($path: [String!]) {
         ...Image
       }
       text: richText
+      keyArt {
+        ... on keyArt_keyArt_BlockType {
+          titleGeneral
+          summary
+          buttonText
+          buttonUrl
+          heroImage {
+            ... on mediaAndDocuments_Asset {
+              ...Image
+            }
+          }
+        }
+      }
 
       ...ImpactReportFpb
 
