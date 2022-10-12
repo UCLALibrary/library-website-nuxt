@@ -30,6 +30,18 @@
             Main Story
         </h2>
 
+        <banner-featured
+            v-if="page.keyArt && page.keyArt.length != 0"
+            class="section-banner"
+            :image="page.keyArt[0].heroImage[0]"
+            :ratio="40"
+            :title="page.keyArt[0].titleGeneral"
+            :description="page.keyArt[0].summary"
+            :prompt="page.keyArt[0].buttonText"
+            :to="page.keyArt[0].buttonUrl"
+            :align-right="false"
+        />
+
         <flexible-blocks
             v-if="page.blocks"
             class="flexible-content"
@@ -201,6 +213,15 @@ export default {
         max-width: 50%;
         float: right;
     }
+
+    .section-banner {
+        margin: 0 auto;
+        max-width: $container-xl-banner + px;
+
+        ::v-deep {
+            --banner-color-theme: var(--color-help-green-03);
+        }
+    }
     ::v-deep .block-highlight .text {
         display: initial;
     }
@@ -209,6 +230,10 @@ export default {
         @include step-3;
         color: var(--color-primary-blue-03);
         margin-bottom: var(--space-xl);
+    }
+
+    ::v-deep .grid-gallery {
+        padding: 0;
     }
     /* .banner {
         margin: var(--space-3xl) auto;
@@ -349,9 +374,11 @@ export default {
             width: calc(100% - (var(--unit-gutter) * 2));
         }
 
-        .sub-section-grid {
-            ::v-deep .grid-gallery {
-                padding: unset;
+        ::v-deep .grid-gallery {
+            padding: unset;
+
+            .section-summary {
+                top: 36px;
             }
         }
     }
@@ -360,6 +387,13 @@ export default {
             padding: 0 $whitespace-s-sides + px;
             .portrait-Ginny {
                 width: 100%;
+            }
+        }
+
+        .banner-featured.hatch-left {
+            ::v-deep .meta {
+                padding-left: var(--unit-gutter);
+                padding-right: var(--unit-gutter);
             }
         }
 
