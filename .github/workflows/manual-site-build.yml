@@ -1,4 +1,4 @@
-name:   Manually rebuild and deploy the static site 
+name: Manually rebuild and deploy the static site 
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   nuxt-deploy:
-    name: Netlify deploy
+    name: Static Generation build 
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -21,32 +21,33 @@ jobs:
         with:
           path: ./dist
           key: nuxt-site-${{ github.sha }}
-      - run: npm run generate
+      - name: Sets env vars for test
+        run: |
+          echo "CRAFT_ENDPOINT=${{secrets.CRAFT_ENDPOINT}} " >> $GITHUB_ENV
+          echo "SITEMAP_HOST=https://uclalibrary-test.library.ucla.edu" >> $GITHUB_ENV
+          echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_SITE_ID}}" >> $GITHUB_ENV
         if: github.event.inputs.environment == 'test'
-        env:
-          CRAFT_ENDPOINT: ${{secrets.CRAFT_ENDPOINT}}
-          S3_BUCKET: "https://static.library.ucla.edu/"
-          SITEMAP_HOST: "https://uclalibrary-test.library.ucla.edu"
-          ES_URL: ${{ secrets.ES_URL }}
-          ESApiKey: ${{ secrets.ESApiKey }}
-          LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+      - name: Sets env vars for stage
+        run: |
+          echo "CRAFT_ENDPOINT=${{${{secrets.CRAFT_STAGE_ENDPOINT}}}}" >> $GITHUB_ENV
+          echo "SITEMAP_HOST=https://uclalibrary-stage.library.ucla.edu" >> $GITHUB_ENV
+          echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_STAGE_LIBRARY_SITE_ID}}" >> $GITHUB_ENV
         if: github.event.inputs.environment == 'stage'
-        env:
-          CRAFT_ENDPOINT: ${{secrets.CRAFT_STAGE_ENDPOINT}}
-          S3_BUCKET: "https://static.library.ucla.edu/"
-          SITEMAP_HOST: "https://uclalibrary-stage.library.ucla.edu"
-          ES_URL: ${{ secrets.ES_URL }}
-          ESApiKey: ${{ secrets.ESApiKey }}
-          LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+      - name: Sets env vars for prod
+        run: |
+          echo "CRAFT_ENDPOINT=${{${{secrets.CRAFT_PROD_ENDPOINT}}}}" >> $GITHUB_ENV
+          echo "SITEMAP_HOST=https://uclalibrary.library.ucla.edu" >> $GITHUB_ENV
+          echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_PROD_LIBRARY_SITE_ID}}" >> $GITHUB_ENV
         if: github.event.inputs.environment == 'prod'
+      - run: npm run generate
         env:
-          CRAFT_ENDPOINT: ${{secrets.CRAFT_PROD_ENDPOINT }}
+          CRAFT_ENDPOINT: ${{env.CRAFT_ENDPOINT}}
           S3_BUCKET: "https://static.library.ucla.edu/"
-          SITEMAP_HOST: "https://uclalibrary.library.ucla.edu"
+          SITEMAP_HOST: ${{env.SITEMAP_HOST}}
           ES_URL: ${{ secrets.ES_URL }}
           ESApiKey: ${{ secrets.ESApiKey }}
           LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
-      - name: Deploy to Netlify on release
+      - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
         with:
           production-deploy: true
@@ -55,15 +56,6 @@ jobs:
           publish-dir: "./dist"
           fails-without-credentials: true
           github-deployment-environment: production
-        if: github.event.inputs.environment == 'test'  
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        if: github.event.inputs.environment == 'stage'
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_STAGE_LIBRARY_SITE_ID }}
-        if: github.event.inputs.environment == 'prod'
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_LIBRARY_SITE_ID }}
+          NETLIFY_SITE_ID: ${{ env.NETLIFY_SITE_ID }}
