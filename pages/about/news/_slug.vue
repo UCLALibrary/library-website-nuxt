@@ -126,7 +126,7 @@ export default {
         margin-top: 0;
     }
     .banner-text {
-        --color-theme: var(--color-help-green-03);
+        --color-theme: varvar(--color-about-purple-03);
     }
     .banner-header {
         margin-bottom: var(--space-xl);
