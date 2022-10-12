@@ -13,6 +13,7 @@
             :title="page.title"
             :text="page.text"
             :byline="parsedByline"
+            article-type="news"
         />
 
         <section-wrapper class="section-banner">
