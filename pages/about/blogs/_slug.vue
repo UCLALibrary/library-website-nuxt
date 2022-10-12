@@ -6,13 +6,22 @@
             parent-title="All Blogs"
         />
 
+        <banner-text
+            v-if="!page.heroImage || page.heroImage.length == 0"
+            class="banner-text"
+            :category="parsedCategory"
+            :title="page.title"
+            :text="page.text"
+            :byline="parsedByline"
+        />
+
         <section-wrapper class="section-banner">
             <banner-header
                 v-if="page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
                 :to="page.to"
                 :title="page.title"
-                category="Library News"
+                :category="parsedCategory"
                 :byline="parsedByline"
                 :locations="page.locations"
                 :date-created="page.dateCreated"
@@ -21,7 +30,10 @@
             />
         </section-wrapper>
 
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="page.heroImage && page.heroImage.length == 1"
+            theme="divider"
+        >
             <divider-way-finder
                 class="divider"
                 color="about"
@@ -106,6 +118,9 @@ export default {
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
+        },
+        parsedCategory() {
+            return _get(this.page, "category[0].title", "")
         },
     },
 }

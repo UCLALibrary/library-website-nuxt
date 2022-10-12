@@ -12,7 +12,7 @@
             category="Library News"
             :title="page.title"
             :text="page.text"
-            :byline="page.byline"
+            :byline="parsedByline"
         />
 
         <section-wrapper class="section-banner">
@@ -30,7 +30,10 @@
             />
         </section-wrapper>
 
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="page.heroImage && page.heroImage.length == 1"
+            theme="divider"
+        >
             <divider-way-finder
                 class="divider"
                 color="about"
