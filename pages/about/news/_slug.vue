@@ -9,11 +9,10 @@
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
-            :category="page.type"
+            category="Library News"
             :title="page.title"
             :text="page.text"
-            :button-text="parsedButtonText"
-            :to="parsedButtonTo"
+            :byline="page.byline"
         />
 
         <section-wrapper class="section-banner">
@@ -116,14 +115,6 @@ export default {
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
-        },
-
-        parsedButtonText() {
-            return _get(this.page, "button[0].buttonText", "")
-        },
-
-        parsedButtonTo() {
-            return _get(this.page, "button[0].buttonUrl", "")
         },
     },
 }
