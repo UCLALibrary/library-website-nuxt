@@ -60,7 +60,6 @@ export default {
                 }
             })
         },
-
         parsedDate() {
             return format(new Date(this.page.dateCreated), "MMMM d, Y")
         },

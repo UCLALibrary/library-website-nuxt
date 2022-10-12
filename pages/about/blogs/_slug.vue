@@ -9,7 +9,7 @@
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
-            :category="parsedCategory"
+            category="Blog"
             :title="page.title"
             :text="page.text"
             :byline="parsedByline"
@@ -22,7 +22,7 @@
                 :image="page.heroImage[0].image[0]"
                 :to="page.to"
                 :title="page.title"
-                :category="parsedCategory"
+                category="Blog"
                 :byline="parsedByline"
                 :locations="page.locations"
                 :date-created="page.dateCreated"
@@ -119,9 +119,6 @@ export default {
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
-        },
-        parsedCategory() {
-            return _get(this.page, "category[0].title", "")
         },
     },
 }
