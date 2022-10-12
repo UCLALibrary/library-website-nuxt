@@ -6,6 +6,16 @@
             parent-title="All Library News"
         />
 
+        <banner-text
+            v-if="!page.heroImage || page.heroImage.length == 0"
+            class="banner-text"
+            :category="page.type"
+            :title="page.title"
+            :text="page.text"
+            :button-text="parsedButtonText"
+            :to="parsedButtonTo"
+        />
+
         <section-wrapper class="section-banner">
             <banner-header
                 v-if="page.heroImage && page.heroImage.length == 1"
@@ -106,6 +116,14 @@ export default {
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
+        },
+
+        parsedButtonText() {
+            return _get(this.page, "button[0].buttonText", "")
+        },
+
+        parsedButtonTo() {
+            return _get(this.page, "button[0].buttonUrl", "")
         },
     },
 }
