@@ -1,0 +1,32 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/collections/AllFpb"
+
+query ProgramDetail($slug: [String!]) {
+    entry(section: "program", slug: $slug) {
+        id
+        title
+        summary
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+            }
+        }
+        buttonUrl {
+            ... on buttonUrl_button_BlockType {
+                buttonText
+                buttonUrl
+            }
+        }
+        email
+        phoneNumber
+        viewStaffDirectory
+        department {
+            id # i don't know if we need this. we need to figure out how the facet/filter link to the dept will come from
+            title
+        }
+        ...AllFpb
+    }
+}
