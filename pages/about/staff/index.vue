@@ -72,6 +72,7 @@ import _get from "lodash/get"
 
 // gql
 import STAFF_LIST from "~/gql/queries/StaffList"
+import STAFF_LIST_WITH_DETAIL from "~/gql/queries/StaffListwithfulldetail"
 
 export default {
     async asyncData({ $graphql, params }) {
@@ -79,6 +80,14 @@ export default {
         const data = await $graphql.default.request(STAFF_LIST, {
             uri: params.path,
         })
+        const datawithfulldetail = await $graphql.default.request(
+            STAFF_LIST_WITH_DETAIL
+        )
+
+        console.log(
+            "staff list for indexing: " +
+                JSON.stringify(datawithfulldetail.entries)
+        )
 
         return {
             page: data,
