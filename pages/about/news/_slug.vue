@@ -12,7 +12,7 @@
             category="Library News"
             :title="page.title"
             :text="page.text"
-            :byline="parsedByline"
+            :byline="parsedBylineBannerText"
             article-type="news"
         />
 
@@ -103,6 +103,14 @@ export default {
             })
             return byline.map((entry) => {
                 return { title: entry }
+            })
+        },
+
+        parsedBylineBannerText() {
+            return (this.page.contributors || []).map((entry) => {
+                return `${entry.byline} ${
+                    entry.title || entry.staffMember[0].title
+                }`
             })
         },
 

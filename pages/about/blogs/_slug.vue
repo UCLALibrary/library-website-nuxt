@@ -12,7 +12,7 @@
             category="Blog"
             :title="page.title"
             :text="page.text"
-            :byline="parsedByline"
+            :byline="parsedBylineBannerText"
             article-type="blogs"
         />
 
@@ -30,6 +30,8 @@
                 :text="page.text"
             />
         </section-wrapper>
+
+        <h2>parsedByline: {{ parsedByline }}</h2>
 
         <section-wrapper
             v-if="page.heroImage && page.heroImage.length == 1"
@@ -103,6 +105,14 @@ export default {
             })
             return byline.map((entry) => {
                 return { title: entry }
+            })
+        },
+
+        parsedBylineBannerText() {
+            return (this.page.contributors || []).map((entry) => {
+                return `${entry.byline} ${
+                    entry.title || entry.staffMember[0].title
+                }`
             })
         },
 
