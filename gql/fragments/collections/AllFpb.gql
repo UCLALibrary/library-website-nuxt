@@ -54,7 +54,8 @@ fragment AllFpb on ElementInterface {
         ... on allFpb_form_BlockType {
             ...BlockFormFragment
         }
-        ... on allFpb_impactNumberCards_BlockType
+        ... on allFpb_impactNumberCards_BlockType {
             ...BlockImpactNumberCardsFragment
+        }
     }
 }
