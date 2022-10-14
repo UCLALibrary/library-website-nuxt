@@ -5,7 +5,7 @@ query ProgramDetail($slug: [String!]) {
     entry(section: "program", slug: $slug) {
         id
         title
-        summary
+        text: summary
         heroImage {
             ... on heroImage_heroImage_BlockType {
                 id

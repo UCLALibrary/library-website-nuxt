@@ -1,6 +1,67 @@
-<template lang="html">
-    <div class="page-programs-detail">
-        <h3>{{ page }}</h3>
+<template>
+    <div class="page-program-detail">
+        <nav-breadcrumb
+            to="/about/program"
+            :title="page.title"
+            parent-title="Programs"
+        />
+        <h3>{{ parsedButtonText }}</h3>
+        <banner-text
+            v-if="!page.heroImage || page.heroImage.length == 0"
+            class="banner-text"
+            category="Program"
+            :title="page.title"
+            :text="page.text"
+            :button-text="parsedButtonText"
+            :to="parsedButtonTo"
+        />
+
+        <section-wrapper class="section-banner">
+            <banner-header
+                v-if="page.heroImage && page.heroImage.length == 1"
+                :image="page.heroImage[0].image[0]"
+                :title="page.title"
+                category="Program"
+                :locations="page.locations"
+                :align-right="true"
+                :text="page.text"
+                :button-text="parsedButtonText"
+                :to="parsedButtonTo"
+            />
+        </section-wrapper>
+
+        <section-wrapper
+            v-if="page.heroImage && page.heroImage.length == 1"
+            theme="divider"
+        >
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+
+        <flexible-blocks
+            class="flexible-content"
+            :blocks="page.blocks"
+        />
+
+        <section-wrapper
+            v-if="parsedAssociatedStaffMember.length > 0"
+            theme="divider"
+        >
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+
+        <section-wrapper v-if="parsedAssociatedStaffMember.length > 0">
+            <h2 class="section-heading">
+                Associated Staff Member
+            </h2>
+
+            <section-staff-list :items="parsedAssociatedStaffMember" />
+        </section-wrapper>
     </div>
 </template>
 
@@ -31,11 +92,19 @@ export default {
             title: title,
         }
     },
+    computed: {
+        parsedButtonText() {
+            return _get(this.page, "buttonUrl[0].buttonText", "")
+        },
+        parsedButtonTo() {
+            return _get(this.page, "buttonUrl[0].buttonUrl", "")
+        },
+    },
 }
 </script>
 
 <style lang="scss" scoped>
-.page-programs-detail {
+.page-program-detail {
 
 }
 </style>

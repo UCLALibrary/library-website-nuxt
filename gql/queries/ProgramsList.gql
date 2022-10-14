@@ -1,0 +1,30 @@
+#import "~/gql/fragments/Image"
+
+query ProgramList {
+  entries(section: "program") {
+        ... on program_program_Entry {
+            id
+            title
+            description: summary
+            to: uri
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
+
+            authors: staffMember {
+                title
+            }
+            date: dateCreated
+            articleCategories {
+                id
+                title
+                uri
+            }
+        }
+    }
+}
