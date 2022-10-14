@@ -1,7 +1,7 @@
 #import "~/gql/fragments/Image"
 
 query ProgramList {
-  entries(section: "program") {
+  entries(section: "program", orderBy: "dateCreated", ) {
         ... on program_program_Entry {
             id
             title
@@ -15,7 +15,6 @@ query ProgramList {
                     }
                 }
             }
-
             authors: staffMember {
                 title
             }

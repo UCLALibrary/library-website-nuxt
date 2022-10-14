@@ -1,12 +1,13 @@
 <template>
     <div class="page-program-detail">
+        <h3>{{ page }}</h3>
         <nav-breadcrumb
             to="/about/program"
             :title="page.title"
             parent-title="Programs"
         />
         <h3>{{ parsedButtonText }}</h3>
-        <banner-text
+        <!-- <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
             category="Program"
@@ -14,9 +15,9 @@
             :text="page.text"
             :button-text="parsedButtonText"
             :to="parsedButtonTo"
-        />
+        /> -->
 
-        <section-wrapper class="section-banner">
+        <!-- <section-wrapper class="section-banner">
             <banner-header
                 v-if="page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
@@ -28,9 +29,9 @@
                 :button-text="parsedButtonText"
                 :to="parsedButtonTo"
             />
-        </section-wrapper>
+        </section-wrapper> -->
 
-        <section-wrapper
+        <!-- <section-wrapper
             v-if="page.heroImage && page.heroImage.length == 1"
             theme="divider"
         >
@@ -43,9 +44,9 @@
         <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
-        />
+        /> -->
 
-        <section-wrapper
+        <!-- <section-wrapper
             v-if="parsedAssociatedStaffMember.length > 0"
             theme="divider"
         >
@@ -53,15 +54,15 @@
                 class="divider"
                 color="about"
             />
-        </section-wrapper>
+        </section-wrapper> -->
 
-        <section-wrapper v-if="parsedAssociatedStaffMember.length > 0">
+        <!-- <section-wrapper v-if="parsedAssociatedStaffMember.length > 0">
             <h2 class="section-heading">
                 Associated Staff Member
             </h2>
 
             <section-staff-list :items="parsedAssociatedStaffMember" />
-        </section-wrapper>
+        </section-wrapper> -->
     </div>
 </template>
 
