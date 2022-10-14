@@ -7,8 +7,13 @@
             parent-title="Programs"
         />
         <h3>{{ parsedButtonText }}</h3>
+        <block-hours
+            v-if=""
+            page.slug="campus-library-instructional-computing-commons-clicc"
+            lid="0"
+        />
         <!-- <banner-text
-            v-if="!page.heroImage || page.heroImage.length == 0"
+            v-if="!page.article-type=“blogs”heroImage || page.heroImage.length == 0"
             class="banner-text"
             category="Program"
             :title="page.title"
@@ -106,6 +111,22 @@ export default {
 
 <style lang="scss" scoped>
 .page-program-detail {
+/** CLICC HACK **/
+.s-lc-whw-loc,
+.s-lc-whw-subloc {
+display: none;
+}
 
+.s-lc-whw-loc-tr-4691,
+.s-lc-whw-loc-tr-3291,
+.s-lc-whw-loc-tr-4698,
+.s-lc-whw-loc-tr-2609,
+.s-lc-whw-loc-tr-2607,
+.s-lc-whw-loc-tr-2608,
+.s-lc-whw-loc-tr-2614,
+.s-lc-whw-loc-tr-4705,
+.s-lc-whw-loc-tr-4706 {
+  display: table-row;
+} 
 }
 </style>
