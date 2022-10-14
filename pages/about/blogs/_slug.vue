@@ -14,7 +14,6 @@
             :text="page.text"
             :byline="parsedBylineBannerText"
             :locations="page.locations"
-            article-type="blogs"
         />
 
         <section-wrapper class="section-banner">
