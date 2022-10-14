@@ -12,8 +12,8 @@
             category="Blog"
             :title="page.title"
             :text="page.text"
-            :byline="parsedByline"
-            article-type="blogs"
+            :byline="parsedBylineBannerText"
+            :locations="page.locations"
         />
 
         <section-wrapper class="section-banner">
@@ -103,6 +103,14 @@ export default {
             })
             return byline.map((entry) => {
                 return { title: entry }
+            })
+        },
+
+        parsedBylineBannerText() {
+            return (this.page.contributors || []).map((entry) => {
+                return `${entry.byline} ${
+                    entry.title || entry.staffMember[0].title
+                }`
             })
         },
 
