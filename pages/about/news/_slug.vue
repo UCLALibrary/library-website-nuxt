@@ -13,6 +13,7 @@
             :title="page.title"
             :text="page.text"
             :byline="parsedBylineBannerText"
+            :locations="page.locations"
             article-type="news"
         />
 

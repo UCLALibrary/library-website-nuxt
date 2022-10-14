@@ -13,6 +13,7 @@
             :title="page.title"
             :text="page.text"
             :byline="parsedBylineBannerText"
+            :locations="page.locations"
             article-type="blogs"
         />
 
@@ -30,8 +31,6 @@
                 :text="page.text"
             />
         </section-wrapper>
-
-        <h2>parsedByline: {{ parsedByline }}</h2>
 
         <section-wrapper
             v-if="page.heroImage && page.heroImage.length == 1"
