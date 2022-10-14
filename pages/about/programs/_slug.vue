@@ -1,74 +1,12 @@
 <template lang="html">
-    <section class="page-news-detail">
-        <nav-breadcrumb
-            to="/about/program"
-            :title="page.title"
-            parent-title="Programs"
-        />
-
-        <banner-text
-            v-if="!page.heroImage || page.heroImage.length == 0"
-            class="banner-text"
-            category="Program"
-            :title="page.title"
-            :text="page.text"
-            :byline="parsedByline"
-        />
-
-        <section-wrapper class="section-banner">
-            <banner-header
-                v-if="page.heroImage && page.heroImage.length == 1"
-                :image="page.heroImage[0].image[0]"
-                :to="page.to"
-                :title="page.title"
-                category="Blog"
-                :byline="parsedByline"
-                :locations="page.locations"
-                :date-created="page.dateCreated"
-                :align-right="true"
-                :text="page.text"
-            />
-        </section-wrapper>
-
-        <section-wrapper
-            v-if="page.heroImage && page.heroImage.length == 1"
-            theme="divider"
-        >
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
-        </section-wrapper>
-
-        <flexible-blocks
-            class="flexible-content"
-            :blocks="page.blocks"
-        />
-
-        <!-- <section-wrapper
-            v-if="parsedAssociatedStaffMember.length > 0"
-            theme="divider"
-        >
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
-        </section-wrapper> -->
-
-        <!-- <section-wrapper v-if="parsedAssociatedStaffMember.length > 0">
-            <h2 class="section-heading">
-                Associated Staff Member
-            </h2>
-
-            <section-staff-list :items="parsedAssociatedStaffMember" />
-        </section-wrapper> -->
-    </section>
+    <div class="page-programs-detail">
+        <h3>{{ page }}</h3>
+    </div>
 </template>
 
 <script>
 // Helpers
 import _get from "lodash/get"
-import format from "date-fns/format"
 
 // GQL
 import PROGRAM_DETAIL from "~/gql/queries/ProgramDetail"
@@ -93,93 +31,11 @@ export default {
             title: title,
         }
     },
-    computed: {
-        parsedByline() {
-            let byline = (this.page.contributors || []).map((entry) => {
-                return `${entry.byline} ${
-                    entry.title || entry.staffMember[0].title
-                }`
-            })
-            return byline.map((entry) => {
-                return { title: entry }
-            })
-        },
-
-        parsedDate() {
-            return format(new Date(this.page.dateCreated), "MMMM d, Y")
-        },
-
-        // parsedAssociatedStaffMember() {
-        //     return this.page.associatedStaffMember.map((obj) => {
-        //         return {
-        //             ...obj,
-        //             to: `/about/staff/${obj.to}`,
-        //             image: _get(obj, "image[0]", null),
-        //             staffName: `${obj.nameFirst} ${obj.nameLast}`,
-        //         }
-        //     })
-        // },
-    }
 }
 </script>
 
 <style lang="scss" scoped>
-.page-news-detail {
-    .section-banner {
-        margin-top: 0;
-    }
-    .banner-text {
-        --color-theme: var(--color-help-green-03);
-    }
-    .banner-header {
-        margin-bottom: var(--space-xl);
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
-    }
-    .banner-text + .divider-way-finder {
-        margin: 0 auto var(--space-2xl);
-    }
-    .divider-way-finder {
-        max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
-    }
-    .flexible-content {
-        margin: 0 auto;
-    }
-    .section-cards {
-        margin: var(--space-3xl) auto;
-    }
-    .highlighted-news {
-        @include visually-hidden;
-    }
-    .block-call-to-action {
-        margin: var(--space-3xl) auto;
-    }
-    .section-heading {
-        @include step-4;
-        color: var(--color-primary-blue-03);
-        margin: var(--space-xl) auto;
-        max-width: $container-l-main + px;
-    }
+.page-programs-detail {
 
-    @media #{$medium} {
-        .section-heading,
-        .block-campus-map,
-        .section-block-spaces,
-        .block-hours,
-        .block-amenities,
-        .simple-cards,
-        .section-teaser-list,
-        .section-teaser-card {
-            padding: 0 var(--unit-gutter);
-        }
-    }
-
-    @media #{$small} {
-        .page {
-            width: 100%;
-        }
-    }
 }
 </style>
