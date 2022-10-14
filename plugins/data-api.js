@@ -18,7 +18,7 @@ export default function({$config}, inject) {
         // const urlParams = new URLSearchParams(params).toString()
         // console.log("paranaters: "+urlParams)
         // `${ES_URL}/apps-dev-library-website/_search?q=*:*` GET request
-        const response = await fetch(`${$config.esURL}/apps-dev-library-website/_search`, {
+        const response = await fetch(`${$config.esURL}/apps-craft-staff-index/_search`, {
             headers: {
                 'Authorization': `ApiKey ${$config.esApiKey}`,
                 'Content-Type': 'application/json',
@@ -41,6 +41,7 @@ export default function({$config}, inject) {
     inject('dataApi', {
         getMapping,
         keywordSearch,
+        getStaffListingResults
         
     })
 
@@ -55,5 +56,12 @@ export default function({$config}, inject) {
         })
         const data = await response.json()
         return data
+    }
+
+    async function getStaffListingResults(searchText,filters){
+        console.log("search text: "+searchText)
+        console.log("filters array: "+filters)
+
+        return {}
     }
 }

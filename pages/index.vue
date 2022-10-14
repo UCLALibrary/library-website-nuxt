@@ -7,9 +7,7 @@
         <h4>Search Responsee</h4>
         <p>{{ searchResponse }}</p-->
         <section-wrapper theme="divider">
-            <divider-way-finder
-                color="help"
-            />
+            <divider-way-finder color="help" />
         </section-wrapper>
 
         <section-wrapper>
@@ -24,9 +22,7 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                color="visit"
-            />
+            <divider-way-finder color="visit" />
         </section-wrapper>
 
         <section-wrapper>
@@ -57,9 +53,7 @@
         />
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                color="about"
-            />
+            <divider-way-finder color="about" />
         </section-wrapper>
 
         <section-wrapper>
@@ -104,9 +98,9 @@ export default {
         //const data = await this.$graphql(QUERY);
 
         const mapping = await $dataApi.getMapping()
-        // console.log(JSON.stringify(mapping))
+        console.log(JSON.stringify(mapping))
         const searchResponse = await $dataApi.keywordSearch("*")
-        // console.log("Search Response: " + JSON.stringify(searchResponse))
+        console.log("Search Response: " + JSON.stringify(searchResponse))
         const mockCard = {
             to: "/help/foo/bar/",
             title: "Example Service",
@@ -121,7 +115,8 @@ export default {
                 { ...mockCard, to: "/help/foo/fred/" },
             ],
             sectionTitle: "Get Help with",
-            sectionSummary: "Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more.",
+            sectionSummary:
+                "Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more.",
             to: "/help/foo/bar",
         }
 
@@ -214,5 +209,4 @@ export default {
         margin: var(--unit-vertical-gap) auto;
     }
 }
-
 </style>
