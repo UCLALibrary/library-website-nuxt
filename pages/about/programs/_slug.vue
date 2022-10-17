@@ -1,7 +1,7 @@
 <template>
     <div class="page-program-detail">
-        <!-- <h3>{{ page }}</h3> -->
-        <h2>parsedButtonText  {{page.buttonUrl[0].buttonText}}</h2>
+        <h3>{{ page }}</h3>
+        <!-- <h2>parsedButtonText  {{page.buttonUrl[0].buttonText}}</h2> -->
         <nav-breadcrumb
             to="/about/program"
             :title="page.title"
@@ -20,25 +20,19 @@
             :phone-number="page.phoneNumber"
         />
 
-        <section-wrapper>
-            <h3>{{ parsedButtonText }}</h3>
-            <block-hours
-                v-if="page.id == 38020"
-                lid=0
-            />
-        </section-wrapper>
-
         <section-wrapper class="section-banner">
             <banner-header
                 v-if="page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
+                
                 :title="page.title"
-                category="Program"
-                :locations="page.locations"
-                :align-right="true"
                 :text="page.text"
                 :prompt="parsedButtonText"
                 :to="parsedButtonTo"
+                :email="page.email"
+                :phone-number="page.phoneNumber"
+                :align-right="true"
+                :staff-directory-link="parsedStaffDirectory"
             />
         </section-wrapper>
 
@@ -49,10 +43,18 @@
             />
         </section-wrapper>
 
-        <flexible-blocks
+        <section-wrapper>
+            <block-hours
+                v-if="page.id == 38020"
+                lid=0
+                is-clicc="true"
+            />
+        </section-wrapper>
+
+        <!-- <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
-        />
+        /> -->
 
         <!-- <section-wrapper
             v-if="parsedAssociatedStaffMember.length > 0"
@@ -110,30 +112,33 @@ export default {
         },
         parsedCliccHours(){
             var week2081 = new $.LibCalWeeklyGrid( $("#s-lc-whw2081"), { iid: 3244, lid: 0, systemTime: false }); 
-            }
         }
-    },
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 .page-program-detail {
-/** CLICC HACK **/
-.s-lc-whw-loc,
-.s-lc-whw-subloc {
-display: none;
-}
 
-.s-lc-whw-loc-tr-4691,
-.s-lc-whw-loc-tr-3291,
-.s-lc-whw-loc-tr-4698,
-.s-lc-whw-loc-tr-2609,
-.s-lc-whw-loc-tr-2607,
-.s-lc-whw-loc-tr-2608,
-.s-lc-whw-loc-tr-2614,
-.s-lc-whw-loc-tr-4705,
-.s-lc-whw-loc-tr-4706 {
-  display: table-row;
-} 
+::v-deep .block-hours {
+    .s-lc-wh {
+        w-loc,
+        .s-lc-whw-subloc {
+            display: none;
+        }
+
+        .s-lc-whw-loc-tr-4691,
+        .s-lc-whw-loc-tr-3291,
+        .s-lc-whw-loc-tr-4698,
+        .s-lc-whw-loc-tr-2609,
+        .s-lc-whw-loc-tr-2607,
+        .s-lc-whw-loc-tr-2608,
+        .s-lc-whw-loc-tr-2614,
+        .s-lc-whw-loc-tr-4705,
+        .s-lc-whw-loc-tr-4706 {
+            display: table-row;
+        }
+    }
+}
 }
 </style>
