@@ -1,28 +1,34 @@
 <template>
     <div class="page-program-detail">
-        <h3>{{ page }}</h3>
+        <!-- <h3>{{ page }}</h3> -->
+        <h2>parsedButtonText  {{page.buttonUrl[0].buttonText}}</h2>
         <nav-breadcrumb
             to="/about/program"
             :title="page.title"
             parent-title="Programs"
         />
-        <h3>{{ parsedButtonText }}</h3>
-        <block-hours
-            v-if=""
-            page.slug="campus-library-instructional-computing-commons-clicc"
-            lid="0"
-        />
-        <!-- <banner-text
-            v-if="!page.article-type=“blogs”heroImage || page.heroImage.length == 0"
+
+        <banner-text
+        v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
             category="Program"
             :title="page.title"
             :text="page.text"
             :button-text="parsedButtonText"
             :to="parsedButtonTo"
-        /> -->
+            :email="page.email"
+            :phone-number="page.phoneNumber"
+        />
 
-        <!-- <section-wrapper class="section-banner">
+        <section-wrapper>
+            <h3>{{ parsedButtonText }}</h3>
+            <block-hours
+                v-if="page.id == 38020"
+                lid=0
+            />
+        </section-wrapper>
+
+        <section-wrapper class="section-banner">
             <banner-header
                 v-if="page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
@@ -31,15 +37,12 @@
                 :locations="page.locations"
                 :align-right="true"
                 :text="page.text"
-                :button-text="parsedButtonText"
+                :prompt="parsedButtonText"
                 :to="parsedButtonTo"
             />
-        </section-wrapper> -->
+        </section-wrapper>
 
-        <!-- <section-wrapper
-            v-if="page.heroImage && page.heroImage.length == 1"
-            theme="divider"
-        >
+        <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider"
                 color="about"
@@ -49,7 +52,7 @@
         <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
-        /> -->
+        />
 
         <!-- <section-wrapper
             v-if="parsedAssociatedStaffMember.length > 0"
@@ -105,6 +108,10 @@ export default {
         parsedButtonTo() {
             return _get(this.page, "buttonUrl[0].buttonUrl", "")
         },
+        parsedCliccHours(){
+            var week2081 = new $.LibCalWeeklyGrid( $("#s-lc-whw2081"), { iid: 3244, lid: 0, systemTime: false }); 
+            }
+        }
     },
 }
 </script>
