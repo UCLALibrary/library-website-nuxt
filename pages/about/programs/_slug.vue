@@ -44,10 +44,10 @@
 
         <section-wrapper>
             <block-hours
-                v-if="page.id == 38020"
+                v-if="page.uri == 
+                    'about/programs/campus-library-instructional-computing-commons-clicc'"
                 lid="0"
-                is-clicc="true"
-                :class="classes"
+                :is-clicc="true"
             />
         </section-wrapper>
 
@@ -86,9 +86,9 @@ export default {
         }
     },
     computed: {
-        classes() {
-            return is-isClicc ? ["container"] : ["container no-form"]
-        },
+        // classes() {
+        //     return is-clicc ? ["block-hours is-clicc"] : ["block-hours"]
+        // },
         parsedButtonText() {
             return _get(this.page, "buttonUrl[0].buttonText", "")
         },
