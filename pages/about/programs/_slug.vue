@@ -5,7 +5,7 @@
             :title="page.title"
             parent-title="Programs"
         />
-        <h3>{{ page }}</h3>
+        <h3>{{ associatedArticles }}</h3>
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -55,6 +55,26 @@
             class="flexible-content"
             :blocks="page.blocks"
         />
+
+        <div
+            v-if="mergeSortEventsExhibitions.length"
+            class="events-exhibitions"
+        >
+            <h2 class="section-heading">
+                Associated Articles
+            </h2>
+            <section-teaser-list
+                class="section-teaser-list"
+                :items="mergeSortEventsExhibitions"
+            />
+            <nuxt-link
+                v-if="mergeSortEventsExhibitions.length"
+                class="button-more"
+                to="/visit/events-exhibits"
+            >
+                <button-more text="See More" />
+            </nuxt-link>
+        </div>
     </div>
 </template>
 
@@ -77,6 +97,7 @@ export default {
         console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
+            associatedArticles: _get(data, "associatedArticles", {}),
         }
     },
     head() {
@@ -101,7 +122,20 @@ export default {
             } else {
                 return ""
             }
-        }
+        },
+        // parsedArticles() {
+        //     return this.associatedArticles.map((obj) => {
+        //         return {
+        //             ...obj,
+        //             to: `/about/blog${obj.slug}`,
+        //             image: _get(obj, "heroImage[0].image[0]", {}),
+        //              title: _get(obj, "title", ""),
+        //             text: _get(obj, "description", ""),
+        //             startDate: _get(obj, "date[0].startTime", ""),
+        //             endDate: _get(obj, "date[0].endTime", ""),
+        //         }
+        //     })
+        // }
     }
 }
 </script>
