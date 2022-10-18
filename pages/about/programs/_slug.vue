@@ -9,7 +9,7 @@
         />
 
         <banner-text
-        v-if="!page.heroImage || page.heroImage.length == 0"
+            v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
             category="Program"
             :title="page.title"
@@ -18,6 +18,7 @@
             :to="parsedButtonTo"
             :email="page.email"
             :phone="page.phoneNumber"
+            :staff-directory-link="parsedStaffDirectory"
         />
 
         <section-wrapper class="section-banner">
@@ -31,8 +32,8 @@
                 :to="parsedButtonTo"
                 :email="page.email"
                 :phone="page.phoneNumber"
-                :align-right="true"
                 :staff-directory-link="parsedStaffDirectory"
+                :align-right="true"
             />
         </section-wrapper>
 
@@ -46,7 +47,7 @@
         <section-wrapper>
             <block-hours
                 v-if="page.id == 38020"
-                lid=0
+                lid="0"
                 is-clicc="true"
             />
         </section-wrapper>
@@ -110,8 +111,12 @@ export default {
         parsedButtonTo() {
             return _get(this.page, "buttonUrl[0].buttonUrl", "")
         },
-        parsedCliccHours(){
-            var week2081 = new $.LibCalWeeklyGrid( $("#s-lc-whw2081"), { iid: 3244, lid: 0, systemTime: false }); 
+        parsedStaffDirectory() {
+            if (this.page.viewStaffDirectory != "affiliateLibrary") {
+                return "/about/staff"
+            } else {
+                return ""
+            }
         }
     }
 }
