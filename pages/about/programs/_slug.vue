@@ -1,7 +1,7 @@
 <template>
     <div class="page-program-detail">
-        <h3>{{ page }}</h3>
-        <!-- <h2>parsedButtonText  {{page.buttonUrl[0].buttonText}}</h2> -->
+        <!-- <h3>{{ page }}</h3>
+        <h2>parsedButtonText  {{page.buttonUrl[0].buttonText}}</h2> -->
         <nav-breadcrumb
             to="/about/program"
             :title="page.title"
@@ -17,7 +17,7 @@
             :button-text="parsedButtonText"
             :to="parsedButtonTo"
             :email="page.email"
-            :phone-number="page.phoneNumber"
+            :phone="page.phoneNumber"
         />
 
         <section-wrapper class="section-banner">
@@ -30,7 +30,7 @@
                 :prompt="parsedButtonText"
                 :to="parsedButtonTo"
                 :email="page.email"
-                :phone-number="page.phoneNumber"
+                :phone="page.phoneNumber"
                 :align-right="true"
                 :staff-directory-link="parsedStaffDirectory"
             />
@@ -51,10 +51,10 @@
             />
         </section-wrapper>
 
-        <!-- <flexible-blocks
+        <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
-        /> -->
+        />
 
         <!-- <section-wrapper
             v-if="parsedAssociatedStaffMember.length > 0"
