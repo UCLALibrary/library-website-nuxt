@@ -1,7 +1,5 @@
 <template>
     <div class="page-program-detail">
-        <!-- <h3>{{ page }}</h3>
-        <h2>parsedButtonText  {{page.buttonUrl[0].buttonText}}</h2> -->
         <nav-breadcrumb
             to="/about/program"
             :title="page.title"
@@ -25,7 +23,7 @@
             <banner-header
                 v-if="page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
-                
+                category="Program"
                 :title="page.title"
                 :text="page.text"
                 :prompt="parsedButtonText"
@@ -49,6 +47,7 @@
                 v-if="page.id == 38020"
                 lid="0"
                 is-clicc="true"
+                :class="classes"
             />
         </section-wrapper>
 
@@ -56,24 +55,6 @@
             class="flexible-content"
             :blocks="page.blocks"
         />
-
-        <!-- <section-wrapper
-            v-if="parsedAssociatedStaffMember.length > 0"
-            theme="divider"
-        >
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
-        </section-wrapper> -->
-
-        <!-- <section-wrapper v-if="parsedAssociatedStaffMember.length > 0">
-            <h2 class="section-heading">
-                Associated Staff Member
-            </h2>
-
-            <section-staff-list :items="parsedAssociatedStaffMember" />
-        </section-wrapper> -->
     </div>
 </template>
 
@@ -105,6 +86,9 @@ export default {
         }
     },
     computed: {
+        classes() {
+            return is-isClicc ? ["container"] : ["container no-form"]
+        },
         parsedButtonText() {
             return _get(this.page, "buttonUrl[0].buttonText", "")
         },
