@@ -25,6 +25,10 @@ query ProgramDetail($slug: [String!]) {
         email
         phoneNumber
         viewStaffDirectory
+        department {
+            id
+            title
+        }
         ...AllFpb
     }
 }

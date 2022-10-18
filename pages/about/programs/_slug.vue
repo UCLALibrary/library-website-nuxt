@@ -5,7 +5,7 @@
             :title="page.title"
             parent-title="Programs"
         />
-
+        <h3>{{ page }}</h3>
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
