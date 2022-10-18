@@ -24,10 +24,6 @@ query ProgramDetail($slug: [String!]) {
         email
         phoneNumber
         viewStaffDirectory
-        department {
-            id # i don't know if we need this. we need to figure out how the facet/filter link to the dept will come from
-            title
-        }
         ...AllFpb
     }
 }
