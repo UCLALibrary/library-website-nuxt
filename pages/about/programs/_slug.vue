@@ -62,7 +62,6 @@
             />
         </section-wrapper>
 
-
         <section-wrapper
             v-if="associatedArticles"
             class="associated-articles"
@@ -175,28 +174,5 @@ export default {
     .button-more {
         margin: var(--space-2xl) auto;
     }
-    .is-clicc {
-        background-color: greenyellow;
-    }
-// ::v-deep .block-hours {
-//     .s-lc-wh {
-//         w-loc,
-//         .s-lc-whw-subloc {
-//             display: none;
-//         }
-
-//         .s-lc-whw-loc-tr-4691,
-//         .s-lc-whw-loc-tr-3291,
-//         .s-lc-whw-loc-tr-4698,
-//         .s-lc-whw-loc-tr-2609,
-//         .s-lc-whw-loc-tr-2607,
-//         .s-lc-whw-loc-tr-2608,
-//         .s-lc-whw-loc-tr-2614,
-//         .s-lc-whw-loc-tr-4705,
-//         .s-lc-whw-loc-tr-4706 {
-//             display: table-row;
-//         }
-//     }
-// }
 }
 </style>
