@@ -42,6 +42,8 @@
             />
         </section-wrapper>
 
+
+        <!-- TODO
         <section-wrapper>
             <block-hours
                 v-if="page.uri == 
@@ -49,7 +51,7 @@
                 lid="0"
                 :is-clicc="true"
             />
-        </section-wrapper>
+        </section-wrapper> -->
 
         <flexible-blocks
             class="flexible-content"
@@ -111,9 +113,6 @@ export default {
         }
     },
     computed: {
-        // classes() {
-        //     return is-clicc ? ["block-hours is-clicc"] : ["block-hours"]
-        // },
         parsedButtonText() {
             return _get(this.page, "buttonUrl[0].buttonText", "")
         },
@@ -153,12 +152,7 @@ export default {
 
 <style lang="scss" scoped>
 .page-program-detail {
-    .associated-articles {
-        // display: flex;
-        //     flex-direction: column;
-    }
     .section-teaser-card {
-        //margin: var(--space-xl) auto;
         display: flex;
         flex-direction: row;
     }
@@ -176,25 +170,28 @@ export default {
     .button-more {
         margin: var(--space-2xl) auto;
     }
-::v-deep .block-hours {
-    .s-lc-wh {
-        w-loc,
-        .s-lc-whw-subloc {
-            display: none;
-        }
-
-        .s-lc-whw-loc-tr-4691,
-        .s-lc-whw-loc-tr-3291,
-        .s-lc-whw-loc-tr-4698,
-        .s-lc-whw-loc-tr-2609,
-        .s-lc-whw-loc-tr-2607,
-        .s-lc-whw-loc-tr-2608,
-        .s-lc-whw-loc-tr-2614,
-        .s-lc-whw-loc-tr-4705,
-        .s-lc-whw-loc-tr-4706 {
-            display: table-row;
-        }
+    .is-clicc {
+        background-color: greenyellow;
     }
-}
+// ::v-deep .block-hours {
+//     .s-lc-wh {
+//         w-loc,
+//         .s-lc-whw-subloc {
+//             display: none;
+//         }
+
+//         .s-lc-whw-loc-tr-4691,
+//         .s-lc-whw-loc-tr-3291,
+//         .s-lc-whw-loc-tr-4698,
+//         .s-lc-whw-loc-tr-2609,
+//         .s-lc-whw-loc-tr-2607,
+//         .s-lc-whw-loc-tr-2608,
+//         .s-lc-whw-loc-tr-2614,
+//         .s-lc-whw-loc-tr-4705,
+//         .s-lc-whw-loc-tr-4706 {
+//             display: table-row;
+//         }
+//     }
+// }
 }
 </style>
