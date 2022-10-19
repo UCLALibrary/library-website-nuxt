@@ -1,9 +1,5 @@
 <template>
     <div class="page-program-detail">
-        <h3>associatedArticles: {{ associatedArticles }}</h3>
-        <hr>
-        <h3>parsedArticles: {{ parsedArticles }}</h3>
-
         <nav-breadcrumb
             to="/about/program"
             :title="page.title"
@@ -64,24 +60,21 @@
             v-if="associatedArticles"
             class="associated-articles"
         >
-            <h2 class="section-heading">
-                Associated Articles
-            </h2>
-        </section-wrapper>
+            <div class="section-header">
+                <h2 class="section-title">
+                    Associated Articles
+                </h2>
+            </div>
 
-        <section-teaser-card
-            class="section-teaser-card"
-            :items="parsedArticles"
-        />
+            <section-teaser-card
+                class="section-teaser-card"
+                :items="parsedArticles"
+            />
 
-        <section-wrapper
-            v-if="associatedArticles"
-            class="associated-articles"
-        >
             <nuxt-link
                 v-if="associatedArticles"
                 class="button-more"
-                to="/about/news"
+                :to="parsedSeeMore"
             >
                 <button-more text="See More" />
             </nuxt-link>
@@ -138,7 +131,7 @@ export default {
             return this.associatedArticles.map((obj) => {
                 return {
                     ...obj,
-                    to: `/about/blog${obj.slug}`,
+                    to: `/about/${obj.articleType}/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", {}),
                     category: _get(obj, "category", ""),
                     title: _get(obj, "title", ""),
@@ -146,6 +139,13 @@ export default {
                     startDate: _get(obj, "startDate", "")
                 }
             })
+        },
+        parsedSeeMore() {
+            if (this.page.slug == "preservation-conservation-program") {
+                return "/about/programs/preservation-conservation"
+            } else {
+                return "/about/news"
+            }
         }
     }
 }
@@ -153,14 +153,28 @@ export default {
 
 <style lang="scss" scoped>
 .page-program-detail {
-.associated-articles {
-    display: flex;
-        flex-direction: column;
-}
+    .associated-articles {
+        // display: flex;
+        //     flex-direction: column;
+    }
     .section-teaser-card {
         //margin: var(--space-xl) auto;
         display: flex;
         flex-direction: row;
+    }
+
+    .section-header {
+        margin-bottom: var(--space-xl);
+
+        .section-title {
+            @include step-3;
+            color: var(--color-primary-blue-03);
+            margin-bottom: var(--space-m);
+        }
+    }
+
+    .button-more {
+        margin: var(--space-2xl) auto;
     }
 ::v-deep .block-hours {
     .s-lc-wh {

@@ -55,11 +55,6 @@ query ProgramDetail($slug: [String!]) {
                     altText
                 }
             }
-            authors: staffMember {
-                id
-                slug
-                title
-            }
             description: summary
             category: typeHandle
             startDate: dateCreated
