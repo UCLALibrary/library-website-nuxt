@@ -9,7 +9,6 @@
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
-            category="Program"
             :title="page.title"
             :text="page.text"
             :button-text="parsedButtonText"
@@ -23,7 +22,6 @@
             <banner-header
                 v-if="page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
-                category="Program"
                 :title="page.title"
                 :text="page.text"
                 :prompt="parsedButtonText"
@@ -42,7 +40,6 @@
             />
         </section-wrapper>
 
-
         <!-- TODO
         <section-wrapper>
             <block-hours
@@ -57,6 +54,14 @@
             class="flexible-content"
             :blocks="page.blocks"
         />
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+
 
         <section-wrapper
             v-if="associatedArticles"
