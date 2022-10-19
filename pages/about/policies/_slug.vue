@@ -52,7 +52,7 @@ import _get from "lodash/get"
 // about/policies/shhh
 
 export default {
-    async asyncData({ $graphql, params, store }) {
+    async asyncData({ $graphql, params, store, $elasticsearchplugin }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Policy detail from Craft for live preview"
@@ -60,6 +60,7 @@ export default {
         const data = await $graphql.default.request(POLICY_DETAIL, {
             slug: params.slug,
         })
+        await $elasticsearchplugin.getData(data, params.slug)
         console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),

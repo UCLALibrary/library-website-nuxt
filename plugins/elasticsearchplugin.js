@@ -1,6 +1,6 @@
 export default function ({ $config, route }, inject) {
     async function getData(data, slug) {
-        if (process.server && process.env.NODE_ENV != "development") {
+        if (process.server && process.env.NODE_ENV !== "development") {
             console.log(
                 "this is the elasticsearch plugin" + JSON.stringify(data)
             )

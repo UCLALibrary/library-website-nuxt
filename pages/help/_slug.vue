@@ -42,13 +42,11 @@ import _get from "lodash/get"
 
 export default {
     async asyncData({ $graphql, params, store, $elasticsearchplugin }) {
-        // Do not remove testing live preview
-
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
             slug: params.slug,
         })
         await $elasticsearchplugin.getData(data, params.slug)
-        // console.log("Data fetched: " + JSON.stringify(data))
+        console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
         }
