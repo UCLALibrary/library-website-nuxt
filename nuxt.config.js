@@ -133,7 +133,6 @@ export default {
         "@nuxtjs/style-resources",
         "nuxt-graphql-request",
         "@/modules/sitemapRouteGenerator",
-        "@/modules/elasticSearchModule",
     ],
 
     /*
