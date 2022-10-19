@@ -1,11 +1,15 @@
 <template>
     <div class="page-program-detail">
+        <h3>associatedArticles: {{ associatedArticles }}</h3>
+        <hr>
+        <h3>parsedArticles: {{ parsedArticles }}</h3>
+
         <nav-breadcrumb
             to="/about/program"
             :title="page.title"
             parent-title="Programs"
         />
-        <h3>{{ associatedArticles }}</h3>
+
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -56,25 +60,32 @@
             :blocks="page.blocks"
         />
 
-        <div
-            v-if="mergeSortEventsExhibitions.length"
-            class="events-exhibitions"
+        <section-wrapper
+            v-if="associatedArticles"
+            class="associated-articles"
         >
             <h2 class="section-heading">
                 Associated Articles
             </h2>
-            <section-teaser-list
-                class="section-teaser-list"
-                :items="mergeSortEventsExhibitions"
-            />
+        </section-wrapper>
+
+        <section-teaser-card
+            class="section-teaser-card"
+            :items="parsedArticles"
+        />
+
+        <section-wrapper
+            v-if="associatedArticles"
+            class="associated-articles"
+        >
             <nuxt-link
-                v-if="mergeSortEventsExhibitions.length"
+                v-if="associatedArticles"
                 class="button-more"
-                to="/visit/events-exhibits"
+                to="/about/news"
             >
                 <button-more text="See More" />
             </nuxt-link>
-        </div>
+        </section-wrapper>
     </div>
 </template>
 
@@ -123,26 +134,34 @@ export default {
                 return ""
             }
         },
-        // parsedArticles() {
-        //     return this.associatedArticles.map((obj) => {
-        //         return {
-        //             ...obj,
-        //             to: `/about/blog${obj.slug}`,
-        //             image: _get(obj, "heroImage[0].image[0]", {}),
-        //              title: _get(obj, "title", ""),
-        //             text: _get(obj, "description", ""),
-        //             startDate: _get(obj, "date[0].startTime", ""),
-        //             endDate: _get(obj, "date[0].endTime", ""),
-        //         }
-        //     })
-        // }
+        parsedArticles() {
+            return this.associatedArticles.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/about/blog${obj.slug}`,
+                    image: _get(obj, "heroImage[0].image[0]", {}),
+                    category: _get(obj, "category", ""),
+                    title: _get(obj, "title", ""),
+                    text: _get(obj, "description", ""),
+                    startDate: _get(obj, "startDate", "")
+                }
+            })
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
 .page-program-detail {
-
+.associated-articles {
+    display: flex;
+        flex-direction: column;
+}
+    .section-teaser-card {
+        //margin: var(--space-xl) auto;
+        display: flex;
+        flex-direction: row;
+    }
 ::v-deep .block-hours {
     .s-lc-wh {
         w-loc,
