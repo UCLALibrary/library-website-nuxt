@@ -1,5 +1,5 @@
 <template>
-    <div class="page-program-detail">
+    <section class="page-program-detail">
         <nav-breadcrumb
             to="/about/program"
             :title="page.title"
@@ -18,20 +18,18 @@
             :staff-directory-link="parsedStaffDirectory"
         />
 
-        <section-wrapper class="section-banner">
-            <banner-header
-                v-if="page.heroImage && page.heroImage.length == 1"
-                :image="page.heroImage[0].image[0]"
-                :title="page.title"
-                :text="page.text"
-                :prompt="parsedButtonText"
-                :to="parsedButtonTo"
-                :email="page.email"
-                :phone="page.phoneNumber"
-                :staff-directory-link="parsedStaffDirectory"
-                :align-right="true"
-            />
-        </section-wrapper>
+        <banner-header
+            v-if="page.heroImage && page.heroImage.length == 1"
+            :image="page.heroImage[0].image[0]"
+            :title="page.title"
+            :text="page.text"
+            :prompt="parsedButtonText"
+            :to="parsedButtonTo"
+            :email="page.email"
+            :phone="page.phoneNumber"
+            :staff-directory-link="parsedStaffDirectory"
+            :align-right="true"
+        />
 
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -85,7 +83,7 @@
                 <button-more text="See More" />
             </nuxt-link>
         </section-wrapper>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -156,6 +154,18 @@ export default {
 
 <style lang="scss" scoped>
 .page-program-detail {
+    .banner-text {
+        --color-theme: var(--color-help-green-03);
+        margin: 0 auto var(--space-2xl);
+    }
+
+    .banner-header {
+        margin-bottom: var(--space-xl);
+        padding: 0;
+        max-width: $container-xl-full-width + px;
+        margin: var(--unit-gutter) auto;
+    }
+
     .section-teaser-card {
         display: flex;
         flex-direction: row;
