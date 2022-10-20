@@ -11,6 +11,7 @@
 #import "~/gql/fragments/BlockSimpleCardsFragment"
 #import "~/gql/fragments/BlockCallToActionFragment"
 #import "~/gql/fragments/BlockFormFragment"
+#import "~/gql/fragments/BlockImpactNumberCardsFragment"
 
 fragment AllFpb on ElementInterface {
     blocks: allFpb {
@@ -52,6 +53,9 @@ fragment AllFpb on ElementInterface {
         }
         ... on allFpb_form_BlockType {
             ...BlockFormFragment
+        }
+        ... on allFpb_impactNumberCards_BlockType {
+            ...BlockImpactNumberCardsFragment
         }
     }
 }

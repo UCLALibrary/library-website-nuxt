@@ -4,9 +4,6 @@ query ArticleList($articleType: QueryArgument!) {
   entries(section: "article", orderBy: "dateCreated", articleType: [$articleType]) {
         ... on article_article_Entry {
             id
-            articleCategories {
-                title
-            }
             title
             to: uri
             heroImage {
@@ -22,7 +19,11 @@ query ArticleList($articleType: QueryArgument!) {
                 title
             }
             date: dateCreated
+            articleCategories {
+                id
+                title
+                uri
+            }
         }
     }
-    entryCount
 }
