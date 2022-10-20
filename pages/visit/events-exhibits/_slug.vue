@@ -51,7 +51,7 @@ import _get from "lodash/get"
 // GQL
 import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
 
-import BlockFormData from "~/pages/visit/events-exhibits/BlockFormData.json"
+import BlockFormData from "~/data/BlockFormData.json"
 
 export default {
     provide: {
