@@ -41,12 +41,11 @@ window.onload = () => resize();
                console.log("found internal locations: "+$('.s-lc-whw-subloc').length)
                if(!$('.toggle').length) {
                    $( '<button class="toggle">Show Detailed Hours</button>' ).insertBefore( '.s-lc-whw-footnote' );
-                   
+
                    $('.toggle').click(function() {
                        console.log("Clicked me!")
                        $('.s-lc-whw-subloc').toggle()
                        $('tr').css("border-bottom", "2px dotted #999999")
-                       
                        let text = $('.toggle').text();
                        $('.toggle').text( text === "Show Detailed Hours" ? "Hide Detailed Hours" : "Show Detailed Hours")
                        text = $('.toggle').text();
@@ -71,7 +70,7 @@ window.onload = () => resize();
 <style lang="scss">
 @import "ucla-library-design-tokens/scss/fonts";
 
-   .s-lc-whw{}
+.s-lc-whw{}
 
 /* .toggle {
      margin-top: 26px;
@@ -260,6 +259,27 @@ window.onload = () => resize();
 .s-lc-whw-locname {
     text-align: left;
 }
+
+/* CLICC HACK */
+
+/** CLICC HACK **/
+.s-lc-whw-loc,
+.s-lc-whw-subloc {
+display: none;
+}
+
+.s-lc-whw-loc-tr-4691,
+.s-lc-whw-loc-tr-3291,
+.s-lc-whw-loc-tr-4698,
+.s-lc-whw-loc-tr-2609,
+.s-lc-whw-loc-tr-2607,
+.s-lc-whw-loc-tr-2608,
+.s-lc-whw-loc-tr-2614,
+.s-lc-whw-loc-tr-4705,
+.s-lc-whw-loc-tr-4706 {
+  display: table-row;
+}
+
  @media (max-width: 768px) {
      .s-lc-whw-cont .table-responsive {
          width: 100%;
