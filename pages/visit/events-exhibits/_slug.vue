@@ -28,6 +28,14 @@
             :primary-items="primaryItems"
             :secondary-items="secondaryItems"
         />
+        <banner-text
+            category="Event"
+            title="Curabitur Tortor Pellentesque"
+            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, metus in aliquet venenatis, mi lectus placerat leo, congue gravida mi quam sit amet neque."
+            button-text="Curabitur"
+            byline="a"
+            register-event="true"
+        />
 
         Event detail here
         {{ allEvents }}
@@ -43,7 +51,13 @@ import _get from "lodash/get"
 // GQL
 import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
 
+import BlockFormData from "~/pages/visit/events-exhibits/BlockFormData.json"
+
 export default {
+    provide: {
+        eventId: "9383207",
+        blockFormData: BlockFormData.mock0,
+    },
     data() {
         return {
             allEvents: [],
