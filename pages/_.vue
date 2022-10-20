@@ -10,6 +10,7 @@
             :to="parseParentPageURL"
             :parent-title="parseParentTitle"
         />
+
         <banner-text
             v-if="page && (!page.heroImage || page.heroImage.length == 0)"
             class="banner-text"
@@ -88,10 +89,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-general-content {
-    .banner-text,
-    .banner-header {
-        --color-theme: var(--color-visit-fushia-03);
-    }
     ::v-deep .divider-way-finder {
         --color-border: var(--color-visit-fushia-03);
     }
