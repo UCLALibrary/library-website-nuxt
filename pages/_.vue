@@ -51,14 +51,17 @@ import GENERAL_CONTENT_DETAIL from "~/gql/queries/GeneralContentDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params }) {
-        // Do not remove testing live preview
-
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
             slug: params.pathMatch.substring(
                 params.pathMatch.lastIndexOf("/") + 1
             ),
         })
+        await $elasticsearchplugin.getData(
+            data,
+            params.pathMatch.substring(params.pathMatch.lastIndexOf("/") + 1)
+        )
+
         return {
             page: _get(data, "entry", {}),
         }

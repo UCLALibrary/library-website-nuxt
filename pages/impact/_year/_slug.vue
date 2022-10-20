@@ -41,10 +41,11 @@ import _get from "lodash/get"
 
 export default {
     layout: "impact",
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         const data = await $graphql.default.request(IMPACT_REPORT_STORY, {
             slug: params.slug,
         })
+        await $elasticsearchplugin.getData(data, params.slug)
         console.log("Data fetched: " + JSON.stringify(data))
 
         return {
