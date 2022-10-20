@@ -38,7 +38,6 @@
             />
         </section-wrapper>
 
-        <!-- TODO
         <section-wrapper>
             <block-hours
                 v-if="page.uri == 
@@ -46,7 +45,7 @@
                 lid="0"
                 :is-clicc="true"
             />
-        </section-wrapper> -->
+        </section-wrapper>
 
         <flexible-blocks
             class="flexible-content"
@@ -155,7 +154,7 @@ export default {
 <style lang="scss" scoped>
 .page-program-detail {
     .banner-text {
-        --color-theme: var(--color-help-green-03);
+        --color-theme: var(--color-about-purple-03);
         margin: 0 auto var(--space-2xl);
     }
 
