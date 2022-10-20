@@ -5,6 +5,7 @@
             :title="page.title"
             parent-title="Locations"
         />
+
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -16,6 +17,7 @@
             :address-link="addressLink"
             :staff-directory-link="parsedStaffDirectory"
         />
+
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
@@ -27,6 +29,7 @@
             :staff-directory-link="parsedStaffDirectory"
             :address-link="addressLink"
         />
+
         <divider-way-finder
             v-if="
                 page.libcalLocationIdForHours ||
@@ -36,6 +39,7 @@
             color="visit"
             class="divider-way-finder"
         />
+
         <div class="section-header">
             <h2
                 v-if="
@@ -53,28 +57,34 @@
                 v-html="page.howToGetHere"
             />
         </div>
+
         <block-hours
             v-if="page.libcalLocationIdForHours"
             :lid="page.libcalLocationIdForHours"
         />
+
         <divider-general
             v-if="page.amenities.length"
             class="divider-general"
         />
+
         <block-amenities
             v-if="page.amenities.length"
             :items="page.amenities"
             class="amenities"
         />
+
         <divider-general
             v-if="parsedSpaces.length"
             class="divider-general"
         />
+
         <section-spaces-list
             v-if="parsedSpaces.length"
             class="section-block-spaces"
             :items="parsedSpaces"
         />
+
         <divider-way-finder
             v-if="page.resourceServiceWorkshop.length"
             color="visit"
@@ -86,6 +96,7 @@
             section-title="Services &amp; Resources"
             :items="parsedServicesAndResources"
         />
+
         <nuxt-link
             v-if="page.resourceServiceWorkshop.length"
             class="button-more"
@@ -144,6 +155,7 @@
             class="about-text"
             :rich-text-content="page.about"
         />
+
         <!--  <divider-way-finder
             v-if="page.about"
             color="visit"

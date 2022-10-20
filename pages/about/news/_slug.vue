@@ -31,10 +31,7 @@
             />
         </section-wrapper>
 
-        <section-wrapper
-            v-if="page.heroImage && page.heroImage.length == 1"
-            theme="divider"
-        >
+        <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider"
                 color="about"

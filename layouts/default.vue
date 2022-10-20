@@ -12,12 +12,15 @@
         </main>
         <footer-primary :form="true" />
         <footer-sock />
+        <!-- <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" /> -->
     </div>
 </template>
 
 <script>
 // Helpers
 import kebabCase from "~/utils/kebabCase"
+
+// <script src="https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753" />
 
 export default {
     components: {},
