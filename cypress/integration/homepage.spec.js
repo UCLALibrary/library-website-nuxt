@@ -57,6 +57,9 @@ describe("Website Homepage", () => {
             "Get Help With"
         )
 
+        cy.get('[aria-label="Start chat"]').click({force: true})
+        cy.get("i-frame").contains("Chat Widget")
+
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 })
