@@ -12,12 +12,11 @@
             </div>
             <!-- TODO Add SearchGenric here when complete
                 Filter by location, department, subject libarian -->
-            <!-- <search-generic search-type="about"
-                    :filters="searchFilters.filters"
-                    :view-modes="searchFilters.views"
-                    class="generic-search"
-                    @view-mode-change="viewModeChanger"
-            /> -->
+            <search-generic
+                search-type="about"
+                :filters="searchFilters.filters"
+                class="generic-search"
+            />
         </section-wrapper>
 
         <section-wrapper theme="divider">
