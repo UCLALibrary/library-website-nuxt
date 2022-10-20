@@ -4,19 +4,15 @@
             :title="page.title"
             :text="page.summary"
         />
-        
-        <section-wrapper
-            v-if="page.richText"
-        >
-            <RichText
-                :rich-text-content="page.richText"
-            />
+
+        <section-wrapper v-if="page.richText">
+            <RichText :rich-text-content="page.richText" />
         </section-wrapper>
-        
+
         <section-wrapper theme="divider">
             <DividerWayFinder color="help" />
         </section-wrapper>
-        
+
         <div
             v-for="(block, index) in page.helpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
@@ -29,15 +25,11 @@
                 />
             </section-wrapper>
             <section-wrapper theme="divider">
-                <DividerWayFinder
-                    color="help"
-                />
+                <DividerWayFinder color="help" />
             </section-wrapper>
         </div>
 
-        <flexible-blocks
-            :blocks="page.blocks"
-        />
+        <flexible-blocks :blocks="page.blocks" />
     </main>
 </template>
 
@@ -49,13 +41,14 @@ import HELP_TOPIC_DETAIL from "~/gql/queries/HelpTopicDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, store, $elasticsearchplugin }) {
         // Do not remove testing live preview
 
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
             slug: params.slug,
         })
-        console.log("Data fetched: " + JSON.stringify(data))
+        await $elasticsearchplugin.getData(data, params.slug)
+        // console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
         }

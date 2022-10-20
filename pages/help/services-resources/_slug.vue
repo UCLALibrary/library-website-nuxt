@@ -78,7 +78,7 @@ export default {
                 slug: params.slug,
             }
         )
-        await $elasticsearchplugin.getData(data)
+        await $elasticsearchplugin.getData(data, params.slug)
         // console.log("Data fetched: " + JSON.stringify(data))
         return {
             page:

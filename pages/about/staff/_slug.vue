@@ -116,7 +116,7 @@ export default {
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
         })
-        await $elasticsearchplugin.getData(data)
+        await $elasticsearchplugin.getData(data, params.slug)
 
         return {
             page: data,
