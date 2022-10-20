@@ -21,7 +21,7 @@ export const actions = {
 
         try {
             // If we have a payload already, don't do the request, use the payload
-            if (!data) {
+            /*if (!data) {
                 data = await this.$axios.$post("/oauth/token", {
                     client_id: $config.libcalClientId,
                     client_secret: $config.libcalClientSecret,
@@ -37,7 +37,7 @@ export const actions = {
                 throw new Error(
                     "Auth error. Libcal returned: " + JSON.stringify(data)
                 )
-            }
+            }*/
         } catch (e) {
             throw new Error(
                 "Libcal API error, see nuxtGenerateInit function for source. " +

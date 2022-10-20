@@ -134,6 +134,7 @@ export default {
     },
     methods: {
         async doSearch() {
+            console.log("search process started: ")
             // TODO Get this pushing real values ot the URL
             this.$router.push({
                 path: this.actionURL,
@@ -170,7 +171,7 @@ export default {
         input {
             font-size: 20px;
             line-height: 100%;
-            background-color: var(--color-lightest-blue);
+            background-color: #eaf2fb;
             border-color: transparent;
             padding: 27px 95px;
 

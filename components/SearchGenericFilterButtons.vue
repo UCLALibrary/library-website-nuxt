@@ -76,7 +76,7 @@ export default {
         font-size: 18px;
         font-family: var(--font-secondary);
         color: var(--color-white);
-        background-color: var(--color-blue-03);
+        background-color: #0b6ab7;
         margin-right: 8px;
         padding: 0;
 
