@@ -6,13 +6,23 @@
             parent-title="All Blogs"
         />
 
+        <banner-text
+            v-if="!page.heroImage || page.heroImage.length == 0"
+            class="banner-text"
+            category="Blog"
+            :title="page.title"
+            :text="page.text"
+            :byline="parsedBylineBannerText"
+            :locations="page.locations"
+        />
+
         <section-wrapper class="section-banner">
             <banner-header
                 v-if="page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
                 :to="page.to"
                 :title="page.title"
-                category="Library News"
+                category="Blog"
                 :byline="parsedByline"
                 :locations="page.locations"
                 :date-created="page.dateCreated"
@@ -21,7 +31,10 @@
             />
         </section-wrapper>
 
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="page.heroImage && page.heroImage.length == 1"
+            theme="divider"
+        >
             <divider-way-finder
                 class="divider"
                 color="about"
@@ -90,6 +103,14 @@ export default {
             })
             return byline.map((entry) => {
                 return { title: entry }
+            })
+        },
+
+        parsedBylineBannerText() {
+            return (this.page.contributors || []).map((entry) => {
+                return `${entry.byline} ${
+                    entry.title || entry.staffMember[0].title
+                }`
             })
         },
 

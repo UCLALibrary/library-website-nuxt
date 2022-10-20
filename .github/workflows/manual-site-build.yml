@@ -1,0 +1,61 @@
+name: Manually rebuild and deploy the static site 
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment(test/stage/prod)'     
+        required: true
+        default: 'test'
+
+jobs:
+  nuxt-deploy:
+    name: Static Generation build 
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: ./.github/workflows/setup-workspace
+      - name: Cache built static site
+        uses: actions/cache@v2
+        with:
+          path: ./dist
+          key: nuxt-site-${{ github.sha }}
+      - name: Sets env vars for test
+        run: |
+          echo "CRAFT_ENDPOINT=${{secrets.CRAFT_ENDPOINT}} " >> $GITHUB_ENV
+          echo "SITEMAP_HOST=https://uclalibrary-test.library.ucla.edu" >> $GITHUB_ENV
+          echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_SITE_ID}}" >> $GITHUB_ENV
+        if: github.event.inputs.environment == 'test'
+      - name: Sets env vars for stage
+        run: |
+          echo "CRAFT_ENDPOINT=${{secrets.CRAFT_STAGE_ENDPOINT}}" >> $GITHUB_ENV
+          echo "SITEMAP_HOST=https://uclalibrary-stage.library.ucla.edu" >> $GITHUB_ENV
+          echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_STAGE_LIBRARY_SITE_ID}}" >> $GITHUB_ENV
+        if: github.event.inputs.environment == 'stage'
+      - name: Sets env vars for prod
+        run: |
+          echo "CRAFT_ENDPOINT=${{secrets.CRAFT_PROD_ENDPOINT}}" >> $GITHUB_ENV
+          echo "SITEMAP_HOST=https://uclalibrary.library.ucla.edu" >> $GITHUB_ENV
+          echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_PROD_LIBRARY_SITE_ID}}" >> $GITHUB_ENV
+        if: github.event.inputs.environment == 'prod'
+      - run: npm run generate
+        env:
+          CRAFT_ENDPOINT: ${{env.CRAFT_ENDPOINT}}
+          S3_BUCKET: "https://static.library.ucla.edu/"
+          SITEMAP_HOST: ${{env.SITEMAP_HOST}}
+          ES_URL: ${{ secrets.ES_URL }}
+          ESApiKey: ${{ secrets.ESApiKey }}
+          LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
+        with:
+          production-deploy: true
+          deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          publish-dir: "./dist"
+          fails-without-credentials: true
+          github-deployment-environment: production
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ env.NETLIFY_SITE_ID }}

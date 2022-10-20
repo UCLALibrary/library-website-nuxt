@@ -6,6 +6,16 @@
             parent-title="All Library News"
         />
 
+        <banner-text
+            v-if="!page.heroImage || page.heroImage.length == 0"
+            class="banner-text"
+            category="Library News"
+            :title="page.title"
+            :text="page.text"
+            :byline="parsedBylineBannerText"
+            :locations="page.locations"
+        />
+
         <section-wrapper class="section-banner">
             <banner-header
                 v-if="page.heroImage && page.heroImage.length == 1"
@@ -21,7 +31,10 @@
             />
         </section-wrapper>
 
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="page.heroImage && page.heroImage.length == 1"
+            theme="divider"
+        >
             <divider-way-finder
                 class="divider"
                 color="about"
@@ -93,6 +106,14 @@ export default {
             })
         },
 
+        parsedBylineBannerText() {
+            return (this.page.contributors || []).map((entry) => {
+                return `${entry.byline} ${
+                    entry.title || entry.staffMember[0].title
+                }`
+            })
+        },
+
         parsedDate() {
             return format(new Date(this.page.dateCreated), "MMMM d, Y")
         },
@@ -117,7 +138,7 @@ export default {
         margin-top: 0;
     }
     .banner-text {
-        --color-theme: var(--color-help-green-03);
+        --color-theme: varvar(--color-about-purple-03);
     }
     .banner-header {
         margin-bottom: var(--space-xl);
