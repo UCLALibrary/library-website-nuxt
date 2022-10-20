@@ -122,14 +122,14 @@ export default {
 
 <style lang="scss" scoped>
 .page-service-detail {
-    .section-cards {
-        margin: var(--space-3xl) auto;
-    }
     .more-info {
         @include visually-hidden;
     }
-    .block-call-to-action {
-        margin: var(--space-3xl) auto;
-    }
+    // .section-cards {
+    //     margin: var(--space-3xl) auto;
+    // }
+    // .block-call-to-action {
+    //     margin: var(--space-3xl) auto;
+    // }
 }
 </style>

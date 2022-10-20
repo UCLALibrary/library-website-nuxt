@@ -30,7 +30,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider-way-finder"
-                color="visit"
+                color="about"
             />
         </section-wrapper>
 
@@ -76,11 +76,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-general-content {
-    ::v-deep .divider-way-finder {
-        --color-theme: var(--color-about-purple-03);
-    }
-    .section-banner {
-        margin-top: 0;
-    }
 }
 </style>
