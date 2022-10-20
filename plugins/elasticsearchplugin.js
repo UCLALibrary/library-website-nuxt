@@ -5,7 +5,7 @@ export default function ({ $config, route }, inject) {
                 "this is the elasticsearch plugin" + JSON.stringify(data)
             )
             const response = await fetch(
-                `${$config.esURL}/apps-ashton-test-craft/_doc/${slug}`,
+                `${$config.esURL}/apps-ashton-prod-craft/_doc/${slug}`,
                 {
                     headers: {
                         Authorization: `ApiKey ${$config.esApiKey}`,

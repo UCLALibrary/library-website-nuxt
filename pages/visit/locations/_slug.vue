@@ -177,11 +177,13 @@ import LOCATION_DETAIL from "~/gql/queries/LocationDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         console.log("rendered client side" + process.client)
         const data = await $graphql.default.request(LOCATION_DETAIL, {
             slug: params.slug,
         })
+        await $elasticsearchplugin.getData(data, params.slug)
+
         return {
             page: _get(data, "entry", {}),
             associatedArticles: _get(data, "associatedArticles", {}),
