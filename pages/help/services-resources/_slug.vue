@@ -27,9 +27,7 @@
         />
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                color="help"
-            />
+            <divider-way-finder color="help" />
         </section-wrapper>
 
         <flexible-blocks
@@ -38,9 +36,7 @@
         />
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                color="help"
-            />
+            <divider-way-finder color="help" />
         </section-wrapper>
 
         <section-wrapper>
@@ -71,7 +67,7 @@ import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceO
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, store, $elasticsearchplugin }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
@@ -82,7 +78,8 @@ export default {
                 slug: params.slug,
             }
         )
-        console.log("Data fetched: " + JSON.stringify(data))
+        await $elasticsearchplugin.getData(data)
+        // console.log("Data fetched: " + JSON.stringify(data))
         return {
             page:
                 _get(data, "serviceOrResource", {}) ||

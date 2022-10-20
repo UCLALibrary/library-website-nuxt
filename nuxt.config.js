@@ -49,6 +49,7 @@ export default {
         "~/plugins/browser-events.client.js",
         "~/plugins/craft.js",
         "~/plugins/data-api.js",
+        "~/plugins/elasticsearchplugin.js",
     ],
 
     /*
@@ -107,7 +108,12 @@ export default {
     /*
      * Nuxt modules
      */
-    modules: ["@nuxtjs/axios", "@nuxtjs/gtm", "@nuxtjs/sitemap"], // This needs to be last always,
+    modules: [
+        "@nuxtjs/axios",
+        "nuxt-graphql-request",
+        "@nuxtjs/gtm",
+        "@nuxtjs/sitemap",
+    ], // This needs to be last always,
 
     gtm: {
         id: "GTM-T2SXV2",

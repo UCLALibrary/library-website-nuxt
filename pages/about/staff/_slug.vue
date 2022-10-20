@@ -107,20 +107,22 @@ import _get from "lodash/get"
 import STAFF_DETAIL from "~/gql/queries/StaffDetail"
 
 export default {
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for staff detail from Craft for live preview"
         )
+
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
         })
-        console.log("Data fetched: " + JSON.stringify(data))
-        // _get(data, "entry", {}),
+        await $elasticsearchplugin.getData(data)
+
         return {
             page: data,
         }
     },
+
     head() {
         let title =
             this.page && this.page.entry ? this.page.entry.title : "... loading"
