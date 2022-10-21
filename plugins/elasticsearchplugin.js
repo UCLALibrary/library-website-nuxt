@@ -1,4 +1,4 @@
-export default function ({ $config, route }, inject) {
+export default function ({ $config }, inject) {
     async function getData(data, slug) {
         if (process.server && process.env.NODE_ENV !== "development") {
             console.log(
