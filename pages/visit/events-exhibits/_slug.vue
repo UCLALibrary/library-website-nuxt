@@ -5,19 +5,22 @@
             v-if="allEvents[0]"
             :title="allEvents[0].title"
         />
+
         <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
         >
-            <!-- TODO Add SearchGenric here when complete  -->
+        <!-- TODO Add SearchGenric here when complete  -->
             <!--search-generic
                 search-type="about"
                 class="generic-search"
             />-->
             <!-- :filters="searchFilters.filters"
                 :view-modes="searchFilters.views"
-                @view-mode-change="viewModeChanger"-->
+                @view-mode-change="viewModeChanger"
+        -->
         </masthead-secondary>
+
         <p v-if="$fetchState.pending" />
         <p v-else-if="$fetchState.error">
             An error occurred :(
@@ -39,6 +42,7 @@
 
         Event detail here
         {{ allEvents }}
+
         <!-- TODO flexible content goes here -->
     </section>
 </template>

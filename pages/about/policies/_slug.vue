@@ -34,6 +34,7 @@
             />
         </section-wrapper>
 
+        <!-- Rich Text is not showing up -->
         <flexible-blocks
             v-if="page"
             class="flexible-content"

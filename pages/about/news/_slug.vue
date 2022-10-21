@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="page-news-detail">
+    <main class="page-news-detail">
         <nav-breadcrumb
             to="/about/news"
             :title="page.title"
@@ -60,7 +60,7 @@
 
             <section-staff-list :items="parsedAssociatedStaffMember" />
         </section-wrapper>
-    </section>
+    </main>
 </template>
 
 <script>

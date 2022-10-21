@@ -18,17 +18,19 @@
             :staff-directory-link="parsedStaffDirectory"
         />
 
-        <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :title="page.title"
-            :text="page.summary"
-            :address="parsedAddress"
-            :email="page.email"
-            :phone="page.phoneNumber"
-            :staff-directory-link="parsedStaffDirectory"
-            :address-link="addressLink"
-        />
+        <section-wrapper class="section-banner">
+            <banner-header
+                v-if="page.heroImage && page.heroImage.length == 1"
+                :image="page.heroImage[0].image[0]"
+                :title="page.title"
+                :text="page.summary"
+                :address="parsedAddress"
+                :email="page.email"
+                :phone="page.phoneNumber"
+                :staff-directory-link="parsedStaffDirectory"
+                :address-link="addressLink"
+            />
+        </section-wrapper>
 
         <divider-way-finder
             v-if="
@@ -316,20 +318,20 @@ export default {
 
 <style lang="scss" scoped>
 .page-location-detail {
-    .banner-text {
-        --color-theme: var(--color-help-green-03);
-    }
-    .banner-header {
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-        margin: var(--space-l) auto 0;
-    }
-    .banner-text + .divider-way-finder {
-        margin: 0 auto var(--space-3xl);
-    }
-    .content {
-        margin: 0 auto;
-    }
+    // .banner-text {
+    //     --color-theme: var(--color-help-green-03);
+    // }
+    // .banner-header {
+    //     padding: 0;
+    //     max-width: $container-xl-full-width + px;
+    //     margin: var(--space-l) auto 0;
+    // }
+    // .banner-text + .divider-way-finder {
+    //     margin: 0 auto var(--space-3xl);
+    // }
+    // .content {
+    //     margin: 0 auto;
+    // }
     .section-header {
         margin: var(--space-xl) auto;
         max-width: $container-l-main + px;
@@ -385,7 +387,6 @@ export default {
 
     @media #{$medium} {
         .about-text,
-        .section-header,
         .section-heading,
         .block-campus-map,
         .section-block-spaces,
