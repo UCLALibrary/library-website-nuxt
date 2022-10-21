@@ -58,7 +58,7 @@ export default {
         return {
             eventId: "9383207",
             blockFormData: BlockFormData.mock0,
-            libcalEndpoint: this.libcalParinita
+            libcalEndpoint: this.libcalEndpointProxy
         }
     },
     data() {
@@ -66,7 +66,7 @@ export default {
             allEvents: [],
             primaryItems: [],
             secondaryItems: [],
-            libcalParinita: this.$config.libcalProxy
+            libcalEndpointProxy: this.$config.libcalProxy
         }
     },
     async fetch() {
