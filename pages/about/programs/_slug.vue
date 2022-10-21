@@ -6,31 +6,31 @@
             parent-title="Programs"
         />
 
-        <section-wrapper class="section-banner">
-            <banner-text
-                v-if="!page.heroImage || page.heroImage.length == 0"
-                :title="page.title"
-                :text="page.text"
-                :email="page.email"
-                :phone="page.phoneNumber"
-                :staff-directory-link="parsedStaffDirectory"
-                :button-text="parsedButtonText"
-                :to="parsedButtonTo"
-            />
-        </section-wrapper>
-
-        <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
+        <banner-text
+            v-if="!page.heroImage || page.heroImage.length == 0"
             :title="page.title"
             :text="page.text"
             :email="page.email"
             :phone="page.phoneNumber"
             :staff-directory-link="parsedStaffDirectory"
-            :prompt="parsedButtonText"
+            :button-text="parsedButtonText"
             :to="parsedButtonTo"
-            :align-right="true"
         />
+
+        <section-wrapper class="section-banner">
+            <banner-header
+                v-if="page.heroImage && page.heroImage.length == 1"
+                :image="page.heroImage[0].image[0]"
+                :title="page.title"
+                :text="page.text"
+                :email="page.email"
+                :phone="page.phoneNumber"
+                :staff-directory-link="parsedStaffDirectory"
+                :prompt="parsedButtonText"
+                :to="parsedButtonTo"
+                :align-right="true"
+            />
+        </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -143,7 +143,7 @@ export default {
         },
         parsedSeeMore() {
             if (this.page.slug == "preservation-conservation-program") {
-                return "/about/programs/preservation-conservation"
+                return "/about/blogs/listing-preservation-and-conservation-blog"
             } else {
                 return "/about/news"
             }
