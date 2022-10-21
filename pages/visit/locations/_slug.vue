@@ -18,9 +18,11 @@
             :staff-directory-link="parsedStaffDirectory"
         />
 
-        <section-wrapper class="section-banner">
+        <section-wrapper
+            v-if="page.heroImage && page.heroImage.length == 1"
+            class="section-banner"
+        >
             <banner-header
-                v-if="page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
                 :title="page.title"
                 :text="page.summary"
@@ -320,20 +322,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-location-detail {
-    // .banner-text {
-    //     --color-theme: var(--color-help-green-03);
-    // }
-    // .banner-header {
-    //     padding: 0;
-    //     max-width: $container-xl-full-width + px;
-    //     margin: var(--space-l) auto 0;
-    // }
-    // .banner-text + .divider-way-finder {
-    //     margin: 0 auto var(--space-3xl);
-    // }
-    // .content {
-    //     margin: 0 auto;
-    // }
     .section-header {
         margin: var(--space-xl) auto;
         max-width: $container-l-main + px;

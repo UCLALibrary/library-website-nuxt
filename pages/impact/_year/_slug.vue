@@ -8,9 +8,11 @@
             :byline="parsedByline"
         />
 
-        <section-wrapper class="section-banner">
+        <section-wrapper
+            v-if="page && page.heroImage && page.heroImage.length == 1 || isVideo"
+            class="section-banner"
+        >
             <banner-header
-                v-if="page && page.heroImage && page.heroImage.length == 1 || isVideo"
                 :title="page.title"
                 :text="page.text"
                 :align-right="true"
