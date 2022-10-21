@@ -147,12 +147,14 @@
             class="content"
             :blocks="page.blocks"
         />
+
         <h2
             v-if="page.about"
             class="section-heading"
         >
             About
         </h2>
+
         <rich-text
             class="about-text"
             :rich-text-content="page.about"

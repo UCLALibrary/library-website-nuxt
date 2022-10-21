@@ -1,7 +1,7 @@
 <template lang="html">
     <main class="page page-impact-report">
         <banner-text
-            v-if="!isVideo"
+            v-if="page && (!page.heroImage || page.heroImage.length == 0) || !isVideo"
             class="banner-text"
             :title="page.title"
             :text="page.text"
@@ -10,7 +10,7 @@
 
         <section-wrapper class="section-banner">
             <banner-header
-                v-if="isVideo"
+                v-if="page && page.heroImage && page.heroImage.length == 1 || isVideo"
                 :title="page.title"
                 :text="page.text"
                 :align-right="true"
