@@ -1,23 +1,14 @@
 <template>
     <main class="page page-staff">
         <masthead-secondary title="Staff Directory" />
-
-        <section-wrapper class="search-container">
-            <div class="empty-search-box" />
-            <div class="input-indicator" />
-            <div class="filters">
-                <div />
-                <div />
-                <div />
-            </div>
-            <!-- TODO Add SearchGenric here when complete
+        <!-- TODO Add SearchGenric here when complete
                 Filter by location, department, subject libarian -->
-            <search-generic
-                search-type="about"
-                :filters="searchFilters.filters"
-                class="generic-search"
-            />
-        </section-wrapper>
+
+        <search-generic
+            search-type="about"
+            :filters="searchFilters"
+            class="generic-search"
+        />
 
         <section-wrapper theme="divider">
             <divider-way-finder />
@@ -71,25 +62,86 @@ import _get from "lodash/get"
 
 // gql
 import STAFF_LIST from "~/gql/queries/StaffList"
-import STAFF_LIST_WITH_DETAIL from "~/gql/queries/StaffListwithfulldetail"
+// import STAFF_LIST_WITH_DETAIL from "~/gql/queries/StaffListwithfulldetail"
 
 export default {
-    async asyncData({ $graphql, params }) {
-        console.log("live preview enters staff list")
+    async asyncData({ $graphql, params, $dataApi }) {
+        console.log("live preview  staff list")
+        const filterFields = [
+            { label: "Location", esFieldName: "locations.title.keyword" },
+            {
+                label: "Department",
+                esFieldName: "departments.title.keyword",
+            },
+            { label: "Subject Librarian", esFieldName: "subjectLibrarian" },
+        ]
+        const searchAggsResponse = await $dataApi.getAggregations(filterFields)
+
+        console.log(
+            "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+        )
+        console.log(
+            "Reduce response to name and key: " +
+                JSON.stringify(
+                    searchAggsResponse["Department"].buckets.reduce(
+                        (accumulator, value) => {
+                            return [...accumulator, { name: value.key }]
+                        },
+                        []
+                    )
+                )
+        )
+        // Write a helper function for returning generic filters and doing the reduce part
+        const filters = [
+            {
+                label: "Location",
+                slug: "locations.title.keyword",
+                inputType: "checkbox",
+                items: searchAggsResponse["Location"].buckets.reduce(
+                    (accumulator, value) => {
+                        return [...accumulator, { name: value.key }]
+                    },
+                    []
+                ),
+            },
+            {
+                label: "Department",
+                slug: "departments.title.keyword",
+                inputType: "checkbox",
+                items: searchAggsResponse["Department"].buckets.reduce(
+                    (accumulator, value) => {
+                        return [...accumulator, { name: value.key }]
+                    },
+                    []
+                ),
+            },
+            {
+                label: "Subject Librarian",
+                slug: "subjectLibrarian",
+                inputType: "radio",
+                items: searchAggsResponse["Subject Librarian"].buckets.reduce(
+                    (accumulator, value) => {
+                        return [...accumulator, { name: value.key }]
+                    },
+                    []
+                ),
+            },
+        ]
         const data = await $graphql.default.request(STAFF_LIST, {
             uri: params.path,
         })
-        const datawithfulldetail = await $graphql.default.request(
+        /*const datawithfulldetail = await $graphql.default.request(
             STAFF_LIST_WITH_DETAIL
         )
 
         console.log(
             "staff list for indexing: " +
                 JSON.stringify(datawithfulldetail.entries)
-        )
+        )*/
 
         return {
             page: data,
+            searchFilters: filters,
         }
     },
     computed: {

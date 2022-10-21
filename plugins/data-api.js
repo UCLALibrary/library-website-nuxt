@@ -19,7 +19,7 @@ export default function({$config}, inject) {
         // const urlParams = new URLSearchParams(params).toString()
         // console.log("paranaters: "+urlParams)
         // `${ES_URL}/apps-dev-library-website/_search?q=*:*` GET request
-        const response = await fetch(`${$config.esURL}/apps-craft-staff-index/_search`, {
+        const response = await fetch(`${$config.esURL}/apps-craft-test/_search`, {
             headers: {
                 'Authorization': `ApiKey ${$config.esApiKey}`,
                 'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export default function({$config}, inject) {
 
     async function getMapping(){
         if($config.esApiKey === "" || !$config.esURL === "") return
-        const response = await fetch(`${$config.esURL}/apps-dev-library-website/_mapping`, {
+        const response = await fetch(`${$config.esURL}/apps-craft-test/_mapping`, {
             headers: {
                 'Authorization': `ApiKey ${$config.esApiKey}`,
                 // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -62,7 +62,6 @@ export default function({$config}, inject) {
     async function getAggregations(fields){
         console.log("search text: "+fields)
         if(!fields || fields.length == 0 ) return
-
         const response = await fetch(`${$config.esURL}/apps-craft-test/_search`, {
             headers: {
                 'Authorization': `ApiKey ${$config.esApiKey}`,
@@ -70,21 +69,21 @@ export default function({$config}, inject) {
             },
             method: 'POST',
             body: JSON.stringify({
+                "size": 0,
                 "aggs": {
-                    "size": 0,
                     ...parseFieldNames(fields)
                 }
             })
         })
         const data = await response.json()
-        return data
+        return data.aggregations
     }
 
     function parseFieldNames(fields){
-        let aggsFileds = {}
+        let aggsFields = {}
         for (const element of fields) {
             console.log(element)
-            aggsFileds[element.label] = {
+            aggsFields[element.label] = {
                 terms:{
                     field:  element.esFieldName,
                     size: 15
@@ -92,6 +91,7 @@ export default function({$config}, inject) {
             }
             
         } 
-        return aggsFileds
+        console.log("aggsFields:"+JSON.stringify(aggsFields))
+        return aggsFields
     }
 }
