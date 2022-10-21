@@ -57,6 +57,7 @@ export default {
     provide: {
         eventId: "9383207",
         blockFormData: BlockFormData.mock0,
+        libcalEndpoint: this.$config.libcalProxy
     },
     data() {
         return {
