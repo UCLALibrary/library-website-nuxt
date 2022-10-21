@@ -60,6 +60,9 @@
 // Helpers
 import _get from "lodash/get"
 
+// Utilities
+import getListingFilters from "~/utils/getListingFilters"
+
 // gql
 import STAFF_LIST from "~/gql/queries/StaffList"
 // import STAFF_LIST_WITH_DETAIL from "~/gql/queries/StaffListwithfulldetail"
@@ -68,65 +71,32 @@ export default {
     async asyncData({ $graphql, params, $dataApi }) {
         console.log("live preview  staff list")
         const filterFields = [
-            { label: "Location", esFieldName: "locations.title.keyword" },
+            {
+                label: "Location",
+                esFieldName: "locations.title.keyword",
+                inputType: "checkbox",
+            },
             {
                 label: "Department",
                 esFieldName: "departments.title.keyword",
+                inputType: "checkbox",
             },
-            { label: "Subject Librarian", esFieldName: "subjectLibrarian" },
+            {
+                label: "Subject Librarian",
+                esFieldName: "subjectLibrarian",
+                inputType: "radio",
+            },
         ]
-        const searchAggsResponse = await $dataApi.getAggregations(filterFields)
+        const searchAggsResponse = await $dataApi.getAggregations(
+            filterFields,
+            "staffMember"
+        )
 
         console.log(
             "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
         )
-        console.log(
-            "Reduce response to name and key: " +
-                JSON.stringify(
-                    searchAggsResponse["Department"].buckets.reduce(
-                        (accumulator, value) => {
-                            return [...accumulator, { name: value.key }]
-                        },
-                        []
-                    )
-                )
-        )
         // Write a helper function for returning generic filters and doing the reduce part
-        const filters = [
-            {
-                label: "Location",
-                slug: "locations.title.keyword",
-                inputType: "checkbox",
-                items: searchAggsResponse["Location"].buckets.reduce(
-                    (accumulator, value) => {
-                        return [...accumulator, { name: value.key }]
-                    },
-                    []
-                ),
-            },
-            {
-                label: "Department",
-                slug: "departments.title.keyword",
-                inputType: "checkbox",
-                items: searchAggsResponse["Department"].buckets.reduce(
-                    (accumulator, value) => {
-                        return [...accumulator, { name: value.key }]
-                    },
-                    []
-                ),
-            },
-            {
-                label: "Subject Librarian",
-                slug: "subjectLibrarian",
-                inputType: "radio",
-                items: searchAggsResponse["Subject Librarian"].buckets.reduce(
-                    (accumulator, value) => {
-                        return [...accumulator, { name: value.key }]
-                    },
-                    []
-                ),
-            },
-        ]
+
         const data = await $graphql.default.request(STAFF_LIST, {
             uri: params.path,
         })
@@ -141,7 +111,7 @@ export default {
 
         return {
             page: data,
-            searchFilters: filters,
+            searchFilters: getListingFilters(searchAggsResponse, filterFields),
         }
     },
     computed: {

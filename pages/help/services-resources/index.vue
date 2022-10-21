@@ -1,5 +1,11 @@
 <template lang="html">
     <div class="page page-help">
+        <search-generic
+            search-type="about"
+            :filters="searchFilters"
+            class="generic-search"
+        />
+        <br>
         <h3>Services and Resources</h3>
         <nuxt-link
             v-for="item in parsedServiceAndResourceList"
@@ -23,6 +29,7 @@
                 v-html="item.title"
             />
         </nuxt-link>
+        <br>
     </div>
 </template>
 
@@ -31,8 +38,26 @@
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceWorkshopSeriesList"
 import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
 
+// Utilities
+import getListingFilters from "~/utils/getListingFilters"
+
 export default {
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, $dataApi }) {
+        const filterFields = [
+            { label: "Location", esFieldName: "locations.title.keyword" },
+            {
+                label: "Topic",
+                esFieldName: "associatedTopics.title.keyword",
+            },
+        ]
+        const searchAggsResponse = await $dataApi.getAggregations(
+            filterFields,
+            "serviceOrResource"
+        )
+
+        console.log(
+            "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+        )
         const data = await $graphql.default.request(
             SERVICE_RESOURCE_WORKSHOPSERIES_LIST,
             {
@@ -45,6 +70,7 @@ export default {
         return {
             page: data,
             helpTopic: helpTopicData,
+            searchFilters: getListingFilters(searchAggsResponse, filterFields),
         }
     },
     computed: {

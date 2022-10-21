@@ -31,7 +31,7 @@ export default function({$config}, inject) {
                 } */
                 "query": {
                     "query_string" : {
-                        "query" : "*:*"
+                        "query" : keyword
                     }
                 }
             })
@@ -59,7 +59,7 @@ export default function({$config}, inject) {
         return data
     }
 
-    async function getAggregations(fields){
+    async function getAggregations(fields, sectionHandle){
         console.log("search text: "+fields)
         if(!fields || fields.length == 0 ) return
         const response = await fetch(`${$config.esURL}/apps-craft-test/_search`, {
@@ -70,6 +70,13 @@ export default function({$config}, inject) {
             method: 'POST',
             body: JSON.stringify({
                 "size": 0,
+                "query": {
+                    "match": {
+                        "sectionHandle":{
+                            "query":sectionHandle
+                        }
+                    }
+                },
                 "aggs": {
                     ...parseFieldNames(fields)
                 }
