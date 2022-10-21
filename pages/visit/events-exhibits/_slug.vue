@@ -54,16 +54,19 @@ import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
 import BlockFormData from "~/data/BlockFormData.json"
 
 export default {
-    provide: {
-        eventId: "9383207",
-        blockFormData: BlockFormData.mock0,
-        libcalEndpoint: this.$config.libcalProxy
+    provide() {
+        return {
+            eventId: "9383207",
+            blockFormData: BlockFormData.mock0,
+            libcalEndpoint: this.libcalParinita
+        }
     },
     data() {
         return {
             allEvents: [],
             primaryItems: [],
             secondaryItems: [],
+            libcalParinita: this.$config.libcalProxy
         }
     },
     async fetch() {
