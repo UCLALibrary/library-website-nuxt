@@ -1,5 +1,10 @@
 <template>
     <main class="page page-policies">
+        <masthead-secondary
+            :title="summaryData.libraryPoliciesListTitle"
+            :text="summaryData.libraryPoliciesListSummary"
+        />
+
         <section-wrapper
             v-if="page.entries"
             class="section"
@@ -19,6 +24,9 @@
 </template>
 
 <script>
+// Helpers
+import _get from "lodash/get"
+
 // GQL
 import POLICIES_LIST from "~/gql/queries/PoliciesList"
 
@@ -29,12 +37,13 @@ export default {
         })
 
         return {
-            page: data,
+            page: _get(data, "entries", {}),
+            summaryData: _get(data, "entry", {}),
         }
     },
     computed: {
         parsedPolicies() {
-            return this.page.entries.map((obj) => {
+            return this.page.map((obj) => {
                 return {
                     ...obj,
                     to: `/about/policies/${obj.to}`,
