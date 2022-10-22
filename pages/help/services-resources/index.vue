@@ -6,15 +6,14 @@
             class="generic-search"
             @search-ready="getSearchData"
         />
-        <br>
-        <br>
-        <br>
+        <masthead-secondary
+            :title="summaryData.locationHoursListTitle"
+            :text="summaryData.locationHoursListSummary"
+        />
+
         <section-wrapper
-            v-if="page.serviceOrResource || page.workshopseries"
-            class="section"
-        >
+            v-if="page.serviceOrResource || page.workshopseries">
             <section-cards-with-illustrations
-                class="section"
                 :items="parsedServiceAndResourceList"
                 :is-horizontal="true"
             />
@@ -22,7 +21,6 @@
 
         <section-wrapper
             v-if="page.serviceOrResource || page.workshopseries"
-            class="section"
         >
             <divider-way-finder
                 class="divider-way-finder"
@@ -30,18 +28,6 @@
             />
         </section-wrapper>
 
-        <h3>Help Topics</h3>
-        <nuxt-link
-            v-for="item in parsedHelpTopicList"
-            :key="item.to"
-            :to="item.to"
-        >
-            <div
-                class="text"
-                v-html="item.title"
-            />
-        </nuxt-link>
-        <br>
         <section-wrapper>
             <block-call-to-action
                 class="block-call-to-action"

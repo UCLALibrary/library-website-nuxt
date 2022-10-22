@@ -21,4 +21,11 @@ query ServiceResourceWorkshopSeriesList {
       category: workshopOrEventSeriesType
     }
   }
+  entry(section: "listingServicesResources") {
+      ... on listingServicesResources_listingServicesResources_Entry {
+          id
+          servicesResourcesListTitle: titleGeneral
+          servicesResourcesListSummary: summary
+      }
+  }
 }
