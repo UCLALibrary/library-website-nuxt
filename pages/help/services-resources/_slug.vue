@@ -17,9 +17,11 @@
             :to="parsedButtonTo"
         />
 
-        <section-wrapper class="section-banner">
+        <section-wrapper
+            v-if="page.heroImage && page.heroImage.length == 1"
+            class="section-banner"
+        >
             <banner-header
-                v-if="page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
                 :category="page.type"
                 :title="page.title"
