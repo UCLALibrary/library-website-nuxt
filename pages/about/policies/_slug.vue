@@ -17,21 +17,26 @@
             :text="page.summary"
         />
 
-        <banner-header
+        <section-wrapper
             v-if="page && page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :category="page.format"
-            :title="page.title"
-            :text="page.summary"
-        />
+            class="section-banner"
+        >
+            <banner-header
+                :image="page.heroImage[0].image[0]"
+                :category="page.format"
+                :title="page.title"
+                :text="page.summary"
+            />
+        </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider-way-finder"
-                color="visit"
+                color="about"
             />
         </section-wrapper>
 
+        <!-- Rich Text is not showing up -->
         <flexible-blocks
             v-if="page"
             class="flexible-content"
@@ -74,22 +79,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-general-content {
-    .banner-text {
-        --color-theme: var(--color-about-purple-03);
-        margin: 0 auto var(--space-2xl);
-    }
-    .banner-header {
-        margin-bottom: var(--space-xl);
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
-        --color-theme: var(--color-about-purple-03);
-    }
-    ::v-deep .divider-way-finder {
-        --color-theme: var(--color-about-purple-03);
-    }
-    .section-banner {
-        margin-top: 0;
-    }
 }
 </style>
