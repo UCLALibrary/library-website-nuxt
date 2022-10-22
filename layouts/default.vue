@@ -1,10 +1,14 @@
 <template lang="html">
     <div :class="classes">
-        <!-- <a
+        <!--
+        <a
             ref="skipLink"
             href="#main"
             class="skip-link"
-        >Skip to main content</a> -->
+        >
+            Skip to main content
+        </a>
+        -->
 
         <header-smart />
         <nuxt class="page" />
