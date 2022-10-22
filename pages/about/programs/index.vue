@@ -1,20 +1,9 @@
 <template>
     <main class="page page-programs">
-        <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :title="page.title"
-            category="Programs"
-            :to="to"
-            :align-right="true"
+        <masthead-secondary
+            :title="summaryData.programListTitle"
+            :text="summaryData.programListSummary"
         />
-
-        <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
-        </section-wrapper>
 
         <section-wrapper>
             <section-staff-article-list
@@ -39,6 +28,7 @@ export default {
         // console.log("data:" + data)
         return {
             page: _get(data, "entries", {}),
+            summaryData: _get(data, "entry", {}),
         }
     },
     computed: {
