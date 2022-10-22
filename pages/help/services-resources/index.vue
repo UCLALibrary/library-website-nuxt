@@ -7,8 +7,28 @@
             @search-ready="getSearchData"
         />
         <masthead-secondary
-            :title="summaryData.locationHoursListTitle"
-            :text="summaryData.locationHoursListSummary"
+            :title="summaryData.servicesResourcesListTitle"
+            :text="summaryData.servicesResourcesListSummary"
+        />
+
+        <h3>{{ page }}</h3>
+
+        <section-wrapper
+            v-if="resourceList"
+            class="section"
+        >
+            <section-cards-with-illustrations
+                class="section"
+                :items="parsedServiceAndResourceList"
+                section-title="Get Help With"
+                :is-horizontal="true"
+            />
+        </section-wrapper>
+
+        <section-cards-with-illustrations
+            :items="parsedServiceAndResourceList"
+            section-title="Get Help With"
+            :is-horizontal="false"
         />
 
         <section-wrapper
@@ -38,6 +58,9 @@
 </template>
 
 <script>
+// Helpers
+import _get from "lodash/get"
+
 // gql
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceWorkshopSeriesList"
 import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
@@ -70,7 +93,8 @@ export default {
             uri: params.path,
         })
         return {
-            page: data,
+            page: _get(data, "entries", {}),
+            summaryData: _get(data, "entry", {}),
             helpTopic: helpTopicData,
             searchFilters: getListingFilters(
                 searchAggsResponse,
