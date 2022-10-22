@@ -26,4 +26,19 @@ query ArticleList($articleType: QueryArgument!) {
             }
         }
     }
+
+    entry(section: "listingNews") {
+        ... on listingNews_listingNews_Entry {
+            id
+            articleListTitle: titleGeneral
+            articleListSummary: summary
+            featuredNewsListing {
+                id
+                title
+                text: summary
+                uri
+                externalResourceUrl
+            }
+        }
+    }
 }

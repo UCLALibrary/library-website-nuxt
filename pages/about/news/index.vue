@@ -1,24 +1,9 @@
 <template>
     <main class="page page-news">
-        <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :title="page.title"
-            category="Library News"
-            :byline="parsedBylines"
-            :locations="locations"
-            :date-created="parsedDate"
-            :to="to"
-            :authors="authors"
-            :align-right="true"
+        <masthead-secondary
+            :title="summaryData.articleListTitle"
+            :text="summaryData.articleListSummary"
         />
-
-        <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
-        </section-wrapper>
 
         <section-wrapper>
             <section-staff-article-list
@@ -45,13 +30,14 @@ export default {
         })
         // console.log("data:" + data)
         return {
-            page: data,
+            page: _get(data, "entries", {}),
+            summaryData: _get(data, "entry", {}),
         }
     },
     computed: {
         parsedNewsList() {
             console.log("Entries: " + this.page.entries)
-            return this.page.entries.map((obj) => {
+            return this.page.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
