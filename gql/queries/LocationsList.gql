@@ -28,13 +28,6 @@ query LocationsList {
             id
             locationHoursListTitle: titleGeneral
             locationHoursListSummary: summary
-            featuredNewsListing {
-                id
-                title
-                text: summary
-                uri
-                externalResourceUrl
-            }
         }
     }
 }
