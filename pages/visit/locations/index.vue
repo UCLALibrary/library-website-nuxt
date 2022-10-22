@@ -1,5 +1,11 @@
 <template lang="html">
     <div class="page page-help">
+        <masthead-secondary
+            :title="summaryData.locationHoursListTitle"
+            :text="summaryData.locationHoursListSummary"
+        />
+        <h3>{{ page }}</h3>
+
         <nuxt-link
             v-for="item in parsedLocationsList"
             :key="item.to"
@@ -14,6 +20,9 @@
 </template>
 
 <script>
+// Helpers
+import _get from "lodash/get"
+
 // gql
 import LOCATIONS_LIST from "~/gql/queries/LocationsList"
 
@@ -24,12 +33,13 @@ export default {
         })
 
         return {
-            page: data,
+            page: _get(data, "entries", {}),
+            summaryData: _get(data, "entry", {}),
         }
     },
     computed: {
         parsedLocationsList() {
-            return this.page.entries.map((obj) => {
+            return this.page.map((obj) => {
                 return {
                     ...obj,
                     to: `/visit/locations/${obj.to}`,

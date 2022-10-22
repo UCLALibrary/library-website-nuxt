@@ -23,4 +23,18 @@ query LocationsList {
             }
         }
     }
+    entry(section: "listingLocationsHours") {
+        ... on listingLocationsHours_listingLocationsHours_Entry {
+            id
+            locationHoursListTitle: titleGeneral
+            locationHoursListSummary: summary
+            featuredNewsListing {
+                id
+                title
+                text: summary
+                uri
+                externalResourceUrl
+            }
+        }
+    }
 }
