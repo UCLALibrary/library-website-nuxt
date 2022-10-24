@@ -30,13 +30,13 @@
             :primary-items="primaryItems"
             :secondary-items="secondaryItems"
         />
-        <!-- <banner-text
+        <banner-text
             category="Event"
             title="Curabitur Tortor Pellentesque"
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, metus in aliquet venenatis, mi lectus placerat leo, congue gravida mi quam sit amet neque."
             button-text="Curabitur"
             :register-event="true"
-        /> -->
+        />
 
         Event detail here
         {{ allEvents }}
@@ -94,9 +94,6 @@ export default {
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
         // console.log("params " + this.$route.params.slug)
-        // const data = await this.$axios.$get(
-        //     `/1.1/events/${this.$route.params.slug}`
-        // )
         // TODO get event data from Craft
         // return {
         //     page: {},
@@ -105,6 +102,7 @@ export default {
         // console.log(this.formData.events)
     },
     created() {
+        // eslint-disable-next-line no-undef
         if(process.client) {
             this.formId = scrapeFormId(this.eventId)
         }
