@@ -30,14 +30,13 @@
             :primary-items="primaryItems"
             :secondary-items="secondaryItems"
         />
-        <banner-text
+        <!-- <banner-text
             category="Event"
             title="Curabitur Tortor Pellentesque"
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, metus in aliquet venenatis, mi lectus placerat leo, congue gravida mi quam sit amet neque."
             button-text="Curabitur"
-            byline="a"
-            register-event="true"
-        />
+            :register-event="true"
+        /> -->
 
         Event detail here
         {{ allEvents }}
@@ -55,21 +54,27 @@
 import _get from "lodash/get"
 // import startCase from "lodash/startcase"
 
+// Helpers
+import scrapeFormId from "~/utils/scrapeFormId"
+
 // GQL
 import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
 
-import BlockFormData from "~/data/BlockFormData.json"
-
 export default {
-    provide: {
-        eventId: "9383207",
-        blockFormData: BlockFormData.mock0,
+    provide() {
+        return {
+            eventId: "9383207",
+            blockFormData: this.formData,
+        }
     },
     data() {
         return {
             allEvents: [],
             primaryItems: [],
             secondaryItems: [],
+            formData: {},
+            formId: "",
+            eventId: ""
         }
     },
     async fetch() {
@@ -77,20 +82,32 @@ export default {
         const navData = await this.$graphql.default.request(
             HEADER_MAIN_MENU_ITEMS
         )
-        console.log(navData)
+        // console.log(navData)
         // sample event id = 9383207
+        this.eventId = 9383207
+
+        console.log('formId' + this.formId)
+        this.formData = await this.$axios.$get(
+            `api/1.1/events/${this.formId}`
+        )
+
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
-        console.log("params " + this.$route.params.slug)
-        const data = await this.$axios.$get(
-            `/1.1/events/${this.$route.params.slug}`
-        )
+        // console.log("params " + this.$route.params.slug)
+        // const data = await this.$axios.$get(
+        //     `/1.1/events/${this.$route.params.slug}`
+        // )
         // TODO get event data from Craft
         // return {
         //     page: {},
         // }
-        this.allEvents = [...this.allEvents, ...data.events]
-        console.log(data.events)
+        this.allEvents = [...this.allEvents, ...this.formData.events]
+        // console.log(this.formData.events)
+    },
+    created() {
+        if(process.client) {
+            this.formId = scrapeFormId(this.eventId)
+        }
     },
 }
 </script>
