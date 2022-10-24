@@ -1,5 +1,5 @@
 <template>
-    <section class="page-program-detail">
+    <main class="page-program-detail">
         <nav-breadcrumb
             to="/about/program"
             :title="page.title"
@@ -8,28 +8,31 @@
 
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
-            class="banner-text"
             :title="page.title"
             :text="page.text"
+            :email="page.email"
+            :phone="page.phoneNumber"
+            :staff-directory-link="parsedStaffDirectory"
             :button-text="parsedButtonText"
             :to="parsedButtonTo"
-            :email="page.email"
-            :phone="page.phoneNumber"
-            :staff-directory-link="parsedStaffDirectory"
         />
 
-        <banner-header
+        <section-wrapper
             v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :title="page.title"
-            :text="page.text"
-            :prompt="parsedButtonText"
-            :to="parsedButtonTo"
-            :email="page.email"
-            :phone="page.phoneNumber"
-            :staff-directory-link="parsedStaffDirectory"
-            :align-right="true"
-        />
+            class="section-banner"
+        >
+            <banner-header
+                :image="page.heroImage[0].image[0]"
+                :title="page.title"
+                :text="page.text"
+                :email="page.email"
+                :phone="page.phoneNumber"
+                :staff-directory-link="parsedStaffDirectory"
+                :prompt="parsedButtonText"
+                :to="parsedButtonTo"
+                :align-right="true"
+            />
+        </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -63,8 +66,8 @@
             v-if="associatedArticles"
             class="associated-articles"
         >
-            <div class="section-header">
-                <h2 class="section-title">
+            <div class="section-title">
+                <h2 class="title">
                     Associated Articles
                 </h2>
             </div>
@@ -82,7 +85,7 @@
                 <button-more text="See More" />
             </nuxt-link>
         </section-wrapper>
-    </section>
+    </main>
 </template>
 
 <script>
@@ -142,7 +145,7 @@ export default {
         },
         parsedSeeMore() {
             if (this.page.slug == "preservation-conservation-program") {
-                return "/about/programs/preservation-conservation"
+                return "/about/blogs/listing-preservation-and-conservation-blog"
             } else {
                 return "/about/news"
             }
@@ -153,27 +156,15 @@ export default {
 
 <style lang="scss" scoped>
 .page-program-detail {
-    .banner-text {
-        --color-theme: var(--color-about-purple-03);
-        margin: 0 auto var(--space-2xl);
-    }
-
-    .banner-header {
-        margin-bottom: var(--space-xl);
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
-    }
-
     .section-teaser-card {
         display: flex;
         flex-direction: row;
     }
 
-    .section-header {
+    .section-title {
         margin-bottom: var(--space-xl);
 
-        .section-title {
+        .title {
             @include step-3;
             color: var(--color-primary-blue-03);
             margin-bottom: var(--space-m);

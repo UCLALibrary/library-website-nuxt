@@ -1,19 +1,22 @@
 <template lang="html">
-    <div class="page page-impact-report">
-        <section-wrapper class="section-banner">
+    <main class="page page-impact-report">
+        <banner-text
+            v-if="page && (!page.heroImage || page.heroImage.length == 0) || !isVideo"
+            class="banner-text"
+            :title="page.title"
+            :text="page.text"
+            :byline="parsedByline"
+        />
+
+        <section-wrapper
+            v-if="page && page.heroImage && page.heroImage.length == 1 || isVideo"
+            class="section-banner"
+        >
             <banner-header
-                v-if="isVideo"
                 :title="page.title"
                 :text="page.text"
                 :align-right="true"
                 :video="parsedVideo"
-                :byline="parsedByline"
-            />
-            <banner-text
-                v-else
-                class="banner-text"
-                :title="page.title"
-                :text="page.text"
                 :byline="parsedByline"
             />
         </section-wrapper>
@@ -29,7 +32,7 @@
             class="content"
             :blocks="page.blocks"
         />
-    </div>
+    </main>
 </template>
 
 <script>
@@ -115,123 +118,124 @@ export default {
     .section {
         margin: 1px auto;
     }
-    .section-banner {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    .banner-header {
-        // margin-bottom: var(--space-xl);
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-    }
-    ::v-deep .banner-header {
-        margin-bottom: 0px;
-    }
-    .rich-text {
-        margin: var(--unit-gutter) auto;
-    }
-    .breadcrumb-link {
-        margin: var(--space-xl) auto;
-        padding: 0 $whitespace-m-sides + px;
-        max-width: $container-l-main + px;
-        font-style: var(--font-secondary);
-        font-size: 20px;
-        color: var(--color-primary-blue-03);
-        font-weight: 400;
+    // .section-banner {
+    //     margin-top: 0;
+    //     margin-bottom: 0;
+    // }
+    // .banner-header {
+    //     // margin-bottom: var(--space-xl);
+    //     padding: 0;
+    //     max-width: $container-xl-full-width + px;
+    // }
+    // ::v-deep .banner-header {
+    //     margin-bottom: 0px;
+    // }
+    // .rich-text {
+    //     margin: var(--unit-gutter) auto;
+    // }
+    // .breadcrumb-link {
+    //     margin: var(--space-xl) auto;
+    //     padding: 0 $whitespace-m-sides + px;
+    //     max-width: $container-l-main + px;
+    //     font-style: var(--font-secondary);
+    //     font-size: 20px;
+    //     color: var(--color-primary-blue-03);
+    //     font-weight: 400;
 
-        display: flex;
-        align-items: center;
-    }
-    .divider {
-        margin: var(--space-xl) auto;
-    }
-    .divider-way-finder {
-        max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
-        &.divider {
-            box-sizing: unset;
-        }
-    }
-    .divider-general {
-        margin: var(--space-3xl) auto;
-        max-width: $container-l-main + px;
-    }
-    .call-to-action {
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 100%;
-        margin: var(--space-3xl) auto;
-        padding: 0 $whitespace-m-sides + px;
-        max-width: $container-l-main + px;
+    //     display: flex;
+    //     align-items: center;
+    // }
+    // .divider {
+    //     margin: var(--space-xl) auto;
+    // }
+    // .divider-way-finder {
+    //     max-width: $container-l-main + px;
+    //     margin: var(--space-3xl) auto;
+    //     &.divider {
+    //         box-sizing: unset;
+    //     }
+    // }
+    // .divider-general {
+    //     margin: var(--space-3xl) auto;
+    //     max-width: $container-l-main + px;
+    // }
+    // .call-to-action {
+    //     font-weight: 500;
+    //     font-size: 18px;
+    //     line-height: 100%;
+    //     margin: var(--space-3xl) auto;
+    //     padding: 0 $whitespace-m-sides + px;
+    //     max-width: $container-l-main + px;
 
-        display: flex;
-        align-items: center;
-    }
-    .svg {
-        text-decoration: underline;
-        text-decoration-color: var(--color-primary-blue-03);
-        padding-left: 5px;
-        .line {
-            stroke: var(--color-primary-blue-03);
-        }
-        .arrow-diagonal {
-            fill: var(--color-primary-blue-03);
-        }
-    }
-    .svg-arrow-right {
-        flex-shrink: 0;
-        .arrow-right {
-            stroke: var(--color-primary-blue-03);
-        }
-    }
-    .content {
-        ::v-deep .section-wrapper {
-            .flexible-block {
-                background-color: var(--color-white);
-                ul > * {
-                    background-color: var(--color-white);
-                }
-                div.clipped-box {
-                    background-color: var(--color-white);
-                }
-            }
-            background-color: var(--color-white);
-        }
-    }
-    @media #{$medium} {
-        .divider-general {
-            width: calc(100% - (var(--unit-gutter) * 2));
-        }
+    //     display: flex;
+    //     align-items: center;
+    // }
+    // .svg {
+    //     text-decoration: underline;
+    //     text-decoration-color: var(--color-primary-blue-03);
+    //     padding-left: 5px;
+    //     .line {
+    //         stroke: var(--color-primary-blue-03);
+    //     }
+    //     .arrow-diagonal {
+    //         fill: var(--color-primary-blue-03);
+    //     }
+    // }
+    // .svg-arrow-right {
+    //     flex-shrink: 0;
+    //     .arrow-right {
+    //         stroke: var(--color-primary-blue-03);
+    //     }
+    // }
 
-        .rich-text {
-            padding: 0 var(--unit-gutter);
-        }
+    // .content {
+    //     ::v-deep .section-wrapper {
+    //         .flexible-block {
+    //             background-color: var(--color-white);
+    //             ul > * {
+    //                 background-color: var(--color-white);
+    //             }
+    //             div.clipped-box {
+    //                 background-color: var(--color-white);
+    //             }
+    //         }
+    //         background-color: var(--color-white);
+    //     }
+    // }
+    // @media #{$medium} {
+    //     .divider-general {
+    //         width: calc(100% - (var(--unit-gutter) * 2));
+    //     }
 
-        .call-to-action,
-        .breadcrumb-link {
-            padding: 0 var(--unit-gutter);
-        }
-    }
+    //     .rich-text {
+    //         padding: 0 var(--unit-gutter);
+    //     }
 
-    @media #{$has-hover} {
-        .svg:hover {
-            .arrow {
-                path {
-                    fill: var(--color-primary-blue-03);
-                }
-            }
-            path {
-                fill: var(--color-primary-blue-03);
-                .arrow-diagonal {
-                    color: var(--color-primary-blue-03);
-                }
-            }
-        }
+    //     .call-to-action,
+    //     .breadcrumb-link {
+    //         padding: 0 var(--unit-gutter);
+    //     }
+    // }
 
-        .hover-text:hover {
-            color: var(--color-primary-blue-03);
-            @include link-hover;
-        }
-    }
+    // @media #{$has-hover} {
+    //     .svg:hover {
+    //         .arrow {
+    //             path {
+    //                 fill: var(--color-primary-blue-03);
+    //             }
+    //         }
+    //         path {
+    //             fill: var(--color-primary-blue-03);
+    //             .arrow-diagonal {
+    //                 color: var(--color-primary-blue-03);
+    //             }
+    //         }
+    //     }
+
+    //     .hover-text:hover {
+    //         color: var(--color-primary-blue-03);
+    //         @include link-hover;
+    //     }
+    // }
 }
 </style>
