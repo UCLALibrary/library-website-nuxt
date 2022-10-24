@@ -33,7 +33,7 @@
         <banner-featured
             v-if="page.keyArt && page.keyArt.length != 0"
             class="section-banner"
-            :image="page.keyArt[0].heroImage[0]"
+            :video="page.keyArt[0].heroImage[0]"
             :ratio="40"
             :title="page.keyArt[0].titleGeneral"
             :description="page.keyArt[0].summary"
@@ -96,7 +96,7 @@
   {
     path:'/impact/:year?',
     alias: '/impact',
-    
+
   }
 </router>
 <script>
