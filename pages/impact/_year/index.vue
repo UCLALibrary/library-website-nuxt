@@ -30,9 +30,9 @@
             Main Story
         </h2>
         <banner-featured
-            v-if="page.keyArt && page.keyArt.length != 0 && isVideo"
+            v-if="page.keyArt && page.keyArt.length != 0"
             class="section-banner"
-            :video="parsedVideo"
+            :image="page.keyArt[0].heroImage[0]"
             :ratio="40"
             :title="page.keyArt[0].titleGeneral"
             :description="page.keyArt[0].summary"
@@ -142,40 +142,6 @@ export default {
         }
     },
     computed: {
-        isVideo() {
-            if (!this.page.keyArt) return false
-            let fileName = this.page.keyArt[0].heroImage[0].src.toLowerCase()
-            let extension = fileName.split(".").pop()
-
-            if (
-                extension == "mp4" ||
-                extension == "m4a" ||
-                extension == "f4v" ||
-                extension == "m4b" ||
-                extension == "mov"
-            ) {
-                return true
-            }
-            return false
-        },
-
-        parsedVideo() {
-            if (this.isVideo) {
-                let mainVideo = this.page.keyArt[0].heroImage[0]
-                let video = {
-                    videoUrl: mainVideo.src,
-                    sizes: mainVideo.sizes,
-                    height: mainVideo.height,
-                    width: mainVideo.width,
-                    altText: mainVideo.alt,
-                    caption: mainVideo.caption,
-                    poster: mainVideo.poster,
-                }
-                return video
-            } else {
-                return {}
-            }
-        },
         timelineSortedBySubtitle() {
             const timelineData = flattenTimeLineStructure(
                 this.page.timelineGallery
