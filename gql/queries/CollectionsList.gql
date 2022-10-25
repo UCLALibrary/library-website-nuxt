@@ -1,3 +1,6 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/collections/AllFpb"
+
 query CollectionsList {
   entries(section: "collection") {
     ... on collection_collection_Entry {
@@ -5,6 +8,7 @@ query CollectionsList {
       to: slug
       title
       summary
+      ...AllFpb
       resourceServiceWorkshop {
         id
         title
