@@ -55,17 +55,15 @@
             :blocks="page.blocks"
         />
 
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="parsedArticles.length > 0"
+            class="associated-articles"
+        >
             <divider-way-finder
                 class="divider"
                 color="about"
             />
-        </section-wrapper>
 
-        <section-wrapper
-            v-if="associatedArticles"
-            class="associated-articles"
-        >
             <div class="section-title">
                 <h2 class="title">
                     Associated Articles
