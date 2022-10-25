@@ -6,6 +6,16 @@
             :title="allEvents[0].title"
         />
 
+        <section-wrapper class="section-banner">
+            <banner-header
+                v-if="page && page.heroImage && page.heroImage.length == 1"
+                :image="page.heroImage[0].image[0]"
+                :category="page.format"
+                :title="page.title"
+                :text="page.summary"
+            />
+        </section-wrapper>
+
         <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
