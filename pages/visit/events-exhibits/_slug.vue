@@ -38,6 +38,8 @@
             :register-event="true"
         /> -->
 
+        {{ formData }}
+
         Event detail here
         {{ allEvents }}
 
