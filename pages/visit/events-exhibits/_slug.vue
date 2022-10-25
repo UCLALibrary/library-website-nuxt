@@ -24,12 +24,13 @@
         <p v-else-if="$fetchState.error">
             An error occurred :(
         </p>
-        <header-sticky
+        <!-- <header-sticky
             v-else
             class="sticky-header"
             :primary-items="primaryItems"
             :secondary-items="secondaryItems"
-        />
+        /> -->
+        
         <banner-text
             category="Event"
             title="Curabitur Tortor Pellentesque"
