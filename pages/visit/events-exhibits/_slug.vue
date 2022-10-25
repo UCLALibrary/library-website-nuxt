@@ -30,13 +30,13 @@
             :primary-items="primaryItems"
             :secondary-items="secondaryItems"
         />
-        <banner-text
+        <!-- <banner-text
             category="Event"
             title="Curabitur Tortor Pellentesque"
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, metus in aliquet venenatis, mi lectus placerat leo, congue gravida mi quam sit amet neque."
             button-text="Curabitur"
             :register-event="true"
-        />
+        /> -->
 
         Event detail here
         {{ allEvents }}
@@ -84,7 +84,7 @@ export default {
         )
         // console.log(navData)
         // sample event id = 9383207
-        this.eventId = 9383207
+        this.eventId = "9383207"
 
         console.log('formId' + this.formId)
         this.formData = await this.$axios.$get(
