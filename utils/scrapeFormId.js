@@ -4,8 +4,8 @@
  * @returns {String}
  */
 
-async function scrapeFormId(eventId = "") {
-    await fetch('https://calendar.library.ucla.edu/event/' + eventId)
+function scrapeFormId(eventId = "") {
+    fetch('http://localhost:8010/proxy/event/' + eventId)
         .then(function(response) {
         // When the page is loaded convert it to text
             return response.text()

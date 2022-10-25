@@ -76,7 +76,7 @@ export default {
             secondaryItems: [],
             formData: {},
             formId: "",
-            eventId: ""
+            eventId: "9383207"
         }
     },
     async fetch() {
@@ -88,10 +88,10 @@ export default {
         // sample event id = 9383207
         this.eventId = "9383207"
 
-        console.log('formId' + this.formId)
-        this.formData = await this.$axios.$get(
-            `api/1.1/events/${this.formId}`
-        )
+        // console.log('formId' + this.formId)
+        // this.formData = await this.$axios.$get(
+        //     `api/1.1/events/${this.formId}`
+        // )
 
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
@@ -103,10 +103,21 @@ export default {
         this.allEvents = [...this.allEvents, ...this.formData.events]
         // console.log(this.formData.events)
     },
+    async mounted() {
+        this.formData = await this.$axios.$get(
+            `api/1.1/events/${this.formId}`
+        )
+            .catch(function(err) {  
+                console.log('Failed to fetch page: ', err)  
+            }) 
+
+    },
     created() {
         // eslint-disable-next-line no-undef
         if(process.client) {
             this.formId = scrapeFormId(this.eventId)
+            // get undefined for some reason
+            console.log('formId ' + this.formId)
         }
     },
 }
