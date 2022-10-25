@@ -1,0 +1,65 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/BlockAssociatedTopicCardsFragment"
+#import "~/gql/fragments/BlockBannerFeaturedFragment"
+#import "~/gql/fragments/BlockCallToActionFragment"
+#import "~/gql/fragments/BlockCardWithImageFragment"
+#import "~gql/fragments/BlockFormFragment"
+#import "~gql/fragments/BlockGridGalleryCardsFragment.gql"
+#import "~gql/fragments/BlockHighlightFragment.gql"
+#import "~gql/fragments/BlockImpactNuberCardsFragment.gql"
+#import "~gql/fragments/BlockImpactNumbersCarouselFragment.gql"
+#import "~gql/fragments/BlockMediaGalleryFragment.gql"
+#import "~gql/fragments/BlockMediaWithText.gql"
+#import "~gql/fragments/BlockPullQuoteFragment.gql"
+#import "~gql/fragments/BlockRichTextFragment.gql"
+#import "~gql/fragments/BlockSimpleCardsFragment.gql"
+
+fragment AllFpb on ElementInterface {
+    blocks: allFpb {
+        id
+        typeHandle
+
+        ... on allFpb_associatedTopicCards_BlockType {
+            ...BlockAssociatedTopicCardsFragment
+        }
+        ... on allFpb_bannerFeatured_BlockType {
+            ...BlockBannerFeaturedFragment
+        }
+        ... on allFpb_callToAction_BlockType {
+            ...BlockCallToActionFragment
+        }
+        ... on allFpb_cardWithImage_BlockType {
+            ...BlockCardWithImageFragment
+        }
+        ... on allFpb_form_BlockType {
+            ...BlockFormFragment
+        }
+        ... on allFpb_gridGalleryCardsFragment_BlockType  {
+            ...BlockGridGalleryCardsFragment
+        }
+        ... on allFpb_highlight_BlockType {
+            ...BlockHighlightFragment
+        }
+        ... on allFpb_impactNuberCardsFragment_BlockType {
+            ...BlockImpactNuberCardsFragment
+        }
+        ... on allFpb_impactNumbersCarousel_BlockType {
+            ...BlockImpactNumbersCarouselFragment
+        }
+        ... on allFpb_mediaGallery_BlockType {
+            ...BlockMediaGalleryFragment
+        }
+        ... on allFpb_mediaWithText_BlockType {
+            ...BlockMediaWithTextFragment
+        }
+        ... on allFpb_pullQuote_BlockType {
+            ...BlockPullQuoteFragment
+        }
+        ... on allFpb_richText_BlockType {
+            ...BlockRichTextFragment
+        }
+        ...on allFpb_simpleCards_BlockType {
+            ...BlockSimpleCardsFragment
+        }
+    }
+}
