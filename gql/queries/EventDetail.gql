@@ -1,0 +1,66 @@
+# Replace libcalId with slug later
+query EventDetail {
+  entry(section: "event", libcalId: ["9383207"]) {
+    ... on event_event_Entry {
+      id
+      typehandle
+      sectionHandle
+      title
+      eventLocation
+      image: heroImage {
+        ... on heroImage_heroImage_BlockType {
+          image {
+            ...Image
+          }
+        }
+      }
+      to: uri
+      slug
+      libcalId
+      publicUrl
+      date {
+        ... on date_date_BlockType {
+          id
+          startTime
+          endTime
+        }
+      }
+      eventType {
+        ... on eventType_Category {
+          id
+          title
+        }
+      }
+      eventDescription
+      associatedLocations {
+        ... on location_location_Entry {
+          id
+          to: uri
+          title
+          summary
+        }
+      }
+      requiresRegistration
+      onlineProvider: libcalEventOnlineProvider
+      onlineJoinURL: onlineEventUrl
+      eventTags {
+        ... on eventTags_Tag {
+          id
+          title
+        }
+      }
+      presenter
+      moreInformation
+      eventOwner
+    }
+  }
+}
+
+fragment Image on AssetInterface {
+  src: url(transform: "fullscreen")
+  height(transform: "fullscreen")
+  width(transform: "fullscreen")
+  srcset(sizes: ["375", "960", "1280", "1920", "2560"])
+  alt: title
+  focalPoint
+}

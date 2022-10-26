@@ -6,29 +6,42 @@
             :title="allEvents[0].title"
         />
 
-        <section-wrapper class="section-banner">
+
+        <banner-text
+            v-if="page || !page.heroImage || page.heroImage.length == 0"
+            class="banner-text"
+            category="Blog"
+            :title="page.title"
+            :text="page.text"
+            :byline="parsedBylineBannerText"
+            :locations="page.locations"
+        />
+
+        <divider-general class="section divider divider-general" />
+
+        <section-wrapper
+            v-if="page || page.heroImage && page.heroImage.length == 1"
+            class="section-banner"
+        >
             <banner-header
-                v-if="page && page.heroImage && page.heroImage.length == 1"
-                :image="page.heroImage[0].image[0]"
-                :category="page.format"
-                :title="page.title"
-                :text="page.summary"
+                title="title"
+                :align-right="false"
             />
         </section-wrapper>
 
-        <masthead-secondary
+        <!-- <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
-        >
-            <!-- TODO Add SearchGenric here when complete -->
-            <!-- search-generic
+        > -->
+        <!-- TODO Add SearchGenric here when complete -->
+        <!-- search-generic
                 search-type="about"
                 class="generic-search"
             />-->
-            <!-- :filters="searchFilters.filters"
+        <!-- :filters="searchFilters.filters"
                 :view-modes="searchFilters.views"
                 @view-mode-change="viewModeChanger" -->
-        </masthead-secondary>
+        <!-- </masthead-secondary> -->
 
         <p v-if="$fetchState.pending" />
         <p v-else-if="$fetchState.error">
@@ -41,30 +54,60 @@
             :secondary-items="secondaryItems"
         /> -->
         
-        <banner-text
+        <!-- <banner-text
             category="Event"
             title="Curabitur Tortor Pellentesque"
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, metus in aliquet venenatis, mi lectus placerat leo, congue gravida mi quam sit amet neque."
             button-text="Curabitur"
             byline="a"
             register-event="true"
-        />
+        /> -->
+        
+
+        <divider-general class="section divider divider-general" />
+
+        <section-wrapper
+            v-if="page || page.richText"
+        >
+            <rich-text
+                :rich-text-content="page.richText"
+            />
+        </section-wrapper>
+
+        <divider-general class="section divider divider-general" />
+        
+        <section-wrapper>
+            <!-- TODO List of events go here -->
+            <section-teaser-list
+                :items="listEvents"
+                class="section section-list"
+            />
+        </section-wrapper>
+
+
+        <divider-general class="section divider divider-general" />
+
+        <section-wrapper>
+            <block-call-to-action
+                class="section block-call-to-action"
+                svg-name="svg-call-to-action-mail"
+                to="/contact-us"
+                name="Contact Us"
+                title="Not sure who you should reach out to?"
+                text="Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+            />
+        </section-wrapper>
 
         Event detail here
         {{ allEvents }}
-
-        <!-- <flexible-blocks
-            v-if="page"
-            class="flexible-content"
-            :blocks="page.blocks"
-        /> -->
     </section>
 </template>
 
 <script>
 // Helpers
 import _get from "lodash/get"
-// import startCase from "lodash/startcase"
+// GQL
+import EVENT_DETAIL from "~/gql/queries/EventDetail.gql"
 
 // GQL
 import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
@@ -77,6 +120,18 @@ export default {
             eventId: "9383207",
             blockFormData: BlockFormData.mock0,
             libcalEndpoint: this.libcalEndpointProxy
+        }
+    },
+    async asyncData({ $graphql, params }) {
+        // Do not remove testing live preview
+
+        const data = await $graphql.default.request(EVENT_DETAIL, {
+            // slug: params.pathMatch.substring(
+            //     params.pathMatch.lastIndexOf("/") + 1
+            // ),
+        })
+        return {
+            page: _get(data, "entry", {}),
         }
     },
     data() {
@@ -106,6 +161,48 @@ export default {
         // }
         this.allEvents = [...this.allEvents, ...data.events]
         console.log(data.events)
+    },
+    computed: {
+        listEvents() {
+            const items = this.parsedEvents.slice(2)
+
+            return items.map((obj) => {
+                return {
+                    ...obj,
+                    category: _get(obj, "category.name", "Featured"),
+                }
+            })
+        },
+        parsedEvents() {
+            // TODO Remove this one we have more events
+
+            const mockEvents = [...this.page.events]
+
+            // Shape events
+            // return this.events.map((obj) => {
+            return mockEvents.map((obj) => {
+                const event = obj || {}
+
+                return {
+                    ...event,
+                    to: `${this.$route.path}/${event.id}`, // added index to avoid duplicate errors
+                    location: _get(event, "location.name", "Online"),
+                    image: {
+                        src: event.featured_image,
+                    },
+                    category: {
+                        name: _get(event, "category.name", "Featured"),
+                    },
+                    breadcrumb: {
+                        text: _get(event, "category.name", "Featured"),
+                    },
+                    // TODO Only need one set of these once BannerFeatured is updated
+                    startDate: event.start,
+                    endDate: event.end,
+                    text: event.description,
+                }
+            })
+        },
     },
 }
 </script>
