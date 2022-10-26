@@ -12,14 +12,11 @@
             v-if="page && page.heroImage && page.heroImage.length == 1"
             class="section-banner"
         >
-            <banner-featured
-                v-if="page && page.heroImage && page.heroImage.length == 1"
-                class="banner-featured"
-                :image="page.heroImage[0].image[0]"
-                :ratio="40"
+            <banner-header
                 :title="page.title"
-                :description="page.text"
+                :text="page.text"
                 :align-right="true"
+                :image="page.heroImage[0].image[0]"
                 :byline="parsedByline"
             />
         </section-wrapper>
