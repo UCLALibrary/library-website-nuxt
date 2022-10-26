@@ -4,8 +4,8 @@
  * @returns {String}
  */
 
-function scrapeFormId(eventId = "") {
-    fetch('http://localhost:8010/proxy/event/' + eventId)
+function scrapeFormId(eventId = "", axios) {
+    fetch('https://calendar.library.ucla.edu/event/' + eventId)
         .then(function(response) {
         // When the page is loaded convert it to text
             return response.text()
@@ -24,11 +24,13 @@ function scrapeFormId(eventId = "") {
             let formId = doc.querySelector("input[name='fid']").getAttribute("value") 
             console.log(formId) 
             console.log(doc)
-            return formId
+            return axios.$get(
+                `api/1.1/events/form/${formId}`
+            )
         })
         .catch(function(err) {  
             console.log('Failed to fetch page: ', err)  
-        }) 
+        })
 }
 
 export default scrapeFormId

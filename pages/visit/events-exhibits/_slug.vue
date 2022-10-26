@@ -38,6 +38,7 @@
             :register-event="true"
         /> -->
 
+        Event formData here
         {{ formData }}
 
         Event detail here
@@ -89,9 +90,9 @@ export default {
         this.eventId = "9383207"
 
         // console.log('formId' + this.formId)
-        // this.formData = await this.$axios.$get(
-        //     `api/1.1/events/${this.formId}`
-        // )
+        const events = await this.$axios.$get(
+            `1.1/events/${this.eventId}`
+        )
 
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
@@ -100,25 +101,15 @@ export default {
         // return {
         //     page: {},
         // }
-        this.allEvents = [...this.allEvents, ...this.formData.events]
+        this.allEvents = [...events.events]
         // console.log(this.formData.events)
     },
-    async mounted() {
-        this.formData = await this.$axios.$get(
-            `api/1.1/events/${this.formId}`
-        )
-            .catch(function(err) {  
-                console.log('Failed to fetch page: ', err)  
-            }) 
-
-    },
-    created() {
+    mounted() {
         // eslint-disable-next-line no-undef
         if(process.client) {
-            this.formId = scrapeFormId(this.eventId)
-            // get undefined for some reason
-            console.log('formId ' + this.formId)
+            this.formData = scrapeFormId(this.eventId, this.$axios)
         }
+
     },
 }
 </script>
