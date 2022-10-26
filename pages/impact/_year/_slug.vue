@@ -14,6 +14,7 @@
         >
             <banner-featured
                 v-if="page && page.heroImage && page.heroImage.length == 1"
+                class="banner-featured"
                 :image="page.heroImage[0].image[0]"
                 :ratio="40"
                 :title="page.title"
@@ -88,6 +89,11 @@ export default {
     //     margin-top: 0;
     //     margin-bottom: 0;
     // }
+    .banner-featured {
+        ::v-deep {
+            --banner-color-theme: var(--color-about-purple-03);
+        }
+    }
     // .banner-header {
     //     // margin-bottom: var(--space-xl);
     //     padding: 0;
