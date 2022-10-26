@@ -68,6 +68,7 @@ export default {
         return {
             eventId: "9383207",
             blockFormData: this.formData,
+            libcalEndpoint: this.libcalEndpointProxy
         }
     },
     data() {
@@ -77,7 +78,8 @@ export default {
             secondaryItems: [],
             formData: {},
             formId: "",
-            eventId: "9383207"
+            eventId: "9383207",
+            libcalEndpointProxy: this.$config.libcalProxy
         }
     },
     async fetch() {

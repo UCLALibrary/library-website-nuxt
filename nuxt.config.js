@@ -10,7 +10,8 @@ export default {
     publicRuntimeConfig: {
         s3Bucket: process.env.S3_BUCKET,
         esApiKey: process.env.ESApiKey || "",
-        esURL:process.env.ES_URL || ""
+        esURL:process.env.ES_URL || "",
+        libcalProxy: process.env.LIBCAL_ENDPOINT|| "https://test.proxy.calendar.library.ucla.edu/" 
     },
     /*
    ** Required charset and viewport meta tags
