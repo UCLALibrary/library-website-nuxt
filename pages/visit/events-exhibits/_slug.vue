@@ -109,7 +109,6 @@ export default {
         if(process.client) {
             this.formData = scrapeFormId(this.eventId, this.$axios)
         }
-
     },
 }
 </script>
