@@ -1,10 +1,7 @@
 <template lang="html">
     <main class="page page-impact-report">
         <banner-text
-            v-if="
-                (page && (!page.heroImage || page.heroImage.length == 0)) ||
-                    !isVideo
-            "
+            v-if="page && (!page.heroImage || page.heroImage.length == 0)"
             class="banner-text"
             :title="page.title"
             :text="page.text"
@@ -16,6 +13,7 @@
             class="section-banner"
         >
             <banner-featured
+                v-if="page && page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
                 :ratio="40"
                 :title="page.title"
@@ -67,11 +65,9 @@ export default {
         parsedByline() {
             let bannerFeaturedByline = this.page.contributors.map((obj) => {
                 if (obj.typeHandle === "externalContributor") {
-                    return { title: `${obj.byline + " " + obj.title}` }
+                    return `${obj.byline + " " + obj.title}`
                 } else if (obj.typeHandle === "staffMember") {
-                    return {
-                        title: `${obj.byline + " " + obj.staffMember[0].title}`,
-                    }
+                    return `${obj.byline + " " + obj.staffMember[0].title}`
                 } else {
                     return []
                 }

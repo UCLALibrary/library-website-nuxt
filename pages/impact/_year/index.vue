@@ -6,7 +6,6 @@
                 class="intro"
                 v-html="page.title"
             />
-
             <responsive-image
                 v-if="page.portrait && page.portrait.length > 0"
                 :image="page.portrait[0]"
