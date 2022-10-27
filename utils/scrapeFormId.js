@@ -24,9 +24,21 @@ function scrapeFormId(eventId = "", axios) {
             let formId = doc.querySelector("input[name='fid']").getAttribute("value") 
             console.log(formId) 
             console.log(doc)
-            return axios.$get(
+            const formPromise =  axios.$get(
                 `api/1.1/events/form/${formId}`
             )
+
+            formPromise.then((response) => {
+                console.log(response)
+                return response
+                /* const jsonPromise = response.json()
+                jsonPromise.then((data) => {
+                    console.log(data)
+                    return data
+                }) */
+            })
+            
+            
         })
         .catch(function(err) {  
             console.log('Failed to fetch page: ', err)  
