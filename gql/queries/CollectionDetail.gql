@@ -1,13 +1,9 @@
 #import "~/gql/fragments/Image"
 
-
 query CollectionDetail($slug: [String!]) {
     entry(section: "collection", slug: $slug) {
         id
-        slug
-        uri
-        title
-        text: summary
+        physicalDigital
         heroImage {
             ... on heroImage_heroImage_BlockType {
                 id
@@ -17,11 +13,59 @@ query CollectionDetail($slug: [String!]) {
                 altText
             }
         }
-        buttonUrl
-        physicalDigital
-        subjectAreas
-        collectionFormats
+        title
+        text: summary
+        subjectAreas {
+        title
+        }
+        collectionFormats {
+            title
+        }
         languageOfOrigin
+        uri
+        buttonUrl {
+            ... on buttonUrl_button_BlockType {
+                buttonText
+                buttonUrl
+            }
+        }
+        endowment {
+            ... on endowment_endowments_Entry {
+                id
+                endowmentDescription
+                summary
+                title
+                donors {
+                    firstName
+                }
+            }
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+                altText
+                uri
+                title
+                }
+            }
+        }
+        associatedStaffMember {
+            email
+            phoneNumber
+            staffMemberJobTitle
+            nameFirst
+            nameLast
+            uri
+            bookAConsultation
+            staffDepartment {
+                title
+            }
+            staffPortrait {
+                ...Image
+            }
+        }
     }
 }
 

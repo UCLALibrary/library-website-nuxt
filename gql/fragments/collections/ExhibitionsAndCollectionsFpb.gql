@@ -3,62 +3,75 @@
 #import "~/gql/fragments/BlockBannerFeaturedFragment"
 #import "~/gql/fragments/BlockCallToActionFragment"
 #import "~/gql/fragments/BlockCardWithImageFragment"
-#import "~gql/fragments/BlockFormFragment"
-#import "~gql/fragments/BlockGridGalleryCardsFragment.gql"
-#import "~gql/fragments/BlockHighlightFragment.gql"
-#import "~gql/fragments/BlockImpactNuberCardsFragment.gql"
-#import "~gql/fragments/BlockImpactNumbersCarouselFragment.gql"
-#import "~gql/fragments/BlockMediaGalleryFragment.gql"
-#import "~gql/fragments/BlockMediaWithText.gql"
-#import "~gql/fragments/BlockPullQuoteFragment.gql"
-#import "~gql/fragments/BlockRichTextFragment.gql"
-#import "~gql/fragments/BlockSimpleCardsFragment.gql"
+#import "~/gql/fragments/BlockFormFragment"
+#import "~/gql/fragments/BlockGridGalleryCardsFragment"
+#import "~/gql/fragments/BlockHighlightFragment"
+#import "~/gql/fragments/BlockImpactNumberCardsFragment"
+#import "~/gql/fragments/BlockImpactNumbersCarouselFragment"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaWithTextFragment"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
 
-fragment AllFpb on ElementInterface {
-    blocks: allFpb {
+fragment ExhibitionsAndCollectionsFpb on ElementInterface {
+    blocks: exhibitionsAndCollectionsFpb {
         id
         typeHandle
 
-        ... on allFpb_associatedTopicCards_BlockType {
+        ... on exhibitionsAndCollectionsFpb_associatedTopicCards_BlockType {
             ...BlockAssociatedTopicCardsFragment
         }
-        ... on allFpb_bannerFeatured_BlockType {
+
+        ... on exhibitionsAndCollectionsFpb_bannerFeatured_BlockType {
             ...BlockBannerFeaturedFragment
         }
-        ... on allFpb_callToAction_BlockType {
+
+        ... on exhibitionsAndCollectionsFpb_callToAction_BlockType {
             ...BlockCallToActionFragment
         }
-        ... on allFpb_cardWithImage_BlockType {
+
+        ... on exhibitionsAndCollectionsFpb_cardWithImage_BlockType {
             ...BlockCardWithImageFragment
         }
-        ... on allFpb_form_BlockType {
+
+        ... on exhibitionsAndCollectionsFpb_form_BlockType {
             ...BlockFormFragment
         }
-        ... on allFpb_gridGalleryCardsFragment_BlockType  {
+
+        ... on exhibitionsAndCollectionsFpb_gridGalleryCardsFragment_BlockType  {
             ...BlockGridGalleryCardsFragment
         }
-        ... on allFpb_highlight_BlockType {
+
+        ... on exhibitionsAndCollectionsFpb_highlight_BlockType {
             ...BlockHighlightFragment
         }
-        ... on allFpb_impactNuberCardsFragment_BlockType {
-            ...BlockImpactNuberCardsFragment
+
+        ... on exhibitionsAndCollectionsFpb_impactNumberCardsFragment_BlockType {
+            ...BlockImpactNumberCardsFragment
         }
-        ... on allFpb_impactNumbersCarousel_BlockType {
+
+        ... on exhibitionsAndCollectionsFpb_impactNumbersCarousel_BlockType {
             ...BlockImpactNumbersCarouselFragment
         }
-        ... on allFpb_mediaGallery_BlockType {
+
+        ... on exhibitionsAndCollectionsFpb_mediaGallery_BlockType {
             ...BlockMediaGalleryFragment
         }
-        ... on allFpb_mediaWithText_BlockType {
+
+        ... on exhibitionsAndCollectionsFpb_mediaWithText_BlockType {
             ...BlockMediaWithTextFragment
         }
-        ... on allFpb_pullQuote_BlockType {
+
+        ... on exhibitionsAndCollectionsFpb_pullQuote_BlockType {
             ...BlockPullQuoteFragment
         }
-        ... on allFpb_richText_BlockType {
+
+        ... on exhibitionsAndCollectionsFpb_richText_BlockType {
             ...BlockRichTextFragment
         }
-        ...on allFpb_simpleCards_BlockType {
+
+        ... on exhibitionsAndCollectionsFpb_simpleCards_BlockType {
             ...BlockSimpleCardsFragment
         }
     }

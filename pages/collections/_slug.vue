@@ -5,16 +5,15 @@
             :title="page.title"
             parent-title="Collections"
         />
-        <h3>{{ page }}</h3>
-        <h3>{{ parsedButtonText }}</h3>
+        <h3>page: {{ page }}</h3>
+        <h3>parsedPhysicalDigital: {{ parsedPhysicalDigital }}</h3>
+        <h3>parsedButtonText : {{ page.ButtonUrl }}</h3>
 
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             :title="page.title"
             :text="page.text"
-            :email="page.email"
-            :phone="page.phoneNumber"
-            :staff-directory-link="parsedStaffDirectory"
+            email="AskUs@library.ucla.edu"
             :button-text="parsedButtonText"
             :to="parsedButtonTo"
         />
@@ -27,19 +26,18 @@
                 :image="page.heroImage[0].image[0]"
                 :title="page.title"
                 :text="page.text"
-                :email="page.email"
-                :phone="page.phoneNumber"
-                :staff-directory-link="parsedStaffDirectory"
+                :category="parsedPhysicalDigital"
+                email="AskUs@library.ucla.edu"
                 :prompt="parsedButtonText"
                 :to="parsedButtonTo"
-                :align-right="true"
+                :align-right="false"
             />
         </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider"
-                color="about"
+                color="default"
             />
         </section-wrapper>
 
@@ -51,7 +49,46 @@
         <section-wrapper
             v-if=""
             class=""
-        />
+        >
+            <div class="section-header">
+                <h2 class="section-title">
+                    Services & Resources
+                </h2>
+            </div>
+
+            <divider-way-finder
+                class="divider"
+                color="default"
+            />
+        </section-wrapper>
+
+        <section-wrapper
+            v-if=""
+            class=""
+        >
+            <h2 class="section-title">
+                Collection Endowments
+            </h2>
+
+            <divider-way-finder
+                class="divider"
+                color="default"
+            />
+        </section-wrapper>
+
+        <section-wrapper
+            v-if=""
+            class=""
+        >
+            <h2 class="section-title">
+                Contact a Subject Specialist
+            </h2>
+
+            <divider-way-finder
+                class="divider"
+                color="default"
+            />
+        </section-wrapper>
     </main>
 </template>
 <!--
@@ -111,18 +148,23 @@ export default {
         }
     },
     computed: {
+        parsedPhysicalDigital() {
+            // if (this.page.physicalDigital.length == 1){
+            //     return this.page.physicalDigital[0]
+            // } else  if (this.page.physicalDigital.length > 1){
+            //     return `${this.page.physicalDigital[0]} & ${this.page.physicalDigital[1]}`
+            // } else {
+            //     return ""
+            // }
+            return this.page.physicalDigital.length == 1 ?
+                this.page.physicalDigital[0] :
+                `${this.page.physicalDigital[0]} & ${this.page.physicalDigital[1]}`
+        },
         parsedButtonText() {
             return _get(this.page, "buttonUrl[0].buttonText", "")
         },
         parsedButtonTo() {
             return _get(this.page, "buttonUrl[0].buttonUrl", "")
-        },
-        parsedStaffDirectory() {
-            if (this.page.viewStaffDirectory != "affiliateLibrary") {
-                return "/about/staff"
-            } else {
-                return ""
-            }
         },
         parsedCollection() {
             return this.associatedCollection.map((obj) => {
@@ -155,15 +197,24 @@ export default {
         flex-direction: row;
     }
 
-    .section-title {
-        margin-bottom: var(--space-xl);
-
-        .title {
-            @include step-3;
-            color: var(--color-primary-blue-03);
-            margin-bottom: var(--space-m);
-        }
+    .section-header {
+        margin: var(--space-xl) auto;
+        max-width: $container-l-main + px;
     }
+    .section-title {
+        @include step-4;
+        color: var(--color-primary-blue-03);
+    }
+
+    // .section-title {
+    //     margin-bottom: var(--space-xl);
+
+    //     .title {
+    //         @include step-3;
+    //         color: var(--color-primary-blue-03);
+    //         margin-bottom: var(--space-m);
+    //     }
+    // }
 
     .button-more {
         margin: var(--space-2xl) auto;
