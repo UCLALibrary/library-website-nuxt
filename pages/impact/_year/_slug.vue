@@ -1,7 +1,7 @@
 <template lang="html">
     <main class="page page-impact-report">
         <banner-text
-            v-if="page && (!page.heroImage || page.heroImage.length == 0) || !isVideo"
+            v-if="page && (!page.heroImage || page.heroImage.length == 0)"
             class="banner-text"
             :title="page.title"
             :text="page.text"
@@ -9,14 +9,14 @@
         />
 
         <section-wrapper
-            v-if="page && page.heroImage && page.heroImage.length == 1 || isVideo"
+            v-if="page && page.heroImage && page.heroImage.length == 1"
             class="section-banner"
         >
             <banner-header
                 :title="page.title"
                 :text="page.text"
                 :align-right="true"
-                :video="parsedVideo"
+                :image="page.heroImage[0].image[0]"
                 :byline="parsedByline"
             />
         </section-wrapper>
@@ -60,40 +60,6 @@ export default {
         }
     },
     computed: {
-        isVideo() {
-            if (!this.page.heroImage) return false
-            let fileName = this.page.heroImage[0].image[0].src.toLowerCase()
-            let extension = fileName.split(".").pop()
-
-            if (
-                extension == "mp4" ||
-                extension == "m4a" ||
-                extension == "f4v" ||
-                extension == "m4b" ||
-                extension == "mov"
-            ) {
-                return true
-            }
-            return false
-        },
-
-        parsedVideo() {
-            if (this.isVideo) {
-                let mainVideo = this.page.heroImage[0].image[0]
-                let video = {
-                    videoUrl: mainVideo.src,
-                    sizes: mainVideo.sizes,
-                    height: mainVideo.height,
-                    width: mainVideo.width,
-                    altText: mainVideo.alt,
-                    caption: mainVideo.caption,
-                    poster: mainVideo.poster,
-                }
-                return video
-            } else {
-                return {}
-            }
-        },
         parsedByline() {
             let bannerFeaturedByline = this.page.contributors.map((obj) => {
                 if (obj.typeHandle === "externalContributor") {
