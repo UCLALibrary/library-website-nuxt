@@ -2,34 +2,39 @@
     <section class="page-event-detail">
         <!-- this template will pick the section page component based on typehandle -->
         <nav-breadcrumb
-            title="jane-doe"
-            to="/about/news"
-            parent-title="parent"
+            :title="page.title"
+            :to="page.to"
+            :parent-title="page.sectionHandle"
         />
 
         <banner-text
-            v-if="mockBannerText || !mockBannerText.heroImage || mockBannerText.heroImage.length == 0"
+            v-if="!page.image[0].image[0]"
             class="banner-text"
             category="Blog"
-            :title="mockBannerText.title"
-            :text="mockBannerText.text"
-            :locations="mockBannerText.locations"
+            :title="page.title"
+            :text="page.text"
+            :locations="page.locations"
         />
 
         <!-- if theres an image -->
-        <!-- <divider-general class="section divider divider-general" /> -->
+        <divider-general
+            v-if="page.image[0].image[0]" 
+            class="section divider divider-general"
+        />
 
-        <!-- <section-wrapper
+        <section-wrapper
+            v-if="page.image[0].image[0]"
             class="section-banner"
         >
             <banner-header
-                title="title"
+                :image="page.image[0].image[0]"
+                :title="page.title"
                 :align-right="false"
             />
-        </section-wrapper> -->
+        </section-wrapper>
 
-        <!-- <p v-if="$fetchState.pending" />
-        <p v-else-if="$fetchState.error">
+        <!-- <p v-if="$fetchState.pending" /> -->
+        <!-- <p v-else-if="$fetchState.error">
             An error occurred :(
         </p> -->
         
@@ -38,10 +43,10 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="mockRichText || mockRichText.richText"
+            v-if="mockRichText || mockRichText.eventDescription"
         >
             <rich-text
-                :rich-text-content="mockRichText.richText"
+                :rich-text-content="page.eventDescription"
             />
         </section-wrapper>
 
@@ -76,7 +81,6 @@
             text="Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
         />
         <!-- </section-wrapper> -->
-
         Event detail here
         {{ allEvents }}
     </section>
@@ -84,9 +88,9 @@
 
 <script>
 // Helpers
-// import _get from "lodash/get"
+import _get from "lodash/get"
 // GQL
-// import EVENT_DETAIL from "~/gql/queries/EventDetail.gql"
+import EVENT_DETAIL from "~/gql/queries/EventDetail.gql"
 
 // GQL
 // import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
@@ -98,22 +102,14 @@ export default {
         return {
             eventId: "9383207",
             blockFormData: BlockFormData.mock0,
-            libcalEndpoint: this.libcalEndpointProxy
+            libcalEndpoint: this.libcalEndpointProxy,
         }
     },
-    async asyncData({ $axios }) {
-        console.log("in asyncdata calling axios get event")
-        const libcalData = await $axios.$get(`/1.1/event_search`, {
-            params: {
-                search: "*",
-                limit: 100,
-            },
-        })
-
-        const events = libcalData.events
-        console.log(libcalData.events[0].title)
+    async asyncData({ $graphql }) {
+        const data = await $graphql.default.request(EVENT_DETAIL)
+        console.log("Data fetched: " + JSON.stringify(data))
         return {
-            page: { events: events },
+            page: _get(data, "entry", {}),
         }
     },
     data() {
@@ -285,6 +281,15 @@ export default {
         //         }
         //     })
         // },
+    },
+    created() {
+        console.log("AAAAAAAAAAA")
+        this.libcalData = this.$graphql.default.request(
+            EVENT_DETAIL
+        )
+
+        // const events = libcalData.events
+        console.log("LIBCAL: " + this.libcalData.data)
     },
 }
 </script>
