@@ -4,15 +4,9 @@
 #import "~/gql/fragments/BlockCallToActionFragment"
 #import "~/gql/fragments/BlockCardWithImageFragment"
 #import "~/gql/fragments/BlockFormFragment"
-#import "~/gql/fragments/BlockGridGalleryCardsFragment"
 #import "~/gql/fragments/BlockHighlightFragment"
-#import "~/gql/fragments/BlockImpactNumberCardsFragment"
 #import "~/gql/fragments/BlockImpactNumbersCarouselFragment"
 #import "~/gql/fragments/BlockMediaGalleryFragment"
-#import "~/gql/fragments/BlockMediaWithTextFragment"
-#import "~/gql/fragments/BlockPullQuoteFragment"
-#import "~/gql/fragments/BlockRichTextFragment"
-#import "~/gql/fragments/BlockSimpleCardsFragment"
 
 fragment ExhibitionsAndCollectionsFpb on ElementInterface {
     blocks: exhibitionsAndCollectionsFpb {
@@ -22,57 +16,27 @@ fragment ExhibitionsAndCollectionsFpb on ElementInterface {
         ... on exhibitionsAndCollectionsFpb_associatedTopicCards_BlockType {
             ...BlockAssociatedTopicCardsFragment
         }
-
         ... on exhibitionsAndCollectionsFpb_bannerFeatured_BlockType {
             ...BlockBannerFeaturedFragment
         }
-
         ... on exhibitionsAndCollectionsFpb_callToAction_BlockType {
             ...BlockCallToActionFragment
         }
-
         ... on exhibitionsAndCollectionsFpb_cardWithImage_BlockType {
             ...BlockCardWithImageFragment
         }
-
         ... on exhibitionsAndCollectionsFpb_form_BlockType {
             ...BlockFormFragment
         }
-
-        ... on exhibitionsAndCollectionsFpb_gridGalleryCardsFragment_BlockType  {
-            ...BlockGridGalleryCardsFragment
-        }
-
         ... on exhibitionsAndCollectionsFpb_highlight_BlockType {
             ...BlockHighlightFragment
         }
-
-        ... on exhibitionsAndCollectionsFpb_impactNumberCardsFragment_BlockType {
-            ...BlockImpactNumberCardsFragment
-        }
-
         ... on exhibitionsAndCollectionsFpb_impactNumbersCarousel_BlockType {
             ...BlockImpactNumbersCarouselFragment
         }
-
         ... on exhibitionsAndCollectionsFpb_mediaGallery_BlockType {
             ...BlockMediaGalleryFragment
         }
 
-        ... on exhibitionsAndCollectionsFpb_mediaWithText_BlockType {
-            ...BlockMediaWithTextFragment
-        }
-
-        ... on exhibitionsAndCollectionsFpb_pullQuote_BlockType {
-            ...BlockPullQuoteFragment
-        }
-
-        ... on exhibitionsAndCollectionsFpb_richText_BlockType {
-            ...BlockRichTextFragment
-        }
-
-        ... on exhibitionsAndCollectionsFpb_simpleCards_BlockType {
-            ...BlockSimpleCardsFragment
-        }
     }
 }

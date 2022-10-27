@@ -7,7 +7,7 @@
         />
         <h3>page: {{ page }}</h3>
         <h3>parsedPhysicalDigital: {{ parsedPhysicalDigital }}</h3>
-        <h3>parsedButtonText : {{ page.ButtonUrl }}</h3>
+        <!-- <h3>parsedButtonText : {{ page.ButtonUrl }}</h3> -->
 
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
@@ -46,7 +46,7 @@
             :blocks="page.blocks"
         />
 
-        <section-wrapper
+        <!-- <section-wrapper
             v-if=""
             class=""
         >
@@ -54,6 +54,11 @@
                 <h2 class="section-title">
                     Services & Resources
                 </h2>
+                <simple-cards
+                    v-if="page.resourceServiceWorkshop.length"
+                    section-title="Services &amp; Resources"
+                    :items="parsedServicesAndResources"
+                />
             </div>
 
             <divider-way-finder
@@ -77,18 +82,22 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if=""
-            class=""
+            v-if="parsedAssociatedStaffMember.length > 0"
+            theme="divider"
         >
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+
+        <section-wrapper v-if="parsedAssociatedStaffMember.length > 0">
             <h2 class="section-title">
                 Contact a Subject Specialist
             </h2>
 
-            <divider-way-finder
-                class="divider"
-                color="default"
-            />
-        </section-wrapper>
+            <section-staff-list :items="parsedAssociatedStaffMember" />
+        </section-wrapper> -->
     </main>
 </template>
 <!--
