@@ -101,21 +101,21 @@ export default {
             libcalEndpoint: this.libcalEndpointProxy
         }
     },
-    // async asyncData({ $axios }) {
-    //     console.log("in asyncdata calling axios get event")
-    //     const libcalData = await $axios.$get(`/1.1/event_search`, {
-    //         params: {
-    //             search: "*",
-    //             limit: 100,
-    //         },
-    //     })
+    async asyncData({ $axios }) {
+        console.log("in asyncdata calling axios get event")
+        const libcalData = await $axios.$get(`/1.1/event_search`, {
+            params: {
+                search: "*",
+                limit: 100,
+            },
+        })
 
-    //     const events = libcalData.events
-    //     console.log(libcalData.events[0].title)
-    //     return {
-    //         page: { events: events },
-    //     }
-    // },
+        const events = libcalData.events
+        console.log(libcalData.events[0].title)
+        return {
+            page: { events: events },
+        }
+    },
     data() {
         return {
             allEvents: [],
