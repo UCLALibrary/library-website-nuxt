@@ -40,18 +40,12 @@ import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
 
 // Utilities
 import getListingFilters from "~/utils/getListingFilters"
+import config from "~/utils/searchConfig"
 
 export default {
     async asyncData({ $graphql, params, $dataApi }) {
-        const filterFields = [
-            { label: "Location", esFieldName: "locations.title.keyword" },
-            {
-                label: "Topic",
-                esFieldName: "associatedTopics.title.keyword",
-            },
-        ]
         const searchAggsResponse = await $dataApi.getAggregations(
-            filterFields,
+            config.serviceOrResourceFilters,
             "serviceOrResource"
         )
 
@@ -70,7 +64,10 @@ export default {
         return {
             page: data,
             helpTopic: helpTopicData,
-            searchFilters: getListingFilters(searchAggsResponse, filterFields),
+            searchFilters: getListingFilters(
+                searchAggsResponse,
+                config.serviceOrResourceFilters
+            ),
         }
     },
     computed: {

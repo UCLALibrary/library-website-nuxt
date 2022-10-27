@@ -8,6 +8,7 @@
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
+            @search-ready="getSearchData"
         />
 
         <section-wrapper theme="divider">
@@ -62,6 +63,7 @@ import _get from "lodash/get"
 
 // Utilities
 import getListingFilters from "~/utils/getListingFilters"
+import config from "~/utils/searchConfig"
 
 // gql
 import STAFF_LIST from "~/gql/queries/StaffList"
@@ -70,25 +72,9 @@ import STAFF_LIST from "~/gql/queries/StaffList"
 export default {
     async asyncData({ $graphql, params, $dataApi }) {
         console.log("live preview  staff list")
-        const filterFields = [
-            {
-                label: "Location",
-                esFieldName: "locations.title.keyword",
-                inputType: "checkbox",
-            },
-            {
-                label: "Department",
-                esFieldName: "departments.title.keyword",
-                inputType: "checkbox",
-            },
-            {
-                label: "Subject Librarian",
-                esFieldName: "subjectLibrarian",
-                inputType: "radio",
-            },
-        ]
+
         const searchAggsResponse = await $dataApi.getAggregations(
-            filterFields,
+            config.staffFilters,
             "staffMember"
         )
 
@@ -97,9 +83,15 @@ export default {
         )
         // Write a helper function for returning generic filters and doing the reduce part
 
-        const data = await $graphql.default.request(STAFF_LIST, {
-            uri: params.path,
-        })
+        const data = await $graphql.default.request(STAFF_LIST)
+        const allResults = await $dataApi.keywordSearchWithFilters(
+            "sectionHandle:staffMember",
+            [],
+            "nameLast"
+        )
+        console.log(
+            "Use this data when the page loads: " + JSON.stringify(allResults)
+        )
         /*const datawithfulldetail = await $graphql.default.request(
             STAFF_LIST_WITH_DETAIL
         )
@@ -111,7 +103,10 @@ export default {
 
         return {
             page: data,
-            searchFilters: getListingFilters(searchAggsResponse, filterFields),
+            searchFilters: getListingFilters(
+                searchAggsResponse,
+                config.staffFilters
+            ),
         }
     },
     computed: {
@@ -124,6 +119,31 @@ export default {
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
+        },
+    },
+    methods: {
+        async getSearchData(data) {
+            console.log("from search-generic: " + JSON.stringify(data))
+            /* let parseFilterQuery = this.parseFilters(data)
+            if (parseFilterQuery.length == 0) return*/
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                "*:*",
+                this.parseFilters(data),
+                ""
+            )
+            console.log(results)
+        },
+        parseFilters(data) {
+            console.log("comoonent filetsr data: " + Object.values(data))
+            if (Object.values(data).length == 0) return []
+            let objArray = []
+            for (const key in data) {
+                let obj = {}
+                obj["esFieldName"] = key
+                obj["value"] = data.key
+                objArray.push(obj)
+            }
+            return objArray
         },
     },
 }
