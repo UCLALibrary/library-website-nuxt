@@ -8,12 +8,17 @@
         />
 
         <banner-text
-            v-if="!page.image[0].image[0]"
+            v-if="page && (!page.heroImage || page.heroImage.length == 0)"
             class="banner-text"
-            category="Blog"
+            :category="page.format"
             :title="page.title"
-            :text="page.text"
+            :text="page.summary"
             :locations="page.locations"
+            :address="parsedAddress"
+            :email="page.email"
+            :phone="page.phoneNumber"
+            :address-link="addressLink"
+            :staff-directory-link="parsedStaffDirectory"
         />
 
         <!-- if theres an image -->
@@ -25,6 +30,12 @@
                 :image="page.image[0].image[0]"
                 :title="page.title"
                 :align-right="false"
+                :text="page.summary"
+                :address="parsedAddress"
+                :email="page.email"
+                :phone="page.phoneNumber"
+                :staff-directory-link="parsedStaffDirectory"
+                :address-link="addressLink"
             />
         </section-wrapper>
 
@@ -115,23 +126,6 @@ export default {
             primaryItems: [],
             secondaryItems: [],
             libcalEndpointProxy: this.$config.libcalProxy,
-            mockBannerText: {
-                category: "Event",
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, metus in aliquet venenatis, mi lectus placerat leo, congue gravida mi quam sit amet neque.",
-                title: "Curabitur Tortor Pellentesque",
-                locations: [
-                    { id: "523", title: "Powellarium", to: "/location/bar" },
-                    {
-                        id: "801",
-                        title: "Research Library (Charles E. Young)",
-                        to: "/location/baz",
-                    },
-                ],
-                date: "1995-12-17T03:24:00",
-                buttonText: "Curabitur",
-                byline: ["Cursus Quis", "Charles E. Young"],
-                to: "/visit/foo/bar/",
-            },
             listEvents: [
                 {
                     image: {
