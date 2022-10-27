@@ -63,9 +63,11 @@ export default {
         parsedByline() {
             let bannerFeaturedByline = this.page.contributors.map((obj) => {
                 if (obj.typeHandle === "externalContributor") {
-                    return `${obj.byline + " " + obj.title}`
+                    return { title: `${obj.byline + " " + obj.title}` }
                 } else if (obj.typeHandle === "staffMember") {
-                    return `${obj.byline + " " + obj.staffMember[0].title}`
+                    return {
+                        title: `${obj.byline + " " + obj.staffMember[0].title}`,
+                    }
                 } else {
                     return []
                 }
