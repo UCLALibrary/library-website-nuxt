@@ -6,7 +6,6 @@
                 class="intro"
                 v-html="page.title"
             />
-
             <responsive-image
                 v-if="page.portrait && page.portrait.length > 0"
                 :image="page.portrait[0]"
@@ -29,7 +28,6 @@
         <h2 class="visually-hidden">
             Main Story
         </h2>
-
         <banner-featured
             v-if="page.keyArt && page.keyArt.length != 0"
             class="section-banner"
@@ -96,7 +94,7 @@
   {
     path:'/impact/:year?',
     alias: '/impact',
-    
+
   }
 </router>
 <script>
