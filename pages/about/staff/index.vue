@@ -1,24 +1,15 @@
 <template>
     <main class="page page-staff">
         <masthead-secondary title="Staff Directory" />
-
-        <section-wrapper class="search-container">
-            <div class="empty-search-box" />
-            <div class="input-indicator" />
-            <div class="filters">
-                <div />
-                <div />
-                <div />
-            </div>
-            <!-- TODO Add SearchGenric here when complete
+        <!-- TODO Add SearchGenric here when complete
                 Filter by location, department, subject libarian -->
-            <!-- <search-generic search-type="about"
-                    :filters="searchFilters.filters"
-                    :view-modes="searchFilters.views"
-                    class="generic-search"
-                    @view-mode-change="viewModeChanger"
-            /> -->
-        </section-wrapper>
+
+        <search-generic
+            search-type="about"
+            :filters="searchFilters"
+            class="generic-search"
+            @search-ready="getSearchData"
+        />
 
         <section-wrapper theme="divider">
             <divider-way-finder />
@@ -70,18 +61,61 @@
 // Helpers
 import _get from "lodash/get"
 
+// Utilities
+import getListingFilters from "~/utils/getListingFilters"
+import config from "~/utils/searchConfig"
+
 // gql
 import STAFF_LIST from "~/gql/queries/StaffList"
+// import STAFF_LIST_WITH_DETAIL from "~/gql/queries/StaffListwithfulldetail"
 
 export default {
-    async asyncData({ $graphql, params }) {
-        console.log("live preview enters staff list")
-        const data = await $graphql.default.request(STAFF_LIST, {
-            uri: params.path,
-        })
+    async asyncData({ $graphql, params, $dataApi }) {
+        console.log("live preview  staff list")
+
+        const searchAggsResponse = await $dataApi.getAggregations(
+            config.staffFilters,
+            "staffMember"
+        )
+
+        console.log(
+            "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+        )
+        // Write a helper function for returning generic filters and doing the reduce part
+
+        const data = await $graphql.default.request(STAFF_LIST)
+        console.log("Craft Data:" + JSON.stringify(data))
+        const allResults = await $dataApi.keywordSearchWithFilters(
+            "*:*",
+            "staffMember",
+            [],
+            "nameLast",
+            ["*"]
+        )
+        console.log(
+            "Use this data when the page loads: " + JSON.stringify(allResults)
+        )
+        /*const datawithfulldetail = await $graphql.default.request(
+            STAFF_LIST_WITH_DETAIL
+        )
+
+        console.log(
+            "staff list for indexing: " +
+                JSON.stringify(datawithfulldetail.entries)
+        )*/
 
         return {
             page: data,
+            searchFilters: getListingFilters(
+                searchAggsResponse,
+                config.staffFilters
+            ),
+        }
+    },
+    data() {
+        return {
+            //searchFilters,
+            //selectedView: this.$route.query.view,
         }
     },
     computed: {
@@ -92,6 +126,53 @@ export default {
                     to: `/about/staff/${obj.to}`,
                     image: _get(obj, "image[0]", null),
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
+                }
+            })
+        },
+    },
+    methods: {
+        async getSearchData(data) {
+            console.log("from search-generic: " + JSON.stringify(data))
+            console.log(config.staff.resultFields)
+            const filters = this.parseFilters(data)
+            /* let parseFilterQuery = this.parseFilters(data)
+            if (parseFilterQuery.length == 0) return*/
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                "*:*",
+                "staffMember",
+                filters,
+                "nameLast",
+                config.staff.resultFields
+            )
+            console.log(results)
+            if (results && results.hits && results.hits.total.value > 0)
+                this.page.entries = this.parseResults(results.hits.hits)
+        },
+
+        parseFilters(data) {
+            console.log("comoonent filetsr data: " + Object.values(data))
+            if (Object.values(data).length == 0) return []
+            let objArray = []
+            for (const key in data) {
+                if (data[key][0]) {
+                    let obj = {}
+                    obj["esFieldName"] = key
+                    obj["value"] = data[key][0]
+                    objArray.push(obj)
+                }
+            }
+            return objArray
+        },
+        parseResults(hits = []) {
+            console.log("checking results data:" + JSON.stringify(hits[0]))
+
+            return hits.map((obj) => {
+                console.log(obj["_source"]["image"])
+                return {
+                    ...obj["_source"],
+                    to: `/about/staff/${obj["_source"].to}`,
+                    image: obj["_source"]["image"], //_get(obj["_source"]["image"], "image[0]", null),
+                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
                 }
             })
         },
