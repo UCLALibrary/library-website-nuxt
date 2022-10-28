@@ -1,35 +1,39 @@
 <template lang="html">
     <div class="page page-help">
+        <masthead-secondary 
+            :title="page.entry.titleGeneral"
+            :text="page.entry.summary"
+        />
+
         <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
         />
-        <br>
-        <h3>Services and Resources</h3>
-        <nuxt-link
-            v-for="item in parsedServiceAndResourceList"
-            :key="item.to"
-            :to="item.to"
-        >
-            <div
-                class="text"
-                v-html="item.title"
+
+        <section-wrapper theme="divider">
+            <divider-way-finder 
+                color="help"/>
+        </section-wrapper>
+
+        <section-wrapper>
+            <section-cards-with-illustrations
+                :items="parsedServiceAndResourceList"
+                :isHorizontal="true"
             />
-        </nuxt-link>
-        <br>
-        <h3>Help Topics</h3>
-        <nuxt-link
-            v-for="item in parsedHelpTopicList"
-            :key="item.to"
-            :to="item.to"
-        >
-            <div
-                class="text"
-                v-html="item.title"
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder 
+                color="help"/>
+        </section-wrapper>
+
+        <section-wrapper>
+            <block-call-to-action
+                class="block-call-to-action"
+                :is-global="true"
             />
-        </nuxt-link>
-        <br>
+        </section-wrapper>
     </div>
 </template>
 
@@ -70,6 +74,12 @@ export default {
             ),
         }
     },
+    head() {
+        let title = this.page ? this.page.entry.titleGeneral : "... loading"
+        return {
+            title: title,
+        }
+    },
     computed: {
         parsedServiceAndResourceList() {
             return [
@@ -79,6 +89,9 @@ export default {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
+                    text: obj.summary,
+                    category: obj.serviceOrResourceType || "Workshop",
+                    iconName: obj.illustrationsResourcesAndServices,
                 }
             })
         },
@@ -96,5 +109,18 @@ export default {
 
 <style lang="scss" scoped>
 .page-help {
+    // TODO: Fix this at the component library level
+    ::v-deep .block-card-with-illustration.color-help {
+        --color-theme: var(--color-primary-blue-01);
+
+        &:hover {
+            --color-theme: var(--color-help-green-01);
+        }
+    }
+
+    ::v-deep .section-wrapper.top-level .block-call-to-action {
+        padding: var(--space-2xl);
+        max-width: var(--block-width);
+    }
 }
 </style>

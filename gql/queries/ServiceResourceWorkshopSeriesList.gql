@@ -1,5 +1,9 @@
 query ServiceResourceWorkshopSeriesList {
-  serviceOrResource: entries(section: "serviceOrResource") {
+  entry(section: "listingServicesResources") {
+    titleGeneral
+    summary
+  }
+  serviceOrResource: entries(section: "serviceOrResource", orderBy: "title ASC") {
     ... on serviceOrResource_serviceOrResource_Entry {
       id
       to: uri
@@ -18,6 +22,7 @@ query ServiceResourceWorkshopSeriesList {
       id
       to: uri
       title
+      summary
       typehandle:sectionHandle
     }
   }
