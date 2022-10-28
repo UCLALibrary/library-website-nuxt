@@ -7,6 +7,17 @@
             :parent-title="page.sectionHandle"
         />
 
+        <masthead-secondary
+            title="Exhibits & Upcoming Events"
+            text="Browse upcoming remote events and online exhibits."
+        >
+        
+        <header-sticky
+            class="sticky-header"
+            :primary-items="primaryItems"
+            :secondary-items="secondaryItems"
+        />
+
         <banner-text
             v-if="page && (!page.heroImage || page.heroImage.length == 0)"
             class="banner-text"
@@ -90,7 +101,10 @@
             text="Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
         />
         <!-- </section-wrapper> -->
-        Event detail here
+        <h3>Event formData here</h3>
+        {{ formData }}
+        <hr>
+        <h3>Event detail here</h3>
         {{ allEvents }}
     </section>
 </template>
@@ -98,11 +112,11 @@
 <script>
 // Helpers
 import _get from "lodash/get"
-// GQL
-import EVENT_DETAIL from "~/gql/queries/EventDetail.gql"
 
 // GQL
-import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
+import EVENT_DETAIL from "~/gql/queries/EventDetail.gql"
+import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems.gql"
+
 import { computed } from "vue"
 export default {
     vue: {
@@ -128,34 +142,28 @@ export default {
             libcalEndpointProxy: this.$config.libcalProxy,
         }
     },
-    async fetch() {
+
+    // async asyncData({ $graphql }) {
+    //     const data = await $graphql.default.request(EVENT_DETAIL)
+    //     return {
+    //         page: _get(data, "entry", {}),
+    //     }
+    // },
+
+    async fetch({ $graphql, $axios }) {
         console.log("In fetch start")
-        const navData = await this.$graphql.default.request(
+        const navData = await $graphql.default.request(
             HEADER_MAIN_MENU_ITEMS
         )
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
-        /* const formId = await $scrapeApi.scrapeFormId("9383207")
-        const formData = await $axios.$get(`api/1.1/events/form/${formId}`)
 
-        console.log("has  data from scrapeid function: " + formData)*/
-        /* if (fetchData && fetchData.length == 1) {
-                this.formData = fetchData[0]
-                console.log("In mounted client side:" + this.formData)
-            }*/
-
-        // console.log('formId' + this.formId)
-        let events = await this.$axios.$get("1.1/events/9383207")
+        let events = await $axios.$get("1.1/events/9383207")
         console.log("events: " + events)
         this.allEvents = [...events.events]
-        // console.log("params " + this.$route.params.slug)
-        // TODO get event data from Craft
-        // return {
-        //     page: {},
-        // }
 
-        // console.log(this.formData.events)
-        // _get(data, "entry", {}),
+        const data = await $graphql.default.request(EVENT_DETAIL)
+            this.page = _get(data, "entry", {})
     },
 
     async mounted() {
