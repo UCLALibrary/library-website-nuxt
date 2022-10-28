@@ -34,19 +34,26 @@ export default function({$config}, inject) {
         return data
     }
 
-    async function keywordSearchWithFilters(keyword="*:*", filters, sort){
+    async function keywordSearchWithFilters(keyword="*:*", sectionHandle, filters, sort, source=["*"]){
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
         if($config.esApiKey === "" || !$config.esURL === "") return
         console.log("keyword:"+keyword)
         console.log("filters:"+filters)
         console.log("sort:"+sort)
         let testquery = JSON.stringify({
-               
+            "_source": [ ...source ],
             "query": {
-                "query_string" : {
-                    "query" : keyword
-                },
-                ...parseFilterQuery(filters)
+                "bool": {
+                    "must": [
+                        {
+                            "query_string" : {
+                                "query" : keyword
+                            }
+                        },
+                        ...parseSectionHandle(sectionHandle),
+                        ...parseFilterQuery(filters)
+                    ]
+                }
             },
             ...parseSort(sort)
             
@@ -63,12 +70,20 @@ export default function({$config}, inject) {
             method: 'POST',
             body: JSON.stringify({
                 "size":"1000",
+                "_source": [ ...source ],
                 "query": {
-                    "query_string" : {
-                        "query" : keyword,
-                        "fuzziness":"auto"
-                    },
-                    ...parseFilterQuery(filters)
+                    "bool": {
+                        "must": [
+                            {
+                                "query_string" : {
+                                    "query" : keyword,
+                                    "fuzziness":"auto"
+                                }
+                            },
+                            ...parseSectionHandle(sectionHandle),
+                            ...parseFilterQuery(filters)
+                        ]
+                    }
                 },
                 ...parseSort(sort)
                 
@@ -134,17 +149,23 @@ export default function({$config}, inject) {
         
         return parseQuery
     }
-
+    function parseSectionHandle(sectionHandle){
+        console.log(sectionHandle)
+        if(sectionHandle && sectionHandle === "") return []
+        console.log("where is the execution")
+        let boolQuery = []
+        let sectionHandleTermQueryObj = {}
+        sectionHandleTermQueryObj["term"] = {}
+        sectionHandleTermQueryObj["term"]["sectionHandle"] = sectionHandle
+        boolQuery.push(sectionHandleTermQueryObj)
+        console.log("query:"+boolQuery)
+        return boolQuery
+    }
     function parseFilterQuery(filters){
-        if(!filters || filters.length == 0) return {}
-        let boolQuery = {
-            bool:{
-                must:[]
-            }
-        }
+        if(!filters || filters.length == 0) return []
+        let boolQuery = []
         /*
-        "bool": {
-            "must": [
+        [
                 {
                     "term": {
                         "locations.title.keyword":"Powell"
@@ -153,14 +174,14 @@ export default function({$config}, inject) {
 
             ]
             
-        }
+        
         */
         for (const filter of filters) {
             console.log(filter)
             if(!filter.value) continue
             let filterObj = {term:{}}
             filterObj.term[filter.esFieldName] = filter.value
-            boolQuery.bool.must.push(filterObj)
+            boolQuery.push(filterObj)
         }
         return boolQuery
     }

@@ -99,7 +99,7 @@ export default {
 
         const mapping = await $dataApi.getMapping()
         console.log(JSON.stringify(mapping))
-        const searchResponse = await $dataApi.siteSearch("*:*")
+        const searchResponse = await $dataApi.siteSearch("test")
         console.log("Search Response: " + JSON.stringify(searchResponse))
         const mockCard = {
             to: "/help/foo/bar/",

@@ -84,10 +84,13 @@ export default {
         // Write a helper function for returning generic filters and doing the reduce part
 
         const data = await $graphql.default.request(STAFF_LIST)
+        console.log("Craft Data:" + JSON.stringify(data))
         const allResults = await $dataApi.keywordSearchWithFilters(
-            "sectionHandle:staffMember",
+            "*:*",
+            "staffMember",
             [],
-            "nameLast"
+            "nameLast",
+            ["*"]
         )
         console.log(
             "Use this data when the page loads: " + JSON.stringify(allResults)
@@ -109,6 +112,12 @@ export default {
             ),
         }
     },
+    data() {
+        return {
+            //searchFilters,
+            //selectedView: this.$route.query.view,
+        }
+    },
     computed: {
         parsedStaffList() {
             return this.page.entries.map((obj) => {
@@ -124,26 +133,48 @@ export default {
     methods: {
         async getSearchData(data) {
             console.log("from search-generic: " + JSON.stringify(data))
+            console.log(config.staff.resultFields)
+            const filters = this.parseFilters(data)
             /* let parseFilterQuery = this.parseFilters(data)
             if (parseFilterQuery.length == 0) return*/
             const results = await this.$dataApi.keywordSearchWithFilters(
                 "*:*",
-                this.parseFilters(data),
-                ""
+                "staffMember",
+                filters,
+                "nameLast",
+                config.staff.resultFields
             )
             console.log(results)
+            if (results && results.hits && results.hits.total.value > 0)
+                this.page.entries = this.parseResults(results.hits.hits)
         },
+
         parseFilters(data) {
             console.log("comoonent filetsr data: " + Object.values(data))
             if (Object.values(data).length == 0) return []
             let objArray = []
             for (const key in data) {
-                let obj = {}
-                obj["esFieldName"] = key
-                obj["value"] = data.key
-                objArray.push(obj)
+                if (data[key][0]) {
+                    let obj = {}
+                    obj["esFieldName"] = key
+                    obj["value"] = data[key][0]
+                    objArray.push(obj)
+                }
             }
             return objArray
+        },
+        parseResults(hits = []) {
+            console.log("checking results data:" + JSON.stringify(hits[0]))
+
+            return hits.map((obj) => {
+                console.log(obj["_source"]["image"])
+                return {
+                    ...obj["_source"],
+                    to: `/about/staff/${obj["_source"].to}`,
+                    image: obj["_source"]["image"], //_get(obj["_source"]["image"], "image[0]", null),
+                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
+                }
+            })
         },
     },
 }
