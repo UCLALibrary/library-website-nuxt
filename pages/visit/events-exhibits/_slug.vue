@@ -10,13 +10,13 @@
         <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
-        >
+        />
         
-        <header-sticky
+        <!-- <header-sticky
             class="sticky-header"
             :primary-items="primaryItems"
             :secondary-items="secondaryItems"
-        />
+        /> -->
 
         <banner-text
             v-if="page && (!page.heroImage || page.heroImage.length == 0)"
@@ -51,9 +51,9 @@
         </section-wrapper>
 
         <!-- <p v-if="$fetchState.pending" /> -->
-        <!-- <p v-else-if="$fetchState.error">
+        <p v-else-if="$fetchState.error">
             An error occurred :(
-        </p> -->
+        </p>
         
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -143,12 +143,12 @@ export default {
         }
     },
 
-    // async asyncData({ $graphql }) {
-    //     const data = await $graphql.default.request(EVENT_DETAIL)
-    //     return {
-    //         page: _get(data, "entry", {}),
-    //     }
-    // },
+    async asyncData({ $graphql }) {
+        const data = await $graphql.default.request(EVENT_DETAIL)
+        return {
+            page: _get(data, "entry", {}),
+        }
+    },
 
     async fetch({ $graphql, $axios }) {
         console.log("In fetch start")
@@ -158,24 +158,24 @@ export default {
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
 
-        let events = await $axios.$get("1.1/events/9383207")
-        console.log("events: " + events)
-        this.allEvents = [...events.events]
+        // let events = await $axios.$get("1.1/events/9383207")
+        // console.log("events: " + events)
+        // this.allEvents = [...events.events]
 
-        const data = await $graphql.default.request(EVENT_DETAIL)
-            this.page = _get(data, "entry", {})
+        // const data = await $graphql.default.request(EVENT_DETAIL)
+        //     this.page = _get(data, "entry", {})
     },
 
-    async mounted() {
-        const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
-        console.log(formDataArray)
-        if (formDataArray && formDataArray.length == 1) {
-            this.formData = formDataArray[0]
-            console.log(
-                "In mounted client side:" + JSON.stringify(this.formData)
-            )
-        }
-    },
+    // async mounted() {
+    //     const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
+    //     console.log(formDataArray)
+    //     if (formDataArray && formDataArray.length == 1) {
+    //         this.formData = formDataArray[0]
+    //         console.log(
+    //             "In mounted client side:" + JSON.stringify(this.formData)
+    //         )
+    //     }
+    // },
 }
 </script>
 
