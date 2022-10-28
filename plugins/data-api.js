@@ -1,8 +1,9 @@
-export default function({$config}, inject) {
+export default function ({ $config }, inject) {
     /*
     {"id":"j6tUj4IBzYVXfPB9-JvU","name":"dev-es-key","api_key":"N_f0_5WSSae3QOvm4hlq0g","encoded":"ajZ0VWo0SUJ6WVZYZlBCOS1KdlU6Tl9mMF81V1NTYWUzUU92bTRobHEwZw=="}
     */
 
+<<<<<<< HEAD
     async function siteSearch(keyword="*:*"){
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
         if($config.esApiKey === "" || !$config.esURL === "") return
@@ -30,9 +31,48 @@ export default function({$config}, inject) {
                 }
             })
         })
+=======
+    async function keywordSearch(keyword) {
+        //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
+        if ($config.esApiKey === "" || !$config.esURL === "") return
+        console.log("keyword:" + keyword)
+        // var params = {
+        //     query: {
+        //         query_string: {
+        //             query: "*"
+        //         }
+        //     }
+        // }
+
+        // const urlParams = new URLSearchParams(params).toString()
+        // console.log("paranaters: "+urlParams)
+        // `${ES_URL}/apps-dev-library-website/_search?q=*:*` GET request
+        const response = await fetch(
+            `${$config.esURL}/apps-dev-library-website/_search`,
+            {
+                headers: {
+                    Authorization: `ApiKey ${$config.esApiKey}`,
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    /* "query": {
+                    "match_all": {}
+                } */
+                    query: {
+                        query_string: {
+                            query: "*:*",
+                        },
+                    },
+                }),
+            }
+        )
+>>>>>>> dc7923b (add search-site route)
         const data = await response.json()
+        console.log(data)
         return data
     }
+<<<<<<< HEAD
 
     async function keywordSearchWithFilters(keyword="*:*", sectionHandle, filters, sort, source=["*"], aggFields=[]){
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
@@ -111,6 +151,24 @@ export default function({$config}, inject) {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
         })
+=======
+    inject("dataApi", {
+        getMapping,
+        keywordSearch,
+    })
+
+    async function getMapping() {
+        if ($config.esApiKey === "" || !$config.esURL === "") return
+        const response = await fetch(
+            `${$config.esURL}/apps-dev-library-website/_mapping`,
+            {
+                headers: {
+                    Authorization: `ApiKey ${$config.esApiKey}`,
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            }
+        )
+>>>>>>> dc7923b (add search-site route)
         const data = await response.json()
         return data
     }
