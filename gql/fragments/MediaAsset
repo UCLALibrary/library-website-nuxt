@@ -1,0 +1,8 @@
+fragment MediaAsset on AssetInterface {
+  id
+  url
+  height
+  width
+  title
+  focalPoint
+}
