@@ -102,22 +102,19 @@ import _get from "lodash/get"
 import EVENT_DETAIL from "~/gql/queries/EventDetail.gql"
 
 // GQL
-// import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
-
-import BlockFormData from "~/data/BlockFormData.json"
-
+import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
+import { computed } from "vue"
 export default {
+    vue: {
+        config: {
+            unwrapInjectedRef: true,
+        },
+    },
     provide() {
         return {
             eventId: "9383207",
-            blockFormData: BlockFormData.mock0,
+            blockFormData: computed(() => this.formData),
             libcalEndpoint: this.libcalEndpointProxy,
-        }
-    },
-    async asyncData({ $graphql }) {
-        const data = await $graphql.default.request(EVENT_DETAIL)
-        return {
-            page: _get(data, "entry", {}),
         }
     },
     data() {
@@ -125,128 +122,51 @@ export default {
             allEvents: [],
             primaryItems: [],
             secondaryItems: [],
+            formData: {},
+            formId: "",
+            eventId: "9383207",
             libcalEndpointProxy: this.$config.libcalProxy,
-            listEvents: [
-                {
-                    image: {
-                        src: "https://via.placeholder.com/1920x1080",
-                        srcset: "https://via.placeholder.com/960x540 960w, https://via.placeholder.com/1280x720 1280w, https://via.placeholder.com/1920x1080 1920w",
-                        sizes: "100vw",
-                        alt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                        title: "Lorem ipsum",
-                        caption: "Lorem ipsum",
-                        height: 1080,
-                        width: 1920,
-                        focalPoint: [0.5, 0.5]
-                    },
-                    to: "/visit/foo/bar/",
-                    category: "Ullamco",
-                    title: "Fames ac turpis egestas sed tempus lorem ipsum",
-                    startDate: "2021-09-03T08:00:00+00:00",
-                    endDate: "2021-10-08T07:10:00+00:00",
-                    text: "Ultricies leo integer malesuada nunc vel risus commodo viverra.",
-                },
-                {
-                    image: {
-                        src: "https://via.placeholder.com/1920x1080",
-                        srcset: "https://via.placeholder.com/960x540 960w, https://via.placeholder.com/1280x720 1280w, https://via.placeholder.com/1920x1080 1920w",
-                        sizes: "100vw",
-                        alt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                        title: "Lorem ipsum",
-                        caption: "Lorem ipsum",
-                        height: 1080,
-                        width: 1920,
-                        focalPoint: [0.5, 0.5]
-                    },
-                    to: "/visit/foo/baz/",
-                    category: "Sagittis",
-                    title: "Amet nisl suscipit adipiscing bibendum lectus sed",
-                    startDate: "2021-09-03T08:00:00+00:00",
-                    endDate: "2021-10-08T07:10:00+00:00",
-                    text: "A diam maecenas sed enim. Tristique senectus et netus et malesuada fames. Nibh nisl condimentum id venenatis. Mi bibendum neque egestas congue. Placerat duis ultricies lacus sed turpis. Massa enim nec dui nunc mattis. Dolor morbi non arcu risus quis varius vestibulum sed.",
-                },
-                {
-                    image: {
-                        src: "https://via.placeholder.com/1920x1080",
-                        srcset: "https://via.placeholder.com/960x540 960w, https://via.placeholder.com/1280x720 1280w, https://via.placeholder.com/1920x1080 1920w",
-                        sizes: "100vw",
-                        alt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                        title: "Lorem ipsum",
-                        caption: "Lorem ipsum",
-                        height: 1080,
-                        width: 1920,
-                        focalPoint: [0.5, 0.5]
-                    },
-                    to: "/visit/foo/bat/",
-                    category: "Tincidunt",
-                    title: "Scelerisque varius morbi enim nunc ornare quam",
-                    startDate: "2021-09-03T08:00:00+00:00",
-                    endDate: "2021-10-08T07:10:00+00:00",
-                    text: "Eu ultrices vitae auctor eu augue. Dolor morbi non arcu risus quis varius quam. Augue lacus viverra vitae congue eu consequat.",
-                },
-                {
-                    image: {
-                        src: "https://via.placeholder.com/1920x1080",
-                        srcset: "https://via.placeholder.com/960x540 960w, https://via.placeholder.com/1280x720 1280w, https://via.placeholder.com/1920x1080 1920w",
-                        sizes: "100vw",
-                        alt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                        title: "Lorem ipsum",
-                        caption: "Lorem ipsum",
-                        height: 1080,
-                        width: 1920,
-                        focalPoint: [0.5, 0.5]
-                    },
-                    to: "/visit/foo/ban/",
-                    category: "Gravida",
-                    title: "At varius vel pharetra vel turpis. Quam vulputate dignissim suspendisse in est ante in. Sed cras ornare arcu. Non diam phasellus vestibulum.",
-                    startDate: "2021-09-03T08:00:00+00:00",
-                    endDate: "2021-10-08T07:10:00+00:00",
-                    text: "Accumsan tortor posuere ac ut consequat semper viverra libero.",
-                },
-            ]
         }
     },
-    computed: {
-        // listEvents() {
-        //     const items = this.parsedEvents.slice(2)
+    async fetch() {
+        console.log("In fetch start")
+        const navData = await this.$graphql.default.request(
+            HEADER_MAIN_MENU_ITEMS
+        )
+        this.primaryItems = _get(navData, "primary", [])
+        this.secondaryItems = _get(navData, "secondary", [])
+        /* const formId = await $scrapeApi.scrapeFormId("9383207")
+        const formData = await $axios.$get(`api/1.1/events/form/${formId}`)
 
-        //     return items.map((obj) => {
-        //         return {
-        //             ...obj,
-        //             category: _get(obj, "category.name", "Featured"),
-        //         }
-        //     })
-        // },
-        // parsedEvents() {
-        //     // TODO Remove this one we have more events
+        console.log("has  data from scrapeid function: " + formData)*/
+        /* if (fetchData && fetchData.length == 1) {
+                this.formData = fetchData[0]
+                console.log("In mounted client side:" + this.formData)
+            }*/
 
-        //     const mockEvents = [...this.page.events]
+        // console.log('formId' + this.formId)
+        let events = await this.$axios.$get("1.1/events/9383207")
+        console.log("events: " + events)
+        this.allEvents = [...events.events]
+        // console.log("params " + this.$route.params.slug)
+        // TODO get event data from Craft
+        // return {
+        //     page: {},
+        // }
 
-        //     // Shape events
-        //     // return this.events.map((obj) => {
-        //     return mockEvents.map((obj) => {
-        //         const event = obj || {}
+        // console.log(this.formData.events)
+        // _get(data, "entry", {}),
+    },
 
-        //         return {
-        //             ...event,
-        //             to: `${this.$route.path}/${event.id}`, // added index to avoid duplicate errors
-        //             location: _get(event, "location.name", "Online"),
-        //             image: {
-        //                 src: event.featured_image,
-        //             },
-        //             category: {
-        //                 name: _get(event, "category.name", "Featured"),
-        //             },
-        //             breadcrumb: {
-        //                 text: _get(event, "category.name", "Featured"),
-        //             },
-        //             // TODO Only need one set of these once BannerFeatured is updated
-        //             startDate: event.start,
-        //             endDate: event.end,
-        //             text: event.description,
-        //         }
-        //     })
-        // },
+    async mounted() {
+        const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
+        console.log(formDataArray)
+        if (formDataArray && formDataArray.length == 1) {
+            this.formData = formDataArray[0]
+            console.log(
+                "In mounted client side:" + JSON.stringify(this.formData)
+            )
+        }
     },
 }
 </script>
