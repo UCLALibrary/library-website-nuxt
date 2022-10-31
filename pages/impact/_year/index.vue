@@ -46,6 +46,13 @@
             :blocks="page.blocks"
         />
 
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+
         <section-wrapper :section-title="page.timelineTitle">
             <div
                 v-for="(value, propertyName) in timelineSortedBySubtitle"
