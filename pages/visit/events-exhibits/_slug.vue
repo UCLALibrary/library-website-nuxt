@@ -2,22 +2,21 @@
     <section class="page-event-detail">
         <!-- this template will pick the section page component based on typehandle -->
         <nav-breadcrumb
-            :title="page.slug"
-            :to="page.to"
-            :parent-title="page.sectionHandle"
+            to="/visit/events-exhibit"
+            :title="page.title"
+            parent-title="Exhibits & Upcoming Events"
         />
-
-        <!-- this wasn't in the design, so I just commented it out -->
-        <!-- <masthead-secondary
-            title="Exhibits & Upcoming Events"
-            text="Browse upcoming remote events and online exhibits."
-        /> -->
         
-        <!-- <header-sticky
+        <!-- <p v-if="$fetchState.pending" />
+        <p v-else-if="$fetchState.error">
+            An error occurred :(
+        </p> -->
+
+        <header-sticky
             class="sticky-header"
             :primary-items="primaryItems"
             :secondary-items="secondaryItems"
-        /> -->
+        />
 
         <banner-text
             v-if="page && (!page.image[0].image[0] || page.image[0].image[0].length == 0)"
@@ -25,7 +24,10 @@
             :locations="page.associatedLocations"
             :start-date="page.date.startTime"
             :category="page.eventType.title"
-            to="https://jira.library.ucla.edu/browse/APPS-2015"
+            :to="page.onlineJoinURL"
+            :prompt="promptName"
+            :register-event="parseRegistration"
+            :date="page.date.startTime"
         />
 
         <!-- if theres an image -->
@@ -38,17 +40,14 @@
                 :title="page.title"
                 :locations="page.associatedLocations"
                 :start-date="page.date.startTime"
+                :end-date="page.date.endTime"
                 :category="page.eventType.title"
-                to="https://jira.library.ucla.edu/browse/APPS-2015"
+                :to="page.onlineJoinURL"
                 :align-right="true"
-                prompt="View exhibit"
+                :prompt="promptName"
+                :register-event="parseRegistration"
             />
         </section-wrapper>
-
-        <!-- <p v-if="$fetchState.pending" /> -->
-        <p v-else-if="$fetchState.error">
-            An error occurred :(
-        </p>
         
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -69,13 +68,13 @@
             <divider-way-finder color="visit" />
         </section-wrapper>
 
-        <section-wrapper
+        <!-- <section-wrapper
             v-if="page || page.eventDescription"
         >
             <rich-text
                 :rich-text-content="page.moreInformation"
             />
-        </section-wrapper>
+        </section-wrapper> -->
         
 
         <section-wrapper 
@@ -94,21 +93,16 @@
             <divider-general />
         </section-wrapper> -->
 
-        <!-- <section-wrapper> -->
         <block-call-to-action
-            class="section block-call-to-action"
-            svg-name="svg-call-to-action-mail"
-            to="/contact-us"
-            name="Contact Us"
-            title="Not sure who you should reach out to?"
-            text="Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+            class="block-call-to-action"
+            :is-global="true"
         />
-        <!-- </section-wrapper> -->
-        <h3>Event formData here</h3>
+
+        <!-- <h3>Event formData here</h3>
         {{ formData }}
         <hr>
         <h3>Event detail here</h3>
-        {{ allEvents }}
+        {{ allEvents }} -->
     </section>
 </template>
 
@@ -150,25 +144,31 @@ export default {
             formId: "",
             eventId: "9383207",
             libcalEndpointProxy: this.$config.libcalProxy,
+            data: {}
         }
     },
-
-    async fetch({ $graphql, $axios }) {
+    async fetch() {
         console.log("In fetch start")
-        const navData = await $graphql.default.request(
+        const navData = await this.$graphql.default.request(
             HEADER_MAIN_MENU_ITEMS
         )
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
 
-        let events = await $axios.$get("1.1/events/9383207")
-        console.log("events: " + events)
-        this.allEvents = [...events.events]
-
-        const data = await $graphql.default.request(EVENT_DETAIL)
+        const data = await this.$graphql.default.request(EVENT_DETAIL)
         this.page = _get(data, "entry", {})
     },
-
+    computed: {
+        parseRegistration() {
+            if (this.page.requiresRegistration === true && this.page.onlineProvider !== "external") {
+                return ""
+            }
+            return this.page.onlineJoinURL
+        },
+        promptName() {
+            return this.page.to ? 'More Details' : null
+        }
+    },
     async mounted() {
         const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
         console.log(formDataArray)
