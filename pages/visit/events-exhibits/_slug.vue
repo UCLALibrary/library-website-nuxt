@@ -2,15 +2,16 @@
     <section class="page-event-detail">
         <!-- this template will pick the section page component based on typehandle -->
         <nav-breadcrumb
-            :title="page.title"
+            :title="page.slug"
             :to="page.to"
             :parent-title="page.sectionHandle"
         />
 
-        <masthead-secondary
+        <!-- this wasn't in the design, so I just commented it out -->
+        <!-- <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
-        />
+        /> -->
         
         <!-- <header-sticky
             class="sticky-header"
@@ -19,17 +20,12 @@
         /> -->
 
         <banner-text
-            v-if="page && (!page.heroImage || page.heroImage.length == 0)"
-            class="banner-text"
-            :category="page.format"
+            v-if="page && (!page.image[0].image[0] || page.image[0].image[0].length == 0)"
             :title="page.title"
-            :text="page.summary"
-            :locations="page.locations"
-            :address="parsedAddress"
-            :email="page.email"
-            :phone="page.phoneNumber"
-            :address-link="addressLink"
-            :staff-directory-link="parsedStaffDirectory"
+            :locations="page.associatedLocations"
+            :start-date="page.date.startTime"
+            :category="page.eventType.title"
+            to="https://jira.library.ucla.edu/browse/APPS-2015"
         />
 
         <!-- if theres an image -->
@@ -40,13 +36,12 @@
             <banner-header
                 :image="page.image[0].image[0]"
                 :title="page.title"
-                :align-right="false"
-                :text="page.summary"
-                :address="parsedAddress"
-                :email="page.email"
-                :phone="page.phoneNumber"
-                :staff-directory-link="parsedStaffDirectory"
-                :address-link="addressLink"
+                :locations="page.associatedLocations"
+                :start-date="page.date.startTime"
+                :category="page.eventType.title"
+                to="https://jira.library.ucla.edu/browse/APPS-2015"
+                :align-right="true"
+                prompt="View exhibit"
             />
         </section-wrapper>
 
@@ -70,9 +65,17 @@
             />
         </section-wrapper>
 
-        <!-- <section-wrapper theme="divider">
-            <divider-general />
-        </section-wrapper> -->
+        <section-wrapper theme="divider">
+            <divider-way-finder color="visit" />
+        </section-wrapper>
+
+        <section-wrapper
+            v-if="page || page.eventDescription"
+        >
+            <rich-text
+                :rich-text-content="page.moreInformation"
+            />
+        </section-wrapper>
         
 
         <section-wrapper 
@@ -131,6 +134,13 @@ export default {
             libcalEndpoint: this.libcalEndpointProxy,
         }
     },
+
+    async asyncData({ $graphql }) {
+        const data = await $graphql.default.request(EVENT_DETAIL)
+        return {
+            page: _get(data, "entry", {}),
+        }
+    },
     data() {
         return {
             allEvents: [],
@@ -143,13 +153,6 @@ export default {
         }
     },
 
-    async asyncData({ $graphql }) {
-        const data = await $graphql.default.request(EVENT_DETAIL)
-        return {
-            page: _get(data, "entry", {}),
-        }
-    },
-
     async fetch({ $graphql, $axios }) {
         console.log("In fetch start")
         const navData = await $graphql.default.request(
@@ -158,24 +161,24 @@ export default {
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
 
-        // let events = await $axios.$get("1.1/events/9383207")
-        // console.log("events: " + events)
-        // this.allEvents = [...events.events]
+        let events = await $axios.$get("1.1/events/9383207")
+        console.log("events: " + events)
+        this.allEvents = [...events.events]
 
-        // const data = await $graphql.default.request(EVENT_DETAIL)
-        //     this.page = _get(data, "entry", {})
+        const data = await $graphql.default.request(EVENT_DETAIL)
+        this.page = _get(data, "entry", {})
     },
 
-    // async mounted() {
-    //     const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
-    //     console.log(formDataArray)
-    //     if (formDataArray && formDataArray.length == 1) {
-    //         this.formData = formDataArray[0]
-    //         console.log(
-    //             "In mounted client side:" + JSON.stringify(this.formData)
-    //         )
-    //     }
-    // },
+    async mounted() {
+        const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
+        console.log(formDataArray)
+        if (formDataArray && formDataArray.length == 1) {
+            this.formData = formDataArray[0]
+            console.log(
+                "In mounted client side:" + JSON.stringify(this.formData)
+            )
+        }
+    },
 }
 </script>
 
