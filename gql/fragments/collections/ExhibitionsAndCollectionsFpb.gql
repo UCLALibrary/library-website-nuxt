@@ -7,6 +7,8 @@
 #import "~/gql/fragments/BlockHighlightFragment"
 #import "~/gql/fragments/BlockImpactNumbersCarouselFragment"
 #import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaWithTextFragment"
+
 
 fragment ExhibitionsAndCollectionsFpb on ElementInterface {
     blocks: exhibitionsAndCollectionsFpb {
@@ -38,5 +40,8 @@ fragment ExhibitionsAndCollectionsFpb on ElementInterface {
             ...BlockMediaGalleryFragment
         }
 
+        ... on exhibitionsAndCollectionsFpb_mediaWithText_BlockType {
+            ...BlockMediaWithTextFragment
+        }
     }
 }
