@@ -5,9 +5,9 @@
             :title="page.title"
             parent-title="Collections"
         />
-        <h3>page: {{ page }}</h3>
-        <h3>parsedPhysicalDigital: {{ parsedPhysicalDigital }}</h3>
-        <!-- <h3>parsedButtonText : {{ page.ButtonUrl }}</h3> -->
+        <h3>parsedServicesAndResources: {{ parsedServicesAndResources }}</h3>
+        <!-- <h3>parsedPhysicalDigital: {{ parsedPhysicalDigital }}</h3>
+        <h3>parsedButtonText : {{ page.ButtonUrl }}</h3> -->
 
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
@@ -46,14 +46,11 @@
             :blocks="page.blocks"
         />
 
-        <!-- <section-wrapper
+        <section-wrapper
             v-if=""
             class=""
         >
             <div class="section-header">
-                <h2 class="section-title">
-                    Services & Resources
-                </h2>
                 <simple-cards
                     v-if="page.resourceServiceWorkshop.length"
                     section-title="Services &amp; Resources"
@@ -67,6 +64,7 @@
             />
         </section-wrapper>
 
+        <!-- 
         <section-wrapper
             v-if=""
             class=""
@@ -185,6 +183,17 @@ export default {
                     title: _get(obj, "title", ""),
                     text: _get(obj, "description", ""),
                     startDate: _get(obj, "startDate", "")
+                }
+            })
+        },
+        parsedServicesAndResources() {
+            let services = this.page.resourceServiceWorkshop
+            return services.map((obj) => {
+                return {
+                    ...obj,
+                    to: `${obj.uri}`,
+                    title: _get(obj, "title", ""),
+                    text: _get(obj, "text", "")
                 }
             })
         },
