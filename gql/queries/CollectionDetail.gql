@@ -35,8 +35,8 @@ query CollectionDetail($slug: [String!]) {
       ... on endowment_endowments_Entry {
         id
         title
-        summary
-        donationUrl
+        description: summary
+        to: donationUrl
         donors {
           firstName
         }

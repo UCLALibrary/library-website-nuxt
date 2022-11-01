@@ -5,9 +5,8 @@
             :title="page.title"
             parent-title="Collections"
         />
-        <h3>parsedServicesAndResources: {{ parsedServicesAndResources }}</h3>
-        <!-- <h3>parsedPhysicalDigital: {{ parsedPhysicalDigital }}</h3>
-        <h3>parsedButtonText : {{ page.ButtonUrl }}</h3> -->
+        <!-- <h3>endowment: {{ page.endowment }}</h3> -->
+        <h3>parsedEndowments: {{ parsedEndowments }}</h3>
 
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
@@ -46,13 +45,13 @@
             :blocks="page.blocks"
         />
 
+        <!-- Services and Resources -->
         <section-wrapper
-            v-if=""
+            v-if="page.resourceServiceWorkshop.length"
             class=""
         >
             <div class="section-header">
                 <simple-cards
-                    v-if="page.resourceServiceWorkshop.length"
                     section-title="Services &amp; Resources"
                     :items="parsedServicesAndResources"
                 />
@@ -64,14 +63,15 @@
             />
         </section-wrapper>
 
-        <!-- 
+        <!-- Endowments -->
         <section-wrapper
-            v-if=""
+            v-if="parsedEndowments"
             class=""
         >
-            <h2 class="section-title">
-                Collection Endowments
-            </h2>
+            <section-staff-article-list
+                section-title="Collection Endowments"
+                :items="parsedEndowments"
+            />
 
             <divider-way-finder
                 class="divider"
@@ -79,52 +79,19 @@
             />
         </section-wrapper>
 
-        <section-wrapper
-            v-if="parsedAssociatedStaffMember.length > 0"
-            theme="divider"
-        >
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
-        </section-wrapper>
-
+        <!-- Subject Specialist -->
         <section-wrapper v-if="parsedAssociatedStaffMember.length > 0">
             <h2 class="section-title">
                 Contact a Subject Specialist
             </h2>
 
-            <section-staff-list :items="parsedAssociatedStaffMember" />
-        </section-wrapper> -->
+            <section-staff-list
+                section-title="Contact a Subject Specialist"
+                :items="parsedAssociatedStaffMember"
+            />
+        </section-wrapper>
     </main>
 </template>
-<!--
-
-section-wrapper
-divider-way-finder
-section-wrapper (section-title="Using the Collection")
-
-rich-text
-section-wrapper
-divider-way-finder
-
-flexible-blocks
-
-section-wrapper (if not empty, section-title="Services & Resources")
-
-simple-cards
-
-section-wrapper (if there are simple cards and endowments or staff)
-
-divider-way-finder
-section-wrapper (if not empty, section-title="Collection Endowments")
-
-section-teaser-card
-section-wrapper (if there are endowments and staff)
-divider-way-finder
-section-wrapper (if not empty, section-title="Contact a Subject Specialist")
-section-staff-list -->
-
 
 <script>
 // Helpers
@@ -197,12 +164,28 @@ export default {
                 }
             })
         },
-        parsedSeeMore() {
-            if (this.page.slug == "preservation-conservation-program") {
-                return "/about/blogs/listing-preservation-and-conservation-blog"
-            } else {
-                return "/about/news"
-            }
+        parsedEndowments() {
+            let endowment = this.page.endowment
+            return endowment.map((obj) => {
+                return {
+                    ...obj,
+                    to: `${obj.uri}`,
+                    image: _get(obj, "image[0]", null),
+                    title: _get(obj, "title", ""),
+                    description: _get(obj, "summary", ""),
+                    category: _get(obj, "donors.firstname", null),
+                }
+            })
+        },
+        parsedAssociatedStaffMember() {
+            return this.page.associatedStaffMember.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/about/staff/${obj.to}`,
+                    image: _get(obj, "image[0]", null),
+                    staffName: `${obj.nameFirst} ${obj.nameLast}`,
+                }
+            })
         }
     }
 }
@@ -222,20 +205,6 @@ export default {
     .section-title {
         @include step-4;
         color: var(--color-primary-blue-03);
-    }
-
-    // .section-title {
-    //     margin-bottom: var(--space-xl);
-
-    //     .title {
-    //         @include step-3;
-    //         color: var(--color-primary-blue-03);
-    //         margin-bottom: var(--space-m);
-    //     }
-    // }
-
-    .button-more {
-        margin: var(--space-2xl) auto;
     }
 }
 </style>
