@@ -25,21 +25,23 @@
             An error occurred :(
         </p>
         <header-sticky
-            v-else
             class="sticky-header"
             :primary-items="primaryItems"
             :secondary-items="secondaryItems"
         />
         <banner-text
+            v-if="formData"
             category="Event"
             title="Curabitur Tortor Pellentesque"
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, metus in aliquet venenatis, mi lectus placerat leo, congue gravida mi quam sit amet neque."
             button-text="Curabitur"
-            byline="a"
-            register-event="true"
+            :register-event="true"
         />
 
-        Event detail here
+        <h3>Event formData here</h3>
+        {{ formData }}
+        <hr>
+        <h3>Event detail here</h3>
         {{ allEvents }}
 
         <!-- <flexible-blocks
@@ -57,15 +59,18 @@ import _get from "lodash/get"
 
 // GQL
 import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
-
-import BlockFormData from "~/data/BlockFormData.json"
-
+import { computed } from "vue"
 export default {
+    vue: {
+        config: {
+            unwrapInjectedRef: true,
+        },
+    },
     provide() {
         return {
             eventId: "9383207",
-            blockFormData: BlockFormData.mock0,
-            libcalEndpoint: this.libcalEndpointProxy
+            blockFormData: computed(() => this.formData),
+            libcalEndpoint: this.libcalEndpointProxy,
         }
     },
     data() {
@@ -73,7 +78,10 @@ export default {
             allEvents: [],
             primaryItems: [],
             secondaryItems: [],
-            libcalEndpointProxy: this.$config.libcalProxy
+            formData: {},
+            formId: "",
+            eventId: "9383207",
+            libcalEndpointProxy: this.$config.libcalProxy,
         }
     },
     async fetch() {
@@ -81,20 +89,40 @@ export default {
         const navData = await this.$graphql.default.request(
             HEADER_MAIN_MENU_ITEMS
         )
-        console.log(navData)
-        // sample event id = 9383207
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
-        console.log("params " + this.$route.params.slug)
-        const data = await this.$axios.$get(
-            `/1.1/events/${this.$route.params.slug}`
-        )
+        /* const formId = await $scrapeApi.scrapeFormId("9383207")
+        const formData = await $axios.$get(`api/1.1/events/form/${formId}`)
+
+        console.log("has  data from scrapeid function: " + formData)*/
+        /* if (fetchData && fetchData.length == 1) {
+                this.formData = fetchData[0]
+                console.log("In mounted client side:" + this.formData)
+            }*/
+
+        // console.log('formId' + this.formId)
+        let events = await this.$axios.$get("1.1/events/9383207")
+        console.log("events: " + events)
+        this.allEvents = [...events.events]
+        // console.log("params " + this.$route.params.slug)
         // TODO get event data from Craft
         // return {
         //     page: {},
         // }
-        this.allEvents = [...this.allEvents, ...data.events]
-        console.log(data.events)
+
+        // console.log(this.formData.events)
+        // _get(data, "entry", {}),
+    },
+
+    async mounted() {
+        const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
+        console.log(formDataArray)
+        if (formDataArray && formDataArray.length == 1) {
+            this.formData = formDataArray[0]
+            console.log(
+                "In mounted client side:" + JSON.stringify(this.formData)
+            )
+        }
     },
 }
 </script>
