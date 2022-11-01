@@ -6,9 +6,11 @@
 #import "~/gql/fragments/BlockFormFragment"
 #import "~/gql/fragments/BlockHighlightFragment"
 #import "~/gql/fragments/BlockImpactNumbersCarouselFragment"
-#import "~/gql/fragments/BlockMediaGalleryFragment"
 #import "~/gql/fragments/BlockMediaWithTextFragment"
-
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
 
 fragment ExhibitionsAndCollectionsFpb on ElementInterface {
     blocks: exhibitionsAndCollectionsFpb {
@@ -36,12 +38,21 @@ fragment ExhibitionsAndCollectionsFpb on ElementInterface {
         ... on exhibitionsAndCollectionsFpb_impactNumbersCarousel_BlockType {
             ...BlockImpactNumbersCarouselFragment
         }
-        ... on exhibitionsAndCollectionsFpb_mediaGallery_BlockType {
-            ...BlockMediaGalleryFragment
-        }
 
         ... on exhibitionsAndCollectionsFpb_mediaWithText_BlockType {
             ...BlockMediaWithTextFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_pullQuote_BlockType {
+            ...BlockPullQuoteFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_richText_BlockType {
+            ...BlockRichTextFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_simpleCards_BlockType {
+            ...BlockSimpleCardsFragment
+        }
+         ... on exhibitionsAndCollectionsFpb_mediaGallery_BlockType {
+            ...BlockMediaGalleryFragment
         }
     }
 }

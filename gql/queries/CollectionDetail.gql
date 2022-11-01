@@ -73,9 +73,9 @@ query CollectionDetail($slug: [String!]) {
     }
     resourceServiceWorkshop {
       id
-      text: summary
       title
-      slug
+      text: summary
+      uri
     }
     ...ExhibitionsAndCollectionsFpb
   }

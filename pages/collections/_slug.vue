@@ -5,8 +5,8 @@
             :title="page.title"
             parent-title="Collections"
         />
-        <!-- <h3>page: {{ page }}</h3>
-        <h3>parsedPhysicalDigital: {{ parsedPhysicalDigital }}</h3> -->
+        <h3>page: {{ page }}</h3>
+        <h3>parsedPhysicalDigital: {{ parsedPhysicalDigital }}</h3>
         <!-- <h3>parsedButtonText : {{ page.ButtonUrl }}</h3> -->
 
         <banner-text
@@ -104,10 +104,9 @@
 
 section-wrapper
 divider-way-finder
-
 section-wrapper (section-title="Using the Collection")
-rich-text
 
+rich-text
 section-wrapper
 divider-way-finder
 
