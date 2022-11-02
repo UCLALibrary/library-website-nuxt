@@ -39,6 +39,7 @@ query CollectionDetail($slug: [String!]) {
         to: donationUrl
         donors {
           firstName
+          lastName
         }
         image {
           ...Image
