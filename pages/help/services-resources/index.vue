@@ -58,6 +58,7 @@ import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
 
 // Utilities
 import getListingFilters from "~/utils/getListingFilters"
+import mergeFilters from "~/utils/mergeFilters"
 import config from "~/utils/searchConfig"
 
 // Helpers
@@ -123,9 +124,8 @@ export default {
         async getSearchData(data) {
             console.log("from search-generic: " + JSON.stringify(data))
             console.log(config.serviceOrResources.resultFields)
-            const filters = this.parseFilters(data.filters)
-            /* let parseFilterQuery = this.parseFilters(data)
-            if (parseFilterQuery.length == 0) return*/
+            const filters = mergeFilters(data.filters)
+
             const results = await this.$dataApi.keywordSearchWithFilters(
                 data.text || "*",
                 "serviceOrResource",
@@ -140,20 +140,6 @@ export default {
                 )
         },
 
-        parseFilters(data) {
-            console.log("component filters data: " + Object.values(data))
-            if (Object.values(data).length == 0) return []
-            let objArray = []
-            for (const key in data) {
-                if (data[key][0]) {
-                    let obj = {}
-                    obj["esFieldName"] = key
-                    obj["value"] = data[key][0]
-                    objArray.push(obj)
-                }
-            }
-            return objArray
-        },
         parseResults(hits = []) {
             console.log("checking results data:" + JSON.stringify(hits[0]))
 

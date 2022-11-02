@@ -63,6 +63,7 @@ import _get from "lodash/get"
 
 // Utilities
 import getListingFilters from "~/utils/getListingFilters"
+import mergeFilters from "~/utils/mergeFilters"
 import config from "~/utils/searchConfig"
 
 // gql
@@ -134,9 +135,8 @@ export default {
         async getSearchData(data) {
             console.log("from search-generic: " + JSON.stringify(data))
             console.log(config.staff.resultFields)
-            const filters = this.parseFilters(data.filters)
-            /* let parseFilterQuery = this.parseFilters(data)
-            if (parseFilterQuery.length == 0) return*/
+            const filters = mergeFilters(data.filters)
+
             const results = await this.$dataApi.keywordSearchWithFilters(
                 data.text || "*",
                 "staffMember",
@@ -148,21 +148,6 @@ export default {
             if (results && results.hits && results.hits.total.value > 0)
                 this.page.entries = this.parseResults(results.hits.hits)
         },
-
-        parseFilters(data) {
-            console.log("component filters data: " + Object.values(data))
-            if (Object.values(data).length == 0) return []
-            let objArray = []
-            for (const key in data) {
-                if (data[key][0]) {
-                    let obj = {}
-                    obj["esFieldName"] = key
-                    obj["value"] = data[key][0]
-                    objArray.push(obj)
-                }
-            }
-            return objArray
-        },
         parseResults(hits = []) {
             console.log("checking results data:" + JSON.stringify(hits[0]))
 
@@ -170,7 +155,7 @@ export default {
                 console.log(obj["_source"]["image"])
                 return {
                     ...obj["_source"],
-                    to: `/about/staff/${obj["_source"].to}`,
+                    to: `${obj["_source"].to}`,
                     image: obj["_source"]["image"], //_get(obj["_source"]["image"], "image[0]", null),
                     staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
                 }
