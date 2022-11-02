@@ -42,7 +42,7 @@
                 :start-date="page.date.startTime"
                 :end-date="page.date.endTime"
                 :category="page.eventType.title"
-                :to="page.onlineJoinURL"
+                :to="page.parseURL"
                 :align-right="true"
                 :prompt="promptName"
                 :register-event="parseRegistration"
@@ -76,33 +76,10 @@
             />
         </section-wrapper> -->
         
-
-        <section-wrapper 
-            theme="gray"
-            section-title="More Upcoming Events"
-        >
-            <!-- TODO List of events go here -->
-            <section-teaser-list
-                :items="listEvents"
-                class="section section-list"
-            />
-        </section-wrapper>
-
-
-        <!-- <section-wrapper theme="divider">
-            <divider-general />
-        </section-wrapper> -->
-
         <block-call-to-action
-            class="block-call-to-action"
+            class="section block-call-to-action"
             :is-global="true"
         />
-
-        <!-- <h3>Event formData here</h3>
-        {{ formData }}
-        <hr>
-        <h3>Event detail here</h3>
-        {{ allEvents }} -->
     </section>
 </template>
 
@@ -128,13 +105,6 @@ export default {
             libcalEndpoint: this.libcalEndpointProxy,
         }
     },
-
-    async asyncData({ $graphql }) {
-        const data = await $graphql.default.request(EVENT_DETAIL)
-        return {
-            page: _get(data, "entry", {}),
-        }
-    },
     data() {
         return {
             allEvents: [],
@@ -144,7 +114,7 @@ export default {
             formId: "",
             eventId: "9383207",
             libcalEndpointProxy: this.$config.libcalProxy,
-            data: {}
+            page: {}
         }
     },
     async fetch() {
@@ -161,16 +131,20 @@ export default {
     computed: {
         parseRegistration() {
             if (this.page.requiresRegistration === true && this.page.onlineProvider !== "external") {
-                return ""
+                return true
             }
-            return this.page.onlineJoinURL
+            return false
         },
         promptName() {
-            return this.page.to ? 'More Details' : null
-        }
+            return this.parseRegistrations ? 'More Details' : null
+        },
+        parseURL(){
+            return this.parseRegistrations ? null : this.page.onlineJoinURL
+        },
     },
     async mounted() {
-        const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
+        // const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
+        const formDataArray = this.$scrapeApi.scrapeFormId(this.page.libcalId) //please check the fieldname in the query
         console.log(formDataArray)
         if (formDataArray && formDataArray.length == 1) {
             this.formData = formDataArray[0]
