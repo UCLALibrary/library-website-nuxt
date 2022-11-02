@@ -6,6 +6,7 @@
 
 
 function getListingFilters(searchAggsResponse,filterFields) {
+    //console.log()
     const filters = []
     for(const field of filterFields){
         let obj = {

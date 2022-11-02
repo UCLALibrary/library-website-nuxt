@@ -74,7 +74,7 @@ export default {
         console.log("live preview  staff list")
 
         const searchAggsResponse = await $dataApi.getAggregations(
-            config.staffFilters,
+            config.staff.filters,
             "staffMember"
         )
 
@@ -108,7 +108,7 @@ export default {
             page: data,
             searchFilters: getListingFilters(
                 searchAggsResponse,
-                config.staffFilters
+                config.staff.filters
             ),
         }
     },
@@ -134,11 +134,11 @@ export default {
         async getSearchData(data) {
             console.log("from search-generic: " + JSON.stringify(data))
             console.log(config.staff.resultFields)
-            const filters = this.parseFilters(data)
+            const filters = this.parseFilters(data.filters)
             /* let parseFilterQuery = this.parseFilters(data)
             if (parseFilterQuery.length == 0) return*/
             const results = await this.$dataApi.keywordSearchWithFilters(
-                "*:*",
+                data.text || "*",
                 "staffMember",
                 filters,
                 "nameLast",
@@ -150,7 +150,7 @@ export default {
         },
 
         parseFilters(data) {
-            console.log("comoonent filetsr data: " + Object.values(data))
+            console.log("component filters data: " + Object.values(data))
             if (Object.values(data).length == 0) return []
             let objArray = []
             for (const key in data) {
