@@ -1,5 +1,5 @@
 query ServiceResourceWorkshopSeriesList {
-  serviceOrResource: entries(section: "serviceOrResource") {
+  serviceOrResource: entries(section: "serviceOrResource", orderBy: "title ASC") {
     ... on serviceOrResource_serviceOrResource_Entry {
       id
       to: uri
@@ -24,7 +24,7 @@ query ServiceResourceWorkshopSeriesList {
   entry(section: "listingServicesResources") {
       ... on listingServicesResources_listingServicesResources_Entry {
           id
-          servicesResourcesListTitle: titleGeneral
+          servicesResourcesListTitle: title
           servicesResourcesListSummary: summary
       }
   }

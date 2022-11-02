@@ -1,26 +1,27 @@
 <template lang="html">
-    <div class="page page-help">
+    <main id="main" class="page page-help">
+        <masthead-secondary
+            :title="summaryData.servicesResourcesListTitle"
+            :text="summaryData.servicesResourcesListSummary"
+        />
+
         <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
             @search-ready="getSearchData"
         />
-        <masthead-secondary
-            :title="summaryData.servicesResourcesListTitle"
-            :text="summaryData.servicesResourcesListSummary"
-        />
 
-        <h3>{{ page }}</h3>
+        <section-wrapper theme="divider">
+            <divider-way-finder color="help" />
+        </section-wrapper>
 
         <section-wrapper
-            v-if="resourceList"
             class="section"
         >
             <section-cards-with-illustrations
                 class="section"
-                :items="parsedServiceAndResourceList"
-                section-title="Get Help With"
+                :items="sortedList"
                 :is-horizontal="true"
             />
         </section-wrapper>
@@ -60,6 +61,7 @@
 <script>
 // Helpers
 import _get from "lodash/get"
+import sortByTitle from "~/utils/sortByTitle"
 
 // gql
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceWorkshopSeriesList"
@@ -93,7 +95,7 @@ export default {
             uri: params.path,
         })
         return {
-            page: _get(data, "entries", {}),
+            page: data,
             summaryData: _get(data, "entry", {}),
             helpTopic: helpTopicData,
             searchFilters: getListingFilters(
