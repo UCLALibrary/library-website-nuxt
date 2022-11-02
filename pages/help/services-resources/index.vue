@@ -131,13 +131,18 @@ export default {
                 "serviceOrResource",
                 filters,
                 "",
-                config.serviceOrResources.resultFields
+                config.serviceOrResources.resultFields,
+                config.serviceOrResources.filters
             )
             console.log(results)
             if (results && results.hits && results.hits.total.value > 0)
                 this.page.serviceOrResource = this.parseResults(
                     results.hits.hits
                 )
+            this.searchFilters = getListingFilters(
+                results.aggregations,
+                config.serviceOrResources.filters
+            )
         },
 
         parseResults(hits = []) {

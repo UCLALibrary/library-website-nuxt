@@ -86,7 +86,7 @@ export default {
 
         const data = await $graphql.default.request(STAFF_LIST)
         console.log("Craft Data:" + JSON.stringify(data))
-        const allResults = await $dataApi.keywordSearchWithFilters(
+        /*const allResults = await $dataApi.keywordSearchWithFilters(
             "*:*",
             "staffMember",
             [],
@@ -95,7 +95,7 @@ export default {
         )
         console.log(
             "Use this data when the page loads: " + JSON.stringify(allResults)
-        )
+        )*/
         /*const datawithfulldetail = await $graphql.default.request(
             STAFF_LIST_WITH_DETAIL
         )
@@ -142,11 +142,16 @@ export default {
                 "staffMember",
                 filters,
                 "nameLast",
-                config.staff.resultFields
+                config.staff.resultFields,
+                config.staff.filters
             )
             console.log(results)
             if (results && results.hits && results.hits.total.value > 0)
                 this.page.entries = this.parseResults(results.hits.hits)
+            this.searchFilters = getListingFilters(
+                results.aggregations,
+                config.staff.filters
+            )
         },
         parseResults(hits = []) {
             console.log("checking results data:" + JSON.stringify(hits[0]))

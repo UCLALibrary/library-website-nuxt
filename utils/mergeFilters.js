@@ -4,11 +4,14 @@ function mergeFilters(data) {
     let objArray = []
     for (const key in data) {
        
-        if (Array.isArray(data[key]) && data[key].length == 0 && data[key][0]) {
-            let obj = {}
-            obj["esFieldName"] = key
-            obj["value"] = data[key][0]
-            objArray.push(obj)
+        if (Array.isArray(data[key]) && data[key].length > 0 ) {
+            for(const dataObj of data[key]){
+                let obj = {}
+                obj["esFieldName"] = key
+                obj["value"] = dataObj
+                objArray.push(obj)
+            }
+            
         }else if(!Array.isArray(data[key]) && data[key]) {
             let obj = {}
             obj["esFieldName"] = key
