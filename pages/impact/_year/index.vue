@@ -217,6 +217,10 @@ export default {
         width: 100%;
         max-width: 50%;
         float: right;
+        ::v-deep
+                .media {
+                    object-fit: cover;
+                }
     }
 
     .section-banner {
@@ -240,6 +244,7 @@ export default {
     ::v-deep .grid-gallery {
         padding: 0;
     }
+
     /* .banner {
         margin: var(--space-3xl) auto;
     }*/
