@@ -84,6 +84,10 @@ export default {
     .section {
         margin: 1px auto;
     }
+    ::v-deep .section-wrapper.top-level.theme-gray {
+        --color-theme: var(--color-white);
+        padding: 0;
+    }
     // .section-banner {
     //     margin-top: 0;
     //     margin-bottom: 0;
