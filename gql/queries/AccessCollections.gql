@@ -1,0 +1,25 @@
+query AccessCollectionsListing {
+  entry(section: "listingAccessCollections") {
+    title
+    summary
+    ... on listingAccessCollections_listingAccessCollections_Entry {
+      accessCollections {
+        title
+        text: summary
+        uri
+        externalResourceUrl
+        iconName: illustrationsResourcesAndServices
+        ... on externalResource_externalResource_Entry {
+          id
+        }
+      }
+      associatedTopics {
+        title
+        text: summary
+        uri
+        externalResourceUrl
+        iconName: illustrationsResourcesAndServices
+      }
+    }
+  }
+}
