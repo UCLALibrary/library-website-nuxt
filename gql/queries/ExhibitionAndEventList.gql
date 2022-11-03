@@ -1,0 +1,73 @@
+#import "~/gql/fragments/Image"
+query ExhibitionAndEventList {
+   events: entries(section: "event") {
+    ... on event_event_Entry {
+      id
+      to: uri
+      title
+      sectionHandle
+      image: heroImage {
+        ... on heroImage_heroImage_BlockType {
+          image {
+            ...Image
+          }
+        }
+      }
+      date {
+        ... on date_date_BlockType {
+          id
+          startTime
+          endTime
+        }
+      }
+      eventType {
+        ... on eventType_Category {
+          id
+          title
+        }
+      }
+      eventDescription
+      associatedLocations {
+        ... on location_location_Entry {
+          id
+          to: uri
+          title
+          summary
+        }
+      }
+    }
+  }
+  exhibitions: entries(section: "exhibition") {
+    ... on exhibition_exhibition_Entry {
+      id
+      to: uri
+      title
+      summary
+      sectionHandle
+      image: heroImage {
+        ... on heroImage_heroImage_BlockType {
+          image {
+            ...Image
+          }
+        }
+      }
+      seriesDate {
+        ... on seriesDate_seriesDate_BlockType {
+          id
+          startDate
+          endDate
+          ongoing
+        }
+      }
+      associatedLocations {
+        ... on location_location_Entry {
+          id
+          to: uri
+          title
+          summary
+        }
+      }
+    }
+  }
+ 
+}

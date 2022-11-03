@@ -1,4 +1,5 @@
 # Replace libcalId with slug later
+#import "~/gql/fragments/Image"
 query EventDetail {
   entry(section: "event", libcalId: ["9383207"]) {
     ... on event_event_Entry {
@@ -54,13 +55,4 @@ query EventDetail {
       eventOwner
     }
   }
-}
-
-fragment Image on AssetInterface {
-  src: url(transform: "fullscreen")
-  height(transform: "fullscreen")
-  width(transform: "fullscreen")
-  srcset(sizes: ["375", "960", "1280", "1920", "2560"])
-  alt: title
-  focalPoint
 }

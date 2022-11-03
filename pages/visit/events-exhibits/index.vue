@@ -30,7 +30,7 @@
         </masthead-secondary>
 
         <divider-way-finder class="section divider divider-way-finder" />
-        <banner-featured
+        <!--banner-featured
             class="section banner-featured"
             :title="firstEvent.title"
             :image="firstEvent.image"
@@ -41,20 +41,14 @@
             :dates="firstEvent.dates"
             :start-date="firstEvent.startDate"
             :end-date="firstEvent.endDate"
-        />
+        /-->
 
         <divider-general class="section divider divider-general" />
-        <section-teaser-highlight
-            class="section"
-            :items="highlightEvents"
-        />
+        <!--section-teaser-highlight class="section" :items="highlightEvents" /-->
 
         <divider-general class="section divider divider-general" />
         <!-- TODO List of events go here -->
-        <section-teaser-list
-            :items="listEvents"
-            class="section section-list"
-        />
+        <section-teaser-list :items="listEvents" class="section section-list" />
 
         <divider-way-finder class="section divider divider-way-finder" />
 
@@ -79,10 +73,24 @@ import _get from "lodash/get"
 // import formatEventDates from "~/utils/formatEventDates"
 // import formatEventTimes from "~/utils/formatEventTimes"
 
+// GQL
+import EXHIBITIONS_AND_EVENTS_LIST from "~/gql/queries/ExhibitionsAndEventsList.gql"
+
 export default {
-    async asyncData({ $axios }) {
+    async asyncData({ $graphql, params, store ) {
         console.log("in asyncdata calling axios get event")
-        const libcalData = await $axios.$get(`/1.1/event_search`, {
+
+        console.log(
+            "fetching graphql data for Service or Resource detail from Craft for live preview"
+        )
+        const data = await $graphql.default.request(ARTICLE_DETAIL, {
+            slug: params.slug,
+        })
+        console.log("Data fetched: " + JSON.stringify(data))
+        return {
+            page: data,
+        }
+        /*const libcalData = await $axios.$get(`/1.1/event_search`, {
             params: {
                 search: "*",
                 limit: 100,
@@ -93,7 +101,7 @@ export default {
         console.log(libcalData.events[0].title)
         return {
             page: { events: events },
-        }
+        }*/
     },
 
     // TODO either use asyncdata or fetch
@@ -163,9 +171,12 @@ export default {
             })
         },
         listEvents() {
-            const items = this.parsedEvents.slice(2)
+           // const items = this.parsedEvents.slice(2)
 
-            return items.map((obj) => {
+            return [
+                ...(this.page.events || []),
+                ...(this.page.exhibitions || []),
+            ].map((obj) => {
                 return {
                     ...obj,
                     category: _get(obj, "category.name", "Featured"),

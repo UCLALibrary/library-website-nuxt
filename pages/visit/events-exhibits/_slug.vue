@@ -6,7 +6,7 @@
             :title="page.title"
             parent-title="Exhibits & Upcoming Events"
         />
-        
+
         <!-- <p v-if="$fetchState.pending" />
         <p v-else-if="$fetchState.error">
             An error occurred :(
@@ -19,7 +19,10 @@
         />
 
         <banner-text
-            v-if="page && (!page.image[0].image[0] || page.image[0].image[0].length == 0)"
+            v-if="
+                page &&
+                    (!page.image[0].image[0] || page.image[0].image[0].length == 0)
+            "
             :title="page.title"
             :locations="page.associatedLocations"
             :start-date="page.date.startTime"
@@ -48,7 +51,7 @@
                 :register-event="parseRegistration"
             />
         </section-wrapper>
-        
+
         <section-wrapper theme="divider">
             <divider-way-finder
                 v-if="page.image[0].image[0]"
@@ -56,26 +59,14 @@
             />
         </section-wrapper>
 
-        <section-wrapper
-            v-if="page || page.eventDescription"
-        >
-            <rich-text
-                :rich-text-content="page.eventDescription"
-            />
+        <section-wrapper v-if="page || page.eventDescription">
+            <rich-text :rich-text-content="page.eventDescription" />
         </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder color="visit" />
         </section-wrapper>
 
-        <!-- <section-wrapper
-            v-if="page || page.eventDescription"
-        >
-            <rich-text
-                :rich-text-content="page.moreInformation"
-            />
-        </section-wrapper> -->
-        
         <block-call-to-action
             class="section block-call-to-action"
             :is-global="true"
@@ -114,7 +105,7 @@ export default {
             formId: "",
             eventId: "9383207",
             libcalEndpointProxy: this.$config.libcalProxy,
-            page: {}
+            page: {},
         }
     },
     async fetch() {
@@ -130,15 +121,18 @@ export default {
     },
     computed: {
         parseRegistration() {
-            if (this.page.requiresRegistration === true && this.page.onlineProvider !== "external") {
+            if (
+                this.page.requiresRegistration === true &&
+                this.page.onlineProvider !== "external"
+            ) {
                 return true
             }
             return false
         },
         promptName() {
-            return this.parseRegistrations ? 'More Details' : null
+            return this.parseRegistrations ? "More Details" : null
         },
-        parseURL(){
+        parseURL() {
             return this.parseRegistrations ? null : this.page.onlineJoinURL
         },
     },
