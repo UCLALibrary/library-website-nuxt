@@ -34,7 +34,7 @@ export default function({$config}, inject) {
         return data
     }
 
-    async function keywordSearchWithFilters(keyword="*:*", sectionHandle, filters, sort, source=["*"]){
+    async function keywordSearchWithFilters(keyword="*:*", sectionHandle, filters, sort, source=["*"], aggFields=[]){
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
         if($config.esApiKey === "" || !$config.esURL === "") return
         console.log("keyword:"+keyword)
@@ -85,7 +85,10 @@ export default function({$config}, inject) {
                         ]
                     }
                 },
-                ...parseSort(sort)
+                ...parseSort(sort),
+                "aggs": {
+                    ...parseFieldNames(aggFields)
+                }
                 
             })
         })

@@ -88,6 +88,16 @@ export default {
         --color-theme: var(--color-white);
         padding: 0;
     }
+
+    // refactor when option to turn off overlays is available in craft
+    ::v-deep .section-banner {
+        .gradient-no-category,
+        .molecule,
+        .hatch {
+            display: none;
+        }
+    }
+    
     // .section-banner {
     //     margin-top: 0;
     //     margin-bottom: 0;
