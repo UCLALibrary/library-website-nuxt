@@ -1,25 +1,30 @@
 <template>
     <main class="page page-policies">
         <masthead-secondary
-            :title="summaryData.libraryPoliciesListTitle"
-            :text="summaryData.libraryPoliciesListSummary"
+            :title="page.title"
+            :text="page.summary"
         />
 
-        <section-wrapper
-            v-if="page.entries"
-            class="section"
+        <div
+            v-for="(block, index) in page.policyBlock"
+            :key="`PolicyBlocksKey${index}`"
         >
-            <ul class="policies">
-                <li
-                    v-for="(item, index) in parsedPolicies"
-                    :key="`impact-${index}`"
-                >
-                    <nuxt-link :to="item.to">
-                        {{ item.title }}
-                    </nuxt-link>
-                </li>
-            </ul>
-        </section-wrapper>
+            <section-wrapper>
+                <simple-cards
+                    :section-title="block.sectionTitle"
+                    :section-summary="block.sectionSummary"
+                    :items="block.associatedEntries"
+                />
+            </section-wrapper>
+            <section-wrapper theme="divider">
+                <DividerWayFinder
+                    color="about"
+                />
+            </section-wrapper>
+        </div>
+        <flexible-blocks
+            :blocks="page.blocks"
+        />
     </main>
 </template>
 
@@ -37,31 +42,19 @@ export default {
         })
 
         return {
-            page: _get(data, "entries", {}),
-            summaryData: _get(data, "entry", {}),
+            page: _get(data, "entry", {}),
         }
     },
-    computed: {
-        parsedPolicies() {
-            return this.page.map((obj) => {
-                return {
-                    ...obj,
-                    to: `/about/policies/${obj.to}`,
-                }
-            })
-        },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        return {
+            title: title,
+        }
     },
 }
 </script>
 
 <style lang="scss" scoped>
 .page-policies {
-    .policies {
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        @include step-1;
-        color: var(--color-primary-blue-03);
-    }
 }
 </style>
