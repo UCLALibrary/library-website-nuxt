@@ -1,220 +1,98 @@
 <template lang="html">
-    <section class="page-events-exhibits">
-        <!-- This was added to test the slug page with breadcrumbs -->
-        <!--<nuxt-link to="/events-exhibits/test">
-            Test event
-        </nuxt-link> -->
-        <!-- last commit by Drew
-        {{ viewMode }}
+    <section class="page-collections-access">
+        <!-- this template will pick the section page component based on typehandle -->
+        <nav-breadcrumb
+            to="/collections/access"
+            :title="page.title"
+            parent-title="Collections"
+        />
 
-        <loading-spinner v-if="$fetchState.pending" />
-        <component
-            :is="viewComponentName"
-            v-else
-            :items="allEvents"
-        / -->
-        <!-- TODO These props should come from Craft -->
         <masthead-secondary
-            title="Exhibits & Upcoming Events"
-            text="Browse upcoming remote events and online exhibits."
+            :title="page.title"
+            :text="page.summary"
         >
-            <!-- TODO Add SearchGenric here when complete  -->
-            <!--<search-generic
+            <!-- TODO Add SearchGenric here when complete -->
+            <!-- search-generic
                 search-type="about"
                 class="generic-search"
-            />
-            <:filters="searchFilters.filters"
+            />-->
+            <!-- :filters="searchFilters.filters"
                 :view-modes="searchFilters.views"
-                @view-mode-change="viewModeChanger"
-                -->
+                @view-mode-change="viewModeChanger" -->
         </masthead-secondary>
 
-        <divider-way-finder class="section divider divider-way-finder" />
-        <banner-featured
-            class="section banner-featured"
-            :title="firstEvent.title"
-            :image="firstEvent.image"
-            :to="firstEvent.to"
-            prompt="View exhibit"
-            :breadcrumb="firstEvent.breadcrumb.text"
-            :align-right="false"
-            :dates="firstEvent.dates"
-            :start-date="firstEvent.startDate"
-            :end-date="firstEvent.endDate"
+        <header-sticky
+            class="sticky-header"
+            :primary-items="primaryItems"
+            :secondary-items="secondaryItems"
         />
 
-        <divider-general class="section divider divider-general" />
-        <section-teaser-highlight
-            class="section"
-            :items="highlightEvents"
-        />
+        <section-wrapper>
+            <divider-way-finder class="divider divider-way-finder" />
+        </section-wrapper>
 
-        <divider-general class="section divider divider-general" />
-        <!-- TODO List of events go here -->
-        <section-teaser-list
-            :items="listEvents"
-            class="section section-list"
-        />
+        <section-wrapper>
+            <section-cards-with-illustrations
+                class="section"
+                :items="page.accessCollections"
+                to="/help/foo/bar"
+                :is-horizontal="true"
+            />
+        </section-wrapper>
 
-        <divider-way-finder class="section divider divider-way-finder" />
+        <section-wrapper>
+            <divider-way-finder class="divider divider-way-finder" />
+        </section-wrapper>
 
-        <block-call-to-action
-            class="section block-call-to-action"
-            svg-name="svg-call-to-action-find"
-            :to="blockCallToAction.to"
-            :name="blockCallToAction.name"
-            :title="blockCallToAction.title"
-            :text="blockCallToAction.text"
-        />
-        <block-call-to-action-two-up
-            class="section"
-            :items="blockCallToActionTwoUp"
-        />
+        <section-wrapper>
+            <section-cards-with-illustrations
+                class="section"
+                :items="page.associatedTopics"
+                section-title="Associated Topics"
+                to="/help/foo/bar"
+                :is-horizontal="false"
+            />
+        </section-wrapper>
     </section>
 </template>
 
 <script>
 // Helpers
 import _get from "lodash/get"
-// import formatEventDates from "~/utils/formatEventDates"
-// import formatEventTimes from "~/utils/formatEventTimes"
+
+// GQL
+import ACCESS_COLLECTIONS from "~/gql/queries/AccessCollections.gql"
+import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems.gql"
 
 export default {
-    async asyncData({ $axios }) {
-        console.log("in asyncdata calling axios get event")
-        const libcalData = await $axios.$get(`/1.1/event_search`, {
-            params: {
-                search: "*",
-                limit: 100,
-            },
-        })
-
-        const events = libcalData.events
-        console.log(libcalData.events[0].title)
+    data() {
         return {
-            page: { events: events },
+            allEvents: [],
+            primaryItems: [],
+            secondaryItems: [],
+            formData: {},
+            formId: "",
+            eventId: "9383207",
+            libcalEndpointProxy: this.$config.libcalProxy,
+            page: {}
         }
     },
+    async fetch() {
+        console.log("In fetch start")
+        const navData = await this.$graphql.default.request(
+            HEADER_MAIN_MENU_ITEMS
+        )
+        this.primaryItems = _get(navData, "primary", [])
+        this.secondaryItems = _get(navData, "secondary", [])
 
-    // TODO either use asyncdata or fetch
-    /*async fetch() {
-        // TODO how to fetch all events from libcal
-        const data = await this.$axios.$get(`/events`)
-        //TODO this will be used if we need pagination with libcal, the params passed needs to be reviewd
-        /*
-        const data = await this.$axios.$get(`/events`, {
-            params: {
-                offset: this.$route.query.offset || 0,
-                q: this.$route.query.q || "",
-            },
-        })
-        */
-
-    // this.allEvents = [...this.allEvents, ...data]
-    //},*/
-
-    computed: {
-        /*viewComponentName() {
-            // TODO we may not need this as we have decidec not to add view modes dropdown in the reworked design
-            // get view component name (see the PR section-teaser calander)
-        },*/
-        parsedEvents() {
-            // TODO Remove this one we have more events
-
-            const mockEvents = [...this.page.events]
-
-            // Shape events
-            // return this.events.map((obj) => {
-            return mockEvents.map((obj) => {
-                const event = obj || {}
-
-                return {
-                    ...event,
-                    to: `${this.$route.path}/${event.id}`, // added index to avoid duplicate errors
-                    location: _get(event, "location.name", "Online"),
-                    image: {
-                        src: event.featured_image,
-                    },
-                    category: {
-                        name: _get(event, "category.name", "Featured"),
-                    },
-                    breadcrumb: {
-                        text: _get(event, "category.name", "Featured"),
-                    },
-                    // TODO Only need one set of these once BannerFeatured is updated
-                    startDate: event.start,
-                    endDate: event.end,
-                    text: event.description,
-                }
-            })
-        },
-        firstEvent() {
-            return this.parsedEvents[0] || {}
-        },
-        highlightEvents() {
-            // Get items 2nd and 3rd from array
-            const items = this.parsedEvents.slice(1, 3)
-
-            return items.map((obj) => {
-                return {
-                    ...obj,
-                    category: _get(obj, "category.name", "Featured"),
-                }
-            })
-        },
-        listEvents() {
-            const items = this.parsedEvents.slice(2)
-
-            return items.map((obj) => {
-                return {
-                    ...obj,
-                    category: _get(obj, "category.name", "Featured"),
-                }
-            })
-        },
-
-        //TODO remove once we have real data from Craft
-        blockCallToAction() {
-            const mockBlockCallToAction = {
-                to: "/help/foo/bar/",
-                name: "Lorem ipsum dolor",
-                title: "Lorem ipsum dolor sit amet?",
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            }
-            return mockBlockCallToAction
-        },
-
-        blockCallToActionTwoUp() {
-            const mockBlockCallToActionTwoUp = [
-                {
-                    svgName: "svg-call-to-action-chat",
-                    title: "Lorem ipsum dolor sit amet?",
-                    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    name: "Lorem ipsum dolor",
-                    to: "/help/foo/bar/",
-                    isDark: false,
-                    isSmallSize: true,
-                },
-                {
-                    svgName: "svg-call-to-action-chat",
-                    title: "Dolor sit amet Ipsum",
-                    text: "Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    name: "Ipsum dolor amet",
-                    to: "/help/foo/bar/",
-                    isDark: true,
-                    isSmallSize: true,
-                },
-            ]
-            return mockBlockCallToActionTwoUp
-        },
+        const data = await this.$graphql.default.request(ACCESS_COLLECTIONS)
+        this.page = _get(data, "entry", {})
     },
-    // This will recall fetch() when these query params change
-    watchQuery: ["offset", "q"],
 }
 </script>
 
 <style lang="scss" scoped>
-.page-events-exhibits {
+.page-collections-access {
     .section {
         max-width: var(--unit-content-width);
         margin: 80px auto;
