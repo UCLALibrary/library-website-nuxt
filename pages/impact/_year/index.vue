@@ -216,6 +216,7 @@ export default {
     .portrait-Ginny {
         width: 100%;
         max-width: 50%;
+        margin-left: 24px;
         float: right;
         ::v-deep
                 .media {
