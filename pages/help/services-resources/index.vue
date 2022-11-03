@@ -104,6 +104,12 @@ export default {
             ),
         }
     },
+    head() {
+        let title = this.page ? this.page.entry.servicesResourcesListTitle : "... loading"
+        return {
+            title: title,
+        }
+    },
     computed: {
         parsedServiceAndResourceList() {
             return [
@@ -178,5 +184,16 @@ export default {
 
 <style lang="scss" scoped>
 .page-help {
+    // refactor styling of masthead-secondary component
+    ::v-deep .masthead-secondary .container {
+        padding-top: var(--space-xl);
+        padding-bottom: var(--space-4xl);
+    }
+    // refactor styling of search-generic component
+    .search-generic {
+        margin-top: -72px;
+        max-width: $container-l-cta + px;
+        padding: 32px 48px 0;
+    }
 }
 </style>
