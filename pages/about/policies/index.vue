@@ -56,5 +56,12 @@ export default {
 
 <style lang="scss" scoped>
 .page-policies {
+    // refactor simple cards component to fix truncation
+    ::v-deep .simple-cards .text p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+    }
 }
 </style>
