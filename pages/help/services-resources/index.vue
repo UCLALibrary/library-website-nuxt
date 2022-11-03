@@ -17,22 +17,6 @@
         </section-wrapper>
 
         <section-wrapper
-            class="section"
-        >
-            <section-cards-with-illustrations
-                class="section"
-                :items="sortedList"
-                :is-horizontal="true"
-            />
-        </section-wrapper>
-
-        <section-cards-with-illustrations
-            :items="parsedServiceAndResourceList"
-            section-title="Get Help With"
-            :is-horizontal="false"
-        />
-
-        <section-wrapper
             v-if="page.serviceOrResource || page.workshopseries">
             <section-cards-with-illustrations
                 :items="parsedServiceAndResourceList"
@@ -55,7 +39,7 @@
                 :is-global="true"
             />
         </section-wrapper>
-    </div>
+    </main>
 </template>
 
 <script>
@@ -72,8 +56,6 @@ import getListingFilters from "~/utils/getListingFilters"
 import mergeFilters from "~/utils/mergeFilters"
 import config from "~/utils/searchConfig"
 
-// Helpers
-import sortByTitle from "~/utils/sortByTitle"
 
 export default {
     async asyncData({ $graphql, params, $dataApi }) {
