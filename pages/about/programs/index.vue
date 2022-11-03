@@ -1,14 +1,24 @@
 <template>
-    <main class="page page-programs">
-        <masthead-secondary
+    <main id="main" class="page page-programs">
+        <nav-breadcrumb
+            to="/about"
+            :title="summaryData.programListTitle"
+            parent-title="About"
+        />
+
+        <banner-text 
             :title="summaryData.programListTitle"
             :text="summaryData.programListSummary"
         />
 
+        <section-wrapper theme="divider">
+            <divider-way-finder color="about" />
+        </section-wrapper>
+
         <section-wrapper>
             <section-staff-article-list
+                section-title="UCLA Library Programs & Initiatives"
                 :items="parsedProgramsList"
-                section-title="All Programs"
             />
         </section-wrapper>
     </main>
@@ -31,6 +41,12 @@ export default {
             summaryData: _get(data, "entry", {}),
         }
     },
+    head() {
+        let title = this.page ? this.summaryData.programListTitle : "... loading"
+        return {
+            title: title,
+        }
+    },
     computed: {
         parsedProgramsList() {
             console.log("Entries: " + this.page.entries)
@@ -50,7 +66,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-programs {
-    padding-left: 50px;
 
 }
 </style>

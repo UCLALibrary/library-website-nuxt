@@ -1,7 +1,7 @@
 #import "~/gql/fragments/Image"
 
 query ProgramList {
-  entries(section: "program", orderBy: "dateCreated", ) {
+  entries(section: "program", orderBy: "title ASC", ) {
         ... on program_program_Entry {
             id
             title
@@ -18,7 +18,6 @@ query ProgramList {
             authors: staffMember {
                 title
             }
-            date: dateCreated
             articleCategories {
                 id
                 title
@@ -29,7 +28,7 @@ query ProgramList {
     entry(section: "listingPrograms") {
         ... on listingPrograms_listingPrograms_Entry {
             id
-            programListTitle: titleGeneral
+            programListTitle: title
             programListSummary: summary
         }
     }
