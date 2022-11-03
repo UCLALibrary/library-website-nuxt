@@ -1,18 +1,6 @@
 <template lang="html">
     <div>
         <search-generic search-generic-query="service" />
-        <div
-            v-for="(result, index) in searchResults"
-            :key="`SearchResult${index}`"
-        >
-            {{ result._source }}
-            {{ result._source.title }}
-            {{ result._source.summary }}
-            {{ result._source.uri }}
-            {{ result._source.sectionHandle }}
-
-            <divider-general />
-        </div>
         <section-wrapper
             v-for="(result, index) in searchResults"
             :key="`SearchResultBlock${index}`"
@@ -25,6 +13,8 @@
             />
             <divider-general />
         </section-wrapper>
+        {{ searchResults }}
+
         <section-wrapper>
             <divider-way-finder />
         </section-wrapper>

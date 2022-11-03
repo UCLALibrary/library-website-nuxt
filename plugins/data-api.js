@@ -37,17 +37,14 @@ export default function ({ $config }, inject) {
         return data
     }
 
-<<<<<<< HEAD
-    async function keywordSearchWithFilters(keyword="*:*", sectionHandle, filters, sort, source=["*"], aggFields=[]){
-=======
     async function keywordSearchWithFilters(
         keyword = "*:*",
         sectionHandle,
         filters,
         sort,
-        source = ["*"]
+        source = ["*"],
+        aggFields = []
     ) {
->>>>>>> 937359b (search results page)
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
         if ($config.esApiKey === "" || !$config.esURL === "") return
         console.log("keyword:" + keyword)
@@ -81,15 +78,6 @@ export default function ({ $config }, inject) {
                     Authorization: `ApiKey ${$config.esApiKey}`,
                     "Content-Type": "application/json",
                 },
-<<<<<<< HEAD
-                ...parseSort(sort),
-                "aggs": {
-                    ...parseFieldNames(aggFields)
-                }
-                
-            })
-        })
-=======
                 method: "POST",
                 body: JSON.stringify({
                     size: "1000",
@@ -109,10 +97,12 @@ export default function ({ $config }, inject) {
                         },
                     },
                     ...parseSort(sort),
+                    aggs: {
+                        ...parseFieldNames(aggFields),
+                    },
                 }),
             }
         )
->>>>>>> 937359b (search results page)
         const data = await response.json()
         return data
     }
