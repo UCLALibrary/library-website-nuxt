@@ -1,20 +1,24 @@
 <template lang="html">
-    <div class="page page-help">
+    <main id="main" class="page page-help">
+        <masthead-secondary
+            :title="summaryData.servicesResourcesListTitle"
+            :text="summaryData.servicesResourcesListSummary"
+        />
+
         <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
             @search-ready="getSearchData"
         />
-        <br>
-        <br>
-        <br>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder color="help" />
+        </section-wrapper>
+
         <section-wrapper
-            v-if="page.serviceOrResource || page.workshopseries"
-            class="section"
-        >
+            v-if="page.serviceOrResource || page.workshopseries">
             <section-cards-with-illustrations
-                class="section"
                 :items="parsedServiceAndResourceList"
                 :is-horizontal="true"
             />
@@ -22,7 +26,6 @@
 
         <section-wrapper
             v-if="page.serviceOrResource || page.workshopseries"
-            class="section"
         >
             <divider-way-finder
                 class="divider-way-finder"
@@ -30,28 +33,20 @@
             />
         </section-wrapper>
 
-        <h3>Help Topics</h3>
-        <nuxt-link
-            v-for="item in parsedHelpTopicList"
-            :key="item.to"
-            :to="item.to"
-        >
-            <div
-                class="text"
-                v-html="item.title"
-            />
-        </nuxt-link>
-        <br>
         <section-wrapper>
             <block-call-to-action
                 class="block-call-to-action"
                 :is-global="true"
             />
         </section-wrapper>
-    </div>
+    </main>
 </template>
 
 <script>
+// Helpers
+import _get from "lodash/get"
+import sortByTitle from "~/utils/sortByTitle"
+
 // gql
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceWorkshopSeriesList"
 import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
@@ -61,8 +56,6 @@ import getListingFilters from "~/utils/getListingFilters"
 import mergeFilters from "~/utils/mergeFilters"
 import config from "~/utils/searchConfig"
 
-// Helpers
-import sortByTitle from "~/utils/sortByTitle"
 
 export default {
     async asyncData({ $graphql, params, $dataApi }) {
@@ -85,11 +78,18 @@ export default {
         })
         return {
             page: data,
+            summaryData: _get(data, "entry", {}),
             helpTopic: helpTopicData,
             searchFilters: getListingFilters(
                 searchAggsResponse,
                 config.serviceOrResources.filters
             ),
+        }
+    },
+    head() {
+        let title = this.page ? this.page.entry.servicesResourcesListTitle : "... loading"
+        return {
+            title: title,
         }
     },
     computed: {
@@ -166,5 +166,16 @@ export default {
 
 <style lang="scss" scoped>
 .page-help {
+    // refactor styling of masthead-secondary component
+    ::v-deep .masthead-secondary .container {
+        padding-top: var(--space-xl);
+        padding-bottom: var(--space-4xl);
+    }
+    // refactor styling of search-generic component
+    .search-generic {
+        margin-top: -72px;
+        max-width: $container-l-cta + px;
+        padding: 32px 48px 0;
+    }
 }
 </style>
