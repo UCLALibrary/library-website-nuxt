@@ -63,15 +63,13 @@
 
         <!-- Services and Resources -->
         <section-wrapper
-            v-if="page.resourceServiceWorkshop.length"
-            class=""
+            v-if="parsedServicesAndResources"
+            section-title="Services &amp; Resources"
         >
-            <div class="section-header">
-                <simple-cards
-                    section-title="Services &amp; Resources"
-                    :items="parsedServicesAndResources"
-                />
-            </div>
+            <simple-cards
+                :items="parsedServicesAndResources"
+                class="section-header"
+            />
 
             <divider-way-finder
                 class="divider"
@@ -82,10 +80,9 @@
         <!-- Endowments -->
         <section-wrapper
             v-if="parsedEndowments"
-            class=""
+            section-title="Collection Endowments"
         >
             <section-staff-article-list
-                section-title="Collection Endowments"
                 :items="parsedEndowments"
             />
 
@@ -126,7 +123,6 @@ export default {
         console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: data.entry,
-            // associatedArticles: _get(data, "associatedArticles", {}),
         }
     },
     head() {
@@ -147,19 +143,6 @@ export default {
         parsedButtonTo() {
             return _get(this.page, "buttonUrl[0].buttonUrl", "")
         },
-        // parsedCollection() {
-        //     return this.page.associatedCollection.map((obj) => {
-        //         return {
-        //             ...obj,
-        //             to: `/about/${obj.articleType}/${obj.to}`,
-        //             image: _get(obj, "heroImage[0].image[0]", {}),
-        //             category: _get(obj, "category", ""),
-        //             title: _get(obj, "title", ""),
-        //             text: _get(obj, "description", ""),
-        //             startDate: _get(obj, "startDate", "")
-        //         }
-        //     })
-        // },
         parsedServicesAndResources() {
             let services = this.page.resourceServiceWorkshop
             return services.map((obj) => {
@@ -184,10 +167,7 @@ export default {
                 return `Donors: ${names}`
             }
         },
-        //TODO fix this
         parsedEndowments() {
-            //return this.page.endowment
-
             let parsedCategory = this.parsedDonors
             return this.page.endowment.map((item) => {
                 return {
@@ -219,15 +199,9 @@ export default {
         display: flex;
         flex-direction: row;
     }
-
-    .section-header {
-        margin: var(--space-xl) auto;
-        max-width: $container-l-main + px;
-    }
-    .section-title-page {
-        @include step-4;
-        color: var(--color-primary-blue-03);
-        color: green;
-    }
+    // .section-header {
+    //     margin: var(--space-xl) auto;
+    //     max-width: $container-l-main + px;
+    // }
 }
 </style>
