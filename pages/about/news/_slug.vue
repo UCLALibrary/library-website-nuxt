@@ -136,27 +136,11 @@ export default {
     .highlighted-news {
         @include visually-hidden;
     }
-
-    // .flexible-content {
-    //     margin: 0 auto;
-    // }
-
-    // @media #{$medium} {
-    //     .block-campus-map,
-    //     .section-block-spaces,
-    //     .block-hours,
-    //     .block-amenities,
-    //     .simple-cards,
-    //     .section-teaser-list,
-    //     .section-teaser-card {
-    //         padding: 0 var(--unit-gutter);
-    //     }
-    // }
-
-    // @media #{$small} {
-    //     .page {
-    //         width: 100%;
-    //     }
-    // }
+    .section-heading {
+        @include step-3;
+        color: var(--color-primary-blue-03);
+        margin: var(--space-xl) auto;
+        max-width: $container-l-main + px;
+    }
 }
 </style>
