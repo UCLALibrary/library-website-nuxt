@@ -5,9 +5,6 @@
             :title="page.title"
             parent-title="Collections"
         />
-        <!-- <h3>parsedEndowments: {{ parsedEndowments }}</h3> -->
-        <h3>parsedDonors: {{ parsedDonors }}</h3>
-        <h2>{{ page.endowment }}</h2>
 
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
