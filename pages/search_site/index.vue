@@ -26,6 +26,7 @@ import _get from "lodash/get"
 
 export default {
     async asyncData({ $dataApi }) {
+        // check if there is a url query, if there is then pass that to siteSearch
         let data = await $dataApi.siteSearch()
         return {
             page: data,
@@ -40,11 +41,15 @@ export default {
     // },
     methods: {
         async getSearchData(data) {
-            const results = await this.$dataApi.siteSearch(data.text)
             this.$router.push({
                 path: "/search_site",
                 query: { q: data.text },
             })
+            console.log(this.$router.query)
+
+            const results = await this.$dataApi.siteSearch(data.text)
+            // Need this to connect to the sitesearch so results persist in a url
+
             if (results && results.hits && results.hits.total.value > 0)
                 this.page = results
         },
