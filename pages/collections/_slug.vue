@@ -42,13 +42,12 @@
 
         <!-- Using the Collection -->
         <section-wrapper
-            v-if="page.resourceServiceWorkshop.length"
-            class=""
+            v-if="page.richTextSimplified"
+            section-title="Using the Collection"
         >
             <div class="section-header">
-                <simple-cards
-                    section-title="Using the Collection"
-                    :items="parsedServicesAndResources"
+                <rich-text
+                    :rich-text-content="page.richTextSimplified"
                 />
             </div>
 
@@ -99,13 +98,11 @@
         </section-wrapper>
 
         <!-- Subject Specialist -->
-        <section-wrapper v-if="parsedAssociatedStaffMember.length > 0">
-            <h2 class="section-title-page">
-                Contact a Subject Specialist
-            </h2>
-
+        <section-wrapper
+            v-if="parsedAssociatedStaffMember.length > 0"
+            section-title="Contact a Subject Specialist"
+        >
             <section-staff-list
-                section-title="Contact a Subject Specialist"
                 :items="parsedAssociatedStaffMember"
             />
         </section-wrapper>

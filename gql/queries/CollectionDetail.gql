@@ -16,9 +16,11 @@ query CollectionDetail($slug: [String!]) {
     }
     title
     text: summary
+    # category
     subjectAreas {
       title
     }
+    # category
     collectionFormats {
       title
     }
@@ -68,8 +70,8 @@ query CollectionDetail($slug: [String!]) {
       staffDepartment {
         title
       }
-      staffPortrait {
-        ...Image
+      image: staffPortrait {
+          ...Image
       }
     }
     resourceServiceWorkshop {
