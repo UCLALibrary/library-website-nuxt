@@ -1,6 +1,11 @@
 <template lang="html">
     <section class="page-collections-access">
         <!-- this template will pick the section page component based on typehandle -->
+        <!-- <header-sticky
+            class="sticky-header"
+            :primary-items="primaryItems"
+            :secondary-items="secondaryItems"
+        /> -->
         <nav-breadcrumb
             to="/collections/access"
             :title="page.title"
@@ -21,11 +26,6 @@
                 @view-mode-change="viewModeChanger" -->
         </masthead-secondary>
 
-        <header-sticky
-            class="sticky-header"
-            :primary-items="primaryItems"
-            :secondary-items="secondaryItems"
-        />
 
         <section-wrapper>
             <divider-way-finder class="divider divider-way-finder" />
@@ -35,7 +35,6 @@
             <section-cards-with-illustrations
                 class="section"
                 :items="page.accessCollections"
-                to="/help/foo/bar"
                 :is-horizontal="true"
             />
         </section-wrapper>
@@ -50,6 +49,7 @@
                 :items="page.associatedTopics"
                 section-title="Associated Topics"
                 to="/help/foo/bar"
+                button-text="All services & Resources"
                 :is-horizontal="false"
             />
         </section-wrapper>
@@ -86,6 +86,13 @@ export default {
         this.secondaryItems = _get(navData, "secondary", [])
 
         const data = await this.$graphql.default.request(ACCESS_COLLECTIONS)
+        
+        data.entry.accessCollections.forEach(element => {
+            element.to = element.uri ? element.uri : element.externalResourceUrl
+        })
+        data.entry.accessCollections.forEach(element => {
+            element.category = (element.category === "collections/access") ? "workshop" : (element.typeHandle === "helpTopic") ? "help topic" : element.category
+        })
         this.page = _get(data, "entry", {})
     },
 }

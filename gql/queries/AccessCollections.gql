@@ -12,6 +12,8 @@ query AccessCollectionsListing {
         ... on externalResource_externalResource_Entry {
           id
         }
+        category
+        typeHandle
       }
       associatedTopics {
         title
@@ -19,6 +21,8 @@ query AccessCollectionsListing {
         uri
         externalResourceUrl
         iconName: illustrationsResourcesAndServices
+        category
+        typeHandle
       }
     }
   }
