@@ -63,6 +63,7 @@ import _get from "lodash/get"
 
 // Utilities
 import getListingFilters from "~/utils/getListingFilters"
+import mergeFilters from "~/utils/mergeFilters"
 import config from "~/utils/searchConfig"
 
 // gql
@@ -74,7 +75,7 @@ export default {
         console.log("live preview  staff list")
 
         const searchAggsResponse = await $dataApi.getAggregations(
-            config.staffFilters,
+            config.staff.filters,
             "staffMember"
         )
 
@@ -85,7 +86,7 @@ export default {
 
         const data = await $graphql.default.request(STAFF_LIST)
         console.log("Craft Data:" + JSON.stringify(data))
-        const allResults = await $dataApi.keywordSearchWithFilters(
+        /*const allResults = await $dataApi.keywordSearchWithFilters(
             "*:*",
             "staffMember",
             [],
@@ -94,7 +95,7 @@ export default {
         )
         console.log(
             "Use this data when the page loads: " + JSON.stringify(allResults)
-        )
+        )*/
         /*const datawithfulldetail = await $graphql.default.request(
             STAFF_LIST_WITH_DETAIL
         )
@@ -108,7 +109,7 @@ export default {
             page: data,
             searchFilters: getListingFilters(
                 searchAggsResponse,
-                config.staffFilters
+                config.staff.filters
             ),
         }
     },
@@ -134,34 +135,23 @@ export default {
         async getSearchData(data) {
             console.log("from search-generic: " + JSON.stringify(data))
             console.log(config.staff.resultFields)
-            const filters = this.parseFilters(data)
-            /* let parseFilterQuery = this.parseFilters(data)
-            if (parseFilterQuery.length == 0) return*/
+            const filters = mergeFilters(data.filters)
+
             const results = await this.$dataApi.keywordSearchWithFilters(
-                "*:*",
+                data.text || "*",
                 "staffMember",
                 filters,
                 "nameLast",
-                config.staff.resultFields
+                config.staff.resultFields,
+                config.staff.filters
             )
             console.log(results)
             if (results && results.hits && results.hits.total.value > 0)
                 this.page.entries = this.parseResults(results.hits.hits)
-        },
-
-        parseFilters(data) {
-            console.log("comoonent filetsr data: " + Object.values(data))
-            if (Object.values(data).length == 0) return []
-            let objArray = []
-            for (const key in data) {
-                if (data[key][0]) {
-                    let obj = {}
-                    obj["esFieldName"] = key
-                    obj["value"] = data[key][0]
-                    objArray.push(obj)
-                }
-            }
-            return objArray
+            this.searchFilters = getListingFilters(
+                results.aggregations,
+                config.staff.filters
+            )
         },
         parseResults(hits = []) {
             console.log("checking results data:" + JSON.stringify(hits[0]))
@@ -170,7 +160,7 @@ export default {
                 console.log(obj["_source"]["image"])
                 return {
                     ...obj["_source"],
-                    to: `/about/staff/${obj["_source"].to}`,
+                    to: `${obj["_source"].to}`,
                     image: obj["_source"]["image"], //_get(obj["_source"]["image"], "image[0]", null),
                     staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
                 }
