@@ -43,11 +43,8 @@ query CollectionDetail($slug: [String!]) {
           firstName
           lastName
         }
-        image {
-          ...Image
-        }
       }
-      heroImage {
+      image: heroImage {
         ... on heroImage_heroImage_BlockType {
           id
           image {

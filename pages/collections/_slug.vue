@@ -5,8 +5,9 @@
             :title="page.title"
             parent-title="Collections"
         />
-        <h3>page.associatedStaffMember: {{ page.associatedStaffMember }}</h3>
+        <!-- <h3>parsedEndowments: {{ parsedEndowments }}</h3> -->
         <h3>parsedDonors: {{ parsedDonors }}</h3>
+        <h2>{{ page.endowment }}</h2>
 
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
@@ -186,20 +187,21 @@ export default {
                 return `Donors: ${names}`
             }
         },
-        // TODO fix this
-        // parsedEndowments() {
-        //     let endowment = this.page.endowment
-        //     let parsedCategory = this.parsedDonors
-        //     return endowment.map((item) => {
-        //         return {
-        //             to: `${item.uri}`,
-        //             image: _get(item, "image[0]", null),
-        //             title: item.endowment[0].title,
-        //             description: _get(item, "summary", ""),
-        //             category: parsedCategory
-        //         }
-        //     })
-        // },
+        //TODO fix this
+        parsedEndowments() {
+            //return this.page.endowment
+
+            let parsedCategory = this.parsedDonors
+            return this.page.endowment.map((item) => {
+                return {
+                    to: `${item.uri}`,
+                    image: _get(item, "image[0].image[0]", null),
+                    title: _get(item, "title", ""),
+                    description: _get(item, "description", ""),
+                    category: parsedCategory
+                }
+            })
+        },
         parsedAssociatedStaffMember() {
             return this.page.associatedStaffMember.map((obj) => {
                 return {
