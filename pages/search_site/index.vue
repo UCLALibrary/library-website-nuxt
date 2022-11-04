@@ -1,5 +1,6 @@
 <template lang="html">
     <div class="page-search-site">
+        <masthead-secondary title="Search Results" />
         <search-generic @search-ready="getSearchData" />
         <div class="meta">
             <section-wrapper
