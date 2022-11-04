@@ -1,21 +1,25 @@
 <template lang="html">
-    <div>
+    <div class="page-search-site">
         <search-generic @search-ready="getSearchData" />
-        <section-wrapper
-            v-for="(result, index) in page.hits.hits"
-            :key="`SearchResultBlock${index}`"
-        >
-            <search-result
-                :title="result._source.title"
-                :category="result._source.sectionHandle"
-                :summary="result._source.summary"
-                to="/"
-            />
-            <divider-general />
-        </section-wrapper>
+        <div class="meta">
+            <section-wrapper
+                v-for="(result, index) in page.hits.hits"
+                :key="`SearchResultBlock${index}`"
+                class="section-wrapper-block"
+            >
+                <search-result
+                    :title="result._source.title"
+                    :category="result._source.sectionHandle"
+                    :summary="result._source.summary"
+                    to="/"
+                    class="search-result-item"
+                />
+                <divider-general class="divider-general" />
+            </section-wrapper>
+        </div>
 
         <section-wrapper>
-            <divider-way-finder />
+            <divider-way-finder class="divider-way-finder" />
         </section-wrapper>
     </div>
 </template>
@@ -32,13 +36,7 @@ export default {
             page: data,
         }
     },
-    // watch: {
-    //     "$route.query"(oldVal, newVal) {
-    //         if (newVal) {
-    //             console.log(newVal)
-    //         }
-    //     },
-    // },
+
     methods: {
         async getSearchData(data) {
             this.$router.push({
@@ -68,4 +66,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.section-wrapper-block:last-child {
+    .divider-general {
+        display: none;
+    }
+}
+</style>
