@@ -31,9 +31,20 @@ export default {
             page: data,
         }
     },
+    // watch: {
+    //     "$route.query"(oldVal, newVal) {
+    //         if (newVal) {
+    //             console.log(newVal)
+    //         }
+    //     },
+    // },
     methods: {
         async getSearchData(data) {
             const results = await this.$dataApi.siteSearch(data.text)
+            this.$router.push({
+                path: "/search_site",
+                query: { q: data.text },
+            })
             if (results && results.hits && results.hits.total.value > 0)
                 this.page = results
         },
