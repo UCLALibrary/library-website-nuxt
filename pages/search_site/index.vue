@@ -22,6 +22,13 @@
         <section-wrapper>
             <divider-way-finder class="divider-way-finder" />
         </section-wrapper>
+        <section-wrapper>
+            <section-cards-with-illustrations
+                class="section-cards"
+                :items="searchAdditionalResources"
+                section-title="Additional Search Tools"
+            />
+        </section-wrapper>
     </div>
 </template>
 
@@ -36,6 +43,33 @@ export default {
         return {
             page: data,
         }
+    },
+    computed: {
+        searchAdditionalResources() {
+            return [
+                {
+                    iconName: "illustration-book-binding",
+                    to: "/help/foo/bar/",
+                    title: "UC Library Search",
+                    text: "Litora torquent per conubia nostra, per inceptos himenaeos.",
+                    isHorizontal: false,
+                },
+                {
+                    iconName: "illustration-find-space",
+                    to: "/visit/foo/baz/",
+                    title: "A-Z Databases",
+                    text: "Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem.",
+                    isHorizontal: false,
+                },
+                {
+                    iconName: "illustration-digitized-resources",
+                    to: "/about/foo/fred/",
+                    title: "Research Guides",
+                    text: "Suspendisse in justo eu magna luctus suscipit libero eget ante.",
+                    isHorizontal: false,
+                },
+            ]
+        },
     },
 
     methods: {
