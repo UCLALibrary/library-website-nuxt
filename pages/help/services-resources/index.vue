@@ -97,27 +97,19 @@ export default {
             return [
                 ...(this.page.serviceOrResource || []),
                 ...(this.page.workshopseries || []),
+                ...(this.helpTopic.entries || []),
             ]
                 .sort(sortByTitle)
                 .map((obj) => {
                     return {
                         ...obj,
                         category:
-                            obj.category === "help/services-resources"
-                                ? "workshop"
-                                : obj.category,
+                            (obj.category === "help/services-resources") ? "workshop":
+                            (obj.typeHandle === "helpTopic") ? "help topic" :
+                            obj.category,
                         to: `/${obj.to}`,
                     }
                 })
-        },
-
-        parsedHelpTopicList() {
-            return this.helpTopic.entries.map((obj) => {
-                return {
-                    ...obj,
-                    to: `/help/${obj.to}`,
-                }
-            })
         },
     },
     methods: {
