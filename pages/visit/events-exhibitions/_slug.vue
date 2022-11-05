@@ -2,15 +2,10 @@
     <section class="page-event-detail">
         <!-- this template will pick the section page component based on typehandle -->
         <nav-breadcrumb
-            to="/visit/events-exhibit"
+            to="/visit/events-exhibitions"
             :title="page.title"
             parent-title="Exhibits & Upcoming Events"
         />
-
-        <!-- <p v-if="$fetchState.pending" />
-        <p v-else-if="$fetchState.error">
-            An error occurred :(
-        </p> -->
 
         <header-sticky
             class="sticky-header"
@@ -27,7 +22,7 @@
             :locations="page.associatedLocations"
             :start-date="page.date.startTime"
             :category="page.eventType.title"
-            :to="page.onlineJoinURL"
+            :to="page.parseURL"
             :prompt="promptName"
             :register-event="parseRegistration"
             :date="page.date.startTime"
@@ -91,60 +86,76 @@ export default {
     },
     provide() {
         return {
-            eventId: "9383207",
+            eventId: computed(() => this.eventId),
             blockFormData: computed(() => this.formData),
             libcalEndpoint: this.libcalEndpointProxy,
         }
     },
-    data() {
+    async asyncData({ $graphql, params, $config }) {
+        console.log("In fetch start")
+        const navData = await $graphql.default.request(HEADER_MAIN_MENU_ITEMS)
+
+        const data = await $graphql.default.request(EVENT_DETAIL, {
+            slug: params.slug,
+        })
+
         return {
+            page: _get(data, "entry", {}),
             allEvents: [],
-            primaryItems: [],
-            secondaryItems: [],
+            primaryItems: _get(navData, "primary", []),
+            secondaryItems: _get(navData, "secondary", []),
             formData: {},
             formId: "",
-            eventId: "9383207",
-            libcalEndpointProxy: this.$config.libcalProxy,
-            page: {},
+            eventId: data && data.entry ? data.entry.libcalId : "",
+            libcalEndpointProxy: $config.libcalProxy,
         }
     },
-    async fetch() {
-        console.log("In fetch start")
-        const navData = await this.$graphql.default.request(
-            HEADER_MAIN_MENU_ITEMS
-        )
-        this.primaryItems = _get(navData, "primary", [])
-        this.secondaryItems = _get(navData, "secondary", [])
 
-        const data = await this.$graphql.default.request(EVENT_DETAIL)
-        this.page = _get(data, "entry", {})
-    },
     computed: {
-        parseRegistration() {
-            if (
-                this.page.requiresRegistration === true &&
-                this.page.onlineProvider !== "external"
-            ) {
-                return true
-            }
-            return false
-        },
         promptName() {
             return this.parseRegistrations ? "More Details" : null
         },
         parseURL() {
             return this.parseRegistrations ? null : this.page.onlineJoinURL
         },
+        parseRegistration() {
+            console.log(
+                "In parse registration:" + this.page.requiresRegistration
+            )
+            if (
+                this.page.requiresRegistration === "1" &&
+                this.page.onlineProvider !== "external"
+            ) {
+                return true
+            }
+            return false
+        },
     },
     async mounted() {
         // const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
-        const formDataArray = this.$scrapeApi.scrapeFormId(this.page.libcalId) //please check the fieldname in the query
-        console.log(formDataArray)
-        if (formDataArray && formDataArray.length == 1) {
-            this.formData = formDataArray[0]
-            console.log(
-                "In mounted client side:" + JSON.stringify(this.formData)
-            )
+        console.log(
+            "in mounted is registration required :" +
+                this.page.requiresRegistration
+        )
+        if (
+            this.page.requiresRegistration === "1" &&
+            this.page.onlineProvider !== "external"
+        ) {
+            console.log("getting formid")
+            const formDataArray = this.$scrapeApi.scrapeFormId(
+                this.page.libcalId
+            ) //please check the fieldname in the query
+            console.log("is this a promise:" + formDataArray)
+            formDataArray.then((response) => {
+                console.log(response)
+                if (response && response.length == 1) {
+                    this.formData = response[0]
+                    console.log(
+                        "In mounted client side:" +
+                            JSON.stringify(this.formData)
+                    )
+                }
+            })
         }
     },
 }

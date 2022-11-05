@@ -16,8 +16,12 @@ query ExhibitionAndEventList {
       date {
         ... on date_date_BlockType {
           id
-          startTime
-          endTime
+          startDate: startTime
+          endDate: endTime
+          #startDate: startTime @formatDateTime(format: "l, F j, Y")
+          #endDate: endTime @formatDateTime(format: "l, F j, Y")
+          #startTime: startTime @formatDateTime(format: "H:i A", timezone: "America/Los_Angeles")
+          #endTime: endTime @formatDateTime(format: "H:i A", timezone: "America/Los_Angeles")
         }
       }
       eventType {
@@ -26,13 +30,12 @@ query ExhibitionAndEventList {
           title
         }
       }
-      eventDescription
-      associatedLocations {
+      text: eventDescription
+      locations: associatedLocations {
         ... on location_location_Entry {
           id
           to: uri
           title
-          summary
         }
       }
     }
@@ -42,7 +45,7 @@ query ExhibitionAndEventList {
       id
       to: uri
       title
-      summary
+      text: summary
       sectionHandle
       image: heroImage {
         ... on heroImage_heroImage_BlockType {
@@ -56,18 +59,18 @@ query ExhibitionAndEventList {
           id
           startDate
           endDate
+          # startDate: startDate @formatDateTime(format: "l, F j, Y")
+          # endDate: endDate @formatDateTime(format: "l, F j, Y")
           ongoing
         }
       }
-      associatedLocations {
+      locations: associatedLocations {
         ... on location_location_Entry {
           id
           to: uri
           title
-          summary
         }
       }
     }
   }
- 
 }

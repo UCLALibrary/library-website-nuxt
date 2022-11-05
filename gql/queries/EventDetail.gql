@@ -1,7 +1,7 @@
 # Replace libcalId with slug later
 #import "~/gql/fragments/Image"
-query EventDetail {
-  entry(section: "event", libcalId: ["9383207"]) {
+query EventDetail($slug: [String!]) {
+  entry(section: "event", slug: $slug) {
     ... on event_event_Entry {
       id
       typehandle
