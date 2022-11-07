@@ -113,7 +113,9 @@ export default {
 
     computed: {
         promptName() {
-            return this.parseRegistrations ? "More Details" : null
+            if (this.parseRegistrations) return "Register"
+            else if (this.page.onlineJoinURL) return "More Details"
+            return null
         },
         parseURL() {
             return this.parseRegistrations ? null : this.page.onlineJoinURL
@@ -137,6 +139,7 @@ export default {
             "in mounted is registration required :" +
                 this.page.requiresRegistration
         )
+        // libcal events registration logic
         if (
             this.page.requiresRegistration === "1" &&
             this.page.onlineProvider !== "external"
