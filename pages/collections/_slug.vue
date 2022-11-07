@@ -5,7 +5,7 @@
             :title="page.title"
             parent-title="Collections"
         />
-        <h2>page.subjectAreas: {{ parsedSubjectAreas }}</h2>
+
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             :title="page.title"
