@@ -216,6 +216,7 @@ export default {
     .portrait-Ginny {
         width: 100%;
         max-width: 50%;
+        margin-left: 24px;
         float: right;
         ::v-deep
                 .media {
@@ -229,6 +230,13 @@ export default {
 
         ::v-deep {
             --banner-color-theme: var(--color-help-green-03);
+
+            // refactor when option to turn off overlays is available in craft
+            .gradient,
+            .molecule,
+            &.hatch-left .hatch {
+                display: none;
+            }
         }
     }
     ::v-deep .block-highlight .text {
