@@ -45,26 +45,23 @@
                 class="divider-way-finder"
             />
         </section-wrapper>
-
         <section-wrapper>
-            <div class="section-header">
-                <h2
+        <div class="section-header">
+            <div
+                class="section-title"
                     v-if="
                         page.libcalLocationIdForHours ||
                             page.amenities.length ||
                             parsedSpaces.length
-                    "
-                    class="section-title"
-                >
-                    Using the Library
-                </h2>
-                <div
-                    v-if="page.howToGetHere"
-                    class="section-summary"
-                    v-html="page.howToGetHere"
-                />
+                    ">
+                Using the Library
             </div>
-
+            <div
+                class="section-summary"    
+                v-if="page.howToGetHere"
+                v-html="page.howToGetHere"
+            />
+        </div>
             <block-hours
                 v-if="page.libcalLocationIdForHours"
                 :lid="page.libcalLocationIdForHours"
@@ -101,38 +98,34 @@
             />
         </section-wrapper>
 
-        <section-wrapper>
-            <simple-cards
+        <section-wrapper
+            class="services-and-resources"
             v-if="page.resourceServiceWorkshop.length"
-            section-title="Services &amp; Resources"
-            :items="parsedServicesAndResources"
-            />
-
-            <nuxt-link
-                v-if="page.resourceServiceWorkshop.length"
-                class="button-more"
-                to="/help/services-resources"
-            >
-                <button-more text="See More" />
-            </nuxt-link>
+            section-title="Services &amp; Resources">
+                <simple-cards
+                 :items="parsedServicesAndResources"
+                />
+                <nuxt-link
+                    v-if="page.resourceServiceWorkshop.length"
+                    class="button-more"
+                    to="/help/services-resources"
+                >
+                    <button-more text="See More" />
+                </nuxt-link>
         </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder
-                v-if="page.resourceServiceWorkshop.length"
+                v-if="mergeSortEventsExhibitions.length"
                 color="visit"
                 class="divider-way-finder"
             />
         </section-wrapper>
 
-        <section-wrapper>
-            <div
-                v-if="mergeSortEventsExhibitions.length"
-                class="events-exhibitions"
-            >
-                <h2 class="section-heading">
-                    Events &amp; Exhibtions
-                </h2>
+        <section-wrapper
+            class="events-exhibitions"    
+            v-if="mergeSortEventsExhibitions.length > 0"   
+            section-title="Events &amp; Exhibtions" >
                 <section-teaser-list
                     class="section-teaser-list"
                     :items="mergeSortEventsExhibitions"
@@ -144,12 +137,11 @@
                 >
                     <button-more text="See More" />
                 </nuxt-link>
-            </div>
         </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder
-                v-if="mergeSortEventsExhibitions.length"
+                v-if="page.blocks"
                 color="visit"
                 class="divider-way-finder"
             />     
@@ -159,6 +151,14 @@
             class="content"
             :blocks="page.blocks"
         />
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                v-if="page.about"
+                color="visit"
+                class="divider-way-finder"
+            />     
+        </section-wrapper>
 
         <section-wrapper>
             <h2
