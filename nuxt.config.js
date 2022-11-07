@@ -6,10 +6,13 @@ export default {
     },
     target: "static",
     components: true,
-
+    privateRuntimeConfig: {
+        esWriteKey: process.env.ES_WRITE_KEY
+    },
     publicRuntimeConfig: {
         s3Bucket: process.env.S3_BUCKET,
-        esApiKey: process.env.ESApiKey || "",
+        esReadKey: process.env.ES_READ_KEY || "",
+        esIndex: process.env.ES_INDEX || "",
         esURL:process.env.ES_URL || "",
         libcalProxy: process.env.LIBCAL_ENDPOINT|| "https://test.proxy.calendar.library.ucla.edu/"
     },

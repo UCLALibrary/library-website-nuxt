@@ -4,12 +4,12 @@ export default function ({ $config }, inject) {
     */
     async function siteSearch(keyword="*:*"){
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
-        if($config.esApiKey === "" || !$config.esURL === "") return
+        if($config.esReadKey === "" || !$config.esURL === "") return
         console.log("keyword:"+keyword)
     
-        const response = await fetch(`${$config.esURL}/apps-craft-test/_search`, {
+        const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, {
             headers: {
-                'Authorization': `ApiKey ${$config.esApiKey}`,
+                'Authorization': `ApiKey ${$config.esReadKey}`,
                 'Content-Type': 'application/json',
             },
             method: 'POST',
@@ -35,7 +35,7 @@ export default function ({ $config }, inject) {
 
     async function keywordSearchWithFilters(keyword="*:*", sectionHandle, filters, sort, source=["*"], aggFields=[]){
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
-        if($config.esApiKey === "" || !$config.esURL === "") return
+        if($config.esReadKey === "" || !$config.esURL === "") return
         console.log("keyword:"+keyword)
         console.log("filters:"+filters)
         console.log("sort:"+sort)
@@ -61,9 +61,9 @@ export default function ({ $config }, inject) {
 
         // need to know fields to boost on for listing pages when searching like title etc
     
-        const response = await fetch(`${$config.esURL}/apps-craft-test/_search`, {
+        const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, {
             headers: {
-                'Authorization': `ApiKey ${$config.esApiKey}`,
+                'Authorization': `ApiKey ${$config.esReadKey}`,
                 'Content-Type': 'application/json',
             },
             method: 'POST',
@@ -103,10 +103,10 @@ export default function ({ $config }, inject) {
 
 
     async function getMapping(){
-        if($config.esApiKey === "" || !$config.esURL === "") return
-        const response = await fetch(`${$config.esURL}/apps-craft-test/_mapping`, {
+        if($config.esReadKey === "" || !$config.esURL === "") return
+        const response = await fetch(`${$config.esURL}/${$config.esIndex}/_mapping`, {
             headers: {
-                'Authorization': `ApiKey ${$config.esApiKey}`,
+                'Authorization': `ApiKey ${$config.esReadKey}`,
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
         })
@@ -117,9 +117,9 @@ export default function ({ $config }, inject) {
     async function getAggregations(fields, sectionHandle){
         console.log("search text: "+fields)
         if(!fields || fields.length == 0 ) return
-        const response = await fetch(`${$config.esURL}/apps-craft-test/_search`, {
+        const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, {
             headers: {
-                'Authorization': `ApiKey ${$config.esApiKey}`,
+                'Authorization': `ApiKey ${$config.esReadKey}`,
                 'Content-Type': 'application/json',
             },
             method: 'POST',

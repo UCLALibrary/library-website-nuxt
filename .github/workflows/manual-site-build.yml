@@ -26,18 +26,27 @@ jobs:
           echo "CRAFT_ENDPOINT=${{secrets.CRAFT_ENDPOINT}} " >> $GITHUB_ENV
           echo "SITEMAP_HOST=https://uclalibrary-test.library.ucla.edu" >> $GITHUB_ENV
           echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_SITE_ID}}" >> $GITHUB_ENV
+          echo "ES_READ_KEY=${{secrets.ES_READ_KEY_TEST}}" >> $GITHUB_ENV
+          echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_TEST}}" >> $GITHUB_ENV
+          echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
         if: github.event.inputs.environment == 'test'
       - name: Sets env vars for stage
         run: |
           echo "CRAFT_ENDPOINT=${{secrets.CRAFT_STAGE_ENDPOINT}}" >> $GITHUB_ENV
           echo "SITEMAP_HOST=https://uclalibrary-stage.library.ucla.edu" >> $GITHUB_ENV
           echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_STAGE_LIBRARY_SITE_ID}}" >> $GITHUB_ENV
+          echo "ES_READ_KEY=${{secrets.ES_READ_KEY_STAGE}}" >> $GITHUB_ENV
+          echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_STAGE}}" >> $GITHUB_ENV
+          echo "ES_INDEX=${{secrets.ES_INDEX_STAGE}}" >> $GITHUB_ENV
         if: github.event.inputs.environment == 'stage'
       - name: Sets env vars for prod
         run: |
           echo "CRAFT_ENDPOINT=${{secrets.CRAFT_PROD_ENDPOINT}}" >> $GITHUB_ENV
           echo "SITEMAP_HOST=https://uclalibrary.library.ucla.edu" >> $GITHUB_ENV
           echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_PROD_LIBRARY_SITE_ID}}" >> $GITHUB_ENV
+          echo "ES_READ_KEY=${{secrets.ES_READ_KEY_PROD}}" >> $GITHUB_ENV
+          echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_PROD}}" >> $GITHUB_ENV
+          echo "ES_INDEX=${{secrets.ES_INDEX_PROD}}" >> $GITHUB_ENV
         if: github.event.inputs.environment == 'prod'
       - run: npm run generate
         env:
@@ -47,6 +56,9 @@ jobs:
           ES_URL: ${{ secrets.ES_URL }}
           ESApiKey: ${{ secrets.ESApiKey }}
           LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+          ES_READ_KEY: ${{env.ES_READ_KEY}}
+          ES_WRITE_KEY: ${{env.ES_WRITE_KEY}}
+          ES_INDEX: ${{env.ES_INDEX}}
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
         with:

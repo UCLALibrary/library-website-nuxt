@@ -1,14 +1,15 @@
 export default function ({ $config }, inject) {
     async function getData(data, slug) {
+        // eslint-disable-next-line no-undef
         if (process.server && process.env.NODE_ENV !== "development") {
             console.log(
                 "this is the elasticsearch plugin" + JSON.stringify(data)
             )
             const response = await fetch(
-                `${$config.esURL}/apps-ashton-test/_doc/${slug}`,
+                `${$config.esURL}/${$config.esIndex}/_doc/${slug}`,
                 {
                     headers: {
-                        Authorization: `ApiKey ${$config.esApiKey}`,
+                        Authorization: `ApiKey ${$config.esWriteKey}`,
                         "Content-Type": "application/json",
                     },
                     method: "POST",
