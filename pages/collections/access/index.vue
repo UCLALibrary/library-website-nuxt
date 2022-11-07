@@ -61,7 +61,7 @@
 import _get from "lodash/get"
 
 // GQL
-import ACCESS_COLLECTIONS from "~/gql/queries/AccessCollections.gql"
+import ACCESS_COLLECTIONS from "~/gql/queries/CollectionsAccess.gql"
 import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems.gql"
 
 export default {
