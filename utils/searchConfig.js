@@ -1,4 +1,21 @@
 const config = {
+    serviceOrResources:{
+        filters: [
+            { label: "Location", esFieldName: "locations.title.keyword", inputType: "checkbox", },
+            {
+                label: "Topic",
+                esFieldName: "associatedTopics.title.keyword",
+                inputType: "checkbox",
+            },
+        ],
+        resultFields:[
+            "title",
+            "summary",     
+            "illustrationsResourcesAndServices",
+            "to",
+            "serviceOrResourceType",
+        ]
+    },
     staff:{
         filters:[
             {
@@ -30,7 +47,7 @@ const config = {
     
         ]
     },
-    staffFilters: [
+    /*  staffFilters: [
         {
             label: "Location",
             esFieldName: "locations.title.keyword",
@@ -54,7 +71,7 @@ const config = {
             esFieldName: "associatedTopics.title.keyword",
             inputType: "checkbox",
         },
-    ]
+    ]*/
 }
   
 export default config

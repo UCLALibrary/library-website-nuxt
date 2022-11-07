@@ -6,13 +6,14 @@
 
 
 function getListingFilters(searchAggsResponse,filterFields) {
+    //console.log()
     const filters = []
     for(const field of filterFields){
         let obj = {
             label: field.label,
             esFieldName: field.esFieldName,
             inputType: field.inputType,
-            items: searchAggsResponse[field.label].buckets.reduce(
+            items: searchAggsResponse[field.label] && searchAggsResponse[field.label].buckets.reduce(
                 (accumulator, value) => {
                     return [...accumulator, { name: value.key }]
                 },
