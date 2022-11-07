@@ -14,6 +14,8 @@ query AccessCollectionsListing {
         }
         category
         typeHandle
+        serviceOrResourceType
+        workshopOrEventSeriesType
       }
       associatedTopics {
         title
@@ -23,6 +25,8 @@ query AccessCollectionsListing {
         iconName: illustrationsResourcesAndServices
         category
         typeHandle
+        serviceOrResourceType
+        workshopOrEventSeriesType
       }
     }
   }

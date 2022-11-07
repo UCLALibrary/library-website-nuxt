@@ -90,7 +90,11 @@ export default {
         data.entry.accessCollections.forEach(element => {
             element.to = element.uri ? element.uri : element.externalResourceUrl
 
-            element.category = (element.category === "help/services-resources") ? "workshop" : (element.typeHandle === "helpTopic") ? "help topic" : element.category
+            element.category = 
+                (element.workshopOrEventSeriesType === "help/services-resources") ? "workshop":
+                    element.serviceOrResourceType ? element.serviceOrResourceType :
+                        (element.typeHandle === "externalResource") ? "external resource":
+                            element.typeHandle
         })
         this.page = _get(data, "entry", {})
     },
