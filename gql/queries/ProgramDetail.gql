@@ -1,0 +1,64 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/collections/AllFpb"
+
+query ProgramDetail($slug: [String!]) {
+    entry(section: "program", slug: $slug) {
+        id
+        slug
+        uri
+        title
+        text: summary
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+            }
+        }
+        buttonUrl {
+            ... on buttonUrl_button_BlockType {
+                buttonText
+                buttonUrl
+            }
+        }
+        email
+        phoneNumber
+        viewStaffDirectory
+        department {
+            id
+            title
+        }
+        ...AllFpb
+    }
+    associatedArticles: entries(
+        section: "article"
+        relatedToEntries: { section: "program", slug: $slug }
+        orderBy: "dateUpdated desc"
+        limit: 3
+    ) {
+        ... on article_article_Entry {
+            id
+            title
+            articleType
+            associatedArticles {
+                id
+                title
+            }
+            to: slug
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                    altText
+                }
+            }
+            description: summary
+            category: typeHandle
+            startDate: dateCreated
+            endDate: dateCreated
+        }
+    }
+}

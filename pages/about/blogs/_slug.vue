@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="page-news-detail">
+    <main class="page-news-detail">
         <nav-breadcrumb
             to="/about/blogs"
             :title="page.title"
@@ -16,25 +16,24 @@
             :locations="page.locations"
         />
 
-        <section-wrapper class="section-banner">
+        <section-wrapper
+            v-if="page.heroImage && page.heroImage.length == 1"
+            class="section-banner"
+        >
             <banner-header
-                v-if="page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
                 :to="page.to"
-                :title="page.title"
                 category="Blog"
+                :title="page.title"
+                :text="page.text"
                 :byline="parsedByline"
                 :locations="page.locations"
                 :date-created="page.dateCreated"
                 :align-right="true"
-                :text="page.text"
             />
         </section-wrapper>
 
-        <section-wrapper
-            v-if="page.heroImage && page.heroImage.length == 1"
-            theme="divider"
-        >
+        <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider"
                 color="about"
@@ -63,7 +62,7 @@
 
             <section-staff-list :items="parsedAssociatedStaffMember" />
         </section-wrapper>
-    </section>
+    </main>
 </template>
 
 <script>
@@ -135,36 +134,11 @@ export default {
 
 <style lang="scss" scoped>
 .page-news-detail {
-    .section-banner {
-        margin-top: 0;
-    }
-    .banner-text {
-        --color-theme: var(--color-help-green-03);
-    }
-    .banner-header {
-        margin-bottom: var(--space-xl);
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
-    }
-    .banner-text + .divider-way-finder {
-        margin: 0 auto var(--space-2xl);
-    }
-    .divider-way-finder {
-        max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
-    }
     .flexible-content {
         margin: 0 auto;
     }
-    .section-cards {
-        margin: var(--space-3xl) auto;
-    }
     .highlighted-news {
         @include visually-hidden;
-    }
-    .block-call-to-action {
-        margin: var(--space-3xl) auto;
     }
     .section-heading {
         @include step-4;

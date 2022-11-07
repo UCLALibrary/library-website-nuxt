@@ -17,9 +17,11 @@
             :text="page.summary"
         />
 
-        <section-wrapper class="section-banner">
+        <section-wrapper
+            v-if="page && page.heroImage && page.heroImage.length == 1"
+            class="section-banner"
+        >
             <banner-header
-                v-if="page && page.heroImage && page.heroImage.length == 1"
                 :image="page.heroImage[0].image[0]"
                 :category="page.format"
                 :title="page.title"
@@ -30,10 +32,11 @@
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider-way-finder"
-                color="visit"
+                color="about"
             />
         </section-wrapper>
 
+        <!-- Rich Text is not showing up -->
         <flexible-blocks
             v-if="page"
             class="flexible-content"
@@ -77,15 +80,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-general-content {
-    .banner-text,
-    .banner-header {
-        --color-theme: var(--color-visit-fushia-03);
-    }
-    ::v-deep .divider-way-finder {
-        --color-border: var(--color-visit-fushia-03);
-    }
-    .section-banner {
-        margin-top: 0;
-    }
 }
 </style>

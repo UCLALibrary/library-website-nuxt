@@ -1,17 +1,20 @@
 <template lang="html">
     <div :class="classes">
+        <!--
         <a
             ref="skipLink"
             href="#main"
             class="skip-link"
-        >Skip to main content</a>
+        >
+            Skip to main content
+        </a>
+        -->
 
         <header-smart />
-        <main id="main">
-            <nuxt class="page" />
-        </main>
+        <nuxt class="page" />
         <footer-primary :form="true" />
         <footer-sock />
+        <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" />
     </div>
 </template>
 
@@ -40,6 +43,9 @@ export default {
                 content: "width=device-width, initial-scale=1",
             },
         ],
+        script: [
+            { hid: "libanswers", src: "https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753", defer: true }
+        ]
     },
     computed: {
         bodyClasses() {
@@ -58,7 +64,7 @@ export default {
     },
     watch: {
         $route() {
-            this.$refs.skipLink.focus()
+            // this.$refs.skipLink.focus()
         },
     },
     // meta: [

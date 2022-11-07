@@ -5,6 +5,7 @@
             :title="page.title"
             parent-title="Locations"
         />
+
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -16,17 +17,23 @@
             :address-link="addressLink"
             :staff-directory-link="parsedStaffDirectory"
         />
-        <banner-header
+
+        <section-wrapper
             v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :title="page.title"
-            :text="page.summary"
-            :address="parsedAddress"
-            :email="page.email"
-            :phone="page.phoneNumber"
-            :staff-directory-link="parsedStaffDirectory"
-            :address-link="addressLink"
-        />
+            class="section-banner"
+        >
+            <banner-header
+                :image="page.heroImage[0].image[0]"
+                :title="page.title"
+                :text="page.summary"
+                :address="parsedAddress"
+                :email="page.email"
+                :phone="page.phoneNumber"
+                :staff-directory-link="parsedStaffDirectory"
+                :address-link="addressLink"
+            />
+        </section-wrapper>
+
         <divider-way-finder
             v-if="
                 page.libcalLocationIdForHours ||
@@ -36,6 +43,7 @@
             color="visit"
             class="divider-way-finder"
         />
+
         <div class="section-header">
             <h2
                 v-if="
@@ -53,28 +61,34 @@
                 v-html="page.howToGetHere"
             />
         </div>
+
         <block-hours
             v-if="page.libcalLocationIdForHours"
             :lid="page.libcalLocationIdForHours"
         />
+
         <divider-general
             v-if="page.amenities.length"
             class="divider-general"
         />
+
         <block-amenities
             v-if="page.amenities.length"
             :items="page.amenities"
             class="amenities"
         />
+
         <divider-general
             v-if="parsedSpaces.length"
             class="divider-general"
         />
+
         <section-spaces-list
             v-if="parsedSpaces.length"
             class="section-block-spaces"
             :items="parsedSpaces"
         />
+
         <divider-way-finder
             v-if="page.resourceServiceWorkshop.length"
             color="visit"
@@ -86,6 +100,7 @@
             section-title="Services &amp; Resources"
             :items="parsedServicesAndResources"
         />
+
         <nuxt-link
             v-if="page.resourceServiceWorkshop.length"
             class="button-more"
@@ -134,16 +149,19 @@
             class="content"
             :blocks="page.blocks"
         />
+
         <h2
             v-if="page.about"
             class="section-heading"
         >
             About
         </h2>
+
         <rich-text
             class="about-text"
             :rich-text-content="page.about"
         />
+
         <!--  <divider-way-finder
             v-if="page.about"
             color="visit"
@@ -306,20 +324,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-location-detail {
-    .banner-text {
-        --color-theme: var(--color-help-green-03);
-    }
-    .banner-header {
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-        margin: var(--space-l) auto 0;
-    }
-    .banner-text + .divider-way-finder {
-        margin: 0 auto var(--space-3xl);
-    }
-    .content {
-        margin: 0 auto;
-    }
     .section-header {
         margin: var(--space-xl) auto;
         max-width: $container-l-main + px;
@@ -375,7 +379,6 @@ export default {
 
     @media #{$medium} {
         .about-text,
-        .section-header,
         .section-heading,
         .block-campus-map,
         .section-block-spaces,

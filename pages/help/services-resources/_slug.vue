@@ -1,11 +1,12 @@
 <template lang="html">
-    <section class="page-service-detail">
+    <main class="page-service-detail">
         <!-- TODO create separate sectionpage component based on typehandle will either use serviceorresource or workshopseries component-->
         <nav-breadcrumb
             to="/help/services-resources"
             :title="page.title"
             parent-title="Services & Resources"
         />
+
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -16,15 +17,19 @@
             :to="parsedButtonTo"
         />
 
-        <banner-header
+        <section-wrapper
             v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :to="parsedButtonTo"
-            :prompt="parsedButtonText"
-            :title="page.title"
-            :category="page.type"
-            :text="page.text"
-        />
+            class="section-banner"
+        >
+            <banner-header
+                :image="page.heroImage[0].image[0]"
+                :category="page.type"
+                :title="page.title"
+                :text="page.text"
+                :to="parsedButtonTo"
+                :prompt="parsedButtonText"
+            />
+        </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder color="help" />
@@ -56,7 +61,7 @@
                 :is-global="true"
             />
         </section-wrapper>
-    </section>
+    </main>
 </template>
 
 <script>
@@ -116,26 +121,14 @@ export default {
 
 <style lang="scss" scoped>
 .page-service-detail {
-    .banner-text {
-        --color-theme: var(--color-help-green-03);
-    }
-    .banner-header {
-        margin-bottom: var(--space-xl);
-        padding: 0;
-        max-width: $container-xl-full-width + px;
-        margin: var(--unit-gutter) auto;
-    }
-    .banner-text {
-        margin: 0 auto var(--space-2xl);
-    }
-    .section-cards {
-        margin: var(--space-3xl) auto;
-    }
     .more-info {
         @include visually-hidden;
     }
-    .block-call-to-action {
-        margin: var(--space-3xl) auto;
-    }
+    // .section-cards {
+    //     margin: var(--space-3xl) auto;
+    // }
+    // .block-call-to-action {
+    //     margin: var(--space-3xl) auto;
+    // }
 }
 </style>

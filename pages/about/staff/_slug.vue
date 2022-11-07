@@ -85,15 +85,10 @@
                 color="about"
             />
         </section-wrapper>
-        <!-- this is different from flexible page blocks ctacontentwidth and will be hardcoded where required -->
         <section-wrapper>
             <block-call-to-action
-                class="section block-call-to-action"
-                svg-name="svg-call-to-action-mail"
-                to="/contact-us"
-                name="Contact Us"
-                title="Not sure who you should reach out to?"
-                text="Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                class="block-call-to-action"
+                :is-global="true"
             />
         </section-wrapper>
     </main>
