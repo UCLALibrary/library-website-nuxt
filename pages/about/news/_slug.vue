@@ -5,7 +5,7 @@
             :title="page.title"
             parent-title="All Library News"
         />
-
+        <h3>parsedByline: {{ parsedByline }}</h3>
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -101,7 +101,7 @@ export default {
                 }`
             })
             return byline.map((entry) => {
-                return { title: entry }
+                return entry
             })
         },
 

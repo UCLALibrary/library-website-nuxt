@@ -5,11 +5,12 @@
             :title="page.title"
             parent-title="Collections"
         />
-
+        <h2>page.subjectAreas: {{ parsedSubjectAreas }}</h2>
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             :title="page.title"
             :text="page.text"
+            :subject-areas="page.subjectAreas"
             email="AskUs@library.ucla.edu"
             :button-text="parsedButtonText"
             :to="parsedButtonTo"
@@ -24,6 +25,7 @@
                 :title="page.title"
                 :text="page.text"
                 :category="parsedPhysicalDigital"
+                :subject-areas="page.subjectAreas"
                 email="AskUs@library.ucla.edu"
                 :prompt="parsedButtonText"
                 :to="parsedButtonTo"
@@ -84,6 +86,7 @@
         >
             <section-staff-article-list
                 :items="parsedEndowments"
+                class="block-staff-article-item"
             />
 
             <divider-way-finder
@@ -143,6 +146,9 @@ export default {
         parsedButtonTo() {
             return _get(this.page, "buttonUrl[0].buttonUrl", "")
         },
+        parsedSubjectAreas() {
+            return _get(this.page, "subjectAreas", "")
+        },
         parsedServicesAndResources() {
             let services = this.page.resourceServiceWorkshop
             return services.map((obj) => {
@@ -199,9 +205,8 @@ export default {
         display: flex;
         flex-direction: row;
     }
-    // .section-header {
-    //     margin: var(--space-xl) auto;
-    //     max-width: $container-l-main + px;
-    // }
+    ::v-deep .block-staff-article-item.meta.category {
+        color: var(--color-primary-blue-05);
+    }
 }
 </style>
