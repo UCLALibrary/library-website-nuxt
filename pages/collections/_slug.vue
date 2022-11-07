@@ -205,8 +205,5 @@ export default {
         display: flex;
         flex-direction: row;
     }
-    ::v-deep .block-staff-article-item.meta.category {
-        color: var(--color-primary-blue-05);
-    }
 }
 </style>
