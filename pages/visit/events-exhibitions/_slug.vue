@@ -20,12 +20,12 @@
             "
             :title="page.title"
             :locations="page.associatedLocations"
-            :start-date="page.date.startTime"
+            :start-date="page.date[0].startTime"
             :category="page.eventType.title"
             :to="page.parseURL"
             :prompt="promptName"
             :register-event="parseRegistration"
-            :date="page.date.startTime"
+            :end-date="page.date[0].endTime"
         />
 
         <!-- if theres an image -->
@@ -37,8 +37,8 @@
                 :image="page.image[0].image[0]"
                 :title="page.title"
                 :locations="page.associatedLocations"
-                :start-date="page.date.startTime"
-                :end-date="page.date.endTime"
+                :start-date="page.date[0].startTime"
+                :end-date="page.date[0].endTime"
                 :category="page.eventType.title"
                 :to="page.parseURL"
                 :align-right="true"
