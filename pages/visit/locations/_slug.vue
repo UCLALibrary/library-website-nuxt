@@ -275,7 +275,7 @@ export default {
                     ...obj,
                     buttonText:
                         obj.reservationRequired === "email"
-                            ? obj.mediatorEmail
+                            ? "Email to Reserve"
                             : "Reserve",
                     to:
                         obj.reservationRequired === "email"
