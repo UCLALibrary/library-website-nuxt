@@ -55,11 +55,10 @@
             />
         </section-wrapper>
 
-        <section-wrapper v-if="parsedAssociatedStaffMember.length > 0">
-            <h2 class="section-heading">
-                Associated Staff Member
-            </h2>
-
+        <section-wrapper 
+            class="associated-staff-member" 
+            v-if="parsedAssociatedStaffMember.length > 0" 
+            section-title="Associated Staff Member">
             <section-staff-list :items="parsedAssociatedStaffMember" />
         </section-wrapper>
     </main>
