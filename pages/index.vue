@@ -98,9 +98,9 @@ export default {
         //const data = await this.$graphql(QUERY);
 
         const mapping = await $dataApi.getMapping()
-        console.log(JSON.stringify(mapping))
+        // console.log(JSON.stringify(mapping))
         const searchResponse = await $dataApi.siteSearch("test")
-        console.log("Search Response: " + JSON.stringify(searchResponse))
+        // console.log("Search Response: " + JSON.stringify(searchResponse))
         const mockCard = {
             to: "/help/foo/bar/",
             title: "Example Service",

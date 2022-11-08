@@ -32,9 +32,7 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                color="help"
-            />
+            <divider-way-finder color="help" />
         </section-wrapper>
 
         <flexible-blocks
@@ -43,9 +41,7 @@
         />
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                color="help"
-            />
+            <divider-way-finder color="help" />
         </section-wrapper>
 
         <section-wrapper>
@@ -87,7 +83,7 @@ export default {
                 slug: params.slug,
             }
         )
-        console.log("Data fetched: " + JSON.stringify(data))
+        // console.log("Data fetched: " + JSON.stringify(data))
         return {
             page:
                 _get(data, "serviceOrResource", {}) ||

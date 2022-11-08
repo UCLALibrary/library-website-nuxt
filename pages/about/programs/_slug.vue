@@ -43,8 +43,10 @@
 
         <section-wrapper>
             <block-hours
-                v-if="page.uri == 
-                    'about/programs/campus-library-instructional-computing-commons-clicc'"
+                v-if="
+                    page.uri ==
+                        'about/programs/campus-library-instructional-computing-commons-clicc'
+                "
                 lid="0"
                 :is-clicc="true"
             />
@@ -102,7 +104,7 @@ export default {
         const data = await $graphql.default.request(PROGRAM_DETAIL, {
             slug: params.slug,
         })
-        console.log("Data fetched: " + JSON.stringify(data))
+        // console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
             associatedArticles: _get(data, "associatedArticles", {}),
@@ -137,7 +139,7 @@ export default {
                     category: _get(obj, "category", ""),
                     title: _get(obj, "title", ""),
                     text: _get(obj, "description", ""),
-                    startDate: _get(obj, "startDate", "")
+                    startDate: _get(obj, "startDate", ""),
                 }
             })
         },
@@ -147,8 +149,8 @@ export default {
             } else {
                 return "/about/news"
             }
-        }
-    }
+        },
+    },
 }
 </script>
 

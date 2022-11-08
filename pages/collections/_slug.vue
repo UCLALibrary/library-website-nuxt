@@ -46,9 +46,7 @@
             section-title="Using the Collection"
         >
             <div class="section-header">
-                <rich-text
-                    :rich-text-content="page.richTextSimplified"
-                />
+                <rich-text :rich-text-content="page.richTextSimplified" />
             </div>
 
             <divider-way-finder
@@ -80,9 +78,7 @@
         </section-wrapper>
 
         <!-- Endowments -->
-        <section-wrapper
-            v-if="parsedEndowments"
-        >
+        <section-wrapper v-if="parsedEndowments">
             <section-staff-article-list
                 :items="parsedEndowments"
                 section-title="Collection Endowments"
@@ -100,9 +96,7 @@
             v-if="parsedAssociatedStaffMember.length > 0"
             section-title="Contact a Subject Specialist"
         >
-            <section-staff-list
-                :items="parsedAssociatedStaffMember"
-            />
+            <section-staff-list :items="parsedAssociatedStaffMember" />
         </section-wrapper>
     </main>
 </template>
@@ -123,7 +117,7 @@ export default {
         const data = await $graphql.default.request(COLLECTION_DETAIL, {
             slug: params.slug,
         })
-        console.log("Data fetched: " + JSON.stringify(data))
+        // console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: data.entry,
         }
@@ -136,9 +130,9 @@ export default {
     },
     computed: {
         parsedPhysicalDigital() {
-            return this.page.physicalDigital.length == 1 ?
-                this.page.physicalDigital[0] :
-                `${this.page.physicalDigital[0]} & ${this.page.physicalDigital[1]}`
+            return this.page.physicalDigital.length == 1
+                ? this.page.physicalDigital[0]
+                : `${this.page.physicalDigital[0]} & ${this.page.physicalDigital[1]}`
         },
         parsedButtonText() {
             return _get(this.page, "buttonUrl[0].buttonText", "")
@@ -156,7 +150,7 @@ export default {
                     ...obj,
                     to: `${obj.uri}`,
                     title: _get(obj, "title", ""),
-                    text: _get(obj, "text", "")
+                    text: _get(obj, "text", ""),
                 }
             })
         },
@@ -169,7 +163,10 @@ export default {
             if (donorNames.length == 1) {
                 return `Donor: ${donorNames[0]}`
             } else {
-                let names = [donorNames.slice(0, -1).join(', '), donorNames.slice(-1)[0]].join(donorNames.length < 2 ? '' : ' and ')
+                let names = [
+                    donorNames.slice(0, -1).join(", "),
+                    donorNames.slice(-1)[0],
+                ].join(donorNames.length < 2 ? "" : " and ")
                 return `Donors: ${names}`
             }
         },
@@ -181,7 +178,7 @@ export default {
                     image: _get(item, "image[0].image[0]", null),
                     title: _get(item, "title", ""),
                     description: _get(item, "description", ""),
-                    category: parsedCategory
+                    category: parsedCategory,
                 }
             })
         },
@@ -194,8 +191,8 @@ export default {
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
-        }
-    }
+        },
+    },
 }
 </script>
 

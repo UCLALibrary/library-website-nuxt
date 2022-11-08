@@ -121,9 +121,9 @@ export default {
             return this.parseRegistrations ? null : this.page.onlineJoinURL
         },
         parseRegistration() {
-            console.log(
+            /*console.log(
                 "In parse registration:" + this.page.requiresRegistration
-            )
+            )*/
             if (
                 this.page.requiresRegistration === "1" &&
                 this.page.onlineProvider !== "external"
@@ -135,22 +135,22 @@ export default {
     },
     async mounted() {
         // const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
-        console.log(
+        /* console.log(
             "in mounted is registration required :" +
                 this.page.requiresRegistration
-        )
+        )*/
         // libcal events registration logic
         if (
             this.page.requiresRegistration === "1" &&
             this.page.onlineProvider !== "external"
         ) {
-            console.log("getting formid")
+            // console.log("getting formid")
             const formDataArray = this.$scrapeApi.scrapeFormId(
                 this.page.libcalId
             ) //please check the fieldname in the query
-            console.log("is this a promise:" + formDataArray)
+            // console.log("is this a promise:" + formDataArray)
             formDataArray.then((response) => {
-                console.log(response)
+                // console.log(response)
                 if (response && response.length == 1) {
                     this.formData = response[0]
                     console.log(
