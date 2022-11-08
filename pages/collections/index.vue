@@ -8,7 +8,7 @@
             :button-text="parsedButtonText"
             :to="parsedButtonTo"
         />
-        <h3>page: {{ page }}</h3>
+
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider"
