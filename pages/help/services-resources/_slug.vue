@@ -42,8 +42,11 @@
             :blocks="page.blocks"
         />
 
-        <section-wrapper theme="divider">
+        <section-wrapper theme="divider"
+            v-if="parsedAssociatedTopics.length"
+        >
             <divider-way-finder
+                class="divider-way-finder"    
                 color="help"
             />
         </section-wrapper>
@@ -53,9 +56,16 @@
                 v-if="parsedAssociatedTopics.length"
                 class="section-cards"
                 :items="parsedAssociatedTopics"
-                title="Associated Topics"
+                section-title="Associated Topics"
                 button-text="All Services and Resources"
                 to="/help/services-resources"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider-way-finder"
+                color="help"
             />
         </section-wrapper>
 

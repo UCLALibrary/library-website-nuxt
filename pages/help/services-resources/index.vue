@@ -29,7 +29,7 @@
         >
             <divider-way-finder
                 class="divider-way-finder"
-                color="about"
+                color="help"
             />
         </section-wrapper>
 
