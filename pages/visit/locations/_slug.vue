@@ -141,7 +141,7 @@
 
         <section-wrapper theme="divider">
             <divider-way-finder
-                v-if="page.blocks"
+                v-if="page.blocks.length > 0"
                 color="visit"
                 class="divider-way-finder"
             />     
@@ -160,13 +160,11 @@
             />     
         </section-wrapper>
 
-        <section-wrapper>
-            <h2
-                v-if="page.about"
-                class="section-heading"
-            >
-                About
-            </h2>
+        <section-wrapper
+            class="about"
+            v-if="page.about"
+            section-title="About"
+        >
             <rich-text
                 class="about-text"
                 :rich-text-content="page.about"
