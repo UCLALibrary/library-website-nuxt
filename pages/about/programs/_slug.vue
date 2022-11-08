@@ -72,9 +72,10 @@
         </section-wrapper> 
 
         <section-wrapper
-            class="associated-articles"
             v-if="parsedArticles.length > 0"
-            section-title="Associated Articles">
+            class="associated-articles"
+            section-title="Associated Articles"
+        >
             <section-teaser-card
                 class="section-teaser-card"
                 :items="parsedArticles"
