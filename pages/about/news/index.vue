@@ -64,6 +64,16 @@ export default {
         parsedDate() {
             return format(new Date(this.page.dateCreated), "MMMM d, Y")
         },
+        parsedByline() {
+            let byline = (this.page.contributors || []).map((entry) => {
+                return `${entry.byline} ${
+                    entry.title || entry.staffMember[0].title
+                }`
+            })
+            return byline.map((entry) => {
+                return entry
+            })
+        },
     },
 }
 </script>

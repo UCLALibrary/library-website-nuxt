@@ -1,0 +1,19 @@
+fragment BlockMediaGalleryExtraFieldsFragment on ElementInterface {
+    id
+    sectionTitle: titleGeneral
+    sectionSummary: summary
+    mediaGallery: mediaGalleryExtraFields {
+        id
+        ... on mediaGalleryExtraFields_image_BlockType {
+            id
+            captionTitle: captionHeading
+            captionText: caption
+            altText
+            sortOrder
+            image: imageFile {
+                ...Image
+            }
+            credit
+        }
+    }
+}
