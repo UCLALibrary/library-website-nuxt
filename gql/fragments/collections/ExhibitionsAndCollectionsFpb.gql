@@ -1,0 +1,67 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/BlockAssociatedTopicCardsFragment"
+#import "~/gql/fragments/BlockBannerFeaturedFragment"
+#import "~/gql/fragments/BlockCallToActionFragment"
+#import "~/gql/fragments/BlockCardWithImageFragment"
+#import "~/gql/fragments/BlockFormFragment"
+#import "~/gql/fragments/BlockHighlightFragment"
+#import "~/gql/fragments/BlockImpactNumbersCarouselFragment"
+#import "~/gql/fragments/BlockMediaWithTextFragment"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/BlockMediaGalleryExtraFieldsFragment"
+#import "~/gql/fragments/BlockGridGalleryCardsFragment"
+#import "~/gql/fragments/BlockImpactNumberCardsFragment"
+
+
+fragment ExhibitionsAndCollectionsFpb on ElementInterface {
+    blocks: exhibitionsAndCollectionsFpb {
+        id
+        typeHandle
+
+        ... on exhibitionsAndCollectionsFpb_associatedTopicCards_BlockType {
+            ...BlockAssociatedTopicCardsFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_bannerFeatured_BlockType {
+            ...BlockBannerFeaturedFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_callToAction_BlockType {
+            ...BlockCallToActionFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_cardWithImage_BlockType {
+            ...BlockCardWithImageFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_form_BlockType {
+            ...BlockFormFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_highlight_BlockType {
+            ...BlockHighlightFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_impactNumbersCarousel_BlockType {
+            ...BlockImpactNumbersCarouselFragment
+        }
+
+        ... on exhibitionsAndCollectionsFpb_mediaWithText_BlockType {
+            ...BlockMediaWithTextFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_pullQuote_BlockType {
+            ...BlockPullQuoteFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_richText_BlockType {
+            ...BlockRichTextFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_simpleCards_BlockType {
+            ...BlockSimpleCardsFragment
+        }
+         ... on exhibitionsAndCollectionsFpb_mediaGallery_BlockType {
+            ...BlockMediaGalleryExtraFieldsFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_gridGalleryCards_BlockType  {
+            ...BlockGridGalleryCardsFragment
+        }
+        ... on exhibitionsAndCollectionsFpb_impactNumberCards_BlockType {
+            ...BlockImpactNumberCardsFragment
+        }
+    }
+}

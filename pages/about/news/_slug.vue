@@ -100,7 +100,7 @@ export default {
                 }`
             })
             return byline.map((entry) => {
-                return { title: entry }
+                return entry
             })
         },
 
