@@ -48,6 +48,14 @@
                 lid="0"
                 :is-clicc="true"
             />
+            <divider-way-finder
+                v-if="page.uri == 
+                    'about/programs/campus-library-instructional-computing-commons-clicc'"
+                lid="0"
+                :is-clicc="true"
+                class="divider"
+                color="about"
+            />
         </section-wrapper>
 
         <flexible-blocks
@@ -55,26 +63,22 @@
             :blocks="page.blocks"
         />
 
-        <section-wrapper
-            v-if="parsedArticles.length > 0"
-            class="associated-articles"
-        >
+        <section-wrapper theme="divider">
             <divider-way-finder
-                class="divider"
+                v-if="parsedArticles.length > 0"
                 color="about"
+                class="divider-way-finder"
             />
+        </section-wrapper> 
 
-            <div class="section-title">
-                <h2 class="title">
-                    Associated Articles
-                </h2>
-            </div>
-
+        <section-wrapper
+            class="associated-articles"
+            v-if="parsedArticles.length > 0"
+            section-title="Associated Articles">
             <section-teaser-card
                 class="section-teaser-card"
                 :items="parsedArticles"
             />
-
             <nuxt-link
                 v-if="associatedArticles"
                 class="button-more"
