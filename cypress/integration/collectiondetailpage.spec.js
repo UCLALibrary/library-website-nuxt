@@ -1,12 +1,12 @@
 describe("Collection Detail page", () => {
-    it("Visit a Collection Detail page", () => {
-        cy.visit("/collections/access")
+    it("Visit a Collection Detail Page", () => {
+        cy.request("collections/halloween-costumes")
 
         // UCLA Library brand
-        cy.get(".logo.ucla").should("be.visible")
+        cy.get(".logo-ucla").should("be.visible")
         cy.get("h1.title").should(
             "contain",
-            "Listing - Collections > Access Collections"
+            "TEST - Title of Collection - Halloween Costumes"
         )
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
