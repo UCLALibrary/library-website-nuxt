@@ -6,7 +6,6 @@
                 class="intro"
                 v-html="page.title"
             />
-
             <responsive-image
                 v-if="page.portrait && page.portrait.length > 0"
                 :image="page.portrait[0]"
@@ -30,9 +29,9 @@
             Main Story
         </h2>
         <banner-featured
-            v-if="page.keyArt && page.keyArt.length != 0 && isVideo"
+            v-if="page.keyArt && page.keyArt.length != 0"
             class="section-banner"
-            :video="parsedVideo"
+            :image="page.keyArt[0].heroImage[0]"
             :ratio="40"
             :title="page.keyArt[0].titleGeneral"
             :description="page.keyArt[0].summary"
@@ -46,6 +45,13 @@
             class="flexible-content"
             :blocks="page.blocks"
         />
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
 
         <section-wrapper :section-title="page.timelineTitle">
             <div
@@ -142,40 +148,6 @@ export default {
         }
     },
     computed: {
-        isVideo() {
-            if (!this.page.keyArt) return false
-            let fileName = this.page.keyArt[0].heroImage[0].src.toLowerCase()
-            let extension = fileName.split(".").pop()
-
-            if (
-                extension == "mp4" ||
-                extension == "m4a" ||
-                extension == "f4v" ||
-                extension == "m4b" ||
-                extension == "mov"
-            ) {
-                return true
-            }
-            return false
-        },
-
-        parsedVideo() {
-            if (this.isVideo) {
-                let mainVideo = this.page.keyArt[0].heroImage[0]
-                let video = {
-                    videoUrl: mainVideo.src,
-                    sizes: mainVideo.sizes,
-                    height: mainVideo.height,
-                    width: mainVideo.width,
-                    altText: mainVideo.alt,
-                    caption: mainVideo.caption,
-                    poster: mainVideo.poster,
-                }
-                return video
-            } else {
-                return {}
-            }
-        },
         timelineSortedBySubtitle() {
             const timelineData = flattenTimeLineStructure(
                 this.page.timelineGallery
@@ -244,7 +216,12 @@ export default {
     .portrait-Ginny {
         width: 100%;
         max-width: 50%;
+        margin-left: 24px;
         float: right;
+        ::v-deep
+                .media {
+                    object-fit: cover;
+                }
     }
 
     .section-banner {
@@ -253,6 +230,13 @@ export default {
 
         ::v-deep {
             --banner-color-theme: var(--color-help-green-03);
+
+            // refactor when option to turn off overlays is available in craft
+            .gradient,
+            .molecule,
+            &.hatch-left .hatch {
+                display: none;
+            }
         }
     }
     ::v-deep .block-highlight .text {
@@ -268,6 +252,7 @@ export default {
     ::v-deep .grid-gallery {
         padding: 0;
     }
+
     /* .banner {
         margin: var(--space-3xl) auto;
     }*/

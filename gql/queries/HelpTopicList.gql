@@ -2,9 +2,10 @@ query HelpTopicList {
     entries(section: "helpTopic") {
         ... on helpTopic_helpTopic_Entry {
             id
-            to: slug
+            to: uri
             title
-            summary
+            text: summary
+            typeHandle
         }
     }
 }

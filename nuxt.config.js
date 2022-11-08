@@ -45,7 +45,8 @@ export default {
         '~/plugins/preview.client.js',
         '~/plugins/browser-events.client.js',
         '~/plugins/craft.js',
-        '~/plugins/data-api.js'
+        '~/plugins/data-api.js',
+        '~/plugins/scrape-formid.client.js'
     ],
 
     /*

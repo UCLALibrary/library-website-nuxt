@@ -30,7 +30,7 @@
         </masthead-secondary>
 
         <divider-way-finder class="section divider divider-way-finder" />
-        <banner-featured
+        <!--banner-featured
             class="section banner-featured"
             :title="firstEvent.title"
             :image="firstEvent.image"
@@ -41,18 +41,15 @@
             :dates="firstEvent.dates"
             :start-date="firstEvent.startDate"
             :end-date="firstEvent.endDate"
-        />
+        /-->
 
         <divider-general class="section divider divider-general" />
-        <section-teaser-highlight
-            class="section"
-            :items="highlightEvents"
-        />
+        <!--section-teaser-highlight class="section" :items="highlightEvents" /-->
 
         <divider-general class="section divider divider-general" />
         <!-- TODO List of events go here -->
         <section-teaser-list
-            :items="listEvents"
+            :items="parsedExhibitionsAndEvents"
             class="section section-list"
         />
 
@@ -79,10 +76,27 @@ import _get from "lodash/get"
 // import formatEventDates from "~/utils/formatEventDates"
 // import formatEventTimes from "~/utils/formatEventTimes"
 
+// GQL
+import EXHIBITIONS_AND_EVENTS_LIST from "~/gql/queries/ExhibitionsAndEventsList.gql"
+
 export default {
-    async asyncData({ $axios }) {
+    async asyncData({ $graphql, params, store }) {
         console.log("in asyncdata calling axios get event")
-        const libcalData = await $axios.$get(`/1.1/event_search`, {
+
+        console.log(
+            "fetching graphql data for Service or Resource detail from Craft for live preview"
+        )
+        const data = await $graphql.default.request(
+            EXHIBITIONS_AND_EVENTS_LIST,
+            {
+                slug: params.slug,
+            }
+        )
+        console.log("Data fetched: " + JSON.stringify(data))
+        return {
+            page: data,
+        }
+        /*const libcalData = await $axios.$get(`/1.1/event_search`, {
             params: {
                 search: "*",
                 limit: 100,
@@ -93,7 +107,7 @@ export default {
         console.log(libcalData.events[0].title)
         return {
             page: { events: events },
-        }
+        }*/
     },
 
     // TODO either use asyncdata or fetch
@@ -118,37 +132,37 @@ export default {
             // TODO we may not need this as we have decidec not to add view modes dropdown in the reworked design
             // get view component name (see the PR section-teaser calander)
         },*/
-        parsedEvents() {
+        parsedExhibitionsAndEvents() {
             // TODO Remove this one we have more events
 
-            const mockEvents = [...this.page.events]
+            //const mockEvents = [...this.page.events]
 
             // Shape events
             // return this.events.map((obj) => {
-            return mockEvents.map((obj) => {
-                const event = obj || {}
+            return [
+                ...(this.page.events || []),
+                ...(this.page.exhibitions || []),
+            ].map((obj) => {
+                const eventOrExhibtion = obj || {}
 
                 return {
-                    ...event,
-                    to: `${this.$route.path}/${event.id}`, // added index to avoid duplicate errors
-                    location: _get(event, "location.name", "Online"),
-                    image: {
-                        src: event.featured_image,
-                    },
-                    category: {
-                        name: _get(event, "category.name", "Featured"),
-                    },
-                    breadcrumb: {
-                        text: _get(event, "category.name", "Featured"),
-                    },
+                    ...eventOrExhibtion,
+                    to: `/${eventOrExhibtion.to}`, // added index to avoid duplicate errors
+                    // locations: _get(eventOrExhibtion, "locations", []),
+                    image: _get(eventOrExhibtion, "image[0].image[0]", null),
+                    category: _get(eventOrExhibtion, "sectionHandle", ""),
+
                     // TODO Only need one set of these once BannerFeatured is updated
-                    startDate: event.start,
-                    endDate: event.end,
-                    text: event.description,
+                    startDate: _get(
+                        eventOrExhibtion,
+                        "date[0].startDate",
+                        null
+                    ),
+                    endDate: _get(eventOrExhibtion, "date[0].endDate", null),
                 }
             })
         },
-        firstEvent() {
+        /* firstEvent() {
             return this.parsedEvents[0] || {}
         },
         highlightEvents() {
@@ -163,15 +177,18 @@ export default {
             })
         },
         listEvents() {
-            const items = this.parsedEvents.slice(2)
+           // const items = this.parsedEvents.slice(2)
 
-            return items.map((obj) => {
+            return [
+                ...(this.page.events || []),
+                ...(this.page.exhibitions || []),
+            ].map((obj) => {
                 return {
                     ...obj,
                     category: _get(obj, "category.name", "Featured"),
                 }
             })
-        },
+        },*/
 
         //TODO remove once we have real data from Craft
         blockCallToAction() {
