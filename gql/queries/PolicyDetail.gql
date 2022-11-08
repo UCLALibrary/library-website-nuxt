@@ -8,14 +8,14 @@ query PolicyDetail($slug: [String!]) {
         summary
         richText
         to: uri
-            heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    id
-                    image {
-                        ...Image
-                    }
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
                 }
             }
+        }
         ...AllFpb
     }
 }
