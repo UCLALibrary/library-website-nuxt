@@ -46,6 +46,7 @@
             v-if="parsedAssociatedTopics.length"
         >
             <divider-way-finder
+                class="divider-way-finder"    
                 color="help"
             />
         </section-wrapper>
@@ -61,9 +62,7 @@
             />
         </section-wrapper>
 
-        <section-wrapper
-            v-if="parsedAssociatedTopics.length"
-        >
+        <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider-way-finder"
                 color="help"
