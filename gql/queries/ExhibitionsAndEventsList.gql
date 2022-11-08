@@ -1,0 +1,76 @@
+#import "~/gql/fragments/Image"
+query ExhibitionAndEventList {
+   events: entries(section: "event") {
+    ... on event_event_Entry {
+      id
+      to: uri
+      title
+      sectionHandle
+      image: heroImage {
+        ... on heroImage_heroImage_BlockType {
+          image {
+            ...Image
+          }
+        }
+      }
+      date {
+        ... on date_date_BlockType {
+          id
+          startDate: startTime
+          endDate: endTime
+          #startDate: startTime @formatDateTime(format: "l, F j, Y")
+          #endDate: endTime @formatDateTime(format: "l, F j, Y")
+          #startTime: startTime @formatDateTime(format: "H:i A", timezone: "America/Los_Angeles")
+          #endTime: endTime @formatDateTime(format: "H:i A", timezone: "America/Los_Angeles")
+        }
+      }
+      eventType {
+        ... on eventType_Category {
+          id
+          title
+        }
+      }
+      text: eventDescription
+      locations: associatedLocations {
+        ... on location_location_Entry {
+          id
+          to: uri
+          title
+        }
+      }
+    }
+  }
+  exhibitions: entries(section: "exhibition") {
+    ... on exhibition_exhibition_Entry {
+      id
+      to: uri
+      title
+      text: summary
+      sectionHandle
+      image: heroImage {
+        ... on heroImage_heroImage_BlockType {
+          image {
+            ...Image
+          }
+        }
+      }
+      seriesDate {
+        ... on seriesDate_seriesDate_BlockType {
+          id
+          startDate
+          endDate
+          # startDate: startDate @formatDateTime(format: "l, F j, Y")
+          # endDate: endDate @formatDateTime(format: "l, F j, Y")
+          ongoing
+        }
+      }
+      locations: associatedLocations {
+        ... on location_location_Entry {
+          id
+          to: uri
+          title
+        }
+      }
+    }
+  }
+}
