@@ -61,18 +61,14 @@ export default {
     },
     computed: {
         parsedByline() {
-            let bannerFeaturedByline = this.page.contributors.map((obj) => {
-                if (obj.typeHandle === "externalContributor") {
-                    return { title: `${obj.byline + " " + obj.title}` }
-                } else if (obj.typeHandle === "staffMember") {
-                    return {
-                        title: `${obj.byline + " " + obj.staffMember[0].title}`,
-                    }
-                } else {
-                    return []
-                }
+            let byline = (this.page.contributors || []).map((entry) => {
+                return `${entry.byline} ${
+                    entry.title || entry.staffMember[0].title
+                }`
             })
-            return bannerFeaturedByline
+            return byline.map((entry) => {
+                return entry
+            })
         },
     },
 }
