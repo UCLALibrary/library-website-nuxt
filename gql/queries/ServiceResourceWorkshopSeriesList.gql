@@ -21,6 +21,12 @@ query ServiceResourceWorkshopSeriesList {
       category: workshopOrEventSeriesType
     }
   }
+  externalResource: entries(section: "externalResource", displayEntry: "yes") {
+    title
+    text: summary
+    to: externalResourceUrl
+    typeHandle
+  }
   entry(section: "listingServicesResources") {
       ... on listingServicesResources_listingServicesResources_Entry {
           id
