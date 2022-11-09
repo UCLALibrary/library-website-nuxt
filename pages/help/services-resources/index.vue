@@ -29,7 +29,7 @@
         <section-wrapper v-if="page.serviceOrResource || page.workshopseries">
             <divider-way-finder
                 class="divider-way-finder"
-                color="about"
+                color="help"
             />
         </section-wrapper>
 
@@ -98,6 +98,7 @@ export default {
             return [
                 ...(this.page.serviceOrResource || []),
                 ...(this.page.workshopseries || []),
+                ...(this.page.externalResource || []),
                 ...(this.helpTopic.entries || []),
             ]
                 .sort(sortByTitle)
@@ -105,12 +106,12 @@ export default {
                     return {
                         ...obj,
                         category:
-                            obj.category === "help/services-resources"
-                                ? "workshop"
-                                : obj.typeHandle === "helpTopic"
-                                    ? "help topic"
-                                    : obj.category,
-                        to: `/${obj.to}`,
+                            (obj.category === "help/services-resources") ? "workshop":
+                            (obj.typeHandle === "helpTopic") ? "help topic" :
+                            (obj.typeHandle === "externalResource") ? "resource" :
+                            obj.category,
+                        to: (obj.typeHandle === "externalResource") ? `${obj.to}` :
+                            `/${obj.to}`,
                     }
                 })
         },

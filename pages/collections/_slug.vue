@@ -35,7 +35,7 @@
 
         <section-wrapper theme="divider">
             <divider-way-finder
-                class="divider"
+                class="divider-way-finder"
                 color="default"
             />
         </section-wrapper>
@@ -50,7 +50,7 @@
             </div>
 
             <divider-way-finder
-                class="divider"
+                class="divider-way-finder"
                 color="default"
             />
         </section-wrapper>
@@ -60,6 +60,14 @@
             class="flexible-content"
             :blocks="page.blocks"
         />
+
+        <section-wrapper theme="divider"
+            v-if="page.blocks.length > 0">
+                <divider-way-finder
+                    class="divider-way-finder"
+                    color="default"
+                />
+        </section-wrapper>
 
         <!-- Services and Resources -->
         <section-wrapper
@@ -72,7 +80,7 @@
             />
 
             <divider-way-finder
-                class="divider"
+                class="divider-way-finder"
                 color="default"
             />
         </section-wrapper>
@@ -86,7 +94,7 @@
             />
 
             <divider-way-finder
-                class="divider"
+                class="divider-way-finder"
                 color="default"
             />
         </section-wrapper>
