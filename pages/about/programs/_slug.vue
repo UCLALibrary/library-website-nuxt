@@ -1,7 +1,7 @@
 <template>
     <main class="page-program-detail">
         <nav-breadcrumb
-            to="/about/program"
+            to="/about/programs"
             :title="page.title"
             parent-title="Programs"
         />
