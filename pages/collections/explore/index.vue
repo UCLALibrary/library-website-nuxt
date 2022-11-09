@@ -61,7 +61,7 @@
 import _get from "lodash/get"
 
 // GQL
-import ACCESS_COLLECTIONS from "~/gql/queries/CollectionsAccessList.gql"
+import EXPLORE_COLLECTIONS from "~/gql/queries/CollectionExploreList.gql"
 import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems.gql"
 
 export default {
@@ -85,9 +85,9 @@ export default {
         this.primaryItems = _get(navData, "primary", [])
         this.secondaryItems = _get(navData, "secondary", [])
 
-        const data = await this.$graphql.default.request(ACCESS_COLLECTIONS)
+        const data = await this.$graphql.default.request(EXPLORE_COLLECTIONS)
         
-        data.entry.accessCollections.forEach(element => {
+        data.entry.exploreCollections.forEach(element => {
             element.to = element.uri ? element.uri : element.externalResourceUrl
 
             element.category = 
