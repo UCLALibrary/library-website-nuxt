@@ -75,8 +75,8 @@ export default {
    */
     generate: {
         fallback: '404.html',
-        interval: 500,
-        concurrency: 500,
+        interval: 10,
+        concurrency: 100,
     },
 
     /*
