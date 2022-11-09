@@ -7,7 +7,7 @@
             :secondary-items="secondaryItems"
         /> -->
         <nav-breadcrumb
-            to="/collections/access"
+            to="/collections"
             :title="page.title"
             parent-title="Collections"
         />
@@ -86,7 +86,7 @@ export default {
         this.secondaryItems = _get(navData, "secondary", [])
 
         const data = await this.$graphql.default.request(ACCESS_COLLECTIONS)
-        
+
         data.entry.accessCollections.forEach(element => {
             element.to = element.uri ? element.uri : element.externalResourceUrl
 

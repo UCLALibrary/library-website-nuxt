@@ -7,7 +7,7 @@
             :secondary-items="secondaryItems"
         /> -->
         <nav-breadcrumb
-            to="/collections/access"
+            to="/collections"
             :title="page.title"
             parent-title="Collections"
         />
@@ -26,6 +26,21 @@
                 @view-mode-change="viewModeChanger" -->
         </masthead-secondary>
 
+        <section-wrapper>
+            <divider-way-finder sclass="divider divider-way-finder" />
+        </section-wrapper>
+
+        <section-wrapper>
+            <divider-way-finder class="divider divider-way-finder" />
+        </section-wrapper>
+
+        <section-wrapper>
+            <section-teaser-list
+                :items="items"
+            />
+
+            <!-- PAGINATION -->
+        </section-wrapper>
 
         <section-wrapper>
             <divider-way-finder class="divider divider-way-finder" />
@@ -38,21 +53,6 @@
                 :is-horizontal="true"
             />
         </section-wrapper>
-
-        <section-wrapper>
-            <divider-way-finder class="divider divider-way-finder" />
-        </section-wrapper>
-
-        <section-wrapper>
-            <section-cards-with-illustrations
-                class="section"
-                :items="page.associatedTopics"
-                section-title="Associated Topics"
-                to="/help/foo/bar"
-                button-text="All services & Resources"
-                :is-horizontal="false"
-            />
-        </section-wrapper>
     </section>
 </template>
 
@@ -61,8 +61,8 @@
 import _get from "lodash/get"
 
 // GQL
-import EXPLORE_COLLECTIONS from "~/gql/queries/CollectionExploreList.gql"
-import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems.gql"
+import EXPLORE_COLLECTIONS from "~/gql/queries/CollectionsExploreList.gql"
+// import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems.gql"
 
 export default {
     data() {
