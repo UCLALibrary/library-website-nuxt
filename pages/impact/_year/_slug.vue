@@ -61,15 +61,6 @@ export default {
     },
     computed: {
         parsedByline() {
-<<<<<<< HEAD
-            let byline = (this.page.contributors || []).map((entry) => {
-                return `${entry.byline} ${
-                    entry.title || entry.staffMember[0].title
-                }`
-            })
-            return byline.map((entry) => {
-                return entry
-=======
             let bannerFeaturedByline = this.page.contributors.map((obj) => {
                 if (obj.typeHandle === "externalContributor") {
                     return `${obj.byline + " " + obj.title}` 
@@ -78,8 +69,8 @@ export default {
                 } else {
                     return []
                 }
->>>>>>> cbcad691c2c20a4284b63de60951b6f1c705a6a3
             })
+            return bannerFeaturedByline
         },
     },
 }
