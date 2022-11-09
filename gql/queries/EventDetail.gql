@@ -96,6 +96,27 @@ query EventDetail($slug: [String!]) {
                 id
                 title
                 summary
+                eventType {
+                    ... on eventType_Category {
+                        id
+                        title
+                    }
+                }
+                date {
+                    ... on date_date_BlockType {
+                        id
+                        startTime
+                        endTime
+                    }
+                }
+                associatedLocations {
+                    ... on location_location_Entry {
+                        id
+                        to: uri
+                        title
+                        summary
+                    }
+                }
             }
             associatedTopics {
                 id
