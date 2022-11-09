@@ -2,13 +2,13 @@
     <main id="main" class="page page-programs">
         <nav-breadcrumb
             to="/about"
-            :title="summaryData.programListTitle"
+            :title="entry.title"
             parent-title="About"
         />
 
         <banner-text 
-            :title="summaryData.programListTitle"
-            :text="summaryData.programListSummary"
+            :title="entry.title"
+            :text="entry.summary"
         />
 
         <section-wrapper theme="divider">
@@ -17,7 +17,6 @@
 
         <section-wrapper>
             <section-staff-article-list
-                section-title="UCLA Library Programs & Initiatives"
                 :items="parsedProgramsList"
             />
         </section-wrapper>
@@ -38,11 +37,11 @@ export default {
         // console.log("data:" + data)
         return {
             page: _get(data, "entries", {}),
-            summaryData: _get(data, "entry", {}),
+            entry: _get(data, "entry", {}),
         }
     },
     head() {
-        let title = this.page ? this.summaryData.programListTitle : "... loading"
+        let title = this.page ? this.entry.title : "... loading"
         return {
             title: title,
         }
