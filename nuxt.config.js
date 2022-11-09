@@ -139,7 +139,7 @@ export default {
     /*
    * Nuxt modules
    */
-    modules: ['@nuxtjs/axios', '@nuxtjs/gtm',"@nuxtjs/sitemap",], // This needs to be last always,
+    modules: ["~/modules/populate", '@nuxtjs/axios', '@nuxtjs/gtm',"@nuxtjs/sitemap",], // This needs to be last always,
 
     gtm: {
         id: 'GTM-T2SXV2',
