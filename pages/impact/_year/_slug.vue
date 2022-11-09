@@ -61,6 +61,7 @@ export default {
     },
     computed: {
         parsedByline() {
+<<<<<<< HEAD
             let byline = (this.page.contributors || []).map((entry) => {
                 return `${entry.byline} ${
                     entry.title || entry.staffMember[0].title
@@ -68,6 +69,16 @@ export default {
             })
             return byline.map((entry) => {
                 return entry
+=======
+            let bannerFeaturedByline = this.page.contributors.map((obj) => {
+                if (obj.typeHandle === "externalContributor") {
+                    return `${obj.byline + " " + obj.title}` 
+                } else if (obj.typeHandle === "staffMember") {
+                    return  `${obj.byline + " " + obj.staffMember[0].title}`
+                } else {
+                    return []
+                }
+>>>>>>> cbcad691c2c20a4284b63de60951b6f1c705a6a3
             })
         },
     },

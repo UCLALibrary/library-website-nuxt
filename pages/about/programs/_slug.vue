@@ -1,7 +1,7 @@
 <template>
     <main class="page-program-detail">
         <nav-breadcrumb
-            to="/about/program"
+            to="/about/programs"
             :title="page.title"
             parent-title="Programs"
         />
@@ -126,11 +126,10 @@ export default {
             return _get(this.page, "buttonUrl[0].buttonUrl", "")
         },
         parsedStaffDirectory() {
-            if (this.page.viewStaffDirectory != "affiliateLibrary") {
-                return "/about/staff"
-            } else {
+            let x = this.page.viewStaffDirectory
+            if (x == "false") {
                 return ""
-            }
+            } else { return "/about/staff"}
         },
         parsedArticles() {
             return this.associatedArticles.map((obj) => {
