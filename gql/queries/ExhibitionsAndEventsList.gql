@@ -73,7 +73,10 @@ query ExhibitionAndEventList {
             }
         }
     }
-    eventSeries: entries(section: "workshopOrEventSeries") {
+    eventSeries: entries(
+        section: "workshopOrEventSeries"
+        workshopOrEventSeriesType: "visit/events-exhibitions"
+    ) {
         id
 
         ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
