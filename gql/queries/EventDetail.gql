@@ -126,6 +126,9 @@ query EventDetail($slug: [String!]) {
             associatedTopics {
                 id
                 title
+                text: summary
+                to: uri
+                illustration
             }
             ...DefaultFpbWithCardsAndHighlight
         }

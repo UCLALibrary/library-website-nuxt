@@ -73,6 +73,7 @@
             <banner-text
                 v-if="page.eventSeries && !page.eventSeries.image[0]"
                 :title="page.eventSeries.title"
+                :text="page.eventSeries.summary"
                 :locations="page.eventSeries.associatedLocations"
                 :date="page.eventSeries.date[0].startDate"
                 category="Event Series"
@@ -88,6 +89,7 @@
                     :locations="page.eventSeries.associatedLocations"
                     :start-date="page.eventSeries.date[0].startDate"
                     category="Event Series"
+                    :text="page.eventSeries.summary"
                     :end-date="page.eventSeries.date[0].endDate"
                     :align-right="true"
                 />
@@ -99,21 +101,45 @@
                 />
             </section-wrapper>
 
-            <section-wrapper v-if="page.eventSeries.summary">
-                <rich-text :rich-text-content="page.eventSeries.summary" />
-            </section-wrapper>
             <flexible-blocks
                 class="content"
                 :blocks="page.eventSeries.blocks"
             />
+            <section-wrapper
+                v-if="page.eventSeries.blocks.length > 0"
+                theme="divider"
+            >
+                <divider-way-finder
+                    class="divider-way-finder"
+                    color="visit"
+                />
+            </section-wrapper>
             <section-wrapper>
                 <h3 class="section-title">
                     Events in this Series
                 </h3>
                 <divider-general />
                 <section-teaser-list
+                    v-if="associatedEvents"
                     :items="associatedEvents"
                     class="section section-list"
+                />
+            </section-wrapper>
+            <section-wrapper
+                v-if="page.eventSeries.associatedTopics.length > 0"
+                theme="divider"
+            >
+                <divider-way-finder
+                    class="divider-way-finder"
+                    color="visit"
+                />
+            </section-wrapper>
+            <section-wrapper>
+                <section-cards-with-illustrations
+                    v-if="page.eventSeries.associatedTopics.length > 0"
+                    class="section-cards"
+                    :items="page.eventSeries.associatedTopics"
+                    section-title="Associated Topics"
                 />
             </section-wrapper>
         </div>
