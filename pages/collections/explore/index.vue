@@ -109,19 +109,10 @@ export default {
 
 <style lang="scss" scoped>
 .page-collections-access {
-    .section {
-        max-width: var(--unit-content-width);
-        margin: 80px auto;
-    }
+    // .section {
+    //     max-width: var(--unit-content-width);
+    //     margin: 80px auto;
+    // }
 
-    .divider {
-        padding: 0 32px;
-    }
-
-    .block-call-to-action {
-        margin-bottom: 160px;
-        margin-left: auto;
-        margin-right: auto;
-    }
 }
 </style>
