@@ -73,7 +73,7 @@
             <banner-text
                 v-if="
                     page.workshopOrEventSeries &&
-                        !page.workshopOrEventSeries.image
+                        !page.workshopOrEventSeries.image[0]
                 "
                 :title="page.workshopOrEventSeries.title"
                 :locations="page.workshopOrEventSeries.associatedLocations"
@@ -85,7 +85,7 @@
             />
 
             <section-wrapper
-                v-if="page.workshopOrEventSeries.image"
+                v-if="page.workshopOrEventSeries.image[0]"
                 class="section-banner"
             >
                 <banner-header
