@@ -95,11 +95,19 @@ query EventDetail($slug: [String!]) {
             event {
                 id
                 title
-                summary
-                eventType {
+                uri
+                text: eventDescription
+                category: eventType {
                     ... on eventType_Category {
                         id
                         title
+                    }
+                    image: heroImage {
+                        ... on heroImage_heroImage_BlockType {
+                            image {
+                                ...Image
+                            }
+                        }
                     }
                 }
                 date {

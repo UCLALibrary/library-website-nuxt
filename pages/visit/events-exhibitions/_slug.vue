@@ -70,7 +70,7 @@
                 :title="page.workshopOrEventSeries.title"
                 parent-title="Exhibits & Upcoming Events"
             />
-            {{ page.workshopOrEventSeries }}
+            {{ page.workshopOrEventSeries.event }}
             <banner-text
                 v-if="
                     page.workshopOrEventSeries &&
@@ -113,6 +113,12 @@
                     :rich-text-content="page.workshopOrEventSeries.summary"
                 />
             </section-wrapper>
+            <section-wrapper>
+                <section-teaser-list
+                    :items="associatedEvents"
+                    class="section section-list"
+                />
+            </section-wrapper>
         </div>
 
         <block-call-to-action
@@ -145,7 +151,7 @@ export default {
         }
     },
     async asyncData({ $graphql, params, $config }) {
-        console.log("In fetch start")
+        // console.log("In fetch start")
         const navData = await $graphql.default.request(HEADER_MAIN_MENU_ITEMS)
 
         const data = await $graphql.default.request(EVENT_DETAIL, {
@@ -189,6 +195,18 @@ export default {
             }
             return false
         },
+        associatedEvents() {
+            return this.page.workshopOrEventSeries.event.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "image[0].image[0]", null),
+                    startDate: _get(obj, "date[0].startTime", null),
+                    endDate: _get(obj, "date[0].endTime", null),
+                    category: _get(obj, "category.title", ""),
+                }
+            })
+        },
     },
     async mounted() {
         // const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
@@ -202,19 +220,19 @@ export default {
             this.page.entry.requiresRegistration === "1" &&
             this.page.entry.onlineProvider !== "external"
         ) {
-            console.log("getting formid")
+            // console.log("getting formid")
             const formDataArray = this.$scrapeApi.scrapeFormId(
                 this.page.entry.libcalId
             ) //please check the fieldname in the query
-            console.log("is this a promise:" + formDataArray)
+            // console.log("is this a promise:" + formDataArray)
             formDataArray.then((response) => {
-                console.log(response)
+                // console.log(response)
                 if (response && response.length == 1) {
                     this.formData = response[0]
-                    console.log(
-                        "In mounted client side:" +
-                            JSON.stringify(this.formData)
-                    )
+                    // console.log(
+                    //     "In mounted client side:" +
+                    //         JSON.stringify(this.formData)
+                    // )
                 }
             })
         }
