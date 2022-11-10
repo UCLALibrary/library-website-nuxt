@@ -102,14 +102,15 @@ query EventDetail($slug: [String!]) {
                         id
                         title
                     }
-                    image: heroImage {
-                        ... on heroImage_heroImage_BlockType {
-                            image {
-                                ...Image
-                            }
+                }
+                image: heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        image {
+                            ...Image
                         }
                     }
                 }
+
                 date {
                     ... on date_date_BlockType {
                         id

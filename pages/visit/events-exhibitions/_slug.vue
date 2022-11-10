@@ -70,7 +70,6 @@
                 :title="page.workshopOrEventSeries.title"
                 parent-title="Exhibits & Upcoming Events"
             />
-            {{ page.workshopOrEventSeries.event }}
             <banner-text
                 v-if="
                     page.workshopOrEventSeries &&
@@ -114,6 +113,8 @@
                 />
             </section-wrapper>
             <section-wrapper>
+                <h3>Events in this Series</h3>
+                <divider-general />
                 <section-teaser-list
                     :items="associatedEvents"
                     class="section section-list"
