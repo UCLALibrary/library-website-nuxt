@@ -142,6 +142,7 @@ export default {
             return [
                 ...(this.page.events || []),
                 ...(this.page.exhibitions || []),
+                ...(this.page.eventSeries || []),
             ].map((obj) => {
                 const eventOrExhibtion = obj || {}
 

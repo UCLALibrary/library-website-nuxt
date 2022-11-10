@@ -1,7 +1,7 @@
 #import "~/gql/fragments/Image"
 #import "~/gql/fragments/collections/DefaultFpbWithCardsAndHighlight.gql"
 query EventDetail($slug: [String!]) {
-    entry(section: "event", slug: $slug) {
+    event: entry(section: "event", slug: $slug) {
         ... on event_event_Entry {
             id
             typehandle
@@ -55,10 +55,7 @@ query EventDetail($slug: [String!]) {
             eventOwner
         }
     }
-    workshopOrEventSeries: entry(
-        section: "workshopOrEventSeries"
-        slug: $slug
-    ) {
+    eventSeries: entry(section: "workshopOrEventSeries", slug: $slug) {
         id
 
         ... on workshopOrEventSeries_workshopOrEventSeries_Entry {

@@ -1,10 +1,10 @@
 <template lang="html">
     <section class="page-event-detail">
         <!-- Event Detail -->
-        <div v-if="page.entry">
+        <div v-if="page.event">
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
-                :title="page.entry.title"
+                :title="page.event.title"
                 parent-title="Exhibits & Upcoming Events"
             />
 
@@ -16,32 +16,32 @@
 
             <banner-text
                 v-if="
-                    page.entry &&
-                        (!page.entry.image[0].image[0] ||
-                            page.entry.image[0].image[0].length == 0)
+                    page.event &&
+                        (!page.event.image[0].image[0] ||
+                            page.event.image[0].image[0].length == 0)
                 "
-                :title="page.entry.title"
-                :locations="page.entry.associatedLocations"
-                :start-date="page.entry.date[0].startTime"
-                :category="page.entry.eventType.title"
-                :to="page.entry.parseURL"
+                :title="page.event.title"
+                :locations="page.event.associatedLocations"
+                :start-date="page.event.date[0].startTime"
+                :category="page.event.eventType.title"
+                :to="page.event.parseURL"
                 :button-text="promptName"
                 :register-event="parseRegistration"
-                :end-date="page.entry.date[0].endTime"
+                :end-date="page.event.date[0].endTime"
             />
 
             <section-wrapper
-                v-if="page.entry.image[0].image[0]"
+                v-if="page.event.image[0].image[0]"
                 class="section-banner"
             >
                 <banner-header
-                    :image="page.entry.image[0].image[0]"
-                    :title="page.entry.title"
-                    :locations="page.entry.associatedLocations"
-                    :start-date="page.entry.date[0].startTime"
-                    :end-date="page.entry.date[0].endTime"
-                    :category="page.entry.eventType.title"
-                    :to="page.entry.parseURL"
+                    :image="page.event.image[0].image[0]"
+                    :title="page.event.title"
+                    :locations="page.event.associatedLocations"
+                    :start-date="page.event.date[0].startTime"
+                    :end-date="page.event.date[0].endTime"
+                    :category="page.event.eventType.title"
+                    :to="page.event.parseURL"
                     :align-right="true"
                     :prompt="promptName"
                     :register-event="parseRegistration"
@@ -50,13 +50,13 @@
 
             <section-wrapper theme="divider">
                 <divider-way-finder
-                    v-if="page.entry.image[0].image[0]"
+                    v-if="page.event.image[0].image[0]"
                     color="visit"
                 />
             </section-wrapper>
 
-            <section-wrapper v-if="page.entry || page.entry.eventDescription">
-                <rich-text :rich-text-content="page.entry.eventDescription" />
+            <section-wrapper v-if="page.event || page.event.eventDescription">
+                <rich-text :rich-text-content="page.event.eventDescription" />
             </section-wrapper>
 
             <section-wrapper theme="divider">
@@ -67,53 +67,48 @@
         <div v-else>
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
-                :title="page.workshopOrEventSeries.title"
+                :title="page.eventSeries.title"
                 parent-title="Exhibits & Upcoming Events"
             />
             <banner-text
-                v-if="
-                    page.workshopOrEventSeries &&
-                        !page.workshopOrEventSeries.image[0]
-                "
-                :title="page.workshopOrEventSeries.title"
-                :locations="page.workshopOrEventSeries.associatedLocations"
-                :date="page.workshopOrEventSeries.date[0].startDate"
+                v-if="page.eventSeries && !page.eventSeries.image[0]"
+                :title="page.eventSeries.title"
+                :locations="page.eventSeries.associatedLocations"
+                :date="page.eventSeries.date[0].startDate"
                 category="Event Series"
-                :to="page.workshopOrEventSeries.publicUrl"
-                :button-text="page.workshopOrEventSeries.requiresRegistration"
+                :to="page.eventSeries.publicUrl"
+                :button-text="page.eventSeries.requiresRegistration"
             />
 
             <section-wrapper
-                v-if="page.workshopOrEventSeries.image[0]"
+                v-if="page.eventSeries.image[0]"
                 class="section-banner"
             >
                 <banner-header
-                    :image="page.workshopOrEventSeries.image[0].image[0]"
-                    :title="page.workshopOrEventSeries.title"
-                    :locations="page.workshopOrEventSeries.associatedLocations"
-                    :start-date="page.workshopOrEventSeries.date[0].startDate"
+                    :image="page.eventSeries.image[0].image[0]"
+                    :title="page.eventSeries.title"
+                    :locations="page.eventSeries.associatedLocations"
+                    :start-date="page.eventSeries.date[0].startDate"
                     category="Event Series"
-                    :to="page.workshopOrEventSeries.publicUrl"
-                    :prompt="page.workshopOrEventSeries.requiresRegistration"
-                    :end-date="page.workshopOrEventSeries.date[0].endDate"
+                    :to="page.eventSeries.publicUrl"
+                    :prompt="page.eventSeries.requiresRegistration"
+                    :end-date="page.eventSeries.date[0].endDate"
                     :align-right="true"
                 />
             </section-wrapper>
             <section-wrapper theme="divider">
                 <divider-way-finder
-                    v-if="page.workshopOrEventSeries.image"
+                    v-if="page.eventSeries.image"
                     color="visit"
                 />
             </section-wrapper>
 
-            <section-wrapper v-if="page.workshopOrEventSeries.summary">
-                <rich-text
-                    :rich-text-content="page.workshopOrEventSeries.summary"
-                />
+            <section-wrapper v-if="page.eventSeries.summary">
+                <rich-text :rich-text-content="page.eventSeries.summary" />
             </section-wrapper>
             <flexible-blocks
                 class="content"
-                :blocks="page.workshopOrEventSeries.blocks"
+                :blocks="page.eventSeries.blocks"
             />
             <section-wrapper>
                 <h3 class="section-title">
@@ -179,30 +174,30 @@ export default {
     computed: {
         promptName() {
             if (this.parseRegistrations) return "Register"
-            else if (this.page.entry && this.page.entry.onlineJoinURL)
+            else if (this.page.event && this.page.event.onlineJoinURL)
                 return "More Details"
             return null
         },
         parseURL() {
             return this.parseRegistrations
                 ? null
-                : this.page.entry.onlineJoinURL
+                : this.page.event.onlineJoinURL
         },
         parseRegistration() {
             // console.log(
-            //     "In parse registration:" + this.page.entry.requiresRegistration
+            //     "In parse registration:" + this.page.event.requiresRegistration
             // )
             if (
-                this.page.entry &&
-                this.page.entry.requiresRegistration === "1" &&
-                this.page.entry.onlineProvider !== "external"
+                this.page.event &&
+                this.page.event.requiresRegistration === "1" &&
+                this.page.event.onlineProvider !== "external"
             ) {
                 return true
             }
             return false
         },
         associatedEvents() {
-            return this.page.workshopOrEventSeries.event.map((obj) => {
+            return this.page.eventSeries.event.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.uri}`,
@@ -218,17 +213,17 @@ export default {
         // const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
         // console.log(
         //     "in mounted is registration required :" +
-        //         this.page.entry.requiresRegistration
+        //         this.page.event.requiresRegistration
         // )
         // libcal events registration logic
         if (
-            this.page.entry &&
-            this.page.entry.requiresRegistration === "1" &&
-            this.page.entry.onlineProvider !== "external"
+            this.page.event &&
+            this.page.event.requiresRegistration === "1" &&
+            this.page.event.onlineProvider !== "external"
         ) {
             // console.log("getting formid")
             const formDataArray = this.$scrapeApi.scrapeFormId(
-                this.page.entry.libcalId
+                this.page.event.libcalId
             ) //please check the fieldname in the query
             // console.log("is this a promise:" + formDataArray)
             formDataArray.then((response) => {
