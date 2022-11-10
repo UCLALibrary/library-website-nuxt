@@ -1,5 +1,5 @@
-# Replace libcalId with slug later
 #import "~/gql/fragments/Image"
+#import "~/gql/fragments/collections/DefaultFpbWithCardsAndHighlight.gql"
 query EventDetail($slug: [String!]) {
     entry(section: "event", slug: $slug) {
         ... on event_event_Entry {
@@ -131,6 +131,7 @@ query EventDetail($slug: [String!]) {
                 id
                 title
             }
+            ...DefaultFpbWithCardsAndHighlight
         }
     }
 }
