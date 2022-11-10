@@ -43,7 +43,7 @@ export default {
     },
     computed: {
         parsedCollectionsList() {
-            console.log("Entries: " + this.page.entries)
+            // console.log("Entries: " + this.page.entries)
             return this.page.map((obj) => {
                 return {
                     ...obj,
@@ -67,6 +67,5 @@ export default {
 <style lang="scss" scoped>
 .page-collections {
     padding-left: 50px;
-
 }
 </style>

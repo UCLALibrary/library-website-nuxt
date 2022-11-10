@@ -48,7 +48,7 @@ export default {
         const data = await $graphql.default.request(IMPACT_REPORT_STORY, {
             slug: params.slug,
         })
-        console.log("Data fetched: " + JSON.stringify(data))
+        // console.log("Data fetched: " + JSON.stringify(data))
 
         return {
             page: _get(data, "entry", {}),
@@ -95,7 +95,7 @@ export default {
             display: none;
         }
     }
-    
+
     // .section-banner {
     //     margin-top: 0;
     //     margin-bottom: 0;

@@ -81,7 +81,7 @@ export default {
         const data = await $graphql.default.request(ARTICLE_DETAIL, {
             slug: params.slug,
         })
-        console.log("Data fetched: " + JSON.stringify(data))
+        // console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
         }
