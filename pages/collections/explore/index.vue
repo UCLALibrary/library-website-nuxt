@@ -1,59 +1,57 @@
 <template lang="html">
-    <section class="page-collections-access">
-        <!-- this template will pick the section page component based on typehandle -->
-        <!-- <header-sticky
-            class="sticky-header"
-            :primary-items="primaryItems"
-            :secondary-items="secondaryItems"
-        /> -->
+    <main class="page-collections-access">
         <nav-breadcrumb
             to="/collections"
-            :title="page.title"
+            title="Explore Featured Collections"
             parent-title="Collections"
         />
 
         <masthead-secondary
-            :title="page.title"
-            :text="page.summary"
+            :title="explore.title"
+            :text="explore.summary"
         >
-            <!-- TODO Add SearchGenric here when complete -->
-            <!-- search-generic
-                search-type="about"
-                class="generic-search"
-            />-->
-            <!-- :filters="searchFilters.filters"
-                :view-modes="searchFilters.views"
-                @view-mode-change="viewModeChanger" -->
+        <!-- TODO Add SearchGenric here when complete -->
+        <!-- search-generic
+            search-type="about"
+            class="generic-search"
+        />-->
+        <!-- :filters="searchFilters.filters"
+            :view-modes="searchFilters.views"
+            @view-mode-change="viewModeChanger" -->
         </masthead-secondary>
 
         <section-wrapper>
-            <divider-way-finder sclass="divider divider-way-finder" />
+            <divider-way-finder 
+                class="divider-way-finder"
+                color="default"
+            />
         </section-wrapper>
 
         <section-wrapper>
-            <divider-way-finder class="divider divider-way-finder" />
-        </section-wrapper>
-
-        <section-wrapper>
-            <section-teaser-list
-                :items="items"
+            <section-teaser-card
+                :items="parsedCollectionList"
             />
 
             <!-- PAGINATION -->
         </section-wrapper>
 
         <section-wrapper>
-            <divider-way-finder class="divider divider-way-finder" />
+            <divider-way-finder 
+                class="divider-way-finder"
+                color="default"
+            />
         </section-wrapper>
 
         <section-wrapper>
             <section-cards-with-illustrations
                 class="section"
-                :items="page.accessCollections"
-                :is-horizontal="true"
+                :items="parsedAssociatedTopics"
+                button-text="All services and resources"
+                to="/help/services-resources"
+                section-title="Associated Topics"
             />
         </section-wrapper>
-    </section>
+    </main>
 </template>
 
 <script>
@@ -61,43 +59,51 @@
 import _get from "lodash/get"
 
 // GQL
-import EXPLORE_COLLECTIONS from "~/gql/queries/CollectionsExploreList.gql"
-// import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems.gql"
+import COLLECTIONS_EXPLORE_LIST from "~/gql/queries/CollectionsExploreList.gql"
 
 export default {
-    data() {
+    async asyncData({ $graphql, route }) {
+        const data = await $graphql.default.request(COLLECTIONS_EXPLORE_LIST, {})
+
+        // console.log("data:" + data)
         return {
-            allEvents: [],
-            primaryItems: [],
-            secondaryItems: [],
-            formData: {},
-            formId: "",
-            eventId: "9383207",
-            libcalEndpointProxy: this.$config.libcalProxy,
-            page: {}
+            page: _get(data, "entries", {}),
+            explore: _get(data, "entry", {}),
         }
     },
-    async fetch() {
-        console.log("In fetch start")
-        const navData = await this.$graphql.default.request(
-            HEADER_MAIN_MENU_ITEMS
-        )
-        this.primaryItems = _get(navData, "primary", [])
-        this.secondaryItems = _get(navData, "secondary", [])
-
-        const data = await this.$graphql.default.request(EXPLORE_COLLECTIONS)
-        
-        data.entry.exploreCollections.forEach(element => {
-            element.to = element.uri ? element.uri : element.externalResourceUrl
-
-            element.category = 
-                (element.workshopOrEventSeriesType === "help/services-resources") ? "workshop":
-                    element.serviceOrResourceType ? element.serviceOrResourceType :
-                        (element.typeHandle === "externalResource") ? "external resource":
-                            element.typeHandle
-        })
-        this.page = _get(data, "entry", {})
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        return {
+            title: title,
+        }
     },
+    computed: {
+        parsedPhysicalDigital() {
+            return this.page.physicalDigital.length == 1 ?
+                this.page.physicalDigital[0] :
+                `${this.page.physicalDigital[0]} & ${this.page.physicalDigital[1]}`
+        },
+        parsedCollectionList() {
+            return this.page.map((obj) => {
+                return {
+                    ...obj,
+                    to: `${obj.uri}`,
+                    image: _get(obj, "heroImage[0]image[0]", null),
+                    category: obj.category.join(","),
+                    title: _get(obj, "title", ""),
+                    text: _get(obj, "text", "")
+                }
+            })
+        },
+        parsedAssociatedTopics(){
+            return this.explore.associatedTopics.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.to}`,
+                }
+            })
+        }
+    }
 }
 </script>
 

@@ -1,11 +1,5 @@
 <template lang="html">
     <section class="page-collections-access">
-        <!-- this template will pick the section page component based on typehandle -->
-        <!-- <header-sticky
-            class="sticky-header"
-            :primary-items="primaryItems"
-            :secondary-items="secondaryItems"
-        /> -->
         <nav-breadcrumb
             to="/collections"
             :title="page.title"
@@ -62,7 +56,6 @@ import _get from "lodash/get"
 
 // GQL
 import ACCESS_COLLECTIONS from "~/gql/queries/CollectionsAccessList.gql"
-import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems.gql"
 
 export default {
     data() {
@@ -78,13 +71,6 @@ export default {
         }
     },
     async fetch() {
-        console.log("In fetch start")
-        const navData = await this.$graphql.default.request(
-            HEADER_MAIN_MENU_ITEMS
-        )
-        this.primaryItems = _get(navData, "primary", [])
-        this.secondaryItems = _get(navData, "secondary", [])
-
         const data = await this.$graphql.default.request(ACCESS_COLLECTIONS)
 
         data.entry.accessCollections.forEach(element => {
