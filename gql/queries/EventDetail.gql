@@ -68,7 +68,7 @@ query EventDetail($slug: [String!]) {
             typeHandle
             title
             summary
-            seriesDate {
+            date: seriesDate {
                 ... on seriesDate_seriesDate_BlockType {
                     id
                     startDate
