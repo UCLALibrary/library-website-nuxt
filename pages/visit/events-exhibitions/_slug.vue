@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="page.entry-event-detail">
+    <section class="page-event-detail">
         <!-- Event Detail -->
         <div v-if="page.entry">
             <nav-breadcrumb
@@ -112,9 +112,12 @@
                     :rich-text-content="page.workshopOrEventSeries.summary"
                 />
             </section-wrapper>
+            <flexible-blocks
+                class="content"
+                :blocks="page.workshopOrEventSeries.blocks"
+            />
             <section-wrapper>
                 <h3>Events in this Series</h3>
-                {{ page.workshopOrEventSeries.event }}
                 <divider-general />
                 <section-teaser-list
                     :items="associatedEvents"
@@ -243,7 +246,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page.entry-event-detail {
+.page-event-detail {
     // height: 100vh;
 
     .sticky-header {
