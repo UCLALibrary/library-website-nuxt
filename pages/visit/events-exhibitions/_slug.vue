@@ -117,7 +117,9 @@
                 :blocks="page.workshopOrEventSeries.blocks"
             />
             <section-wrapper>
-                <h3>Events in this Series</h3>
+                <h3 class="section-title">
+                    Events in this Series
+                </h3>
                 <divider-general />
                 <section-teaser-list
                     :items="associatedEvents"
@@ -261,6 +263,11 @@ export default {
         .has-scrolled-past-header & {
             transform: translateY(0);
         }
+    }
+    .section-title {
+        @include step-3;
+        color: var(--color-primary-blue-03);
+        margin-bottom: var(--space-m);
     }
 }
 </style>
