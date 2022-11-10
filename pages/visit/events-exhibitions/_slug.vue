@@ -76,8 +76,6 @@
                 :locations="page.eventSeries.associatedLocations"
                 :date="page.eventSeries.date[0].startDate"
                 category="Event Series"
-                :to="page.eventSeries.publicUrl"
-                :button-text="page.eventSeries.requiresRegistration"
             />
 
             <section-wrapper
@@ -90,8 +88,6 @@
                     :locations="page.eventSeries.associatedLocations"
                     :start-date="page.eventSeries.date[0].startDate"
                     category="Event Series"
-                    :to="page.eventSeries.publicUrl"
-                    :prompt="page.eventSeries.requiresRegistration"
                     :end-date="page.eventSeries.date[0].endDate"
                     :align-right="true"
                 />

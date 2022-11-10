@@ -94,8 +94,7 @@ query ExhibitionAndEventList {
                     endDate
                 }
             }
-            requiresRegistration
-            publicUrl
+
             associatedLocations {
                 ... on location_location_Entry {
                     id

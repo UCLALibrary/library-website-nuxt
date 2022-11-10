@@ -72,8 +72,7 @@ query EventDetail($slug: [String!]) {
                     endDate
                 }
             }
-            requiresRegistration
-            publicUrl
+
             associatedLocations {
                 ... on location_location_Entry {
                     id
