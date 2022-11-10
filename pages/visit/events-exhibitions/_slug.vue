@@ -114,6 +114,7 @@
             </section-wrapper>
             <section-wrapper>
                 <h3>Events in this Series</h3>
+                {{ page.workshopOrEventSeries.event }}
                 <divider-general />
                 <section-teaser-list
                     :items="associatedEvents"

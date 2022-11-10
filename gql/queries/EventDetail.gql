@@ -118,7 +118,7 @@ query EventDetail($slug: [String!]) {
                         endTime
                     }
                 }
-                associatedLocations {
+                locations: associatedLocations {
                     ... on location_location_Entry {
                         id
                         to: uri
