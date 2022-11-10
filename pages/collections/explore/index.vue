@@ -27,6 +27,14 @@
             />
         </section-wrapper>
 
+        <h3>PAGE: {{ page }}</h3>
+        <hr>
+        <h3>EXPLORE: {{ explore }}</h3>
+        <hr>
+        <h3>parsedCollectionList: {{ parsedCollectionList }}</h3>
+        <hr>
+        <h3>parsedAssociatedTopics: {{ parsedAssociatedTopics }}</h3>
+
         <section-wrapper>
             <section-teaser-card
                 :items="parsedCollectionList"
@@ -87,7 +95,9 @@ export default {
             return this.page.map((obj) => {
                 return {
                     ...obj,
-                    to: `${obj.uri}`,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.to}`,
                     image: _get(obj, "heroImage[0]image[0]", null),
                     category: obj.category.join(","),
                     title: _get(obj, "title", ""),
@@ -99,7 +109,9 @@ export default {
             return this.explore.associatedTopics.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.to}`,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.to}`,
                 }
             })
         }

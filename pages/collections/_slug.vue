@@ -63,17 +63,19 @@
             :blocks="page.blocks"
         />
 
-        <section-wrapper theme="divider"
-            v-if="page.blocks.length > 0">
-                <divider-way-finder
-                    class="divider-way-finder"
-                    color="default"
-                />
+        <section-wrapper
+            v-if="page.blocks.length > 0"
+            theme="divider"
+        >
+            <divider-way-finder
+                class="divider-way-finder"
+                color="default"
+            />
         </section-wrapper>
 
         <!-- Services and Resources -->
         <section-wrapper
-            v-if="parsedServicesAndResources"
+            v-if="parsedServicesAndResources.length "
             section-title="Services &amp; Resources"
         >
             <simple-cards
@@ -89,7 +91,7 @@
 
         <!-- Endowments -->
         <section-wrapper
-            v-if="parsedEndowments"
+            v-if="parsedEndowments.length"
         >
             <section-staff-article-list
                 :items="parsedEndowments"
@@ -182,14 +184,16 @@ export default {
             }
         },
         parsedEndowments() {
-            let parsedCategory = this.parsedDonors
+            // let parsedCategory = 
+            // this.parsedDonors ? this.parsedDonors ? ""
+            //let parsedCategory = this.parsedDonors
             return this.page.endowment.map((item) => {
                 return {
                     to: `${item.uri}`,
                     image: _get(item, "image[0].image[0]", null),
                     title: _get(item, "title", ""),
                     description: _get(item, "description", ""),
-                    category: parsedCategory
+                    category: this.parsedDonors ? this.parsedDonors : ""
                 }
             })
         },
