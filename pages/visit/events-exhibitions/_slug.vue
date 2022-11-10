@@ -25,7 +25,7 @@
                 :start-date="page.entry.date[0].startTime"
                 :category="page.entry.eventType.title"
                 :to="page.entry.parseURL"
-                :prompt="promptName"
+                :button-text="promptName"
                 :register-event="parseRegistration"
                 :end-date="page.entry.date[0].endTime"
             />
@@ -77,11 +77,10 @@
                 "
                 :title="page.workshopOrEventSeries.title"
                 :locations="page.workshopOrEventSeries.associatedLocations"
-                :start-date="page.workshopOrEventSeries.date[0].startDate"
+                :date="page.workshopOrEventSeries.date[0].startDate"
                 category="Event Series"
                 :to="page.workshopOrEventSeries.publicUrl"
-                :prompt="page.workshopOrEventSeries.requiresRegistration"
-                :end-date="page.workshopOrEventSeries.date[0].endDate"
+                :button-text="page.workshopOrEventSeries.requiresRegistration"
             />
 
             <section-wrapper
