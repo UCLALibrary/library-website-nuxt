@@ -112,10 +112,7 @@
                     :rich-text-content="page.workshopOrEventSeries.summary"
                 />
             </section-wrapper>
-            <flexible-blocks
-                class="content"
-                :blocks="page.workshopOrEventSeries.blocks"
-            />
+
             <section-wrapper>
                 <h3 class="section-title">
                     Events in this Series
