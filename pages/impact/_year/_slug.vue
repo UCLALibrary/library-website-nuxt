@@ -48,7 +48,7 @@ export default {
         const data = await $graphql.default.request(IMPACT_REPORT_STORY, {
             slug: params.slug,
         })
-        await $elasticsearchplugin.getData(data, params.slug)
+        await $elasticsearchplugin.index(data, params.slug)
         console.log("Data fetched: " + JSON.stringify(data))
 
         return {
@@ -98,7 +98,7 @@ export default {
             display: none;
         }
     }
-    
+
     // .section-banner {
     //     margin-top: 0;
     //     margin-bottom: 0;

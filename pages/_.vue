@@ -58,7 +58,7 @@ export default {
                 params.pathMatch.lastIndexOf("/") + 1
             ),
         })
-        await $elasticsearchplugin.getData(
+        await $elasticsearchplugin.index(
             data,
             params.pathMatch.substring(params.pathMatch.lastIndexOf("/") + 1)
         )

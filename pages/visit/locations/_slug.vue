@@ -200,7 +200,7 @@ export default {
         const data = await $graphql.default.request(LOCATION_DETAIL, {
             slug: params.slug,
         })
-        await $elasticsearchplugin.getData(data, params.slug)
+        await $elasticsearchplugin.index(data, params.slug)
 
         return {
             page: _get(data, "entry", {}),

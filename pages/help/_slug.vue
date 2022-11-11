@@ -45,7 +45,7 @@ export default {
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
             slug: params.slug,
         })
-        await $elasticsearchplugin.getData(data, params.slug)
+        await $elasticsearchplugin.index(data, params.slug)
         console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
