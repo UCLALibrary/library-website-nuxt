@@ -1,5 +1,8 @@
 <template>
-    <main id="main" class="page page-programs">
+    <main
+        id="main"
+        class="page page-programs"
+    >
         <nav-breadcrumb
             to="/about"
             :title="entry.title"
@@ -18,7 +21,12 @@
         <section-wrapper>
             <section-staff-article-list
                 :items="parsedProgramsList"
+                section-title="UCLA Library Programs & Initiatives"
             />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder color="about" />
         </section-wrapper>
     </main>
 </template>
@@ -65,6 +73,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-programs {
-
 }
 </style>
