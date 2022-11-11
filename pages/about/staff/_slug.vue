@@ -110,7 +110,7 @@ export default {
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
         })
-        console.log("Data fetched: " + JSON.stringify(data))
+        // console.log("Data fetched: " + JSON.stringify(data))
         // _get(data, "entry", {}),
         return {
             page: data,

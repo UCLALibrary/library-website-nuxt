@@ -166,10 +166,10 @@ export default {
                     groupBySubtitle[key],
                     (row) => row.sectionSummary
                 )
-                console.log(
+                /*console.log(
                     "parsed timeline by summary: " +
                         JSON.stringify(groupByTimelineBySummary)
-                )
+                )*/
                 for (const innerKey in groupByTimelineBySummary) {
                     groupByTimelineBySummary[innerKey] =
                         groupByTimelineBySummary[innerKey].map((obj) => {
@@ -218,10 +218,9 @@ export default {
         max-width: 50%;
         margin-left: 24px;
         float: right;
-        ::v-deep
-                .media {
-                    object-fit: cover;
-                }
+        ::v-deep .media {
+            object-fit: cover;
+        }
     }
 
     .section-banner {

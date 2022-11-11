@@ -4,22 +4,18 @@
             :title="page.title"
             :text="page.summary"
         />
-        
-        <section-wrapper
-            v-if="page.richText"
-        >
-            <RichText
-                :rich-text-content="page.richText"
-            />
+
+        <section-wrapper v-if="page.richText">
+            <RichText :rich-text-content="page.richText" />
         </section-wrapper>
-        
+
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider-way-finder"
                 color="help" 
             />
         </section-wrapper>
-        
+
         <div
             v-for="(block, index) in page.helpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
@@ -75,7 +71,7 @@ export default {
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
             slug: params.slug,
         })
-        console.log("Data fetched: " + JSON.stringify(data))
+        // console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
         }

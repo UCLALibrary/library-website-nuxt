@@ -92,7 +92,7 @@ export default {
                 slug: params.slug,
             }
         )
-        console.log("Data fetched: " + JSON.stringify(data))
+        // console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: data,
         }
