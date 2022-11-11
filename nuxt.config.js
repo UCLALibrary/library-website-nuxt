@@ -82,7 +82,9 @@ export default {
      ** Nuxt generate configuration. Used when generating a static site.
      */
     generate: {
-        fallback: "404.html",
+        fallback: '404.html',
+        interval: 10,
+        concurrency: 100,
     },
 
     /*
@@ -142,15 +144,10 @@ export default {
         }
     },
 
-    /*
-     * Nuxt modules
-     */
-    modules: [
-        "@nuxtjs/axios",
-        "nuxt-graphql-request",
-        "@nuxtjs/gtm",
-        "@nuxtjs/sitemap",
-    ], // This needs to be last always,
+   /*
+   * Nuxt modules
+   */
+    modules: ["~/modules/populate", '@nuxtjs/axios', '@nuxtjs/gtm',"@nuxtjs/sitemap",], // This needs to be last always,
 
     gtm: {
         id: "GTM-T2SXV2",

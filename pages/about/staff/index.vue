@@ -79,13 +79,13 @@ export default {
             "staffMember"
         )
 
-        console.log(
+        /* console.log(
             "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-        )
+        )*/
         // Write a helper function for returning generic filters and doing the reduce part
 
         const data = await $graphql.default.request(STAFF_LIST)
-        console.log("Craft Data:" + JSON.stringify(data))
+        // console.log("Craft Data:" + JSON.stringify(data))
         /*const allResults = await $dataApi.keywordSearchWithFilters(
             "*:*",
             "staffMember",
@@ -133,8 +133,8 @@ export default {
     },
     methods: {
         async getSearchData(data) {
-            console.log("from search-generic: " + JSON.stringify(data))
-            console.log(config.staff.resultFields)
+            // console.log("from search-generic: " + JSON.stringify(data))
+            // console.log(config.staff.resultFields)
             const filters = mergeFilters(data.filters)
 
             const results = await this.$dataApi.keywordSearchWithFilters(
@@ -145,7 +145,7 @@ export default {
                 config.staff.resultFields,
                 config.staff.filters
             )
-            console.log(results)
+            // console.log(results)
             if (results && results.hits && results.hits.total.value > 0)
                 this.page.entries = this.parseResults(results.hits.hits)
             this.searchFilters = getListingFilters(
@@ -154,7 +154,7 @@ export default {
             )
         },
         parseResults(hits = []) {
-            console.log("checking results data:" + JSON.stringify(hits[0]))
+            // console.log("checking results data:" + JSON.stringify(hits[0]))
 
             return hits.map((obj) => {
                 console.log(obj["_source"]["image"])

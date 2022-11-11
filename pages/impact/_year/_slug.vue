@@ -48,8 +48,9 @@ export default {
         const data = await $graphql.default.request(IMPACT_REPORT_STORY, {
             slug: params.slug,
         })
+        
         await $elasticsearchplugin.index(data, params.slug)
-        console.log("Data fetched: " + JSON.stringify(data))
+        // console.log("Data fetched: " + JSON.stringify(data))
 
         return {
             page: _get(data, "entry", {}),
@@ -64,11 +65,9 @@ export default {
         parsedByline() {
             let bannerFeaturedByline = this.page.contributors.map((obj) => {
                 if (obj.typeHandle === "externalContributor") {
-                    return { title: `${obj.byline + " " + obj.title}` }
+                    return `${obj.byline + " " + obj.title}` 
                 } else if (obj.typeHandle === "staffMember") {
-                    return {
-                        title: `${obj.byline + " " + obj.staffMember[0].title}`,
-                    }
+                    return  `${obj.byline + " " + obj.staffMember[0].title}`
                 } else {
                     return []
                 }

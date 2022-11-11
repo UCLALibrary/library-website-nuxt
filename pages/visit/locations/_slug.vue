@@ -34,156 +34,172 @@
             />
         </section-wrapper>
 
-        <divider-way-finder
-            v-if="
-                page.libcalLocationIdForHours ||
-                    page.amenities.length ||
-                    parsedSpaces.length
-            "
-            color="visit"
-            class="divider-way-finder"
-        />
-
-        <div class="section-header">
-            <h2
+        <section-wrapper theme="divider">
+            <divider-way-finder
                 v-if="
                     page.libcalLocationIdForHours ||
                         page.amenities.length ||
                         parsedSpaces.length
                 "
-                class="section-title"
-            >
-                Using the Library
-            </h2>
+                color="visit"
+                class="divider-way-finder"
+            />
+        </section-wrapper>
+        <section-wrapper>
+        <div class="section-header">
             <div
+                class="section-title"
+                    v-if="
+                        page.libcalLocationIdForHours ||
+                            page.amenities.length ||
+                            parsedSpaces.length
+                    ">
+                Using the Library
+            </div>
+            <div
+                class="section-summary"    
                 v-if="page.howToGetHere"
-                class="section-summary"
                 v-html="page.howToGetHere"
             />
         </div>
-
-        <block-hours
-            v-if="page.libcalLocationIdForHours"
-            :lid="page.libcalLocationIdForHours"
-        />
-
-        <divider-general
-            v-if="page.amenities.length"
-            class="divider-general"
-        />
-
-        <block-amenities
-            v-if="page.amenities.length"
-            :items="page.amenities"
-            class="amenities"
-        />
-
-        <divider-general
-            v-if="parsedSpaces.length"
-            class="divider-general"
-        />
-
-        <section-spaces-list
-            v-if="parsedSpaces.length"
-            class="section-block-spaces"
-            :items="parsedSpaces"
-        />
-
-        <divider-way-finder
-            v-if="page.resourceServiceWorkshop.length"
-            color="visit"
-            class="divider-way-finder"
-        />
-
-        <simple-cards
-            v-if="page.resourceServiceWorkshop.length"
-            section-title="Services &amp; Resources"
-            :items="parsedServicesAndResources"
-        />
-
-        <nuxt-link
-            v-if="page.resourceServiceWorkshop.length"
-            class="button-more"
-            to="/help/services-resources"
-        >
-            <button-more text="See More" />
-        </nuxt-link>
-
-        <divider-way-finder
-            v-if="page.resourceServiceWorkshop.length"
-            color="visit"
-            class="divider-way-finder"
-        />
-
-        <div
-            v-if="mergeSortEventsExhibitions.length"
-            class="events-exhibitions"
-        >
-            <h2 class="section-heading">
-                Events &amp; Exhibtions
-            </h2>
-            <section-teaser-list
-                class="section-teaser-list"
-                :items="mergeSortEventsExhibitions"
+            <block-hours
+                v-if="page.libcalLocationIdForHours"
+                :lid="page.libcalLocationIdForHours"
             />
-            <nuxt-link
+
+            <divider-general
+                v-if="page.amenities.length"
+                class="divider-general"
+            />
+
+            <block-amenities
+                v-if="page.amenities.length"
+                :items="page.amenities"
+                class="amenities"
+            />
+
+            <divider-general
+                v-if="parsedSpaces.length"
+                class="divider-general"
+            />
+
+            <section-spaces-list
+                v-if="parsedSpaces.length"
+                class="section-block-spaces"
+                :items="parsedSpaces"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                v-if="page.resourceServiceWorkshop.length"
+                color="visit"
+                class="divider-way-finder"
+            />
+        </section-wrapper>
+
+        <section-wrapper
+            class="services-and-resources"
+            v-if="page.resourceServiceWorkshop.length"
+            section-title="Services &amp; Resources">
+                <simple-cards
+                 :items="parsedServicesAndResources"
+                />
+                <nuxt-link
+                    v-if="page.resourceServiceWorkshop.length"
+                    class="button-more"
+                    to="/help/services-resources"
+                >
+                    <button-more text="See More" />
+                </nuxt-link>
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
                 v-if="mergeSortEventsExhibitions.length"
-                class="button-more"
-                to="/visit/events-exhibits"
-            >
-                <button-more text="See More" />
-            </nuxt-link>
-        </div>
+                color="visit"
+                class="divider-way-finder"
+            />
+        </section-wrapper>
 
-        <divider-way-finder
-            v-if="mergeSortEventsExhibitions.length"
-            color="visit"
-            class="divider-way-finder"
-        />
+        <section-wrapper
+            class="events-exhibitions"    
+            v-if="mergeSortEventsExhibitions.length > 0"   
+            section-title="Events &amp; Exhibtions" >
+                <section-teaser-list
+                    class="section-teaser-list"
+                    :items="mergeSortEventsExhibitions"
+                />
+                <nuxt-link
+                    v-if="mergeSortEventsExhibitions.length"
+                    class="button-more"
+                    to="/visit/events-exhibits"
+                >
+                    <button-more text="See More" />
+                </nuxt-link>
+        </section-wrapper>
 
-        <h2 class="more-info">
-            More Information
-        </h2>
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                v-if="page.blocks.length > 0"
+                color="visit"
+                class="divider-way-finder"
+            />     
+        </section-wrapper>
 
         <flexible-blocks
             class="content"
             :blocks="page.blocks"
         />
 
-        <h2
-            v-if="page.about"
-            class="section-heading"
-        >
-            About
-        </h2>
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                v-if="page.about"
+                color="visit"
+                class="divider-way-finder"
+            />     
+        </section-wrapper>
 
-        <rich-text
-            class="about-text"
-            :rich-text-content="page.about"
-        />
-
-        <!--  <divider-way-finder
+        <section-wrapper
+            class="about"
             v-if="page.about"
-            color="visit"
-            class="divider-way-finder"
-        />
-         <h2
-            v-if="page.campusMapId"
-            class="section-heading"
+            section-title="About"
         >
-            Location &amp; Access
-        </h2>
-        <block-campus-map
-            v-if="page.campusMapId"
-            :campus-location-id="page.campusMapId"
-            :location-name="page.title"
-            :building-access="page.howToGetHere"
-            class="campus-map"
-        />
-        <divider-way-finder
-            color="visit"
-            class="divider-way-finder"
-        /> -->
+            <rich-text
+                class="about-text"
+                :rich-text-content="page.about"
+            />
+        </section-wrapper>
+
+
+        <!--  <section-wrapper theme="divider">
+                <divider-way-finder
+                v-if="page.about"
+                color="visit"
+                class="divider-way-finder"
+            />
+        </section-wrapper>
+        <section-wrapper>
+            <h2
+                v-if="page.campusMapId"
+                class="section-heading"
+            >
+                Location &amp; Access
+            </h2>
+            <block-campus-map
+                v-if="page.campusMapId"
+                :campus-location-id="page.campusMapId"
+                :location-name="page.title"
+                :building-access="page.howToGetHere"
+                class="campus-map"
+            />
+        </section-wrapper>
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="visit"
+                class="divider-way-finder"
+            /> 
+        </section-wrapper> -->
     </main>
 </template>
 
@@ -259,7 +275,7 @@ export default {
                     ...obj,
                     buttonText:
                         obj.reservationRequired === "email"
-                            ? obj.mediatorEmail
+                            ? "Email to Reserve"
                             : "Reserve",
                     to:
                         obj.reservationRequired === "email"

@@ -10,7 +10,10 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <DividerWayFinder color="help" />
+            <divider-way-finder
+                class="divider-way-finder"
+                color="help" 
+            />
         </section-wrapper>
 
         <div
@@ -25,11 +28,32 @@
                 />
             </section-wrapper>
             <section-wrapper theme="divider">
-                <DividerWayFinder color="help" />
+                <divider-way-finder
+                    class="divider-way-finder"
+                    color="help"
+                />
             </section-wrapper>
         </div>
 
-        <flexible-blocks :blocks="page.blocks" />
+        <flexible-blocks
+            class="content"
+            :blocks="page.blocks"
+        />
+
+        <section-wrapper theme="divider"
+            v-if="page.blocks.length > 0">
+            <divider-way-finder
+                class="divider-way-finder"
+                color="help"
+            />
+        </section-wrapper>
+
+        <section-wrapper>
+            <block-call-to-action
+                class="block-call-to-action"
+                :is-global="true"
+            />
+        </section-wrapper>
     </main>
 </template>
 
@@ -45,8 +69,10 @@ export default {
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
             slug: params.slug,
         })
+        
         await $elasticsearchplugin.index(data, params.slug)
-        console.log("Data fetched: " + JSON.stringify(data))
+        // console.log("Data fetched: " + JSON.stringify(data))
+        
         return {
             page: _get(data, "entry", {}),
         }
