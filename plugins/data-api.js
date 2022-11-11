@@ -5,7 +5,7 @@ export default function ({ $config }, inject) {
 
     async function siteSearch(keyword="*:*"){
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
-        if($config.esReadKey === "" || !$config.esURL === "") return
+        if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
         console.log("keyword:"+keyword)
     
         const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, {
@@ -44,7 +44,7 @@ export default function ({ $config }, inject) {
     ) {
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
 
-        if($config.esReadKey === "" || !$config.esURL === "") return
+        if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
         console.log("keyword:"+keyword)
         console.log("filters:"+filters)
         console.log("sort:"+sort)
@@ -111,7 +111,7 @@ export default function ({ $config }, inject) {
     })
 
     async function getMapping(){
-        if($config.esReadKey === "" || !$config.esURL === "") return
+        if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
         const response = await fetch(`${$config.esURL}/${$config.esIndex}/_mapping`, {
             headers: {
                 'Authorization': `ApiKey ${$config.esReadKey}`,
