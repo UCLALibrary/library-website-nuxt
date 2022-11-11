@@ -74,31 +74,31 @@ export default function ({ $config }, inject) {
             headers: {
                 'Authorization': `ApiKey ${$config.esReadKey}`,
                 'Content-Type': 'application/json',
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    size: "1000",
-                    _source: [...source],
-                    query: {
-                        bool: {
-                            must: [
-                                {
-                                    query_string: {
-                                        query: keyword,
-                                        fuzziness: "auto",
-                                    },
+            },
+            method: "POST",
+            body: JSON.stringify({
+                size: "1000",
+                _source: [...source],
+                query: {
+                    bool: {
+                        must: [
+                            {
+                                query_string: {
+                                    query: keyword,
+                                    fuzziness: "auto",
                                 },
-                                ...parseSectionHandle(sectionHandle),
-                                ...parseFilterQuery(filters),
-                            ],
-                        },
+                            },
+                            ...parseSectionHandle(sectionHandle),
+                            ...parseFilterQuery(filters),
+                        ],
                     },
-                    ...parseSort(sort),
-                    aggs: {
-                        ...parseFieldNames(aggFields),
-                    },
-                }),
-            }
+                },
+                ...parseSort(sort),
+                aggs: {
+                    ...parseFieldNames(aggFields),
+                },
+            }),
+        }
         )
         const data = await response.json()
         return data
@@ -127,7 +127,7 @@ export default function ({ $config }, inject) {
         console.log("search text: "+fields)
         if(!fields || fields.length == 0 ) return
         const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, 
-        {
+            {
                 headers: {
                     Authorization: `ApiKey ${$config.esApiKey}`,
                     "Content-Type": "application/json",

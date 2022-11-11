@@ -144,7 +144,7 @@ export default {
         }
     },
 
-   /*
+    /*
    * Nuxt modules
    */
     modules: ["~/modules/populate", '@nuxtjs/axios', '@nuxtjs/gtm',"@nuxtjs/sitemap",], // This needs to be last always,
