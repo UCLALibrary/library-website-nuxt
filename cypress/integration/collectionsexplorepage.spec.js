@@ -3,6 +3,7 @@ describe("Explore Collection page", () => {
         cy.visit("/collections/explore")
 
         // UCLA Library brand
+        cy.get(".logo-ucla").should("be.visible")
         cy.get(".page-collections-explore").should("be.visible")
         cy.get("h1.title").should(
             "contain",
