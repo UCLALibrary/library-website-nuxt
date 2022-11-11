@@ -1,5 +1,5 @@
 <template lang="html">
-    <main class="page-collections-access">
+    <main class="page-collections-explore">
         <nav-breadcrumb
             to="/collections"
             title="Explore Featured Collections"
@@ -26,14 +26,6 @@
                 color="default"
             />
         </section-wrapper>
-
-        <h3>PAGE: {{ page }}</h3>
-        <hr>
-        <h3>EXPLORE: {{ explore }}</h3>
-        <hr>
-        <h3>parsedCollectionList: {{ parsedCollectionList }}</h3>
-        <hr>
-        <h3>parsedAssociatedTopics: {{ parsedAssociatedTopics }}</h3>
 
         <section-wrapper>
             <section-teaser-card
@@ -120,7 +112,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-collections-access {
+.page-collections-explore {
     // .section {
     //     max-width: var(--unit-content-width);
     //     margin: 80px auto;
