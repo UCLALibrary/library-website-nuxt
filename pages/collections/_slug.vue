@@ -184,9 +184,6 @@ export default {
             }
         },
         parsedEndowments() {
-            // let parsedCategory = 
-            // this.parsedDonors ? this.parsedDonors ? ""
-            //let parsedCategory = this.parsedDonors
             return this.page.endowment.map((item) => {
                 return {
                     to: `${item.uri}`,
@@ -212,7 +209,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-program-detail {
+.page-collection-detail {
     .section-teaser-card {
         display: flex;
         flex-direction: row;
