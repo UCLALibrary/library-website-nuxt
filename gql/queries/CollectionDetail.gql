@@ -5,6 +5,9 @@ query CollectionDetail($slug: [String!]) {
   entry(section: "collection", slug: $slug) {
     id
     physicalDigital
+    uri
+    slug
+    sectionHandle
     heroImage {
       ... on heroImage_heroImage_BlockType {
         id

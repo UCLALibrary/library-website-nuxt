@@ -55,10 +55,11 @@
             />
         </section-wrapper>
 
-        <section-wrapper 
-            class="associated-staff-member" 
-            v-if="parsedAssociatedStaffMember.length > 0" 
-            section-title="Associated Staff Member">
+        <section-wrapper
+            v-if="parsedAssociatedStaffMember.length > 0"
+            class="associated-staff-member"
+            section-title="Associated Staff Member"
+        >
             <section-staff-list :items="parsedAssociatedStaffMember" />
         </section-wrapper>
     </main>
@@ -81,8 +82,7 @@ export default {
         const data = await $graphql.default.request(ARTICLE_DETAIL, {
             slug: params.slug,
         })
-
-        await $elasticsearchplugin.index(data, params.slug)
+        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         // console.log("Data fetched: " + JSON.stringify(data))
 
         return {

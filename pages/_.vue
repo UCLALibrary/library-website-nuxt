@@ -58,10 +58,13 @@ export default {
                 params.pathMatch.lastIndexOf("/") + 1
             ),
         })
-        await $elasticsearchplugin.index(
-            data,
-            params.pathMatch.substring(params.pathMatch.lastIndexOf("/") + 1)
-        )
+        if (data)
+            await $elasticsearchplugin.index(
+                data.entry,
+                params.pathMatch.substring(
+                    params.pathMatch.lastIndexOf("/") + 1
+                )
+            )
 
         return {
             page: _get(data, "entry", {}),

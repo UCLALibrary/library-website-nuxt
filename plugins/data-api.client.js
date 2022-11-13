@@ -15,6 +15,7 @@ export default function ({ $config }, inject) {
             },
             method: 'POST',
             body: JSON.stringify({
+                size: "1000",
                 "query": {
                     "query_string" : {
                         "query" : keyword,
@@ -43,7 +44,9 @@ export default function ({ $config }, inject) {
         aggFields = []
     ) {
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
-
+        console.log("In data api keywordsearchwithfilters")
+        console.log($config.esReadKey)
+        console.log($config.esURL)
         if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
         console.log("keyword:"+keyword)
         console.log("filters:"+filters)
@@ -129,7 +132,7 @@ export default function ({ $config }, inject) {
         const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, 
             {
                 headers: {
-                    Authorization: `ApiKey ${$config.esApiKey}`,
+                    Authorization: `ApiKey ${$config.esReadKey}`,
                     "Content-Type": "application/json",
                 },
                 method: "POST",
@@ -168,7 +171,7 @@ export default function ({ $config }, inject) {
         let boolQuery = []
         let sectionHandleTermQueryObj = {}
         sectionHandleTermQueryObj["term"] = {}
-        sectionHandleTermQueryObj["term"]["sectionHandle"] = sectionHandle
+        sectionHandleTermQueryObj["term"]["sectionHandle.keyword"] = sectionHandle
         boolQuery.push(sectionHandleTermQueryObj)
         console.log("query:" + boolQuery)
         return boolQuery

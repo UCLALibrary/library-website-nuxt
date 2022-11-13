@@ -61,12 +61,14 @@
             :blocks="page.blocks"
         />
 
-        <section-wrapper theme="divider"
-            v-if="page.blocks.length > 0">
-                <divider-way-finder
-                    class="divider-way-finder"
-                    color="default"
-                />
+        <section-wrapper
+            v-if="page.blocks.length > 0"
+            theme="divider"
+        >
+            <divider-way-finder
+                class="divider-way-finder"
+                color="default"
+            />
         </section-wrapper>
 
         <!-- Services and Resources -->
@@ -117,7 +119,7 @@ import _get from "lodash/get"
 import COLLECTION_DETAIL from "~/gql/queries/CollectionDetail"
 
 export default {
-    async asyncData({ $graphql, params, store }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
@@ -126,6 +128,7 @@ export default {
             slug: params.slug,
         })
         // console.log("Data fetched: " + JSON.stringify(data))
+        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         return {
             page: data.entry,
         }

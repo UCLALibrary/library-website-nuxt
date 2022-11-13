@@ -6,6 +6,9 @@ query HelpTopicDetail($slug: [String!]) {
         title
         summary
         richText
+        sectionHandle
+        slug
+        uri
         helpTopicBlocks: helpTopicBlock {
             id
             sectionTitle

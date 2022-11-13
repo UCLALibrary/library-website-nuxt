@@ -63,10 +63,9 @@ export default {
         const data = await $graphql.default.request(POLICY_DETAIL, {
             slug: params.slug,
         })
-        
-        await $elasticsearchplugin.index(data, params.slug)
+        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         // console.log("Data fetched: " + JSON.stringify(data))
-        
+
         return {
             page: _get(data, "entry", {}),
         }

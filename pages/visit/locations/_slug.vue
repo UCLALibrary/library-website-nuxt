@@ -46,22 +46,23 @@
             />
         </section-wrapper>
         <section-wrapper>
-        <div class="section-header">
-            <div
-                class="section-title"
+            <div class="section-header">
+                <div
                     v-if="
                         page.libcalLocationIdForHours ||
                             page.amenities.length ||
                             parsedSpaces.length
-                    ">
-                Using the Library
+                    "
+                    class="section-title"
+                >
+                    Using the Library
+                </div>
+                <div
+                    v-if="page.howToGetHere"
+                    class="section-summary"
+                    v-html="page.howToGetHere"
+                />
             </div>
-            <div
-                class="section-summary"    
-                v-if="page.howToGetHere"
-                v-html="page.howToGetHere"
-            />
-        </div>
             <block-hours
                 v-if="page.libcalLocationIdForHours"
                 :lid="page.libcalLocationIdForHours"
@@ -99,19 +100,18 @@
         </section-wrapper>
 
         <section-wrapper
-            class="services-and-resources"
             v-if="page.resourceServiceWorkshop.length"
-            section-title="Services &amp; Resources">
-                <simple-cards
-                 :items="parsedServicesAndResources"
-                />
-                <nuxt-link
-                    v-if="page.resourceServiceWorkshop.length"
-                    class="button-more"
-                    to="/help/services-resources"
-                >
-                    <button-more text="See More" />
-                </nuxt-link>
+            class="services-and-resources"
+            section-title="Services &amp; Resources"
+        >
+            <simple-cards :items="parsedServicesAndResources" />
+            <nuxt-link
+                v-if="page.resourceServiceWorkshop.length"
+                class="button-more"
+                to="/help/services-resources"
+            >
+                <button-more text="See More" />
+            </nuxt-link>
         </section-wrapper>
 
         <section-wrapper theme="divider">
@@ -123,20 +123,21 @@
         </section-wrapper>
 
         <section-wrapper
-            class="events-exhibitions"    
-            v-if="mergeSortEventsExhibitions.length > 0"   
-            section-title="Events &amp; Exhibtions" >
-                <section-teaser-list
-                    class="section-teaser-list"
-                    :items="mergeSortEventsExhibitions"
-                />
-                <nuxt-link
-                    v-if="mergeSortEventsExhibitions.length"
-                    class="button-more"
-                    to="/visit/events-exhibits"
-                >
-                    <button-more text="See More" />
-                </nuxt-link>
+            v-if="mergeSortEventsExhibitions.length > 0"
+            class="events-exhibitions"
+            section-title="Events &amp; Exhibtions"
+        >
+            <section-teaser-list
+                class="section-teaser-list"
+                :items="mergeSortEventsExhibitions"
+            />
+            <nuxt-link
+                v-if="mergeSortEventsExhibitions.length"
+                class="button-more"
+                to="/visit/events-exhibits"
+            >
+                <button-more text="See More" />
+            </nuxt-link>
         </section-wrapper>
 
         <section-wrapper theme="divider">
@@ -144,7 +145,7 @@
                 v-if="page.blocks.length > 0"
                 color="visit"
                 class="divider-way-finder"
-            />     
+            />
         </section-wrapper>
 
         <flexible-blocks
@@ -157,12 +158,12 @@
                 v-if="page.about"
                 color="visit"
                 class="divider-way-finder"
-            />     
+            />
         </section-wrapper>
 
         <section-wrapper
-            class="about"
             v-if="page.about"
+            class="about"
             section-title="About"
         >
             <rich-text
@@ -170,7 +171,6 @@
                 :rich-text-content="page.about"
             />
         </section-wrapper>
-
 
         <!--  <section-wrapper theme="divider">
                 <divider-way-finder
@@ -216,7 +216,7 @@ export default {
         const data = await $graphql.default.request(LOCATION_DETAIL, {
             slug: params.slug,
         })
-        await $elasticsearchplugin.index(data, params.slug)
+        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
 
         return {
             page: _get(data, "entry", {}),

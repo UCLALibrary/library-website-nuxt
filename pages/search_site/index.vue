@@ -2,7 +2,10 @@
     <div class="page-search-site">
         <masthead-secondary title="Search Results" />
         <search-generic @search-ready="getSearchData" />
-        <div class="meta">
+        <div
+            v-if="page && page.hits"
+            class="meta"
+        >
             <section-wrapper
                 v-for="(result, index) in page.hits.hits"
                 :key="`SearchResultBlock${index}`"
@@ -37,11 +40,11 @@
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $dataApi }) {
+    async asyncData() {
         // check if there is a url query, if there is then pass that to siteSearch
-        let data = await $dataApi.siteSearch()
+        // let data = await $dataApi.siteSearch() // using mounted and will fetch ES data in mounted below
         return {
-            page: data,
+            page: {},
         }
     },
     computed: {
@@ -70,6 +73,13 @@ export default {
                 },
             ]
         },
+    },
+    async mounted() {
+        const mapping = await this.$dataApi.getMapping()
+        console.log(JSON.stringify(mapping))
+        const searchResponse = await this.$dataApi.siteSearch()
+        console.log("Search Response: " + JSON.stringify(searchResponse))
+        this.page = searchResponse
     },
 
     methods: {

@@ -12,7 +12,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider-way-finder"
-                color="help" 
+                color="help"
             />
         </section-wrapper>
 
@@ -40,8 +40,10 @@
             :blocks="page.blocks"
         />
 
-        <section-wrapper theme="divider"
-            v-if="page.blocks.length > 0">
+        <section-wrapper
+            v-if="page.blocks.length > 0"
+            theme="divider"
+        >
             <divider-way-finder
                 class="divider-way-finder"
                 color="help"
@@ -69,10 +71,9 @@ export default {
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
             slug: params.slug,
         })
-        
-        await $elasticsearchplugin.index(data, params.slug)
+        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         // console.log("Data fetched: " + JSON.stringify(data))
-        
+
         return {
             page: _get(data, "entry", {}),
         }

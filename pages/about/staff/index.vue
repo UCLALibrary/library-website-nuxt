@@ -74,14 +74,6 @@ export default {
     async asyncData({ $graphql, params, $dataApi }) {
         console.log("live preview  staff list")
 
-        const searchAggsResponse = await $dataApi.getAggregations(
-            config.staff.filters,
-            "staffMember"
-        )
-
-        /* console.log(
-            "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-        )*/
         // Write a helper function for returning generic filters and doing the reduce part
 
         const data = await $graphql.default.request(STAFF_LIST)
@@ -107,10 +99,7 @@ export default {
 
         return {
             page: data,
-            searchFilters: getListingFilters(
-                searchAggsResponse,
-                config.staff.filters
-            ),
+            searchFilters: [],
         }
     },
     data() {
@@ -131,21 +120,39 @@ export default {
             })
         },
     },
+    async mounted() {
+        //console.log("ESREADkey:" + this.$config.esReadKey)
+        //console.log("ESURLkey:" + this.$config.esURL)
+        if (process.client) {
+            const searchAggsResponse = await this.$dataApi.getAggregations(
+                config.staff.filters,
+                "staffMember"
+            )
+
+            console.log(
+                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+            )
+            this.searchFilters = getListingFilters(
+                searchAggsResponse,
+                config.staff.filters
+            )
+        }
+    },
     methods: {
         async getSearchData(data) {
-            // console.log("from search-generic: " + JSON.stringify(data))
-            // console.log(config.staff.resultFields)
+            console.log("from search-generic: " + JSON.stringify(data))
+            console.log(config.staff.resultFields)
             const filters = mergeFilters(data.filters)
 
             const results = await this.$dataApi.keywordSearchWithFilters(
                 data.text || "*",
                 "staffMember",
                 filters,
-                "nameLast",
+                "nameLast.keyword",
                 config.staff.resultFields,
                 config.staff.filters
             )
-            // console.log(results)
+            console.log(results)
             if (results && results.hits && results.hits.total.value > 0)
                 this.page.entries = this.parseResults(results.hits.hits)
             this.searchFilters = getListingFilters(
@@ -154,7 +161,7 @@ export default {
             )
         },
         parseResults(hits = []) {
-            // console.log("checking results data:" + JSON.stringify(hits[0]))
+            console.log("checking results data:" + JSON.stringify(hits[0]))
 
             return hits.map((obj) => {
                 console.log(obj["_source"]["image"])
