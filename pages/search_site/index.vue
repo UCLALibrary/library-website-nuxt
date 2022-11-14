@@ -15,7 +15,7 @@
                     :title="result._source.title"
                     :category="result._source.sectionHandle"
                     :summary="result._source.summary"
-                    to="/"
+                    :to="result._source.uri"
                     class="search-result-item"
                 />
                 <divider-general class="divider-general" />
