@@ -32,7 +32,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider-way-finder"
-                color="visit"
+                color="default"
             />
         </section-wrapper>
 
