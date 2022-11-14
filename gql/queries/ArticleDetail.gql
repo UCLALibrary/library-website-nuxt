@@ -5,6 +5,9 @@ query ArticleNewsDetail($slug: [String!]) {
     entry(section: "article", slug: $slug) {
         ... on article_article_Entry {
             id
+            slug
+            uri
+            sectionHandle
             articleType
             title
             text: summary

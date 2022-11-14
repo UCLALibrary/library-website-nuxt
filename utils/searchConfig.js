@@ -30,7 +30,7 @@ const config = {
             },
             {
                 label: "Subject Librarian",
-                esFieldName: "subjectLibrarian",
+                esFieldName: "subjectLibrarian.keyword",
                 inputType: "radio",
             },
         ],

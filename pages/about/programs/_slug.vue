@@ -51,8 +51,10 @@
                 :is-clicc="true"
             />
             <divider-way-finder
-                v-if="page.uri == 
-                    'about/programs/campus-library-instructional-computing-commons-clicc'"
+                v-if="
+                    page.uri ==
+                        'about/programs/campus-library-instructional-computing-commons-clicc'
+                "
                 lid="0"
                 :is-clicc="true"
                 class="divider"
@@ -71,7 +73,7 @@
                 color="about"
                 class="divider-way-finder"
             />
-        </section-wrapper> 
+        </section-wrapper>
 
         <section-wrapper
             v-if="parsedArticles.length > 0"
@@ -101,7 +103,7 @@ import _get from "lodash/get"
 import PROGRAM_DETAIL from "~/gql/queries/ProgramDetail"
 
 export default {
-    async asyncData({ $graphql, params, store }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
@@ -110,6 +112,7 @@ export default {
             slug: params.slug,
         })
         // console.log("Data fetched: " + JSON.stringify(data))
+        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         return {
             page: _get(data, "entry", {}),
             associatedArticles: _get(data, "associatedArticles", {}),
@@ -132,7 +135,9 @@ export default {
             let x = this.page.viewStaffDirectory
             if (x == "false") {
                 return ""
-            } else { return "/about/staff"}
+            } else {
+                return "/about/staff"
+            }
         },
         parsedArticles() {
             return this.associatedArticles.map((obj) => {

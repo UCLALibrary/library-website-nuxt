@@ -44,10 +44,11 @@ import _get from "lodash/get"
 
 export default {
     layout: "impact",
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         const data = await $graphql.default.request(IMPACT_REPORT_STORY, {
             slug: params.slug,
         })
+        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         // console.log("Data fetched: " + JSON.stringify(data))
 
         return {
@@ -63,9 +64,9 @@ export default {
         parsedByline() {
             let bannerFeaturedByline = this.page.contributors.map((obj) => {
                 if (obj.typeHandle === "externalContributor") {
-                    return `${obj.byline + " " + obj.title}` 
+                    return `${obj.byline + " " + obj.title}`
                 } else if (obj.typeHandle === "staffMember") {
-                    return  `${obj.byline + " " + obj.staffMember[0].title}`
+                    return `${obj.byline + " " + obj.staffMember[0].title}`
                 } else {
                     return []
                 }

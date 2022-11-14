@@ -121,7 +121,7 @@ import _get from "lodash/get"
 import COLLECTION_DETAIL from "~/gql/queries/CollectionDetail"
 
 export default {
-    async asyncData({ $graphql, params, store }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
@@ -130,6 +130,7 @@ export default {
             slug: params.slug,
         })
         // console.log("Data fetched: " + JSON.stringify(data))
+        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         return {
             page: data.entry,
         }
