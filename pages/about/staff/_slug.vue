@@ -85,15 +85,10 @@
                 color="about"
             />
         </section-wrapper>
-        <!-- this is different from flexible page blocks ctacontentwidth and will be hardcoded where required -->
         <section-wrapper>
             <block-call-to-action
-                class="section block-call-to-action"
-                svg-name="svg-call-to-action-mail"
-                to="/contact-us"
-                name="Contact Us"
-                title="Not sure who you should reach out to?"
-                text="Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                class="block-call-to-action"
+                :is-global="true"
             />
         </section-wrapper>
     </main>
@@ -107,20 +102,24 @@ import _get from "lodash/get"
 import STAFF_DETAIL from "~/gql/queries/StaffDetail"
 
 export default {
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for staff detail from Craft for live preview"
         )
+
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
         })
-        console.log("Data fetched: " + JSON.stringify(data))
+        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
+        // console.log("Data fetched: " + JSON.stringify(data))
         // _get(data, "entry", {}),
+
         return {
             page: data,
         }
     },
+
     head() {
         let title =
             this.page && this.page.entry ? this.page.entry.title : "... loading"

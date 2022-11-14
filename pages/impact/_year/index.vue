@@ -46,6 +46,13 @@
             :blocks="page.blocks"
         />
 
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+
         <section-wrapper :section-title="page.timelineTitle">
             <div
                 v-for="(value, propertyName) in timelineSortedBySubtitle"
@@ -159,10 +166,10 @@ export default {
                     groupBySubtitle[key],
                     (row) => row.sectionSummary
                 )
-                console.log(
+                /*console.log(
                     "parsed timeline by summary: " +
                         JSON.stringify(groupByTimelineBySummary)
-                )
+                )*/
                 for (const innerKey in groupByTimelineBySummary) {
                     groupByTimelineBySummary[innerKey] =
                         groupByTimelineBySummary[innerKey].map((obj) => {
@@ -209,7 +216,11 @@ export default {
     .portrait-Ginny {
         width: 100%;
         max-width: 50%;
+        margin-left: 24px;
         float: right;
+        ::v-deep .media {
+            object-fit: cover;
+        }
     }
 
     .section-banner {
@@ -218,6 +229,13 @@ export default {
 
         ::v-deep {
             --banner-color-theme: var(--color-help-green-03);
+
+            // refactor when option to turn off overlays is available in craft
+            .gradient,
+            .molecule,
+            &.hatch-left .hatch {
+                display: none;
+            }
         }
     }
     ::v-deep .block-highlight .text {
@@ -233,6 +251,7 @@ export default {
     ::v-deep .grid-gallery {
         padding: 0;
     }
+
     /* .banner {
         margin: var(--space-3xl) auto;
     }*/

@@ -32,9 +32,7 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                color="help"
-            />
+            <divider-way-finder color="help" />
         </section-wrapper>
 
         <flexible-blocks
@@ -42,8 +40,12 @@
             :blocks="page.blocks"
         />
 
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="parsedAssociatedTopics.length"
+            theme="divider"
+        >
             <divider-way-finder
+                class="divider-way-finder"
                 color="help"
             />
         </section-wrapper>
@@ -53,9 +55,16 @@
                 v-if="parsedAssociatedTopics.length"
                 class="section-cards"
                 :items="parsedAssociatedTopics"
-                title="Associated Topics"
+                section-title="Associated Topics"
                 button-text="All Services and Resources"
                 to="/help/services-resources"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider-way-finder"
+                color="help"
             />
         </section-wrapper>
 
@@ -76,7 +85,7 @@ import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceO
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, store, $elasticsearchplugin }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
@@ -87,7 +96,14 @@ export default {
                 slug: params.slug,
             }
         )
-        console.log("Data fetched: " + JSON.stringify(data))
+        if (data)
+            await $elasticsearchplugin.index(
+                data.serviceOrResource || data.workshopseries,
+                params.slug
+            )
+
+        // console.log("Data fetched: " + JSON.stringify(data))
+
         return {
             page:
                 _get(data, "serviceOrResource", {}) ||

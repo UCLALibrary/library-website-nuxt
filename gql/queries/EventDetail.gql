@@ -1,0 +1,136 @@
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/collections/DefaultFpbWithCardsAndHighlight.gql"
+query EventDetail($slug: [String!]) {
+    event: entry(section: "event", slug: $slug) {
+        ... on event_event_Entry {
+            id
+            typehandle
+            sectionHandle
+            title
+            eventLocation
+            image: heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    image {
+                        ...Image
+                    }
+                }
+            }
+            to: uri
+            slug
+            libcalId
+            publicUrl
+            date {
+                ... on date_date_BlockType {
+                    id
+                    startTime
+                    endTime
+                }
+            }
+            eventType {
+                ... on eventType_Category {
+                    id
+                    title
+                }
+            }
+            eventDescription
+            associatedLocations {
+                ... on location_location_Entry {
+                    id
+                    to: uri
+                    title
+                    summary
+                }
+            }
+            requiresRegistration
+            onlineProvider: libcalEventOnlineProvider
+            onlineJoinURL: onlineEventUrl
+            eventTags {
+                ... on eventTags_Tag {
+                    id
+                    title
+                }
+            }
+            presenter
+            moreInformation
+            eventOwner
+        }
+    }
+    eventSeries: entry(section: "workshopOrEventSeries", slug: $slug) {
+        id
+
+        ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
+            id
+            workshopOrEventSeriesType
+            sectionHandle
+            typeHandle
+            title
+            summary
+            date: seriesDate {
+                ... on seriesDate_seriesDate_BlockType {
+                    id
+                    startDate
+                    endDate
+                }
+            }
+
+            associatedLocations {
+                ... on location_location_Entry {
+                    id
+                    to: uri
+                    title
+                    summary
+                }
+            }
+            image: heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    image {
+                        ...Image
+                    }
+                }
+            }
+            event {
+                id
+                title
+                uri
+                text: eventDescription
+                category: eventType {
+                    ... on eventType_Category {
+                        id
+                        title
+                    }
+                }
+                image: heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+
+                date {
+                    ... on date_date_BlockType {
+                        id
+                        startTime
+                        endTime
+                    }
+                }
+                locations: associatedLocations {
+                    ... on location_location_Entry {
+                        id
+                        to: uri
+                        title
+                        summary
+                    }
+                }
+            }
+            associatedTopics {
+                id
+                title
+                text: summary
+                to: uri
+                illustration
+            }
+            ...DefaultFpbWithCardsAndHighlight
+        }
+    }
+}

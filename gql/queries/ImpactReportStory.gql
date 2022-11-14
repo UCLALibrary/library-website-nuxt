@@ -5,6 +5,9 @@ query ImpactReportStory($slug: [String!]) {
     entry(section: "impactReportStory", slug: $slug) {
         ... on impactReportStory_impactReportStory_Entry {
             id
+            sectionHandle
+            slug
+            uri
             title
             text: summary
             uri

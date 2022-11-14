@@ -4,18 +4,21 @@
 query PolicyDetail($slug: [String!]) {
     entry(section: "policy", slug: $slug) {
         id
+        sectionHandle
+        slug
+        uri
         title
         summary
         richText
         to: uri
-            heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    id
-                    image {
-                        ...Image
-                    }
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
                 }
             }
+        }
         ...AllFpb
     }
 }

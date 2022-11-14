@@ -1,13 +1,12 @@
 query ServiceResourceWorkshopSeriesList {
-  serviceOrResource: entries(section: "serviceOrResource") {
+  serviceOrResource: entries(section: "serviceOrResource", orderBy: "title ASC") {
     ... on serviceOrResource_serviceOrResource_Entry {
       id
       to: uri
       title
-      summary
-      serviceOrResourceType
-      illustrationsResourcesAndServices
-      typeHandle
+      text: summary
+      category: serviceOrResourceType
+      iconName: illustrationsResourcesAndServices
     }
   }
   workshopseries: entries(
@@ -18,7 +17,21 @@ query ServiceResourceWorkshopSeriesList {
       id
       to: uri
       title
-      typehandle:sectionHandle
+      text: summary
+      category: workshopOrEventSeriesType
     }
+  }
+  externalResource: entries(section: "externalResource", displayEntry: "yes") {
+    title
+    text: summary
+    to: externalResourceUrl
+    typeHandle
+  }
+  entry(section: "listingServicesResources") {
+      ... on listingServicesResources_listingServicesResources_Entry {
+          id
+          servicesResourcesListTitle: title
+          servicesResourcesListSummary: summary
+      }
   }
 }

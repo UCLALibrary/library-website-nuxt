@@ -44,11 +44,12 @@ import _get from "lodash/get"
 
 export default {
     layout: "impact",
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         const data = await $graphql.default.request(IMPACT_REPORT_STORY, {
             slug: params.slug,
         })
-        console.log("Data fetched: " + JSON.stringify(data))
+        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
+        // console.log("Data fetched: " + JSON.stringify(data))
 
         return {
             page: _get(data, "entry", {}),
@@ -63,11 +64,9 @@ export default {
         parsedByline() {
             let bannerFeaturedByline = this.page.contributors.map((obj) => {
                 if (obj.typeHandle === "externalContributor") {
-                    return { title: `${obj.byline + " " + obj.title}` }
+                    return `${obj.byline + " " + obj.title}`
                 } else if (obj.typeHandle === "staffMember") {
-                    return {
-                        title: `${obj.byline + " " + obj.staffMember[0].title}`,
-                    }
+                    return `${obj.byline + " " + obj.staffMember[0].title}`
                 } else {
                     return []
                 }
@@ -84,6 +83,20 @@ export default {
     .section {
         margin: 1px auto;
     }
+    ::v-deep .section-wrapper.top-level.theme-gray {
+        --color-theme: var(--color-white);
+        padding: 0;
+    }
+
+    // refactor when option to turn off overlays is available in craft
+    ::v-deep .section-banner {
+        .gradient-no-category,
+        .molecule,
+        .hatch {
+            display: none;
+        }
+    }
+
     // .section-banner {
     //     margin-top: 0;
     //     margin-bottom: 0;

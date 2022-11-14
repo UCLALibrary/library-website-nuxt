@@ -4,6 +4,9 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
     serviceOrResource: entry(section: "serviceOrResource", slug: $slug) {
         ... on serviceOrResource_serviceOrResource_Entry {
             id
+            sectionHandle
+            slug
+            uri
             button: buttonUrl {
                 ... on buttonUrl_button_BlockType {
                     id
@@ -43,6 +46,9 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
     workshopseries: entry(section: "workshopOrEventSeries", slug: $slug) {
         ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
             id
+            sectionHandle
+            slug
+            uri
             title
             to: uri
         }

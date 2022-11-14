@@ -1,6 +1,6 @@
 #import "~/gql/fragments/Image"
 #import "~/gql/fragments/BlockCardWithImageFragment"
-#import "~/gql/fragments/BlockHighlight"
+#import "~/gql/fragments/BlockHighlightFragment"
 #import "~/gql/fragments/BlockMediaGalleryFragment"
 #import "~/gql/fragments/BlockMediaWithTextFragment"
 #import "~/gql/fragments/BlockPullQuoteFragment"

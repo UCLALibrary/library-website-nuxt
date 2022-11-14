@@ -41,28 +41,102 @@ export const mutations = {
 
 // Define actions
 export const actions = {
+    // eslint-disable-next-line no-unused-vars
     async nuxtServerInit({ commit }) {
         try {
             // console.log("Get Global data from Craft")
-            let globalData = await this.$graphql.default.request(GLOBALS)
+            /* let globalData = await this.$graphql.default.request(GLOBALS)
             globalData = removeEmpties(globalData.globalSets || [])
 
             // Shape data from Craft
             globalData = {
                 askALibrarian: globalData[0],
             }
-            commit("SET_GLOBALS", globalData)
+            commit("SET_GLOBALS", globalData)*/
 
-            let headerData = await this.$graphql.default.request(HEADER_MAIN_MENU_ITEMS)
+            /* let headerData = await this.$graphql.default.request(HEADER_MAIN_MENU_ITEMS)
             commit("SET_HEADER", headerData)
 
             let footerPrimaryData = await this.$graphql.default.request(FOOTER_PRIMARY_ITEMS)
             commit("SET_FOOTER_PRIMARY", footerPrimaryData)
 
             let footerSockData = await this.$graphql.default.request(FOOTER_SOCK_ITEMS)
-            commit("SET_FOOTER_SOCK", footerSockData)
+            commit("SET_FOOTER_SOCK", footerSockData)*/
         } catch (e) {
-            throw new Error("Craft API error, trying to set globals. " + e)
+            throw new Error("Nuxt Server Init" + e)
+        }
+    },
+    async nuxtGenerateInit({ dispatch }, { generatePayload }) {
+        let data = generatePayload || {}
+
+        // Fetch data in parallel
+        let headerQuery = dispatch("setHeaderData", data.header)
+        let footerQuery = dispatch("setFooterPrimaryData", data.footer)
+        let footerSockQuery = dispatch("setFooterSockData", data.footerSock)
+        let globalsQuery = dispatch("getGlobals", data.globals)
+        const [headerResult, footerResult, footerSockResult, globalsResult] = await Promise.all([
+            headerQuery,
+            footerQuery,
+            footerSockQuery,
+            globalsQuery,
+        ])
+
+        return {
+            header: headerResult,
+            footer: footerResult,
+            footerSock: footerSockResult,
+            globals: globalsResult,
+        }
+    },
+    async setFooterSockData({ commit }, data) {
+        try {
+            if (!data) {
+                data = await this.$graphql.default.request(FOOTER_SOCK_ITEMS)
+            }
+            commit("SET_FOOTER_SOCK", data)
+            return data
+        } catch (e) {
+            throw new Error("Craft API error, trying to set gobals. " + e)
+        }
+    },
+    async setFooterPrimaryData({ commit }, data) {
+        try {
+            if (!data) {
+                data = await this.$graphql.default.request(FOOTER_PRIMARY_ITEMS)
+                
+            }
+            commit("SET_FOOTER_PRIMARY", data)
+            return data
+        } catch (e) {
+            throw new Error("Craft API error, trying to set gobals. " + e)
+        }
+    },
+    async setHeaderData({ commit }, data) {
+        try {
+            if (!data) {
+                data = await this.$graphql.default.request(HEADER_MAIN_MENU_ITEMS)
+            }
+            commit("SET_HEADER", data)
+            return data
+        } catch (e) {
+            throw new Error("Craft API error, trying to set gobals. " + e)
+        }
+    },
+    async getGlobals({ commit }, data) {
+        try {
+            if (!data) {
+                let globalData =await this.$graphql.default.request(GLOBALS)
+                globalData = removeEmpties(globalData.globalSets || [])
+
+                // Shape data from Craft
+                data = {
+                    askALibrarian: globalData[0],
+                }
+            }
+            commit("SET_GLOBALS", data)
+            return data
+        } catch (e) {
+            throw new Error("Craft API error, trying to set gobals. " + e)
         }
     },
 }

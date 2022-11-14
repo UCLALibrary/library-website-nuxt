@@ -4,6 +4,7 @@
 query ProgramDetail($slug: [String!]) {
     entry(section: "program", slug: $slug) {
         id
+        sectionHandle
         slug
         uri
         title

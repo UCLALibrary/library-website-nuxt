@@ -1,7 +1,7 @@
 <template>
     <main class="page-program-detail">
         <nav-breadcrumb
-            to="/about/program"
+            to="/about/programs"
             :title="page.title"
             parent-title="Programs"
         />
@@ -43,10 +43,22 @@
 
         <section-wrapper>
             <block-hours
-                v-if="page.uri == 
-                    'about/programs/campus-library-instructional-computing-commons-clicc'"
+                v-if="
+                    page.uri ==
+                        'about/programs/campus-library-instructional-computing-commons-clicc'
+                "
                 lid="0"
                 :is-clicc="true"
+            />
+            <divider-way-finder
+                v-if="
+                    page.uri ==
+                        'about/programs/campus-library-instructional-computing-commons-clicc'
+                "
+                lid="0"
+                :is-clicc="true"
+                class="divider"
+                color="about"
             />
         </section-wrapper>
 
@@ -55,26 +67,23 @@
             :blocks="page.blocks"
         />
 
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                v-if="parsedArticles.length > 0"
+                color="about"
+                class="divider-way-finder"
+            />
+        </section-wrapper>
+
         <section-wrapper
             v-if="parsedArticles.length > 0"
             class="associated-articles"
+            section-title="Associated Articles"
         >
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
-
-            <div class="section-title">
-                <h2 class="title">
-                    Associated Articles
-                </h2>
-            </div>
-
             <section-teaser-card
                 class="section-teaser-card"
                 :items="parsedArticles"
             />
-
             <nuxt-link
                 v-if="associatedArticles"
                 class="button-more"
@@ -94,7 +103,7 @@ import _get from "lodash/get"
 import PROGRAM_DETAIL from "~/gql/queries/ProgramDetail"
 
 export default {
-    async asyncData({ $graphql, params, store }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
@@ -102,7 +111,8 @@ export default {
         const data = await $graphql.default.request(PROGRAM_DETAIL, {
             slug: params.slug,
         })
-        console.log("Data fetched: " + JSON.stringify(data))
+        // console.log("Data fetched: " + JSON.stringify(data))
+        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         return {
             page: _get(data, "entry", {}),
             associatedArticles: _get(data, "associatedArticles", {}),
@@ -122,10 +132,11 @@ export default {
             return _get(this.page, "buttonUrl[0].buttonUrl", "")
         },
         parsedStaffDirectory() {
-            if (this.page.viewStaffDirectory != "affiliateLibrary") {
-                return "/about/staff"
-            } else {
+            let x = this.page.viewStaffDirectory
+            if (x == "false") {
                 return ""
+            } else {
+                return "/about/staff"
             }
         },
         parsedArticles() {
@@ -137,7 +148,7 @@ export default {
                     category: _get(obj, "category", ""),
                     title: _get(obj, "title", ""),
                     text: _get(obj, "description", ""),
-                    startDate: _get(obj, "startDate", "")
+                    startDate: _get(obj, "startDate", ""),
                 }
             })
         },
@@ -147,8 +158,8 @@ export default {
             } else {
                 return "/about/news"
             }
-        }
-    }
+        },
+    },
 }
 </script>
 
