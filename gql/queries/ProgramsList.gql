@@ -13,6 +13,12 @@ query ProgramList {
       description: summary
       to: uri
       programUrlBehavior
+      buttonUrl {
+        ...on buttonUrl_button_BlockType {
+          buttonUrl
+        }
+        
+      }
       heroImage {
         ... on heroImage_heroImage_BlockType {
           id
