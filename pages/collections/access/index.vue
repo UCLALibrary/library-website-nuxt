@@ -20,7 +20,6 @@
                 @view-mode-change="viewModeChanger" -->
         </masthead-secondary>
 
-
         <section-wrapper>
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
@@ -28,7 +27,7 @@
         <section-wrapper>
             <section-cards-with-illustrations
                 class="section"
-                :items="page.accessCollections"
+                :items="parsedAccessCollections"
                 :is-horizontal="true"
             />
         </section-wrapper>
@@ -40,9 +39,9 @@
         <section-wrapper>
             <section-cards-with-illustrations
                 class="section"
-                :items="page.associatedTopics"
+                :items="parsedAssociatedTopics"
                 section-title="Associated Topics"
-                to="/help/foo/bar"
+                to="/help/services-resources"
                 button-text="All services & Resources"
                 :is-horizontal="false"
             />
@@ -84,24 +83,33 @@ export default {
         })
         this.page = _get(data, "entry", {})
     },
+    computed: {
+        parsedAccessCollections(){
+            return this.page.accessCollections.map((obj) => {
+                return {
+                    ...obj,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.uri}`,
+                }
+            })
+        },
+        parsedAssociatedTopics(){
+            return this.page.associatedTopics.map((obj) => {
+                return {
+                    ...obj,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.to}`,
+                }
+            })
+        }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 .page-collections-access {
-    .section {
-        max-width: var(--unit-content-width);
-        margin: 80px auto;
-    }
 
-    .divider {
-        padding: 0 32px;
-    }
-
-    .block-call-to-action {
-        margin-bottom: 160px;
-        margin-left: auto;
-        margin-right: auto;
-    }
 }
 </style>

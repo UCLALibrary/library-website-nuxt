@@ -46,7 +46,7 @@
             <section-cards-with-illustrations
                 class="section"
                 :items="parsedAssociatedTopics"
-                button-text="All services and resources"
+                button-text="All services & resources"
                 to="/help/services-resources"
                 section-title="Associated Topics"
             />
