@@ -5,6 +5,9 @@ query LocationDetail($slug: [String!]) {
     entry(section: "location", slug: $slug) {
         ... on location_location_Entry {
             id
+            sectionHandle
+            slug
+            uri
             locationType
             title
             about: richTextSimplified

@@ -58,14 +58,6 @@ import config from "~/utils/searchConfig"
 
 export default {
     async asyncData({ $graphql, params, $dataApi }) {
-        const searchAggsResponse = await $dataApi.getAggregations(
-            config.serviceOrResources.filters,
-            "serviceOrResource"
-        )
-
-        /*console.log(
-            "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-        )*/
         const data = await $graphql.default.request(
             SERVICE_RESOURCE_WORKSHOPSERIES_LIST,
             {
@@ -79,10 +71,7 @@ export default {
             page: data,
             summaryData: _get(data, "entry", {}),
             helpTopic: helpTopicData,
-            searchFilters: getListingFilters(
-                searchAggsResponse,
-                config.serviceOrResources.filters
-            ),
+            searchFilters: [],
         }
     },
     head() {
@@ -106,15 +95,38 @@ export default {
                     return {
                         ...obj,
                         category:
-                            (obj.category === "help/services-resources") ? "workshop":
-                            (obj.typeHandle === "helpTopic") ? "help topic" :
-                            (obj.typeHandle === "externalResource") ? "resource" :
-                            obj.category,
-                        to: (obj.typeHandle === "externalResource") ? `${obj.to}` :
-                            `/${obj.to}`,
+                            obj.category === "help/services-resources"
+                                ? "workshop"
+                                : obj.typeHandle === "helpTopic"
+                                    ? "help topic"
+                                    : obj.typeHandle === "externalResource"
+                                        ? "resource"
+                                        : obj.category,
+                        to:
+                            obj.typeHandle === "externalResource"
+                                ? `${obj.to}`
+                                : `/${obj.to}`,
                     }
                 })
         },
+    },
+    async mounted() {
+        //console.log("ESREADkey:" + this.$config.esReadKey)
+        //console.log("ESURLkey:" + this.$config.esURL)
+        if (process.client) {
+            const searchAggsResponse = await this.$dataApi.getAggregations(
+                config.serviceOrResources.filters,
+                "serviceOrResource"
+            )
+
+            console.log(
+                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+            )
+            this.searchFilters = getListingFilters(
+                searchAggsResponse,
+                config.serviceOrResources.filters
+            )
+        }
     },
     methods: {
         async getSearchData(data) {

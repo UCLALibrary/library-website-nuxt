@@ -5,6 +5,9 @@ query ImpactReport($path: [String!]) {
   entry(section: "impactReport", uri: $path, orderBy:"postDate desc") {
     ... on impactReport_impactReport_Entry {
       id
+      sectionHandle
+      uri
+      slug
       title
       to: uri
       portrait: image {

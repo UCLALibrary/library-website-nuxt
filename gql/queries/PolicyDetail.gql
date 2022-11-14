@@ -4,6 +4,9 @@
 query PolicyDetail($slug: [String!]) {
     entry(section: "policy", slug: $slug) {
         id
+        sectionHandle
+        slug
+        uri
         title
         summary
         richText

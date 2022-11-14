@@ -13,12 +13,12 @@ function getListingFilters(searchAggsResponse,filterFields) {
             label: field.label,
             esFieldName: field.esFieldName,
             inputType: field.inputType,
-            items: searchAggsResponse[field.label] && searchAggsResponse[field.label].buckets.reduce(
+            items: (searchAggsResponse && searchAggsResponse[field.label] && searchAggsResponse[field.label].buckets.reduce(
                 (accumulator, value) => {
                     return [...accumulator, { name: value.key }]
                 },
                 []
-            ),
+            ))|| []
         }
         filters.push(obj)
     }
