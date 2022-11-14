@@ -1,11 +1,26 @@
 <template>
-    <main class="page page-news">
+    <main id="main" class="page page-news">
         <masthead-secondary
-            :title="summaryData.title"
-            :text="summaryData.summary"
+            :title="page.title"
+            :text="page.summary"
         />
 
-        <section-wrapper section-title="Highlighted News">
+        <!-- <search-generic
+            search-type="about"
+            :filters="searchFilters"
+            class="generic-search"
+            @search-ready="getSearchData"
+        /> -->
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="about"
+            />
+        </section-wrapper>
+
+        <section-wrapper 
+            section-title="Highlighted News"
+        >
             <banner-featured
                 :image="parsedBannerHeader.image"
                 :title="parsedBannerHeader.title"
@@ -67,13 +82,19 @@ export default {
         })
         // console.log("data:" + data)
         return {
-            page: _get(data, "entries", {}),
-            summaryData: _get(data, "entry", {}),
+            news: _get(data, "entries", {}),
+            page: _get(data, "entry", {}),
+        }
+    },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        return {
+            title: title,
         }
     },
     computed: {
         parsedFeaturedNews() {
-            return this.summaryData.featuredNews.map((obj) => {
+            return this.page.featuredNews.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
@@ -101,8 +122,7 @@ export default {
             })
         },
         parsedNewsList() {
-            console.log("Entries: " + this.page.entries)
-            return this.page.map((obj) => {
+            return this.news.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
@@ -113,10 +133,10 @@ export default {
             })
         },
         parsedDate() {
-            return format(new Date(this.page.dateCreated), "MMMM d, Y")
+            return format(new Date(this.news.postDate), "MMMM d, Y")
         },
         parsedByline() {
-            let byline = (this.page.contributors || []).map((entry) => {
+            let byline = (this.news.contributors || []).map((entry) => {
                 return `${entry.byline} ${
                     entry.title || entry.staffMember[0].title
                 }`
@@ -131,31 +151,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-news {
-    padding-left: 50px;
-
-    .entry-count {
-        @include step-2;
-        color: var(--color-primary-blue-03);
-        margin: var(--space-m);
-    }
-
-    .section-heading {
-        @include step-2;
-        color: var(--color-primary-blue-03);
-        margin-bottom: var(--space-m);
-    }
-
-    .all-news-heading {
-        @include step-1;
-        color: var(--color-primary-blue-03);
-    }
-
-    .news-item-link {
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        @include step-1;
-        color: var(--color-primary-blue-03);
-    }
 }
 </style>
