@@ -60,6 +60,11 @@ export default {
             title: title,
         }
     },
+    // computed() {
+    //     to: `/${obj.to}`,
+    // add for  page: _get(data, "entry", {}),
+    // http://192.168.1.119:3000/about/about/policies/shhh
+    // }
 }
 </script>
 
