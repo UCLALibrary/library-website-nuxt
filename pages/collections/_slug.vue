@@ -1,7 +1,7 @@
 <template>
     <main class="page-collection-detail">
         <nav-breadcrumb
-            to="/collection"
+            to="/collections"
             :title="page.title"
             parent-title="Collections"
         />
@@ -73,7 +73,7 @@
 
         <!-- Services and Resources -->
         <section-wrapper
-            v-if="parsedServicesAndResources"
+            v-if="parsedServicesAndResources.length "
             section-title="Services &amp; Resources"
         >
             <simple-cards
@@ -88,7 +88,9 @@
         </section-wrapper>
 
         <!-- Endowments -->
-        <section-wrapper v-if="parsedEndowments">
+        <section-wrapper
+            v-if="parsedEndowments.length"
+        >
             <section-staff-article-list
                 :items="parsedEndowments"
                 section-title="Collection Endowments"
@@ -182,14 +184,13 @@ export default {
             }
         },
         parsedEndowments() {
-            let parsedCategory = this.parsedDonors
             return this.page.endowment.map((item) => {
                 return {
                     to: `${item.uri}`,
                     image: _get(item, "image[0].image[0]", null),
                     title: _get(item, "title", ""),
                     description: _get(item, "description", ""),
-                    category: parsedCategory,
+                    category: this.parsedDonors ? this.parsedDonors : ""
                 }
             })
         },
@@ -208,7 +209,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-program-detail {
+.page-collection-detail {
     .section-teaser-card {
         display: flex;
         flex-direction: row;
