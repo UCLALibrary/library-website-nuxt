@@ -1,8 +1,8 @@
 <template lang="html">
     <div class="page page-help">
         <masthead-secondary
-            :title="summaryData.locationHoursListTitle"
-            :text="summaryData.locationHoursListSummary"
+            :title="summaryData.title"
+            :text="summaryData.summary"
         />
         <h3>{{ page }}</h3>
 

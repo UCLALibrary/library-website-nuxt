@@ -1,33 +1,37 @@
 #import "~/gql/fragments/Image"
 query LocationsList {
-    entries(section: "location") {
-        ... on location_location_Entry {
-            id
-            locationType
-            to: slug
-            title
-            address {
-                id
-                addressLine1
-                addressLine2
-                addressCity
-                addressState
-                addressZipCode
-                addressCountry
-            }
-            amenities(label: true)
-            heroImage {
-                image {
-                    ...Image
-                }
-            }
+  entries(section: "location") {
+    ... on location_location_Entry {
+      heroImage {
+        ... on heroImage_heroImage_BlockType {
+          id
+          image {
+            ...Image
+          }
         }
+      }
+      locationType
+      to: uri
+      affiliateLibraryUrl
+      title
+      libcalLocationIdForHours
+      campusMapId
+      address {
+        addressLine1
+        addressLine2
+        addressCity
+        addressState
+        addressZipCode
+        addressCountry
+      }
+      amenities(label: true)
+      amenitiesIcons: amenities(label: false)
     }
-    entry(section: "listingLocationsHours") {
-        ... on listingLocationsHours_listingLocationsHours_Entry {
-            id
-            locationHoursListTitle: titleGeneral
-            locationHoursListSummary: summary
-        }
+  }
+  entry(section: "listingLocationsHours") {
+    ... on listingLocationsHours_listingLocationsHours_Entry {
+      title
+      summary
     }
+  }
 }
