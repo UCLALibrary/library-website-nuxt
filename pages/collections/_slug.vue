@@ -1,7 +1,7 @@
 <template>
     <main class="page-collection-detail">
         <nav-breadcrumb
-            to="/collection"
+            to="/collections"
             :title="page.title"
             parent-title="Collections"
         />
