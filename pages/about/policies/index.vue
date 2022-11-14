@@ -4,21 +4,18 @@
             :title="page.title"
             :text="page.summary"
         />
-
-        <!-- TODO: fix the :to in simple-cards
-            (currently the link is http://192.168.86.198:3000/about/about/policies/shhh)
-            and this code could be prettier
-            Add VIEW ALL button
-        -->
+        <h3>{{ page.policyBlock }}</h3>
+        <hr>
+        <!-- <h3>{{ parsedAssociatedEnties }}</h3> -->
         <div
-            v-for="(block, index) in page.policyBlock"
+            v-for="(policy, index) in parsedPolicies"
             :key="`PolicyBlocksKey${index}`"
         >
             <section-wrapper>
                 <simple-cards
-                    :section-title="block.sectionTitle"
-                    :section-summary="block.sectionSummary"
-                    :items="block.associatedEntries"
+                    :section-title="policy.sectionTitle"
+                    :section-summary="policy.sectionSummary"
+                    :items="policy.associatedEntries"
                     button="View all"
                 />
             </section-wrapper>
@@ -60,11 +57,65 @@ export default {
             title: title,
         }
     },
-    // computed() {
-    //     to: `/${obj.to}`,
-    // add for  page: _get(data, "entry", {}),
-    // http://192.168.1.119:3000/about/about/policies/shhh
-    // }
+    computed: {
+        parsedAssociatedEnties() {
+            let policies =  this.page.policyBlock.map((obj) => {
+                return {
+                    ...obj
+                }
+            })
+
+            let allEntries = policies.map((entry) => {
+                return entry.associatedEntries
+            })
+
+            return allEntries.map((entry) => {
+                return  entry.map((entry) => {
+                    // return entry.title
+                    return {
+                        to: `/${entry.to}`,
+                        title: entry.title,
+                        text: entry.text
+                    }
+                })
+            })
+        },
+        parsedSpecialCollections() {
+            return 
+        },
+        // parsedAssociatedEnties() {
+        //     return this.page.policyBlock.map((obj) => {
+        //         return {
+        //             ...obj,
+        //             obj.associatedEntries.map(element => {
+        //                 return {
+        //                     ...element,
+        //                     to: `/${element.to}`,
+        //                      title: element.title,
+        //                      text:element.text
+        //                 }
+        //             })
+        //         }
+        //     })
+        // },
+        // return data.entry.policyBlock.map(item => {
+        //     return item.associatedEntries.map(element => {
+        //         return element.to = `/${element.to}`
+        //         })
+        // })
+        parsedPolicies() {
+            let policies = this.page.policyBlock
+
+            return policies.map((obj) => {
+                return {
+                    ...obj,
+                    sectionTitle: _get(obj, "sectionTitle", null),
+                    sectionSummary: _get(obj, "sectionSummary", null),
+                    items: this.parsedAssociatedEnties
+                }
+            })
+        }
+    }
 }
 </script>
 
