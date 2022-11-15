@@ -119,6 +119,7 @@ export default {
             })
         },
     },
+
     async mounted() {
         //console.log("ESREADkey:" + this.$config.esReadKey)
         //console.log("ESURLkey:" + this.$config.esURL)
@@ -138,7 +139,15 @@ export default {
         }
     },
     methods: {
+        async watchQueryMethod() {
+            console.log("In Watch Query Method")
+        },
         async getSearchData(data) {
+            this.$router.push({
+                path: "/about/staff",
+                query: { q: data.text, filters: JSON.stringify(data.filters) },
+            })
+            console.log(this.$router.query)
             console.log("from search-generic: " + JSON.stringify(data))
             console.log(config.staff.resultFields)
             const filters = data.filters //mergeFilters(data.filters)
