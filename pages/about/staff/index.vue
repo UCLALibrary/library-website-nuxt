@@ -63,7 +63,6 @@ import _get from "lodash/get"
 
 // Utilities
 import getListingFilters from "~/utils/getListingFilters"
-import mergeFilters from "~/utils/mergeFilters"
 import config from "~/utils/searchConfig"
 
 // gql
@@ -142,7 +141,7 @@ export default {
         async getSearchData(data) {
             console.log("from search-generic: " + JSON.stringify(data))
             console.log(config.staff.resultFields)
-            const filters = mergeFilters(data.filters)
+            const filters = data.filters //mergeFilters(data.filters)
 
             const results = await this.$dataApi.keywordSearchWithFilters(
                 data.text || "*",

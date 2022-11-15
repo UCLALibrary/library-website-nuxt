@@ -45,8 +45,8 @@ export default function ({ $config }, inject) {
     ) {
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
         console.log("In data api keywordsearchwithfilters")
-        console.log($config.esReadKey)
-        console.log($config.esURL)
+        // console.log($config.esReadKey)
+        // console.log($config.esURL)
         if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
         console.log("keyword:"+keyword)
         console.log("filters:"+filters)
@@ -190,13 +190,19 @@ export default function ({ $config }, inject) {
 
 
         */
-        for (const filter of filters) {
-            console.log(filter)
-            if (!filter.value) continue
-            let filterObj = { term: {} }
-            filterObj.term[filter.esFieldName] = filter.value
-            boolQuery.push(filterObj)
+        for (const key in filters) {
+            console.log(key)
+            if (Array.isArray(filters[key]) && filters[key].length > 0) {
+                let filterObj = { terms: {} }
+                filterObj.terms[key] = filters[key]
+                boolQuery.push(filterObj)
+            }else if(!Array.isArray(filters[key]) && filters[key]!="") {
+                let filterObj = { term: {} }
+                filterObj.term[key] = filters[key]
+                boolQuery.push(filterObj)
+            }
         }
+        console.log("bool query:"+JSON.stringify(boolQuery))
         return boolQuery
     }
 

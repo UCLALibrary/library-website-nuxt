@@ -10,7 +10,6 @@
 
         <search-generic
             search-type="about"
-            :filters="searchFilters"
             class="generic-search"
             @search-ready="getSearchData"
         />
@@ -52,12 +51,10 @@ import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceW
 import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
 
 // Utilities
-import getListingFilters from "~/utils/getListingFilters"
-import mergeFilters from "~/utils/mergeFilters"
 import config from "~/utils/searchConfig"
 
 export default {
-    async asyncData({ $graphql, params, $dataApi }) {
+    async asyncData({ $graphql, params }) {
         const data = await $graphql.default.request(
             SERVICE_RESOURCE_WORKSHOPSERIES_LIST,
             {
@@ -71,7 +68,6 @@ export default {
             page: data,
             summaryData: _get(data, "entry", {}),
             helpTopic: helpTopicData,
-            searchFilters: [],
         }
     },
     head() {
@@ -114,43 +110,22 @@ export default {
         //console.log("ESREADkey:" + this.$config.esReadKey)
         //console.log("ESURLkey:" + this.$config.esURL)
         if (process.client) {
-            const searchAggsResponse = await this.$dataApi.getAggregations(
-                config.serviceOrResources.filters,
-                "serviceOrResource"
-            )
-
-            console.log(
-                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-            )
-            this.searchFilters = getListingFilters(
-                searchAggsResponse,
-                config.serviceOrResources.filters
-            )
         }
     },
     methods: {
         async getSearchData(data) {
             // console.log("from search-generic: " + JSON.stringify(data))
             // console.log(config.serviceOrResources.resultFields)
-            const filters = mergeFilters(data.filters)
 
             const results = await this.$dataApi.keywordSearchWithFilters(
                 data.text || "*",
                 "serviceOrResource",
-                filters,
+                [],
                 "",
                 config.serviceOrResources.resultFields,
-                config.serviceOrResources.filters
+                []
             )
             // console.log(results)
-            if (results && results.hits && results.hits.total.value > 0)
-                this.page.serviceOrResource = this.parseResults(
-                    results.hits.hits
-                )
-            this.searchFilters = getListingFilters(
-                results.aggregations,
-                config.serviceOrResources.filters
-            )
         },
 
         parseResults(hits = []) {
