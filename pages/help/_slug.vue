@@ -4,7 +4,6 @@
             :title="page.title"
             :text="page.summary"
         />
-
         <section-wrapper v-if="page.richText">
             <RichText :rich-text-content="page.richText" />
         </section-wrapper>
@@ -17,14 +16,14 @@
         </section-wrapper>
 
         <div
-            v-for="(block, index) in page.helpTopicBlocks"
+            v-for="(block, index) in parsedHelpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
         >
             <section-wrapper>
                 <simple-cards
                     :section-title="block.sectionTitle"
                     :section-summary="block.sectionSummary"
-                    :items="block.associatedEntries"
+                    :items="block.parsedAssociatedEntries"
                 />
             </section-wrapper>
             <section-wrapper theme="divider">
@@ -83,6 +82,25 @@ export default {
         return {
             title: title,
         }
+    },
+    computed: {
+        parsedHelpTopicBlocks() {
+            return this.page.helpTopicBlocks.map((obj) => {
+                return {
+                    ...obj,
+                    parsedAssociatedEntries: obj.associatedEntries.map(
+                        (entry) => {
+                            return {
+                                ...entry,
+                                to: entry.externalResourceUrl
+                                    ? entry.externalResourceUrl
+                                    : `/${entry.uri}`,
+                            }
+                        }
+                    ),
+                }
+            })
+        },
     },
 }
 </script>

@@ -14,7 +14,8 @@ query HelpTopicDetail($slug: [String!]) {
             sectionTitle
             sectionSummary
             associatedEntries {
-                to: uri
+                uri
+                externalResourceUrl
                 title
                 text: summary
             }
