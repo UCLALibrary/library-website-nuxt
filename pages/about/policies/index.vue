@@ -9,9 +9,13 @@
         <!-- <hr>
         <h4>{{ parsedAssociatedEnties }}</h4>
         <hr> -->
+        <h3>page.policyBlock  --- {{ page.policyBlock[0] }}</h3>
+        <hr>
+        <h4>parsedPolicies --- {{ parsedPolicies }}</h4>
+        <hr>
         <h3>{{ policyBlock[0].associatedEntries }}</h3>
         <hr>
-        <h4>{{ parsedPolicies }}</h4>
+        
         <div
             v-for="(policy, index) in parsedPolicies"
             :key="`PolicyBlocksKey${index}`"
