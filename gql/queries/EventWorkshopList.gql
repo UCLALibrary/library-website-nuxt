@@ -1,8 +1,8 @@
 query EventsExhibitionsList {
-  entries(section: ["event", "exhibition"], orderBy: "postDate") {
-    id
-    title
-    to: uri
-    typeHandle
-  }
+    entries(section: ["event", "exhibition"], orderBy: "postDate") {
+        id
+        title
+        to: uri
+        typeHandle
+    }
 }

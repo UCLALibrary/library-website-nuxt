@@ -92,7 +92,7 @@ export default {
                 slug: params.slug,
             }
         )
-        console.log("Data fetched: " + JSON.stringify(data))
+        // console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: data,
         }
@@ -142,6 +142,7 @@ export default {
             return [
                 ...(this.page.events || []),
                 ...(this.page.exhibitions || []),
+                ...(this.page.eventSeries || []),
             ].map((obj) => {
                 const eventOrExhibtion = obj || {}
 

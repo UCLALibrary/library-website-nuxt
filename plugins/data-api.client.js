@@ -3,36 +3,34 @@ export default function ({ $config }, inject) {
     {"id":"j6tUj4IBzYVXfPB9-JvU","name":"dev-es-key","api_key":"N_f0_5WSSae3QOvm4hlq0g","encoded":"ajZ0VWo0SUJ6WVZYZlBCOS1KdlU6Tl9mMF81V1NTYWUzUU92bTRobHEwZw=="}
     */
 
-    async function siteSearch(keyword = "*:*") {
+    async function siteSearch(keyword="*:*"){
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
-        if ($config.esApiKey === "" || !$config.esURL === "") return
-        console.log("keyword:" + keyword)
-
-        const response = await fetch(
-            `${$config.esURL}/apps-craft-test/_search`,
-            {
-                headers: {
-                    Authorization: `ApiKey ${$config.esApiKey}`,
-                    "Content-Type": "application/json",
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    query: {
-                        query_string: {
-                            query: keyword,
-                            fields: [
-                                "*",
-                                "title^4",
-                                "summary^3",
-                                "text^3",
-                                "richText^2",
-                            ],
-                            fuzziness: "auto",
-                        },
-                    },
-                }),
-            }
-        )
+        if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
+        console.log("keyword:"+keyword)
+    
+        const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, {
+            headers: {
+                'Authorization': `ApiKey ${$config.esReadKey}`,
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                size: "1000",
+                "query": {
+                    "query_string" : {
+                        "query" : keyword,
+                        "fields": [
+                            "*",
+                            "title^4",
+                            "summary^3",
+                            "text^3",
+                            "richText^2"
+                        ],
+                        "fuzziness":"auto"
+                    }
+                }
+            })
+        })
         const data = await response.json()
         return data
     }
@@ -46,10 +44,14 @@ export default function ({ $config }, inject) {
         aggFields = []
     ) {
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
-        if ($config.esApiKey === "" || !$config.esURL === "") return
-        console.log("keyword:" + keyword)
-        console.log("filters:" + filters)
-        console.log("sort:" + sort)
+        console.log("In data api keywordsearchwithfilters")
+        console.log($config.esReadKey)
+        console.log($config.esURL)
+        if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
+        console.log("keyword:"+keyword)
+        console.log("filters:"+filters)
+        console.log("sort:"+sort)
+
         let testquery = JSON.stringify({
             _source: [...source],
             query: {
@@ -70,38 +72,36 @@ export default function ({ $config }, inject) {
         console.log("this is the query: " + testquery)
 
         // need to know fields to boost on for listing pages when searching like title etc
-
-        const response = await fetch(
-            `${$config.esURL}/apps-craft-test/_search`,
-            {
-                headers: {
-                    Authorization: `ApiKey ${$config.esApiKey}`,
-                    "Content-Type": "application/json",
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    size: "1000",
-                    _source: [...source],
-                    query: {
-                        bool: {
-                            must: [
-                                {
-                                    query_string: {
-                                        query: keyword,
-                                        fuzziness: "auto",
-                                    },
+    
+        const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, {
+            headers: {
+                'Authorization': `ApiKey ${$config.esReadKey}`,
+                'Content-Type': 'application/json',
+            },
+            method: "POST",
+            body: JSON.stringify({
+                size: "1000",
+                _source: [...source],
+                query: {
+                    bool: {
+                        must: [
+                            {
+                                query_string: {
+                                    query: keyword,
+                                    fuzziness: "auto",
                                 },
-                                ...parseSectionHandle(sectionHandle),
-                                ...parseFilterQuery(filters),
-                            ],
-                        },
+                            },
+                            ...parseSectionHandle(sectionHandle),
+                            ...parseFilterQuery(filters),
+                        ],
                     },
-                    ...parseSort(sort),
-                    aggs: {
-                        ...parseFieldNames(aggFields),
-                    },
-                }),
-            }
+                },
+                ...parseSort(sort),
+                aggs: {
+                    ...parseFieldNames(aggFields),
+                },
+            }),
+        }
         )
         const data = await response.json()
         return data
@@ -113,29 +113,26 @@ export default function ({ $config }, inject) {
         getAggregations,
     })
 
-    async function getMapping() {
-        if ($config.esApiKey === "" || !$config.esURL === "") return
-        const response = await fetch(
-            `${$config.esURL}/apps-craft-test/_mapping`,
-            {
-                headers: {
-                    Authorization: `ApiKey ${$config.esApiKey}`,
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
-            }
-        )
+    async function getMapping(){
+        if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
+        const response = await fetch(`${$config.esURL}/${$config.esIndex}/_mapping`, {
+            headers: {
+                'Authorization': `ApiKey ${$config.esReadKey}`,
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        })
         const data = await response.json()
         return data
     }
 
-    async function getAggregations(fields, sectionHandle) {
-        console.log("search text: " + fields)
-        if (!fields || fields.length == 0) return
-        const response = await fetch(
-            `${$config.esURL}/apps-craft-test/_search`,
+
+    async function getAggregations(fields, sectionHandle){
+        console.log("search text: "+fields)
+        if(!fields || fields.length == 0 ) return
+        const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, 
             {
                 headers: {
-                    Authorization: `ApiKey ${$config.esApiKey}`,
+                    Authorization: `ApiKey ${$config.esReadKey}`,
                     "Content-Type": "application/json",
                 },
                 method: "POST",
@@ -174,7 +171,7 @@ export default function ({ $config }, inject) {
         let boolQuery = []
         let sectionHandleTermQueryObj = {}
         sectionHandleTermQueryObj["term"] = {}
-        sectionHandleTermQueryObj["term"]["sectionHandle"] = sectionHandle
+        sectionHandleTermQueryObj["term"]["sectionHandle.keyword"] = sectionHandle
         boolQuery.push(sectionHandleTermQueryObj)
         console.log("query:" + boolQuery)
         return boolQuery

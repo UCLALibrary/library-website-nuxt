@@ -74,18 +74,10 @@ export default {
     async asyncData({ $graphql, params, $dataApi }) {
         console.log("live preview  staff list")
 
-        const searchAggsResponse = await $dataApi.getAggregations(
-            config.staff.filters,
-            "staffMember"
-        )
-
-        console.log(
-            "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-        )
         // Write a helper function for returning generic filters and doing the reduce part
 
         const data = await $graphql.default.request(STAFF_LIST)
-        console.log("Craft Data:" + JSON.stringify(data))
+        // console.log("Craft Data:" + JSON.stringify(data))
         /*const allResults = await $dataApi.keywordSearchWithFilters(
             "*:*",
             "staffMember",
@@ -107,10 +99,7 @@ export default {
 
         return {
             page: data,
-            searchFilters: getListingFilters(
-                searchAggsResponse,
-                config.staff.filters
-            ),
+            searchFilters: [],
         }
     },
     data() {
@@ -131,6 +120,24 @@ export default {
             })
         },
     },
+    async mounted() {
+        //console.log("ESREADkey:" + this.$config.esReadKey)
+        //console.log("ESURLkey:" + this.$config.esURL)
+        if (process.client) {
+            const searchAggsResponse = await this.$dataApi.getAggregations(
+                config.staff.filters,
+                "staffMember"
+            )
+
+            console.log(
+                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+            )
+            this.searchFilters = getListingFilters(
+                searchAggsResponse,
+                config.staff.filters
+            )
+        }
+    },
     methods: {
         async getSearchData(data) {
             console.log("from search-generic: " + JSON.stringify(data))
@@ -141,7 +148,7 @@ export default {
                 data.text || "*",
                 "staffMember",
                 filters,
-                "nameLast",
+                "nameLast.keyword",
                 config.staff.resultFields,
                 config.staff.filters
             )

@@ -97,10 +97,6 @@ export default {
     async asyncData({ $dataApi }) {
         //const data = await this.$graphql(QUERY);
 
-        const mapping = await $dataApi.getMapping()
-        console.log(JSON.stringify(mapping))
-        const searchResponse = await $dataApi.siteSearch("test")
-        console.log("Search Response: " + JSON.stringify(searchResponse))
         const mockCard = {
             to: "/help/foo/bar/",
             title: "Example Service",
@@ -167,8 +163,8 @@ export default {
 
         return {
             page: data,
-            mapping: mapping,
-            searchResponse: searchResponse,
+            /*mapping: mapping,
+            searchResponse: searchResponse,*/
         }
     },
     computed: {
@@ -200,6 +196,12 @@ export default {
                 alignRight: false,
             }
         },
+    },
+    async mounted() {
+        const mapping = await this.$dataApi.getMapping()
+        console.log(JSON.stringify(mapping))
+        const searchResponse = await this.$dataApi.siteSearch("test")
+        console.log("Search Response: " + JSON.stringify(searchResponse))
     },
 }
 </script>

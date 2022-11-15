@@ -1,5 +1,8 @@
 <template lang="html">
-    <main id="main" class="page page-help">
+    <main
+        id="main"
+        class="page page-help"
+    >
         <masthead-secondary
             :title="summaryData.servicesResourcesListTitle"
             :text="summaryData.servicesResourcesListSummary"
@@ -16,17 +19,14 @@
             <divider-way-finder color="help" />
         </section-wrapper>
 
-        <section-wrapper
-            v-if="page.serviceOrResource || page.workshopseries">
+        <section-wrapper v-if="page.serviceOrResource || page.workshopseries">
             <section-cards-with-illustrations
                 :items="parsedServiceAndResourceList"
                 :is-horizontal="true"
             />
         </section-wrapper>
 
-        <section-wrapper
-            v-if="page.serviceOrResource || page.workshopseries"
-        >
+        <section-wrapper v-if="page.serviceOrResource || page.workshopseries">
             <divider-way-finder
                 class="divider-way-finder"
                 color="help"
@@ -56,17 +56,8 @@ import getListingFilters from "~/utils/getListingFilters"
 import mergeFilters from "~/utils/mergeFilters"
 import config from "~/utils/searchConfig"
 
-
 export default {
     async asyncData({ $graphql, params, $dataApi }) {
-        const searchAggsResponse = await $dataApi.getAggregations(
-            config.serviceOrResources.filters,
-            "serviceOrResource"
-        )
-
-        console.log(
-            "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-        )
         const data = await $graphql.default.request(
             SERVICE_RESOURCE_WORKSHOPSERIES_LIST,
             {
@@ -80,14 +71,13 @@ export default {
             page: data,
             summaryData: _get(data, "entry", {}),
             helpTopic: helpTopicData,
-            searchFilters: getListingFilters(
-                searchAggsResponse,
-                config.serviceOrResources.filters
-            ),
+            searchFilters: [],
         }
     },
     head() {
-        let title = this.page ? this.page.entry.servicesResourcesListTitle : "... loading"
+        let title = this.page
+            ? this.page.entry.servicesResourcesListTitle
+            : "... loading"
         return {
             title: title,
         }
@@ -105,20 +95,43 @@ export default {
                     return {
                         ...obj,
                         category:
-                            (obj.category === "help/services-resources") ? "workshop":
-                            (obj.typeHandle === "helpTopic") ? "help topic" :
-                            (obj.typeHandle === "externalResource") ? "resource" :
-                            obj.category,
-                        to: (obj.typeHandle === "externalResource") ? `${obj.to}` :
-                            `/${obj.to}`,
+                            obj.category === "help/services-resources"
+                                ? "workshop"
+                                : obj.typeHandle === "helpTopic"
+                                    ? "help topic"
+                                    : obj.typeHandle === "externalResource"
+                                        ? "resource"
+                                        : obj.category,
+                        to:
+                            obj.typeHandle === "externalResource"
+                                ? `${obj.to}`
+                                : `/${obj.to}`,
                     }
                 })
         },
     },
+    async mounted() {
+        //console.log("ESREADkey:" + this.$config.esReadKey)
+        //console.log("ESURLkey:" + this.$config.esURL)
+        if (process.client) {
+            const searchAggsResponse = await this.$dataApi.getAggregations(
+                config.serviceOrResources.filters,
+                "serviceOrResource"
+            )
+
+            console.log(
+                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+            )
+            this.searchFilters = getListingFilters(
+                searchAggsResponse,
+                config.serviceOrResources.filters
+            )
+        }
+    },
     methods: {
         async getSearchData(data) {
-            console.log("from search-generic: " + JSON.stringify(data))
-            console.log(config.serviceOrResources.resultFields)
+            // console.log("from search-generic: " + JSON.stringify(data))
+            // console.log(config.serviceOrResources.resultFields)
             const filters = mergeFilters(data.filters)
 
             const results = await this.$dataApi.keywordSearchWithFilters(
@@ -129,7 +142,7 @@ export default {
                 config.serviceOrResources.resultFields,
                 config.serviceOrResources.filters
             )
-            console.log(results)
+            // console.log(results)
             if (results && results.hits && results.hits.total.value > 0)
                 this.page.serviceOrResource = this.parseResults(
                     results.hits.hits
@@ -141,7 +154,7 @@ export default {
         },
 
         parseResults(hits = []) {
-            console.log("checking results data:" + JSON.stringify(hits[0]))
+            // console.log("checking results data:" + JSON.stringify(hits[0]))
 
             return hits.map((obj) => {
                 console.log(obj["_source"].to)

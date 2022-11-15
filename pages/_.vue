@@ -17,6 +17,8 @@
             :category="page.format"
             :title="page.title"
             :text="page.summary"
+            :button-text="parsedButtonText"
+            :to="parsedButtonTo"
         />
 
         <section-wrapper class="section-banner">
@@ -26,13 +28,15 @@
                 :category="page.format"
                 :title="page.title"
                 :text="page.summary"
+                :to="parsedButtonTo"
+                :prompt="parsedButtonText"
             />
         </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider-way-finder"
-                color="visit"
+                color="default"
             />
         </section-wrapper>
 
@@ -52,14 +56,20 @@ import GENERAL_CONTENT_DETAIL from "~/gql/queries/GeneralContentDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params }) {
-        // Do not remove testing live preview
-
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
             slug: params.pathMatch.substring(
                 params.pathMatch.lastIndexOf("/") + 1
             ),
         })
+        if (data)
+            await $elasticsearchplugin.index(
+                data.entry,
+                params.pathMatch.substring(
+                    params.pathMatch.lastIndexOf("/") + 1
+                )
+            )
+
         return {
             page: _get(data, "entry", {}),
         }
@@ -82,6 +92,12 @@ export default {
                 return this.page.parent.title
 
             return "Home"
+        },
+        parsedButtonText() {
+            return _get(this.page, "button[0].buttonText", "")
+        },
+        parsedButtonTo() {
+            return _get(this.page, "button[0].buttonUrl", "")
         },
     },
 }
