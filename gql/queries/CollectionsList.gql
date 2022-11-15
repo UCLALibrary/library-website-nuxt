@@ -1,15 +1,10 @@
-#import "~/gql/fragments/Image"
-#import "~/gql/fragments/collections/AllFpb"
-
 query CollectionsList {
     entries(section: "collection") {
         ... on collection_collection_Entry {
             id
-            uri
-            slug
+            to: slug
             title
             summary
-            ...AllFpb
             resourceServiceWorkshop {
                 id
                 title
@@ -119,13 +114,3 @@ query CollectionsList {
         }
     }
 }
-
-# fragment Image on AssetInterface {
-#   id
-#   src: url(transform: "fullscreen")
-#   height(transform: "fullscreen")
-#   width(transform: "fullscreen")
-#   srcset(sizes: ["375", "960", "1280", "1920", "2560"])
-#   alt: title
-#   focalPoint
-# }
