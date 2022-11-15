@@ -21,7 +21,6 @@
         <section-wrapper>
             <section-staff-article-list
                 :items="parsedProgramsList"
-                section-title="UCLA Library Programs & Initiatives"
             />
         </section-wrapper>
 
