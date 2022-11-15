@@ -63,9 +63,34 @@ query CollectionsList {
                 }
             }
         }
+<<<<<<< HEAD
         articleCategories {
             title
+=======
+      }
+      ...AllFpb
+    }
+  }
+  entries(
+    section: "article"
+    relatedToCategories: [{ title: "collections" }]
+    orderBy: "postDate DESC"
+    limit: 3
+  ) {
+    title
+    text: summary
+    heroImage {
+      ... on heroImage_heroImage_BlockType {
+        id
+        image {
+          ...Image
+>>>>>>> 1d065b8 (feat: added news component)
         }
         to: uri
     }
+<<<<<<< HEAD
+=======
+    to: uri
+  }
+>>>>>>> 1d065b8 (feat: added news component)
 }
