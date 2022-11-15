@@ -1,7 +1,7 @@
 <template>
     <main class="page-collection-detail">
         <nav-breadcrumb
-            to="/collection"
+            to="/collections"
             :title="page.title"
             parent-title="Collections"
         />
@@ -73,7 +73,7 @@
 
         <!-- Services and Resources -->
         <section-wrapper
-            v-if="parsedServicesAndResources"
+            v-if="parsedServicesAndResources.length"
             section-title="Services &amp; Resources"
         >
             <simple-cards
@@ -88,7 +88,7 @@
         </section-wrapper>
 
         <!-- Endowments -->
-        <section-wrapper v-if="parsedEndowments">
+        <section-wrapper v-if="parsedEndowments.length">
             <section-staff-article-list
                 :items="parsedEndowments"
                 section-title="Collection Endowments"
@@ -166,32 +166,37 @@ export default {
             })
         },
         parsedDonors() {
-            let donors = this.page.endowment[0].donors
-            let donorNames = []
-            donors.map((donor) => {
-                donorNames.push(`${donor.firstName} ${donor.lastName}`)
-            })
-            if (donorNames.length == 1) {
-                return `Donor: ${donorNames[0]}`
+            if (this.page.endowment && this.page.endowment.length > 0) {
+                let donors = this.page.endowment[0].donors
+                let donorNames = []
+                donors.map((donor) => {
+                    donorNames.push(`${donor.firstName} ${donor.lastName}`)
+                })
+                if (donorNames.length == 1) {
+                    return `Donor: ${donorNames[0]}`
+                } else {
+                    let names = [
+                        donorNames.slice(0, -1).join(", "),
+                        donorNames.slice(-1)[0],
+                    ].join(donorNames.length < 2 ? "" : " and ")
+                    return `Donors: ${names}`
+                }
             } else {
-                let names = [
-                    donorNames.slice(0, -1).join(", "),
-                    donorNames.slice(-1)[0],
-                ].join(donorNames.length < 2 ? "" : " and ")
-                return `Donors: ${names}`
+                return ""
             }
         },
         parsedEndowments() {
-            let parsedCategory = this.parsedDonors
-            return this.page.endowment.map((item) => {
-                return {
-                    to: `${item.uri}`,
-                    image: _get(item, "image[0].image[0]", null),
-                    title: _get(item, "title", ""),
-                    description: _get(item, "description", ""),
-                    category: parsedCategory,
-                }
-            })
+            if (this.page.endowment) {
+                return this.page.endowment.map((item) => {
+                    return {
+                        to: `${item.uri}`,
+                        image: _get(item, "image[0].image[0]", null),
+                        title: _get(item, "title", ""),
+                        description: _get(item, "description", ""),
+                        category: this.parsedDonors ? this.parsedDonors : "",
+                    }
+                })
+            }
         },
         parsedAssociatedStaffMember() {
             return this.page.associatedStaffMember.map((obj) => {
@@ -208,7 +213,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-program-detail {
+.page-collection-detail {
     .section-teaser-card {
         display: flex;
         flex-direction: row;

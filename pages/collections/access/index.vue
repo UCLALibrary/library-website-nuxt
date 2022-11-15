@@ -1,13 +1,7 @@
 <template lang="html">
     <section class="page-collections-access">
-        <!-- this template will pick the section page component based on typehandle -->
-        <!-- <header-sticky
-            class="sticky-header"
-            :primary-items="primaryItems"
-            :secondary-items="secondaryItems"
-        /> -->
         <nav-breadcrumb
-            to="/collections/access"
+            to="/collections"
             :title="page.title"
             parent-title="Collections"
         />
@@ -26,7 +20,6 @@
                 @view-mode-change="viewModeChanger" -->
         </masthead-secondary>
 
-
         <section-wrapper>
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
@@ -34,7 +27,7 @@
         <section-wrapper>
             <section-cards-with-illustrations
                 class="section"
-                :items="page.accessCollections"
+                :items="parsedAccessCollections"
                 :is-horizontal="true"
             />
         </section-wrapper>
@@ -46,9 +39,9 @@
         <section-wrapper>
             <section-cards-with-illustrations
                 class="section"
-                :items="page.associatedTopics"
+                :items="parsedAssociatedTopics"
                 section-title="Associated Topics"
-                to="/help/foo/bar"
+                to="/help/services-resources"
                 button-text="All services & Resources"
                 :is-horizontal="false"
             />
@@ -62,7 +55,6 @@ import _get from "lodash/get"
 
 // GQL
 import ACCESS_COLLECTIONS from "~/gql/queries/CollectionsAccessList.gql"
-import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems.gql"
 
 export default {
     data() {
@@ -78,15 +70,8 @@ export default {
         }
     },
     async fetch() {
-        console.log("In fetch start")
-        const navData = await this.$graphql.default.request(
-            HEADER_MAIN_MENU_ITEMS
-        )
-        this.primaryItems = _get(navData, "primary", [])
-        this.secondaryItems = _get(navData, "secondary", [])
-
         const data = await this.$graphql.default.request(ACCESS_COLLECTIONS)
-        
+
         data.entry.accessCollections.forEach(element => {
             element.to = element.uri ? element.uri : element.externalResourceUrl
 
@@ -98,24 +83,33 @@ export default {
         })
         this.page = _get(data, "entry", {})
     },
+    computed: {
+        parsedAccessCollections(){
+            return this.page.accessCollections.map((obj) => {
+                return {
+                    ...obj,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.uri}`,
+                }
+            })
+        },
+        parsedAssociatedTopics(){
+            return this.page.associatedTopics.map((obj) => {
+                return {
+                    ...obj,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.to}`,
+                }
+            })
+        }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 .page-collections-access {
-    .section {
-        max-width: var(--unit-content-width);
-        margin: 80px auto;
-    }
 
-    .divider {
-        padding: 0 32px;
-    }
-
-    .block-call-to-action {
-        margin-bottom: 160px;
-        margin-left: auto;
-        margin-right: auto;
-    }
 }
 </style>

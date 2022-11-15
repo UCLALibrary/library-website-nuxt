@@ -2,121 +2,122 @@
 #import "~/gql/fragments/collections/AllFpb"
 
 query CollectionsList {
-  entries(section: "collection") {
-    ... on collection_collection_Entry {
-      id
-      to: slug
-      title
-      summary
-      ...AllFpb
-      resourceServiceWorkshop {
-        id
-        title
-        uri
-        ... on externalResource_externalResource_Entry {
-          id
-          title
-          summary
-          uri
+    entries(section: "collection") {
+        ... on collection_collection_Entry {
+            id
+            uri
+            slug
+            title
+            summary
+            ...AllFpb
+            resourceServiceWorkshop {
+                id
+                title
+                uri
+                ... on externalResource_externalResource_Entry {
+                    id
+                    title
+                    summary
+                    uri
+                }
+                ... on article_article_Entry {
+                    id
+                    articleType
+                    postDate
+                    summary
+                    title
+                    uri
+                }
+            }
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
         }
         ... on article_article_Entry {
-          id
-          articleType
-          postDate
-          summary
-          title
-          uri
-        }
-      }
-      heroImage {
-        ... on heroImage_heroImage_BlockType {
-          id
-          image {
-            ...Image
-          }
-        }
-      }
-    }
-    ... on article_article_Entry {
-      id
-      articleType
-      postDate
-      title
-      summary
-      uri
-      heroImage {
-        ... on heroImage_heroImage_BlockType {
-          id
-          image {
-            ...Image
-          }
-        }
-      }
-    }
-  }
-  entry(section: "listingCollections") {
-    ... on listingCollections_listingCollections_Entry {
-      collectionListTitle: titleGeneral
-      collectionListSummary: summary
-      featuredCollectionsSection {
-        ... on featuredCollectionsSection_featuredCollections_BlockType {
-          id
-          titleGeneral
-          title
-          sectionSummary
-          uri
-          featuredCollections {
-            title
-            uri
-            ... on collection_collection_Entry {
-              id
-              title
-              summary
-              heroImage {
-                ... on heroImage_heroImage_BlockType {
-                  id
-                  image {
-                    ...Image
-                  }
-                }
-              }
-            }
-            ... on listingCollections_listingCollections_Entry {
-              id
-              title
-              summary
-              titleGeneral
-            }
-            ... on externalResource_externalResource_Entry {
-              id
-              externalResourceUrl
-              title
-              summary
-            }
-          }
-        }
-      }
-      featuredResourcesSection {
-        ... on featuredResourcesSection_featuredResources_BlockType {
-          id
-          title
-          titleGeneral
-          sectionSummary
-          featuredResources {
             id
+            articleType
+            postDate
             title
+            summary
             uri
-            ... on externalResource_externalResource_Entry {
-              id
-              title
-              summary
-              externalResourceUrl
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
             }
-          }
         }
-      }
     }
-  }
+    entry(section: "listingCollections") {
+        ... on listingCollections_listingCollections_Entry {
+            collectionListTitle: titleGeneral
+            collectionListSummary: summary
+            featuredCollectionsSection {
+                ... on featuredCollectionsSection_featuredCollections_BlockType {
+                    id
+                    titleGeneral
+                    title
+                    sectionSummary
+                    uri
+                    featuredCollections {
+                        title
+                        uri
+                        ... on collection_collection_Entry {
+                            id
+                            title
+                            summary
+                            heroImage {
+                                ... on heroImage_heroImage_BlockType {
+                                    id
+                                    image {
+                                        ...Image
+                                    }
+                                }
+                            }
+                        }
+                        ... on listingCollections_listingCollections_Entry {
+                            id
+                            title
+                            summary
+                            titleGeneral
+                        }
+                        ... on externalResource_externalResource_Entry {
+                            id
+                            externalResourceUrl
+                            title
+                            summary
+                        }
+                    }
+                }
+            }
+            featuredResourcesSection {
+                ... on featuredResourcesSection_featuredResources_BlockType {
+                    id
+                    title
+                    titleGeneral
+                    sectionSummary
+                    featuredResources {
+                        id
+                        title
+                        uri
+                        ... on externalResource_externalResource_Entry {
+                            id
+                            title
+                            summary
+                            externalResourceUrl
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 # fragment Image on AssetInterface {
