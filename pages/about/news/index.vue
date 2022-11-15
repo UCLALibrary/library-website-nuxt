@@ -1,5 +1,8 @@
 <template>
-    <main id="main" class="page page-news">
+    <main
+        id="main"
+        class="page page-news"
+    >
         <masthead-secondary
             :title="page.title"
             :text="page.summary"
@@ -18,7 +21,8 @@
             />
         </section-wrapper>
 
-        <section-wrapper 
+        <section-wrapper
+            v-if="page.featuredNews.length"
             section-title="Highlighted News"
         >
             <banner-featured
@@ -34,20 +38,27 @@
                 prompt="Read More"
                 class="banner"
             />
+
+            <section-wrapper theme="divider">
+                <divider-way-finder
+                    color="about"
+                />
+            </section-wrapper>
         </section-wrapper>
 
-        <section-wrapper>
+        <section-wrapper
+            v-if="parsedSectionHighlight.length"
+        >
             <section-teaser-highlight
                 class="section"
                 :items="parsedSectionHighlight"
             />
-        </section-wrapper>
 
-        <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
+            <section-wrapper theme="divider">
+                <divider-way-finder
+                    color="about"
+                />
+            </section-wrapper>
         </section-wrapper>
 
         <section-wrapper>
