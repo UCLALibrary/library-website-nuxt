@@ -4,9 +4,14 @@
             :title="page.title"
             :text="page.summary"
         />
-        <h3>{{ page.policyBlock }}</h3>
+        <!-- <h3>{{ policyBlock }}</h3> -->
+        <!-- <h3>{{ page.policyBlock }}</h3>  -->
+        <!-- <hr>
+        <h4>{{ parsedAssociatedEnties }}</h4>
+        <hr> -->
+        <h3>{{ policyBlock[0].associatedEntries }}</h3>
         <hr>
-        <!-- <h3>{{ parsedAssociatedEnties }}</h3> -->
+        <h4>{{ parsedPolicies }}</h4>
         <div
             v-for="(policy, index) in parsedPolicies"
             :key="`PolicyBlocksKey${index}`"
@@ -49,6 +54,7 @@ export default {
 
         return {
             page: _get(data, "entry", {}),
+            policyBlock:  _get(data, "entry.policyBlock", {})
         }
     },
     head() {
@@ -58,51 +64,18 @@ export default {
         }
     },
     computed: {
-        parsedAssociatedEnties() {
-            let policies =  this.page.policyBlock.map((obj) => {
-                return {
-                    ...obj
-                }
-            })
-
-            let allEntries = policies.map((entry) => {
-                return entry.associatedEntries
-            })
-
-            return allEntries.map((entry) => {
-                return  entry.map((entry) => {
-                    // return entry.title
-                    return {
-                        to: `/${entry.to}`,
-                        title: entry.title,
-                        text: entry.text
-                    }
-                })
-            })
-        },
-        parsedSpecialCollections() {
-            return 
-        },
-        // parsedAssociatedEnties() {
-        //     return this.page.policyBlock.map((obj) => {
-        //         return {
-        //             ...obj,
-        //             obj.associatedEntries.map(element => {
-        //                 return {
-        //                     ...element,
-        //                     to: `/${element.to}`,
-        //                      title: element.title,
-        //                      text:element.text
-        //                 }
-        //             })
-        //         }
+        // parsedAssociatedEntries() {
+        //     return this.page.policyBlock.map((item, index) => {
+        //         return item.associatedEntries.map((entry) => {
+        //             return {
+        //                 to: `/${entry[index].to}`,
+        //                 title: entry[index].title,
+        //                 text: entry[index].text
+        //             }
+        //         })
         //     })
         // },
-        // return data.entry.policyBlock.map(item => {
-        //     return item.associatedEntries.map(element => {
-        //         return element.to = `/${element.to}`
-        //         })
-        // })
+
         parsedPolicies() {
             let policies = this.page.policyBlock
 
@@ -111,7 +84,6 @@ export default {
                     ...obj,
                     sectionTitle: _get(obj, "sectionTitle", null),
                     sectionSummary: _get(obj, "sectionSummary", null),
-                    items: this.parsedAssociatedEnties
                 }
             })
         }
