@@ -4,7 +4,6 @@
             :title="page.title"
             :text="page.summary"
         />
-        {{ parsedAssociatedEntries }}
         <section-wrapper v-if="page.richText">
             <RichText :rich-text-content="page.richText" />
         </section-wrapper>
