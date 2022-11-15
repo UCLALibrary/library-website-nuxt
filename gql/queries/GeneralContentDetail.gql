@@ -8,6 +8,13 @@ query GeneralContentDetail($slug: [String!]) {
             title
             slug
             uri
+            button: buttonUrl {
+                ... on buttonUrl_button_BlockType {
+                    id
+                    buttonText
+                    buttonUrl
+                }
+            }
             summary
             heroImage {
                 ... on heroImage_heroImage_BlockType {
