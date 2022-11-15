@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 query AccessCollectionsListing {
   entry(section: "listingAccessCollections") {
     title
@@ -31,3 +32,38 @@ query AccessCollectionsListing {
     }
   }
 }
+=======
+query AccessCollectionsListing {
+  entry(section: "listingAccessCollections") {
+    title
+    summary
+    ... on listingAccessCollections_listingAccessCollections_Entry {
+      accessCollections {
+        title
+        text: summary
+        uri
+        externalResourceUrl
+        iconName: illustrationsResourcesAndServices
+        ... on externalResource_externalResource_Entry {
+          id
+        }
+        category
+        typeHandle
+        serviceOrResourceType
+        workshopOrEventSeriesType
+      }
+      associatedTopics {
+        title
+        text: summary
+        uri
+        externalResourceUrl
+        iconName: illustrationsResourcesAndServices
+        category
+        typeHandle
+        serviceOrResourceType
+        workshopOrEventSeriesType
+      }
+    }
+  }
+}
+>>>>>>> d580f4a (feat: add query)

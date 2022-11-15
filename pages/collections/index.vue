@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 <template lang="html">
     <section class="page-collections">
+=======
+<template>
+    <main class="page page-collections">
+>>>>>>> d580f4a (feat: add query)
         <banner-text
             v-if="!page.heroImage"
             class="banner-text"
