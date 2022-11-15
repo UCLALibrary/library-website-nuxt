@@ -9,7 +9,7 @@ query AccessCollectionsListing {
         uri
         externalResourceUrl
         iconName: illustrationsResourcesAndServices
-        ... on externalResource_externalResource_Entry {
+          ... on externalResource_externalResource_Entry {
           id
         }
         category
@@ -20,7 +20,7 @@ query AccessCollectionsListing {
       associatedTopics {
         title
         text: summary
-        uri
+        to : uri
         externalResourceUrl
         iconName: illustrationsResourcesAndServices
         category
