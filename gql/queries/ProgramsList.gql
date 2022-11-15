@@ -15,6 +15,7 @@ query ProgramList {
       programUrlBehavior
       buttonUrl {
         ...on buttonUrl_button_BlockType {
+          buttonText
           buttonUrl
         }
         

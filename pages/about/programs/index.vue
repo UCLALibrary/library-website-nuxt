@@ -60,13 +60,13 @@ export default {
             return this.page.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.to}`,
+                    to: obj.programUrlBehavior === "externalSite" ? obj.buttonUrl[0].buttonUrl : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.fullName}`,
                     category: _get(obj, "articleCategories[0].title", null),
                 }
             })
-        }
+        },
     },
 }
 </script>
