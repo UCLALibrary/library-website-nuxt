@@ -59,6 +59,10 @@ export default {
         const data = await $graphql.default.request(ACCESS_COLLECTIONS)
         data.entry.accessCollections.forEach((element) => {
             element.to = element.uri ? element.uri : element.externalResourceUrl
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6705e33 (big refactor)
             element.category =
                 element.workshopOrEventSeriesType === "help/services-resources"
                     ? "workshop"
@@ -72,6 +76,7 @@ export default {
             page: _get(data, "entry", {}),
         }
     },
+
     computed: {
         parsedAccessCollections() {
             return this.page.accessCollections.map((obj) => {
