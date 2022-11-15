@@ -20,6 +20,19 @@
                 @view-mode-change="viewModeChanger" -->
         </masthead-secondary>
 
+<<<<<<< HEAD
+=======
+        <banner-text
+            v-if="!page.heroImage || page.heroImage.length == 0"
+            class="banner-text"
+            category="Library News"
+            :title="page.title"
+            :text="page.text"
+            :byline="parsedBylineBannerText"
+            :locations="page.locations"
+        />
+
+>>>>>>> 16e5842 (feat: add more components)
         <section-wrapper>
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
@@ -37,6 +50,7 @@
         </section-wrapper>
 
         <section-wrapper>
+<<<<<<< HEAD
             <section-cards-with-illustrations
                 class="section"
                 :items="parsedAssociatedTopics"
@@ -45,7 +59,56 @@
                 button-text="All services & Resources"
                 :is-horizontal="false"
             />
+=======
+            <section-wrapper>
+                <!-- <banner-featured
+                    class="banner banner-about"
+                    :image="bannerAbout.image"
+                    :to="bannerAbout.to"
+                    :title="bannerAbout.title"
+                    :category="bannerAbout.category"
+                    :breadcrumb="bannerAbout.breadcrumb"
+                    :start-date="bannerVisit.startDate"
+                    :end-date="bannerVisit.endDate"
+                    :prompt="bannerAbout.prompt"
+                    :ratio="bannerAbout.ratio"
+                    :locations="bannerAbout.locations"
+                />
+                <block-highlight
+                    :image="image"
+                    :to="to"
+                    :category="category"
+                    :title="title"
+                    :start-date="startDate"
+                    :end-date="endDate"
+                    :text="text"
+                    :has-triangle="true"
+                    :is-vertical="true"
+                    :image-aspect-ratio="60"
+                    :locations="locations"
+                /> -->
+            </section-wrapper>
         </section-wrapper>
+
+        <section-wrapper>
+            <divider-way-finder class="divider divider-way-finder" />
+>>>>>>> 16e5842 (feat: add more components)
+        </section-wrapper>
+
+        <!-- cards with images -->
+        <!-- <flexible-card-with-image
+            :block="block"
+        /> -->
+
+        <section-wrapper>
+            <divider-way-finder class="divider divider-way-finder" />
+        </section-wrapper>
+
+        <flexible-blocks
+            v-if="page"
+            class="flexible-content"
+            :blocks="page.blocks"
+        />
     </section>
 </template>
 
