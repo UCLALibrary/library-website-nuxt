@@ -17,6 +17,8 @@
             :category="page.format"
             :title="page.title"
             :text="page.summary"
+            :button-text="parsedButtonText"
+            :to="parsedButtonTo"
         />
 
         <section-wrapper class="section-banner">
@@ -26,6 +28,8 @@
                 :category="page.format"
                 :title="page.title"
                 :text="page.summary"
+                :to="parsedButtonTo"
+                :prompt="parsedButtonText"
             />
         </section-wrapper>
 
@@ -88,6 +92,12 @@ export default {
                 return this.page.parent.title
 
             return "Home"
+        },
+        parsedButtonText() {
+            return _get(this.page, "button[0].buttonText", "")
+        },
+        parsedButtonTo() {
+            return _get(this.page, "button[0].buttonUrl", "")
         },
     },
 }
