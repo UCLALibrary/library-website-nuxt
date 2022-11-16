@@ -1,79 +1,155 @@
 <template lang="html">
     <main class="page-service-detail">
         <!-- TODO create separate sectionpage component based on typehandle will either use serviceorresource or workshopseries component-->
-        <nav-breadcrumb
-            to="/help/services-resources"
-            :title="page.title"
-            parent-title="Services & Resources"
-        />
+        <!-- ServiceOrResource Detail -->        
+        <div v-if="page.serviceOrResource">
+            <nav-breadcrumb
+                to="/help/services-resources"
+                :title="page.serviceOrResource.title"
+                parent-title="Services & Resources"
+            />
 
-        <banner-text
-            v-if="!page.heroImage || page.heroImage.length == 0"
-            class="banner-text"
-            :category="page.type"
-            :title="page.title"
-            :text="page.text"
-            :button-text="parsedButtonText"
-            :to="parsedButtonTo"
-        />
-
-        <section-wrapper
-            v-if="page.heroImage && page.heroImage.length == 1"
-            class="section-banner"
-        >
-            <banner-header
-                :image="page.heroImage[0].image[0]"
+            <banner-text
+                v-if="!page.heroImage || page.heroImage.length == 0"
+                class="banner-text"
                 :category="page.type"
                 :title="page.title"
                 :text="page.text"
+                :button-text="parsedButtonText"
                 :to="parsedButtonTo"
-                :prompt="parsedButtonText"
             />
-        </section-wrapper>
 
-        <section-wrapper theme="divider">
-            <divider-way-finder color="help" />
-        </section-wrapper>
+            <section-wrapper
+                v-if="page.heroImage && page.heroImage.length == 1"
+                class="section-banner"
+            >
+                <banner-header
+                    :image="page.heroImage[0].image[0]"
+                    :category="page.type"
+                    :title="page.title"
+                    :text="page.text"
+                    :to="parsedButtonTo"
+                    :prompt="parsedButtonText"
+                />
+            </section-wrapper>
 
-        <flexible-blocks
-            class="content"
-            :blocks="page.blocks"
-        />
+            <section-wrapper theme="divider">
+                <divider-way-finder color="help" />
+            </section-wrapper>
 
-        <section-wrapper
-            v-if="parsedAssociatedTopics.length"
-            theme="divider"
-        >
-            <divider-way-finder
-                class="divider-way-finder"
-                color="help"
+            <flexible-blocks
+                class="content"
+                :blocks="page.blocks"
             />
-        </section-wrapper>
 
-        <section-wrapper>
-            <section-cards-with-illustrations
+            <section-wrapper
                 v-if="parsedAssociatedTopics.length"
-                class="section-cards"
-                :items="parsedAssociatedTopics"
-                section-title="Associated Topics"
-                button-text="All Services and Resources"
+                theme="divider"
+            >
+                <divider-way-finder
+                    class="divider-way-finder"
+                    color="help"
+                />
+            </section-wrapper>
+
+            <section-wrapper>
+                <section-cards-with-illustrations
+                    v-if="parsedAssociatedTopics.length"
+                    class="section-cards"
+                    :items="parsedAssociatedTopics"
+                    section-title="Associated Topics"
+                    button-text="All Services and Resources"
+                    to="/help/services-resources"
+                />
+            </section-wrapper>
+
+            <section-wrapper theme="divider">
+                <divider-way-finder
+                    class="divider-way-finder"
+                    color="help"
+                />
+            </section-wrapper>
+        </div>
+        <!-- Workshop Series -->
+        <div v-else>
+            <nav-breadcrumb
                 to="/help/services-resources"
+                :title="page.workshopSeries.title"
+                parent-title="Exhibits & Upcoming Events"
             />
-        </section-wrapper>
+            <banner-text
+                v-if="page.workshopSeries && !page.workshopSeries.image[0]"
+                :title="page.workshopSeries.title"
+                :text="page.workshopSeries.summary"
+                :locations="page.workshopSeries.associatedLocations"
+                :date="page.workshopSeries.date[0].startDate"
+                category="Workshop Series"
+            />
 
-        <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider-way-finder"
-                color="help"
-            />
-        </section-wrapper>
+            <section-wrapper
+                v-if="page.workshopSeries.image[0]"
+                class="section-banner"
+            >
+                <banner-header
+                    :image="page.workshopSeries.image[0].image[0]"
+                    :title="page.workshopSeries.title"
+                    :locations="page.workshopSeries.associatedLocations"
+                    :start-date="page.workshopSeries.date[0].startDate"
+                    category="Workshop Series"
+                    :text="page.workshopSeries.summary"
+                    :end-date="page.workshopSeries.date[0].endDate"
+                    :align-right="true"
+                />
+            </section-wrapper>
+            <section-wrapper theme="divider">
+                <divider-way-finder
+                    v-if="page.workshopSeries.image"
+                    color="visit"
+                />
+            </section-wrapper>
 
-        <section-wrapper>
-            <block-call-to-action
-                class="block-call-to-action"
-                :is-global="true"
+            <flexible-blocks
+                class="content"
+                :blocks="page.workshopSeries.blocks"
             />
-        </section-wrapper>
+            <section-wrapper
+                v-if="page.workshopSeries.blocks.length > 0"
+                theme="divider"
+            >
+                <divider-way-finder
+                    class="divider-way-finder"
+                    color="visit"
+                />
+            </section-wrapper>
+            <section-wrapper>
+                <h3 class="section-title">
+                    Workshop in this Series
+                </h3>
+                <divider-general />
+                <section-teaser-list
+                    v-if="associatedEvents"
+                    :items="associatedEvents"
+                    class="section section-list"
+                />
+            </section-wrapper>
+            <section-wrapper
+                v-if="page.workshopSeries.associatedTopics.length > 0"
+                theme="divider"
+            >
+                <divider-way-finder
+                    class="divider-way-finder"
+                    color="visit"
+                />
+            </section-wrapper>
+            <section-wrapper>
+                <section-cards-with-illustrations
+                    v-if="page.workshopSeries.associatedTopics.length > 0"
+                    class="section-cards"
+                    :items="page.workshopSeries.associatedTopics"
+                    section-title="Associated Topics"
+                />
+            </section-wrapper>
+        </div>
     </main>
 </template>
 
@@ -105,13 +181,17 @@ export default {
         // console.log("Data fetched: " + JSON.stringify(data))
 
         return {
-            page:
-                _get(data, "serviceOrResource", {}) ||
-                _get(data, "workshopseries", {}),
+            page: data
         }
     },
     head() {
-        let title = this.page ? this.page.title : "... loading"
+        let title = this.page && (
+            this.page.serviceOrResource ||
+            this.page.workshopSeries
+        ) ? (
+                this.page.serviceOrResource.title || 
+                this.page.workshopSeries.title
+            ) : "...loading"
         return {
             title: title,
         }
@@ -133,6 +213,18 @@ export default {
         },
         parsedButtonTo() {
             return _get(this.page, "button[0].buttonUrl", "")
+        },
+        associatedEvents() {
+            return this.page.workshopSeries.event.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "image[0].image[0]", null),
+                    startDate: _get(obj, "date[0].startTime", null),
+                    endDate: _get(obj, "date[0].endTime", null),
+                    category: _get(obj, "category.title", ""),
+                }
+            })
         },
     },
 }
