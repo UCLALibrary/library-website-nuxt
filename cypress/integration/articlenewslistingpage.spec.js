@@ -5,7 +5,7 @@ describe("Article News Listing page", () => {
         // UCLA Library brand
         cy.get(".logo-ucla").should("be.visible")
         cy.get(".page-news").should("be.visible")
-        cy.get("h1.title").should("contain", "Listing - News")
+        cy.get("h1.title").should("contain", "Library News")
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 })
