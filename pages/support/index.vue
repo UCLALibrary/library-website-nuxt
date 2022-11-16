@@ -45,11 +45,32 @@ import format from "date-fns/format"
 import ENDOWMENT_LIST from "~gql/queries/EndowmentList"
 
 export default {
+    async asyncData({ $graphql, route }) {
+        // console.log("route: " + route.path)
+        const data = await $graphql.default.request(ENDOWMENTS_LIST, {})
+        // console.log("data:" + data)
+        return {
+            page: _get(data, "entries", {}),
+            entry: _get(data, "entry", {}),
+        }
+    },
     head() {
         let title = this.page ? this.page.title : "... loading"
         return {
             title: title,
         }
+    },
+    computed: {
+        parsedEndowmentsList() {
+            return this.page.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.to}`,
+                    image: _get(obj, "heroImage[0].image[0]", null),
+                    category: _get(obj, "donors[0].title", null),
+                }
+            })
+        },
     },
 }
 </script>
