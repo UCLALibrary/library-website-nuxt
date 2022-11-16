@@ -1,0 +1,34 @@
+#import "~/gql/fragments/Image"
+
+query EndowmentsList {
+  entry(section: "listingEndowments") {
+    ... on listingEndowments_listingEndowments_Entry {
+      title
+      summary
+    }
+  }
+  entries(section: "endowment", orderBy: "title ASC") {
+    title
+    alternativeName {
+      languageAltName
+      fullName
+    }
+    summary
+    uri
+    heroImage {
+      ... on heroImage_heroImage_BlockType {
+        id
+        image {
+          ...Image
+        }
+        altText
+      }
+    }
+    donors {
+      ... on donors_donor_BlockType {
+        firstName
+        lastName
+      }
+    }
+  }
+} 
