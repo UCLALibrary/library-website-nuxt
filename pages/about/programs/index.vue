@@ -51,7 +51,6 @@ export default {
     },
     computed: {
         parsedProgramsList() {
-            console.log("Entries: " + this.page.entries)
             return this.page.map((obj) => {
                 return {
                     ...obj,
