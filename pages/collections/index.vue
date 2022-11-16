@@ -1,7 +1,6 @@
 <template lang="html">
     <section class="page-collections">
         <banner-text
-            v-if="!page.heroImage"
             class="banner-text"
             :title="page.title"
             :text="page.summary"
@@ -190,7 +189,7 @@ export default {
                     )
                     return {
                         ...obj,
-                        to: `/about/${obj.articleType}/${obj.to}`,
+                        to: `/${obj.to}`,
                         image: _get(obj, "heroImage[0].image[0]", null),
                         category: parsedCategories,
                     }
