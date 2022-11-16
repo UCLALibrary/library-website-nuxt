@@ -5,6 +5,11 @@
             :text="page.summary"
         />
 
+        <!-- TODO: fix the :to in simple-cards
+            (currently the link is http://192.168.86.198:3000/about/about/policies/shhh)
+            and this code could be prettier
+            Add VIEW ALL button
+        -->
         <div
             v-for="(block, index) in page.policyBlock"
             :key="`PolicyBlocksKey${index}`"
@@ -14,14 +19,18 @@
                     :section-title="block.sectionTitle"
                     :section-summary="block.sectionSummary"
                     :items="block.associatedEntries"
+                    button="View all"
                 />
             </section-wrapper>
+
             <section-wrapper theme="divider">
-                <DividerWayFinder
+                <divider-way-finder
+                    class="divider"
                     color="about"
                 />
             </section-wrapper>
         </div>
+
         <flexible-blocks
             :blocks="page.blocks"
         />
