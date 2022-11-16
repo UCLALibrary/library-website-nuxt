@@ -3,14 +3,18 @@
         <masthead-secondary title="Staff Directory" />
         <!-- TODO Add SearchGenric here when complete
                 Filter by location, department, subject libarian -->
-
+        <!--  -->
         <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
+            :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-
+        <h4 style="margin: 30px 400px">
+            No of hits
+            {{ parsedStaffList.length || (hits && parseHitsResults.length) }}
+        </h4>
         <section-wrapper theme="divider">
             <divider-way-finder />
         </section-wrapper>
@@ -52,7 +56,14 @@
         </section-wrapper>
 
         <section-wrapper>
-            <section-staff-list :items="parsedStaffList" />
+            <section-staff-list
+                v-if="page.entries"
+                :items="parsedStaffList"
+            />
+            <section-staff-list
+                v-if="hits && hits.length > 0"
+                :items="parseHitsResults"
+            />
         </section-wrapper>
     </main>
 </template>
@@ -69,13 +80,38 @@ import config from "~/utils/searchConfig"
 import STAFF_LIST from "~/gql/queries/StaffList"
 // import STAFF_LIST_WITH_DETAIL from "~/gql/queries/StaffListwithfulldetail"
 
+/*function parseResults(hits = []) {
+    // console.log("checking results data:" + JSON.stringify(hits[0]))
+
+    return hits.map((obj) => {
+        // console.log(obj["_source"]["image"])
+        return {
+            ...obj["_source"],
+            to: `${obj["_source"].to}`,
+            image: obj["_source"]["image"], //_get(obj["_source"]["image"], "image[0]", null),
+            staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
+        }
+    })
+}*/
+
 export default {
-    async asyncData({ $graphql, params, $dataApi }) {
+    data() {
+        return {
+            page: {},
+            hits: [],
+            searchFilters: [],
+            searchGenericQuery: {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            },
+        }
+    },
+    async fetch() {
         console.log("live preview  staff list")
 
-        // Write a helper function for returning generic filters and doing the reduce part
-
-        const data = await $graphql.default.request(STAFF_LIST)
         // console.log("Craft Data:" + JSON.stringify(data))
         /*const allResults = await $dataApi.keywordSearchWithFilters(
             "*:*",
@@ -95,21 +131,57 @@ export default {
             "staff list for indexing: " +
                 JSON.stringify(datawithfulldetail.entries)
         )*/
+        const searchAggsResponse = await this.$dataApi.getAggregations(
+            config.staff.filters,
+            "staffMember"
+        )
+        this.searchFilters = getListingFilters(
+            searchAggsResponse,
+            config.staff.filters
+        )
 
-        return {
-            page: data,
-            searchFilters: [],
-        }
-    },
-    data() {
-        return {
-            //searchFilters,
-            //selectedView: this.$route.query.view,
+        /*console.log(
+            "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+        )*/
+        console.log("test query parameters: " + this.$route.query.q)
+        console.log("test query parameters: " + this.$route.query.filters)
+        if (
+            (this.$route.query.q && this.$route.query.q !== "") ||
+            this.$route.query.filters
+        ) {
+            console.log("in router query in asyc data")
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                this.$route.query.q || "*",
+                "staffMember",
+                JSON.parse(this.$route.query.filters) || {},
+                "nameLast.keyword",
+                config.staff.resultFields,
+                config.staff.filters
+            )
+            console.log("getsearchdata method:" + JSON.stringify(results))
+
+            if (results && results.hits && results.hits.total.value > 0) {
+                this.hits = results.hits.hits
+                this.page = {}
+            }
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            }
+        } else {
+            // if route queries are empty fetch data from craft
+            this.page = await this.$graphql.default.request(STAFF_LIST)
+            this.hits = []
+            //console.log("Craft data:" + JSON.stringify(data))
         }
     },
     computed: {
         parsedStaffList() {
-            return this.page.entries.map((obj) => {
+            // console.log("in parsedStaff")
+            return (this.page.entries || []).map((obj) => {
                 return {
                     ...obj,
                     to: `/about/staff/${obj.to}`,
@@ -118,12 +190,34 @@ export default {
                 }
             })
         },
+        parseHitsResults() {
+            /*console.log(
+                "ParseHits Results checking results data:" +
+                    JSON.stringify(this.hits)
+            )*/
+
+            return this.hits.map((obj) => {
+                // console.log(obj["_source"]["image"])
+                return {
+                    ...obj["_source"],
+                    to: `${obj["_source"].to}`,
+                    image: _get(obj["_source"]["image"], "[0]", null), //obj["_source"]["image"], //,
+                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
+                }
+            })
+        },
+    },
+    watch: {
+        "$route.query": "$fetch",
     },
 
     async mounted() {
-        //console.log("ESREADkey:" + this.$config.esReadKey)
-        //console.log("ESURLkey:" + this.$config.esURL)
-        if (process.client) {
+        /*console.log("ESREADkey:" + this.$config.esReadKey)
+        console.log("ESURLkey:" + this.$config.esURL)*/
+        // this.setFilters()
+    },
+    methods: {
+        /* async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.staff.filters,
                 "staffMember"
@@ -136,21 +230,19 @@ export default {
                 searchAggsResponse,
                 config.staff.filters
             )
-        }
-    },
-    methods: {
-        async watchQueryMethod() {
-            console.log("In Watch Query Method")
-        },
+        },*/
         async getSearchData(data) {
             this.$router.push({
                 path: "/about/staff",
-                query: { q: data.text, filters: JSON.stringify(data.filters) },
+                query: {
+                    q: data.text,
+                    filters: JSON.stringify(data.filters),
+                },
             })
-            console.log(this.$router.query)
-            console.log("from search-generic: " + JSON.stringify(data))
-            console.log(config.staff.resultFields)
-            const filters = data.filters //mergeFilters(data.filters)
+
+            // console.log("from search-generic: " + JSON.stringify(data))
+            // console.log(config.staff.resultFields)
+            /* const filters = data.filters //mergeFilters(data.filters)
 
             const results = await this.$dataApi.keywordSearchWithFilters(
                 data.text || "*",
@@ -159,27 +251,13 @@ export default {
                 "nameLast.keyword",
                 config.staff.resultFields,
                 config.staff.filters
-            )
-            console.log(results)
-            if (results && results.hits && results.hits.total.value > 0)
-                this.page.entries = this.parseResults(results.hits.hits)
-            this.searchFilters = getListingFilters(
-                results.aggregations,
-                config.staff.filters
-            )
-        },
-        parseResults(hits = []) {
-            console.log("checking results data:" + JSON.stringify(hits[0]))
+            )*/
+            // console.log("getsearchdata method:" + JSON.stringify(results))
 
-            return hits.map((obj) => {
-                console.log(obj["_source"]["image"])
-                return {
-                    ...obj["_source"],
-                    to: `${obj["_source"].to}`,
-                    image: obj["_source"]["image"], //_get(obj["_source"]["image"], "image[0]", null),
-                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
-                }
-            })
+            /*if (results && results.hits && results.hits.total.value > 0) {
+                this.page.entries = parseResults(results.hits.hits)
+            }*/
+            //this.setFilters()
         },
     },
 }
