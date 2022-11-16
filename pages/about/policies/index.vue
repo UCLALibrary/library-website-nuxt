@@ -4,27 +4,16 @@
             :title="page.title"
             :text="page.summary"
         />
-        <!-- <h3>{{ policyBlock }}</h3> -->
-        <!-- <h3>{{ page.policyBlock }}</h3>  -->
-        <!-- <hr>
-        <h4>{{ parsedAssociatedEnties }}</h4>
-        <hr> -->
-        <h3>page.policyBlock  --- {{ page.policyBlock[0] }}</h3>
-        <hr>
-        <h4>parsedPolicies --- {{ parsedPolicies }}</h4>
-        <hr>
-        <h3>{{ policyBlock[0].associatedEntries }}</h3>
-        <hr>
-        
+
         <div
-            v-for="(policy, index) in parsedPolicies"
+            v-for="(policy, index) in parsedPolicyBlocks"
             :key="`PolicyBlocksKey${index}`"
         >
             <section-wrapper>
                 <simple-cards
                     :section-title="policy.sectionTitle"
                     :section-summary="policy.sectionSummary"
-                    :items="policy.associatedEntries"
+                    :items="policy.parsedAssociatedEntries"
                     button="View all"
                 />
             </section-wrapper>
@@ -68,26 +57,16 @@ export default {
         }
     },
     computed: {
-        // parsedAssociatedEntries() {
-        //     return this.page.policyBlock.map((item, index) => {
-        //         return item.associatedEntries.map((entry) => {
-        //             return {
-        //                 to: `/${entry[index].to}`,
-        //                 title: entry[index].title,
-        //                 text: entry[index].text
-        //             }
-        //         })
-        //     })
-        // },
-
-        parsedPolicies() {
-            let policies = this.page.policyBlock
-
-            return policies.map((obj) => {
+        parsedPolicyBlocks() {
+            return this.page.policyBlock.map((obj) => {
                 return {
                     ...obj,
-                    sectionTitle: _get(obj, "sectionTitle", null),
-                    sectionSummary: _get(obj, "sectionSummary", null),
+                    parsedAssociatedEntries: obj.associatedEntries.map((entry) => {
+                        return {
+                            ...entry,
+                            to: `/${entry.uri}`
+                        }
+                    })
                 }
             })
         }

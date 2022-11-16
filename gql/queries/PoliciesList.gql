@@ -9,7 +9,7 @@ query PoliciesList {
         sectionSummary
         sectionTitle
         associatedEntries {
-          to: uri
+          uri
           title
           text: summary
         }
