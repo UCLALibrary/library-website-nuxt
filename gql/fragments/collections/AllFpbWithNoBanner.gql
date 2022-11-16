@@ -1,13 +1,13 @@
 #import "~/gql/fragments/Image"
 #import "~/gql/fragments/BlockCardWithImageFragment"
-#import "~/gql/fragments/BlockHighlight"
+#import "~/gql/fragments/BlockHighlightFragment"
 #import "~/gql/fragments/BlockImpactNumbersCarouselFragment"
 #import "~/gql/fragments/BlockMediaGalleryFragment"
 #import "~/gql/fragments/BlockMediaWithTextFragment"
 #import "~/gql/fragments/BlockPullQuoteFragment"
 #import "~/gql/fragments/BlockRichTextFragment"
 #import "~/gql/fragments/BlockSimpleCardsFragment"
-#import "~/gql/fragments/BlockCtaFragment"
+#import "~/gql/fragments/BlockCallToActionFragment"
 #import "~/gql/fragments/BlockFormFragment"
 
 fragment AllFpbWithNoBanner on ElementInterface {
@@ -23,7 +23,7 @@ fragment AllFpbWithNoBanner on ElementInterface {
         ...BlockPullQuote
         ...BlockRichText
         ...BlockSimpleCards
-        ...BlockCta
+        ...BlockCallToAction
         ...BlockForm
     }
 }
@@ -60,8 +60,8 @@ fragment BlockSimpleCards on AllFpbWithNoBanner_simpleCards_BlockType {
     ...BlockSimpleCardsFragment
 }
 
-fragment BlockCta on AllFpbWithNoBanner_callToAction_BlockType {
-    ...BlockCtaFragment
+fragment BlockCallToAction on AllFpbWithNoBanner_callToAction_BlockType {
+    ...BlockCallToActionFragment
 }
 
 fragment BlockForm on AllFpbWithNoBanner_form_BlockType {
