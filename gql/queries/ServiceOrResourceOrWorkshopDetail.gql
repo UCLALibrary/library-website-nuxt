@@ -1,4 +1,5 @@
 #import "~/gql/fragments/collections/DefaultFpbWithNoCta"
+#import "~/gql/fragments/collections/DefaultFpbWithCardsAndHighlight"
 
 query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
   serviceOrResource: entry(section: "serviceOrResource", slug: $slug) {
