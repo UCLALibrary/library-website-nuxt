@@ -1,56 +1,126 @@
 #import "~/gql/fragments/collections/DefaultFpbWithNoCta"
 
 query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
-    serviceOrResource: entry(section: "serviceOrResource", slug: $slug) {
-        ... on serviceOrResource_serviceOrResource_Entry {
-            id
-            sectionHandle
-            slug
-            uri
-            button: buttonUrl {
-                ... on buttonUrl_button_BlockType {
-                    id
-                    buttonText
-                    buttonUrl
-                }
-            }
-            illustrationsResourcesAndServices
-            heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    id
-                    image {
-                        ...Image
-                    }
-                    altText
-                }
-            }
-            type: serviceOrResourceType
-            title
-            text: summary
-            locations: associatedLocations {
-                id
-                to: slug
-                title
-            }
-            associatedTopics {
-                id
-                text: summary
-                title
-                slug
-                uri
-                externalResourceUrl
-            }
+  serviceOrResource: entry(section: "serviceOrResource", slug: $slug) {
+    ... on serviceOrResource_serviceOrResource_Entry {
+      id
+      sectionHandle
+      slug
+      uri
+      button: buttonUrl {
+        ... on buttonUrl_button_BlockType {
+          id
+          buttonText
+          buttonUrl
         }
-        ...DefaultFpbWithNoCta
+      }
+      illustrationsResourcesAndServices
+      heroImage {
+        ... on heroImage_heroImage_BlockType {
+          id
+          image {
+            ...Image
+          }
+          altText
+        }
+      }
+      type: serviceOrResourceType
+      title
+      text: summary
+      locations: associatedLocations {
+        id
+        to: slug
+        title
+      }
+      associatedTopics {
+        id
+        text: summary
+        title
+        slug
+        uri
+        externalResourceUrl
+      }
     }
-    workshopseries: entry(section: "workshopOrEventSeries", slug: $slug) {
-        ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
+    ...DefaultFpbWithNoCta
+  }
+  workshopSeries: entry(
+    section: "workshopOrEventSeries"
+    workshopOrEventSeriesType: "help/services-resources"
+    slug: $slug
+  ) {
+    ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
+      id
+      workshopOrEventSeriesType
+      sectionHandle
+      typeHandle
+      title
+      summary
+      date: seriesDate {
+        ... on seriesDate_seriesDate_BlockType {
+          id
+          startDate
+          endDate
+        }
+      }
+
+      associatedLocations {
+        ... on location_location_Entry {
+          id
+          to: uri
+          title
+          summary
+        }
+      }
+      image: heroImage {
+        ... on heroImage_heroImage_BlockType {
+          image {
+            ...Image
+          }
+        }
+      }
+      event {
+        id
+        title
+        uri
+        text: eventDescription
+        category: eventType {
+          ... on eventType_Category {
             id
-            sectionHandle
-            slug
-            uri
             title
+          }
+        }
+        image: heroImage {
+          ... on heroImage_heroImage_BlockType {
+            image {
+              ...Image
+            }
+          }
+        }
+
+        date {
+          ... on date_date_BlockType {
+            id
+            startTime
+            endTime
+          }
+        }
+        locations: associatedLocations {
+          ... on location_location_Entry {
+            id
             to: uri
+            title
+            summary
+          }
         }
+      }
+      associatedTopics {
+        id
+        title
+        text: summary
+        to: uri
+        illustration
+      }
+      ...DefaultFpbWithCardsAndHighlight
     }
+  }
 }
