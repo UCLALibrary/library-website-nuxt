@@ -1,29 +1,57 @@
 #import "~/gql/fragments/Image"
 
 query ArticleList($articleType: QueryArgument!) {
-  entries(section: "article", orderBy: "dateCreated", articleType: [$articleType]) {
-        ... on article_article_Entry {
-            id
+  entries(
+    section: "article"
+    orderBy: "postDate DESC"
+    articleType: [$articleType]
+  ) {
+    ... on article_article_Entry {
+      title
+      to: uri
+      heroImage {
+        ... on heroImage_heroImage_BlockType {
+          id
+          image {
+            ...Image
+          }
+        }
+      }
+      description: summary
+      authors: staffMember {
+        title
+      }
+      date: postDate
+      articleCategories {
+        id
+        title
+        uri
+      }
+    }
+  }
+
+  entry(section: "listingNews") {
+    ... on listingNews_listingNews_Entry {
+      title
+      summary
+      ... on listingNews_listingNews_Entry {
+        featuredNews {
+          ... on article_article_Entry {
             title
+            text: summary
             to: uri
             heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    id
-                    image {
-                        ...Image
-                    }
-                }
-            }
-            description: summary
-            authors: staffMember {
-                title
-            }
-            date: dateCreated
-            articleCategories {
+              ... on heroImage_heroImage_BlockType {
                 id
-                title
-                uri
+                image {
+                  ...Image
+                }
+              }
             }
+            postDate
+          }
         }
+      }
     }
+  }
 }

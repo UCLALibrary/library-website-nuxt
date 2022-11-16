@@ -1,24 +1,41 @@
 <template>
     <main class="page page-policies">
-        <section-wrapper
-            v-if="page.entries"
-            class="section"
+        <masthead-secondary
+            :title="page.title"
+            :text="page.summary"
+        />
+
+        <div
+            v-for="(policy, index) in parsedPolicyBlocks"
+            :key="`PolicyBlocksKey${index}`"
         >
-            <ul class="policies">
-                <li
-                    v-for="(item, index) in parsedPolicies"
-                    :key="`impact-${index}`"
-                >
-                    <nuxt-link :to="item.to">
-                        {{ item.title }}
-                    </nuxt-link>
-                </li>
-            </ul>
-        </section-wrapper>
+            <section-wrapper>
+                <simple-cards
+                    :section-title="policy.sectionTitle"
+                    :section-summary="policy.sectionSummary"
+                    :items="policy.parsedAssociatedEntries"
+                    button="View all"
+                />
+            </section-wrapper>
+
+            <section-wrapper theme="divider">
+                <divider-way-finder
+                    class="divider"
+                    color="about"
+                />
+            </section-wrapper>
+        </div>
+
+        <flexible-blocks
+            :blocks="page.blocks"
+        />
     </main>
 </template>
 
 <script>
+// Helpers
+import _get from "lodash/get"
+
 // GQL
 import POLICIES_LIST from "~/gql/queries/PoliciesList"
 
@@ -29,30 +46,42 @@ export default {
         })
 
         return {
-            page: data,
+            page: _get(data, "entry", {}),
+            policyBlock:  _get(data, "entry.policyBlock", {})
+        }
+    },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        return {
+            title: title,
         }
     },
     computed: {
-        parsedPolicies() {
-            return this.page.entries.map((obj) => {
+        parsedPolicyBlocks() {
+            return this.page.policyBlock.map((obj) => {
                 return {
                     ...obj,
-                    to: `/about/policies/${obj.to}`,
+                    parsedAssociatedEntries: obj.associatedEntries.map((entry) => {
+                        return {
+                            ...entry,
+                            to: `/${entry.uri}`
+                        }
+                    })
                 }
             })
-        },
-    },
+        }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 .page-policies {
-    .policies {
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        @include step-1;
-        color: var(--color-primary-blue-03);
+    // refactor simple cards component to fix truncation
+    ::v-deep .simple-cards .text p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
     }
 }
 </style>

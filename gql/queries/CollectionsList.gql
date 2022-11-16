@@ -1,130 +1,71 @@
-#import "~/gql/fragments/Image"
 #import "~/gql/fragments/collections/AllFpb"
-
 query CollectionsList {
-  entries(section: "collection") {
-    ... on collection_collection_Entry {
-      id
-      to: slug
-      title
-      summary
-      ...AllFpb
-      resourceServiceWorkshop {
-        id
-        title
-        uri
-        ... on externalResource_externalResource_Entry {
-          id
-          title
-          summary
-          uri
-        }
-        ... on article_article_Entry {
-          id
-          articleType
-          postDate
-          summary
-          title
-          uri
-        }
-      }
-      heroImage {
-        ... on heroImage_heroImage_BlockType {
-          id
-          image {
-            ...Image
-          }
-        }
-      }
-    }
-    ... on article_article_Entry {
-      id
-      articleType
-      postDate
-      title
-      summary
-      uri
-      heroImage {
-        ... on heroImage_heroImage_BlockType {
-          id
-          image {
-            ...Image
-          }
-        }
-      }
-    }
-  }
-  entry(section: "listingCollections") {
-    ... on listingCollections_listingCollections_Entry {
-      collectionListTitle: titleGeneral
-      collectionListSummary: summary
-      featuredCollectionsSection {
-        ... on featuredCollectionsSection_featuredCollections_BlockType {
-          id
-          titleGeneral
-          title
-          sectionSummary
-          uri
-          featuredCollections {
+    entry(section: "listingCollections") {
+        ... on listingCollections_listingCollections_Entry {
             title
-            uri
-            ... on collection_collection_Entry {
-              id
-              title
-              summary
-              heroImage {
-                ... on heroImage_heroImage_BlockType {
-                  id
-                  image {
-                    ...Image
-                  }
+            summary
+            featuredResourcesSection {
+                ... on featuredResourcesSection_featuredResources_BlockType {
+                    titleGeneral
+                    sectionSummary
+                    featuredResources {
+                        title
+                        text: summary
+                        to: uri
+                        externalResourceUrl
+                        iconName: illustrationsResourcesAndServices
+                    }
                 }
-              }
             }
-            ... on listingCollections_listingCollections_Entry {
-              id
-              title
-              summary
-              titleGeneral
+            featuredCollectionsSection {
+                ... on featuredCollectionsSection_featuredCollections_BlockType {
+                    titleGeneral
+                    sectionSummary
+                    featuredCollections {
+                        title
+                        text: summary
+                        to: uri
+                        heroImage {
+                            ... on heroImage_heroImage_BlockType {
+                                id
+                                image {
+                                    ...Image
+                                }
+                            }
+                        }
+                        button: buttonUrl {
+                            ... on buttonUrl_button_BlockType {
+                                id
+                                buttonText
+                                buttonUrl
+                            }
+                        }
+                        category: physicalDigital
+                    }
+                }
             }
-            ... on externalResource_externalResource_Entry {
-              id
-              externalResourceUrl
-              title
-              summary
-            }
-          }
+            ...AllFpb
         }
-      }
-      featuredResourcesSection {
-        ... on featuredResourcesSection_featuredResources_BlockType {
-          id
-          title
-          titleGeneral
-          sectionSummary
-          featuredResources {
-            id
-            title
-            uri
-            ... on externalResource_externalResource_Entry {
-              id
-              title
-              summary
-              externalResourceUrl
-            }
-          }
-        }
-      }
     }
-  }
+    entries(
+        section: "article"
+        relatedToCategories: [{ title: "collections" }]
+        orderBy: "postDate DESC"
+        limit: 3
+    ) {
+        title
+        text: summary
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+            }
+        }
+        articleCategories {
+            title
+        }
+        to: uri
+    }
 }
-
-# fragment Image on AssetInterface {
-#   id
-#   src: url(transform: "fullscreen")
-#   height(transform: "fullscreen")
-#   width(transform: "fullscreen")
-#   srcset(sizes: ["375", "960", "1280", "1920", "2560"])
-#   alt: title
-#   focalPoint
-# }
