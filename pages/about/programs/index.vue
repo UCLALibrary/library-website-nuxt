@@ -9,7 +9,7 @@
             parent-title="About"
         />
 
-        <banner-text 
+        <banner-text
             :title="entry.title"
             :text="entry.summary"
         />
@@ -19,9 +19,7 @@
         </section-wrapper>
 
         <section-wrapper>
-            <section-staff-article-list
-                :items="parsedProgramsList"
-            />
+            <section-staff-article-list :items="parsedProgramsList" />
         </section-wrapper>
 
         <section-wrapper theme="divider">
@@ -33,10 +31,8 @@
 <script>
 // Helpers
 import _get from "lodash/get"
-
 // GQL
 import PROGRAMS_LIST from "~/gql/queries/ProgramsList"
-
 export default {
     async asyncData({ $graphql, route }) {
         // console.log("route: " + route.path)
@@ -55,11 +51,13 @@ export default {
     },
     computed: {
         parsedProgramsList() {
-            console.log("Entries: " + this.page.entries)
             return this.page.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.programUrlBehavior === "externalSite" ? obj.buttonUrl[0].buttonUrl : `/${obj.to}`,
+                    to:
+                        obj.programUrlBehavior === "externalSite"
+                            ? obj.buttonUrl[0].buttonUrl
+                            : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.fullName}`,
                     category: _get(obj, "articleCategories[0].title", null),
@@ -74,3 +72,4 @@ export default {
 .page-programs {
 }
 </style>
+Footer
