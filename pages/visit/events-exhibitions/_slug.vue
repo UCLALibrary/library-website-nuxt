@@ -186,21 +186,31 @@
                 />
             </section-wrapper>
             <section-wrapper theme="divider">
-                <divider-way-finder color="visit" />
+                <divider-way-finder
+                    v-if="
+                        page.exhibition.blocks.length ||
+                            associatedExhibitionEvents.length > 0 ||
+                            parsedAssociatedStaffMember.length > 0
+                    "
+                    color="visit"
+                />
             </section-wrapper>
             <flexible-blocks
                 class="content"
                 :blocks="page.exhibition.blocks"
             />
             <section-wrapper
-                v-if="page.exhibition.blocks"
+                v-if="page.exhibition.blocks.length > 0"
                 theme="divider"
             >
                 <divider-way-finder color="visit" />
             </section-wrapper>
-            <section-wrapper section-title="Associated Events">
+            <section-wrapper
+                v-if="associatedExhibitionEvents.length"
+                section-title="Associated Events"
+            >
                 <section-teaser-list
-                    v-if="associatedExhibitionEvents"
+                    v-if="associatedExhibitionEvents.length > 0"
                     :items="associatedExhibitionEvents"
                     class="section section-list"
                 />
@@ -319,7 +329,7 @@ export default {
                 : ""
         },
         parsedExhibitionBannerTo() {
-            return this.page.exhibition.buttonUrl
+            return this.page.exhibition.buttonUrl.length
                 ? this.page.exhibition.buttonUrl[0].buttonUrl
                 : ""
         },
