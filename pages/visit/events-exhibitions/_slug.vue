@@ -309,7 +309,7 @@ export default {
                     image: _get(obj, "image[0].image[0]", null),
                     startDate: _get(obj, "startDateWithTime", null),
                     endDate: _get(obj, "endDateWithTime", null),
-                    category: _get(obj, "category.title", ""),
+                    category: _get(obj, "category[0].title", ""),
                 }
             })
         },
@@ -329,7 +329,7 @@ export default {
                     ...obj,
                     to: `/${obj.uri}`,
                     image: _get(obj, "image[0].image[0]", null),
-                    category: _get(obj, "category.title", ""),
+                    category: _get(obj, "category[0].title", ""),
                     startDate: _get(obj, "startDateWithTime", null),
                     endDate: _get(obj, "startDateWithTime", null),
                 }
