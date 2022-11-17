@@ -193,16 +193,24 @@
             >
                 <divider-way-finder color="visit" />
             </section-wrapper>
-            <section-wrapper>
-                <h3 class="section-title">
-                    AssociatedEvents
-                </h3>
-                <divider-general />
+            <section-wrapper section-title="Associated Events">
                 <section-teaser-list
                     v-if="associatedExhibitionEvents"
                     :items="associatedExhibitionEvents"
                     class="section section-list"
                 />
+            </section-wrapper>
+            <section-wrapper
+                v-if="page.exhibition.blocks"
+                theme="divider"
+            >
+                <divider-way-finder color="visit" />
+            </section-wrapper>
+            <section-wrapper
+                v-if="parsedAssociatedStaffMember.length > 0"
+                section-title="Contact a Subject Specialist"
+            >
+                <section-staff-list :items="parsedAssociatedStaffMember" />
             </section-wrapper>
         </div>
     </section>
@@ -294,6 +302,16 @@ export default {
                     to: `/${obj.uri}`,
                     image: _get(obj, "image[0].image[0]", null),
                     category: _get(obj, "category.title", ""),
+                }
+            })
+        },
+        parsedAssociatedStaffMember() {
+            return this.page.exhibition.associatedStaffMember.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/about/staff/${obj.to}`,
+                    image: _get(obj, "image[0]", null),
+                    staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
         },
