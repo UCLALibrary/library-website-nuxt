@@ -153,6 +153,7 @@
         </div>
         <!-- Exhibition -->
         <div v-else>
+            {{ page.exhibition }}
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
                 :title="page.exhibition.title"

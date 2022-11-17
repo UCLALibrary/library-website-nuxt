@@ -167,7 +167,23 @@ query EventDetail($slug: [String!]) {
             exhibitsAndEvents {
                 title
                 uri
-                # UPDATE WHEN DESIGN SHOWS WHAT FIELDS NEED TO BE INCLUDED
+                image: heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+                eventDescription
+                associatedLocations {
+                    ... on location_location_Entry {
+                        id
+                        to: uri
+                        title
+                        summary
+                    }
+                }
+                eventType
             }
             associatedStaffMember {
                 email
