@@ -9,24 +9,32 @@
             />
 
             <banner-text
-                v-if="!page.heroImage || page.heroImage.length == 0"
+                v-if="
+                    !page.serviceOrResource.heroImage ||
+                        page.serviceOrResource.heroImage.length == 0 ||
+                        !page.serviceOrResource.heroImage[0].image ||
+                        page.serviceOrResource.heroImage[0].image.length == 0
+                "
                 class="banner-text"
-                :category="page.type"
-                :title="page.title"
-                :text="page.text"
+                :category="page.serviceOrResource.type"
+                :title="page.serviceOrResource.title"
+                :text="page.serviceOrResource.text"
                 :button-text="parsedButtonText"
                 :to="parsedButtonTo"
             />
 
             <section-wrapper
-                v-if="page.heroImage && page.heroImage.length == 1"
+                v-if="
+                    page.serviceOrResource.heroImage &&
+                        page.serviceOrResource.heroImage.length == 1
+                "
                 class="section-banner"
             >
                 <banner-header
-                    :image="page.heroImage[0].image[0]"
-                    :category="page.type"
-                    :title="page.title"
-                    :text="page.text"
+                    :image="page.serviceOrResource.heroImage[0].image[0]"
+                    :category="page.serviceOrResource.type"
+                    :title="page.serviceOrResource.title"
+                    :text="page.serviceOrResource.text"
                     :to="parsedButtonTo"
                     :prompt="parsedButtonText"
                 />
@@ -38,7 +46,7 @@
 
             <flexible-blocks
                 class="content"
-                :blocks="page.blocks"
+                :blocks="page.serviceOrResource.blocks"
             />
 
             <section-wrapper
@@ -75,7 +83,7 @@
             <nav-breadcrumb
                 to="/help/services-resources"
                 :title="page.workshopSeries.title"
-                parent-title="Exhibits & Upcoming Events"
+                parent-title="Services & Resources"
             />
 
             <banner-text
@@ -102,10 +110,9 @@
                     :align-right="true"
                 />
 
-                <divider-way-finder
-                    v-if="page.workshopSeries.image"
-                    color="visit"
-                />
+                <section-wrapper theme="divider">
+                    <divider-way-finder color="help" />
+                </section-wrapper>
             </section-wrapper>
 
             <flexible-blocks
@@ -113,21 +120,19 @@
                 class="content"
                 :blocks="page.workshopSeries.blocks"
             />
-
-            <h3>page.workshopSeries.blocks{{ page.workshopSeries.blocks }}</h3>
             <section-wrapper
                 v-if="page.workshopSeries.blocks.length > 0"
                 theme="divider"
             >
                 <divider-way-finder
                     class="divider-way-finder"
-                    color="visit"
+                    color="help"
                 />
             </section-wrapper>
 
             <section-wrapper
                 v-if="associatedEvents.length"
-                section-title="Workshop in this Series"
+                section-title="Event(s) in the Series"
             >
                 <divider-general />
                 <section-teaser-list
@@ -142,7 +147,7 @@
             >
                 <divider-way-finder
                     class="divider-way-finder"
-                    color="visit"
+                    color="help"
                 />
             </section-wrapper>
 
@@ -184,33 +189,33 @@ export default {
             )
         // console.log("Data fetched: " + JSON.stringify(data))
         return {
-            page: data
+            page: data,
         }
     },
     head() {
-        if(this.page) {
-            if(this.page.serviceOrResource) {
+        if (this.page) {
+            if (this.page.serviceOrResource) {
                 return {
                     title: this.page.serviceOrResource.title,
                 }
             }
-            if(this.page.workshopSeries) {
+            if (this.page.workshopSeries) {
                 return {
                     title: this.page.workshopSeries.title,
                 }
             }
             return {
-                title: "...loading"
+                title: "...loading",
             }
         }
         return {
-            title: "...loading"
+            title: "...loading",
         }
     },
     computed: {
         parsedAssociatedTopics() {
-            if (!this.page.associatedTopics) return []
-            return this.page.associatedTopics.map((obj) => {
+            if (!this.page.serviceOrResource.associatedTopics) return []
+            return this.page.serviceOrResource.associatedTopics.map((obj) => {
                 return {
                     ...obj,
                     to: obj.externalResourceUrl
@@ -220,10 +225,10 @@ export default {
             })
         },
         parsedButtonText() {
-            return _get(this.page, "button[0].buttonText", "")
+            return _get(this.page.serviceOrResource, "button[0].buttonText", "")
         },
         parsedButtonTo() {
-            return _get(this.page, "button[0].buttonUrl", "")
+            return _get(this.page.serviceOrResource, "button[0].buttonUrl", "")
         },
         associatedEvents() {
             return this.page.workshopSeries.event.map((obj) => {
@@ -236,8 +241,8 @@ export default {
                     category: _get(obj, "category.title", ""),
                 }
             })
-        }
-    }
+        },
+    },
 }
 </script>
 
