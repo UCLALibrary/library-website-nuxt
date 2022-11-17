@@ -6,7 +6,7 @@ export default function ({ $config }, inject) {
     async function siteSearch(keyword="*:*"){
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
         if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
-        console.log("keyword:"+keyword)
+        //console.log("keyword:"+keyword)
     
         const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, {
             headers: {
@@ -45,8 +45,8 @@ export default function ({ $config }, inject) {
     ) {
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
         console.log("In data api keywordsearchwithfilters")
-        console.log($config.esReadKey)
-        console.log($config.esURL)
+        // console.log($config.esReadKey)
+        // console.log($config.esURL)
         if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
         console.log("keyword:"+keyword)
         console.log("filters:"+filters)
@@ -87,7 +87,7 @@ export default function ({ $config }, inject) {
                         must: [
                             {
                                 query_string: {
-                                    query: keyword,
+                                    query: keyword+"*",
                                     fuzziness: "auto",
                                 },
                             },
@@ -127,7 +127,7 @@ export default function ({ $config }, inject) {
 
 
     async function getAggregations(fields, sectionHandle){
-        console.log("search text: "+fields)
+        // console.log("search text: "+fields)
         if(!fields || fields.length == 0 ) return
         const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, 
             {
@@ -165,15 +165,15 @@ export default function ({ $config }, inject) {
         return parseQuery
     }
     function parseSectionHandle(sectionHandle) {
-        console.log(sectionHandle)
+        // console.log(sectionHandle)
         if (sectionHandle && sectionHandle === "") return []
-        console.log("where is the execution")
+        // console.log("where is the execution")
         let boolQuery = []
         let sectionHandleTermQueryObj = {}
         sectionHandleTermQueryObj["term"] = {}
         sectionHandleTermQueryObj["term"]["sectionHandle.keyword"] = sectionHandle
         boolQuery.push(sectionHandleTermQueryObj)
-        console.log("query:" + boolQuery)
+        // console.log("query:" + boolQuery)
         return boolQuery
     }
     function parseFilterQuery(filters) {
@@ -190,20 +190,26 @@ export default function ({ $config }, inject) {
 
 
         */
-        for (const filter of filters) {
-            console.log(filter)
-            if (!filter.value) continue
-            let filterObj = { term: {} }
-            filterObj.term[filter.esFieldName] = filter.value
-            boolQuery.push(filterObj)
+        for (const key in filters) {
+            // console.log(key)
+            if (Array.isArray(filters[key]) && filters[key].length > 0) {
+                let filterObj = { terms: {} }
+                filterObj.terms[key] = filters[key]
+                boolQuery.push(filterObj)
+            }else if(!Array.isArray(filters[key]) && filters[key]!="") {
+                let filterObj = { term: {} }
+                filterObj.term[key] = filters[key]
+                boolQuery.push(filterObj)
+            }
         }
+        // console.log("bool query:"+JSON.stringify(boolQuery))
         return boolQuery
     }
 
     function parseFieldNames(fields) {
         let aggsFields = {}
         for (const element of fields) {
-            console.log(element)
+            // console.log(element)
             aggsFields[element.label] = {
                 terms: {
                     field: element.esFieldName,
@@ -211,7 +217,7 @@ export default function ({ $config }, inject) {
                 },
             }
         }
-        console.log("aggsFields:" + JSON.stringify(aggsFields))
+        // console.log("aggsFields:" + JSON.stringify(aggsFields))
         return aggsFields
     }
 }

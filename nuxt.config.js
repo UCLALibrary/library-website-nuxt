@@ -52,7 +52,7 @@ export default {
         "~/plugins/preview.client.js",
         "~/plugins/browser-events.client.js",
         "~/plugins/craft.js",
-        "~/plugins/data-api.client.js",
+        "~/plugins/data-api.js",
         "~/plugins/elasticsearchplugin.js",
         '~/plugins/scrape-formid.client.js'
     ],
@@ -83,8 +83,8 @@ export default {
      */
     generate: {
         fallback: '404.html',
-        interval: 10,
-        concurrency: 100,
+        interval: 500,
+        concurrency: 10,
     },
 
     /*
