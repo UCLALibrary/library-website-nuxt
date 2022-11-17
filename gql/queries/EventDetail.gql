@@ -138,7 +138,7 @@ query EventDetail($slug: [String!]) {
     exhibition: entry(section: "exhibition", slug: $slug) {
         title
         summary
-        heroImage {
+        image: heroImage {
             ... on heroImage_heroImage_BlockType {
                 image {
                     ...Image

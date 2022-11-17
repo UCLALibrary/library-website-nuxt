@@ -144,7 +144,45 @@
             </section-wrapper>
         </div>
         <div v-else>
-            {{ page.exhibition }}
+            <nav-breadcrumb
+                to="/visit/events-exhibitions"
+                :title="page.exhibition.title"
+                parent-title="Exhibits & Upcoming Events"
+            />
+            <banner-text
+                v-if="page.exhibition && !page.exhibition.image[0]"
+                :title="page.exhibition.title"
+                :text="page.exhibition.summary"
+                :locations="page.exhibition.associatedLocations"
+                category="Event Series"
+            />
+
+            <section-wrapper
+                v-if="page.exhibition.image[0]"
+                class="section-banner"
+            >
+                <banner-header
+                    :image="page.exhibition.image[0].image[0]"
+                    :title="page.exhibition.title"
+                    :locations="page.exhibition.associatedLocations"
+                    category="Exhibition"
+                    :text="page.exhibition.summary"
+                    :align-right="true"
+                />
+            </section-wrapper>
+            <section-wrapper theme="divider">
+                <divider-way-finder color="visit" />
+            </section-wrapper>
+            <flexible-blocks
+                class="content"
+                :blocks="page.exhibition.blocks"
+            />
+            <section-wrapper
+                v-if="page.exhibition.blocks"
+                theme="divider"
+            >
+                <divider-way-finder color="visit" />
+            </section-wrapper>
         </div>
 
         <block-call-to-action
@@ -191,7 +229,7 @@ export default {
             secondaryItems: _get(navData, "secondary", []),
             formData: {},
             formId: "",
-            eventId: data && data.entry ? data.entry.libcalId : "",
+            eventId: data && data.event ? data.event.libcalId : "",
             libcalEndpointProxy: $config.libcalProxy,
         }
     },
