@@ -1,0 +1,12 @@
+fragment MediaAsset on AssetInterface {
+  dataId: id
+  src: url(transform: "fullscreen")
+  srcset(sizes: ["375", "960", "1280", "1920", "2560"])
+  height(transform: "fullscreen")
+  width(transform: "fullscreen")
+  title
+  focalPoint
+  kind
+  type: mimeType
+  alt: altText
+}

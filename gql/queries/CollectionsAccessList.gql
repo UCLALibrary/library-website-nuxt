@@ -1,33 +1,33 @@
 query AccessCollectionsListing {
-  entry(section: "listingAccessCollections") {
-    title
-    summary
-    ... on listingAccessCollections_listingAccessCollections_Entry {
-      accessCollections {
+    entry(section: "listingAccessCollections") {
         title
-        text: summary
-        uri
-        externalResourceUrl
-        iconName: illustrationsResourcesAndServices
-          ... on externalResource_externalResource_Entry {
-          id
+        summary
+        ... on listingAccessCollections_listingAccessCollections_Entry {
+            accessCollections {
+                title
+                text: summary
+                uri
+                externalResourceUrl
+                iconName: illustrationsResourcesAndServices
+                ... on externalResource_externalResource_Entry {
+                    id
+                }
+                category
+                typeHandle
+                serviceOrResourceType
+                workshopOrEventSeriesType
+            }
+            associatedTopics {
+                title
+                text: summary
+                to: uri
+                externalResourceUrl
+                iconName: illustrationsResourcesAndServices
+                category
+                typeHandle
+                serviceOrResourceType
+                workshopOrEventSeriesType
+            }
         }
-        category
-        typeHandle
-        serviceOrResourceType
-        workshopOrEventSeriesType
-      }
-      associatedTopics {
-        title
-        text: summary
-        to : uri
-        externalResourceUrl
-        iconName: illustrationsResourcesAndServices
-        category
-        typeHandle
-        serviceOrResourceType
-        workshopOrEventSeriesType
-      }
     }
-  }
 }
