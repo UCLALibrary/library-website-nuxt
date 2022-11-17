@@ -30,10 +30,10 @@
                     :to="parsedButtonTo"
                     :prompt="parsedButtonText"
                 />
-            </section-wrapper>
 
-            <section-wrapper theme="divider">
-                <divider-way-finder color="help" />
+                <section-wrapper theme="divider">
+                    <divider-way-finder color="help" />
+                </section-wrapper>
             </section-wrapper>
 
             <flexible-blocks
