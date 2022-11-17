@@ -20,13 +20,16 @@ query EventDetail($slug: [String!]) {
             slug
             libcalId
             publicUrl
-            date {
-                ... on date_date_BlockType {
-                    id
-                    startTime
-                    endTime
-                }
-            }
+            startDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
+            endDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
             eventType {
                 ... on eventType_Category {
                     id
@@ -66,14 +69,16 @@ query EventDetail($slug: [String!]) {
             typeHandle
             title
             summary
-            date: seriesDate {
-                ... on seriesDate_seriesDate_BlockType {
-                    id
-                    startDate
-                    endDate
-                }
-            }
-
+            startDate
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
+            endDate
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
             associatedLocations {
                 ... on location_location_Entry {
                     id
@@ -107,14 +112,16 @@ query EventDetail($slug: [String!]) {
                         }
                     }
                 }
-
-                date {
-                    ... on date_date_BlockType {
-                        id
-                        startTime
-                        endTime
-                    }
-                }
+                startDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
+                endDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
                 locations: associatedLocations {
                     ... on location_location_Entry {
                         id

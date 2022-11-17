@@ -22,7 +22,7 @@
                 "
                 :title="page.event.title"
                 :locations="page.event.associatedLocations"
-                :date="page.event.date[0].startTime"
+                :date="page.event.startDateWithTime"
                 :category="page.event.eventType.title"
                 :to="page.event.parseURL"
                 :button-text="promptName"
@@ -37,8 +37,8 @@
                     :image="page.event.image[0].image[0]"
                     :title="page.event.title"
                     :locations="page.event.associatedLocations"
-                    :start-date="page.event.date[0].startTime"
-                    :end-date="page.event.date[0].endTime"
+                    :start-date="page.event.startDateWithTime"
+                    :end-date="page.event.endDateWithTime"
                     :category="page.event.eventType.title"
                     :to="page.event.parseURL"
                     :align-right="true"
@@ -78,7 +78,7 @@
                 :title="page.eventSeries.title"
                 :text="page.eventSeries.summary"
                 :locations="page.eventSeries.associatedLocations"
-                :date="page.eventSeries.date[0].startDate"
+                :date="page.eventSeries.startDate"
                 category="Event Series"
             />
 
@@ -90,10 +90,10 @@
                     :image="page.eventSeries.image[0].image[0]"
                     :title="page.eventSeries.title"
                     :locations="page.eventSeries.associatedLocations"
-                    :start-date="page.eventSeries.date[0].startDate"
+                    :start-date="page.eventSeries.startDate"
                     category="Event Series"
                     :text="page.eventSeries.summary"
-                    :end-date="page.eventSeries.date[0].endDate"
+                    :end-date="page.eventSeries.endDate"
                     :align-right="true"
                 />
             </section-wrapper>
@@ -307,8 +307,8 @@ export default {
                     ...obj,
                     to: `/${obj.uri}`,
                     image: _get(obj, "image[0].image[0]", null),
-                    startDate: _get(obj, "date[0].startTime", null),
-                    endDate: _get(obj, "date[0].endTime", null),
+                    startDate: _get(obj, "startDateWithTime", null),
+                    endDate: _get(obj, "endDateWithTime", null),
                     category: _get(obj, "category.title", ""),
                 }
             })
