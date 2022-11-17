@@ -184,16 +184,37 @@ export default {
             page: data
         }
     },
+    // head() {
+    //     let title = this.page && (
+    //         this.page.serviceOrResource ||
+    //         this.page.workshopSeries
+    //     ) ? (
+    //             this.page.serviceOrResource.title || 
+    //             this.page.workshopSeries.title
+    //         ) : "...loading"
+    //     return {
+    //         title: title,
+    //     }
+    // },
+    
     head() {
-        let title = this.page && (
-            this.page.serviceOrResource ||
-            this.page.workshopSeries
-        ) ? (
-                this.page.serviceOrResource.title || 
-                this.page.workshopSeries.title
-            ) : "...loading"
+        if(this.page) {
+            if(this.page.serviceOrResource) {
+                return {
+                    title: this.page.serviceOrResource.title,
+                }
+            }
+            if(this.page.workshopSeries) {
+                return {
+                    title: this.page.workshopSeries.title,
+                }
+            }
+            return {
+                title: "...loading"
+            }
+        }
         return {
-            title: title,
+            title: "...loading"
         }
     },
     computed: {
@@ -235,11 +256,5 @@ export default {
     .more-info {
         @include visually-hidden;
     }
-    // .section-cards {
-    //     margin: var(--space-3xl) auto;
-    // }
-    // .block-call-to-action {
-    //     margin: var(--space-3xl) auto;
-    // }
 }
 </style>
