@@ -193,6 +193,17 @@
             >
                 <divider-way-finder color="visit" />
             </section-wrapper>
+            <section-wrapper>
+                <h3 class="section-title">
+                    AssociatedEvents
+                </h3>
+                <divider-general />
+                <section-teaser-list
+                    v-if="associatedExhibitionEvents"
+                    :items="associatedExhibitionEvents"
+                    class="section section-list"
+                />
+            </section-wrapper>
         </div>
     </section>
 </template>
@@ -272,6 +283,16 @@ export default {
                     image: _get(obj, "image[0].image[0]", null),
                     startDate: _get(obj, "date[0].startTime", null),
                     endDate: _get(obj, "date[0].endTime", null),
+                    category: _get(obj, "category.title", ""),
+                }
+            })
+        },
+        associatedExhibitionEvents() {
+            return this.page.exhibition.exhibitsAndEvents.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "image[0].image[0]", null),
                     category: _get(obj, "category.title", ""),
                 }
             })

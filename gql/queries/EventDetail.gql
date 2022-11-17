@@ -174,8 +174,8 @@ query EventDetail($slug: [String!]) {
                         }
                     }
                 }
-                eventDescription
-                associatedLocations {
+                text: eventDescription
+                locations: associatedLocations {
                     ... on location_location_Entry {
                         id
                         to: uri
@@ -183,7 +183,12 @@ query EventDetail($slug: [String!]) {
                         summary
                     }
                 }
-                eventType
+                category: eventType {
+                    ... on eventType_Category {
+                        id
+                        title
+                    }
+                }
             }
             associatedStaffMember {
                 email
