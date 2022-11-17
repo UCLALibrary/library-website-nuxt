@@ -101,9 +101,7 @@
                     :end-date="page.workshopSeries.date[0].endDate"
                     :align-right="true"
                 />
-            </section-wrapper>
 
-            <section-wrapper theme="divider">
                 <divider-way-finder
                     v-if="page.workshopSeries.image"
                     color="visit"
@@ -111,10 +109,12 @@
             </section-wrapper>
 
             <flexible-blocks
+                v-if="page.workshopSeries.blocks.length > 0"
                 class="content"
                 :blocks="page.workshopSeries.blocks"
             />
 
+            <h3>page.workshopSeries.blocks{{ page.workshopSeries.blocks }}</h3>
             <section-wrapper
                 v-if="page.workshopSeries.blocks.length > 0"
                 theme="divider"
@@ -125,20 +125,19 @@
                 />
             </section-wrapper>
 
-            <section-wrapper>
-                <h3 class="section-title">
-                    Workshop in this Series
-                </h3>
+            <section-wrapper
+                v-if="associatedEvents.length"
+                section-title="Workshop in this Series"
+            >
                 <divider-general />
                 <section-teaser-list
-                    v-if="associatedEvents"
                     :items="associatedEvents"
                     class="section section-list"
                 />
             </section-wrapper>
 
             <section-wrapper
-                v-if="page.workshopSeries.associatedTopics.length > 0"
+                v-if="page.workshopSeries.event.length > 0"
                 theme="divider"
             >
                 <divider-way-finder
@@ -183,26 +182,11 @@ export default {
                 data.serviceOrResource || data.workshopseries,
                 params.slug
             )
-
         // console.log("Data fetched: " + JSON.stringify(data))
-
         return {
             page: data
         }
     },
-    // head() {
-    //     let title = this.page && (
-    //         this.page.serviceOrResource ||
-    //         this.page.workshopSeries
-    //     ) ? (
-    //             this.page.serviceOrResource.title || 
-    //             this.page.workshopSeries.title
-    //         ) : "...loading"
-    //     return {
-    //         title: title,
-    //     }
-    // },
-
     head() {
         if(this.page) {
             if(this.page.serviceOrResource) {
@@ -252,8 +236,8 @@ export default {
                     category: _get(obj, "category.title", ""),
                 }
             })
-        },
-    },
+        }
+    }
 }
 </script>
 
