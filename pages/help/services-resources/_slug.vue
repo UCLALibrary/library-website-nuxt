@@ -1,7 +1,6 @@
 <template lang="html">
     <main class="page-service-detail">
-        <!-- TODO create separate sectionpage component based on typehandle will either use serviceorresource or workshopseries component-->
-        <!-- ServiceOrResource Detail -->        
+        <!-- ServiceOrResource Detail -->
         <div v-if="page.serviceOrResource">
             <nav-breadcrumb
                 to="/help/services-resources"
@@ -70,6 +69,7 @@
                 />
             </section-wrapper>
         </div>
+
         <!-- Workshop Series -->
         <div v-else>
             <nav-breadcrumb
@@ -77,6 +77,7 @@
                 :title="page.workshopSeries.title"
                 parent-title="Exhibits & Upcoming Events"
             />
+
             <banner-text
                 v-if="page.workshopSeries && !page.workshopSeries.image[0]"
                 :title="page.workshopSeries.title"
@@ -101,6 +102,7 @@
                     :align-right="true"
                 />
             </section-wrapper>
+
             <section-wrapper theme="divider">
                 <divider-way-finder
                     v-if="page.workshopSeries.image"
@@ -112,6 +114,7 @@
                 class="content"
                 :blocks="page.workshopSeries.blocks"
             />
+
             <section-wrapper
                 v-if="page.workshopSeries.blocks.length > 0"
                 theme="divider"
@@ -121,6 +124,7 @@
                     color="visit"
                 />
             </section-wrapper>
+
             <section-wrapper>
                 <h3 class="section-title">
                     Workshop in this Series
@@ -132,6 +136,7 @@
                     class="section section-list"
                 />
             </section-wrapper>
+
             <section-wrapper
                 v-if="page.workshopSeries.associatedTopics.length > 0"
                 theme="divider"
@@ -141,6 +146,7 @@
                     color="visit"
                 />
             </section-wrapper>
+
             <section-wrapper>
                 <section-cards-with-illustrations
                     v-if="page.workshopSeries.associatedTopics.length > 0"
@@ -196,7 +202,7 @@ export default {
     //         title: title,
     //     }
     // },
-    
+
     head() {
         if(this.page) {
             if(this.page.serviceOrResource) {
