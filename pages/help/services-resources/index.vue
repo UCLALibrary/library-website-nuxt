@@ -16,7 +16,6 @@
             @search-ready="getSearchData"
         />
         <h4 style="margin: 30px 400px">
-            <br>
             No of hits
             {{
                 parsedServiceAndResourceList.length ||
@@ -92,9 +91,7 @@ export default {
             hits: [],
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
-                queryFilters: {},
             },
-            bookmarked: true,
         }
     },
     async fetch() {
@@ -121,7 +118,6 @@ export default {
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
-                queryFilters: {},
             }
             const getSummaryData = await this.$graphql.default.request(
                 SERVICE_RESOURCE_WORKSHOPSERIES_LIST
@@ -137,8 +133,6 @@ export default {
             )
             this.summaryData = _get(this.page, "entry", {})
         }
-
-        this.bookmarked = false
     },
     head() {
         let title =
@@ -149,6 +143,9 @@ export default {
             title: title,
         }
     },
+    fetchOnServer: false,
+    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
+    fetchKey: "services-resources-workshops",
     computed: {
         parsedServiceAndResourceList() {
             return [
@@ -187,19 +184,19 @@ export default {
     },
     watch: {
         "$route.query": "$fetch",
-        /*"$route.query.q"(newValue) {
+        "$route.query.q"(newValue) {
             console.log("watching querytEXT:" + newValue)
         },
-       */
     },
     async mounted() {
         console.log("In mounted")
         //console.log("ESREADkey:" + this.$config.esReadKey)
         //console.log("ESURLkey:" + this.$config.esURL)
-        console.log("is bookmarked?:" + this.bookmarked)
+        /*  console.log("is bookmarked?:" + this.bookmarkedServiceOrResources)
         console.log("bookmarked query:" + this.$route.query.q)
         if (
-            this.bookmarked &&
+            this.bookmarkedServiceOrResources &&
+            !this.fetchCalled &&
             this.$route.query.q &&
             this.$route.query.q !== ""
         ) {
@@ -209,10 +206,10 @@ export default {
                 queryText: this.$route.query.q || "",
                 queryFilters: {},
             }
-        }
+        }*/
     },
     methods: {
-        async searchBookmarkedQuery() {
+        /*async searchBookmarkedQuery() {
             console.log("hello bookmarked query")
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
@@ -233,10 +230,10 @@ export default {
                 this.helpTopic = {}
                 this.hits = []
             }
-        },
+        },*/
         parseHits(hits = []) {
             return hits.map((obj) => {
-                console.log("category is missing?:" + obj["_source"].category)
+                console.log("category is missing?:" + obj["_source"].type)
                 return {
                     title: obj["_source"].title,
                     to: `/${obj["_source"].uri}`,
@@ -247,11 +244,11 @@ export default {
                 }
             })
         },
-        parseBookmarkedQueryResults(hits = []) {
+        /*parseBookmarkedQueryResults(hits = []) {
             // console.log("checking results data:" + JSON.stringify(hits[0]))
 
             return this.parseHits(hits)
-        },
+        },*/
         async getSearchData(data) {
             // console.log("from search-generic: " + JSON.stringify(data))
             // console.log(config.serviceOrResources.resultFields)
@@ -259,7 +256,6 @@ export default {
                 path: "/help/services-resources",
                 query: {
                     q: data.text,
-                    filters: {},
                 },
             })
         },

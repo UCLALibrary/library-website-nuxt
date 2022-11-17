@@ -53,11 +53,13 @@ export default {
             page: {},
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
-                queryFilters: {},
             },
             bookmarked: true,
         }
     },
+    fetchOnServer: false,
+    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
+    fetchKey: "search-site",
     async fetch() {
         // check if there is a url query, if there is then pass that to siteSearch
         // let data = await $dataApi.siteSearch() // using mounted and will fetch ES data in mounted below
@@ -68,7 +70,6 @@ export default {
             this.page = await this.$dataApi.siteSearch(this.$route.query.q)
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
-                queryFilters: {},
             }
         } else {
             this.page = await this.$dataApi.siteSearch()
@@ -112,7 +113,7 @@ export default {
     },
     async mounted() {
         console.log("In mounted")
-        if (
+        /* if (
             this.bookmarked &&
             this.$route.query.q &&
             this.$route.query.q !== ""
@@ -127,14 +128,14 @@ export default {
                 queryText: this.$route.query.q || "",
                 queryFilters: {},
             }
-        }
+        }*/
     },
 
     methods: {
         async getSearchData(data) {
             this.$router.push({
                 path: "/search_site",
-                query: { q: data.text, filters: {} },
+                query: { q: data.text },
             })
             console.log(this.$router.query)
         },
