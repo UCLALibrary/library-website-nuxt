@@ -3,11 +3,25 @@
         id="main"
         class="page page-careers"
     >
-        <masthead-secondary
-            :title="page.title"
-            :text="page.summary"
+        <nav-breadcrumb
+            to="/about"
+            title="Careers"
+            parent-title="About"
         />
-        <h3>{{ page }}</h3>
+
+        <banner-text
+            class="banner-text"
+            :title="page.title"
+            :text="page.text"
+            :email="page.email"
+            :phone="page.phoneNumber"
+        />
+
+        <!-- <h3>{{ page }}</h3>
+        <hr> -->
+        <h3>jobs ---- {{ jobs }}</h3>
+        <hr>
+        <h3>associatedTopics ---- {{ associatedTopics }}</h3>
     </main>
 </template>
 
@@ -23,6 +37,8 @@ export default {
         const data = await $graphql.default.request(JOBS_LIST)
         return {
             page: _get(data, "entry", {}),
+            associatedTopics: _get(data, "entry.associatedTopics", {}),
+            jobs: _get(data, "entries", {}),
         }
     },
     head() {
