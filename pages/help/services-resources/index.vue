@@ -44,10 +44,10 @@
                 :items="parseHitsResults"
                 :is-horizontal="true"
             />
-            <h4 v-else>
-                No results found
-            </h4>
         </section-wrapper>
+        <h4 v-else>
+            No results found
+        </h4>
 
         <section-wrapper
             v-if="
@@ -92,6 +92,7 @@ export default {
             hits: [],
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
+                queryFilters: {},
             },
             bookmarked: true,
         }
@@ -120,6 +121,7 @@ export default {
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
+                queryFilters: {},
             }
             const getSummaryData = await this.$graphql.default.request(
                 SERVICE_RESOURCE_WORKSHOPSERIES_LIST
@@ -194,19 +196,24 @@ export default {
         console.log("In mounted")
         //console.log("ESREADkey:" + this.$config.esReadKey)
         //console.log("ESURLkey:" + this.$config.esURL)
+        console.log("is bookmarked?:" + this.bookmarked)
+        console.log("bookmarked query:" + this.$route.query.q)
         if (
             this.bookmarked &&
             this.$route.query.q &&
             this.$route.query.q !== ""
         ) {
+            console.log("its bookmarked start")
             this.searchBookmarkedQuery()
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
+                queryFilters: {},
             }
         }
     },
     methods: {
         async searchBookmarkedQuery() {
+            console.log("hello bookmarked query")
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
                 "serviceOrResource",
@@ -252,6 +259,7 @@ export default {
                 path: "/help/services-resources",
                 query: {
                     q: data.text,
+                    filters: {},
                 },
             })
         },

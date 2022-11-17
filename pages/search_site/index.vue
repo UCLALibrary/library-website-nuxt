@@ -53,6 +53,7 @@ export default {
             page: {},
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
+                queryFilters: {},
             },
             bookmarked: true,
         }
@@ -67,6 +68,7 @@ export default {
             this.page = await this.$dataApi.siteSearch(this.$route.query.q)
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
+                queryFilters: {},
             }
         } else {
             this.page = await this.$dataApi.siteSearch()
@@ -123,6 +125,7 @@ export default {
             )
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
+                queryFilters: {},
             }
         }
     },
@@ -131,7 +134,7 @@ export default {
         async getSearchData(data) {
             this.$router.push({
                 path: "/search_site",
-                query: { q: data.text },
+                query: { q: data.text, filters: {} },
             })
             console.log(this.$router.query)
         },
