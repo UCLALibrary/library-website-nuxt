@@ -64,7 +64,7 @@
             </section-wrapper>
         </div>
         <!-- Event Series -->
-        <div v-else>
+        <div v-else-if="page.eventSeries">
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
                 :title="page.eventSeries.title"
@@ -142,6 +142,9 @@
                     section-title="Associated Topics"
                 />
             </section-wrapper>
+        </div>
+        <div v-else>
+            {{ page.exhibition }}
         </div>
 
         <block-call-to-action
