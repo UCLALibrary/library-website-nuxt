@@ -4,29 +4,57 @@
         class="page page-help"
     >
         <masthead-secondary
+            v-if="summaryData"
             :title="summaryData.servicesResourcesListTitle"
             :text="summaryData.servicesResourcesListSummary"
         />
 
         <search-generic
-            search-type="about"
-            :filters="searchFilters"
+            search-type="help"
             class="generic-search"
+            :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-
+        <h4 style="margin: 30px 400px">
+            No of hits
+            {{
+                parsedServiceAndResourceList.length ||
+                    (hits && parseHitsResults.length)
+            }}
+        </h4>
         <section-wrapper theme="divider">
             <divider-way-finder color="help" />
         </section-wrapper>
 
-        <section-wrapper v-if="page.serviceOrResource || page.workshopseries">
+        <section-wrapper
+            v-if="
+                page.serviceOrResource ||
+                    page.workshopseries ||
+                    (hits && hits.length > 0)
+            "
+        >
             <section-cards-with-illustrations
+                v-if="page.serviceOrResource || page.workshopseries"
                 :items="parsedServiceAndResourceList"
                 :is-horizontal="true"
             />
+            <section-cards-with-illustrations
+                v-else-if="hits && hits.length > 0"
+                :items="parseHitsResults"
+                :is-horizontal="true"
+            />
         </section-wrapper>
+        <h4 v-else>
+            No results found
+        </h4>
 
-        <section-wrapper v-if="page.serviceOrResource || page.workshopseries">
+        <section-wrapper
+            v-if="
+                page.serviceOrResource ||
+                    page.workshopseries ||
+                    (hits && hits.length > 0)
+            "
+        >
             <divider-way-finder
                 class="divider-way-finder"
                 color="help"
@@ -52,36 +80,72 @@ import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceW
 import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
 
 // Utilities
-import getListingFilters from "~/utils/getListingFilters"
-import mergeFilters from "~/utils/mergeFilters"
 import config from "~/utils/searchConfig"
 
 export default {
-    async asyncData({ $graphql, params, $dataApi }) {
-        const data = await $graphql.default.request(
-            SERVICE_RESOURCE_WORKSHOPSERIES_LIST,
-            {
-                uri: params.path,
-            }
-        )
-        const helpTopicData = await $graphql.default.request(HELP_TOPIC_LIST, {
-            uri: params.path,
-        })
+    data() {
         return {
-            page: data,
-            summaryData: _get(data, "entry", {}),
-            helpTopic: helpTopicData,
-            searchFilters: [],
+            page: {},
+            summaryData: {},
+            helpTopic: {},
+            hits: [],
+            searchGenericQuery: {
+                queryText: this.$route.query.q || "",
+            },
+        }
+    },
+    async fetch() {
+        console.log(
+            "live preview  servicesorresourcesorworskhoporhelptopic list"
+        )
+        if (this.$route.query.q && this.$route.query.q !== "") {
+            console.log("in router query in fetch call")
+            this.page = {}
+            this.helpTopic = {}
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                this.$route.query.q || "*",
+                "serviceOrResource",
+                [],
+                "",
+                config.serviceOrResources.resultFields,
+                []
+            )
+            console.log("fetch method ES results:" + JSON.stringify(results))
+            if (results && results.hits && results.hits.total.value > 0) {
+                this.hits = results.hits.hits
+            } else {
+                this.hits = []
+            }
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+            }
+            const getSummaryData = await this.$graphql.default.request(
+                SERVICE_RESOURCE_WORKSHOPSERIES_LIST
+            )
+            this.summaryData = _get(getSummaryData, "entry", {})
+        } else {
+            this.hits = []
+            this.page = await this.$graphql.default.request(
+                SERVICE_RESOURCE_WORKSHOPSERIES_LIST
+            )
+            this.helpTopic = await this.$graphql.default.request(
+                HELP_TOPIC_LIST
+            )
+            this.summaryData = _get(this.page, "entry", {})
         }
     },
     head() {
-        let title = this.page
-            ? this.page.entry.servicesResourcesListTitle
-            : "... loading"
+        let title =
+            this.page && this.page.entry
+                ? this.page.entry.servicesResourcesListTitle
+                : "... loading"
         return {
             title: title,
         }
     },
+    fetchOnServer: false,
+    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
+    fetchKey: "services-resources-workshops",
     computed: {
         parsedServiceAndResourceList() {
             return [
@@ -109,63 +173,90 @@ export default {
                     }
                 })
         },
+        parseHitsResults() {
+            /*console.log(
+                "ParseHits Results checking results data:" +
+                    JSON.stringify(this.hits)
+            )*/
+
+            return this.parseHits(this.hits)
+        },
+    },
+    watch: {
+        "$route.query": "$fetch",
+        "$route.query.q"(newValue) {
+            console.log("watching querytEXT:" + newValue)
+        },
     },
     async mounted() {
+        console.log("In mounted")
         //console.log("ESREADkey:" + this.$config.esReadKey)
         //console.log("ESURLkey:" + this.$config.esURL)
-        if (process.client) {
-            const searchAggsResponse = await this.$dataApi.getAggregations(
-                config.serviceOrResources.filters,
-                "serviceOrResource"
-            )
-
-            console.log(
-                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-            )
-            this.searchFilters = getListingFilters(
-                searchAggsResponse,
-                config.serviceOrResources.filters
-            )
-        }
+        /*  console.log("is bookmarked?:" + this.bookmarkedServiceOrResources)
+        console.log("bookmarked query:" + this.$route.query.q)
+        if (
+            this.bookmarkedServiceOrResources &&
+            !this.fetchCalled &&
+            this.$route.query.q &&
+            this.$route.query.q !== ""
+        ) {
+            console.log("its bookmarked start")
+            this.searchBookmarkedQuery()
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters: {},
+            }
+        }*/
     },
     methods: {
+        /*async searchBookmarkedQuery() {
+            console.log("hello bookmarked query")
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                this.$route.query.q || "*",
+                "serviceOrResource",
+                [],
+                "",
+                config.serviceOrResources.resultFields,
+                []
+            )
+            console.log(
+                "In bookmarked method data is:" + JSON.stringify(results)
+            )
+
+            if (results && results.hits && results.hits.total.value > 0) {
+                this.hits = this.parseBookmarkedQueryResults(results.hits.hits)
+            } else {
+                this.page = {}
+                this.helpTopic = {}
+                this.hits = []
+            }
+        },*/
+        parseHits(hits = []) {
+            return hits.map((obj) => {
+                console.log("category is missing?:" + obj["_source"].type)
+                return {
+                    title: obj["_source"].title,
+                    to: `/${obj["_source"].uri}`,
+                    iconName:
+                        obj["_source"]["illustrationsResourcesAndServices"],
+                    text: obj["_source"].text,
+                    category: obj["_source"].type,
+                }
+            })
+        },
+        /*parseBookmarkedQueryResults(hits = []) {
+            // console.log("checking results data:" + JSON.stringify(hits[0]))
+
+            return this.parseHits(hits)
+        },*/
         async getSearchData(data) {
             // console.log("from search-generic: " + JSON.stringify(data))
             // console.log(config.serviceOrResources.resultFields)
-            const filters = mergeFilters(data.filters)
-
-            const results = await this.$dataApi.keywordSearchWithFilters(
-                data.text || "*",
-                "serviceOrResource",
-                filters,
-                "",
-                config.serviceOrResources.resultFields,
-                config.serviceOrResources.filters
-            )
-            // console.log(results)
-            if (results && results.hits && results.hits.total.value > 0)
-                this.page.serviceOrResource = this.parseResults(
-                    results.hits.hits
-                )
-            this.searchFilters = getListingFilters(
-                results.aggregations,
-                config.serviceOrResources.filters
-            )
-        },
-
-        parseResults(hits = []) {
-            // console.log("checking results data:" + JSON.stringify(hits[0]))
-
-            return hits.map((obj) => {
-                console.log(obj["_source"].to)
-                return {
-                    title: obj["_source"].title,
-                    to: obj["_source"].to,
-                    iconName:
-                        obj["_source"]["illustrationsResourcesAndServices"],
-                    text: obj["_source"].summary,
-                    category: obj["_source"].serviceOrResourceType,
-                }
+            this.$router.push({
+                path: "/help/services-resources",
+                query: {
+                    q: data.text,
+                },
             })
         },
     },

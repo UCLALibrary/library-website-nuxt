@@ -10,10 +10,10 @@ const config = {
         ],
         resultFields:[
             "title",
-            "summary",     
+            "text",     
             "illustrationsResourcesAndServices",
-            "to",
-            "serviceOrResourceType",
+            "uri",
+            "type",
         ]
     },
     staff:{
@@ -42,7 +42,7 @@ const config = {
             "departments", 
             "jobTitle",  
             "consultation",
-            "to",
+            "uri",
             "image"
     
         ]

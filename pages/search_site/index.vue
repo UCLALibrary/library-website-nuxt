@@ -1,7 +1,15 @@
 <template lang="html">
     <div class="page-search-site">
         <masthead-secondary title="Search Results" />
-        <search-generic @search-ready="getSearchData" />
+        <search-generic
+            :search-generic-query="searchGenericQuery"
+            @search-ready="getSearchData"
+        />
+        <h4 style="margin: 30px 400px">
+            <br>
+            No of hits
+            {{ page && page.hits && page.hits.hits.length }}
+        </h4>
         <div
             v-if="page && page.hits"
             class="meta"
@@ -36,16 +44,35 @@
 </template>
 
 <script>
-// Helpers
-import _get from "lodash/get"
-
 export default {
-    async asyncData() {
-        // check if there is a url query, if there is then pass that to siteSearch
-        // let data = await $dataApi.siteSearch() // using mounted and will fetch ES data in mounted below
+    data() {
         return {
             page: {},
+            searchGenericQuery: {
+                queryText: this.$route.query.q || "",
+            },
+            bookmarked: true,
         }
+    },
+    fetchOnServer: false,
+    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
+    fetchKey: "search-site",
+    async fetch() {
+        // check if there is a url query, if there is then pass that to siteSearch
+        // let data = await $dataApi.siteSearch() // using mounted and will fetch ES data in mounted below
+
+        console.log("In fetch start")
+        if (this.$route.query.q && this.$route.query.q !== "") {
+            console.log("in router query in asyc data")
+            this.page = await this.$dataApi.siteSearch(this.$route.query.q)
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+            }
+        } else {
+            this.page = await this.$dataApi.siteSearch()
+        }
+        console.log("Search Response: " + JSON.stringify(this.page))
+        this.bookmarked = false
     },
     computed: {
         searchAdditionalResources() {
@@ -74,12 +101,31 @@ export default {
             ]
         },
     },
+    watch: {
+        "$route.query": "$fetch",
+        /*"$route.query.q"(newValue) {
+            console.log("watching querytEXT:" + newValue)
+        },
+       */
+    },
     async mounted() {
-        const mapping = await this.$dataApi.getMapping()
-        console.log(JSON.stringify(mapping))
-        const searchResponse = await this.$dataApi.siteSearch()
-        console.log("Search Response: " + JSON.stringify(searchResponse))
-        this.page = searchResponse
+        console.log("In mounted")
+        /* if (
+            this.bookmarked &&
+            this.$route.query.q &&
+            this.$route.query.q !== ""
+        ) {
+            const searchResponse = await this.$dataApi.siteSearch(
+                this.$route.query.q
+            )
+            console.log(
+                "In bookmarked  data is:" + JSON.stringify(searchResponse)
+            )
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters: {},
+            }
+        }*/
     },
 
     methods: {
@@ -89,23 +135,6 @@ export default {
                 query: { q: data.text },
             })
             console.log(this.$router.query)
-
-            const results = await this.$dataApi.siteSearch(data.text)
-            // Need this to connect to the sitesearch so results persist in a url
-
-            if (results && results.hits && results.hits.total.value > 0)
-                this.page = results
-        },
-        parseResults(hits = []) {
-            return hits.map((obj) => {
-                return {
-                    ...obj["_source"],
-                    to: `${obj["_source"].to}`,
-                    title: obj["_source"]["title"],
-                    category: obj["_source"]["category"],
-                    summary: obj["_source"]["summary"],
-                }
-            })
         },
     },
 }
