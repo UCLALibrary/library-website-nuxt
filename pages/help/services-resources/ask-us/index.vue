@@ -8,8 +8,12 @@
             :text="page.summary"
         />
 
-        <!-- LibCal Widget -->
-        <!-- <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" /> -->
+        <!-- LibChat Widget -->
+        <script src="https://ucla.libanswers.com/load_chat.php?hash=e6e621712e7b0ed0193f065d84d4e0c9" />
+
+        <div
+            id="libchat_e6e621712e7b0ed0193f065d84d4e0c9"
+        />
 
         <section-wrapper theme="divider">
             <divider-way-finder color="help" />
