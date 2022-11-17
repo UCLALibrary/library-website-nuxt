@@ -1,0 +1,46 @@
+# query JobsList {
+#     entries(section: "job", orderBy: "postDate") {
+#         ... on job_job_Entry {
+#             id
+#             title
+#             to: uri
+#         }
+#     }
+# }
+query CareersList {
+  entry(section: "listingCareers", orderBy: "postDate") {
+    ... on listingCareers_listingCareers_Entry {
+      title
+      summary
+      email
+      phoneNumber
+      associatedTopics {
+        title
+        text: summary
+        to: uri
+        externalResourceUrl
+        illustrationsResourcesAndServices
+      }
+    }
+  }
+  entries(section: "job", staffOrStudentPosition: "careers") {
+    title
+    summary
+    ... on job_job_Entry {
+      jobType {
+        ... on jobType_Category {
+          title
+        }
+      }
+      jobRequisitionNumber
+      jobPostingURL
+      department {
+        title
+      }
+      associatedLocations {
+        title
+        uri
+      }
+    }
+  }
+} 

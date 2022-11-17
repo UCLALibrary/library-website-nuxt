@@ -1,24 +1,42 @@
 <template lang="html">
-    <section class="page-jobs-detail">
-        <h2>Jobs Listing Page</h2>
-    </section>
+    <main
+        id="main"
+        class="page page-careers"
+    >
+        <masthead-secondary
+            :title="page.title"
+            :text="page.summary"
+        />
+        <h3>{{ page }}</h3>
+    </main>
 </template>
+
 <script>
+// Helpers
+import _get from "lodash/get"
+
 // GQL
-import JOBS_LIST from "~/gql/queries/JobsList"
+import JOBS_LIST from "~/gql/queries/CareerJobsList"
 
 export default {
-    async asyncData({ $graphql, params, store }) {
+    async asyncData({ $graphql }) {
         const data = await $graphql.default.request(JOBS_LIST)
-
         return {
-            page: data,
+            page: _get(data, "entry", {}),
+        }
+    },
+    head() {
+        let title = this.page
+            ? this.page.title
+            : "... loading"
+        return {
+            title: title,
         }
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.page-jobs-detail {
+.page-careers {
 }
 </style>

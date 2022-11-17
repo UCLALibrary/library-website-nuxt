@@ -1,9 +1,0 @@
-query JobsList {
-    entries(section: "job", orderBy: "postDate") {
-        ... on job_job_Entry {
-            id
-            title
-            to: uri
-        }
-    }
-}
