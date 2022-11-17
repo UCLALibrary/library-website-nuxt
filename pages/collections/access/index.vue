@@ -52,39 +52,28 @@
 <script>
 // Helpers
 import _get from "lodash/get"
-
 // GQL
 import ACCESS_COLLECTIONS from "~/gql/queries/CollectionsAccessList.gql"
-
 export default {
-    data() {
+    async asyncData({ $graphql }) {
+        const data = await $graphql.default.request(ACCESS_COLLECTIONS)
+        data.entry.accessCollections.forEach((element) => {
+            element.to = element.uri ? element.uri : element.externalResourceUrl
+            element.category =
+                element.workshopOrEventSeriesType === "help/services-resources"
+                    ? "workshop"
+                    : element.serviceOrResourceType
+                        ? element.serviceOrResourceType
+                        : element.typeHandle === "externalResource"
+                            ? "external resource"
+                            : element.typeHandle
+        })
         return {
-            allEvents: [],
-            primaryItems: [],
-            secondaryItems: [],
-            formData: {},
-            formId: "",
-            eventId: "9383207",
-            libcalEndpointProxy: this.$config.libcalProxy,
-            page: {}
+            page: _get(data, "entry", {}),
         }
     },
-    async fetch() {
-        const data = await this.$graphql.default.request(ACCESS_COLLECTIONS)
-
-        data.entry.accessCollections.forEach(element => {
-            element.to = element.uri ? element.uri : element.externalResourceUrl
-
-            element.category = 
-                (element.workshopOrEventSeriesType === "help/services-resources") ? "workshop":
-                    element.serviceOrResourceType ? element.serviceOrResourceType :
-                        (element.typeHandle === "externalResource") ? "external resource":
-                            element.typeHandle
-        })
-        this.page = _get(data, "entry", {})
-    },
     computed: {
-        parsedAccessCollections(){
+        parsedAccessCollections() {
             return this.page.accessCollections.map((obj) => {
                 return {
                     ...obj,
@@ -94,7 +83,7 @@ export default {
                 }
             })
         },
-        parsedAssociatedTopics(){
+        parsedAssociatedTopics() {
             return this.page.associatedTopics.map((obj) => {
                 return {
                     ...obj,
@@ -103,13 +92,12 @@ export default {
                         : `/${obj.to}`,
                 }
             })
-        }
-    }
+        },
+    },
 }
 </script>
 
 <style lang="scss" scoped>
 .page-collections-access {
-
 }
 </style>

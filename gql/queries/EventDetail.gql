@@ -1,5 +1,6 @@
 #import "~/gql/fragments/Image"
 #import "~/gql/fragments/collections/DefaultFpbWithCardsAndHighlight.gql"
+#import "~/gql/fragments/collections/ExhibitionsAndCollectionsFpb"
 query EventDetail($slug: [String!]) {
     event: entry(section: "event", slug: $slug) {
         ... on event_event_Entry {
@@ -19,13 +20,16 @@ query EventDetail($slug: [String!]) {
             slug
             libcalId
             publicUrl
-            date {
-                ... on date_date_BlockType {
-                    id
-                    startTime
-                    endTime
-                }
-            }
+            startDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
+            endDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
             eventType {
                 ... on eventType_Category {
                     id
@@ -65,14 +69,16 @@ query EventDetail($slug: [String!]) {
             typeHandle
             title
             summary
-            date: seriesDate {
-                ... on seriesDate_seriesDate_BlockType {
-                    id
-                    startDate
-                    endDate
-                }
-            }
-
+            startDate
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
+            endDate
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
             associatedLocations {
                 ... on location_location_Entry {
                     id
@@ -106,14 +112,16 @@ query EventDetail($slug: [String!]) {
                         }
                     }
                 }
-
-                date {
-                    ... on date_date_BlockType {
-                        id
-                        startTime
-                        endTime
-                    }
-                }
+                startDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
+                endDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
                 locations: associatedLocations {
                     ... on location_location_Entry {
                         id
@@ -131,6 +139,100 @@ query EventDetail($slug: [String!]) {
                 illustration
             }
             ...DefaultFpbWithCardsAndHighlight
+        }
+    }
+
+    exhibition: entry(section: "exhibition", slug: $slug) {
+        title
+        summary
+        startDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i"
+                timezone: "America/Los_Angeles"
+            )
+        endDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i"
+                timezone: "America/Los_Angeles"
+            )
+        image: heroImage {
+            ... on heroImage_heroImage_BlockType {
+                image {
+                    ...Image
+                }
+                altText
+            }
+        }
+        ... on exhibition_exhibition_Entry {
+            associatedLocationsAndPrograms {
+                title
+                uri
+            }
+            buttonUrl {
+                ... on buttonUrl_button_BlockType {
+                    buttonText
+                    buttonUrl
+                }
+            }
+            exhibitsAndEvents {
+                title
+                uri
+                startDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
+                endDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
+                image: heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+                text: eventDescription
+                locations: associatedLocations {
+                    ... on location_location_Entry {
+                        id
+                        to: uri
+                        title
+                        summary
+                    }
+                }
+                category: eventType {
+                    ... on eventType_Category {
+                        id
+                        title
+                    }
+                }
+            }
+            associatedStaffMember {
+                email
+                phoneNumber
+                staffMemberJobTitle
+                nameFirst
+                nameLast
+                uri
+                bookAConsultation
+                staffDepartment {
+                    title
+                }
+                image: staffPortrait {
+                    ...Image
+                }
+            }
+            acknowledgements {
+                ... on acknowledgements_richTextWithSectionTitle_BlockType {
+                    displaySectionTitle
+                    titleGeneral
+                    acknowledgements
+                }
+            }
+            ...ExhibitionsAndCollectionsFpb
         }
     }
 }
