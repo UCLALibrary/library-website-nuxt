@@ -4,28 +4,58 @@
         class="page page-help"
     >
         <masthead-secondary
+            v-if="summaryData"
             :title="summaryData.servicesResourcesListTitle"
             :text="summaryData.servicesResourcesListSummary"
         />
 
         <search-generic
-            search-type="about"
+            search-type="help"
             class="generic-search"
+            :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-
+        <h4 style="margin: 30px 400px">
+            <br>
+            No of hits
+            {{
+                parsedServiceAndResourceList.length ||
+                    (hits && parseHitsResults.length)
+            }}
+        </h4>
         <section-wrapper theme="divider">
             <divider-way-finder color="help" />
         </section-wrapper>
 
-        <section-wrapper v-if="page.serviceOrResource || page.workshopseries">
+        <section-wrapper
+            v-if="
+                page.serviceOrResource ||
+                    page.workshopseries ||
+                    (hits && hits.length > 0)
+            "
+        >
             <section-cards-with-illustrations
+                v-if="page.serviceOrResource || page.workshopseries"
                 :items="parsedServiceAndResourceList"
                 :is-horizontal="true"
             />
+            <section-cards-with-illustrations
+                v-else-if="hits && hits.length > 0"
+                :items="parseHitsResults"
+                :is-horizontal="true"
+            />
+            <h4 v-else>
+                No results found
+            </h4>
         </section-wrapper>
 
-        <section-wrapper v-if="page.serviceOrResource || page.workshopseries">
+        <section-wrapper
+            v-if="
+                page.serviceOrResource ||
+                    page.workshopseries ||
+                    (hits && hits.length > 0)
+            "
+        >
             <divider-way-finder
                 class="divider-way-finder"
                 color="help"
@@ -54,26 +84,65 @@ import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
 import config from "~/utils/searchConfig"
 
 export default {
-    async asyncData({ $graphql, params }) {
-        const data = await $graphql.default.request(
-            SERVICE_RESOURCE_WORKSHOPSERIES_LIST,
-            {
-                uri: params.path,
-            }
-        )
-        const helpTopicData = await $graphql.default.request(HELP_TOPIC_LIST, {
-            uri: params.path,
-        })
+    data() {
         return {
-            page: data,
-            summaryData: _get(data, "entry", {}),
-            helpTopic: helpTopicData,
+            page: {},
+            summaryData: {},
+            helpTopic: {},
+            hits: [],
+            searchGenericQuery: {
+                queryText: this.$route.query.q || "",
+            },
+            bookmarked: true,
         }
     },
+    async fetch() {
+        console.log(
+            "live preview  servicesorresourcesorworskhoporhelptopic list"
+        )
+        if (this.$route.query.q && this.$route.query.q !== "") {
+            console.log("in router query in fetch call")
+            this.page = {}
+            this.helpTopic = {}
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                this.$route.query.q || "*",
+                "serviceOrResource",
+                [],
+                "",
+                config.serviceOrResources.resultFields,
+                []
+            )
+            console.log("fetch method ES results:" + JSON.stringify(results))
+            if (results && results.hits && results.hits.total.value > 0) {
+                this.hits = results.hits.hits
+            } else {
+                this.hits = []
+            }
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+            }
+            const getSummaryData = await this.$graphql.default.request(
+                SERVICE_RESOURCE_WORKSHOPSERIES_LIST
+            )
+            this.summaryData = _get(getSummaryData, "entry", {})
+        } else {
+            this.hits = []
+            this.page = await this.$graphql.default.request(
+                SERVICE_RESOURCE_WORKSHOPSERIES_LIST
+            )
+            this.helpTopic = await this.$graphql.default.request(
+                HELP_TOPIC_LIST
+            )
+            this.summaryData = _get(this.page, "entry", {})
+        }
+
+        this.bookmarked = false
+    },
     head() {
-        let title = this.page
-            ? this.page.entry.servicesResourcesListTitle
-            : "... loading"
+        let title =
+            this.page && this.page.entry
+                ? this.page.entry.servicesResourcesListTitle
+                : "... loading"
         return {
             title: title,
         }
@@ -105,42 +174,85 @@ export default {
                     }
                 })
         },
+        parseHitsResults() {
+            /*console.log(
+                "ParseHits Results checking results data:" +
+                    JSON.stringify(this.hits)
+            )*/
+
+            return this.parseHits(this.hits)
+        },
+    },
+    watch: {
+        "$route.query": "$fetch",
+        /*"$route.query.q"(newValue) {
+            console.log("watching querytEXT:" + newValue)
+        },
+       */
     },
     async mounted() {
+        console.log("In mounted")
         //console.log("ESREADkey:" + this.$config.esReadKey)
         //console.log("ESURLkey:" + this.$config.esURL)
-        if (process.client) {
+        if (
+            this.bookmarked &&
+            this.$route.query.q &&
+            this.$route.query.q !== ""
+        ) {
+            this.searchBookmarkedQuery()
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+            }
         }
     },
     methods: {
-        async getSearchData(data) {
-            // console.log("from search-generic: " + JSON.stringify(data))
-            // console.log(config.serviceOrResources.resultFields)
-
+        async searchBookmarkedQuery() {
             const results = await this.$dataApi.keywordSearchWithFilters(
-                data.text || "*",
+                this.$route.query.q || "*",
                 "serviceOrResource",
                 [],
                 "",
                 config.serviceOrResources.resultFields,
                 []
             )
-            // console.log(results)
+            console.log(
+                "In bookmarked method data is:" + JSON.stringify(results)
+            )
+
+            if (results && results.hits && results.hits.total.value > 0) {
+                this.hits = this.parseBookmarkedQueryResults(results.hits.hits)
+            } else {
+                this.page = {}
+                this.helpTopic = {}
+                this.hits = []
+            }
         },
-
-        parseResults(hits = []) {
-            // console.log("checking results data:" + JSON.stringify(hits[0]))
-
+        parseHits(hits = []) {
             return hits.map((obj) => {
-                console.log(obj["_source"].to)
+                console.log("category is missing?:" + obj["_source"].category)
                 return {
                     title: obj["_source"].title,
-                    to: obj["_source"].to,
+                    to: `/${obj["_source"].uri}`,
                     iconName:
                         obj["_source"]["illustrationsResourcesAndServices"],
-                    text: obj["_source"].summary,
-                    category: obj["_source"].serviceOrResourceType,
+                    text: obj["_source"].text,
+                    category: obj["_source"].type,
                 }
+            })
+        },
+        parseBookmarkedQueryResults(hits = []) {
+            // console.log("checking results data:" + JSON.stringify(hits[0]))
+
+            return this.parseHits(hits)
+        },
+        async getSearchData(data) {
+            // console.log("from search-generic: " + JSON.stringify(data))
+            // console.log(config.serviceOrResources.resultFields)
+            this.$router.push({
+                path: "/help/services-resources",
+                query: {
+                    q: data.text,
+                },
             })
         },
     },

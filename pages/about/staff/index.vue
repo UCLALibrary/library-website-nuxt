@@ -61,9 +61,12 @@
                 :items="parsedStaffList"
             />
             <section-staff-list
-                v-if="hits && hits.length > 0"
+                v-else-if="hits && hits.length > 0"
                 :items="parseHitsResults"
             />
+            <h4 v-else>
+                No results found
+            </h4>
         </section-wrapper>
     </main>
 </template>
@@ -78,21 +81,6 @@ import config from "~/utils/searchConfig"
 
 // gql
 import STAFF_LIST from "~/gql/queries/StaffList"
-// import STAFF_LIST_WITH_DETAIL from "~/gql/queries/StaffListwithfulldetail"
-
-/*function parseResults(hits = []) {
-    // console.log("checking results data:" + JSON.stringify(hits[0]))
-
-    return hits.map((obj) => {
-        // console.log(obj["_source"]["image"])
-        return {
-            ...obj["_source"],
-            to: `${obj["_source"].to}`,
-            image: obj["_source"]["image"], //_get(obj["_source"]["image"], "image[0]", null),
-            staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
-        }
-    })
-}*/
 
 export default {
     data() {
@@ -107,44 +95,14 @@ export default {
                         JSON.parse(this.$route.query.filters)) ||
                     {},
             },
+            bookmarked: true,
         }
     },
     async fetch() {
         console.log("live preview  staff list")
 
-        // console.log("Craft Data:" + JSON.stringify(data))
-        /*const allResults = await $dataApi.keywordSearchWithFilters(
-            "*:*",
-            "staffMember",
-            [],
-            "nameLast",
-            ["*"]
-        )
-        console.log(
-            "Use this data when the page loads: " + JSON.stringify(allResults)
-        )*/
-        /*const datawithfulldetail = await $graphql.default.request(
-            STAFF_LIST_WITH_DETAIL
-        )
-
-        console.log(
-            "staff list for indexing: " +
-                JSON.stringify(datawithfulldetail.entries)
-        )*/
-        const searchAggsResponse = await this.$dataApi.getAggregations(
-            config.staff.filters,
-            "staffMember"
-        )
-        this.searchFilters = getListingFilters(
-            searchAggsResponse,
-            config.staff.filters
-        )
-
-        /*console.log(
-            "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-        )*/
-        console.log("test query parameters: " + this.$route.query.q)
-        console.log("test query parameters: " + this.$route.query.filters)
+        /*console.log("test query parameters: " + this.$route.query.q)
+        console.log("test query parameters: " + this.$route.query.filters)*/
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
             this.$route.query.filters
@@ -159,10 +117,11 @@ export default {
                 config.staff.filters
             )
             console.log("getsearchdata method:" + JSON.stringify(results))
-
+            this.page = {}
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
-                this.page = {}
+            } else {
+                this.hits = []
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
@@ -177,6 +136,7 @@ export default {
             this.hits = []
             //console.log("Craft data:" + JSON.stringify(data))
         }
+        this.bookmarked = false
     },
     computed: {
         parsedStaffList() {
@@ -196,28 +156,65 @@ export default {
                     JSON.stringify(this.hits)
             )*/
 
-            return this.hits.map((obj) => {
-                // console.log(obj["_source"]["image"])
-                return {
-                    ...obj["_source"],
-                    to: `${obj["_source"].to}`,
-                    image: _get(obj["_source"]["image"], "[0]", null), //obj["_source"]["image"], //,
-                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
-                }
-            })
+            return this.parseHits(this.hits)
         },
     },
     watch: {
         "$route.query": "$fetch",
+        /*"$route.query.q"(newValue) {
+            console.log("watching querytEXT:" + newValue)
+        },
+        "$route.query.filters"(newValue) {
+            console.log("watching filters:" + newValue)
+        },*/
     },
 
     async mounted() {
+        console.log("In mounted")
         /*console.log("ESREADkey:" + this.$config.esReadKey)
         console.log("ESURLkey:" + this.$config.esURL)*/
-        // this.setFilters()
+        this.setFilters()
+        // bookmarked search queries are not calling fetch
+        if (
+            (this.bookmarked &&
+                this.$route.query.q &&
+                this.$route.query.q !== "") ||
+            this.$route.query.filters
+        ) {
+            this.searchBookmarkedQuery()
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            }
+        }
     },
     methods: {
-        /* async setFilters() {
+        async searchBookmarkedQuery() {
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                this.$route.query.q || "*",
+                "staffMember",
+                JSON.parse(this.$route.query.filters),
+                "nameLast.keyword",
+                config.staff.resultFields,
+                config.staff.filters
+            )
+            console.log(
+                "In bookmarked method data is:" + JSON.stringify(results)
+            )
+
+            if (results && results.hits && results.hits.total.value > 0) {
+                this.page.entries = this.parseBookmarkedQueryResults(
+                    results.hits.hits
+                )
+            } else {
+                this.page = {}
+                this.hits = []
+            }
+        },
+        async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.staff.filters,
                 "staffMember"
@@ -230,7 +227,23 @@ export default {
                 searchAggsResponse,
                 config.staff.filters
             )
-        },*/
+        },
+        parseHits(hits = []) {
+            return hits.map((obj) => {
+                // console.log(obj["_source"]["image"])
+                return {
+                    ...obj["_source"],
+                    to: `/${obj["_source"].uri}`,
+                    image: _get(obj["_source"]["image"], "[0]", null),
+                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
+                }
+            })
+        },
+        parseBookmarkedQueryResults(hits = []) {
+            // console.log("checking results data:" + JSON.stringify(hits[0]))
+
+            return this.parseHits(hits)
+        },
         async getSearchData(data) {
             this.$router.push({
                 path: "/about/staff",
@@ -239,25 +252,6 @@ export default {
                     filters: JSON.stringify(data.filters),
                 },
             })
-
-            // console.log("from search-generic: " + JSON.stringify(data))
-            // console.log(config.staff.resultFields)
-            /* const filters = data.filters //mergeFilters(data.filters)
-
-            const results = await this.$dataApi.keywordSearchWithFilters(
-                data.text || "*",
-                "staffMember",
-                filters,
-                "nameLast.keyword",
-                config.staff.resultFields,
-                config.staff.filters
-            )*/
-            // console.log("getsearchdata method:" + JSON.stringify(results))
-
-            /*if (results && results.hits && results.hits.total.value > 0) {
-                this.page.entries = parseResults(results.hits.hits)
-            }*/
-            //this.setFilters()
         },
     },
 }
