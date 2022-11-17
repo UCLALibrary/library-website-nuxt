@@ -44,9 +44,6 @@
 </template>
 
 <script>
-// Helpers
-import _get from "lodash/get"
-
 export default {
     data() {
         return {
