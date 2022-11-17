@@ -153,7 +153,6 @@
         </div>
         <!-- Exhibition -->
         <div v-else>
-            {{ page.exhibition }}
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
                 :title="page.exhibition.title"
@@ -201,7 +200,7 @@
                 />
             </section-wrapper>
             <section-wrapper
-                v-if="page.exhibition.blocks"
+                v-if="parsedAssociatedStaffMember.length > 0"
                 theme="divider"
             >
                 <divider-way-finder color="visit" />
@@ -211,6 +210,19 @@
                 section-title="Contact a Subject Specialist"
             >
                 <section-staff-list :items="parsedAssociatedStaffMember" />
+            </section-wrapper>
+            <section-wrapper
+                v-if="page.exhibition.acknowledgements"
+                theme="divider"
+            >
+                <divider-way-finder color="visit" />
+            </section-wrapper>
+            <section-wrapper :section-title="parsedAcknowledgementTitle">
+                <rich-text
+                    :rich-text-content="
+                        page.exhibition.acknowledgements[0].acknowledgements
+                    "
+                />
             </section-wrapper>
         </div>
     </section>
@@ -314,6 +326,12 @@ export default {
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
+        },
+        parsedAcknowledgementTitle() {
+            return this.page.exhibition.acknowledgements[0]
+                .displaySectionTitle === "true"
+                ? this.page.exhibition.acknowledgements[0].titleGeneral
+                : ""
         },
     },
     async mounted() {
