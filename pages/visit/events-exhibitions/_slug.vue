@@ -22,12 +22,11 @@
                 "
                 :title="page.event.title"
                 :locations="page.event.associatedLocations"
-                :start-date="page.event.date[0].startTime"
+                :date="page.event.date[0].startTime"
                 :category="page.event.eventType.title"
                 :to="page.event.parseURL"
                 :button-text="promptName"
                 :register-event="parseRegistration"
-                :end-date="page.event.date[0].endTime"
             />
 
             <section-wrapper
@@ -163,6 +162,9 @@
                 :title="page.exhibition.title"
                 :text="page.exhibition.summary"
                 :locations="page.exhibition.associatedLocations"
+                :to="parsedExhibitionBannerTo"
+                :banner-text="parsedExhibitionBannerPrompt"
+                :date="page.exhibition.startDate"
                 category="Event Series"
             />
 
@@ -177,6 +179,10 @@
                     category="Exhibition"
                     :text="page.exhibition.summary"
                     :align-right="true"
+                    :start-date="page.exhibition.startDate"
+                    :end-date="page.exhibition.endDate"
+                    :prompt="parsedExhibitionBannerPrompt"
+                    :to="parsedExhibitionBannerTo"
                 />
             </section-wrapper>
             <section-wrapper theme="divider">
@@ -307,6 +313,16 @@ export default {
                 }
             })
         },
+        parsedExhibitionBannerPrompt() {
+            return this.page.exhibition.buttonUrl.length
+                ? this.page.exhibition.buttonUrl[0].buttonText
+                : ""
+        },
+        parsedExhibitionBannerTo() {
+            return this.page.exhibition.buttonUrl
+                ? this.page.exhibition.buttonUrl[0].buttonUrl
+                : ""
+        },
         associatedExhibitionEvents() {
             return this.page.exhibition.exhibitsAndEvents.map((obj) => {
                 return {
@@ -314,6 +330,8 @@ export default {
                     to: `/${obj.uri}`,
                     image: _get(obj, "image[0].image[0]", null),
                     category: _get(obj, "category.title", ""),
+                    startDate: _get(obj, "startDateWithTime", null),
+                    endDate: _get(obj, "startDateWithTime", null),
                 }
             })
         },
