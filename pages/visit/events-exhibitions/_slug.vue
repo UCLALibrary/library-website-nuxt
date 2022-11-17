@@ -62,6 +62,10 @@
             <section-wrapper theme="divider">
                 <divider-way-finder color="visit" />
             </section-wrapper>
+            <block-call-to-action
+                class="section block-call-to-action"
+                :is-global="true"
+            />
         </div>
         <!-- Event Series -->
         <div v-else-if="page.eventSeries">
@@ -142,7 +146,12 @@
                     section-title="Associated Topics"
                 />
             </section-wrapper>
+            <block-call-to-action
+                class="section block-call-to-action"
+                :is-global="true"
+            />
         </div>
+        <!-- Exhibition -->
         <div v-else>
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
@@ -184,11 +193,6 @@
                 <divider-way-finder color="visit" />
             </section-wrapper>
         </div>
-
-        <block-call-to-action
-            class="section block-call-to-action"
-            :is-global="true"
-        />
     </section>
 </template>
 
