@@ -22,12 +22,11 @@
                 "
                 :title="page.event.title"
                 :locations="page.event.associatedLocations"
-                :start-date="page.event.date[0].startTime"
+                :date="page.event.startDateWithTime"
                 :category="page.event.eventType.title"
                 :to="page.event.parseURL"
                 :button-text="promptName"
                 :register-event="parseRegistration"
-                :end-date="page.event.date[0].endTime"
             />
 
             <section-wrapper
@@ -38,8 +37,8 @@
                     :image="page.event.image[0].image[0]"
                     :title="page.event.title"
                     :locations="page.event.associatedLocations"
-                    :start-date="page.event.date[0].startTime"
-                    :end-date="page.event.date[0].endTime"
+                    :start-date="page.event.startDateWithTime"
+                    :end-date="page.event.endDateWithTime"
                     :category="page.event.eventType.title"
                     :to="page.event.parseURL"
                     :align-right="true"
@@ -62,9 +61,13 @@
             <section-wrapper theme="divider">
                 <divider-way-finder color="visit" />
             </section-wrapper>
+            <block-call-to-action
+                class="section block-call-to-action"
+                :is-global="true"
+            />
         </div>
         <!-- Event Series -->
-        <div v-else>
+        <div v-else-if="page.eventSeries">
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
                 :title="page.eventSeries.title"
@@ -75,7 +78,7 @@
                 :title="page.eventSeries.title"
                 :text="page.eventSeries.summary"
                 :locations="page.eventSeries.associatedLocations"
-                :date="page.eventSeries.date[0].startDate"
+                :date="page.eventSeries.startDate"
                 category="Event Series"
             />
 
@@ -87,10 +90,10 @@
                     :image="page.eventSeries.image[0].image[0]"
                     :title="page.eventSeries.title"
                     :locations="page.eventSeries.associatedLocations"
-                    :start-date="page.eventSeries.date[0].startDate"
+                    :start-date="page.eventSeries.startDate"
                     category="Event Series"
                     :text="page.eventSeries.summary"
-                    :end-date="page.eventSeries.date[0].endDate"
+                    :end-date="page.eventSeries.endDate"
                     :align-right="true"
                 />
             </section-wrapper>
@@ -142,12 +145,102 @@
                     section-title="Associated Topics"
                 />
             </section-wrapper>
+            <block-call-to-action
+                class="section block-call-to-action"
+                :is-global="true"
+            />
         </div>
+        <!-- Exhibition -->
+        <div v-else>
+            <nav-breadcrumb
+                to="/visit/events-exhibitions"
+                :title="page.exhibition.title"
+                parent-title="Exhibits & Upcoming Events"
+            />
+            <banner-text
+                v-if="page.exhibition && !page.exhibition.image[0]"
+                :title="page.exhibition.title"
+                :text="page.exhibition.summary"
+                :locations="page.exhibition.associatedLocations"
+                :to="parsedExhibitionBannerTo"
+                :banner-text="parsedExhibitionBannerPrompt"
+                :date="page.exhibition.startDate"
+                category="Event Series"
+            />
 
-        <block-call-to-action
-            class="section block-call-to-action"
-            :is-global="true"
-        />
+            <section-wrapper
+                v-if="page.exhibition.image[0]"
+                class="section-banner"
+            >
+                <banner-header
+                    :image="page.exhibition.image[0].image[0]"
+                    :title="page.exhibition.title"
+                    :locations="page.exhibition.associatedLocations"
+                    category="Exhibition"
+                    :text="page.exhibition.summary"
+                    :align-right="true"
+                    :start-date="page.exhibition.startDate"
+                    :end-date="page.exhibition.endDate"
+                    :prompt="parsedExhibitionBannerPrompt"
+                    :to="parsedExhibitionBannerTo"
+                />
+            </section-wrapper>
+            <section-wrapper theme="divider">
+                <divider-way-finder
+                    v-if="
+                        page.exhibition.blocks.length ||
+                            associatedExhibitionEvents.length > 0 ||
+                            parsedAssociatedStaffMember.length > 0
+                    "
+                    color="visit"
+                />
+            </section-wrapper>
+            <flexible-blocks
+                class="content"
+                :blocks="page.exhibition.blocks"
+            />
+            <section-wrapper
+                v-if="page.exhibition.blocks.length > 0"
+                theme="divider"
+            >
+                <divider-way-finder color="visit" />
+            </section-wrapper>
+            <section-wrapper
+                v-if="associatedExhibitionEvents.length"
+                section-title="Associated Events"
+            >
+                <section-teaser-list
+                    v-if="associatedExhibitionEvents.length > 0"
+                    :items="associatedExhibitionEvents"
+                    class="section section-list"
+                />
+            </section-wrapper>
+            <section-wrapper
+                v-if="parsedAssociatedStaffMember.length > 0"
+                theme="divider"
+            >
+                <divider-way-finder color="visit" />
+            </section-wrapper>
+            <section-wrapper
+                v-if="parsedAssociatedStaffMember.length > 0"
+                section-title="Contact a Subject Specialist"
+            >
+                <section-staff-list :items="parsedAssociatedStaffMember" />
+            </section-wrapper>
+            <section-wrapper
+                v-if="page.exhibition.acknowledgements"
+                theme="divider"
+            >
+                <divider-way-finder color="visit" />
+            </section-wrapper>
+            <section-wrapper :section-title="parsedAcknowledgementTitle">
+                <rich-text
+                    :rich-text-content="
+                        page.exhibition.acknowledgements[0].acknowledgements
+                    "
+                />
+            </section-wrapper>
+        </div>
     </section>
 </template>
 
@@ -188,7 +281,7 @@ export default {
             secondaryItems: _get(navData, "secondary", []),
             formData: {},
             formId: "",
-            eventId: data && data.entry ? data.entry.libcalId : "",
+            eventId: data && data.event ? data.event.libcalId : "",
             libcalEndpointProxy: $config.libcalProxy,
         }
     },
@@ -224,11 +317,49 @@ export default {
                     ...obj,
                     to: `/${obj.uri}`,
                     image: _get(obj, "image[0].image[0]", null),
-                    startDate: _get(obj, "date[0].startTime", null),
-                    endDate: _get(obj, "date[0].endTime", null),
-                    category: _get(obj, "category.title", ""),
+                    startDate: _get(obj, "startDateWithTime", null),
+                    endDate: _get(obj, "endDateWithTime", null),
+                    category: _get(obj, "category[0].title", ""),
                 }
             })
+        },
+        parsedExhibitionBannerPrompt() {
+            return this.page.exhibition.buttonUrl.length
+                ? this.page.exhibition.buttonUrl[0].buttonText
+                : ""
+        },
+        parsedExhibitionBannerTo() {
+            return this.page.exhibition.buttonUrl.length
+                ? this.page.exhibition.buttonUrl[0].buttonUrl
+                : ""
+        },
+        associatedExhibitionEvents() {
+            return this.page.exhibition.exhibitsAndEvents.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "image[0].image[0]", null),
+                    category: _get(obj, "category[0].title", ""),
+                    startDate: _get(obj, "startDateWithTime", null),
+                    endDate: _get(obj, "startDateWithTime", null),
+                }
+            })
+        },
+        parsedAssociatedStaffMember() {
+            return this.page.exhibition.associatedStaffMember.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/about/staff/${obj.to}`,
+                    image: _get(obj, "image[0]", null),
+                    staffName: `${obj.nameFirst} ${obj.nameLast}`,
+                }
+            })
+        },
+        parsedAcknowledgementTitle() {
+            return this.page.exhibition.acknowledgements[0]
+                .displaySectionTitle === "true"
+                ? this.page.exhibition.acknowledgements[0].titleGeneral
+                : ""
         },
     },
     async mounted() {

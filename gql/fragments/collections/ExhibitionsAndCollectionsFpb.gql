@@ -10,7 +10,7 @@
 #import "~/gql/fragments/BlockPullQuoteFragment"
 #import "~/gql/fragments/BlockRichTextFragment"
 #import "~/gql/fragments/BlockSimpleCardsFragment"
-#import "~/gql/fragments/BlockMediaGalleryExtraFieldsFragment"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
 #import "~/gql/fragments/BlockGridGalleryCardsFragment"
 #import "~/gql/fragments/BlockImpactNumberCardsFragment"
 
@@ -55,7 +55,7 @@ fragment ExhibitionsAndCollectionsFpb on ElementInterface {
             ...BlockSimpleCardsFragment
         }
          ... on exhibitionsAndCollectionsFpb_mediaGallery_BlockType {
-            ...BlockMediaGalleryExtraFieldsFragment
+            ...BlockMediaGalleryFragment
         }
         ... on exhibitionsAndCollectionsFpb_gridGalleryCards_BlockType  {
             ...BlockGridGalleryCardsFragment
