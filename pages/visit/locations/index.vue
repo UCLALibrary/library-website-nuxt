@@ -4,8 +4,24 @@
             :title="summaryData.title"
             :text="summaryData.summary"
         />
-        <h3>{{ page }}</h3>
+        <h3>{{ summaryData }}</h3>
+        <hr>
+        <h3>{{ parsedLocationsList }}</h3>
 
+        <section-wrapper v-if="parsedLocationsList">
+            <block-location-list-item
+                :title="parsedLocationsList [0].title"
+                :to="parsedLocationsList [0].to"
+                :image="parsedLocationsList [0].image"
+                :day="parsedLocationsList [0].day"
+                :hour="parsedLocationsList [0].hour"
+                :address="parsedLocationsList [0].address"
+                :address-link="parsedLocationsList [0].addressLink"
+                :amenities="parsedLocationsList [0].amenities"
+                :reserve-seat="parsedLocationsList [0].reserveSeat"
+                :is-ucla-library="parsedLocationsList [0].isUclaLibrary"
+            />
+        </section-wrapper>
         <nuxt-link
             v-for="item in parsedLocationsList"
             :key="item.to"
