@@ -69,7 +69,7 @@
 import _get from "lodash/get"
 
 // GQL
-import JOBS_LIST from "~/gql/queries/CareerJobsList"
+import JOBS_LIST from "~/gql/queries/JobOpportunitiesList"
 
 export default {
     async asyncData({ $graphql }) {
