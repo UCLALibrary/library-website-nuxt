@@ -15,55 +15,35 @@ fragment AllFpbWithNoBanner on ElementInterface {
         id
         typeHandle
 
-        ...BlockCardWithImage
-        ...BlockHighlight
-        ...BlockImpactNumbersCarousel
-        ...BlockMediaGallery
-        ...BlockMediaWithText
-        ...BlockPullQuote
-        ...BlockRichText
-        ...BlockSimpleCards
-        ...BlockCallToAction
-        ...BlockForm
+        ... on AllFpbWithNoBanner_cardWithImage_BlockType {
+            ...BlockCardWithImageFragment
+        }
+        ... on AllFpbWithNoBanner_highlight_BlockType {
+            ...BlockHighlightFragment
+        }
+        ... on AllFpbWithNoBanner_impactNumbersCarousel_BlockType {
+            ...BlockImpactNumbersCarouselFragment
+        }
+        ... on AllFpbWithNoBanner_mediaGallery_BlockType {
+            ...BlockMediaGalleryFragment
+        }
+        ... on AllFpbWithNoBanner_mediaWithText_BlockType {
+            ...BlockMediaWithTextFragment
+        }
+        ... on AllFpbWithNoBanner_pullQuote_BlockType {
+            ...BlockPullQuoteFragment
+        }
+        ... on AllFpbWithNoBanner_richText_BlockType {
+            ...BlockRichTextFragment
+        }
+        ... on AllFpbWithNoBanner_simpleCards_BlockType {
+            ...BlockSimpleCardsFragment
+        }
+        ... on AllFpbWithNoBanner_callToAction_BlockType {
+            ...BlockCallToActionFragment
+        }
+        ... on AllFpbWithNoBanner_form_BlockType {
+            ...BlockFormFragment
+        }
     }
-}
-
-fragment BlockCardWithImage on AllFpbWithNoBanner_cardWithImage_BlockType {
-    ...BlockCardWithImageFragment
-}
-
-fragment BlockHighlight on AllFpbWithNoBanner_highlight_BlockType {
-    ...BlockHighlightFragment
-}
-
-fragment BlockImpactNumbersCarousel on AllFpbWithNoBanner_impactNumbersCarousel_BlockType {
-    ...BlockImpactNumbersCarouselFragment
-}
-
-fragment BlockMediaGallery on AllFpbWithNoBanner_mediaGallery_BlockType {
-    ...BlockMediaGalleryFragment
-}
-
-fragment BlockMediaWithText on AllFpbWithNoBanner_mediaWithText_BlockType {
-    ...BlockMediaWithTextFragment
-}
-
-fragment BlockPullQuote on AllFpbWithNoBanner_pullQuote_BlockType {
-    ...BlockPullQuoteFragment
-}
-
-fragment BlockRichText on AllFpbWithNoBanner_richText_BlockType {
-    ...BlockRichTextFragment
-}
-
-fragment BlockSimpleCards on AllFpbWithNoBanner_simpleCards_BlockType {
-    ...BlockSimpleCardsFragment
-}
-
-fragment BlockCallToAction on AllFpbWithNoBanner_callToAction_BlockType {
-    ...BlockCallToActionFragment
-}
-
-fragment BlockForm on AllFpbWithNoBanner_form_BlockType {
-    ...BlockFormFragment
 }

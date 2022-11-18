@@ -13,45 +13,29 @@ fragment DefaultFpbWithCardsAndHighlight on ElementInterface {
         id
         typeHandle
 
-        ...BlockCardWithImage
-        ...BlockHighlight
-        ...BlockMediaGallery
-        ...BlockMediaWithText
-        ...BlockPullQuote
-        ...BlockRichText
-        ...BlockSimpleCards
-        ...BlockForm
+        ... on defaultFpbWithCardsAndHighlight_cardWithImage_BlockType {
+            ...BlockCardWithImageFragment
+        }
+        ... on defaultFpbWithCardsAndHighlight_highlight_BlockType {
+            ...BlockHighlightFragment
+        }
+        ... on defaultFpbWithCardsAndHighlight_mediaGallery_BlockType {
+            ...BlockMediaGalleryFragment
+        }
+        ... on defaultFpbWithCardsAndHighlight_mediaWithText_BlockType {
+            ...BlockMediaWithTextFragment
+        }
+        ... on defaultFpbWithCardsAndHighlight_pullQuote_BlockType {
+            ...BlockPullQuoteFragment
+        }
+        ... on defaultFpbWithCardsAndHighlight_richText_BlockType {
+            ...BlockRichTextFragment
+        }
+        ... on defaultFpbWithCardsAndHighlight_simpleCards_BlockType {
+            ...BlockSimpleCardsFragment
+        }
+        ... on defaultFpbWithCardsAndHighlight_form_BlockType {
+            ...BlockFormFragment
+        }
     }
-}
-
-fragment BlockCardWithImage on defaultFpbWithCardsAndHighlight_cardWithImage_BlockType {
-    ...BlockCardWithImageFragment
-}
-
-fragment BlockHighlight on defaultFpbWithCardsAndHighlight_highlight_BlockType {
-    ...BlockHighlightFragment
-}
-
-fragment BlockMediaGallery on defaultFpbWithCardsAndHighlight_mediaGallery_BlockType {
-    ...BlockMediaGalleryFragment
-}
-
-fragment BlockMediaWithText on defaultFpbWithCardsAndHighlight_mediaWithText_BlockType {
-    ...BlockMediaWithTextFragment
-}
-
-fragment BlockPullQuote on defaultFpbWithCardsAndHighlight_pullQuote_BlockType {
-    ...BlockPullQuoteFragment
-}
-
-fragment BlockRichText on defaultFpbWithCardsAndHighlight_richText_BlockType {
-    ...BlockRichTextFragment
-}
-
-fragment BlockSimpleCards on defaultFpbWithCardsAndHighlight_simpleCards_BlockType {
-    ...BlockSimpleCardsFragment
-}
-
-fragment BlockForm on defaultFpbWithCardsAndHighlight_form_BlockType {
-    ...BlockFormFragment
 }

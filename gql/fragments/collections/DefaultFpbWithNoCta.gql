@@ -10,35 +10,23 @@ fragment DefaultFpbWithNoCta on ElementInterface {
     blocks: defaultFpbWithNoCta {
         id
         typeHandle
-        ...BlockSimpleCards
-        ...BlockRichText
-        ...BlockPullQuote
-        ...BlockMediaWithText
-        ...BlockMediaGallery
-        ...BlockForm
+        ... on defaultFpbWithNoCta_simpleCards_BlockType {
+            ...BlockSimpleCardsFragment
+        }
+        ... on defaultFpbWithNoCta_richText_BlockType {
+            ...BlockRichTextFragment
+        }
+        ... on defaultFpbWithNoCta_pullQuote_BlockType {
+            ...BlockPullQuoteFragment
+        }
+        ... on defaultFpbWithNoCta_mediaWithText_BlockType {
+            ...BlockMediaWithTextFragment
+        }
+        ... on defaultFpbWithNoCta_mediaGallery_BlockType {
+            ...BlockMediaGalleryFragment
+        }
+        ... on defaultFpbWithNoCta_form_BlockType {
+            ...BlockFormFragment
+        }
     }
-}
-
-fragment BlockSimpleCards on defaultFpbWithNoCta_simpleCards_BlockType {
-    ...BlockSimpleCardsFragment
-}
-
-fragment BlockRichText on defaultFpbWithNoCta_richText_BlockType {
-    ...BlockRichTextFragment
-}
-
-fragment BlockPullQuote on defaultFpbWithNoCta_pullQuote_BlockType {
-    ...BlockPullQuoteFragment
-}
-
-fragment BlockMediaWithText on defaultFpbWithNoCta_mediaWithText_BlockType {
-    ...BlockMediaWithTextFragment
-}
-
-fragment BlockMediaGallery on defaultFpbWithNoCta_mediaGallery_BlockType {
-    ...BlockMediaGalleryFragment
-}
-
-fragment BlockForm on defaultFpbWithNoCta_form_BlockType {
-    ...BlockFormFragment
 }
