@@ -12,40 +12,26 @@ fragment DefaultFpb on ElementInterface {
         id
         typeHandle
 
-        ...BlockMediaGallery
-        ...BlockMediaWithText
-        ...BlockPullQuote
-        ...BlockRichText
-        ...BlockSimpleCards
-        ...BlockCallToAction
-        ...BlockForm
+        ... on defaultFpb_mediaGallery_BlockType {
+            ...BlockMediaGalleryFragment
+        }
+        ... on defaultFpb_mediaWithText_BlockType {
+            ...BlockMediaWithTextFragment
+        }
+        ... on defaultFpb_pullQuote_BlockType {
+            ...BlockPullQuoteFragment
+        }
+        ... on defaultFpb_richText_BlockType {
+            ...BlockRichTextFragment
+        }
+        ... on defaultFpb_simpleCards_BlockType {
+            ...BlockSimpleCardsFragment
+        }
+        ... on defaultFpb_callToAction_BlockType {
+            ...BlockCallToActionFragment
+        }
+        ... on defaultFpb_form_BlockType {
+            ...BlockFormFragment
+        }
     }
-}
-
-fragment BlockMediaGallery on defaultFpb_mediaGallery_BlockType {
-    ...BlockMediaGalleryFragment
-}
-
-fragment BlockMediaWithText on defaultFpb_mediaWithText_BlockType {
-    ...BlockMediaWithTextFragment
-}
-
-fragment BlockPullQuote on defaultFpb_pullQuote_BlockType {
-    ...BlockPullQuoteFragment
-}
-
-fragment BlockRichText on defaultFpb_richText_BlockType {
-    ...BlockRichTextFragment
-}
-
-fragment BlockSimpleCards on defaultFpb_simpleCards_BlockType {
-    ...BlockSimpleCardsFragment
-}
-
-fragment BlockCallToAction on defaultFpb_callToAction_BlockType {
-    ...BlockCallToActionFragment
-}
-
-fragment BlockForm on defaultFpb_form_BlockType {
-    ...BlockFormFragment
 }
