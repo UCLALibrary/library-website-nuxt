@@ -1,19 +1,5 @@
 <template lang="html">
     <section class="page-events-exhibits">
-        <!-- This was added to test the slug page with breadcrumbs -->
-        <!--<nuxt-link to="/events-exhibits/test">
-            Test event
-        </nuxt-link> -->
-        <!-- last commit by Drew
-        {{ viewMode }}
-
-        <loading-spinner v-if="$fetchState.pending" />
-        <component
-            :is="viewComponentName"
-            v-else
-            :items="allEvents"
-        / -->
-        <!-- TODO These props should come from Craft -->
         <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
@@ -29,7 +15,6 @@
                 -->
         </masthead-secondary>
 
-        <divider-way-finder class="section divider divider-way-finder" />
         <!--banner-featured
             class="section banner-featured"
             :title="firstEvent.title"
@@ -43,18 +28,15 @@
             :end-date="firstEvent.endDate"
         /-->
 
-        <divider-general class="section divider divider-general" />
         <!--section-teaser-highlight class="section" :items="highlightEvents" /-->
 
-        <divider-general class="section divider divider-general" />
-        <!-- TODO List of events go here -->
+        
         <section-teaser-list
             :items="parsedExhibitionsAndEvents"
             class="section section-list"
         />
 
-        <divider-way-finder class="section divider divider-way-finder" />
-
+        
         <block-call-to-action
             class="section block-call-to-action"
             svg-name="svg-call-to-action-find"
@@ -94,7 +76,7 @@ export default {
         )
         // console.log("Data fetched: " + JSON.stringify(data))
         return {
-            page: data,
+            page: _get(data, "entry", {}),
         }
         /*const libcalData = await $axios.$get(`/1.1/event_search`, {
             params: {
@@ -127,6 +109,12 @@ export default {
     // this.allEvents = [...this.allEvents, ...data]
     //},*/
 
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        return {
+            title: title,
+        }
+    },
     computed: {
         /*viewComponentName() {
             // TODO we may not need this as we have decidec not to add view modes dropdown in the reworked design
