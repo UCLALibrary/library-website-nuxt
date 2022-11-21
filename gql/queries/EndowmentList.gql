@@ -12,7 +12,7 @@ query EndowmentsList {
       languageAltName
       fullName
     }
-    summary
+    description: summary
     uri
     heroImage {
       ... on heroImage_heroImage_BlockType {
