@@ -4,13 +4,35 @@ query LocationsList {
     title
     summary
   }
-  entries(section: "location") {
-    locationType
+  uclaLibraries: entries(section: "location", locationType: "uclaLibrary") {
     campusMapId
     libcalLocationIdForHours
-    libcalSpacesUrl
     title
-    summary
+    heroImage {
+      ... on heroImage_heroImage_BlockType {
+        id
+        image {
+          ...Image
+        }
+      }
+    }
+    address {
+      ... on address_addressFields_BlockType {
+        addressLine1
+        addressLine2
+        addressCity
+        addressState
+        addressZipCode
+      }
+    }
+    libcalSpacesUrl
+    amenities(label: true)
+    amenitiesIcons: amenities(label: false)
+    uri
+  }
+  affiliateLibraries: entries(section: "location", locationType:"affiliateLibrary", orderBy:"title ASC") {
+    campusMapId
+    title
     heroImage {
       ... on heroImage_heroImage_BlockType {
         id
@@ -30,7 +52,16 @@ query LocationsList {
     }
     amenities(label: true)
     amenitiesIcons: amenities(label: false)
-    uri
     affiliateLibraryUrl
   }
 }
+
+# fragment Image on AssetInterface {
+#   id
+#   src: url(transform: "fullscreen")
+#   height(transform: "fullscreen")
+#   width(transform: "fullscreen")
+#   srcset(sizes: ["375", "960", "1280", "1920", "2560"])
+#   alt: title
+#   focalPoint
+# }
