@@ -55,7 +55,7 @@ export default {
         }
     },
     head() {
-        let title = this.entry ? this.page.title : "... loading"
+        let title = this.page ? this.page.title : "... loading"
         return {
             title: title,
         }
