@@ -8,12 +8,12 @@
         <hr>
         <h3>{{ uclaLibraries }}</h3>
         <hr>
+        <h3>parsedAddress --- {{ parsedAddress }}</h3>
+        <hr>
         <h3>{{ affiliateLibraries }}</h3>
-        <hr/>
-        <h3>{{uclaLibraries[0]}}</h3>
 
-        <!-- <section-wrapper v-if="uclaLibraries">
-        <section-location-list
+        <section-wrapper v-if="uclaLibraries">
+        <!-- <section-location-list
                 :items="uclaLibraries"
             />
         </section-wrapper> -->
@@ -27,8 +27,8 @@
                 class="text"
                 v-html="item.title"
             />
-        </nuxt-link>
-        </section-wrapper> -->
+        </nuxt-link> -->
+        </section-wrapper>
     </div>
 </template>
 
@@ -49,36 +49,30 @@ export default {
             summaryData: _get(data, "entry", {}),
             uclaLibraries: _get(data, "uclaLibraries", {}),
             affiliateLibraries: _get(data, "affiliateLibraries", {}),
+
         }
-    }
-    //computed: {
-        // parsedUclaLibraries: () => {
-        //     return this.page.map((obj) => {
-        //         return {
-        //             ...obj,
-        //             to: `/visit/locations/${obj.to}`,
-        //         }
-        //     })
-        // },
-        // parsedAddress() {
-        //     return `${address.addressLine1}`
-
-        // },
-        // titleTemplate: (pageTitle) => {
-        //         const siteTitle = this.pageMeta.title
-        //         let output = this.pageMeta.title
-
-        //         switch (true) {
-        //             case siteTitle == pageTitle:
-        //                 output = site
-        //                 break
-        //             case Boolean(pageTitle):
-        //                 output = `${siteTitle} - ${pageTitle}`
-        //                 break
-        //         }
-        //         return output
-        //     },
-//}
+    },
+    computed: {
+        parsedAddress() {
+            // let library = this.uclaLibraries[0].address[0]
+            return this.uclaLibraries[0].address.map((obj) => {
+                return `${obj.addressLine1}<br> ${obj.addressLine2}<br>${obj.addressCity}, ${obj.addressZipCode}`
+            })
+        },
+        parsedUclaLibraries() {
+            return this.page.map((obj) => {
+                return {
+                    ...obj,
+                    to: 
+                }
+            })
+        },
+        parsedAffiliateLibraries(){
+            
+        }
+        // TODO match on LibCal id for Hours today
+    },
+}
 </script>
 
 <style lang="scss" scoped>
