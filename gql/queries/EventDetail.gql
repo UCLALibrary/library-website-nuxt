@@ -1,136 +1,220 @@
 #import "~/gql/fragments/Image"
 #import "~/gql/fragments/collections/DefaultFpbWithCardsAndHighlight.gql"
+#import "~/gql/fragments/collections/ExhibitionsAndCollectionsFpb"
 query EventDetail($slug: [String!]) {
-    event: entry(section: "event", slug: $slug) {
-        ... on event_event_Entry {
-            id
-            typehandle
-            sectionHandle
-            title
-            eventLocation
-            image: heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    image {
-                        ...Image
-                    }
-                }
-            }
-            to: uri
-            slug
-            libcalId
-            publicUrl
-            date {
-                ... on date_date_BlockType {
-                    id
-                    startTime
-                    endTime
-                }
-            }
-            eventType {
-                ... on eventType_Category {
-                    id
-                    title
-                }
-            }
-            eventDescription
-            associatedLocations {
-                ... on location_location_Entry {
-                    id
-                    to: uri
-                    title
-                    summary
-                }
-            }
-            requiresRegistration
-            onlineProvider: libcalEventOnlineProvider
-            onlineJoinURL: onlineEventUrl
-            eventTags {
-                ... on eventTags_Tag {
-                    id
-                    title
-                }
-            }
-            presenter
-            moreInformation
-            eventOwner
+  event: entry(section: "event", slug: $slug) {
+    ... on event_event_Entry {
+      id
+      typehandle
+      sectionHandle
+      title
+      eventLocation
+      image: heroImage {
+        ... on heroImage_heroImage_BlockType {
+          image {
+            ...Image
+          }
         }
+      }
+      to: uri
+      slug
+      libcalId
+      publicUrl
+      startDateWithTime
+        @formatDateTime(format: "Y-m-d\\TH:i", timezone: "America/Los_Angeles")
+      endDateWithTime
+        @formatDateTime(format: "Y-m-d\\TH:i", timezone: "America/Los_Angeles")
+      eventType {
+        ... on eventType_Category {
+          id
+          title
+        }
+      }
+      eventDescription
+      associatedLocations {
+        ... on location_location_Entry {
+          id
+          to: uri
+          title
+          summary
+        }
+      }
+      requiresRegistration
+      onlineProvider: libcalEventOnlineProvider
+      onlineJoinURL: onlineEventUrl
+      eventTags {
+        ... on eventTags_Tag {
+          id
+          title
+        }
+      }
+      presenter
+      moreInformation
+      eventOwner
     }
-    eventSeries: entry(section: "workshopOrEventSeries", slug: $slug) {
-        id
+  }
+  eventSeries: entry(section: "workshopOrEventSeries", slug: $slug) {
+    id
 
-        ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
+    ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
+      id
+      workshopOrEventSeriesType
+      sectionHandle
+      typeHandle
+      title
+      summary
+      startDate
+        @formatDateTime(format: "Y-m-d\\TH:i", timezone: "America/Los_Angeles")
+      endDate
+        @formatDateTime(format: "Y-m-d\\TH:i", timezone: "America/Los_Angeles")
+      associatedLocations {
+        ... on location_location_Entry {
+          id
+          to: uri
+          title
+          summary
+        }
+      }
+      image: heroImage {
+        ... on heroImage_heroImage_BlockType {
+          image {
+            ...Image
+          }
+        }
+      }
+      event {
+        id
+        title
+        uri
+        text: eventDescription
+        category: eventType {
+          ... on eventType_Category {
             id
-            workshopOrEventSeriesType
-            sectionHandle
-            typeHandle
+            title
+          }
+        }
+        image: heroImage {
+          ... on heroImage_heroImage_BlockType {
+            image {
+              ...Image
+            }
+          }
+        }
+        startDateWithTime
+          @formatDateTime(
+            format: "Y-m-d\\TH:i"
+            timezone: "America/Los_Angeles"
+          )
+        endDateWithTime
+          @formatDateTime(
+            format: "Y-m-d\\TH:i"
+            timezone: "America/Los_Angeles"
+          )
+        locations: associatedLocations {
+          ... on location_location_Entry {
+            id
+            to: uri
             title
             summary
-            date: seriesDate {
-                ... on seriesDate_seriesDate_BlockType {
-                    id
-                    startDate
-                    endDate
-                }
-            }
-
-            associatedLocations {
-                ... on location_location_Entry {
-                    id
-                    to: uri
-                    title
-                    summary
-                }
-            }
-            image: heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    image {
-                        ...Image
-                    }
-                }
-            }
-            event {
-                id
-                title
-                uri
-                text: eventDescription
-                category: eventType {
-                    ... on eventType_Category {
-                        id
-                        title
-                    }
-                }
-                image: heroImage {
-                    ... on heroImage_heroImage_BlockType {
-                        image {
-                            ...Image
-                        }
-                    }
-                }
-
-                date {
-                    ... on date_date_BlockType {
-                        id
-                        startTime
-                        endTime
-                    }
-                }
-                locations: associatedLocations {
-                    ... on location_location_Entry {
-                        id
-                        to: uri
-                        title
-                        summary
-                    }
-                }
-            }
-            associatedTopics {
-                id
-                title
-                text: summary
-                to: uri
-                illustration
-            }
-            ...DefaultFpbWithCardsAndHighlight
+          }
         }
+      }
+      associatedTopics {
+        id
+        title
+        text: summary
+        to: uri
+        illustration
+      }
+      ...DefaultFpbWithCardsAndHighlight
     }
+  }
+
+  exhibition: entry(section: "exhibition", slug: $slug) {
+    title
+    summary
+    startDate
+      @formatDateTime(format: "Y-m-d\\TH:i", timezone: "America/Los_Angeles")
+    endDate
+      @formatDateTime(format: "Y-m-d\\TH:i", timezone: "America/Los_Angeles")
+    image: heroImage {
+      ... on heroImage_heroImage_BlockType {
+        image {
+          ...Image
+        }
+        altText
+      }
+    }
+    ... on exhibition_exhibition_Entry {
+      associatedLocationsAndPrograms {
+        title
+        uri
+      }
+      buttonUrl {
+        ... on buttonUrl_button_BlockType {
+          buttonText
+          buttonUrl
+        }
+      }
+      exhibitsAndEvents {
+        title
+        uri
+        startDateWithTime
+          @formatDateTime(
+            format: "Y-m-d\\TH:i"
+            timezone: "America/Los_Angeles"
+          )
+        endDateWithTime
+          @formatDateTime(
+            format: "Y-m-d\\TH:i"
+            timezone: "America/Los_Angeles"
+          )
+        image: heroImage {
+          ... on heroImage_heroImage_BlockType {
+            image {
+              ...Image
+            }
+          }
+        }
+        text: eventDescription
+        locations: associatedLocations {
+          ... on location_location_Entry {
+            id
+            to: uri
+            title
+            summary
+          }
+        }
+        category: eventType {
+          ... on eventType_Category {
+            id
+            title
+          }
+        }
+      }
+      associatedStaffMember {
+        email
+        phoneNumber
+        staffMemberJobTitle
+        nameFirst
+        nameLast
+        uri
+        bookAConsultation
+        staffDepartment {
+          title
+        }
+        image: staffPortrait {
+          ...Image
+        }
+      }
+      acknowledgements {
+        ... on acknowledgements_richTextWithSectionTitle_BlockType {
+          displaySectionTitle
+          titleGeneral
+          acknowledgements
+        }
+      }
+      ...ExhibitionsAndCollectionsFpb
+    }
+  }
 }
