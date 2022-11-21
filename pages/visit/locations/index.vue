@@ -6,22 +6,18 @@
         />
         <h3>{{ summaryData }}</h3>
         <hr>
-        <h3>{{ parsedLocationsList }}</h3>
+        <h3>{{ uclaLibraries }}</h3>
+        <hr>
+        <h3>{{ affiliateLibraries }}</h3>
+        <hr/>
+        <h3>{{uclaLibraries[0]}}</h3>
 
-        <section-wrapper v-if="parsedLocationsList">
-            <block-location-list-item
-                :title="parsedLocationsList [0].title"
-                :to="parsedLocationsList [0].to"
-                :image="parsedLocationsList [0].image"
-                :day="parsedLocationsList [0].day"
-                :hour="parsedLocationsList [0].hour"
-                :address="parsedLocationsList [0].address"
-                :address-link="parsedLocationsList [0].addressLink"
-                :amenities="parsedLocationsList [0].amenities"
-                :reserve-seat="parsedLocationsList [0].reserveSeat"
-                :is-ucla-library="parsedLocationsList [0].isUclaLibrary"
+        <!-- <section-wrapper v-if="uclaLibraries">
+        <section-location-list
+                :items="uclaLibraries"
             />
-        </section-wrapper>
+        </section-wrapper> -->
+        <!-- 
         <nuxt-link
             v-for="item in parsedLocationsList"
             :key="item.to"
@@ -32,6 +28,7 @@
                 v-html="item.title"
             />
         </nuxt-link>
+        </section-wrapper> -->
     </div>
 </template>
 
@@ -49,21 +46,39 @@ export default {
         })
 
         return {
-            page: _get(data, "entries", {}),
             summaryData: _get(data, "entry", {}),
+            uclaLibraries: _get(data, "uclaLibraries", {}),
+            affiliateLibraries: _get(data, "affiliateLibraries", {}),
         }
-    },
-    computed: {
-        parsedLocationsList() {
-            return this.page.map((obj) => {
-                return {
-                    ...obj,
-                    to: `/visit/locations/${obj.to}`,
-                }
-            })
-        },
-    },
-}
+    }
+    //computed: {
+        // parsedUclaLibraries: () => {
+        //     return this.page.map((obj) => {
+        //         return {
+        //             ...obj,
+        //             to: `/visit/locations/${obj.to}`,
+        //         }
+        //     })
+        // },
+        // parsedAddress() {
+        //     return `${address.addressLine1}`
+
+        // },
+        // titleTemplate: (pageTitle) => {
+        //         const siteTitle = this.pageMeta.title
+        //         let output = this.pageMeta.title
+
+        //         switch (true) {
+        //             case siteTitle == pageTitle:
+        //                 output = site
+        //                 break
+        //             case Boolean(pageTitle):
+        //                 output = `${siteTitle} - ${pageTitle}`
+        //                 break
+        //         }
+        //         return output
+        //     },
+//}
 </script>
 
 <style lang="scss" scoped>
