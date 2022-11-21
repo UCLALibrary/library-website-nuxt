@@ -1,7 +1,7 @@
 describe("Endowments Detail page", () => {
     it("Visits an Endowments Detail Page", () => {
         // the following data will not work in production
-        cy.visit("support/endowments/lifu-wang-chinese-cultural-endowment")
+        cy.visit("/support/endowments/lifu-wang-chinese-cultural-endowment")
 
         // UCLA Library brand
         cy.get(".logo-ucla").should("be.visible")

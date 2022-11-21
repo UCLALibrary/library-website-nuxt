@@ -23,22 +23,44 @@
         <section-wrapper>
             <div class="description-with-image">
                 <div class="description">
-                    <rich-text v-if="page.donors[0].lastName" class="donors">Made possible by a gift from {{ parsedDonors }}</rich-text>
-                    <icon-with-link v-if="page.subjectAreas[0]" class="subject-area"
-                    icon-name="svg-icon-book"
-                    :text="page.subjectAreas[0].title"
-                    to="/support" />
-                    <rich-text class="description-text" :rich-text-content="page.endowmentDescription" />
-                    <smart-link v-if="page.spakCode" class="catalog-link" :to="catalogLink">See all items purchased through this Endowment </smart-link>
+                    <rich-text
+                        v-if="page.donors[0].lastName"
+                        class="donors"
+                    >
+                        Made possible by a gift from {{ parsedDonors }}
+                    </rich-text>
+                    <icon-with-link
+                        v-if="page.subjectAreas[0]"
+                        class="subject-area"
+                        icon-name="svg-icon-book"
+                        :text="page.subjectAreas[0].title"
+                        to="/support"
+                    />
+                    <rich-text
+                        class="description-text"
+                        :rich-text-content="page.endowmentDescription"
+                    />
+                    <smart-link
+                        v-if="page.spakCode"
+                        class="catalog-link"
+                        :to="catalogLink"
+                    >
+                        See all items purchased through this Endowment
+                    </smart-link>
                 </div>
-                <img v-if="page.heroImage[0]" :src="page.heroImage[0].image[0].src" :alt="page.heroImage[0].image[0].alt" class="bookplate" />
+
+                <img
+                    v-if="page.heroImage.length > 0"
+                    :src="parsedImage.src"
+                    :alt="parsedImage.alt"
+                    class="bookplate"
+                >
             </div>
-            
         </section-wrapper>
 
         <section-wrapper>
             <block-call-to-action
-                svgName="svg-call-to-action-money"
+                svg-name="svg-call-to-action-money"
                 title="Support this endowment"
                 text="Your contributions help us build our collections for the benefit or our students, faculty, staff, and the general public."
                 name="Donate"
@@ -91,6 +113,9 @@ export default {
             } else {
                 return ""
             }
+        },
+        parsedImage() {
+            return this.page.heroImage[0].image[0]
         },
         catalogLink() {
             return `https://search.library.ucla.edu/discovery/search?query=lds04,contains,${this.page.spakCode},AND&tab=LibraryCatalog&search_scope=MyInstitution&vid=01UCS_LAL:UCLA&mode=advanced&offset=0`
