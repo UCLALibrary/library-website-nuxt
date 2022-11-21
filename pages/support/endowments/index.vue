@@ -67,7 +67,7 @@ export default {
                     ...obj,
                     to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    category: (obj.donors[0].firstName != null) ? `Donor: ${obj.donors[0].firstName} ${obj.donors[0].lastName}` : `Donors: ${obj.donors[0].lastName}`
+                    category: (obj.donors[0].firstName != null) ? `Donor: ${obj.donors[0].firstName} ${obj.donors[0].lastName}` : `Donor: ${obj.donors[0].lastName}`
                 }
             })
         },
