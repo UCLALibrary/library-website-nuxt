@@ -187,11 +187,6 @@
             </section-wrapper>
             <section-wrapper theme="divider">
                 <divider-way-finder
-                    v-if="
-                        page.exhibition.blocks.length ||
-                            associatedExhibitionEvents.length > 0 ||
-                            parsedAssociatedStaffMember.length > 0
-                    "
                     color="visit"
                 />
             </section-wrapper>
@@ -216,7 +211,7 @@
                 />
             </section-wrapper>
             <section-wrapper
-                v-if="parsedAssociatedStaffMember.length > 0"
+                v-if="associatedExhibitionEvents.length > 0"
                 theme="divider"
             >
                 <divider-way-finder color="visit" />
@@ -228,7 +223,7 @@
                 <section-staff-list :items="parsedAssociatedStaffMember" />
             </section-wrapper>
             <section-wrapper
-                v-if="page.exhibition.acknowledgements"
+                v-if="parsedAssociatedStaffMember.length > 0"
                 theme="divider"
             >
                 <divider-way-finder color="visit" />
