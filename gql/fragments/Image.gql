@@ -4,6 +4,6 @@ fragment Image on AssetInterface {
     height(transform: "fullscreen")
     width(transform: "fullscreen")
     srcset(sizes: ["375", "960", "1280", "1920", "2560"])
-    alt: title
+    alt: altText
     focalPoint
 }
