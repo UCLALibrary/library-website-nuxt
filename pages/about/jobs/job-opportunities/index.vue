@@ -4,9 +4,9 @@
         class="page page-careers"
     >
         <nav-breadcrumb
-            to="/about"
-            title="Careers"
-            parent-title="About"
+            to="/jobs"
+            :title="page.title"
+            parent-title="Jobs"
         />
 
         <banner-text
