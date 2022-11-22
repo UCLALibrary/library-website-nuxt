@@ -29,26 +29,48 @@
         /-->
 
         <!--section-teaser-highlight class="section" :items="highlightEvents" /-->
+        <section-wrapper theme="divider">
+            <divider-way-finder color="visit" />
+        </section-wrapper>
 
-        
-        <section-teaser-list
-            :items="parsedExhibitionsAndEvents"
-            class="section section-list"
-        />
+        <section-wrapper
+            v-if="page.featuredEvents.length"
+            section-title="Highlighted Events"
+        >
+            <banner-featured
+                :image="parsedBannerHeader.image"
+                :title="parsedBannerHeader.title"
+                breadcrumb="Featured"
+                :align-right="false"
+                :start-date="parsedBannerHeader.startDate"
+                :end-date="parsedBannerHeader.endDate"
+            />
 
+            <divider-general />
+
+            <section-teaser-highlight
+                class="section"
+                :items="parsedSectionHighlight"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder color="visit" />
+        </section-wrapper>
+
+        <section-wrapper section-title="All Upcoming Events">
+            <section-teaser-list
+                :items="parsedExhibitionsAndEvents"
+                class="section section-list"
+            />
+        </section-wrapper>
         
-        <block-call-to-action
-            class="section block-call-to-action"
-            svg-name="svg-call-to-action-find"
-            :to="blockCallToAction.to"
-            :name="blockCallToAction.name"
-            :title="blockCallToAction.title"
-            :text="blockCallToAction.text"
-        />
-        <block-call-to-action-two-up
-            class="section"
-            :items="blockCallToActionTwoUp"
-        />
+        <section-wrapper>
+            <block-call-to-action
+                class="section block-call-to-action"
+                :is-global="true"
+            />
+        </section-wrapper>
     </section>
 </template>
 
@@ -74,40 +96,11 @@ export default {
                 slug: params.slug,
             }
         )
-        // console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: _get(data, "entry", {}),
+            events: _get(data, "events", {}),
         }
-        /*const libcalData = await $axios.$get(`/1.1/event_search`, {
-            params: {
-                search: "*",
-                limit: 100,
-            },
-        })
-
-        const events = libcalData.events
-        console.log(libcalData.events[0].title)
-        return {
-            page: { events: events },
-        }*/
     },
-
-    // TODO either use asyncdata or fetch
-    /*async fetch() {
-        // TODO how to fetch all events from libcal
-        const data = await this.$axios.$get(`/events`)
-        //TODO this will be used if we need pagination with libcal, the params passed needs to be reviewd
-        /*
-        const data = await this.$axios.$get(`/events`, {
-            params: {
-                offset: this.$route.query.offset || 0,
-                q: this.$route.query.q || "",
-            },
-        })
-        */
-
-    // this.allEvents = [...this.allEvents, ...data]
-    //},*/
 
     head() {
         let title = this.page ? this.page.title : "... loading"
@@ -116,70 +109,48 @@ export default {
         }
     },
     computed: {
-        /*viewComponentName() {
-            // TODO we may not need this as we have decidec not to add view modes dropdown in the reworked design
-            // get view component name (see the PR section-teaser calander)
-        },*/
+        parsedFeaturedEventsAndExhibits() {
+            return this.page.featuredEvents.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.to}`,
+                    image: _get(obj, "heroImage[0].image[0]", null),
+                    startDate: obj.startDate,
+                    endDate: obj.endDate
+                }
+            })
+        },
+        parsedBannerHeader() {
+            return this.parsedFeaturedEventsAndExhibits[0]
+        },
+        parsedSectionHighlight() {
+            return this.parsedFeaturedEventsAndExhibits.slice(1).map((obj) => {
+                return {
+                    ...obj,
+                    // bylineTwo:
+                    //     obj.bylineTwo != null
+                    //         ? format(new Date(obj.bylineTwo), "MMMM d, yyyy")
+                    //         : "",
+                }
+            })
+        },
         parsedExhibitionsAndEvents() {
-            // TODO Remove this one we have more events
-
-            //const mockEvents = [...this.page.events]
-
-            // Shape events
-            // return this.events.map((obj) => {
             return [
-                ...(this.page.events || []),
-                ...(this.page.exhibitions || []),
-                ...(this.page.eventSeries || []),
+                ...(this.events || []),
             ].map((obj) => {
                 const eventOrExhibtion = obj || {}
 
                 return {
                     ...eventOrExhibtion,
-                    to: `/${eventOrExhibtion.to}`, // added index to avoid duplicate errors
-                    // locations: _get(eventOrExhibtion, "locations", []),
-                    image: _get(eventOrExhibtion, "image[0].image[0]", null),
-                    category: _get(eventOrExhibtion, "sectionHandle", ""),
-
-                    // TODO Only need one set of these once BannerFeatured is updated
-                    startDate: _get(
-                        eventOrExhibtion,
-                        "date[0].startDate",
-                        null
-                    ),
-                    endDate: _get(eventOrExhibtion, "date[0].endDate", null),
+                    to: `/${eventOrExhibtion.to}`,
+                    image: _get(eventOrExhibtion, "heroImage[0].image[0]", null),
+                    startDate: _get(eventOrExhibtion, "date[0].startTime", null),
+                    endDate: _get(eventOrExhibtion, "date[0].endTime", null),
+                    category: _get(eventOrExhibtion, "eventType[0].title", null),
+                    text: _get(eventOrExhibtion, "eventDescription", null),
                 }
             })
         },
-        /* firstEvent() {
-            return this.parsedEvents[0] || {}
-        },
-        highlightEvents() {
-            // Get items 2nd and 3rd from array
-            const items = this.parsedEvents.slice(1, 3)
-
-            return items.map((obj) => {
-                return {
-                    ...obj,
-                    category: _get(obj, "category.name", "Featured"),
-                }
-            })
-        },
-        listEvents() {
-           // const items = this.parsedEvents.slice(2)
-
-            return [
-                ...(this.page.events || []),
-                ...(this.page.exhibitions || []),
-            ].map((obj) => {
-                return {
-                    ...obj,
-                    category: _get(obj, "category.name", "Featured"),
-                }
-            })
-        },*/
-
-        //TODO remove once we have real data from Craft
         blockCallToAction() {
             const mockBlockCallToAction = {
                 to: "/help/foo/bar/",
@@ -189,30 +160,6 @@ export default {
             }
             return mockBlockCallToAction
         },
-
-        blockCallToActionTwoUp() {
-            const mockBlockCallToActionTwoUp = [
-                {
-                    svgName: "svg-call-to-action-chat",
-                    title: "Lorem ipsum dolor sit amet?",
-                    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    name: "Lorem ipsum dolor",
-                    to: "/help/foo/bar/",
-                    isDark: false,
-                    isSmallSize: true,
-                },
-                {
-                    svgName: "svg-call-to-action-chat",
-                    title: "Dolor sit amet Ipsum",
-                    text: "Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    name: "Ipsum dolor amet",
-                    to: "/help/foo/bar/",
-                    isDark: true,
-                    isSmallSize: true,
-                },
-            ]
-            return mockBlockCallToActionTwoUp
-        },
     },
     // This will recall fetch() when these query params change
     watchQuery: ["offset", "q"],
@@ -221,19 +168,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-events-exhibits {
-    .section {
-        max-width: var(--unit-content-width);
-        margin: 80px auto;
-    }
-
-    .divider {
-        padding: 0 32px;
-    }
-
-    .block-call-to-action {
-        margin-bottom: 160px;
-        margin-left: auto;
-        margin-right: auto;
-    }
 }
 </style>

@@ -11,15 +11,10 @@ query EventsExhibitionsList {
         uri
         eventType
         eventDescription
-        seriesDate {
-          startDate @formatDateTime(format: "M j", timezone: "America/Los_Angeles")
-          endDate @formatDateTime(format: "M j, Y", timezone: "America/Los_Angeles")
-        }
-        date {
-          startDate: startTime @formatDateTime(format: "M j, Y", timezone: "America/Los_Angeles")
-          startTime @formatDateTime(format: "h:i a", timezone: "America/Los_Angeles")
-          endTime @formatDateTime(format: "h:i a", timezone: "America/Los_Angeles")
-        }
+        startDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+        endDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+        startDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+        endDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
         workshopOrEventSeriesType
         associatedLocations {
           title
@@ -36,21 +31,20 @@ query EventsExhibitionsList {
       }
     }
   }
-  events: entries(section: "event") {
+  events: entries(section: "event", orderBy:"startDateWithTime ASC", startDateWithTime: ">= now") {
     title
-    summary
-    uri
+    to: uri
     eventDescription
-    eventType
+    eventType {
+        title
+    }
     seriesDate {
-      startDate @formatDateTime(format: "M j", timezone: "America/Los_Angeles")
-      endDate @formatDateTime(format: "M j, Y", timezone: "America/Los_Angeles")
+      startDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+      endDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
     }
     date {
-      startMonth: startTime @formatDateTime(format: "M", timezone: "America/Los_Angeles")
-      startDate: startTime @formatDateTime(format: "j", timezone: "America/Los_Angeles")
-      startDateLong: startTime @formatDateTime(format: "l, M j, Y", timezone: "America/Los_Angeles")
-      startTime @formatDateTime(format: "h:i a", timezone: "America/Los_Angeles")
+      startTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+      endTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
     }
     workshopOrEventSeriesType
     associatedLocations {
