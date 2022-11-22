@@ -114,7 +114,7 @@ export default {
             title: title,
         }
     },
-    computed: {
+    // computed: {
         // TODO The link in the associatedLocations is 
         // /about/jobs/visit/locations/powel-library
 
@@ -155,7 +155,7 @@ export default {
         //         }
         //     })
         // }
-    }
+    // }
 }
 </script>
 
