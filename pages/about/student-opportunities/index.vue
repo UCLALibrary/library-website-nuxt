@@ -3,23 +3,20 @@
         id="main"
         class="page page-student-opportunities"
     >
-        <!-- <nav-breadcrumb
-            to="/students"
+        <nav-breadcrumb
+            to="/about"
             :title="page.title"
-            parent-title="Jobs"
-        /> -->
-        <h1>STUDENT OPPORTUNITIES</h1>
-        <h3>GOOD MORNING</h3>
-        <h3>{{ page }}</h3>
-        <!-- <hr>
-        <h3>{{ allJobs }}</h3> -->
+            parent-title="About"
+        />
 
-        <!-- <banner-text
+        <banner-text
             class="banner-text"
             :title="page.title"
             :text="page.text"
             :email="page.email"
             :phone="page.phoneNumber"
+            :buttonText="page.buttonUrl[0].buttonText"
+            :to="page.buttonUrl[0].buttonUrl"
         />
 
         <section-wrapper theme="divider">
@@ -27,9 +24,8 @@
                 class="divider"
                 color="about"
             />
-        </section-wrapper> -->
+        </section-wrapper>
 
-        <!-- ASSOCIATED LIBRARIAN JOBS -->
         <!-- <section-wrapper
             section-title="Academic Librarian Jobs"
         >
@@ -75,13 +71,23 @@
             </section-wrapper>
         </section-wrapper> -->
 
+        <!-- <section-wrapper>
+            <section-cards-with-illustrations
+                v-if="associatedPrograms.length > 0"
+                :items="associatedPrograms"
+                section-title="Awards, Grants, and Fellowships"
+            />
+            <section-wrapper theme="divider">
+                <divider-way-finder color="about" />
+            </section-wrapper>
+        </section-wrapper> -->
+
         <!-- ASSOCIATED TOPICS -->
         <!-- <section-wrapper>
             <section-cards-with-illustrations
                 v-if="associatedTopics.length > 0"
                 :items="associatedTopics"
                 section-title="Associated Topics"
-                section-summary="Curabitur aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh."
             />
             <section-wrapper theme="divider">
                 <divider-way-finder color="about" />
@@ -114,7 +120,7 @@ export default {
             title: title,
         }
     },
-    // computed: {
+    computed: {
         // TODO The link in the associatedLocations is 
         // /about/jobs/visit/locations/powel-library
 
@@ -147,15 +153,23 @@ export default {
         //         return obj.jobType[0].title === "Internship"
         //     })
         // },
-        // parsedAssociatedTopics() {
-        //     return this.associatedTopics.map((obj) => {
+        // parsedAssociatedPrograms() {
+        //     return this.page.associatedPrograms.map((obj) => {
         //         return {
         //             ...obj,
         //             to: `/${obj.uri}`,
         //         }
         //     })
-        // }
-    // }
+        // },
+        parsedAssociatedTopics() {
+            return this.page.associatedTopics.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                }
+            })
+        }
+    }
 }
 </script>
 
