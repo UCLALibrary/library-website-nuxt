@@ -102,8 +102,8 @@ export default {
         const data = await $graphql.default.request(STUDENT_OPPORTUNITIES_LIST)
         return {
             page: _get(data, "entry", {}),
-            allJobs: _get(data, "allJobs", {}),
-            associatedTopics: _get(data, "entry.associatedTopics", {}),
+            // allJobs: _get(data, "allJobs", {}),
+            // associatedTopics: _get(data, "entry.associatedTopics", {}),
         }
     },
     head() {
