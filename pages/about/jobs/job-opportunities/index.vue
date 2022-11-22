@@ -1,7 +1,7 @@
 <template lang="html">
     <main
         id="main"
-        class="page page-careers"
+        class="page page-job-opportunities"
     >
         <nav-breadcrumb
             to="/jobs"
@@ -17,45 +17,70 @@
             :phone="page.phoneNumber"
         />
 
-        <!-- <h3>{{ page }}</h3>
-        <hr> -->
-        <h3>jobs ---- {{ jobs }}</h3>
-        <hr>
-        <h3>associatedTopics ---- {{ associatedTopics }}</h3>
-
-        <!-- <block-highlight
-            :image="associatedTopics.image"
-            :to="associatedTopics.to"
-            :category="associatedTopics.category"
-            :title="associatedTopics.title"
-            :start-date="startDate"
-            :end-date="endDate"
-            :text="text"
-            :has-triangle="true"
-            :is-vertical="true"
-            :image-aspect-ratio="60"
-            :locations="locations"
-        /> -->
-
-        <section-wrapper>
-            <search-result
-                :title="jobs[0].title"
-                :summary="jobs[0].summary"
-                :to="jobs[0].to"
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
             />
+        </section-wrapper>
+
+        <!-- <h3>locationLink --- {{ parsedAcademicLibrarianJobs[0] }}</h3>
+        <hr>
+        <h3>{{ parsedAssociatedLocations }}</h3> -->
+
+        <!-- ASSOCIATED LIBRARIAN JOBS -->
+        <section-wrapper
+            section-title="Academic Librarian Jobs"
+        >
+            <section-generic-list
+                v-if="parsedAcademicLibrarianJobs.length > 0"
+                :items="parsedAcademicLibrarianJobs"
+            />
+            <div
+                v-else
+                class="no-positions"
+            >
+                No positions available
+            </div>
+
             <section-wrapper theme="divider">
-                <divider-way-finder color="about" />
+                <divider-way-finder
+                    class="divider"
+                    color="about"
+                />
             </section-wrapper>
         </section-wrapper>
 
+        <!-- STAFF JOBS -->
+        <section-wrapper
+            section-title="Staff Jobs"
+        >
+            <section-generic-list
+                v-if="parsedStaffJobs.length > 0"
+                :items="parsedStaffJobs"
+            />
+            <div
+                v-else
+                class="no-positions"
+            >
+                No positions available
+            </div>
+
+            <section-wrapper theme="divider">
+                <divider-way-finder
+                    class="divider"
+                    color="about"
+                />
+            </section-wrapper>
+        </section-wrapper>
+
+        <!-- ASSOCIATED TOPICS -->
         <section-wrapper>
             <section-cards-with-illustrations
+                v-if="associatedTopics.length > 0"
                 :items="associatedTopics"
                 section-title="Associated Topics"
                 section-summary="Curabitur aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh."
-                to="/help/foo/bar"
-                :is-horizontal="false"
-                button-text="See More"
             />
             <section-wrapper theme="divider">
                 <divider-way-finder color="about" />
@@ -69,15 +94,15 @@
 import _get from "lodash/get"
 
 // GQL
-import JOBS_LIST from "~/gql/queries/JobOpportunitiesList"
+import JOB_OPPORTUNITIES_LIST from "~/gql/queries/JobOpportunitiesList"
 
 export default {
     async asyncData({ $graphql }) {
-        const data = await $graphql.default.request(JOBS_LIST)
+        const data = await $graphql.default.request(JOB_OPPORTUNITIES_LIST)
         return {
             page: _get(data, "entry", {}),
             associatedTopics: _get(data, "entry.associatedTopics", {}),
-            jobs: _get(data, "entries", {}),
+            allJobs: _get(data, "allJobs", {}),
         }
     },
     head() {
@@ -88,10 +113,57 @@ export default {
             title: title,
         }
     },
+    computed: {
+        // TODO The link in the associatedLocations is 
+        // /about/jobs/visit/locations/powel-library
+
+        // parsedAssociatedLocations() {
+        //     let parsedJobs = this.allJobs.filter((obj) => {
+        //         return obj.jobType[0].title === "Academic Librarian"
+        //     })
+        //     return parsedJobs.map((obj) => {
+        //         return 
+        //         obj.associatedLocations.uri
+                
+        //     })
+        // },
+        parsedAcademicLibrarianJobs() {
+            // return this.allJobs.filter((obj) => {
+            //     return obj.jobType[0].title === "Academic Librarian"
+            // })
+            let allAcademicLibrarianJobs = this.allJobs.filter((obj) => {
+                return obj.jobType[0].title === "Academic Librarian"
+            })
+            return allAcademicLibrarianJobs.map((obj, index) => {
+                return {
+                    ...obj,
+                    to: `/${obj.associatedLocations[index].uri}`,
+                }
+            })
+        },
+        parsedStaffJobs() {
+            return this.allJobs.filter((obj) => {
+                return obj.jobType[0].title === "Staff"
+            })
+        },
+        parsedAssociatedTopics() {
+            return this.associatedTopics.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                }
+            })
+        }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-.page-careers {
+.page-job-opportunities {
+    .no-positions {
+        @include step-1;
+        font-style: italic;
+        font-color: var(--color-primary-blue-05)
+    }
 }
 </style>
