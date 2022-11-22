@@ -66,11 +66,12 @@ import HELP_TOPIC_DETAIL from "~/gql/queries/HelpTopicDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params, store, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
             slug: params.slug,
         })
-        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
+        if (data && params.slug !== undefined)
+            await $elasticsearchplugin.index(data.entry, params.slug)
         // console.log("Data fetched: " + JSON.stringify(data))
 
         return {

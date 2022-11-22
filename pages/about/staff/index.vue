@@ -110,7 +110,7 @@ export default {
             console.log("in router query in asyc data")
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
-                "staffMember",
+                "sectionHandle:staffMember",
                 JSON.parse(this.$route.query.filters) || {},
                 "nameLast.keyword",
                 config.staff.resultFields,
@@ -195,7 +195,7 @@ export default {
         async searchBookmarkedQuery() {
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
-                "staffMember",
+                "sectionHandle:staffMember",
                 JSON.parse(this.$route.query.filters),
                 "nameLast.keyword",
                 config.staff.resultFields,
@@ -206,9 +206,7 @@ export default {
             )
 
             if (results && results.hits && results.hits.total.value > 0) {
-                this.page.entries = this.parseBookmarkedQueryResults(
-                    results.hits.hits
-                )
+                this.hits = results.hits.hits
             } else {
                 this.page = {}
                 this.hits = []
@@ -245,6 +243,8 @@ export default {
             return this.parseHits(hits)
         },
         async getSearchData(data) {
+            console.log("On the page getsearchdata called")
+
             this.$router.push({
                 path: "/about/staff",
                 query: {
@@ -252,6 +252,14 @@ export default {
                     filters: JSON.stringify(data.filters),
                 },
             })
+            this.searchBookmarkedQuery()
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            }
         },
     },
 }

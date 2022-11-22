@@ -83,6 +83,30 @@ import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
 import config from "~/utils/searchConfig"
 
 export default {
+    async asyncData({ $graphql, $elasticsearchplugin }) {
+        const serverData = await $graphql.default.request(
+            SERVICE_RESOURCE_WORKSHOPSERIES_LIST
+        )
+        console.log(
+            "ALL External Resource indexing:" +
+                JSON.stringify(serverData.externalResource)
+        )
+        if (
+            serverData.externalResource &&
+            serverData.externalResource.length > 0
+        ) {
+            console.log("External Resource indexing:")
+            for (let externalResource of serverData.externalResource) {
+                console.log(
+                    "External Resource indexing:" + externalResource.slug
+                )
+                await $elasticsearchplugin.index(
+                    externalResource,
+                    externalResource.slug
+                )
+            }
+        }
+    },
     data() {
         return {
             page: {},
@@ -101,10 +125,11 @@ export default {
         if (this.$route.query.q && this.$route.query.q !== "") {
             console.log("in router query in fetch call")
             this.page = {}
+            this.hits = []
             this.helpTopic = {}
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
-                "serviceOrResource",
+                "sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic",
                 [],
                 "",
                 config.serviceOrResources.resultFields,
@@ -125,9 +150,11 @@ export default {
             this.summaryData = _get(getSummaryData, "entry", {})
         } else {
             this.hits = []
+            this.page = {}
             this.page = await this.$graphql.default.request(
                 SERVICE_RESOURCE_WORKSHOPSERIES_LIST
             )
+
             this.helpTopic = await this.$graphql.default.request(
                 HELP_TOPIC_LIST
             )
@@ -179,7 +206,7 @@ export default {
                     JSON.stringify(this.hits)
             )*/
 
-            return this.parseHits(this.hits)
+            return this.parseHits()
         },
     },
     watch: {
@@ -209,11 +236,11 @@ export default {
         }*/
     },
     methods: {
-        /*async searchBookmarkedQuery() {
+        async searchBookmarkedQuery() {
             console.log("hello bookmarked query")
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
-                "serviceOrResource",
+                "sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic",
                 [],
                 "",
                 config.serviceOrResources.resultFields,
@@ -224,23 +251,40 @@ export default {
             )
 
             if (results && results.hits && results.hits.total.value > 0) {
-                this.hits = this.parseBookmarkedQueryResults(results.hits.hits)
+                this.hits = results.hits.hits
+                this.parseHits()
             } else {
                 this.page = {}
                 this.helpTopic = {}
                 this.hits = []
             }
-        },*/
-        parseHits(hits = []) {
-            return hits.map((obj) => {
-                console.log("category is missing?:" + obj["_source"].type)
+        },
+        parseHits() {
+            return this.hits.map((obj) => {
+                console.log(
+                    "what should be the category?:" +
+                        obj["_source"].sectionHandle
+                )
                 return {
                     title: obj["_source"].title,
-                    to: `/${obj["_source"].uri}`,
+                    sectionHandle: obj["_source"].sectionHandle,
+                    to:
+                        obj["_source"].sectionHandle === "externalResource"
+                            ? `${obj["_source"].externalResourceUrl}`
+                            : `/${obj["_source"].uri}`,
                     iconName:
                         obj["_source"]["illustrationsResourcesAndServices"],
-                    text: obj["_source"].text,
-                    category: obj["_source"].type,
+                    text: obj["_source"].text || obj["_source"].summary,
+
+                    category:
+                        obj["_source"].sectionHandle === "workshopSeries"
+                            ? "workshop"
+                            : obj["_source"].sectionHandle === "helpTopic"
+                                ? "help topic"
+                                : obj["_source"].sectionHandle ===
+                              "externalResource"
+                                    ? "resource"
+                                    : obj["_source"].type,
                 }
             })
         },
@@ -250,6 +294,9 @@ export default {
             return this.parseHits(hits)
         },*/
         async getSearchData(data) {
+            this.page = {}
+            this.helpTopic = {}
+            this.hits = []
             // console.log("from search-generic: " + JSON.stringify(data))
             // console.log(config.serviceOrResources.resultFields)
             this.$router.push({
@@ -258,6 +305,11 @@ export default {
                     q: data.text,
                 },
             })
+            this.searchBookmarkedQuery()
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters: {},
+            }
         },
     },
 }
