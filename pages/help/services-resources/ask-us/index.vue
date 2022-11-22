@@ -13,22 +13,17 @@
             :title="page.title"
             :text="page.summary"
         />
-
         <!-- LibChat Widget -->
         <script src="https://ucla.libanswers.com/load_chat.php?hash=e6e621712e7b0ed0193f065d84d4e0c9" />
 
         <div
             id="libchat_e6e621712e7b0ed0193f065d84d4e0c9"
         />
-
         <section-wrapper theme="divider">
-            <divider-way-finder color="help" />
-        </section-wrapper>
-
-        <section-wrapper>
-            <block-call-to-action
-                class="block-call-to-action"
-                :is-global="true"
+            <divider-way-finder
+                v-if="page.blocks.length > 0"
+                color="help"
+                class="divider-way-finder"
             />
         </section-wrapper>
 
