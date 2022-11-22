@@ -26,7 +26,7 @@
 
         <!-- <h3>locationLink --- {{ parsedAcademicLibrarianJobs[0] }}</h3>
         <hr>
-        <h3>{{ parsedAssociatedLocations }}</h3> -->
+        <h3>{{ parsedAssociatedLocations }}</h3>  -->
 
         <!-- ASSOCIATED LIBRARIAN JOBS -->
         <section-wrapper
@@ -118,17 +118,24 @@ export default {
         // /about/jobs/visit/locations/powel-library
 
         parsedAssociatedLocations() {
-            // let parsedJobs = this.allJobs.filter((obj) => {
-            //     return obj.jobType[0].title === "Academic Librarian"
-            // })
             return this.allJobs.filter((obj) => {
                 return obj.jobType[0].title === "Academic Librarian"
             })
-            //     return parsedJobs.map((obj) => {
-            //         return 
-            //         obj.associatedLocations.uri
-                
-        //     })
+            // let parsedJobs = this.allJobs.filter((obj) => {
+            //     return obj.jobType[0].title === "Academic Librarian"
+            // })
+
+            // return this.parsedJobs.policyBlock.map((obj) => {
+            //     return {
+            //         ...obj,
+            //         parsedAssociatedEntries: obj.associatedEntries.map((entry) => {
+            //             return {
+            //                 ...entry,
+            //                 to: `/${obj.associatedLocations.uri}`
+            //             }
+            //         })
+            //     }
+            // })
         },
         parsedAcademicLibrarianJobs() {
             // return this.allJobs.filter((obj) => {
