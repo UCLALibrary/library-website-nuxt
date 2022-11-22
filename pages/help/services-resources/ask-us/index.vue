@@ -62,6 +62,9 @@ export default {
 
 <style lang="scss" scoped>
 .page-ask-us {
+    .banner-text {
+        margin-bottom: var(--space-l);
+    }
 
 }
 </style>
