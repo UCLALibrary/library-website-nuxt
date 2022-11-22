@@ -3,7 +3,13 @@
         id="main"
         class="page page-ask-us"
     >
-        <masthead-secondary
+        <nav-breadcrumb
+            to="/"
+            title="Ask Us"
+            parent-title="Home"
+        />
+        <banner-text
+            class="banner-text"
             :title="page.title"
             :text="page.summary"
         />
