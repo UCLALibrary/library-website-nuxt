@@ -56,7 +56,6 @@
         </section-wrapper>
 
         <!-- Flexible Page Blocks -->
-        {{ page.blocks[0] }}
         <flexible-blocks
             class="flexible-content"
             :blocks="page.blocks"
