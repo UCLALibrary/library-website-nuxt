@@ -117,16 +117,19 @@ export default {
         // TODO The link in the associatedLocations is 
         // /about/jobs/visit/locations/powel-library
 
-        // parsedAssociatedLocations() {
-        //     let parsedJobs = this.allJobs.filter((obj) => {
-        //         return obj.jobType[0].title === "Academic Librarian"
-        //     })
-        //     return parsedJobs.map((obj) => {
-        //         return 
-        //         obj.associatedLocations.uri
+        parsedAssociatedLocations() {
+            // let parsedJobs = this.allJobs.filter((obj) => {
+            //     return obj.jobType[0].title === "Academic Librarian"
+            // })
+            return this.allJobs.filter((obj) => {
+                return obj.jobType[0].title === "Academic Librarian"
+            })
+            //     return parsedJobs.map((obj) => {
+            //         return 
+            //         obj.associatedLocations.uri
                 
         //     })
-        // },
+        },
         parsedAcademicLibrarianJobs() {
             // return this.allJobs.filter((obj) => {
             //     return obj.jobType[0].title === "Academic Librarian"
