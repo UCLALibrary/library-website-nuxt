@@ -14,7 +14,7 @@ query StudentOpportunitiesList {
       associatedPrograms {
         title
         summary
-        uri
+        jobPostingURL: uri
       }
       associatedTopics {
         title

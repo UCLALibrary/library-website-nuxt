@@ -26,12 +26,13 @@
             />
         </section-wrapper>
 
-        <!-- <section-wrapper
-            section-title="Academic Librarian Jobs"
+        <!-- STUDENT JOBS -->
+        <section-wrapper
+            section-title="Student Jobs"
         >
             <section-generic-list
-                v-if="parsedAcademicLibrarianJobs.length > 0"
-                :items="parsedAcademicLibrarianJobs"
+                v-if="parsedStudentJobs.length > 0"
+                :items="parsedStudentJobs"
             />
             <div
                 v-else
@@ -39,22 +40,22 @@
             >
                 No positions available
             </div>
+        </section-wrapper>
 
-            <section-wrapper theme="divider">
-                <divider-way-finder
-                    class="divider"
-                    color="about"
-                />
-            </section-wrapper>
-        </section-wrapper> -->
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
 
-        <!-- STAFF JOBS -->
-        <!-- <section-wrapper
-            section-title="Staff Jobs"
+        <!-- STUDENT INTERNSHIPS -->
+        <section-wrapper
+            section-title="Student Internships"
         >
             <section-generic-list
-                v-if="parsedStaffJobs.length > 0"
-                :items="parsedStaffJobs"
+                v-if="parsedStudentInternships.length > 0"
+                :items="parsedStudentInternships"
             />
             <div
                 v-else
@@ -62,37 +63,34 @@
             >
                 No positions available
             </div>
+        </section-wrapper>
 
-            <section-wrapper theme="divider">
-                <divider-way-finder
-                    class="divider"
-                    color="about"
-                />
-            </section-wrapper>
-        </section-wrapper> -->
-
-        <!-- <section-wrapper>
-            <section-cards-with-illustrations
-                v-if="associatedPrograms.length > 0"
-                :items="associatedPrograms"
-                section-title="Awards, Grants, and Fellowships"
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
             />
-            <section-wrapper theme="divider">
-                <divider-way-finder color="about" />
-            </section-wrapper>
-        </section-wrapper> -->
+        </section-wrapper>
+
+        <section-wrapper section-title="Awards, Grants, and Fellowships">
+            <section-generic-list
+                v-if="parsedAssociatedPrograms.length > 0"
+                :items="parsedAssociatedPrograms"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder color="about" />
+        </section-wrapper>
 
         <!-- ASSOCIATED TOPICS -->
-        <!-- <section-wrapper>
+        <section-wrapper>
             <section-cards-with-illustrations
-                v-if="associatedTopics.length > 0"
-                :items="associatedTopics"
+                v-if="parsedAssociatedTopics.length > 0"
+                :items="parsedAssociatedTopics"
                 section-title="Associated Topics"
             />
-            <section-wrapper theme="divider">
-                <divider-way-finder color="about" />
-            </section-wrapper>
-        </section-wrapper> -->
+        </section-wrapper>
     </main>
 </template>
 
@@ -108,7 +106,7 @@ export default {
         const data = await $graphql.default.request(STUDENT_OPPORTUNITIES_LIST)
         return {
             page: _get(data, "entry", {}),
-            // allJobs: _get(data, "allJobs", {}),
+            allJobs: _get(data, "allJobs", {}),
             // associatedTopics: _get(data, "entry.associatedTopics", {}),
         }
     },
@@ -134,33 +132,32 @@ export default {
                 
         //     })
         // },
-        // parsedStudentJobs() {
-        //     // return this.allJobs.filter((obj) => {
-        //     //     return obj.jobType[0].title === "Academic Librarian"
-        //     // })
-        //     let allStudentJobs = this.allJobs.filter((obj) => {
-        //         return obj.jobType[0].title === "Student"
-        //     })
-        //     return allStudentJobs.map((obj, index) => {
-        //         return {
-        //             ...obj,
-        //             to: `/${obj.associatedLocations[index].uri}`,
-        //         }
-        //     })
-        // },
-        // parsedInternshipJobs() {
-        //     return this.allJobs.filter((obj) => {
-        //         return obj.jobType[0].title === "Internship"
-        //     })
-        // },
-        // parsedAssociatedPrograms() {
-        //     return this.page.associatedPrograms.map((obj) => {
-        //         return {
-        //             ...obj,
-        //             to: `/${obj.uri}`,
-        //         }
-        //     })
-        // },
+        parsedStudentJobs() {
+            // return this.allJobs.filter((obj) => {
+            //     return obj.jobType[0].title === "Academic Librarian"
+            // })
+            let allStudentJobs = this.allJobs.filter((obj) => {
+                return obj.jobType[0].title === "Student Job"
+            })
+            return allStudentJobs.map((obj, index) => {
+                return {
+                    ...obj,
+                    to: `/${obj.associatedLocations[index].uri}`,
+                }
+            })
+        },
+        parsedStudentInternships() {
+            return this.allJobs.filter((obj) => {
+                return obj.jobType[0].title === "Student Internship"
+            })
+        },
+        parsedAssociatedPrograms() {
+            return this.page.associatedPrograms.map((obj) => {
+                return {
+                    ...obj,
+                }
+            })
+        },
         parsedAssociatedTopics() {
             return this.page.associatedTopics.map((obj) => {
                 return {
