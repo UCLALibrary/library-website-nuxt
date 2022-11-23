@@ -316,12 +316,11 @@ export default {
     }
 
     .browse-by {
-        max-width: $container-l-main + px;
         margin: 0 auto var(--space-xl);
     }
 
     .section-heading {
-        @include step-2;
+        @include step-3;
         color: var(--color-primary-blue-03);
         margin-bottom: var(--space-m);
     }
