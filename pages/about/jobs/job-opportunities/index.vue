@@ -118,28 +118,28 @@ export default {
         // /about/jobs/visit/locations/powel-library
 
         parsedAssociatedLocations() {
-            // return this.allJobs.filter((obj) => {
-            //     return obj.jobType[0].title === "Academic Librarian"
-            // })
-
-            const parsedJobs = this.allJobs.filter((obj) => {
+            return this.allJobs.filter((obj) => {
                 return obj.jobType[0].title === "Academic Librarian"
             })
 
-            const assocLocations = parsedJobs.map((obj) => {
-                return {
-                    ...obj,
-                    locations: obj.assocLocations.map((entry) => {
-                        return {
-                            ...entry,
-                            to: `/${entry.uri}`,
-                            title: entry.title,
-                            associatedLocations: entry.associatedLocations,
-                        }
-                    })
-                }
-            })
-            return assocLocations
+            // const parsedJobs = this.allJobs.filter((obj) => {
+            //     return obj.jobType[0].title === "Academic Librarian"
+            // })
+
+            // const assocLocations = parsedJobs.map((obj) => {
+            //     return {
+            //         ...obj,
+            //         locations: obj.assocLocations.map((entry) => {
+            //             return {
+            //                 ...entry,
+            //                 to: `/${entry.uri}`,
+            //                 title: entry.title,
+            //                 associatedLocations: entry.associatedLocations,
+            //             }
+            //         })
+            //     }
+            // })
+            // return assocLocations
         },
         parsedLocations() {
             return this.allJobs.map((obj, index) => {
@@ -161,6 +161,7 @@ export default {
                 return {
                     ...obj,
                     locations: _get(obj, "associatedLocations", null),
+                    text: _get(obj, "text", null),
                 }
             })
         },
