@@ -15,24 +15,11 @@
                 -->
         </masthead-secondary>
 
-        <!--banner-featured
-            class="section banner-featured"
-            :title="firstEvent.title"
-            :image="firstEvent.image"
-            :to="firstEvent.to"
-            prompt="View exhibit"
-            :breadcrumb="firstEvent.breadcrumb.text"
-            :align-right="false"
-            :dates="firstEvent.dates"
-            :start-date="firstEvent.startDate"
-            :end-date="firstEvent.endDate"
-        /-->
-
-        <!--section-teaser-highlight class="section" :items="highlightEvents" /-->
         <section-wrapper theme="divider">
             <divider-way-finder color="visit" />
         </section-wrapper>
 
+        <!-- HIGHLIGHTED & FEATURED EVENTS -->
         <section-wrapper
             v-if="page.featuredEvents.length"
             section-title="Highlighted Events"
@@ -44,6 +31,9 @@
                 :align-right="false"
                 :start-date="parsedBannerHeader.startDate"
                 :end-date="parsedBannerHeader.endDate"
+                :text="parsedBannerHeader.text"
+                :to="parsedBannerHeader.uri"
+                prompt="View Exhibit"
             />
 
             <divider-general />
@@ -58,6 +48,7 @@
             <divider-way-finder color="visit" />
         </section-wrapper>
 
+        <!-- UPCOMING EVENTS -->
         <section-wrapper section-title="All Upcoming Events">
             <section-teaser-list
                 :items="parsedExhibitionsAndEvents"
@@ -115,6 +106,7 @@ export default {
                     ...obj,
                     to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
+                    text: _get("text", null),
                     startDate: obj.startDate,
                     endDate: obj.endDate
                 }
@@ -124,13 +116,17 @@ export default {
             return this.parsedFeaturedEventsAndExhibits[0]
         },
         parsedSectionHighlight() {
-            return this.parsedFeaturedEventsAndExhibits.slice(1).map((obj) => {
+            let highlights = this.parsedFeaturedEventsAndExhibits.slice(1)
+            return highlights.map((obj) => {
                 return {
                     ...obj,
-                    // bylineTwo:
-                    //     obj.bylineTwo != null
-                    //         ? format(new Date(obj.bylineTwo), "MMMM d, yyyy")
-                    //         : "",
+                    to: `/${obj.to}`,
+                    category: _get("category", null),
+                    title: obj.title,
+                    startDate: _get("startDate", null),
+                    endDate: _get("endDate", null),
+                    text: _get("text", null),
+                    //locations: `/${obj.associatedLocations.to}`,
                 }
             })
         },

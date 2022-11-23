@@ -6,8 +6,9 @@ query EventsExhibitionsList {
       title
       summary
       featuredEvents {
+        category
         title
-        summary
+        text: summary
         uri
         eventType
         eventDescription
@@ -18,6 +19,7 @@ query EventsExhibitionsList {
         workshopOrEventSeriesType
         associatedLocations {
           title
+          uri
         }
         heroImage {
           ... on heroImage_heroImage_BlockType {
