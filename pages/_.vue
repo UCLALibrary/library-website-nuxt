@@ -56,20 +56,31 @@ import GENERAL_CONTENT_DETAIL from "~/gql/queries/GeneralContentDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin, redirect }) {
         const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
             slug: params.pathMatch.substring(
                 params.pathMatch.lastIndexOf("/") + 1
             ),
         })
-        if (data)
-            await $elasticsearchplugin.index(
-                data.entry,
-                params.pathMatch.substring(
-                    params.pathMatch.lastIndexOf("/") + 1
-                )
+        if (data && data.entry && data.entry.slug && data.entry.slug != null) {
+            console.log(
+                "General Content page slug is: " +
+                    params.pathMatch.substring(
+                        params.pathMatch.lastIndexOf("/") + 1
+                    )
             )
-
+            if (data.entry.parent && data.entry.parent != null) {
+                console.log("parent exists in General content page")
+                await $elasticsearchplugin.index(
+                    data.entry,
+                    data.entry.parent && data.entry.parent.slug
+                        ? data.entry.parent.slug + "--" + data.entry.slug
+                        : data.entry.slug
+                )
+            } else await $elasticsearchplugin.index(data.entry, data.entry.slug)
+        } else {
+            return redirect(404, "/")
+        }
         return {
             page: _get(data, "entry", {}),
         }
