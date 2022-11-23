@@ -32,7 +32,7 @@
                 :start-date="parsedBannerHeader.startDate"
                 :end-date="parsedBannerHeader.endDate"
                 :text="parsedBannerHeader.text"
-                :to="parsedBannerHeader.uri"
+                :to="parsedBannerHeader.to"
                 :prompt="parsedBannerHeader.prompt"
                 :locations="parsedBannerHeader.locations"
             />
@@ -105,7 +105,7 @@ export default {
             return this.page.featuredEvents.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.uri}`,
+                    to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     startDate: obj.typeHandle === "event" ? obj.startDateWithTime : obj.startDate,
                     endDate: obj.typeHandle === "event" ? obj.endDateWithTime : obj.endDate,
@@ -127,7 +127,6 @@ export default {
             return highlights.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.to}`,
                     category: 
                         obj.typeHandle === "exhibition" 
                         ? "Exhibition"

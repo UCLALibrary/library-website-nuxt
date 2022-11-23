@@ -9,7 +9,7 @@ query EventsExhibitionsList {
         category
         title
         summary
-        uri
+        to: uri
         eventType {
           title
         }
