@@ -33,7 +33,7 @@
                 :end-date="parsedBannerHeader.endDate"
                 :text="parsedBannerHeader.text"
                 :to="parsedBannerHeader.uri"
-                prompt="View Exhibit"
+                :prompt="parsedBannerHeader.prompt"
             />
 
             <divider-general />
@@ -104,11 +104,17 @@ export default {
             return this.page.featuredEvents.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.to}`,
+                    to: `/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    text: _get("text", null),
-                    startDate: obj.startDate,
-                    endDate: obj.endDate
+                    startDate: obj.typeHandle === "event" ? obj.startDateWithTime : obj.startDate,
+                    endDate: obj.typeHandle === "event" ? obj.endDateWithTime : obj.endDate,
+                    text: obj.typeHandle === "event" ? obj.eventDescription : obj.summary,
+                    prompt: obj.typeHandle === "exhibition" 
+                        ? "View exhibition" 
+                            : obj.workshopOrEventSeriesType === "visit/events-exhibitions" 
+                                ? "View event series" 
+                                    : "View event",
+                    locations: _get(obj, "associatedLocations", null),
                 }
             })
         },
@@ -121,11 +127,15 @@ export default {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
-                    category: _get("category", null),
+                    category: 
+                        obj.typeHandle === "exhibition" 
+                        ? "Exhibition"
+                            : obj.workshopOrEventSeriesType === "visit/events-exhibitions" 
+                                ? "Event Series"
+                                    : obj.eventType.length > 0
+                                        ? obj.eventType[0].title
+                                            : "Event",
                     title: obj.title,
-                    startDate: _get("startDate", null),
-                    endDate: _get("endDate", null),
-                    text: _get("text", null),
                     //locations: `/${obj.associatedLocations.to}`,
                 }
             })
@@ -140,10 +150,18 @@ export default {
                     ...eventOrExhibtion,
                     to: `/${eventOrExhibtion.to}`,
                     image: _get(eventOrExhibtion, "heroImage[0].image[0]", null),
-                    startDate: _get(eventOrExhibtion, "date[0].startTime", null),
-                    endDate: _get(eventOrExhibtion, "date[0].endTime", null),
-                    category: _get(eventOrExhibtion, "eventType[0].title", null),
+                    startDate: _get(eventOrExhibtion, "startDateWithTime", null),
+                    endDate: _get(eventOrExhibtion, "endDateWithTime", null),
+                    category: 
+                        eventOrExhibtion.typeHandle === "exhibition" 
+                        ? "Exhibition"
+                            : eventOrExhibtion.workshopOrEventSeriesType === "visit/events-exhibitions" 
+                                ? "Event Series"
+                                    : eventOrExhibtion.eventType.length > 0
+                                        ? eventOrExhibtion.eventType[0].title
+                                            : "Event",
                     text: _get(eventOrExhibtion, "eventDescription", null),
+                    locations: _get(eventOrExhibtion, "associatedLocations", null),
                 }
             })
         },
