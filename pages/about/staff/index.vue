@@ -16,7 +16,10 @@
             {{ parsedStaffList.length || (hits && parseHitsResults.length) }}
         </h4>
         <section-wrapper theme="divider">
-            <divider-way-finder />
+            <divider-way-finder 
+                class="divider-way-finder"
+                color="about"
+            />
         </section-wrapper>
 
         <section-wrapper class="browse-by">
@@ -67,6 +70,18 @@
             <h4 v-else>
                 No results found
             </h4>
+        </section-wrapper>
+        <section-wrapper theme="divider">
+            <divider-way-finder 
+                class="divider-way-finder"
+                color="about"
+            />
+        </section-wrapper>
+        <section-wrapper>
+            <block-call-to-action
+                class="block-call-to-action"
+                :is-global="true"
+            />
         </section-wrapper>
     </main>
 </template>
