@@ -1,4 +1,4 @@
-query CareersList {
+query JobOpportunitiesList {
   entry(section: "listingCareers", orderBy: "postDate") {
     ... on listingCareers_listingCareers_Entry {
       title
@@ -14,7 +14,7 @@ query CareersList {
       }
     }
   }
-  entries(section: "job", staffOrStudentPosition: "careers") {
+  allJobs: entries(section: "job", staffOrStudentPosition: "careers") {
     title
     summary
     ... on job_job_Entry {
@@ -34,4 +34,4 @@ query CareersList {
       }
     }
   }
-} 
+}
