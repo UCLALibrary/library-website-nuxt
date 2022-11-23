@@ -23,22 +23,25 @@
         <hr>
         <h3>{{ affiliateLibraries }}</h3> -->
 
-        <section-wrapper v-if="uclaLibraries">
+        <!-- <section-wrapper v-if="uclaLibraries">
             <section-location-list
                 :items="uclaLibraries"
             />
-        </section-wrapper>
-        <!-- <section-wrapper v-if="uclaLibraries">
+        </section-wrapper> -->
+        <section-wrapper
+            v-if="uclaLibraries" 
+            class="blockLocationListWrapper"
+        >
             <block-location-list-item
-                v-for="item, index in uclaLibraries"
+                v-for="item, index in parsedUclaLibraries"
                 :key="`uclaLibraries-${index}`"
                 :title="item.title"
                 :to="item.uri"
-                :image="item.heroImage[0]"
+                :image="item.image"
                 :address="item.address"
                 :amenities="item.amenities"
             />
-        </section-wrapper> -->
+        </section-wrapper>
     </div>
 </template>
 
@@ -59,51 +62,53 @@ export default {
             summaryData: _get(data, "entry", {}),
             uclaLibraries: _get(data, "uclaLibraries", {}),
             affiliateLibraries: _get(data, "affiliateLibraries", {}),
-
         }
     },
     computed: {
-        parsedAddress() {
-            // let library = this.uclaLibraries[0].address[0]
-            return this.uclaLibraries[0].address.map((obj) => {
-                return `${obj.addressLine1}<br> ${obj.addressLine2}<br>${obj.addressCity}, ${obj.addressZipCode}`
-            })
-        },
         parsedUclaLibraries() {
-            return this.page.map((obj) => {
+            return this.uclaLibraries.map((obj) => {
                 return {
                     ...obj,
-                    to: ""
-                }
-            })
-        },
-        parsedLocationsList() {
-            return this.page.map((obj) => {
-                return {
-                    ...obj,
-                    to: obj.locationType === "uclaLibrary"?`/visit/locations/${obj.to}`:obj.affiliateLibraryUrl,                     
+                    to: `/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", null),                 
-                    address: this.parsedAddress(obj),
+                    address: this.parseAddress(obj)[0],
                     addressLink: `https://map.ucla.edu/?id=${obj.campusMapId}&e=true`,
-                    amenities: ""// look for my comment below about amenities
+                    amenities: obj.amenities// look for my comment below about amenities
                 }
             })
         },
-        // parsedAffiliateLibraries(){
-            
-        // }
         // TODO match on LibCal id for Hours today
     },
     methods: {
         parseAddress(obj) {
-            return  obj.address && obj.address[0] ?
-                obj.address[0].addressLine1 + 
-                obj.address[0].addressLine2 + 
-                obj.address[0].addressCity + 
-                obj.address[0].addressState + 
-                obj.address[0].addressZipCode + 
-                obj.address[0].addressCountry : ""
-        }
+            return obj.address.map((item) => {
+                if (item.addressLine2) {
+                    return (
+                        item.addressLine1 +
+                    " " +
+                    item.addressLine2 +
+                    " " +
+                    item.addressCity +
+                    " " +
+                    item.addressState +
+                    " " +
+                    item.addressZipCode
+                    )
+                } else if (item) {
+                    return (
+                        item.addressLine1 +
+                    " " +
+                    item.addressCity +
+                    " " +
+                    item.addressState +
+                    " " +
+                    item.addressZipCode
+                    )
+                } else {
+                    return ""
+                }
+            })
+        },
     }
 }
 </script>
@@ -117,5 +122,15 @@ export default {
         margin: var(--space-xl) auto;
         max-width: $container-l-main + px;
     }
+
+    .blockLocationListWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-m);
+
+        max-width: $container-l-main + px;
+        margin: 0 auto var(--space-3xl);
+    }
+
 }
 </style>
