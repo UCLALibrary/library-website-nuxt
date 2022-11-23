@@ -1,7 +1,7 @@
 export default function ({ $config }, inject) {
     async function index(data, slug) {
         // eslint-disable-next-line no-undef
-        if (process.server && process.env.NODE_ENV !== "development" && data) {
+        if (process.server && process.env.NODE_ENV !== "development" && data && slug) {
             console.log(
                 "this is the elasticsearch plugin" + JSON.stringify(data)
             )
