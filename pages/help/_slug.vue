@@ -70,8 +70,10 @@ export default {
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
             slug: params.slug,
         })
-        if (data && params.slug !== undefined)
+        if (data && params.slug !== undefined) {
+            console.log("Helptopics slugs Indexing slug: " + params.slug)
             await $elasticsearchplugin.index(data.entry, params.slug)
+        }
         // console.log("Data fetched: " + JSON.stringify(data))
 
         return {

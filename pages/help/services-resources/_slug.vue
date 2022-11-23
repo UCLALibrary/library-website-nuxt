@@ -183,6 +183,10 @@ export default {
             }
         )
         if (data) {
+            console.log(
+                "Is it workshop or service or resource Indexing slug: " +
+                    params.slug
+            )
             if (data.workshopSeries) {
                 data.workshopSeries.sectionHandle = "workshopSeries"
                 console.log(

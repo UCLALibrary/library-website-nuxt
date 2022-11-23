@@ -5,41 +5,49 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <h4 style="margin: 30px 400px">
-            <br>
-            No of hits
-            {{ page && page.hits && page.hits.hits.length }}
-        </h4>
-        <div
-            v-if="page && page.hits"
-            class="meta"
-        >
-            <section-wrapper
-                v-for="(result, index) in page.hits.hits"
-                :key="`SearchResultBlock${index}`"
-                class="section-wrapper-block"
+        <div v-if="$fetchState.pending">
+            <p>.....Its Loading</p>
+        </div>
+        <div v-else-if="$fetchState.error">
+            <p>There is an error</p>
+        </div>
+        <div v-else>
+            <h4 style="margin: 30px 400px">
+                <br>
+                No of hits
+                {{ page && page.hits && page.hits.hits.length }}
+            </h4>
+            <div
+                v-if="page && page.hits"
+                class="meta"
             >
-                <search-result
-                    :title="result._source.title"
-                    :category="result._source.sectionHandle"
-                    :summary="result._source.summary"
-                    :to="`/${result._source.uri}`"
-                    class="search-result-item"
+                <section-wrapper
+                    v-for="(result, index) in page.hits.hits"
+                    :key="`SearchResultBlock${index}`"
+                    class="section-wrapper-block"
+                >
+                    <search-result
+                        :title="result._source.title"
+                        :category="result._source.sectionHandle"
+                        :summary="result._source.summary"
+                        :to="`/${result._source.uri}`"
+                        class="search-result-item"
+                    />
+                    <divider-general class="divider-general" />
+                </section-wrapper>
+            </div>
+
+            <section-wrapper>
+                <divider-way-finder class="divider-way-finder" />
+            </section-wrapper>
+            <section-wrapper>
+                <section-cards-with-illustrations
+                    class="section-cards"
+                    :items="searchAdditionalResources"
+                    section-title="Additional Search Tools"
                 />
-                <divider-general class="divider-general" />
             </section-wrapper>
         </div>
-
-        <section-wrapper>
-            <divider-way-finder class="divider-way-finder" />
-        </section-wrapper>
-        <section-wrapper>
-            <section-cards-with-illustrations
-                class="section-cards"
-                :items="searchAdditionalResources"
-                section-title="Additional Search Tools"
-            />
-        </section-wrapper>
     </div>
 </template>
 
@@ -51,7 +59,6 @@ export default {
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
             },
-            bookmarked: true,
         }
     },
     fetchOnServer: false,
@@ -60,19 +67,22 @@ export default {
     async fetch() {
         // check if there is a url query, if there is then pass that to siteSearch
         // let data = await $dataApi.siteSearch() // using mounted and will fetch ES data in mounted below
-
+        this.page = {}
         console.log("In fetch start")
-        if (this.$route.query.q && this.$route.query.q !== "") {
-            console.log("in router query in asyc data")
-            this.page = await this.$dataApi.siteSearch(this.$route.query.q)
-            this.searchGenericQuery = {
-                queryText: this.$route.query.q || "",
+        try {
+            if (this.$route.query.q && this.$route.query.q !== "") {
+                console.log("in router query in asyc data")
+                this.page = await this.$dataApi.siteSearch(this.$route.query.q)
+                this.searchGenericQuery = {
+                    queryText: this.$route.query.q || "",
+                }
+            } else {
+                this.page = await this.$dataApi.siteSearch()
             }
-        } else {
-            this.page = await this.$dataApi.siteSearch()
+            console.log("Search Response: " + JSON.stringify(this.page))
+        } catch (e) {
+            throw new Error("Some Error with ES search " + e)
         }
-        console.log("Search Response: " + JSON.stringify(this.page))
-        this.bookmarked = false
     },
     computed: {
         searchAdditionalResources() {
@@ -103,10 +113,9 @@ export default {
     },
     watch: {
         "$route.query": "$fetch",
-        /*"$route.query.q"(newValue) {
+        "$route.query.q"(newValue) {
             console.log("watching querytEXT:" + newValue)
         },
-       */
     },
     async mounted() {
         console.log("In mounted")
@@ -130,11 +139,26 @@ export default {
 
     methods: {
         async getSearchData(data) {
-            this.$router.push({
-                path: "/search_site",
-                query: { q: data.text },
-            })
-            console.log(this.$router.query)
+            try {
+                this.page = {}
+                this.$router.push({
+                    path: "/search-site",
+                    query: { q: data.text },
+                })
+                console.log(this.$router.query)
+                this.page = await this.$dataApi.siteSearch(
+                    this.$route.query.q || "*"
+                )
+                console.log(
+                    "getSearchData  data is:" + JSON.stringify(this.page)
+                )
+                this.searchGenericQuery = {
+                    queryText: this.$route.query.q || "",
+                    queryFilters: {},
+                }
+            } catch (e) {
+                throw new Error("ES error maybe: " + e)
+            }
         },
     },
 }

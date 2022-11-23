@@ -15,13 +15,19 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <h4 style="margin: 30px 400px">
+        <!--h4 style="margin: 30px 400px">
             No of hits
-            {{
-                parsedServiceAndResourceList.length ||
-                    (hits && parseHitsResults.length)
-            }}
+
+            {{ `from craft is ${parsedPages.length}` }}
         </h4>
+        <h4 style="margin: 30px 400px">
+            No of hits from ES
+            {{
+                hits &&
+                    `calling parsedhitsresults length
+            ${hits.length}`
+            }}
+        </h4-->
         <section-wrapper theme="divider">
             <divider-way-finder color="help" />
         </section-wrapper>
@@ -122,11 +128,14 @@ export default {
         console.log(
             "live preview  servicesorresourcesorworskhoporhelptopic list"
         )
+        this.page = {}
+        this.hits = []
+        this.helptopic = {}
         if (this.$route.query.q && this.$route.query.q !== "") {
             console.log("in router query in fetch call")
             this.page = {}
             this.hits = []
-            this.helpTopic = {}
+            this.helptopic = {}
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
                 "sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic",
@@ -151,6 +160,7 @@ export default {
         } else {
             this.hits = []
             this.page = {}
+            this.helptopic = {}
             this.page = await this.$graphql.default.request(
                 SERVICE_RESOURCE_WORKSHOPSERIES_LIST
             )
@@ -159,6 +169,7 @@ export default {
                 HELP_TOPIC_LIST
             )
             this.summaryData = _get(this.page, "entry", {})
+            this.hits = []
         }
     },
     head() {
@@ -174,7 +185,26 @@ export default {
     // multiple components can return the same `fetchKey` and Nuxt will track them both separately
     fetchKey: "services-resources-workshops",
     computed: {
+        parsedPages() {
+            if (
+                this.page &&
+                (this.page.serviceOrResource ||
+                    this.page.workshopseries ||
+                    this.page.externalResource ||
+                    this.helpTopic.entries)
+            ) {
+                return [
+                    ...(this.page.serviceOrResource || []),
+                    ...(this.page.workshopseries || []),
+                    ...(this.page.externalResource || []),
+                    ...(this.helpTopic.entries || []),
+                ]
+            } else {
+                return []
+            }
+        },
         parsedServiceAndResourceList() {
+            console.log("static mode what is parsedServiceAndResourceList")
             return [
                 ...(this.page.serviceOrResource || []),
                 ...(this.page.workshopseries || []),
@@ -201,10 +231,10 @@ export default {
                 })
         },
         parseHitsResults() {
-            /*console.log(
-                "ParseHits Results checking results data:" +
+            console.log(
+                "ParseHitsResults checking results data:" +
                     JSON.stringify(this.hits)
-            )*/
+            )
 
             return this.parseHits()
         },
@@ -213,6 +243,7 @@ export default {
         "$route.query": "$fetch",
         "$route.query.q"(newValue) {
             console.log("watching querytEXT:" + newValue)
+            // if (newValue === "") this.hits = []
         },
     },
     async mounted() {
@@ -237,6 +268,9 @@ export default {
     },
     methods: {
         async searchBookmarkedQuery() {
+            this.page = {}
+            this.hits = []
+            this.helpTopic = {}
             console.log("hello bookmarked query")
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
@@ -253,13 +287,16 @@ export default {
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
                 this.parseHits()
-            } else {
                 this.page = {}
                 this.helpTopic = {}
+            } else {
+                this.page = {}
                 this.hits = []
+                this.helpTopic = {}
             }
         },
         parseHits() {
+            console.log("static mode what is parseHits")
             return this.hits.map((obj) => {
                 console.log(
                     "what should be the category?:" +
@@ -295,8 +332,8 @@ export default {
         },*/
         async getSearchData(data) {
             this.page = {}
-            this.helpTopic = {}
             this.hits = []
+            this.helpTopic = {}
             // console.log("from search-generic: " + JSON.stringify(data))
             // console.log(config.serviceOrResources.resultFields)
             this.$router.push({
