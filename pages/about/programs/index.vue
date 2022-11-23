@@ -18,12 +18,12 @@
             <divider-way-finder color="about" />
         </section-wrapper>
 
-        <section-wrapper>
+        <section-wrapper v-if="parsedProgramsList.length">
             <section-staff-article-list :items="parsedProgramsList" />
-        </section-wrapper>
 
-        <section-wrapper theme="divider">
-            <divider-way-finder color="about" />
+            <section-wrapper theme="divider">
+                <divider-way-finder color="about" />
+            </section-wrapper>
         </section-wrapper>
     </main>
 </template>
