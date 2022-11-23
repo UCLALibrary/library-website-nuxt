@@ -37,7 +37,7 @@
                 :locations="parsedBannerHeader.locations"
             />
 
-            <divider-general />
+            <divider-general v-if="parsedSectionHighlight.length" />
 
             <section-teaser-highlight
                 class="section"
@@ -45,7 +45,10 @@
             />
         </section-wrapper>
 
-        <section-wrapper theme="divider">
+        <section-wrapper 
+            theme="divider"
+            v-if="page.featuredEvents.length && parsedExhibitionsAndEvents.length"
+        >
             <divider-way-finder color="visit" />
         </section-wrapper>
 
