@@ -1,19 +1,5 @@
 <template lang="html">
     <section class="page-events-exhibits">
-        <!-- This was added to test the slug page with breadcrumbs -->
-        <!--<nuxt-link to="/events-exhibits/test">
-            Test event
-        </nuxt-link> -->
-        <!-- last commit by Drew
-        {{ viewMode }}
-
-        <loading-spinner v-if="$fetchState.pending" />
-        <component
-            :is="viewComponentName"
-            v-else
-            :items="allEvents"
-        / -->
-        <!-- TODO These props should come from Craft -->
         <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
@@ -29,44 +15,57 @@
                 -->
         </masthead-secondary>
 
-        <divider-way-finder class="section divider divider-way-finder" />
-        <!--banner-featured
-            class="section banner-featured"
-            :title="firstEvent.title"
-            :image="firstEvent.image"
-            :to="firstEvent.to"
-            prompt="View exhibit"
-            :breadcrumb="firstEvent.breadcrumb.text"
-            :align-right="false"
-            :dates="firstEvent.dates"
-            :start-date="firstEvent.startDate"
-            :end-date="firstEvent.endDate"
-        /-->
+        <section-wrapper theme="divider">
+            <divider-way-finder color="visit" />
+        </section-wrapper>
 
-        <divider-general class="section divider divider-general" />
-        <!--section-teaser-highlight class="section" :items="highlightEvents" /-->
+        <!-- HIGHLIGHTED & FEATURED EVENTS -->
+        <section-wrapper
+            v-if="page.featuredEvents.length"
+            section-title="Highlighted Events"
+        >
+            <banner-featured
+                :image="parsedBannerHeader.image"
+                :title="parsedBannerHeader.title"
+                breadcrumb="Featured"
+                :align-right="false"
+                :start-date="parsedBannerHeader.startDate"
+                :end-date="parsedBannerHeader.endDate"
+                :text="parsedBannerHeader.text"
+                :to="parsedBannerHeader.to"
+                :prompt="parsedBannerHeader.prompt"
+                :locations="parsedBannerHeader.locations"
+            />
 
-        <divider-general class="section divider divider-general" />
-        <!-- TODO List of events go here -->
-        <section-teaser-list
-            :items="parsedExhibitionsAndEvents"
-            class="section section-list"
-        />
+            <divider-general v-if="parsedSectionHighlight.length" />
 
-        <divider-way-finder class="section divider divider-way-finder" />
+            <section-teaser-highlight
+                class="section"
+                :items="parsedSectionHighlight"
+            />
+        </section-wrapper>
 
-        <block-call-to-action
-            class="section block-call-to-action"
-            svg-name="svg-call-to-action-find"
-            :to="blockCallToAction.to"
-            :name="blockCallToAction.name"
-            :title="blockCallToAction.title"
-            :text="blockCallToAction.text"
-        />
-        <block-call-to-action-two-up
-            class="section"
-            :items="blockCallToActionTwoUp"
-        />
+        <section-wrapper 
+            theme="divider"
+            v-if="page.featuredEvents.length && parsedExhibitionsAndEvents.length"
+        >
+            <divider-way-finder color="visit" />
+        </section-wrapper>
+
+        <!-- UPCOMING EVENTS -->
+        <section-wrapper section-title="All Upcoming Events">
+            <section-teaser-list
+                :items="parsedExhibitionsAndEvents"
+                class="section section-list"
+            />
+        </section-wrapper>
+        
+        <section-wrapper>
+            <block-call-to-action
+                class="section block-call-to-action"
+                :is-global="true"
+            />
+        </section-wrapper>
     </section>
 </template>
 
@@ -92,106 +91,83 @@ export default {
                 slug: params.slug,
             }
         )
-        // console.log("Data fetched: " + JSON.stringify(data))
         return {
-            page: data,
+            page: _get(data, "entry", {}),
+            events: _get(data, "events", {}),
         }
-        /*const libcalData = await $axios.$get(`/1.1/event_search`, {
-            params: {
-                search: "*",
-                limit: 100,
-            },
-        })
-
-        const events = libcalData.events
-        console.log(libcalData.events[0].title)
-        return {
-            page: { events: events },
-        }*/
     },
 
-    // TODO either use asyncdata or fetch
-    /*async fetch() {
-        // TODO how to fetch all events from libcal
-        const data = await this.$axios.$get(`/events`)
-        //TODO this will be used if we need pagination with libcal, the params passed needs to be reviewd
-        /*
-        const data = await this.$axios.$get(`/events`, {
-            params: {
-                offset: this.$route.query.offset || 0,
-                q: this.$route.query.q || "",
-            },
-        })
-        */
-
-    // this.allEvents = [...this.allEvents, ...data]
-    //},*/
-
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        return {
+            title: title,
+        }
+    },
     computed: {
-        /*viewComponentName() {
-            // TODO we may not need this as we have decidec not to add view modes dropdown in the reworked design
-            // get view component name (see the PR section-teaser calander)
-        },*/
+        parsedFeaturedEventsAndExhibits() {
+            return this.page.featuredEvents.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.to}`,
+                    image: _get(obj, "heroImage[0].image[0]", null),
+                    startDate: obj.typeHandle === "event" ? obj.startDateWithTime : obj.startDate,
+                    endDate: obj.typeHandle === "event" ? obj.endDateWithTime : obj.endDate,
+                    text: obj.typeHandle === "event" ? obj.eventDescription : obj.summary,
+                    prompt: obj.typeHandle === "exhibition" 
+                        ? "View exhibition" 
+                            : obj.workshopOrEventSeriesType === "visit/events-exhibitions" 
+                                ? "View event series" 
+                                    : "View event",
+                    locations: obj.typeHandle !== "exhibition" ? obj.associatedLocations : obj.associatedLocationsAndPrograms,
+                }
+            })
+        },
+        parsedBannerHeader() {
+            return this.parsedFeaturedEventsAndExhibits[0]
+        },
+        parsedSectionHighlight() {
+            let highlights = this.parsedFeaturedEventsAndExhibits.slice(1)
+            return highlights.map((obj) => {
+                return {
+                    ...obj,
+                    category: 
+                        obj.typeHandle === "exhibition" 
+                        ? "Exhibition"
+                            : obj.workshopOrEventSeriesType === "visit/events-exhibitions" 
+                                ? "Event Series"
+                                    : obj.eventType.length > 0
+                                        ? obj.eventType[0].title
+                                            : "Event",
+                    title: obj.title,
+                    //locations: `/${obj.associatedLocations.to}`,
+                }
+            })
+        },
         parsedExhibitionsAndEvents() {
-            // TODO Remove this one we have more events
-
-            //const mockEvents = [...this.page.events]
-
-            // Shape events
-            // return this.events.map((obj) => {
             return [
-                ...(this.page.events || []),
-                ...(this.page.exhibitions || []),
-                ...(this.page.eventSeries || []),
+                ...(this.events || []),
             ].map((obj) => {
                 const eventOrExhibtion = obj || {}
 
                 return {
                     ...eventOrExhibtion,
-                    to: `/${eventOrExhibtion.to}`, // added index to avoid duplicate errors
-                    // locations: _get(eventOrExhibtion, "locations", []),
-                    image: _get(eventOrExhibtion, "image[0].image[0]", null),
-                    category: _get(eventOrExhibtion, "sectionHandle", ""),
-
-                    // TODO Only need one set of these once BannerFeatured is updated
-                    startDate: _get(
-                        eventOrExhibtion,
-                        "date[0].startDate",
-                        null
-                    ),
-                    endDate: _get(eventOrExhibtion, "date[0].endDate", null),
+                    to: `/${eventOrExhibtion.to}`,
+                    image: _get(eventOrExhibtion, "heroImage[0].image[0]", null),
+                    startDate: _get(eventOrExhibtion, "startDateWithTime", null),
+                    endDate: _get(eventOrExhibtion, "endDateWithTime", null),
+                    category: 
+                        eventOrExhibtion.typeHandle === "exhibition" 
+                        ? "Exhibition"
+                            : eventOrExhibtion.workshopOrEventSeriesType === "visit/events-exhibitions" 
+                                ? "Event Series"
+                                    : eventOrExhibtion.eventType.length > 0
+                                        ? eventOrExhibtion.eventType[0].title
+                                            : "Event",
+                    text: _get(eventOrExhibtion, "eventDescription", null),
+                    locations: _get(eventOrExhibtion, "associatedLocations", null),
                 }
             })
         },
-        /* firstEvent() {
-            return this.parsedEvents[0] || {}
-        },
-        highlightEvents() {
-            // Get items 2nd and 3rd from array
-            const items = this.parsedEvents.slice(1, 3)
-
-            return items.map((obj) => {
-                return {
-                    ...obj,
-                    category: _get(obj, "category.name", "Featured"),
-                }
-            })
-        },
-        listEvents() {
-           // const items = this.parsedEvents.slice(2)
-
-            return [
-                ...(this.page.events || []),
-                ...(this.page.exhibitions || []),
-            ].map((obj) => {
-                return {
-                    ...obj,
-                    category: _get(obj, "category.name", "Featured"),
-                }
-            })
-        },*/
-
-        //TODO remove once we have real data from Craft
         blockCallToAction() {
             const mockBlockCallToAction = {
                 to: "/help/foo/bar/",
@@ -201,30 +177,6 @@ export default {
             }
             return mockBlockCallToAction
         },
-
-        blockCallToActionTwoUp() {
-            const mockBlockCallToActionTwoUp = [
-                {
-                    svgName: "svg-call-to-action-chat",
-                    title: "Lorem ipsum dolor sit amet?",
-                    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    name: "Lorem ipsum dolor",
-                    to: "/help/foo/bar/",
-                    isDark: false,
-                    isSmallSize: true,
-                },
-                {
-                    svgName: "svg-call-to-action-chat",
-                    title: "Dolor sit amet Ipsum",
-                    text: "Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    name: "Ipsum dolor amet",
-                    to: "/help/foo/bar/",
-                    isDark: true,
-                    isSmallSize: true,
-                },
-            ]
-            return mockBlockCallToActionTwoUp
-        },
     },
     // This will recall fetch() when these query params change
     watchQuery: ["offset", "q"],
@@ -233,19 +185,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-events-exhibits {
-    .section {
-        max-width: var(--unit-content-width);
-        margin: 80px auto;
-    }
-
-    .divider {
-        padding: 0 32px;
-    }
-
-    .block-call-to-action {
-        margin-bottom: 160px;
-        margin-left: auto;
-        margin-right: auto;
-    }
 }
 </style>
