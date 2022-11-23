@@ -73,7 +73,7 @@ export default {
                     image: _get(obj, "heroImage[0].image[0]", null),                 
                     address: this.parseAddress(obj)[0],
                     addressLink: `https://map.ucla.edu/?id=${obj.campusMapId}&e=true`,
-                    amenities: obj.amenities// look for my comment below about amenities
+                    amenities: obj.amenitiesIcons.length !== 0 ? this.parseAmenities(obj) : null // look for my comment below about amenities
                 }
             })
         },
@@ -109,6 +109,12 @@ export default {
                 }
             })
         },
+        parseAmenities(obj) {
+            return obj.amenitiesIcons.map(item => {
+                let parsedAmenity = item.split("-")[1]
+                return `SvgIcon${parsedAmenity.charAt(0).toUpperCase() + parsedAmenity.slice(1)}`
+            })
+        }
     }
 }
 </script>
