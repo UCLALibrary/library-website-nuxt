@@ -8,7 +8,7 @@
             :title="page.title"
             parent-title="Jobs"
         />
-
+        <h3>parsedAcademicLibrarianJobs -- {{ parsedAcademicLibrarianJobs }}</h3>
         <banner-text
             class="banner-text"
             :title="page.title"
@@ -118,24 +118,37 @@ export default {
         // /about/jobs/visit/locations/powel-library
 
         parsedAssociatedLocations() {
-            return this.allJobs.filter((obj) => {
-                return obj.jobType[0].title === "Academic Librarian"
-            })
-            // let parsedJobs = this.allJobs.filter((obj) => {
+            // return this.allJobs.filter((obj) => {
             //     return obj.jobType[0].title === "Academic Librarian"
             // })
 
-            // return this.parsedJobs.policyBlock.map((obj) => {
-            //     return {
-            //         ...obj,
-            //         parsedAssociatedEntries: obj.associatedEntries.map((entry) => {
-            //             return {
-            //                 ...entry,
-            //                 to: `/${obj.associatedLocations.uri}`
-            //             }
-            //         })
-            //     }
-            // })
+            const parsedJobs = this.allJobs.filter((obj) => {
+                return obj.jobType[0].title === "Academic Librarian"
+            })
+
+            const assocLocations = parsedJobs.map((obj) => {
+                return {
+                    ...obj,
+                    locations: obj.assocLocations.map((entry) => {
+                        return {
+                            ...entry,
+                            to: `/${entry.uri}`,
+                            title: entry.title,
+                            associatedLocations: entry.associatedLocations,
+                        }
+                    })
+                }
+            })
+            return assocLocations
+        },
+        parsedLocations() {
+            return this.allJobs.map((obj, index) => {
+                return {
+                    ...obj,
+                    text: _get(obj, "associatedLocations[index].title", null),
+                    to: `/${obj.associatedLocations[index].uri}`,
+                }
+            })
         },
         parsedAcademicLibrarianJobs() {
             // return this.allJobs.filter((obj) => {
@@ -147,7 +160,7 @@ export default {
             return allAcademicLibrarianJobs.map((obj, index) => {
                 return {
                     ...obj,
-                    to: `/${obj.associatedLocations[index].uri}`,
+                    locations: _get(obj, "associatedLocations", null),
                 }
             })
         },
