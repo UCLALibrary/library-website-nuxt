@@ -1,19 +1,37 @@
+#import "~/gql/fragments/MediaAsset.gql"
+
 fragment BlockMediaGalleryExtraFieldsFragment on ElementInterface {
     id
     sectionTitle: titleGeneral
     sectionSummary: summary
     mediaGallery: mediaGalleryExtraFields {
-        id
+        dataId: id
+        captionTitle: captionHeading
+        captionText: caption
+        altText
+        sortOrder
         ... on mediaGalleryExtraFields_image_BlockType {
-            id
-            captionTitle: captionHeading
-            captionText: caption
-            altText
-            sortOrder
-            image: imageFile {
-                ...Image
+            item: imageFile {
+                ...MediaAsset
             }
-            credit
+        }
+        ... on mediaGalleryExtraFields_audio_BlockType {
+            item: audioFile {
+                ...MediaAsset
+            }
+            embedCode: audioEmbedCode
+            coverImage {
+                ...MediaAsset
+            }
+        }
+        ... on mediaGalleryExtraFields_video_BlockType {
+            item: videoFile {
+                ...MediaAsset
+            }
+            embedCode: embedCode
+            coverImage {
+                ...MediaAsset
+            }
         }
     }
 }
