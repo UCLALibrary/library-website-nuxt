@@ -16,7 +16,7 @@ query JobOpportunitiesList {
   }
   allJobs: entries(section: "job", staffOrStudentPosition: "careers") {
     title
-    text: summary
+    summary
     ... on job_job_Entry {
       jobType {
         ... on jobType_Category {

@@ -8,7 +8,7 @@
             :title="page.title"
             parent-title="Jobs"
         />
-        <h3>parsedAcademicLibrarianJobs -- {{ parsedAcademicLibrarianJobs }}</h3>
+
         <banner-text
             class="banner-text"
             :title="page.title"
@@ -23,10 +23,6 @@
                 color="about"
             />
         </section-wrapper>
-
-        <!-- <h3>locationLink --- {{ parsedAcademicLibrarianJobs[0] }}</h3>
-        <hr>
-        <h3>{{ parsedAssociatedLocations }}</h3>  -->
 
         <!-- ASSOCIATED LIBRARIAN JOBS -->
         <section-wrapper
@@ -114,60 +110,38 @@ export default {
         }
     },
     computed: {
-        // TODO The link in the associatedLocations is 
-        // /about/jobs/visit/locations/powel-library
-
-        parsedAssociatedLocations() {
-            return this.allJobs.filter((obj) => {
-                return obj.jobType[0].title === "Academic Librarian"
-            })
-
-            // const parsedJobs = this.allJobs.filter((obj) => {
-            //     return obj.jobType[0].title === "Academic Librarian"
-            // })
-
-            // const assocLocations = parsedJobs.map((obj) => {
-            //     return {
-            //         ...obj,
-            //         locations: obj.assocLocations.map((entry) => {
-            //             return {
-            //                 ...entry,
-            //                 to: `/${entry.uri}`,
-            //                 title: entry.title,
-            //                 associatedLocations: entry.associatedLocations,
-            //             }
-            //         })
-            //     }
-            // })
-            // return assocLocations
-        },
-        parsedLocations() {
-            return this.allJobs.map((obj, index) => {
-                return {
-                    ...obj,
-                    text: _get(obj, "associatedLocations[index].title", null),
-                    to: `/${obj.associatedLocations[index].uri}`,
-                }
-            })
-        },
         parsedAcademicLibrarianJobs() {
-            // return this.allJobs.filter((obj) => {
-            //     return obj.jobType[0].title === "Academic Librarian"
-            // })
             let allAcademicLibrarianJobs = this.allJobs.filter((obj) => {
                 return obj.jobType[0].title === "Academic Librarian"
             })
-            return allAcademicLibrarianJobs.map((obj, index) => {
+            return allAcademicLibrarianJobs.map((obj) => {
                 return {
                     ...obj,
-                    locations: _get(obj, "associatedLocations", null),
-                    text: _get(obj, "text", null),
+                    text: _get(obj, "text", ""),
+                    associatedLocations: obj.associatedLocations.map((entry) => {
+                        return {
+                            ...entry,
+                            uri: `/${entry.uri}`
+                        }
+                    })
                 }
             })
         },
         parsedStaffJobs() {
-            return this.allJobs.filter((obj) => {
+            let allStaffJobs = this.allJobs.filter((obj) => {
                 return obj.jobType[0].title === "Staff"
+            })
+            return allStaffJobs.map((obj) => {
+                return {
+                    ...obj,
+                    text: _get(obj, "text", ""),
+                    associatedLocations: obj.associatedLocations.map((entry) => {
+                        return {
+                            ...entry,
+                            uri: `/${entry.uri}`
+                        }
+                    })
+                }
             })
         },
         parsedAssociatedTopics() {
@@ -187,7 +161,7 @@ export default {
     .no-positions {
         @include step-1;
         font-style: italic;
-        font-color: var(--color-primary-blue-05)
+        color: var(--color-primary-blue-05)
     }
 }
 </style>
