@@ -10,10 +10,9 @@
 #import "~/gql/fragments/BlockPullQuoteFragment"
 #import "~/gql/fragments/BlockRichTextFragment"
 #import "~/gql/fragments/BlockSimpleCardsFragment"
-#import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaGalleryExtraFieldsFragment"
 #import "~/gql/fragments/BlockGridGalleryCardsFragment"
 #import "~/gql/fragments/BlockImpactNumberCardsFragment"
-
 
 fragment ExhibitionsAndCollectionsFpb on ElementInterface {
     blocks: exhibitionsAndCollectionsFpb {
@@ -54,10 +53,10 @@ fragment ExhibitionsAndCollectionsFpb on ElementInterface {
         ... on exhibitionsAndCollectionsFpb_simpleCards_BlockType {
             ...BlockSimpleCardsFragment
         }
-         ... on exhibitionsAndCollectionsFpb_mediaGallery_BlockType {
-            ...BlockMediaGalleryFragment
+        ... on exhibitionsAndCollectionsFpb_mediaGallery_BlockType {
+            ...BlockMediaGalleryExtraFieldsFragment
         }
-        ... on exhibitionsAndCollectionsFpb_gridGalleryCards_BlockType  {
+        ... on exhibitionsAndCollectionsFpb_gridGalleryCards_BlockType {
             ...BlockGridGalleryCardsFragment
         }
         ... on exhibitionsAndCollectionsFpb_impactNumberCards_BlockType {
