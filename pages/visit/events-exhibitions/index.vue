@@ -34,6 +34,7 @@
                 :text="parsedBannerHeader.text"
                 :to="parsedBannerHeader.uri"
                 :prompt="parsedBannerHeader.prompt"
+                :locations="parsedBannerHeader.locations"
             />
 
             <divider-general />
@@ -114,7 +115,7 @@ export default {
                             : obj.workshopOrEventSeriesType === "visit/events-exhibitions" 
                                 ? "View event series" 
                                     : "View event",
-                    locations: _get(obj, "associatedLocations", null),
+                    locations: obj.typeHandle !== "exhibition" ? obj.associatedLocations : obj.associatedLocationsAndPrograms,
                 }
             })
         },

@@ -22,7 +22,11 @@ query EventsExhibitionsList {
         typeHandle
         associatedLocations {
           title
-          uri
+          to: uri
+        }
+        associatedLocationsAndPrograms {
+          title
+          to: uri
         }
         heroImage {
           ... on heroImage_heroImage_BlockType {
@@ -50,6 +54,7 @@ query EventsExhibitionsList {
     workshopOrEventSeriesType
     associatedLocations {
       title
+      to: uri
     }
     heroImage {
       ... on heroImage_heroImage_BlockType {
