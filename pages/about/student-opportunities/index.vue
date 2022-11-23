@@ -155,6 +155,9 @@ export default {
             return this.page.associatedPrograms.map((obj) => {
                 return {
                     ...obj,
+                    jobPostingURL: obj.programUrlBehavior === "externalSite"
+                        ? obj.buttonUrl[0].buttonUrl
+                        : `/${obj.jobPostingURL}`,
                 }
             })
         },
@@ -162,7 +165,9 @@ export default {
             return this.page.associatedTopics.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.uri}`,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.to}`,
                 }
             })
         }
