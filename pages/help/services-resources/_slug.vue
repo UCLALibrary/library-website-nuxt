@@ -171,7 +171,7 @@ import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceO
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params, store, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
@@ -182,11 +182,23 @@ export default {
                 slug: params.slug,
             }
         )
-        if (data)
+        if (data) {
+            console.log(
+                "Is it workshop or service or resource Indexing slug: " +
+                    params.slug
+            )
+            if (data.workshopSeries) {
+                data.workshopSeries.sectionHandle = "workshopSeries"
+                console.log(
+                    "what is workshopseries sectionHandle in ES? " +
+                        data.workshopSeries.sectionHandle
+                )
+            }
             await $elasticsearchplugin.index(
-                data.serviceOrResource || data.workshopseries,
+                data.serviceOrResource || data.workshopSeries,
                 params.slug
             )
+        }
         // console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: data,
