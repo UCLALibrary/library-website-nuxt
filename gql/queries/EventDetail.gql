@@ -61,6 +61,8 @@ query EventDetail($slug: [String!]) {
       workshopOrEventSeriesType
       sectionHandle
       typeHandle
+      uri
+      slug
       title
       summary
       startDate
@@ -146,6 +148,10 @@ query EventDetail($slug: [String!]) {
       }
     }
     ... on exhibition_exhibition_Entry {
+      sectionHandle
+      typeHandle
+      uri
+      slug
       associatedLocationsAndPrograms {
         title
         uri

@@ -11,10 +11,20 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <h4 style="margin: 30px 400px">
+        <!--h4 style="margin: 30px 400px">
             No of hits
-            {{ parsedStaffList.length || (hits && parseHitsResults.length) }}
+
+            {{ `from craft is ${parsedPages.length}` }}
         </h4>
+        <h4 style="margin: 30px 400px">
+            No of hits from ES
+            {{
+                hits &&
+                    `calling parsedhitsresults length
+            ${hits.length}`
+            }}
+        </h4-->
+
         <section-wrapper theme="divider">
             <divider-way-finder />
         </section-wrapper>
@@ -100,7 +110,8 @@ export default {
     },
     async fetch() {
         console.log("live preview  staff list")
-
+        this.page = {}
+        this.hits = []
         /*console.log("test query parameters: " + this.$route.query.q)
         console.log("test query parameters: " + this.$route.query.filters)*/
         if (
@@ -110,7 +121,7 @@ export default {
             console.log("in router query in asyc data")
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
-                "staffMember",
+                "sectionHandle:staffMember",
                 JSON.parse(this.$route.query.filters) || {},
                 "nameLast.keyword",
                 config.staff.resultFields,
@@ -118,10 +129,13 @@ export default {
             )
             console.log("getsearchdata method:" + JSON.stringify(results))
             this.page = {}
+            this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
+                this.page = {}
             } else {
                 this.hits = []
+                this.page = {}
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
@@ -139,6 +153,9 @@ export default {
         this.bookmarked = false
     },
     computed: {
+        parsedPages() {
+            return this.page.entries || []
+        },
         parsedStaffList() {
             // console.log("in parsedStaff")
             return (this.page.entries || []).map((obj) => {
@@ -193,9 +210,11 @@ export default {
     },
     methods: {
         async searchBookmarkedQuery() {
+            this.page = {}
+            this.hits = []
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
-                "staffMember",
+                "sectionHandle:staffMember",
                 JSON.parse(this.$route.query.filters),
                 "nameLast.keyword",
                 config.staff.resultFields,
@@ -206,9 +225,8 @@ export default {
             )
 
             if (results && results.hits && results.hits.total.value > 0) {
-                this.page.entries = this.parseBookmarkedQueryResults(
-                    results.hits.hits
-                )
+                this.hits = results.hits.hits
+                this.page = {}
             } else {
                 this.page = {}
                 this.hits = []
@@ -245,6 +263,9 @@ export default {
             return this.parseHits(hits)
         },
         async getSearchData(data) {
+            console.log("On the page getsearchdata called")
+            this.page = {}
+            this.hits = []
             this.$router.push({
                 path: "/about/staff",
                 query: {
@@ -252,6 +273,14 @@ export default {
                     filters: JSON.stringify(data.filters),
                 },
             })
+            this.searchBookmarkedQuery()
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            }
         },
     },
 }

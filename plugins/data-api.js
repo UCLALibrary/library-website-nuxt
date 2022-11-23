@@ -170,8 +170,8 @@ export default function ({ $config }, inject) {
         // console.log("where is the execution")
         let boolQuery = []
         let sectionHandleTermQueryObj = {}
-        sectionHandleTermQueryObj["term"] = {}
-        sectionHandleTermQueryObj["term"]["sectionHandle.keyword"] = sectionHandle
+        sectionHandleTermQueryObj["query_string"] = {}
+        sectionHandleTermQueryObj["query_string"]["query"] = sectionHandle
         boolQuery.push(sectionHandleTermQueryObj)
         // console.log("query:" + boolQuery)
         return boolQuery
