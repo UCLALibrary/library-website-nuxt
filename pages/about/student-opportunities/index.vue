@@ -15,7 +15,7 @@
             :text="page.text"
             :email="page.email"
             :phone="page.phoneNumber"
-            :buttonText="page.buttonUrl[0].buttonText"
+            :button-text="page.buttonUrl[0].buttonText"
             :to="page.buttonUrl[0].buttonUrl"
         />
 
@@ -119,36 +119,38 @@ export default {
         }
     },
     computed: {
-        // TODO The link in the associatedLocations is 
-        // /about/jobs/visit/locations/powel-library
-
-        // parsedAssociatedLocations() {
-        //     let parsedJobs = this.allJobs.filter((obj) => {
-        //         return obj.jobType[0].title === "Academic Librarian"
-        //     })
-        //     return parsedJobs.map((obj) => {
-        //         return 
-        //         obj.associatedLocations.uri
-                
-        //     })
-        // },
         parsedStudentJobs() {
-            // return this.allJobs.filter((obj) => {
-            //     return obj.jobType[0].title === "Academic Librarian"
-            // })
             let allStudentJobs = this.allJobs.filter((obj) => {
                 return obj.jobType[0].title === "Student Job"
             })
-            return allStudentJobs.map((obj, index) => {
+            return allStudentJobs.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.associatedLocations[index].uri}`,
+                    payRate: _get(obj, "payRate", null),
+                    associatedLocations: obj.associatedLocations.map((entry) => {
+                        return {
+                            ...entry,
+                            uri: `/${entry.uri}`
+                        }
+                    })
                 }
             })
         },
         parsedStudentInternships() {
-            return this.allJobs.filter((obj) => {
+            let allInternships = this.allJobs.filter((obj) => {
                 return obj.jobType[0].title === "Student Internship"
+            })
+            return allInternships.map((obj) => {
+                return {
+                    ...obj,
+                    payRate: _get(obj, "payRate", null),
+                    associatedLocations: obj.associatedLocations.map((entry) => {
+                        return {
+                            ...entry,
+                            uri: `/${entry.uri}`
+                        }
+                    })
+                }
             })
         },
         parsedAssociatedPrograms() {
