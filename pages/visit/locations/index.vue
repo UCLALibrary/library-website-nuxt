@@ -15,19 +15,6 @@
         <h2 class="section-heading">
             {{ summaryData.title }}
         </h2>
-        <!-- <h3>{{ summaryData }}</h3>
-        <hr>
-        <h3>{{ uclaLibraries }}</h3>
-        <hr>
-        <h3>parsedAddress --- {{ parsedAddress }}</h3>
-        <hr>
-        <h3>{{ affiliateLibraries }}</h3> -->
-
-        <!-- <section-wrapper v-if="uclaLibraries">
-            <section-location-list
-                :items="uclaLibraries"
-            />
-        </section-wrapper> -->
         <section-wrapper
             v-if="uclaLibraries" 
             class="blockLocationListWrapper"
