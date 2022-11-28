@@ -1,5 +1,6 @@
 <template>
     <main class="page page-staff">
+        <h3>{{parsedPhysicalDigital}}</h3>
         <masthead-secondary title="Staff Directory" />
         <!-- TODO Add SearchGenric here when complete
                 Filter by location, department, subject libarian -->
@@ -161,7 +162,9 @@ export default {
                     ...obj,
                     to: `/about/staff/${obj.to}`,
                     image: _get(obj, "image[0]", null),
-                    staffName: `${obj.nameFirst} ${obj.nameLast}`,
+                    // staffName: `${parsedStaffName}`,
+                    // alternativeName: _get(obj,"alternativeName[0].fullName", null),
+                    // language: _get(obj,"alternativeName[0].languageAltName", null),
                 }
             })
         },
@@ -173,6 +176,26 @@ export default {
 
             return this.parseHits(this.hits)
         },
+        parsedStaffName() {
+            return `${this.page.entries.nameFirst} ${this.page.entries.nameLast}`
+        },
+        parsedPhysicalDigital() {
+            return this.alternativeName.length == 1 ?
+            `${this.page.staffName} & ${this.page.alternativeName[0].fullName}` :
+            `${this.page.staffName}`
+        },
+
+        // parsedAlternativeFullName() {
+        //     return _get(this.page.entry, "alternativeName[0].fullName", "")
+        // },
+
+        // parsedLanguage() {
+        //     return _get(
+        //         this.page.entry,
+        //         "alternativeName[0].languageAltName",
+        //         ""
+        //     )
+        // },
     },
     watch: {
         "$route.query": "$fetch",
