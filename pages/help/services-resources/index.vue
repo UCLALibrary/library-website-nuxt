@@ -15,13 +15,19 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <h4 style="margin: 30px 400px">
+        <!--h4 style="margin: 30px 400px">
             No of hits
-            {{
-                parsedServiceAndResourceList.length ||
-                    (hits && parseHitsResults.length)
-            }}
+
+            {{ `from craft is ${parsedPages.length}` }}
         </h4>
+        <h4 style="margin: 30px 400px">
+            No of hits from ES
+            {{
+                hits &&
+                    `calling parsedhitsresults length
+            ${hits.length}`
+            }}
+        </h4-->
         <section-wrapper theme="divider">
             <divider-way-finder color="help" />
         </section-wrapper>
@@ -83,6 +89,30 @@ import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
 import config from "~/utils/searchConfig"
 
 export default {
+    async asyncData({ $graphql, $elasticsearchplugin }) {
+        const serverData = await $graphql.default.request(
+            SERVICE_RESOURCE_WORKSHOPSERIES_LIST
+        )
+        console.log(
+            "ALL External Resource indexing:" +
+                JSON.stringify(serverData.externalResource)
+        )
+        if (
+            serverData.externalResource &&
+            serverData.externalResource.length > 0
+        ) {
+            console.log("External Resource indexing:")
+            for (let externalResource of serverData.externalResource) {
+                console.log(
+                    "External Resource indexing:" + externalResource.slug
+                )
+                await $elasticsearchplugin.index(
+                    externalResource,
+                    externalResource.slug
+                )
+            }
+        }
+    },
     data() {
         return {
             page: {},
@@ -98,13 +128,17 @@ export default {
         console.log(
             "live preview  servicesorresourcesorworskhoporhelptopic list"
         )
+        this.page = {}
+        this.hits = []
+        this.helptopic = {}
         if (this.$route.query.q && this.$route.query.q !== "") {
             console.log("in router query in fetch call")
             this.page = {}
-            this.helpTopic = {}
+            this.hits = []
+            this.helptopic = {}
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
-                "serviceOrResource",
+                "sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic",
                 [],
                 "",
                 config.serviceOrResources.resultFields,
@@ -125,13 +159,17 @@ export default {
             this.summaryData = _get(getSummaryData, "entry", {})
         } else {
             this.hits = []
+            this.page = {}
+            this.helptopic = {}
             this.page = await this.$graphql.default.request(
                 SERVICE_RESOURCE_WORKSHOPSERIES_LIST
             )
+
             this.helpTopic = await this.$graphql.default.request(
                 HELP_TOPIC_LIST
             )
             this.summaryData = _get(this.page, "entry", {})
+            this.hits = []
         }
     },
     head() {
@@ -147,7 +185,26 @@ export default {
     // multiple components can return the same `fetchKey` and Nuxt will track them both separately
     fetchKey: "services-resources-workshops",
     computed: {
+        parsedPages() {
+            if (
+                this.page &&
+                (this.page.serviceOrResource ||
+                    this.page.workshopseries ||
+                    this.page.externalResource ||
+                    this.helpTopic.entries)
+            ) {
+                return [
+                    ...(this.page.serviceOrResource || []),
+                    ...(this.page.workshopseries || []),
+                    ...(this.page.externalResource || []),
+                    ...(this.helpTopic.entries || []),
+                ]
+            } else {
+                return []
+            }
+        },
         parsedServiceAndResourceList() {
+            console.log("static mode what is parsedServiceAndResourceList")
             return [
                 ...(this.page.serviceOrResource || []),
                 ...(this.page.workshopseries || []),
@@ -174,18 +231,19 @@ export default {
                 })
         },
         parseHitsResults() {
-            /*console.log(
-                "ParseHits Results checking results data:" +
+            console.log(
+                "ParseHitsResults checking results data:" +
                     JSON.stringify(this.hits)
-            )*/
+            )
 
-            return this.parseHits(this.hits)
+            return this.parseHits()
         },
     },
     watch: {
         "$route.query": "$fetch",
         "$route.query.q"(newValue) {
             console.log("watching querytEXT:" + newValue)
+            // if (newValue === "") this.hits = []
         },
     },
     async mounted() {
@@ -209,11 +267,14 @@ export default {
         }*/
     },
     methods: {
-        /*async searchBookmarkedQuery() {
+        async searchBookmarkedQuery() {
+            this.page = {}
+            this.hits = []
+            this.helpTopic = {}
             console.log("hello bookmarked query")
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
-                "serviceOrResource",
+                "sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic",
                 [],
                 "",
                 config.serviceOrResources.resultFields,
@@ -224,23 +285,43 @@ export default {
             )
 
             if (results && results.hits && results.hits.total.value > 0) {
-                this.hits = this.parseBookmarkedQueryResults(results.hits.hits)
-            } else {
+                this.hits = results.hits.hits
+                this.parseHits()
                 this.page = {}
                 this.helpTopic = {}
+            } else {
+                this.page = {}
                 this.hits = []
+                this.helpTopic = {}
             }
-        },*/
-        parseHits(hits = []) {
-            return hits.map((obj) => {
-                console.log("category is missing?:" + obj["_source"].type)
+        },
+        parseHits() {
+            console.log("static mode what is parseHits")
+            return this.hits.map((obj) => {
+                console.log(
+                    "what should be the category?:" +
+                        obj["_source"].sectionHandle
+                )
                 return {
                     title: obj["_source"].title,
-                    to: `/${obj["_source"].uri}`,
+                    sectionHandle: obj["_source"].sectionHandle,
+                    to:
+                        obj["_source"].sectionHandle === "externalResource"
+                            ? `${obj["_source"].externalResourceUrl}`
+                            : `/${obj["_source"].uri}`,
                     iconName:
                         obj["_source"]["illustrationsResourcesAndServices"],
-                    text: obj["_source"].text,
-                    category: obj["_source"].type,
+                    text: obj["_source"].text || obj["_source"].summary,
+
+                    category:
+                        obj["_source"].sectionHandle === "workshopSeries"
+                            ? "workshop"
+                            : obj["_source"].sectionHandle === "helpTopic"
+                                ? "help topic"
+                                : obj["_source"].sectionHandle ===
+                              "externalResource"
+                                    ? "resource"
+                                    : obj["_source"].type,
                 }
             })
         },
@@ -250,6 +331,9 @@ export default {
             return this.parseHits(hits)
         },*/
         async getSearchData(data) {
+            this.page = {}
+            this.hits = []
+            this.helpTopic = {}
             // console.log("from search-generic: " + JSON.stringify(data))
             // console.log(config.serviceOrResources.resultFields)
             this.$router.push({
@@ -258,6 +342,11 @@ export default {
                     q: data.text,
                 },
             })
+            this.searchBookmarkedQuery()
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters: {},
+            }
         },
     },
 }
