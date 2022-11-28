@@ -11,7 +11,7 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <!--h4 style="margin: 30px 400px">
+        <h4 style="margin: 30px 400px">
             No of hits
 
             {{ `from craft is ${parsedPages.length}` }}
@@ -23,7 +23,7 @@
                     `calling parsedhitsresults length
             ${hits.length}`
             }}
-        </h4-->
+        </h4>
 
         <section-wrapper theme="divider">
             <divider-way-finder />
@@ -105,9 +105,11 @@ export default {
                         JSON.parse(this.$route.query.filters)) ||
                     {},
             },
-            bookmarked: true,
         }
     },
+    fetchOnServer: false,
+    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
+    fetchKey: "staff-list",
     async fetch() {
         console.log("live preview  staff list")
         this.page = {}
@@ -148,9 +150,12 @@ export default {
             // if route queries are empty fetch data from craft
             this.page = await this.$graphql.default.request(STAFF_LIST)
             this.hits = []
+            this.searchGenericQuery = {
+                queryText: "",
+                queryFilters: {},
+            }
             //console.log("Craft data:" + JSON.stringify(data))
         }
-        this.bookmarked = false
     },
     computed: {
         parsedPages() {
@@ -181,20 +186,21 @@ export default {
     },
     watch: {
         "$route.query": "$fetch",
-        /*"$route.query.q"(newValue) {
+        "$route.query.q"(newValue) {
             console.log("watching querytEXT:" + newValue)
         },
         "$route.query.filters"(newValue) {
             console.log("watching filters:" + newValue)
-        },*/
+        },
     },
 
     async mounted() {
         console.log("In mounted")
         /*console.log("ESREADkey:" + this.$config.esReadKey)
         console.log("ESURLkey:" + this.$config.esURL)*/
-        this.setFilters()
         // bookmarked search queries are not calling fetch
+        this.setFilters()
+        /*
         if (
             (this.bookmarked &&
                 this.$route.query.q &&
@@ -209,10 +215,10 @@ export default {
                         JSON.parse(this.$route.query.filters)) ||
                     {},
             }
-        }
+        }*/
     },
     methods: {
-        async searchBookmarkedQuery() {
+        /* async searchBookmarkedQuery() {
             this.page = {}
             this.hits = []
             const results = await this.$dataApi.keywordSearchWithFilters(
@@ -234,7 +240,7 @@ export default {
                 this.page = {}
                 this.hits = []
             }
-        },
+        },*/
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.staff.filters,
@@ -260,15 +266,15 @@ export default {
                 }
             })
         },
-        parseBookmarkedQueryResults(hits = []) {
-            // console.log("checking results data:" + JSON.stringify(hits[0]))
+        /* parseBookmarkedQueryResults(hits = []) {
+            console.log("checking results data:" + JSON.stringify(hits[0]))
 
             return this.parseHits(hits)
-        },
+        },*/
         async getSearchData(data) {
             console.log("On the page getsearchdata called")
-            this.page = {}
-            this.hits = []
+            /*this.page = {}
+            this.hits = []*/
             this.$router.push({
                 path: "/about/staff",
                 query: {
@@ -276,14 +282,14 @@ export default {
                     filters: JSON.stringify(data.filters),
                 },
             })
-            this.searchBookmarkedQuery()
+            /*this.searchBookmarkedQuery()
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
                 queryFilters:
                     (this.$route.query.filters &&
                         JSON.parse(this.$route.query.filters)) ||
                     {},
-            }
+            }*/
         },
     },
 }
