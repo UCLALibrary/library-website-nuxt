@@ -38,6 +38,11 @@ query ArticleList($articleType: QueryArgument!) {
         featuredNews {
           ... on article_article_Entry {
             title
+            articleCategories {
+              id
+              title
+              uri
+            }
             text: summary
             to: uri
             heroImage {

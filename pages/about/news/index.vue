@@ -8,22 +8,16 @@
             :text="page.summary"
         />
 
-        <!-- <search-generic
+        <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
             @search-ready="getSearchData"
-        /> -->
-
-        <section-wrapper theme="divider">
-            <divider-way-finder
-                color="about"
-            />
-        </section-wrapper>
+        />
 
         <section-wrapper
             v-if="page.featuredNews.length"
-            section-title="Highlighted News"
+            class="section-no-top-margin"
         >
             <banner-featured
                 :image="parsedBannerHeader.image"
@@ -36,35 +30,34 @@
                 :to="parsedBannerHeader.to"
                 :align-right="true"
                 prompt="Read More"
-                class="banner"
+                class="banner section-featured-banner"
             />
 
-            <section-wrapper theme="divider">
-                <divider-way-finder
-                    color="about"
-                />
-            </section-wrapper>
-        </section-wrapper>
+            <divider-general />
 
-        <section-wrapper
-            v-if="parsedSectionHighlight.length"
-        >
             <section-teaser-highlight
+                v-if="parsedSectionHighlight.length"
                 class="section"
                 :items="parsedSectionHighlight"
             />
+        </section-wrapper>
 
-            <section-wrapper theme="divider">
-                <divider-way-finder
-                    color="about"
-                />
-            </section-wrapper>
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="about"
+            />
         </section-wrapper>
 
         <section-wrapper>
             <section-staff-article-list
                 :items="parsedNewsList"
                 section-title="All News"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="about"
             />
         </section-wrapper>
 
@@ -110,7 +103,7 @@ export default {
                     ...obj,
                     to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    category: _get(obj, "category[0].title", ""),
+                    category: _get(obj, "articleCategories[0].title", ""),
                     dateCreated: _get(obj, "postDate", ""),
                     byline: _get(obj, "articleStaff", []),
                     bylineOne: _get(obj, "articleStaff[0].title", ""),
