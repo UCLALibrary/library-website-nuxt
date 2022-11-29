@@ -5,8 +5,8 @@
     >
         <masthead-secondary
             v-if="summaryData"
-            :title="summaryData.servicesResourcesListTitle"
-            :text="summaryData.servicesResourcesListSummary"
+            :title="summaryData.servicesResourcesListTitle || ''"
+            :text="summaryData.servicesResourcesListSummary || ''"
         />
 
         <search-generic
@@ -170,6 +170,7 @@ export default {
             )
             this.summaryData = _get(this.page, "entry", {})
             this.hits = []
+            this.searchGenericQuery.queryText = ""
         }
     },
     head() {
@@ -248,53 +249,8 @@ export default {
     },
     async mounted() {
         console.log("In mounted")
-        //console.log("ESREADkey:" + this.$config.esReadKey)
-        //console.log("ESURLkey:" + this.$config.esURL)
-        /*  console.log("is bookmarked?:" + this.bookmarkedServiceOrResources)
-        console.log("bookmarked query:" + this.$route.query.q)
-        if (
-            this.bookmarkedServiceOrResources &&
-            !this.fetchCalled &&
-            this.$route.query.q &&
-            this.$route.query.q !== ""
-        ) {
-            console.log("its bookmarked start")
-            this.searchBookmarkedQuery()
-            this.searchGenericQuery = {
-                queryText: this.$route.query.q || "",
-                queryFilters: {},
-            }
-        }*/
     },
     methods: {
-        async searchBookmarkedQuery() {
-            this.page = {}
-            this.hits = []
-            this.helpTopic = {}
-            console.log("hello bookmarked query")
-            const results = await this.$dataApi.keywordSearchWithFilters(
-                this.$route.query.q || "*",
-                "sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic",
-                [],
-                "",
-                config.serviceOrResources.resultFields,
-                []
-            )
-            console.log(
-                "In bookmarked method data is:" + JSON.stringify(results)
-            )
-
-            if (results && results.hits && results.hits.total.value > 0) {
-                this.hits = results.hits.hits
-                this.parseHits()
-                this.page = {}
-                this.helpTopic = {}
-            } else {
-                this.page = {}
-                this.hits = []
-                this.helpTopic = {}
-            }
-        },
         parseHits() {
             console.log("static mode what is parseHits")
             return this.hits.map((obj) => {
@@ -325,15 +281,8 @@ export default {
                 }
             })
         },
-        /*parseBookmarkedQueryResults(hits = []) {
-            // console.log("checking results data:" + JSON.stringify(hits[0]))
 
-            return this.parseHits(hits)
-        },*/
         async getSearchData(data) {
-            this.page = {}
-            this.hits = []
-            this.helpTopic = {}
             // console.log("from search-generic: " + JSON.stringify(data))
             // console.log(config.serviceOrResources.resultFields)
             this.$router.push({
@@ -342,11 +291,6 @@ export default {
                     q: data.text,
                 },
             })
-            this.searchBookmarkedQuery()
-            this.searchGenericQuery = {
-                queryText: this.$route.query.q || "",
-                queryFilters: {},
-            }
         },
     },
 }
