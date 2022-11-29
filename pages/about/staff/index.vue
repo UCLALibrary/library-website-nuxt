@@ -158,12 +158,14 @@ export default {
         },
         parsedStaffList() {
             // console.log("in parsedStaff")
-            return (this.page.entries || []).map((obj) => {
+            return (this.page.entries || []).map((obj, index) => {
                 return {
                     ...obj,
                     to: `/about/staff/${obj.to}`,
                     image: _get(obj, "image[0]", null),
-                    staffName: `${obj.nameFirst} ${obj.nameLast}`,
+                    staffName: obj.alternativeName.length > 0
+                        ? `${obj.nameFirst} ${obj.nameLast} ${obj.alternativeName[0].fullName}`
+                        : `${obj.nameFirst} ${obj.nameLast}`
                 }
             })
         },
@@ -175,6 +177,7 @@ export default {
 
             return this.parseHits(this.hits)
         },
+
     },
     watch: {
         "$route.query": "$fetch",
@@ -253,7 +256,7 @@ export default {
                     ...obj["_source"],
                     to: `/${obj["_source"].uri}`,
                     image: _get(obj["_source"]["image"], "[0]", null),
-                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
+                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`, // TODO append to add alternativeName like above
                 }
             })
         },

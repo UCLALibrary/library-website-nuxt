@@ -8,6 +8,12 @@ query StaffList {
             nameFirst
             nameLast
             to: slug
+            alternativeName {
+                ... on alternativeName_alternativeName_BlockType {
+                    fullName
+                    languageAltName
+                }
+            }
             consultation: bookAConsultation
             departments: staffDepartment(orderBy: "level") {
                 id
