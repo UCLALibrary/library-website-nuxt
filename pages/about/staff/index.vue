@@ -1,6 +1,5 @@
 <template>
     <main class="page page-staff">
-        <h3>{{parsedPhysicalDigital}}</h3>
         <masthead-secondary title="Staff Directory" />
         <!-- TODO Add SearchGenric here when complete
                 Filter by location, department, subject libarian -->
@@ -12,15 +11,22 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <h4 style="margin: 30px 400px">
+        <!--h4 style="margin: 30px 400px">
             No of hits
-            {{ parsedStaffList.length || (hits && parseHitsResults.length) }}
+
+            {{ `from craft is ${parsedPages.length}` }}
         </h4>
+        <h4 style="margin: 30px 400px">
+            No of hits from ES
+            {{
+                hits &&
+                    `calling parsedhitsresults length
+            ${hits.length}`
+            }}
+        </h4-->
+
         <section-wrapper theme="divider">
-            <divider-way-finder 
-                class="divider-way-finder"
-                color="about"
-            />
+            <divider-way-finder />
         </section-wrapper>
 
         <section-wrapper class="browse-by">
@@ -72,18 +78,6 @@
                 No results found
             </h4>
         </section-wrapper>
-        <section-wrapper theme="divider">
-            <divider-way-finder 
-                class="divider-way-finder"
-                color="about"
-            />
-        </section-wrapper>
-        <section-wrapper>
-            <block-call-to-action
-                class="block-call-to-action"
-                :is-global="true"
-            />
-        </section-wrapper>
     </main>
 </template>
 
@@ -116,7 +110,8 @@ export default {
     },
     async fetch() {
         console.log("live preview  staff list")
-
+        this.page = {}
+        this.hits = []
         /*console.log("test query parameters: " + this.$route.query.q)
         console.log("test query parameters: " + this.$route.query.filters)*/
         if (
@@ -126,7 +121,7 @@ export default {
             console.log("in router query in asyc data")
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
-                "staffMember",
+                "sectionHandle:staffMember",
                 JSON.parse(this.$route.query.filters) || {},
                 "nameLast.keyword",
                 config.staff.resultFields,
@@ -134,10 +129,13 @@ export default {
             )
             console.log("getsearchdata method:" + JSON.stringify(results))
             this.page = {}
+            this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
+                this.page = {}
             } else {
                 this.hits = []
+                this.page = {}
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
@@ -155,16 +153,22 @@ export default {
         this.bookmarked = false
     },
     computed: {
+        parsedPages() {
+            return this.page.entries || []
+        },
+        parsedStaff(obj) {
+            return obj.nameFirst
+        },
         parsedStaffList() {
             // console.log("in parsedStaff")
-            return (this.page.entries || []).map((obj) => {
+            return (this.page.entries || []).map((obj, index) => {
                 return {
                     ...obj,
                     to: `/about/staff/${obj.to}`,
                     image: _get(obj, "image[0]", null),
-                    // staffName: `${parsedStaffName}`,
-                    // alternativeName: _get(obj,"alternativeName[0].fullName", null),
-                    // language: _get(obj,"alternativeName[0].languageAltName", null),
+                    staffName: obj.alternativeName.length > 0
+                        ? `${obj.nameFirst} ${obj.nameLast} ${obj.alternativeName[0].fullName}`
+                        : `${obj.nameFirst} ${obj.nameLast}`
                 }
             })
         },
@@ -176,26 +180,7 @@ export default {
 
             return this.parseHits(this.hits)
         },
-        parsedStaffName() {
-            return `${this.page.entries.nameFirst} ${this.page.entries.nameLast}`
-        },
-        parsedPhysicalDigital() {
-            return this.alternativeName.length == 1 ?
-            `${this.page.staffName} & ${this.page.alternativeName[0].fullName}` :
-            `${this.page.staffName}`
-        },
 
-        // parsedAlternativeFullName() {
-        //     return _get(this.page.entry, "alternativeName[0].fullName", "")
-        // },
-
-        // parsedLanguage() {
-        //     return _get(
-        //         this.page.entry,
-        //         "alternativeName[0].languageAltName",
-        //         ""
-        //     )
-        // },
     },
     watch: {
         "$route.query": "$fetch",
@@ -231,9 +216,11 @@ export default {
     },
     methods: {
         async searchBookmarkedQuery() {
+            this.page = {}
+            this.hits = []
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
-                "staffMember",
+                "sectionHandle:staffMember",
                 JSON.parse(this.$route.query.filters),
                 "nameLast.keyword",
                 config.staff.resultFields,
@@ -244,9 +231,8 @@ export default {
             )
 
             if (results && results.hits && results.hits.total.value > 0) {
-                this.page.entries = this.parseBookmarkedQueryResults(
-                    results.hits.hits
-                )
+                this.hits = results.hits.hits
+                this.page = {}
             } else {
                 this.page = {}
                 this.hits = []
@@ -273,7 +259,7 @@ export default {
                     ...obj["_source"],
                     to: `/${obj["_source"].uri}`,
                     image: _get(obj["_source"]["image"], "[0]", null),
-                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
+                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`, // TODO append to add alternativeName like above
                 }
             })
         },
@@ -283,6 +269,9 @@ export default {
             return this.parseHits(hits)
         },
         async getSearchData(data) {
+            console.log("On the page getsearchdata called")
+            this.page = {}
+            this.hits = []
             this.$router.push({
                 path: "/about/staff",
                 query: {
@@ -290,6 +279,14 @@ export default {
                     filters: JSON.stringify(data.filters),
                 },
             })
+            this.searchBookmarkedQuery()
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            }
         },
     },
 }
@@ -354,11 +351,12 @@ export default {
     }
 
     .browse-by {
+        max-width: $container-l-main + px;
         margin: 0 auto var(--space-xl);
     }
 
     .section-heading {
-        @include step-3;
+        @include step-2;
         color: var(--color-primary-blue-03);
         margin-bottom: var(--space-m);
     }
