@@ -11,7 +11,7 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <h4 style="margin: 30px 400px">
+        <!--h4 style="margin: 30px 400px">
             No of hits
 
             {{ `from craft is ${parsedPages.length}` }}
@@ -23,7 +23,7 @@
                     `calling parsedhitsresults length
             ${hits.length}`
             }}
-        </h4>
+        </h4-->
 
         <section-wrapper theme="divider">
             <divider-way-finder />
@@ -168,9 +168,10 @@ export default {
                     ...obj,
                     to: `/about/staff/${obj.to}`,
                     image: _get(obj, "image[0]", null),
-                    staffName: obj.alternativeName.length > 0
-                        ? `${obj.nameFirst} ${obj.nameLast} ${obj.alternativeName[0].fullName}`
-                        : `${obj.nameFirst} ${obj.nameLast}`
+                    staffName:
+                        obj.alternativeName.length > 0
+                            ? `${obj.nameFirst} ${obj.nameLast} ${obj.alternativeName[0].fullName}`
+                            : `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
         },
@@ -182,7 +183,6 @@ export default {
 
             return this.parseHits(this.hits)
         },
-
     },
     watch: {
         "$route.query": "$fetch",
