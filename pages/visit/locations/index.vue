@@ -36,6 +36,8 @@
 <script>
 // Helpers
 import _get from "lodash/get"
+import parseAddress from "~/utils/parseAddress"
+import parseAmenities from "~/utils/parseAmenities"
 
 // gql
 import LOCATIONS_LIST from "~/gql/queries/LocationsList"
@@ -59,59 +61,14 @@ export default {
                     ...obj,
                     to: `/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", null),                 
-                    address: this.parseAddress(obj)[0],
+                    address: parseAddress(obj)[0],
                     addressLink: `https://map.ucla.edu/?id=${obj.campusMapId}&e=true`,
-                    amenities: obj.amenitiesIcons.length !== 0 ? this.parseAmenities(obj) : null
+                    amenities: obj.amenitiesIcons.length !== 0 ? parseAmenities(obj) : null
                 }
             })
         },
         // TODO match on LibCal id for Hours today
     },
-    methods: {
-        parseAddress(obj) {
-            return obj.address.map((item) => {
-                if (item.addressLine2) {
-                    return (
-                        item.addressLine1 +
-                    " " +
-                    item.addressLine2 +
-                    " " +
-                    item.addressCity +
-                    " " +
-                    item.addressState +
-                    " " +
-                    item.addressZipCode
-                    )
-                } else if (item) {
-                    return (
-                        item.addressLine1 +
-                    " " +
-                    item.addressCity +
-                    " " +
-                    item.addressState +
-                    " " +
-                    item.addressZipCode
-                    )
-                } else {
-                    return ""
-                }
-            })
-        },
-        parseAmenities(obj) {
-            return obj.amenities.map((amenity, index )=> {
-                return {
-                    title: amenity,
-                    icon: this.parseIcons(obj)[index]
-                }
-            })
-        },
-        parseIcons(obj){
-            return obj.amenitiesIcons.map(item => {
-                let parsedAmenity = item.split("-")[1]
-                return `SvgIcon${parsedAmenity.charAt(0).toUpperCase() + parsedAmenity.slice(1)}`
-            })
-        }
-    }
 }
 </script>
 
