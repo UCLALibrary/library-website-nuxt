@@ -119,43 +119,24 @@ export default {
     },
     async mounted() {
         console.log("In mounted")
-        /* if (
-            this.bookmarked &&
-            this.$route.query.q &&
-            this.$route.query.q !== ""
-        ) {
-            const searchResponse = await this.$dataApi.siteSearch(
-                this.$route.query.q
-            )
-            console.log(
-                "In bookmarked  data is:" + JSON.stringify(searchResponse)
-            )
-            this.searchGenericQuery = {
-                queryText: this.$route.query.q || "",
-                queryFilters: {},
-            }
-        }*/
     },
 
     methods: {
         async getSearchData(data) {
             try {
-                this.page = {}
                 this.$router.push({
-                    path: "/search-site",
+                    path: this.$route.path,
                     query: { q: data.text },
                 })
-                console.log(this.$router.query)
-                this.page = await this.$dataApi.siteSearch(
-                    this.$route.query.q || "*"
-                )
+                this.$router.query = { q: data.text }
                 console.log(
-                    "getSearchData  data is:" + JSON.stringify(this.page)
+                    "getsearchdata called: " +
+                        JSON.stringify(this.$router.query) +
+                        "\n" +
+                        data.text +
+                        "\n pages: " +
+                        JSON.stringify(this.page)
                 )
-                this.searchGenericQuery = {
-                    queryText: this.$route.query.q || "",
-                    queryFilters: {},
-                }
             } catch (e) {
                 throw new Error("ES error maybe: " + e)
             }

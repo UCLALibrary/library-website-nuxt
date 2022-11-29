@@ -1,0 +1,57 @@
+query StudentOpportunitiesList {
+  entry(section: "listingStudentOpportunities") {
+    ... on listingStudentOpportunities_listingStudentOpportunities_Entry {
+      title
+      text: summary
+      buttonUrl {
+        ... on buttonUrl_button_BlockType {
+          buttonText
+          buttonUrl
+        }
+      }
+      email
+      phoneNumber
+      associatedPrograms {
+        title
+        summary
+        jobPostingURL: uri
+        programUrlBehavior
+        buttonUrl {
+          ...on buttonUrl_button_BlockType {
+            buttonText
+            buttonUrl
+          }
+          
+        }
+      }
+      associatedTopics {
+        title
+        text: summary
+        to: uri
+        externalResourceUrl
+        illustrationsResourcesAndServices
+      }
+    }
+  }
+  allJobs: entries(section: "job", staffOrStudentPosition: "student-opportunities") {
+    title
+    summary
+    ... on job_job_Entry {
+      jobType {
+        ... on jobType_Category {
+          title
+        }
+      }
+      jobRequisitionNumber
+      jobPostingURL
+      payRate
+      department {
+        title
+      }
+      associatedLocations {
+        title
+        uri
+      }
+    }
+  }
+}
