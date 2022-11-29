@@ -10,7 +10,10 @@ const config = {
         ],
         resultFields:[
             "title",
-            "text",     
+            "text",   
+            "summary",  
+            "externalResourceUrl",
+            "sectionHandle",
             "illustrationsResourcesAndServices",
             "uri",
             "type",

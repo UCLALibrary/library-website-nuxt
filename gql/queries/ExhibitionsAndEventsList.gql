@@ -1,150 +1,69 @@
 #import "~/gql/fragments/Image"
-query ExhibitionAndEventList {
-    events: entries(section: "event") {
-        ... on event_event_Entry {
-            id
-            to: uri
-            title
-            sectionHandle
-            image: heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    image {
-                        ...Image
-                    }
-                }
-            }
-            date {
-                ... on date_date_BlockType {
-                    id
-                    startDate: startTime
-                    endDate: endTime
-                    #startDate: startTime @formatDateTime(format: "l, F j, Y")
-                    #endDate: endTime @formatDateTime(format: "l, F j, Y")
-                    #startTime: startTime @formatDateTime(format: "H:i A", timezone: "America/Los_Angeles")
-                    #endTime: endTime @formatDateTime(format: "H:i A", timezone: "America/Los_Angeles")
-                }
-            }
-            eventType {
-                ... on eventType_Category {
-                    id
-                    title
-                }
-            }
-            text: eventDescription
-            locations: associatedLocations {
-                ... on location_location_Entry {
-                    id
-                    to: uri
-                    title
-                }
-            }
+
+query EventsExhibitionsList {
+  entry(section: "listingEventsExhibitions") {
+    ... on listingEventsExhibitions_listingEventsExhibitions_Entry {
+      title
+      summary
+      featuredEvents {
+        category
+        title
+        summary
+        to: uri
+        eventType {
+          title
         }
-    }
-    exhibitions: entries(section: "exhibition") {
-        ... on exhibition_exhibition_Entry {
-            id
-            to: uri
-            title
-            text: summary
-            sectionHandle
-            image: heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    image {
-                        ...Image
-                    }
-                }
-            }
-            seriesDate {
-                ... on seriesDate_seriesDate_BlockType {
-                    id
-                    startDate
-                    endDate
-                    # startDate: startDate @formatDateTime(format: "l, F j, Y")
-                    # endDate: endDate @formatDateTime(format: "l, F j, Y")
-                    ongoing
-                }
-            }
-            locations: associatedLocations {
-                ... on location_location_Entry {
-                    id
-                    to: uri
-                    title
-                }
-            }
+        eventDescription
+        startDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+        endDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+        startDateWithTime @formatDateTime(format: "Y-m-d\\TH:i", timezone: "America/Los_Angeles")
+        endDateWithTime @formatDateTime(format: "Y-m-d\\TH:i", timezone: "America/Los_Angeles")
+        workshopOrEventSeriesType
+        typeHandle
+        associatedLocations {
+          title
+          to: uri
         }
+        associatedLocationsAndPrograms {
+          title
+          to: uri
+        }
+        heroImage {
+          ... on heroImage_heroImage_BlockType {
+            id
+            image {
+              ...Image
+            }
+            altText
+          }
+        }
+      }
     }
-    eventSeries: entries(
-        section: "workshopOrEventSeries"
-        workshopOrEventSeriesType: "visit/events-exhibitions"
-    ) {
+  }
+  events: entries(section: "event", orderBy:"startDateWithTime ASC", startDateWithTime: ">= now") {
+    title
+    to: uri
+    eventDescription
+    eventType {
+        title
+    }
+    startDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    endDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    startDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    endDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    workshopOrEventSeriesType
+    associatedLocations {
+      title
+      to: uri
+    }
+    heroImage {
+      ... on heroImage_heroImage_BlockType {
         id
-
-        ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
-            id
-            workshopOrEventSeriesType
-            sectionHandle
-            typeHandle
-            title
-            summary
-            to: uri
-            date: seriesDate {
-                ... on seriesDate_seriesDate_BlockType {
-                    id
-                    startDate
-                    endDate
-                }
-            }
-
-            associatedLocations {
-                ... on location_location_Entry {
-                    id
-                    to: uri
-                    title
-                    summary
-                }
-            }
-            image: heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    image {
-                        ...Image
-                    }
-                }
-            }
-            event {
-                id
-                title
-                uri
-                text: eventDescription
-                category: eventType {
-                    ... on eventType_Category {
-                        id
-                        title
-                    }
-                }
-                image: heroImage {
-                    ... on heroImage_heroImage_BlockType {
-                        image {
-                            ...Image
-                        }
-                    }
-                }
-
-                date {
-                    ... on date_date_BlockType {
-                        id
-                        startTime
-                        endTime
-                    }
-                }
-                locations: associatedLocations {
-                    ... on location_location_Entry {
-                        id
-                        to: uri
-                        title
-                        summary
-                    }
-                }
-            }
+        image {
+          ...Image
         }
+        altText
+      }
     }
-}
+  }
+} 

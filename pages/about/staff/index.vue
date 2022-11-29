@@ -156,9 +156,6 @@ export default {
         parsedPages() {
             return this.page.entries || []
         },
-        parsedStaff(obj) {
-            return obj.nameFirst
-        },
         parsedStaffList() {
             // console.log("in parsedStaff")
             return (this.page.entries || []).map((obj, index) => {

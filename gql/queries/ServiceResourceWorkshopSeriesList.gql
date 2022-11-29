@@ -24,7 +24,10 @@ query ServiceResourceWorkshopSeriesList {
   externalResource: entries(section: "externalResource", displayEntry: "yes") {
     title
     text: summary
+    slug
     to: externalResourceUrl
+    externalResourceUrl
+    sectionHandle
     typeHandle
   }
   entry(section: "listingServicesResources") {
