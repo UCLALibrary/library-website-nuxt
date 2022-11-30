@@ -171,7 +171,7 @@ import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceO
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
@@ -182,6 +182,9 @@ export default {
                 slug: params.slug,
             }
         )
+        if (!data.serviceOrResource && !data.workshopSeries) {
+            error({ statusCode: 404, message: 'Page not found' })
+        }
         if (data) {
             console.log(
                 "Is it workshop or service or resource Indexing slug: " +
