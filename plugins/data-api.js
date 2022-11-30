@@ -18,7 +18,7 @@ export default function ({ $config }, inject) {
                 size: "1000",
                 "query": {
                     "query_string" : {
-                        "query" : keyword,
+                        "query" : keyword + " AND startDateWithTime:[now TO *]",
                         "fields": [
                             "*",
                             "title^4",

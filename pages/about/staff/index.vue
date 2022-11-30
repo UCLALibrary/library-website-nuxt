@@ -30,39 +30,7 @@
         </section-wrapper>
 
         <section-wrapper class="browse-by">
-            <h2 class="section-heading">
-                Browse by Last Name
-            </h2>
-            <!-- TODO Add Browse by A-Z links -->
-            <ul class="browse-by-options">
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-                <li>D</li>
-                <li>E</li>
-                <li>F</li>
-                <li>G</li>
-                <li>H</li>
-                <li>I</li>
-                <li>J</li>
-                <li>K</li>
-                <li>L</li>
-                <li>M</li>
-                <li>N</li>
-                <li>O</li>
-                <li>P</li>
-                <li>Q</li>
-                <li>R</li>
-                <li>S</li>
-                <li>T</li>
-                <li>U</li>
-                <li>V</li>
-                <li>W</li>
-                <li>X</li>
-                <li>Y</li>
-                <li>Z</li>
-                <!-- <li>View All</li> -->
-            </ul>
+            <alphabetical-browse-by selected-letter-prop="C" />
         </section-wrapper>
 
         <section-wrapper>
@@ -163,7 +131,7 @@ export default {
         },
         parsedStaffList() {
             // console.log("in parsedStaff")
-            return (this.page.entries || []).map((obj, index) => {
+            return (this.page.entries || []).map((obj) => {
                 return {
                     ...obj,
                     to: `/about/staff/${obj.to}`,
@@ -200,47 +168,8 @@ export default {
         console.log("ESURLkey:" + this.$config.esURL)*/
         // bookmarked search queries are not calling fetch
         this.setFilters()
-        /*
-        if (
-            (this.bookmarked &&
-                this.$route.query.q &&
-                this.$route.query.q !== "") ||
-            this.$route.query.filters
-        ) {
-            this.searchBookmarkedQuery()
-            this.searchGenericQuery = {
-                queryText: this.$route.query.q || "",
-                queryFilters:
-                    (this.$route.query.filters &&
-                        JSON.parse(this.$route.query.filters)) ||
-                    {},
-            }
-        }*/
     },
     methods: {
-        /* async searchBookmarkedQuery() {
-            this.page = {}
-            this.hits = []
-            const results = await this.$dataApi.keywordSearchWithFilters(
-                this.$route.query.q || "*",
-                "sectionHandle:staffMember",
-                JSON.parse(this.$route.query.filters),
-                "nameLast.keyword",
-                config.staff.resultFields,
-                config.staff.filters
-            )
-            console.log(
-                "In bookmarked method data is:" + JSON.stringify(results)
-            )
-
-            if (results && results.hits && results.hits.total.value > 0) {
-                this.hits = results.hits.hits
-                this.page = {}
-            } else {
-                this.page = {}
-                this.hits = []
-            }
-        },*/
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.staff.filters,
@@ -262,15 +191,14 @@ export default {
                     ...obj["_source"],
                     to: `/${obj["_source"].uri}`,
                     image: _get(obj["_source"]["image"], "[0]", null),
-                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`, // TODO append to add alternativeName like above
+                    staffName:
+                        obj["_source"].alternativeName.length > 0
+                            ? `${obj["_source"].nameFirst} ${obj["_source"].nameLast} ${obj["_source"].alternativeName[0].fullName}`
+                            : `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`, // TODO append to add alternativeName like above
                 }
             })
         },
-        /* parseBookmarkedQueryResults(hits = []) {
-            console.log("checking results data:" + JSON.stringify(hits[0]))
 
-            return this.parseHits(hits)
-        },*/
         async getSearchData(data) {
             console.log("On the page getsearchdata called")
             /*this.page = {}
@@ -282,14 +210,6 @@ export default {
                     filters: JSON.stringify(data.filters),
                 },
             })
-            /*this.searchBookmarkedQuery()
-            this.searchGenericQuery = {
-                queryText: this.$route.query.q || "",
-                queryFilters:
-                    (this.$route.query.filters &&
-                        JSON.parse(this.$route.query.filters)) ||
-                    {},
-            }*/
         },
     },
 }

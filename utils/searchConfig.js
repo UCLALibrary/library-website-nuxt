@@ -20,6 +20,7 @@ const config = {
         ]
     },
     staff:{
+        searchFields:[],
         filters:[
             {
                 label: "Location",
@@ -41,6 +42,7 @@ const config = {
             "email",
             "nameFirst",     
             "nameLast",
+            "alternativeName",
             "phone",
             "departments", 
             "jobTitle",  
@@ -48,7 +50,8 @@ const config = {
             "uri",
             "image"
     
-        ]
+        ],
+        sortField: "last"
     },
     /*  staffFilters: [
         {
