@@ -1,24 +1,39 @@
 <template lang="html">
     <main
+        id="main"
         class="page page-endowment-listing"
     >
         <nav-breadcrumb
-                to="/support"
-                title="Endowments"
-                parent-title="Support Us"
-            />
+            to="/support"
+            title="Endowments"
+            parent-title="Support Us"
+        />
 
         <masthead-secondary
             :title="page.title"
             :text="page.summary"
         />
 
-        <!-- <search-generic
+        <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
             @search-ready="getSearchData"
-        /> -->
+        />
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="search-margin"
+                color="about"
+            />
+        </section-wrapper>
+
+        <section-wrapper section-title="All Endowments">
+            <section-staff-article-list
+                :items="parsedEndowmentsList"
+            />
+            <!-- pagination -->
+        </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -27,28 +42,27 @@
         </section-wrapper>
 
         <section-wrapper>
-            <section-staff-article-list
-                :items="parsedEndowmentsList"
-                section-title="All Endowments"
+            <block-call-to-action
+                svg-name="svg-call-to-action-money"
+                title="Support us"
+                text="Your contributions help us build our collections for the benefit or our students, faculty, staff, and the general public."
+                name="Donate"
+                to="https://giving.ucla.edu/Standard/NetDonate.aspx?SiteNum=463"
             />
-            <!-- pagination -->
-        </section-wrapper>    
+        </section-wrapper>
     </main>
 </template>
 
 <script>
 // Helpers
 import _get from "lodash/get"
-import format from "date-fns/format"
 
 // GQL
 import ENDOWMENTS_LIST from "~/gql/queries/EndowmentList"
 
 export default {
-    async asyncData({ $graphql, route }) {
-        // console.log("route: " + route.path)
+    async asyncData({ $graphql }) {
         const data = await $graphql.default.request(ENDOWMENTS_LIST, {})
-        // console.log("data:" + data)
         return {
             endowments: _get(data, "entries", {}),
             page: _get(data, "entry", {}),
@@ -77,6 +91,9 @@ export default {
 
 <style lang="scss" scoped>
 .page-endowment-listing {
+    .search-margin {
+        margin: var(--space-2xl) auto;
+    }
 }
 </style>
 
