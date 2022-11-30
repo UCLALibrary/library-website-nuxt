@@ -29,7 +29,7 @@
             <divider-way-finder />
         </section-wrapper>
 
-        <section-wrapper class="browse-by">
+        <section-wrapper>
             <alphabetical-browse-by selected-letter-prop="C" />
         </section-wrapper>
 
@@ -46,6 +46,7 @@
                 No results found
             </h4>
         </section-wrapper>
+        </section-wrappe>
     </main>
 </template>
 
@@ -91,6 +92,7 @@ export default {
             console.log("in router query in asyc data")
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
+                config.staff.searchFields,
                 "sectionHandle:staffMember",
                 JSON.parse(this.$route.query.filters) || {},
                 config.staff.sortField,

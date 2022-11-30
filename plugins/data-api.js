@@ -17,24 +17,18 @@ export default function ({ $config }, inject) {
             body: JSON.stringify({
                 size: "1000",
                 "query": {
-                    "bool": {
-                        "must": [
-                            {
-                                "query_string" : {
-                                    "query" : "("+keyword + " AND NOT(sectionHandle:event)) OR (startDateWithTime:[now TO *] AND sectionHandle:event)",
-                                    "fields": [
-                                        "*",
-                                        "title^4",
-                                        "summary^3",
-                                        "text^3",
-                                        "richText^2"
-                                    ],
-                                    "fuzziness":"auto"
-                                }
-                            }
-                        ]
+                    "query_string" : {
+                        "query" : "("+keyword + " AND NOT(sectionHandle:event)) OR (startDateWithTime:[now TO *] AND sectionHandle:event)",
+                        "fields": [
+                            "*",
+                            "title^4",
+                            "summary^3",
+                            "text^3",
+                            "richText^2"
+                        ],
+                        "fuzziness":"auto"
                     }
-                }
+                }        
             })
         })
         const data = await response.json()
@@ -43,6 +37,7 @@ export default function ({ $config }, inject) {
 
     async function keywordSearchWithFilters(
         keyword = "*:*",
+        searchFields,
         sectionHandle,
         filters,
         sort,
@@ -65,13 +60,9 @@ export default function ({ $config }, inject) {
                     must: [
                         {
                             query_string: {
-                                query: keyword,
+                                query: keyword+"*",
                                 "fields": [
-                                    "*",
-                                    "title^4",
-                                    "summary^3",
-                                    "text^3",
-                                    "richText^2"
+                                    ...searchFields
                                 ],
                                 "fuzziness":"auto"
                             },
@@ -102,6 +93,9 @@ export default function ({ $config }, inject) {
                             {
                                 query_string: {
                                     query: keyword+"*",
+                                    "fields": [
+                                        ...searchFields
+                                    ],
                                     fuzziness: "auto",
                                 },
                             },
