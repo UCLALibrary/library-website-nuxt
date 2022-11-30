@@ -41,7 +41,7 @@ query CollectionDetail($slug: [String!]) {
         id
         title
         description: summary
-        to: donationUrl
+        to: uri
         donors {
           firstName
           lastName
@@ -78,7 +78,8 @@ query CollectionDetail($slug: [String!]) {
       id
       title
       text: summary
-      uri
+      to: uri
+      externalResourceUrl
     }
     ...ExhibitionsAndCollectionsFpb
   }

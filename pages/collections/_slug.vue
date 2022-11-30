@@ -165,7 +165,9 @@ export default {
             return services.map((obj) => {
                 return {
                     ...obj,
-                    to: `${obj.uri}`,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.to}`,
                     title: _get(obj, "title", ""),
                     text: _get(obj, "text", ""),
                 }
@@ -193,12 +195,12 @@ export default {
         },
         parsedEndowments() {
             if (this.page.endowment) {
-                return this.page.endowment.map((item) => {
+                return this.page.endowment.map((obj) => {
                     return {
-                        to: `${item.uri}`,
-                        image: _get(item, "image[0].image[0]", null),
-                        title: _get(item, "title", ""),
-                        description: _get(item, "description", ""),
+                        to: `/${obj.to}`,
+                        image: _get(obj, "image[0].image[0]", null),
+                        title: _get(obj, "title", ""),
+                        description: _get(obj, "description", ""),
                         category: this.parsedDonors ? this.parsedDonors : "",
                     }
                 })
