@@ -4,9 +4,9 @@
         class="page page-collection-detail"
     >
         <nav-breadcrumb
-            to="/collections"
+            to="/collections/explore"
             :title="page.title"
-            parent-title="Collections"
+            parent-title="Explore Collections"
         />
 
         <banner-text
