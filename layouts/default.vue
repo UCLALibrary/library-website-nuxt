@@ -1,14 +1,9 @@
 <template lang="html">
     <div :class="classes">
-        <!--
-        <a
-            ref="skipLink"
-            href="#main"
-            class="skip-link"
-        >
-            Skip to main content
-        </a>
-        -->
+        <VueSkipTo
+            to="#main"
+            label="Skip to main content"
+        />
 
         <header-smart />
         <nuxt class="page" />
@@ -121,6 +116,9 @@ export default {
     }
 }
 
+.vue-skip-to {
+    z-index: 300;
+}
 .skip-link {
     position: absolute;
     transform: translateY(-100%);
