@@ -4,30 +4,47 @@
             :title="summaryData.title"
             :text="summaryData.summary"
         />
-        
+
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider-way-finder"
                 color="default"
             />
         </section-wrapper>
-        
-        <h2 class="section-heading">
-            {{ summaryData.title }}
-        </h2>
+
+        <h2> uclaLibraries amenities</h2>
+        <h3>{{ uclaLibraries[0].amenities }}</h3>
+        <h3>{{ uclaLibraries[0].amenitiesIcons }}</h3>
+        <hr>
+        <h2>parsedUclaLibraries amenities</h2>
+        <h3>{{ parsedUclaLibraries[0].amenities }}</h3>
+        <h3>{{ parsedUclaLibraries[0].amenitiesIcons }}</h3>
+
         <section-wrapper
             v-if="uclaLibraries" 
-            class="blockLocationListWrapper"
+            section-title="UCLA Library Locations"
         >
-            <block-location-list-item
-                v-for="item, index in parsedUclaLibraries"
-                :key="`uclaLibraries-${index}`"
-                :title="item.title"
-                :to="item.uri"
-                :image="item.image"
-                :address="item.address"
-                :amenities="item.amenities"
-                :libcal-location-id-for-hours="item.libcalLocationIdForHours"
+            <section-location-list
+                class="blockLocationListWrapper"
+                :items="parsedUclaLibraries"
+            />
+            <button-more text="See More" />
+        </section-wrapper>
+
+        <section-wrapper
+            v-if="affiliateLibraries" 
+            section-title="Other Campus Libraries & Archives"
+        >
+            <section-location-list
+                class="blockLocationListWrapper"
+                :items="parsedAffiliateLibraries"
+            />
+        </section-wrapper>
+
+        <section-wrapper>
+            <block-call-to-action
+                class="section block-call-to-action"
+                :is-global="true"
             />
         </section-wrapper>
     </div>
@@ -39,7 +56,7 @@ import _get from "lodash/get"
 import parseAddress from "~/utils/parseAddress"
 import parseAmenities from "~/utils/parseAmenities"
 
-// gql
+// GQL
 import LOCATIONS_LIST from "~/gql/queries/LocationsList"
 
 export default {
@@ -60,21 +77,34 @@ export default {
                 return {
                     ...obj,
                     to: `/${obj.uri}`,
-                    image: _get(obj, "heroImage[0].image[0]", null),                 
+                    image: _get(obj, "heroImage[0].image[0]", null),
+                    address: parseAddress(obj)[0],
+                    addressLink: `https://map.ucla.edu/?id=${obj.campusMapId}&e=true`,
+                    amenities:
+                        obj.amenitiesIcons.length > 0
+                            ? parseAmenities(obj)
+                            : null
+                }
+            })
+        },
+        parsedAffiliateLibraries() {
+            return this.affiliateLibraries.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "heroImage[0].image[0]", null),
                     address: parseAddress(obj)[0],
                     addressLink: `https://map.ucla.edu/?id=${obj.campusMapId}&e=true`,
                     amenities: obj.amenitiesIcons.length !== 0 ? parseAmenities(obj) : null
                 }
             })
-        },
-        // TODO match on LibCal id for Hours today
+        }
     },
 }
 </script>
 
 <style lang="scss" scoped>
 .page-help {
-
     .section-heading {
         @include step-4;
         color: var(--color-primary-blue-03);
@@ -90,6 +120,5 @@ export default {
         max-width: $container-l-main + px;
         margin: 0 auto var(--space-3xl);
     }
-
 }
 </style>
