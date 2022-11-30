@@ -93,7 +93,7 @@ export default {
                 this.$route.query.q || "*",
                 "sectionHandle:staffMember",
                 JSON.parse(this.$route.query.filters) || {},
-                "nameLast.keyword",
+                config.staff.sortField,
                 config.staff.resultFields,
                 config.staff.filters
             )

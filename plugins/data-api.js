@@ -17,16 +17,22 @@ export default function ({ $config }, inject) {
             body: JSON.stringify({
                 size: "1000",
                 "query": {
-                    "query_string" : {
-                        "query" : keyword + " AND startDateWithTime:[now TO *]",
-                        "fields": [
-                            "*",
-                            "title^4",
-                            "summary^3",
-                            "text^3",
-                            "richText^2"
-                        ],
-                        "fuzziness":"auto"
+                    "bool": {
+                        "must": [
+                            {
+                                "query_string" : {
+                                    "query" : "("+keyword + " AND NOT(sectionHandle:event)) OR (startDateWithTime:[now TO *] AND sectionHandle:event)",
+                                    "fields": [
+                                        "*",
+                                        "title^4",
+                                        "summary^3",
+                                        "text^3",
+                                        "richText^2"
+                                    ],
+                                    "fuzziness":"auto"
+                                }
+                            }
+                        ]
                     }
                 }
             })
@@ -60,6 +66,14 @@ export default function ({ $config }, inject) {
                         {
                             query_string: {
                                 query: keyword,
+                                "fields": [
+                                    "*",
+                                    "title^4",
+                                    "summary^3",
+                                    "text^3",
+                                    "richText^2"
+                                ],
+                                "fuzziness":"auto"
                             },
                         },
                         ...parseSectionHandle(sectionHandle),
