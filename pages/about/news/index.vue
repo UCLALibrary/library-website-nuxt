@@ -9,12 +9,12 @@
         />
 
         <!-- TODO: Add search function -->
-        <search-generic
+        <!-- <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
             @search-ready="getSearchData"
-        />
+        /> -->
 
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
@@ -53,10 +53,9 @@
             />
         </section-wrapper>
 
-        <section-wrapper>
+        <section-wrapper section-title="All News">
             <section-staff-article-list
                 :items="parsedNewsList"
-                section-title="All News"
             />
         </section-wrapper>
 
