@@ -1,4 +1,3 @@
-#import "~/gql/fragments/Image"
 #import "~/gql/fragments/BlockMediaGalleryFragment"
 #import "~/gql/fragments/BlockMediaWithTextFragment"
 #import "~/gql/fragments/BlockPullQuoteFragment"
