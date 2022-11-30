@@ -65,7 +65,7 @@ query CollectionDetail($slug: [String!]) {
       staffMemberJobTitle
       nameFirst
       nameLast
-      uri
+      to: slug
       bookAConsultation
       staffDepartment {
         title
