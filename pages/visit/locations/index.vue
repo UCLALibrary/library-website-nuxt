@@ -12,14 +12,6 @@
             />
         </section-wrapper>
 
-        <h2> uclaLibraries amenities</h2>
-        <h3>{{ uclaLibraries[0].amenities }}</h3>
-        <h3>{{ uclaLibraries[0].amenitiesIcons }}</h3>
-        <hr>
-        <h2>parsedUclaLibraries amenities</h2>
-        <h3>{{ parsedUclaLibraries[0].amenities }}</h3>
-        <h3>{{ parsedUclaLibraries[0].amenitiesIcons }}</h3>
-
         <section-wrapper
             v-if="uclaLibraries" 
             section-title="UCLA Library Locations"
@@ -76,7 +68,7 @@ export default {
             return this.uclaLibraries.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.uri}`,
+                    to: obj.uri ? `/${obj.uri}` : null,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     address: parseAddress(obj)[0],
                     addressLink: `https://map.ucla.edu/?id=${obj.campusMapId}&e=true`,
@@ -91,7 +83,7 @@ export default {
             return this.affiliateLibraries.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.uri}`,
+                    to: obj.uri ? `/${obj.uri}` : null,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     address: parseAddress(obj)[0],
                     addressLink: `https://map.ucla.edu/?id=${obj.campusMapId}&e=true`,
