@@ -20,11 +20,14 @@
                 class="blockLocationListWrapper"
                 :items="parsedUclaLibraries"
             />
-            <button-more text="See More" />
+            <button-more
+                text="See More"
+                @click.native="showMoreOtherCampusLibrary()"
+            />
         </section-wrapper>
 
         <section-wrapper
-            v-if="affiliateLibraries" 
+            v-if="affiliateLibraries && showOtherCampus" 
             section-title="Other Campus Libraries & Archives"
         >
             <section-location-list
@@ -63,6 +66,11 @@ export default {
             affiliateLibraries: _get(data, "affiliateLibraries", {}),
         }
     },
+    data() {
+        return {
+            showOtherCampus: false
+        }
+    },
     computed: {
         parsedUclaLibraries() {
             return this.uclaLibraries.map((obj) => {
@@ -92,6 +100,11 @@ export default {
             })
         }
     },
+    methods: {
+        showMoreOtherCampusLibrary() {
+            this.showOtherCampus = !this.showOtherCampus
+        }
+    }
 }
 </script>
 
