@@ -8,12 +8,17 @@
             :text="page.summary"
         />
 
+        <!-- TODO: Add search function -->
         <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
             @search-ready="getSearchData"
         />
+
+        <section-wrapper theme="divider">
+            <divider-way-finder class="search-margin" />
+        </section-wrapper>
 
         <section-wrapper
             v-if="page.featuredNews.length"
@@ -155,5 +160,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-news {
+    .search-margin {
+        margin: var(--space-2xl) auto;
+    }
 }
 </style>
