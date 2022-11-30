@@ -14,7 +14,7 @@ export default {
         esReadKey: process.env.ES_READ_KEY || "",
         esIndex: process.env.ES_INDEX || "",
         esURL:process.env.ES_URL || "",
-        libcalProxy: process.env.LIBCAL_ENDPOINT|| "https://test.proxy.calendar.library.ucla.edu/"
+        libcalProxy: process.env.LIBCAL_ENDPOINT|| "https://proxy.calendar.library.ucla.edu/"
     },
     /*
      ** Required charset and viewport meta tags
@@ -63,7 +63,7 @@ export default {
     axios: {
         baseURL:
             process.env.LIBCAL_ENDPOINT ||
-            "https://test.proxy.calendar.library.ucla.edu/",
+            "https://proxy.calendar.library.ucla.edu/",
     },
 
     /*
