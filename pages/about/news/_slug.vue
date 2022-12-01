@@ -1,5 +1,8 @@
 <template lang="html">
-    <main class="page-news-detail">
+    <main
+        id="main"
+        class="page page-news-detail"
+    >
         <nav-breadcrumb
             to="/about/news"
             :title="page.title"
@@ -66,7 +69,7 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 import format from "date-fns/format"
 

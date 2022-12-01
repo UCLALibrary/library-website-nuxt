@@ -1,5 +1,8 @@
 <template>
-    <main class="page page-staff">
+    <main
+        id="main"
+        class="page page-staff"
+    >
         <masthead-secondary title="Staff Directory" />
         <!-- TODO Add SearchGenric here when complete
                 Filter by location, department, subject libarian -->
@@ -59,15 +62,15 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
-// Utilities
+// GQL
+import STAFF_LIST from "~/gql/queries/StaffList"
+
+// UTILITIES
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
-
-// gql
-import STAFF_LIST from "~/gql/queries/StaffList"
 
 export default {
     data() {

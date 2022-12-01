@@ -1,5 +1,8 @@
 <template lang="html">
-    <main class="page-service-detail">
+    <main
+        id="main"
+        class="page page-service-detail"
+    >
         <!-- ServiceOrResource Detail -->
         <div v-if="page.serviceOrResource">
             <nav-breadcrumb
@@ -164,11 +167,11 @@
 </template>
 
 <script>
+// HELPERS
+import _get from "lodash/get"
+
 // GQL
 import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceOrResourceOrWorkshopDetail"
-
-// Helpers
-import _get from "lodash/get"
 
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {

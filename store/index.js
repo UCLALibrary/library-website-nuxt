@@ -1,10 +1,10 @@
-// gql
+// GQL
 import GLOBALS from "~/gql/queries/Globals"
 import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
 import FOOTER_PRIMARY_ITEMS from "~/gql/queries/FooterPrimaryItems"
 import FOOTER_SOCK_ITEMS from "~/gql/queries/FooterSockItems"
 
-// utils
+// UTILS
 import removeEmpties from "~/utils/removeEmpties"
 
 export const state = () => ({
@@ -39,7 +39,7 @@ export const mutations = {
     }
 }
 
-// Define actions
+// DEFINE ACTIONS
 export const actions = {
     // eslint-disable-next-line no-unused-vars
     async nuxtServerInit({ commit }) {

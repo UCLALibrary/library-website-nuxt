@@ -1,5 +1,8 @@
 <template>
-    <main class="page page-news">
+    <main
+        id="main"
+        class="page page-news"
+    >
         <ul>
             <li
                 v-for="(item, index) in page.entries"
@@ -14,8 +17,7 @@
 </template>
 
 <script>
-// Helpers
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 import format from "date-fns/format"
 

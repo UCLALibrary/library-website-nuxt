@@ -1,5 +1,8 @@
 <template lang="html">
-    <div class="page page-help">
+    <main
+        id="main"
+        class="page page-location"
+    >
         <masthead-secondary
             :title="summaryData.title"
             :text="summaryData.summary"
@@ -42,11 +45,11 @@
                 :is-global="true"
             />
         </section-wrapper>
-    </div>
+    </main>
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 import parseAddress from "~/utils/parseAddress"
 import parseAmenities from "~/utils/parseAmenities"
@@ -109,7 +112,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-help {
+.page-location {
     .section-heading {
         @include step-4;
         color: var(--color-primary-blue-03);
