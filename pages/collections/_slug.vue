@@ -52,7 +52,7 @@
                 <rich-text :rich-text-content="page.richTextSimplified" />
             </div>
 
-            <divider-way-finder
+            <divider-way-finder v-if="(page.blocks.length > 0)"
                 class="divider-way-finder"
                 color="default"
             />
@@ -65,7 +65,7 @@
         />
 
         <section-wrapper
-            v-if="page.blocks.length > 0"
+            v-if="(parsedServicesAndResources.length > 0 || parsedEndowments.length > 0 || parsedAssociatedStaffMember.length > 0)"
             theme="divider"
         >
             <divider-way-finder
@@ -98,7 +98,7 @@
                 class="block-staff-article-item"
             />
 
-            <divider-way-finder
+            <divider-way-finder v-if="parsedAssociatedStaffMember.length > 0"
                 class="divider-way-finder"
                 color="default"
             />
