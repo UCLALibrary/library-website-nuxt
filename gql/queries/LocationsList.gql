@@ -1,26 +1,67 @@
 #import "~/gql/fragments/Image"
 query LocationsList {
-    entries(section: "location") {
-        ... on location_location_Entry {
-            id
-            locationType
-            to: slug
-            title
-            address {
-                id
-                addressLine1
-                addressLine2
-                addressCity
-                addressState
-                addressZipCode
-                addressCountry
-            }
-            amenities(label: true)
-            heroImage {
-                image {
-                    ...Image
-                }
-            }
+  entry(section: "listingLocationsHours") {
+    title
+    summary
+  }
+  uclaLibraries: entries(section: "location", locationType: "uclaLibrary") {
+    campusMapId
+    libcalLocationIdForHours
+    title
+    heroImage {
+      ... on heroImage_heroImage_BlockType {
+        id
+        image {
+          ...Image
         }
+      }
     }
+    address {
+      ... on address_addressFields_BlockType {
+        addressLine1
+        addressLine2
+        addressCity
+        addressState
+        addressZipCode
+      }
+    }
+    libcalSpacesUrl
+    amenities(label: true)
+    amenitiesIcons: amenities(label: false)
+    uri
+  }
+  affiliateLibraries: entries(section: "location", locationType:"affiliateLibrary", orderBy:"title ASC") {
+    campusMapId
+    title
+    heroImage {
+      ... on heroImage_heroImage_BlockType {
+        id
+        image {
+          ...Image
+        }
+      }
+    }
+    address {
+      ... on address_addressFields_BlockType {
+        addressLine1
+        addressLine2
+        addressCity
+        addressState
+        addressZipCode
+      }
+    }
+    amenities(label: true)
+    amenitiesIcons: amenities(label: false)
+    affiliateLibraryUrl
+  }
 }
+
+# fragment Image on AssetInterface {
+#   id
+#   src: url(transform: "fullscreen")
+#   height(transform: "fullscreen")
+#   width(transform: "fullscreen")
+#   srcset(sizes: ["375", "960", "1280", "1920", "2560"])
+#   alt: title
+#   focalPoint
+# }
