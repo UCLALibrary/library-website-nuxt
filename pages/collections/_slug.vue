@@ -84,7 +84,7 @@
                 class="section-header"
             />
 
-            <divider-way-finder
+            <divider-way-finder v-if="(parsedEndowments.length > 0 || parsedAssociatedStaffMember.length > 0)"
                 class="divider-way-finder"
                 color="default"
             />
@@ -98,7 +98,7 @@
                 class="block-staff-article-item"
             />
 
-            <divider-way-finder v-if="parsedAssociatedStaffMember.length > 0"
+            <divider-way-finder v-if="(parsedAssociatedStaffMember.length > 0)"
                 class="divider-way-finder"
                 color="default"
             />
