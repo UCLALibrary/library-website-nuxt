@@ -5,9 +5,9 @@
     >
         <!-- TODO BROKEN BREADCRUMB  -->
         <nav-breadcrumb
-            to="/about/jobs"
+            to="/about"
             :title="page.title"
-            parent-title="Jobs"
+            parent-title="About"
         />
 
         <banner-text
