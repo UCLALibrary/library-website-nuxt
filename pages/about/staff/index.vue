@@ -16,12 +16,6 @@
             <divider-way-finder />
         </section-wrapper>
 
-        <section-wrapper>
-            <alphabetical-browse-by
-                :selected-letter-prop="selectedLetterProp"
-                @selectedLetter="searchBySelectedLetter"
-            />
-        </section-wrapper>
         <div v-if="$fetchState.pending">
             <p>.....Its Loading</p>
         </div>
@@ -44,6 +38,10 @@
         </h4-->
 
             <section-wrapper>
+                <alphabetical-browse-by
+                    :selected-letter-prop="selectedLetterProp"
+                    @selectedLetter="searchBySelectedLetter"
+                />
                 <section-staff-list
                     v-if="page.entries"
                     :items="parsedStaffList"
