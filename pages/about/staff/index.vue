@@ -11,7 +11,25 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <!--h4 style="margin: 30px 400px">
+        <div v-if="$fetchState.pending">
+            <p>.....Its Loading</p>
+        </div>
+        <div v-else-if="$fetchState.error">
+            <p>There is an error</p>
+        </div>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder />
+        </section-wrapper>
+
+        <section-wrapper>
+            <alphabetical-browse-by
+                :selected-letter-prop="selectedLetterProp"
+                @selectedLetter="searchBySelectedLetter"
+            />
+        </section-wrapper>
+        <div v-else>
+            <!--h4 style="margin: 30px 400px">
             No of hits
 
             {{ `from craft is ${parsedPages.length}` }}
@@ -25,30 +43,20 @@
             }}
         </h4-->
 
-        <section-wrapper theme="divider">
-            <divider-way-finder />
-        </section-wrapper>
-
-        <section-wrapper>
-            <alphabetical-browse-by
-                :selected-letter-prop="selectedLetterProp"
-                @selectedLetter="searchBySelectedLetter"
-            />
-        </section-wrapper>
-
-        <section-wrapper>
-            <section-staff-list
-                v-if="page.entries"
-                :items="parsedStaffList"
-            />
-            <section-staff-list
-                v-else-if="hits && hits.length > 0"
-                :items="parseHitsResults"
-            />
-            <h4 v-else>
-                No results found
-            </h4>
-        </section-wrapper>
+            <section-wrapper>
+                <section-staff-list
+                    v-if="page.entries"
+                    :items="parsedStaffList"
+                />
+                <section-staff-list
+                    v-else-if="hits && hits.length > 0"
+                    :items="parseHitsResults"
+                />
+                <h4 v-else>
+                    No results found
+                </h4>
+            </section-wrapper>
+        </div>
     </main>
 </template>
 
@@ -248,6 +256,7 @@ export default {
                 query: {
                     q: data.text,
                     filters: JSON.stringify(data.filters),
+                    lastNameLetter: this.$route.query.lastNameLetter,
                 },
             })
         },
