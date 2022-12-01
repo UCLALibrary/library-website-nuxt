@@ -261,13 +261,17 @@ export default {
             libcalEndpoint: this.libcalEndpointProxy,
         }
     },
-    async asyncData({ $graphql, params, $config, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, $config, $elasticsearchplugin, error }) {
         // console.log("In fetch start")
         const navData = await $graphql.default.request(HEADER_MAIN_MENU_ITEMS)
 
         const data = await $graphql.default.request(EVENT_DETAIL, {
             slug: params.slug,
         })
+        if (!data.event && !data.eventSeries && !data.exhibition) {
+            error({ statusCode: 404, message: 'Page not found' })
+        }
+
         if (data)
             if (data.eventSeries) data.eventSeries.sectionHandle = "eventSeries"
 
