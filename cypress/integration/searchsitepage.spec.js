@@ -1,7 +1,7 @@
 describe("Search Results page", () => {
     it("Visits the search results page", () => {
         // the following data will not work in production
-        cy.visit("/search_site")
+        cy.visit("/search-site")
 
         // UCLA Library brand
         cy.get(".logo-ucla").should("be.visible")
