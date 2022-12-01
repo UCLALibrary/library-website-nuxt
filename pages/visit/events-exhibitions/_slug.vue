@@ -1,6 +1,9 @@
 <template lang="html">
-    <section class="page-event-detail">
-        <!-- Event Detail -->
+    <main
+        id="main"
+        class="page page-event-detail"
+    >
+        <!-- EVENT DETAIL -->
         <div v-if="page.event">
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
@@ -66,13 +69,15 @@
                 :is-global="true"
             />
         </div>
-        <!-- Event Series -->
+
+        <!-- EVENT SERIES -->
         <div v-else-if="page.eventSeries">
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
                 :title="page.eventSeries.title"
                 parent-title="Exhibits & Upcoming Events"
             />
+
             <banner-text
                 v-if="page.eventSeries && !page.eventSeries.image[0]"
                 :title="page.eventSeries.title"
@@ -97,6 +102,7 @@
                     :align-right="true"
                 />
             </section-wrapper>
+
             <section-wrapper theme="divider">
                 <divider-way-finder
                     v-if="page.eventSeries.image"
@@ -108,6 +114,7 @@
                 class="content"
                 :blocks="page.eventSeries.blocks"
             />
+
             <section-wrapper
                 v-if="page.eventSeries.blocks.length > 0"
                 theme="divider"
@@ -117,6 +124,7 @@
                     color="visit"
                 />
             </section-wrapper>
+
             <section-wrapper>
                 <h3 class="section-title">
                     Events in this Series
@@ -128,6 +136,7 @@
                     class="section section-list"
                 />
             </section-wrapper>
+
             <section-wrapper
                 v-if="page.eventSeries.associatedTopics.length > 0"
                 theme="divider"
@@ -137,6 +146,7 @@
                     color="visit"
                 />
             </section-wrapper>
+
             <section-wrapper>
                 <section-cards-with-illustrations
                     v-if="page.eventSeries.associatedTopics.length > 0"
@@ -145,18 +155,21 @@
                     section-title="Associated Topics"
                 />
             </section-wrapper>
+
             <block-call-to-action
                 class="section block-call-to-action"
                 :is-global="true"
             />
         </div>
-        <!-- Exhibition -->
+
+        <!-- EXHIBITION -->
         <div v-else>
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
                 :title="page.exhibition.title"
                 parent-title="Exhibits & Upcoming Events"
             />
+
             <banner-text
                 v-if="page.exhibition && !page.exhibition.image[0]"
                 :title="page.exhibition.title"
@@ -185,21 +198,23 @@
                     :to="parsedExhibitionBannerTo"
                 />
             </section-wrapper>
+
             <section-wrapper theme="divider">
-                <divider-way-finder
-                    color="visit"
-                />
+                <divider-way-finder color="visit" />
             </section-wrapper>
+
             <flexible-blocks
                 class="content"
                 :blocks="page.exhibition.blocks"
             />
+
             <section-wrapper
                 v-if="page.exhibition.blocks.length > 0"
                 theme="divider"
             >
                 <divider-way-finder color="visit" />
             </section-wrapper>
+
             <section-wrapper
                 v-if="associatedExhibitionEvents.length"
                 section-title="Associated Events"
@@ -210,24 +225,28 @@
                     class="section section-list"
                 />
             </section-wrapper>
+
             <section-wrapper
                 v-if="associatedExhibitionEvents.length > 0"
                 theme="divider"
             >
                 <divider-way-finder color="visit" />
             </section-wrapper>
+
             <section-wrapper
                 v-if="parsedAssociatedStaffMember.length > 0"
                 section-title="Contact a Subject Specialist"
             >
                 <section-staff-list :items="parsedAssociatedStaffMember" />
             </section-wrapper>
+
             <section-wrapper
                 v-if="parsedAssociatedStaffMember.length > 0"
                 theme="divider"
             >
                 <divider-way-finder color="visit" />
             </section-wrapper>
+
             <section-wrapper :section-title="parsedAcknowledgementTitle">
                 <rich-text
                     :rich-text-content="
@@ -236,11 +255,11 @@
                 />
             </section-wrapper>
         </div>
-    </section>
+    </main>
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL
@@ -272,13 +291,13 @@ export default {
             error({ statusCode: 404, message: 'Page not found' })
         }
 
-        if (data)
+        if (data && (data.event || data.exhibition || data.eventSeries)) {
             if (data.eventSeries) data.eventSeries.sectionHandle = "eventSeries"
-
-        await $elasticsearchplugin.index(
-            data.event || data.exhibition || data.eventSeries,
-            params.slug
-        )
+            await $elasticsearchplugin.index(
+                data.event || data.exhibition || data.eventSeries,
+                params.slug
+            )
+        }
 
         return {
             page: data,

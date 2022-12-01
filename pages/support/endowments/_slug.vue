@@ -1,5 +1,8 @@
 <template>
-    <main class="page-endowments-detail">
+    <main
+        id="main"
+        class="page page-endowments-detail"
+    >
         <nav-breadcrumb
             to="/support/endowments"
             :title="page.title"
@@ -71,7 +74,7 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL

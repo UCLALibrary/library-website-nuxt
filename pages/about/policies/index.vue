@@ -1,5 +1,8 @@
 <template>
-    <main class="page page-policies">
+    <main
+        id="main"
+        class="page page-policies"
+    >
         <masthead-secondary
             :title="page.title"
             :text="page.summary"
@@ -33,7 +36,7 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL

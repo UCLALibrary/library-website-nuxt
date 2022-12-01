@@ -46,13 +46,11 @@
 </template>
 
 <script>
-// GQL
-import POLICY_DETAIL from "~/gql/queries/PolicyDetail"
-
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
-// about/policies/shhh
+// GQL
+import POLICY_DETAIL from "~/gql/queries/PolicyDetail"
 
 export default {
     async asyncData({ $graphql, params, store, $elasticsearchplugin, error }) {

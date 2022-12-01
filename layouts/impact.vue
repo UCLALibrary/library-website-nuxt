@@ -14,10 +14,10 @@
 </template>
 
 <script>
-// Mock data
+// MOCK DATA
 import * as MOCK_API from "~/data/mock-api.json"
 
-// Helpers
+// HELPERS
 import kebabCase from "~/utils/kebabCase"
 
 export default {

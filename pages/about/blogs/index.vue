@@ -1,5 +1,8 @@
 <template>
-    <main class="page page-news">
+    <main
+        id="main"
+        class="page page-news"
+    >
         <banner-header
             v-if="page.heroImage && page.heroImage.length == 1"
             :image="page.heroImage[0].image[0]"
@@ -30,7 +33,7 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 import format from "date-fns/format"
 

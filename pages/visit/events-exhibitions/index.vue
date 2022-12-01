@@ -1,5 +1,8 @@
 <template lang="html">
-    <section class="page-events-exhibits">
+    <main
+        id="main"
+        class="page page-events-exhibits"
+    >
         <masthead-secondary
             title="Exhibits & Upcoming Events"
             text="Browse upcoming remote events and online exhibits."
@@ -46,8 +49,8 @@
         </section-wrapper>
 
         <section-wrapper 
-            theme="divider"
             v-if="page.featuredEvents.length && parsedExhibitionsAndEvents.length"
+            theme="divider"
         >
             <divider-way-finder color="visit" />
         </section-wrapper>
@@ -66,14 +69,12 @@
                 :is-global="true"
             />
         </section-wrapper>
-    </section>
+    </main>
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
-// import formatEventDates from "~/utils/formatEventDates"
-// import formatEventTimes from "~/utils/formatEventTimes"
 
 // GQL
 import EXHIBITIONS_AND_EVENTS_LIST from "~/gql/queries/ExhibitionsAndEventsList.gql"
@@ -115,9 +116,9 @@ export default {
                     text: obj.typeHandle === "event" ? obj.eventDescription : obj.summary,
                     prompt: obj.typeHandle === "exhibition" 
                         ? "View exhibition" 
-                            : obj.workshopOrEventSeriesType === "visit/events-exhibitions" 
-                                ? "View event series" 
-                                    : "View event",
+                        : obj.workshopOrEventSeriesType === "visit/events-exhibitions" 
+                            ? "View event series" 
+                            : "View event",
                     locations: obj.typeHandle !== "exhibition" ? obj.associatedLocations : obj.associatedLocationsAndPrograms,
                 }
             })
@@ -132,12 +133,12 @@ export default {
                     ...obj,
                     category: 
                         obj.typeHandle === "exhibition" 
-                        ? "Exhibition"
+                            ? "Exhibition"
                             : obj.workshopOrEventSeriesType === "visit/events-exhibitions" 
                                 ? "Event Series"
-                                    : obj.eventType.length > 0
-                                        ? obj.eventType[0].title
-                                            : "Event",
+                                : obj.eventType.length > 0
+                                    ? obj.eventType[0].title
+                                    : "Event",
                     title: obj.title,
                     //locations: `/${obj.associatedLocations.to}`,
                 }
@@ -157,12 +158,12 @@ export default {
                     endDate: _get(eventOrExhibtion, "endDateWithTime", null),
                     category: 
                         eventOrExhibtion.typeHandle === "exhibition" 
-                        ? "Exhibition"
+                            ? "Exhibition"
                             : eventOrExhibtion.workshopOrEventSeriesType === "visit/events-exhibitions" 
                                 ? "Event Series"
-                                    : eventOrExhibtion.eventType.length > 0
-                                        ? eventOrExhibtion.eventType[0].title
-                                            : "Event",
+                                : eventOrExhibtion.eventType.length > 0
+                                    ? eventOrExhibtion.eventType[0].title
+                                    : "Event",
                     text: _get(eventOrExhibtion, "eventDescription", null),
                     locations: _get(eventOrExhibtion, "associatedLocations", null),
                 }

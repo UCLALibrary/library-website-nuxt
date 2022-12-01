@@ -1,5 +1,8 @@
 <template lang="html">
-    <section class="page-collections-access">
+    <main
+        id="main"
+        class="page page-collections-access"
+    >
         <nav-breadcrumb
             to="/collections"
             :title="page.title"
@@ -46,14 +49,16 @@
                 :is-horizontal="false"
             />
         </section-wrapper>
-    </section>
+    </main>
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
+
 // GQL
 import ACCESS_COLLECTIONS from "~/gql/queries/CollectionsAccessList.gql"
+
 export default {
     async asyncData({ $graphql }) {
         const data = await $graphql.default.request(ACCESS_COLLECTIONS)

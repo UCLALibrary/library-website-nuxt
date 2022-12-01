@@ -1,5 +1,8 @@
 <template lang="html">
-    <div class="page page-visit">
+    <main
+        id="main"
+        class="page page-visit"
+    >
         <masthead-secondary
             title="Find and Reserve a Space"
             text="Browse on-campus spaces for study, meetings, and group projects."
@@ -12,8 +15,9 @@
                 @view-changed="viewModeChanger"
             />
         </masthead-secondary>
-    </div>
+    </main>
 </template>
+
 <script>
 const searchFilters = {
     filters: [
@@ -102,6 +106,7 @@ export default {
     },
 }
 </script>
+
 <style lang="scss" scoped>
 .page-visit {
     .generic-search {

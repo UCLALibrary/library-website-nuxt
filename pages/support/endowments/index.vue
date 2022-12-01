@@ -1,12 +1,13 @@
 <template lang="html">
     <main
+        id="main"
         class="page page-endowment-listing"
     >
         <nav-breadcrumb
-                to="/support"
-                title="Endowments"
-                parent-title="Support Us"
-            />
+            to="/support"
+            title="Endowments"
+            parent-title="Support Us"
+        />
 
         <masthead-secondary
             :title="page.title"
@@ -37,9 +38,8 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
-import format from "date-fns/format"
 
 // GQL
 import ENDOWMENTS_LIST from "~/gql/queries/EndowmentList"

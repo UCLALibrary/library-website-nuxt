@@ -49,11 +49,11 @@
 </template>
 
 <script>
+// HELPERS
+import _get from "lodash/get"
+
 // GQL
 import GENERAL_CONTENT_DETAIL from "~/gql/queries/GeneralContentDetail"
-
-// Helpers
-import _get from "lodash/get"
 
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {

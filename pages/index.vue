@@ -1,7 +1,10 @@
 <template lang="html">
-    <div class="page page-home">
+    <main
+        id="main"
+        class="page page-home"
+    >
         <masthead-primary />
-        <!-- TODO elastis search testing -->
+        <!-- TODO elastic search testing -->
         <!--h4>Mapping:</h4>
         <p>{{ mapping }}</p>
         <h4>Search Responsee</h4>
@@ -86,7 +89,7 @@
             :items="page.posts"
             to="/news/"
         />
-    </div>
+    </main>
 </template>
 
 <script>
