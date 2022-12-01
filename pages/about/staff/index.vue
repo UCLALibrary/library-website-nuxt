@@ -11,12 +11,6 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <div v-if="$fetchState.pending">
-            <p>.....Its Loading</p>
-        </div>
-        <div v-else-if="$fetchState.error">
-            <p>There is an error</p>
-        </div>
 
         <section-wrapper theme="divider">
             <divider-way-finder />
@@ -28,6 +22,12 @@
                 @selectedLetter="searchBySelectedLetter"
             />
         </section-wrapper>
+        <div v-if="$fetchState.pending">
+            <p>.....Its Loading</p>
+        </div>
+        <div v-else-if="$fetchState.error">
+            <p>There is an error</p>
+        </div>
         <div v-else>
             <!--h4 style="margin: 30px 400px">
             No of hits
