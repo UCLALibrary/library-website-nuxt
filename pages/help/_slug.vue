@@ -1,5 +1,8 @@
 <template lang="html">
-    <main class="page page-help-topic">
+    <main
+        id="main"
+        class="page page-help-topic"
+    >
         <MastheadSecondary
             :title="page.title"
             :text="page.summary"
@@ -59,11 +62,11 @@
 </template>
 
 <script>
+// HELPERS
+import _get from "lodash/get"
+
 // GQL
 import HELP_TOPIC_DETAIL from "~/gql/queries/HelpTopicDetail"
-
-// Helpers
-import _get from "lodash/get"
 
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {

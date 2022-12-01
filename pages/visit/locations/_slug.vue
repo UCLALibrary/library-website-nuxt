@@ -204,10 +204,10 @@
 </template>
 
 <script>
-// gql
+// GQL
 import LOCATION_DETAIL from "~/gql/queries/LocationDetail"
 
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 export default {

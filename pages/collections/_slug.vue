@@ -1,5 +1,8 @@
 <template>
-    <main class="page-collection-detail">
+    <main
+        id="main"
+        class="page page-collection-detail"
+    >
         <nav-breadcrumb
             to="/collections"
             :title="page.title"
@@ -112,7 +115,7 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL

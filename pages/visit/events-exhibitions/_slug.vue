@@ -1,5 +1,8 @@
 <template lang="html">
-    <section class="page-event-detail">
+    <main
+        id="main"
+        class="page page-event-detail"
+    >
         <!-- Event Detail -->
         <div v-if="page.event">
             <nav-breadcrumb
@@ -236,11 +239,11 @@
                 />
             </section-wrapper>
         </div>
-    </section>
+    </main>
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL

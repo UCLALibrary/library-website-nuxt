@@ -36,10 +36,10 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
-// gql
+// GQL
 import ASK_US from "~/gql/queries/AskUs"
 
 export default {
