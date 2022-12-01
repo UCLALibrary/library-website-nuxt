@@ -66,10 +66,13 @@ import HELP_TOPIC_DETAIL from "~/gql/queries/HelpTopicDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
             slug: params.slug,
         })
+        if (!data.entry) {
+            error({ statusCode: 404, message: 'Page not found' })
+        }
         if (data && params.slug !== undefined) {
             console.log("Helptopics slugs Indexing slug: " + params.slug)
             await $elasticsearchplugin.index(data.entry, params.slug)

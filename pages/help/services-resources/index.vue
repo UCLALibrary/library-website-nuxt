@@ -28,8 +28,9 @@
             ${hits.length}`
             }}
         </h4-->
+
         <section-wrapper theme="divider">
-            <divider-way-finder color="help" />
+            <divider-way-finder class="search-margin" />
         </section-wrapper>
 
         <section-wrapper
@@ -38,6 +39,7 @@
                     page.workshopseries ||
                     (hits && hits.length > 0)
             "
+            class="section-no-top-margin"
         >
             <section-cards-with-illustrations
                 v-if="page.serviceOrResource || page.workshopseries"
@@ -298,16 +300,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-help {
-    // refactor styling of masthead-secondary component
-    ::v-deep .masthead-secondary .container {
-        padding-top: var(--space-xl);
-        padding-bottom: var(--space-4xl);
-    }
-    // refactor styling of search-generic component
-    .search-generic {
-        margin-top: -72px;
-        max-width: $container-l-cta + px;
-        padding: 32px 48px 0;
+    .search-margin {
+        margin: var(--space-2xl) auto;
     }
 }
 </style>

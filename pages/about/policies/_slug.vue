@@ -55,7 +55,7 @@ import _get from "lodash/get"
 // about/policies/shhh
 
 export default {
-    async asyncData({ $graphql, params, store, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, store, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Policy detail from Craft for live preview"
@@ -63,6 +63,9 @@ export default {
         const data = await $graphql.default.request(POLICY_DETAIL, {
             slug: params.slug,
         })
+        if (!data.entry) {
+            error({ statusCode: 404, message: 'Page not found' })
+        }
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         // console.log("Data fetched: " + JSON.stringify(data))
 
