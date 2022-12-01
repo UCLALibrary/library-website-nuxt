@@ -60,7 +60,7 @@ export default function ({ $config }, inject) {
                     must: [
                         {
                             query_string: {
-                                query: keyword+"*",
+                                query: keyword,
                                 "fields": [
                                     ...searchFields
                                 ],

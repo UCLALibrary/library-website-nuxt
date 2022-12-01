@@ -30,7 +30,10 @@
         </section-wrapper>
 
         <section-wrapper>
-            <alphabetical-browse-by selected-letter-prop="C" />
+            <alphabetical-browse-by
+                :selected-letter-prop="selectedLetterProp"
+                @selectedLetter="searchBySelectedLetter"
+            />
         </section-wrapper>
 
         <section-wrapper>
@@ -46,7 +49,6 @@
                 No results found
             </h4>
         </section-wrapper>
-        </section-wrappe>
     </main>
 </template>
 
@@ -67,6 +69,7 @@ export default {
             page: {},
             hits: [],
             searchFilters: [],
+            selectedLetterProp: "",
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
                 queryFilters:
@@ -87,11 +90,26 @@ export default {
         console.log("test query parameters: " + this.$route.query.filters)*/
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
-            this.$route.query.filters
+            this.$route.query.filters ||
+            this.$route.query.lastNameLetter
         ) {
+            let query_text = this.$route.query.q || "*"
+            if (
+                this.$route.query.lastNameLetter &&
+                this.$route.query.lastNameLetter !== "All"
+            ) {
+                query_text =
+                    query_text +
+                    ` AND nameLast:${this.$route.query.lastNameLetter}*`
+            } else if (
+                this.$route.query.lastNameLetter &&
+                this.$route.query.lastNameLetter === "All"
+            ) {
+                query_text = query_text + " AND nameLast:*"
+            }
             console.log("in router query in asyc data")
             const results = await this.$dataApi.keywordSearchWithFilters(
-                this.$route.query.q || "*",
+                query_text,
                 config.staff.searchFields,
                 "sectionHandle:staffMember",
                 JSON.parse(this.$route.query.filters) || {},
@@ -116,6 +134,7 @@ export default {
                         JSON.parse(this.$route.query.filters)) ||
                     {},
             }
+            this.selectedLetterProp = this.$route.query.lastNameLetter || ""
         } else {
             // if route queries are empty fetch data from craft
             this.page = await this.$graphql.default.request(STAFF_LIST)
@@ -124,6 +143,7 @@ export default {
                 queryText: "",
                 queryFilters: {},
             }
+            this.selectedLetterProp = ""
             //console.log("Craft data:" + JSON.stringify(data))
         }
     },
@@ -162,6 +182,9 @@ export default {
         "$route.query.filters"(newValue) {
             console.log("watching filters:" + newValue)
         },
+        "$route.query.lastNameLetter"(newValue) {
+            console.log("watching lastNameLetter:" + newValue)
+        },
     },
 
     async mounted() {
@@ -196,12 +219,27 @@ export default {
                     staffName:
                         obj["_source"].alternativeName.length > 0
                             ? `${obj["_source"].nameFirst} ${obj["_source"].nameLast} ${obj["_source"].alternativeName[0].fullName}`
-                            : `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`, // TODO append to add alternativeName like above
+                            : `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
                 }
             })
         },
+        searchBySelectedLetter(data) {
+            console.log("On the page searchBySelectedLetter called")
+            /*this.page = {}
+            this.hits = []*/
+            this.$router.push({
+                path: "/about/staff",
+                query: {
+                    q: this.searchGenericQuery.queryText,
+                    filters: JSON.stringify(
+                        this.searchGenericQuery.queryFilters
+                    ),
+                    lastNameLetter: data,
+                },
+            })
+        },
 
-        async getSearchData(data) {
+        getSearchData(data) {
             console.log("On the page getsearchdata called")
             /*this.page = {}
             this.hits = []*/

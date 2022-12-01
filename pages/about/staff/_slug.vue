@@ -1,5 +1,8 @@
 <template>
-    <main class="page page-staff-detail">
+    <main
+        id="main"
+        class="page page-staff-detail"
+    >
         <!-- staff page here -->
         <!-- no search on this page -->
         <nav-breadcrumb
@@ -95,7 +98,7 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL
@@ -114,7 +117,10 @@ export default {
         if (!data.entry) {
             error({ statusCode: 404, message: 'Page not found' })
         }
-        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
+        if (data && data.entry)
+            await $elasticsearchplugin.index(data.entry, params.slug)
+        else console.log("staff data missing:" + params.slug)
+
         // console.log("Data fetched: " + JSON.stringify(data))
         // _get(data, "entry", {}),
 
