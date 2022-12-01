@@ -79,15 +79,15 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 import sortByTitle from "~/utils/sortByTitle"
 
-// gql
+// GQL
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceWorkshopSeriesList"
 import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
 
-// Utilities
+// UTILITIES
 import config from "~/utils/searchConfig"
 
 export default {

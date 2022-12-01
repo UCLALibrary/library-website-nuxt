@@ -1,5 +1,8 @@
 <template lang="html">
-    <section class="page-collections">
+    <main
+        id="main"
+        class="page page-collections"
+    >
         <banner-text
             class="banner-text"
             :title="page.title"
@@ -76,14 +79,16 @@
             class="flexible-content"
             :blocks="page.blocks"
         />
-    </section>
+    </main>
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
+
 // GQL
 import COLLECTIONS_LIST from "~/gql/queries/CollectionsList.gql"
+
 export default {
     async asyncData({ $graphql }) {
         const data = await $graphql.default.request(COLLECTIONS_LIST)

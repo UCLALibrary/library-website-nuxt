@@ -1,5 +1,8 @@
 <template lang="html">
-    <div class="page-search-site">
+    <main
+        id="main"
+        class="page page-search-site"
+    >
         <masthead-secondary title="Search Results" />
         <search-generic
             :search-generic-query="searchGenericQuery"
@@ -48,7 +51,7 @@
                 />
             </section-wrapper>
         </div>
-    </div>
+    </main>
 </template>
 
 <script>

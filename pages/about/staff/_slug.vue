@@ -1,5 +1,8 @@
 <template>
-    <main class="page page-staff-detail">
+    <main
+        id="main"
+        class="page page-staff-detail"
+    >
         <!-- staff page here -->
         <!-- no search on this page -->
         <nav-breadcrumb
@@ -95,7 +98,7 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL

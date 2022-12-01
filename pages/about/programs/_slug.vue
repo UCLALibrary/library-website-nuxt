@@ -1,5 +1,8 @@
 <template>
-    <main class="page-program-detail">
+    <main
+        id="main"
+        class="page page-program-detail"
+    >
         <nav-breadcrumb
             to="/about/programs"
             :title="page.title"
@@ -96,7 +99,7 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL

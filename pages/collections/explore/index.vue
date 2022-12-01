@@ -1,5 +1,8 @@
 <template lang="html">
-    <main class="page-collections-explore">
+    <main
+        id="main"
+        class="page page-collections-explore"
+    >
         <nav-breadcrumb
             to="/collections"
             title="Explore Featured Collections"
@@ -55,7 +58,7 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL

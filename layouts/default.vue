@@ -14,7 +14,7 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import kebabCase from "~/utils/kebabCase"
 
 export default {
