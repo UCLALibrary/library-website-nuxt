@@ -18,7 +18,7 @@ export default function ({ $config }, inject) {
                 size: "1000",
                 "query": {
                     "query_string" : {
-                        "query" : keyword,
+                        "query" : "("+keyword + " AND NOT(sectionHandle:event)) OR (startDateWithTime:[now TO *] AND sectionHandle:event)",
                         "fields": [
                             "*",
                             "title^4",
@@ -28,7 +28,7 @@ export default function ({ $config }, inject) {
                         ],
                         "fuzziness":"auto"
                     }
-                }
+                }        
             })
         })
         const data = await response.json()
@@ -37,6 +37,7 @@ export default function ({ $config }, inject) {
 
     async function keywordSearchWithFilters(
         keyword = "*:*",
+        searchFields,
         sectionHandle,
         filters,
         sort,
@@ -60,6 +61,10 @@ export default function ({ $config }, inject) {
                         {
                             query_string: {
                                 query: keyword,
+                                "fields": [
+                                    ...searchFields
+                                ],
+                                "fuzziness":"auto"
                             },
                         },
                         ...parseSectionHandle(sectionHandle),
@@ -88,6 +93,9 @@ export default function ({ $config }, inject) {
                             {
                                 query_string: {
                                     query: keyword+"*",
+                                    "fields": [
+                                        ...searchFields
+                                    ],
                                     fuzziness: "auto",
                                 },
                             },

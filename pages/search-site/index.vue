@@ -4,22 +4,27 @@
         class="page page-search-site"
     >
         <masthead-secondary title="Search Results" />
+
         <search-generic
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
+
         <div v-if="$fetchState.pending">
             <p>.....Its Loading</p>
         </div>
+
         <div v-else-if="$fetchState.error">
             <p>There is an error</p>
         </div>
+
         <div v-else>
             <h4 style="margin: 30px 400px">
                 <br>
                 No of hits
                 {{ page && page.hits && page.hits.hits.length }}
             </h4>
+
             <div
                 v-if="page && page.hits"
                 class="meta"
@@ -43,6 +48,7 @@
             <section-wrapper>
                 <divider-way-finder class="divider-way-finder" />
             </section-wrapper>
+
             <section-wrapper>
                 <section-cards-with-illustrations
                     class="section-cards"

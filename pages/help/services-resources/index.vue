@@ -15,7 +15,14 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <!--h4 style="margin: 30px 400px">
+        <div v-if="$fetchState.pending">
+            <p>.....Its Loading</p>
+        </div>
+        <div v-else-if="$fetchState.error">
+            <p>There is an error</p>
+        </div>
+        <div v-else>
+            <!--h4 style="margin: 30px 400px">
             No of hits
 
             {{ `from craft is ${parsedPages.length}` }}
@@ -29,33 +36,33 @@
             }}
         </h4-->
 
-        <section-wrapper theme="divider">
-            <divider-way-finder class="search-margin" />
-        </section-wrapper>
+            <section-wrapper theme="divider">
+                <divider-way-finder class="search-margin" />
+            </section-wrapper>
 
-        <section-wrapper
-            v-if="
-                page.serviceOrResource ||
-                    page.workshopseries ||
-                    (hits && hits.length > 0)
-            "
-            class="section-no-top-margin"
-        >
-            <section-cards-with-illustrations
-                v-if="page.serviceOrResource || page.workshopseries"
-                :items="parsedServiceAndResourceList"
-                :is-horizontal="true"
-            />
-            <section-cards-with-illustrations
-                v-else-if="hits && hits.length > 0"
-                :items="parseHitsResults"
-                :is-horizontal="true"
-            />
-        </section-wrapper>
-        <h4 v-else>
-            No results found
-        </h4>
-
+            <section-wrapper
+                v-if="
+                    page.serviceOrResource ||
+                        page.workshopseries ||
+                        (hits && hits.length > 0)
+                "
+                class="section-no-top-margin"
+            >
+                <section-cards-with-illustrations
+                    v-if="page.serviceOrResource || page.workshopseries"
+                    :items="parsedServiceAndResourceList"
+                    :is-horizontal="true"
+                />
+                <section-cards-with-illustrations
+                    v-else-if="hits && hits.length > 0"
+                    :items="parseHitsResults"
+                    :is-horizontal="true"
+                />
+            </section-wrapper>
+            <h4 v-else>
+                No results found
+            </h4>
+        </div>
         <section-wrapper
             v-if="
                 page.serviceOrResource ||
@@ -140,6 +147,7 @@ export default {
             this.helptopic = {}
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
+                config.staff.searchFields,
                 "sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic",
                 [],
                 "",
