@@ -3,10 +3,11 @@
         id="main"
         class="page page-student-opportunities"
     >
+        <!-- TODO BROKEN BREADCRUMB  -->
         <nav-breadcrumb
-            to="/about"
+            to="/about/jobs"
             :title="page.title"
-            parent-title="About"
+            parent-title="Jobs"
         />
 
         <banner-text
