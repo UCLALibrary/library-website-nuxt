@@ -74,7 +74,7 @@ import format from "date-fns/format"
 import ARTICLE_DETAIL from "~/gql/queries/ArticleDetail"
 
 export default {
-    async asyncData({ $graphql, params, store, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, store, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
@@ -82,6 +82,9 @@ export default {
         const data = await $graphql.default.request(ARTICLE_DETAIL, {
             slug: params.slug,
         })
+        if (!data.entry) {
+            error({ statusCode: 404, message: 'Page not found' })
+        }
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         // console.log("Data fetched: " + JSON.stringify(data))
 

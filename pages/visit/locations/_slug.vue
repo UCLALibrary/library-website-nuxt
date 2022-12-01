@@ -211,11 +211,15 @@ import LOCATION_DETAIL from "~/gql/queries/LocationDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         console.log("rendered client side" + process.client)
         const data = await $graphql.default.request(LOCATION_DETAIL, {
             slug: params.slug,
         })
+        if (!data.entry) {
+            error({ statusCode: 404, message: 'Page not found' })
+        }
+
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
 
         return {
