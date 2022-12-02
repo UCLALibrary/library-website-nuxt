@@ -157,7 +157,7 @@ export default {
                     category: this.page.featuredCollectionsSection[0]
                         .featuredCollections[0].category
                         ? this.page.featuredCollectionsSection[0].featuredCollections[0].category.join(
-                            ","
+                            ", "
                         )
                         : "",
                     prompt: _get(
@@ -188,7 +188,7 @@ export default {
                         return {
                             ...obj,
                             image: _get(obj, "heroImage[0].image[0]", ""),
-                            category: _get(obj, "category[0]", ""),
+                            category: obj.category.join(", "),
                             to: `/collections/explore/${obj.to}`,
                         }
                     })
