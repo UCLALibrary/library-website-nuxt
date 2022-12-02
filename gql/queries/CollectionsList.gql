@@ -24,7 +24,7 @@ query CollectionsList {
                     featuredCollections {
                         title
                         text: summary
-                        to: uri
+                        to: slug
                         heroImage {
                             ... on heroImage_heroImage_BlockType {
                                 id

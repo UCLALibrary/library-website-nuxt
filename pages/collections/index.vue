@@ -189,6 +189,7 @@ export default {
                             ...obj,
                             image: _get(obj, "heroImage[0].image[0]", ""),
                             category: _get(obj, "category[0]", ""),
+                            to: `/collections/explore/${obj.to}`,
                         }
                     })
             } else {
