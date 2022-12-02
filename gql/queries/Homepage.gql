@@ -1,0 +1,89 @@
+#import "~/gql/fragments/Image"
+
+query Homepage {
+    entry(section: "homepage") {
+        title
+        summary
+        ... on homepage_homepage_Entry {
+            searchLinks {
+                ... on searchLinks_searchLinks_BlockType {
+                    searchLinkText
+                    searchLinkUrl
+                }
+            }
+            getHelpWith {
+                ... on getHelpWith_getHelpWith_BlockType {
+                    titleGeneral
+                    sectionSummary
+                    getHelpWith {
+                        title
+                        text: summary
+                        to: uri
+                        externalResourceUrl
+                        illustrationsResourcesAndServices
+                    }
+                }
+            }
+            featuredEvents {
+                title
+                seriesDate {
+                    startDate @formatDateTime(format: "M j")
+                    endDate @formatDateTime(format: "M j, Y")
+                }
+                date {
+                    startTime @formatDateTime(format: "M j")
+                    endTime @formatDateTime(format: "M j, Y")
+                }
+                uri
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                        altText
+                    }
+                }
+            }
+            featuredCollections {
+                title
+                summary
+                uri
+                physicalDigital
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                        altText
+                    }
+                }
+                buttonUrl {
+                    ... on buttonUrl_button_BlockType {
+                        buttonText
+                        buttonUrl
+                    }
+                }
+            }
+            featuredNews {
+                title
+                summary
+                uri
+                postDate @formatDateTime(format: "M j, Y")
+                articleCategories {
+                    title
+                }
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                        altText
+                    }
+                }
+            }
+        }
+    }
+}
