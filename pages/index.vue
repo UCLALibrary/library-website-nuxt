@@ -1,5 +1,8 @@
 <template lang="html">
-    <div class="page page-home">
+    <main
+        id="main"
+        class="page page-home"
+    >
         <masthead-primary />
         <!-- TODO elastic search testing -->
         <!--h4>Mapping:</h4>
@@ -100,7 +103,7 @@
         <section-wrapper theme="divider">
             <divider-general />
         </section-wrapper>
-    </div>
+    </main>
 </template>
 
 <script>

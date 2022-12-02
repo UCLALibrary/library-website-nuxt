@@ -25,6 +25,8 @@ query Homepage {
                 }
             }
             featuredEvents {
+                id
+                sectionHandle
                 title
                 startDateWithTime
                     @formatDateTime(
@@ -36,13 +38,24 @@ query Homepage {
                         format: "Y-m-d\\TH:i"
                         timezone: "America/Los_Angeles"
                     )
-                eventType {
+                category: eventType {
                     ... on eventType_Category {
                         id
                         title
                     }
                 }
                 text: eventDescription
+                summary
+                startDate
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
+                endDate
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
                 associatedLocations {
                     ... on location_location_Entry {
                         id
@@ -63,10 +76,12 @@ query Homepage {
                 }
             }
             featuredCollections {
+                id
+                sectionHandle
                 title
-                summary
+                text: summary
                 uri
-                physicalDigital
+                category: physicalDigital
                 heroImage {
                     ... on heroImage_heroImage_BlockType {
                         id
@@ -84,10 +99,12 @@ query Homepage {
                 }
             }
             featuredNews {
+                id
+                sectionHandle
                 title
-                summary
+                text: summary
                 uri
-                postDate @formatDateTime(format: "M j, Y")
+                postDate
                 articleCategories {
                     title
                 }
