@@ -71,14 +71,6 @@
                 class="section-teaser-card"
                 :items="parsedArticles"
             />
-
-            <!-- TODO edit link to filtered few of news listing, category=collections -->
-            <nuxt-link
-                to="/about/news"
-                class="button-more"
-            >
-                <button-more text="See All Collections News" />
-            </nuxt-link>
         </section-wrapper>
 
         <section-wrapper>
