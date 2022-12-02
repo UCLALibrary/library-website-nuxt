@@ -26,6 +26,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder color="visit" />
         </section-wrapper>
+<<<<<<< HEAD
         <section-wrapper>
             <banner-featured
                 :image="bannerFeaturedEvent.image"
@@ -36,6 +37,19 @@
                 :end-date="bannerFeaturedEvent.endDate"
                 :description="bannerFeaturedEvent.description"
                 :locations="bannerFeaturedEvent.associatedLocations"
+=======
+        {{ page.featuredEvents }}
+        <section-wrapper>
+            <banner-featured
+                class="section banner banner-visit"
+                :image="bannerFeatured.image"
+                :to="bannerFeatured.to"
+                :title="bannerFeatured.title"
+                :start-date="bannerFeatured.startDate"
+                :end-date="bannerFeatured.endDate"
+                :prompt="bannerFeatured.prompt"
+                :locations="bannerFeatured.associatedLocations"
+>>>>>>> af4faef (update data)
                 :align-right="false"
             />
         </section-wrapper>
@@ -119,25 +133,40 @@ export default {
         }
     },
     computed: {
+<<<<<<< HEAD
         bannerFeaturedEvent() {
+=======
+        bannerFeatured() {
+>>>>>>> af4faef (update data)
             let bannerFeaturedEvent = this.page.featuredEvents[0]
             return {
                 ...bannerFeaturedEvent,
                 to: `/${bannerFeaturedEvent.uri}`,
+<<<<<<< HEAD
                 prompt: `View ${bannerFeaturedEvent.sectionHandle}`,
+=======
+>>>>>>> af4faef (update data)
                 image: _get(bannerFeaturedEvent, "heroImage[0].image[0]", null),
                 startDate: _get(bannerFeaturedEvent, "startDateWithTime", null),
                 endDate: _get(bannerFeaturedEvent, "endDateWithTime", null),
                 category: _get(bannerFeaturedEvent, "category[0].title", ""),
+<<<<<<< HEAD
                 description:
                     bannerFeaturedEvent.sectionHandle === "event"
                         ? _get(bannerFeaturedEvent, "text", "")
                         : "",
+=======
+                prompt: _get(bannerFeaturedEvent, "text", ""),
+>>>>>>> af4faef (update data)
             }
         },
         // TO DO need to update dates on component
         parsedDualMasonryEvents() {
+<<<<<<< HEAD
             let masonaryEvents = this.page.featuredEvents.slice(1, 3)
+=======
+            let masonaryEvents = this.page.featuredEvents.splice(1, 2)
+>>>>>>> af4faef (update data)
             return masonaryEvents.map((obj) => {
                 return {
                     ...obj,
@@ -145,6 +174,7 @@ export default {
                     image: _get(obj, "heroImage[0].image[0]", null),
                     dates: _get(obj, "startDateWithTime", null),
                     category: _get(obj, "category[0].title", ""),
+<<<<<<< HEAD
                     prompt: `View ${obj.sectionHandle}`,
                 }
             })
@@ -205,6 +235,9 @@ export default {
                     category: _get(obj, "articleCategories[0].title", ""),
                     startDate: _get(obj, "postDate", ""),
                     endDate: _get(obj, "postDate", ""),
+=======
+                    prompt: _get(obj, "text", "See More"),
+>>>>>>> af4faef (update data)
                 }
             })
         },
