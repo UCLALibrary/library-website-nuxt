@@ -43,6 +43,9 @@
                 :to="parsedBannerFeatured.to"
                 :prompt="parsedBannerFeatured.prompt"
             />
+
+            <divider-general v-if="parsedSectionHighlight.length" />
+
             <section-teaser-highlight
                 v-if="parsedCollections.featuredCollections.length > 1"
                 class="section-teaser-highlight"
