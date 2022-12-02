@@ -116,10 +116,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-collections-explore {
-    // .section {
-    //     max-width: var(--unit-content-width);
-    //     margin: 80px auto;
-    // }
-
 }
 </style>
