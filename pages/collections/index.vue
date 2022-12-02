@@ -29,6 +29,7 @@
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
 
+        <!-- FEATURED & HIGHLIGHTED -->
         <section-wrapper
             :section-title="page.featuredCollectionsSection[0].titleGeneral"
             :section-summary="page.featuredCollectionsSection[0].sectionSummary"
@@ -44,13 +45,12 @@
                 :prompt="parsedBannerFeatured.prompt"
             />
 
-            <divider-general v-if="parsedSectionHighlight.length" />
-
             <section-teaser-highlight
                 v-if="parsedCollections.featuredCollections.length > 1"
                 class="section-teaser-highlight"
                 :items="parsedSectionHighlight"
             />
+
             <nuxt-link
                 to="/collections/explore"
                 class="button-more"
@@ -59,6 +59,7 @@
             </nuxt-link>
         </section-wrapper>
 
+        <!-- COLLECTIONS -->
         <section-wrapper>
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
@@ -81,6 +82,7 @@
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
 
+        <!-- FLEXIBLE PAGE BLOCKS -->
         <flexible-blocks
             v-if="page.blocks"
             class="flexible-content"
