@@ -26,13 +26,30 @@ query Homepage {
             }
             featuredEvents {
                 title
-                seriesDate {
-                    startDate @formatDateTime(format: "M j")
-                    endDate @formatDateTime(format: "M j, Y")
+                startDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
+                endDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
+                eventType {
+                    ... on eventType_Category {
+                        id
+                        title
+                    }
                 }
-                date {
-                    startTime @formatDateTime(format: "M j")
-                    endTime @formatDateTime(format: "M j, Y")
+                text: eventDescription
+                associatedLocations {
+                    ... on location_location_Entry {
+                        id
+                        to: uri
+                        title
+                        summary
+                    }
                 }
                 uri
                 heroImage {
