@@ -60,14 +60,18 @@
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
 
-        <section-wrapper>
-            <h2 class="section-heading">
-                Collections News
-            </h2>
+        <section-wrapper section-title="Collections News">
             <section-teaser-card
                 class="section-teaser-card"
                 :items="parsedArticles"
             />
+            <smart-link
+                v-if="pageArticleCount > 3"
+                class="button-more"
+                to="/about/news"
+            >
+                <button-more text="See All Collections News" />
+            </smart-link>
         </section-wrapper>
 
         <section-wrapper>
@@ -94,6 +98,7 @@ export default {
         const data = await $graphql.default.request(COLLECTIONS_LIST)
         return {
             pageArticles: _get(data, "entries", []),
+            pageArticleCount: _get(data, "entryCount", 0),
             page: _get(data, "entry", {}),
         }
     },
