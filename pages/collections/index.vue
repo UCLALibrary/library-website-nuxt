@@ -29,6 +29,10 @@
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
 
+        <h3>parsedBannerFeatured -- {{ page.featuredCollectionsSection[0].featuredCollections[0].description }}</h3>
+        <hr>
+        <!-- <h3>parsedSectionHighlight -- {{ parsedSectionHighlight }}</h3> -->
+
         <!-- FEATURED & HIGHLIGHTED -->
         <section-wrapper
             :section-title="page.featuredCollectionsSection[0].titleGeneral"
@@ -37,12 +41,13 @@
             <banner-featured
                 v-if="page.featuredCollectionsSection.length > 0"
                 class="banner banner-about"
-                :image="parsedBannerFeatured.image"
-                :title="parsedBannerFeatured.title"
-                :description="parsedBannerFeatured.description"
-                :category="parsedBannerFeatured.category"
-                :to="parsedBannerFeatured.to"
-                :prompt="parsedBannerFeatured.prompt"
+                :image="parsedBannerFeatured[0].image"
+                :title="parsedBannerFeatured[0].title"
+                :description="parsedBannerFeatured[0].description"
+                :category="parsedBannerFeatured[0].category"
+                :to="parsedBannerFeatured[0].to"
+                :prompt="parsedBannerFeatured[0].prompt"
+                :title-link="parsedBannerFeatured[0].titleLink"
             />
 
             <section-teaser-highlight
@@ -130,54 +135,23 @@ export default {
                 : {}
         },
         parsedBannerFeatured() {
-            if (this.page.featuredCollectionsSection.length > 0) {
+            let meta = this.page.featuredCollectionsSection[0].featuredCollections
+
+            return meta.map((obj) => {
                 return {
-                    image: _get(
-                        this.page.featuredCollectionsSection[0]
-                            .featuredCollections[0],
-                        "heroImage[0].image[0]",
-                        null
-                    ),
-                    category: _get(
-                        this.page.featuredCollectionsSection[0]
-                            .featuredCollections[0],
-                        "category[0]",
-                        ""
-                    ),
-                    title: _get(
-                        this.page.featuredCollectionsSection[0]
-                            .featuredCollections[0],
-                        "title",
-                        ""
-                    ),
-                    description: _get(
-                        this.page.featuredCollectionsSection[0]
-                            .featuredCollections[0],
-                        "text",
-                        ""
-                    ),
-                    category: this.page.featuredCollectionsSection[0]
-                        .featuredCollections[0].category
-                        ? this.page.featuredCollectionsSection[0].featuredCollections[0].category.join(
-                            ", "
-                        )
+                    ...obj,
+                    image: obj.heroImage[0].image[0],
+                    title: _get(obj, "title", ""),
+                    titleLink: `/collections/explore/${obj.titleLink}`,
+                    description: (obj, "description", ""),
+                    category: obj.category
+                        ? obj.category.join(", ")
                         : "",
-                    prompt: _get(
-                        this.page.featuredCollectionsSection[0]
-                            .featuredCollections[0],
-                        "button[0].buttonText",
-                        ""
-                    ),
-                    to: _get(
-                        this.page.featuredCollectionsSection[0]
-                            .featuredCollections[0],
-                        "button[0].buttonUrl",
-                        ""
-                    ),
+                    to: _get(obj, "button[0].buttonUrl", ""),
+                    prompt: _get(obj,"button[0].buttonText", ""),
+                    
                 }
-            } else {
-                return {}
-            }
+            })
         },
         parsedSectionHighlight() {
             if (
@@ -191,7 +165,7 @@ export default {
                             ...obj,
                             image: _get(obj, "heroImage[0].image[0]", ""),
                             category: obj.category.join(", "),
-                            to: `/collections/explore/${obj.to}`,
+                            to: `/collections/explore/${obj.slug}`,
                         }
                     })
             } else {
