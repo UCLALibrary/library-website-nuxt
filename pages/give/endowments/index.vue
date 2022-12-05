@@ -3,23 +3,18 @@
         id="main"
         class="page page-endowment-listing"
     >
-        <nav-breadcrumb
-            to="/support"
-            title="Endowments"
-            parent-title="Support Us"
-        />
-
         <masthead-secondary
             :title="page.title"
             :text="page.summary"
         />
 
+        <!-- TODO: Add search/filter function
         <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
             @search-ready="getSearchData"
-        />
+        /> -->
 
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -44,10 +39,10 @@
         <section-wrapper>
             <block-call-to-action
                 svg-name="svg-call-to-action-money"
-                title="Support us"
+                title="Give to the UCLA Library"
                 text="Your contributions help us build our collections for the benefit or our students, faculty, staff, and the general public."
                 name="Donate"
-                to="https://giving.ucla.edu/Standard/NetDonate.aspx?SiteNum=463"
+                to="/give"
             />
         </section-wrapper>
     </main>
