@@ -29,10 +29,6 @@
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
 
-        <h3>parsedBannerFeatured -- {{ page.featuredCollectionsSection[0].featuredCollections[0].description }}</h3>
-        <hr>
-        <!-- <h3>parsedSectionHighlight -- {{ parsedSectionHighlight }}</h3> -->
-
         <!-- FEATURED & HIGHLIGHTED -->
         <section-wrapper
             :section-title="page.featuredCollectionsSection[0].titleGeneral"
@@ -43,7 +39,7 @@
                 class="banner banner-about"
                 :image="parsedBannerFeatured[0].image"
                 :title="parsedBannerFeatured[0].title"
-                :description="parsedBannerFeatured[0].description"
+                :description="parsedBannerFeatured[0].summary"
                 :category="parsedBannerFeatured[0].category"
                 :to="parsedBannerFeatured[0].to"
                 :prompt="parsedBannerFeatured[0].prompt"
@@ -143,13 +139,12 @@ export default {
                     image: obj.heroImage[0].image[0],
                     title: _get(obj, "title", ""),
                     titleLink: `/collections/explore/${obj.titleLink}`,
-                    description: (obj, "description", ""),
+                    description: (obj, "summary", ""),
                     category: obj.category
                         ? obj.category.join(", ")
                         : "",
                     to: _get(obj, "button[0].buttonUrl", ""),
                     prompt: _get(obj,"button[0].buttonText", ""),
-                    
                 }
             })
         },
@@ -166,6 +161,8 @@ export default {
                             image: _get(obj, "heroImage[0].image[0]", ""),
                             category: obj.category.join(", "),
                             to: `/collections/explore/${obj.slug}`,
+                            // text: (obj, "summary", ""),
+                            text: obj.summary
                         }
                     })
             } else {

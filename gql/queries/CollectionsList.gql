@@ -23,7 +23,8 @@ query CollectionsList {
                     sectionSummary
                     featuredCollections {
                         title
-                        description: summary
+                        summary
+                        # yes, we do need both of these slugs
                         titleLink: slug
                         slug
                         heroImage {
