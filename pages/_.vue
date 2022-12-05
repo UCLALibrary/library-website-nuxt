@@ -49,14 +49,14 @@
 </template>
 
 <script>
+// HELPERS
+import _get from "lodash/get"
+
 // GQL
 import GENERAL_CONTENT_DETAIL from "~/gql/queries/GeneralContentDetail"
 
-// Helpers
-import _get from "lodash/get"
-
 export default {
-    async asyncData({ $graphql, params, $elasticsearchplugin, redirect }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
             slug: params.pathMatch.substring(
                 params.pathMatch.lastIndexOf("/") + 1
@@ -79,7 +79,7 @@ export default {
                 )
             } else await $elasticsearchplugin.index(data.entry, data.entry.slug)
         } else {
-            return redirect(404, "/")
+            error({ statusCode: 404, message: 'Page not found' })
         }
         return {
             page: _get(data, "entry", {}),

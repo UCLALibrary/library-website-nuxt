@@ -1,5 +1,8 @@
 <template>
-    <main class="page page-staff">
+    <main
+        id="main"
+        class="page page-staff"
+    >
         <masthead-secondary title="Staff Directory" />
         <!-- TODO Add SearchGenric here when complete
                 Filter by location, department, subject libarian -->
@@ -11,7 +14,19 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <!--h4 style="margin: 30px 400px">
+
+        <section-wrapper theme="divider">
+            <divider-way-finder />
+        </section-wrapper>
+
+        <div v-if="$fetchState.pending">
+            <p>.....Its Loading</p>
+        </div>
+        <div v-else-if="$fetchState.error">
+            <p>There is an error</p>
+        </div>
+        <div v-else>
+            <!--h4 style="margin: 30px 400px">
             No of hits
 
             {{ `from craft is ${parsedPages.length}` }}
@@ -25,72 +40,37 @@
             }}
         </h4-->
 
-        <section-wrapper theme="divider">
-            <divider-way-finder />
-        </section-wrapper>
-
-        <section-wrapper class="browse-by">
-            <h2 class="section-heading">
-                Browse by Last Name
-            </h2>
-            <!-- TODO Add Browse by A-Z links -->
-            <ul class="browse-by-options">
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-                <li>D</li>
-                <li>E</li>
-                <li>F</li>
-                <li>G</li>
-                <li>H</li>
-                <li>I</li>
-                <li>J</li>
-                <li>K</li>
-                <li>L</li>
-                <li>M</li>
-                <li>N</li>
-                <li>O</li>
-                <li>P</li>
-                <li>Q</li>
-                <li>R</li>
-                <li>S</li>
-                <li>T</li>
-                <li>U</li>
-                <li>V</li>
-                <li>W</li>
-                <li>X</li>
-                <li>Y</li>
-                <li>Z</li>
-                <!-- <li>View All</li> -->
-            </ul>
-        </section-wrapper>
-
-        <section-wrapper>
-            <section-staff-list
-                v-if="page.entries"
-                :items="parsedStaffList"
-            />
-            <section-staff-list
-                v-else-if="hits && hits.length > 0"
-                :items="parseHitsResults"
-            />
-            <h4 v-else>
-                No results found
-            </h4>
-        </section-wrapper>
+            <section-wrapper>
+                <alphabetical-browse-by
+                    :selected-letter-prop="selectedLetterProp"
+                    @selectedLetter="searchBySelectedLetter"
+                />
+                <section-staff-list
+                    v-if="page.entries"
+                    :items="parsedStaffList"
+                />
+                <section-staff-list
+                    v-else-if="hits && hits.length > 0"
+                    :items="parseHitsResults"
+                />
+                <h4 v-else>
+                    No results found
+                </h4>
+            </section-wrapper>
+        </div>
     </main>
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
-// Utilities
+// GQL
+import STAFF_LIST from "~/gql/queries/StaffList"
+
+// UTILITIES
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
-
-// gql
-import STAFF_LIST from "~/gql/queries/StaffList"
 
 export default {
     data() {
@@ -98,6 +78,7 @@ export default {
             page: {},
             hits: [],
             searchFilters: [],
+            selectedLetterProp: "",
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
                 queryFilters:
@@ -118,14 +99,30 @@ export default {
         console.log("test query parameters: " + this.$route.query.filters)*/
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
-            this.$route.query.filters
+            this.$route.query.filters ||
+            this.$route.query.lastNameLetter
         ) {
+            let query_text = this.$route.query.q || "*"
+            if (
+                this.$route.query.lastNameLetter &&
+                this.$route.query.lastNameLetter !== "All"
+            ) {
+                query_text =
+                    query_text +
+                    ` AND nameLast:${this.$route.query.lastNameLetter}*`
+            } else if (
+                this.$route.query.lastNameLetter &&
+                this.$route.query.lastNameLetter === "All"
+            ) {
+                query_text = query_text + " AND nameLast:*"
+            }
             console.log("in router query in asyc data")
             const results = await this.$dataApi.keywordSearchWithFilters(
-                this.$route.query.q || "*",
+                query_text,
+                config.staff.searchFields,
                 "sectionHandle:staffMember",
                 JSON.parse(this.$route.query.filters) || {},
-                "nameLast.keyword",
+                config.staff.sortField,
                 config.staff.resultFields,
                 config.staff.filters
             )
@@ -146,6 +143,7 @@ export default {
                         JSON.parse(this.$route.query.filters)) ||
                     {},
             }
+            this.selectedLetterProp = this.$route.query.lastNameLetter || ""
         } else {
             // if route queries are empty fetch data from craft
             this.page = await this.$graphql.default.request(STAFF_LIST)
@@ -154,6 +152,7 @@ export default {
                 queryText: "",
                 queryFilters: {},
             }
+            this.selectedLetterProp = ""
             //console.log("Craft data:" + JSON.stringify(data))
         }
     },
@@ -163,7 +162,7 @@ export default {
         },
         parsedStaffList() {
             // console.log("in parsedStaff")
-            return (this.page.entries || []).map((obj, index) => {
+            return (this.page.entries || []).map((obj) => {
                 return {
                     ...obj,
                     to: `/about/staff/${obj.to}`,
@@ -192,6 +191,9 @@ export default {
         "$route.query.filters"(newValue) {
             console.log("watching filters:" + newValue)
         },
+        "$route.query.lastNameLetter"(newValue) {
+            console.log("watching lastNameLetter:" + newValue)
+        },
     },
 
     async mounted() {
@@ -200,47 +202,8 @@ export default {
         console.log("ESURLkey:" + this.$config.esURL)*/
         // bookmarked search queries are not calling fetch
         this.setFilters()
-        /*
-        if (
-            (this.bookmarked &&
-                this.$route.query.q &&
-                this.$route.query.q !== "") ||
-            this.$route.query.filters
-        ) {
-            this.searchBookmarkedQuery()
-            this.searchGenericQuery = {
-                queryText: this.$route.query.q || "",
-                queryFilters:
-                    (this.$route.query.filters &&
-                        JSON.parse(this.$route.query.filters)) ||
-                    {},
-            }
-        }*/
     },
     methods: {
-        /* async searchBookmarkedQuery() {
-            this.page = {}
-            this.hits = []
-            const results = await this.$dataApi.keywordSearchWithFilters(
-                this.$route.query.q || "*",
-                "sectionHandle:staffMember",
-                JSON.parse(this.$route.query.filters),
-                "nameLast.keyword",
-                config.staff.resultFields,
-                config.staff.filters
-            )
-            console.log(
-                "In bookmarked method data is:" + JSON.stringify(results)
-            )
-
-            if (results && results.hits && results.hits.total.value > 0) {
-                this.hits = results.hits.hits
-                this.page = {}
-            } else {
-                this.page = {}
-                this.hits = []
-            }
-        },*/
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.staff.filters,
@@ -262,16 +225,30 @@ export default {
                     ...obj["_source"],
                     to: `/${obj["_source"].uri}`,
                     image: _get(obj["_source"]["image"], "[0]", null),
-                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`, // TODO append to add alternativeName like above
+                    staffName:
+                        obj["_source"].alternativeName.length > 0
+                            ? `${obj["_source"].nameFirst} ${obj["_source"].nameLast} ${obj["_source"].alternativeName[0].fullName}`
+                            : `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
                 }
             })
         },
-        /* parseBookmarkedQueryResults(hits = []) {
-            console.log("checking results data:" + JSON.stringify(hits[0]))
+        searchBySelectedLetter(data) {
+            console.log("On the page searchBySelectedLetter called")
+            /*this.page = {}
+            this.hits = []*/
+            this.$router.push({
+                path: "/about/staff",
+                query: {
+                    q: this.searchGenericQuery.queryText,
+                    filters: JSON.stringify(
+                        this.searchGenericQuery.queryFilters
+                    ),
+                    lastNameLetter: data,
+                },
+            })
+        },
 
-            return this.parseHits(hits)
-        },*/
-        async getSearchData(data) {
+        getSearchData(data) {
             console.log("On the page getsearchdata called")
             /*this.page = {}
             this.hits = []*/
@@ -280,16 +257,9 @@ export default {
                 query: {
                     q: data.text,
                     filters: JSON.stringify(data.filters),
+                    lastNameLetter: this.$route.query.lastNameLetter,
                 },
             })
-            /*this.searchBookmarkedQuery()
-            this.searchGenericQuery = {
-                queryText: this.$route.query.q || "",
-                queryFilters:
-                    (this.$route.query.filters &&
-                        JSON.parse(this.$route.query.filters)) ||
-                    {},
-            }*/
         },
     },
 }

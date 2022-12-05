@@ -1,5 +1,8 @@
 <template lang="html">
-    <main class="page page-impact-report">
+    <main
+        id="main"
+        class="page page-impact-report"
+    >
         <banner-text
             v-if="page && (!page.heroImage || page.heroImage.length == 0)"
             class="banner-text"
@@ -36,18 +39,21 @@
 </template>
 
 <script>
-// gql
-import IMPACT_REPORT_STORY from "~/gql/queries/ImpactReportStory"
-
-// Helpers
+// HELPERS
 import _get from "lodash/get"
+
+// GQL
+import IMPACT_REPORT_STORY from "~/gql/queries/ImpactReportStory"
 
 export default {
     layout: "impact",
-    async asyncData({ $graphql, params, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         const data = await $graphql.default.request(IMPACT_REPORT_STORY, {
             slug: params.slug,
         })
+        if (!data.entry) {
+            error({ statusCode: 404, message: 'Page not found' })
+        }
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         // console.log("Data fetched: " + JSON.stringify(data))
 

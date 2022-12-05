@@ -1,5 +1,8 @@
 <template lang="html">
-    <main class="page page-help-topic">
+    <main
+        id="main"
+        class="page page-help-topic"
+    >
         <MastheadSecondary
             :title="page.title"
             :text="page.summary"
@@ -59,17 +62,20 @@
 </template>
 
 <script>
+// HELPERS
+import _get from "lodash/get"
+
 // GQL
 import HELP_TOPIC_DETAIL from "~/gql/queries/HelpTopicDetail"
 
-// Helpers
-import _get from "lodash/get"
-
 export default {
-    async asyncData({ $graphql, params, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
             slug: params.slug,
         })
+        if (!data.entry) {
+            error({ statusCode: 404, message: 'Page not found' })
+        }
         if (data && params.slug !== undefined) {
             console.log("Helptopics slugs Indexing slug: " + params.slug)
             await $elasticsearchplugin.index(data.entry, params.slug)

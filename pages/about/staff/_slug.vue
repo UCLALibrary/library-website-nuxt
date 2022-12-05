@@ -1,5 +1,8 @@
 <template>
-    <main class="page page-staff-detail">
+    <main
+        id="main"
+        class="page page-staff-detail"
+    >
         <!-- staff page here -->
         <!-- no search on this page -->
         <nav-breadcrumb
@@ -95,14 +98,14 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL
 import STAFF_DETAIL from "~/gql/queries/StaffDetail"
 
 export default {
-    async asyncData({ $graphql, params, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for staff detail from Craft for live preview"
@@ -111,7 +114,13 @@ export default {
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
         })
-        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
+        if (!data.entry) {
+            error({ statusCode: 404, message: 'Page not found' })
+        }
+        if (data && data.entry)
+            await $elasticsearchplugin.index(data.entry, params.slug)
+        else console.log("staff data missing:" + params.slug)
+
         // console.log("Data fetched: " + JSON.stringify(data))
         // _get(data, "entry", {}),
 

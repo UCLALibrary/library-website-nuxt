@@ -1,5 +1,8 @@
 <template lang="html">
-    <div class="page page-impact-report">
+    <main
+        id="main"
+        class="page page-impact-report"
+    >
         <!-- This is template for impact reports -->
         <div class="meta">
             <h1
@@ -95,8 +98,9 @@
                 v-html="page.acknowledgements[0].acknowledgements"
             />
         </section-wrapper>
-    </div>
+    </main>
 </template>
+
 <router>
   {
     path:'/impact/:year?',
@@ -104,22 +108,21 @@
 
   }
 </router>
-<script>
-// gql
-import IMPACT_REPORT from "~/gql/queries/ImpactReport"
 
-// import * as API from "~/data/mock-api.json"
-// Helpers
+<script>
+// HELPERS
 import _get from "lodash/get"
 import _ from "lodash"
 
-// import * as IMPACT_API from "~/data/impact-report_index.json"
-// Utilities
+// GQL
+import IMPACT_REPORT from "~/gql/queries/ImpactReport"
+
+// UTILITIES
 import flattenTimeLineStructure from "~/utils/flattenTimeLineStructure"
 
 export default {
     layout: "impact",
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, error }) {
         // console.log("impact report query")
         // TO DO since we are using alias to use this template for both /impact which will bring up the latest impact report and /impact/{2021} for past report based on path
         // console.log(params)
@@ -128,6 +131,9 @@ export default {
         const craftresponse = await $graphql.default.request(IMPACT_REPORT, {
             path: path,
         })
+        if (!craftresponse.entry) {
+            error({ statusCode: 404, message: 'Page not found' })
+        }
         /* console.log(
             "craft-response:" + JSON.stringify(craftresponse.entry.blocks)
         )*/

@@ -3,6 +3,7 @@
         id="main"
         class="page page-student-opportunities"
     >
+        <!-- TODO BROKEN BREADCRUMB  -->
         <nav-breadcrumb
             to="/about"
             :title="page.title"
@@ -95,7 +96,7 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL

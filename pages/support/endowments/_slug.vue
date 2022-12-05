@@ -1,5 +1,8 @@
 <template>
-    <main class="page-endowments-detail">
+    <main
+        id="main"
+        class="page page-endowments-detail"
+    >
         <nav-breadcrumb
             to="/support/endowments"
             :title="page.title"
@@ -71,17 +74,20 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL
 import ENDOWMENT_DETAIL from "~/gql/queries/EndowmentDetail"
 
 export default {
-    async asyncData({ $graphql, params, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         const data = await $graphql.default.request(ENDOWMENT_DETAIL, {
             slug: params.slug,
         })
+        if (!data.entry) {
+            error({ statusCode: 404, message: 'Page not found' })
+        }
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         return {
             page: _get(data, "entry", {}),

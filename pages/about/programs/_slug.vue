@@ -1,5 +1,8 @@
 <template>
-    <main class="page-program-detail">
+    <main
+        id="main"
+        class="page page-program-detail"
+    >
         <nav-breadcrumb
             to="/about/programs"
             :title="page.title"
@@ -96,14 +99,14 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL
 import PROGRAM_DETAIL from "~/gql/queries/ProgramDetail"
 
 export default {
-    async asyncData({ $graphql, params, $elasticsearchplugin }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
         console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
@@ -111,6 +114,9 @@ export default {
         const data = await $graphql.default.request(PROGRAM_DETAIL, {
             slug: params.slug,
         })
+        if (!data.entry) {
+            error({ statusCode: 404, message: 'Page not found' })
+        }
         // console.log("Data fetched: " + JSON.stringify(data))
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         return {

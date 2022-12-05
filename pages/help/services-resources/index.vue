@@ -15,7 +15,14 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <!--h4 style="margin: 30px 400px">
+        <div v-if="$fetchState.pending">
+            <p>.....Its Loading</p>
+        </div>
+        <div v-else-if="$fetchState.error">
+            <p>There is an error</p>
+        </div>
+        <div v-else>
+            <!--h4 style="margin: 30px 400px">
             No of hits
 
             {{ `from craft is ${parsedPages.length}` }}
@@ -28,32 +35,34 @@
             ${hits.length}`
             }}
         </h4-->
-        <section-wrapper theme="divider">
-            <divider-way-finder color="help" />
-        </section-wrapper>
 
-        <section-wrapper
-            v-if="
-                page.serviceOrResource ||
-                    page.workshopseries ||
-                    (hits && hits.length > 0)
-            "
-        >
-            <section-cards-with-illustrations
-                v-if="page.serviceOrResource || page.workshopseries"
-                :items="parsedServiceAndResourceList"
-                :is-horizontal="true"
-            />
-            <section-cards-with-illustrations
-                v-else-if="hits && hits.length > 0"
-                :items="parseHitsResults"
-                :is-horizontal="true"
-            />
-        </section-wrapper>
-        <h4 v-else>
-            No results found
-        </h4>
+            <section-wrapper theme="divider">
+                <divider-way-finder class="search-margin" />
+            </section-wrapper>
 
+            <section-wrapper
+                v-if="
+                    page.serviceOrResource ||
+                        page.workshopseries ||
+                        (hits && hits.length > 0)
+                "
+                class="section-no-top-margin"
+            >
+                <section-cards-with-illustrations
+                    v-if="page.serviceOrResource || page.workshopseries"
+                    :items="parsedServiceAndResourceList"
+                    :is-horizontal="true"
+                />
+                <section-cards-with-illustrations
+                    v-else-if="hits && hits.length > 0"
+                    :items="parseHitsResults"
+                    :is-horizontal="true"
+                />
+            </section-wrapper>
+            <h4 v-else>
+                No results found
+            </h4>
+        </div>
         <section-wrapper
             v-if="
                 page.serviceOrResource ||
@@ -77,15 +86,15 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 import sortByTitle from "~/utils/sortByTitle"
 
-// gql
+// GQL
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceWorkshopSeriesList"
 import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
 
-// Utilities
+// UTILITIES
 import config from "~/utils/searchConfig"
 
 export default {
@@ -138,6 +147,7 @@ export default {
             this.helptopic = {}
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
+                config.staff.searchFields,
                 "sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic",
                 [],
                 "",
@@ -298,16 +308,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-help {
-    // refactor styling of masthead-secondary component
-    ::v-deep .masthead-secondary .container {
-        padding-top: var(--space-xl);
-        padding-bottom: var(--space-4xl);
-    }
-    // refactor styling of search-generic component
-    .search-generic {
-        margin-top: -72px;
-        max-width: $container-l-cta + px;
-        padding: 32px 48px 0;
+    .search-margin {
+        margin: var(--space-2xl) auto;
     }
 }
 </style>

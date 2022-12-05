@@ -3,8 +3,9 @@
         id="main"
         class="page page-job-opportunities"
     >
+        <!-- TODO BROKEN BREADCRUMB -->
         <nav-breadcrumb
-            to="/jobs"
+            to="/about/jobs"
             :title="page.title"
             parent-title="Jobs"
         />
@@ -86,7 +87,7 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
 
 // GQL

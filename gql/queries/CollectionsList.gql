@@ -68,4 +68,10 @@ query CollectionsList {
         }
         to: uri
     }
+    entryCount(
+        section: "article"
+        relatedToCategories: [{ title: "collections" }]
+        orderBy: "postDate DESC"
+        limit: 3
+    )
 }

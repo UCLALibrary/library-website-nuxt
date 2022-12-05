@@ -29,10 +29,12 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
+
 // GQL
 import PROGRAMS_LIST from "~/gql/queries/ProgramsList"
+
 export default {
     async asyncData({ $graphql, route }) {
         // console.log("route: " + route.path)
