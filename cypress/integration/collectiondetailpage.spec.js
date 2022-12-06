@@ -7,7 +7,7 @@ describe("Collection Detail page", () => {
         cy.get(".page-collection-detail").should("be.visible")
         cy.get("h1.title").should(
             "contain",
-            "Halloween Costumes"
+            "TEST - Title of Collection - Halloween Costumes"
         )
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })

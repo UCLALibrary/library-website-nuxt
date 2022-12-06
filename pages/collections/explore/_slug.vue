@@ -52,7 +52,8 @@
                 <rich-text :rich-text-content="page.richTextSimplified" />
             </div>
 
-            <divider-way-finder v-if="(page.blocks.length > 0)"
+            <divider-way-finder
+                v-if="(page.blocks.length > 0)"
                 class="divider-way-finder"
                 color="default"
             />
@@ -84,7 +85,8 @@
                 class="section-header"
             />
 
-            <divider-way-finder v-if="(parsedEndowments.length > 0 || parsedAssociatedStaffMember.length > 0)"
+            <divider-way-finder
+                v-if="(parsedEndowments.length > 0 || parsedAssociatedStaffMember.length > 0)"
                 class="divider-way-finder"
                 color="default"
             />
@@ -98,7 +100,8 @@
                 class="block-staff-article-item"
             />
 
-            <divider-way-finder v-if="(parsedAssociatedStaffMember.length > 0)"
+            <divider-way-finder
+                v-if="(parsedAssociatedStaffMember.length > 0)"
                 class="divider-way-finder"
                 color="default"
             />
@@ -173,37 +176,19 @@ export default {
                 }
             })
         },
-        parsedDonors() {
-            if (this.page.endowment && this.page.endowment.length > 0) {
-                let donors = this.page.endowment[0].donors
-                let donorNames = []
-                donors.map((donor) => {
-                    donorNames.push(`${donor.firstName} ${donor.lastName}`)
-                })
-                if (donorNames.length == 1) {
-                    return `Donor: ${donorNames[0]}`
-                } else {
-                    let names = [
-                        donorNames.slice(0, -1).join(", "),
-                        donorNames.slice(-1)[0],
-                    ].join(donorNames.length < 2 ? "" : " and ")
-                    return `Donors: ${names}`
-                }
-            } else {
-                return ""
-            }
-        },
         parsedEndowments() {
             if (this.page.endowment) {
-                return this.page.endowment.map((obj) => {
+                return this.page.endowment.map((obj, index) => {
                     return {
                         to: `/${obj.to}`,
                         image: _get(obj, "image[0].image[0]", null),
                         title: _get(obj, "title", ""),
                         description: _get(obj, "description", ""),
-                        category: this.parsedDonors ? this.parsedDonors : "",
+                        category: obj.donors.length > 0 ? this.parsedDonors(obj) : "",
                     }
                 })
+            } else {
+                return ""
             }
         },
         parsedAssociatedStaffMember() {
@@ -217,6 +202,24 @@ export default {
             })
         },
     },
+    methods: {
+        parsedDonors(obj) {
+            let donorNames = []
+            obj.donors.map((donor) => {
+                donorNames.push(`${donor.firstName} ${donor.lastName}`)
+            })
+            
+            if (donorNames.length == 1) {
+                return `Donor: ${donorNames[0]}`
+            } else {
+                let names = [
+                    donorNames.slice(0, -1).join(", "),
+                    donorNames.slice(-1)[0],
+                ].join(donorNames.length < 2 ? "" : " and ")
+                return `Donors: ${names}`
+            }
+        },
+    }
 }
 </script>
 
