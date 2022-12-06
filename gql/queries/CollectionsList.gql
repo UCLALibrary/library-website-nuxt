@@ -67,5 +67,6 @@ query CollectionsList {
             title
         }
         to: uri
+        postDate
     }
 }
