@@ -4,7 +4,7 @@
         class="page page-endowments-detail"
     >
         <nav-breadcrumb
-            to="/support/endowments"
+            to="/give/endowments"
             :title="page.title"
             parent-title="Endowments"
         />
@@ -37,7 +37,7 @@
                         class="subject-area"
                         icon-name="svg-icon-book"
                         :text="page.subjectAreas[0].title"
-                        to="/support"
+                        to="/give"
                     />
                     <rich-text
                         class="description-text"
@@ -61,10 +61,17 @@
             </div>
         </section-wrapper>
 
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+
         <section-wrapper>
             <block-call-to-action
                 svg-name="svg-call-to-action-money"
-                title="Support this endowment"
+                title="Give to this endowment"
                 text="Your contributions help us build our collections for the benefit or our students, faculty, staff, and the general public."
                 name="Donate"
                 :to="page.to"
