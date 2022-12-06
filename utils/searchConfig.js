@@ -4,15 +4,16 @@ const config = {
             "title^6",
             "summary^6",
             "text^6"
-        ],
-        filters: [
+        
+        ],/*
+         filters: [
             { label: "Location", esFieldName: "locations.title.keyword", inputType: "checkbox", },
             {
                 label: "Topic",
                 esFieldName: "associatedTopics.title.keyword",
                 inputType: "checkbox",
             },
-        ],
+        ], */
         resultFields:[
             "title",
             "text",   
@@ -132,11 +133,14 @@ const config = {
         ],
         sortField: "postDate"
     },
-    endowments:{
+    endowmentsList:{
         searchFields:[
             "title^3",
             "text^3",
-            "contributors*^2"
+            "alternativeName*^2",
+            "endowmentDescription^2",
+            "subjectAreas*",
+            "donors*",
         ],
         filters:[
             {
@@ -153,14 +157,51 @@ const config = {
         resultFields:[
             "title",
             "text",
-            "articleType",
+            "alternativeName",
             "uri",
             "heroImage",
-            "postDate",
-            "category",
-            "contributors"
+            "donors"
         ],
         sortField: "title.keyword"
+    },
+    eventsExhibitionsList:{
+        searchFields:[
+            "title^3",
+            "eventDescription^3",
+            "startDateWithTime^2",
+            "endDateWithTime^2"
+        ],
+        filters:[
+            {
+                label: "Location",
+                esFieldName: "subjectAreas.title.keyword",
+                inputType: "checkbox",
+            },
+            {
+                label: "Date Range",
+                esFieldName: ["startDateWithTime","endDateWithTime"], 
+                inputType: "date",
+            }
+            // Are event series shown on this page?
+            /* 
+            ,
+            {
+                label: "Series",
+                esFieldName: "",
+                inputType: "checkbox",
+            } */
+        ],
+        resultFields:[
+            "title",
+            "eventDescription",
+            "startDateWithTime",
+            "endDateWithTime",
+            "uri",
+            "image",
+            "eventType",
+            "associatedLocations"
+        ],
+        sortField: "startDateWithTime"
     }
     
 }

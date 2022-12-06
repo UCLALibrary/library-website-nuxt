@@ -13,12 +13,20 @@ query EndowmentDetail($slug: [String!]) {
         altText
       }
     }
-   
     alternativeName {
       ... on alternativeName_alternativeName_BlockType {
         languageAltName
         fullName
       }
+    }
+    endowmentDescription
+    subjectAreas {
+      title
+    }
+    donors {
+      ... on donors_donor_BlockType {
+        firstName
+        lastName
     }
     endowmentDescription
     subjectAreas {
@@ -37,6 +45,5 @@ query EndowmentDetail($slug: [String!]) {
       uri
     }
     ...AllFpbWithNoBanner
-    
   }
 } 
