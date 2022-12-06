@@ -1,7 +1,7 @@
 describe("Endowments Detail page", () => {
     it("Visits an Endowments Detail Page", () => {
         // the following data will not work in production
-        cy.visit("/support/endowments/lifu-wang-chinese-cultural-endowment")
+        cy.visit("/give/endowments/lifu-wang-chinese-cultural-endowment")
 
         // UCLA Library brand
         cy.get(".logo-ucla").should("be.visible")
@@ -13,7 +13,7 @@ describe("Endowments Detail page", () => {
     context("When there isn't an entry in craft", () => {
         it("Raises a 404 error", () => {
             // cy.visit("/about/blogs/no_entry", {failOnStatusCode: false})
-            cy.request({url: "/support/endowments/no_entry", failOnStatusCode: false}).its("status").should("equal", 404)
+            cy.request({url: "/give/endowments/no_entry", failOnStatusCode: false}).its("status").should("equal", 404)
         })
     })
 })
