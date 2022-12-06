@@ -13,30 +13,30 @@ query EndowmentDetail($slug: [String!]) {
         altText
       }
     }
-    ... on endowment_endowments_Entry {
-      alternativeName {
-        ... on alternativeName_alternativeName_BlockType {
-          languageAltName
-          fullName
-        }
+   
+    alternativeName {
+      ... on alternativeName_alternativeName_BlockType {
+        languageAltName
+        fullName
       }
-      endowmentDescription
-      subjectAreas {
-        title
-      }
-      donors {
-        ... on donors_donor_BlockType {
-          firstName
-          lastName
-        }
-      }
-      to: donationUrl
-      spakCode
-      associatedLocations {
-        title
-        uri
-      }
-      ...AllFpbWithNoBanner
     }
+    endowmentDescription
+    subjectAreas {
+      title
+    }
+    donors {
+      ... on donors_donor_BlockType {
+        firstName
+        lastName
+      }
+    }
+    to: donationUrl
+    spakCode
+    associatedLocations {
+      title
+      uri
+    }
+    ...AllFpbWithNoBanner
+    
   }
 } 

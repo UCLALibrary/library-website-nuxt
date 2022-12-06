@@ -93,7 +93,7 @@ export default {
             slug: params.slug,
         })
         if (!data.entry) {
-            error({ statusCode: 404, message: 'Page not found' })
+            error({ statusCode: 404, message: "Page not found" })
         }
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         return {
@@ -156,12 +156,12 @@ export default {
     }
 
     .description {
-            max-width: 596px;
+        max-width: 596px;
 
-            .description-text {
-                padding-right: 0;
-            }
+        .description-text {
+            padding-right: 0;
         }
+    }
 
     .donors {
         @include step-1;
@@ -173,7 +173,6 @@ export default {
     .description-text {
         margin-bottom: 20px;
     }
-
 
     .catalog-link {
         font-family: var(--font-secodary);
@@ -200,11 +199,10 @@ export default {
         }
     }
 
-    @media  #{$medium} {
+    @media #{$medium} {
         .description {
             max-width: 100%;
         }
     }
-
 }
 </style>
