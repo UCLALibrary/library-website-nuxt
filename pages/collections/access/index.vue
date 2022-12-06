@@ -70,7 +70,7 @@ export default {
                     : element.serviceOrResourceType
                         ? element.serviceOrResourceType
                         : element.typeHandle === "externalResource"
-                            ? "external resource"
+                            ? "resource"
                             : element.typeHandle
         })
         return {
