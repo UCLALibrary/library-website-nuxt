@@ -21,7 +21,7 @@ describe("Website Homepage", () => {
         //     .should("contain", "Get help with...")
         //     .and("contain", "Visit")
         //     .and("contain", "About")
-            // .and("contain", "Support us") // this is no more part of primary navigation on test
+        // .and("contain", "Support us") // this is no more part of primary navigation on test
 
         // MastheadPrimary
         // cy.get(".masthead-primary").find(".logo").should("be.visible")
