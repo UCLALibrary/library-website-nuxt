@@ -79,6 +79,13 @@
                     color="help"
                 />
             </section-wrapper>
+
+            <section-wrapper>
+            <block-call-to-action
+                class="block-call-to-action"
+                :is-global="true"
+            />
+        </section-wrapper>
         </div>
 
         <!-- Workshop Series -->
@@ -162,6 +169,20 @@
                     section-title="Associated Topics"
                 />
             </section-wrapper>
+
+            <section-wrapper theme="divider">
+                <divider-way-finder
+                    class="divider-way-finder"
+                    color="help"
+                />
+            </section-wrapper>
+
+            <section-wrapper>
+            <block-call-to-action
+                class="block-call-to-action"
+                :is-global="true"
+            />
+        </section-wrapper>
         </div>
     </main>
 </template>

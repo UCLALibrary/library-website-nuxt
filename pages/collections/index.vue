@@ -43,6 +43,9 @@
                 :to="parsedBannerFeatured.to"
                 :prompt="parsedBannerFeatured.prompt"
             />
+
+            <divider-general v-if="parsedSectionHighlight.length" />
+
             <section-teaser-highlight
                 v-if="parsedCollections.featuredCollections.length > 1"
                 class="section-teaser-highlight"
@@ -89,6 +92,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import format from "date-fns/format"
 
 // GQL
 import COLLECTIONS_LIST from "~/gql/queries/CollectionsList.gql"
@@ -202,14 +206,18 @@ export default {
                         to: `/${obj.to}`,
                         image: _get(obj, "heroImage[0].image[0]", null),
                         category: parsedCategories,
+                        bylineOne: this.parsedDate(obj.postDate),
                     }
                 })
             } else {
                 return []
             }
-        },
+        },  
     },
     methods: {
+        parsedDate(postDate) {
+            return format(new Date(postDate), "MMMM d, Y")
+        },  
         parseArticleCategory(categories) {
             let result = ""
             categories.forEach((obj) => {
