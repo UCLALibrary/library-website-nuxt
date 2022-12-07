@@ -67,6 +67,7 @@ query CollectionsList {
             title
         }
         to: uri
+        postDate
     }
     entryCount(
         section: "article"
