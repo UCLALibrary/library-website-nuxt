@@ -27,6 +27,7 @@ query Homepage {
             featuredEvents {
                 id
                 sectionHandle
+                workshopOrEventSeriesType
                 title
                 startDateWithTime
                     @formatDateTime(
