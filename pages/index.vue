@@ -3,7 +3,10 @@
         id="main"
         class="page page-home"
     >
-        <masthead-primary :link-items="searchLinks" />
+        <masthead-primary
+            :link-items="searchLinks"
+            :advanced-search-link="isAdvancedSearchLink"
+        />
         <!-- {{ page.searchLinks }} -->
         {{ isAdvancedSearchLink }}
         <!-- TODO elastic search testing -->
@@ -122,7 +125,7 @@ export default {
     },
     computed: {
         searchLinks() {
-            return this.page.searchLinks
+            return this.page.searchLinks.slice(1)
         },
         isAdvancedSearchLink() {
             // return this.page.searchLinks
@@ -131,12 +134,13 @@ export default {
             //         return obj
             //     } else return ""
             // })
-            let copySearchLinks = this.page.searchLinks
-            const index = copySearchLinks.findIndex((object) => {
-                return object.text === "Advanced Search"
-            })
-            const advancedSearch = this.page.searchLinks.splice(index, 1)
-            return advancedSearch
+            // let copySearchLinks = this.page.searchLinks
+            // let index = copySearchLinks.findIndex((object) => {
+            //     return object.text === "Advanced Search"
+            // })
+            // let advancedSearch = copySearchLinks.splice(index, 1)
+            // return advancedSearch
+            return this.page.searchLinks[0]
         },
         bannerFeaturedEvent() {
             let bannerFeaturedEvent = this.page.featuredEvents[0]
