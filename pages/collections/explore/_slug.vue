@@ -206,7 +206,7 @@ export default {
         parsedDonors(obj) {
             let donorNames = []
             obj.donors.map((donor) => {
-                donorNames.push(`${donor.firstName} ${donor.lastName}`)
+                donor.firstName == null ? donorNames.push(`${donor.lastName}`) : donorNames.push(`${donor.firstName} ${donor.lastName}`)
             })
             
             if (donorNames.length == 1) {

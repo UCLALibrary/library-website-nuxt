@@ -59,7 +59,7 @@ describe("Website Homepage", () => {
         //     "Get Help With"
         // )
 
-        cy.get('[aria-label="Start chat"]').click({force: true})
+        // cy.get('[aria-label="Start chat"]').click({force: true})
 
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
