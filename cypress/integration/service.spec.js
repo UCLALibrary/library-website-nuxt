@@ -1,6 +1,6 @@
 describe("Service page", () => {
     it("Visit a Service page", () => {
-        cy.visit("/help/services-resources/a-test-workshop-with-a-pull-quote-fpb")
+        cy.visit("help/services-resources/service-with-all-flexible-page-block-types")
 
         // UCLA Library brand
         cy.get(".logo-ucla").should("be.visible")

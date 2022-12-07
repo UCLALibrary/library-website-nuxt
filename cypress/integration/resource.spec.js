@@ -1,6 +1,6 @@
 describe("Resource page", () => {
     it("Visit a Resource Page", () => {
-        cy.visit("/help/services-resources/service-with-all-flexible-page-block-types")
+        cy.visit("help/services-resources/animals")
 
         // UCLA Library brand
         cy.get(".logo-ucla").should("be.visible")
