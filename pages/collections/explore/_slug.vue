@@ -208,7 +208,7 @@ export default {
             obj.donors.map((donor) => {
                 donor.firstName == null ? donorNames.push(`${donor.lastName}`) : donorNames.push(`${donor.firstName} ${donor.lastName}`)
             })
-            
+
             if (donorNames.length == 1) {
                 return `Donor: ${donorNames[0]}`
             } else {
