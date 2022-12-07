@@ -24,9 +24,10 @@ query CollectionsList {
                     featuredCollections {
                         title
                         summary
-                        # yes, we do need both of these slugs
                         titleLink: slug
                         slug
+                        # titleLink: uri
+                        # uri
                         heroImage {
                             ... on heroImage_heroImage_BlockType {
                                 id

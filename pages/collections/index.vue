@@ -138,6 +138,7 @@ export default {
                     ...obj,
                     image: obj.heroImage[0].image[0],
                     title: _get(obj, "title", ""),
+                    // titleLink: `${obj.titleLink}`,
                     titleLink: `/collections/explore/${obj.titleLink}`,
                     description: (obj, "summary", ""),
                     category: obj.category
@@ -160,8 +161,8 @@ export default {
                             ...obj,
                             image: _get(obj, "heroImage[0].image[0]", ""),
                             category: obj.category.join(", "),
+                            //to: `${obj.uri}`,
                             to: `/collections/explore/${obj.slug}`,
-                            // text: (obj, "summary", ""),
                             text: obj.summary
                         }
                     })
