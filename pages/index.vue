@@ -4,11 +4,9 @@
         class="page page-home"
     >
         <masthead-primary
-            :link-items="searchLinks"
-            :advanced-search-link="isAdvancedSearchLink"
+            :link-items="parsedSearchLinks"
+            :advanced-search-link="parsedAdvancedSearchLink"
         />
-        <!-- {{ page.searchLinks }} -->
-        {{ isAdvancedSearchLink }}
         <!-- TODO elastic search testing -->
         <!--h4>Mapping:</h4>
         <p>{{ mapping }}</p>
@@ -44,7 +42,6 @@
                 :align-right="false"
             />
         </section-wrapper>
-        {{ page.featuredEvents }}
         <section-dual-masonry
             v-if="parsedDualMasonryEvents.length > 0"
             :items="parsedDualMasonryEvents"
@@ -124,10 +121,10 @@ export default {
         }
     },
     computed: {
-        searchLinks() {
+        parsedSearchLinks() {
             return this.page.searchLinks.slice(1)
         },
-        isAdvancedSearchLink() {
+        parsedAdvancedSearchLink() {
             // return this.page.searchLinks
             // return this.page.searchLinks.map((obj) => {
             //     if (obj.text.includes("Advanced Search")) {
