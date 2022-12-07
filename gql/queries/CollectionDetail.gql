@@ -19,11 +19,9 @@ query CollectionDetail($slug: [String!]) {
     }
     title
     text: summary
-    # category
     subjectAreas {
       title
     }
-    # category
     collectionFormats {
       title
     }
@@ -41,7 +39,7 @@ query CollectionDetail($slug: [String!]) {
         id
         title
         description: summary
-        to: donationUrl
+        to: uri
         donors {
           firstName
           lastName
@@ -65,7 +63,7 @@ query CollectionDetail($slug: [String!]) {
       staffMemberJobTitle
       nameFirst
       nameLast
-      uri
+      to: uri
       bookAConsultation
       staffDepartment {
         title
@@ -78,7 +76,8 @@ query CollectionDetail($slug: [String!]) {
       id
       title
       text: summary
-      uri
+      to: uri
+      externalResourceUrl
     }
     ...ExhibitionsAndCollectionsFpb
   }
