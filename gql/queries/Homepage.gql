@@ -7,8 +7,8 @@ query Homepage {
         ... on homepage_homepage_Entry {
             searchLinks {
                 ... on searchLinks_searchLinks_BlockType {
-                    searchLinkText
-                    searchLinkUrl
+                    text: searchLinkText
+                    url: searchLinkUrl
                 }
             }
             getHelpWith {
@@ -44,7 +44,7 @@ query Homepage {
                         title
                     }
                 }
-                text: eventDescription
+                eventDescription
                 summary
                 startDate
                     @formatDateTime(

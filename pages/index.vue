@@ -3,7 +3,8 @@
         id="main"
         class="page page-home"
     >
-        <masthead-primary />
+        <masthead-primary :link-items="page.searchLinks" />
+        {{ page.searchLinks }}
         <!-- TODO elastic search testing -->
         <!--h4>Mapping:</h4>
         <p>{{ mapping }}</p>
@@ -39,7 +40,7 @@
                 :align-right="false"
             />
         </section-wrapper>
-
+        {{ page.featuredEvents }}
         <section-dual-masonry
             v-if="parsedDualMasonryEvents.length > 0"
             :items="parsedDualMasonryEvents"
@@ -119,20 +120,33 @@ export default {
         }
     },
     computed: {
+        isAdvancedSearchLink() {
+            return this.page.searchLinks
+        },
         bannerFeaturedEvent() {
             let bannerFeaturedEvent = this.page.featuredEvents[0]
             return {
                 ...bannerFeaturedEvent,
                 to: `/${bannerFeaturedEvent.uri}`,
-                prompt: `View ${bannerFeaturedEvent.sectionHandle}`,
+                prompt:
+                    bannerFeaturedEvent.sectionHandle ===
+                    "workshopOrEventSeries"
+                        ? "View series"
+                        : `View ${bannerFeaturedEvent.sectionHandle}`,
                 image: _get(bannerFeaturedEvent, "heroImage[0].image[0]", null),
-                startDate: _get(bannerFeaturedEvent, "startDateWithTime", null),
-                endDate: _get(bannerFeaturedEvent, "endDateWithTime", null),
+                startDate:
+                    bannerFeaturedEvent.sectionHandle === "event"
+                        ? _get(bannerFeaturedEvent, "startDateWithTime", null)
+                        : _get(bannerFeaturedEvent, "startDate", null),
+                endDate:
+                    bannerFeaturedEvent.sectionHandle === "event"
+                        ? _get(bannerFeaturedEvent, "endDateWithTime", null)
+                        : _get(bannerFeaturedEvent, "endDate", null),
                 category: _get(bannerFeaturedEvent, "category[0].title", ""),
                 description:
                     bannerFeaturedEvent.sectionHandle === "event"
-                        ? _get(bannerFeaturedEvent, "text", "")
-                        : "",
+                        ? _get(bannerFeaturedEvent, "eventDescription", "")
+                        : _get(bannerFeaturedEvent, "summary", ""),
             }
         },
         // TO DO need to update dates on component
@@ -143,9 +157,15 @@ export default {
                     ...obj,
                     to: `/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    dates: _get(obj, "startDateWithTime", null),
+                    dates:
+                        obj.sectionHandle === "event"
+                            ? _get(obj, "startDateWithTime", null)
+                            : _get(obj, "startDate", null),
                     category: _get(obj, "category[0].title", ""),
-                    prompt: `View ${obj.sectionHandle}`,
+                    prompt:
+                        obj.sectionHandle === "workshopOrEventSeries"
+                            ? "View series"
+                            : `View ${obj.sectionHandle}`,
                 }
             })
         },
