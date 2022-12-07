@@ -16,8 +16,6 @@ describe("Website Homepage", () => {
             .and("contain", "Ask a Librarian")
             .and("contain", "My Account")
 
-        // removing test data to resolve test failure
-
         // NavPrimary
         cy.get(".nav-primary")
             .should("contain", "Get help with...")
@@ -39,7 +37,7 @@ describe("Website Homepage", () => {
             .should(
                 "have.attr",
                 "href",
-                "https://catalog.library.ucla.edu/vwebv/enterCourseReserve.do"
+                "https://www.library.ucla.edu/borrow-renew-return/course-reserves"
             )
         cy.get(".masthead-primary")
             .contains("a", "Databases A-Z")
@@ -49,11 +47,11 @@ describe("Website Homepage", () => {
                 "https://guides.library.ucla.edu/az.php"
             )
 
-        // //get help with
-        // cy.get(".section-cards-with-illustrations").should(
-        //     "contain",
-        //     "Get Help With"
-        // )
+        //Get help with
+        cy.get(".section-cards-with-illustrations").should(
+            "contain",
+            "Get Help With"
+        )
 
         cy.get('[aria-label="Start chat"]').click({ force: true })
 
