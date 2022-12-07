@@ -195,7 +195,7 @@ export default {
             return this.page.associatedStaffMember.map((obj) => {
                 return {
                     ...obj,
-                    to: `/about/staff/${obj.to}`,
+                    to: `/${obj.to}`,
                     image: _get(obj, "image[0]", null),
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
