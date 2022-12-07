@@ -6,7 +6,7 @@ describe("Service page", () => {
         cy.get(".logo-ucla").should("be.visible")
         cy.get("h1.title").should(
             "contain",
-            `A Test Workshop with a "Pull Quote" FPB`
+            `Service with all flexible page block types`
         )
     })
 

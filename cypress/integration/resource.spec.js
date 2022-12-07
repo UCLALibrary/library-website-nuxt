@@ -6,7 +6,7 @@ describe("Resource page", () => {
         cy.get(".logo-ucla").should("be.visible")
         cy.get("h1.title").should(
             "contain",
-            `Service with all flexible page block types`
+            `Animals are Excellent and Flowers are Fluffy`
         )
     })
 
