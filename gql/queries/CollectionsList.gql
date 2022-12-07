@@ -24,10 +24,8 @@ query CollectionsList {
                     featuredCollections {
                         title
                         summary
-                        titleLink: slug
-                        slug
-                        # titleLink: uri
-                        # uri
+                        titleLink: uri
+                        uri
                         heroImage {
                             ... on heroImage_heroImage_BlockType {
                                 id

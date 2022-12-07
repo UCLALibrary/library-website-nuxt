@@ -19,11 +19,9 @@ query CollectionDetail($slug: [String!]) {
     }
     title
     text: summary
-    # category
     subjectAreas {
       title
     }
-    # category
     collectionFormats {
       title
     }

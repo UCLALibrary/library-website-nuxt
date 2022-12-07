@@ -18,7 +18,7 @@ query ExploreCollectionsList {
     title
     text: summary
     category: physicalDigital
-    to: slug
+    to: uri
     heroImage {
       ... on heroImage_heroImage_BlockType {
         id

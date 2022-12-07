@@ -92,7 +92,7 @@ export default {
                     ...obj,
                     to: obj.externalResourceUrl
                         ? obj.externalResourceUrl
-                        : `/collections/explore/${obj.to}`,
+                        : `/${obj.to}`,
                     image: _get(obj, "heroImage[0]image[0]", null),
                     category: obj.category.join(", "),
                     title: _get(obj, "title", ""),
