@@ -39,13 +39,13 @@ describe("Website Homepage", () => {
                 "href",
                 "https://www.library.ucla.edu/borrow-renew-return/course-reserves"
             )
-        // cy.get(".masthead-primary")
-        //     .contains("a", "Databases A-Z")
-        //     .should(
-        //         "have.attr",
-        //         "href",
-        //         "https://guides.library.ucla.edu/az.php"
-        //     )
+        cy.get(".masthead-primary")
+            .contains("a", "Databases A-Z")
+            .should(
+                "have.attr",
+                "href",
+                "https://guides.library.ucla.edu/az.php?&_ga=2.194620910.2109030156.1663611669-236460657.1661379075"
+            )
 
         // Get help with
         cy.get(".section-cards-with-illustrations").should(
