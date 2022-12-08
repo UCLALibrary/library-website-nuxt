@@ -140,7 +140,7 @@ const config = {
             "alternativeName*^2",
             "endowmentDescription^2",
             "subjectAreas*",
-            "donors*",
+            "donorNames",
         ],
         filters:[
             {
@@ -150,7 +150,7 @@ const config = {
             },
             {
                 label: "Donors",
-                esFieldName: "donors.title.keyword", // update slug page to combine firstname and lastname before sending it to ES index
+                esFieldName: "donorNames.keyword", // update slug page to combine firstname and lastname before sending it to ES index
                 inputType: "checkbox",
             }
         ],
@@ -160,7 +160,7 @@ const config = {
             "alternativeName",
             "uri",
             "heroImage",
-            "donors"
+            "donorNames"
         ],
         sortField: "title.keyword"
     },
@@ -179,7 +179,7 @@ const config = {
             },
             {
                 label: "Date Range",
-                esFieldName: ["startDateWithTime","endDateWithTime"], 
+                esFieldNameArray: ["startDateWithTime","endDateWithTime"], 
                 inputType: "date",
             }
             // Are event series shown on this page?
