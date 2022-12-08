@@ -23,6 +23,7 @@
                 class="blockLocationListWrapper"
                 :items="parsedUclaLibraries"
             />
+            <!-- TODO implement show-hide instead of button-more -->
             <button-more
                 text="See More"
                 @click.native="showMoreOtherCampusLibrary()"
@@ -36,6 +37,13 @@
             <section-location-list
                 class="blockLocationListWrapper"
                 :items="parsedAffiliateLibraries"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider-way-finder"
+                color="visit"
             />
         </section-wrapper>
 
@@ -113,20 +121,20 @@ export default {
 
 <style lang="scss" scoped>
 .page-location {
-    .section-heading {
-        @include step-4;
-        color: var(--color-primary-blue-03);
-        margin: var(--space-xl) auto;
-        max-width: $container-l-main + px;
-    }
+    // .section-heading {
+    //     @include step-4;
+    //     color: var(--color-primary-blue-03);
+    //     margin: var(--space-xl) auto;
+    //     max-width: $container-l-main + px;
+    // }
 
-    .blockLocationListWrapper {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-m);
+    // .blockLocationListWrapper {
+    //     display: flex;
+    //     flex-direction: column;
+    //     gap: var(--space-m);
 
-        max-width: $container-l-main + px;
-        margin: 0 auto var(--space-3xl);
-    }
+    //     max-width: $container-l-main + px;
+    //     margin: 0 auto var(--space-3xl);
+    // }
 }
 </style>
