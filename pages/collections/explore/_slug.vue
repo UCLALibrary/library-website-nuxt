@@ -4,9 +4,9 @@
         class="page page-collection-detail"
     >
         <nav-breadcrumb
-            to="/collections"
+            to="/collections/explore"
             :title="page.title"
-            parent-title="Collections"
+            parent-title="Explore Collections"
         />
 
         <banner-text
@@ -53,6 +53,7 @@
             </div>
 
             <divider-way-finder
+                v-if="(page.blocks.length > 0)"
                 class="divider-way-finder"
                 color="default"
             />
@@ -65,7 +66,7 @@
         />
 
         <section-wrapper
-            v-if="page.blocks.length > 0"
+            v-if="(parsedServicesAndResources.length > 0 || parsedEndowments.length > 0 || parsedAssociatedStaffMember.length > 0)"
             theme="divider"
         >
             <divider-way-finder
@@ -85,6 +86,7 @@
             />
 
             <divider-way-finder
+                v-if="(parsedEndowments.length > 0 || parsedAssociatedStaffMember.length > 0)"
                 class="divider-way-finder"
                 color="default"
             />
@@ -99,6 +101,7 @@
             />
 
             <divider-way-finder
+                v-if="(parsedAssociatedStaffMember.length > 0)"
                 class="divider-way-finder"
                 color="default"
             />
@@ -165,56 +168,58 @@ export default {
             return services.map((obj) => {
                 return {
                     ...obj,
-                    to: `${obj.uri}`,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.to}`,
                     title: _get(obj, "title", ""),
                     text: _get(obj, "text", ""),
                 }
             })
         },
-        parsedDonors() {
-            if (this.page.endowment && this.page.endowment.length > 0) {
-                let donors = this.page.endowment[0].donors
-                let donorNames = []
-                donors.map((donor) => {
-                    donorNames.push(`${donor.firstName} ${donor.lastName}`)
-                })
-                if (donorNames.length == 1) {
-                    return `Donor: ${donorNames[0]}`
-                } else {
-                    let names = [
-                        donorNames.slice(0, -1).join(", "),
-                        donorNames.slice(-1)[0],
-                    ].join(donorNames.length < 2 ? "" : " and ")
-                    return `Donors: ${names}`
-                }
-            } else {
-                return ""
-            }
-        },
         parsedEndowments() {
             if (this.page.endowment) {
-                return this.page.endowment.map((item) => {
+                return this.page.endowment.map((obj, index) => {
                     return {
-                        to: `${item.uri}`,
-                        image: _get(item, "image[0].image[0]", null),
-                        title: _get(item, "title", ""),
-                        description: _get(item, "description", ""),
-                        category: this.parsedDonors ? this.parsedDonors : "",
+                        to: `/${obj.to}`,
+                        image: _get(obj, "image[0].image[0]", null),
+                        title: _get(obj, "title", ""),
+                        description: _get(obj, "description", ""),
+                        category: obj.donors.length > 0 ? this.parsedDonors(obj) : "",
                     }
                 })
+            } else {
+                return ""
             }
         },
         parsedAssociatedStaffMember() {
             return this.page.associatedStaffMember.map((obj) => {
                 return {
                     ...obj,
-                    to: `/about/staff/${obj.to}`,
+                    to: `/${obj.to}`,
                     image: _get(obj, "image[0]", null),
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
         },
     },
+    methods: {
+        parsedDonors(obj) {
+            let donorNames = []
+            obj.donors.map((donor) => {
+                donor.firstName == null ? donorNames.push(`${donor.lastName}`) : donorNames.push(`${donor.firstName} ${donor.lastName}`)
+            })
+
+            if (donorNames.length == 1) {
+                return `Donor: ${donorNames[0]}`
+            } else {
+                let names = [
+                    donorNames.slice(0, -1).join(", "),
+                    donorNames.slice(-1)[0],
+                ].join(donorNames.length < 2 ? "" : " and ")
+                return `Donors: ${names}`
+            }
+        },
+    }
 }
 </script>
 

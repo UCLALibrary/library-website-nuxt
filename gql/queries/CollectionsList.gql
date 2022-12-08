@@ -23,8 +23,9 @@ query CollectionsList {
                     sectionSummary
                     featuredCollections {
                         title
-                        text: summary
-                        to: uri
+                        summary
+                        titleLink: uri
+                        uri
                         heroImage {
                             ... on heroImage_heroImage_BlockType {
                                 id

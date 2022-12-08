@@ -1,6 +1,6 @@
 describe("Collection Detail page", () => {
     it("Visits a Collection Detail Page", () => {
-        cy.visit("/collections/halloween-costumes")
+        cy.visit("/collections/explore/halloween-costumes")
 
         // UCLA Library brand
         cy.get(".logo-ucla").should("be.visible")
@@ -15,7 +15,7 @@ describe("Collection Detail page", () => {
     context("When there isn't an entry in craft", () => {
         it("Raises a 404 error", () => {
             // cy.visit("/about/blogs/no_entry", {failOnStatusCode: false})
-            cy.request({url: "/collections/no_entry", failOnStatusCode: false}).its("status").should("equal", 404)
+            cy.request({url: "/collections/explore/no_entry", failOnStatusCode: false}).its("status").should("equal", 404)
         })
     })
 })

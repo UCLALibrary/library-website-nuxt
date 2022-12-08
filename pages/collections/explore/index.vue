@@ -94,7 +94,7 @@ export default {
                         ? obj.externalResourceUrl
                         : `/${obj.to}`,
                     image: _get(obj, "heroImage[0]image[0]", null),
-                    category: obj.category.join(","),
+                    category: obj.category.join(", "),
                     title: _get(obj, "title", ""),
                     text: _get(obj, "text", "")
                 }
@@ -116,10 +116,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-collections-explore {
-    // .section {
-    //     max-width: var(--unit-content-width);
-    //     margin: 80px auto;
-    // }
-
 }
 </style>

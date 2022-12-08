@@ -29,6 +29,7 @@
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
 
+        <!-- FEATURED & HIGHLIGHTED -->
         <section-wrapper
             :section-title="page.featuredCollectionsSection[0].titleGeneral"
             :section-summary="page.featuredCollectionsSection[0].sectionSummary"
@@ -36,21 +37,21 @@
             <banner-featured
                 v-if="page.featuredCollectionsSection.length > 0"
                 class="banner banner-about"
-                :image="parsedBannerFeatured.image"
-                :title="parsedBannerFeatured.title"
-                :description="parsedBannerFeatured.description"
-                :category="parsedBannerFeatured.category"
-                :to="parsedBannerFeatured.to"
-                :prompt="parsedBannerFeatured.prompt"
+                :image="parsedBannerFeatured[0].image"
+                :title="parsedBannerFeatured[0].title"
+                :description="parsedBannerFeatured[0].summary"
+                :category="parsedBannerFeatured[0].category"
+                :to="parsedBannerFeatured[0].to"
+                :prompt="parsedBannerFeatured[0].prompt"
+                :title-link="parsedBannerFeatured[0].titleLink"
             />
-
-            <divider-general v-if="parsedSectionHighlight.length" />
 
             <section-teaser-highlight
                 v-if="parsedCollections.featuredCollections.length > 1"
                 class="section-teaser-highlight"
                 :items="parsedSectionHighlight"
             />
+
             <nuxt-link
                 to="/collections/explore"
                 class="button-more"
@@ -59,6 +60,7 @@
             </nuxt-link>
         </section-wrapper>
 
+        <!-- COLLECTIONS -->
         <section-wrapper>
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
@@ -81,6 +83,7 @@
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
 
+        <!-- FLEXIBLE PAGE BLOCKS -->
         <flexible-blocks
             v-if="page.blocks"
             class="flexible-content"
@@ -128,54 +131,22 @@ export default {
                 : {}
         },
         parsedBannerFeatured() {
-            if (this.page.featuredCollectionsSection.length > 0) {
+            let meta = this.page.featuredCollectionsSection[0].featuredCollections
+
+            return meta.map((obj) => {
                 return {
-                    image: _get(
-                        this.page.featuredCollectionsSection[0]
-                            .featuredCollections[0],
-                        "heroImage[0].image[0]",
-                        null
-                    ),
-                    category: _get(
-                        this.page.featuredCollectionsSection[0]
-                            .featuredCollections[0],
-                        "category[0]",
-                        ""
-                    ),
-                    title: _get(
-                        this.page.featuredCollectionsSection[0]
-                            .featuredCollections[0],
-                        "title",
-                        ""
-                    ),
-                    description: _get(
-                        this.page.featuredCollectionsSection[0]
-                            .featuredCollections[0],
-                        "text",
-                        ""
-                    ),
-                    category: this.page.featuredCollectionsSection[0]
-                        .featuredCollections[0].category
-                        ? this.page.featuredCollectionsSection[0].featuredCollections[0].category.join(
-                            ","
-                        )
+                    ...obj,
+                    image: obj.heroImage[0].image[0],
+                    title: _get(obj, "title", ""),
+                    titleLink: `/${obj.titleLink}`,
+                    description: (obj, "summary", ""),
+                    category: obj.category
+                        ? obj.category.join(", ")
                         : "",
-                    prompt: _get(
-                        this.page.featuredCollectionsSection[0]
-                            .featuredCollections[0],
-                        "button[0].buttonText",
-                        ""
-                    ),
-                    to: _get(
-                        this.page.featuredCollectionsSection[0]
-                            .featuredCollections[0],
-                        "button[0].buttonUrl",
-                        ""
-                    ),
+                    to: _get(obj, "button[0].buttonUrl", ""),
+                    prompt: _get(obj,"button[0].buttonText", ""),
                 }
-            } else {
-                return {}
-            }
+            })
         },
         parsedSectionHighlight() {
             if (
@@ -188,7 +159,9 @@ export default {
                         return {
                             ...obj,
                             image: _get(obj, "heroImage[0].image[0]", ""),
-                            category: _get(obj, "category[0]", ""),
+                            category: obj.category.join(", "),
+                            to: `/${obj.uri}`,
+                            text: obj.summary
                         }
                     })
             } else {
