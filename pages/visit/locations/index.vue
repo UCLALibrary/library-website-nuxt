@@ -11,7 +11,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider-way-finder"
-                color="default"
+                color="visit"
             />
         </section-wrapper>
 
