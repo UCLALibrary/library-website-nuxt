@@ -87,16 +87,58 @@ import _get from "lodash/get"
 // GQL
 import ENDOWMENT_DETAIL from "~/gql/queries/EndowmentDetail"
 
+function parsedDonorsForES(donors) {
+    if (donors && donors.length > 0) {
+        computeDonors(donors)
+    } else {
+        return ""
+    }
+}
+function computeDonors(donors) {
+    let donorNames = []
+    for (let donor of donors) {
+        let name = ""
+        if (
+            donor.firstName &&
+            donor.firstName !== "" &&
+            (!donor.lastName || donor.lastName === "")
+        ) {
+            name = donor.firstName
+        } else if (
+            donor.firstName &&
+            donor.firstName !== "" &&
+            donor.lastName &&
+            donor.lastName !== ""
+        ) {
+            name = donor.firstName + " " + donor.lastName
+        } else {
+            name = donor.lastName
+        }
+        if (name !== "") donorNames.push(name)
+    }
+
+    if (donorNames.length == 1) {
+        return `${donorNames[0]}`
+    } else {
+        let names = [
+            donorNames.slice(0, -1).join(", "),
+            donorNames.slice(-1)[0],
+        ].join(donorNames.length < 2 ? "" : " and ")
+        return `${names}`
+    }
+}
+
 export default {
-    async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin, error, app }) {
         const data = await $graphql.default.request(ENDOWMENT_DETAIL, {
             slug: params.slug,
         })
         if (!data.entry) {
             error({ statusCode: 404, message: "Page not found" })
         }
+
         if (data && data.entry) {
-            data.entry.donorNames = this.parsedDonorsForES(data.entry.donors)
+            data.entry.donorNames = parsedDonorsForES(data.entry.donors)
             await $elasticsearchplugin.index(data.entry, params.slug)
         }
 
@@ -113,7 +155,7 @@ export default {
     computed: {
         parsedDonors() {
             if (this.page.donors && this.page.donors.length > 0) {
-                return this.computeDonors(this.page.donors)
+                return computeDonors(this.page.donors)
             } else {
                 return ""
             }
@@ -123,48 +165,6 @@ export default {
         },
         catalogLink() {
             return `https://search.library.ucla.edu/discovery/search?query=lds04,contains,${this.page.spakCode},AND&tab=LibraryCatalog&search_scope=MyInstitution&vid=01UCS_LAL:UCLA&mode=advanced&offset=0`
-        },
-    },
-    methods: {
-        parsedDonorsForES(donors) {
-            if (donors && donors.length > 0) {
-                this.computeDonors(donors)
-            } else {
-                return ""
-            }
-        },
-        computeDonors(donors) {
-            let donorNames = []
-            for (let donor of donors) {
-                let name = ""
-                if (
-                    donor.firstName &&
-                    donor.firstName !== "" &&
-                    (!donor.lastName || donor.lastName === "")
-                ) {
-                    name = donor.firstName
-                } else if (
-                    donor.firstName &&
-                    donor.firstName !== "" &&
-                    donor.lastName &&
-                    donor.lastName !== ""
-                ) {
-                    name = donor.firstName + " " + donor.lastName
-                } else {
-                    name = donor.lastName
-                }
-                if (name !== "") donorNames.push(name)
-            }
-
-            if (donorNames.length == 1) {
-                return `${donorNames[0]}`
-            } else {
-                let names = [
-                    donorNames.slice(0, -1).join(", "),
-                    donorNames.slice(-1)[0],
-                ].join(donorNames.length < 2 ? "" : " and ")
-                return `${names}`
-            }
         },
     },
 }
