@@ -5,6 +5,7 @@ query EventDetail($slug: [String!]) {
   event: entry(section: "event", slug: $slug) {
     ... on event_event_Entry {
       id
+      uri
       typehandle
       sectionHandle
       title

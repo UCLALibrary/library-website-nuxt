@@ -8,6 +8,7 @@ describe("Service page", () => {
             "contain",
             `Service with all flexible page block types`
         )
+        cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 
     context("When there isn't an entry in craft", () => {
