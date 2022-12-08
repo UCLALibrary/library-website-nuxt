@@ -1,6 +1,6 @@
 describe("Collection Detail page", () => {
     it("Visits a Collection Detail Page", () => {
-        cy.visit("/collections/halloween-costumes")
+        cy.visit("/collections/explore/halloween-costumes")
 
         // UCLA Library brand
         cy.get(".logo-ucla").should("be.visible")
