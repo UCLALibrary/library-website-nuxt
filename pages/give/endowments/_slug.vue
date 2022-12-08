@@ -95,7 +95,11 @@ export default {
         if (!data.entry) {
             error({ statusCode: 404, message: "Page not found" })
         }
-        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
+        if (data && data.entry) {
+            data.entry.donorNames = this.parsedDonorsForES(data.entry.donors)
+            await $elasticsearchplugin.index(data.entry, params.slug)
+        }
+
         return {
             page: _get(data, "entry", {}),
         }
@@ -109,20 +113,7 @@ export default {
     computed: {
         parsedDonors() {
             if (this.page.donors && this.page.donors.length > 0) {
-                let donors = this.page.donors
-                let donorNames = []
-                donors.map((donor) => {
-                    donorNames.push(`${donor.firstName} ${donor.lastName}`)
-                })
-                if (donorNames.length == 1) {
-                    return `${donorNames[0]}`
-                } else {
-                    let names = [
-                        donorNames.slice(0, -1).join(", "),
-                        donorNames.slice(-1)[0],
-                    ].join(donorNames.length < 2 ? "" : " and ")
-                    return `${names}`
-                }
+                return this.computeDonors(this.page.donors)
             } else {
                 return ""
             }
@@ -132,6 +123,48 @@ export default {
         },
         catalogLink() {
             return `https://search.library.ucla.edu/discovery/search?query=lds04,contains,${this.page.spakCode},AND&tab=LibraryCatalog&search_scope=MyInstitution&vid=01UCS_LAL:UCLA&mode=advanced&offset=0`
+        },
+    },
+    methods: {
+        parsedDonorsForES(donors) {
+            if (donors && donors.length > 0) {
+                this.computeDonors(donors)
+            } else {
+                return ""
+            }
+        },
+        computeDonors(donors) {
+            let donorNames = []
+            for (let donor of donors) {
+                let name = ""
+                if (
+                    donor.firstName &&
+                    donor.firstName !== "" &&
+                    (!donor.lastName || donor.lastName === "")
+                ) {
+                    name = donor.firstName
+                } else if (
+                    donor.firstName &&
+                    donor.firstName !== "" &&
+                    donor.lastName &&
+                    donor.lastName !== ""
+                ) {
+                    name = donor.firstName + " " + donor.lastName
+                } else {
+                    name = donor.lastName
+                }
+                if (name !== "") donorNames.push(name)
+            }
+
+            if (donorNames.length == 1) {
+                return `${donorNames[0]}`
+            } else {
+                let names = [
+                    donorNames.slice(0, -1).join(", "),
+                    donorNames.slice(-1)[0],
+                ].join(donorNames.length < 2 ? "" : " and ")
+                return `${names}`
+            }
         },
     },
 }

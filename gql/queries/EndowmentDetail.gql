@@ -27,6 +27,7 @@ query EndowmentDetail($slug: [String!]) {
       ... on donors_donor_BlockType {
         firstName
         lastName
+      }
     }
     endowmentDescription
     subjectAreas {
