@@ -18,9 +18,10 @@
         <section-wrapper>
             <section-cards-with-illustrations
                 class="section"
-                :items="page.getHelpWith[0].getHelpWith"
+                :items="parsedGetHelpWith"
                 :section-title="page.getHelpWith[0].titleGeneral"
                 :section-summary="page.getHelpWith[0].sectionSummary"
+                button-text="See All Services &amp; Resources"
                 to="/help/services-resources"
                 :is-horizontal="false"
             />
@@ -49,7 +50,7 @@
         />
 
         <section-wrapper theme="divider">
-            <divider-way-finder color="about" />
+            <divider-way-finder color="default" />
         </section-wrapper>
         <section-wrapper>
             <banner-featured
@@ -71,7 +72,7 @@
                 to="/collections/explore"
                 class="button-more"
             >
-                <button-more text="See More" />
+                <button-more text="See All Collections" />
             </nuxt-link>
         </section-wrapper>
         <section-wrapper theme="divider">
@@ -99,7 +100,7 @@
                 to="/about/news"
                 class="button-more"
             >
-                <button-more text="See More" />
+                <button-more text="See All News" />
             </nuxt-link>
         </section-wrapper>
         <section-wrapper theme="divider">
@@ -139,6 +140,16 @@ export default {
             // return advancedSearch
             return this.page.searchLinks[0]
         },
+        parsedGetHelpWith() {
+            return this.page.getHelpWith[0].getHelpWith.map((obj) => {
+                return {
+                    ...obj,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.uri}`,
+                }
+            })
+        },
         bannerFeaturedEvent() {
             let bannerFeaturedEvent = this.page.featuredEvents[0]
             return {
@@ -177,7 +188,7 @@ export default {
                         obj.sectionHandle === "event"
                             ? _get(obj, "startDateWithTime", null)
                             : _get(obj, "startDate", null),
-                    category: _get(obj, "category[0].title", ""),
+                    category: "Featured",
                     prompt:
                         obj.sectionHandle === "workshopOrEventSeries"
                             ? "View series"

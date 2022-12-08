@@ -20,7 +20,7 @@ query Homepage {
                         text: summary
                         to: uri
                         externalResourceUrl
-                        illustrationsResourcesAndServices
+                        iconName: illustrationsResourcesAndServices
                     }
                 }
             }
