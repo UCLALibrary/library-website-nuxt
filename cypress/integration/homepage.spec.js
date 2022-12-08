@@ -47,7 +47,7 @@ describe("Website Homepage", () => {
         //         "https://guides.library.ucla.edu/az.php"
         //     )
 
-        //Get help with
+        // Get help with
         cy.get(".section-cards-with-illustrations").should(
             "contain",
             "Get Help With"
