@@ -79,9 +79,6 @@
                 section-title="Associated Topics"
                 section-summary="Curabitur aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh."
             />
-            <section-wrapper theme="divider">
-                <divider-way-finder color="about" />
-            </section-wrapper>
         </section-wrapper>
     </main>
 </template>
