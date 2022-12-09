@@ -53,7 +53,7 @@
             </div>
 
             <divider-way-finder
-                v-if="(page.blocks.length > 0)"
+                v-if="page.blocks.length > 0"
                 class="divider-way-finder"
                 color="default"
             />
@@ -66,7 +66,11 @@
         />
 
         <section-wrapper
-            v-if="(parsedServicesAndResources.length > 0 || parsedEndowments.length > 0 || parsedAssociatedStaffMember.length > 0)"
+            v-if="
+                parsedServicesAndResources.length > 0 ||
+                    parsedEndowments.length > 0 ||
+                    parsedAssociatedStaffMember.length > 0
+            "
             theme="divider"
         >
             <divider-way-finder
@@ -86,7 +90,10 @@
             />
 
             <divider-way-finder
-                v-if="(parsedEndowments.length > 0 || parsedAssociatedStaffMember.length > 0)"
+                v-if="
+                    parsedEndowments.length > 0 ||
+                        parsedAssociatedStaffMember.length > 0
+                "
                 class="divider-way-finder"
                 color="default"
             />
@@ -101,7 +108,7 @@
             />
 
             <divider-way-finder
-                v-if="(parsedAssociatedStaffMember.length > 0)"
+                v-if="parsedAssociatedStaffMember.length > 0"
                 class="divider-way-finder"
                 color="default"
             />
@@ -134,7 +141,7 @@ export default {
             slug: params.slug,
         })
         if (!data.entry) {
-            error({ statusCode: 404, message: 'Page not found' })
+            error({ statusCode: 404, message: "Page not found" })
         }
         // console.log("Data fetched: " + JSON.stringify(data))
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
@@ -184,7 +191,8 @@ export default {
                         image: _get(obj, "image[0].image[0]", null),
                         title: _get(obj, "title", ""),
                         description: _get(obj, "description", ""),
-                        category: obj.donors.length > 0 ? this.parsedDonors(obj) : "",
+                        category:
+                            obj.donors.length > 0 ? this.parsedDonors(obj) : "",
                     }
                 })
             } else {
@@ -206,7 +214,9 @@ export default {
         parsedDonors(obj) {
             let donorNames = []
             obj.donors.map((donor) => {
-                donor.firstName == null ? donorNames.push(`${donor.lastName}`) : donorNames.push(`${donor.firstName} ${donor.lastName}`)
+                donor.firstName == null
+                    ? donorNames.push(`${donor.lastName}`)
+                    : donorNames.push(`${donor.firstName} ${donor.lastName}`)
             })
 
             if (donorNames.length == 1) {
@@ -219,7 +229,7 @@ export default {
                 return `Donors: ${names}`
             }
         },
-    }
+    },
 }
 </script>
 

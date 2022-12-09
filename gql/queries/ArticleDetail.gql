@@ -4,6 +4,7 @@
 query ArticleNewsDetail($slug: [String!]) {
     entry(section: "article", slug: $slug) {
         ... on article_article_Entry {
+            postDate
             id
             slug
             uri

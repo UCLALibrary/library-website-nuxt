@@ -147,10 +147,10 @@ export default {
             this.helptopic = {}
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
-                config.staff.searchFields,
+                config.serviceOrResources.searchFields,
                 "sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic",
                 [],
-                "",
+                config.serviceOrResources.sortField,
                 config.serviceOrResources.resultFields,
                 []
             )
