@@ -3,6 +3,7 @@
 
 query CollectionDetail($slug: [String!]) {
   entry(section: "collection", slug: $slug) {
+    postDate
     id
     physicalDigital
     uri
