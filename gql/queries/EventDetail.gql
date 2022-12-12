@@ -155,6 +155,8 @@ query EventDetail($slug: [String!]) {
             workshopOrEventSeriesType
             sectionHandle
             typeHandle
+            uri
+            slug
             title
             summary
             startDate
@@ -230,27 +232,7 @@ query EventDetail($slug: [String!]) {
         }
     }
 
-  exhibition: entry(section: "exhibition", slug: $slug) {
-    title
-    summary
-    startDate
-      @formatDateTime(format: "Y-m-d\\TH:i", timezone: "America/Los_Angeles")
-    endDate
-      @formatDateTime(format: "Y-m-d\\TH:i", timezone: "America/Los_Angeles")
-    image: heroImage {
-      ... on heroImage_heroImage_BlockType {
-        image {
-          ...Image
-        }
-        altText
-      }
-    }
-    ... on exhibition_exhibition_Entry {
-      sectionHandle
-      typeHandle
-      uri
-      slug
-      associatedLocationsAndPrograms {
+    exhibition: entry(section: "exhibition", slug: $slug) {
         title
         summary
         startDate
@@ -272,6 +254,10 @@ query EventDetail($slug: [String!]) {
             }
         }
         ... on exhibition_exhibition_Entry {
+            sectionHandle
+            typeHandle
+            uri
+            slug
             associatedLocationsAndPrograms {
                 title
                 uri
