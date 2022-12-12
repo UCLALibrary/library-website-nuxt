@@ -305,7 +305,7 @@ export default {
             return this.associatedExhibitions.map((obj) => {
                 return {
                     ...obj,
-                    to: `/visit/events-exhibtions/${obj.slug}`,
+                    to: `/visit/events-exhibtions/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", {}),
                     text: _get(obj, "summary", ""),
                     startDate: _get(obj, "seriesDate[0].startDate", ""),
