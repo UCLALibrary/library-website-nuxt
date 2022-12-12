@@ -53,7 +53,7 @@ const config = {
             {
                 label: "Subject Librarian",
                 esFieldName: "subjectLibrarian.keyword",
-                inputType: "radio",
+                inputType: "single-checkbox",
             },
         ],
         resultFields:[
