@@ -128,6 +128,7 @@ query LocationDetail($slug: [String!]) {
     associatedEvents: entries(
         section: "event"
         relatedToEntries: { section: "location", slug: $slug }
+        startDateWithTime: ">= now"
     ) {
         ... on event_event_Entry {
             id
