@@ -41,7 +41,9 @@
                 :description="bannerFeaturedEvent.description"
                 :locations="bannerFeaturedEvent.associatedLocations"
                 :align-right="false"
-            />
+            >
+                <heading-arrow text="Featured Events &amp; Exhibitions" />
+            </banner-featured>
         </section-wrapper>
         <section-dual-masonry
             v-if="parsedDualMasonryEvents.length > 0"
@@ -61,7 +63,9 @@
                 :category="bannerFeaturedCollection.category"
                 :prompt="bannerFeaturedCollection.prompt"
                 :align-right="true"
-            />
+            >
+                <heading-arrow text="Featured Collections" />
+            </banner-featured>
         </section-wrapper>
         <section-wrapper>
             <section-teaser-highlight
@@ -89,7 +93,9 @@
                 :start-date="bannerFeaturedNews.startDate"
                 :end-date="bannerFeaturedNews.endDate"
                 :align-right="false"
-            />
+            >
+                <heading-arrow text="Featured News" />
+            </banner-featured>
         </section-wrapper>
         <section-wrapper>
             <section-teaser-card
