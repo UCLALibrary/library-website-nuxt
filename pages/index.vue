@@ -30,7 +30,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder color="visit" />
         </section-wrapper>
-        <section-wrapper class="section-featured-banner">
+        <section-wrapper class="section-banner">
             <banner-featured
                 :image="bannerFeaturedEvent.image"
                 :to="bannerFeaturedEvent.to"
@@ -54,7 +54,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder color="default" />
         </section-wrapper>
-        <section-wrapper class="section-featured-banner">
+        <section-wrapper class="section-banner">
             <banner-featured
                 :image="bannerFeaturedCollection.image"
                 :to="bannerFeaturedCollection.to"
@@ -82,7 +82,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder color="about" />
         </section-wrapper>
-        <section-wrapper class="section-featured-banner">
+        <section-wrapper class="section-banner">
             <banner-featured
                 :image="bannerFeaturedNews.image"
                 :to="bannerFeaturedNews.to"
