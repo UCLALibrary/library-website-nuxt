@@ -131,13 +131,13 @@
                 class="section-teaser-list"
                 :items="mergeSortEventsExhibitions"
             />
-            <nuxt-link
+            <!-- <nuxt-link
                 v-if="mergeSortEventsExhibitions.length"
                 class="button-more"
                 to="/visit/events-exhibits"
             >
                 <button-more text="See More" />
-            </nuxt-link>
+            </nuxt-link> -->
         </section-wrapper>
 
         <section-wrapper theme="divider">
@@ -305,7 +305,7 @@ export default {
             return this.associatedExhibitions.map((obj) => {
                 return {
                     ...obj,
-                    to: `/events-exhibtions/${obj.slug}`,
+                    to: `/visit/events-exhibtions/${obj.slug}`,
                     image: _get(obj, "heroImage[0].image[0]", {}),
                     text: _get(obj, "summary", ""),
                     startDate: _get(obj, "seriesDate[0].startDate", ""),
@@ -318,7 +318,7 @@ export default {
             return this.associatedEvents.map((obj) => {
                 return {
                     ...obj,
-                    to: `/events-exhibtions/${obj.slug}`,
+                    to: `/visit/events-exhibtions/${obj.slug}`,
                     image: _get(obj, "heroImage[0].image[0]", {}),
                     text: _get(obj, "eventDescription", ""),
                     startDate: _get(obj, "date[0].startTime", ""),
