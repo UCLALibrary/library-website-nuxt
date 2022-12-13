@@ -4,7 +4,7 @@ query PoliciesList {
   entry(section: "listingPolicies") {
     ... on listingPolicies_listingPolicies_Entry {
       title
-      summary
+      text: summary
       policyBlock {
         sectionSummary
         sectionTitle

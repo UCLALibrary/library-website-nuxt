@@ -18,7 +18,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder />
         </section-wrapper>
-        <h3>{{ page }}</h3>
+
         <div v-if="$fetchState.pending">
             <p>.....Its Loading</p>
         </div>
@@ -118,7 +118,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
-import _ from "lodash"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import STAFF_LIST from "~/gql/queries/StaffList"
@@ -143,9 +143,6 @@ export default {
             },
         }
     },
-    fetchOnServer: false,
-    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
-    fetchKey: "staff-list",
     async fetch() {
         console.log("live preview  staff list")
         this.page = {}
@@ -211,6 +208,24 @@ export default {
             //console.log("Craft data:" + JSON.stringify(data))
         }
     },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
+        return {
+            title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
+        }
+    },
+    fetchOnServer: false,
+    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
+    fetchKey: "staff-list",
     computed: {
         groupByAcademicLibraries() {
             let parseResults = this.parseHitsResults

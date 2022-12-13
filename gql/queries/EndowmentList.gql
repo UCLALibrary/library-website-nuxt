@@ -3,7 +3,7 @@ query EndowmentsList {
   entry(section: "listingEndowments") {
     ... on listingEndowments_listingEndowments_Entry {
       title
-      summary
+      text: summary
     }
   }
   entries(section: "endowment", orderBy: "title ASC") {

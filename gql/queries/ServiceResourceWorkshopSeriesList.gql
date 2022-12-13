@@ -33,8 +33,8 @@ query ServiceResourceWorkshopSeriesList {
   entry(section: "listingServicesResources") {
       ... on listingServicesResources_listingServicesResources_Entry {
           id
-          servicesResourcesListTitle: title
-          servicesResourcesListSummary: summary
+          title
+          text: summary
       }
   }
 }

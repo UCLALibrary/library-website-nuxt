@@ -3,7 +3,7 @@
 query ExploreCollectionsList {
   entry(section: "listingExploreCollections") {
     title
-    summary
+    text: summary
     ... on listingExploreCollections_listingExploreCollections_Entry {
       associatedTopics {
         title

@@ -4,8 +4,8 @@
         class="page page-location"
     >
         <masthead-secondary
-            :title="summaryData.title"
-            :text="summaryData.summary"
+            :title="page.title"
+            :text="page.text"
         />
 
         <section-wrapper theme="divider">
@@ -61,6 +61,7 @@
 import _get from "lodash/get"
 import parseAddress from "~/utils/parseAddress"
 import parseAmenities from "~/utils/parseAmenities"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import LOCATIONS_LIST from "~/gql/queries/LocationsList"
@@ -72,7 +73,7 @@ export default {
         })
 
         return {
-            summaryData: _get(data, "entry", {}),
+            page: _get(data, "entry", {}),
             uclaLibraries: _get(data, "uclaLibraries", {}),
             affiliateLibraries: _get(data, "affiliateLibraries", {}),
         }
@@ -80,6 +81,21 @@ export default {
     data() {
         return {
             showOtherCampus: false
+        }
+    },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
+        return {
+            title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {
