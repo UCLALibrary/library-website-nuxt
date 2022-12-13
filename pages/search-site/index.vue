@@ -21,8 +21,11 @@
         <div v-else>
             <h4 style="margin: 30px 400px">
                 <br>
-                No of hits
+                Total Value
                 {{ page && page.hits && page.hits.total.value }}
+                <br>
+                No of current hits
+                {{ page && page.hits && page.hits.hits.length }}
             </h4>
 
             <div
@@ -145,8 +148,8 @@ export default {
                     if (this.from == 0) this.previous = false
                     else this.previous = true
 
-                    if (this.next) this.nextFrom = this.from + 10
-                    if (this.previous) this.prevFrom = this.from - 10
+                    if (this.next) this.nextFrom = this.from + this.size
+                    if (this.previous) this.prevFrom = this.from - this.size
                     console.log("what is start now:" + this.from)
                     // Pagination logic ends
                 } else {
@@ -168,16 +171,13 @@ export default {
     },
     computed: {
         parsePrev() {
-            if (this.previous) {
+            if (this.previous)
                 return `${this.$route.path}?q=${this.$route.query.q}&from=${this.prevFrom}`
-            }
             return ""
         },
         parseNext() {
-            if (this.next) {
-                // console.log("in parse next what is from? " + this.form)
+            if (this.next)
                 return `${this.$route.path}?q=${this.$route.query.q}&from=${this.nextFrom}`
-            }
             return ""
         },
         searchAdditionalResources() {
