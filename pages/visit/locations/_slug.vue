@@ -335,9 +335,9 @@ export default {
                 .concat(this.parsedExhibtions)
                 .sort((a, b) =>
                     a.startDate > b.startDate
-                        ? 1
+                        ? -1
                         : b.startDate > a.startDate
-                            ? -1
+                            ? 1
                             : 0
                 )
         },
