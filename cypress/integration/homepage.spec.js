@@ -33,6 +33,13 @@ describe("Website Homepage", () => {
             .find("input.input-search")
             .should("have.attr", "placeholder", "Search by keyword")
         cy.get(".masthead-primary")
+            .contains("a", "Databases A-Z")
+            .should(
+                "have.attr",
+                "href",
+                "https://guides.library.ucla.edu/az.php?&_ga=2.194620910.2109030156.1663611669-236460657.1661379075"
+            )
+        cy.get(".masthead-primary")
             .contains("a", "Course Reserves")
             .should(
                 "have.attr",
@@ -40,12 +47,8 @@ describe("Website Homepage", () => {
                 "https://www.library.ucla.edu/borrow-renew-return/course-reserves"
             )
         cy.get(".masthead-primary")
-            .contains("a", "Databases A-Z")
-            .should(
-                "have.attr",
-                "href",
-                "https://guides.library.ucla.edu/az.php?&_ga=2.194620910.2109030156.1663611669-236460657.1661379075"
-            )
+            .contains("a", "Advanced Search")
+            .should("have.attr", "href", "https://www.primo.com/")
 
         // Get help with
         cy.get(".section-cards-with-illustrations").should(
