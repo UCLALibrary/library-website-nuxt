@@ -128,9 +128,6 @@ export default {
         }
     },
     computed: {
-        parsedSearchLinks() {
-            return this.page.searchLinks.slice(1)
-        },
         parsedAdvancedSearchLink() {
             // return this.page.searchLinks
             // return this.page.searchLinks.map((obj) => {
@@ -144,8 +141,14 @@ export default {
             // })
             // let advancedSearch = copySearchLinks.splice(index, 1)
             // return advancedSearch
-            return this.page.searchLinks[0]
+            let advancedLink = this.page.searchLinks.slice(-1)[0]
+            return advancedLink
         },
+        parsedSearchLinks() {
+            let searchLinks = [...this.page.searchLinks].slice(0, -1)
+            return searchLinks
+        },
+
         parsedGetHelpWith() {
             return this.page.getHelpWith[0].getHelpWith.map((obj) => {
                 return {
