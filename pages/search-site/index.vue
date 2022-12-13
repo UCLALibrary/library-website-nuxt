@@ -19,14 +19,14 @@
         </div>
 
         <div v-else>
-            <h4 style="margin: 30px 400px">
+            <!--h4 style="margin: 30px 400px">
                 <br>
                 Total Value
                 {{ page && page.hits && page.hits.total.value }}
                 <br>
                 No of current hits
                 {{ page && page.hits && page.hits.hits.length }}
-            </h4>
+            </h4-->
 
             <div
                 v-if="page && page.hits && page.hits.hits.length > 0"

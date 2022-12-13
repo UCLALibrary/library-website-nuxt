@@ -3,6 +3,9 @@
 
 query EndowmentDetail($slug: [String!]) {
   entry(section: "endowment", slug: $slug) {
+    uri
+    slug
+    sectionHandle
     title
     text: summary
     heroImage {
