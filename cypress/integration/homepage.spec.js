@@ -48,7 +48,7 @@ describe("Website Homepage", () => {
             )
         cy.get(".masthead-primary")
             .contains("a", "Advanced Search")
-            .should("have.attr", "href", "https://www.primo.com/")
+            .should("have.attr", "href", "http://www.primo.com")
 
         // Get help with
         cy.get(".section-cards-with-illustrations").should(
