@@ -48,7 +48,7 @@
         <section-dual-masonry
             v-if="parsedDualMasonryEvents.length > 0"
             :items="parsedDualMasonryEvents"
-            to="/events-exhibitions"
+            to="/visit/events-exhibitions"
         />
 
         <section-wrapper theme="divider">
