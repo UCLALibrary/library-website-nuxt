@@ -5,15 +5,7 @@ const config = {
             "summary^6",
             "text^6"
         
-        ],/*
-         filters: [
-            { label: "Location", esFieldName: "locations.title.keyword", inputType: "checkbox", },
-            {
-                label: "Topic",
-                esFieldName: "associatedTopics.title.keyword",
-                inputType: "checkbox",
-            },
-        ], */
+        ],
         resultFields:[
             "title",
             "text",   

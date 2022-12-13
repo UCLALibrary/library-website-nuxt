@@ -138,6 +138,12 @@ export default {
         }
 
         if (data && data.entry) {
+            console.log(
+                "Endowment detail page: slug: " +
+                    data.entry.slug +
+                    "Now uri:" +
+                    data.entry.uri
+            )
             data.entry.donorNames = parsedDonorsForES(data.entry.donors)
             await $elasticsearchplugin.index(data.entry, params.slug)
         }
