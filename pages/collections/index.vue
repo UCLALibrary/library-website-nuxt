@@ -190,7 +190,7 @@ export default {
     methods: {
         parsedDate(postDate) {
             return format(new Date(postDate), "MMMM d, Y")
-        },  
+        },
         parseArticleCategory(categories) {
             let result = ""
             categories.forEach((obj) => {

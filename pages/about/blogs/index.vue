@@ -4,9 +4,9 @@
         class="page page-news"
     >
         <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :title="page.title"
+            v-if="page.entry.heroImage && page.heroImage.length == 1"
+            :image="page.entry.heroImage[0].image[0]"
+            :title="page.entry.title"
             category="Library News"
             :byline="parsedBylines"
             :locations="locations"
@@ -15,7 +15,7 @@
             :authors="authors"
             :align-right="true"
         />
-
+        <h3>{{ page.entry.summary }}</h3>
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider"
@@ -36,6 +36,7 @@
 // HELPERS
 import _get from "lodash/get"
 import format from "date-fns/format"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import ARTICLE_LIST from "~/gql/queries/ArticleList"
@@ -49,6 +50,22 @@ export default {
         // console.log("data:" + data)
         return {
             page: data,
+        }
+    },
+    head() {
+        let title = this.page ? this.page.entry.title : "... loading"
+        let metaClean = removeTags(this.page.entry.summary)
+        let metaDescription = this.page ? metaClean : "The UCLA Library creates a vibrant nexus of ideas, collections, expertise, and spaces in which users illuminate solutions for local and global challenges. We constantly evolve to advance UCLA’s research, education, and public service mission by empowering and inspiring communities of scholars and learners to discover, access, create, share, and preserve knowledge."
+
+        return {
+            title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {

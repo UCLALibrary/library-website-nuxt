@@ -72,6 +72,7 @@
 // HELPERS
 import _get from "lodash/get"
 import format from "date-fns/format"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import ARTICLE_DETAIL from "~/gql/queries/ArticleDetail"
@@ -97,8 +98,18 @@ export default {
     },
     head() {
         let title = this.page ? this.page.title : "... loading"
+        let metaClean = removeTags(this.page.text)
+        let metaDescription = this.page ? metaClean : "UCLA Library Blogs"
+
         return {
             title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {
@@ -136,6 +147,15 @@ export default {
             })
         },
     },
+    // TODO Make less gross
+    //methods: {
+    // removeTags() {
+    //     let str = this.page.text
+    //     let stripHtml = str.replace( /(<([^>]+)>)/ig, '')
+    //     let removeQuotes = stripHtml.replace(/"/ig, '')
+    //     return removeQuotes
+    // }
+    //},
 }
 </script>
 

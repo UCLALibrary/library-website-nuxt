@@ -10,7 +10,9 @@
             :title="page.entry.title"
             parent-title="Staff Directory"
         />
-
+        <h3>{{ parsedStaffName }}</h3>
+        <h3>{{ parsedAlternativeFullName }}</h3>
+        <h3>{{ parsedLanguage }}</h3>
         <section-wrapper>
             <block-staff-detail
                 :image="parsedImage"

@@ -18,7 +18,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder />
         </section-wrapper>
-
+        <h3>{{ page }}</h3>
         <div v-if="$fetchState.pending">
             <p>.....Its Loading</p>
         </div>
