@@ -3,11 +3,25 @@ export default function ({ $config }, inject) {
     {"id":"j6tUj4IBzYVXfPB9-JvU","name":"dev-es-key","api_key":"N_f0_5WSSae3QOvm4hlq0g","encoded":"ajZ0VWo0SUJ6WVZYZlBCOS1KdlU6Tl9mMF81V1NTYWUzUU92bTRobHEwZw=="}
     */
 
-    async function siteSearch(keyword="*:*"){
+    async function siteSearch(keyword="*:*", from=0){
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
         if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
         //console.log("keyword:"+keyword)
-    
+        console.log(JSON.stringify({
+            "from": from,
+            "query": {
+                "query_string" : {
+                    "query" : "("+keyword + " AND NOT(sectionHandle:event)) OR ("+keyword + " AND startDateWithTime:[now TO *] AND sectionHandle:event)",
+                    "fields": [
+                        "title^4",
+                        "summary^3",
+                        "text^3",
+                        "richText^2"
+                    ],
+                    "fuzziness":"auto"
+                }
+            }        
+        }))
         const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, {
             headers: {
                 'Authorization': `ApiKey ${$config.esReadKey}`,
@@ -15,12 +29,11 @@ export default function ({ $config }, inject) {
             },
             method: 'POST',
             body: JSON.stringify({
-                size: "1000",
+                "from": from,
                 "query": {
                     "query_string" : {
-                        "query" : "("+keyword + " AND NOT(sectionHandle:event)) OR (startDateWithTime:[now TO *] AND sectionHandle:event)",
+                        "query" : "("+keyword + " AND NOT(sectionHandle:event)) OR ("+keyword + " ANDstartDateWithTime:[now TO *] AND sectionHandle:event)",
                         "fields": [
-                            "*",
                             "title^4",
                             "summary^3",
                             "text^3",
