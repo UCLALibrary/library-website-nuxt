@@ -129,22 +129,12 @@ export default {
     },
     computed: {
         parsedAdvancedSearchLink() {
-            // return this.page.searchLinks
-            // return this.page.searchLinks.map((obj) => {
-            //     if (obj.text.includes("Advanced Search")) {
-            //         return obj
-            //     } else return ""
-            // })
-            // let copySearchLinks = this.page.searchLinks
-            // let index = copySearchLinks.findIndex((object) => {
-            //     return object.text === "Advanced Search"
-            // })
-            // let advancedSearch = copySearchLinks.splice(index, 1)
-            // return advancedSearch
+            // Last item in searchLinks
             let advancedLink = this.page.searchLinks.slice(-1)[0]
             return advancedLink
         },
         parsedSearchLinks() {
+            // Remove last item in searchLinks
             let searchLinks = [...this.page.searchLinks].slice(0, -1)
             return searchLinks
         },
