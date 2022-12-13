@@ -206,6 +206,7 @@
 <script>
 // GQL
 import LOCATION_DETAIL from "~/gql/queries/LocationDetail"
+import parseAmenities from "~/utils/parseAmenities"
 
 // HELPERS
 import _get from "lodash/get"
@@ -311,6 +312,7 @@ export default {
                     startDate: _get(obj, "seriesDate[0].startDate", ""),
                     endDate: _get(obj, "seriesDate[0].endDate", ""),
                     locations: _get(obj, "associatedLocations", []),
+                    category: "Exhibition"
                 }
             })
         },
@@ -319,11 +321,12 @@ export default {
                 return {
                     ...obj,
                     to: `/visit/events-exhibitions/${obj.slug}`,
-                    image: _get(obj, "heroImage[0].image[0]", {}),
+                    image: _get(obj, "heroImage[0].image[0]", null),
                     text: _get(obj, "eventDescription", ""),
                     startDate: _get(obj, "date[0].startTime", ""),
                     endDate: _get(obj, "date[0].endTime", ""),
-                    locations: _get(obj, "associatedLocations", []),
+                    //locations: _get(obj, "associatedLocations", []),
+                    category: _get(obj, "eventType[0].title", "")
                 }
             })
         },

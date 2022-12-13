@@ -30,6 +30,7 @@ query LocationDetail($slug: [String!]) {
             }
             howToGetHere
             amenities(label: true)
+            amenitiesIcons: amenities(label: false)
             space {
                 title
                 text: summary
@@ -154,7 +155,7 @@ query LocationDetail($slug: [String!]) {
                 }
             }
             eventType {
-                category
+                title
             }
             eventLocation
             isOnline: onlineEventUrl
