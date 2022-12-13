@@ -46,9 +46,9 @@ describe("Website Homepage", () => {
                 "href",
                 "https://www.library.ucla.edu/borrow-renew-return/course-reserves"
             )
-        cy.get(".masthead-primary")
-            .contains("a", "Advanced Search")
-            .should("have.attr", "href", "http://www.primo.com")
+        // cy.get(".masthead-primary")
+        //     .contains("a", "Advanced Search")
+        //     .should("have.attr", "href", "http://www.primo.com")
 
         // Get help with
         cy.get(".section-cards-with-illustrations").should(
