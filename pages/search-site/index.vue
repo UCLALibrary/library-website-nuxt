@@ -215,7 +215,6 @@ export default {
     async mounted() {
         console.log("In mounted")
     },
-
     methods: {
         async getSearchData(data) {
             try {

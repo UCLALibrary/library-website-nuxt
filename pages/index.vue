@@ -3,7 +3,10 @@
         id="main"
         class="page page-home"
     >
-        <masthead-primary />
+        <masthead-primary
+            :link-items="parsedSearchLinks"
+            :advanced-search-link="parsedAdvancedSearchLink"
+        />
         <!-- TODO elastic search testing -->
         <!--h4>Mapping:</h4>
         <p>{{ mapping }}</p>
@@ -12,14 +15,14 @@
         <section-wrapper theme="divider">
             <divider-way-finder color="help" />
         </section-wrapper>
-
         <section-wrapper>
             <section-cards-with-illustrations
                 class="section"
-                :items="parsedSectionCards"
-                section-title="Get Help With"
-                section-summary="Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more."
-                to="/help/foo/bar"
+                :items="parsedGetHelpWith"
+                :section-title="page.getHelpWith[0].titleGeneral"
+                :section-summary="page.getHelpWith[0].sectionSummary"
+                button-text="See All Services &amp; Resources"
+                to="/help/services-resources"
                 :is-horizontal="false"
             />
         </section-wrapper>
@@ -27,191 +30,243 @@
         <section-wrapper theme="divider">
             <divider-way-finder color="visit" />
         </section-wrapper>
-
-        <section-wrapper>
+        <section-wrapper class="section-banner">
             <banner-featured
-                class="section banner banner-visit"
-                :image="bannerVisit.image"
-                :to="bannerVisit.to"
-                :title="bannerVisit.title"
-                :category="bannerVisit.category"
-                :breadcrumb="bannerVisit.breadcrumb"
-                :start-date="bannerVisit.startDate"
-                :end-date="bannerVisit.endDate"
-                :prompt="bannerVisit.prompt"
-                :ratio="bannerVisit.ratio"
+                :image="bannerFeaturedEvent.image"
+                :to="bannerFeaturedEvent.to"
+                :prompt="bannerFeaturedEvent.prompt"
+                :title="bannerFeaturedEvent.title"
+                :start-date="bannerFeaturedEvent.startDate"
+                :end-date="bannerFeaturedEvent.endDate"
+                :description="bannerFeaturedEvent.description"
+                :locations="bannerFeaturedEvent.associatedLocations"
                 :align-right="false"
             >
-                <heading-arrow
-                    :text="bannerVisit.breadcrumb"
-                    :to="bannerVisit.to"
-                />
+                <heading-arrow text="Featured Events &amp; Exhibitions" />
             </banner-featured>
         </section-wrapper>
-
         <section-dual-masonry
-            class="section"
-            :items="page.sectionDualMasonry"
-            to="/visit/foo"
+            v-if="parsedDualMasonryEvents.length > 0"
+            :items="parsedDualMasonryEvents"
+            to="/visit/events-exhibitions"
         />
 
+        <section-wrapper theme="divider">
+            <divider-way-finder color="default" />
+        </section-wrapper>
+        <section-wrapper class="section-banner">
+            <banner-featured
+                :image="bannerFeaturedCollection.image"
+                :to="bannerFeaturedCollection.to"
+                :title="bannerFeaturedCollection.title"
+                :description="bannerFeaturedCollection.description"
+                :category="bannerFeaturedCollection.category"
+                :prompt="bannerFeaturedCollection.prompt"
+                :align-right="true"
+            >
+                <heading-arrow text="Featured Collections" />
+            </banner-featured>
+        </section-wrapper>
+        <section-wrapper>
+            <section-teaser-highlight
+                v-if="parsedSectionHighlightCollection.length > 1"
+                :items="parsedSectionHighlightCollection"
+            />
+            <nuxt-link
+                to="/collections/explore"
+                class="button-more"
+            >
+                <button-more text="See All Collections" />
+            </nuxt-link>
+        </section-wrapper>
         <section-wrapper theme="divider">
             <divider-way-finder color="about" />
         </section-wrapper>
-
-        <section-wrapper>
+        <section-wrapper class="section-banner">
             <banner-featured
-                class="banner banner-about"
-                :image="bannerAbout.image"
-                :to="bannerAbout.to"
-                :title="bannerAbout.title"
-                :category="bannerAbout.category"
-                :breadcrumb="bannerAbout.breadcrumb"
-                :start-date="bannerVisit.startDate"
-                :end-date="bannerVisit.endDate"
-                :prompt="bannerAbout.prompt"
-                :ratio="bannerAbout.ratio"
-                :locations="bannerAbout.locations"
+                :image="bannerFeaturedNews.image"
+                :to="bannerFeaturedNews.to"
+                :prompt="bannerFeaturedNews.prompt"
+                :title="bannerFeaturedNews.title"
+                :description="bannerFeaturedNews.description"
+                :category="bannerFeaturedNews.category"
+                :start-date="bannerFeaturedNews.startDate"
+                :end-date="bannerFeaturedNews.endDate"
+                :align-right="false"
             >
-                <heading-arrow
-                    :text="bannerAbout.breadcrumb"
-                    :to="bannerAbout.to"
-                />
+                <heading-arrow text="Featured News" />
             </banner-featured>
         </section-wrapper>
-
+        <section-wrapper>
+            <section-teaser-card
+                v-if="parsedNewsList.length > 1"
+                :items="parsedNewsList"
+            />
+            <nuxt-link
+                to="/about/news"
+                class="button-more"
+            >
+                <button-more text="See All News" />
+            </nuxt-link>
+        </section-wrapper>
         <section-wrapper theme="divider">
             <divider-general />
         </section-wrapper>
-
-        <section-post-small
-            class="section"
-            :items="page.posts"
-            to="/news/"
-        />
     </main>
 </template>
 
 <script>
-import * as MOCK_API from "~/data/mock-api.json"
-
+// Helpers
+import _get from "lodash/get"
+// gql
+import HOMEPAGE from "~/gql/queries/Homepage"
 export default {
-    components: {},
-    async asyncData({ $dataApi }) {
-        //const data = await this.$graphql(QUERY);
-
-        const mockCard = {
-            to: "/help/foo/bar/",
-            title: "Example Service",
-            text: "Here is a decent amount of text to explain this get help with.",
-        }
-        const sectionCardsData = {
-            items: [
-                { ...mockCard },
-                { ...mockCard, to: "/about/foo/bar" },
-                { ...mockCard, to: "/help/foo/baz" },
-                { ...mockCard, to: "/visit/foo/bar" },
-                { ...mockCard, to: "/help/foo/fred/" },
-            ],
-            sectionTitle: "Get Help with",
-            sectionSummary:
-                "Need guidance on how to make the most of UCLA Libraries? Below are common areas for which we offer services, resources, workshops and more.",
-            to: "/help/foo/bar",
-        }
-
-        const sectionDualMasonry = MOCK_API.bricks
-
-        const posts = [
-            {
-                ...MOCK_API.article,
-                image: MOCK_API.image,
-            },
-            {
-                ...MOCK_API.article,
-                image: MOCK_API.image,
-                to: "/about/foo/bar",
-            },
-            {
-                ...MOCK_API.article,
-                image: MOCK_API.image,
-                to: "/help/foo/bar",
-            },
-        ]
-
-        const banner = {
-            image: MOCK_API.image,
-            to: "/help/foo/bar/",
-            title: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
-            category: "Quisque",
-            breadcrumb: "Lorem ipsum dolor sit amet",
-            startDate: "1995-12-17T03:24:00",
-            endDate: "1995-12-17T03:24:00",
-            locations: [
-                {
-                    id: "523",
-                    title: "Online",
-                    to: "visit/locations/Online",
-                },
-            ],
-            prompt: "Read More",
-            alignRight: true,
-        }
-
-        const data = {
-            sectionCardsData: sectionCardsData,
-            sectionDualMasonry: sectionDualMasonry,
-            posts: posts,
-            banner,
-        }
-
+    async asyncData({ $graphql, $dataApi }) {
+        const data = await $graphql.default.request(HOMEPAGE, {})
         return {
-            page: data,
-            /*mapping: mapping,
-            searchResponse: searchResponse,*/
+            page: _get(data, "entry", {}),
         }
     },
     computed: {
-        parsedSectionCards() {
-            return this.page.sectionCardsData.items.map((obj, i) => {
-                switch (i) {
-                    case 0:
-                        obj.iconName = "illustration-digitized-resources"
-                        break
-                    case 1:
-                        obj.iconName = "illustration-find-space"
-                        break
-                }
+        parsedAdvancedSearchLink() {
+            // Last item in searchLinks
+            let advancedLink = this.page.searchLinks.slice(-1)[0]
+            return advancedLink
+        },
+        parsedSearchLinks() {
+            // Remove last item in searchLinks
+            let searchLinks = [...this.page.searchLinks].slice(0, -1)
+            return searchLinks
+        },
+
+        parsedGetHelpWith() {
+            return this.page.getHelpWith[0].getHelpWith.map((obj) => {
                 return {
                     ...obj,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.uri}`,
                 }
             })
         },
-        bannerVisit() {
+        bannerFeaturedEvent() {
+            let bannerFeaturedEvent = this.page.featuredEvents[0]
             return {
-                ...this.page.banner,
-                ratio: 56.25,
+                ...bannerFeaturedEvent,
+                to: `/${bannerFeaturedEvent.uri}`,
+                prompt:
+                    bannerFeaturedEvent.sectionHandle ===
+                    "workshopOrEventSeries"
+                        ? "View series"
+                        : `View ${bannerFeaturedEvent.sectionHandle}`,
+                image: _get(bannerFeaturedEvent, "heroImage[0].image[0]", null),
+                startDate:
+                    bannerFeaturedEvent.sectionHandle === "event"
+                        ? _get(bannerFeaturedEvent, "startDateWithTime", null)
+                        : _get(bannerFeaturedEvent, "startDate", null),
+                endDate:
+                    bannerFeaturedEvent.sectionHandle === "event"
+                        ? _get(bannerFeaturedEvent, "endDateWithTime", null)
+                        : _get(bannerFeaturedEvent, "endDate", null),
+                category: _get(bannerFeaturedEvent, "category[0].title", ""),
+                description:
+                    bannerFeaturedEvent.sectionHandle === "event"
+                        ? _get(bannerFeaturedEvent, "eventDescription", "")
+                        : _get(bannerFeaturedEvent, "summary", ""),
             }
         },
-        bannerAbout() {
+        // TO DO need to update dates on component
+        parsedDualMasonryEvents() {
+            let masonaryEvents = this.page.featuredEvents.slice(1, 3)
+            return masonaryEvents.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "heroImage[0].image[0]", null),
+                    dates:
+                        obj.sectionHandle === "event"
+                            ? _get(obj, "startDateWithTime", null)
+                            : _get(obj, "startDate", null),
+                    category: "Featured",
+                    prompt:
+                        obj.sectionHandle === "workshopOrEventSeries"
+                            ? "View series"
+                            : `View ${obj.sectionHandle}`,
+                }
+            })
+        },
+        bannerFeaturedCollection() {
+            let bannerFeaturedCollection = this.page.featuredCollections[0]
             return {
-                ...this.page.banner,
-                ratio: 40,
-                alignRight: false,
+                ...bannerFeaturedCollection,
+                to: `/${bannerFeaturedCollection.uri}`,
+                image: _get(
+                    bannerFeaturedCollection,
+                    "heroImage[0].image[0]",
+                    null
+                ),
+                category: bannerFeaturedCollection.category
+                    ? bannerFeaturedCollection.category.toString()
+                    : "",
+                description: _get(bannerFeaturedCollection, "text", ""),
+                prompt: `View ${bannerFeaturedCollection.sectionHandle}`,
             }
         },
+        parsedSectionHighlightCollection() {
+            let highlightCollections = this.page.featuredCollections.slice(1)
+            return highlightCollections.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "heroImage[0].image[0]", ""),
+                    category: obj.category ? obj.category.toString() : "",
+                }
+            })
+        },
+        bannerFeaturedNews() {
+            let bannerFeaturedNews = this.page.featuredNews[0]
+            return {
+                ...bannerFeaturedNews,
+                to: `/${bannerFeaturedNews.uri}`,
+                image: _get(bannerFeaturedNews, "heroImage[0].image[0]", null),
+                // startDate: _get(bannerFeaturedNews, "postDate", null),
+                category: _get(
+                    bannerFeaturedNews,
+                    "articleCategories[0].title",
+                    ""
+                ),
+                description: _get(bannerFeaturedNews, "text", ""),
+                startDate: _get(bannerFeaturedNews, "postDate", ""),
+                endDate: _get(bannerFeaturedNews, "postDate", ""),
+                prompt: `View ${bannerFeaturedNews.sectionHandle}`,
+            }
+        },
+        parsedNewsList() {
+            let newsList = this.page.featuredNews.slice(1)
+            return newsList.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "heroImage[0].image[0]", ""),
+                    category: _get(obj, "articleCategories[0].title", ""),
+                    startDate: _get(obj, "postDate", ""),
+                    endDate: _get(obj, "postDate", ""),
+                }
+            })
+        },
     },
-    async mounted() {
-        const mapping = await this.$dataApi.getMapping()
-        console.log(JSON.stringify(mapping))
-        const searchResponse = await this.$dataApi.siteSearch("test")
-        console.log("Search Response: " + JSON.stringify(searchResponse))
-    },
+    // async mounted() {
+    //     const mapping = await this.$dataApi.getMapping()
+    //     console.log(JSON.stringify(mapping))
+    //     const searchResponse = await this.$dataApi.siteSearch("test")
+    //     console.log("Search Response: " + JSON.stringify(searchResponse))
+    // },
 }
 </script>
 <style lang="scss" scoped>
 .page-home {
-    .banner {
-        margin: var(--unit-vertical-gap) auto;
+    .button-more {
+        margin: var(--space-2xl) auto;
     }
 }
 </style>
