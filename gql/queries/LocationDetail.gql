@@ -177,6 +177,7 @@ query LocationDetail($slug: [String!]) {
             id
             title
             id
+            slug
             uri
             title
             summary
