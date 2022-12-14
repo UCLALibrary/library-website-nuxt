@@ -3,7 +3,7 @@
 query Homepage {
     entry(section: "homepage") {
         title
-        summary
+        text: summary
         ... on homepage_homepage_Entry {
             searchLinks {
                 ... on searchLinks_searchLinks_BlockType {
