@@ -4,7 +4,7 @@
  * @returns {Array}
  */
 
-
+// This used on impact report page to denormalized craft data structure
 function flattenTimeLineStructure(timeLineData=[]) {
     let flattenedValues = []
     for(let item of timeLineData){

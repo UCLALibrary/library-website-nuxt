@@ -58,7 +58,8 @@ const config = {
             "jobTitle",  
             "consultation",
             "uri",
-            "image"
+            "image",
+            "academicDepartments"
         ],
         sortField: "nameLast.keyword"
     },
