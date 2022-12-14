@@ -1,3 +1,4 @@
+kdfhgk
 <template lang="html">
     <main
         id="main"
@@ -11,7 +12,7 @@
 
         <masthead-secondary
             :title="page.title"
-            :text="page.text"
+            :text="page.summary"
         >
         <!-- TODO Add SearchGenric here when complete -->
         <!-- search-generic
@@ -77,7 +78,7 @@ export default {
     },
     head() {
         let title = this.page ? this.page.title : "... loading"
-        let metaDescription = removeTags(this.page.text)
+        let metaDescription = removeTags(this.page.summary)
 
         return {
             title: title,
@@ -91,11 +92,6 @@ export default {
         }
     },
     computed: {
-        parsedPhysicalDigital() {
-            return this.collections.physicalDigital.length == 1 ?
-                this.collections.physicalDigital[0] :
-                `${this.collections.physicalDigital[0]} & ${this.collections.physicalDigital[1]}`
-        },
         parsedCollectionList() {
             return this.collections.map((obj) => {
                 return {
@@ -111,7 +107,7 @@ export default {
             })
         },
         parsedAssociatedTopics(){
-            return this.explore.associatedTopics.map((obj) => {
+            return this.page.associatedTopics.map((obj) => {
                 return {
                     ...obj,
                     to: obj.externalResourceUrl
