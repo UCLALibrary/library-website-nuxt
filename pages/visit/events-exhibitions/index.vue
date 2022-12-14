@@ -4,7 +4,7 @@
         class="page page-events-exhibits"
     >
         <masthead-secondary
-  
+
             :title="page.title"
             :text="page.text"
         >
@@ -20,13 +20,13 @@
         </masthead-secondary>
 
         <section-wrapper theme="divider">
-            <divider-way-finder color="visit" />
+            <divider-way-finder class="search-margin" />
         </section-wrapper>
 
         <!-- HIGHLIGHTED & FEATURED EVENTS -->
         <section-wrapper
             v-if="page.featuredEvents.length"
-            section-title="Highlighted Events"
+            class="section-no-top-margin"
         >
             <banner-featured
                 :image="parsedBannerHeader.image"
@@ -39,6 +39,7 @@
                 :to="parsedBannerHeader.to"
                 :prompt="parsedBannerHeader.prompt"
                 :locations="parsedBannerHeader.locations"
+                class="banner section-featured-banner"
             />
 
             <divider-general v-if="parsedSectionHighlight.length" />
@@ -49,7 +50,7 @@
             />
         </section-wrapper>
 
-        <section-wrapper 
+        <section-wrapper
             v-if="page.featuredEvents.length && parsedExhibitionsAndEvents.length"
             theme="divider"
         >
@@ -64,7 +65,14 @@
                 nShown=infinity
             />
         </section-wrapper>
-        
+
+        <section-wrapper
+            v-if="parsedExhibitionsAndEvents.length"
+            theme="divider"
+        >
+            <divider-way-finder color="visit" />
+        </section-wrapper>
+
         <section-wrapper>
             <block-call-to-action
                 class="section block-call-to-action"
@@ -107,7 +115,7 @@ export default {
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription
@@ -124,11 +132,11 @@ export default {
                     image: _get(obj, "heroImage[0].image[0]", null),
                     startDate: obj.typeHandle === "event" ? obj.startDateWithTime : obj.startDate,
                     endDate: obj.typeHandle === "event" ? obj.endDateWithTime : obj.endDate,
-                    text: obj.typeHandle === "event" ? obj.eventDescription : obj.summary,
-                    prompt: obj.typeHandle === "exhibition" 
-                        ? "View exhibition" 
-                        : obj.workshopOrEventSeriesType === "visit/events-exhibitions" 
-                            ? "View event series" 
+                    // text: obj.typeHandle === "event" ? obj.eventDescription : obj.summary,
+                    prompt: obj.typeHandle === "exhibition"
+                        ? "View exhibition"
+                        : obj.workshopOrEventSeriesType === "visit/events-exhibitions"
+                            ? "View event series"
                             : "View event",
                     locations: obj.typeHandle !== "exhibition" ? obj.associatedLocations : obj.associatedLocationsAndPrograms,
                 }
@@ -142,10 +150,10 @@ export default {
             return highlights.map((obj) => {
                 return {
                     ...obj,
-                    category: 
-                        obj.typeHandle === "exhibition" 
+                    category:
+                        obj.typeHandle === "exhibition"
                             ? "Exhibition"
-                            : obj.workshopOrEventSeriesType === "visit/events-exhibitions" 
+                            : obj.workshopOrEventSeriesType === "visit/events-exhibitions"
                                 ? "Event Series"
                                 : obj.eventType.length > 0
                                     ? obj.eventType[0].title
@@ -167,15 +175,14 @@ export default {
                     image: _get(eventOrExhibtion, "heroImage[0].image[0]", null),
                     startDate: _get(eventOrExhibtion, "startDateWithTime", null),
                     endDate: _get(eventOrExhibtion, "endDateWithTime", null),
-                    category: 
-                        eventOrExhibtion.typeHandle === "exhibition" 
+                    category:
+                        eventOrExhibtion.typeHandle === "exhibition"
                             ? "Exhibition"
-                            : eventOrExhibtion.workshopOrEventSeriesType === "visit/events-exhibitions" 
+                            : eventOrExhibtion.workshopOrEventSeriesType === "visit/events-exhibitions"
                                 ? "Event Series"
                                 : eventOrExhibtion.eventType.length > 0
                                     ? eventOrExhibtion.eventType[0].title
                                     : "Event",
-                    text: _get(eventOrExhibtion, "eventDescription", null),
                     locations: _get(eventOrExhibtion, "associatedLocations", null),
                 }
             })
@@ -197,5 +204,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-events-exhibits {
+    .search-margin {
+        margin: var(--space-2xl) auto;
+    }
 }
 </style>

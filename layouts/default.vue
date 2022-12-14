@@ -39,13 +39,6 @@ export default {
     },
     head: {
         titleTemplate: "%s | UCLA Library",
-        meta: [
-            { charset: "utf-8" },
-            {
-                name: "viewport",
-                content: "width=device-width, initial-scale=1",
-            },
-        ],
         script: [
             { hid: "libanswers", src: "https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753", defer: true }
         ]
