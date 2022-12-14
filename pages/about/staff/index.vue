@@ -26,7 +26,7 @@
             <p>There is an error</p>
         </div>
         <div v-else>
-            <h4 style="margin: 30px 400px">
+            <!--h4 style="margin: 30px 400px">
                 No of hits
 
                 {{ `from craft is ${parsedPages.length}` }}
@@ -38,7 +38,7 @@
                         `calling parsedhitsresults length
             ${hits.length}`
                 }}
-            </h4>
+            </h4-->
 
             <section-wrapper>
                 <alphabetical-browse-by
@@ -76,7 +76,7 @@
                     "
                     :items="parseHitsResults"
                 />
-                <!-- TODO There is a ticket to create a component for this data structure -- >
+                <!-- TODO There is a ticket to create a component for this data structure -->
                 <table
                     v-if="
                         searchGenericQuery.queryFilters[
