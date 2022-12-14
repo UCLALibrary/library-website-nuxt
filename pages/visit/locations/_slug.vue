@@ -72,7 +72,6 @@
                 v-if="page.amenities.length"
                 class="divider-general"
             />
-
             <block-amenities
                 v-if="page.amenities.length"
                 :items="page.amenities"
@@ -309,9 +308,8 @@ export default {
                     to: `/visit/events-exhibitions/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", {}),
                     text: _get(obj, "summary", ""),
-                    startDate: _get(obj, "seriesDate[0].startDate", ""),
-                    endDate: _get(obj, "seriesDate[0].endDate", ""),
-                    locations: _get(obj, "associatedLocations", []),
+                    startDate: _get(obj, "startDate", ""),
+                    endDate: _get(obj, "endDate", ""),
                     category: "Exhibition"
                 }
             })
@@ -323,9 +321,8 @@ export default {
                     to: `/visit/events-exhibitions/${obj.slug}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     text: _get(obj, "eventDescription", ""),
-                    startDate: _get(obj, "date[0].startTime", ""),
-                    endDate: _get(obj, "date[0].endTime", ""),
-                    //locations: _get(obj, "associatedLocations", []),
+                    startDate: _get(obj, "startDateWithTime", ""),
+                    endDate: _get(obj, "endDateWithTime", ""),
                     category: _get(obj, "eventType[0].title", "")
                 }
             })
@@ -333,13 +330,13 @@ export default {
         mergeSortEventsExhibitions() {
             return this.parsedEvents
                 .concat(this.parsedExhibtions)
-                .sort((a, b) =>
-                    a.startDate > b.startDate
-                        ? -1
-                        : b.startDate > a.startDate
-                            ? 1
-                            : 0
-                )
+                // .sort((a, b) =>
+                //     a.startDate > b.startDate
+                //         ? -1
+                //         : b.startDate > a.startDate
+                //             ? 1
+                // //             : 0
+                // )
         },
     },
 }

@@ -135,10 +135,16 @@ query LocationDetail($slug: [String!]) {
             id
             slug
             title
-            date {
-                startTime
-                endTime
-            }
+            startDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
+            endDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
             associatedLocations {
                 id
                 title
@@ -183,14 +189,16 @@ query LocationDetail($slug: [String!]) {
                     }
                 }
             }
-            date {
-                startDate
+            startDate
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
                 endDate
-            }
-            seriesDate {
-                startDate
-                endDate
-            }
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
             associatedLocations {
                 id
                 title
