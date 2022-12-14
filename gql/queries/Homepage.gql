@@ -3,7 +3,7 @@
 query Homepage {
     entry(section: "homepage") {
         title
-        text: summary
+        summary
         ... on homepage_homepage_Entry {
             searchLinks {
                 ... on searchLinks_searchLinks_BlockType {
@@ -17,7 +17,7 @@ query Homepage {
                     sectionSummary
                     getHelpWith {
                         title
-                        text: summary
+                        summary
                         uri
                         externalResourceUrl
                         iconName: illustrationsResourcesAndServices

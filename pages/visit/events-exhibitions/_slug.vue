@@ -273,7 +273,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
-import removeTags from "~/utils/removeTags"
+// import removeTags from "~/utils/removeTags"
 
 // GQL
 import EVENT_DETAIL from "~/gql/queries/EventDetail.gql"
@@ -325,17 +325,17 @@ export default {
     },
     head() {
         let title = this.page ? this.page.title : "... loading"
-        let metaDescription = removeTags(this.page.event.eventDescription)
-
+        // let metaDescription = removeTags(this.page.event.eventDescription)
+        // 
         return {
             title: title,
-            meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
-            ],
+            // meta: [
+            //     { 
+            //         hid: 'description',
+            //         name: 'description',
+            //         content: metaDescription
+            //     }
+            // ],
         }
     },
     computed: {
