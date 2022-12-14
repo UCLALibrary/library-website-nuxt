@@ -27,21 +27,32 @@
         </div>
         <div v-else>
             <!--h4 style="margin: 30px 400px">
-            No of hits
+                No of hits
 
-            {{ `from craft is ${parsedPages.length}` }}
-        </h4>
-        <h4 style="margin: 30px 400px">
-            No of hits from ES
-            {{
-                hits &&
-                    `calling parsedhitsresults length
+                {{ `from craft is ${parsedPages.length}` }}
+            </h4>
+            <h4 style="margin: 30px 400px">
+                No of hits from ES
+                {{
+                    hits &&
+                        `calling parsedhitsresults length
             ${hits.length}`
-            }}
-        </h4-->
+                }}
+            </h4-->
 
             <section-wrapper>
                 <alphabetical-browse-by
+                    v-if="
+                        (searchGenericQuery.queryFilters[
+                            'subjectLibrarian.keyword'
+                        ] &&
+                            searchGenericQuery.queryFilters[
+                                'subjectLibrarian.keyword'
+                            ] === '') ||
+                            !searchGenericQuery.queryFilters[
+                                'subjectLibrarian.keyword'
+                            ]
+                    "
                     :selected-letter-prop="selectedLetterProp"
                     @selectedLetter="searchBySelectedLetter"
                 />
@@ -50,9 +61,52 @@
                     :items="parsedStaffList"
                 />
                 <section-staff-list
-                    v-else-if="hits && hits.length > 0"
+                    v-else-if="
+                        hits &&
+                            hits.length > 0 &&
+                            ((searchGenericQuery.queryFilters[
+                                'subjectLibrarian.keyword'
+                            ] &&
+                                searchGenericQuery.queryFilters[
+                                    'subjectLibrarian.keyword'
+                                ] === '') ||
+                                !searchGenericQuery.queryFilters[
+                                    'subjectLibrarian.keyword'
+                                ])
+                    "
                     :items="parseHitsResults"
                 />
+                <!-- TODO There is a ticket to create a component for this data structure -->
+                <table
+                    v-if="
+                        searchGenericQuery.queryFilters[
+                            'subjectLibrarian.keyword'
+                        ] &&
+                            searchGenericQuery.queryFilters[
+                                'subjectLibrarian.keyword'
+                            ] === 'yes'
+                    "
+                >
+                    <thead>
+                        <tr>
+                            <th>Subject Area</th>
+
+                            <th>Name</th>
+
+                            <th>Contact Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            v-for="(item, index) in groupByAcademicLibraries"
+                            :key="`subjectArea${index}`"
+                        >
+                            <td>{{ item.subjectArea }}</td>
+                            <td>{{ item.staffName }}</td>
+                            <td>{{ item.email }}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <h4 v-else>
                     No results found
                 </h4>
@@ -64,6 +118,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import _ from "lodash"
 
 // GQL
 import STAFF_LIST from "~/gql/queries/StaffList"
@@ -157,6 +212,41 @@ export default {
         }
     },
     computed: {
+        groupByAcademicLibraries() {
+            let parseResults = this.parseHitsResults
+            let groupBySubjectAreas = []
+            let allacademicDepts = []
+
+            for (let item of parseResults) {
+                for (let obj of item.academicDepartments) {
+                    allacademicDepts.push(obj.title)
+                }
+            }
+            console.log("All academicDepts:" + allacademicDepts)
+            let uniqueAcademicDepts = Array.from(
+                new Set(allacademicDepts.sort())
+            )
+            console.log(
+                "All uniqueAcademicDepts:" + JSON.stringify(uniqueAcademicDepts)
+            )
+            for (let title of uniqueAcademicDepts) {
+                for (let item of parseResults) {
+                    for (let obj of item.academicDepartments) {
+                        if (title === obj.title)
+                            groupBySubjectAreas.push({
+                                subjectArea: title,
+                                ...item,
+                            })
+                    }
+                }
+            }
+
+            /*const groupBySubjectAreas = _.groupBy(
+                parseResults,
+                (row) => row.academicDepartments[0].title
+            )*/
+            return groupBySubjectAreas
+        },
         parsedPages() {
             return this.page.entries || []
         },
