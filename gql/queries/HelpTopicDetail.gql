@@ -4,7 +4,7 @@ query HelpTopicDetail($slug: [String!]) {
     entry(section: "helpTopic", slug: $slug) {
         id
         title
-        summary
+        text: summary
         richText
         sectionHandle
         slug

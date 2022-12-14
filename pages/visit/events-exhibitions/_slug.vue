@@ -17,6 +17,18 @@
                 :secondary-items="secondaryItems"
             />
 
+            <!-- 
+                <h3>PAGE.EVENT --{{ page.event }}</h3>
+                SCREENINGS & workshops are working
+                These are not: (event series)
+                http://192.168.86.198:3000/visit/events-exhibitions/test-screening (IMAGE is not working and fails)
+
+                http://192.168.86.198:3000/visit/events-exhibitions/test-event-series
+
+                http://192.168.86.198:3000/visit/events-exhibitions/fante-asafo-flags
+            -->
+
+
             <banner-text
                 v-if="
                     page.event &&
@@ -261,6 +273,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import EVENT_DETAIL from "~/gql/queries/EventDetail.gql"
@@ -310,7 +323,21 @@ export default {
             libcalEndpointProxy: $config.libcalProxy,
         }
     },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.event.eventDescription)
 
+        return {
+            title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
+        }
+    },
     computed: {
         promptName() {
             if (this.parseRegistrations) return "Register"

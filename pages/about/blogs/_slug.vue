@@ -98,8 +98,7 @@ export default {
     },
     head() {
         let title = this.page ? this.page.title : "... loading"
-        let metaClean = removeTags(this.page.text)
-        let metaDescription = this.page ? metaClean : "UCLA Library Blogs"
+        let metaDescription = removeTags(this.page.text)
 
         return {
             title: title,

@@ -8,7 +8,7 @@
             :title="page.title"
             parent-title="Endowments"
         />
-
+        <h3>{{ page }}</h3>
         <banner-text
             :title="page.title"
             :text="page.text"
@@ -83,6 +83,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import ENDOWMENT_DETAIL from "~/gql/queries/EndowmentDetail"
@@ -154,8 +155,17 @@ export default {
     },
     head() {
         let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
         return {
             title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {

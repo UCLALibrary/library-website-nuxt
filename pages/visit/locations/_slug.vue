@@ -10,7 +10,7 @@
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
             :title="page.title"
-            :text="page.summary"
+            :text="page.text"
             :address="parsedAddress"
             :email="page.email"
             :phone="page.phoneNumber"
@@ -25,7 +25,7 @@
             <banner-header
                 :image="page.heroImage[0].image[0]"
                 :title="page.title"
-                :text="page.summary"
+                :text="page.text"
                 :address="parsedAddress"
                 :email="page.email"
                 :phone="page.phoneNumber"
@@ -203,12 +203,13 @@
 </template>
 
 <script>
+// HELPERS
+import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
+
 // GQL
 import LOCATION_DETAIL from "~/gql/queries/LocationDetail"
 import parseAmenities from "~/utils/parseAmenities"
-
-// HELPERS
-import _get from "lodash/get"
 
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
@@ -231,8 +232,18 @@ export default {
         }
     },
     head() {
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
         return {
-            title: this.page.title,
+            title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {
