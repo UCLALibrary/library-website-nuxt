@@ -129,7 +129,6 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
-import removeTags from "~/utils/removeTags"
 
 // GQL
 import HOMEPAGE from "~/gql/queries/Homepage"
@@ -143,7 +142,7 @@ export default {
     },
     head() {
         let title = this.page ? this.page.title : "... loading"
-        let metaDescription = removeTags(this.page.text)
+        let metaDescription = "The UCLA Library creates a vibrant nexus of ideas, collections, expertise, and spaces in which users illuminate solutions for local and global challenges. We constantly evolve to advance UCLA’s research, education, and public service mission by empowering and inspiring communities of scholars and learners to discover, access, create, share, and preserve knowledge."
 
         return {
             title: title,
@@ -175,6 +174,7 @@ export default {
                     to: obj.externalResourceUrl
                         ? obj.externalResourceUrl
                         : `/${obj.uri}`,
+                    
                 }
             })
         },

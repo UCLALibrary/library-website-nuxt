@@ -17,7 +17,7 @@ query Homepage {
                     sectionSummary
                     getHelpWith {
                         title
-                        summary
+                        text: summary
                         uri
                         externalResourceUrl
                         iconName: illustrationsResourcesAndServices
