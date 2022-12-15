@@ -3,7 +3,6 @@
         id="main"
         class="page page-help"
     >
-        <h3>{{ summaryData.text }}</h3>
         <masthead-secondary
             v-if="summaryData"
             :title="summaryData.title || ''"

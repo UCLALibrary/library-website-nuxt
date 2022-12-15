@@ -10,7 +10,7 @@
                 :title="page.serviceOrResource.title"
                 parent-title="Services & Resources"
             />
-            <h3>{{ page }}</h3>
+
             <banner-text
                 v-if="
                     !page.serviceOrResource.heroImage ||
@@ -88,7 +88,7 @@
             </section-wrapper>
         </div>
 
-        <!-- Workshop Series -->
+        <!-- WORKSHOP SERIES -->
         <div v-else>
             <nav-breadcrumb
                 to="/help/services-resources"
@@ -236,7 +236,8 @@ export default {
         if (this.page) {
             if (this.page.serviceOrResource) {
                 let title = this.page ? this.page.serviceOrResource.title : "... loading"
-                let metaDescription = removeTags(this.page.text)
+                let metaDescription = removeTags(this.page.serviceOrResource.text)
+
                 return {
                     title: title,
                     meta: [
@@ -250,7 +251,8 @@ export default {
             }
             if (this.page.workshopSeries) {
                 let title = this.page ? this.page.workshopSeries.title : "... loading"
-                let metaDescription = removeTags(this.page.text)
+                let metaDescription = removeTags(this.page.workshopSeries.summary)
+
                 return {
                     title: title,
                     meta: [

@@ -17,9 +17,9 @@
                 :secondary-items="secondaryItems"
             />
 
-            <!-- 
-                <h3>PAGE.EVENT --{{ page.event }}</h3>
-                SCREENINGS & workshops are working
+            
+            <h3>PAGE.EVENT --{{ page.event.text }}</h3>
+            <!-- SCREENINGS & workshops are working
                 These are not: (event series)
                 http://192.168.86.198:3000/visit/events-exhibitions/test-screening (IMAGE is not working and fails)
 
@@ -27,7 +27,6 @@
 
                 http://192.168.86.198:3000/visit/events-exhibitions/fante-asafo-flags
             -->
-
 
             <banner-text
                 v-if="
@@ -324,18 +323,49 @@ export default {
         }
     },
     head() {
-        let title = this.page ? this.page.title : "... loading"
-        // let metaDescription = removeTags(this.page.event.eventDescription)
-        // 
-        return {
-            title: title,
-            // meta: [
-            //     { 
-            //         hid: 'description',
-            //         name: 'description',
-            //         content: metaDescription
-            //     }
-            // ],
+        if (this.page) {
+            if (this.page.event) {
+                return {
+                    title: this.page.event.title,
+                    // let metaDescription = removeTags(this.page.serviceOrResource.text)
+
+                    // meta: [
+                    //     { 
+                    //         hid: 'description',
+                    //         name: 'description',
+                    //         content: metaDescription
+                    //     }
+                    // ],
+                }
+            }
+            if (this.page.eventSeries) {
+                return {
+                    title: this.page.eventSeries.title,
+                    // let metaDescription = removeTags(this.page.serviceOrResource.text)
+
+                    // meta: [
+                    //     { 
+                    //         hid: 'description',
+                    //         name: 'description',
+                    //         content: metaDescription
+                    //     }
+                    // ],
+                }
+            }
+            if (this.page.exhibition) {
+                return {
+                    title: this.page.exhibition.title,
+                    // let metaDescription = removeTags(this.page.serviceOrResource.text)
+
+                    // meta: [
+                    //     { 
+                    //         hid: 'description',
+                    //         name: 'description',
+                    //         content: metaDescription
+                    //     }
+                    // ],
+                }
+            }
         }
     },
     computed: {
