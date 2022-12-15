@@ -8,7 +8,7 @@
             :title="page.title"
             parent-title="Endowments"
         />
-        <h3>{{ page }}</h3>
+
         <banner-text
             :title="page.title"
             :text="page.text"

@@ -202,7 +202,7 @@
             <section-wrapper theme="divider">
                 <divider-way-finder color="visit" />
             </section-wrapper>
-            <h3>exhibition{{ page.exhibition.summary }}</h3>
+
             <flexible-blocks
                 class="content"
                 :blocks="page.exhibition.blocks"
