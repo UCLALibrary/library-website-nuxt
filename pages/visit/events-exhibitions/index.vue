@@ -60,6 +60,7 @@
             <section-teaser-list
                 :items="parsedExhibitionsAndEvents"
                 class="section section-list"
+                nShown=infinity
             />
         </section-wrapper>
         
