@@ -276,6 +276,8 @@ export default {
                         obj.alternativeName.length > 0
                             ? `${obj.nameFirst} ${obj.nameLast} ${obj.alternativeName[0].fullName}`
                             : `${obj.nameFirst} ${obj.nameLast}`,
+                    language:_get(obj, "alternativeName[0].languageAltName", null),
+                    alternativeFullName: _get(obj, "alternativeName[0].fullName", null),
                 }
             })
         },
