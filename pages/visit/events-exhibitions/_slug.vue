@@ -17,17 +17,6 @@
                 :secondary-items="secondaryItems"
             />
 
-            
-            <h3>PAGE.EVENT --{{ page.event.text }}</h3>
-            <!-- SCREENINGS & workshops are working
-                These are not: (event series)
-                http://192.168.86.198:3000/visit/events-exhibitions/test-screening (IMAGE is not working and fails)
-
-                http://192.168.86.198:3000/visit/events-exhibitions/test-event-series
-
-                http://192.168.86.198:3000/visit/events-exhibitions/fante-asafo-flags
-            -->
-
             <banner-text
                 v-if="
                     page.event &&
@@ -213,7 +202,7 @@
             <section-wrapper theme="divider">
                 <divider-way-finder color="visit" />
             </section-wrapper>
-
+            <h3>exhibition{{ page.exhibition.summary }}</h3>
             <flexible-blocks
                 class="content"
                 :blocks="page.exhibition.blocks"
@@ -272,7 +261,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
-// import removeTags from "~/utils/removeTags"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import EVENT_DETAIL from "~/gql/queries/EventDetail.gql"
@@ -325,45 +314,48 @@ export default {
     head() {
         if (this.page) {
             if (this.page.event) {
-                return {
-                    title: this.page.event.title,
-                    // let metaDescription = removeTags(this.page.serviceOrResource.text)
+                let title = this.page ? this.page.event.title : "... loading"
+                let metaDescription = removeTags(this.page.event.eventDescription )
 
-                    // meta: [
-                    //     { 
-                    //         hid: 'description',
-                    //         name: 'description',
-                    //         content: metaDescription
-                    //     }
-                    // ],
+                return {
+                    title: title,
+                    meta: [
+                        { 
+                            hid: 'description',
+                            name: 'description',
+                            content: metaDescription
+                        }
+                    ],
                 }
             }
             if (this.page.eventSeries) {
-                return {
-                    title: this.page.eventSeries.title,
-                    // let metaDescription = removeTags(this.page.serviceOrResource.text)
+                let title = this.page ? this.page.eventSeries.title : "... loading"
+                let metaDescription = removeTags(this.page.eventSeries.summary)
 
-                    // meta: [
-                    //     { 
-                    //         hid: 'description',
-                    //         name: 'description',
-                    //         content: metaDescription
-                    //     }
-                    // ],
+                return {
+                    title: title,
+                    meta: [
+                        { 
+                            hid: 'description',
+                            name: 'description',
+                            content: metaDescription
+                        }
+                    ],
                 }
             }
             if (this.page.exhibition) {
-                return {
-                    title: this.page.exhibition.title,
-                    // let metaDescription = removeTags(this.page.serviceOrResource.text)
+                let title = this.page ? this.page.exhibition.title : "... loading"
+                let metaDescription = removeTags(this.page.exhibition.summary)
 
-                    // meta: [
-                    //     { 
-                    //         hid: 'description',
-                    //         name: 'description',
-                    //         content: metaDescription
-                    //     }
-                    // ],
+                return {
+                    title: title,
+                    meta: [
+                        { 
+                            hid: 'description',
+                            name: 'description',
+                            content: metaDescription
+                        }
+                    ],
                 }
             }
         }
