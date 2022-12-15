@@ -206,10 +206,10 @@
 // HELPERS
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
+import parseAmenities from "~/utils/parseAmenities"
 
 // GQL
 import LOCATION_DETAIL from "~/gql/queries/LocationDetail"
-import parseAmenities from "~/utils/parseAmenities"
 
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
