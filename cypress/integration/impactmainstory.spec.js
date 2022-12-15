@@ -6,7 +6,7 @@ describe("Impact Main Story page", () => {
         cy.get(".logo-ucla").should("be.visible")
         cy.get("h1.title").should(
             "contain",
-            "After Covid Triggered a Campus Closure, UCLA Library Reimagined Its Services"
+            "After Covid Triggered a Campus Closure"
         )
         cy.get(".media-video").should(
             "have.attr",

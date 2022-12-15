@@ -14,7 +14,7 @@
             class="banner-text"
             :category="page.format"
             :title="page.title"
-            :text="page.summary"
+            :text="page.text"
         />
 
         <section-wrapper
@@ -25,7 +25,7 @@
                 :image="page.heroImage[0].image[0]"
                 :category="page.format"
                 :title="page.title"
-                :text="page.summary"
+                :text="page.text"
             />
         </section-wrapper>
 
@@ -48,6 +48,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import POLICY_DETAIL from "~/gql/queries/PolicyDetail"
@@ -73,8 +74,17 @@ export default {
     },
     head() {
         let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
         return {
             title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
 }

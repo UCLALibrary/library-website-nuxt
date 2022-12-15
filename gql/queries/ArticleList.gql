@@ -33,7 +33,7 @@ query ArticleList($articleType: QueryArgument!) {
   entry(section: "listingNews") {
     ... on listingNews_listingNews_Entry {
       title
-      summary
+      text: summary
       ... on listingNews_listingNews_Entry {
         featuredNews {
           ... on article_article_Entry {

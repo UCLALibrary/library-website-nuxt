@@ -8,7 +8,7 @@ query PolicyDetail($slug: [String!]) {
         slug
         uri
         title
-        summary
+        text: summary
         richText
         to: uri
         heroImage {

@@ -20,6 +20,7 @@
 // HELPERS
 import _get from "lodash/get"
 import format from "date-fns/format"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import IMPACT_REPORTS_LIST from "~/gql/queries/ImpactReportsList"
@@ -30,6 +31,21 @@ export default {
 
         return {
             page: data,
+        }
+    },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
+        return {
+            title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {

@@ -5,8 +5,8 @@
     >
         <masthead-secondary
             v-if="summaryData"
-            :title="summaryData.servicesResourcesListTitle || ''"
-            :text="summaryData.servicesResourcesListSummary || ''"
+            :title="summaryData.title || ''"
+            :text="summaryData.text || ''"
         />
 
         <search-generic
@@ -15,12 +15,15 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
+
         <div v-if="$fetchState.pending">
             <p>.....Its Loading</p>
         </div>
+
         <div v-else-if="$fetchState.error">
             <p>There is an error</p>
         </div>
+
         <div v-else>
             <!--h4 style="margin: 30px 400px">
             No of hits
@@ -59,10 +62,12 @@
                     :is-horizontal="true"
                 />
             </section-wrapper>
+
             <h4 v-else>
                 No results found
             </h4>
         </div>
+
         <section-wrapper
             v-if="
                 page.serviceOrResource ||
@@ -89,6 +94,7 @@
 // HELPERS
 import _get from "lodash/get"
 import sortByTitle from "~/utils/sortByTitle"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceWorkshopSeriesList"
@@ -184,12 +190,18 @@ export default {
         }
     },
     head() {
-        let title =
-            this.page && this.page.entry
-                ? this.page.entry.servicesResourcesListTitle
-                : "... loading"
+        let title = this.page ? this.summaryData.title : "... loading"
+        let metaDescription = removeTags(this.summaryData.text)
+
         return {
             title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     fetchOnServer: false,

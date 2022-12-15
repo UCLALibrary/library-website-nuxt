@@ -4,7 +4,7 @@ query EventsExhibitionsList {
   entry(section: "listingEventsExhibitions") {
     ... on listingEventsExhibitions_listingEventsExhibitions_Entry {
       title
-      summary
+      text: summary
       featuredEvents {
         category
         title

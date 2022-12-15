@@ -1,7 +1,7 @@
 query AccessCollectionsListing {
     entry(section: "listingAccessCollections") {
         title
-        summary
+        text: summary
         ... on listingAccessCollections_listingAccessCollections_Entry {
             accessCollections {
                 title

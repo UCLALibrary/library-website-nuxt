@@ -1,20 +1,20 @@
 <template>
     <main
         id="main"
-        class="page page-news"
+        class="page page-blogs"
     >
-        <banner-header
-            v-if="page.heroImage && page.heroImage.length == 1"
-            :image="page.heroImage[0].image[0]"
-            :title="page.title"
-            category="Library News"
-            :byline="parsedBylines"
-            :locations="locations"
-            :date-created="parsedDate"
-            :to="to"
-            :authors="authors"
-            :align-right="true"
+        <masthead-secondary
+            title="Blogs"
+            text="UCLA related blogs"
         />
+
+        <!-- TODO: Add search function -->
+        <!-- <search-generic
+            search-type="about"
+            :filters="searchFilters"
+            class="generic-search"
+            @search-ready="getSearchData"
+        /> -->
 
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -36,6 +36,7 @@
 // HELPERS
 import _get from "lodash/get"
 import format from "date-fns/format"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import ARTICLE_LIST from "~/gql/queries/ArticleList"
@@ -48,12 +49,28 @@ export default {
         })
         // console.log("data:" + data)
         return {
-            page: data,
+            page: _get(data, "entry", {}),
+            blogs: _get(data, "entries", {}),
+        }
+    },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
+        return {
+            title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {
         parsedNewsList() {
-            return this.page.entries.map((obj) => {
+            return this.blogs.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
@@ -81,9 +98,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-news {
-    padding-left: 50px;
-
+.page-blogs {
     .entry-count {
         @include step-2;
         color: var(--color-primary-blue-03);

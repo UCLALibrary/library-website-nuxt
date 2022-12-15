@@ -10,13 +10,13 @@ query LocationDetail($slug: [String!]) {
             uri
             locationType
             title
+            text: summary
             about: richTextSimplified
             heroImage {
                 image {
                     ...Image
                 }
             }
-            summary
             email
             phoneNumber
             address {

@@ -6,7 +6,7 @@
         <banner-text
             class="banner-text"
             :title="page.title"
-            :text="page.summary"
+            :text="page.text"
         />
 
         <section-wrapper>
@@ -96,6 +96,7 @@
 // HELPERS
 import _get from "lodash/get"
 import format from "date-fns/format"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import COLLECTIONS_LIST from "~/gql/queries/CollectionsList.gql"
@@ -104,9 +105,24 @@ export default {
     async asyncData({ $graphql }) {
         const data = await $graphql.default.request(COLLECTIONS_LIST)
         return {
+            page: _get(data, "entry", {}),
             pageArticles: _get(data, "entries", []),
             pageArticleCount: _get(data, "entryCount", 0),
-            page: _get(data, "entry", {}),
+        }
+    },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
+        return {
+            title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {
@@ -190,7 +206,7 @@ export default {
     methods: {
         parsedDate(postDate) {
             return format(new Date(postDate), "MMMM d, Y")
-        },  
+        },
         parseArticleCategory(categories) {
             let result = ""
             categories.forEach((obj) => {

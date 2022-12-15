@@ -10,8 +10,8 @@
         />
 
         <masthead-secondary
-            :title="explore.title"
-            :text="explore.summary"
+            :title="page.title"
+            :text="page.summary"
         >
         <!-- TODO Add SearchGenric here when complete -->
         <!-- search-generic
@@ -60,6 +60,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import COLLECTIONS_EXPLORE_LIST from "~/gql/queries/CollectionsExploreList.gql"
@@ -70,24 +71,28 @@ export default {
 
         // console.log("data:" + data)
         return {
-            page: _get(data, "entries", {}),
-            explore: _get(data, "entry", {}),
+            page: _get(data, "entry", {}),
+            collections: _get(data, "entries", {}),
         }
     },
     head() {
         let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.summary)
+
         return {
             title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {
-        parsedPhysicalDigital() {
-            return this.page.physicalDigital.length == 1 ?
-                this.page.physicalDigital[0] :
-                `${this.page.physicalDigital[0]} & ${this.page.physicalDigital[1]}`
-        },
         parsedCollectionList() {
-            return this.page.map((obj) => {
+            return this.collections.map((obj) => {
                 return {
                     ...obj,
                     to: obj.externalResourceUrl
@@ -101,7 +106,7 @@ export default {
             })
         },
         parsedAssociatedTopics(){
-            return this.explore.associatedTopics.map((obj) => {
+            return this.page.associatedTopics.map((obj) => {
                 return {
                     ...obj,
                     to: obj.externalResourceUrl

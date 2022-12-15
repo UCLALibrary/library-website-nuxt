@@ -3,7 +3,7 @@ query CollectionsList {
     entry(section: "listingCollections") {
         ... on listingCollections_listingCollections_Entry {
             title
-            summary
+            text: summary
             featuredResourcesSection {
                 ... on featuredResourcesSection_featuredResources_BlockType {
                     titleGeneral

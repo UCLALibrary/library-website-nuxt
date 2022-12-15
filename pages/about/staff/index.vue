@@ -119,6 +119,7 @@
 // HELPERS
 import _get from "lodash/get"
 import _ from "lodash"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import STAFF_LIST from "~/gql/queries/StaffList"
@@ -211,6 +212,20 @@ export default {
             //console.log("Craft data:" + JSON.stringify(data))
         }
     },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+        return {
+            title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
+        }
+    },
     computed: {
         groupByAcademicLibraries() {
             let parseResults = this.parseHitsResults
@@ -261,6 +276,8 @@ export default {
                         obj.alternativeName.length > 0
                             ? `${obj.nameFirst} ${obj.nameLast} ${obj.alternativeName[0].fullName}`
                             : `${obj.nameFirst} ${obj.nameLast}`,
+                    language:_get(obj, "alternativeName[0].languageAltName", null),
+                    alternativeFullName: _get(obj, "alternativeName[0].fullName", null),
                 }
             })
         },

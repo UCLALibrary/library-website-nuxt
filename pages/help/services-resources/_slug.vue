@@ -81,14 +81,14 @@
             </section-wrapper>
 
             <section-wrapper>
-            <block-call-to-action
-                class="block-call-to-action"
-                :is-global="true"
-            />
-        </section-wrapper>
+                <block-call-to-action
+                    class="block-call-to-action"
+                    :is-global="true"
+                />
+            </section-wrapper>
         </div>
 
-        <!-- Workshop Series -->
+        <!-- WORKSHOP SERIES -->
         <div v-else>
             <nav-breadcrumb
                 to="/help/services-resources"
@@ -178,11 +178,11 @@
             </section-wrapper>
 
             <section-wrapper>
-            <block-call-to-action
-                class="block-call-to-action"
-                :is-global="true"
-            />
-        </section-wrapper>
+                <block-call-to-action
+                    class="block-call-to-action"
+                    :is-global="true"
+                />
+            </section-wrapper>
         </div>
     </main>
 </template>
@@ -190,6 +190,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceOrResourceOrWorkshopDetail"
@@ -234,21 +235,35 @@ export default {
     head() {
         if (this.page) {
             if (this.page.serviceOrResource) {
+                let title = this.page ? this.page.serviceOrResource.title : "... loading"
+                let metaDescription = removeTags(this.page.serviceOrResource.text)
+
                 return {
-                    title: this.page.serviceOrResource.title,
+                    title: title,
+                    meta: [
+                        { 
+                            hid: 'description',
+                            name: 'description',
+                            content: metaDescription
+                        }
+                    ],
                 }
             }
             if (this.page.workshopSeries) {
+                let title = this.page ? this.page.workshopSeries.title : "... loading"
+                let metaDescription = removeTags(this.page.workshopSeries.summary)
+
                 return {
-                    title: this.page.workshopSeries.title,
+                    title: title,
+                    meta: [
+                        { 
+                            hid: 'description',
+                            name: 'description',
+                            content: metaDescription
+                        }
+                    ],
                 }
             }
-            return {
-                title: "...loading",
-            }
-        }
-        return {
-            title: "...loading",
         }
     },
     computed: {

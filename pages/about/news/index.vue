@@ -5,7 +5,7 @@
     >
         <masthead-secondary
             :title="page.title"
-            :text="page.summary"
+            :text="page.text"
         />
 
         <!-- TODO: Add search function -->
@@ -78,6 +78,7 @@
 // HELPERS
 import _get from "lodash/get"
 import format from "date-fns/format"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import ARTICLE_LIST from "~/gql/queries/ArticleList"
@@ -90,14 +91,23 @@ export default {
         })
         // console.log("data:" + data)
         return {
-            news: _get(data, "entries", {}),
             page: _get(data, "entry", {}),
+            news: _get(data, "entries", {}),
         }
     },
     head() {
         let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
         return {
             title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {
