@@ -5,7 +5,7 @@ describe("Events & Exhibitions List page", () => {
         cy.get(".page-events-exhibits").should("be.visible")
         cy.get("h1.title").should(
             "contain",
-            "Exhibits & Upcoming Events"
+            "Events & Exhibitions"
         )
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
