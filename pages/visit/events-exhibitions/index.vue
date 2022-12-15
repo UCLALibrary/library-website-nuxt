@@ -4,8 +4,9 @@
         class="page page-events-exhibits"
     >
         <masthead-secondary
-            title="Exhibits & Upcoming Events"
-            text="Browse upcoming remote events and online exhibits."
+  
+            :title="page.title"
+            :text="page.text"
         >
             <!-- TODO Add SearchGenric here when complete  -->
             <!--<search-generic
@@ -76,6 +77,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import EXHIBITIONS_AND_EVENTS_LIST from "~/gql/queries/ExhibitionsAndEventsList.gql"
@@ -98,11 +100,19 @@ export default {
             events: _get(data, "events", {}),
         }
     },
-
     head() {
         let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
         return {
             title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {

@@ -261,6 +261,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import EVENT_DETAIL from "~/gql/queries/EventDetail.gql"
@@ -310,7 +311,55 @@ export default {
             libcalEndpointProxy: $config.libcalProxy,
         }
     },
+    head() {
+        if (this.page) {
+            if (this.page.event) {
+                let title = this.page ? this.page.event.title : "... loading"
+                let metaDescription = removeTags(this.page.event.eventDescription )
 
+                return {
+                    title: title,
+                    meta: [
+                        { 
+                            hid: 'description',
+                            name: 'description',
+                            content: metaDescription
+                        }
+                    ],
+                }
+            }
+            if (this.page.eventSeries) {
+                let title = this.page ? this.page.eventSeries.title : "... loading"
+                let metaDescription = removeTags(this.page.eventSeries.summary)
+
+                return {
+                    title: title,
+                    meta: [
+                        { 
+                            hid: 'description',
+                            name: 'description',
+                            content: metaDescription
+                        }
+                    ],
+                }
+            }
+            if (this.page.exhibition) {
+                let title = this.page ? this.page.exhibition.title : "... loading"
+                let metaDescription = removeTags(this.page.exhibition.summary)
+
+                return {
+                    title: title,
+                    meta: [
+                        { 
+                            hid: 'description',
+                            name: 'description',
+                            content: metaDescription
+                        }
+                    ],
+                }
+            }
+        }
+    },
     computed: {
         promptName() {
             if (this.parseRegistrations) return "Register"

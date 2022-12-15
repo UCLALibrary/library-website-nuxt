@@ -7,14 +7,17 @@
             :link-items="parsedSearchLinks"
             :advanced-search-link="parsedAdvancedSearchLink"
         />
+
         <!-- TODO elastic search testing -->
         <!--h4>Mapping:</h4>
         <p>{{ mapping }}</p>
         <h4>Search Responsee</h4>
         <p>{{ searchResponse }}</p-->
+
         <section-wrapper theme="divider">
             <divider-way-finder color="help" />
         </section-wrapper>
+
         <section-wrapper>
             <section-cards-with-illustrations
                 class="section"
@@ -30,6 +33,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder color="visit" />
         </section-wrapper>
+
         <section-wrapper class="section-banner">
             <banner-featured
                 :image="bannerFeaturedEvent.image"
@@ -45,6 +49,7 @@
                 <heading-arrow text="Featured Events &amp; Exhibitions" />
             </banner-featured>
         </section-wrapper>
+
         <section-dual-masonry
             v-if="parsedDualMasonryEvents.length > 0"
             :items="parsedDualMasonryEvents"
@@ -54,6 +59,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder color="default" />
         </section-wrapper>
+
         <section-wrapper class="section-banner">
             <banner-featured
                 :image="bannerFeaturedCollection.image"
@@ -67,6 +73,7 @@
                 <heading-arrow text="Featured Collections" />
             </banner-featured>
         </section-wrapper>
+
         <section-wrapper>
             <section-teaser-highlight
                 v-if="parsedSectionHighlightCollection.length > 1"
@@ -79,9 +86,11 @@
                 <button-more text="See All Collections" />
             </nuxt-link>
         </section-wrapper>
+
         <section-wrapper theme="divider">
             <divider-way-finder color="about" />
         </section-wrapper>
+
         <section-wrapper class="section-banner">
             <banner-featured
                 :image="bannerFeaturedNews.image"
@@ -97,6 +106,7 @@
                 <heading-arrow text="Featured News" />
             </banner-featured>
         </section-wrapper>
+
         <section-wrapper>
             <section-teaser-card
                 v-if="parsedNewsList.length > 1"
@@ -109,6 +119,7 @@
                 <button-more text="See All News" />
             </nuxt-link>
         </section-wrapper>
+
         <section-wrapper theme="divider">
             <divider-general />
         </section-wrapper>
@@ -116,15 +127,32 @@
 </template>
 
 <script>
-// Helpers
+// HELPERS
 import _get from "lodash/get"
-// gql
+
+// GQL
 import HOMEPAGE from "~/gql/queries/Homepage"
+
 export default {
     async asyncData({ $graphql, $dataApi }) {
         const data = await $graphql.default.request(HOMEPAGE, {})
         return {
             page: _get(data, "entry", {}),
+        }
+    },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = "The UCLA Library creates a vibrant nexus of ideas, collections, expertise, and spaces in which users illuminate solutions for local and global challenges. We constantly evolve to advance UCLA’s research, education, and public service mission by empowering and inspiring communities of scholars and learners to discover, access, create, share, and preserve knowledge."
+
+        return {
+            title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {
@@ -146,6 +174,7 @@ export default {
                     to: obj.externalResourceUrl
                         ? obj.externalResourceUrl
                         : `/${obj.uri}`,
+                    
                 }
             })
         },

@@ -11,7 +11,7 @@
 
         <masthead-secondary
             :title="page.title"
-            :text="page.summary"
+            :text="page.text"
         >
             <!-- TODO Add SearchGenric here when complete -->
             <!-- search-generic
@@ -55,6 +55,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import ACCESS_COLLECTIONS from "~/gql/queries/CollectionsAccessList.gql"
@@ -75,6 +76,21 @@ export default {
         })
         return {
             page: _get(data, "entry", {}),
+        }
+    },
+    head() {
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
+        return {
+            title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {

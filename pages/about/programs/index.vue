@@ -5,13 +5,13 @@
     >
         <nav-breadcrumb
             to="/about"
-            :title="entry.title"
+            :title="page.title"
             parent-title="About"
         />
 
         <banner-text
-            :title="entry.title"
-            :text="entry.summary"
+            :title="page.title"
+            :text="page.text"
         />
 
         <section-wrapper theme="divider">
@@ -31,6 +31,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import PROGRAMS_LIST from "~/gql/queries/ProgramsList"
@@ -41,19 +42,28 @@ export default {
         const data = await $graphql.default.request(PROGRAMS_LIST, {})
         // console.log("data:" + data)
         return {
-            page: _get(data, "entries", {}),
-            entry: _get(data, "entry", {}),
+            page: _get(data, "entry", {}),
+            programs: _get(data, "entries", {}),
         }
     },
     head() {
-        let title = this.page ? this.entry.title : "... loading"
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
         return {
             title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {
         parsedProgramsList() {
-            return this.page.map((obj) => {
+            return this.programs.map((obj) => {
                 return {
                     ...obj,
                     to:

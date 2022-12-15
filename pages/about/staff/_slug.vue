@@ -100,6 +100,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import STAFF_DETAIL from "~/gql/queries/StaffDetail"
@@ -128,12 +129,19 @@ export default {
             page: data,
         }
     },
-
     head() {
-        let title =
-            this.page && this.page.entry ? this.page.entry.title : "... loading"
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
         return {
             title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {

@@ -4,7 +4,7 @@ query ProgramList {
   entry(section: "listingPrograms") {
     ... on listingPrograms_listingPrograms_Entry {
       title
-      summary
+      text: summary
     }
   }
   entries(section: "program", orderBy: "title ASC") {

@@ -5,7 +5,7 @@
     >
         <masthead-secondary
             :title="page.title"
-            :text="page.summary"
+            :text="page.text"
         />
 
         <!-- TODO: Add search/filter function
@@ -51,6 +51,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import ENDOWMENTS_LIST from "~/gql/queries/EndowmentList"
@@ -59,14 +60,23 @@ export default {
     async asyncData({ $graphql }) {
         const data = await $graphql.default.request(ENDOWMENTS_LIST, {})
         return {
-            endowments: _get(data, "entries", {}),
             page: _get(data, "entry", {}),
+            endowments: _get(data, "entries", {}),
         }
     },
     head() {
         let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
         return {
             title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {

@@ -1,5 +1,5 @@
 describe("Article News Listing page", () => {
-    it("Visit a Article News Listing Page", () => {
+    it("Visit the Article News Listing Page", () => {
         cy.visit("/about/news")
 
         // UCLA Library brand

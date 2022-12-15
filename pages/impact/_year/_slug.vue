@@ -41,6 +41,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
 
 // GQL
 import IMPACT_REPORT_STORY from "~/gql/queries/ImpactReportStory"
@@ -62,8 +63,18 @@ export default {
         }
     },
     head() {
+        let title = this.page ? this.page.title : "... loading"
+        let metaDescription = removeTags(this.page.text)
+
         return {
-            title: this.page.title,
+            title: title,
+            meta: [
+                { 
+                    hid: 'description',
+                    name: 'description',
+                    content: metaDescription
+                }
+            ],
         }
     },
     computed: {
