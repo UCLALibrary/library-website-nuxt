@@ -1,4 +1,3 @@
-kdfhgk
 <template lang="html">
     <main
         id="main"

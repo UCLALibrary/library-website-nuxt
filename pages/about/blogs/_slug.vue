@@ -146,15 +146,6 @@ export default {
             })
         },
     },
-    // TODO Make less gross
-    //methods: {
-    // removeTags() {
-    //     let str = this.page.text
-    //     let stripHtml = str.replace( /(<([^>]+)>)/ig, '')
-    //     let removeQuotes = stripHtml.replace(/"/ig, '')
-    //     return removeQuotes
-    // }
-    //},
 }
 </script>
 

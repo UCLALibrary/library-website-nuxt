@@ -118,6 +118,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import _ from "lodash"
 import removeTags from "~/utils/removeTags"
 
 // GQL
@@ -143,6 +144,9 @@ export default {
             },
         }
     },
+    fetchOnServer: false,
+    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
+    fetchKey: "staff-list",
     async fetch() {
         console.log("live preview  staff list")
         this.page = {}
@@ -211,7 +215,6 @@ export default {
     head() {
         let title = this.page ? this.page.title : "... loading"
         let metaDescription = removeTags(this.page.text)
-
         return {
             title: title,
             meta: [
@@ -223,9 +226,6 @@ export default {
             ],
         }
     },
-    fetchOnServer: false,
-    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
-    fetchKey: "staff-list",
     computed: {
         groupByAcademicLibraries() {
             let parseResults = this.parseHitsResults
