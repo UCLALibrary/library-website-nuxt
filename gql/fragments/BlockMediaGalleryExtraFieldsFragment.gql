@@ -3,7 +3,7 @@
 fragment BlockMediaGalleryExtraFieldsFragment on ElementInterface {
     id
     sectionTitle: titleGeneral
-    sectionSummary: summary
+    richTextSimplified
     mediaGallery: mediaGalleryExtraFields {
         dataId: id
         captionTitle: captionHeading
