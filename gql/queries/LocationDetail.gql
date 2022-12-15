@@ -30,6 +30,7 @@ query LocationDetail($slug: [String!]) {
             }
             howToGetHere
             amenities(label: true)
+            amenitiesIcons: amenities(label: false)
             space {
                 title
                 text: summary
@@ -128,15 +129,22 @@ query LocationDetail($slug: [String!]) {
     associatedEvents: entries(
         section: "event"
         relatedToEntries: { section: "location", slug: $slug }
+        startDateWithTime: ">= now"
     ) {
         ... on event_event_Entry {
             id
             slug
             title
-            date {
-                startTime
-                endTime
-            }
+            startDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
+            endDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
             associatedLocations {
                 id
                 title
@@ -153,7 +161,7 @@ query LocationDetail($slug: [String!]) {
                 }
             }
             eventType {
-                category
+                title
             }
             eventLocation
             isOnline: onlineEventUrl
@@ -169,6 +177,7 @@ query LocationDetail($slug: [String!]) {
             id
             title
             id
+            slug
             uri
             title
             summary
@@ -181,14 +190,16 @@ query LocationDetail($slug: [String!]) {
                     }
                 }
             }
-            date {
-                startDate
+            startDate
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
                 endDate
-            }
-            seriesDate {
-                startDate
-                endDate
-            }
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
             associatedLocations {
                 id
                 title

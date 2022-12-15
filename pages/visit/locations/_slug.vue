@@ -72,7 +72,6 @@
                 v-if="page.amenities.length"
                 class="divider-general"
             />
-
             <block-amenities
                 v-if="page.amenities.length"
                 :items="page.amenities"
@@ -131,13 +130,13 @@
                 class="section-teaser-list"
                 :items="mergeSortEventsExhibitions"
             />
-            <nuxt-link
+            <!-- <nuxt-link
                 v-if="mergeSortEventsExhibitions.length"
                 class="button-more"
                 to="/visit/events-exhibits"
             >
                 <button-more text="See More" />
-            </nuxt-link>
+            </nuxt-link> -->
         </section-wrapper>
 
         <section-wrapper theme="divider">
@@ -206,6 +205,7 @@
 <script>
 // GQL
 import LOCATION_DETAIL from "~/gql/queries/LocationDetail"
+import parseAmenities from "~/utils/parseAmenities"
 
 // HELPERS
 import _get from "lodash/get"
@@ -305,12 +305,12 @@ export default {
             return this.associatedExhibitions.map((obj) => {
                 return {
                     ...obj,
-                    to: `/events-exhibtions/${obj.slug}`,
+                    to: `/visit/events-exhibitions/${obj.slug}`,
                     image: _get(obj, "heroImage[0].image[0]", {}),
                     text: _get(obj, "summary", ""),
-                    startDate: _get(obj, "seriesDate[0].startDate", ""),
-                    endDate: _get(obj, "seriesDate[0].endDate", ""),
-                    locations: _get(obj, "associatedLocations", []),
+                    startDate: _get(obj, "startDate", ""),
+                    endDate: _get(obj, "endDate", ""),
+                    category: "Exhibition"
                 }
             })
         },
@@ -318,25 +318,25 @@ export default {
             return this.associatedEvents.map((obj) => {
                 return {
                     ...obj,
-                    to: `/events-exhibtions/${obj.slug}`,
-                    image: _get(obj, "heroImage[0].image[0]", {}),
+                    to: `/visit/events-exhibitions/${obj.slug}`,
+                    image: _get(obj, "heroImage[0].image[0]", null),
                     text: _get(obj, "eventDescription", ""),
-                    startDate: _get(obj, "date[0].startTime", ""),
-                    endDate: _get(obj, "date[0].endTime", ""),
-                    locations: _get(obj, "associatedLocations", []),
+                    startDate: _get(obj, "startDateWithTime", ""),
+                    endDate: _get(obj, "endDateWithTime", ""),
+                    category: _get(obj, "eventType[0].title", "")
                 }
             })
         },
         mergeSortEventsExhibitions() {
             return this.parsedEvents
                 .concat(this.parsedExhibtions)
-                .sort((a, b) =>
-                    a.startDate > b.startDate
-                        ? 1
-                        : b.startDate > a.startDate
-                            ? -1
-                            : 0
-                )
+                // .sort((a, b) =>
+                //     a.startDate > b.startDate
+                //         ? -1
+                //         : b.startDate > a.startDate
+                //             ? 1
+                // //             : 0
+                // )
         },
     },
 }
