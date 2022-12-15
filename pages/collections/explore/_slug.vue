@@ -8,7 +8,7 @@
             :title="page.title"
             parent-title="Explore Collections"
         />
-        <h3>{{ page }}</h3>
+
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             :title="page.title"
