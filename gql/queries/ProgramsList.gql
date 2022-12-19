@@ -5,6 +5,22 @@ query ProgramList {
     ... on listingPrograms_listingPrograms_Entry {
       title
       text: summary
+      featuredPrograms {
+        title
+        text: summary
+        to: uri
+        programType {
+          title
+        }
+        heroImage {
+          ... on heroImage_heroImage_BlockType {
+            id
+            image {
+              ...Image
+            }
+          }
+        }
+      }
     }
   }
   entries(section: "program", orderBy: "title ASC") {
@@ -12,6 +28,9 @@ query ProgramList {
       title
       description: summary
       to: uri
+      programType {
+        title
+      }
       programUrlBehavior
       buttonUrl {
         ...on buttonUrl_button_BlockType {

@@ -3,19 +3,52 @@
         id="main"
         class="page page-programs"
     >
-        <nav-breadcrumb
-            to="/about"
-            :title="page.title"
-            parent-title="About"
-        />
-
-        <banner-text
+        <masthead-secondary
             :title="page.title"
             :text="page.text"
         />
 
+        <!-- TODO: Add search function -->
+        <!-- <search-generic
+            search-type="about"
+            :filters="searchFilters"
+            class="generic-search"
+            @search-ready="getSearchData"
+        /> -->
+
         <section-wrapper theme="divider">
-            <divider-way-finder color="about" />
+            <divider-way-finder class="search-margin" />
+        </section-wrapper>
+
+        <section-wrapper
+            v-if="page.featuredPrograms.length"
+            class="section-no-top-margin"
+        >
+            <banner-featured
+                :image="parsedBannerHeader.image"
+                :title="parsedBannerHeader.title"
+                :category="parsedBannerHeader.category"
+                breadcrumb="Featured"
+                :description="parsedBannerHeader.text"
+                :to="parsedBannerHeader.to"
+                :align-right="true"
+                prompt="Read More"
+                class="banner section-featured-banner"
+            />
+
+            <divider-general />
+
+            <section-teaser-highlight
+                v-if="parsedSectionHighlight.length"
+                class="section"
+                :items="parsedSectionHighlight"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="about"
+            />
         </section-wrapper>
 
         <section-wrapper v-if="parsedProgramsList.length">
@@ -62,6 +95,26 @@ export default {
         }
     },
     computed: {
+        parsedFeaturedPrograms() {
+            return this.page.featuredPrograms.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.to}`,
+                    image: _get(obj, "heroImage[0].image[0]", null),
+                    category: _get(obj, "programType[0].title", null),
+                }
+            })
+        },
+        parsedBannerHeader() {
+            return this.parsedFeaturedPrograms[0]
+        },
+        parsedSectionHighlight() {
+            return this.parsedFeaturedPrograms.slice(1).map((obj) => {
+                return {
+                    ...obj,
+                }
+            })
+        },
         parsedProgramsList() {
             return this.programs.map((obj) => {
                 return {
@@ -72,7 +125,7 @@ export default {
                             : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.fullName}`,
-                    category: _get(obj, "articleCategories[0].title", null),
+                    category: _get(obj, "programType[0].title", null),
                 }
             })
         },
