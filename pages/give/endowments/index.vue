@@ -38,7 +38,7 @@
         </section-wrapper>
 
         <section-wrapper section-title="All Endowments">
-            <section-staff-article-list
+            <section-generic-list
                 :items="parsedEndowmentsList"
             />
             <!-- pagination -->
@@ -108,7 +108,8 @@ export default {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
-                    image: _get(obj, "heroImage[0].image[0]", null),
+                    text: _get(obj, "text", ""),
+                    // image: _get(obj, "heroImage[0].image[0]", null),
                     // category: (obj.donors[0].firstName != null) ? `Donor: ${obj.donors[0].firstName} ${obj.donors[0].lastName}` : `Donor: ${obj.donors[0].lastName}`
                 }
             })
