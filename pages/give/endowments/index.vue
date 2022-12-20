@@ -17,15 +17,16 @@
         /> -->
 
         <section-wrapper theme="divider">
-            <divider-way-finder class="search-margin" />
+            <divider-way-finder class="search-margin" 
+                color="about"/>
         </section-wrapper>
-
         <section-wrapper
-            v-if="page.featuredEndowments.length"
+            v-if="page.featuredEndowments.length > 0"
             class="section-no-top-margin"
+            :section-title = "page.featuredEndowments[0].titleGeneral"
+            :section-summary = "page.featuredEndowments[0].sectionSummary"
         >
             <section-teaser-highlight
-                v-if="parsedFeaturedEndowments.length"
                 class="section"
                 :items="parsedFeaturedEndowments"
             />
@@ -95,14 +96,16 @@ export default {
     },
     computed: {
         parsedFeaturedEndowments() {
-            return this.page.featuredEndowments.map((obj) => {
+            return this.page.featuredEndowments[0].featuredEndowments.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
+                    // category: (obj.donors[0].firstName != null) ? `Donor: ${obj.donors[0].firstName} ${obj.donors[0].lastName}` : `Donor: ${obj.donors[0].lastName}`
                 }
             })
         },
+
         parsedEndowmentsList() {
             return this.endowments.map((obj) => {
                 return {

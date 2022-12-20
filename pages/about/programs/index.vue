@@ -55,6 +55,7 @@
             v-if="parsedProgramsList.length"
             section-title="All Programs & Initiatives">
             <section-staff-article-list :items="parsedProgramsList" />
+            <!-- pagination -->
 
             <section-wrapper theme="divider">
                 <divider-way-finder color="about" />
