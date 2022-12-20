@@ -27,9 +27,6 @@ export default {
         }
     },
     head: {
-        htmlAttrs: {
-            lang: "en",
-        },
         titleTemplate: "%s | UCLA Library",
         meta: [
             { charset: "utf-8" },

@@ -44,9 +44,6 @@ export default {
     },
     /* head() {
         return {
-            htmlAttrs: {
-                lang: "en",
-            },
             bodyAttrs: {
                 class: this.bodyClasses,
             },
