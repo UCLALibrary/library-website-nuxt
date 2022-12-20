@@ -51,7 +51,9 @@
             />
         </section-wrapper>
 
-        <section-wrapper v-if="parsedProgramsList.length">
+        <section-wrapper 
+            v-if="parsedProgramsList.length"
+            section-title="All Programs & Initiatives">
             <section-staff-article-list :items="parsedProgramsList" />
 
             <section-wrapper theme="divider">
