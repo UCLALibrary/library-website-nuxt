@@ -18,7 +18,7 @@
 
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" 
-                color="about"/>
+            />
         </section-wrapper>
         <section-wrapper
             v-if="page.featuredEndowments.length > 0"
@@ -34,7 +34,6 @@
 
         <section-wrapper theme="divider">
             <divider-way-finder
-                color="about"
             />
         </section-wrapper>
 
@@ -47,7 +46,6 @@
 
         <section-wrapper theme="divider">
             <divider-way-finder
-                color="about"
             />
         </section-wrapper>
 
@@ -101,7 +99,6 @@ export default {
                     ...obj,
                     to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    // category: (obj.donors[0].firstName != null) ? `Donor: ${obj.donors[0].firstName} ${obj.donors[0].lastName}` : `Donor: ${obj.donors[0].lastName}`
                 }
             })
         },
@@ -112,7 +109,7 @@ export default {
                     ...obj,
                     to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    category: (obj.donors[0].firstName != null) ? `Donor: ${obj.donors[0].firstName} ${obj.donors[0].lastName}` : `Donor: ${obj.donors[0].lastName}`
+                    // category: (obj.donors[0].firstName != null) ? `Donor: ${obj.donors[0].firstName} ${obj.donors[0].lastName}` : `Donor: ${obj.donors[0].lastName}`
                 }
             })
         },

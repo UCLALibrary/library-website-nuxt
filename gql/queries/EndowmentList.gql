@@ -9,8 +9,13 @@ query EndowmentsList {
           titleGeneral
           sectionSummary
           featuredEndowments {
+            text: summary
             uri
             title
+            alternativeName {
+              languageAltName
+              fullName
+            }
             heroImage {
               ... on heroImage_heroImage_BlockType {
                 image {
