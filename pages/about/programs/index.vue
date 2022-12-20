@@ -58,6 +58,13 @@
                 <divider-way-finder color="about" />
             </section-wrapper>
         </section-wrapper>
+
+        <section-wrapper>
+            <block-call-to-action
+                class="block-call-to-action"
+                :is-global="true"
+            />
+        </section-wrapper>
     </main>
 </template>
 
@@ -135,6 +142,9 @@ export default {
 
 <style lang="scss" scoped>
 .page-programs {
+    .search-margin {
+        margin: var(--space-2xl) auto;
+    }
 }
 </style>
 Footer

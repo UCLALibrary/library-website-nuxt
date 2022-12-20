@@ -17,8 +17,22 @@
         /> -->
 
         <section-wrapper theme="divider">
+            <divider-way-finder class="search-margin" />
+        </section-wrapper>
+
+        <section-wrapper
+            v-if="page.featuredEndowments.length"
+            class="section-no-top-margin"
+        >
+            <section-teaser-highlight
+                v-if="parsedFeaturedEndowments.length"
+                class="section"
+                :items="parsedFeaturedEndowments"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
             <divider-way-finder
-                class="search-margin"
                 color="about"
             />
         </section-wrapper>
@@ -80,6 +94,15 @@ export default {
         }
     },
     computed: {
+        parsedFeaturedEndowments() {
+            return this.page.featuredEndowments.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.to}`,
+                    image: _get(obj, "heroImage[0].image[0]", null),
+                }
+            })
+        },
         parsedEndowmentsList() {
             return this.endowments.map((obj) => {
                 return {

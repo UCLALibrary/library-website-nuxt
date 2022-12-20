@@ -4,6 +4,19 @@ query EndowmentsList {
     ... on listingEndowments_listingEndowments_Entry {
       title
       text: summary
+      featuredEndowments {
+        title
+        text: summary
+        to: uri
+        heroImage {
+          ... on heroImage_heroImage_BlockType {
+            id
+            image {
+              ...Image
+            }
+          }
+        }
+      }
     }
   }
   entries(section: "endowment", orderBy: "title ASC") {
