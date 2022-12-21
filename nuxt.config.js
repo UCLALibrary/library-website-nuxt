@@ -20,6 +20,9 @@ export default {
      ** Required charset and viewport meta tags
      */
     head: {
+        htmlAttrs: {
+            lang: "en",
+        },
         meta: [
             { charset: "utf-8" },
             {

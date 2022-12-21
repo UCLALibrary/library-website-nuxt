@@ -163,7 +163,9 @@ query LocationDetail($slug: [String!]) {
             eventType {
                 title
             }
-            eventLocation
+            eventLocation {
+                title
+            }
             isOnline: onlineEventUrl
             moreInformation
             eventOwner

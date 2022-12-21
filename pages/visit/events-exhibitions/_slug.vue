@@ -320,7 +320,7 @@ export default {
                 return {
                     title: title,
                     meta: [
-                        { 
+                        {
                             hid: 'description',
                             name: 'description',
                             content: metaDescription
@@ -335,7 +335,7 @@ export default {
                 return {
                     title: title,
                     meta: [
-                        { 
+                        {
                             hid: 'description',
                             name: 'description',
                             content: metaDescription
@@ -350,7 +350,7 @@ export default {
                 return {
                     title: title,
                     meta: [
-                        { 
+                        {
                             hid: 'description',
                             name: 'description',
                             content: metaDescription
