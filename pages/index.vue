@@ -15,7 +15,7 @@
         <p>{{ searchResponse }}</p-->
 
         <section-wrapper theme="divider">
-            <divider-way-finder color="help" />
+            <divider-way-finder class="search-margin" color="help"/>
         </section-wrapper>
 
         <section-wrapper>
@@ -42,9 +42,9 @@
                 :title="bannerFeaturedEvent.title"
                 :start-date="bannerFeaturedEvent.startDate"
                 :end-date="bannerFeaturedEvent.endDate"
-                :description="bannerFeaturedEvent.description"
                 :locations="bannerFeaturedEvent.associatedLocations"
                 :align-right="false"
+                :category="bannerFeaturedEvent.category"
             >
                 <heading-arrow text="Featured Events &amp; Exhibitions" />
             </banner-featured>
@@ -118,10 +118,6 @@
             >
                 <button-more text="See All News" />
             </nuxt-link>
-        </section-wrapper>
-
-        <section-wrapper theme="divider">
-            <divider-general />
         </section-wrapper>
     </main>
 </template>
@@ -294,7 +290,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page-home {
-    .button-more {
+    .button-more, .search-margin {
         margin: var(--space-2xl) auto;
     }
 }
