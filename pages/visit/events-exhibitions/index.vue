@@ -180,15 +180,6 @@ export default {
                 }
             })
         },
-        blockCallToAction() {
-            const mockBlockCallToAction = {
-                to: "/help/foo/bar/",
-                name: "Lorem ipsum dolor",
-                title: "Lorem ipsum dolor sit amet?",
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            }
-            return mockBlockCallToAction
-        },
     },
     // This will recall fetch() when these query params change
     watchQuery: ["offset", "q"],
