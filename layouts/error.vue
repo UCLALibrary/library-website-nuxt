@@ -24,8 +24,8 @@
             <p>We can’t find the page you are looking for, but we're here to help. <nuxt-link to="/">Go back to home page</nuxt-link> or try these regularly visited links:</p>
             <ul>
                 <li><a href="https://library.ucla.edu">UCLA Library Home</a></li>
-                <li><a href="https://www.library.ucla.edu/research-teaching-support/research-help">Research Help</a></li>
-                <li><a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility Resources</a></li>
+                <li><a href="https://library.ucla.edu/help/research-help">Research Help</a></li>
+                <li><a href="https://library.ucla.edu/help/services-resources/accessibility-resources">Accessibility Resources</a></li>
             </ul>
         </rich-text>
     </main>
