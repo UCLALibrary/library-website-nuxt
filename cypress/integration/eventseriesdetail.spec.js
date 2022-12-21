@@ -1,7 +1,7 @@
 describe("Event Series Detail page", () => {
     it("Visits an Event Series Detail Page", () => {
         // the following data will not work in production
-        cy.visit("/visit/events-exhibitions/test-event-series")
+        cy.visit("/visit/events-exhibitions/test-event-series", { timeout: 10000 })
 
         // UCLA Library brand
         cy.get(".logo-ucla").should("be.visible")

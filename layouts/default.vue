@@ -7,8 +7,10 @@
 
         <header-smart />
         <nuxt class="page" />
-        <footer-primary :form="true" />
-        <footer-sock />
+        <footer>
+            <footer-primary :form="true" />
+            <footer-sock />
+        </footer>
         <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" />
     </div>
 </template>
@@ -27,9 +29,6 @@ export default {
         }
     },
     head: {
-        htmlAttrs: {
-            lang: "en",
-        },
         titleTemplate: "%s | UCLA Library",
         meta: [
             { charset: "utf-8" },

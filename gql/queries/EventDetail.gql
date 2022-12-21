@@ -9,7 +9,9 @@ query EventDetail($slug: [String!]) {
             typehandle
             sectionHandle
             title
-            eventLocation
+            eventLocation {
+                title
+            }
             image: heroImage {
                 ... on heroImage_heroImage_BlockType {
                     image {
