@@ -50,11 +50,13 @@
             </banner-featured>
         </section-wrapper>
 
+        <section-wrapper class="section-dual-masonry">
         <section-dual-masonry
             v-if="parsedDualMasonryEvents.length > 0"
             :items="parsedDualMasonryEvents"
             to="/visit/events-exhibitions"
         />
+        </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder color="default" />
