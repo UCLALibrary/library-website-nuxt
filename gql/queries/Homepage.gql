@@ -27,6 +27,7 @@ query Homepage {
             featuredEvents {
                 id
                 sectionHandle
+                uri
                 workshopOrEventSeriesType
                 title
                 startDateWithTime
@@ -65,7 +66,6 @@ query Homepage {
                         summary
                     }
                 }
-                uri
                 heroImage {
                     ... on heroImage_heroImage_BlockType {
                         id
