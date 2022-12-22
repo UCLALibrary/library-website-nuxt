@@ -1,13 +1,20 @@
 query Globals {
     globalSets {
+        dataId: id
+        handle
+
         ... on askALibrarian_GlobalSet {
-            id
             askALibrarianTitle: titleGeneral
             askALibrarianText: summary
             buttonUrl {
                 buttonText
                 buttonUrl
             }
+        }
+
+        ... on libraryAlert_GlobalSet {
+            title: entryTitle
+            text: richTextAlertBox
         }
     }
 }

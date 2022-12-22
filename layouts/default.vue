@@ -6,6 +6,15 @@
         />
 
         <header-smart />
+
+        <section-wrapper class="section-alert" theme="divider">
+            <site-notification-alert
+                v-if="libraryAlert"
+                class="library-alert"
+                v-bind="libraryAlert"
+            />
+        </section-wrapper>
+        
         <nuxt class="page" />
         <footer>
             <footer-primary :form="true" />
@@ -54,6 +63,14 @@ export default {
                 { "has-scrolled": this.$store.state.sTop },
                 { "has-scrolled-past-header": this.$store.state.sTop >= 150 },
             ]
+        },
+        libraryAlert() {
+            var alert = this.$store.state.globals.libraryAlert
+            if ( alert && alert.title && alert.title.length > 0 && alert.text && alert.text.length > 0 ) {
+                return alert
+            } else {
+                return null
+            }
         },
     },
     watch: {
@@ -110,9 +127,20 @@ export default {
         width: 100%;
     }
 
-    .page {
-        flex: 1 1 auto;
+    .section-alert {
+        height: 0;
+        position: relative;
+
+        .library-alert {
+            position: absolute;
+            z-index: 100;
+            top: 32px;
+            right: var(--unit-gutter);
+        }
+
     }
+
+    flex: 1 1 auto;
 }
 
 .vue-skip-to {
