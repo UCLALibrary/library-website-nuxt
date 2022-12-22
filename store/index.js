@@ -129,9 +129,12 @@ export const actions = {
                 globalData = removeEmpties(globalData.globalSets || [])
 
                 // Shape data from Craft
-                data = {
-                    askALibrarian: globalData[0],
-                }
+                data = Object.fromEntries(
+                    globalData.map((item) => [item.handle, item] )
+                )
+                // {
+                //     askALibrarian: globalData[0],
+                // }
             }
             commit("SET_GLOBALS", data)
             return data
