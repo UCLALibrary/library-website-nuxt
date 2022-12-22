@@ -15,7 +15,10 @@
         <p>{{ searchResponse }}</p-->
 
         <section-wrapper theme="divider">
-            <divider-way-finder color="help" />
+            <divider-way-finder
+                class="search-margin"
+                color="help"
+            />
         </section-wrapper>
 
         <section-wrapper>
@@ -42,19 +45,22 @@
                 :title="bannerFeaturedEvent.title"
                 :start-date="bannerFeaturedEvent.startDate"
                 :end-date="bannerFeaturedEvent.endDate"
-                :description="bannerFeaturedEvent.description"
                 :locations="bannerFeaturedEvent.associatedLocations"
                 :align-right="false"
+                :category="bannerFeaturedEvent.category"
             >
                 <heading-arrow text="Featured Events &amp; Exhibitions" />
             </banner-featured>
         </section-wrapper>
 
-        <section-dual-masonry
-            v-if="parsedDualMasonryEvents.length > 0"
-            :items="parsedDualMasonryEvents"
-            to="/visit/events-exhibitions"
-        />
+        <section-wrapper class="section-dual-masonry">
+            <section-dual-masonry
+                v-if="parsedDualMasonryEvents.length > 0"
+                :items="parsedDualMasonryEvents"
+                to="/visit/events-exhibitions"
+                text="See All Events &amp; Exhibitions"
+            />
+        </section-wrapper>
 
         <section-wrapper theme="divider">
             <divider-way-finder color="default" />
@@ -119,10 +125,6 @@
                 <button-more text="See All News" />
             </nuxt-link>
         </section-wrapper>
-
-        <section-wrapper theme="divider">
-            <divider-general />
-        </section-wrapper>
     </main>
 </template>
 
@@ -142,16 +144,17 @@ export default {
     },
     head() {
         let title = this.page ? this.page.title : "... loading"
-        let metaDescription = "The UCLA Library creates a vibrant nexus of ideas, collections, expertise, and spaces in which users illuminate solutions for local and global challenges. We constantly evolve to advance UCLA’s research, education, and public service mission by empowering and inspiring communities of scholars and learners to discover, access, create, share, and preserve knowledge."
+        let metaDescription =
+            "The UCLA Library creates a vibrant nexus of ideas, collections, expertise, and spaces in which users illuminate solutions for local and global challenges. We constantly evolve to advance UCLA’s research, education, and public service mission by empowering and inspiring communities of scholars and learners to discover, access, create, share, and preserve knowledge."
 
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
@@ -174,7 +177,6 @@ export default {
                     to: obj.externalResourceUrl
                         ? obj.externalResourceUrl
                         : `/${obj.uri}`,
-                    
                 }
             })
         },
@@ -212,10 +214,14 @@ export default {
                     ...obj,
                     to: `/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    dates:
+                    startDate:
                         obj.sectionHandle === "event"
                             ? _get(obj, "startDateWithTime", null)
                             : _get(obj, "startDate", null),
+                    endDate:
+                        obj.sectionHandle === "event"
+                            ? _get(obj, "endDateWithTime", null)
+                            : _get(obj, "endDate", null),
                     category: "Featured",
                     prompt:
                         obj.sectionHandle === "workshopOrEventSeries"
@@ -294,7 +300,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page-home {
-    .button-more {
+    .button-more,
+    .search-margin {
         margin: var(--space-2xl) auto;
     }
 }
