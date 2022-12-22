@@ -34,7 +34,7 @@ query EndowmentsList {
       languageAltName
       fullName
     }
-    text: summary
+    summary
     to: uri
     heroImage {
       ... on heroImage_heroImage_BlockType {

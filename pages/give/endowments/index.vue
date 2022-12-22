@@ -80,7 +80,7 @@ export default {
     head() {
         let title = this.page ? this.page.title : "... loading"
         let metaDescription = removeTags(this.page.text)
-
+        
         return {
             title: title,
             meta: [
@@ -108,7 +108,7 @@ export default {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
-                    text: _get(obj, "text", ""),
+                    // text: _get(obj, "text", ""),
                     // image: _get(obj, "heroImage[0].image[0]", null),
                     // category: (obj.donors[0].firstName != null) ? `Donor: ${obj.donors[0].firstName} ${obj.donors[0].lastName}` : `Donor: ${obj.donors[0].lastName}`
                 }
