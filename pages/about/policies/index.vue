@@ -82,6 +82,9 @@ export default {
                     })
                 }
             })
+        },
+        truncated() {
+            return truncate()
         }
     }
 }

@@ -13,7 +13,7 @@
             :title="page.title"
             :text="page.summary"
         >
-        <!-- TODO Add SearchGenric here when complete -->
+            <!-- TODO Add SearchGenric here when complete -->
         <!-- search-generic
             search-type="about"
             class="generic-search"
@@ -61,6 +61,7 @@
 // HELPERS
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
+import removeHtmlTruncate from "~/utils/removeHtmlTruncate"
 
 // GQL
 import COLLECTIONS_EXPLORE_LIST from "~/gql/queries/CollectionsExploreList.gql"
@@ -101,7 +102,7 @@ export default {
                     image: _get(obj, "heroImage[0]image[0]", null),
                     category: obj.category.join(", "),
                     title: _get(obj, "title", ""),
-                    text: _get(obj, "text", "")
+                    text: removeHtmlTruncate(obj.text, 100)
                 }
             })
         },
@@ -112,6 +113,7 @@ export default {
                     to: obj.externalResourceUrl
                         ? obj.externalResourceUrl
                         : `/${obj.to}`,
+                    text: removeHtmlTruncate(obj.text, 100)
                 }
             })
         }
