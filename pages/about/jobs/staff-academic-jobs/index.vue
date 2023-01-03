@@ -37,7 +37,7 @@
                 v-else
                 class="no-positions"
             >
-                No positions available
+                No positions available at this time
             </div>
         </section-wrapper>
 
@@ -60,7 +60,7 @@
                 v-else
                 class="no-positions"
             >
-                No positions available
+                No positions available at this time
             </div>
         </section-wrapper>
         <section-wrapper theme="divider" v-if="associatedTopics.length > 0">
