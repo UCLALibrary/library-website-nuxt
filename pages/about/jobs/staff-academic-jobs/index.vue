@@ -39,14 +39,14 @@
             >
                 No positions available
             </div>
+        </section-wrapper>
 
-            <section-wrapper theme="divider">
+        <section-wrapper theme="divider">
                 <divider-way-finder
                     class="divider"
                     color="about"
                 />
             </section-wrapper>
-        </section-wrapper>
 
         <!-- STAFF JOBS -->
         <section-wrapper
@@ -62,14 +62,13 @@
             >
                 No positions available
             </div>
-
-            <section-wrapper theme="divider">
+        </section-wrapper>
+        <section-wrapper theme="divider" v-if="associatedTopics.length > 0">
                 <divider-way-finder
                     class="divider"
                     color="about"
                 />
             </section-wrapper>
-        </section-wrapper>
 
         <!-- ASSOCIATED TOPICS -->
         <section-wrapper>
