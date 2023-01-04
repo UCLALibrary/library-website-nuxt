@@ -5,6 +5,33 @@ query ProgramList {
     ... on listingPrograms_listingPrograms_Entry {
       title
       text: summary
+    ... on listingPrograms_listingPrograms_Entry {
+      featuredPrograms {
+        ... on program_program_Entry {
+            title
+            summary
+            uri
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
+            buttonUrl {
+                ... on buttonUrl_button_BlockType {
+                    id
+                    buttonText
+                    buttonUrl
+                }
+            }
+            programType {
+              title
+            }        
+          }
+      }
+    }
     }
   }
   entries(section: "program", orderBy: "title ASC") {
