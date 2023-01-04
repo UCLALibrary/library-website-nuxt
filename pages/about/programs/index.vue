@@ -128,18 +128,9 @@ export default {
                             : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.fullName}`,
-                    category: _get(obj, "articleCategories[0].title", null),
+                    category: _get(obj, "programType[0].title", null),
                 }
             })
-        },
-    },
-    methods: {
-        parseProgramCategory(categories) {
-            let result = ""
-            categories.forEach((obj) => {
-                result = result + obj.title + ", "
-            })
-            return result.slice(0, -2)
         },
     },
 }
