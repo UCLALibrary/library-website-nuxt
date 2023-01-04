@@ -61,8 +61,6 @@
         <section-wrapper section-title="All Upcoming Events">
             <section-teaser-list
                 :items="parsedExhibitionsAndEvents"
-                class="section section-list"
-                nShown=infinity
             />
         </section-wrapper>
 
@@ -176,14 +174,7 @@ export default {
                     startDate: _get(eventOrExhibtion, "startDateWithTime", null),
                     endDate: _get(eventOrExhibtion, "endDateWithTime", null),
                     category:
-                        eventOrExhibtion.typeHandle === "exhibition"
-                            ? "Exhibition"
-                            : eventOrExhibtion.workshopOrEventSeriesType === "visit/events-exhibitions"
-                                ? "Event Series"
-                                : eventOrExhibtion.eventType.length > 0
-                                    ? eventOrExhibtion.eventType[0].title
-                                    : "Event",
-                    locations: _get(eventOrExhibtion, "associatedLocations", null),
+                        _get(eventOrExhibtion, "eventType[0].title", null),
                 }
             })
         },
