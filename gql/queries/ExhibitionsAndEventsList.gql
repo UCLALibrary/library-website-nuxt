@@ -47,23 +47,7 @@ query EventsExhibitionsList {
     eventType {
         title
     }
-    startDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
-    endDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
     startDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
     endDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
-    workshopOrEventSeriesType
-    associatedLocations {
-      title
-      to: uri
-    }
-    heroImage {
-      ... on heroImage_heroImage_BlockType {
-        id
-        image {
-          ...Image
-        }
-        altText
-      }
-    }
   }
-} 
+}
