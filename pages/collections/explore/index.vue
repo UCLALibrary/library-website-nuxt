@@ -8,7 +8,9 @@
             title="Explore Featured Collections"
             parent-title="Collections"
         />
-
+        <h3>{{ parsedAssociatedTopics }}</h3>
+        <hr>
+        <h3>{{ page.associatedTopics }}</h3>
         <masthead-secondary
             :title="page.title"
             :text="page.summary"
