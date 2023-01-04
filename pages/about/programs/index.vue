@@ -14,11 +14,17 @@
             :text="page.text"
         />
 
+        <!-- TODO: Add search function -->
+        <!-- <search-generic
+            search-type="about"
+            :filters="searchFilters"
+            class="generic-search"
+            @search-ready="getSearchData"
+        /> -->
+
         <section-wrapper theme="divider">
             <divider-way-finder color="about" />
         </section-wrapper>
-
-{{parsedFeaturedPrograms}}
 
         <section-wrapper
             v-if="page.featuredPrograms.length > 0"
@@ -52,7 +58,8 @@
             />
         </section-wrapper>
 
-        <section-wrapper v-if="parsedProgramsList.length">
+        <section-wrapper v-if="parsedProgramsList.length"
+            section-title="All Programs & Initiatives">
             <section-staff-article-list :items="parsedProgramsList" />
         </section-wrapper>
     </main>
