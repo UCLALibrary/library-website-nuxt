@@ -38,7 +38,7 @@
                 class="banner section-featured-banner"
             />
 
-            <divider-general />
+            <divider-general v-if="parsedSectionHighlight.length" />
 
             <section-teaser-highlight
                 v-if="parsedSectionHighlight.length"
