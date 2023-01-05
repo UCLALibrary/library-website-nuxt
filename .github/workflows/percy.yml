@@ -16,7 +16,7 @@ jobs:
     - uses: ./.github/workflows/setup-workspace
     - name: Cache built static site
       id: cache-nuxt
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ./dist
         key: nuxt-site-${{ github.sha }}
@@ -28,7 +28,7 @@ jobs:
         S3_BUCKET: "https://static.library.ucla.edu/"
         ES_URL: ${{ secrets.ES_URL }}
         ESApiKey: ${{ secrets.ESApiKey }}
-    - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
+    - uses: cypress-io/github-action@v3
       with:
         start: npx http-server ./dist -p 3000
         command-prefix: 'percy exec -- npx'
