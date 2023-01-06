@@ -42,7 +42,7 @@
             />
         </section-wrapper>
 
-        <section-wrapper section-title="All Endowments">
+        <section-wrapper section-title="All Collection Endowments">
             <section-generic-list
                 :items="parsedEndowmentsList"
             />
@@ -59,8 +59,8 @@
             <block-call-to-action
                 svg-name="svg-call-to-action-money"
                 title="Give to the UCLA Library"
-                text="Your contributions help us build our collections for the benefit or our students, faculty, staff, and the general public."
-                name="Donate"
+                text="Your contributions help us build our collections for the benefit or our students, faculty, staff and the general public."
+                name="Give Now"
                 to="/give"
             />
         </section-wrapper>
