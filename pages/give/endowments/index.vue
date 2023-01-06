@@ -23,8 +23,27 @@
             />
         </section-wrapper>
 
+        <section-wrapper
+            v-if="page.featuredEndowments.length"
+            class="section-no-top-margin"
+            :section-title="page.featuredEndowments[0].titleGeneral"
+            :section-summary="page.featuredEndowments[0].sectionSummary"
+        >
+            <section-teaser-card
+                v-if="parsedFeaturedEndowments.length"
+                class="section"
+                :items="parsedFeaturedEndowments"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="about"
+            />
+        </section-wrapper>
+
         <section-wrapper section-title="All Endowments">
-            <section-staff-article-list
+            <section-generic-list
                 :items="parsedEndowmentsList"
             />
             <!-- pagination -->
@@ -71,7 +90,7 @@ export default {
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription
@@ -80,13 +99,24 @@ export default {
         }
     },
     computed: {
-        parsedEndowmentsList() {
-            return this.endowments.map((obj) => {
+        parsedFeaturedEndowments() {
+            return this.page.featuredEndowments[0].featuredEndowments.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    category: (obj.donors[0].firstName != null) ? `Donor: ${obj.donors[0].firstName} ${obj.donors[0].lastName}` : `Donor: ${obj.donors[0].lastName}`
+                    alternativeFullName: _get(obj, "alternativeName[0].fullName", null),
+                    language: _get(obj, "alternativeName[0].languageAltName", null),
+                }
+            })
+        },
+        parsedEndowmentsList() {
+            return this.endowments.map((obj) => {
+                return {
+                    ...obj,
+                    jobPostingURL: `/${obj.to}`,
+                    alternativeFullName: _get(obj, "alternativeName[0].fullName", null),
+                    language: _get(obj, "alternativeName[0].languageAltName", null),
                 }
             })
         },
@@ -98,6 +128,21 @@ export default {
 .page-endowment-listing {
     .search-margin {
         margin: var(--space-2xl) auto;
+    }
+
+    ::v-deep .section-teaser-card .card {
+        width: calc((100% - 32px)/ 2);
+        @media #{$small} {
+            width: 100%;
+        }
+    }
+
+    ::v-deep .block-highlight.is-vertical[data-v-1c22f6b0]:not(.has-triangle) .image {
+        height: 572px;
+    }
+
+    ::v-deep .block-highlight.is-vertical[data-v-1c22f6b0]:not(.has-triangle) .image .media {
+        object-fit: contain;
     }
 }
 </style>
