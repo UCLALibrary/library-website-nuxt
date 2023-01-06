@@ -51,7 +51,7 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="page.featuredEvents.length && parsedExhibitionsAndEvents.length"
+            v-if="page.featuredEvents.length && parsedEvents.length"
             theme="divider"
         >
             <divider-way-finder color="visit" />
@@ -60,12 +60,26 @@
         <!-- UPCOMING EVENTS -->
         <section-wrapper section-title="All Upcoming Events">
             <section-teaser-list
-                :items="parsedExhibitionsAndEvents"
+                :items="parsedEvents"
             />
         </section-wrapper>
 
         <section-wrapper
-            v-if="parsedExhibitionsAndEvents.length"
+            v-if="parsedEvents.length"
+            theme="divider"
+        >
+            <divider-way-finder color="visit" />
+        </section-wrapper>
+
+        <!-- EVENT SERIES & EXHIBITIONS -->
+        <section-wrapper section-title="Ongoing Event Series & Exhibitions">
+            <section-teaser-card
+                :items="parsedSeriesAndExhibitions">
+            </section-teaser-card>
+        </section-wrapper>
+
+        <section-wrapper
+            v-if="parsedSeriesAndExhibitions.length"
             theme="divider"
         >
             <divider-way-finder color="visit" />
@@ -161,7 +175,7 @@ export default {
                 }
             })
         },
-        parsedExhibitionsAndEvents() {
+        parsedEvents() {
             return [
                 ...(this.events || []),
             ].map((obj) => {
@@ -173,6 +187,21 @@ export default {
                     image: _get(eventOrExhibtion, "heroImage[0].image[0]", null),
                     startDate: _get(eventOrExhibtion, "startDateWithTime", null),
                     endDate: _get(eventOrExhibtion, "endDateWithTime", null),
+                    category:
+                        _get(eventOrExhibtion, "eventType[0].title", null),
+                }
+            })
+        },
+        parsedSeriesAndExhibitions() {
+            return [
+                ...(this.events || []),
+            ].map((obj) => {
+                const eventOrExhibtion = obj || {}
+
+                return {
+                    ...eventOrExhibtion,
+                    to: `/${eventOrExhibtion.to}`,
+                    image: _get(eventOrExhibtion, "heroImage[0].image[0]", null),
                     category:
                         _get(eventOrExhibtion, "eventType[0].title", null),
                 }
