@@ -126,6 +126,12 @@ export default {
 
 <style lang="scss" scoped>
 .page-endowment-listing {
+    ::v-deep .block-highlight.is-vertical:not(.has-triangle) .image {
+        height: 572px;
+    }
+    ::v-deep .block-highlight.is-vertical:not(.has-triangle) .image .media {
+        object-fit: contain;
+    }
     .search-margin {
         margin: var(--space-2xl) auto;
     }
@@ -137,12 +143,10 @@ export default {
         }
     }
 
-    ::v-deep .block-highlight.is-vertical[data-v-1c22f6b0]:not(.has-triangle) .image {
-        height: 572px;
-    }
-
-    ::v-deep .block-highlight.is-vertical[data-v-1c22f6b0]:not(.has-triangle) .image .media {
-        object-fit: contain;
+    @media #{$medium} {
+        ::v-deep .block-highlight.is-vertical:not(.has-triangle) .image {
+            height: 390px;
+        }
     }
 }
 </style>
