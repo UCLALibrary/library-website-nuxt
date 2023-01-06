@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-    - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+    - uses: actions/checkout@v3
       with:
         repository: ${{ github.event.pull_request.head.repo.full_name }}
         ref: ${{ github.event.pull_request.head.ref }}
     - uses: ./.github/workflows/setup-workspace
     - run: npm run lint-fix
-    - uses: EndBug/add-and-commit@d4d066316a2a85974a05efb42be78f897793c6d9
+    - uses: EndBug/add-and-commit@v9
       with:
         message: "chore: linter autofixes"
         default_author: github_actions
@@ -28,7 +28,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Comment with percy instructions
-        uses: bubkoo/auto-comment@c907eece18ad79480d1058c2577e63fb5b5f1604
+        uses: bubkoo/auto-comment@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           pullRequestOpened: >
@@ -44,10 +44,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-    - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+    - uses: actions/checkout@v3
     - uses: ./.github/workflows/setup-workspace
     - name: Cache built static site
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ./dist
         key: nuxt-site-${{ github.sha }}
@@ -56,7 +56,7 @@ jobs:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT_TEST }}
         S3_BUCKET: "https://static.library.ucla.edu/"
         SITEMAP_HOST: "https://test-meap.library.ucla.edu"
-    - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
+    - uses: cypress-io/github-action@v3
       with:
         start: npx http-server ./dist -p 3000
         command-prefix: 'npx'
@@ -67,7 +67,7 @@ jobs:
         SITEMAP_HOST: "https://test-meap.library.ucla.edu"
     - name: Deploy to Netlify (test)
       if: github.ref_name=='main'
-      uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
+      uses: nwtgck/actions-netlify@v2 # 
       with:
         production-deploy: true
         deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}
@@ -80,7 +80,7 @@ jobs:
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_MEAP_TEST }}
     - name: Deploy to Netlify (preview)
       if: github.ref_name!='main'
-      uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
+      uses: nwtgck/actions-netlify@v2 # 
       with:
         production-deploy: false
         deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/pull/${{ github.event.pull_request.number }}

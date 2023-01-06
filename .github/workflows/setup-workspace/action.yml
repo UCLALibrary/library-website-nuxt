@@ -12,11 +12,11 @@ description: 'Checks out repository, installs correct version of node and npm de
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-node@fd4bd829f2dd6b6c1420bd94a93449c54612ffc2
+    - uses: actions/setup-node@v3
       with:
         node-version: '16.15.0'
     - name: Persist npm cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.npm
         key: npm-${{ hashFiles('package-lock.json') }}

@@ -71,6 +71,7 @@ import RESOURCE_DETAIL from "~/gql/queries/ResourceDetail"
 
 // Helpers
 import _get from "lodash/get"
+import stripMeapFromURI from "~/utils/stripMeapFromURI"
 
 export default {
     async asyncData({ $graphql, params, store }) {
@@ -99,7 +100,7 @@ export default {
                     ...obj,
                     to: obj.externalResourceUrl
                         ? obj.externalResourceUrl
-                        : `/${obj.uri}`,
+                        : `/${stripMeapFromURI(obj.uri)}`,
                 }
             })
         },

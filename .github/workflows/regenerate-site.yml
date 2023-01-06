@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
       - uses: ./.github/workflows/setup-workspace
       - name: Cache built static site
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ./dist
           key: nuxt-site-${{ github.sha }}
@@ -27,7 +27,7 @@ jobs:
           S3_BUCKET: "https://static.library.ucla.edu/"
           SITEMAP_HOST: "${{ github.event.inputs.environment == 'test' && 'https://test-meap.library.ucla.edu' || 'https://meap.library.ucla.edu' }}"
       - name: Deploy to Netlify on release
-        uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
+        uses: nwtgck/actions-netlify@v2 #
         with:
           production-deploy: true
           deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}

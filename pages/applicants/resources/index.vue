@@ -52,6 +52,7 @@ import RESOURCE_EXTERNAL_LIST from "~/gql/queries/ResourceExternalList"
 
 // Helpers
 import _get from "lodash/get"
+import stripMeapFromURI from "~/utils/stripMeapFromURI"
 
 export default {
     async asyncData({ $graphql, params, store }) {
@@ -90,12 +91,12 @@ export default {
                     ...obj,
                     to: obj.externalResourceUrl
                         ? obj.externalResourceUrl
-                        : `/${obj.uri}`,
+                        : `/${stripMeapFromURI(obj.uri)}`,
                 }
             })
         },
         sortedData() {
-            return this.allData.sort(sortByTitle)
+            return this.allData.slice().sort(sortByTitle)
         },
     },
 }

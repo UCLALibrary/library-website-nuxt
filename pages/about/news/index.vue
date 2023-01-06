@@ -64,6 +64,7 @@
 // Helpers
 import _get from "lodash/get"
 import format from "date-fns/format"
+
 // GQL
 import ARTICLE_NEWS_LIST from "~/gql/queries/ArticleNewsList"
 export default {

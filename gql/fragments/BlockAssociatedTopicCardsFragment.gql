@@ -12,7 +12,6 @@ fragment BlockAssociatedTopicCardsFragment on ElementInterface {
                 externalResourceUrl
                 uri
                 text: summary
-                uri
             }
         }
     }

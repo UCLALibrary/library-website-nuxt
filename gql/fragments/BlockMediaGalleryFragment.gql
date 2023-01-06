@@ -11,7 +11,7 @@ fragment BlockMediaGalleryFragment on ElementInterface {
           captionText: caption
           altText
           sortOrder
-          image: imageFile {
+          item: imageFile {
           	...Image
           }
         }

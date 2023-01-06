@@ -8,6 +8,7 @@
             :text="homePage.summary"
             :hero-image="parsedMastheadHeroImage"
             theme="meap"
+            class="meap-masthead-secondary"
         />
 
         <section-wrapper
@@ -125,6 +126,8 @@
 import MEAP_HOMEPAGE from "~/gql/queries/HomePage"
 // Helpers
 import _get from "lodash/get"
+import stripMeapFromURI from "~/utils/stripMeapFromURI"
+
 export default {
     async asyncData({ $graphql, params, store }) {
         const data = await $graphql.default.request(MEAP_HOMEPAGE, {
@@ -139,7 +142,7 @@ export default {
             return this.page.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.to}`,
+                    to: `/${stripMeapFromURI(obj.to)}`,
                 }
             })[0]
         },
@@ -152,7 +155,7 @@ export default {
                     ...obj,
                     to: obj.externalResourceUrl
                         ? obj.externalResourceUrl
-                        : `/${obj.uri}`,
+                        : `/${stripMeapFromURI(obj.uri)}`,
                 }
             })
         },
@@ -181,6 +184,15 @@ export default {
 
 <style lang="scss" scoped>
 .page-home {
+    .meap-masthead-secondary {
+        ::v-deep .container .meta .rich-text a {
+            color: var(--color-white);
+            &:hover {
+                color: var(--color-white);
+                font-weight: 500;
+            }
+        }
+    }
     .banner {
         margin-bottom: var(--space-3xl);
     }

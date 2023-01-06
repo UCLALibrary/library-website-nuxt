@@ -36,6 +36,8 @@
 import PROJECT_LIST from "~/gql/queries/ProjectList"
 // Helpers
 import _get from "lodash/get"
+import stripMeapFromURI from "~/utils/stripMeapFromURI"
+
 export default {
     async asyncData({ $graphql, params, store }) {
         const data = await $graphql.default.request(PROJECT_LIST, {})
@@ -57,7 +59,7 @@ export default {
             return this.page.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.to}`,
+                    to: `/${stripMeapFromURI(obj.to)}`,
                     image: _get(obj, "image[0].image[0]", {}),
                 }
             })
@@ -71,7 +73,7 @@ export default {
                     ...obj,
                     to: obj.externalResourceUrl
                         ? obj.externalResourceUrl
-                        : `/${obj.uri}`,
+                        : `/${stripMeapFromURI(obj.uri)}`,
                 }
             })
         },
@@ -79,5 +81,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -15,20 +15,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-    - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0 # Required due to the way Git works, without it this action won't be able to find any or the correct tags
     - name: 'Get Previous tag' # need to run after initial checkout to get tag list
       if: ${{ github.event_name != 'release' }}
       id: previoustag
       uses: 'WyriHaximus/github-action-get-previous-tag@eaf1fb5bec4dfd28cebf179fe555507f8bbc0652'
-    - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # check out again with most recent tag
+    - uses: actions/checkout@v3 # check out again with most recent tag
       if: ${{ github.event_name != 'release' }}
       with:
         ref: ${{ steps.previoustag.outputs.tag }}
     - uses: ./.github/workflows/setup-workspace
     - name: Cache built static site
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ./dist
         key: nuxt-site-${{ github.sha }}
@@ -38,7 +38,7 @@ jobs:
         S3_BUCKET: "https://static.library.ucla.edu/"
         SITEMAP_HOST: "https://meap.library.ucla.edu"
     - name: Deploy to Netlify on release
-      uses: nwtgck/actions-netlify@b7c1504e00c6b8a249d1848cc1b522a4865eed99 # v1.2.3
+      uses: nwtgck/actions-netlify@v2 #
       with:
         production-deploy: true
         deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}

@@ -49,6 +49,7 @@ import GENERAL_CONTENT_DETAIL from "~/gql/queries/GeneralContentDetail"
 
 // Helpers
 import _get from "lodash/get"
+import stripMeapFromURI from "~/utils/stripMeapFromURI"
 
 export default {
     async asyncData({ $graphql, params }) {
@@ -72,7 +73,7 @@ export default {
     computed: {
         parseParentPageURL() {
             if (this.page.parent && this.page.parent.uri)
-                return `/${this.page.parent.uri}`
+                return `/${stripMeapFromURI(this.page.parent.uri)}`
 
             return "/"
         },

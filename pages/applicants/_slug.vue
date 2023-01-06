@@ -63,6 +63,7 @@ import HELP_TOPIC_DETAIL from "~/gql/queries/HelpTopicDetail"
 
 // Helpers
 import _get from "lodash/get"
+import stripMeapFromURI from "~/utils/stripMeapFromURI"
 
 export default {
     async asyncData({ $graphql, params, store }) {
@@ -92,7 +93,7 @@ export default {
                                     ...entry,
                                     to: entry.externalResourceUrl
                                         ? entry.externalResourceUrl
-                                        : `/${entry.uri}`,
+                                        : `/${stripMeapFromURI(entry.uri)}`,
                                 }
                             }
                         ),
