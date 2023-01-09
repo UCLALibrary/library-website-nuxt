@@ -38,7 +38,7 @@
             <divider-way-finder
                 v-if="
                     page.libcalLocationIdForHours ||
-                        page.amenities.length ||
+                        page.amenitiesIcons.length ||
                         parsedSpaces.length
                 "
                 color="visit"
@@ -50,7 +50,7 @@
                 <div
                     v-if="
                         page.libcalLocationIdForHours ||
-                            page.amenities.length ||
+                            page.amenitiesIcons.length ||
                             parsedSpaces.length
                     "
                     class="section-title"
@@ -69,12 +69,13 @@
             />
 
             <divider-general
-                v-if="page.amenities.length"
+                v-if="page.amenitiesIcons.length"
                 class="divider-general"
             />
+
             <block-amenities
-                v-if="page.amenities.length"
-                :items="page.amenities"
+                v-if="page.amenitiesIcons.length"
+                :amenities="page.amenitiesIcons"
                 class="amenities"
             />
 
@@ -197,7 +198,7 @@
             <divider-way-finder
                 color="visit"
                 class="divider-way-finder"
-            /> 
+            />
         </section-wrapper> -->
     </main>
 </template>
@@ -206,7 +207,6 @@
 // HELPERS
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
-import parseAmenities from "~/utils/parseAmenities"
 
 // GQL
 import LOCATION_DETAIL from "~/gql/queries/LocationDetail"
@@ -218,7 +218,7 @@ export default {
             slug: params.slug,
         })
         if (!data.entry) {
-            error({ statusCode: 404, message: 'Page not found' })
+            error({ statusCode: 404, message: "Page not found" })
         }
 
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
@@ -238,11 +238,11 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
@@ -317,11 +317,11 @@ export default {
                 return {
                     ...obj,
                     to: `/visit/events-exhibitions/${obj.slug}`,
+                    category: "Exhibition",
                     image: _get(obj, "heroImage[0].image[0]", {}),
                     text: _get(obj, "summary", ""),
                     startDate: _get(obj, "startDate", ""),
                     endDate: _get(obj, "endDate", ""),
-                    category: "Exhibition"
                 }
             })
         },
@@ -334,20 +334,19 @@ export default {
                     text: _get(obj, "eventDescription", ""),
                     startDate: _get(obj, "startDateWithTime", ""),
                     endDate: _get(obj, "endDateWithTime", ""),
-                    category: _get(obj, "eventType[0].title", "")
+                    category: _get(obj, "eventType[0].title", ""),
                 }
             })
         },
         mergeSortEventsExhibitions() {
-            return this.parsedEvents
-                .concat(this.parsedExhibtions)
-                // .sort((a, b) =>
-                //     a.startDate > b.startDate
-                //         ? -1
-                //         : b.startDate > a.startDate
-                //             ? 1
-                // //             : 0
-                // )
+            return this.parsedEvents.concat(this.parsedExhibtions)
+            // .sort((a, b) =>
+            //     a.startDate > b.startDate
+            //         ? -1
+            //         : b.startDate > a.startDate
+            //             ? 1
+            // //             : 0
+            // )
         },
     },
 }
