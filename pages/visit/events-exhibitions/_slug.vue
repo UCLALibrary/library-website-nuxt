@@ -287,7 +287,13 @@ export default {
             libcalEndpoint: this.libcalEndpointProxy,
         }
     },
-    async asyncData({ $graphql, params, $config, $elasticsearchplugin, error }) {
+    async asyncData({
+        $graphql,
+        params,
+        $config,
+        $elasticsearchplugin,
+        error,
+    }) {
         // console.log("In fetch start")
         const navData = await $graphql.default.request(HEADER_MAIN_MENU_ITEMS)
 
@@ -295,7 +301,7 @@ export default {
             slug: params.slug,
         })
         if (!data.event && !data.eventSeries && !data.exhibition) {
-            error({ statusCode: 404, message: 'Page not found' })
+            error({ statusCode: 404, message: "Page not found" })
         }
 
         if (data && (data.event || data.exhibition || data.eventSeries)) {
@@ -321,46 +327,52 @@ export default {
         if (this.page) {
             if (this.page.event) {
                 let title = this.page ? this.page.event.title : "... loading"
-                let metaDescription = removeTags(this.page.event.eventDescription )
+                let metaDescription = removeTags(
+                    this.page.event.eventDescription
+                )
 
                 return {
                     title: title,
                     meta: [
                         {
-                            hid: 'description',
-                            name: 'description',
-                            content: metaDescription
-                        }
+                            hid: "description",
+                            name: "description",
+                            content: metaDescription,
+                        },
                     ],
                 }
             }
             if (this.page.eventSeries) {
-                let title = this.page ? this.page.eventSeries.title : "... loading"
+                let title = this.page
+                    ? this.page.eventSeries.title
+                    : "... loading"
                 let metaDescription = removeTags(this.page.eventSeries.summary)
 
                 return {
                     title: title,
                     meta: [
                         {
-                            hid: 'description',
-                            name: 'description',
-                            content: metaDescription
-                        }
+                            hid: "description",
+                            name: "description",
+                            content: metaDescription,
+                        },
                     ],
                 }
             }
             if (this.page.exhibition) {
-                let title = this.page ? this.page.exhibition.title : "... loading"
+                let title = this.page
+                    ? this.page.exhibition.title
+                    : "... loading"
                 let metaDescription = removeTags(this.page.exhibition.summary)
 
                 return {
                     title: title,
                     meta: [
                         {
-                            hid: 'description',
-                            name: 'description',
-                            content: metaDescription
-                        }
+                            hid: "description",
+                            name: "description",
+                            content: metaDescription,
+                        },
                     ],
                 }
             }
