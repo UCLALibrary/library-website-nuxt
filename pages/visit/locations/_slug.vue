@@ -317,8 +317,8 @@ export default {
                 return {
                     ...obj,
                     to: `/visit/events-exhibitions/${obj.slug}`,
-                    image: _get(obj, "heroImage[0].image[0]", {}),
                     category: "Exhibition",
+                    image: _get(obj, "heroImage[0].image[0]", {}),
                     text: _get(obj, "summary", ""),
                     startDate: _get(obj, "startDate", ""),
                     endDate: _get(obj, "endDate", ""),
