@@ -29,41 +29,38 @@ query EventsExhibitionsList {
           to: uri
         }
         heroImage {
-          ... on heroImage_heroImage_BlockType {
+            ... on heroImage_heroImage_BlockType {
             id
             image {
-              ...Image
+                ...Image
             }
-            altText
-          }
+            }
         }
       }
     }
   }
-  events: entries(section: "event", orderBy:"startDateWithTime ASC", startDateWithTime: ">= now") {
+  events: entries(section: "event", orderBy:"startDateWithTime ASC", startDateWithTime: ">= now", limit: 10) {
     title
     to: uri
-    eventDescription
     eventType {
-        title
+      title
     }
-    startDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
-    endDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
     startDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
     endDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
-    workshopOrEventSeriesType
     associatedLocations {
-      title
-      to: uri
+        title
     }
+    eventLocation {
+        title
+    }
+    # Request for heroImage results in 503 error if not limited to 10 entries
     heroImage {
-      ... on heroImage_heroImage_BlockType {
-        id
-        image {
-          ...Image
+        ... on heroImage_heroImage_BlockType {
+            id
+            image {
+            ...Image
+            }
         }
-        altText
-      }
     }
   }
-} 
+}

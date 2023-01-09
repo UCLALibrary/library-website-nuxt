@@ -8,14 +8,14 @@
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
                 :title="page.event.title"
-                parent-title="Exhibits & Upcoming Events"
+                parent-title="Events & Exhibitions"
             />
 
-            <header-sticky
+            <!-- <header-sticky
                 class="sticky-header"
                 :primary-items="primaryItems"
                 :secondary-items="secondaryItems"
-            />
+            /> -->
 
             <banner-text
                 v-if="
@@ -58,12 +58,18 @@
             </section-wrapper>
 
             <section-wrapper v-if="page.event || page.event.eventDescription">
+                <rich-text
+                    v-if="page.event.moreInformation"
+                    :rich-text-content="page.event.moreInformation"
+                />
+                <divider-general v-if="page.event.moreInformation" />
                 <rich-text :rich-text-content="page.event.eventDescription" />
             </section-wrapper>
 
             <section-wrapper theme="divider">
                 <divider-way-finder color="visit" />
             </section-wrapper>
+
             <block-call-to-action
                 class="section block-call-to-action"
                 :is-global="true"
@@ -75,7 +81,7 @@
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
                 :title="page.eventSeries.title"
-                parent-title="Exhibits & Upcoming Events"
+                parent-title="Events & Exhibitions"
             />
 
             <banner-text
@@ -167,7 +173,7 @@
             <nav-breadcrumb
                 to="/visit/events-exhibitions"
                 :title="page.exhibition.title"
-                parent-title="Exhibits & Upcoming Events"
+                parent-title="Events & Exhibitions"
             />
 
             <banner-text

@@ -37,16 +37,16 @@
                 v-else
                 class="no-positions"
             >
-                No positions available
+                No positions available at this time
             </div>
+        </section-wrapper>
 
-            <section-wrapper theme="divider">
+        <section-wrapper theme="divider">
                 <divider-way-finder
                     class="divider"
                     color="about"
                 />
             </section-wrapper>
-        </section-wrapper>
 
         <!-- STAFF JOBS -->
         <section-wrapper
@@ -60,16 +60,15 @@
                 v-else
                 class="no-positions"
             >
-                No positions available
+                No positions available at this time
             </div>
-
-            <section-wrapper theme="divider">
+        </section-wrapper>
+        <section-wrapper theme="divider" v-if="associatedTopics.length > 0">
                 <divider-way-finder
                     class="divider"
                     color="about"
                 />
             </section-wrapper>
-        </section-wrapper>
 
         <!-- ASSOCIATED TOPICS -->
         <section-wrapper>
