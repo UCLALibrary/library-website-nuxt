@@ -124,7 +124,7 @@
         <section-wrapper
             v-if="mergeSortEventsExhibitions.length > 0"
             class="events-exhibitions"
-            section-title="Events &amp; Exhibtions"
+            section-title="Events &amp; Exhibitions"
         >
             <section-teaser-list
                 class="section-teaser-list"
