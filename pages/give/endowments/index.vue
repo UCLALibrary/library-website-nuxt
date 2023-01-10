@@ -23,8 +23,27 @@
             />
         </section-wrapper>
 
-        <section-wrapper section-title="All Endowments">
-            <section-staff-article-list
+        <section-wrapper
+            v-if="page.featuredEndowments.length"
+            class="section-no-top-margin"
+            :section-title="page.featuredEndowments[0].titleGeneral"
+            :section-summary="page.featuredEndowments[0].sectionSummary"
+        >
+            <section-teaser-card
+                v-if="parsedFeaturedEndowments.length"
+                class="section"
+                :items="parsedFeaturedEndowments"
+            />
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="about"
+            />
+        </section-wrapper>
+
+        <section-wrapper section-title="All Collection Endowments">
+            <section-generic-list
                 :items="parsedEndowmentsList"
             />
             <!-- pagination -->
@@ -40,8 +59,8 @@
             <block-call-to-action
                 svg-name="svg-call-to-action-money"
                 title="Give to the UCLA Library"
-                text="Your contributions help us build our collections for the benefit or our students, faculty, staff, and the general public."
-                name="Donate"
+                text="Your contributions help us build our collections for the benefit or our students, faculty, staff and the general public."
+                name="Give Now"
                 to="/give"
             />
         </section-wrapper>
@@ -71,7 +90,7 @@ export default {
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription
@@ -80,13 +99,24 @@ export default {
         }
     },
     computed: {
-        parsedEndowmentsList() {
-            return this.endowments.map((obj) => {
+        parsedFeaturedEndowments() {
+            return this.page.featuredEndowments[0].featuredEndowments.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    category: (obj.donors[0].firstName != null) ? `Donor: ${obj.donors[0].firstName} ${obj.donors[0].lastName}` : `Donor: ${obj.donors[0].lastName}`
+                    alternativeFullName: _get(obj, "alternativeName[0].fullName", null),
+                    language: _get(obj, "alternativeName[0].languageAltName", null),
+                }
+            })
+        },
+        parsedEndowmentsList() {
+            return this.endowments.map((obj) => {
+                return {
+                    ...obj,
+                    jobPostingURL: `/${obj.to}`,
+                    alternativeFullName: _get(obj, "alternativeName[0].fullName", null),
+                    language: _get(obj, "alternativeName[0].languageAltName", null),
                 }
             })
         },
@@ -96,8 +126,27 @@ export default {
 
 <style lang="scss" scoped>
 .page-endowment-listing {
+    ::v-deep .block-highlight.is-vertical:not(.has-triangle) .image {
+        height: 572px;
+    }
+    ::v-deep .block-highlight.is-vertical:not(.has-triangle) .image .media {
+        object-fit: contain;
+    }
     .search-margin {
         margin: var(--space-2xl) auto;
+    }
+
+    ::v-deep .section-teaser-card .card {
+        width: calc((100% - 32px)/ 2);
+        @media #{$small} {
+            width: 100%;
+        }
+    }
+
+    @media #{$medium} {
+        ::v-deep .block-highlight.is-vertical:not(.has-triangle) .image {
+            height: 390px;
+        }
     }
 }
 </style>
