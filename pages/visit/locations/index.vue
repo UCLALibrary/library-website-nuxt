@@ -16,7 +16,7 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="uclaLibraries" 
+            v-if="uclaLibraries"
             section-title="UCLA Library Locations"
         >
             <section-location-list
@@ -31,7 +31,7 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="affiliateLibraries && showOtherCampus" 
+            v-if="affiliateLibraries && showOtherCampus"
             section-title="Other Campus Libraries & Archives"
         >
             <section-location-list
@@ -80,7 +80,7 @@ export default {
     },
     data() {
         return {
-            showOtherCampus: false
+            showOtherCampus: false,
         }
     },
     head() {
@@ -90,11 +90,11 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
@@ -110,7 +110,7 @@ export default {
                     amenities:
                         obj.amenitiesIcons.length > 0
                             ? parseAmenities(obj)
-                            : null
+                            : null,
                 }
             })
         },
@@ -122,16 +122,19 @@ export default {
                     image: _get(obj, "heroImage[0].image[0]", null),
                     address: parseAddress(obj)[0],
                     addressLink: `https://map.ucla.edu/?id=${obj.campusMapId}&e=true`,
-                    amenities: obj.amenitiesIcons.length !== 0 ? parseAmenities(obj) : null
+                    amenities:
+                        obj.amenitiesIcons.length !== 0
+                            ? parseAmenities(obj)
+                            : null,
                 }
             })
-        }
+        },
     },
     methods: {
         showMoreOtherCampusLibrary() {
             this.showOtherCampus = !this.showOtherCampus
-        }
-    }
+        },
+    },
 }
 </script>
 

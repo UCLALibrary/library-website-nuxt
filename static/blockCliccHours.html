@@ -13,11 +13,11 @@
        const queryString = window.location.search;
        const urlParams = new URLSearchParams(queryString);
        const lid = urlParams.get('lid')
-       const week = new $.LibCalWeeklyGrid( $("#s-lc-whw"), 
+       const week = new $.LibCalWeeklyGrid( $("#s-lc-whw"),
        {
            iid: 3244,
            lid: lid,
-           systemTime: false 
+           systemTime: false
        });
    });
 
@@ -68,15 +68,14 @@ window.onload = () => resize();
 
 <!-- The following styles are optional, feel free to modify) -->
 <style lang="scss">
-@import "ucla-library-design-tokens/scss/fonts";
+@import url("https://use.typekit.net/xso3wzv.css");
 
-.s-lc-whw{}
-
-/* .toggle {
-     margin-top: 26px;
-     border: none;
-     background-color: white;
-} */
+body {
+    font-family: 'proxima-nova';
+    font-size: 18px;
+    margin: 0;
+    overflow: hidden;
+}
 
 .s-lc-whw {
     border-collapse: collapse;
@@ -88,30 +87,26 @@ window.onload = () => resize();
 }
 
 /* Date */
- .s-lc-whw-head-date {
-    /* color: #5F5F5F; */
-}
-
 .s-lc-whw-today {
     background-color: #eaf2fb;
     border-radius: 4px;
     font-weight: bold;
 }
 
-.s-lc-whw-bh {
-    text-align: right;
-    white-space: nowrap;
+.s-lc-whw-bh button {
+    font-family: 'proxima-nova';
+    font-size: 18px;
 }
 
 /* Location Name */
 .s-lc-whw-locname a {
-    font-family: "Karbon", sans-serif;;
-    font-size: 20px;
+    /* font-family: "Karbon", sans-serif;; */
+    /* font-size: 20px; */
     font-weight: 400;
     line-height: 1.6;
     letter-spacing: 0.01em;
     color:#032d5b;
-    text-align: left; 
+    text-align: left;
 }
 
 .s-lc-whw-locname a:hover, .s-lc-whw-subloc a:hover{
@@ -125,13 +120,13 @@ window.onload = () => resize();
 
 /* Sub-Location Name */
 .s-lc-whw-sublocname a{
-    font-family: "Karbon", sans-serif;;
-    font-size: 20px;
+    font-family: 'proxima-nova';
+    font-size: 18px;
     font-weight: 400;
     line-height: 1.6;
     letter-spacing: 0.01em;
-    text-align: left; 
-    color:#032d5b 
+    text-align: left;
+    color:#032d5b
 }
 
 .s-lc-whw-footnote {
@@ -154,8 +149,8 @@ window.onload = () => resize();
 /* Previous / Next */
 .s-lc-whw-pr, .s-lc-whw-ne{
      padding: 5px 10px;
-     font-family: "Karbon", sans-serif;
-     font-size: 20px;
+     font-family: 'proxima-nova';
+     font-size: 18px;
      line-height: 150%;
      border-radius: 3px;
      color: #0B6AB7;
@@ -197,17 +192,18 @@ window.onload = () => resize();
 }
 
 .s-lc-time, .s-lc-allday, .s-lc-closed{
-    font-family: "Proxima", sans-serif;
+    font-family: 'proxima-nova';
+    font-size: 18px;
 }
 
 .s-lc-whw>thead>tr>th {
-    text-align: center; 
+    text-align: center;
     vertical-align: bottom;
     /* border-bottom: 2px solid #ddd;
      */
      padding: 12px;
-     font-family: "Karbon", sans-serif;
-     font-size: 20px;
+     font-family: 'proxima-nova';
+     font-size: 18px;
      font-weight: 400;
      line-height: 1.6;
      letter-spacing: 0.01em;
@@ -215,8 +211,8 @@ window.onload = () => resize();
 }
 
 .s-lc-whw th:not(.s-lc-whw-bh) {
-    font-family: "Karbon", sans-serif;;
-     font-size: 20px;
+     font-family: 'proxima-nova';
+     font-size: 18px;
      font-weight: 400;
      line-height: 1.6;
      letter-spacing: 0.01em;
@@ -224,9 +220,9 @@ window.onload = () => resize();
 }
 
 .s-lc-whw th.s-lc-whw-today-h:not(.s-lc-whw-bh) {
-    font-family: "Karbon", sans-serif;;
-     font-size: 20px;
-     
+    font-family: 'proxima-nova';
+    font-size: 18px;
+
      line-height: 1.6;
      letter-spacing: 0.01em;
      font-weight: bold;
@@ -258,10 +254,10 @@ window.onload = () => resize();
 
 .s-lc-whw-locname {
     text-align: left;
+    font-family: 'proxima-nova';
+    font-size: 18px;
+
 }
-
-/* CLICC HACK */
-
 /** CLICC HACK **/
 .s-lc-whw-loc,
 .s-lc-whw-subloc {
