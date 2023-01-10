@@ -81,7 +81,7 @@
         <section-wrapper
             v-if="parsedArticles.length > 0"
             class="associated-articles"
-            section-title="Associated Articles"
+            section-title="Associated News"
         >
             <section-teaser-card
                 class="section-teaser-card"
