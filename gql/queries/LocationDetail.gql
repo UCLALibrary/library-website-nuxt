@@ -152,14 +152,14 @@ query LocationDetail($slug: [String!]) {
             }
             requiresRegistration
             eventDescription
-            heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    id
-                    image {
-                        ...Image
-                    }
-                }
-            }
+            #heroImage {
+             #   ... on heroImage_heroImage_BlockType {
+              #      id
+               #     image {
+                #        ...Image
+                 #   }
+                #}
+            #}
             eventType {
                 title
             }
