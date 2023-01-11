@@ -6,13 +6,17 @@
         <masthead-secondary
             :title="summaryData.title"
             :text="summaryData.summary"
+            class="meap-masthead-secondary"
         />
 
         <h2 class="visually-hidden">
             Highlighted News
         </h2>
 
-        <section-wrapper>
+        <section-wrapper 
+            v-if="parsedFeaturedNews.length"
+            class="section-no-top-margin"
+        >
             <banner-featured
                 :image="parsedBannerHeader.image"
                 :title="parsedBannerHeader.title"
@@ -24,8 +28,10 @@
                 :to="parsedBannerHeader.to"
                 :align-right="true"
                 prompt="Read More"
-                class="banner"
+                class="banner section-featured-banner"
             />
+
+            <divider-general v-if="parsedSectionHighlight.length" />
 
             <section-teaser-highlight
                 class="section"
@@ -133,9 +139,12 @@ export default {
 
 <style lang="scss" scoped>
 .page-news {
-    .banner {
-        margin: 0 auto;
-        margin-bottom: var(--space-2xl);
+    // .banner {
+    //     margin: 0 auto;
+    //     margin-bottom: var(--space-2xl);
+    // }
+    .meap-masthead-secondary {
+        margin-bottom: var(--space-3xl);
     }
     ::v-deep .block-staff-article-item {
         --divider-color: var(--color-secondary-grey-02);

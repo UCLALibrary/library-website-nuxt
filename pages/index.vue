@@ -10,25 +10,17 @@
             theme="meap"
             class="meap-masthead-secondary"
         />
-
-        <section-wrapper
-            v-if="featuredProjects"
-            class="section-featured-projects"
-        >
-            <!-- TODO Add the divider back in when we add the searchbar -->
+        <!-- TODO Add the divider back in when we add the searchbar -->
             <!-- <divider-way-finder
                 color="about"
                 class="divider-way-finder"
             /> -->
-            <h2
-                v-if="featuredProjects && featuredProjects.length"
-                class="visually-hidden"
-            >
-                Featured Projects
-            </h2>
-
+        <section-wrapper
+            v-if="featuredProjects"
+            class="section-banner"
+        >
             <banner-featured
-                class="banner banner-visit"
+                class="banner"
                 :image="featuredProjects[0].heroImage[0].image[0]"
                 :to="featuredProjects[0].to"
                 :title="featuredProjects[0].title"
@@ -39,6 +31,9 @@
                 :ratio="featuredProjects[0].ratio"
                 prompt="View project"
             />
+        </section-wrapper>
+
+        <section-wrapper>
             <section-teaser-highlight :items="featuredHighlightedProjects" />
             <nuxt-link
                 v-if="featuredHighlightedProjects.length"
@@ -185,6 +180,7 @@ export default {
 <style lang="scss" scoped>
 .page-home {
     .meap-masthead-secondary {
+        margin-bottom: var(--space-3xl);
         ::v-deep .container .meta .rich-text a {
             color: var(--color-white);
             &:hover {
@@ -192,9 +188,6 @@ export default {
                 font-weight: 500;
             }
         }
-    }
-    .banner {
-        margin-bottom: var(--space-3xl);
     }
 
     .button-more-link {

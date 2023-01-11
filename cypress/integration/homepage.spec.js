@@ -24,10 +24,10 @@ describe("Website Homepage", () => {
             }
         })
 
-        cy.get("h2.visually-hidden").should(
-            "contain",
-            "Featured Projects"
-        )
+        // cy.get("h2.visually-hidden").should(
+        //     "contain",
+        //     "Featured Projects"
+        // )
 
         cy.get("h2.section-title").should(
             "contain",
