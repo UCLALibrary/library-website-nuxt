@@ -1,8 +1,8 @@
 #import "~/gql/fragments/Image"
 #import "~/gql/fragments/collections/AllFpb"
 
-query GeneralContentDetail($slug: [String!]) {
-    entry(section: "generalContentPage", slug: $slug) {
+query GeneralContentDetail($path: [String!]) {
+    entry(section: "generalContentPage", uri: $path) {
         ... on generalContentPage_generalContentPage_Entry {
             id
             title

@@ -4,6 +4,33 @@ query EndowmentsList {
     ... on listingEndowments_listingEndowments_Entry {
       title
       text: summary
+      featuredEndowments {
+        titleGeneral
+        sectionSummary
+        ... on featuredEndowments_featuredEndowments_BlockType {
+          featuredEndowments {
+
+            ... on endowment_endowments_Entry {
+              id
+              title
+              uri
+              text: summary
+              alternativeName {
+                languageAltName
+                fullName
+              }
+              heroImage {
+                ... on heroImage_heroImage_BlockType {
+                  id
+                  image {
+                    ...Image
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
   entries(section: "endowment", orderBy: "title ASC") {
@@ -12,7 +39,7 @@ query EndowmentsList {
       languageAltName
       fullName
     }
-    description: summary
+    summary
     to: uri
     heroImage {
       ... on heroImage_heroImage_BlockType {
@@ -30,4 +57,4 @@ query EndowmentsList {
       }
     }
   }
-} 
+}

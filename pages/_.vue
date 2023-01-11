@@ -57,32 +57,20 @@ import GENERAL_CONTENT_DETAIL from "~/gql/queries/GeneralContentDetail"
 
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
+        const path = params.pathMatch.replace(/^\/|\/$/g, '') // trim initial and/or final slashes
         const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
-            slug: params.pathMatch.substring(
-                params.pathMatch.lastIndexOf("/") + 1
-            ),
+            path: path,
         })
-        if (data && data.entry && data.entry.slug && data.entry.slug != null) {
-            console.log(
-                "General Content page slug is: " +
-                    params.pathMatch.substring(
-                        params.pathMatch.lastIndexOf("/") + 1
-                    )
-            )
-            if (data.entry.parent && data.entry.parent != null) {
-                console.log("parent exists in General content page")
-                await $elasticsearchplugin.index(
-                    data.entry,
-                    data.entry.parent && data.entry.parent.slug
-                        ? data.entry.parent.slug + "--" + data.entry.slug
-                        : data.entry.slug
-                )
-            } else await $elasticsearchplugin.index(data.entry, data.entry.slug)
+        console.log(
+            "General Content page path is: " + path
+        )
+        if (data && data.entry && data.entry.slug) {
+            $elasticsearchplugin.index(data.entry, path.replace("/", "--"))
         } else {
             error({ statusCode: 404, message: 'Page not found' })
         }
         return {
-            page: _get(data, "entry", {}),
+            page: data["entry"],
         }
     },
     head() {

@@ -63,6 +63,21 @@ jobs:
         ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
         ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
         ES_INDEX: ${{ secrets.ES_INDEX_TEST }}
+    - name: Deploy to Netlify (preview)
+      if: github.ref_name!='main'
+      uses: nwtgck/actions-netlify@v2 #
+      with:
+        production-deploy: false
+        deploy-message: https://github.com/UCLALibrary/library-website-nuxt/pull/${{ github.event.pull_request.number }}
+        alias: deploy-preview-${{ github.event.pull_request.number }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        overwrites-pull-request-comment: true
+        publish-dir: './dist'
+        fails-without-credentials: true
+        github-deployment-environment: ${{ github.event_name }}-${{ github.event.number }}
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
     - uses: cypress-io/github-action@v3
       with:
         start: npx http-server ./dist -p 3000
@@ -91,18 +106,4 @@ jobs:
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-    - name: Deploy to Netlify (preview)
-      if: github.ref_name!='main'
-      uses: nwtgck/actions-netlify@v2 #
-      with:
-        production-deploy: false
-        deploy-message: https://github.com/UCLALibrary/library-website-nuxt/pull/${{ github.event.pull_request.number }}
-        alias: deploy-preview-${{ github.event.pull_request.number }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        overwrites-pull-request-comment: true
-        publish-dir: './dist'
-        fails-without-credentials: true
-        github-deployment-environment: ${{ github.event_name }}-${{ github.event.number }}
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    
