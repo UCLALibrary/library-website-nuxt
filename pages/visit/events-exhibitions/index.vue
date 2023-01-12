@@ -51,7 +51,7 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="page.featuredEvents.length && parsedExhibitionsAndEvents.length"
+            v-if="page.featuredEvents.length && parsedEvents.length"
             theme="divider"
         >
             <divider-way-finder color="visit" />
@@ -60,12 +60,26 @@
         <!-- UPCOMING EVENTS -->
         <section-wrapper section-title="All Upcoming Events">
             <section-teaser-list
-                :items="parsedExhibitionsAndEvents"
+                :items="parsedEvents"
             />
         </section-wrapper>
 
         <section-wrapper
-            v-if="parsedExhibitionsAndEvents.length"
+            v-if="parsedEvents.length"
+            theme="divider"
+        >
+            <divider-way-finder color="visit" />
+        </section-wrapper>
+
+        <!-- EVENT SERIES & EXHIBITIONS -->
+        <section-wrapper section-title="Ongoing Event Series & Exhibitions">
+            <section-teaser-card
+                :items="parsedSeriesAndExhibitions">
+            </section-teaser-card>
+        </section-wrapper>
+
+        <section-wrapper
+            v-if="parsedSeriesAndExhibitions.length"
             theme="divider"
         >
             <divider-way-finder color="visit" />
@@ -84,6 +98,8 @@
 // HELPERS
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
+import sortByTitle from "~/utils/sortByTitle"
+
 
 // GQL
 import EXHIBITIONS_AND_EVENTS_LIST from "~/gql/queries/ExhibitionsAndEventsList.gql"
@@ -104,6 +120,8 @@ export default {
         return {
             page: _get(data, "entry", {}),
             events: _get(data, "events", {}),
+            series: _get(data, "series", {}),
+            exhibitions: _get(data, "exhibitions", {}),
         }
     },
     head() {
@@ -157,11 +175,10 @@ export default {
                                     ? obj.eventType[0].title
                                     : "Event",
                     title: obj.title,
-                    //locations: `/${obj.associatedLocations.to}`,
                 }
             })
         },
-        parsedExhibitionsAndEvents() {
+        parsedEvents() {
             return [
                 ...(this.events || []),
             ].map((obj) => {
@@ -175,6 +192,28 @@ export default {
                     endDate: _get(eventOrExhibtion, "endDateWithTime", null),
                     category:
                         _get(eventOrExhibtion, "eventType[0].title", null),
+                }
+            })
+        },
+        parsedSeriesAndExhibitions() {
+            return [
+                ...(this.series || []),
+                ...(this.exhibitions || []),
+            ]
+                .sort(sortByTitle)
+                .map((obj) => {
+                const seriesOrExhibtion = obj || {}
+
+                return {
+                    ...seriesOrExhibtion,
+                        category:
+                            seriesOrExhibtion.category === "visit/events-exhibitions"
+                                ? "event series"
+                                : seriesOrExhibtion.typeHandle === "exhibition"
+                                    ? "exhibition"
+                                        : seriesOrExhibtion.category,
+                        to:`/${seriesOrExhibtion.to}`,
+                        image: _get(seriesOrExhibtion, "heroImage[0].image[0]", null),
                 }
             })
         },
