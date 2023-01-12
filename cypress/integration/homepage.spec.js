@@ -31,7 +31,11 @@ describe("Website Homepage", () => {
             .and("contain", "UC Library Search")
         cy.get(".masthead-primary")
             .find("input.input-search")
-            .should("have.attr", "placeholder", "Search articles, books, and more")
+            .should(
+                "have.attr",
+                "placeholder",
+                "Search articles, books and more"
+            )
         cy.get(".masthead-primary")
             .contains("a", "Databases A-Z")
             .should(

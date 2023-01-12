@@ -107,9 +107,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <h4 v-else>
+                <!-- <h4 v-else>
                     No results found
-                </h4>
+                </h4> -->
             </section-wrapper>
         </div>
     </main>
@@ -218,11 +218,11 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
@@ -276,8 +276,16 @@ export default {
                         obj.alternativeName.length > 0
                             ? `${obj.nameFirst} ${obj.nameLast} ${obj.alternativeName[0].fullName}`
                             : `${obj.nameFirst} ${obj.nameLast}`,
-                    language:_get(obj, "alternativeName[0].languageAltName", null),
-                    alternativeFullName: _get(obj, "alternativeName[0].fullName", null),
+                    language: _get(
+                        obj,
+                        "alternativeName[0].languageAltName",
+                        null
+                    ),
+                    alternativeFullName: _get(
+                        obj,
+                        "alternativeName[0].fullName",
+                        null
+                    ),
                 }
             })
         },
