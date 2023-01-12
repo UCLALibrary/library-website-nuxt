@@ -13,7 +13,7 @@ query EndowmentsList {
             ... on endowment_endowments_Entry {
               id
               title
-              uri
+              to: uri
               text: summary
               alternativeName {
                 languageAltName
