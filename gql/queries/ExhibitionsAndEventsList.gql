@@ -63,4 +63,39 @@ query EventsExhibitionsList {
         }
     }
   }
+  series: entries(
+    section: "workshopOrEventSeries"
+    workshopOrEventSeriesType: "visit/events-exhibitions"
+    orderBy: "title"
+  ) {
+    title
+    text: summary
+    to: uri
+    category: workshopOrEventSeriesType
+    heroImage {
+      ... on heroImage_heroImage_BlockType {
+          id
+          image {
+          ...Image
+          }
+      }
+    }
+  }
+  exhibitions: entries(
+    section: "exhibition"
+    orderBy: "title"
+  ) {
+    title
+    typeHandle
+    text: summary
+    to: uri
+    heroImage {
+      ... on heroImage_heroImage_BlockType {
+          id
+          image {
+          ...Image
+          }
+      }
+    }
+  }  
 }
