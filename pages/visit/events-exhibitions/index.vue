@@ -98,6 +98,8 @@
 // HELPERS
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
+import sortByTitle from "~/utils/sortByTitle"
+
 
 // GQL
 import EXHIBITIONS_AND_EVENTS_LIST from "~/gql/queries/ExhibitionsAndEventsList.gql"
@@ -118,6 +120,8 @@ export default {
         return {
             page: _get(data, "entry", {}),
             events: _get(data, "events", {}),
+            series: _get(data, "series", {}),
+            exhibitions: _get(data, "exhibitions", {}),
         }
     },
     head() {
@@ -171,7 +175,6 @@ export default {
                                     ? obj.eventType[0].title
                                     : "Event",
                     title: obj.title,
-                    //locations: `/${obj.associatedLocations.to}`,
                 }
             })
         },
@@ -194,16 +197,23 @@ export default {
         },
         parsedSeriesAndExhibitions() {
             return [
-                ...(this.events || []),
-            ].map((obj) => {
-                const eventOrExhibtion = obj || {}
+                ...(this.series || []),
+                ...(this.exhibitions || []),
+            ]
+                .sort(sortByTitle)
+                .map((obj) => {
+                const seriesOrExhibtion = obj || {}
 
                 return {
-                    ...eventOrExhibtion,
-                    to: `/${eventOrExhibtion.to}`,
-                    image: _get(eventOrExhibtion, "heroImage[0].image[0]", null),
-                    category:
-                        _get(eventOrExhibtion, "eventType[0].title", null),
+                    ...seriesOrExhibtion,
+                        category:
+                            seriesOrExhibtion.category === "visit/events-exhibitions"
+                                ? "event series"
+                                : seriesOrExhibtion.typeHandle === "exhibition"
+                                    ? "exhibition"
+                                        : seriesOrExhibtion.category,
+                        to:`/${seriesOrExhibtion.to}`,
+                        image: _get(seriesOrExhibtion, "heroImage[0].image[0]", null),
                 }
             })
         },
