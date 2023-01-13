@@ -184,23 +184,23 @@ export default {
             return [
                 {
                     iconName: "illustration-book-binding",
-                    to: "/help/foo/bar/",
+                    to: "https://search.library.ucla.edu/discovery/search?vid=01UCS_LAL:UCLA&_ga=2.45842788.1343136842.1666633264-241535065.1664829276",
                     title: "UC Library Search",
-                    text: "Litora torquent per conubia nostra, per inceptos himenaeos.",
+                    text: "Locate books, journal articles, course reserves and other content at UCLA, other UC schools and beyond.",
                     isHorizontal: false,
                 },
                 {
                     iconName: "illustration-find-space",
-                    to: "/visit/foo/baz/",
+                    to: "https://guides.library.ucla.edu/az.php?&_ga=2.94193502.2106042584.1646675621-1729352043.1643913957",
                     title: "A-Z Databases",
-                    text: "Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem.",
+                    text: "Find the best library databases for your research.",
                     isHorizontal: false,
                 },
                 {
                     iconName: "illustration-digitized-resources",
-                    to: "/about/foo/fred/",
-                    title: "Research Guides",
-                    text: "Suspendisse in justo eu magna luctus suscipit libero eget ante.",
+                    to: "https://guides.library.ucla.edu/index.php",
+                    title: "Library Research Guides",
+                    text: "Our research guides help users of all backgrounds discover resources by subject, course, format or topic.",
                     isHorizontal: false,
                 },
             ]
