@@ -8,57 +8,69 @@
             :text="page.text"
         />
 
-        <!-- TODO: Add search function -->
-        <!-- <search-generic
+        <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
+            :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
-        /> -->
+        />
 
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
+        div v-if="$fetchState.pending">
+        <p>.....Its Loading</p>
+        </div>
+        <div v-else-if="$fetchState.error">
+            <p>There is an error</p>
+        </div>
+        <div v-else>
+            <section-wrapper
+                v-if="page.featuredNews.length"
+                class="section-no-top-margin"
+            >
+                <banner-featured
+                    :image="parsedBannerHeader.image"
+                    :title="parsedBannerHeader.title"
+                    breadcrumb="Featured"
+                    :byline="parsedByline"
+                    :locations="parsedBannerHeader.locations"
+                    :description="parsedBannerHeader.text"
+                    :date-created="parsedBannerHeader.dateCreated"
+                    :to="parsedBannerHeader.to"
+                    :align-right="true"
+                    prompt="Read More"
+                    class="banner section-featured-banner"
+                />
 
-        <section-wrapper
-            v-if="page.featuredNews.length"
-            class="section-no-top-margin"
-        >
-            <banner-featured
-                :image="parsedBannerHeader.image"
-                :title="parsedBannerHeader.title"
-                breadcrumb="Featured"
-                :byline="parsedByline"
-                :locations="parsedBannerHeader.locations"
-                :description="parsedBannerHeader.text"
-                :date-created="parsedBannerHeader.dateCreated"
-                :to="parsedBannerHeader.to"
-                :align-right="true"
-                prompt="Read More"
-                class="banner section-featured-banner"
-            />
+                <divider-general v-if="parsedSectionHighlight.length" />
 
-            <divider-general v-if="parsedSectionHighlight.length" />
+                <section-teaser-highlight
+                    v-if="parsedSectionHighlight.length"
+                    class="section"
+                    :items="parsedSectionHighlight"
+                />
+            </section-wrapper>
 
-            <section-teaser-highlight
-                v-if="parsedSectionHighlight.length"
-                class="section"
-                :items="parsedSectionHighlight"
-            />
-        </section-wrapper>
+            <section-wrapper theme="divider">
+                <divider-way-finder
+                    color="about"
+                />
+            </section-wrapper>
 
-        <section-wrapper theme="divider">
-            <divider-way-finder
-                color="about"
-            />
-        </section-wrapper>
-
-        <section-wrapper section-title="All News">
-            <section-staff-article-list
-                :items="parsedNewsList"
-            />
-        </section-wrapper>
-
+            <section-wrapper section-title="All News">
+                <section-staff-article-list
+                    v-if="news && news.length > 0"
+                    :items="parsedNewsList"
+                />
+                <section-staff-article-list
+                    v-else-if="hits &&
+                        hits.length > 0"
+                    :items="parseHitsResults"
+                />
+            </section-wrapper>
+        </div>
         <section-wrapper theme="divider">
             <divider-way-finder
                 color="about"
@@ -83,14 +95,77 @@ import removeTags from "~/utils/removeTags"
 // GQL
 import ARTICLE_LIST from "~/gql/queries/ArticleList"
 
+// UTILITIES
+import getListingFilters from "~/utils/getListingFilters"
+import config from "~/utils/searchConfig"
+
 export default {
-    async asyncData({ $graphql, route }) {
-        // console.log("route: " + route.path)
-        const data = await $graphql.default.request(ARTICLE_LIST, {})
-        // console.log("data:" + data)
+    data() {
         return {
-            page: _get(data, "entry", {}),
-            news: _get(data, "entries", {}),
+            page: {},
+            news:[],
+            hits: [],
+            searchFilters: [],
+            searchGenericQuery: {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            },
+        }
+    },
+    async fetch() {
+        console.log("live preview  news index ")
+        this.page = {}
+        this.news = []
+        this.hits = []
+        if (
+            (this.$route.query.q && this.$route.query.q !== "") ||
+            this.$route.query.filters 
+        ) {
+            let query_text = this.$route.query.q || "*"
+           
+            console.log("in router query in asyc data")
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                query_text,
+                config.newsIndex.searchFields,
+                "sectionHandle:article",
+                JSON.parse(this.$route.query.filters) || {},
+                config.newsIndex.sortField,
+                config.newsIndex.resultFields,
+                config.newsIndex.filters
+            )
+            console.log("getsearchdata method:" + JSON.stringify(results))
+            this.page = {}
+            this.news = []
+            this.hits = []
+            if (results && results.hits && results.hits.total.value > 0) {
+                this.hits = results.hits.hits
+                this.page = {}
+                this.news = []
+            } else {
+                this.hits = []
+                this.page = {}
+                this.news = []
+            }
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            }
+            
+        } else {
+            this.hits = []
+            // if route queries are empty fetch data from craft
+            const data = await this.$graphql.default.request(ARTICLE_LIST)
+            // console.log("data:" + data)
+           
+            this.page = _get(data, "entry", {})
+            this.news = _get(data, "entries", [])
+           
         }
     },
     head() {
@@ -165,7 +240,67 @@ export default {
                 return entry
             })
         },
+        parseHitsResults() {
+            /*console.log(
+                "ParseHits Results checking results data:" +
+                    JSON.stringify(this.hits)
+            )*/
+
+            return this.parseHits(this.hits)
+        },
     },
+    watch: {
+        "$route.query": "$fetch",
+        "$route.query.q"(newValue) {
+            console.log("watching querytEXT:" + newValue)
+        },
+        "$route.query.filters"(newValue) {
+            console.log("watching filters:" + newValue)
+        },
+        
+    },
+    async mounted() {
+        console.log("In mounted")
+        /*console.log("ESREADkey:" + this.$config.esReadKey)
+        console.log("ESURLkey:" + this.$config.esURL)*/
+        // bookmarked search queries are not calling fetch
+        this.setFilters()
+    },
+    methods: {
+        async setFilters() {
+            const searchAggsResponse = await this.$dataApi.getAggregations(
+                config.newsIndex.filters,
+                "article"
+            )
+
+            console.log(
+                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+            )
+            this.searchFilters = getListingFilters(
+                searchAggsResponse,
+                config.newsIndex.filters
+            )
+        },
+        parseHits(hits = []) {
+            return hits.map((obj) => {
+                // console.log(obj["_source"]["image"])
+                return {
+                    ...obj["_source"],
+                    to: `/${obj["_source"].uri}`,
+                    image: _get(obj["_source"], "heroImage[0].image[0]", null),
+                    staffName:
+                        obj["_source"].fullName ,
+                    category: _get(obj["_source"], "articleCategories[0].title", null),
+
+                }
+
+                 
+            })
+        },
+    },
+    fetchOnServer: false,
+    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
+    fetchKey: "news-index",
 }
 </script>
 
