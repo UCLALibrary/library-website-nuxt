@@ -4,6 +4,7 @@
         class="page page-news"
     >
         <masthead-secondary
+            v-if="page.title"
             :title="page.title"
             :text="page.text"
         />
@@ -19,8 +20,8 @@
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
-        div v-if="$fetchState.pending">
-        <p>.....Its Loading</p>
+        <div v-if="$fetchState.pending">
+            <p>.....Its Loading</p>
         </div>
         <div v-else-if="$fetchState.error">
             <p>There is an error</p>
@@ -54,9 +55,7 @@
             </section-wrapper>
 
             <section-wrapper theme="divider">
-                <divider-way-finder
-                    color="about"
-                />
+                <divider-way-finder color="about" />
             </section-wrapper>
 
             <section-wrapper section-title="All News">
@@ -65,16 +64,13 @@
                     :items="parsedNewsList"
                 />
                 <section-staff-article-list
-                    v-else-if="hits &&
-                        hits.length > 0"
+                    v-else-if="hits && hits.length > 0"
                     :items="parseHitsResults"
                 />
             </section-wrapper>
         </div>
         <section-wrapper theme="divider">
-            <divider-way-finder
-                color="about"
-            />
+            <divider-way-finder color="about" />
         </section-wrapper>
 
         <section-wrapper>
@@ -103,7 +99,7 @@ export default {
     data() {
         return {
             page: {},
-            news:[],
+            news: [],
             hits: [],
             searchFilters: [],
             searchGenericQuery: {
@@ -122,10 +118,10 @@ export default {
         this.hits = []
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
-            this.$route.query.filters 
+            this.$route.query.filters
         ) {
             let query_text = this.$route.query.q || "*"
-           
+
             console.log("in router query in asyc data")
             const results = await this.$dataApi.keywordSearchWithFilters(
                 query_text,
@@ -156,16 +152,14 @@ export default {
                         JSON.parse(this.$route.query.filters)) ||
                     {},
             }
-            
         } else {
             this.hits = []
             // if route queries are empty fetch data from craft
             const data = await this.$graphql.default.request(ARTICLE_LIST)
             // console.log("data:" + data)
-           
+
             this.page = _get(data, "entry", {})
             this.news = _get(data, "entries", [])
-           
         }
     },
     head() {
@@ -176,10 +170,10 @@ export default {
             title: title,
             meta: [
                 {
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
@@ -188,9 +182,10 @@ export default {
             return this.page.featuredNews.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.externalResourceUrl != null
-                        ? _get(obj, "externalResourceUrl", "")
-                        : `/${obj.to}`,
+                    to:
+                        obj.externalResourceUrl != null
+                            ? _get(obj, "externalResourceUrl", "")
+                            : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     category: _get(obj, "articleCategories[0].title", ""),
                     dateCreated: _get(obj, "postDate", ""),
@@ -218,9 +213,10 @@ export default {
             return this.news.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.externalResourceUrl != null
-                        ? _get(obj, "externalResourceUrl", "")
-                        : `/${obj.to}`,
+                    to:
+                        obj.externalResourceUrl != null
+                            ? _get(obj, "externalResourceUrl", "")
+                            : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.fullName}`,
                     category: _get(obj, "articleCategories[0].title", null),
@@ -257,7 +253,6 @@ export default {
         "$route.query.filters"(newValue) {
             console.log("watching filters:" + newValue)
         },
-        
     },
     async mounted() {
         console.log("In mounted")
@@ -288,13 +283,25 @@ export default {
                     ...obj["_source"],
                     to: `/${obj["_source"].uri}`,
                     image: _get(obj["_source"], "heroImage[0].image[0]", null),
-                    staffName:
-                        obj["_source"].fullName ,
-                    category: _get(obj["_source"], "articleCategories[0].title", null),
-
+                    staffName: obj["_source"].fullName,
+                    category: _get(
+                        obj["_source"],
+                        "articleCategories[0].title",
+                        null
+                    ),
                 }
-
-                 
+            })
+        },
+        getSearchData(data) {
+            console.log("On the page getsearchdata called")
+            /*this.page = {}
+            this.hits = []*/
+            this.$router.push({
+                path: "/about/news",
+                query: {
+                    q: data.text,
+                    filters: JSON.stringify(data.filters),
+                },
             })
         },
     },

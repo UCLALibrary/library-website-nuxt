@@ -15,6 +15,7 @@ export const state = () => ({
     header: {},
     footerPrimary: {},
     footerSock: {},
+    esIndex:"",
 })
 
 export const mutations = {
@@ -36,6 +37,9 @@ export const mutations = {
     },
     SET_FOOTER_SOCK(state, data) {
         state.footerSock = data
+    },
+    SET_ES_INDEX(state, data) {
+        state.esIndex = data
     }
 }
 
