@@ -1,5 +1,9 @@
 #import "~/gql/fragments/Image"
 query StaffList {
+    entry(section: "listingStaffDirectory") {
+        title
+        text: summary
+    }
     entries(section: "staffMember", orderBy: "nameLast") {
         ... on staffMember_staffMember_Entry {
             email

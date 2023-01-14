@@ -3,10 +3,14 @@
         id="main"
         class="page page-staff"
     >
-        <masthead-secondary title="Staff Directory" />
-        <!-- TODO Add SearchGenric here when complete
-                Filter by location, department, subject libarian -->
-        <!--  -->
+        <masthead-secondary
+            v-if="summaryData"
+            :title="summaryData.title || ''"
+            :text="summaryData.text || ''"
+        />
+
+        <!-- SearchGeneric
+                Filters by location, department, subject libarian -->
         <search-generic
             search-type="about"
             :filters="searchFilters"
@@ -22,9 +26,11 @@
         <div v-if="$fetchState.pending">
             <p>.....Its Loading</p>
         </div>
+
         <div v-else-if="$fetchState.error">
             <p>There is an error</p>
         </div>
+
         <div v-else>
             <!--h4 style="margin: 30px 400px">
                 No of hits
@@ -56,6 +62,8 @@
                     :selected-letter-prop="selectedLetterProp"
                     @selectedLetter="searchBySelectedLetter"
                 />
+
+                <!-- ALL STAFF -->
                 <section-staff-list
                     v-if="page.entries"
                     :items="parsedStaffList"
@@ -76,40 +84,36 @@
                     "
                     :items="parseHitsResults"
                 />
-                <!-- TODO There is a ticket to create a component for this data structure -->
-                <table
-                    v-if="
+            </section-wrapper>
+
+            <!-- SUBJECT LIBRARIANS -->
+            <section-wrapper
+                v-if="
+                    searchGenericQuery.queryFilters[
+                        'subjectLibrarian.keyword'
+                    ] &&
                         searchGenericQuery.queryFilters[
                             'subjectLibrarian.keyword'
-                        ] &&
-                            searchGenericQuery.queryFilters[
-                                'subjectLibrarian.keyword'
-                            ] === 'yes'
-                    "
-                >
-                    <thead>
-                        <tr>
-                            <th>Subject Area</th>
+                        ] === 'yes'
+                "
+            >
+                <h3 class="section-title subject-librarian">
+                    Contact a Subject Librarian
+                </h3>
 
-                            <th>Name</th>
+                <section-staff-subject-librarian
+                    :items="groupByAcademicLibraries"
+                    :table-headers="tableHeaders"
+                />
+            </section-wrapper>
 
-                            <th>Contact Information</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            v-for="(item, index) in groupByAcademicLibraries"
-                            :key="`subjectArea${index}`"
-                        >
-                            <td>{{ item.subjectArea }}</td>
-                            <td>{{ item.staffName }}</td>
-                            <td>{{ item.email }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- <h4 v-else>
-                    No results found
-                </h4> -->
+            <section-wrapper>
+                <divider-general />
+                <section-teaser-list
+                    v-if="associatedEvents"
+                    :items="associatedEvents"
+                    class="section section-list"
+                />
             </section-wrapper>
         </div>
     </main>
@@ -142,6 +146,7 @@ export default {
                         JSON.parse(this.$route.query.filters)) ||
                     {},
             },
+            tableHeaders: ["Academic Departments", "Name", "Contact Information"]
         }
     },
     fetchOnServer: false,
@@ -150,6 +155,10 @@ export default {
     async fetch() {
         console.log("live preview  staff list")
         this.page = {}
+        const getSummaryData = await this.$graphql.default.request(
+            STAFF_LIST
+        )
+        this.summaryData = _get(getSummaryData, "entry", {})
         this.hits = []
         /*console.log("test query parameters: " + this.$route.query.q)
         console.log("test query parameters: " + this.$route.query.filters)*/
@@ -213,8 +222,13 @@ export default {
         }
     },
     head() {
-        let title = this.page ? this.page.title : "... loading"
-        let metaDescription = removeTags(this.page.text)
+        let title = this.page ? "Staff Directory" : "... loading"
+        let metaDescription = "Get in touch with a staff member. Browse by location, department or subject speciality."
+        // TODO: this.summaryData.title && this.summaryData.text
+        // are NOT working here:
+        // let title = this.page ? this.summaryData.title : "... loading"
+        // let metaDescription = removeTags(this.summaryData.text)
+
         return {
             title: title,
             meta: [
@@ -251,6 +265,10 @@ export default {
                             groupBySubjectAreas.push({
                                 subjectArea: title,
                                 ...item,
+                                staffName: 
+                                    item.alternativeName.length > 0
+                                        ? `${item.nameFirst} ${item.nameLast} ${item.alternativeName[0].fullName}`
+                                        : `${item.nameFirst} ${item.nameLast}`,
                             })
                     }
                 }
@@ -455,6 +473,12 @@ export default {
         justify-content: space-between;
         @include step-1;
         color: var(--color-primary-blue-03);
+    }
+
+    .section-title {
+        @include step-3;
+        color: var(--color-primary-blue-03);
+        margin-bottom: var(--space-xl);
     }
 
     @media #{$medium} {
