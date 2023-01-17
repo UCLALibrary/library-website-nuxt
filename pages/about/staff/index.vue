@@ -156,10 +156,6 @@ export default {
     async fetch() {
         console.log("live preview  staff list")
         this.page = {}
-        const getSummaryData = await this.$graphql.default.request(
-            STAFF_LIST
-        )
-        this.summaryData = _get(getSummaryData, "entry", {})
         this.hits = []
         /*console.log("test query parameters: " + this.$route.query.q)
         console.log("test query parameters: " + this.$route.query.filters)*/
@@ -218,6 +214,7 @@ export default {
                 queryText: "",
                 queryFilters: {},
             }
+            this.summaryData = _get(this.page, "entry", {})
             this.selectedLetterProp = ""
             //console.log("Craft data:" + JSON.stringify(data))
         }
