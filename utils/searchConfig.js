@@ -8,8 +8,8 @@ const config = {
         ],
         resultFields:[
             "title",
-            "text",   
-            "summary",  
+            "text",
+            "summary",
             "externalResourceUrl",
             "sectionHandle",
             "illustrationsResourcesAndServices",
@@ -49,17 +49,18 @@ const config = {
             },
         ],
         resultFields:[
-            "email",
-            "nameFirst",     
+            "nameFirst",
             "nameLast",
             "alternativeName",
+            "departments",
+            "academicDepartments",
+            "locations",
+            "jobTitle",
+            "email",
             "phone",
-            "departments", 
-            "jobTitle",  
             "consultation",
             "uri",
-            "image",
-            "academicDepartments"
+            "image"
         ],
         sortField: "nameLast.keyword"
     },
@@ -196,7 +197,6 @@ const config = {
         ],
         sortField: "startDateWithTime"
     }
-    
 }
-  
+
 export default config

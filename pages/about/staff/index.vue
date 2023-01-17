@@ -123,7 +123,6 @@
 // HELPERS
 import _get from "lodash/get"
 import _ from "lodash"
-import removeTags from "~/utils/removeTags"
 
 // GQL
 import STAFF_LIST from "~/gql/queries/StaffList"
@@ -131,11 +130,13 @@ import STAFF_LIST from "~/gql/queries/StaffList"
 // UTILITIES
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
+import removeTags from "~/utils/removeTags"
 
 export default {
     data() {
         return {
             page: {},
+            summaryData: {},
             hits: [],
             searchFilters: [],
             selectedLetterProp: "",
@@ -222,12 +223,8 @@ export default {
         }
     },
     head() {
-        let title = this.page ? "Staff Directory" : "... loading"
-        let metaDescription = "Get in touch with a staff member. Browse by location, department or subject speciality."
-        // TODO: this.summaryData.title && this.summaryData.text
-        // are NOT working here:
-        // let title = this.page ? this.summaryData.title : "... loading"
-        // let metaDescription = removeTags(this.summaryData.text)
+        let title = this.page ? this.summaryData.title : "... loading"
+        let metaDescription = removeTags(this.summaryData.text)
 
         return {
             title: title,
