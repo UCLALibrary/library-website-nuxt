@@ -44,9 +44,7 @@ import ARTICLE_LIST from "~/gql/queries/ArticleList"
 export default {
     async asyncData({ $graphql, route }) {
         // console.log("route: " + route.path)
-        const data = await $graphql.default.request(ARTICLE_LIST, {
-            articleType: "blogs",
-        })
+        const data = await $graphql.default.request(ARTICLE_LIST, {})
         // console.log("data:" + data)
         return {
             page: _get(data, "entry", {}),
@@ -60,7 +58,7 @@ export default {
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription

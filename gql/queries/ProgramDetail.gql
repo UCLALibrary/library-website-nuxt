@@ -41,7 +41,6 @@ query ProgramDetail($slug: [String!]) {
         ... on article_article_Entry {
             id
             title
-            articleType
             associatedArticles {
                 id
                 title

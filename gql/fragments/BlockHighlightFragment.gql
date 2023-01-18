@@ -15,10 +15,6 @@ fragment BlockHighlightFragment on ElementInterface {
                 title
                 text: summary
                 # prompt: buttonText
-                # date {
-                #     startDate
-                #     endDate
-                # }
                 projectCategory: format
                 # eventCategory: eventType
                 articleCategory: articleCategories {
