@@ -101,7 +101,12 @@
                 :title="page.workshopSeries.title"
                 :text="page.workshopSeries.summary"
                 :locations="page.workshopSeries.associatedLocations"
+<<<<<<< HEAD
                 :date="page.workshopSeries.startDate"
+=======
+                :start-date="page.workshopSeries.startDate"
+                :end-date="page.workshopSeries.endDate"
+>>>>>>> 4c3c9ce (update date)
                 category="Workshop Series"
             />
 
@@ -113,9 +118,15 @@
                     :image="page.workshopSeries.image[0].image[0]"
                     :title="page.workshopSeries.title"
                     :locations="page.workshopSeries.associatedLocations"
+<<<<<<< HEAD
                     :start-date="page.workshopSeries.startDate"
                     category="Workshop Series"
                     :text="page.workshopSeries.summary"
+=======
+                    category="Workshop Series"
+                    :text="page.workshopSeries.summary"
+                    :start-date="page.workshopSeries.startDate"
+>>>>>>> 4c3c9ce (update date)
                     :end-date="page.workshopSeries.endDate"
                     :align-right="true"
                 />
@@ -208,7 +219,7 @@ export default {
             }
         )
         if (!data.serviceOrResource && !data.workshopSeries) {
-            error({ statusCode: 404, message: 'Page not found' })
+            error({ statusCode: 404, message: "Page not found" })
         }
         if (data) {
             console.log(
@@ -235,32 +246,54 @@ export default {
     head() {
         if (this.page) {
             if (this.page.serviceOrResource) {
-                let title = this.page ? this.page.serviceOrResource.title : "... loading"
-                let metaDescription = removeTags(this.page.serviceOrResource.text)
+                let title = this.page
+                    ? this.page.serviceOrResource.title
+                    : "... loading"
+                let metaDescription = removeTags(
+                    this.page.serviceOrResource.text
+                )
 
                 return {
                     title: title,
                     meta: [
                         {
+<<<<<<< HEAD
                             hid: 'description',
                             name: 'description',
                             content: metaDescription
                         }
+=======
+                            hid: "description",
+                            name: "description",
+                            content: metaDescription,
+                        },
+>>>>>>> 4c3c9ce (update date)
                     ],
                 }
             }
             if (this.page.workshopSeries) {
-                let title = this.page ? this.page.workshopSeries.title : "... loading"
-                let metaDescription = removeTags(this.page.workshopSeries.summary)
+                let title = this.page
+                    ? this.page.workshopSeries.title
+                    : "... loading"
+                let metaDescription = removeTags(
+                    this.page.workshopSeries.summary
+                )
 
                 return {
                     title: title,
                     meta: [
                         {
+<<<<<<< HEAD
                             hid: 'description',
                             name: 'description',
                             content: metaDescription
                         }
+=======
+                            hid: "description",
+                            name: "description",
+                            content: metaDescription,
+                        },
+>>>>>>> 4c3c9ce (update date)
                     ],
                 }
             }

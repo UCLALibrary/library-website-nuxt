@@ -2,6 +2,7 @@
 #import "~/gql/fragments/collections/DefaultFpbWithCardsAndHighlight"
 
 query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
+<<<<<<< HEAD
   serviceOrResource: entry(section: "serviceOrResource", slug: $slug) {
     ... on serviceOrResource_serviceOrResource_Entry {
       id
@@ -99,35 +100,131 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
         text: eventDescription
         category: eventType {
           ... on eventType_Category {
+=======
+    serviceOrResource: entry(section: "serviceOrResource", slug: $slug) {
+        ... on serviceOrResource_serviceOrResource_Entry {
+>>>>>>> 4c3c9ce (update date)
             id
-            title
-          }
-        }
-        image: heroImage {
-          ... on heroImage_heroImage_BlockType {
-            image {
-              ...Image
+            sectionHandle
+            slug
+            uri
+            button: buttonUrl {
+                ... on buttonUrl_button_BlockType {
+                    id
+                    buttonText
+                    buttonUrl
+                }
             }
+            illustrationsResourcesAndServices
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                    altText
+                }
+            }
+            type: serviceOrResourceType
+            title
+            text: summary
+            locations: associatedLocations {
+                id
+                to: slug
+                title
+            }
+            associatedTopics {
+                id
+                text: summary
+                title
+                slug
+                uri
+                externalResourceUrl
+            }
+<<<<<<< HEAD
           }
         }
 
         locations: associatedLocations {
           ... on location_location_Entry {
+=======
+        }
+        ...DefaultFpbWithNoCta
+    }
+    workshopSeries: entry(
+        section: "workshopOrEventSeries"
+        workshopOrEventSeriesType: "help/services-resources"
+        slug: $slug
+    ) {
+        ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
+>>>>>>> 4c3c9ce (update date)
             id
-            to: uri
+            workshopOrEventSeriesType
+            sectionHandle
+            typeHandle
             title
             summary
-          }
+            startDate
+            endDate
+            associatedLocations {
+                ... on location_location_Entry {
+                    id
+                    to: uri
+                    title
+                    summary
+                }
+            }
+            image: heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    image {
+                        ...Image
+                    }
+                }
+            }
+            event {
+                id
+                title
+                uri
+                sectionHandle
+                text: eventDescription
+                category: eventType {
+                    ... on eventType_Category {
+                        id
+                        title
+                    }
+                }
+                image: heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+
+                date {
+                    ... on date_date_BlockType {
+                        id
+                        startTime
+                        endTime
+                    }
+                }
+                locations: associatedLocations {
+                    ... on location_location_Entry {
+                        id
+                        to: uri
+                        title
+                        summary
+                    }
+                }
+            }
+            associatedTopics {
+                id
+                title
+                text: summary
+                to: uri
+                illustration
+            }
+            ...DefaultFpbWithCardsAndHighlight
         }
-      }
-      associatedTopics {
-        id
-        title
-        text: summary
-        to: uri
-        illustration
-      }
-      ...DefaultFpbWithCardsAndHighlight
     }
-  }
 }
