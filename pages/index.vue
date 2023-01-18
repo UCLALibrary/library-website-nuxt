@@ -48,6 +48,7 @@
                 :locations="bannerFeaturedEvent.associatedLocations"
                 :align-right="false"
                 :category="bannerFeaturedEvent.category"
+                :section-handle="bannerFeaturedEvent.sectionHandle"
             >
                 <heading-arrow text="Featured Events &amp; Exhibitions" />
             </banner-featured>
@@ -74,6 +75,7 @@
                 :description="bannerFeaturedCollection.description"
                 :category="bannerFeaturedCollection.category"
                 :prompt="bannerFeaturedCollection.prompt"
+                :section-handle="bannerFeaturedCollection.sectionHandle"
                 :align-right="true"
             >
                 <heading-arrow text="Featured Collections" />
@@ -107,6 +109,7 @@
                 :category="bannerFeaturedNews.category"
                 :start-date="bannerFeaturedNews.startDate"
                 :end-date="bannerFeaturedNews.endDate"
+                :section-handle="bannerFeaturedNews.sectionHandle"
                 :align-right="false"
             >
                 <heading-arrow text="Featured News" />

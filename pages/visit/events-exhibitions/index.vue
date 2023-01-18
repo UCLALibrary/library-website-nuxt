@@ -4,7 +4,6 @@
         class="page page-events-exhibits"
     >
         <masthead-secondary
-
             :title="page.title"
             :text="page.text"
         >
@@ -39,6 +38,7 @@
                 :to="parsedBannerHeader.to"
                 :prompt="parsedBannerHeader.prompt"
                 :locations="parsedBannerHeader.locations"
+                :section-handle="parsedBannerHeader.sectionHandle"
                 class="banner section-featured-banner"
             />
 
@@ -59,9 +59,7 @@
 
         <!-- UPCOMING EVENTS -->
         <section-wrapper section-title="All Upcoming Events">
-            <section-teaser-list
-                :items="parsedEvents"
-            />
+            <section-teaser-list :items="parsedEvents" />
         </section-wrapper>
 
         <section-wrapper
@@ -73,9 +71,7 @@
 
         <!-- EVENT SERIES & EXHIBITIONS -->
         <section-wrapper section-title="Ongoing Event Series & Exhibitions">
-            <section-teaser-card
-                :items="parsedSeriesAndExhibitions">
-            </section-teaser-card>
+            <section-teaser-card :items="parsedSeriesAndExhibitions" />
         </section-wrapper>
 
         <section-wrapper
@@ -99,7 +95,6 @@
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
 import sortByTitle from "~/utils/sortByTitle"
-
 
 // GQL
 import EXHIBITIONS_AND_EVENTS_LIST from "~/gql/queries/ExhibitionsAndEventsList.gql"
@@ -132,10 +127,10 @@ export default {
             title: title,
             meta: [
                 {
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
@@ -146,15 +141,26 @@ export default {
                     ...obj,
                     to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    startDate: obj.typeHandle === "event" ? obj.startDateWithTime : obj.startDate,
-                    endDate: obj.typeHandle === "event" ? obj.endDateWithTime : obj.endDate,
+                    startDate:
+                        obj.typeHandle === "event"
+                            ? obj.startDateWithTime
+                            : obj.startDate,
+                    endDate:
+                        obj.typeHandle === "event"
+                            ? obj.endDateWithTime
+                            : obj.endDate,
                     // text: obj.typeHandle === "event" ? obj.eventDescription : obj.summary,
-                    prompt: obj.typeHandle === "exhibition"
-                        ? "View exhibition"
-                        : obj.workshopOrEventSeriesType === "visit/events-exhibitions"
-                            ? "View event series"
-                            : "View event",
-                    locations: obj.typeHandle !== "exhibition" ? obj.associatedLocations : obj.associatedLocationsAndPrograms,
+                    prompt:
+                        obj.typeHandle === "exhibition"
+                            ? "View exhibition"
+                            : obj.workshopOrEventSeriesType ===
+                              "visit/events-exhibitions"
+                                ? "View event series"
+                                : "View event",
+                    locations:
+                        obj.typeHandle !== "exhibition"
+                            ? obj.associatedLocations
+                            : obj.associatedLocationsAndPrograms,
                 }
             })
         },
@@ -169,7 +175,8 @@ export default {
                     category:
                         obj.typeHandle === "exhibition"
                             ? "Exhibition"
-                            : obj.workshopOrEventSeriesType === "visit/events-exhibitions"
+                            : obj.workshopOrEventSeriesType ===
+                              "visit/events-exhibitions"
                                 ? "Event Series"
                                 : obj.eventType.length > 0
                                     ? obj.eventType[0].title
@@ -179,43 +186,54 @@ export default {
             })
         },
         parsedEvents() {
-            return [
-                ...(this.events || []),
-            ].map((obj) => {
+            return [...(this.events || [])].map((obj) => {
                 const eventOrExhibtion = obj || {}
 
                 return {
                     ...eventOrExhibtion,
                     to: `/${eventOrExhibtion.to}`,
-                    image: _get(eventOrExhibtion, "heroImage[0].image[0]", null),
-                    startDate: _get(eventOrExhibtion, "startDateWithTime", null),
+                    image: _get(
+                        eventOrExhibtion,
+                        "heroImage[0].image[0]",
+                        null
+                    ),
+                    startDate: _get(
+                        eventOrExhibtion,
+                        "startDateWithTime",
+                        null
+                    ),
                     endDate: _get(eventOrExhibtion, "endDateWithTime", null),
-                    category:
-                        _get(eventOrExhibtion, "eventType[0].title", null),
+                    category: _get(
+                        eventOrExhibtion,
+                        "eventType[0].title",
+                        null
+                    ),
                 }
             })
         },
         parsedSeriesAndExhibitions() {
-            return [
-                ...(this.series || []),
-                ...(this.exhibitions || []),
-            ]
+            return [...(this.series || []), ...(this.exhibitions || [])]
                 .sort(sortByTitle)
                 .map((obj) => {
-                const seriesOrExhibtion = obj || {}
+                    const seriesOrExhibtion = obj || {}
 
-                return {
-                    ...seriesOrExhibtion,
+                    return {
+                        ...seriesOrExhibtion,
                         category:
-                            seriesOrExhibtion.category === "visit/events-exhibitions"
+                            seriesOrExhibtion.category ===
+                            "visit/events-exhibitions"
                                 ? "event series"
                                 : seriesOrExhibtion.typeHandle === "exhibition"
                                     ? "exhibition"
-                                        : seriesOrExhibtion.category,
-                        to:`/${seriesOrExhibtion.to}`,
-                        image: _get(seriesOrExhibtion, "heroImage[0].image[0]", null),
-                }
-            })
+                                    : seriesOrExhibtion.category,
+                        to: `/${seriesOrExhibtion.to}`,
+                        image: _get(
+                            seriesOrExhibtion,
+                            "heroImage[0].image[0]",
+                            null
+                        ),
+                    }
+                })
         },
         blockCallToAction() {
             const mockBlockCallToAction = {

@@ -1,101 +1,151 @@
 #import "~/gql/fragments/Image"
 
 query EventsExhibitionsList {
-  entry(section: "listingEventsExhibitions") {
-    ... on listingEventsExhibitions_listingEventsExhibitions_Entry {
-      title
-      text: summary
-      featuredEvents {
-        category
+    entry(section: "listingEventsExhibitions") {
+        ... on listingEventsExhibitions_listingEventsExhibitions_Entry {
+            title
+            text: summary
+            featuredEvents {
+                category
+                title
+                summary
+                sectionHandle
+                to: uri
+                eventType {
+                    title
+                }
+                eventDescription
+                startDate
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i:s"
+                        timezone: "America/Los_Angeles"
+                    )
+                endDate
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i:s"
+                        timezone: "America/Los_Angeles"
+                    )
+                startDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
+                endDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i"
+                        timezone: "America/Los_Angeles"
+                    )
+                workshopOrEventSeriesType
+                typeHandle
+                associatedLocations {
+                    title
+                    to: uri
+                }
+                associatedLocationsAndPrograms {
+                    title
+                    to: uri
+                }
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        id
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+            }
+        }
+    }
+    events: entries(
+        section: "event"
+        orderBy: "startDateWithTime ASC"
+        startDateWithTime: ">= now"
+        limit: 10
+    ) {
         title
-        summary
         to: uri
+        sectionHandle
         eventType {
-          title
+            title
         }
-        eventDescription
-        startDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
-        endDate @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
-        startDateWithTime @formatDateTime(format: "Y-m-d\\TH:i", timezone: "America/Los_Angeles")
-        endDateWithTime @formatDateTime(format: "Y-m-d\\TH:i", timezone: "America/Los_Angeles")
-        workshopOrEventSeriesType
-        typeHandle
+        startDateWithTime
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
+        endDateWithTime
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
         associatedLocations {
-          title
-          to: uri
+            title
         }
-        associatedLocationsAndPrograms {
-          title
-          to: uri
+        eventLocation {
+            title
         }
+        # Request for heroImage results in 503 error if not limited to 10 entries
         heroImage {
             ... on heroImage_heroImage_BlockType {
-            id
-            image {
-                ...Image
-            }
-            }
-        }
-      }
-    }
-  }
-  events: entries(section: "event", orderBy:"startDateWithTime ASC", startDateWithTime: ">= now", limit: 10) {
-    title
-    to: uri
-    eventType {
-      title
-    }
-    startDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
-    endDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
-    associatedLocations {
-        title
-    }
-    eventLocation {
-        title
-    }
-    # Request for heroImage results in 503 error if not limited to 10 entries
-    heroImage {
-        ... on heroImage_heroImage_BlockType {
-            id
-            image {
-            ...Image
+                id
+                image {
+                    ...Image
+                }
             }
         }
     }
-  }
-  series: entries(
-    section: "workshopOrEventSeries"
-    workshopOrEventSeriesType: "visit/events-exhibitions"
-    orderBy: "title"
-  ) {
-    title
-    text: summary
-    to: uri
-    category: workshopOrEventSeriesType
-    heroImage {
-      ... on heroImage_heroImage_BlockType {
-          id
-          image {
-          ...Image
-          }
-      }
+    series: entries(
+        section: "workshopOrEventSeries"
+        workshopOrEventSeriesType: "visit/events-exhibitions"
+        orderBy: "title"
+    ) {
+        title
+        sectionHandle
+        startDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
+        endDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
+        text: summary
+        to: uri
+        category: workshopOrEventSeriesType
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+            }
+        }
     }
-  }
-  exhibitions: entries(
-    section: "exhibition"
-    orderBy: "title"
-  ) {
-    title
-    typeHandle
-    text: summary
-    to: uri
-    heroImage {
-      ... on heroImage_heroImage_BlockType {
-          id
-          image {
-          ...Image
-          }
-      }
+    exhibitions: entries(section: "exhibition", orderBy: "title") {
+        title
+        typeHandle
+        sectionHandle
+        startDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
+        endDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
+        text: summary
+        to: uri
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+            }
+        }
     }
-  }  
 }
