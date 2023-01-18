@@ -79,7 +79,6 @@ query LocationDetail($slug: [String!]) {
         ... on article_article_Entry {
             id
             title
-            articleType
             associatedLocations {
                 id
                 title

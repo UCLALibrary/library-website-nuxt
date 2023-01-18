@@ -86,9 +86,7 @@ import ARTICLE_LIST from "~/gql/queries/ArticleList"
 export default {
     async asyncData({ $graphql, route }) {
         // console.log("route: " + route.path)
-        const data = await $graphql.default.request(ARTICLE_LIST, {
-            articleType: "news",
-        })
+        const data = await $graphql.default.request(ARTICLE_LIST, {})
         // console.log("data:" + data)
         return {
             page: _get(data, "entry", {}),
@@ -102,7 +100,7 @@ export default {
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription
@@ -115,7 +113,9 @@ export default {
             return this.page.featuredNews.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.to}`,
+                    to: obj.externalResourceUrl != null
+                        ? _get(obj, "externalResourceUrl", "")
+                        : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     category: _get(obj, "articleCategories[0].title", ""),
                     dateCreated: _get(obj, "postDate", ""),
@@ -129,7 +129,7 @@ export default {
             return this.parsedFeaturedNews[0]
         },
         parsedSectionHighlight() {
-            return this.parsedFeaturedNews.slice(1).map((obj) => {
+            return this.parsedFeaturedNews.slice(1, 3).map((obj) => {
                 return {
                     ...obj,
                     bylineTwo:
@@ -143,7 +143,9 @@ export default {
             return this.news.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.to}`,
+                    to: obj.externalResourceUrl != null
+                        ? _get(obj, "externalResourceUrl", "")
+                        : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.fullName}`,
                     category: _get(obj, "articleCategories[0].title", null),

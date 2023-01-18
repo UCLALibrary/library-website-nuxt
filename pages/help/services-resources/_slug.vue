@@ -101,7 +101,7 @@
                 :title="page.workshopSeries.title"
                 :text="page.workshopSeries.summary"
                 :locations="page.workshopSeries.associatedLocations"
-                :date="page.workshopSeries.date[0].startDate"
+                :date="page.workshopSeries.startDate"
                 category="Workshop Series"
             />
 
@@ -113,10 +113,10 @@
                     :image="page.workshopSeries.image[0].image[0]"
                     :title="page.workshopSeries.title"
                     :locations="page.workshopSeries.associatedLocations"
-                    :start-date="page.workshopSeries.date[0].startDate"
+                    :start-date="page.workshopSeries.startDate"
                     category="Workshop Series"
                     :text="page.workshopSeries.summary"
-                    :end-date="page.workshopSeries.date[0].endDate"
+                    :end-date="page.workshopSeries.endDate"
                     :align-right="true"
                 />
 
@@ -241,7 +241,7 @@ export default {
                 return {
                     title: title,
                     meta: [
-                        { 
+                        {
                             hid: 'description',
                             name: 'description',
                             content: metaDescription
@@ -256,7 +256,7 @@ export default {
                 return {
                     title: title,
                     meta: [
-                        { 
+                        {
                             hid: 'description',
                             name: 'description',
                             content: metaDescription
@@ -290,8 +290,8 @@ export default {
                     ...obj,
                     to: `/${obj.uri}`,
                     image: _get(obj, "image[0].image[0]", null),
-                    startDate: _get(obj, "date[0].startTime", null),
-                    endDate: _get(obj, "date[0].endTime", null),
+                    startDate: _get(obj, "startDateWithTime", null),
+                    endDate: _get(obj, "endDateWithTime", null),
                     category: _get(obj, "category.title", ""),
                 }
             })
