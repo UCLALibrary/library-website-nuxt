@@ -103,6 +103,7 @@ query EventDetail($slug: [String!]) {
                 id
                 title
                 uri
+                sectionHandle
                 text: eventDescription
                 category: eventType {
                     ... on eventType_Category {
