@@ -30,7 +30,7 @@ jobs:
         ESApiKey: ${{ secrets.ESApiKey }}
     - uses: cypress-io/github-action@v3
       with:
-        start: npx http-server ./dist -p 3000
+        start: npm run start
         command-prefix: 'percy exec -- npx'
         wait-on: http://localhost:3000
       env: 
