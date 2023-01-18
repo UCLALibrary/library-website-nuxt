@@ -101,12 +101,8 @@
                 :title="page.workshopSeries.title"
                 :text="page.workshopSeries.summary"
                 :locations="page.workshopSeries.associatedLocations"
-<<<<<<< HEAD
-                :date="page.workshopSeries.startDate"
-=======
                 :start-date="page.workshopSeries.startDate"
                 :end-date="page.workshopSeries.endDate"
->>>>>>> 4c3c9ce (update date)
                 category="Workshop Series"
             />
 
@@ -118,15 +114,9 @@
                     :image="page.workshopSeries.image[0].image[0]"
                     :title="page.workshopSeries.title"
                     :locations="page.workshopSeries.associatedLocations"
-<<<<<<< HEAD
-                    :start-date="page.workshopSeries.startDate"
-                    category="Workshop Series"
-                    :text="page.workshopSeries.summary"
-=======
                     category="Workshop Series"
                     :text="page.workshopSeries.summary"
                     :start-date="page.workshopSeries.startDate"
->>>>>>> 4c3c9ce (update date)
                     :end-date="page.workshopSeries.endDate"
                     :align-right="true"
                 />
@@ -202,10 +192,8 @@
 // HELPERS
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
-
 // GQL
 import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceOrResourceOrWorkshopDetail"
-
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
@@ -252,22 +240,14 @@ export default {
                 let metaDescription = removeTags(
                     this.page.serviceOrResource.text
                 )
-
                 return {
                     title: title,
                     meta: [
                         {
-<<<<<<< HEAD
-                            hid: 'description',
-                            name: 'description',
-                            content: metaDescription
-                        }
-=======
                             hid: "description",
                             name: "description",
                             content: metaDescription,
                         },
->>>>>>> 4c3c9ce (update date)
                     ],
                 }
             }
@@ -278,22 +258,14 @@ export default {
                 let metaDescription = removeTags(
                     this.page.workshopSeries.summary
                 )
-
                 return {
                     title: title,
                     meta: [
                         {
-<<<<<<< HEAD
-                            hid: 'description',
-                            name: 'description',
-                            content: metaDescription
-                        }
-=======
                             hid: "description",
                             name: "description",
                             content: metaDescription,
                         },
->>>>>>> 4c3c9ce (update date)
                     ],
                 }
             }
@@ -323,8 +295,8 @@ export default {
                     ...obj,
                     to: `/${obj.uri}`,
                     image: _get(obj, "image[0].image[0]", null),
-                    startDate: _get(obj, "startDateWithTime", null),
-                    endDate: _get(obj, "endDateWithTime", null),
+                    startDate: _get(obj, "date[0].startTime", null),
+                    endDate: _get(obj, "date[0].endTime", null),
                     category: _get(obj, "category.title", ""),
                 }
             })

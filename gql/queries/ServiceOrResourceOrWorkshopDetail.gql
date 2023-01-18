@@ -2,108 +2,8 @@
 #import "~/gql/fragments/collections/DefaultFpbWithCardsAndHighlight"
 
 query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
-<<<<<<< HEAD
-  serviceOrResource: entry(section: "serviceOrResource", slug: $slug) {
-    ... on serviceOrResource_serviceOrResource_Entry {
-      id
-      sectionHandle
-      slug
-      uri
-      button: buttonUrl {
-        ... on buttonUrl_button_BlockType {
-          id
-          buttonText
-          buttonUrl
-        }
-      }
-      illustrationsResourcesAndServices
-      heroImage {
-        ... on heroImage_heroImage_BlockType {
-          id
-          image {
-            ...Image
-          }
-          altText
-        }
-      }
-      type: serviceOrResourceType
-      title
-      text: summary
-      locations: associatedLocations {
-        id
-        to: slug
-        title
-      }
-      associatedTopics {
-        id
-        text: summary
-        title
-        slug
-        uri
-        externalResourceUrl
-      }
-    }
-    ...DefaultFpbWithNoCta
-  }
-  workshopSeries: entry(
-    section: "workshopOrEventSeries"
-    workshopOrEventSeriesType: "help/services-resources"
-    slug: $slug
-  ) {
-    ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
-      id
-      workshopOrEventSeriesType
-      sectionHandle
-      typeHandle
-      title
-      summary
-      startDate
-        @formatDateTime(
-            format: "Y-m-d\\TH:i"
-            timezone: "America/Los_Angeles"
-        )
-      endDate
-        @formatDateTime(
-            format: "Y-m-d\\TH:i"
-            timezone: "America/Los_Angeles"
-        )
-
-      associatedLocations {
-        ... on location_location_Entry {
-          id
-          to: uri
-          title
-          summary
-        }
-      }
-      image: heroImage {
-        ... on heroImage_heroImage_BlockType {
-          image {
-            ...Image
-          }
-        }
-      }
-      event {
-        id
-        title
-        uri
-        startDateWithTime
-            @formatDateTime(
-                format: "Y-m-d\\TH:i"
-                timezone: "America/Los_Angeles"
-            )
-        endDateWithTime
-            @formatDateTime(
-                format: "Y-m-d\\TH:i"
-                timezone: "America/Los_Angeles"
-            )
-        text: eventDescription
-        category: eventType {
-          ... on eventType_Category {
-=======
     serviceOrResource: entry(section: "serviceOrResource", slug: $slug) {
         ... on serviceOrResource_serviceOrResource_Entry {
->>>>>>> 4c3c9ce (update date)
             id
             sectionHandle
             slug
@@ -141,13 +41,6 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
                 uri
                 externalResourceUrl
             }
-<<<<<<< HEAD
-          }
-        }
-
-        locations: associatedLocations {
-          ... on location_location_Entry {
-=======
         }
         ...DefaultFpbWithNoCta
     }
@@ -157,7 +50,6 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
         slug: $slug
     ) {
         ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
->>>>>>> 4c3c9ce (update date)
             id
             workshopOrEventSeriesType
             sectionHandle
