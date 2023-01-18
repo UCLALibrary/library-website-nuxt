@@ -36,7 +36,8 @@
             />
         </section-wrapper>
 
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="page.featuredEndowments.length" theme="divider">
             <divider-way-finder
                 color="about"
             />
