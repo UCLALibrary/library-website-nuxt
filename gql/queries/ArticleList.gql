@@ -1,14 +1,14 @@
 #import "~/gql/fragments/Image"
 
-query ArticleList($articleType: QueryArgument!) {
+query ArticleList {
   entries(
     section: "article"
     orderBy: "postDate DESC"
-    articleType: [$articleType]
   ) {
     ... on article_article_Entry {
       title
       to: uri
+      externalResourceUrl
       heroImage {
         ... on heroImage_heroImage_BlockType {
           id
@@ -45,6 +45,7 @@ query ArticleList($articleType: QueryArgument!) {
             }
             text: summary
             to: uri
+            externalResourceUrl
             heroImage {
               ... on heroImage_heroImage_BlockType {
                 id

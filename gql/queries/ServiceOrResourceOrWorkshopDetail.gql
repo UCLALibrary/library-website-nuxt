@@ -56,13 +56,16 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
       typeHandle
       title
       summary
-      date: seriesDate {
-        ... on seriesDate_seriesDate_BlockType {
-          id
-          startDate
-          endDate
-        }
-      }
+      startDate
+        @formatDateTime(
+            format: "Y-m-d\\TH:i"
+            timezone: "America/Los_Angeles"
+        )
+      endDate
+        @formatDateTime(
+            format: "Y-m-d\\TH:i"
+            timezone: "America/Los_Angeles"
+        )
 
       associatedLocations {
         ... on location_location_Entry {
@@ -83,6 +86,16 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
         id
         title
         uri
+        startDateWithTime
+            @formatDateTime(
+                format: "Y-m-d\\TH:i"
+                timezone: "America/Los_Angeles"
+            )
+        endDateWithTime
+            @formatDateTime(
+                format: "Y-m-d\\TH:i"
+                timezone: "America/Los_Angeles"
+            )
         text: eventDescription
         category: eventType {
           ... on eventType_Category {
@@ -98,13 +111,6 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
           }
         }
 
-        date {
-          ... on date_date_BlockType {
-            id
-            startTime
-            endTime
-          }
-        }
         locations: associatedLocations {
           ... on location_location_Entry {
             id
