@@ -295,8 +295,8 @@ export default {
                     ...obj,
                     to: `/${obj.uri}`,
                     image: _get(obj, "image[0].image[0]", null),
-                    startDate: _get(obj, "date[0].startTime", null),
-                    endDate: _get(obj, "date[0].endTime", null),
+                    startDate: _get(obj, "startDateWithTime", null),
+                    endDate: _get(obj, "endDateWithTime", null),
                     category: _get(obj, "category.title", ""),
                 }
             })

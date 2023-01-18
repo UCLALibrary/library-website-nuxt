@@ -57,7 +57,15 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             title
             summary
             startDate
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i:s"
+                    timezone: "America/Los_Angeles"
+                )
             endDate
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i:s"
+                    timezone: "America/Los_Angeles"
+                )
             associatedLocations {
                 ... on location_location_Entry {
                     id
@@ -92,14 +100,16 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
                         }
                     }
                 }
-
-                date {
-                    ... on date_date_BlockType {
-                        id
-                        startTime
-                        endTime
-                    }
-                }
+                startDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i:s"
+                        timezone: "America/Los_Angeles"
+                    )
+                endDateWithTime
+                    @formatDateTime(
+                        format: "Y-m-d\\TH:i:s"
+                        timezone: "America/Los_Angeles"
+                    )
                 locations: associatedLocations {
                     ... on location_location_Entry {
                         id
