@@ -101,6 +101,16 @@ query EventsExhibitionsList {
     ) {
         title
         sectionHandle
+        startDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
+        endDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
         text: summary
         to: uri
         category: workshopOrEventSeriesType
@@ -117,6 +127,16 @@ query EventsExhibitionsList {
         title
         typeHandle
         sectionHandle
+        startDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
+        endDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
         text: summary
         to: uri
         heroImage {
