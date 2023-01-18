@@ -23,6 +23,9 @@
             <divider-way-finder />
         </section-wrapper>
 
+        <h3>PAGE -- {{ parsedPages }}</h3>
+        <h3>summaryData -- {{ summaryData }}</h3>
+
         <div v-if="$fetchState.pending">
             <p>.....Its Loading</p>
         </div>
@@ -104,6 +107,15 @@
                 <section-staff-subject-librarian
                     :items="groupByAcademicLibraries"
                     :table-headers="tableHeaders"
+                />
+            </section-wrapper>
+
+            <section-wrapper>
+                <divider-general />
+                <section-teaser-list
+                    v-if="associatedEvents"
+                    :items="associatedEvents"
+                    class="section section-list"
                 />
             </section-wrapper>
         </div>
