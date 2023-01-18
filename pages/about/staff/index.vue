@@ -106,15 +106,6 @@
                     :table-headers="tableHeaders"
                 />
             </section-wrapper>
-
-            <section-wrapper>
-                <divider-general />
-                <section-teaser-list
-                    v-if="associatedEvents"
-                    :items="associatedEvents"
-                    class="section section-list"
-                />
-            </section-wrapper>
         </div>
     </main>
 </template>
