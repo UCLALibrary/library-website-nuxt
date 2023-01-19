@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/accessibility/emergency", (function(a){return {data:[{page:{id:"1618",title:"Emergency",slug:"emergency",uri:"accessibility\u002Femergency",button:[],summary:"\u003Cp\u003Eabc\u003C\u002Fp\u003E",heroImage:[],parent:{slug:a,title:"Accessibility",uri:a},blocks:[]}}],fetch:{},mutations:[]}}("accessibility")));

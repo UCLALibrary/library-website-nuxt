@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/get-help", (function(a,b){return {data:[{page:{id:"6333",title:"Get Help",slug:a,uri:a,button:[],summary:b,heroImage:[],parent:b,blocks:[]}}],fetch:{},mutations:[]}}("get-help",null)));

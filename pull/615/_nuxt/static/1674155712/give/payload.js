@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/give", (function(a,b){return {data:[{page:{id:"83011",title:"Give to UCLA Library",slug:a,uri:a,button:[],summary:b,heroImage:[],parent:b,blocks:[]}}],fetch:{},mutations:[]}}("give",null)));

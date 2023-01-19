@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/about/our-goals", (function(a){return {data:[{page:{id:"1829",title:"Our Goals",slug:"our-goals",uri:"about\u002Four-goals",button:[],summary:null,heroImage:[],parent:{slug:a,title:"About the UCLA Libraries",uri:a},blocks:[]}}],fetch:{},mutations:[]}}("about")));
