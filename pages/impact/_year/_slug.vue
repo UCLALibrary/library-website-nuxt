@@ -10,7 +10,6 @@
             :text="page.text"
             :byline="parsedByline"
         />
-        <h3>{{ page }}</h3>
 
         <section-wrapper
             v-if="page && page.heroImage && page.heroImage.length == 1"
