@@ -114,10 +114,10 @@
                     :image="page.workshopSeries.image[0].image[0]"
                     :title="page.workshopSeries.title"
                     :locations="page.workshopSeries.associatedLocations"
-                    category="Workshop Series"
-                    :text="page.workshopSeries.summary"
                     :start-date="page.workshopSeries.startDate"
                     :end-date="page.workshopSeries.endDate"
+                    category="Workshop Series"
+                    :text="page.workshopSeries.summary"
                     :align-right="true"
                 />
 
@@ -170,14 +170,25 @@
                     section-title="Associated Topics"
                 />
             </section-wrapper>
+            <section-wrapper
+                v-if="parsedAssociatedSeries.length"
+                theme="divider"
+            >
+                <divider-way-finder color="help" />
+            </section-wrapper>
 
+            <section-wrapper
+                v-if="parsedAssociatedSeries.length"
+                section-title="Related Series"
+            >
+                <section-teaser-list :items="parsedAssociatedSeries" />
+            </section-wrapper>
             <section-wrapper theme="divider">
                 <divider-way-finder
                     class="divider-way-finder"
                     color="help"
                 />
             </section-wrapper>
-
             <section-wrapper>
                 <block-call-to-action
                     class="block-call-to-action"
@@ -240,6 +251,7 @@ export default {
                 let metaDescription = removeTags(
                     this.page.serviceOrResource.text
                 )
+
                 return {
                     title: title,
                     meta: [
@@ -258,6 +270,7 @@ export default {
                 let metaDescription = removeTags(
                     this.page.workshopSeries.summary
                 )
+
                 return {
                     title: title,
                     meta: [
@@ -298,6 +311,16 @@ export default {
                     startDate: _get(obj, "startDateWithTime", null),
                     endDate: _get(obj, "endDateWithTime", null),
                     category: _get(obj, "category.title", ""),
+                }
+            })
+        },
+        parsedAssociatedSeries() {
+            return this.page.associatedSeries.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.to}`,
+                    image: _get(obj, "image[0].image[0]", null),
+                    category: "Event Series",
                 }
             })
         },
