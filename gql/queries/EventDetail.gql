@@ -67,6 +67,7 @@ query EventDetail($slug: [String!]) {
         relatedToEntries: { section: "event", slug: $slug }
     ) {
         title
+        sectionHandle
         text: summary
         image: heroImage {
             ... on heroImage_heroImage_BlockType {

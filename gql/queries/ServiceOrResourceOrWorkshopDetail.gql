@@ -87,6 +87,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             id
             title
             uri
+            sectionHandle
             text: eventDescription
             category: eventType {
                 ... on eventType_Category {
@@ -134,6 +135,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
         relatedToEntries: { section: "workshopOrEventSeries", slug: $slug }
     ) {
         title
+        sectionHandle
         text: summary
         image: heroImage {
             ... on heroImage_heroImage_BlockType {
