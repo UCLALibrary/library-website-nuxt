@@ -91,7 +91,7 @@
                 to="/collections/explore"
                 class="button-more"
             >
-                <button-more text="See All Collections" />
+                <button-more text="See All Featured Collections" />
             </nuxt-link>
         </section-wrapper>
 
