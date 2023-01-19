@@ -62,6 +62,32 @@ query EventDetail($slug: [String!]) {
             eventOwner
         }
     }
+    associatedSeries: entries(
+        section: "workshopOrEventSeries"
+        relatedToEntries: { section: "event", slug: $slug }
+    ) {
+        title
+        sectionHandle
+        text: summary
+        image: heroImage {
+            ... on heroImage_heroImage_BlockType {
+                image {
+                    ...Image
+                }
+            }
+        }
+        to: uri
+        startDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i"
+                timezone: "America/Los_Angeles"
+            )
+        endDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i"
+                timezone: "America/Los_Angeles"
+            )
+    }
     eventSeries: entry(section: "workshopOrEventSeries", slug: $slug) {
         id
 
