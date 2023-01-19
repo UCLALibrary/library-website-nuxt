@@ -16,6 +16,7 @@ query AccessCollectionsListing {
                 typeHandle
                 serviceOrResourceType
                 workshopOrEventSeriesType
+                sectionHandle
             }
             associatedTopics {
                 title
@@ -27,6 +28,7 @@ query AccessCollectionsListing {
                 typeHandle
                 serviceOrResourceType
                 workshopOrEventSeriesType
+                sectionHandle
             }
         }
     }

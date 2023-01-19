@@ -103,6 +103,7 @@ query EventDetail($slug: [String!]) {
                 id
                 title
                 uri
+                sectionHandle
                 text: eventDescription
                 category: eventType {
                     ... on eventType_Category {
@@ -150,6 +151,7 @@ query EventDetail($slug: [String!]) {
     exhibition: entry(section: "exhibition", slug: $slug) {
         title
         summary
+        sectionHandle
         startDate
             @formatDateTime(
                 format: "Y-m-d\\TH:i"
@@ -186,6 +188,7 @@ query EventDetail($slug: [String!]) {
             exhibitsAndEvents {
                 title
                 uri
+                sectionHandle
                 startDateWithTime
                     @formatDateTime(
                         format: "Y-m-d\\TH:i"
