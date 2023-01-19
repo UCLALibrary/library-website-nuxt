@@ -418,7 +418,6 @@ export default {
             background: var(--color-primary-blue-01);
             width: 100%;
             height: var(--space-2xl);
-            // margin-bottom: var(--space-s);
         }
 
         .input-indicator {
