@@ -1,9 +1,11 @@
 #import "~/gql/fragments/Image"
 query StaffList {
+    entry(section: "listingStaffDirectory") {
+        title
+        text: summary
+    }
     entries(section: "staffMember", orderBy: "nameLast") {
         ... on staffMember_staffMember_Entry {
-            email
-            phone: phoneNumber
             jobTitle: staffMemberJobTitle
             nameFirst
             nameLast
@@ -14,6 +16,8 @@ query StaffList {
                     languageAltName
                 }
             }
+            email
+            phone: phoneNumber
             consultation: bookAConsultation
             departments: staffDepartment(orderBy: "level") {
                 id
