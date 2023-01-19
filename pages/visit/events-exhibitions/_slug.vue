@@ -75,21 +75,18 @@
             </section-wrapper>
 
             <section-wrapper
-                v-if="page.associatedSeries.length"
+                v-if="parsedAssociatedSeries.length"
                 theme="divider"
             >
                 <divider-way-finder color="visit" />
             </section-wrapper>
 
             <section-wrapper
-                v-if="page.associatedSeries"
+                v-if="parsedAssociatedSeries.length"
                 section-title="Related Series"
             >
-                <section-teaser-list>
-                    :items="parsedAssociatedSeries"
-                </section-teaser-list>
+                <section-teaser-list :items="parsedAssociatedSeries" />
             </section-wrapper>
-
             <section-wrapper theme="divider">
                 <divider-way-finder color="visit" />
             </section-wrapper>
@@ -434,7 +431,7 @@ export default {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
-                    image: _get(obj, "heroImage[0].image[0]", null),
+                    image: _get(obj, "image[0].image[0]", null),
                     category: "Event Series",
                 }
             })
