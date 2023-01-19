@@ -153,10 +153,7 @@
                 />
             </section-wrapper>
 
-            <section-wrapper>
-                <h3 class="section-title">
-                    Events in this Series
-                </h3>
+            <section-wrapper section-title="Events in this Series">
                 <divider-general />
                 <section-teaser-list
                     v-if="associatedEvents"
