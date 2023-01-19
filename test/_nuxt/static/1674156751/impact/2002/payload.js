@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/impact/2002", (function(a,b,c){return {data:[{page:{id:"42056",sectionHandle:"impactReport",uri:a,slug:b,title:b,to:a,portrait:[],text:c,keyArt:[],blocks:[],timelineTitle:c,timelineGallery:[],acknowledgements:[]}}],fetch:{},mutations:[]}}("impact\u002F2002","test",null)));

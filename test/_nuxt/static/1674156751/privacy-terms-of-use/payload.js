@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/privacy-terms-of-use", (function(a){return {data:[{page:{id:"1615",title:"Privacy & Terms of Use",slug:a,uri:a,button:[],summary:"\u003Cdiv\u003EBy continuing to use UCLA Sites, you are accepting the terms of use defined in this statement.\u003C\u002Fdiv\u003E",heroImage:[],parent:null,blocks:[]}}],fetch:{},mutations:[]}}("privacy-terms-of-use")));

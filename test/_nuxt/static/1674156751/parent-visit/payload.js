@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/parent-visit", (function(a,b){return {data:[{page:{id:"32393",title:"Parent placeholder for visit",slug:a,uri:a,button:[],summary:b,heroImage:[],parent:b,blocks:[]}}],fetch:{},mutations:[]}}("parent-visit",null)));

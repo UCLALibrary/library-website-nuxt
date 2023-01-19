@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/about", (function(a,b){return {data:[{page:{id:"25350",title:"About the UCLA Libraries",slug:a,uri:a,button:[],summary:b,heroImage:[],parent:b,blocks:[]}}],fetch:{},mutations:[]}}("about",null)));
