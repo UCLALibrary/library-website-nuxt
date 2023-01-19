@@ -105,11 +105,6 @@ const config = {
                 inputType: "checkbox",
             },
             {
-                label: "Department",
-                esFieldName: "department.title.keyword",
-                inputType: "checkbox",
-            },
-            {
                 label: "Category",
                 esFieldName: "category.title.keyword",
                 inputType: "checkbox",

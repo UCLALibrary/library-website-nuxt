@@ -139,7 +139,7 @@ import _get from "lodash/get"
 import HOMEPAGE from "~/gql/queries/Homepage"
 
 export default {
-    async asyncData({ $graphql, $dataApi }) {
+    async asyncData({ $graphql }) {
         const data = await $graphql.default.request(HOMEPAGE, {})
         return {
             page: _get(data, "entry", {}),

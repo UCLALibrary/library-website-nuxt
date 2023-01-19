@@ -1,20 +1,31 @@
+import fetch from "node-fetch"
+
 export default function () {
-    this.nuxt.hook("generate:before", async({ $config, store }) => {
-        console.log("In generate before hook for generating a new ES index")
-        let now = new Date()
-        let esIndex = `${now.getMonth}-${now.getDate}-${now.getFullYear}t${now.getHours}-${now.getMinutes}-${now.getSeconds}`
-        const response = await fetch(`${$config.esURL}/${$config.esIndexPrefix}${esIndex}`, {
+    this.nuxt.hook("generate:before", async(generator, generatorOptions) => {
+        // console.log(generator)
+        // console.log(generatorOptions)
+        // console.log("In generate before hook for generating a new ES index: "+ JSON.stringify(this.nuxt.options.publicRuntimeConfig))
+        const timeElapsed = Date.now()
+        const now = new Date(timeElapsed)
+       
+        let esIndex = `${this.nuxt.options.publicRuntimeConfig.esIndexPrefix}${now.toISOString().toLowerCase().replaceAll(":","-")}`
+        console.log("Index named:"+esIndex)
+        console.log("Index path:"+`${this.nuxt.options.publicRuntimeConfig.esURL}/${esIndex}`)
+        console.log("Index write key:"+this.nuxt.options.privateRuntimeConfig.esWriteKey)
+        const response = await fetch(`${this.nuxt.options.publicRuntimeConfig.esURL}/${esIndex}`, {
             headers: {
-                'Authorization': `ApiKey ${$config.esWriteKey}`,
+                'Authorization': `ApiKey ${this.nuxt.options.privateRuntimeConfig.esWriteKey}`,
                 'Content-Type': 'application/json',
             },
             method: 'PUT'
         })
-        console.log("Index created:"+response)
-        store.commit(
-            "SET_ES_INDEX",
-            esIndex
-        )
+        const data = await response.json()
+        this.options.tempIndex = esIndex
+        this.nuxt.options.publicRuntimeConfig['esTempIndex'] = esIndex
+
+        console.log("Index created:"+JSON.stringify(data))
+        
+      
 
     })
 }
