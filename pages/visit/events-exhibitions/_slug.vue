@@ -62,13 +62,31 @@
 
             <section-wrapper v-if="page.event || page.event.eventDescription">
                 <rich-text
+                    v-if="page.event.presenter"
+                    :rich-text-content="page.event.presenter"
+                    class="presenter"
+                />
+                <rich-text :rich-text-content="page.event.eventDescription" />
+                <divider-general v-if="page.event.moreInformation" />
+                <rich-text
                     v-if="page.event.moreInformation"
                     :rich-text-content="page.event.moreInformation"
                 />
-                <divider-general v-if="page.event.moreInformation" />
-                <rich-text :rich-text-content="page.event.eventDescription" />
             </section-wrapper>
 
+            <section-wrapper
+                v-if="parsedAssociatedSeries.length"
+                theme="divider"
+            >
+                <divider-way-finder color="visit" />
+            </section-wrapper>
+
+            <section-wrapper
+                v-if="parsedAssociatedSeries.length"
+                section-title="Related Series"
+            >
+                <section-teaser-list :items="parsedAssociatedSeries" />
+            </section-wrapper>
             <section-wrapper theme="divider">
                 <divider-way-finder color="visit" />
             </section-wrapper>
@@ -135,10 +153,7 @@
                 />
             </section-wrapper>
 
-            <section-wrapper>
-                <h3 class="section-title">
-                    Events in this Series
-                </h3>
+            <section-wrapper section-title="Events in this Series">
                 <divider-general />
                 <section-teaser-list
                     v-if="associatedEvents"
@@ -408,6 +423,17 @@ export default {
             }
             return false
         },
+        parsedAssociatedSeries() {
+            return this.page.associatedSeries.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.to}`,
+                    image: _get(obj, "image[0].image[0]", null),
+                    category: "Event Series",
+                }
+            })
+        },
+
         associatedEvents() {
             return this.page.eventSeries.event.map((obj) => {
                 return {
@@ -508,9 +534,9 @@ export default {
             transform: translateY(0);
         }
     }
-    .section-title {
-        @include step-3;
-        color: var(--color-primary-blue-03);
+    .presenter {
+        @include step-1;
+        color: var(--color-primary-blue-04);
         margin-bottom: var(--space-m);
     }
 }
