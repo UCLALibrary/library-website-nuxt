@@ -62,6 +62,21 @@ query EventDetail($slug: [String!]) {
             eventOwner
         }
     }
+    associatedSeries: entry(
+        section: "workshopOrEventSeries"
+        relatedToEntries: {section: "event", slug: $slug}
+    ) {
+        title
+        summary
+        image: heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    image {
+                        ...Image
+                    }
+                }
+            }
+        to: uri
+    }
     eventSeries: entry(section: "workshopOrEventSeries", slug: $slug) {
         id
 

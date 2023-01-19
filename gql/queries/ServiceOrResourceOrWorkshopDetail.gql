@@ -58,20 +58,40 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             summary
             startDate
                 @formatDateTime(
-                    format: "Y-m-d\\TH:i:s"
+                    format: "Y-m-d\\TH:i"
                     timezone: "America/Los_Angeles"
                 )
             endDate
                 @formatDateTime(
-                    format: "Y-m-d\\TH:i:s"
+                    format: "Y-m-d\\TH:i"
                     timezone: "America/Los_Angeles"
                 )
-            associatedLocations {
-                ... on location_location_Entry {
+        }
+
+        associatedLocations {
+            ... on location_location_Entry {
+                id
+                to: uri
+                title
+                summary
+            }
+        }
+        image: heroImage {
+            ... on heroImage_heroImage_BlockType {
+                image {
+                    ...Image
+                }
+            }
+        }
+        event {
+            id
+            title
+            uri
+            text: eventDescription
+            category: eventType {
+                ... on eventType_Category {
                     id
-                    to: uri
                     title
-                    summary
                 }
             }
             image: heroImage {
@@ -81,52 +101,57 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
                     }
                 }
             }
-            event {
-                id
-                title
-                uri
-                sectionHandle
-                text: eventDescription
-                category: eventType {
-                    ... on eventType_Category {
-                        id
-                        title
-                    }
-                }
-                image: heroImage {
-                    ... on heroImage_heroImage_BlockType {
-                        image {
-                            ...Image
-                        }
-                    }
-                }
-                startDateWithTime
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i:s"
-                        timezone: "America/Los_Angeles"
-                    )
-                endDateWithTime
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i:s"
-                        timezone: "America/Los_Angeles"
-                    )
-                locations: associatedLocations {
-                    ... on location_location_Entry {
-                        id
-                        to: uri
-                        title
-                        summary
-                    }
+            startDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
+            endDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
+            locations: associatedLocations {
+                ... on location_location_Entry {
+                    id
+                    to: uri
+                    title
+                    summary
                 }
             }
-            associatedTopics {
-                id
-                title
-                text: summary
-                to: uri
-                illustration
-            }
-            ...DefaultFpbWithCardsAndHighlight
         }
+        associatedTopics {
+            id
+            title
+            text: summary
+            to: uri
+            illustration
+        }
+        ...DefaultFpbWithCardsAndHighlight
+    }
+    associatedSeries: entries(
+        section: "workshopOrEventSeries"
+        relatedToEntries: { section: "workshopOrEventSeries", slug: $slug }
+    ) {
+        title
+        text: summary
+        image: heroImage {
+            ... on heroImage_heroImage_BlockType {
+                image {
+                    ...Image
+                }
+            }
+        }
+        to: uri
+        startDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i"
+                timezone: "America/Los_Angeles"
+            )
+        endDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i"
+                timezone: "America/Los_Angeles"
+            )
     }
 }
