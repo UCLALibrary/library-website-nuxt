@@ -8,7 +8,7 @@ fragment BlockCallToActionFragment on ElementInterface {
             summary
             icon
             buttonText
-            buttonLink
+            buttonUrl: buttonLink
             backgroundColor
         }
     }
