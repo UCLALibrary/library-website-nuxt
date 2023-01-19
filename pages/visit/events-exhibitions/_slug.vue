@@ -25,11 +25,13 @@
                 "
                 :title="page.event.title"
                 :locations="page.event.associatedLocations"
-                :date="page.event.startDateWithTime"
+                :start-date="page.event.startDateWithTime"
+                :end-date="page.event.endDateWithTime"
                 :category="page.event.eventType.title"
                 :to="page.event.parseURL"
                 :button-text="promptName"
                 :register-event="parseRegistration"
+                :section-handle="page.event.sectionHandle"
             />
 
             <section-wrapper
@@ -47,6 +49,7 @@
                     :align-right="true"
                     :prompt="promptName"
                     :register-event="parseRegistration"
+                    :section-handle="page.event.sectionHandle"
                 />
             </section-wrapper>
 
@@ -89,7 +92,8 @@
                 :title="page.eventSeries.title"
                 :text="page.eventSeries.summary"
                 :locations="page.eventSeries.associatedLocations"
-                :date="page.eventSeries.startDate"
+                :start-date="page.eventSeries.startDate"
+                :end-date="page.eventSeries.endDate"
                 category="Event Series"
             />
 
@@ -101,9 +105,9 @@
                     :image="page.eventSeries.image[0].image[0]"
                     :title="page.eventSeries.title"
                     :locations="page.eventSeries.associatedLocations"
-                    :start-date="page.eventSeries.startDate"
                     category="Event Series"
                     :text="page.eventSeries.summary"
+                    :start-date="page.eventSeries.startDate"
                     :end-date="page.eventSeries.endDate"
                     :align-right="true"
                 />
@@ -183,7 +187,8 @@
                 :locations="page.exhibition.associatedLocations"
                 :to="parsedExhibitionBannerTo"
                 :banner-text="parsedExhibitionBannerPrompt"
-                :date="page.exhibition.startDate"
+                :start-date="page.exhibition.startDate"
+                :end-date="page.exhibition.endDate"
                 category="Event Series"
             />
 
@@ -287,7 +292,13 @@ export default {
             libcalEndpoint: this.libcalEndpointProxy,
         }
     },
-    async asyncData({ $graphql, params, $config, $elasticsearchplugin, error }) {
+    async asyncData({
+        $graphql,
+        params,
+        $config,
+        $elasticsearchplugin,
+        error,
+    }) {
         // console.log("In fetch start")
         const navData = await $graphql.default.request(HEADER_MAIN_MENU_ITEMS)
 
@@ -295,7 +306,7 @@ export default {
             slug: params.slug,
         })
         if (!data.event && !data.eventSeries && !data.exhibition) {
-            error({ statusCode: 404, message: 'Page not found' })
+            error({ statusCode: 404, message: "Page not found" })
         }
 
         if (data && (data.event || data.exhibition || data.eventSeries)) {
@@ -321,46 +332,52 @@ export default {
         if (this.page) {
             if (this.page.event) {
                 let title = this.page ? this.page.event.title : "... loading"
-                let metaDescription = removeTags(this.page.event.eventDescription )
+                let metaDescription = removeTags(
+                    this.page.event.eventDescription
+                )
 
                 return {
                     title: title,
                     meta: [
                         {
-                            hid: 'description',
-                            name: 'description',
-                            content: metaDescription
-                        }
+                            hid: "description",
+                            name: "description",
+                            content: metaDescription,
+                        },
                     ],
                 }
             }
             if (this.page.eventSeries) {
-                let title = this.page ? this.page.eventSeries.title : "... loading"
+                let title = this.page
+                    ? this.page.eventSeries.title
+                    : "... loading"
                 let metaDescription = removeTags(this.page.eventSeries.summary)
 
                 return {
                     title: title,
                     meta: [
                         {
-                            hid: 'description',
-                            name: 'description',
-                            content: metaDescription
-                        }
+                            hid: "description",
+                            name: "description",
+                            content: metaDescription,
+                        },
                     ],
                 }
             }
             if (this.page.exhibition) {
-                let title = this.page ? this.page.exhibition.title : "... loading"
+                let title = this.page
+                    ? this.page.exhibition.title
+                    : "... loading"
                 let metaDescription = removeTags(this.page.exhibition.summary)
 
                 return {
                     title: title,
                     meta: [
                         {
-                            hid: 'description',
-                            name: 'description',
-                            content: metaDescription
-                        }
+                            hid: "description",
+                            name: "description",
+                            content: metaDescription,
+                        },
                     ],
                 }
             }

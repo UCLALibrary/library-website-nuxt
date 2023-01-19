@@ -9,7 +9,6 @@ query ArticleNewsDetail($slug: [String!]) {
             slug
             uri
             sectionHandle
-            articleType
             title
             text: summary
             dateCreated

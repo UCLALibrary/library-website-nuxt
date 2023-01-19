@@ -101,7 +101,8 @@
                 :title="page.workshopSeries.title"
                 :text="page.workshopSeries.summary"
                 :locations="page.workshopSeries.associatedLocations"
-                :date="page.workshopSeries.date[0].startDate"
+                :start-date="page.workshopSeries.startDate"
+                :end-date="page.workshopSeries.endDate"
                 category="Workshop Series"
             />
 
@@ -113,10 +114,10 @@
                     :image="page.workshopSeries.image[0].image[0]"
                     :title="page.workshopSeries.title"
                     :locations="page.workshopSeries.associatedLocations"
-                    :start-date="page.workshopSeries.date[0].startDate"
                     category="Workshop Series"
                     :text="page.workshopSeries.summary"
-                    :end-date="page.workshopSeries.date[0].endDate"
+                    :start-date="page.workshopSeries.startDate"
+                    :end-date="page.workshopSeries.endDate"
                     :align-right="true"
                 />
 
@@ -191,10 +192,8 @@
 // HELPERS
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
-
 // GQL
 import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceOrResourceOrWorkshopDetail"
-
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
@@ -208,7 +207,7 @@ export default {
             }
         )
         if (!data.serviceOrResource && !data.workshopSeries) {
-            error({ statusCode: 404, message: 'Page not found' })
+            error({ statusCode: 404, message: "Page not found" })
         }
         if (data) {
             console.log(
@@ -235,32 +234,38 @@ export default {
     head() {
         if (this.page) {
             if (this.page.serviceOrResource) {
-                let title = this.page ? this.page.serviceOrResource.title : "... loading"
-                let metaDescription = removeTags(this.page.serviceOrResource.text)
-
+                let title = this.page
+                    ? this.page.serviceOrResource.title
+                    : "... loading"
+                let metaDescription = removeTags(
+                    this.page.serviceOrResource.text
+                )
                 return {
                     title: title,
                     meta: [
-                        { 
-                            hid: 'description',
-                            name: 'description',
-                            content: metaDescription
-                        }
+                        {
+                            hid: "description",
+                            name: "description",
+                            content: metaDescription,
+                        },
                     ],
                 }
             }
             if (this.page.workshopSeries) {
-                let title = this.page ? this.page.workshopSeries.title : "... loading"
-                let metaDescription = removeTags(this.page.workshopSeries.summary)
-
+                let title = this.page
+                    ? this.page.workshopSeries.title
+                    : "... loading"
+                let metaDescription = removeTags(
+                    this.page.workshopSeries.summary
+                )
                 return {
                     title: title,
                     meta: [
-                        { 
-                            hid: 'description',
-                            name: 'description',
-                            content: metaDescription
-                        }
+                        {
+                            hid: "description",
+                            name: "description",
+                            content: metaDescription,
+                        },
                     ],
                 }
             }
@@ -290,8 +295,8 @@ export default {
                     ...obj,
                     to: `/${obj.uri}`,
                     image: _get(obj, "image[0].image[0]", null),
-                    startDate: _get(obj, "date[0].startTime", null),
-                    endDate: _get(obj, "date[0].endTime", null),
+                    startDate: _get(obj, "startDateWithTime", null),
+                    endDate: _get(obj, "endDateWithTime", null),
                     category: _get(obj, "category.title", ""),
                 }
             })

@@ -132,7 +132,7 @@ export default {
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription
@@ -159,7 +159,7 @@ export default {
             return this.associatedArticles.map((obj) => {
                 return {
                     ...obj,
-                    to: `/about/${obj.articleType}/${obj.to}`,
+                    to: `/about/news/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", {}),
                     category: _get(obj, "category", ""),
                     title: _get(obj, "title", ""),
