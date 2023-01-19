@@ -11,6 +11,8 @@ jobs:
     name: Percy - Nuxt Site
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      DEPLOY_URL: https://uclalibrary.github.io/library-website-nuxt/${{github.ref_name}}
     steps:
     - uses: actions/checkout@v3
     - uses: ./.github/workflows/setup-workspace
@@ -30,8 +32,17 @@ jobs:
         ESApiKey: ${{ secrets.ESApiKey }}
     - uses: cypress-io/github-action@v3
       with:
-        start: npx http-server ./dist -p 3000
         command-prefix: 'percy exec -- npx'
-        wait-on: http://localhost:3000
+        wait-on:  ${{ env.DEPLOY_URL }}
       env: 
+        CYPRESS_baseUrl: ${{ env.DEPLOY_URL }}
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_E2E }}
+          CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+          LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+          S3_BUCKET: "https://static.library.ucla.edu/"
+          SITEMAP_HOST: "https://uclalibrary-test.library.ucla.edu"
+          ES_URL: ${{ secrets.ES_URL }}
+          ESApiKey: ${{ secrets.ESApiKey }}
+          ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
+          ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
+          ES_INDEX: ${{ secrets.ES_INDEX_TEST }}

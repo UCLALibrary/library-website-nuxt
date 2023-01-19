@@ -40,72 +40,104 @@ jobs:
             2. Click the 'Run workflow' button in the blue bar. 
             3. Select the correct branch for this PR and click 'Run workflow' again to confirm.
 
-  nuxt:
-    name: Nuxt build / Cypress tests / Netlify deploy
+  deploy-github:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      DEPLOY_PATH: ${{github.ref_name}}
+      DEPLOY_URL: https://uclalibrary.github.io/library-website-nuxt/${{github.ref_name}}
+    outputs:
+      deploy_url: ${{ env.DEPLOY_URL }}
     steps:
-    - uses: actions/checkout@v3
-    - uses: ./.github/workflows/setup-workspace
-    - name: Cache built static site
-      uses: actions/cache@v3
-      with:
-        path: ./dist
-        key: nuxt-site-${{ github.sha }}
-    - run: npm run generate
-      env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
-        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
-        S3_BUCKET: "https://static.library.ucla.edu/"
-        SITEMAP_HOST: "https://uclalibrary-test.library.ucla.edu"
-        ES_URL: ${{ secrets.ES_URL }}
-        ESApiKey: ${{ secrets.ESApiKey }}
-        ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
-        ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
-        ES_INDEX: ${{ secrets.ES_INDEX_TEST }}
-        ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_TEST }}
-    - name: Deploy to Netlify (preview)
-      if: github.ref_name!='main'
-      uses: nwtgck/actions-netlify@v2 #
-      with:
-        production-deploy: false
-        deploy-message: https://github.com/UCLALibrary/library-website-nuxt/pull/${{ github.event.pull_request.number }}
-        alias: deploy-preview-${{ github.event.pull_request.number }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        overwrites-pull-request-comment: true
-        publish-dir: './dist'
-        fails-without-credentials: true
-        github-deployment-environment: ${{ github.event_name }}-${{ github.event.number }}
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-    - uses: cypress-io/github-action@v3
-      with:
-        start: npx http-server ./dist -p 3000
-        command-prefix: 'npx'
-        wait-on: http://localhost:3000
-      env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
-        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
-        S3_BUCKET: "https://static.library.ucla.edu/"
-        SITEMAP_HOST: "https://uclalibrary-test.library.ucla.edu"
-        ES_URL: ${{ secrets.ES_URL }}
-        ESApiKey: ${{ secrets.ESApiKey }}
-        ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
-        ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
-        ES_INDEX: ${{ secrets.ES_INDEX_TEST }}
-        ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_TEST }}
-    - name: Deploy to Netlify (merged)
-      if: github.ref_name=='main'
-      uses: nwtgck/actions-netlify@v2 #
-      with:
-        production-deploy: true
-        deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        publish-dir: './dist'
-        fails-without-credentials: true
-        github-deployment-environment: production
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-    
+      - name: Comment on PR
+        if: github.ref != 'refs/heads/main'
+        uses: hasura/comment-progress@v2.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ github.event.number }}
+          id: deploy-preview
+          message: "Starting deployment of preview ⏳..."
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup-workspace
+      - run: npm run generate
+        env:
+          CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+          LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+          S3_BUCKET: "https://static.library.ucla.edu/"
+          SITEMAP_HOST: "https://uclalibrary-test.library.ucla.edu"
+          ES_URL: ${{ secrets.ES_URL }}
+          ESApiKey: ${{ secrets.ESApiKey }}
+          ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
+          ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
+          ES_INDEX: ${{ secrets.ES_INDEX_TEST }}
+          ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_TEST }}
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          destination_dir: ${{ env.DEPLOY_PATH }}
+      - name: Update comment
+        uses: hasura/comment-progress@v2.2.0
+        if: github.ref != 'refs/heads/main'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ github.event.number }}
+          id: deploy-preview
+          message: "A preview of ${{ github.event.after }} is uploaded and can be seen here:\n\n ✨ ${{ env.DEPLOY_URL }} ✨\n\nChanges may take a few minutes to propagate. The source is here: https://github.com/${{ github.repository }}/tree/gh-pages/${{ env.PR_PATH }}/"
+          nuxt:
+      - name: Deploy to Netlify (preview)
+        if: github.ref_name!='main'
+        uses: nwtgck/actions-netlify@v2 #
+        with:
+          production-deploy: false
+          deploy-message: https://github.com/UCLALibrary/library-website-nuxt/pull/${{ github.event.pull_request.number }}
+          alias: deploy-preview-${{ github.event.pull_request.number }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          overwrites-pull-request-comment: true
+          publish-dir: './dist'
+          fails-without-credentials: true
+          github-deployment-environment: ${{ github.event_name }}-${{ github.event.number }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Deploy to Netlify (merged)
+        if: github.ref_name=='main'
+        uses: nwtgck/actions-netlify@v2 #
+        with:
+          production-deploy: true
+          deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          publish-dir: './dist'
+          fails-without-credentials: true
+          github-deployment-environment: production
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+  cypress:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      DEPLOY_URL: ${{ needs.deploy.outputs.deploy_url}}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup-workspace
+      - uses: cypress-io/github-action@v3
+        with:
+          command-prefix: 'npx'
+          wait-on: ${{ env.DEPLOY_URL }}
+        env:
+          CYPRESS_baseUrl: ${{ env.DEPLOY_URL }}
+          CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+          LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+          S3_BUCKET: "https://static.library.ucla.edu/"
+          SITEMAP_HOST: "https://uclalibrary-test.library.ucla.edu"
+          ES_URL: ${{ secrets.ES_URL }}
+          ESApiKey: ${{ secrets.ESApiKey }}
+          ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
+          ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
+          ES_INDEX: ${{ secrets.ES_INDEX_TEST }}

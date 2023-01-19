@@ -11,16 +11,14 @@ describe("Website Homepage", () => {
             .should("have.attr", "href", "https://www.ucla.edu")
 
         // NavSecondary
-        cy.get(".nav-secondary")
-            .should("contain", "Locations & Hours")
-            .and("contain", "Ask Us")
-            .and("contain", "My Account")
+        cy.contains("Locations & Hours")
+        cy.contains("Ask a Librarian")
+        cy.contains("My Account")
 
         // NavPrimary
-        cy.get(".nav-primary")
-            .should("contain", "Get help with...")
-            .and("contain", "Visit")
-            .and("contain", "About")
+        cy.contains("Get help with...")
+        cy.contains("Visit")
+        cy.contains("About")
 
         // MastheadPrimary
         cy.get(".masthead-primary").find(".logo").should("be.visible")
