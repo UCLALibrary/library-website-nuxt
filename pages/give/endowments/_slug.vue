@@ -12,6 +12,8 @@
         <banner-text
             :title="page.title"
             :text="page.text"
+            :alternative-full-name="(page.alternativeName && page.alternativeName[0] && page.alternativeName[0].fullName) || ''"
+            :language="(page.alternativeName && page.alternativeName[0] && page.alternativeName[0].languageAltName) || ''"
             button-text="Give Now"
             :to="page.to"
         />
