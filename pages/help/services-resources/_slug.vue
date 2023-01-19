@@ -320,7 +320,7 @@ export default {
                     ...obj,
                     to: `/${obj.to}`,
                     image: _get(obj, "image[0].image[0]", null),
-                    category: "Event Series",
+                    // category: "Event Series",
                 }
             })
         },
