@@ -23,9 +23,6 @@
             <divider-way-finder />
         </section-wrapper>
 
-        <h3>PAGE -- {{ parsedPages }}</h3>
-        <h3>summaryData -- {{ summaryData }}</h3>
-
         <div v-if="$fetchState.pending">
             <p>.....Its Loading</p>
         </div>
