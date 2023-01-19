@@ -5,7 +5,7 @@
  */
 
 function removeTags(str) {
-    if(str){
+    if(str.length > 0 ){
         let stripHtml = str.replace( /(<([^>]+)>)/ig, '')
         let removeQuotes = stripHtml.replace(/"/ig, '')
         return removeQuotes
