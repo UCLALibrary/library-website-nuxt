@@ -1,5 +1,10 @@
 /* eslint-env node */
 export default {
+    generate: {
+        exclude: [
+            ['/about/jobs','/about/jobs/staff-academic-jobs','/about/news','/about/policies','/about/programs','/about/student-opportunities','/collections','/collections/access','/collections/explore','/give','/give/endowments','/help','/help/services-resources','/impact/year','/impact/all','/impact','/visit','/visit/events-exhibitions','/visit/locations']
+        ]
+    },
     server: {
         port: 3000,
         host: "0.0.0.0",

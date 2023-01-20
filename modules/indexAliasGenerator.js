@@ -19,13 +19,17 @@ export default function () {
             },
             method: 'PUT'
         })
-        const data = await response.json()
-        this.options.tempIndex = esIndex
-        this.nuxt.options.publicRuntimeConfig['esTempIndex'] = esIndex
+        const body = await response.text()
+        try {
+            let testJson =  JSON.parse(body)
+            this.options.tempIndex = esIndex
+            this.nuxt.options.publicRuntimeConfig['esTempIndex'] = esIndex
 
-        console.log("Index created:"+JSON.stringify(data))
-        
-      
-
+            console.log("Index created:"+JSON.stringify(testJson))
+        } catch (err) {
+            console.error("Error:", err)
+            console.error("Response body:", body)
+            throw err
+        }
     })
 }

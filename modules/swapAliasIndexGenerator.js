@@ -14,6 +14,12 @@ export default function () {
             body: JSON.stringify({
                 "actions": [
                     {
+                        "remove": {
+                            "index": "*",
+                            "alias": this.nuxt.options.publicRuntimeConfig.esIndex
+                        }
+                    },
+                    {
                         "add": {
                             "index": this.nuxt.options.publicRuntimeConfig.esTempIndex,
                             "alias": this.nuxt.options.publicRuntimeConfig.esIndex
@@ -22,8 +28,15 @@ export default function () {
                 ]
             }),
         })
-        const data = await response.json()
-        console.log("Alias swaped:"+JSON.stringify(data))
+        const body = await response.text()
+        try {
+                let testJson = JSON.parse(body)
+
+                console.log("Alias updated :"+JSON.stringify(testJson))
+        } catch (err) {
+            console.error("Error:", err)
+            console.error("Response body:", body)
+            throw err
+        }
     })
-   
 }

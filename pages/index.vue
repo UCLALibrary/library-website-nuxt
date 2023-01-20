@@ -48,7 +48,6 @@
                 :locations="bannerFeaturedEvent.associatedLocations"
                 :align-right="false"
                 :category="bannerFeaturedEvent.category"
-                :section-handle="bannerFeaturedEvent.sectionHandle"
             >
                 <heading-arrow text="Featured Events &amp; Exhibitions" />
             </banner-featured>
@@ -75,7 +74,6 @@
                 :description="bannerFeaturedCollection.description"
                 :category="bannerFeaturedCollection.category"
                 :prompt="bannerFeaturedCollection.prompt"
-                :section-handle="bannerFeaturedCollection.sectionHandle"
                 :align-right="true"
             >
                 <heading-arrow text="Featured Collections" />
@@ -109,7 +107,6 @@
                 :category="bannerFeaturedNews.category"
                 :start-date="bannerFeaturedNews.startDate"
                 :end-date="bannerFeaturedNews.endDate"
-                :section-handle="bannerFeaturedNews.sectionHandle"
                 :align-right="false"
             >
                 <heading-arrow text="Featured News" />
@@ -139,7 +136,23 @@ import _get from "lodash/get"
 import HOMEPAGE from "~/gql/queries/Homepage"
 
 export default {
-    async asyncData({ $graphql }) {
+    async asyncData({ $graphql, $config }) {
+        /*const timeElapsed = Date.now()
+        const now = new Date(timeElapsed)
+        let esIndex = `${$config.esIndexPrefix}${now
+            .toISOString()
+            .toLowerCase()
+            .replaceAll(":", "-")}`
+        console.log("Index named:" + esIndex)
+        const response = await fetch(`${$config.esURL}/${esIndex}`, {
+            headers: {
+                Authorization: `ApiKey ${$config.esWriteKey}`,
+                "Content-Type": "application/json",
+            },
+            method: "PUT",
+        })*/
+        /*const esData = await response.json()
+        console.log(JSON.stringify(esData))*/
         const data = await $graphql.default.request(HOMEPAGE, {})
         return {
             page: _get(data, "entry", {}),
@@ -284,9 +297,7 @@ export default {
             return newsList.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.externalResourceUrl != null
-                        ? _get(obj, "externalResourceUrl", "")
-                        : `/${obj.uri}`,
+                    to: `/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", ""),
                     category: _get(obj, "articleCategories[0].title", ""),
                     startDate: _get(obj, "postDate", ""),

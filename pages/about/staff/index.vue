@@ -147,7 +147,11 @@ export default {
                         JSON.parse(this.$route.query.filters)) ||
                     {},
             },
-            tableHeaders: ["Academic Departments", "Name", "Contact Information"]
+            tableHeaders: [
+                "Academic Departments",
+                "Name",
+                "Contact Information",
+            ],
         }
     },
     fetchOnServer: false,
@@ -259,7 +263,7 @@ export default {
                             groupBySubjectAreas.push({
                                 subjectArea: title,
                                 ...item,
-                                staffName: 
+                                staffName:
                                     item.alternativeName.length > 0
                                         ? `${item.nameFirst} ${item.nameLast} ${item.alternativeName[0].fullName}`
                                         : `${item.nameFirst} ${item.nameLast}`,
@@ -288,16 +292,6 @@ export default {
                         obj.alternativeName.length > 0
                             ? `${obj.nameFirst} ${obj.nameLast} ${obj.alternativeName[0].fullName}`
                             : `${obj.nameFirst} ${obj.nameLast}`,
-                    language: _get(
-                        obj,
-                        "alternativeName[0].languageAltName",
-                        null
-                    ),
-                    alternativeFullName: _get(
-                        obj,
-                        "alternativeName[0].fullName",
-                        null
-                    ),
                 }
             })
         },
