@@ -245,6 +245,7 @@ export default {
         @include step-1;
         color: var(--color-primary-blue-03);
         margin-bottom: 12px;
+        margin-left: 0;
     }
 
     .catalog-link {
