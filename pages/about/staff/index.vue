@@ -292,6 +292,16 @@ export default {
                         obj.alternativeName.length > 0
                             ? `${obj.nameFirst} ${obj.nameLast} ${obj.alternativeName[0].fullName}`
                             : `${obj.nameFirst} ${obj.nameLast}`,
+                    language: _get(
+                        obj,
+                        "alternativeName[0].languageAltName",
+                        null
+                    ),
+                    alternativeFullName: _get(
+                        obj,
+                        "alternativeName[0].fullName",
+                        null
+                    ),
                 }
             })
         },
@@ -346,6 +356,14 @@ export default {
                     ...obj["_source"],
                     to: `/${obj["_source"].uri}`,
                     image: _get(obj["_source"]["image"], "[0]", null),
+                    alternativeFullName:
+                        obj["_source"].alternativeName.length > 0
+                            ? obj["_source"].alternativeName[0].fullName
+                            : null,
+                    language:
+                        obj["_source"].alternativeName.length > 0
+                            ? obj["_source"].alternativeName[0].languageAltName
+                            : null,
                     staffName:
                         obj["_source"].alternativeName.length > 0
                             ? `${obj["_source"].nameFirst} ${obj["_source"].nameLast} ${obj["_source"].alternativeName[0].fullName}`

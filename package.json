@@ -22,6 +22,7 @@
     },
     "devDependencies": {
         "@nuxtjs/axios": "^5.13.6",
+        "@nuxtjs/html-validator": "^1.2.3",
         "@nuxtjs/router-extras": "^1.1.1",
         "@nuxtjs/style-resources": "^1.0.0",
         "@percy/cli": "^1.0.0-beta.67",
@@ -41,7 +42,7 @@
         "sass": "^1.45.2",
         "sass-loader": "^10.1.1",
         "ucla-library-design-tokens": "^5.4.1",
-        "ucla-library-website-components": "^2.26.4",
+        "ucla-library-website-components": "^2.27.2",
         "vue-svg-loader": "^0.16.0",
         "vue-template-compiler": "^2.6.12"
     }
