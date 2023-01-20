@@ -6,7 +6,7 @@
         <nav-breadcrumb
             to="/give/endowments"
             :title="page.title"
-            parent-title="Endowments"
+            parent-title="Collection Endowments"
         />
 
         <banner-text
@@ -39,6 +39,27 @@
                         :text="page.subjectAreas[0].title"
                         to="/give"
                     />
+                    <ul>
+                        <li>
+                            <icon-with-link
+                            v-if="page.associatedLocations[0]"
+                            class="associated-locations"
+                            icon-name="svg-icon-location"
+                            :text="page.associatedLocations[0].title"
+                            :to="page.associatedLocations[0].uri"
+                            />
+                        </li>
+                        <li>
+                            <icon-with-link
+                            v-if="page.associatedLocations[1]"
+                            class="associated-locations"
+                            icon-name="svg-icon-location"
+                            :text="page.associatedLocations[1].title"
+                            :to="page.associatedLocations[1].uri"
+                            />
+                        </li>
+                    </ul>
+                    
                     <rich-text
                         class="description-text"
                         :rich-text-content="page.endowmentDescription"
@@ -206,9 +227,17 @@ export default {
 
     .description {
         max-width: 596px;
+        display: flex;
+        flex-flow: column;
+        gap: 4px;
+
+        ul {
+            list-style: none;
+        }
 
         .description-text {
             padding-right: 0;
+            margin: 20px 0;
         }
     }
 
@@ -216,11 +245,6 @@ export default {
         @include step-1;
         color: var(--color-primary-blue-03);
         margin-bottom: 12px;
-    }
-
-    .subject-area,
-    .description-text {
-        margin-bottom: 20px;
     }
 
     .catalog-link {
