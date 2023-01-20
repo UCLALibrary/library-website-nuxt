@@ -340,13 +340,13 @@ export default {
         },
         mergeSortEventsExhibitions() {
             return this.parsedEvents.concat(this.parsedExhibtions)
-            // .sort((a, b) =>
-            //     a.startDate > b.startDate
-            //         ? -1
-            //         : b.startDate > a.startDate
-            //             ? 1
-            // //             : 0
-            // )
+            .sort((b, a) =>
+                a.startDate > b.startDate
+                    ? -1
+                    : b.startDate > a.startDate
+                        ? 1
+                        : 0
+            )
         },
     },
 }
