@@ -51,27 +51,6 @@
                         :text="page.subjectAreas[0].title"
                         to="/give"
                     />
-                    <!-- <ul>
-                        <li>
-                            <icon-with-link
-                            v-if="page.associatedLocations[0]"
-                            class="associated-locations"
-                            icon-name="svg-icon-location"
-                            :text="page.associatedLocations[0].title"
-                            :to="page.associatedLocations[0].uri"
-                            />
-                        </li>
-                        <li>
-                            <icon-with-link
-                            v-if="page.associatedLocations[1]"
-                            class="associated-locations"
-                            icon-name="svg-icon-location"
-                            :text="page.associatedLocations[1].title"
-                            :to="page.associatedLocations[1].uri"
-                            />
-                        </li>
-                    </ul> -->
-
                     <ul v-if="parsedAssociatedLocations.length > 0">
                         <li
                             v-for="(
