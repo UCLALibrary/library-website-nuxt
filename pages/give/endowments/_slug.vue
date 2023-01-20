@@ -12,8 +12,18 @@
         <banner-text
             :title="page.title"
             :text="page.text"
-            :alternative-full-name="(page.alternativeName && page.alternativeName[0] && page.alternativeName[0].fullName) || ''"
-            :language="(page.alternativeName && page.alternativeName[0] && page.alternativeName[0].languageAltName) || ''"
+            :alternative-full-name="
+                (page.alternativeName &&
+                    page.alternativeName[0] &&
+                    page.alternativeName[0].fullName) ||
+                    ''
+            "
+            :language="
+                (page.alternativeName &&
+                    page.alternativeName[0] &&
+                    page.alternativeName[0].languageAltName) ||
+                    ''
+            "
             button-text="Give Now"
             :to="page.to"
         />
@@ -41,7 +51,7 @@
                         :text="page.subjectAreas[0].title"
                         to="/give"
                     />
-                    <ul>
+                    <!-- <ul>
                         <li>
                             <icon-with-link
                             v-if="page.associatedLocations[0]"
@@ -60,9 +70,26 @@
                             :to="page.associatedLocations[1].uri"
                             />
                         </li>
+                    </ul> -->
+
+                    <ul v-if="parsedAssociatedLocations.length > 0">
+                        <li
+                            v-for="(
+                                location, index
+                            ) in parsedAssociatedLocations"
+                            :key="`AssociatedLocation${index}`"
+                        >
+                            <icon-with-link
+                                class="associated-locations"
+                                icon-name="svg-icon-location"
+                                :text="location.title"
+                                :to="location.to"
+                            />
+                        </li>
                     </ul>
-                    
+
                     <rich-text
+                        v-if="page.endowmentDescription"
                         class="description-text"
                         :rich-text-content="page.endowmentDescription"
                     />
@@ -183,11 +210,11 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
@@ -198,6 +225,14 @@ export default {
             } else {
                 return ""
             }
+        },
+        parsedAssociatedLocations() {
+            return this.page.associatedLocations.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                }
+            })
         },
         parsedImage() {
             return this.page.heroImage[0].image[0]
