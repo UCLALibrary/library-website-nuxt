@@ -188,6 +188,7 @@ query EventDetail($slug: [String!]) {
                 format: "Y-m-d\\TH:i"
                 timezone: "America/Los_Angeles"
             )
+        ongoing
         image: heroImage {
             ... on heroImage_heroImage_BlockType {
                 image {

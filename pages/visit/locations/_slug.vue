@@ -322,6 +322,9 @@ export default {
                     startDate: _get(obj, "startDate", ""),
                     endDate: _get(obj, "endDate", ""),
                     category: "Exhibition",
+                    ongoing: obj.onging
+                        ? obj.ongoing === "true"
+                        : "",
                 }
             })
         },
@@ -339,14 +342,14 @@ export default {
             })
         },
         mergeSortEventsExhibitions() {
-            return this.parsedEvents.concat(this.parsedExhibtions)
-            .sort((b, a) =>
-                a.startDate > b.startDate
-                    ? -1
-                    : b.startDate > a.startDate
-                        ? 1
-                        : 0
-            )
+            return this.parsedExhibtions.concat(this.parsedEvents)
+            // .sort((b, a) =>
+            //     a.startDate > b.startDate
+            //         ? -1
+            //         : b.startDate > a.startDate
+            //             ? 1
+            //             : 0
+            // )
         },
     },
 }
