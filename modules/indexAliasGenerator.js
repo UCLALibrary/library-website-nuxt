@@ -1,7 +1,7 @@
 import fetch from "node-fetch"
 
 export default function () {
-    this.nuxt.hook("generate:before", async(generator, generatorOptions) => {
+    this.nuxt.hook("generate:before", async() => {
         // console.log(generator)
         // console.log(generatorOptions)
         // console.log("In generate before hook for generating a new ES index: "+ JSON.stringify(this.nuxt.options.publicRuntimeConfig))
