@@ -30,9 +30,9 @@ export default function () {
         })
         const body = await response.text()
         try {
-                let testJson = JSON.parse(body)
+            let testJson = JSON.parse(body)
 
-                console.log("Alias updated :"+JSON.stringify(testJson))
+            console.log("Alias updated :"+JSON.stringify(testJson))
         } catch (err) {
             console.error("Error:", err)
             console.error("Response body:", body)
