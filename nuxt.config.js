@@ -176,7 +176,6 @@ export default {
         "@/modules/sitemapRouteGenerator",
         "@/modules/indexAliasGenerator",
         "@/modules/swapAliasIndexGenerator",
-        "@nuxtjs/html-validator",
     ],
 
     /*

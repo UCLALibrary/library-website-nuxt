@@ -104,6 +104,7 @@ export default {
             page: {},
             news: [],
             hits: [],
+            title: "",
             searchFilters: [],
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
@@ -116,13 +117,20 @@ export default {
     },
     async fetch() {
         console.log("live preview  news index ")
-        this.page = {}
+
         this.news = []
         this.hits = []
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
             this.$route.query.filters
         ) {
+            if (!this.page.title) {
+                const data = await this.$graphql.default.request(ARTICLE_LIST)
+                console.log("data for masthead:" + data)
+
+                this.page["title"] = _get(data, "entry.title", "")
+                this.page["text"] = _get(data, "entry.text", "")
+            }
             let query_text = this.$route.query.q || "*"
 
             console.log("in router query in asyc data")
@@ -136,16 +144,16 @@ export default {
                 config.newsIndex.filters
             )
             console.log("getsearchdata method:" + JSON.stringify(results))
-            this.page = {}
+
             this.news = []
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
-                this.page = {}
+
                 this.news = []
             } else {
                 this.hits = []
-                this.page = {}
+
                 this.news = []
             }
             this.searchGenericQuery = {
