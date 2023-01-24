@@ -143,7 +143,7 @@
 
             <section-wrapper
                 v-if="associatedEvents.length"
-                section-title="Event(s) in the Series"
+                section-title="Events in the Series"
             >
                 <divider-general />
                 <section-teaser-list
