@@ -28,7 +28,7 @@
         </div>
         <div v-else>
             <section-wrapper
-                v-if="page.featuredNews.length"
+                v-if="page && page.featuredNews && page.featuredNews.length"
                 class="section-no-top-margin"
             >
                 <banner-featured
@@ -54,7 +54,10 @@
                 />
             </section-wrapper>
 
-            <section-wrapper theme="divider">
+            <section-wrapper
+                v-if="page && page.featuredNews && page.featuredNews.length"
+                theme="divider"
+            >
                 <divider-way-finder color="about" />
             </section-wrapper>
 
@@ -218,7 +221,7 @@ export default {
                             ? _get(obj, "externalResourceUrl", "")
                             : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
-                    staffName: `${obj.fullName}`,
+                    staffName: obj.fullName ? `${obj.fullName}` : null,
                     category: _get(obj, "articleCategories[0].title", null),
                 }
             })
@@ -281,14 +284,13 @@ export default {
                 // console.log(obj["_source"]["image"])
                 return {
                     ...obj["_source"],
+                    description: obj["_source"].text,
+                    date: obj["_source"].postDate,
+                    articleCategories: obj["_source"].category,
                     to: `/${obj["_source"].uri}`,
                     image: _get(obj["_source"], "heroImage[0].image[0]", null),
                     staffName: obj["_source"].fullName,
-                    category: _get(
-                        obj["_source"],
-                        "articleCategories[0].title",
-                        null
-                    ),
+                    category: _get(obj["_source"], "category[0].title", null),
                 }
             })
         },
