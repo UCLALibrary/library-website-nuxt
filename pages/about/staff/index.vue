@@ -11,13 +11,13 @@
 
         <!-- SearchGeneric
                 Filters by location, department, subject libarian -->
-        <!--search-generic
+        <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
-        /-->
+        />
 
         <section-wrapper theme="divider">
             <divider-way-finder />
@@ -67,31 +67,13 @@
                 />
 
                 <!-- ALL STAFF -->
-                <!--div v-if="page.entries">
-                    {{ parsedStaffList }}
-                </div-->
+
                 <section-staff-list
                     v-if="page.entries"
                     :items="parsedStaffList"
                 />
-                <div
-                    v-else-if="
-                        hits &&
-                            hits.length > 0 &&
-                            ((searchGenericQuery.queryFilters[
-                                'subjectLibrarian.keyword'
-                            ] &&
-                                searchGenericQuery.queryFilters[
-                                    'subjectLibrarian.keyword'
-                                ] === '') ||
-                                !searchGenericQuery.queryFilters[
-                                    'subjectLibrarian.keyword'
-                                ])
-                    "
-                >
-                    {{ parseHitsResults }}
-                </div>
-                <!--section-staff-list
+
+                <section-staff-list
                     v-else-if="
                         hits &&
                             hits.length > 0 &&
@@ -106,7 +88,7 @@
                                 ])
                     "
                     :items="parseHitsResults"
-                /-->
+                />
             </section-wrapper>
 
             <!-- SUBJECT LIBRARIANS -->
@@ -123,11 +105,11 @@
                 <h3 class="section-title subject-librarian">
                     Contact a Subject Librarian
                 </h3>
-                {{ groupByAcademicLibraries }}
-                <!--section-staff-subject-librarian
+
+                <section-staff-subject-librarian
                     :items="groupByAcademicLibraries"
                     :table-headers="tableHeaders"
-                /-->
+                />
             </section-wrapper>
         </div>
     </main>
