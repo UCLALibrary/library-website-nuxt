@@ -8,7 +8,7 @@ query JobOpportunitiesList {
       associatedTopics {
         title
         text: summary
-        to: uri
+        uri
         externalResourceUrl
         illustrationsResourcesAndServices
       }

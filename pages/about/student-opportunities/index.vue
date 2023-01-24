@@ -178,7 +178,7 @@ export default {
                     ...obj,
                     to: obj.externalResourceUrl
                         ? obj.externalResourceUrl
-                        : `/${obj.to}`,
+                        : `/${obj.uri}`,
                 }
             })
         }
