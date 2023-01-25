@@ -143,9 +143,8 @@
 
             <section-wrapper
                 v-if="associatedEvents.length"
-                section-title="Event(s) in the Series"
+                section-title="Workshops in this Series"
             >
-                <divider-general />
                 <section-teaser-list
                     :items="associatedEvents"
                     class="section section-list"
