@@ -25,6 +25,7 @@ query JobOpportunitiesList {
       }
       jobRequisitionNumber
       jobPostingURL
+      payRate
       department {
         title
       }

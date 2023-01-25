@@ -138,6 +138,7 @@ export default {
             return allStaffJobs.map((obj) => {
                 return {
                     ...obj,
+                    payRate: _get(obj, "payRate", null),
                     text: _get(obj, "text", ""),
                     associatedLocations: obj.associatedLocations.map((entry) => {
                         return {
