@@ -49,6 +49,13 @@ query EventDetail($slug: [String!]) {
                 }
             }
             requiresRegistration
+            libcalRegistrationOpened
+            libcalRegistrationClosed
+            libcalPhysicalSeats
+            libcalPhysicalSeatsTaken
+            libcalOnlineSeats
+            libcalOnlineSeatsTaken
+            libcalWaitlist
             onlineProvider: libcalEventOnlineProvider
             onlineJoinURL: onlineEventUrl
             eventTags {
