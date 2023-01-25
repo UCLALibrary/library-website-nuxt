@@ -1,13 +1,17 @@
+
+
 export default function ({ $config }, inject) {
+    const esIndex= $config.esTempIndex
     async function index(data, slug) {
+        console.log("elastic search plugin index function :"+esIndex)
         try{
         // eslint-disable-next-line no-undef
-            if (process.server && process.env.NODE_ENV !== "development" && data && slug) {
+            if (process.server && process.env.NODE_ENV !== "development" && data && slug && esIndex) {
                 console.log(
                     "this is the elasticsearch plugin" + JSON.stringify(data)
                 )
                 const response = await fetch(
-                    `${$config.esURL}/${$config.esIndex}/_doc/${slug}`,
+                    `${$config.esURL}/${esIndex}/_doc/${slug}`,
                     {
                         headers: {
                             Authorization: `ApiKey ${$config.esWriteKey}`,
@@ -17,14 +21,15 @@ export default function ({ $config }, inject) {
                         body: JSON.stringify(data),
                     }
                 )
-                console.log(response)
+                const json = await response.json()
+                console.log(json)
             } else {
                 console.log("not indexing anything")
             }
         }catch (e) {
-            console.error("skip indexing if connection time out issue during builds in the mean time: "+e.message)
-            console.log("skip indexing if connection time out issue during builds in the mean time: "+e.message)
-            // throw new Error("Elastic Search Indexing failed " + e) // TODO uncomment when cause is clear
+            console.error("skip indexing if connection times out  during builds in the mean time: "+e.message)
+            console.log("skip indexing if connection times out  during builds in the mean time: "+e.message)
+            throw new Error("Elastic Search Indexing failed " + e) // TODO uncomment when cause is clear
         }
     }
     inject("elasticsearchplugin", {

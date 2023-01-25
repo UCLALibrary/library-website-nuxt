@@ -10,12 +10,17 @@ export default function({$axios,$config}, inject){
         console.log("event html:"+html)
         var parser = new DOMParser()
         var doc = parser.parseFromString(html, "text/html")
-        let formId = doc.querySelector("input[name='fid']").getAttribute("value") 
-        console.log(formId) 
-        console.log(doc)
-        const formData = await fetchformData(formId)
-        console.log("form data in scarpe function is :"+JSON.stringify(formData))
-        return formData
+        if(doc.querySelector("input[name='fid']")){
+            let formId = doc.querySelector("input[name='fid']").getAttribute("value") 
+            console.log(formId) 
+            console.log(doc)
+            const formData = await fetchformData(formId)
+            console.log("form data in scarpe function is :"+JSON.stringify(formData))
+            return formData
+        }else {
+            console.log("there is no formid on the page")
+            return []
+        }
     }
 
     async function fetchformData(formId){

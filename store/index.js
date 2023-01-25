@@ -36,7 +36,7 @@ export const mutations = {
     },
     SET_FOOTER_SOCK(state, data) {
         state.footerSock = data
-    }
+    },
 }
 
 // DEFINE ACTIONS

@@ -13,6 +13,8 @@ export default {
         s3Bucket: process.env.S3_BUCKET,
         esReadKey: process.env.ES_READ_KEY || "",
         esIndex: process.env.ES_INDEX || "",
+        esIndexPrefix: process.env.ES_INDEX_PREFIX || "",
+        esTempIndex: "",
         esURL:process.env.ES_URL || "",
         libcalProxy: process.env.LIBCAL_ENDPOINT|| "https://proxy.calendar.library.ucla.edu/"
     },
@@ -86,6 +88,7 @@ export default {
      ** Nuxt generate configuration. Used when generating a static site.
      */
     generate: {
+        // exclude:[/^\/help/,/^\/visit/,/^\/collections/,/^\/give/,/^\/impact/],
         fallback: '404.html',
         interval: 500,
         concurrency: 10,
@@ -171,6 +174,8 @@ export default {
         "@nuxtjs/style-resources",
         "nuxt-graphql-request",
         "@/modules/sitemapRouteGenerator",
+        "@/modules/indexAliasGenerator",
+        "@/modules/swapAliasIndexGenerator",
     ],
 
     /*

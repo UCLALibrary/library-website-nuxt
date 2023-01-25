@@ -1,0 +1,42 @@
+import fetch from "node-fetch"
+
+export default function () {
+    this.nuxt.hook("generate:done", async() => {
+        console.log("In generate done hook swap alias")
+        console.log(this.nuxt.options.publicRuntimeConfig.esTempIndex)
+        console.log(this.nuxt.options.publicRuntimeConfig.esIndex)
+        const response = await fetch(`${this.nuxt.options.publicRuntimeConfig.esURL}/_aliases`, {
+            headers: {
+                'Authorization': `ApiKey ${this.nuxt.options.privateRuntimeConfig.esWriteKey}`,
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                "actions": [
+                    {
+                        "remove": {
+                            "index": "*",
+                            "alias": this.nuxt.options.publicRuntimeConfig.esIndex
+                        }
+                    },
+                    {
+                        "add": {
+                            "index": this.nuxt.options.publicRuntimeConfig.esTempIndex,
+                            "alias": this.nuxt.options.publicRuntimeConfig.esIndex
+                        }
+                    }
+                ]
+            }),
+        })
+        const body = await response.text()
+        try {
+            let testJson = JSON.parse(body)
+
+            console.log("Alias updated :"+JSON.stringify(testJson))
+        } catch (err) {
+            console.error("Error:", err)
+            console.error("Response body:", body)
+            throw err
+        }
+    })
+}

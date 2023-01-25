@@ -11,6 +11,7 @@ query ArticleNewsDetail($slug: [String!]) {
             sectionHandle
             title
             text: summary
+            externalResourceUrl
             dateCreated
             heroImage {
                 ... on heroImage_heroImage_BlockType {
