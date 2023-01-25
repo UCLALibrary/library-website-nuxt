@@ -53,7 +53,7 @@ export default {
             slug: params.slug,
         })
         if (!data.entry) {
-            error({ statusCode: 404, message: 'Page not found' })
+            error({ statusCode: 404, message: "Page not found" })
         }
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         // console.log("Data fetched: " + JSON.stringify(data))
@@ -69,11 +69,11 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
