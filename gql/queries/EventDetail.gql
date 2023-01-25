@@ -87,6 +87,7 @@ query EventDetail($slug: [String!]) {
                 format: "Y-m-d\\TH:i"
                 timezone: "America/Los_Angeles"
             )
+        ongoing
     }
     eventSeries: entry(section: "workshopOrEventSeries", slug: $slug) {
         id
@@ -110,6 +111,7 @@ query EventDetail($slug: [String!]) {
                     format: "Y-m-d\\TH:i"
                     timezone: "America/Los_Angeles"
                 )
+            ongoing
             associatedLocations {
                 ... on location_location_Entry {
                     id
@@ -188,6 +190,7 @@ query EventDetail($slug: [String!]) {
                 format: "Y-m-d\\TH:i"
                 timezone: "America/Los_Angeles"
             )
+        ongoing
         image: heroImage {
             ... on heroImage_heroImage_BlockType {
                 image {

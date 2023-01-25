@@ -127,8 +127,9 @@ query LocationDetail($slug: [String!]) {
     }
     associatedEvents: entries(
         section: "event"
-        relatedToEntries: { section: "location", slug: $slug }
+        orderBy: "startDateWithTime ASC"
         startDateWithTime: ">= now"
+        relatedToEntries: { section: "location", slug: $slug }
     ) {
         ... on event_event_Entry {
             id
