@@ -27,7 +27,7 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="page.featuredPrograms.length > 0"
+            v-if="page.featuredPrograms.length"
             class="section-no-top-margin"
         >
             <banner-featured
@@ -43,7 +43,7 @@
                 class="banner section-featured-banner"
             />
 
-            <divider-general />
+            <divider-general v-if="parsedSectionHighlight.length"/>
 
             <section-teaser-highlight
                 v-if="parsedSectionHighlight.length"

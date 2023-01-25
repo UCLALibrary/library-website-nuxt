@@ -154,7 +154,6 @@
             </section-wrapper>
 
             <section-wrapper section-title="Events in this Series">
-                <divider-general />
                 <section-teaser-list
                     v-if="associatedEvents"
                     :items="associatedEvents"
