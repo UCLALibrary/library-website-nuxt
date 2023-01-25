@@ -7,5 +7,6 @@ export default function () {
         )
 
         this.nuxt.options.sitemap.routes = [...routes]
+
     })
 }

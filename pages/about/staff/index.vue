@@ -29,6 +29,9 @@
 
         <div v-else-if="$fetchState.error">
             <p>There is an error</p>
+            <p>
+                {{ $fetchState.error }}
+            </p>
         </div>
 
         <div v-else>
@@ -64,10 +67,12 @@
                 />
 
                 <!-- ALL STAFF -->
+
                 <section-staff-list
                     v-if="page.entries"
                     :items="parsedStaffList"
                 />
+
                 <section-staff-list
                     v-else-if="
                         hits &&
@@ -106,15 +111,6 @@
                     :table-headers="tableHeaders"
                 />
             </section-wrapper>
-
-            <section-wrapper>
-                <divider-general />
-                <section-teaser-list
-                    v-if="associatedEvents"
-                    :items="associatedEvents"
-                    class="section section-list"
-                />
-            </section-wrapper>
         </div>
     </main>
 </template>
@@ -147,7 +143,11 @@ export default {
                         JSON.parse(this.$route.query.filters)) ||
                     {},
             },
-            tableHeaders: ["Academic Departments", "Name", "Contact Information"]
+            tableHeaders: [
+                "Academic Departments",
+                "Name",
+                "Contact Information",
+            ],
         }
     },
     fetchOnServer: false,
@@ -259,7 +259,7 @@ export default {
                             groupBySubjectAreas.push({
                                 subjectArea: title,
                                 ...item,
-                                staffName: 
+                                staffName:
                                     item.alternativeName.length > 0
                                         ? `${item.nameFirst} ${item.nameLast} ${item.alternativeName[0].fullName}`
                                         : `${item.nameFirst} ${item.nameLast}`,
@@ -352,6 +352,14 @@ export default {
                     ...obj["_source"],
                     to: `/${obj["_source"].uri}`,
                     image: _get(obj["_source"]["image"], "[0]", null),
+                    alternativeFullName:
+                        obj["_source"].alternativeName.length > 0
+                            ? obj["_source"].alternativeName[0].fullName
+                            : null,
+                    language:
+                        obj["_source"].alternativeName.length > 0
+                            ? obj["_source"].alternativeName[0].languageAltName
+                            : null,
                     staffName:
                         obj["_source"].alternativeName.length > 0
                             ? `${obj["_source"].nameFirst} ${obj["_source"].nameLast} ${obj["_source"].alternativeName[0].fullName}`
