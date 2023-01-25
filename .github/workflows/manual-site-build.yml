@@ -29,6 +29,7 @@ jobs:
           echo "ES_READ_KEY=${{secrets.ES_READ_KEY_TEST}}" >> $GITHUB_ENV
           echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_TEST}}" >> $GITHUB_ENV
           echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
+          echo "ES_INDEX_PREFIX=${{secrets.ES_INDEX_PREFIX_TEST}}" >> $GITHUB_ENV
         if: github.event.inputs.environment == 'test'
       - name: Sets env vars for stage
         run: |
@@ -38,6 +39,7 @@ jobs:
           echo "ES_READ_KEY=${{secrets.ES_READ_KEY_STAGE}}" >> $GITHUB_ENV
           echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_STAGE}}" >> $GITHUB_ENV
           echo "ES_INDEX=${{secrets.ES_INDEX_STAGE}}" >> $GITHUB_ENV
+          echo "ES_INDEX_PREFIX=${{secrets.ES_INDEX_PREFIX_STAGE}}" >> $GITHUB_ENV
         if: github.event.inputs.environment == 'stage'
       - name: Sets env vars for prod
         run: |
@@ -47,6 +49,7 @@ jobs:
           echo "ES_READ_KEY=${{secrets.ES_READ_KEY_PROD}}" >> $GITHUB_ENV
           echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_PROD}}" >> $GITHUB_ENV
           echo "ES_INDEX=${{secrets.ES_INDEX_PROD}}" >> $GITHUB_ENV
+          echo "ES_INDEX_PREFIX=${{secrets.ES_INDEX_PREFIX_PROD}}" >> $GITHUB_ENV
         if: github.event.inputs.environment == 'prod'
       - run: npm run generate
         env:
@@ -59,6 +62,7 @@ jobs:
           ES_READ_KEY: ${{env.ES_READ_KEY}}
           ES_WRITE_KEY: ${{env.ES_WRITE_KEY}}
           ES_INDEX: ${{env.ES_INDEX}}
+          ES_INDEX_PREFIX: ${{env.ES_INDEX_PREFIX}}
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2 #
         with:

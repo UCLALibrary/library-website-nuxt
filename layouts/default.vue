@@ -7,14 +7,17 @@
 
         <header-smart />
 
-        <section-wrapper class="section-alert" theme="divider">
+        <section-wrapper
+            class="section-alert"
+            theme="divider"
+        >
             <site-notification-alert
                 v-if="libraryAlert"
                 class="library-alert"
                 v-bind="libraryAlert"
             />
         </section-wrapper>
-        
+
         <nuxt class="page" />
         <footer>
             <footer-primary :form="true" />
@@ -40,8 +43,12 @@ export default {
     head: {
         titleTemplate: "%s | UCLA Library",
         script: [
-            { hid: "libanswers", src: "https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753", defer: true }
-        ]
+            {
+                hid: "libanswers",
+                src: "https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753",
+                defer: true,
+            },
+        ],
     },
     computed: {
         bodyClasses() {
@@ -59,7 +66,13 @@ export default {
         },
         libraryAlert() {
             var alert = this.$store.state.globals.libraryAlert
-            if ( alert && alert.title && alert.title.length > 0 && alert.text && alert.text.length > 0 ) {
+            if (
+                alert &&
+                alert.title &&
+                alert.title.length > 0 &&
+                alert.text &&
+                alert.text.length > 0
+            ) {
                 return alert
             } else {
                 return null
@@ -130,7 +143,6 @@ export default {
             top: 32px;
             right: var(--unit-gutter);
         }
-
     }
 
     flex: 1 1 auto;

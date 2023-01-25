@@ -63,6 +63,7 @@ jobs:
         ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
         ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
         ES_INDEX: ${{ secrets.ES_INDEX_TEST }}
+        ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_TEST }}
     - name: Deploy to Netlify (preview)
       if: github.ref_name!='main'
       uses: nwtgck/actions-netlify@v2 #
@@ -93,6 +94,7 @@ jobs:
         ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
         ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
         ES_INDEX: ${{ secrets.ES_INDEX_TEST }}
+        ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_TEST }}
     - name: Deploy to Netlify (merged)
       if: github.ref_name=='main'
       uses: nwtgck/actions-netlify@v2 #
