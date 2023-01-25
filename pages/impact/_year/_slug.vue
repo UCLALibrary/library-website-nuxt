@@ -35,7 +35,6 @@
             class="content"
             :blocks="page.blocks"
         />
-        {{ page.blocks }}
     </main>
 </template>
 
