@@ -75,7 +75,7 @@
                         <li>
                             <a
                                 href="/help/services-resources/ask-us"
-                            >Ask a Librarian</a>
+                            >Ask Us</a>
                         </li>
                         <li>
                             <a
