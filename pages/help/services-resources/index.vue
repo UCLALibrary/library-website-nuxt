@@ -196,15 +196,15 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
-    fetchOnServer: false,
+    fetchOnServer: true,
     // multiple components can return the same `fetchKey` and Nuxt will track them both separately
     fetchKey: "services-resources-workshops",
     computed: {

@@ -371,7 +371,7 @@ export default {
             })
         },
     },
-    fetchOnServer: false,
+    fetchOnServer: true,
     // multiple components can return the same `fetchKey` and Nuxt will track them both separately
     fetchKey: "news-index",
 }
