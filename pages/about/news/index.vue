@@ -32,7 +32,8 @@
                     page &&
                         page.featuredNews &&
                         page.featuredNews.length &&
-                        hits.length == 0
+                        hits.length == 0 &&
+                        !noResultsFound
                 "
                 class="section-no-top-margin"
             >
@@ -64,7 +65,8 @@
                     page &&
                         page.featuredNews &&
                         page.featuredNews.length &&
-                        hits.length == 0
+                        hits.length == 0 &&
+                        !noResultsFound
                 "
                 theme="divider"
             >
@@ -80,6 +82,9 @@
                     v-else-if="hits && hits.length > 0"
                     :items="parseHitsResults"
                 />
+                <div v-else>
+                    No Results found
+                </div>
             </section-wrapper>
         </div>
         <section-wrapper theme="divider">
@@ -109,12 +114,23 @@ import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
 
 export default {
+    async asyncData({ $graphql }) {
+        console.log("Asysncdata Hook  news list")
+        const data = await $graphql.default.request(ARTICLE_LIST)
+        // console.log("data:" + data)
+
+        return {
+            page: _get(data, "entry", {}),
+            news: _get(data, "entries", []),
+        }
+    },
     data() {
         return {
             page: {},
             news: [],
             hits: [],
             title: "",
+            noResultsFound: false,
             searchFilters: [],
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
@@ -126,7 +142,7 @@ export default {
         }
     },
     async fetch() {
-        console.log("live preview  news index ")
+        console.log("Fetch hook  news index ")
 
         this.news = []
         this.hits = []
@@ -160,9 +176,10 @@ export default {
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
-
+                this.noResultsFound = false
                 this.news = []
             } else {
+                this.noResultsFound = true
                 this.hits = []
 
                 this.news = []
@@ -176,6 +193,7 @@ export default {
             }
         } else {
             this.hits = []
+            this.noResultsFound = false
             // if route queries are empty fetch data from craft
             const data = await this.$graphql.default.request(ARTICLE_LIST)
             // console.log("data:" + data)
@@ -371,7 +389,7 @@ export default {
             })
         },
     },
-    fetchOnServer: true,
+    fetchOnServer: false,
     // multiple components can return the same `fetchKey` and Nuxt will track them both separately
     fetchKey: "news-index",
 }

@@ -63,9 +63,9 @@
                 />
             </section-wrapper>
 
-            <h4 v-else>
+            <div v-else>
                 No results found
-            </h4>
+            </div>
         </div>
 
         <section-wrapper
@@ -105,6 +105,9 @@ import config from "~/utils/searchConfig"
 
 export default {
     async asyncData({ $graphql, $elasticsearchplugin }) {
+        console.log(
+            "In asyncdata hook  servicesorresourcesorworskhoporhelptopic list"
+        )
         const serverData = await $graphql.default.request(
             SERVICE_RESOURCE_WORKSHOPSERIES_LIST
         )
@@ -127,7 +130,18 @@ export default {
                 )
             }
         }
+        let pageAsyncData = await $graphql.default.request(
+            SERVICE_RESOURCE_WORKSHOPSERIES_LIST
+        )
+        let helpTopicAsyncData = await $graphql.default.request(HELP_TOPIC_LIST)
+
+        return {
+            page: pageAsyncData,
+            helpTopic: helpTopicAsyncData,
+            summaryData: _get(pageAsyncData, "entry", {}),
+        }
     },
+
     data() {
         return {
             page: {},
@@ -141,7 +155,7 @@ export default {
     },
     async fetch() {
         console.log(
-            "live preview  servicesorresourcesorworskhoporhelptopic list"
+            "In fetch hook  servicesorresourcesorworskhoporhelptopic list"
         )
         this.page = {}
         this.hits = []
@@ -204,7 +218,7 @@ export default {
             ],
         }
     },
-    fetchOnServer: true,
+    fetchOnServer: false,
     // multiple components can return the same `fetchKey` and Nuxt will track them both separately
     fetchKey: "services-resources-workshops",
     computed: {
