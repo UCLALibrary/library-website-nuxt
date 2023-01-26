@@ -88,7 +88,7 @@ export default {
      ** Nuxt generate configuration. Used when generating a static site.
      */
     generate: {
-        exclude:[/^\/help/,/^\/visit/,/^\/collections/,/^\/give/,/^\/impact/],
+        // exclude:[/^\/help/,/^\/visit/,/^\/collections/,/^\/give/,/^\/impact/],
         fallback: '404.html',
         interval: 500,
         concurrency: 10,

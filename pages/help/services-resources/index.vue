@@ -16,16 +16,7 @@
             @search-ready="getSearchData"
         />
 
-        <div v-if="$fetchState.pending">
-            <p>.....Its Loading</p>
-        </div>
-
-        <div v-else-if="$fetchState.error">
-            <p>There is an error</p>
-        </div>
-
-        <div v-else>
-            <!--h4 style="margin: 30px 400px">
+        <!--h4 style="margin: 30px 400px">
             No of hits
 
             {{ `from craft is ${parsedPages.length}` }}
@@ -39,33 +30,32 @@
             }}
         </h4-->
 
-            <section-wrapper theme="divider">
-                <divider-way-finder class="search-margin" />
-            </section-wrapper>
+        <section-wrapper theme="divider">
+            <divider-way-finder class="search-margin" />
+        </section-wrapper>
 
-            <section-wrapper
-                v-if="
-                    page.serviceOrResource ||
-                        page.workshopseries ||
-                        (hits && hits.length > 0)
-                "
-                class="section-no-top-margin"
-            >
-                <section-cards-with-illustrations
-                    v-if="page.serviceOrResource || page.workshopseries"
-                    :items="parsedServiceAndResourceList"
-                    :is-horizontal="true"
-                />
-                <section-cards-with-illustrations
-                    v-else-if="hits && hits.length > 0"
-                    :items="parseHitsResults"
-                    :is-horizontal="true"
-                />
-            </section-wrapper>
+        <section-wrapper
+            v-if="
+                page.serviceOrResource ||
+                    page.workshopseries ||
+                    (hits && hits.length > 0)
+            "
+            class="section-no-top-margin"
+        >
+            <section-cards-with-illustrations
+                v-if="page.serviceOrResource || page.workshopseries"
+                :items="parsedServiceAndResourceList"
+                :is-horizontal="true"
+            />
+            <section-cards-with-illustrations
+                v-else-if="hits && hits.length > 0"
+                :items="parseHitsResults"
+                :is-horizontal="true"
+            />
+        </section-wrapper>
 
-            <div v-else>
-                No results found
-            </div>
+        <div v-else>
+            No results found
         </div>
 
         <section-wrapper
