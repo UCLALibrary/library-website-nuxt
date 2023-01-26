@@ -111,6 +111,7 @@ export default {
                         obj.amenitiesIcons.length > 0
                             ? parseAmenities(obj)
                             : null,
+                    isUclaLibrary: true,
                 }
             })
         },
@@ -126,6 +127,7 @@ export default {
                         obj.amenitiesIcons.length !== 0
                             ? parseAmenities(obj)
                             : null,
+                    isUclaLibrary: false,
                 }
             })
         },
