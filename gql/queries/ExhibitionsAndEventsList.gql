@@ -35,6 +35,7 @@ query EventsExhibitionsList {
                         format: "Y-m-d\\TH:i"
                         timezone: "America/Los_Angeles"
                     )
+                ongoing
                 workshopOrEventSeriesType
                 typeHandle
                 associatedLocations {
@@ -111,6 +112,7 @@ query EventsExhibitionsList {
                 format: "Y-m-d\\TH:i:s"
                 timezone: "America/Los_Angeles"
             )
+        ongoing
         text: summary
         to: uri
         category: workshopOrEventSeriesType
@@ -137,6 +139,7 @@ query EventsExhibitionsList {
                 format: "Y-m-d\\TH:i:s"
                 timezone: "America/Los_Angeles"
             )
+        ongoing
         text: summary
         to: uri
         heroImage {

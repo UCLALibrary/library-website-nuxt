@@ -63,7 +63,7 @@
                 No positions available at this time
             </div>
         </section-wrapper>
-        <section-wrapper theme="divider" v-if="associatedTopics.length > 0">
+        <section-wrapper theme="divider" v-if="parsedAssociatedTopics.length > 0">
                 <divider-way-finder
                     class="divider"
                     color="about"
@@ -73,8 +73,8 @@
         <!-- ASSOCIATED TOPICS -->
         <section-wrapper>
             <section-cards-with-illustrations
-                v-if="associatedTopics.length > 0"
-                :items="associatedTopics"
+                v-if="parsedAssociatedTopics.length > 0"
+                :items="parsedAssociatedTopics"
                 section-title="Associated Topics"
             />
         </section-wrapper>
@@ -94,7 +94,7 @@ export default {
         const data = await $graphql.default.request(JOB_OPPORTUNITIES_LIST)
         return {
             page: _get(data, "entry", {}),
-            associatedTopics: _get(data, "entry.associatedTopics", {}),
+            //associatedTopics: _get(data, "entry.associatedTopics", {}),
             allJobs: _get(data, "allJobs", {}),
         }
     },
@@ -138,6 +138,7 @@ export default {
             return allStaffJobs.map((obj) => {
                 return {
                     ...obj,
+                    payRate: _get(obj, "payRate", null),
                     text: _get(obj, "text", ""),
                     associatedLocations: obj.associatedLocations.map((entry) => {
                         return {
@@ -149,10 +150,12 @@ export default {
             })
         },
         parsedAssociatedTopics() {
-            return this.associatedTopics.map((obj) => {
+            return this.page.associatedTopics.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.uri}`,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.uri}`,
                 }
             })
         }
