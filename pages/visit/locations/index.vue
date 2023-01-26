@@ -119,7 +119,9 @@ export default {
             return this.affiliateLibraries.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.uri ? `/${obj.uri}` : null,
+                    to: obj.affiliateLibraryUrl
+                        ? obj.affiliateLibraryUrl
+                        : null,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     address: parseAddress(obj)[0],
                     addressLink: `https://map.ucla.edu/?id=${obj.campusMapId}&e=true`,
