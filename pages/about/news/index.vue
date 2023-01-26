@@ -241,7 +241,8 @@ export default {
                             : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: obj.fullName ? `${obj.fullName}` : null,
-                    category: _get(obj, "articleCategories[0].title", null),
+                    // category: _get(obj, "articleCategories[0].title", null),
+                    category: this.parseArticleCategory(obj.articleCategories),
                 }
             })
         },
@@ -284,6 +285,14 @@ export default {
         this.setFilters()
     },
     methods: {
+        parseArticleCategory(categories) {
+            if (!categories || categories.length == 0) return ""
+            let result = ""
+            categories.forEach((obj) => {
+                result = result + obj.title + ", "
+            })
+            return result.slice(0, -2)
+        },
         queryFilterHasValues() {
             if (!this.$route.query.filters) return false
             let routeQueryFilters = JSON.parse(this.$route.query.filters)
@@ -342,7 +351,10 @@ export default {
                     to: `/${obj["_source"].uri}`,
                     image: _get(obj["_source"], "heroImage[0].image[0]", null),
                     staffName: obj["_source"].fullName,
-                    category: _get(obj["_source"], "category[0].title", null),
+                    //category: _get(obj["_source"], "category[0].title", null),
+                    category: this.parseArticleCategory(
+                        obj["_source"].category
+                    ),
                 }
             })
         },
