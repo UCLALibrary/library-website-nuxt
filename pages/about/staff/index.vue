@@ -130,7 +130,7 @@ import removeTags from "~/utils/removeTags"
 
 export default {
     async asyncData({ $graphql }) {
-        console.log("Asyncdata Hook  staff list")
+        console.warn("Asyncdata Hook  staff list")
         let data = await $graphql.default.request(STAFF_LIST)
         return {
             page: data,
@@ -162,7 +162,7 @@ export default {
     // multiple components can return the same `fetchKey` and Nuxt will track them both separately
     fetchKey: "staff-list",
     async fetch() {
-        console.log("Fetch Hook  staff list")
+        console.warn("Fetch Hook  staff list")
         this.page = {}
         this.hits = []
         /*console.log("test query parameters: " + this.$route.query.q)
