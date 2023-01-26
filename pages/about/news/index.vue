@@ -28,7 +28,12 @@
         </div>
         <div v-else>
             <section-wrapper
-                v-if="page && page.featuredNews && page.featuredNews.length"
+                v-if="
+                    page &&
+                        page.featuredNews &&
+                        page.featuredNews.length &&
+                        hits.length == 0
+                "
                 class="section-no-top-margin"
             >
                 <banner-featured
@@ -55,7 +60,12 @@
             </section-wrapper>
 
             <section-wrapper
-                v-if="page && page.featuredNews && page.featuredNews.length"
+                v-if="
+                    page &&
+                        page.featuredNews &&
+                        page.featuredNews.length &&
+                        hits.length == 0
+                "
                 theme="divider"
             >
                 <divider-way-finder color="about" />
@@ -120,9 +130,10 @@ export default {
 
         this.news = []
         this.hits = []
+        console.log("query filter has values:" + this.queryFilterHasValues())
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
-            this.$route.query.filters
+            (this.$route.query.filters && this.queryFilterHasValues())
         ) {
             if (!this.page.title) {
                 const data = await this.$graphql.default.request(ARTICLE_LIST)
@@ -230,7 +241,8 @@ export default {
                             : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: obj.fullName ? `${obj.fullName}` : null,
-                    category: _get(obj, "articleCategories[0].title", null),
+                    // category: _get(obj, "articleCategories[0].title", null),
+                    category: this.parseArticleCategory(obj.articleCategories),
                 }
             })
         },
@@ -273,6 +285,47 @@ export default {
         this.setFilters()
     },
     methods: {
+        parseArticleCategory(categories) {
+            if (!categories || categories.length == 0) return ""
+            let result = ""
+            categories.forEach((obj) => {
+                result = result + obj.title + ", "
+            })
+            return result.slice(0, -2)
+        },
+        queryFilterHasValues() {
+            if (!this.$route.query.filters) return false
+            let routeQueryFilters = JSON.parse(this.$route.query.filters)
+            console.log(
+                "is route query exixts:" + JSON.stringify(routeQueryFilters)
+            )
+            let configFilters = config.newsIndex.filters
+            for (const filter of configFilters) {
+                if (
+                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName].length > 0
+                ) {
+                    console.log(
+                        "why is this true is Array: " +
+                            routeQueryFilters[filter.esFieldName]
+                    )
+                    return true
+                } else if (
+                    routeQueryFilters[filter.esFieldName] &&
+                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName] != ""
+                ) {
+                    console.log(
+                        "why is this truenot Array: " +
+                            routeQueryFilters[filter.esFieldName] +
+                            "config filter name is " +
+                            filter.esFieldName
+                    )
+                    return true
+                }
+            }
+            return false
+        },
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.newsIndex.filters,
@@ -298,7 +351,10 @@ export default {
                     to: `/${obj["_source"].uri}`,
                     image: _get(obj["_source"], "heroImage[0].image[0]", null),
                     staffName: obj["_source"].fullName,
-                    category: _get(obj["_source"], "category[0].title", null),
+                    //category: _get(obj["_source"], "category[0].title", null),
+                    category: this.parseArticleCategory(
+                        obj["_source"].category
+                    ),
                 }
             })
         },
