@@ -23,19 +23,7 @@
             <divider-way-finder />
         </section-wrapper>
 
-        <div v-if="$fetchState.pending">
-            <p>.....Its Loading</p>
-        </div>
-
-        <div v-else-if="$fetchState.error">
-            <p>There is an error</p>
-            <p>
-                {{ $fetchState.error }}
-            </p>
-        </div>
-
-        <div v-else>
-            <!--h4 style="margin: 30px 400px">
+        <!--h4 style="margin: 30px 400px">
                 No of hits
 
                 {{ `from craft is ${parsedPages.length}` }}
@@ -49,10 +37,33 @@
                 }}
             </h4-->
 
-            <section-wrapper>
-                <alphabetical-browse-by
-                    v-if="
-                        (searchGenericQuery.queryFilters[
+        <section-wrapper>
+            <alphabetical-browse-by
+                v-if="
+                    (searchGenericQuery.queryFilters[
+                        'subjectLibrarian.keyword'
+                    ] &&
+                        searchGenericQuery.queryFilters[
+                            'subjectLibrarian.keyword'
+                        ] === '') ||
+                        !searchGenericQuery.queryFilters['subjectLibrarian.keyword']
+                "
+                :selected-letter-prop="selectedLetterProp"
+                @selectedLetter="searchBySelectedLetter"
+            />
+
+            <!-- ALL STAFF -->
+
+            <section-staff-list
+                v-if="page.entries"
+                :items="parsedStaffList"
+            />
+
+            <section-staff-list
+                v-else-if="
+                    hits &&
+                        hits.length > 0 &&
+                        ((searchGenericQuery.queryFilters[
                             'subjectLibrarian.keyword'
                         ] &&
                             searchGenericQuery.queryFilters[
@@ -60,58 +71,29 @@
                             ] === '') ||
                             !searchGenericQuery.queryFilters[
                                 'subjectLibrarian.keyword'
-                            ]
-                    "
-                    :selected-letter-prop="selectedLetterProp"
-                    @selectedLetter="searchBySelectedLetter"
-                />
-
-                <!-- ALL STAFF -->
-
-                <section-staff-list
-                    v-if="page.entries"
-                    :items="parsedStaffList"
-                />
-
-                <section-staff-list
-                    v-else-if="
-                        hits &&
-                            hits.length > 0 &&
-                            ((searchGenericQuery.queryFilters[
-                                'subjectLibrarian.keyword'
-                            ] &&
-                                searchGenericQuery.queryFilters[
-                                    'subjectLibrarian.keyword'
-                                ] === '') ||
-                                !searchGenericQuery.queryFilters[
-                                    'subjectLibrarian.keyword'
-                                ])
-                    "
-                    :items="parseHitsResults"
-                />
-            </section-wrapper>
-
-            <!-- SUBJECT LIBRARIANS -->
-            <section-wrapper
-                v-if="
-                    searchGenericQuery.queryFilters[
-                        'subjectLibrarian.keyword'
-                    ] &&
-                        searchGenericQuery.queryFilters[
-                            'subjectLibrarian.keyword'
-                        ] === 'yes'
+                            ])
                 "
-            >
-                <h3 class="section-title subject-librarian">
-                    Contact a Subject Librarian
-                </h3>
+                :items="parseHitsResults"
+            />
+        </section-wrapper>
 
-                <section-staff-subject-librarian
-                    :items="groupByAcademicLibraries"
-                    :table-headers="tableHeaders"
-                />
-            </section-wrapper>
-        </div>
+        <!-- SUBJECT LIBRARIANS -->
+        <section-wrapper
+            v-if="
+                searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
+                    searchGenericQuery.queryFilters['subjectLibrarian.keyword'] ===
+                    'yes'
+            "
+        >
+            <h3 class="section-title subject-librarian">
+                Contact a Subject Librarian
+            </h3>
+
+            <section-staff-subject-librarian
+                :items="groupByAcademicLibraries"
+                :table-headers="tableHeaders"
+            />
+        </section-wrapper>
     </main>
 </template>
 
@@ -129,6 +111,14 @@ import config from "~/utils/searchConfig"
 import removeTags from "~/utils/removeTags"
 
 export default {
+    async asyncData({ $graphql }) {
+        console.warn("Asyncdata Hook  staff list")
+        let data = await $graphql.default.request(STAFF_LIST)
+        return {
+            page: data,
+            summaryData: _get(data, "entry", {}),
+        }
+    },
     data() {
         return {
             page: {},
@@ -154,7 +144,7 @@ export default {
     // multiple components can return the same `fetchKey` and Nuxt will track them both separately
     fetchKey: "staff-list",
     async fetch() {
-        console.log("live preview  staff list")
+        console.warn("Fetch Hook  staff list")
         this.page = {}
         this.hits = []
         /*console.log("test query parameters: " + this.$route.query.q)

@@ -56,6 +56,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             typeHandle
             title
             summary
+            ongoing
             startDate
                 @formatDateTime(
                     format: "Y-m-d\\TH:i"
@@ -216,6 +217,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             }
         }
         to: uri
+        ongoing
         startDate
             @formatDateTime(
                 format: "Y-m-d\\TH:i"

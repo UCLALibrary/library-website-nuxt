@@ -20,58 +20,67 @@
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
-        <div v-if="$fetchState.pending">
-            <p>.....Its Loading</p>
-        </div>
-        <div v-else-if="$fetchState.error">
-            <p>There is an error</p>
-        </div>
-        <div v-else>
-            <section-wrapper
-                v-if="page && page.featuredNews && page.featuredNews.length"
-                class="section-no-top-margin"
-            >
-                <banner-featured
-                    :image="parsedBannerHeader.image"
-                    :title="parsedBannerHeader.title"
-                    breadcrumb="Featured"
-                    :byline="parsedByline"
-                    :locations="parsedBannerHeader.locations"
-                    :description="parsedBannerHeader.text"
-                    :date-created="parsedBannerHeader.dateCreated"
-                    :to="parsedBannerHeader.to"
-                    :align-right="true"
-                    prompt="Read More"
-                    class="banner section-featured-banner"
-                />
 
-                <divider-general v-if="parsedSectionHighlight.length" />
+        <section-wrapper
+            v-if="
+                page &&
+                    page.featuredNews &&
+                    page.featuredNews.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+            class="section-no-top-margin"
+        >
+            <banner-featured
+                :image="parsedBannerHeader.image"
+                :title="parsedBannerHeader.title"
+                breadcrumb="Featured"
+                :byline="parsedByline"
+                :locations="parsedBannerHeader.locations"
+                :description="parsedBannerHeader.text"
+                :date-created="parsedBannerHeader.dateCreated"
+                :to="parsedBannerHeader.to"
+                :align-right="true"
+                prompt="Read More"
+                class="banner section-featured-banner"
+            />
 
-                <section-teaser-highlight
-                    v-if="parsedSectionHighlight.length"
-                    class="section"
-                    :items="parsedSectionHighlight"
-                />
-            </section-wrapper>
+            <divider-general v-if="parsedSectionHighlight.length" />
 
-            <section-wrapper
-                v-if="page && page.featuredNews && page.featuredNews.length"
-                theme="divider"
-            >
-                <divider-way-finder color="about" />
-            </section-wrapper>
+            <section-teaser-highlight
+                v-if="parsedSectionHighlight.length"
+                class="section"
+                :items="parsedSectionHighlight"
+            />
+        </section-wrapper>
 
-            <section-wrapper section-title="All News">
-                <section-staff-article-list
-                    v-if="news && news.length > 0"
-                    :items="parsedNewsList"
-                />
-                <section-staff-article-list
-                    v-else-if="hits && hits.length > 0"
-                    :items="parseHitsResults"
-                />
-            </section-wrapper>
-        </div>
+        <section-wrapper
+            v-if="
+                page &&
+                    page.featuredNews &&
+                    page.featuredNews.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+            theme="divider"
+        >
+            <divider-way-finder color="about" />
+        </section-wrapper>
+
+        <section-wrapper section-title="All News">
+            <section-staff-article-list
+                v-if="news && news.length > 0"
+                :items="parsedNewsList"
+            />
+            <section-staff-article-list
+                v-else-if="hits && hits.length > 0"
+                :items="parseHitsResults"
+            />
+            <div v-else>
+                No Results found
+            </div>
+        </section-wrapper>
+
         <section-wrapper theme="divider">
             <divider-way-finder color="about" />
         </section-wrapper>
@@ -99,12 +108,23 @@ import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
 
 export default {
+    async asyncData({ $graphql }) {
+        console.log("Asysncdata Hook  news list")
+        const data = await $graphql.default.request(ARTICLE_LIST)
+        // console.log("data:" + data)
+
+        return {
+            page: _get(data, "entry", {}),
+            news: _get(data, "entries", []),
+        }
+    },
     data() {
         return {
             page: {},
             news: [],
             hits: [],
             title: "",
+            noResultsFound: false,
             searchFilters: [],
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
@@ -116,13 +136,14 @@ export default {
         }
     },
     async fetch() {
-        console.log("live preview  news index ")
+        console.log("Fetch hook  news index ")
 
         this.news = []
         this.hits = []
+        console.log("query filter has values:" + this.queryFilterHasValues())
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
-            this.$route.query.filters
+            (this.$route.query.filters && this.queryFilterHasValues())
         ) {
             if (!this.page.title) {
                 const data = await this.$graphql.default.request(ARTICLE_LIST)
@@ -149,9 +170,10 @@ export default {
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
-
+                this.noResultsFound = false
                 this.news = []
             } else {
+                this.noResultsFound = true
                 this.hits = []
 
                 this.news = []
@@ -165,6 +187,7 @@ export default {
             }
         } else {
             this.hits = []
+            this.noResultsFound = false
             // if route queries are empty fetch data from craft
             const data = await this.$graphql.default.request(ARTICLE_LIST)
             // console.log("data:" + data)
@@ -230,7 +253,8 @@ export default {
                             : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: obj.fullName ? `${obj.fullName}` : null,
-                    category: _get(obj, "articleCategories[0].title", null),
+                    // category: _get(obj, "articleCategories[0].title", null),
+                    category: this.parseArticleCategory(obj.articleCategories),
                 }
             })
         },
@@ -273,6 +297,47 @@ export default {
         this.setFilters()
     },
     methods: {
+        parseArticleCategory(categories) {
+            if (!categories || categories.length == 0) return ""
+            let result = ""
+            categories.forEach((obj) => {
+                result = result + obj.title + ", "
+            })
+            return result.slice(0, -2)
+        },
+        queryFilterHasValues() {
+            if (!this.$route.query.filters) return false
+            let routeQueryFilters = JSON.parse(this.$route.query.filters)
+            console.log(
+                "is route query exixts:" + JSON.stringify(routeQueryFilters)
+            )
+            let configFilters = config.newsIndex.filters
+            for (const filter of configFilters) {
+                if (
+                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName].length > 0
+                ) {
+                    console.log(
+                        "why is this true is Array: " +
+                            routeQueryFilters[filter.esFieldName]
+                    )
+                    return true
+                } else if (
+                    routeQueryFilters[filter.esFieldName] &&
+                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName] != ""
+                ) {
+                    console.log(
+                        "why is this truenot Array: " +
+                            routeQueryFilters[filter.esFieldName] +
+                            "config filter name is " +
+                            filter.esFieldName
+                    )
+                    return true
+                }
+            }
+            return false
+        },
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.newsIndex.filters,
@@ -298,7 +363,10 @@ export default {
                     to: `/${obj["_source"].uri}`,
                     image: _get(obj["_source"], "heroImage[0].image[0]", null),
                     staffName: obj["_source"].fullName,
-                    category: _get(obj["_source"], "category[0].title", null),
+                    //category: _get(obj["_source"], "category[0].title", null),
+                    category: this.parseArticleCategory(
+                        obj["_source"].category
+                    ),
                 }
             })
         },

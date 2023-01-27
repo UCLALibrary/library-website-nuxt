@@ -34,6 +34,7 @@ fragment BlockCardWithImageFragment on ElementInterface {
                     title
                 }
                 articleByline2: postDate
+                ongoing
                 startDateWithTime
                     @formatDateTime(
                         format: "Y-m-d\\TH:i"

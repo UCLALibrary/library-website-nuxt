@@ -322,9 +322,6 @@ export default {
                     startDate: _get(obj, "startDate", ""),
                     endDate: _get(obj, "endDate", ""),
                     category: "Exhibition",
-                    ongoing: obj.onging
-                        ? obj.ongoing === "true"
-                        : "",
                 }
             })
         },
