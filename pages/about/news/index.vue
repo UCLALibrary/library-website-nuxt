@@ -20,73 +20,67 @@
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
-        <div v-if="$fetchState.pending">
-            <p>.....Its Loading</p>
-        </div>
-        <div v-else-if="$fetchState.error">
-            <p>There is an error</p>
-        </div>
-        <div v-else>
-            <section-wrapper
-                v-if="
-                    page &&
-                        page.featuredNews &&
-                        page.featuredNews.length &&
-                        hits.length == 0 &&
-                        !noResultsFound
-                "
-                class="section-no-top-margin"
-            >
-                <banner-featured
-                    :image="parsedBannerHeader.image"
-                    :title="parsedBannerHeader.title"
-                    breadcrumb="Featured"
-                    :byline="parsedByline"
-                    :locations="parsedBannerHeader.locations"
-                    :description="parsedBannerHeader.text"
-                    :date-created="parsedBannerHeader.dateCreated"
-                    :to="parsedBannerHeader.to"
-                    :align-right="true"
-                    prompt="Read More"
-                    class="banner section-featured-banner"
-                />
 
-                <divider-general v-if="parsedSectionHighlight.length" />
+        <section-wrapper
+            v-if="
+                page &&
+                    page.featuredNews &&
+                    page.featuredNews.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+            class="section-no-top-margin"
+        >
+            <banner-featured
+                :image="parsedBannerHeader.image"
+                :title="parsedBannerHeader.title"
+                breadcrumb="Featured"
+                :byline="parsedByline"
+                :locations="parsedBannerHeader.locations"
+                :description="parsedBannerHeader.text"
+                :date-created="parsedBannerHeader.dateCreated"
+                :to="parsedBannerHeader.to"
+                :align-right="true"
+                prompt="Read More"
+                class="banner section-featured-banner"
+            />
 
-                <section-teaser-highlight
-                    v-if="parsedSectionHighlight.length"
-                    class="section"
-                    :items="parsedSectionHighlight"
-                />
-            </section-wrapper>
+            <divider-general v-if="parsedSectionHighlight.length" />
 
-            <section-wrapper
-                v-if="
-                    page &&
-                        page.featuredNews &&
-                        page.featuredNews.length &&
-                        hits.length == 0 &&
-                        !noResultsFound
-                "
-                theme="divider"
-            >
-                <divider-way-finder color="about" />
-            </section-wrapper>
+            <section-teaser-highlight
+                v-if="parsedSectionHighlight.length"
+                class="section"
+                :items="parsedSectionHighlight"
+            />
+        </section-wrapper>
 
-            <section-wrapper section-title="All News">
-                <section-staff-article-list
-                    v-if="news && news.length > 0"
-                    :items="parsedNewsList"
-                />
-                <section-staff-article-list
-                    v-else-if="hits && hits.length > 0"
-                    :items="parseHitsResults"
-                />
-                <div v-else>
-                    No Results found
-                </div>
-            </section-wrapper>
-        </div>
+        <section-wrapper
+            v-if="
+                page &&
+                    page.featuredNews &&
+                    page.featuredNews.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+            theme="divider"
+        >
+            <divider-way-finder color="about" />
+        </section-wrapper>
+
+        <section-wrapper section-title="All News">
+            <section-staff-article-list
+                v-if="news && news.length > 0"
+                :items="parsedNewsList"
+            />
+            <section-staff-article-list
+                v-else-if="hits && hits.length > 0"
+                :items="parseHitsResults"
+            />
+            <div v-else>
+                No Results found
+            </div>
+        </section-wrapper>
+
         <section-wrapper theme="divider">
             <divider-way-finder color="about" />
         </section-wrapper>
