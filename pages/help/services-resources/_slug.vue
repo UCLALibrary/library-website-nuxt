@@ -172,19 +172,21 @@
                 />
             </section-wrapper>
 
-            <!-- <section-wrapper
+            <section-wrapper
                 v-if="parsedAssociatedSeries.length"
                 section-title="Related Series"
             >
                 <section-teaser-list :items="parsedAssociatedSeries" />
-            </section-wrapper> -->
+            </section-wrapper>
 
-            <!-- <section-wrapper theme="divider">
-                <divider-way-finder
-                    class="divider-way-finder"
-                    color="help"
-                />
-            </section-wrapper> -->
+            <section-wrapper 
+                v-if="parsedAssociatedSeries.length"
+                theme="divider">
+                    <divider-way-finder
+                        class="divider-way-finder"
+                        color="help"
+                    />
+            </section-wrapper>
 
             <section-wrapper>
                 <section-cards-with-illustrations

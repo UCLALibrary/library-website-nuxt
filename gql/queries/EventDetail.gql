@@ -210,6 +210,12 @@ pastEvents: entries(
                         }
                     }
                 }
+    category: eventType {
+                    ... on eventType_Category {
+                        id
+                        title
+                    }
+                }
   }
 
   upcomingEvents: entries(
@@ -237,6 +243,12 @@ pastEvents: entries(
                         image {
                             ...Image
                         }
+                    }
+                }
+    category: eventType {
+                    ... on eventType_Category {
+                        id
+                        title
                     }
                 }
   }

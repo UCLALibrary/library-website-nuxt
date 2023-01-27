@@ -158,6 +158,12 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
                         }
                     }
                 }
+    category: eventType {
+                ... on eventType_Category {
+                    id
+                    title
+                }
+            }
   }
 
   upcomingEvents: entries(
@@ -185,6 +191,12 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
                         image {
                             ...Image
                         }
+                    }
+                }
+    category: eventType {
+                    ... on eventType_Category {
+                        id
+                        title
                     }
                 }
   }
