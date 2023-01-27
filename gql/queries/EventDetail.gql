@@ -190,7 +190,7 @@ pastEvents: entries(
     relatedToEntries: {section: "workshopOrEventSeries", slug: $slug}
   ) {
     title
-    to: uri
+    uri
     sectionHandle
     eventType {
       title
@@ -219,7 +219,7 @@ pastEvents: entries(
     relatedToEntries: {section: "workshopOrEventSeries", slug: $slug}
   ) {
     title
-    to: uri
+    uri
     sectionHandle
     eventType {
       title

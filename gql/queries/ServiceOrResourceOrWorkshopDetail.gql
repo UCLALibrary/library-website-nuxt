@@ -138,7 +138,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
     relatedToEntries: {section: "workshopOrEventSeries", slug: $slug}
   ) {
     title
-    to: uri
+    uri
     sectionHandle
     eventType {
       title
@@ -167,7 +167,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
     relatedToEntries: {section: "workshopOrEventSeries", slug: $slug}
   ) {
     title
-    to: uri
+    uri
     sectionHandle
     eventType {
       title
