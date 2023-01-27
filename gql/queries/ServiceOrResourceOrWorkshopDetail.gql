@@ -103,7 +103,6 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
                     }
                 }
             }
-            ongoing
             startDateWithTime
                 @formatDateTime(
                     format: "Y-m-d\\TH:i"

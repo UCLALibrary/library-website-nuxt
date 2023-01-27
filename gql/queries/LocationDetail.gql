@@ -135,7 +135,6 @@ query LocationDetail($slug: [String!]) {
             id
             slug
             title
-            ongoing
             startDateWithTime
                 @formatDateTime(
                     format: "Y-m-d\\TH:i"

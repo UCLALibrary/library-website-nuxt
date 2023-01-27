@@ -36,7 +36,6 @@ query EventsExhibitionsList {
                         format: "Y-m-d\\TH:i"
                         timezone: "America/Los_Angeles"
                     )
-                ongoing
                 workshopOrEventSeriesType
                 typeHandle
                 associatedLocations {
@@ -70,7 +69,6 @@ query EventsExhibitionsList {
         eventType {
             title
         }
-        ongoing
         startDateWithTime
             @formatDateTime(
                 format: "Y-m-d\\TH:i:s"
