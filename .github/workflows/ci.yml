@@ -40,7 +40,7 @@ jobs:
             2. Click the 'Run workflow' button in the blue bar. 
             3. Select the correct branch for this PR and click 'Run workflow' again to confirm.
 
-  deploy-github:
+  deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -72,6 +72,7 @@ jobs:
           ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
           ES_INDEX: ${{ secrets.ES_INDEX_TEST }}
           ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_TEST }}
+          ROUTER_BASE: /library-website-nuxt/${{ env.DEPLOY_PATH }}
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -88,6 +89,7 @@ jobs:
           id: deploy-preview
           message: "A preview of ${{ github.event.after }} is uploaded and can be seen here:\n\n ✨ ${{ env.DEPLOY_URL }} ✨\n\nChanges may take a few minutes to propagate. The source is here: https://github.com/${{ github.repository }}/tree/gh-pages/${{ env.PR_PATH }}/"
           nuxt:
+      # Netlify deploys are deprecated, but keep them up until we do things like remap test.library.ucla.edu
       - name: Deploy to Netlify (preview)
         if: github.ref_name!='main'
         uses: nwtgck/actions-netlify@v2 #

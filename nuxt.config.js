@@ -119,6 +119,7 @@ export default {
         trailingSlash: false,
     },*/
     router: {
+        base: process.env.ROUTER_BASE || '/',
         scrollBehavior: async function(to, from, savedPosition) {
             if (savedPosition) {
                 return savedPosition
