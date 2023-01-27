@@ -203,7 +203,7 @@
                 :banner-text="parsedExhibitionBannerPrompt"
                 :start-date="page.exhibition.startDate"
                 :end-date="page.exhibition.endDate"
-                category="Event Series"
+                category="Exhibition"
             />
 
             <section-wrapper
