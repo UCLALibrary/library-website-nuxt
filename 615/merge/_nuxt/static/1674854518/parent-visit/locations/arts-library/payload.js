@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/parent-visit/locations/arts-library", (function(a){return {data:[{page:{id:"32397",title:a,slug:a,uri:"parent-visit\u002Flocations\u002Farts-library",button:[],summary:null,heroImage:[],parent:{slug:"locations",title:"locations - another parent placeholder",uri:"parent-visit\u002Flocations"},blocks:[]}}],fetch:{},mutations:[]}}("arts-library")));
