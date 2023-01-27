@@ -153,12 +153,25 @@
                 />
             </section-wrapper>
 
-            <section-wrapper section-title="Events in this Series">
-                <section-teaser-list
-                    v-if="associatedEvents"
-                    :items="associatedEvents"
-                    class="section section-list"
-                />
+            <section-wrapper 
+                v-if="upcomingEvents.length" 
+                section-title="Upcoming Events in this Series">
+                    <section-teaser-list
+                        v-if="upcomingEvents"
+                        :items="upcomingEvents"
+                        class="section section-list"
+                    />
+                    <divider-general v-if="pastEvents.length" />
+            </section-wrapper>
+
+            <section-wrapper 
+                v-if="pastEvents.length" 
+                section-title="Past Events in this Series">
+                    <section-teaser-list
+                        v-if="pastEvents"
+                        :items="pastEvents"
+                        class="section section-list"
+                    />
             </section-wrapper>
 
             <section-wrapper
@@ -433,8 +446,20 @@ export default {
             })
         },
 
-        associatedEvents() {
-            return this.page.eventSeries.event.map((obj) => {
+        upcomingEvents() {
+            return this.page.upcomingEvents.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "image[0].image[0]", null),
+                    startDate: _get(obj, "startDateWithTime", null),
+                    endDate: _get(obj, "endDateWithTime", null),
+                    category: _get(obj, "category[0].title", ""),
+                }
+            })
+        },
+        pastEvents() {
+            return this.page.pastEvents.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.uri}`,

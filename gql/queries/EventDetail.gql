@@ -183,6 +183,64 @@ query EventDetail($slug: [String!]) {
         }
     }
 
+pastEvents: entries(
+    section: "event"
+    orderBy: "startDateWithTime DESC"
+    startDateWithTime: "< now"
+    relatedToEntries: {section: "workshopOrEventSeries", slug: $slug}
+  ) {
+    title
+    to: uri
+    sectionHandle
+    eventType {
+      title
+    }
+    startDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    endDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    associatedLocations {
+      title
+    }
+    eventLocation {
+      title
+    }
+    image: heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+  }
+
+  upcomingEvents: entries(
+    section: "event"
+    orderBy: "startDateWithTime ASC"
+    startDateWithTime: ">= now"
+    relatedToEntries: {section: "workshopOrEventSeries", slug: $slug}
+  ) {
+    title
+    to: uri
+    sectionHandle
+    eventType {
+      title
+    }
+    startDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    endDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    associatedLocations {
+      title
+    }
+    eventLocation {
+      title
+    }
+    image: heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+  }
+
     exhibition: entry(section: "exhibition", slug: $slug) {
         title
         summary
