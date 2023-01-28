@@ -244,7 +244,7 @@ export default {
                         ...obj,
                         category:
                             obj.category === "help/services-resources"
-                                ? "workshop"
+                                ? "workshop series"
                                 : obj.typeHandle === "helpTopic"
                                     ? "help topic"
                                     : obj.typeHandle === "externalResource"

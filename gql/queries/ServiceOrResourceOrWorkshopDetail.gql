@@ -131,6 +131,77 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
         }
         ...DefaultFpbWithCardsAndHighlight
     }
+
+    pastEvents: entries(
+    section: "event"
+    orderBy: "startDateWithTime DESC"
+    startDateWithTime: "< now"
+    relatedToEntries: {section: "workshopOrEventSeries", slug: $slug}
+  ) {
+    title
+    uri
+    sectionHandle
+    eventType {
+      title
+    }
+    startDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    endDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    associatedLocations {
+      title
+    }
+    eventLocation {
+      title
+    }
+    image: heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+    category: eventType {
+                ... on eventType_Category {
+                    id
+                    title
+                }
+            }
+  }
+
+  upcomingEvents: entries(
+    section: "event"
+    orderBy: "startDateWithTime ASC"
+    startDateWithTime: ">= now"
+    relatedToEntries: {section: "workshopOrEventSeries", slug: $slug}
+  ) {
+    title
+    uri
+    sectionHandle
+    eventType {
+      title
+    }
+    startDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    endDateWithTime @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    associatedLocations {
+      title
+    }
+    eventLocation {
+      title
+    }
+    image: heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+    category: eventType {
+                    ... on eventType_Category {
+                        id
+                        title
+                    }
+                }
+  }
+  
     associatedSeries: entries(
         section: "workshopOrEventSeries"
         relatedToEntries: { section: "workshopOrEventSeries", slug: $slug }

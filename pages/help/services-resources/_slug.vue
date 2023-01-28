@@ -141,24 +141,51 @@
                 />
             </section-wrapper>
 
-            <section-wrapper
-                v-if="associatedEvents.length"
-                section-title="Workshops in this Series"
-            >
-                <section-teaser-list
-                    :items="associatedEvents"
-                    class="section section-list"
-                />
+            <section-wrapper 
+                v-if="upcomingEvents.length" 
+                section-title="Upcoming Workshops in this Series">
+                    <section-teaser-list
+                        v-if="upcomingEvents"
+                        :items="upcomingEvents"
+                        class="section section-list"
+                    />
+                    <divider-general v-if="pastEvents.length" />
+            </section-wrapper>
+
+            <section-wrapper 
+                v-if="pastEvents.length" 
+                section-title="Past Workshops in this Series">
+                    <section-teaser-list
+                        v-if="pastEvents"
+                        :items="pastEvents"
+                        class="section section-list"
+                    />
             </section-wrapper>
 
             <section-wrapper
-                v-if="page.workshopSeries.event.length > 0"
+                v-if="page.upcomingEvents.length || page.pastEvents.length"
                 theme="divider"
             >
                 <divider-way-finder
                     class="divider-way-finder"
                     color="help"
                 />
+            </section-wrapper>
+
+            <section-wrapper
+                v-if="parsedAssociatedSeries.length"
+                section-title="Related Series"
+            >
+                <section-teaser-list :items="parsedAssociatedSeries" />
+            </section-wrapper>
+
+            <section-wrapper 
+                v-if="parsedAssociatedSeries.length"
+                theme="divider">
+                    <divider-way-finder
+                        class="divider-way-finder"
+                        color="help"
+                    />
             </section-wrapper>
 
             <section-wrapper>
@@ -169,25 +196,7 @@
                     section-title="Associated Topics"
                 />
             </section-wrapper>
-            <section-wrapper
-                v-if="parsedAssociatedSeries.length"
-                theme="divider"
-            >
-                <divider-way-finder color="help" />
-            </section-wrapper>
 
-            <section-wrapper
-                v-if="parsedAssociatedSeries.length"
-                section-title="Related Series"
-            >
-                <section-teaser-list :items="parsedAssociatedSeries" />
-            </section-wrapper>
-            <section-wrapper theme="divider">
-                <divider-way-finder
-                    class="divider-way-finder"
-                    color="help"
-                />
-            </section-wrapper>
             <section-wrapper>
                 <block-call-to-action
                     class="block-call-to-action"
@@ -310,6 +319,30 @@ export default {
                     startDate: _get(obj, "startDateWithTime", null),
                     endDate: _get(obj, "endDateWithTime", null),
                     category: _get(obj, "category.title", ""),
+                }
+            })
+        },
+        upcomingEvents() {
+            return this.page.upcomingEvents.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "image[0].image[0]", null),
+                    startDate: _get(obj, "startDateWithTime", null),
+                    endDate: _get(obj, "endDateWithTime", null),
+                    category: _get(obj, "category[0].title", ""),
+                }
+            })
+        },
+        pastEvents() {
+            return this.page.pastEvents.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "image[0].image[0]", null),
+                    startDate: _get(obj, "startDateWithTime", null),
+                    endDate: _get(obj, "endDateWithTime", null),
+                    category: _get(obj, "category[0].title", ""),
                 }
             })
         },
