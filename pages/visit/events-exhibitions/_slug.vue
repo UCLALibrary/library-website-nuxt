@@ -462,8 +462,8 @@ export default {
                     image: _get(obj, "image[0].image[0]", null),
                     startDate: _get(obj, "startDateWithTime", null),
                     endDate: _get(obj, "endDateWithTime", null),
-                    category: category.length
-                        ? _get(obj, "category[0].title", "")
+                    category: obj.category.length
+                        ? obj.category[0].title
                         : null,
                 }
             })
@@ -476,8 +476,8 @@ export default {
                     image: _get(obj, "image[0].image[0]", null),
                     startDate: _get(obj, "startDateWithTime", null),
                     endDate: _get(obj, "endDateWithTime", null),
-                    category: category.length
-                        ? _get(obj, "category[0].title", "")
+                    category: obj.category.length
+                        ? obj.category[0].title
                         : null,
                 }
             })
