@@ -27,7 +27,7 @@
                 :locations="page.event.associatedLocations"
                 :start-date="page.event.startDateWithTime"
                 :end-date="page.event.endDateWithTime"
-                :category="page.event.eventType.title"
+                :category="parseEventType"
                 :to="page.event.parseURL"
                 :button-text="promptName"
                 :register-event="parseRegistration"
@@ -44,7 +44,7 @@
                     :locations="page.event.associatedLocations"
                     :start-date="page.event.startDateWithTime"
                     :end-date="page.event.endDateWithTime"
-                    :category="page.event.eventType.title"
+                    :category="parseEventType"
                     :to="page.event.parseURL"
                     :align-right="true"
                     :prompt="promptName"
@@ -153,10 +153,25 @@
                 />
             </section-wrapper>
 
-            <section-wrapper section-title="Events in this Series">
+            <section-wrapper
+                v-if="upcomingEvents.length"
+                section-title="Upcoming Events in this Series"
+            >
                 <section-teaser-list
-                    v-if="associatedEvents"
-                    :items="associatedEvents"
+                    v-if="upcomingEvents"
+                    :items="upcomingEvents"
+                    class="section section-list"
+                />
+                <divider-general v-if="pastEvents.length" />
+            </section-wrapper>
+
+            <section-wrapper
+                v-if="pastEvents.length"
+                section-title="Past Events in this Series"
+            >
+                <section-teaser-list
+                    v-if="pastEvents"
+                    :items="pastEvents"
                     class="section section-list"
                 />
             </section-wrapper>
@@ -203,7 +218,7 @@
                 :banner-text="parsedExhibitionBannerPrompt"
                 :start-date="page.exhibition.startDate"
                 :end-date="page.exhibition.endDate"
-                category="Event Series"
+                category="Exhibition"
             />
 
             <section-wrapper
@@ -430,6 +445,12 @@ export default {
             }
             return false
         },
+        parseEventType() {
+            return this.page.event.eventType.length &&
+                this.page.event.eventType[0].title
+                ? this.page.event.eventType[0].title
+                : ""
+        },
         parsedAssociatedSeries() {
             return this.page.associatedSeries.map((obj) => {
                 return {
@@ -441,15 +462,31 @@ export default {
             })
         },
 
-        associatedEvents() {
-            return this.page.eventSeries.event.map((obj) => {
+        upcomingEvents() {
+            return this.page.upcomingEvents.map((obj) => {
                 return {
                     ...obj,
                     to: `/${obj.uri}`,
                     image: _get(obj, "image[0].image[0]", null),
                     startDate: _get(obj, "startDateWithTime", null),
                     endDate: _get(obj, "endDateWithTime", null),
-                    category: _get(obj, "category[0].title", ""),
+                    category: obj.category.length
+                        ? obj.category[0].title
+                        : null,
+                }
+            })
+        },
+        pastEvents() {
+            return this.page.pastEvents.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.uri}`,
+                    image: _get(obj, "image[0].image[0]", null),
+                    startDate: _get(obj, "startDateWithTime", null),
+                    endDate: _get(obj, "endDateWithTime", null),
+                    category: obj.category.length
+                        ? obj.category[0].title
+                        : null,
                 }
             })
         },

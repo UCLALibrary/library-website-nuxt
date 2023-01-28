@@ -407,20 +407,6 @@ export default {
     //     background: red;
     // }
 
-    @media #{$medium} {
-        .about-text,
-        .section-heading,
-        .block-campus-map,
-        .section-block-spaces,
-        .block-hours,
-        .block-amenities,
-        .simple-cards,
-        .section-teaser-list,
-        .section-teaser-card {
-            padding: 0 var(--unit-gutter);
-        }
-    }
-
     @media #{$small} {
         .page {
             width: 100%;

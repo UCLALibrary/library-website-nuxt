@@ -70,7 +70,7 @@
         </section-wrapper>
 
         <!-- EVENT SERIES & EXHIBITIONS -->
-        <section-wrapper section-title="Ongoing Event Series & Exhibitions">
+        <section-wrapper section-title="Event Series & Exhibitions">
             <section-teaser-card :items="parsedSeriesAndExhibitions" />
         </section-wrapper>
 
