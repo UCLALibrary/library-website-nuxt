@@ -325,6 +325,14 @@ export default {
 
         if (data && (data.event || data.exhibition || data.eventSeries)) {
             if (data.eventSeries) data.eventSeries.sectionHandle = "eventSeries"
+            if (data.event)
+                data.event.locations = data.event.associatedLocations
+            if (data.eventSeries)
+                data.eventSeries.locations =
+                    data.eventSeries.associatedLocations
+            if (data.exhibition)
+                data.exhibition.locations =
+                    data.exhibition.associatedLocationsAndPrograms
             await $elasticsearchplugin.index(
                 data.event || data.exhibition || data.eventSeries,
                 params.slug
