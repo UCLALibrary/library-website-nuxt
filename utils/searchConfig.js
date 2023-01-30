@@ -153,42 +153,74 @@ const config = {
         ],
         sortField: "title.keyword"
     },
+    locationsList:{
+        searchFields:[
+            "title^3",
+            "text^3"
+        ],
+        filters:[
+            {
+                label: "Amenities",
+                esFieldName: "amenities.keyword",
+                inputType: "checkbox",
+            }
+        ],
+        resultFields:[
+            "title",
+            "text",
+            "campusMapId",
+            "uri",
+            "heroImage",
+            "address",
+            "libcalLocationIdForHours",
+            "locationType"
+        ],
+        sortField: "title.keyword"
+    },
+    programsList:{
+        searchFields:[
+            "title^3",
+            "text^3"
+        ],
+        filters:[
+            {
+                label: "Type",
+                esFieldName: "programType.keyword",
+                inputType: "checkbox",
+            }
+        ],
+        resultFields:[
+            "*"
+        ],
+        sortField: "title.keyword"
+    },
     eventsExhibitionsList:{
         searchFields:[
             "title^3",
             "eventDescription^3",
-            "startDateWithTime^2",
-            "endDateWithTime^2"
+            "summary^3",
+            // "startDateWithTime^2",
+            // "endDateWithTime^2"
         ],
         filters:[
             {
                 label: "Location",
-                esFieldName: "subjectAreas.title.keyword",
+                esFieldName: "location.title.keyword",
                 inputType: "checkbox",
             },
             {
+                label: "Event Type",
+                esFieldName: "eventType.title.keyword",
+                inputType: "checkbox",
+            },
+            /*  {
                 label: "Date Range",
                 esFieldNameArray: ["startDateWithTime","endDateWithTime"], 
                 inputType: "date",
-            }
-            // Are event series shown on this page?
-            /* 
-            ,
-            {
-                label: "Series",
-                esFieldName: "",
-                inputType: "checkbox",
             } */
         ],
         resultFields:[
-            "title",
-            "eventDescription",
-            "startDateWithTime",
-            "endDateWithTime",
-            "uri",
-            "image",
-            "eventType",
-            "associatedLocations"
+            "*"
         ],
         sortField: "startDateWithTime"
     }
