@@ -16,9 +16,7 @@
         <!-- LibChat Widget -->
         <script src="https://ucla.libanswers.com/load_chat.php?hash=e6e621712e7b0ed0193f065d84d4e0c9" />
 
-        <div
-            id="libchat_e6e621712e7b0ed0193f065d84d4e0c9"
-        />
+        <div id="libchat_e6e621712e7b0ed0193f065d84d4e0c9" />
         <section-wrapper theme="divider">
             <divider-way-finder
                 v-if="page.blocks.length > 0"
@@ -34,7 +32,11 @@
         />
     </main>
 </template>
-
+<router>
+  {
+    alias: '/help',
+  }
+</router>
 <script>
 // HELPERS
 import _get from "lodash/get"
@@ -57,11 +59,11 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
@@ -73,6 +75,5 @@ export default {
     .banner-text {
         margin-bottom: var(--space-l);
     }
-
 }
 </style>
