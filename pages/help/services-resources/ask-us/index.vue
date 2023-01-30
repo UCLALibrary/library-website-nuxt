@@ -32,7 +32,11 @@
         />
     </main>
 </template>
-
+<router>
+  {
+    alias: '/help',
+  }
+</router>
 <script>
 // HELPERS
 import _get from "lodash/get"

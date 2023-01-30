@@ -7,7 +7,7 @@ export default {
     target: "static",
     components: true,
     privateRuntimeConfig: {
-        esWriteKey: process.env.ES_WRITE_KEY
+        esWriteKey: process.env.ES_WRITE_KEY,
     },
     publicRuntimeConfig: {
         s3Bucket: process.env.S3_BUCKET,
@@ -15,8 +15,10 @@ export default {
         esIndex: process.env.ES_INDEX || "",
         esIndexPrefix: process.env.ES_INDEX_PREFIX || "",
         esTempIndex: "",
-        esURL:process.env.ES_URL || "",
-        libcalProxy: process.env.LIBCAL_ENDPOINT|| "https://proxy.calendar.library.ucla.edu/"
+        esURL: process.env.ES_URL || "",
+        libcalProxy:
+            process.env.LIBCAL_ENDPOINT ||
+            "https://proxy.calendar.library.ucla.edu/",
     },
     /*
      ** Required charset and viewport meta tags
@@ -29,7 +31,8 @@ export default {
             { charset: "utf-8" },
             {
                 name: "viewport",
-                content: "width=device-width, initial-scale=1.0, minimum-scale=1.0",
+                content:
+                    "width=device-width, initial-scale=1.0, minimum-scale=1.0",
             },
         ],
     },
@@ -59,7 +62,7 @@ export default {
         "~/plugins/craft.js",
         "~/plugins/data-api.js",
         "~/plugins/elasticsearchplugin.js",
-        '~/plugins/scrape-formid.client.js',
+        "~/plugins/scrape-formid.client.js",
         "~/plugins/add-skip-to.js",
     ],
 
@@ -89,7 +92,7 @@ export default {
      */
     generate: {
         // exclude:[/^\/help/,/^\/visit/,/^\/collections/,/^\/give/,/^\/impact/],
-        fallback: '404.html',
+        fallback: "404.html",
         interval: 500,
         concurrency: 10,
     },
@@ -119,7 +122,7 @@ export default {
         trailingSlash: false,
     },*/
     router: {
-        scrollBehavior: async function(to, from, savedPosition) {
+        scrollBehavior: async function (to, from, savedPosition) {
             if (savedPosition) {
                 return savedPosition
             }
@@ -127,34 +130,42 @@ export default {
             const findEl = async (hash, x = 0) => {
                 return (
                     document.querySelector(hash) ||
-            new Promise(resolve => {
-                if (x > 50) {
-                    return resolve(document.querySelector("#app"))
-                }
-                setTimeout(() => {
-                    resolve(findEl(hash, ++x || 1))
-                }, 100)
-            })
+                    new Promise((resolve) => {
+                        if (x > 50) {
+                            return resolve(document.querySelector("#app"))
+                        }
+                        setTimeout(() => {
+                            resolve(findEl(hash, ++x || 1))
+                        }, 100)
+                    })
                 )
             }
 
             if (to.hash) {
                 let el = await findEl(to.hash)
                 if ("scrollBehavior" in document.documentElement.style) {
-                    return window.scrollTo({ top: el.offsetTop, behavior: "smooth" })
+                    return window.scrollTo({
+                        top: el.offsetTop,
+                        behavior: "smooth",
+                    })
                 } else {
                     return window.scrollTo(0, el.offsetTop)
                 }
             }
 
             return { x: 0, y: 0 }
-        }
+        },
     },
 
     /*
-   * Nuxt modules
-   */
-    modules: ["~/modules/populate", '@nuxtjs/axios', '@nuxtjs/gtm',"@nuxtjs/sitemap",], // This needs to be last always,
+     * Nuxt modules
+     */
+    modules: [
+        "~/modules/populate",
+        "@nuxtjs/axios",
+        "@nuxtjs/gtm",
+        "@nuxtjs/sitemap",
+    ], // This needs to be last always,
 
     gtm: {
         id: "GTM-T2SXV2",
