@@ -30,6 +30,9 @@ query ProgramDetail($slug: [String!]) {
             id
             title
         }
+        programType {
+            title
+        }
         ...AllFpb
     }
     associatedArticles: entries(
