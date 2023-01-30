@@ -1,12 +1,22 @@
-name: Manually rebuild and deploy the static site 
+name: Build and deploy the static site
+id: build-and-deploy
 
 on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment(test/stage/prod)'     
+        description: 'Environment'     
         required: true
+        type: choice
+        options:
+        - test
+        - stage
+        - prod
         default: 'test'
+
+concurrency:
+  group: deploy-${{ github.event.inputs.environment }}
+  cancel-in-progress: true
 
 jobs:
   nuxt-deploy:
@@ -16,11 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup-workspace
-      - name: Cache built static site
-        uses: actions/cache@v3
-        with:
-          path: ./dist
-          key: nuxt-site-${{ github.sha }}
       - name: Sets env vars for test
         run: |
           echo "CRAFT_ENDPOINT=${{secrets.CRAFT_ENDPOINT}} " >> $GITHUB_ENV

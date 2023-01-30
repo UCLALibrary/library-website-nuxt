@@ -7,6 +7,10 @@ on:
   pull_request:
     branches: [ main ]
 
+concurrency:
+  group: ci-${{ github.ref_name=='main' && github.sha || github.ref_name }} # Cancel runs for previous version of PR, but not main (after merge). For hacked ternary, see https://github.com/actions/runner/issues/409#issuecomment-727565588
+  cancel-in-progress: true
+
 jobs:
   eslint:
     runs-on: ubuntu-latest
