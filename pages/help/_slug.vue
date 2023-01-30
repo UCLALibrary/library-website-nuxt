@@ -7,7 +7,6 @@
             :title="page.title"
             :text="page.text"
         />
-
         <section-wrapper v-if="page.richText">
             <RichText :rich-text-content="page.richText" />
         </section-wrapper>
@@ -76,7 +75,7 @@ export default {
             slug: params.slug,
         })
         if (!data.entry) {
-            error({ statusCode: 404, message: 'Page not found' })
+            error({ statusCode: 404, message: "Page not found" })
         }
         if (data && params.slug !== undefined) {
             console.log("Helptopics slugs Indexing slug: " + params.slug)
@@ -95,11 +94,11 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
