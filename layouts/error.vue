@@ -42,7 +42,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page-error {
-    padding: var(--space-3xl) var(--unit-gutter);
+    padding: var(--space-2xl) var(--unit-gutter);
 
     .error {
         font-family: var(--font-secondary);

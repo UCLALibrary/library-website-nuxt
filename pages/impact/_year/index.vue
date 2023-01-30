@@ -270,7 +270,7 @@ export default {
     }
 
     /* .banner {
-        margin: var(--space-3xl) auto;
+        margin: var(--space-2xl) auto;
     }*/
 
     /* .section-grid {
@@ -306,7 +306,7 @@ export default {
         }
         .divider-section {
             max-width: $container-l-main + px;
-            margin: var(--space-3xl) 0;
+            margin: var(--space-2xl) 0;
         }
     }*/
     .sub-section-grid {
@@ -349,11 +349,11 @@ export default {
     }*/
     .divider {
         max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
+        margin: var(--space-2xl) auto;
     }
     .divider-general {
-        margin-top: var(--space-3xl);
-        margin-bottom: var(--space-3xl);
+        margin-top: var(--space-2xl);
+        margin-bottom: var(--space-2xl);
         max-width: $container-l-main + px;
     }
     /* .credits dt,

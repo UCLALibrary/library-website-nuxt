@@ -392,11 +392,11 @@ export default {
     }
 
     .campus-map {
-        margin-bottom: var(--space-3xl);
+        margin-bottom: var(--space-2xl);
     }
 
     .about-text {
-        margin-bottom: var(--space-3xl);
+        margin-bottom: var(--space-2xl);
     }
 
     .more-info {

@@ -146,20 +146,20 @@ export default {
     // }
     // .divider-way-finder {
     //     max-width: $container-l-main + px;
-    //     margin: var(--space-3xl) auto;
+    //     margin: var(--space-2xl) auto;
     //     &.divider {
     //         box-sizing: unset;
     //     }
     // }
     // .divider-general {
-    //     margin: var(--space-3xl) auto;
+    //     margin: var(--space-2xl) auto;
     //     max-width: $container-l-main + px;
     // }
     // .call-to-action {
     //     font-weight: 500;
     //     font-size: 18px;
     //     line-height: 100%;
-    //     margin: var(--space-3xl) auto;
+    //     margin: var(--space-2xl) auto;
     //     padding: 0 $whitespace-m-sides + px;
     //     max-width: $container-l-main + px;
 
