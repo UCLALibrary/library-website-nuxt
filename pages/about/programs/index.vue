@@ -28,7 +28,13 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="page.featuredPrograms.length"
+            v-if="
+                page &&
+                    page.featuredPrograms &&
+                    page.featuredPrograms.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
             class="section-no-top-margin"
         >
             <banner-featured
@@ -44,16 +50,39 @@
                 class="banner section-featured-banner"
             />
 
-            <divider-general v-if="parsedSectionHighlight.length" />
+            <divider-general
+                v-if="
+                    page &&
+                        parsedSectionHighlight &&
+                        parsedSectionHighlight.length &&
+                        hits.length == 0 &&
+                        !noResultsFound
+                "
+            />
 
             <section-teaser-highlight
-                v-if="parsedSectionHighlight.length"
+                v-if="
+                    page &&
+                        parsedSectionHighlight &&
+                        parsedSectionHighlight.length &&
+                        hits.length == 0 &&
+                        !noResultsFound
+                "
                 class="section"
                 :items="parsedSectionHighlight"
             />
         </section-wrapper>
 
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="
+                page &&
+                    page.featuredPrograms &&
+                    page.featuredPrograms.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+            theme="divider"
+        >
             <divider-way-finder color="about" />
         </section-wrapper>
 
@@ -216,6 +245,7 @@ export default {
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.fullName}`,
                     category: _get(obj, "programType[0].title", null),
+                    description: _get(obj, "text", null),
                 }
             })
         },
@@ -287,16 +317,16 @@ export default {
                 // console.log(obj["_source"]["image"])
                 return {
                     ...obj["_source"],
-                    // description: obj["_source"].text,
-                    // date: obj["_source"].postDate,
+                    description: obj["_source"].text,
+
                     // articleCategories: obj["_source"].category,
-                    // to: `/${obj["_source"].uri}`,
-                    // image: _get(obj["_source"], "heroImage[0].image[0]", null),
-                    // staffName: obj["_source"].fullName,
-                    // //category: _get(obj["_source"], "category[0].title", null),
-                    // category: this.parseArticleCategory(
-                    //     obj["_source"].category
-                    // ),
+                    to: `/${obj["_source"].uri}`,
+                    image: _get(obj["_source"], "heroImage[0].image[0]", null),
+                    category: _get(
+                        obj["_source"],
+                        "programType[0].title",
+                        null
+                    ),
                 }
             })
         },

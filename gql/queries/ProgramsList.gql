@@ -39,7 +39,7 @@ query ProgramList {
         ... on program_program_Entry {
             sectionHandle
             title
-            description: summary
+            text: summary
             to: uri
             programUrlBehavior
             buttonUrl {
