@@ -95,14 +95,23 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="programs && programs.length > 0"
+            v-if="parsedProgramsList && parsedProgramsList.length > 0"
             section-title="All Programs & Initiatives"
         >
             <section-staff-article-list :items="parsedProgramsList" />
         </section-wrapper>
         <section-wrapper v-else-if="hits && hits.length > 0">
-            <h3 class="about-results">
-                Displaying {{ hits.length }} results for “{{ $route.query.q }}”.
+            <h3
+                v-if="$route.query.q"
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results for “{{ $route.query.q }}”
+            </h3>
+            <h3
+                v-else
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results
             </h3>
             <section-staff-article-list :items="parseHitsResults" />
         </section-wrapper>
