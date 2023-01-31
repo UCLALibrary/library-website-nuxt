@@ -22,7 +22,16 @@
             @search-ready="getSearchData"
         />
 
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="
+                page &&
+                    page.featuredPrograms &&
+                    page.featuredPrograms.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+            theme="divider"
+        >
             <divider-way-finder color="about" />
         </section-wrapper>
 
@@ -85,19 +94,20 @@
             <divider-way-finder color="about" />
         </section-wrapper>
 
-        <section-wrapper section-title="All Programs & Initiatives">
-            <section-staff-article-list
-                v-if="programs && programs.length > 0"
-                :items="parsedProgramsList"
-            />
-            <section-staff-article-list
-                v-else-if="hits && hits.length > 0"
-                :items="parseHitsResults"
-            />
-
-            <div v-else>
-                No Results found
-            </div>
+        <section-wrapper
+            v-if="programs && programs.length > 0"
+            section-title="All Programs & Initiatives"
+        >
+            <section-staff-article-list :items="parsedProgramsList" />
+        </section-wrapper>
+        <section-wrapper v-else-if="hits && hits.length > 0">
+            <h1>
+                Displaying {{ hits.length }} results for “{{ $route.query.q }}”.
+            </h1>
+            <section-staff-article-list :items="parseHitsResults" />
+        </section-wrapper>
+        <section-wrapper v-else>
+            <div>No Results found</div>
         </section-wrapper>
     </main>
 </template>
