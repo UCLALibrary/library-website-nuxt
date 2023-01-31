@@ -63,7 +63,7 @@ query EventsExhibitionsList {
         startDateWithTime: ">= now"
         limit: 10
     ) {
-        title
+        title: eventTitle
         to: uri
         sectionHandle
         eventType {
