@@ -8,6 +8,20 @@
             :text="page.text"
         />
 
+        <!-- <search-generic
+            search-type="about"
+            :filters="searchFilters"
+            class="generic-search"
+            :search-generic-query="searchGenericQuery"
+            @search-ready="getSearchData"
+        /> -->
+
+
+        <h3>{{ page }}</h3>
+        <h3>{{ uclaLibraries }}</h3>
+        <h3>AFF: ---------{{ affiliateLibraries }}</h3>
+
+
         <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider-way-finder"
@@ -81,6 +95,20 @@ export default {
     data() {
         return {
             showOtherCampus: false,
+            page: {},
+            uclaLibraries: [],
+            affiliateLibraries: [],
+            hits: [],
+            title: "",
+            noResultsFound: false,
+            searchFilters: [],
+            searchGenericQuery: {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            },
         }
     },
     head() {
