@@ -8,7 +8,6 @@
             title="Explore Featured Collections"
             parent-title="Collections"
         />
-        {{ collections }}
         <masthead-secondary
             :title="page.title"
             :text="page.summary"
@@ -60,7 +59,23 @@
         </section-wrapper>
 
         <section-wrapper v-else-if="hits && hits.length > 0">
+            <h3
+                v-if="$route.query.q"
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results for “{{ $route.query.q }}”.
+            </h3>
+            <h3
+                v-else
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results
+            </h3>
             <section-teaser-card :items="parseHitsResults" />
+        </section-wrapper>
+
+        <section-wrapper v-else>
+            <div>No Results found</div>
         </section-wrapper>
 
         <section-wrapper>
@@ -311,5 +326,9 @@ export default {
 
 <style lang="scss" scoped>
 .page-collections-explore {
+    .about-results {
+        margin-top: var(--space-xl);
+        margin-bottom: var(--space-l);
+    }
 }
 </style>
