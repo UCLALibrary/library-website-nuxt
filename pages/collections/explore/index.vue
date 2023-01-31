@@ -46,18 +46,6 @@
             <section-teaser-card :items="parsedCollectionList" />
         </section-wrapper>
 
-        <section-wrapper
-            v-if="
-                page &&
-                    parsedCollectionList &&
-                    parsedCollectionList.length &&
-                    hits.length == 0 &&
-                    !noResultsFound
-            "
-        >
-            <section-teaser-card :items="parsedCollectionList" />
-        </section-wrapper>
-
         <section-wrapper v-else-if="hits && hits.length > 0">
             <div
                 v-if="$route.query.q"
