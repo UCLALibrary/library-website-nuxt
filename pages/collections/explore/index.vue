@@ -59,23 +59,23 @@
         </section-wrapper>
 
         <section-wrapper v-else-if="hits && hits.length > 0">
-            <h3
+            <div
                 v-if="$route.query.q"
                 class="about-results"
             >
-                Displaying {{ hits.length }} results for “{{ $route.query.q }}”.
-            </h3>
-            <h3
+                Displaying {{ hits.length }} results for “{{ $route.query.q }}”
+            </div>
+            <div
                 v-else
                 class="about-results"
             >
                 Displaying {{ hits.length }} results
-            </h3>
+            </div>
             <section-teaser-card :items="parseHitsResults" />
         </section-wrapper>
 
         <section-wrapper v-else>
-            <div>No Results found</div>
+            <div>No results found</div>
         </section-wrapper>
 
         <section-wrapper>
@@ -326,9 +326,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-collections-explore {
-    .about-results {
-        margin-top: var(--space-xl);
-        margin-bottom: var(--space-l);
-    }
 }
 </style>
