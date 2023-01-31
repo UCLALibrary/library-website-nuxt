@@ -9,7 +9,6 @@
             parent-title="About"
         />
 
-        {{ programs }}
         <masthead-secondary
             :title="page.title"
             :text="page.text"
@@ -241,7 +240,7 @@ export default {
                     to:
                         obj.programUrlBehavior === "externalSite"
                             ? obj.buttonUrl[0].buttonUrl
-                            : `/${obj.to}`,
+                            : `/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.fullName}`,
                     category: _get(obj, "programType[0].title", null),
@@ -318,9 +317,10 @@ export default {
                 return {
                     ...obj["_source"],
                     description: obj["_source"].text,
-
-                    // articleCategories: obj["_source"].category,
-                    to: `/${obj["_source"].uri}`,
+                    to:
+                        obj["_source"].programUrlBehavior === "externalSite"
+                            ? obj["_source"].buttonUrl[0].buttonUrl
+                            : `/${obj["_source"].uri}`,
                     image: _get(obj["_source"], "heroImage[0].image[0]", null),
                     category: _get(
                         obj["_source"],

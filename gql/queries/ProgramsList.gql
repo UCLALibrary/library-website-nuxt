@@ -40,7 +40,7 @@ query ProgramList {
             sectionHandle
             title
             text: summary
-            to: uri
+            uri
             programUrlBehavior
             buttonUrl {
                 ... on buttonUrl_button_BlockType {
