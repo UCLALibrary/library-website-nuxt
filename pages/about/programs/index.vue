@@ -101,9 +101,9 @@
             <section-staff-article-list :items="parsedProgramsList" />
         </section-wrapper>
         <section-wrapper v-else-if="hits && hits.length > 0">
-            <h1>
+            <h3 class="about-results">
                 Displaying {{ hits.length }} results for “{{ $route.query.q }}”.
-            </h1>
+            </h3>
             <section-staff-article-list :items="parseHitsResults" />
         </section-wrapper>
         <section-wrapper v-else>
@@ -361,6 +361,10 @@ export default {
 
 <style lang="scss" scoped>
 .page-programs {
+    .about-results {
+        margin-top: var(--space-xl);
+        margin-bottom: var(--space-l);
+    }
 }
 </style>
 Footer
