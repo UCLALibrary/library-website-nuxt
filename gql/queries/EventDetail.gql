@@ -8,7 +8,7 @@ query EventDetail($slug: [String!]) {
             uri
             typehandle
             sectionHandle
-            title
+            title: eventTitle
             eventLocation {
                 title
             }
