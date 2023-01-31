@@ -185,7 +185,7 @@ const config = {
         filters:[
             {
                 label: "Type",
-                esFieldName: "programType.keyword",
+                esFieldName: "programType.title.keyword",
                 inputType: "checkbox",
             }
         ],
