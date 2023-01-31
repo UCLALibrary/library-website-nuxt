@@ -1,24 +1,41 @@
-name: Build prod site daily and on release
+name: Website Release
 
-# Performs a Website release using Netlify daily, and when a new GitHub release has been published
+# Performs a Website release using Netlify when a new GitHub release has been published
 on:
   release:
     types: [ published ]
   schedule:
-    - cron:  '00 9 * * *' # 9am UTC = 2am PDT, 1am PST
+    - cron:  '00 8,20 * * *' # 8,20 UTC = noon and midnight PST, 1am and 1pm PDT
 
 jobs:
   nuxt-prod:
     name: Netlify deploy
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      GH_TOKEN: ${{ github.token }}
     steps:
     - uses: actions/checkout@v3
-    - name: 'Get Previous tag'
-      id: previoustag
-      uses: "WyriHaximus/github-action-get-previous-tag@v1"
+    - uses: ./.github/workflows/setup-workspace
+    - run: npm run generate
+      env:
+        CRAFT_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
+        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+        S3_BUCKET: "https://static.library.ucla.edu/"
+        SITEMAP_HOST: "https://uclalibrary.library.ucla.edu"
+        ES_URL: ${{ secrets.ES_URL }}
+        ESApiKey: ${{ secrets.ESApiKey }}
+        ES_READ_KEY: ${{ secrets.ES_READ_KEY_PROD }}
+        ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_PROD }}
+        ES_INDEX: ${{ secrets.ES_INDEX_PROD }}
+        ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_PROD }}
+    - name: Deploy to Netlify on release
+      uses: nwtgck/actions-netlify@v2 #
       with:
-        fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
-    - run: gh workflow run build-and-deploy --ref ${{ steps.previoustag.outputs.tag }} --field environment=prod
+        production-deploy: true
+        deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        publish-dir: './dist'
+        fails-without-credentials: true
+        github-deployment-environment: production
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_LIBRARY_SITE_ID }}
