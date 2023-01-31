@@ -20,7 +20,7 @@ query ExploreCollectionsList {
         sectionHandle
         text: summary
         category: physicalDigital
-        to: uri
+        uri
         heroImage {
             ... on heroImage_heroImage_BlockType {
                 id
