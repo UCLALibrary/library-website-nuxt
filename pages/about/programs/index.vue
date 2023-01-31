@@ -95,7 +95,12 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="parsedProgramsList && parsedProgramsList.length > 0"
+            v-if="
+                parsedProgramsList &&
+                    parsedProgramsList.length > 0 &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
             section-title="All Programs & Initiatives"
         >
             <section-staff-article-list :items="parsedProgramsList" />
