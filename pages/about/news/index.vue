@@ -161,6 +161,7 @@ export default {
                 "sectionHandle:article",
                 JSON.parse(this.$route.query.filters) || {},
                 config.newsIndex.sortField,
+                config.newsIndex.orderBy,
                 config.newsIndex.resultFields,
                 config.newsIndex.filters
             )

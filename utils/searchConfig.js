@@ -120,7 +120,8 @@ const config = {
             "category",
             "contributors"
         ],
-        sortField: "postDate"
+        sortField: "postDate",
+        orderBy: "desc"
     },
     endowmentsList:{
         searchFields:[
@@ -193,6 +194,7 @@ const config = {
             "*"
         ],
         sortField: "title.keyword"
+       
     },
     eventsExhibitionsList:{
         searchFields:[

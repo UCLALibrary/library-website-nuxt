@@ -59,7 +59,6 @@
                     color="visit"
                 />
             </section-wrapper>
-
             <section-wrapper v-if="page.event || page.event.eventDescription">
                 <rich-text
                     v-if="page.event.presenter"
@@ -95,6 +94,7 @@
                 class="section block-call-to-action"
                 :is-global="true"
             />
+            </libcalphysicalseats>
         </div>
 
         <!-- EVENT SERIES -->
@@ -295,6 +295,7 @@
                 />
             </section-wrapper>
         </div>
+        </div>
     </main>
 </template>
 
@@ -372,16 +373,16 @@ export default {
             eventId: data && data.event ? data.event.libcalId : "",
             inPersonEvent:
                 data &&
-                data.event &&
-                data.event.libcalPhysicalSeats >
+                data.event && data.event.libcalPhysicalSeats > 0 &&
+                data.event.libcalPhysicalSeats >=
                     data.event.libcalPhysicalSeats -
                         data.event.libcalPhysicalSeatsTaken
                     ? true
                     : false,
             onlineEvent:
                 data &&
-                data.event &&
-                data.event.libcalOnlineSeats >
+                data.event &&  data.event.libcalOnlineSeats > 0 &&
+                data.event.libcalOnlineSeats >=
                     data.event.libcalOnlineSeats -
                         data.event.libcalOnlineSeatsTaken
                     ? true
