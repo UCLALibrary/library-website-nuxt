@@ -9,14 +9,21 @@
         />
 
         <search-generic
-            search-type="about"
+            search-type="visit"
             :filters="searchFilters"
             class="generic-search"
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="
+                page &&
+                    parsedUclaLibraries &&
+                    parsedUclaLibraries.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+        >
             <divider-way-finder
                 class="divider-way-finder"
                 color="visit"
@@ -125,6 +132,7 @@ export default {
             let query_text = this.$route.query.q || "*"
 
             console.log("in router query in async data")
+
             const results = await this.$dataApi.keywordSearchWithFilters(
                 query_text,
                 config.locationsList.searchFields,
@@ -135,6 +143,7 @@ export default {
                 config.locationsList.filters
             )
             console.log("getsearchdata method:" + JSON.stringify(results))
+
             this.locations = []
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
@@ -210,6 +219,9 @@ export default {
                 }
             })
         },
+        parseHitsResults() {
+            return this.parseHits(this.hits)
+        },
     },
     watch: {
         "$route.query": "$fetch",
@@ -228,21 +240,21 @@ export default {
         showMoreOtherCampusLibrary() {
             this.showOtherCampus = !this.showOtherCampus
         },
-        parseArticleCategory(categories) {
-            if (!categories || categories.length == 0) return ""
-            let result = ""
-            categories.forEach((obj) => {
-                result = result + obj.title + ", "
-            })
-            return result.slice(0, -2)
-        },
+        // parseArticleCategory(categories) {
+        //     if (!categories || categories.length == 0) return ""
+        //     let result = ""
+        //     categories.forEach((obj) => {
+        //         result = result + obj.title + ", "
+        //     })
+        //     return result.slice(0, -2)
+        // },
         queryFilterHasValues() {
             if (!this.$route.query.filters) return false
             let routeQueryFilters = JSON.parse(this.$route.query.filters)
             console.log(
                 "is route query exixts:" + JSON.stringify(routeQueryFilters)
             )
-            let configFilters = config.newsIndex.filters
+            let configFilters = config.locationsList.filters
             for (const filter of configFilters) {
                 if (
                     Array.isArray(routeQueryFilters[filter.esFieldName]) &&
@@ -271,7 +283,7 @@ export default {
         },
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
-                config.programsList.filters,
+                config.locationsList.filters,
                 "program"
             )
             console.log(
@@ -279,7 +291,7 @@ export default {
             )
             this.searchFilters = getListingFilters(
                 searchAggsResponse,
-                config.programsList.filters
+                config.locationsList.filters
             )
         },
         parseHits(hits = []) {
@@ -289,15 +301,10 @@ export default {
                     ...obj["_source"],
                     description: obj["_source"].text,
                     to:
-                        obj["_source"].programUrlBehavior === "externalSite"
+                        obj["_source"].externalResourceUrl
                             ? obj["_source"].buttonUrl[0].buttonUrl
                             : `/${obj["_source"].uri}`,
                     image: _get(obj["_source"], "heroImage[0].image[0]", null),
-                    category: _get(
-                        obj["_source"],
-                        "programType[0].title",
-                        null
-                    ),
                 }
             })
         },

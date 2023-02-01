@@ -5,6 +5,7 @@ query LocationsList {
     text: summary
   }
   uclaLibraries: entries(section: "location", locationType: "uclaLibrary") {
+    sectionHandle
     campusMapId
     libcalLocationIdForHours
     title
@@ -31,6 +32,7 @@ query LocationsList {
     uri
   }
   affiliateLibraries: entries(section: "location", locationType:"affiliateLibrary", orderBy:"title ASC") {
+    sectionHandle
     campusMapId
     title
     heroImage {
