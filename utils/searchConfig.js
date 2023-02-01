@@ -81,7 +81,7 @@ const config = {
             },
         ],
         sortField: "title.keyword",
-        orderBy: "desc",
+        orderBy: "asc",
     },
     newsIndex: {
         searchFields: ["title^3", "text^3", "contributors*^2"],
