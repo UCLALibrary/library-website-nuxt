@@ -12,7 +12,7 @@
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
-            category="Library News"
+            :category="parsedCategory"
             :title="page.title"
             :text="page.text"
             :byline="parsedBylineBannerText"
@@ -27,7 +27,7 @@
             <banner-header
                 :image="page.heroImage[0].image[0]"
                 :to="page.to"
-                category="Library News"
+                :category="parsedCategory"
                 :title="page.title"
                 :text="page.text"
                 :byline="parsedByline"
@@ -145,6 +145,9 @@ export default {
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
+        },
+        parsedCategory() {
+            return this.page.category[0] ? this.page.category[0].title : ""
         },
     },
 }
