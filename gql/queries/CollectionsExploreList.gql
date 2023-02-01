@@ -8,7 +8,7 @@ query ExploreCollectionsList {
             associatedTopics {
                 title
                 text: summary
-                to: uri
+                uri
                 externalResourceUrl
                 iconName: illustrationsResourcesAndServices
                 sectionHandle
