@@ -70,7 +70,7 @@ const config = {
         ],
         filters: [
             {
-                label: "PhysicalDigital",
+                label: "Physical/Digital",
                 esFieldName: "physicalDigital.keyword",
                 inputType: "checkbox",
             },
