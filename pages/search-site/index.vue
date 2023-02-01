@@ -10,13 +10,15 @@
             @search-ready="getSearchData"
         />
 
-        <div v-if="$fetchState.pending">
-            <p>.....Its Loading</p>
-        </div>
+        <section-wrapper v-if="$fetchState.pending" class="results">
+           <div> 
+            <p>...Search results loading</p>
+            </div>
+        </section-wrapper>
 
-        <div v-else-if="$fetchState.error">
+        <section-wrapper v-else-if="$fetchState.error" class="results">
             <p>There is an error</p>
-        </div>
+        </section-wrapper>
 
         <div v-else>
             <!--h4 style="margin: 30px 400px">
@@ -28,10 +30,13 @@
                 {{ page && page.hits && page.hits.hits.length }}
             </h4-->
 
-            <div
+            <section-wrapper
                 v-if="page && page.hits && page.hits.hits.length > 0"
                 class="meta"
             >
+            <section-wrapper class="about-results">
+                        Displaying {{ page.hits.length }} results for <strong><em>“{{ $route.query.q }}”</em></strong>
+                    </section-wrapper>
                 <section-wrapper
                     v-for="(result, index) in page.hits.hits"
                     :key="`SearchResultBlock${index}`"
@@ -52,9 +57,9 @@
                         :next-to="parseNext"
                     />
                 </section-wrapper>
-            </div>
-            <div v-else>
-                <rich-text class="error-text">
+            </section-wrapper>
+            <div v-else class="error-text">
+                <rich-text>
                     <h1>Search for “{{ $route.query.q }}” not found.</h1>
                     <p>
                         We can’t find the page you are looking for, but we're
