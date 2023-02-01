@@ -67,20 +67,24 @@
             <divider-way-finder color="about" />
         </section-wrapper>
 
-        <section-wrapper section-title="All News">
-            <section-staff-article-list
-                v-if="news && news.length > 0"
-                :items="parsedNewsList"
-            />
-            <section-staff-article-list
-                v-else-if="hits && hits.length > 0"
-                :items="parseHitsResults"
-            />
-            <div v-else>
-                No Results found
-            </div>
+        <section-wrapper
+            v-if="news && news.length > 0"
+            section-title="All News"
+        >
+            <section-staff-article-list :items="parsedNewsList" />
         </section-wrapper>
-
+        <section-wrapper v-else-if="hits && hits.length > 0">
+            <div class="about-results">
+                {{ parseDisplayResults }}
+            </div>
+            <section-staff-article-list :items="parseHitsResults" />
+        </section-wrapper>
+        <div
+            v-else-if="noResultsFound"
+            class="about-results"
+        >
+            No Results found
+        </div>
         <section-wrapper theme="divider">
             <divider-way-finder color="about" />
         </section-wrapper>
@@ -106,6 +110,7 @@ import ARTICLE_LIST from "~/gql/queries/ArticleList"
 // UTILITIES
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
+import queryFilterHasValues from "~/utils/queryFilterHasValues"
 
 export default {
     async asyncData({ $graphql }) {
@@ -140,10 +145,14 @@ export default {
 
         this.news = []
         this.hits = []
-        console.log("query filter has values:" + this.queryFilterHasValues())
+
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
-            (this.$route.query.filters && this.queryFilterHasValues())
+            (this.$route.query.filters &&
+                queryFilterHasValues(
+                    this.$route.query.filters,
+                    config.newsIndex.filters
+                ))
         ) {
             if (!this.page.title) {
                 const data = await this.$graphql.default.request(ARTICLE_LIST)
@@ -213,6 +222,11 @@ export default {
         }
     },
     computed: {
+        parseDisplayResults() {
+            if (this.hits.length > 1)
+                return `Displaying ${this.hits.length} results`
+            else return `Displaying ${this.hits.length} result`
+        },
         parsedFeaturedNews() {
             return this.page.featuredNews.map((obj) => {
                 return {
@@ -306,39 +320,7 @@ export default {
             })
             return result.slice(0, -2)
         },
-        queryFilterHasValues() {
-            if (!this.$route.query.filters) return false
-            let routeQueryFilters = JSON.parse(this.$route.query.filters)
-            console.log(
-                "is route query exixts:" + JSON.stringify(routeQueryFilters)
-            )
-            let configFilters = config.newsIndex.filters
-            for (const filter of configFilters) {
-                if (
-                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName].length > 0
-                ) {
-                    console.log(
-                        "why is this true is Array: " +
-                            routeQueryFilters[filter.esFieldName]
-                    )
-                    return true
-                } else if (
-                    routeQueryFilters[filter.esFieldName] &&
-                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName] != ""
-                ) {
-                    console.log(
-                        "why is this truenot Array: " +
-                            routeQueryFilters[filter.esFieldName] +
-                            "config filter name is " +
-                            filter.esFieldName
-                    )
-                    return true
-                }
-            }
-            return false
-        },
+
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.newsIndex.filters,
@@ -392,6 +374,10 @@ export default {
 
 <style lang="scss" scoped>
 .page-news {
+    .about-results {
+        margin-top: var(--space-xl);
+        margin-bottom: var(--space-l);
+    }
     .search-margin {
         margin: var(--space-2xl) auto;
     }

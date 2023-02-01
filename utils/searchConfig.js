@@ -16,7 +16,8 @@ const config = {
             "uri",
             "type",
         ],
-        sortField: "title.keyword"
+        sortField: "title.keyword",
+        orderBy:"asc"
     },
     staff:{
         searchFields:[
@@ -62,7 +63,8 @@ const config = {
             "uri",
             "image"
         ],
-        sortField: "nameLast.keyword"
+        sortField: "nameLast.keyword",
+        orderBy:"asc"
     },
     exploreCollection:{
         searchFields:[
@@ -90,7 +92,8 @@ const config = {
             "uri",
             "heroImage"
         ],
-        sortField: "title.keyword"
+        sortField: "title.keyword",
+        orderBy:"asc"
     },
     newsIndex:{
         searchFields:[
@@ -152,7 +155,8 @@ const config = {
             "heroImage",
             "donorNames"
         ],
-        sortField: "title.keyword"
+        sortField: "title.keyword",
+        orderBy:"asc"
     },
     locationsList:{
         searchFields:[
@@ -176,7 +180,8 @@ const config = {
             "libcalLocationIdForHours",
             "locationType"
         ],
-        sortField: "title.keyword"
+        sortField: "title.keyword",
+        orderBy:"asc"
     },
     programsList:{
         searchFields:[
@@ -193,7 +198,8 @@ const config = {
         resultFields:[
             "*"
         ],
-        sortField: "title.keyword"
+        sortField: "title.keyword",
+        orderBy:"asc"
        
     },
     eventsExhibitionsList:{
@@ -224,7 +230,8 @@ const config = {
         resultFields:[
             "*"
         ],
-        sortField: "startDateWithTime"
+        sortField: "startDateWithTime",
+        orderBy:"asc"
     }
 }
 

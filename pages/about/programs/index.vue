@@ -43,7 +43,7 @@
                 class="banner section-featured-banner"
             />
 
-            <divider-general v-if="parsedSectionHighlight.length"/>
+            <divider-general v-if="parsedSectionHighlight.length" />
 
             <section-teaser-highlight
                 v-if="parsedSectionHighlight.length"
@@ -53,13 +53,13 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                color="about"
-            />
+            <divider-way-finder color="about" />
         </section-wrapper>
 
-        <section-wrapper v-if="parsedProgramsList.length"
-            section-title="All Programs & Initiatives">
+        <section-wrapper
+            v-if="parsedProgramsList.length"
+            section-title="All Programs & Initiatives"
+        >
             <section-staff-article-list :items="parsedProgramsList" />
         </section-wrapper>
     </main>
@@ -90,11 +90,11 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
@@ -107,7 +107,7 @@ export default {
                     title: _get(obj, "title", ""),
                     text: obj.summary,
                     to: `/${obj.uri}`,
-                    category: _get(obj,"programType[0].title", ""),
+                    category: _get(obj, "programType[0].title", ""),
                 }
             })
         },
@@ -121,7 +121,7 @@ export default {
                     image: _get(obj, "heroImage[0].image[0]", ""),
                     to: `/${obj.uri}`,
                     text: obj.summary,
-                    category: _get(obj,"programType[0].title", ""),
+                    category: _get(obj, "programType[0].title", ""),
                 }
             })
         },

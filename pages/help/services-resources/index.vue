@@ -36,19 +36,21 @@
 
         <section-wrapper
             v-if="
-                page.serviceOrResource ||
-                    page.workshopseries ||
-                    (hits && hits.length > 0)
+                (page.serviceOrResource || page.workshopseries) &&
+                    hits.length == 0
             "
             class="section-no-top-margin"
         >
             <section-cards-with-illustrations
-                v-if="page.serviceOrResource || page.workshopseries"
                 :items="parsedServiceAndResourceList"
                 :is-horizontal="true"
             />
+        </section-wrapper>
+        <section-wrapper v-else-if="hits && hits.length > 0">
+            <div class="about-results">
+                {{ parseDisplayResultsText }}
+            </div>
             <section-cards-with-illustrations
-                v-else-if="hits && hits.length > 0"
                 :items="parseHitsResults"
                 :is-horizontal="true"
             />
@@ -161,6 +163,7 @@ export default {
                 "sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic",
                 [],
                 config.serviceOrResources.sortField,
+                config.serviceOrResources.orderBy,
                 config.serviceOrResources.resultFields,
                 []
             )
@@ -212,6 +215,11 @@ export default {
     // multiple components can return the same `fetchKey` and Nuxt will track them both separately
     fetchKey: "services-resources-workshops",
     computed: {
+        parseDisplayResultsText() {
+            if (this.hits.length > 1)
+                return `Displaying ${this.hits.length} results`
+            else return `Displaying ${this.hits.length} result`
+        },
         parsedPages() {
             if (
                 this.page &&
