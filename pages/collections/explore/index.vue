@@ -90,7 +90,7 @@
 // UTILITIES
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
-
+import queryFilterHasValues from "~/utils/queryFilterHasValues"
 // HELPERS
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
@@ -133,7 +133,11 @@ export default {
         this.hits = []
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
-            this.$route.query.filters
+            (this.$route.query.filters &&
+                queryFilterHasValues(
+                    this.$route.query.filters,
+                    config.exploreCollection.filters
+                ))
         ) {
             if (!this.page.title) {
                 const data = await this.$graphql.default.request(
@@ -148,6 +152,7 @@ export default {
                 config.exploreCollection.searchFields,
                 "sectionHandle:collection",
                 JSON.parse(this.$route.query.filters) || {},
+
                 config.exploreCollection.sortField,
                 config.exploreCollection.resultFields,
                 config.exploreCollection.filters
@@ -246,29 +251,6 @@ export default {
             })
             return result.slice(0, -2)
         },
-        queryFilterHasValues() {
-            if (!this.$route.query.filters) return false
-            let routeQueryFilters = JSON.parse(this.$route.query.filters)
-            // console.log(
-            //     "is route query exixts:" + JSON.stringify(routeQueryFilters)
-            // )
-            let configFilters = config.exploreCollection.filters
-            for (const filter of configFilters) {
-                if (
-                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName].length > 0
-                ) {
-                    return true
-                } else if (
-                    routeQueryFilters[filter.esFieldName] &&
-                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName] != ""
-                ) {
-                    return true
-                }
-            }
-            return false
-        },
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.exploreCollection.filters,
@@ -315,12 +297,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-collections-explore {
-    // .about-results {
-    //     margin-top: var(--space-xl);
-    //     margin-bottom: var(--space-l);
-    //     color: var(--color-primary-blue-05);
-    //     @include step-0;
-    //     font-weight: 400;
-    // }
 }
 </style>
