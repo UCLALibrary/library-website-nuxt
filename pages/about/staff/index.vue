@@ -93,7 +93,7 @@
                 :table-headers="tableHeaders"
             />
         </section-wrapper>
-        <div v-else-if="hits && hits.length == 0 && !page.entries">
+        <div v-else-if="noResultsFound">
             No results found
         </div>
     </main>
@@ -127,6 +127,7 @@ export default {
             page: {},
             summaryData: {},
             hits: [],
+            noResultsFound: false,
             searchFilters: [],
             selectedLetterProp: "",
             searchGenericQuery: {
@@ -193,9 +194,11 @@ export default {
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
                 this.page = {}
+                this.noResultsFound = false
             } else {
                 this.hits = []
                 this.page = {}
+                this.noResultsFound = true
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
@@ -209,6 +212,7 @@ export default {
             // if route queries are empty fetch data from craft
             this.page = await this.$graphql.default.request(STAFF_LIST)
             this.hits = []
+            this.noResultsFound = false
             this.searchGenericQuery = {
                 queryText: "",
                 queryFilters: {},

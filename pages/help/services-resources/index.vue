@@ -56,7 +56,7 @@
             />
         </section-wrapper>
 
-        <div v-else>
+        <div v-else-if="noResultsFound">
             No results found
         </div>
 
@@ -170,8 +170,10 @@ export default {
             console.log("fetch method ES results:" + JSON.stringify(results))
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
+                this.noResultsFound = false
             } else {
                 this.hits = []
+                this.noResultsFound = true
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
@@ -182,6 +184,7 @@ export default {
             this.summaryData = _get(getSummaryData, "entry", {})
         } else {
             this.hits = []
+            this.noResultsFound = false
             this.page = {}
             this.helptopic = {}
             this.page = await this.$graphql.default.request(
