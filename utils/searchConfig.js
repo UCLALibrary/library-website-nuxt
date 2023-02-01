@@ -70,7 +70,7 @@ const config = {
         ],
         filters: [
             {
-                label: "Physical/Digital",
+                label: "PhysicalDigital",
                 esFieldName: "physicalDigital.keyword",
                 inputType: "checkbox",
             },
@@ -80,6 +80,7 @@ const config = {
                 inputType: "checkbox",
             },
         ],
+        resultFields: ["title", "text", "physicalDigital", "uri", "heroImage"],
         sortField: "title.keyword",
         orderBy: "asc",
     },
@@ -173,6 +174,7 @@ const config = {
                 inputType: "checkbox",
             },
         ],
+        resultFields: ["*"],
         sortField: "title.keyword",
         orderBy: "asc",
     },

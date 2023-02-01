@@ -3,47 +3,67 @@ export default function ({ $config }, inject) {
     {"id":"j6tUj4IBzYVXfPB9-JvU","name":"dev-es-key","api_key":"N_f0_5WSSae3QOvm4hlq0g","encoded":"ajZ0VWo0SUJ6WVZYZlBCOS1KdlU6Tl9mMF81V1NTYWUzUU92bTRobHEwZw=="}
     */
 
-    async function siteSearch(keyword="*:*", from=0){
+    async function siteSearch(keyword = "*:*", from = 0) {
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
-        if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
+        if (
+            $config.esReadKey === "" ||
+            $config.esURL === "" ||
+            $config.esIndex === ""
+        )
+            return
         //console.log("keyword:"+keyword)
-        console.log(JSON.stringify({
-            "from": from,
-            "query": {
-                "query_string" : {
-                    "query" : "("+keyword + " AND NOT(sectionHandle:event)) OR ("+keyword + " AND startDateWithTime:[now TO *] AND sectionHandle:event)",
-                    "fields": [
-                        "title^4",
-                        "summary^3",
-                        "text^3",
-                        "richText^2"
-                    ],
-                    "fuzziness":"auto"
-                }
-            }        
-        }))
-        const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, {
-            headers: {
-                'Authorization': `ApiKey ${$config.esReadKey}`,
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            body: JSON.stringify({
-                "from": from,
-                "query": {
-                    "query_string" : {
-                        "query" : "("+keyword + " AND NOT(sectionHandle:event)) OR ("+keyword + " ANDstartDateWithTime:[now TO *] AND sectionHandle:event)",
-                        "fields": [
+        console.log(
+            JSON.stringify({
+                from: from,
+                query: {
+                    query_string: {
+                        query:
+                            "(" +
+                            keyword +
+                            " AND NOT(sectionHandle:event)) OR (" +
+                            keyword +
+                            " AND startDateWithTime:[now TO *] AND sectionHandle:event)",
+                        fields: [
                             "title^4",
                             "summary^3",
                             "text^3",
-                            "richText^2"
+                            "richText^2",
                         ],
-                        "fuzziness":"auto"
-                    }
-                }        
+                        fuzziness: "auto",
+                    },
+                },
             })
-        })
+        )
+        const response = await fetch(
+            `${$config.esURL}/${$config.esIndex}/_search`,
+            {
+                headers: {
+                    Authorization: `ApiKey ${$config.esReadKey}`,
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    from: from,
+                    query: {
+                        query_string: {
+                            query:
+                                "(" +
+                                keyword +
+                                " AND NOT(sectionHandle:event)) OR (" +
+                                keyword +
+                                " ANDstartDateWithTime:[now TO *] AND sectionHandle:event)",
+                            fields: [
+                                "title^4",
+                                "summary^3",
+                                "text^3",
+                                "richText^2",
+                            ],
+                            fuzziness: "auto",
+                        },
+                    },
+                }),
+            }
+        )
         const data = await response.json()
         return data
     }
@@ -62,10 +82,15 @@ export default function ({ $config }, inject) {
         console.log("In data api keywordsearchwithfilters")
         // console.log($config.esReadKey)
         // console.log($config.esURL)
-        if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
-        console.log("keyword:"+keyword)
-        console.log("filters:"+filters)
-        console.log("sort:"+sort)
+        if (
+            $config.esReadKey === "" ||
+            $config.esURL === "" ||
+            $config.esIndex === ""
+        )
+            return
+        console.log("keyword:" + keyword)
+        console.log("filters:" + filters)
+        console.log("sort:" + sort)
 
         let testquery = JSON.stringify({
             _source: [...source],
@@ -75,10 +100,8 @@ export default function ({ $config }, inject) {
                         {
                             query_string: {
                                 query: keyword,
-                                "fields": [
-                                    ...searchFields
-                                ],
-                                "fuzziness":"auto"
+                                fields: [...searchFields],
+                                fuzziness: "auto",
                             },
                         },
                         ...parseSectionHandle(sectionHandle),
@@ -91,39 +114,39 @@ export default function ({ $config }, inject) {
         console.log("this is the query: " + testquery)
 
         // need to know fields to boost on for listing pages when searching like title etc
-    
-        const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, {
-            headers: {
-                'Authorization': `ApiKey ${$config.esReadKey}`,
-                'Content-Type': 'application/json',
-            },
-            method: "POST",
-            body: JSON.stringify({
-                size: "1000",
-                _source: [...source],
-                query: {
-                    bool: {
-                        must: [
-                            {
-                                query_string: {
-                                    query: keyword+"*",
-                                    "fields": [
-                                        ...searchFields
-                                    ],
-                                    fuzziness: "auto",
+
+        const response = await fetch(
+            `${$config.esURL}/${$config.esIndex}/_search`,
+            {
+                headers: {
+                    Authorization: `ApiKey ${$config.esReadKey}`,
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    size: "1000",
+                    _source: [...source],
+                    query: {
+                        bool: {
+                            must: [
+                                {
+                                    query_string: {
+                                        query: keyword + "*",
+                                        fields: [...searchFields],
+                                        fuzziness: "auto",
+                                    },
                                 },
-                            },
-                            ...parseSectionHandle(sectionHandle),
-                            ...parseFilterQuery(filters),
-                        ],
+                                ...parseSectionHandle(sectionHandle),
+                                ...parseFilterQuery(filters),
+                            ],
+                        },
                     },
-                },
-                ...parseSort(sort, orderBy),
-                aggs: {
-                    ...parseFieldNames(aggFields),
-                },
-            }),
-        }
+                    ...parseSort(sort, orderBy),
+                    aggs: {
+                        ...parseFieldNames(aggFields),
+                    },
+                }),
+            }
         )
         const data = await response.json()
         return data
@@ -135,23 +158,31 @@ export default function ({ $config }, inject) {
         getAggregations,
     })
 
-    async function getMapping(){
-        if($config.esReadKey === "" || $config.esURL === "" || $config.esIndex === "") return
-        const response = await fetch(`${$config.esURL}/${$config.esIndex}/_mapping`, {
-            headers: {
-                'Authorization': `ApiKey ${$config.esReadKey}`,
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        })
+    async function getMapping() {
+        if (
+            $config.esReadKey === "" ||
+            $config.esURL === "" ||
+            $config.esIndex === ""
+        )
+            return
+        const response = await fetch(
+            `${$config.esURL}/${$config.esIndex}/_mapping`,
+            {
+                headers: {
+                    Authorization: `ApiKey ${$config.esReadKey}`,
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            }
+        )
         const data = await response.json()
         return data
     }
 
-
-    async function getAggregations(fields, sectionHandle){
+    async function getAggregations(fields, sectionHandle) {
         // console.log("search text: "+fields)
-        if(!fields || fields.length == 0 ) return
-        const response = await fetch(`${$config.esURL}/${$config.esIndex}/_search`, 
+        if (!fields || fields.length == 0) return
+        const response = await fetch(
+            `${$config.esURL}/${$config.esIndex}/_search`,
             {
                 headers: {
                     Authorization: `ApiKey ${$config.esReadKey}`,
@@ -177,7 +208,7 @@ export default function ({ $config }, inject) {
         return data.aggregations
     }
 
-    function parseSort(sortField,orderBy="asc") {
+    function parseSort(sortField, orderBy = "asc") {
         if (!sortField || sortField == "") return {}
         let parseQuery = {}
         parseQuery["sort"] = []
@@ -218,7 +249,7 @@ export default function ({ $config }, inject) {
                 let filterObj = { terms: {} }
                 filterObj.terms[key] = filters[key]
                 boolQuery.push(filterObj)
-            }else if(!Array.isArray(filters[key]) && filters[key]!="") {
+            } else if (!Array.isArray(filters[key]) && filters[key] != "") {
                 let filterObj = { term: {} }
                 filterObj.term[key] = filters[key]
                 boolQuery.push(filterObj)
