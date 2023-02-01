@@ -8,19 +8,13 @@
             :text="page.text"
         />
 
-        <!-- <search-generic
+        <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
-        /> -->
-
-
-        <h3>{{ page }}</h3>
-        <h3>{{ uclaLibraries }}</h3>
-        <h3>AFF: ---------{{ affiliateLibraries }}</h3>
-
+        />
 
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -73,12 +67,16 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
-import parseAddress from "~/utils/parseAddress"
-import parseAmenities from "~/utils/parseAmenities"
-import removeTags from "~/utils/removeTags"
 
 // GQL
 import LOCATIONS_LIST from "~/gql/queries/LocationsList"
+
+// UTILITIES
+import getListingFilters from "~/utils/getListingFilters"
+import config from "~/utils/searchConfig"
+import parseAddress from "~/utils/parseAddress"
+import parseAmenities from "~/utils/parseAmenities"
+import removeTags from "~/utils/removeTags"
 
 export default {
     async asyncData({ $graphql, params }) {
@@ -109,6 +107,57 @@ export default {
                         JSON.parse(this.$route.query.filters)) ||
                     {},
             },
+        }
+    },
+    async fetch() {
+        this.locations = []
+        this.hits = []
+        if (
+            (this.$route.query.q && this.$route.query.q !== "") ||
+            this.$route.query.filters
+        ) {
+            if (!this.page.title) {
+                const data = await this.$graphql.default.request(LOCATIONS_LIST)
+                console.log("data for masthead:" + data)
+                this.page["title"] = _get(data, "entry.title", "")
+                this.page["text"] = _get(data, "entry.text", "")
+            }
+            let query_text = this.$route.query.q || "*"
+
+            console.log("in router query in async data")
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                query_text,
+                config.locationsList.searchFields,
+                "sectionHandle:locations",
+                JSON.parse(this.$route.query.filters) || {},
+                config.locationsList.sortField,
+                config.locationsList.resultFields,
+                config.locationsList.filters
+            )
+            console.log("getsearchdata method:" + JSON.stringify(results))
+            this.locations = []
+            this.hits = []
+            if (results && results.hits && results.hits.total.value > 0) {
+                this.hits = results.hits.hits
+                this.locations = []
+            } else {
+                this.hits = []
+                this.locations = []
+            }
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            }
+        } else {
+            this.hits = []
+            // if route queries are empty fetch data from craft
+            const data = await this.$graphql.default.request(LOCATIONS_LIST)
+            // console.log("data:" + data)
+            this.page = _get(data, "entry", {})
+            this.locations = _get(data, "entries", [])
         }
     },
     head() {
@@ -162,11 +211,112 @@ export default {
             })
         },
     },
+    watch: {
+        "$route.query": "$fetch",
+        "$route.query.q"(newValue) {
+            console.log("watching querytEXT:" + newValue)
+        },
+        "$route.query.filters"(newValue) {
+            console.log("watching filters:" + newValue)
+        },
+    },
+    async mounted() {
+        console.log("In mounted")
+        this.setFilters()
+    },
     methods: {
         showMoreOtherCampusLibrary() {
             this.showOtherCampus = !this.showOtherCampus
         },
+        parseArticleCategory(categories) {
+            if (!categories || categories.length == 0) return ""
+            let result = ""
+            categories.forEach((obj) => {
+                result = result + obj.title + ", "
+            })
+            return result.slice(0, -2)
+        },
+        queryFilterHasValues() {
+            if (!this.$route.query.filters) return false
+            let routeQueryFilters = JSON.parse(this.$route.query.filters)
+            console.log(
+                "is route query exixts:" + JSON.stringify(routeQueryFilters)
+            )
+            let configFilters = config.newsIndex.filters
+            for (const filter of configFilters) {
+                if (
+                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName].length > 0
+                ) {
+                    console.log(
+                        "why is this true is Array: " +
+                            routeQueryFilters[filter.esFieldName]
+                    )
+                    return true
+                } else if (
+                    routeQueryFilters[filter.esFieldName] &&
+                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName] != ""
+                ) {
+                    console.log(
+                        "why is this truenot Array: " +
+                            routeQueryFilters[filter.esFieldName] +
+                            "config filter name is " +
+                            filter.esFieldName
+                    )
+                    return true
+                }
+            }
+            return false
+        },
+        async setFilters() {
+            const searchAggsResponse = await this.$dataApi.getAggregations(
+                config.programsList.filters,
+                "program"
+            )
+            console.log(
+                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+            )
+            this.searchFilters = getListingFilters(
+                searchAggsResponse,
+                config.programsList.filters
+            )
+        },
+        parseHits(hits = []) {
+            return hits.map((obj) => {
+                // console.log(obj["_source"]["image"])
+                return {
+                    ...obj["_source"],
+                    description: obj["_source"].text,
+                    to:
+                        obj["_source"].programUrlBehavior === "externalSite"
+                            ? obj["_source"].buttonUrl[0].buttonUrl
+                            : `/${obj["_source"].uri}`,
+                    image: _get(obj["_source"], "heroImage[0].image[0]", null),
+                    category: _get(
+                        obj["_source"],
+                        "programType[0].title",
+                        null
+                    ),
+                }
+            })
+        },
+        getSearchData(data) {
+            console.log("On the page getsearchdata called")
+            /*this.page = {}
+            this.hits = []*/
+            this.$router.push({
+                path: "/visit/locations",
+                query: {
+                    q: data.text,
+                    filters: JSON.stringify(data.filters),
+                },
+            })
+        },
     },
+    fetchOnServer: false,
+    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
+    fetchKey: "locations-index",
 }
 </script>
 
