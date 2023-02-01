@@ -315,12 +315,12 @@ export default {
 
 <style lang="scss" scoped>
 .page-collections-explore {
-    .about-results {
-        margin-top: var(--space-xl);
-        margin-bottom: var(--space-l);
-        color: var(--color-primary-blue-05);
-        @include step-0;
-        font-weight: 400;
-    }
+    // .about-results {
+    //     margin-top: var(--space-xl);
+    //     margin-bottom: var(--space-l);
+    //     color: var(--color-primary-blue-05);
+    //     @include step-0;
+    //     font-weight: 400;
+    // }
 }
 </style>
