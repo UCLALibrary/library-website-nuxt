@@ -17,7 +17,7 @@
             :text="page.text"
             :byline="parsedBylineBannerText"
             :locations="page.locations"
-            :date-created="page.dateCreated"
+            :date-created="page.postDate"
         />
 
         <section-wrapper
@@ -32,7 +32,7 @@
                 :text="page.text"
                 :byline="parsedByline"
                 :locations="page.locations"
-                :date-created="page.dateCreated"
+                :date-created="page.postDate"
                 :align-right="true"
             />
         </section-wrapper>
@@ -133,7 +133,7 @@ export default {
         },
 
         parsedDate() {
-            return format(new Date(this.page.dateCreated), "MMMM d, Y")
+            return format(new Date(this.page.postDate), "MMMM d, Y")
         },
 
         parsedAssociatedStaffMember() {
