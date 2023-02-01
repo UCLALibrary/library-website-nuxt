@@ -243,14 +243,6 @@ export default {
         this.setFilters()
     },
     methods: {
-        parseArticleCategory(categories) {
-            if (!categories || categories.length == 0) return ""
-            let result = ""
-            categories.forEach((obj) => {
-                result = result + obj.title + ", "
-            })
-            return result.slice(0, -2)
-        },
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.exploreCollection.filters,
