@@ -12,12 +12,12 @@
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
-            category="Library News"
+            :category="parsedCategory"
             :title="page.title"
             :text="page.text"
             :byline="parsedBylineBannerText"
             :locations="page.locations"
-            :date-created="page.dateCreated"
+            :date-created="page.postDate"
         />
 
         <section-wrapper
@@ -27,12 +27,12 @@
             <banner-header
                 :image="page.heroImage[0].image[0]"
                 :to="page.to"
-                category="Library News"
+                :category="parsedCategory"
                 :title="page.title"
                 :text="page.text"
                 :byline="parsedByline"
                 :locations="page.locations"
-                :date-created="page.dateCreated"
+                :date-created="page.postDate"
                 :align-right="true"
             />
         </section-wrapper>
@@ -133,7 +133,7 @@ export default {
         },
 
         parsedDate() {
-            return format(new Date(this.page.dateCreated), "MMMM d, Y")
+            return format(new Date(this.page.postDate), "MMMM d, Y")
         },
 
         parsedAssociatedStaffMember() {
@@ -145,6 +145,9 @@ export default {
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
                 }
             })
+        },
+        parsedCategory() {
+            return this.page.category[0] ? this.page.category[0].title : ""
         },
     },
 }
