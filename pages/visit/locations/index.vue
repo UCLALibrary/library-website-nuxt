@@ -7,7 +7,7 @@
             :title="page.title"
             :text="page.text"
         />
-
+        <h3>{{ }}</h3>
         <search-generic
             search-type="visit"
             :filters="searchFilters"
@@ -136,7 +136,7 @@ export default {
             const results = await this.$dataApi.keywordSearchWithFilters(
                 query_text,
                 config.locationsList.searchFields,
-                "sectionHandle:locations",
+                "sectionHandle:location",
                 JSON.parse(this.$route.query.filters) || {},
                 config.locationsList.sortField,
                 config.locationsList.resultFields,
@@ -240,14 +240,6 @@ export default {
         showMoreOtherCampusLibrary() {
             this.showOtherCampus = !this.showOtherCampus
         },
-        // parseArticleCategory(categories) {
-        //     if (!categories || categories.length == 0) return ""
-        //     let result = ""
-        //     categories.forEach((obj) => {
-        //         result = result + obj.title + ", "
-        //     })
-        //     return result.slice(0, -2)
-        // },
         queryFilterHasValues() {
             if (!this.$route.query.filters) return false
             let routeQueryFilters = JSON.parse(this.$route.query.filters)
@@ -284,7 +276,7 @@ export default {
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.locationsList.filters,
-                "program"
+                "location"
             )
             console.log(
                 "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
@@ -306,10 +298,22 @@ export default {
                             : `/${obj["_source"].uri}`,
                     image: _get(obj["_source"], "heroImage[0].image[0]", null),
                 }
+
+                // to: obj.uri ? `/${obj.uri}` : null,
+                //     image: _get(obj, "heroImage[0].image[0]", null),
+                //     address: parseAddress(obj)[0],
+                //     addressLink: `https://map.ucla.edu/?id=${obj.campusMapId}&e=true`,
+                //     amenities:
+                //         obj.amenitiesIcons.length > 0
+                //             ? parseAmenities(obj)
+                //             : null,
+                //     isUclaLibrary: true,
+
+
             })
         },
         getSearchData(data) {
-            console.log("On the page getsearchdata called")
+            console.log("On the page getsearchdata called" + data)
             /*this.page = {}
             this.hits = []*/
             this.$router.push({
