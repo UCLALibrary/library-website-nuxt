@@ -51,9 +51,10 @@
                 v-if="$route.query.q"
                 class="about-results"
             >
-                Displaying {{ hits.length }} results for “{{ $route.query.q }}”
-            </h3>
-            <h3
+                Displaying {{ hits.length }} results for
+                <strong><em>“{{ $route.query.q }}”</em></strong>
+            </div>
+            <div
                 v-else
                 class="about-results"
             >
