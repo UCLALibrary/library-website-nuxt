@@ -79,9 +79,14 @@ const config = {
                 esFieldName: "subjectAreas.title.keyword",
                 inputType: "checkbox",
             },
+            {
+                label: "Title",
+                esFieldName: "title.keyword",
+                inputType: "checkbox",
+            },
         ],
         sortField: "title.keyword",
-        // orderBy: "asc",
+        orderBy: "desc",
     },
     newsIndex: {
         searchFields: ["title^3", "text^3", "contributors*^2"],

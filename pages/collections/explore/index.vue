@@ -152,7 +152,7 @@ export default {
                 config.exploreCollection.searchFields,
                 "sectionHandle:collection",
                 JSON.parse(this.$route.query.filters) || {},
-
+                config.exploreCollection.orderBy,
                 config.exploreCollection.sortField,
                 config.exploreCollection.resultFields,
                 config.exploreCollection.filters
