@@ -79,11 +79,6 @@ const config = {
                 esFieldName: "subjectAreas.title.keyword",
                 inputType: "checkbox",
             },
-            {
-                label: "Title",
-                esFieldName: "title.keyword",
-                inputType: "checkbox",
-            },
         ],
         sortField: "title.keyword",
         orderBy: "desc",
