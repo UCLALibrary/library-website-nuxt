@@ -16,7 +16,8 @@ const config = {
             "uri",
             "type",
         ],
-        sortField: "title.keyword"
+        sortField: "title.keyword",
+        orderBy:"asc"
     },
     staff:{
         searchFields:[
@@ -62,7 +63,8 @@ const config = {
             "uri",
             "image"
         ],
-        sortField: "nameLast.keyword"
+        sortField: "nameLast.keyword",
+        orderBy:"asc"
     },
     exploreCollection:{
         searchFields:[
@@ -90,7 +92,8 @@ const config = {
             "uri",
             "heroImage"
         ],
-        sortField: "title.keyword"
+        sortField: "title.keyword",
+        orderBy:"asc"
     },
     newsIndex:{
         searchFields:[
@@ -120,7 +123,8 @@ const config = {
             "category",
             "contributors"
         ],
-        sortField: "postDate"
+        sortField: "postDate",
+        orderBy: "desc"
     },
     endowmentsList:{
         searchFields:[
@@ -151,7 +155,8 @@ const config = {
             "heroImage",
             "donorNames"
         ],
-        sortField: "title.keyword"
+        sortField: "title.keyword",
+        orderBy:"asc"
     },
     locationsList:{
         searchFields:[
@@ -175,7 +180,8 @@ const config = {
             "libcalLocationIdForHours",
             "locationType"
         ],
-        sortField: "title.keyword"
+        sortField: "title.keyword",
+        orderBy:"asc"
     },
     programsList:{
         searchFields:[
@@ -185,14 +191,16 @@ const config = {
         filters:[
             {
                 label: "Type",
-                esFieldName: "programType.keyword",
+                esFieldName: "programType.title.keyword",
                 inputType: "checkbox",
             }
         ],
         resultFields:[
             "*"
         ],
-        sortField: "title.keyword"
+        sortField: "title.keyword",
+        orderBy:"asc"
+       
     },
     eventsExhibitionsList:{
         searchFields:[
@@ -222,7 +230,8 @@ const config = {
         resultFields:[
             "*"
         ],
-        sortField: "startDateWithTime"
+        sortField: "startDateWithTime",
+        orderBy:"asc"
     }
 }
 

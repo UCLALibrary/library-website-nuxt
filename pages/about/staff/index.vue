@@ -51,30 +51,29 @@
                 :selected-letter-prop="selectedLetterProp"
                 @selectedLetter="searchBySelectedLetter"
             />
+        </section-wrapper>
 
-            <!-- ALL STAFF -->
-
-            <section-staff-list
-                v-if="page.entries"
-                :items="parsedStaffList"
-            />
-
-            <section-staff-list
-                v-else-if="
-                    hits &&
-                        hits.length > 0 &&
-                        ((searchGenericQuery.queryFilters[
+        <!-- ALL STAFF -->
+        <section-wrapper v-if="page.entries">
+            <section-staff-list :items="parsedStaffList" />
+        </section-wrapper>
+        <section-wrapper
+            v-else-if="
+                hits &&
+                    hits.length > 0 &&
+                    ((searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
+                        searchGenericQuery.queryFilters[
                             'subjectLibrarian.keyword'
-                        ] &&
-                            searchGenericQuery.queryFilters[
-                                'subjectLibrarian.keyword'
-                            ] === '') ||
-                            !searchGenericQuery.queryFilters[
-                                'subjectLibrarian.keyword'
-                            ])
-                "
-                :items="parseHitsResults"
-            />
+                        ] === '') ||
+                        !searchGenericQuery.queryFilters[
+                            'subjectLibrarian.keyword'
+                        ])
+            "
+        >
+            <div class="about-results">
+                {{ parseDisplayResultsText }}
+            </div>
+            <section-staff-list :items="parseHitsResults" />
         </section-wrapper>
 
         <!-- SUBJECT LIBRARIANS -->
@@ -94,6 +93,9 @@
                 :table-headers="tableHeaders"
             />
         </section-wrapper>
+        <div v-else-if="noResultsFound">
+            No results found
+        </div>
     </main>
 </template>
 
@@ -109,6 +111,7 @@ import STAFF_LIST from "~/gql/queries/StaffList"
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
 import removeTags from "~/utils/removeTags"
+import queryFilterHasValues from "~/utils/queryFilterHasValues"
 
 export default {
     async asyncData({ $graphql }) {
@@ -124,6 +127,7 @@ export default {
             page: {},
             summaryData: {},
             hits: [],
+            noResultsFound: false,
             searchFilters: [],
             selectedLetterProp: "",
             searchGenericQuery: {
@@ -151,9 +155,14 @@ export default {
         console.log("test query parameters: " + this.$route.query.filters)*/
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
-            this.$route.query.filters ||
+            (this.$route.query.filters &&
+                queryFilterHasValues(
+                    this.$route.query.filters,
+                    config.staff.filters
+                )) ||
             this.$route.query.lastNameLetter
         ) {
+            console.log("doing seraach")
             let query_text = this.$route.query.q || "*"
             if (
                 this.$route.query.lastNameLetter &&
@@ -175,6 +184,7 @@ export default {
                 "sectionHandle:staffMember",
                 JSON.parse(this.$route.query.filters) || {},
                 config.staff.sortField,
+                config.staff.orderBy,
                 config.staff.resultFields,
                 config.staff.filters
             )
@@ -184,9 +194,11 @@ export default {
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
                 this.page = {}
+                this.noResultsFound = false
             } else {
                 this.hits = []
                 this.page = {}
+                this.noResultsFound = true
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
@@ -200,6 +212,7 @@ export default {
             // if route queries are empty fetch data from craft
             this.page = await this.$graphql.default.request(STAFF_LIST)
             this.hits = []
+            this.noResultsFound = false
             this.searchGenericQuery = {
                 queryText: "",
                 queryFilters: {},
@@ -225,6 +238,11 @@ export default {
         }
     },
     computed: {
+        parseDisplayResultsText() {
+            if (this.hits.length > 1)
+                return `Displaying ${this.hits.length} results`
+            else return `Displaying ${this.hits.length} result`
+        },
         groupByAcademicLibraries() {
             let parseResults = this.parseHitsResults
             let groupBySubjectAreas = []

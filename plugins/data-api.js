@@ -54,6 +54,7 @@ export default function ({ $config }, inject) {
         sectionHandle,
         filters,
         sort,
+        orderBy,
         source = ["*"],
         aggFields = []
     ) {
@@ -117,7 +118,7 @@ export default function ({ $config }, inject) {
                         ],
                     },
                 },
-                ...parseSort(sort),
+                ...parseSort(sort, orderBy),
                 aggs: {
                     ...parseFieldNames(aggFields),
                 },
@@ -176,12 +177,12 @@ export default function ({ $config }, inject) {
         return data.aggregations
     }
 
-    function parseSort(sortField) {
+    function parseSort(sortField,orderBy="asc") {
         if (!sortField || sortField == "") return {}
         let parseQuery = {}
         parseQuery["sort"] = []
         parseQuery["sort"][0] = {}
-        parseQuery["sort"][0][sortField] = { order: "asc" }
+        parseQuery["sort"][0][sortField] = { order: orderBy }
 
         return parseQuery
     }

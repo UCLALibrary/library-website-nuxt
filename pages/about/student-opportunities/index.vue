@@ -11,6 +11,11 @@
         />
 
         <banner-text
+            v-if="
+                page.buttonUrl &&
+                    page.buttonUrl[0] &&
+                    page.buttonUrl[0].buttonText
+            "
             class="banner-text"
             :title="page.title"
             :text="page.text"
@@ -18,6 +23,14 @@
             :phone="page.phoneNumber"
             :button-text="page.buttonUrl[0].buttonText"
             :to="page.buttonUrl[0].buttonUrl"
+        />
+        <banner-text
+            v-else
+            class="banner-text"
+            :title="page.title"
+            :text="page.text"
+            :email="page.email"
+            :phone="page.phoneNumber"
         />
 
         <section-wrapper theme="divider">
@@ -28,9 +41,7 @@
         </section-wrapper>
 
         <!-- STUDENT JOBS -->
-        <section-wrapper
-            section-title="Student Jobs"
-        >
+        <section-wrapper section-title="Student Jobs">
             <section-generic-list
                 v-if="parsedStudentJobs.length > 0"
                 :items="parsedStudentJobs"
@@ -51,9 +62,7 @@
         </section-wrapper>
 
         <!-- STUDENT INTERNSHIPS -->
-        <section-wrapper
-            section-title="Student Internships"
-        >
+        <section-wrapper section-title="Student Internships">
             <section-generic-list
                 v-if="parsedStudentInternships.length > 0"
                 :items="parsedStudentInternships"
@@ -80,7 +89,10 @@
             />
         </section-wrapper>
 
-        <section-wrapper theme="divider" v-if="parsedAssociatedTopics.length > 0">
+        <section-wrapper
+            v-if="parsedAssociatedTopics.length > 0"
+            theme="divider"
+        >
             <divider-way-finder color="about" />
         </section-wrapper>
 
@@ -119,11 +131,11 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
@@ -136,12 +148,14 @@ export default {
                 return {
                     ...obj,
                     payRate: _get(obj, "payRate", null),
-                    associatedLocations: obj.associatedLocations.map((entry) => {
-                        return {
-                            ...entry,
-                            uri: `/${entry.uri}`
+                    associatedLocations: obj.associatedLocations.map(
+                        (entry) => {
+                            return {
+                                ...entry,
+                                uri: `/${entry.uri}`,
+                            }
                         }
-                    })
+                    ),
                 }
             })
         },
@@ -153,12 +167,14 @@ export default {
                 return {
                     ...obj,
                     payRate: _get(obj, "payRate", null),
-                    associatedLocations: obj.associatedLocations.map((entry) => {
-                        return {
-                            ...entry,
-                            uri: `/${entry.uri}`
+                    associatedLocations: obj.associatedLocations.map(
+                        (entry) => {
+                            return {
+                                ...entry,
+                                uri: `/${entry.uri}`,
+                            }
                         }
-                    })
+                    ),
                 }
             })
         },
@@ -166,9 +182,10 @@ export default {
             return this.page.associatedPrograms.map((obj) => {
                 return {
                     ...obj,
-                    jobPostingURL: obj.programUrlBehavior === "externalSite"
-                        ? obj.buttonUrl[0].buttonUrl
-                        : `/${obj.jobPostingURL}`,
+                    jobPostingURL:
+                        obj.programUrlBehavior === "externalSite"
+                            ? obj.buttonUrl[0].buttonUrl
+                            : `/${obj.jobPostingURL}`,
                 }
             })
         },
@@ -181,8 +198,8 @@ export default {
                         : `/${obj.uri}`,
                 }
             })
-        }
-    }
+        },
+    },
 }
 </script>
 

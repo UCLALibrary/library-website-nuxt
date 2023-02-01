@@ -36,25 +36,27 @@
 
         <section-wrapper
             v-if="
-                page.serviceOrResource ||
-                    page.workshopseries ||
-                    (hits && hits.length > 0)
+                (page.serviceOrResource || page.workshopseries) &&
+                    hits.length == 0
             "
             class="section-no-top-margin"
         >
             <section-cards-with-illustrations
-                v-if="page.serviceOrResource || page.workshopseries"
                 :items="parsedServiceAndResourceList"
                 :is-horizontal="true"
             />
+        </section-wrapper>
+        <section-wrapper v-else-if="hits && hits.length > 0">
+            <div class="about-results">
+                {{ parseDisplayResultsText }}
+            </div>
             <section-cards-with-illustrations
-                v-else-if="hits && hits.length > 0"
                 :items="parseHitsResults"
                 :is-horizontal="true"
             />
         </section-wrapper>
 
-        <div v-else>
+        <div v-else-if="noResultsFound">
             No results found
         </div>
 
@@ -161,14 +163,17 @@ export default {
                 "sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic",
                 [],
                 config.serviceOrResources.sortField,
+                config.serviceOrResources.orderBy,
                 config.serviceOrResources.resultFields,
                 []
             )
             console.log("fetch method ES results:" + JSON.stringify(results))
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
+                this.noResultsFound = false
             } else {
                 this.hits = []
+                this.noResultsFound = true
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
@@ -179,6 +184,7 @@ export default {
             this.summaryData = _get(getSummaryData, "entry", {})
         } else {
             this.hits = []
+            this.noResultsFound = false
             this.page = {}
             this.helptopic = {}
             this.page = await this.$graphql.default.request(
@@ -212,6 +218,11 @@ export default {
     // multiple components can return the same `fetchKey` and Nuxt will track them both separately
     fetchKey: "services-resources-workshops",
     computed: {
+        parseDisplayResultsText() {
+            if (this.hits.length > 1)
+                return `Displaying ${this.hits.length} results`
+            else return `Displaying ${this.hits.length} result`
+        },
         parsedPages() {
             if (
                 this.page &&
