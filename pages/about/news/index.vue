@@ -38,7 +38,7 @@
                 :byline="parsedByline"
                 :locations="parsedBannerHeader.locations"
                 :description="parsedBannerHeader.text"
-                :date-created="parsedBannerHeader.dateCreated"
+                :date-created="parsedBannerHeader.postDate"
                 :to="parsedBannerHeader.to"
                 :align-right="true"
                 prompt="Read More"
