@@ -218,9 +218,11 @@ export default {
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
                 this.programs = []
+                this.noResultsFound = false
             } else {
                 this.hits = []
                 this.programs = []
+                this.noResultsFound = true
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
