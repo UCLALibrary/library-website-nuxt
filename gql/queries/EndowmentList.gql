@@ -41,7 +41,7 @@ query EndowmentsList {
             fullName
         }
         summary
-        to: uri
+        uri
         heroImage {
             ... on heroImage_heroImage_BlockType {
                 id
