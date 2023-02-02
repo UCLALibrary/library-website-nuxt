@@ -315,14 +315,14 @@ export default {
         this.setFilters()
     },
     methods: {
-        parseArticleCategory(categories) {
-            if (!categories || categories.length == 0) return ""
-            let result = ""
-            categories.forEach((obj) => {
-                result = result + obj.title + ", "
-            })
-            return result.slice(0, -2)
-        },
+        // parseArticleCategory(categories) {
+        //     if (!categories || categories.length == 0) return ""
+        //     let result = ""
+        //     categories.forEach((obj) => {
+        //         result = result + obj.title + ", "
+        //     })
+        //     return result.slice(0, -2)
+        // },
         queryFilterHasValues() {
             if (!this.$route.query.filters) return false
             let routeQueryFilters = JSON.parse(this.$route.query.filters)
@@ -406,4 +406,3 @@ export default {
     }
 }
 </style>
-Footer
