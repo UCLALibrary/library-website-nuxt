@@ -74,40 +74,52 @@
             <section-staff-article-list :items="parsedNewsList" />
         </section-wrapper>
         <section-wrapper v-else-if="hits && hits.length > 0">
-            <div class="about-results">
-                Displaying {{ hits.length }} results for <strong><em>“{{ $route.query.q }}”</em></strong>
+            <div
+                v-if="$route.query.q"
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results for
+                <strong><em>“{{ $route.query.q }}”</em></strong>
+            </div>
+            <div
+                v-else
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results
             </div>
             <section-staff-article-list :items="parseHitsResults" />
         </section-wrapper>
-        <div v-else-if="noResultsFound" class="error-text">
+        <div
+            v-else-if="noResultsFound"
+            class="error-text"
+        >
             <rich-text>
-                    <h1>Search for “{{ $route.query.q }}” not found.</h1>
-                    <p>
-                        We can’t find the term you are looking for on this page, but we're
-                        here to help. <br/> Try searching the whole site from <a
-                                href="https://library.ucla.edu"
-                            >UCLA Library Home</a>, or try one of the these regularly visited links:
-                    </p>
-                    <ul>
-                        <li>
-                            <a
-                                href="https://www.library.ucla.edu/research-teaching-support/research-help"
-                            >Research Help</a>
-                        </li>
-                        <li>
-                            <a
-                                href="/help/services-resources/ask-us"
-                            >Ask Us</a>
-                        </li>
-                        <li>
-                            <a
-                                href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
-                            >Accessibility Resources</a>
-                        </li>
-                    </ul>
-                </rich-text>
-            </div>
-                
+                <h1>Search for “{{ $route.query.q }}” not found.</h1>
+                <p>
+                    We can’t find the term you are looking for on this page, but
+                    we're here to help. <br>
+                    Try searching the whole site from
+                    <a href="https://library.ucla.edu">UCLA Library Home</a>, or
+                    try one of the these regularly visited links:
+                </p>
+                <ul>
+                    <li>
+                        <a
+                            href="https://www.library.ucla.edu/research-teaching-support/research-help"
+                        >Research Help</a>
+                    </li>
+                    <li>
+                        <a href="/help/services-resources/ask-us">Ask Us</a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
+                        >Accessibility Resources</a>
+                    </li>
+                </ul>
+            </rich-text>
+        </div>
+
         <section-wrapper theme="divider">
             <divider-way-finder color="about" />
         </section-wrapper>

@@ -1,12 +1,7 @@
 const config = {
-    serviceOrResources:{
-        searchFields:[
-            "title^6",
-            "summary^6",
-            "text^6"
-        
-        ],
-        resultFields:[
+    serviceOrResources: {
+        searchFields: ["title^6", "summary^6", "text^6"],
+        resultFields: [
             "title",
             "text",
             "summary",
@@ -17,10 +12,10 @@ const config = {
             "type",
         ],
         sortField: "title.keyword",
-        orderBy:"asc"
+        orderBy: "asc",
     },
-    staff:{
-        searchFields:[
+    staff: {
+        searchFields: [
             "nameFirst^6",
             "nameLast^6",
             "jobTitle^5",
@@ -30,9 +25,9 @@ const config = {
             "topics.title^3",
             "publications^3",
             "biography^2",
-            "alternativeName^2"
+            "alternativeName^2",
         ],
-        filters:[
+        filters: [
             {
                 label: "Location",
                 esFieldName: "locations.title.keyword",
@@ -49,7 +44,7 @@ const config = {
                 inputType: "single-checkbox",
             },
         ],
-        resultFields:[
+        resultFields: [
             "nameFirst",
             "nameLast",
             "alternativeName",
@@ -61,21 +56,21 @@ const config = {
             "phone",
             "consultation",
             "uri",
-            "image"
+            "image",
         ],
         sortField: "nameLast.keyword",
-        orderBy:"asc"
+        orderBy: "asc",
     },
-    exploreCollection:{
-        searchFields:[
+    exploreCollection: {
+        searchFields: [
             "title^3",
             "text^3",
             "richTextSimplified^2",
-            "subjectAreas.title^1"
+            "subjectAreas.title^1",
         ],
-        filters:[
+        filters: [
             {
-                label: "PhysicalDigital",
+                label: "Physical/Digital",
                 esFieldName: "physicalDigital.keyword",
                 inputType: "checkbox",
             },
@@ -83,25 +78,15 @@ const config = {
                 label: "Subject Area",
                 esFieldName: "subjectAreas.title.keyword",
                 inputType: "checkbox",
-            }
+            },
         ],
-        resultFields:[
-            "title",
-            "text",
-            "physicalDigital",
-            "uri",
-            "heroImage"
-        ],
+        resultFields: ["title", "text", "physicalDigital", "uri", "heroImage"],
         sortField: "title.keyword",
-        orderBy:"asc"
+        orderBy: "asc",
     },
-    newsIndex:{
-        searchFields:[
-            "title^3",
-            "text^3",
-            "contributors*^2"
-        ],
-        filters:[
+    newsIndex: {
+        searchFields: ["title^3", "text^3", "contributors*^2"],
+        filters: [
             {
                 label: "Location",
                 esFieldName: "locations.title.keyword",
@@ -111,9 +96,9 @@ const config = {
                 label: "Category",
                 esFieldName: "category.title.keyword",
                 inputType: "checkbox",
-            }
+            },
         ],
-        resultFields:[
+        resultFields: [
             "title",
             "text",
             "articleType",
@@ -121,13 +106,13 @@ const config = {
             "heroImage",
             "postDate",
             "category",
-            "contributors"
+            "contributors",
         ],
         sortField: "postDate",
-        orderBy: "desc"
+        orderBy: "desc",
     },
-    endowmentsList:{
-        searchFields:[
+    endowmentsList: {
+        searchFields: [
             "title^3",
             "text^3",
             "alternativeName*^2",
@@ -135,7 +120,7 @@ const config = {
             "subjectAreas*",
             "donorNames",
         ],
-        filters:[
+        filters: [
             {
                 label: "Subject Area",
                 esFieldName: "subjectAreas.title.keyword",
@@ -145,32 +130,29 @@ const config = {
                 label: "Donors",
                 esFieldName: "donorNames.keyword", // update slug page to combine firstname and lastname before sending it to ES index
                 inputType: "checkbox",
-            }
+            },
         ],
-        resultFields:[
+        resultFields: [
             "title",
             "text",
             "alternativeName",
             "uri",
             "heroImage",
-            "donorNames"
+            "donorNames",
         ],
         sortField: "title.keyword",
-        orderBy:"asc"
+        orderBy: "asc",
     },
-    locationsList:{
-        searchFields:[
-            "title^3",
-            "text^3"
-        ],
-        filters:[
+    locationsList: {
+        searchFields: ["title^3", "text^3"],
+        filters: [
             {
                 label: "Amenities",
                 esFieldName: "amenities.keyword",
                 inputType: "checkbox",
-            }
+            },
         ],
-        resultFields:[
+        resultFields: [
             "title",
             "text",
             "campusMapId",
@@ -178,39 +160,33 @@ const config = {
             "heroImage",
             "address",
             "libcalLocationIdForHours",
-            "locationType"
+            "locationType",
         ],
         sortField: "title.keyword",
-        orderBy:"asc"
+        orderBy: "asc",
     },
-    programsList:{
-        searchFields:[
-            "title^3",
-            "text^3"
-        ],
-        filters:[
+    programsList: {
+        searchFields: ["title^3", "text^3"],
+        filters: [
             {
                 label: "Type",
                 esFieldName: "programType.title.keyword",
                 inputType: "checkbox",
-            }
+            },
         ],
-        resultFields:[
-            "*"
-        ],
+        resultFields: ["*"],
         sortField: "title.keyword",
-        orderBy:"asc"
-       
+        orderBy: "asc",
     },
-    eventsExhibitionsList:{
-        searchFields:[
+    eventsExhibitionsList: {
+        searchFields: [
             "title^3",
             "eventDescription^3",
             "summary^3",
             // "startDateWithTime^2",
             // "endDateWithTime^2"
         ],
-        filters:[
+        filters: [
             {
                 label: "Location",
                 esFieldName: "location.title.keyword",
@@ -223,16 +199,14 @@ const config = {
             },
             /*  {
                 label: "Date Range",
-                esFieldNameArray: ["startDateWithTime","endDateWithTime"], 
+                esFieldNameArray: ["startDateWithTime","endDateWithTime"],
                 inputType: "date",
             } */
         ],
-        resultFields:[
-            "*"
-        ],
+        resultFields: ["*"],
         sortField: "startDateWithTime",
-        orderBy:"asc"
-    }
+        orderBy: "asc",
+    },
 }
 
 export default config
