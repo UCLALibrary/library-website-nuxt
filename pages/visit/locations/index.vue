@@ -24,7 +24,7 @@
             />
         </section-wrapper>
 
-        <h3> !noResultsFound --- {{ !noResultsFound }}</h3>
+        <h3> HITS--- {{ hits }}</h3>
 
         <!-- UCLA LIBRARIES -->
         <section-wrapper
@@ -72,6 +72,55 @@
                 color="visit"
             />
         </section-wrapper>
+
+        <!-- RESULTS -->
+
+        <!-- <section-wrapper v-else-if="hits && hits.length > 0">
+            <h3
+                v-if="$route.query.q"
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results for
+                <strong><em>“{{ $route.query.q }}</em></strong>”
+            </h3>
+            <h3
+                v-else
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results
+            </h3>
+            <section-staff-article-list :items="parseHitsResults" />
+        </section-wrapper> -->
+
+        <!-- NO RESULTS -->
+        <!-- <section-wrapper v-else-if="noResultsFound">
+            <div class="error-text">
+                <rich-text>
+                    <h1>Search for “{{ $route.query.q }}” not found.</h1>
+                    <p>
+                        We can’t find the term you are looking for on this page,
+                        but we're here to help. <br>
+                        Try searching the whole site from
+                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+                    </p>
+                    <ul>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/research-teaching-support/research-help"
+                            >Research Help</a>
+                        </li>
+                        <li>
+                            <a href="/help/services-resources/ask-us">Ask Us</a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
+                            >Accessibility Resources</a>
+                        </li>
+                    </ul>
+                </rich-text>
+            </div>
+        </section-wrapper> -->
 
         <section-wrapper>
             <block-call-to-action
