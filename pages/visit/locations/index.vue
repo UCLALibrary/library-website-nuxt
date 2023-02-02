@@ -1,5 +1,3 @@
-newsIndex
-
 <template lang="html">
     <main
         id="main"
@@ -10,7 +8,7 @@ newsIndex
             :text="page.text"
         />
 
-        <!-- SEARCH -->
+
         <search-generic
             search-type="visit"
             :filters="searchFilters"
@@ -18,6 +16,10 @@ newsIndex
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
+
+        <h3>HITS -- {{ hits }}</h3>
+
+
         <section-wrapper
             v-if="
                 page &&
@@ -26,28 +28,51 @@ newsIndex
                     hits.length == 0 &&
                     !noResultsFound
             "
+            theme="divider"
         >
+            <divider-way-finder color="visit" />
+        </section-wrapper>
+
+
+        <!-- UCLA LIBRARIES -->
+        <section-wrapper
+            v-if="
+                parsedUclaLibraries &&
+                    parsedUclaLibraries.length > 0 &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+            section-title="UCLA Library Locations"
+        >
+            <section-location-list
+                class="blockLocationListWrapper"
+                :items="parsedUclaLibraries"
+            />
+            <!-- TODO implement show-hide instead of button-more -->
+            <button-more
+                text="See More"
+                @click.native="showMoreOtherCampusLibrary()"
+            />
+        </section-wrapper>
+
+
+        <!-- AFFILIATE LIBRARIES -->
+        <section-wrapper
+            v-if="affiliateLibraries && showOtherCampus"
+            section-title="Other Campus Libraries & Archives"
+        >
+            <section-location-list
+                class="blockLocationListWrapper"
+                :items="parsedAffiliateLibraries"
+            />
+
             <divider-way-finder
                 class="divider-way-finder"
                 color="visit"
             />
         </section-wrapper>
 
-        <h3>HITS -- {{ hits }}</h3>
-
         <!-- RESULTS-->
-        <section-wrapper
-            v-if="
-                page &&
-                    parsedUclaLibraries &&
-                    parsedUclaLibraries.length &&
-                    hits.length == 0 &&
-                    !noResultsFound
-            "
-        >
-            <section-teaser-card :items="parsedUclaLibraries" />
-        </section-wrapper>
-
         <section-wrapper v-else-if="hits && hits.length > 0">
             <div
                 v-if="$route.query.q"
@@ -66,7 +91,7 @@ newsIndex
         </section-wrapper>
 
         <!-- NO RESULTS-->
-        <section-wrapper v-else>
+        <section-wrapper v-else-if="noResultsFound">
             <div class="error-text">
                 <rich-text>
                     <h1>Search for “{{ $route.query.q }}” not found.</h1>
@@ -96,41 +121,6 @@ newsIndex
         </section-wrapper>
 
         <section-wrapper>
-            <divider-way-finder
-                class="divider-way-finder"
-                color="visit"
-            />
-        </section-wrapper>
-
-        <!-- UCLA LIBRARIES -->
-        <section-wrapper
-            v-if="uclaLibraries"
-            section-title="UCLA Library Locations"
-        >
-            <section-location-list
-                class="blockLocationListWrapper"
-                :items="parsedUclaLibraries"
-            />
-            <!-- TODO implement show-hide instead of button-more -->
-            <button-more
-                text="See More"
-                @click.native="showMoreOtherCampusLibrary()"
-            />
-        </section-wrapper>
-
-
-        <!-- AFFILIATE LIBRARIES -->
-        <section-wrapper
-            v-if="affiliateLibraries && showOtherCampus"
-            section-title="Other Campus Libraries & Archives"
-        >
-            <section-location-list
-                class="blockLocationListWrapper"
-                :items="parsedAffiliateLibraries"
-            />
-        </section-wrapper>
-
-        <section-wrapper theme="divider">
             <divider-way-finder
                 class="divider-way-finder"
                 color="visit"
@@ -210,7 +200,7 @@ export default {
                 const data = await this.$graphql.default.request(LOCATIONS_LIST)
                 console.log("data for masthead:" + data)
                 this.page["title"] = _get(data, "entry.title", "")
-                //this.page["text"] = _get(data, "entry.text", "")
+                this.page["text"] = _get(data, "entry.text", "")
             }
 
             let query_text = this.$route.query.q || "*"
@@ -237,6 +227,7 @@ export default {
             } else {
                 this.hits = []
                 this.uclaLibraries = []
+                this.noResultsFound = true
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
@@ -251,7 +242,7 @@ export default {
             const data = await this.$graphql.default.request(LOCATIONS_LIST)
             // console.log("DATA: :" + data)
             this.page = _get(data, "entry", {})
-            this.locations = _get(data, "entries", [])
+            this.uclaLibraries = _get(data, "entries", [])
         }
     },
     head() {
@@ -325,39 +316,39 @@ export default {
         showMoreOtherCampusLibrary() {
             this.showOtherCampus = !this.showOtherCampus
         },
-        // queryFilterHasValues() {
-        //     if (!this.$route.query.filters) return false
-        //     let routeQueryFilters = JSON.parse(this.$route.query.filters)
-        //     console.log(
-        //         "is route query exixts:" + JSON.stringify(routeQueryFilters)
-        //     )
-        //     let configFilters = config.locationsList.filters
-        //     for (const filter of configFilters) {
-        //         if (
-        //             Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-        //             routeQueryFilters[filter.esFieldName].length > 0
-        //         ) {
-        //             console.log(
-        //                 "why is this true is Array: " +
-        //                     routeQueryFilters[filter.esFieldName]
-        //             )
-        //             return true
-        //         } else if (
-        //             routeQueryFilters[filter.esFieldName] &&
-        //             !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-        //             routeQueryFilters[filter.esFieldName] != ""
-        //         ) {
-        //             console.log(
-        //                 "why is this truenot Array: " +
-        //                     routeQueryFilters[filter.esFieldName] +
-        //                     "config filter name is " +
-        //                     filter.esFieldName
-        //             )
-        //             return true
-        //         }
-        //     }
-        //     return false
-        // },
+        queryFilterHasValues() {
+            if (!this.$route.query.filters) return false
+            let routeQueryFilters = JSON.parse(this.$route.query.filters)
+            console.log(
+                "is route query exixts:" + JSON.stringify(routeQueryFilters)
+            )
+            let configFilters = config.locationsList.filters
+            for (const filter of configFilters) {
+                if (
+                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName].length > 0
+                ) {
+                    console.log(
+                        "why is this true is Array: " +
+                            routeQueryFilters[filter.esFieldName]
+                    )
+                    return true
+                } else if (
+                    routeQueryFilters[filter.esFieldName] &&
+                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName] != ""
+                ) {
+                    console.log(
+                        "why is this truenot Array: " +
+                            routeQueryFilters[filter.esFieldName] +
+                            "config filter name is " +
+                            filter.esFieldName
+                    )
+                    return true
+                }
+            }
+            return false
+        },
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.locationsList.filters,

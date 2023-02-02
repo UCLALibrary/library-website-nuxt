@@ -156,7 +156,6 @@ export default {
     async fetch() {
         this.collections = []
         this.hits = []
-
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
             (this.$route.query.filters &&
@@ -184,13 +183,11 @@ export default {
                 config.exploreCollection.filters
             )
             console.log("getsearchdata method:" + JSON.stringify(results))
-
             this.collections = []
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
                 this.collections = []
-                console.log("HITS" + this.hits)
             } else {
                 this.hits = []
                 this.collections = []

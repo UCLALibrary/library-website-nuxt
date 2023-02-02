@@ -8,7 +8,10 @@ query LocationDetail($slug: [String!]) {
             sectionHandle
             slug
             uri
-            locationType
+            locationType {
+                id
+                title
+            }
             title
             text: summary
             about: richTextSimplified
