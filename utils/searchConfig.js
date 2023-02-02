@@ -119,6 +119,7 @@ const config = {
             "endowmentDescription^2",
             "subjectAreas*",
             "donorNames",
+            "associatedLocations",
         ],
         filters: [
             {
@@ -128,7 +129,7 @@ const config = {
             },
             {
                 label: "Location",
-                esFieldName: "associatedLocation.title.keyword",
+                esFieldName: "associatedLocations.title.keyword",
                 inputType: "checkbox",
             },
             {
@@ -144,6 +145,7 @@ const config = {
             "uri",
             "heroImage",
             "donorNames",
+            "associatedLocations",
         ],
         sortField: "title.keyword",
         orderBy: "asc",

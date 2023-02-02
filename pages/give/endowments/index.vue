@@ -91,7 +91,6 @@
             >
                 Displaying {{ hits.length }} results
             </div>
-            {{ parseHitsResults }}
             <section-generic-list :items="parseHitsResults" />
             <!-- pagination -->
         </section-wrapper>
