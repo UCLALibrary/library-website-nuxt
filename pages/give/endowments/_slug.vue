@@ -118,11 +118,7 @@ import removeTags from "~/utils/removeTags"
 import ENDOWMENT_DETAIL from "~/gql/queries/EndowmentDetail"
 
 function parsedDonorsForES(donors) {
-    if (donors && donors.length > 0) {
-        computeDonors(donors)
-    } else {
-        return ""
-    }
+    return donors && donors.length > 0 ? computeDonors(donors) : ""
 }
 function computeDonors(donors) {
     let donorNames = []
@@ -146,6 +142,7 @@ function computeDonors(donors) {
         }
         if (name !== "") donorNames.push(name)
     }
+    console.log(donorNames)
 
     if (donorNames.length == 1) {
         return `${donorNames[0]}`
@@ -156,6 +153,7 @@ function computeDonors(donors) {
         ].join(donorNames.length < 2 ? "" : " and ")
         return `${names}`
     }
+    return donorNames
 }
 
 export default {
@@ -175,6 +173,7 @@ export default {
                     data.entry.uri
             )
             data.entry.donorNames = parsedDonorsForES(data.entry.donors)
+            console.log(data.entry)
             await $elasticsearchplugin.index(data.entry, params.slug)
         }
 
