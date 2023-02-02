@@ -406,6 +406,11 @@ export default {
     // ::v-deep .flexible-block:last-child:not(.flexible-simple-cards) {
     //     background: red;
     // }
+    ::v-deep .section-banner {
+        .gradient-no-category {
+            background: linear-gradient(120deg,rgba(15,15,15,0) 0,rgba(15,15,15,.2509803922) 67.57%,#0f0f0f 120%);
+        }
+    }
 
     @media #{$small} {
         .page {
