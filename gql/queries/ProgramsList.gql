@@ -37,9 +37,10 @@ query ProgramList {
     }
     entries(section: "program", orderBy: "title ASC") {
         ... on program_program_Entry {
+            sectionHandle
             title
-            description: summary
-            to: uri
+            text: summary
+            uri
             programUrlBehavior
             buttonUrl {
                 ... on buttonUrl_button_BlockType {
@@ -56,6 +57,7 @@ query ProgramList {
                 }
             }
             programType {
+                id
                 title
             }
         }
