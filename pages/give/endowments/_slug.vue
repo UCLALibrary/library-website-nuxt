@@ -142,7 +142,6 @@ function computeDonors(donors) {
         }
         if (name !== "") donorNames.push(name)
     }
-    console.log(donorNames)
 
     if (donorNames.length == 1) {
         return `${donorNames[0]}`
@@ -173,7 +172,6 @@ export default {
                     data.entry.uri
             )
             data.entry.donorNames = parsedDonorsForES(data.entry.donors)
-            console.log(data.entry)
             await $elasticsearchplugin.index(data.entry, params.slug)
         }
 
