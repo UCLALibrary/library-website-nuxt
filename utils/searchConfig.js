@@ -127,8 +127,13 @@ const config = {
                 inputType: "checkbox",
             },
             {
+                label: "Location",
+                esFieldName: "associatedLocation.title.keyword",
+                inputType: "checkbox",
+            },
+            {
                 label: "Donors",
-                esFieldName: "donorNames.keyword", // update slug page to combine firstname and lastname before sending it to ES index
+                esFieldName: "donorNames.keyword",
                 inputType: "checkbox",
             },
         ],
