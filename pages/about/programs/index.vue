@@ -21,7 +21,6 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-
         <section-wrapper
             v-if="
                 page &&
@@ -34,7 +33,6 @@
         >
             <divider-way-finder color="about" />
         </section-wrapper>
-
         <section-wrapper
             v-if="
                 page &&
@@ -59,23 +57,11 @@
             />
 
             <divider-general
-                v-if="
-                    page &&
-                        parsedSectionHighlight &&
-                        parsedSectionHighlight.length &&
-                        hits.length == 0 &&
-                        !noResultsFound
-                "
+                v-if="parsedSectionHighlight && parsedSectionHighlight.length"
             />
 
             <section-teaser-highlight
-                v-if="
-                    page &&
-                        parsedSectionHighlight &&
-                        parsedSectionHighlight.length &&
-                        hits.length == 0 &&
-                        !noResultsFound
-                "
+                v-if="parsedSectionHighlight && parsedSectionHighlight.length"
                 class="section"
                 :items="parsedSectionHighlight"
             />
@@ -83,9 +69,8 @@
 
         <section-wrapper
             v-if="
-                page &&
-                    page.featuredPrograms &&
-                    page.featuredPrograms.length &&
+                parsedProgramsList &&
+                    parsedProgramsList.length > 0 &&
                     hits.length == 0 &&
                     !noResultsFound
             "
@@ -120,7 +105,7 @@
             </h3>
             <section-staff-article-list :items="parseHitsResults" />
         </section-wrapper>
-        <section-wrapper v-else>
+        <section-wrapper v-else-if="noResultsFound">
             <div class="error-text">
                 <rich-text>
                     <h1>Search for “{{ $route.query.q }}” not found.</h1>
@@ -222,6 +207,7 @@ export default {
                 "sectionHandle:program",
                 JSON.parse(this.$route.query.filters) || {},
                 config.programsList.sortField,
+                config.programsList.orderBy,
                 config.programsList.resultFields,
                 config.programsList.filters
             )
@@ -391,7 +377,7 @@ export default {
             })
         },
         getSearchData(data) {
-            console.log("On the page getsearchdata called")
+            console.log("On the page getsearchdata called " + data)
             /*this.page = {}
             this.hits = []*/
             this.$router.push({
