@@ -14,13 +14,13 @@
             :text="page.text"
         />
 
-        <!-- TODO: Add search function -->
-        <!-- <search-generic
+        <search-generic
             search-type="about"
             :filters="searchFilters"
             class="generic-search"
+            :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
-        /> -->
+        />
 
         <section-wrapper theme="divider">
             <divider-way-finder color="about" />
@@ -66,6 +66,10 @@
 </template>
 
 <script>
+// UTILITIES
+import getListingFilters from "~/utils/getListingFilters"
+import config from "~/utils/searchConfig"
+
 // HELPERS
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
@@ -80,7 +84,66 @@ export default {
         // console.log("data:" + data)
         return {
             page: _get(data, "entry", {}),
-            programs: _get(data, "entries", {}),
+            programs: [],
+            hits: [],
+            title: "",
+            searchFilters: [],
+            // searchGenericQuery: {
+            //     queryText: this.$route.query.q || "",
+            //     queryFilters:
+            //         (this.$route.query.filters &&
+            //             JSON.parse(this.$route.query.filters)) ||
+            //         {},
+            // },
+        }
+    },
+    async fetch() {
+        this.programs = []
+        this.hits = []
+        if (
+            (this.$route.query.q && this.$route.query.q !== "") ||
+            this.$route.query.filters
+        ) {
+            if (!this.page.title) {
+                const data = await this.$graphql.default.request(PROGRAMS_LIST)
+                console.log("data for masthead:" + data)
+                this.page["title"] = _get(data, "entry.title", "")
+                this.page["text"] = _get(data, "entry.text", "")
+            }
+            let query_text = this.$route.query.q || "*"
+            console.log("in router query in asyc data")
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                query_text,
+                config.programsList.searchFields,
+                JSON.parse(this.$route.query.filters) || {},
+                config.programsList.sortField,
+                config.programsList.resultFields,
+                config.programsList.filters
+            )
+            console.log("getsearchdata method:" + JSON.stringify(results))
+            this.programs = []
+            this.hits = []
+            if (results && results.hits && results.hits.total.value > 0) {
+                this.hits = results.hits.hits
+                this.programs = []
+            } else {
+                this.hits = []
+                this.programs = []
+            }
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            }
+        } else {
+            this.hits = []
+            // if route queries are empty fetch data from craft
+            const data = await this.$graphql.default.request(PROGRAMS_LIST)
+            // console.log("data:" + data)
+            this.page = _get(data, "entry", {})
+            this.programs = _get(data, "entries", [])
         }
     },
     head() {
@@ -139,7 +202,103 @@ export default {
                 }
             })
         },
+        parseHitsResults() {
+            return this.parseHits(this.hits)
+        },
     },
+    watch: {
+        "$route.query": "$fetch",
+        "$route.query.q"(newValue) {
+            console.log("watching querytEXT:" + newValue)
+        },
+        "$route.query.filters"(newValue) {
+            console.log("watching filters:" + newValue)
+        },
+    },
+    async mounted() {
+        console.log("In mounted")
+        this.setFilters()
+    },
+    methods: {
+        parseArticleCategory(categories) {
+            if (!categories || categories.length == 0) return ""
+            let result = ""
+            categories.forEach((obj) => {
+                result = result + obj.title + ", "
+            })
+            return result.slice(0, -2)
+        },
+        queryFilterHasValues() {
+            if (!this.$route.query.filters) return false
+            let routeQueryFilters = JSON.parse(this.$route.query.filters)
+            console.log(
+                "is route query exixts:" + JSON.stringify(routeQueryFilters)
+            )
+            let configFilters = config.programsList.filters
+            for (const filter of configFilters) {
+                if (
+                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName].length > 0
+                ) {
+                    return true
+                } else if (
+                    routeQueryFilters[filter.esFieldName] &&
+                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName] != ""
+                ) {
+                    return true
+                }
+            }
+            return false
+        },
+        async setFilters() {
+            const searchAggsResponse = await this.$dataApi.getAggregations(
+                config.programsList.filters,
+                "article"
+            )
+
+            console.log(
+                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+            )
+            this.searchFilters = getListingFilters(
+                searchAggsResponse,
+                config.programsList.filters
+            )
+        },
+        // parseHits(hits = []) {
+        //     return hits.map((obj) => {
+        //         // console.log(obj["_source"]["image"])
+        //         return {
+        //             ...obj["_source"],
+        //             description: obj["_source"].text,
+        //             date: obj["_source"].postDate,
+        //             articleCategories: obj["_source"].category,
+        //             to: `/${obj["_source"].uri}`,
+        //             image: _get(obj["_source"], "heroImage[0].image[0]", null),
+        //             staffName: obj["_source"].fullName,
+        //             //category: _get(obj["_source"], "category[0].title", null),
+        //             category: this.parseArticleCategory(
+        //                 obj["_source"].category
+        //             ),
+        //         }
+        //     })
+        // },
+        getSearchData(data) {
+            console.log("On the page getsearchdata called")
+            /*this.page = {}
+            this.hits = []*/
+            this.$router.push({
+                path: "/about/programs",
+                query: {
+                    q: data.text,
+                    filters: JSON.stringify(data.filters),
+                },
+            })
+        },
+    },
+    fetchOnServer: false,
+    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
+    fetchKey: "programs-index",
 }
 </script>
 
