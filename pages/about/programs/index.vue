@@ -123,6 +123,17 @@
         <section-wrapper v-else>
             <div>No Results found</div>
         </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder color="about" />
+        </section-wrapper>
+
+        <section-wrapper>
+            <block-call-to-action
+                class="block-call-to-action"
+                :is-global="true"
+            />
+        </section-wrapper>
     </main>
 </template>
 
