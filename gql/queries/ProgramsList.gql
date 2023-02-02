@@ -37,6 +37,7 @@ query ProgramList {
     }
     entries(section: "program", orderBy: "title ASC") {
         ... on program_program_Entry {
+            sectionHandle
             title
             description: summary
             to: uri

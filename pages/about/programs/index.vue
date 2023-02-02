@@ -9,6 +9,7 @@
             parent-title="About"
         />
 
+        {{ programs }}
         <masthead-secondary
             :title="page.title"
             :text="page.text"
@@ -56,11 +57,19 @@
             <divider-way-finder color="about" />
         </section-wrapper>
 
-        <section-wrapper
-            v-if="parsedProgramsList.length"
-            section-title="All Programs & Initiatives"
-        >
-            <section-staff-article-list :items="parsedProgramsList" />
+        <section-wrapper section-title="All Programs & Initiatives">
+            <section-staff-article-list
+                v-if="programs && programs.length > 0"
+                :items="parsedProgramsList"
+            />
+            <section-staff-article-list
+                v-else-if="hits && hits.length > 0"
+                :items="parseHitsResults"
+            />
+
+            <div v-else>
+                No Results found
+            </div>
         </section-wrapper>
     </main>
 </template>
@@ -84,17 +93,24 @@ export default {
         // console.log("data:" + data)
         return {
             page: _get(data, "entry", {}),
+            programs: _get(data, "entries", []),
+        }
+    },
+    data() {
+        return {
+            page: {},
             programs: [],
             hits: [],
             title: "",
+            noResultsFound: false,
             searchFilters: [],
-            // searchGenericQuery: {
-            //     queryText: this.$route.query.q || "",
-            //     queryFilters:
-            //         (this.$route.query.filters &&
-            //             JSON.parse(this.$route.query.filters)) ||
-            //         {},
-            // },
+            searchGenericQuery: {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            },
         }
     },
     async fetch() {
@@ -115,6 +131,7 @@ export default {
             const results = await this.$dataApi.keywordSearchWithFilters(
                 query_text,
                 config.programsList.searchFields,
+                "sectionHandle:program",
                 JSON.parse(this.$route.query.filters) || {},
                 config.programsList.sortField,
                 config.programsList.resultFields,
@@ -231,9 +248,9 @@ export default {
         queryFilterHasValues() {
             if (!this.$route.query.filters) return false
             let routeQueryFilters = JSON.parse(this.$route.query.filters)
-            console.log(
-                "is route query exixts:" + JSON.stringify(routeQueryFilters)
-            )
+            // console.log(
+            //     "is route query exixts:" + JSON.stringify(routeQueryFilters)
+            // )
             let configFilters = config.programsList.filters
             for (const filter of configFilters) {
                 if (
@@ -254,7 +271,7 @@ export default {
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.programsList.filters,
-                "article"
+                "program"
             )
 
             console.log(
@@ -265,24 +282,24 @@ export default {
                 config.programsList.filters
             )
         },
-        // parseHits(hits = []) {
-        //     return hits.map((obj) => {
-        //         // console.log(obj["_source"]["image"])
-        //         return {
-        //             ...obj["_source"],
-        //             description: obj["_source"].text,
-        //             date: obj["_source"].postDate,
-        //             articleCategories: obj["_source"].category,
-        //             to: `/${obj["_source"].uri}`,
-        //             image: _get(obj["_source"], "heroImage[0].image[0]", null),
-        //             staffName: obj["_source"].fullName,
-        //             //category: _get(obj["_source"], "category[0].title", null),
-        //             category: this.parseArticleCategory(
-        //                 obj["_source"].category
-        //             ),
-        //         }
-        //     })
-        // },
+        parseHits(hits = []) {
+            return hits.map((obj) => {
+                // console.log(obj["_source"]["image"])
+                return {
+                    ...obj["_source"],
+                    // description: obj["_source"].text,
+                    // date: obj["_source"].postDate,
+                    // articleCategories: obj["_source"].category,
+                    // to: `/${obj["_source"].uri}`,
+                    // image: _get(obj["_source"], "heroImage[0].image[0]", null),
+                    // staffName: obj["_source"].fullName,
+                    // //category: _get(obj["_source"], "category[0].title", null),
+                    // category: this.parseArticleCategory(
+                    //     obj["_source"].category
+                    // ),
+                }
+            })
+        },
         getSearchData(data) {
             console.log("On the page getsearchdata called")
             /*this.page = {}
