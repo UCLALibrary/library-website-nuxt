@@ -24,8 +24,6 @@
             />
         </section-wrapper>
 
-        <h3> HITS--- {{ hits }}</h3>
-
         <!-- UCLA LIBRARIES -->
         <section-wrapper
             v-if="
@@ -41,7 +39,6 @@
                 class="blockLocationListWrapper"
                 :items="parsedUclaLibraries"
             />
-            <!-- TODO implement show-hide instead of button-more -->
             <button-more
                 text="See More"
                 @click.native="showMoreOtherCampusLibrary()"
@@ -66,16 +63,9 @@
             />
         </section-wrapper>
 
-        <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider-way-finder"
-                color="visit"
-            />
-        </section-wrapper>
-
         <!-- RESULTS -->
 
-        <!-- <section-wrapper v-else-if="hits && hits.length > 0">
+        <section-wrapper v-else-if="hits && hits.length > 0">
             <h3
                 v-if="$route.query.q"
                 class="about-results"
@@ -89,11 +79,15 @@
             >
                 Displaying {{ hits.length }} results
             </h3>
-            <section-staff-article-list :items="parseHitsResults" />
-        </section-wrapper> -->
+
+            <section-location-list
+                class="blockLocationListWrapper"
+                :items="parseHitsResults"
+            />
+        </section-wrapper>
 
         <!-- NO RESULTS -->
-        <!-- <section-wrapper v-else-if="noResultsFound">
+        <section-wrapper v-else-if="noResultsFound">
             <div class="error-text">
                 <rich-text>
                     <h1>Search for “{{ $route.query.q }}” not found.</h1>
@@ -120,7 +114,14 @@
                     </ul>
                 </rich-text>
             </div>
-        </section-wrapper> -->
+        </section-wrapper>
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider-way-finder"
+                color="visit"
+            />
+        </section-wrapper>
 
         <section-wrapper>
             <block-call-to-action
@@ -341,9 +342,8 @@ export default {
             return hits.map((obj) => {
                 // console.log(obj["_source"]["_source"]["image"])
                 return {
-                    to: obj["_source"].affiliateLibraryUrl
-                        ? obj["_source"].affiliateLibraryUrl
-                        : null,
+                    ...obj["_source"],
+                    to: obj["_source"].locationType === "affiliateLibrary" ? obj["_source"].affiliateLibraryUrl : `/${obj["_source"].uri}`,
                     image: _get(obj["_source"], "heroImage[0].image[0]", null),
                     address: parseAddress(obj["_source"])[0],
                     addressLink: `https://map.ucla.edu/?id=${obj["_source"].campusMapId}&e=true`,
@@ -351,7 +351,7 @@ export default {
                         obj["_source"].amenitiesIcons.length !== 0
                             ? parseAmenities(obj["_source"])
                             : null,
-                    isUclaLibrary: false,
+                    isUclaLibrary: obj["_source"].locationType === "affiliateLibrary" ? false : true,
                 }
             })
         },
@@ -376,20 +376,9 @@ export default {
 
 <style lang="scss" scoped>
 .page-location {
-    // .section-heading {
-    //     @include step-4;
-    //     color: var(--color-primary-blue-03);
-    //     margin: var(--space-xl) auto;
-    //     max-width: $container-l-main + px;
-    // }
-
-    // .blockLocationListWrapper {
-    //     display: flex;
-    //     flex-direction: column;
-    //     gap: var(--space-m);
-
-    //     max-width: $container-l-main + px;
-    //     margin: 0 auto var(--space-3xl);
-    // }
+    .about-results {
+        margin-top: var(--space-xl);
+        margin-bottom: var(--space-l);
+    }
 }
 </style>
