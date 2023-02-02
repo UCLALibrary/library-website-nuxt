@@ -133,7 +133,7 @@ const config = {
                 inputType: "checkbox",
             },
             {
-                label: "Donors",
+                label: "Donor",
                 esFieldName: "donorNames.keyword",
                 inputType: "checkbox",
             },
