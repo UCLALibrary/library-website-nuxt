@@ -44,7 +44,15 @@
                 class="banner section-featured-banner"
             />
 
-            <divider-general v-if="parsedSectionHighlight.length" />
+            <divider-general
+                v-if="
+                    page &&
+                        page.featuredNews &&
+                        page.featuredNews.length &&
+                        hits.length == 0 &&
+                        !noResultsFound
+                "
+            />
 
             <section-teaser-highlight
                 v-if="parsedSectionHighlight.length"
