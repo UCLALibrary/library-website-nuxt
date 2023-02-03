@@ -43,7 +43,6 @@
                 <section-wrapper class="about-results">
                     Displaying {{ page.hits.length }} results for <strong><em>“{{ $route.query.q }}”</em></strong>
                 </section-wrapper>
-
                 <section-wrapper
                     v-for="(result, index) in page.hits.hits"
                     :key="`SearchResultBlock${index}`"
@@ -56,15 +55,8 @@
                         :to="`/${result._source.uri}`"
                         class="search-result-item"
                     />
-
-                    <h3>
-                        parsedCategory --- {{ result._source.sectionHandle.split(/(?=[A-Z])/).join(" ").toUpperCase() }}
-                    </h3>
-
-
                     <divider-general class="divider-general" />
                 </section-wrapper>
-
                 <section-wrapper v-if="page.hits.total.value > 10">
                     <section-pagination
                         :previous-to="parsePrev"

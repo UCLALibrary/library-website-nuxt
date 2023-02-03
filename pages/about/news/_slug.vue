@@ -8,7 +8,7 @@
             :title="page.title"
             parent-title="All Library News"
         />
-
+ 
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
