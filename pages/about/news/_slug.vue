@@ -115,7 +115,7 @@ export default {
     computed: {
         parsedByline() {
             let byline = (this.page.contributors || []).map((entry) => {
-                return `${entry.byline} ${
+                return `${entry.byline || ""} ${
                     entry.title || entry.staffMember[0].title
                 }`
             })
