@@ -86,8 +86,7 @@ jobs:
     - uses: cypress-io/github-action@v3
       with:
         start: npm run start
-        command-prefix: 'npx'
-        wait-on: http://localhost:3000
+        wait-on: http://127.0.0.1:3000
       env:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
         LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
