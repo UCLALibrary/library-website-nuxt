@@ -215,6 +215,19 @@ All Heading tags are `var(--font-primary)` (Karbon)
 
 ---
 
+## Redirects file
+
+The list of redirects is maintained in a google spreadsheet; it's contents must exported to the [Netlify _redirects file](https://docs.netlify.com/routing/redirects/)
+
+Exporting redirects file to netlify:
+1. Go to google spreadsheet, File > Download > CSV
+2. Save in MEAP repo as `static/_redirects`
+3. delete header row (or comment out with #)
+4. delete any redirects from a URL to itself (currently only the first two, `/` and `/about`, but you can find them with the regex `^(.+)\s+\1\n`). It looks like you can probably skip this step and Netlify will figure things out, but it won't hurt
+5. remove `https://www.library.ucla.edu` from all URLs
+6. find/replace all `,` separators with spaces (I used 4 - `    `)
+7. delete all 
+
 ## LibCal Auth Procedure
 
 <details><summary>LIBCAL</summary>
