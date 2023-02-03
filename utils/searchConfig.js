@@ -160,14 +160,7 @@ const config = {
             },
         ],
         resultFields: [
-            "title",
-            "text",
-            "campusMapId",
-            "uri",
-            "heroImage",
-            "address",
-            "libcalLocationIdForHours",
-            "locationType",
+            "*"
         ],
         sortField: "title.keyword",
         orderBy: "asc",

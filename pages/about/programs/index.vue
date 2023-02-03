@@ -33,6 +33,7 @@
         >
             <divider-way-finder color="about" />
         </section-wrapper>
+
         <section-wrapper
             v-if="
                 page &&
@@ -90,6 +91,8 @@
         >
             <section-staff-article-list :items="parsedProgramsList" />
         </section-wrapper>
+
+        <!-- RESULTS -->
         <section-wrapper v-else-if="hits && hits.length > 0">
             <h3
                 v-if="$route.query.q"
@@ -106,6 +109,8 @@
             </h3>
             <section-staff-article-list :items="parseHitsResults" />
         </section-wrapper>
+
+        <!-- NO RESULTS -->
         <section-wrapper v-else-if="noResultsFound">
             <div class="error-text">
                 <rich-text>
@@ -315,14 +320,6 @@ export default {
         this.setFilters()
     },
     methods: {
-        parseArticleCategory(categories) {
-            if (!categories || categories.length == 0) return ""
-            let result = ""
-            categories.forEach((obj) => {
-                result = result + obj.title + ", "
-            })
-            return result.slice(0, -2)
-        },
         queryFilterHasValues() {
             if (!this.$route.query.filters) return false
             let routeQueryFilters = JSON.parse(this.$route.query.filters)
@@ -406,4 +403,3 @@ export default {
     }
 }
 </style>
-Footer
