@@ -119,6 +119,7 @@ const config = {
             "endowmentDescription^2",
             "subjectAreas*",
             "donorNames",
+            "associatedLocations",
         ],
         filters: [
             {
@@ -127,8 +128,13 @@ const config = {
                 inputType: "checkbox",
             },
             {
-                label: "Donors",
-                esFieldName: "donorNames.keyword", // update slug page to combine firstname and lastname before sending it to ES index
+                label: "Location",
+                esFieldName: "associatedLocations.title.keyword",
+                inputType: "checkbox",
+            },
+            {
+                label: "Donor",
+                esFieldName: "donorNames.keyword",
                 inputType: "checkbox",
             },
         ],
@@ -139,6 +145,7 @@ const config = {
             "uri",
             "heroImage",
             "donorNames",
+            "associatedLocations",
         ],
         sortField: "title.keyword",
         orderBy: "asc",
