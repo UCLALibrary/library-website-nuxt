@@ -18,7 +18,16 @@
             @search-ready="getSearchData"
         />
 
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="
+                page &&
+                    uclaLibraries &&
+                    parsedUclaLibraries.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+            theme="divider"
+        >
             <divider-way-finder
                 class="divider-way-finder search-margin"
                 color="visit"
