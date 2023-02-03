@@ -10,6 +10,9 @@ fragment BlockMediaGalleryExtraFieldsFragment on ElementInterface {
         captionText: caption
         altText
         sortOrder
+        linkUrl
+        linkText
+        credit
         ... on mediaGalleryExtraFields_image_BlockType {
             item: imageFile {
                 ...MediaAsset

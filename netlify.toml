@@ -1,0 +1,7 @@
+# https://github.com/bahmutov/netlify-plugin-github-dispatch
+[[plugins]]
+  package = "netlify-plugin-github-dispatch"
+  [plugins.inputs]
+    owner = "UCLALibrary" # use the target organization name
+    repo = "library-website-nuxt" # use the target repo name
+    workflow = ".github/workflows/e2e.yml" # use workflow relative path

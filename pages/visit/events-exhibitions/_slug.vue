@@ -20,7 +20,7 @@
             <banner-text
                 v-if="
                     page.event &&
-                        (!page.event.image[0].image[0] ||
+                        (!page.event.image || !page.event.image[0] || !page.event.image[0].image || !page.event.image[0].image[0] ||
                             page.event.image[0].image[0].length == 0)
                 "
                 :title="page.event.title"
@@ -35,7 +35,7 @@
             />
 
             <section-wrapper
-                v-if="page.event.image[0].image[0]"
+                v-if="page.event.image && page.event.image.length > 0 && page.event.image[0].image && page.event.image[0].image.length > 0 && page.event.image[0].image[0]"
                 class="section-banner"
             >
                 <banner-header
@@ -55,7 +55,7 @@
 
             <section-wrapper theme="divider">
                 <divider-way-finder
-                    v-if="page.event.image[0].image[0]"
+                    v-if="page.event.image && page.event.image.length > 0 && page.event.image[0].image && page.event.image[0].image[0]"
                     color="visit"
                 />
             </section-wrapper>
