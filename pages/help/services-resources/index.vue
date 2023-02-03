@@ -31,7 +31,13 @@
             }}
         </h4-->
 
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="
+                (page.serviceOrResource || page.workshopseries) &&
+                    hits.length == 0
+            "
+            theme="divider"
+        >
             <divider-way-finder class="search-margin" />
         </section-wrapper>
 
@@ -48,18 +54,24 @@
             />
         </section-wrapper>
         <section-wrapper v-else-if="hits && hits.length > 0">
-            <div class="about-results">
-                {{ parseDisplayResultsText }}
-            </div>
+            <h3
+                v-if="$route.query.q"
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results for
+                <strong><em>“{{ $route.query.q }}</em></strong>”
+            </h3>
+            <h3
+                v-else
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results
+            </h3>
             <section-cards-with-illustrations
                 :items="parseHitsResults"
                 :is-horizontal="true"
             />
         </section-wrapper>
-
-        <div v-else-if="noResultsFound">
-            No results found
-        </div>
 
         <section-wrapper
             v-if="
@@ -72,6 +84,34 @@
                 class="divider-way-finder"
                 color="help"
             />
+        </section-wrapper>
+        <section-wrapper v-else-if="noResultsFound">
+            <div class="error-text">
+                <rich-text>
+                    <h1>Search for “{{ $route.query.q }}” not found.</h1>
+                    <p>
+                        We can’t find the term you are looking for on this page,
+                        but we're here to help. <br>
+                        Try searching the whole site from
+                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+                    </p>
+                    <ul>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/research-teaching-support/research-help"
+                            >Research Help</a>
+                        </li>
+                        <li>
+                            <a href="/help/services-resources/ask-us">Ask Us</a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
+                            >Accessibility Resources</a>
+                        </li>
+                    </ul>
+                </rich-text>
+            </div>
         </section-wrapper>
 
         <section-wrapper>
