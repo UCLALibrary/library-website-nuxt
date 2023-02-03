@@ -10,19 +10,13 @@
             @search-ready="getSearchData"
         />
 
-        <section-wrapper
-            v-if="$fetchState.pending"
-            class="results"
-        >
-            <div> 
-                <p>...Search results loading</p>
+        <section-wrapper v-if="$fetchState.pending" class="results">
+           <div> 
+            <p>...Search results loading</p>
             </div>
         </section-wrapper>
 
-        <section-wrapper
-            v-else-if="$fetchState.error"
-            class="results"
-        >
+        <section-wrapper v-else-if="$fetchState.error" class="results">
             <p>There is an error</p>
         </section-wrapper>
 
@@ -40,9 +34,9 @@
                 v-if="page && page.hits && page.hits.hits.length > 0"
                 class="meta"
             >
-                <section-wrapper class="about-results">
-                    Displaying {{ page.hits.length }} results for <strong><em>“{{ $route.query.q }}”</em></strong>
-                </section-wrapper>
+            <section-wrapper class="about-results">
+                        Displaying {{ page.hits.length }} results for <strong><em>“{{ $route.query.q }}”</em></strong>
+                    </section-wrapper>
                 <section-wrapper
                     v-for="(result, index) in page.hits.hits"
                     :key="`SearchResultBlock${index}`"
@@ -64,10 +58,7 @@
                     />
                 </section-wrapper>
             </section-wrapper>
-            <div
-                v-else
-                class="error-text"
-            >
+            <div v-else class="error-text">
                 <rich-text>
                     <h1>Search for “{{ $route.query.q }}” not found.</h1>
                     <p>
