@@ -7,4 +7,7 @@ module.exports = {
         "vue/html-indent": ["error", 4],
         semi: [2, "never"],
     },
+    env: {
+        node: true
+    }
 }
