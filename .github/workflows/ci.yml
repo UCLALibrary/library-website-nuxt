@@ -85,7 +85,7 @@ jobs:
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
     - uses: cypress-io/github-action@v3
       with:
-        start: npx http-server ./dist -p 3000
+        start: npm run start
         command-prefix: 'npx'
         wait-on: http://localhost:3000
       env:
