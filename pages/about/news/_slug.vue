@@ -8,7 +8,7 @@
             :title="page.title"
             parent-title="All Library News"
         />
-
+ 
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -115,7 +115,7 @@ export default {
     computed: {
         parsedByline() {
             let byline = (this.page.contributors || []).map((entry) => {
-                return `${entry.byline} ${
+                return `${entry.byline || ""} ${
                     entry.title || entry.staffMember[0].title
                 }`
             })
