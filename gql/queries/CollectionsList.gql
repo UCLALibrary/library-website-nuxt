@@ -68,6 +68,7 @@ query CollectionsList {
             title
         }
         to: uri
+        externalResourceUrl
         postDate
     }
     entryCount(

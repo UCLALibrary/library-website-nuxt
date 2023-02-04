@@ -49,7 +49,8 @@ query ProgramDetail($slug: [String!]) {
                 id
                 title
             }
-            to: slug
+            to: uri
+            externalResourceUrl
             heroImage {
                 ... on heroImage_heroImage_BlockType {
                     id

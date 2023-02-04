@@ -192,7 +192,10 @@ export default {
                     )
                     return {
                         ...obj,
-                        to: `/${obj.to}`,
+                        to: 
+                            obj.externalResourceUrl != null
+                                ? _get(obj, "externalResourceUrl", "")
+                                : `/${obj.to}`,
                         image: _get(obj, "heroImage[0].image[0]", null),
                         category: parsedCategories,
                         bylineOne: this.parsedDate(obj.postDate),
