@@ -406,8 +406,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-news {
-    .search-margin {
-        margin: var(--space-2xl) auto;
-    }
+
 }
 </style>

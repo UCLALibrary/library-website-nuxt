@@ -319,8 +319,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page-home {
-    .button-more,
-    .search-margin {
+    .button-more {
         margin: var(--space-2xl) auto;
     }
 }

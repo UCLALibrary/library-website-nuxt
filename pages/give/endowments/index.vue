@@ -384,9 +384,6 @@ export default {
     ::v-deep .block-highlight.is-vertical:not(.has-triangle) .image .media {
         object-fit: contain;
     }
-    .search-margin {
-        margin: var(--space-2xl) auto;
-    }
 
     ::v-deep .section-teaser-card .card {
         width: calc((100% - 32px) / 2);
