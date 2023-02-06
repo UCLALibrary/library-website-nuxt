@@ -2,21 +2,15 @@
 # test the deployed Netlify site
 name: e2e
 on:
-  workflow_dispatch:
-    inputs:
-      siteName:
-        description: Netlify Site Name
-        required: false
-      deployPrimeUrl:
-        description: Deployed URL
-        required: true
-      commit:
-        description: Original repo commit SHA
-        required: false
   deployment:
 jobs:
   show-event:
     runs-on: ubuntu-20.04
     steps:
-      - run: echo "Testing url ${{ github.event.inputs.deployPrimeUrl }}"
+      - run: echo "Testing netlify url "
+      - name: Dump entire event
+        env:
+          EVENT: ${{ toJson(github.event) }}
+        run: echo "$EVENT"
+      - run: echo "{{ github.event.node.latestStatus.environmentUrl }}"
 
