@@ -13,6 +13,7 @@ on:
       commit:
         description: Original repo commit SHA
         required: false
+  deployment:
 jobs:
   show-event:
     runs-on: ubuntu-20.04
