@@ -97,7 +97,16 @@
             <section-teaser-card :items="parseHitsResults" />
         </section-wrapper>
         <!-- EVENT SERIES & EXHIBITIONS -->
-        <section-wrapper section-title="Event Series & Exhibitions">
+        <section-wrapper
+            v-if="
+                page &&
+                    page.featuredEvents &&
+                    page.featuredEvents.length > 0 &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+            section-title="Event Series & Exhibitions"
+        >
             <section-teaser-card :items="parsedSeriesAndExhibitions" />
         </section-wrapper>
 
@@ -132,9 +141,6 @@ export default {
     async asyncData({ $graphql, params, store }) {
         console.log("in asyncdata calling axios get event")
 
-        console.log(
-            "fetching graphql data for Service or Resource detail from Craft for live preview"
-        )
         const data = await $graphql.default.request(
             EXHIBITIONS_AND_EVENTS_LIST,
             {
@@ -195,13 +201,44 @@ export default {
                 config.eventsExhibitionsList.resultFields,
                 config.eventsExhibitionsList.filters
             )
+            const exhibitionResults =
+                await this.$dataApi.keywordSearchWithFilters(
+                    query_text,
+                    config.eventsExhibitionsList.searchFields,
+                    "sectionHandle:exhibition",
+                    JSON.parse(this.$route.query.filters) || {},
+                    config.eventsExhibitionsList.sortField,
+                    config.eventsExhibitionsList.orderBy,
+                    config.eventsExhibitionsList.resultFields,
+                    config.eventsExhibitionsList.filters
+                )
+            const workshopOrEventSeriesResults =
+                await this.$dataApi.keywordSearchWithFilters(
+                    query_text,
+                    config.eventsExhibitionsList.searchFields,
+                    "sectionHandle:workshopOrEventSeries",
+                    JSON.parse(this.$route.query.filters) || {},
+                    config.eventsExhibitionsList.sortField,
+                    config.eventsExhibitionsList.orderBy,
+                    config.eventsExhibitionsList.resultFields,
+                    config.eventsExhibitionsList.filters
+                )
             console.log("getsearchdata method:" + JSON.stringify(results))
+            console.log(
+                "getsearchdata method exhbition:" +
+                    JSON.stringify(exhibitionResults)
+            )
+            console.log(
+                "getsearchdata method workshopOrEventSeries:" +
+                    JSON.stringify(workshopOrEventSeriesResults)
+            )
             this.events = []
             this.series = []
             this.exhibitions = []
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
-                (this.hits = results.hits.hits), (this.events = [])
+                this.hits = results.hits.hits
+                this.events = []
                 this.series = []
                 this.exhibitions = []
                 this.noResultsFound = false
