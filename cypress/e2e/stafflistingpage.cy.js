@@ -7,6 +7,7 @@ describe("Article News Listing page", () => {
         cy.get(".page-staff").should("be.visible")
         cy.get("h1.title").should("contain", "Staff Directory")
         cy.get('.search-generic-filter-buttons').find('button').should('have.length', 2)
+        // eslint-disable-next-line no-unused-vars
         cy.get('.search-generic-filter-buttons').find('button').each(($el, index, $list) => {
             cy.wrap($el).click()
             cy.get("fieldset.base-checkbox-group > ul.list > li.list-item").find("label").should("have.length.greaterThan",0)
