@@ -80,9 +80,11 @@ jobs:
         publish-dir: './dist'
         fails-without-credentials: true
         github-deployment-environment: ${{ github.event_name }}-${{ github.event.number }}
+        netlify-config-path: ./netlify.toml
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        GITHUB_TOKEN: ${{ secrets.NETLIFY_PLUGIN_GITHUB_DISPATCH}}
     - uses: cypress-io/github-action@v3
       with:
         start: npm run start
