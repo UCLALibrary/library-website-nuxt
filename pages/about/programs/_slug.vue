@@ -159,7 +159,10 @@ export default {
             return this.associatedArticles.map((obj) => {
                 return {
                     ...obj,
-                    to: `/about/news/${obj.to}`,
+                    to: 
+                        obj.externalResourceUrl != null
+                            ? _get(obj, "externalResourceUrl", "")
+                            : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", {}),
                     category: _get(obj, "category", ""),
                     title: _get(obj, "title", ""),

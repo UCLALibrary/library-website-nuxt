@@ -278,7 +278,10 @@ export default {
             let bannerFeaturedNews = this.page.featuredNews[0]
             return {
                 ...bannerFeaturedNews,
-                to: `/${bannerFeaturedNews.uri}`,
+                to: 
+                    bannerFeaturedNews.externalResourceUrl != null
+                        ? _get(bannerFeaturedNews, "externalResourceUrl", "")
+                        : `/${bannerFeaturedNews.to}`,
                 image: _get(bannerFeaturedNews, "heroImage[0].image[0]", null),
                 // startDate: _get(bannerFeaturedNews, "postDate", null),
                 category: _get(

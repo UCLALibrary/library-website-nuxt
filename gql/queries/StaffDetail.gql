@@ -55,6 +55,7 @@ query StaffDetail($slug: [String]!) {
             id
             title
             to: uri
+            externalResourceUrl
             heroImage {
                 ... on heroImage_heroImage_BlockType {
                     id
