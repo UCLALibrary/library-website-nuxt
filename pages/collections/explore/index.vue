@@ -19,7 +19,7 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <section-wrapper
+        <section-wrapper theme="divider"
             v-if="
                 page &&
                     parsedCollectionList &&
@@ -29,12 +29,12 @@
             "
         >
             <divider-way-finder
-                class="divider-way-finder"
+                class="search-margin"
                 color="default"
             />
         </section-wrapper>
 
-        <section-wrapper
+        <section-wrapper class="section-no-top-margin"
             v-if="
                 page &&
                     parsedCollectionList &&

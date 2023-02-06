@@ -21,7 +21,7 @@
             />
         </section-wrapper>
 
-        <section-wrapper>
+        <section-wrapper class="section-no-top-margin">
             <section-cards-with-illustrations
                 class="section"
                 :items="parsedGetHelpWith"

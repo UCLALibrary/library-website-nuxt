@@ -31,7 +31,7 @@
             "
             theme="divider"
         >
-            <divider-way-finder color="about" />
+            <divider-way-finder class="search-margin" color="about" />
         </section-wrapper>
 
         <section-wrapper

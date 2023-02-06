@@ -11,13 +11,6 @@
             <RichText :rich-text-content="page.richText" />
         </section-wrapper>
 
-        <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider-way-finder"
-                color="help"
-            />
-        </section-wrapper>
-
         <div
             v-for="(block, index) in parsedHelpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"

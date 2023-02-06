@@ -19,13 +19,13 @@
 
         <section-wrapper theme="divider">
             <divider-way-finder
-                class="divider-way-finder"
+                class="divider-way-finder search-margin"
                 color="visit"
             />
         </section-wrapper>
 
         <!-- UCLA LIBRARIES -->
-        <section-wrapper
+        <section-wrapper class ="section-no-top-margin"
             v-if="
                 page &&
                     uclaLibraries &&

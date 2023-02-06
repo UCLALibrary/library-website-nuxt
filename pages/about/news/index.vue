@@ -72,7 +72,7 @@
         >
             <section-staff-article-list :items="parsedNewsList" />
         </section-wrapper>
-        <section-wrapper v-else-if="hits && hits.length > 0">
+        <section-wrapper v-else-if="hits && hits.length > 0" class="section-no-top-margin">
             <div
                 v-if="$route.query.q"
                 class="about-results"
@@ -88,7 +88,7 @@
             </div>
             <section-staff-article-list :items="parseHitsResults" />
         </section-wrapper>
-        <section-wrapper v-else-if="noResultsFound">
+        <section-wrapper class="section-no-top-margin" v-else-if="noResultsFound">
             <div class="error-text">
                 <rich-text>
                     <h1>Search for “{{ $route.query.q }}” not found.</h1>
