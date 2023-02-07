@@ -236,6 +236,7 @@ export default {
                 config.eventsExhibitionsList.resultFields,
                 config.eventsExhibitionsList.filters
             )
+            // ElasticSearch queries for other sectionHandles on the page
             // const exhibitionResults =
             //     await this.$dataApi.keywordSearchWithFilters(
             //         query_text,
