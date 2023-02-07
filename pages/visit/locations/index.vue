@@ -180,7 +180,7 @@ export default {
         }
     },
     async fetch() {
-        this.uclaLibraries= []
+        this.uclaLibraries = []
         this.hits = []
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
@@ -225,6 +225,7 @@ export default {
             }
         } else {
             this.hits = []
+            this.noResultsFound = false
             // if route queries are empty fetch data from craft
             const data = await this.$graphql.default.request(LOCATIONS_LIST)
             // console.log("data:" + data)
@@ -345,7 +346,10 @@ export default {
                 // console.log(obj["_source"]["_source"]["image"])
                 return {
                     ...obj["_source"],
-                    to: obj["_source"].locationType === "affiliateLibrary" ? obj["_source"].affiliateLibraryUrl : `/${obj["_source"].uri}`,
+                    to:
+                        obj["_source"].locationType === "affiliateLibrary"
+                            ? obj["_source"].affiliateLibraryUrl
+                            : `/${obj["_source"].uri}`,
                     image: _get(obj["_source"], "heroImage[0].image[0]", null),
                     address: parseAddress(obj["_source"])[0],
                     addressLink: `https://map.ucla.edu/?id=${obj["_source"].campusMapId}&e=true`,
@@ -353,7 +357,10 @@ export default {
                         obj["_source"].amenitiesIcons.length !== 0
                             ? parseAmenities(obj["_source"])
                             : null,
-                    isUclaLibrary: obj["_source"].locationType === "affiliateLibrary" ? false : true,
+                    isUclaLibrary:
+                        obj["_source"].locationType === "affiliateLibrary"
+                            ? false
+                            : true,
                 }
             })
         },

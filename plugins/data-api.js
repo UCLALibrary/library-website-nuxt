@@ -51,7 +51,7 @@ export default function ({ $config }, inject) {
                                 keyword +
                                 " AND NOT(sectionHandle:event)) OR (" +
                                 keyword +
-                                " ANDstartDateWithTime:[now TO *] AND sectionHandle:event)",
+                                " AND startDateWithTime:[now TO *] AND sectionHandle:event)",
                             fields: [
                                 "title^4",
                                 "summary^3",

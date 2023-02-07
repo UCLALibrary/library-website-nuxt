@@ -21,7 +21,7 @@
             v-if="$fetchState.pending"
             class="results section-no-top-margin"
         >
-            <div> 
+            <div>
                 <p>...Search results loading</p>
             </div>
         </section-wrapper>
@@ -47,9 +47,11 @@
                 v-if="page && page.hits && page.hits.hits.length > 0"
                 class="meta section-no-top-margin"
             >
-                <h2 class="about-results">
-                    Displaying {{ page.hits.length }} results for <strong><em>“{{ $route.query.q }}”</em></strong>
-                </h2>
+                <section-wrapper class="about-results">
+                    Displaying {{ page.hits.length }} results for
+                    <strong><em>“{{ $route.query.q }}”</em></strong>
+                </section-wrapper>
+
                 <section-wrapper
                     v-for="(result, index) in page.hits.hits"
                     :key="`SearchResultBlock${index}`"
@@ -57,7 +59,7 @@
                 >
                     <search-result
                         :title="result._source.title"
-                        :category="result._source.sectionHandle.split(/(?=[A-Z])/).join(' ')"
+                        :category="parseCategory(result._source.sectionHandle)"
                         :summary="result._source.summary || result._source.text"
                         :to="`/${result._source.uri}`"
                         class="search-result-item"
@@ -94,9 +96,7 @@
                             >Research Help</a>
                         </li>
                         <li>
-                            <a
-                                href="/help/services-resources/ask-us"
-                            >Ask Us</a>
+                            <a href="/help/services-resources/ask-us">Ask Us</a>
                         </li>
                         <li>
                             <a
@@ -237,6 +237,10 @@ export default {
         console.log("In mounted")
     },
     methods: {
+        parseCategory(sectionHandle) {
+            if (!sectionHandle) return
+            return sectionHandle.split(/(?=[A-Z])/).join(" ")
+        },
         async getSearchData(data) {
             try {
                 this.$router.push({
