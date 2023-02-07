@@ -58,7 +58,7 @@
             />
         </section-wrapper>
 
-        <!-- <section-wrapper
+        <section-wrapper
             v-if="
                 parsedFeaturedEventsAndExhibits.length &&
                     parsedEvents.length &&
@@ -68,7 +68,7 @@
             theme="divider"
         >
             <divider-way-finder color="visit" />
-        </section-wrapper> -->
+        </section-wrapper>
 
         <!-- UPCOMING EVENTS -->
         <section-wrapper
