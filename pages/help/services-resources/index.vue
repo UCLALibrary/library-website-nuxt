@@ -335,8 +335,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-help {
-    .search-margin {
-        margin: var(--space-2xl) auto;
-    }
+    
 }
 </style>

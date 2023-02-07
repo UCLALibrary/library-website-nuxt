@@ -31,7 +31,7 @@
             "
             theme="divider"
         >
-            <divider-way-finder color="about" />
+            <divider-way-finder class="search-margin" color="about" />
         </section-wrapper>
 
         <section-wrapper
@@ -68,16 +68,8 @@
             />
         </section-wrapper>
 
-        <section-wrapper
-            v-if="
-                parsedProgramsList &&
-                    parsedProgramsList.length > 0 &&
-                    hits.length == 0 &&
-                    !noResultsFound
-            "
-            theme="divider"
-        >
-            <divider-way-finder color="about" />
+        <section-wrapper theme="divider">
+            <divider-way-finder class="search-margin" />
         </section-wrapper>
 
         <section-wrapper
@@ -93,28 +85,28 @@
         </section-wrapper>
 
         <!-- RESULTS -->
-        <section-wrapper v-else-if="hits && hits.length > 0">
-            <h3
+        <section-wrapper v-else-if="hits && hits.length > 0" class="section-no-top-margin">
+            <h2
                 v-if="$route.query.q"
                 class="about-results"
             >
                 Displaying {{ hits.length }} results for
                 <strong><em>“{{ $route.query.q }}</em></strong>”
-            </h3>
-            <h3
+            </h2>
+            <h2
                 v-else
                 class="about-results"
             >
                 Displaying {{ hits.length }} results
-            </h3>
+            </h2>
             <section-staff-article-list :items="parseHitsResults" />
         </section-wrapper>
 
         <!-- NO RESULTS -->
-        <section-wrapper v-else-if="noResultsFound">
+        <section-wrapper v-else-if="noResultsFound" class="section-no-top-margin">
             <div class="error-text">
                 <rich-text>
-                    <h1>Search for “{{ $route.query.q }}” not found.</h1>
+                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
                         but we're here to help. <br>
@@ -398,9 +390,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-programs {
-    .about-results {
-        margin-top: var(--space-xl);
-        margin-bottom: var(--space-l);
-    }
 }
 </style>

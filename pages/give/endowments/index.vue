@@ -15,20 +15,10 @@
             @search-ready="getSearchData"
         />
 
-        <section-wrapper
-            v-if="
-                page &&
-                    parsedFeaturedEndowments &&
-                    parsedFeaturedEndowments.length &&
-                    hits.length == 0 &&
-                    !noResultsFound
-            "
-            theme="divider"
-        >
-            <divider-way-finder
-                class="search-margin"
-                color="about"
-            />
+        <section-wrapper theme="divider">
+            <divider-way-finder 
+            class="search-margin"
+            color="about" />
         </section-wrapper>
 
         <section-wrapper
@@ -77,27 +67,27 @@
             <!-- pagination -->
         </section-wrapper>
 
-        <section-wrapper v-else-if="hits && hits.length > 0">
-            <div
+        <section-wrapper v-else-if="hits && hits.length > 0" class="section-no-top-margin">
+            <h2
                 v-if="$route.query.q"
                 class="about-results"
             >
                 Displaying {{ hits.length }} results for
                 <strong><em>“{{ $route.query.q }}”</em></strong>
-            </div>
-            <div
+            </h2>
+            <h2
                 v-else
                 class="about-results"
             >
                 Displaying {{ hits.length }} results
-            </div>
+            </h2>
             <section-generic-list :items="parseHitsResults" />
             <!-- pagination -->
         </section-wrapper>
         <section-wrapper v-else>
             <div class="error-text">
                 <rich-text>
-                    <h1>Search for “{{ $route.query.q }}” not found.</h1>
+                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
                         but we're here to help. <br>
@@ -383,9 +373,6 @@ export default {
     }
     ::v-deep .block-highlight.is-vertical:not(.has-triangle) .image .media {
         object-fit: contain;
-    }
-    .search-margin {
-        margin: var(--space-2xl) auto;
     }
 
     ::v-deep .section-teaser-card .card {
