@@ -72,23 +72,23 @@
         >
             <section-staff-article-list :items="parsedNewsList" />
         </section-wrapper>
-        <section-wrapper v-else-if="hits && hits.length > 0">
-            <div
+        <section-wrapper v-else-if="hits && hits.length > 0" class="section-no-top-margin">
+            <h2
                 v-if="$route.query.q"
                 class="about-results"
             >
                 Displaying {{ hits.length }} results for
                 <strong><em>“{{ $route.query.q }}”</em></strong>
-            </div>
-            <div
+            </h2>
+            <h2
                 v-else
                 class="about-results"
             >
                 Displaying {{ hits.length }} results
-            </div>
+            </h2>
             <section-staff-article-list :items="parseHitsResults" />
         </section-wrapper>
-        <section-wrapper v-else-if="noResultsFound">
+        <section-wrapper class="section-no-top-margin" v-else-if="noResultsFound">
             <div class="error-text">
                 <rich-text>
                     <h1>Search for “{{ $route.query.q }}” not found.</h1>
@@ -406,8 +406,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-news {
-    .search-margin {
-        margin: var(--space-2xl) auto;
-    }
+
 }
 </style>

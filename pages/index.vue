@@ -21,7 +21,7 @@
             />
         </section-wrapper>
 
-        <section-wrapper>
+        <section-wrapper class="section-no-top-margin">
             <section-cards-with-illustrations
                 class="section"
                 :items="parsedGetHelpWith"
@@ -319,8 +319,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page-home {
-    .button-more,
-    .search-margin {
+    .button-more {
         margin: var(--space-2xl) auto;
     }
 }

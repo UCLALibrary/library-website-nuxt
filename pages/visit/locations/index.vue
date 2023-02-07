@@ -19,13 +19,13 @@
 
         <section-wrapper theme="divider">
             <divider-way-finder
-                class="divider-way-finder"
+                class="divider-way-finder search-margin"
                 color="visit"
             />
         </section-wrapper>
 
         <!-- UCLA LIBRARIES -->
-        <section-wrapper
+        <section-wrapper class ="section-no-top-margin"
             v-if="
                 page &&
                     uclaLibraries &&
@@ -65,20 +65,22 @@
 
         <!-- RESULTS -->
 
-        <section-wrapper v-else-if="hits && hits.length > 0">
-            <h3
+        <section-wrapper 
+            v-else-if="hits && hits.length > 0"
+            class="meta section-no-top-margin">
+            <h2
                 v-if="$route.query.q"
                 class="about-results"
             >
                 Displaying {{ hits.length }} results for
                 <strong><em>“{{ $route.query.q }}</em></strong>”
-            </h3>
-            <h3
+            </h2>
+            <h2
                 v-else
                 class="about-results"
             >
                 Displaying {{ hits.length }} results
-            </h3>
+            </h2>
 
             <section-location-list
                 class="blockLocationListWrapper"
@@ -87,10 +89,10 @@
         </section-wrapper>
 
         <!-- NO RESULTS -->
-        <section-wrapper v-else-if="noResultsFound">
+        <section-wrapper v-else-if="noResultsFound" class="meta section-no-top-margin">
             <div class="error-text">
                 <rich-text>
-                    <h1>Search for “{{ $route.query.q }}” not found.</h1>
+                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
                         but we're here to help. <br>

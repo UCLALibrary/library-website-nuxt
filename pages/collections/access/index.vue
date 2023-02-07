@@ -23,9 +23,10 @@
                 @view-mode-change="viewModeChanger" -->
         </masthead-secondary>
 
-        <section-wrapper>
-            <divider-way-finder class="divider divider-way-finder" />
-        </section-wrapper>
+        <!-- TODO add divider once SearchGeneric is implemented -->
+        <!-- <section-wrapper theme="divider">
+            <divider-way-finder class="search-margin" />
+        </section-wrapper> -->
 
         <section-wrapper>
             <section-cards-with-illustrations

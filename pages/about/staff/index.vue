@@ -20,7 +20,7 @@
         />
 
         <section-wrapper theme="divider">
-            <divider-way-finder />
+            <divider-way-finder class="search-margin"/>
         </section-wrapper>
 
         <!--h4 style="margin: 30px 400px">
@@ -36,9 +36,10 @@
             ${hits.length}`
                 }}
             </h4-->
-
-        <section-wrapper>
-            <alphabetical-browse-by
+        
+        <!-- ALL STAFF -->
+        <section-wrapper v-if="page.entries" class="section-no-top-margin">
+            <alphabetical-browse-by class="browse-margin"
                 v-if="
                     (searchGenericQuery.queryFilters[
                         'subjectLibrarian.keyword'
@@ -51,13 +52,9 @@
                 :selected-letter-prop="selectedLetterProp"
                 @selectedLetter="searchBySelectedLetter"
             />
-        </section-wrapper>
-
-        <!-- ALL STAFF -->
-        <section-wrapper v-if="page.entries">
             <section-staff-list :items="parsedStaffList" />
         </section-wrapper>
-        <section-wrapper
+        <section-wrapper class="section-no-top-margin"
             v-else-if="
                 hits &&
                     hits.length > 0 &&
@@ -77,7 +74,7 @@
         </section-wrapper>
 
         <!-- SUBJECT LIBRARIANS -->
-        <section-wrapper
+        <section-wrapper class="section-no-top-margin"
             v-if="
                 searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
                     searchGenericQuery.queryFilters['subjectLibrarian.keyword'] ===
@@ -410,6 +407,9 @@ export default {
 
 <style lang="scss" scoped>
 .page-staff {
+    .browse-margin {
+        margin-bottom: var(--space-m);
+    }
     .search-container {
         position: relative;
         width: $container-l-cta + px;

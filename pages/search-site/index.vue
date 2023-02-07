@@ -10,9 +10,16 @@
             @search-ready="getSearchData"
         />
 
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="search-margin"
+                color="default"
+            />
+        </section-wrapper>
+
         <section-wrapper
             v-if="$fetchState.pending"
-            class="results"
+            class="results section-no-top-margin"
         >
             <div> 
                 <p>...Search results loading</p>
@@ -38,11 +45,11 @@
 
             <section-wrapper
                 v-if="page && page.hits && page.hits.hits.length > 0"
-                class="meta"
+                class="meta section-no-top-margin"
             >
-                <section-wrapper class="about-results">
+                <h2 class="about-results">
                     Displaying {{ page.hits.length }} results for <strong><em>“{{ $route.query.q }}”</em></strong>
-                </section-wrapper>
+                </h2>
                 <section-wrapper
                     v-for="(result, index) in page.hits.hits"
                     :key="`SearchResultBlock${index}`"
@@ -64,12 +71,12 @@
                     />
                 </section-wrapper>
             </section-wrapper>
-            <div
+            <section-wrapper
                 v-else
-                class="error-text"
+                class="section-no-top-margin"
             >
-                <rich-text>
-                    <h1>Search for “{{ $route.query.q }}” not found.</h1>
+                <rich-text class="error-text">
+                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the page you are looking for, but we're
                         here to help. Try these regularly visited links or one
@@ -98,7 +105,7 @@
                         </li>
                     </ul>
                 </rich-text>
-            </div>
+            </section-wrapper>
 
             <section-wrapper>
                 <divider-way-finder class="divider-way-finder" />
