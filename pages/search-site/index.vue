@@ -52,6 +52,7 @@
                     <strong><em>“{{ $route.query.q }}”</em></strong>
                 </h2>
 
+
                 <section-wrapper
                     v-for="(result, index) in page.hits.hits"
                     :key="`SearchResultBlock${index}`"
