@@ -258,11 +258,11 @@ export default {
             if (this.page.address.length && this.page.address[0].addressLine2) {
                 return (
                     this.page.address[0].addressLine1 +
-                    " " +
+                    "\n" +
                     this.page.address[0].addressLine2 +
-                    " " +
+                    "\n" +
                     this.page.address[0].addressCity +
-                    " " +
+                    ", " +
                     this.page.address[0].addressState +
                     " " +
                     this.page.address[0].addressZipCode
@@ -270,9 +270,9 @@ export default {
             } else if (this.page.address.length) {
                 return (
                     this.page.address[0].addressLine1 +
-                    " " +
+                    "\n" +
                     this.page.address[0].addressCity +
-                    " " +
+                    ", " +
                     this.page.address[0].addressState +
                     " " +
                     this.page.address[0].addressZipCode
