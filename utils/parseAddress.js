@@ -15,9 +15,9 @@ function parseAddress(obj) {
         } else if (item) {
             return (
                 item.addressLine1 +
-                    " " +
+                    "\n" +
                     item.addressCity +
-                    " " +
+                    ", " +
                     item.addressState +
                     " " +
                     item.addressZipCode
