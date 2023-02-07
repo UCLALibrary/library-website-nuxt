@@ -56,6 +56,14 @@ jobs:
       with:
         path: ./dist
         key: nuxt-site-${{ github.sha }}
+    - name: Sets env vars for PR preview
+      run: |
+        echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-preview-${{github.event.pull_request.number}}" >> $GITHUB_ENV
+      if: github.ref_name!='main'
+    - name: Sets env vars for main merge
+      run: |
+        echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
+      if: github.ref_name=='main'
     - run: npm run generate
       env:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
@@ -66,8 +74,8 @@ jobs:
         ESApiKey: ${{ secrets.ESApiKey }}
         ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
         ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
-        ES_INDEX: ${{ secrets.ES_INDEX_TEST }}
-        ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_TEST }}
+        ES_INDEX: ${{ env.ES_INDEX }}
+        ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX}}
     - name: Deploy to Netlify (preview)
       if: github.ref_name!='main'
       uses: nwtgck/actions-netlify@v2 #
