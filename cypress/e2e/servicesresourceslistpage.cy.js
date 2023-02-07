@@ -9,7 +9,7 @@ describe("All Services & Resources Listing page", () => {
         cy.get(".logo-ucla").should("be.visible")
         cy.get("div.input-container > input[type=text]").should(
             "have.value",
-            "test"
+            "service"
         )
         cy.get("div.about-results").invoke("text").should("not.be.empty")
         //cy.percySnapshot({ widths: [768, 992, 1200] })
