@@ -19,19 +19,8 @@
             :search-generic-query="searchGenericQuery"
             @search-ready="getSearchData"
         />
-        <section-wrapper theme="divider"
-            v-if="
-                page &&
-                    parsedCollectionList &&
-                    parsedCollectionList.length &&
-                    hits.length == 0 &&
-                    !noResultsFound
-            "
-        >
-            <divider-way-finder
-                class="search-margin"
-                color="default"
-            />
+        <section-wrapper theme="divider">
+            <divider-way-finder class="search-margin" />
         </section-wrapper>
 
         <section-wrapper class="section-no-top-margin"
@@ -46,27 +35,27 @@
             <section-teaser-card :items="parsedCollectionList" />
         </section-wrapper>
 
-        <section-wrapper v-else-if="hits && hits.length > 0">
-            <div
+        <section-wrapper v-else-if="hits && hits.length > 0" class="section-no-top-margin">
+            <h2
                 v-if="$route.query.q"
                 class="about-results"
             >
                 Displaying {{ hits.length }} results for
                 <strong><em>“{{ $route.query.q }}”</em></strong>
-            </div>
-            <div
+            </h2>
+            <h2
                 v-else
                 class="about-results"
             >
                 Displaying {{ hits.length }} results
-            </div>
+            </h2>
             <section-teaser-card :items="parseHitsResults" />
         </section-wrapper>
 
-        <section-wrapper v-else>
+        <section-wrapper v-else class="section-no-top-margin">
             <div class="error-text">
                 <rich-text>
-                    <h1>Search for “{{ $route.query.q }}” not found.</h1>
+                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
                         but we're here to help. <br>

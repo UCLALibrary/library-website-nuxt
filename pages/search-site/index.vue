@@ -47,9 +47,9 @@
                 v-if="page && page.hits && page.hits.hits.length > 0"
                 class="meta section-no-top-margin"
             >
-                <div class="about-results">
+                <h2 class="about-results">
                     Displaying {{ page.hits.length }} results for <strong><em>“{{ $route.query.q }}”</em></strong>
-                </div>
+                </h2>
                 <section-wrapper
                     v-for="(result, index) in page.hits.hits"
                     :key="`SearchResultBlock${index}`"
