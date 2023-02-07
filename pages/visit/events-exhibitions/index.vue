@@ -110,9 +110,37 @@
             </h3>
             <section-teaser-list :items="parseHitsResults" />
         </section-wrapper>
+        <!-- NO RESULTS -->
+        <section-wrapper v-else-if="noResultsFound">
+            <div class="error-text">
+                <rich-text>
+                    <h1>Search for “{{ $route.query.q }}” not found.</h1>
+                    <p>
+                        We can’t find the term you are looking for on this page,
+                        but we're here to help. <br>
+                        Try searching the whole site from
+                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+                    </p>
+                    <ul>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/research-teaching-support/research-help"
+                            >Research Help</a>
+                        </li>
+                        <li>
+                            <a href="/help/services-resources/ask-us">Ask Us</a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
+                            >Accessibility Resources</a>
+                        </li>
+                    </ul>
+                </rich-text>
+            </div>
+        </section-wrapper>
 
         <!-- EVENT SERIES & EXHIBITIONS -->
-        <!-- Display this always -->
         <section-wrapper section-title="Event Series & Exhibitions">
             <section-teaser-card :items="parsedSeriesAndExhibitions" />
         </section-wrapper>
@@ -244,17 +272,22 @@ export default {
             this.exhibitions = []
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
+                const data = await this.$graphql.default.request(
+                    EXHIBITIONS_AND_EVENTS_LIST
+                )
                 this.hits = results.hits.hits
-
                 this.events = []
-                this.series = []
-                this.exhibitions = []
+                this.series = _get(data, "series", [])
+                this.exhibitions = _get(data, "exhibitions", [])
                 this.noResultsFound = false
             } else {
+                const data = await this.$graphql.default.request(
+                    EXHIBITIONS_AND_EVENTS_LIST
+                )
                 this.hits = []
                 this.events = []
-                this.series = []
-                this.exhibitions = []
+                this.series = _get(data, "series", [])
+                this.exhibitions = _get(data, "exhibitions", [])
                 this.noResultsFound = true
             }
             this.searchGenericQuery = {
