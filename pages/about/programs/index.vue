@@ -230,6 +230,7 @@ export default {
             }
         } else {
             this.hits = []
+            this.noResultsFound = false
             // if route queries are empty fetch data from craft
             const data = await this.$graphql.default.request(PROGRAMS_LIST)
             // console.log("data:" + data)

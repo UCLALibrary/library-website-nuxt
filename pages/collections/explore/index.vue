@@ -177,9 +177,11 @@ export default {
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
                 this.collections = []
+                this.noResultsFound = false
             } else {
                 this.hits = []
                 this.collections = []
+                this.noResultsFound = true
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
@@ -190,6 +192,7 @@ export default {
             }
         } else {
             this.hits = []
+            this.noResultsFound = false
             // if route queries are empty fetch data from craft
             const data = await this.$graphql.default.request(
                 COLLECTIONS_EXPLORE_LIST
