@@ -23,11 +23,12 @@
                 @view-mode-change="viewModeChanger" -->
         </masthead-secondary>
 
-        <section-wrapper theme="divider">
+        <!-- TODO add divider once SearchGeneric is implemented -->
+        <!-- <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
-        </section-wrapper>
+        </section-wrapper> -->
 
-        <section-wrapper class="section-no-top-margin">
+        <section-wrapper>
             <section-cards-with-illustrations
                 class="section"
                 :items="parsedAccessCollections"
