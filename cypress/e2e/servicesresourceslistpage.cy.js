@@ -5,11 +5,13 @@ describe("All Services & Resources Listing page", () => {
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
     it("Search Found", () => {
-        cy.visit("help/services-resources?q=test")
+        cy.visit("help/services-resources/?q=test")
         cy.get(".logo-ucla").should("be.visible")
-        cy.get('div.input-container > input[type=text]').should("have.value",'test')
-        cy.get('div.about-results').invoke('text').should('not.be.empty') 
+        cy.get("div.input-container > input[type=text]").should(
+            "have.value",
+            "test"
+        )
+        cy.get("div.about-results").invoke("text").should("not.be.empty")
         //cy.percySnapshot({ widths: [768, 992, 1200] })
     })
-
 })
