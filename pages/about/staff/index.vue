@@ -107,7 +107,9 @@
                 :table-headers="tableHeaders"
             />
         </section-wrapper>
-        <section-wrapper v-else-if="noResultsFound">
+        <section-wrapper
+            v-else-if="noResultsFound && !$route.query.lastNameLetter"
+        >
             <div class="error-text">
                 <rich-text>
                     <h1>Search for “{{ $route.query.q }}” not found.</h1>
