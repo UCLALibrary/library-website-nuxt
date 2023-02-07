@@ -98,7 +98,7 @@
         </section-wrapper>
         -->
         <section-wrapper v-else-if="hits && hits.length > 0">
-            <section-teaser-card :items="parseHitsResults" />
+            <section-teaser-list :items="parseHitsResults" />
         </section-wrapper>
         <!-- EVENT SERIES & EXHIBITIONS -->
         <section-wrapper
