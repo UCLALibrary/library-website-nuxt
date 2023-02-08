@@ -181,6 +181,7 @@ const config = {
             "title^3",
             "eventDescription^3",
             "summary^3",
+            "sectionHandle",
             // "startDateWithTime^2",
             // "endDateWithTime^2"
         ],

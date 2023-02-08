@@ -234,7 +234,7 @@ export default {
             const results = await this.$dataApi.keywordSearchWithFilters(
                 query_text,
                 config.eventsExhibitionsList.searchFields,
-                "sectionHandle:event OR sectionHandle:exhibition",
+                "sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:workshopOrEventSeries",
                 [],
                 config.eventsExhibitionsList.sortField,
                 config.eventsExhibitionsList.orderBy,
