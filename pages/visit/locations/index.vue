@@ -18,22 +18,6 @@
             @search-ready="getSearchData"
         />
 
-        <!-- <section-wrapper
-            v-if="
-                page &&
-                    uclaLibraries &&
-                    parsedUclaLibraries.length &&
-                    hits.length == 0 &&
-                    !noResultsFound
-            "
-            theme="divider"
-        >
-            <divider-way-finder
-                color="visit"
-                class="search-margin"
-            />
-        </section-wrapper> -->
-
         <section-wrapper theme="divider">
             <divider-way-finder
                 color="visit"
@@ -160,22 +144,18 @@
 // UTILITIES
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
-
 // HELPERS
 import _get from "lodash/get"
 import parseAddress from "~/utils/parseAddress"
 import parseAmenities from "~/utils/parseAmenities"
 import removeTags from "~/utils/removeTags"
-
 // GQL
 import LOCATIONS_LIST from "~/gql/queries/LocationsList"
-
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin }) {
         const data = await $graphql.default.request(LOCATIONS_LIST, {
             uri: params.path,
         })
-
         const serverData = await $graphql.default.request(LOCATIONS_LIST)
         console.log(
             "ALL External Resource indexing:" +
@@ -196,7 +176,6 @@ export default {
                 )
             }
         }
-
         return {
             page: _get(data, "entry", {}),
             uclaLibraries: _get(data, "uclaLibraries", {}),
@@ -279,7 +258,6 @@ export default {
     head() {
         let title = this.page ? this.page.title : "... loading"
         let metaDescription = removeTags(this.page.text)
-
         return {
             title: title,
             meta: [
@@ -378,7 +356,6 @@ export default {
                 config.locationsList.filters,
                 "location"
             )
-
             console.log(
                 "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
             )
