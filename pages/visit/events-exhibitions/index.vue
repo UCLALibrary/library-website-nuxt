@@ -283,30 +283,6 @@ export default {
                 config.eventsExhibitionsList.resultFields,
                 []
             )
-            // ElasticSearch queries for other sectionHandles on the page
-
-            // const exhibitionResults =
-            //     await this.$dataApi.keywordSearchWithFilters(
-            //         query_text,
-            //         config.eventsExhibitionsList.searchFields,
-            //         "sectionHandle:exhibition",
-            //         JSON.parse(this.$route.query.filters) || {},
-            //         config.eventsExhibitionsList.sortField,
-            //         config.eventsExhibitionsList.orderBy,
-            //         config.eventsExhibitionsList.resultFields,
-            //         config.eventsExhibitionsList.filters
-            //     )
-            // const workshopOrEventSeriesResults =
-            //     await this.$dataApi.keywordSearchWithFilters(
-            //         query_text,
-            //         config.eventsExhibitionsList.searchFields,
-            //         "sectionHandle:workshopOrEventSeries",
-            //         JSON.parse(this.$route.query.filters) || {},
-            //         config.eventsExhibitionsList.sortField,
-            //         config.eventsExhibitionsList.orderBy,
-            //         config.eventsExhibitionsList.resultFields,
-            //         config.eventsExhibitionsList.filters
-            //     )
             console.log("getsearchdata method:" + JSON.stringify(results))
 
             this.events = []
@@ -338,8 +314,8 @@ export default {
             // )
             this.page = _get(data, "entry", {})
             this.events = _get(data, "events", [])
-            // this.series = _get(data, "series", [])
-            // this.exhibitions = _get(data, "exhibitions", [])
+            this.series = _get(data, "series", [])
+            this.exhibitions = _get(data, "exhibitions", [])
         }
     },
     head() {
