@@ -206,10 +206,10 @@ export default {
             }
         },
         allCollectionsNewsLink() {
-            let searchLibrary = "Collections"
-            let libConcat = '/about/news?q=&filters={\"category.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
-
             if (this.page.locationType != "affiliateLibrary") {
+                let searchLibrary = "Collections"
+                let libConcat = '/about/news?q=&filters={\"category.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+
                 return libConcat
             } else {
                 return ""
