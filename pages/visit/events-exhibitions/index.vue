@@ -263,28 +263,25 @@ export default {
             //         config.eventsExhibitionsList.filters
             //     )
             console.log("getsearchdata method:" + JSON.stringify(results))
-
+            const data = await this.$graphql.default.request(
+                EXHIBITIONS_AND_EVENTS_LIST
+            )
             this.events = []
-            this.series = []
-            this.exhibitions = []
+            this.series = _get(data, "series", [])
+            this.exhibitions = _get(data, "exhibitions", [])
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
-                const data = await this.$graphql.default.request(
-                    EXHIBITIONS_AND_EVENTS_LIST
-                )
                 this.hits = results.hits.hits
                 this.events = []
-                this.series = _get(data, "series", [])
-                this.exhibitions = _get(data, "exhibitions", [])
                 this.noResultsFound = false
             } else {
-                const data = await this.$graphql.default.request(
-                    EXHIBITIONS_AND_EVENTS_LIST
-                )
+                // const data = await this.$graphql.default.request(
+                //     EXHIBITIONS_AND_EVENTS_LIST
+                // )
                 this.hits = []
                 this.events = []
-                this.series = _get(data, "series", [])
-                this.exhibitions = _get(data, "exhibitions", [])
+                // this.series = _get(data, "series", [])
+                // this.exhibitions = _get(data, "exhibitions", [])
                 this.noResultsFound = true
             }
             this.searchGenericQuery = {
@@ -297,13 +294,13 @@ export default {
         } else {
             this.hits = []
             // if route queries are empty fetch data from craft
-            const data = await this.$graphql.default.request(
-                EXHIBITIONS_AND_EVENTS_LIST
-            )
+            // const data = await this.$graphql.default.request(
+            //     EXHIBITIONS_AND_EVENTS_LIST
+            // )
             this.page = _get(data, "entry", {})
             this.events = _get(data, "events", [])
-            this.series = _get(data, "series", [])
-            this.exhibitions = _get(data, "exhibitions", [])
+            // this.series = _get(data, "series", [])
+            // this.exhibitions = _get(data, "exhibitions", [])
         }
     },
     head() {
@@ -439,6 +436,9 @@ export default {
         },
         parseHitsResults() {
             return this.parseHits(this.hits)
+        },
+        parsedPlaceholder() {
+            return `Search ${this.page.title}`
         },
     },
     // This will recall fetch() when these query params change
