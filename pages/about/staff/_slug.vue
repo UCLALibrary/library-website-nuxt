@@ -130,13 +130,13 @@ export default {
         }
     },
     head() {
-        let title = this.page ? this.page.title : "... loading"
+        let title = this.page ? this.page.entry.title : "... loading"
         let metaDescription = removeTags(this.page.text)
 
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription
@@ -168,7 +168,7 @@ export default {
             return this.page.entries.map((obj) => {
                 return {
                     ...obj,
-                    to: 
+                    to:
                         obj.externalResourceUrl != null
                             ? _get(obj, "externalResourceUrl", "")
                             : `/${obj.to}`,
