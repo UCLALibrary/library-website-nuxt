@@ -53,9 +53,8 @@
 
         <section-wrapper
             v-if="
-                page &&
-                    page.featuredEvents &&
-                    page.featuredEvents.length > 0 &&
+                parsedFeaturedEventsAndExhibits.length &&
+                    parsedEvents.length &&
                     hits.length == 0 &&
                     !noResultsFound
             "
@@ -284,6 +283,7 @@ export default {
                 return {
                     ...obj,
                     to: `/${obj.to}`,
+                    title: obj.eventTitle ? obj.eventTitle : obj.title,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     startDate:
                         obj.typeHandle === "event"
@@ -293,7 +293,6 @@ export default {
                         obj.typeHandle === "event"
                             ? obj.endDateWithTime
                             : obj.endDate,
-                    // text: obj.typeHandle === "event" ? obj.eventDescription : obj.summary,
                     prompt:
                         obj.typeHandle === "exhibition"
                             ? "View exhibition"
@@ -302,9 +301,13 @@ export default {
                                 ? "View event series"
                                 : "View event",
                     locations:
-                        obj.typeHandle !== "exhibition"
-                            ? obj.associatedLocations
-                            : obj.associatedLocationsAndPrograms,
+                        obj.typeHandle === "exhibition"
+                            ? obj.associatedLocationsAndPrograms
+                            : obj.associatedLocations[0] != null
+                                ? obj.associatedLocations
+                                : obj.eventLocation != null
+                                    ? obj.eventLocation
+                                    : obj.associatedLocationsAndPrograms,
                 }
             })
         },
@@ -322,9 +325,12 @@ export default {
                             : obj.workshopOrEventSeriesType ===
                               "visit/events-exhibitions"
                                 ? "Event Series"
-                                : obj.eventType.length > 0
-                                    ? obj.eventType[0].title
-                                    : "Event",
+                                : obj.workshopOrEventSeriesType ===
+                              "help/services-resources"
+                                    ? "Workshop Series"
+                                    : obj.eventType != null
+                                        ? obj.eventType[0].title
+                                        : "Event",
                     title: obj.title,
                 }
             })
@@ -351,6 +357,10 @@ export default {
                         "eventType[0].title",
                         null
                     ),
+                    locations:
+                        eventOrExhibtion.associatedLocations[0] != null
+                            ? eventOrExhibtion.associatedLocations
+                            : eventOrExhibtion.eventLocation,
                 }
             })
         },
