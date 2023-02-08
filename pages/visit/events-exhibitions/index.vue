@@ -265,9 +265,9 @@ export default {
         this.hits = []
         if (this.$route.query.q && this.$route.query.q !== "") {
             if (!this.page.title) {
-                const data = await this.$graphql.default.request(
-                    EXHIBITIONS_AND_EVENTS_LIST
-                )
+                // const data = await this.$graphql.default.request(
+                //     EXHIBITIONS_AND_EVENTS_LIST
+                // )
                 this.page["title"] = _get(data, "entry.title", "")
                 this.page["text"] = _get(data, "entry.text", "")
             }
@@ -308,9 +308,7 @@ export default {
             //         config.eventsExhibitionsList.filters
             //     )
             console.log("getsearchdata method:" + JSON.stringify(results))
-            const data = await this.$graphql.default.request(
-                EXHIBITIONS_AND_EVENTS_LIST
-            )
+
             this.events = []
             this.series = _get(data, "series", [])
             this.exhibitions = _get(data, "exhibitions", [])
