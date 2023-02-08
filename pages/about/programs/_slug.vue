@@ -148,13 +148,13 @@ export default {
             return _get(this.page, "buttonUrl[0].buttonUrl", "")
         },
         parsedStaffDirectory() {
-            let searchLibrary = this.page.title
-            let libConcat = '/about/staff?q=&filters={\"locations.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
-
             let x = this.page.viewStaffDirectory
-            if (x == "false") {
+            if (x == "false" && this.page.title.length > 0) {
                 return ""
             } else {
+                let searchLibrary = this.page.title
+                let libConcat = '/about/staff?q=&filters={\"departments.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+
                 return libConcat
             }
         },
