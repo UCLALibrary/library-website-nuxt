@@ -7,7 +7,7 @@
     "scripts": {
         "dev": "nuxt",
         "build": "nuxt build",
-        "generate": "NODE_ENV=production nuxt generate",
+        "generate": "nuxt generate",
         "start": "nuxt start",
         "cypress": "cypress open",
         "cypress-run": "cypress run",
