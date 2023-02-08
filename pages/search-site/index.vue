@@ -63,7 +63,10 @@
                         :category="parseCategory(result._source.sectionHandle)"
                         :summary="result._source.summary || result._source.text"
                         :to="
-                            result._source.sectionHandle == 'Libguide'
+                            result._source.sectionHandle == 'Libguide' ||
+                                result._source.sectionHandle ==
+                                'externalResource' ||
+                                result._source.sectionHandle == 'affiliateLibrary'
                                 ? result._source.uri
                                 : `/${result._source.uri}`
                         "
