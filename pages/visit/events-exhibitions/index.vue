@@ -424,13 +424,43 @@ export default {
     methods: {
         parseHits(hits = []) {
             return hits.map((obj) => {
-                return {
-                    ...obj["_source"],
-                    to: `/${obj["_source"].to}`,
-                    image: _get(obj["_source"], "image[0].image[0]", null),
-                    startDate: _get(obj["_source"], "startDateWithTime", null),
-                    endDate: _get(obj["_source"], "endDateWithTime", null),
-                    category: _get(obj["_source"], "eventType[0].title", null),
+                if (obj["_source"].sectionHandle === "event") {
+                    return {
+                        ...obj["_source"],
+                        to: `/${obj["_source"].to}`,
+                        image: _get(obj["_source"], "image[0].image[0]", null),
+                        startDate: _get(
+                            obj["_source"],
+                            "startDateWithTime",
+                            null
+                        ),
+                        endDate: _get(obj["_source"], "endDateWithTime", null),
+                        category: _get(
+                            obj["_source"],
+                            "eventType[0].title",
+                            null
+                        ),
+                    }
+                } else if (obj["_source"].sectionHandle === "exhibition") {
+                    return {
+                        ...obj["_source"],
+                        to: `/${obj["_source"].uri}`,
+                        image: _get(obj["_source"], "image[0].image[0]", null),
+                        startDate: _get(obj["_source"], "startDate", null),
+                        endDate: _get(obj["_source"], "endDate", null),
+                        category: _get(obj["_source"], "sectionHandle", null),
+                    }
+                } else if (
+                    obj["_source"].sectionHandle === "workshopOrEventSeries"
+                ) {
+                    return {
+                        ...obj["_source"],
+                        to: `/${obj["_source"].uri}`,
+                        image: _get(obj["_source"], "image[0].image[0]", null),
+                        startDate: _get(obj["_source"], "startDate", null),
+                        endDate: _get(obj["_source"], "endDate", null),
+                        category: _get(obj["_source"], "Event Series", null),
+                    }
                 }
             })
         },
