@@ -58,7 +58,7 @@ jobs:
         key: nuxt-site-${{ github.sha }}
     - name: Sets env vars for PR preview
       run: |
-        echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-deploy-preview-${{github.event.pull_request.number}}" >> $GITHUB_ENV
+        echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-deploy-preview" >> $GITHUB_ENV
       if: github.ref_name!='main'
     - name: Sets env vars for main merge
       run: |
@@ -76,6 +76,7 @@ jobs:
         ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
         ES_INDEX: ${{ env.ES_INDEX }}
         ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX}}
+        LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
     - name: Deploy to Netlify (preview)
       if: github.ref_name!='main'
       uses: nwtgck/actions-netlify@v2 #
@@ -106,6 +107,7 @@ jobs:
         ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
         ES_INDEX: ${{ secrets.ES_INDEX_TEST }}
         ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_TEST }}
+        LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
     - name: Deploy to Netlify (merged)
       if: github.ref_name=='main'
       uses: nwtgck/actions-netlify@v2 #

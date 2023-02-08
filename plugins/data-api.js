@@ -27,6 +27,7 @@ export default function ({ $config }, inject) {
                             "title^4",
                             "summary^3",
                             "text^3",
+                            "fullText^3",
                             "richText^2",
                         ],
                         fuzziness: "auto",
