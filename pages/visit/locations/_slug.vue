@@ -250,10 +250,10 @@ export default {
     },
     computed: {
         parsedStaffDirectory() {
-            let searchLibrary = this.page.title
-            let libConcat = '/about/staff?q=&filters={\"locations.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+            if ( this.page.locationType != "affiliateLibrary" && this.page.title. length > 0) {
+                let searchLibrary = this.page.title
+                let libConcat = '/about/staff?q=&filters={\"locations.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
 
-            if (this.page.locationType != "affiliateLibrary") {
                 return libConcat
             } else {
                 return ""
