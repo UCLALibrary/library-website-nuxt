@@ -2,8 +2,9 @@ name: Website Release
 
 # Performs a Website release using Netlify when a new GitHub release has been published
 on:
-  release:
-    types: [ published ]
+  push:
+    tags:
+      - production
   schedule:
     - cron:  '00 8,20 * * *' # 8,20 UTC = noon and midnight PST, 1am and 1pm PDT
 
