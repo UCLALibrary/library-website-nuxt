@@ -17,12 +17,11 @@
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
+
         <!-- HIGHLIGHTED & FEATURED EVENTS -->
         <section-wrapper
             v-if="
-                page &&
-                    page.featuredEvents &&
-                    page.featuredEvents.length > 0 &&
+                parsedFeaturedEventsAndExhibits.length &&
                     hits.length == 0 &&
                     !noResultsFound
             "
@@ -300,6 +299,10 @@ export default {
                               "visit/events-exhibitions"
                                 ? "View event series"
                                 : "View event",
+                    text:
+                        obj.typeHandle === "event"
+                            ? obj.eventDescription
+                            : obj.summary,
                     locations:
                         obj.typeHandle === "exhibition"
                             ? obj.associatedLocationsAndPrograms
