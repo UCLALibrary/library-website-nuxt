@@ -102,18 +102,6 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="
-                parsedSeriesAndExhibitions &&
-                    parsedSeriesAndExhibitions.length > 0 &&
-                    hits.length == 0 &&
-                    !noResultsFound
-            "
-            theme="divider"
-        >
-            <divider-way-finder color="visit" />
-        </section-wrapper>
-
-        <section-wrapper
             v-else-if="hits && hits.length > 0"
             class="section-no-top-margin"
         >
@@ -165,6 +153,9 @@
             </div>
         </section-wrapper>
 
+        <section-wrapper>
+            <divider-way-finder color="visit" />
+        </section-wrapper>
         <section-wrapper>
             <block-call-to-action
                 class="section block-call-to-action"
