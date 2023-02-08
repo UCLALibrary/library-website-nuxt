@@ -1,61 +1,66 @@
 #import "~/gql/fragments/Image"
 query LocationsList {
-  entry(section: "listingLocationsHours") {
-    title
-    text: summary
-  }
-  uclaLibraries: entries(section: "location", locationType: "uclaLibrary") {
-    sectionHandle
-    campusMapId
-    libcalLocationIdForHours
-    title
-    heroImage {
-      ... on heroImage_heroImage_BlockType {
-        id
-        image {
-          ...Image
+    entry(section: "listingLocationsHours") {
+        title
+        text: summary
+    }
+    uclaLibraries: entries(section: "location", locationType: "uclaLibrary") {
+        sectionHandle
+        campusMapId
+        libcalLocationIdForHours
+        title
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+            }
         }
-      }
-    }
-    address {
-      ... on address_addressFields_BlockType {
-        addressLine1
-        addressLine2
-        addressCity
-        addressState
-        addressZipCode
-      }
-    }
-    libcalSpacesUrl
-    amenities(label: true)
-    amenitiesIcons: amenities(label: false)
-    uri
-  }
-  affiliateLibraries: entries(section: "location", locationType:"affiliateLibrary", orderBy:"title ASC") {
-    sectionHandle
-    campusMapId
-    title
-    heroImage {
-      ... on heroImage_heroImage_BlockType {
-        id
-        image {
-          ...Image
+        address {
+            ... on address_addressFields_BlockType {
+                addressLine1
+                addressLine2
+                addressCity
+                addressState
+                addressZipCode
+            }
         }
-      }
+        libcalSpacesUrl
+        amenities(label: true)
+        amenitiesIcons: amenities(label: false)
+        uri
     }
-    address {
-      ... on address_addressFields_BlockType {
-        addressLine1
-        addressLine2
-        addressCity
-        addressState
-        addressZipCode
-      }
+    affiliateLibraries: entries(
+        section: "location"
+        locationType: "affiliateLibrary"
+        orderBy: "title ASC"
+    ) {
+        sectionHandle
+        campusMapId
+        title
+        slug
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+            }
+        }
+        address {
+            ... on address_addressFields_BlockType {
+                addressLine1
+                addressLine2
+                addressCity
+                addressState
+                addressZipCode
+            }
+        }
+        amenities(label: true)
+        amenitiesIcons: amenities(label: false)
+        affiliateLibraryUrl
     }
-    amenities(label: true)
-    amenitiesIcons: amenities(label: false)
-    affiliateLibraryUrl
-  }
 }
 
 # fragment Image on AssetInterface {

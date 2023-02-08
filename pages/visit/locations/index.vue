@@ -155,10 +155,31 @@ import removeTags from "~/utils/removeTags"
 import LOCATIONS_LIST from "~/gql/queries/LocationsList"
 
 export default {
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         const data = await $graphql.default.request(LOCATIONS_LIST, {
             uri: params.path,
         })
+
+        const serverData = await $graphql.default.request(LOCATIONS_LIST)
+        console.log(
+            "ALL External Resource indexing:" +
+                JSON.stringify(serverData.affiliateLibraries)
+        )
+        if (
+            serverData.affiliateLibraries &&
+            serverData.affiliateLibraries.length > 0
+        ) {
+            console.log("External Resource indexing:")
+            for (let affiliateLibrary of serverData.affiliateLibraries) {
+                console.log(
+                    "External Resource indexing:" + affiliateLibrary.slug
+                )
+                await $elasticsearchplugin.index(
+                    affiliateLibrary,
+                    affiliateLibrary.slug
+                )
+            }
+        }
 
         return {
             page: _get(data, "entry", {}),
@@ -203,7 +224,7 @@ export default {
             const results = await this.$dataApi.keywordSearchWithFilters(
                 query_text,
                 config.locationsList.searchFields,
-                "sectionHandle:location",
+                "sectionHandle:location OR sectionHandle:affiliateLibrary",
                 JSON.parse(this.$route.query.filters) || {},
                 config.locationsList.sortField,
                 config.locationsList.orderBy,
