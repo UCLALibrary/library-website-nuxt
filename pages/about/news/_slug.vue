@@ -8,7 +8,7 @@
             :title="page.title"
             parent-title="All Library News"
         />
- 
+
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -16,7 +16,7 @@
             :title="page.title"
             :text="page.text"
             :byline="parsedBylineBannerText"
-            :locations="page.locations"
+            :locations="parsedLocations"
             :date-created="page.postDate"
         />
 
@@ -31,7 +31,7 @@
                 :title="page.title"
                 :text="page.text"
                 :byline="parsedByline"
-                :locations="page.locations"
+                :locations="parsedLocations"
                 :date-created="page.postDate"
                 :align-right="true"
             />
@@ -148,6 +148,14 @@ export default {
         },
         parsedCategory() {
             return this.page.category[0] ? this.page.category[0].title : ""
+        },
+        parsedLocations() {
+            return this.page.locations.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.to}`,
+                }
+            })
         },
     },
 }
