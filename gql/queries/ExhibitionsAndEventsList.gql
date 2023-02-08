@@ -8,6 +8,7 @@ query EventsExhibitionsList {
             featuredEvents {
                 category
                 title
+                eventTitle
                 summary
                 sectionHandle
                 to: uri
@@ -38,9 +39,11 @@ query EventsExhibitionsList {
                     )
                 workshopOrEventSeriesType
                 typeHandle
+                eventLocation {
+                    title
+                }
                 associatedLocations {
                     title
-                    to: uri
                 }
                 associatedLocationsAndPrograms {
                     title

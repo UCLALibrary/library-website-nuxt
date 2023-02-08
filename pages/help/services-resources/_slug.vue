@@ -141,8 +141,8 @@
                 />
             </section-wrapper>
 
-            <section-wrapper 
-                v-if="upcomingEvents.length" 
+            <section-wrapper
+                v-if="upcomingEvents.length"
                 section-title="Upcoming Workshops in this Series">
                     <section-teaser-list
                         v-if="upcomingEvents"
@@ -152,8 +152,8 @@
                     <divider-general v-if="pastEvents.length" />
             </section-wrapper>
 
-            <section-wrapper 
-                v-if="pastEvents.length" 
+            <section-wrapper
+                v-if="pastEvents.length"
                 section-title="Past Workshops in this Series">
                     <section-teaser-list
                         v-if="pastEvents"
@@ -179,7 +179,7 @@
                 <section-teaser-list :items="parsedAssociatedSeries" />
             </section-wrapper>
 
-            <section-wrapper 
+            <section-wrapper
                 v-if="parsedAssociatedSeries.length"
                 theme="divider">
                     <divider-way-finder
@@ -331,6 +331,9 @@ export default {
                     startDate: _get(obj, "startDateWithTime", null),
                     endDate: _get(obj, "endDateWithTime", null),
                     category: _get(obj, "category[0].title", ""),
+                    locations: obj.associatedLocations[0] != null
+                        ? obj.associatedLocations
+                        : obj.eventLocation,
                 }
             })
         },
@@ -343,6 +346,9 @@ export default {
                     startDate: _get(obj, "startDateWithTime", null),
                     endDate: _get(obj, "endDateWithTime", null),
                     category: _get(obj, "category[0].title", ""),
+                    locations: obj.associatedLocations[0] != null
+                        ? obj.associatedLocations
+                        : obj.eventLocation,
                 }
             })
         },

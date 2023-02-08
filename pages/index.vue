@@ -220,6 +220,9 @@ export default {
                     bannerFeaturedEvent.sectionHandle === "event"
                         ? _get(bannerFeaturedEvent, "eventDescription", "")
                         : _get(bannerFeaturedEvent, "summary", ""),
+                locations: bannerFeaturedEvent.associatedLocations[0] != null
+                    ? bannerFeaturedEvent.associatedLocations
+                    : bannerFeaturedEvent.eventLocation,
             }
         },
         // TO DO need to update dates on component
@@ -278,7 +281,7 @@ export default {
             let bannerFeaturedNews = this.page.featuredNews[0]
             return {
                 ...bannerFeaturedNews,
-                to: 
+                to:
                     bannerFeaturedNews.externalResourceUrl != null
                         ? _get(bannerFeaturedNews, "externalResourceUrl", "")
                         : `/${bannerFeaturedNews.to}`,
