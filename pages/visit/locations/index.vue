@@ -14,6 +14,7 @@
             :filters="searchFilters"
             class="generic-search"
             :search-generic-query="searchGenericQuery"
+            :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
         />
 
@@ -25,7 +26,7 @@
         </section-wrapper>
 
         <!-- UCLA LIBRARIES -->
-        <section-wrapper class ="section-no-top-margin"
+        <section-wrapper
             v-if="
                 page &&
                     uclaLibraries &&
@@ -33,6 +34,7 @@
                     hits.length == 0 &&
                     !noResultsFound
             "
+            class="section-no-top-margin"
             section-title="UCLA Library Locations"
         >
             <section-location-list
@@ -67,7 +69,8 @@
 
         <section-wrapper 
             v-else-if="hits && hits.length > 0"
-            class="meta section-no-top-margin">
+            class="meta section-no-top-margin"
+        >
             <h2
                 v-if="$route.query.q"
                 class="about-results"
@@ -89,7 +92,10 @@
         </section-wrapper>
 
         <!-- NO RESULTS -->
-        <section-wrapper v-else-if="noResultsFound" class="meta section-no-top-margin">
+        <section-wrapper
+            v-else-if="noResultsFound"
+            class="meta section-no-top-margin"
+        >
             <div class="error-text">
                 <rich-text>
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
@@ -282,6 +288,9 @@ export default {
                     isUclaLibrary: false,
                 }
             })
+        },
+        parsedPlaceholder() {
+            return `Search ${this.page.title}`
         },
         parseHitsResults() {
             return this.parseHits(this.hits)

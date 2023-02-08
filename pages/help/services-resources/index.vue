@@ -13,6 +13,7 @@
             search-type="help"
             class="generic-search"
             :search-generic-query="searchGenericQuery"
+            :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
         />
 
@@ -267,6 +268,9 @@ export default {
                                 : `/${obj.to}`,
                     }
                 })
+        },
+        parsedPlaceholder() {
+            return `Search ${this.summaryData.title}`
         },
         parseHitsResults() {
             console.log(
