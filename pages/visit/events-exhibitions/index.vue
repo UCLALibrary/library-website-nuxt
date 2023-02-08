@@ -6,19 +6,15 @@
         <masthead-secondary
             :title="page.title"
             :text="page.text"
-        >
-            <!-- TODO Add SearchGenric here when complete  -->
-            <!--<search-generic
-                search-type="about"
-                class="generic-search"
-                :placeholder="parsedPlaceholder"
-            />
-            <:filters="searchFilters.filters"
-                :view-modes="searchFilters.views"
-                @view-mode-change="viewModeChanger"
-                -->
-        </masthead-secondary>
-
+        />
+        <search-generic
+            search-type="about"
+            :filters="searchFilters"
+            class="generic-search"
+            :search-generic-query="searchGenericQuery"
+            :placeholder="parsedPlaceholder"
+            @search-ready="getSearchData"
+        />
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
@@ -92,6 +88,8 @@
 </template>
 
 <script>
+import getListingFilters from "~/utils/getListingFilters"
+import config from "~/utils/searchConfig"
 // HELPERS
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
@@ -118,6 +116,90 @@ export default {
             events: _get(data, "events", {}),
             series: _get(data, "series", {}),
             exhibitions: _get(data, "exhibitions", {}),
+        }
+    },
+    data() {
+        return {
+            page: {},
+            events: [],
+            series: [],
+            exhibitions: [],
+            hits: [],
+            title: "",
+            noResultsFound: false,
+            searchFilters: [],
+            searchGenericQuery: {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            },
+        }
+    },
+    async fetch() {
+        this.events = []
+        this.series = []
+        this.exhibitions = []
+        this.hits = []
+        if (
+            (this.$route.query.q && this.$route.query.q !== "") ||
+            this.$route.query.filters
+        ) {
+            if (!this.page.title) {
+                const data = await this.$graphql.default.request(
+                    EXHIBITIONS_AND_EVENTS_LIST
+                )
+                this.page["title"] = _get(data, "entry.title", "")
+                this.page["text"] = _get(data, "entry.text", "")
+            }
+            let query_text = this.$route.query.q || "*"
+            console.log("in router query in asyc data")
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                query_text,
+                config.eventsExhibitionsList.searchFields,
+                "sectionHandle:event",
+                JSON.parse(this.$route.query.filters) || {},
+                config.eventsExhibitionsList.sortField,
+                config.eventsExhibitionsList.orderBy,
+                config.eventsExhibitionsList.resultFields,
+                config.eventsExhibitionsList.filters
+            )
+            console.log("getsearchdata method:" + JSON.stringify(results))
+            this.events = []
+            this.series = []
+            this.exhibitions = []
+            this.hits = []
+            if (results && results.hits && results.hits.total.value > 0) {
+                (this.hits = results.hits.hits), (this.events = [])
+                this.series = []
+                this.exhibitions = []
+                this.noResultsFound = false
+            } else {
+                this.hits = []
+                this.events = []
+                this.series = []
+                this.exhibitions = []
+                this.noResultsFound = true
+            }
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            }
+        } else {
+            this.hits = []
+            // if route queries are empty fetch data from craft
+            const data = await this.$graphql.default.request(
+                EXHIBITIONS_AND_EVENTS_LIST
+            )
+            // console.log("data:" + data)
+            this.page = _get(data, "entry", {})
+            this.events = _get(data, "events", [])
+            this.series = _get(data, "series", [])
+            this.exhibitions = _get(data, "exhibitions", [])
         }
     },
     head() {
@@ -151,12 +233,15 @@ export default {
                         obj.typeHandle === "event"
                             ? obj.endDateWithTime
                             : obj.endDate,
-                    text: obj.typeHandle === "event" ? obj.eventDescription : obj.summary,
+                    text:
+                        obj.typeHandle === "event"
+                            ? obj.eventDescription
+                            : obj.summary,
                     prompt:
                         obj.typeHandle === "exhibition"
                             ? "View exhibition"
                             : obj.workshopOrEventSeriesType ===
-                            "visit/events-exhibitions"
+                              "visit/events-exhibitions"
                                 ? "View event series"
                                 : "View event",
                     locations:
@@ -182,10 +267,10 @@ export default {
                         obj.typeHandle === "exhibition"
                             ? "Exhibition"
                             : obj.workshopOrEventSeriesType ===
-                            "visit/events-exhibitions"
+                              "visit/events-exhibitions"
                                 ? "Event Series"
                                 : obj.workshopOrEventSeriesType ===
-                                "help/services-resources"
+                              "help/services-resources"
                                     ? "Workshop Series"
                                     : obj.eventType != null
                                         ? obj.eventType[0].title
@@ -217,9 +302,10 @@ export default {
                         "eventType[0].title",
                         null
                     ),
-                    locations: eventOrExhibtion.associatedLocations[0] != null
-                        ? eventOrExhibtion.associatedLocations
-                        : eventOrExhibtion.eventLocation,
+                    locations:
+                        eventOrExhibtion.associatedLocations[0] != null
+                            ? eventOrExhibtion.associatedLocations
+                            : eventOrExhibtion.eventLocation,
                 }
             })
         },
@@ -247,23 +333,87 @@ export default {
                     }
                 })
         },
-        blockCallToAction() {
-            const mockBlockCallToAction = {
-                to: "/help/foo/bar/",
-                name: "Lorem ipsum dolor",
-                title: "Lorem ipsum dolor sit amet?",
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            }
-            return mockBlockCallToAction
+        parseHitsResults() {
+            return this.parseHits(this.hits)
         },
     },
     // This will recall fetch() when these query params change
-    watchQuery: ["offset", "q"],
+    // watchQuery: ["offset", "q"],
+    watch: {
+        "$route.query": "$fetch",
+        "$route.query.q"(newValue) {
+            console.log("watching queryText:" + newValue)
+        },
+        "$route.query.filters"(newValue) {
+            console.log("watching filters:" + newValue)
+        },
+    },
+    async mounted() {
+        console.log("In mounted")
+        this.setFilters()
+    },
+    methods: {
+        queryFilterHasValues() {
+            if (!this.$route.query.filters) return false
+            let routeQueryFilters = JSON.parse(this.$route.query.filters)
+            // console.log(
+            //     "is route query exixts:" + JSON.stringify(routeQueryFilters)
+            // )
+            let configFilters = config.eventsExhibitionsList.filters
+            for (const filter of configFilters) {
+                if (
+                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName].length > 0
+                ) {
+                    return true
+                } else if (
+                    routeQueryFilters[filter.esFieldName] &&
+                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName] != ""
+                ) {
+                    return true
+                }
+            }
+            return false
+        },
+        async setFilters() {
+            const searchAggsResponse = await this.$dataApi.getAggregations(
+                config.eventsExhibitionsList.filters,
+                "event"
+            )
+            console.log(
+                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+            )
+            this.searchFilters = getListingFilters(
+                searchAggsResponse,
+                config.eventsExhibitionsList.filters
+            )
+        },
+        parseHits(hits = []) {
+            return hits.map((obj) => {
+                return {
+                    ...obj["_source"],
+                }
+            })
+        },
+        getSearchData(data) {
+            console.log("On the page getsearchdata called " + data)
+            this.$router.push({
+                path: "/visit/events-exhibitions",
+                query: {
+                    q: data.text,
+                    filters: JSON.stringify(data.filters),
+                },
+            })
+        },
+    },
+    fetchOnServer: false,
+    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
+    fetchKey: "events-exhibitions-index",
 }
 </script>
 
 <style lang="scss" scoped>
 .page-events-exhibits {
-
 }
 </style>
