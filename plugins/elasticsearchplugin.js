@@ -25,7 +25,7 @@ export default function ({ $config }, inject) {
                     }
                 )
                 const json = await response.json()
-                console.warn(json)
+                console.warn("Response from ES: "+json)
             } else {
                 console.warn("not indexing anything")
             }
