@@ -4,7 +4,6 @@ export default {
         port: 3000,
         host: "0.0.0.0",
     },
-    debug: true,
     target: "static",
     components: true,
     privateRuntimeConfig: {
@@ -195,13 +194,6 @@ export default {
      ** Nuxt webpack build configuration
      */
     build: {
-        terser:{
-            terserOptions: {
-                compress:{
-                    drop_console: false,
-                },
-            },
-        },
         // eslint-disable-next-line no-unused-vars
         extend(config, ctx) {
             // Remove SVG from default Nuxt webpack rules, add back in rule without SVGs
