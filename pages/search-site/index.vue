@@ -53,7 +53,6 @@
                     <strong><em>“{{ $route.query.q }}”</em></strong>
                 </h2>
 
-
                 <section-wrapper
                     v-for="(result, index) in page.hits.hits"
                     :key="`SearchResultBlock${index}`"
@@ -63,7 +62,11 @@
                         :title="result._source.title"
                         :category="parseCategory(result._source.sectionHandle)"
                         :summary="result._source.summary || result._source.text"
-                        :to="`/${result._source.uri}`"
+                        :to="
+                            result._source.sectionHandle == 'Libguide'
+                                ? result._source.uri
+                                : `/${result._source.uri}`
+                        "
                         class="search-result-item"
                     />
                     <divider-general class="divider-general" />
