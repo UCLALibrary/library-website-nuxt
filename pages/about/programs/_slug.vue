@@ -149,10 +149,13 @@ export default {
         },
         parsedStaffDirectory() {
             let x = this.page.viewStaffDirectory
-            if (x == "false") {
+            if (x == "false" && this.page.title.length > 0) {
                 return ""
             } else {
-                return "/about/staff"
+                let searchLibrary = this.page.title
+                let libConcat = '/about/staff?q=&filters={\"departments.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+
+                return libConcat
             }
         },
         parsedArticles() {
