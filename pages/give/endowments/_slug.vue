@@ -214,8 +214,6 @@ export default {
         },
         parsedSubjectAreaLink(){
             let searchLibrary = this.page.subjectAreas[0].title
-            // /give/endowments?q=&filters={"subjectAreas.title.keyword":["Arts & Music"]}
-
             let libConcat = '/give/endowments?q=&filters={\"subjectAreas.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
 
             if (this.page.subjectAreas) {
