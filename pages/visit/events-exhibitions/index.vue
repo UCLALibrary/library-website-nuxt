@@ -243,28 +243,28 @@ export default {
                 config.eventsExhibitionsList.resultFields,
                 []
             )
-            const exhibitionResults =
-                await this.$dataApi.keywordSearchWithFilters(
-                    query_text,
-                    config.eventsExhibitionsList.searchFields,
-                    "sectionHandle:exhibition",
-                    JSON.parse(this.$route.query.filters) || {},
-                    config.eventsExhibitionsList.sortField,
-                    config.eventsExhibitionsList.orderBy,
-                    config.eventsExhibitionsList.resultFields,
-                    config.eventsExhibitionsList.filters
-                )
-            const workshopOrEventSeriesResults =
-                await this.$dataApi.keywordSearchWithFilters(
-                    query_text,
-                    config.eventsExhibitionsList.searchFields,
-                    "sectionHandle:workshopOrEventSeries",
-                    JSON.parse(this.$route.query.filters) || {},
-                    config.eventsExhibitionsList.sortField,
-                    config.eventsExhibitionsList.orderBy,
-                    config.eventsExhibitionsList.resultFields,
-                    config.eventsExhibitionsList.filters
-                )
+            // const exhibitionResults =
+            //     await this.$dataApi.keywordSearchWithFilters(
+            //         query_text,
+            //         config.eventsExhibitionsList.searchFields,
+            //         "sectionHandle:exhibition",
+            //         JSON.parse(this.$route.query.filters) || {},
+            //         config.eventsExhibitionsList.sortField,
+            //         config.eventsExhibitionsList.orderBy,
+            //         config.eventsExhibitionsList.resultFields,
+            //         config.eventsExhibitionsList.filters
+            //     )
+            // const workshopOrEventSeriesResults =
+            //     await this.$dataApi.keywordSearchWithFilters(
+            //         query_text,
+            //         config.eventsExhibitionsList.searchFields,
+            //         "sectionHandle:workshopOrEventSeries",
+            //         JSON.parse(this.$route.query.filters) || {},
+            //         config.eventsExhibitionsList.sortField,
+            //         config.eventsExhibitionsList.orderBy,
+            //         config.eventsExhibitionsList.resultFields,
+            //         config.eventsExhibitionsList.filters
+            //     )
             console.log("getsearchdata method:" + JSON.stringify(results))
 
             this.events = []
@@ -273,6 +273,7 @@ export default {
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
+
                 this.events = []
                 this.series = []
                 this.exhibitions = []
