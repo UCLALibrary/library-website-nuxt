@@ -16,11 +16,12 @@
             :filters="searchFilters"
             class="generic-search"
             :search-generic-query="searchGenericQuery"
+            :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
         />
 
         <section-wrapper theme="divider">
-            <divider-way-finder class="search-margin"/>
+            <divider-way-finder class="search-margin" />
         </section-wrapper>
 
         <!--h4 style="margin: 30px 400px">
@@ -38,8 +39,11 @@
             </h4-->
         
         <!-- ALL STAFF -->
-        <section-wrapper v-if="page.entries" class="section-no-top-margin">
-            <alphabetical-browse-by class="browse-margin"
+        <section-wrapper
+            v-if="page.entries"
+            class="section-no-top-margin"
+        >
+            <alphabetical-browse-by
                 v-if="
                     (searchGenericQuery.queryFilters[
                         'subjectLibrarian.keyword'
@@ -49,12 +53,13 @@
                         ] === '') ||
                         !searchGenericQuery.queryFilters['subjectLibrarian.keyword']
                 "
+                class="browse-margin"
                 :selected-letter-prop="selectedLetterProp"
                 @selectedLetter="searchBySelectedLetter"
             />
             <section-staff-list :items="parsedStaffList" />
         </section-wrapper>
-        <section-wrapper class="section-no-top-margin"
+        <section-wrapper
             v-else-if="
                 hits &&
                     hits.length > 0 &&
@@ -66,6 +71,7 @@
                             'subjectLibrarian.keyword'
                         ])
             "
+            class="section-no-top-margin"
         >
             <div class="about-results">
                 {{ parseDisplayResultsText }}
@@ -74,12 +80,13 @@
         </section-wrapper>
 
         <!-- SUBJECT LIBRARIANS -->
-        <section-wrapper class="section-no-top-margin"
+        <section-wrapper
             v-if="
                 searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
                     searchGenericQuery.queryFilters['subjectLibrarian.keyword'] ===
                     'yes'
             "
+            class="section-no-top-margin"
         >
             <h3 class="section-title subject-librarian">
                 Contact a Subject Librarian
@@ -305,6 +312,9 @@ export default {
                     ),
                 }
             })
+        },
+        parsedPlaceholder() {
+            return `Search ${this.summaryData.title}`
         },
         parseHitsResults() {
             /*console.log(

@@ -7,6 +7,7 @@
 
         <search-generic
             :search-generic-query="searchGenericQuery"
+            placeholder="Search library website"
             @search-ready="getSearchData"
         />
 

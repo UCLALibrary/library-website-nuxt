@@ -12,13 +12,15 @@
             :filters="searchFilters"
             class="generic-search"
             :search-generic-query="searchGenericQuery"
+            :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
         />
 
         <section-wrapper theme="divider">
             <divider-way-finder 
-            class="search-margin"
-            color="about" />
+                class="search-margin"
+                color="about"
+            />
         </section-wrapper>
 
         <section-wrapper
@@ -67,7 +69,10 @@
             <!-- pagination -->
         </section-wrapper>
 
-        <section-wrapper v-else-if="hits && hits.length > 0" class="section-no-top-margin">
+        <section-wrapper
+            v-else-if="hits && hits.length > 0"
+            class="section-no-top-margin"
+        >
             <h2
                 v-if="$route.query.q"
                 class="about-results"
@@ -273,6 +278,9 @@ export default {
                     ),
                 }
             })
+        },
+        parsedPlaceholder() {
+            return `Search ${this.page.title}`
         },
         parseHitsResults() {
             return this.parseHits(this.hits)
