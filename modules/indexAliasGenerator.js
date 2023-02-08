@@ -1,4 +1,6 @@
 import fetch from "node-fetch"
+const consola = require('consola')
+consola.level = 5
 
 export default function () {
     this.nuxt.hook("generate:before", async() => {
@@ -9,7 +11,7 @@ export default function () {
         const now = new Date(timeElapsed)
        
         let esIndex = `${this.nuxt.options.publicRuntimeConfig.esIndexPrefix}${now.toISOString().toLowerCase().replaceAll(":","-")}`
-        console.warn("Index named:"+esIndex)
+        consola.debug("Index named:"+esIndex)
         //console.warn("Index path:"+`${this.nuxt.options.publicRuntimeConfig.esURL}/${esIndex}`)
         //console.warn("Index write key:"+this.nuxt.options.privateRuntimeConfig.esWriteKey)
         const response = await fetch(`${this.nuxt.options.publicRuntimeConfig.esURL}/${esIndex}`, {
@@ -25,10 +27,10 @@ export default function () {
             this.options.tempIndex = esIndex
             this.nuxt.options.publicRuntimeConfig['esTempIndex'] = esIndex
 
-            console.warn("Index created:"+JSON.stringify(testJson))
+            consola.debug("Index created:"+JSON.stringify(testJson))
         } catch (err) {
-            console.error("Error:", err)
-            console.error("Response body:", body)
+            consola.error("Error:", err)
+            consola.error("Response body:", body)
             throw err
         }
     })
