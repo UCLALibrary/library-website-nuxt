@@ -14,6 +14,8 @@ jobs:
     timeout-minutes: 20
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: production
     - uses: ./.github/workflows/setup-workspace
     - run: npm run generate
       env:
