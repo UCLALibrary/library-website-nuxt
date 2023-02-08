@@ -20,7 +20,9 @@
         <!-- HIGHLIGHTED & FEATURED EVENTS -->
         <section-wrapper
             v-if="
-                parsedFeaturedEventsAndExhibits.length &&
+                page &&
+                    page.featuredEvents &&
+                    page.featuredEvents.length > 0 &&
                     hits.length == 0 &&
                     !noResultsFound
             "
@@ -51,8 +53,9 @@
 
         <section-wrapper
             v-if="
-                parsedFeaturedEventsAndExhibits.length &&
-                    parsedEvents.length &&
+                page &&
+                    page.featuredEvents &&
+                    page.featuredEvents.length > 0 &&
                     hits.length == 0 &&
                     !noResultsFound
             "
@@ -86,58 +89,6 @@
             theme="divider"
         >
             <divider-way-finder color="visit" />
-        </section-wrapper>
-
-        <section-wrapper
-            v-else-if="hits && hits.length > 0"
-            class="section-no-top-margin"
-        >
-            <h2
-                v-if="$route.query.q"
-                class="about-results"
-            >
-                Displaying {{ hits.length }} results for
-                <strong><em>“{{ $route.query.q }}</em></strong>”
-            </h2>
-            <h2
-                v-else
-                class="about-results"
-            >
-                Displaying {{ hits.length }} results
-            </h2>
-            <section-teaser-list :items="parseHitsResults" />
-        </section-wrapper>
-        <!-- NO RESULTS -->
-        <section-wrapper
-            v-else-if="noResultsFound"
-            class="section-no-top-margin"
-        >
-            <div class="error-text">
-                <rich-text>
-                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
-                    <p>
-                        We can’t find the term you are looking for on this page,
-                        but we're here to help. <br>
-                        Try searching the whole site from
-                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
-                    </p>
-                    <ul>
-                        <li>
-                            <a
-                                href="https://www.library.ucla.edu/research-teaching-support/research-help"
-                            >Research Help</a>
-                        </li>
-                        <li>
-                            <a href="/help/services-resources/ask-us">Ask Us</a>
-                        </li>
-                        <li>
-                            <a
-                                href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
-                            >Accessibility Resources</a>
-                        </li>
-                    </ul>
-                </rich-text>
-            </div>
         </section-wrapper>
 
         <!-- EVENT SERIES & EXHIBITIONS -->
@@ -223,14 +174,11 @@ import config from "~/utils/searchConfig"
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
 import sortByTitle from "~/utils/sortByTitle"
-
 // GQL
 import EXHIBITIONS_AND_EVENTS_LIST from "~/gql/queries/ExhibitionsAndEventsList.gql"
-
 export default {
     async asyncData({ $graphql, params, store }) {
         console.log("in asyncdata calling axios get event")
-
         const data = await $graphql.default.request(
             EXHIBITIONS_AND_EVENTS_LIST,
             {
@@ -260,25 +208,16 @@ export default {
     },
     async fetch() {
         this.events = []
-        // this.series = []
-        // this.exhibitions = []
+        this.series = []
+        this.exhibitions = []
         this.hits = []
-<<<<<<< HEAD
         if (this.$route.query.q && this.$route.query.q !== "") {
-=======
-        if (
-            (this.$route.query.q && this.$route.query.q !== "") ||
-            this.$route.query.filters
-        ) {
->>>>>>> db7e6f0 (move graphql inside if statement)
             if (!this.page.title) {
                 const data = await this.$graphql.default.request(
                     EXHIBITIONS_AND_EVENTS_LIST
                 )
                 this.page["title"] = _get(data, "entry.title", "")
                 this.page["text"] = _get(data, "entry.text", "")
-                this.series = _get(data, "series", [])
-                this.exhibitions = _get(data, "exhibitions", [])
             }
             let query_text = this.$route.query.q || "*"
             console.log("in router query in asyc data")
@@ -293,23 +232,21 @@ export default {
                 []
             )
             console.log("getsearchdata method:" + JSON.stringify(results))
-
             this.events = []
-            this.series = _get(data, "series", [])
-            this.exhibitions = _get(data, "exhibitions", [])
+            this.series = []
+            this.exhibitions = []
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
                 this.events = []
+                this.series = []
+                this.exhibitions = []
                 this.noResultsFound = false
             } else {
-                const data = await this.$graphql.default.request(
-                    EXHIBITIONS_AND_EVENTS_LIST
-                )
                 this.hits = []
                 this.events = []
-                this.series = _get(data, "series", [])
-                this.exhibitions = _get(data, "exhibitions", [])
+                this.series = []
+                this.exhibitions = []
                 this.noResultsFound = true
             }
             this.searchGenericQuery = {
@@ -330,7 +267,6 @@ export default {
     head() {
         let title = this.page ? this.page.title : "... loading"
         let metaDescription = removeTags(this.page.text)
-
         return {
             title: title,
             meta: [
@@ -347,7 +283,6 @@ export default {
             return this.page.featuredEvents.map((obj) => {
                 return {
                     ...obj,
-                    title: obj.eventTitle ? obj.eventTitle : obj.title,
                     to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     startDate:
@@ -358,10 +293,7 @@ export default {
                         obj.typeHandle === "event"
                             ? obj.endDateWithTime
                             : obj.endDate,
-                    text:
-                        obj.typeHandle === "event"
-                            ? obj.eventDescription
-                            : obj.summary,
+                    // text: obj.typeHandle === "event" ? obj.eventDescription : obj.summary,
                     prompt:
                         obj.typeHandle === "exhibition"
                             ? "View exhibition"
@@ -370,13 +302,9 @@ export default {
                                 ? "View event series"
                                 : "View event",
                     locations:
-                        obj.typeHandle === "exhibition"
-                            ? obj.associatedLocationsAndPrograms
-                            : obj.associatedLocations[0] != null
-                                ? obj.associatedLocations
-                                : obj.eventLocation != null
-                                    ? obj.eventLocation
-                                    : obj.associatedLocationsAndPrograms,
+                        obj.typeHandle !== "exhibition"
+                            ? obj.associatedLocations
+                            : obj.associatedLocationsAndPrograms,
                 }
             })
         },
@@ -394,12 +322,9 @@ export default {
                             : obj.workshopOrEventSeriesType ===
                               "visit/events-exhibitions"
                                 ? "Event Series"
-                                : obj.workshopOrEventSeriesType ===
-                              "help/services-resources"
-                                    ? "Workshop Series"
-                                    : obj.eventType != null
-                                        ? obj.eventType[0].title
-                                        : "Event",
+                                : obj.eventType.length > 0
+                                    ? obj.eventType[0].title
+                                    : "Event",
                     title: obj.title,
                 }
             })
@@ -407,7 +332,6 @@ export default {
         parsedEvents() {
             return [...(this.events || [])].map((obj) => {
                 const eventOrExhibtion = obj || {}
-
                 return {
                     ...eventOrExhibtion,
                     to: `/${eventOrExhibtion.to}`,
@@ -427,10 +351,6 @@ export default {
                         "eventType[0].title",
                         null
                     ),
-                    locations:
-                        eventOrExhibtion.associatedLocations[0] != null
-                            ? eventOrExhibtion.associatedLocations
-                            : eventOrExhibtion.eventLocation,
                 }
             })
         },
@@ -439,7 +359,6 @@ export default {
                 .sort(sortByTitle)
                 .map((obj) => {
                     const seriesOrExhibtion = obj || {}
-
                     return {
                         ...seriesOrExhibtion,
                         category:
@@ -462,7 +381,7 @@ export default {
             return this.parseHits(this.hits)
         },
         parsedPlaceholder() {
-            return `Search Events`
+            return `Search ${this.page.title}`
         },
     },
     // This will recall fetch() when these query params change
