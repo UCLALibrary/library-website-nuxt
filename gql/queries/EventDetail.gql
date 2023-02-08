@@ -11,6 +11,7 @@ query EventDetail($slug: [String!]) {
             title: eventTitle
             eventLocation {
                 title
+                to: publicUrl
             }
             image: heroImage {
                 ... on heroImage_heroImage_BlockType {
@@ -75,6 +76,7 @@ query EventDetail($slug: [String!]) {
     ) {
         title
         sectionHandle
+        workshopOrEventSeriesType
         text: summary
         image: heroImage {
             ... on heroImage_heroImage_BlockType {
@@ -119,6 +121,10 @@ query EventDetail($slug: [String!]) {
                     timezone: "America/Los_Angeles"
                 )
             ongoing
+            eventLocation {
+                title
+                to: publicUrl
+            }
             associatedLocations {
                 ... on location_location_Entry {
                     id
@@ -131,44 +137,6 @@ query EventDetail($slug: [String!]) {
                 ... on heroImage_heroImage_BlockType {
                     image {
                         ...Image
-                    }
-                }
-            }
-            event {
-                id
-                title
-                uri
-                sectionHandle
-                text: eventDescription
-                category: eventType {
-                    ... on eventType_Category {
-                        id
-                        title
-                    }
-                }
-                image: heroImage {
-                    ... on heroImage_heroImage_BlockType {
-                        image {
-                            ...Image
-                        }
-                    }
-                }
-                startDateWithTime
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                endDateWithTime
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                locations: associatedLocations {
-                    ... on location_location_Entry {
-                        id
-                        to: uri
-                        title
-                        summary
                     }
                 }
             }
@@ -299,7 +267,7 @@ query EventDetail($slug: [String!]) {
             slug
             associatedLocationsAndPrograms {
                 title
-                uri
+                to: uri
             }
             buttonUrl {
                 ... on buttonUrl_button_BlockType {

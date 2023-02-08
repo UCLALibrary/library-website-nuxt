@@ -26,7 +26,7 @@ query StaffList {
             locations: staffAssociatedLocations {
                 id
                 title
-                to: slug
+                uri: slug
             }
             image: staffPortrait {
                 ...Image

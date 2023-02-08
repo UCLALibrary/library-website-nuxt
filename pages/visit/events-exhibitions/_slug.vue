@@ -24,7 +24,7 @@
                             page.event.image[0].image[0].length == 0)
                 "
                 :title="page.event.title"
-                :locations="page.event.associatedLocations"
+                :locations="page.event.eventLocation"
                 :start-date="page.event.startDateWithTime"
                 :end-date="page.event.endDateWithTime"
                 :category="parseEventType"
@@ -41,7 +41,7 @@
                 <banner-header
                     :image="page.event.image[0].image[0]"
                     :title="page.event.title"
-                    :locations="page.event.associatedLocations"
+                    :locations="page.event.eventLocation"
                     :start-date="page.event.startDateWithTime"
                     :end-date="page.event.endDateWithTime"
                     :category="parseEventType"
@@ -109,7 +109,7 @@
                 v-if="page.eventSeries && !page.eventSeries.image[0]"
                 :title="page.eventSeries.title"
                 :text="page.eventSeries.summary"
-                :locations="page.eventSeries.associatedLocations"
+                :locations="parsedEventSeriesLocations"
                 :start-date="page.eventSeries.startDate"
                 :end-date="page.eventSeries.endDate"
                 category="Event Series"
@@ -122,7 +122,7 @@
                 <banner-header
                     :image="page.eventSeries.image[0].image[0]"
                     :title="page.eventSeries.title"
-                    :locations="page.eventSeries.associatedLocations"
+                    :locations="parsedEventSeriesLocations"
                     category="Event Series"
                     :text="page.eventSeries.summary"
                     :start-date="page.eventSeries.startDate"
@@ -195,6 +195,15 @@
                 />
             </section-wrapper>
 
+            <section-wrapper
+                theme="divider"
+            >
+                <divider-way-finder
+                    class="divider-way-finder"
+                    color="visit"
+                />
+            </section-wrapper>
+
             <block-call-to-action
                 class="section block-call-to-action"
                 :is-global="true"
@@ -213,7 +222,7 @@
                 v-if="page.exhibition && !page.exhibition.image[0]"
                 :title="page.exhibition.title"
                 :text="page.exhibition.summary"
-                :locations="page.exhibition.associatedLocations"
+                :locations="parsedExhibitionLocations"
                 :to="parsedExhibitionBannerTo"
                 :banner-text="parsedExhibitionBannerPrompt"
                 :start-date="page.exhibition.startDate"
@@ -228,7 +237,7 @@
                 <banner-header
                     :image="page.exhibition.image[0].image[0]"
                     :title="page.exhibition.title"
-                    :locations="page.exhibition.associatedLocations"
+                    :locations="parsedExhibitionLocations"
                     category="Exhibition"
                     :text="page.exhibition.summary"
                     :align-right="true"
@@ -488,7 +497,10 @@ export default {
                     ...obj,
                     to: `/${obj.to}`,
                     image: _get(obj, "image[0].image[0]", null),
-                    category: "Event Series",
+                    category: obj.workshopOrEventSeriesType ===
+                        "visit/events-exhibitions"
+                        ? "Event Series"
+                        : "Workshop Series",
                 }
             })
         },
@@ -504,6 +516,9 @@ export default {
                     category: obj.category.length
                         ? obj.category[0].title
                         : null,
+                    locations: obj.associatedLocations[0] != null
+                        ? obj.associatedLocations
+                        : obj.eventLocation,
                 }
             })
         },
@@ -518,6 +533,9 @@ export default {
                     category: obj.category.length
                         ? obj.category[0].title
                         : null,
+                    locations: obj.associatedLocations[0] != null
+                        ? obj.associatedLocations
+                        : obj.eventLocation,
                 }
             })
         },
@@ -558,6 +576,22 @@ export default {
                 .displaySectionTitle === "true"
                 ? this.page.exhibition.acknowledgements[0].titleGeneral
                 : ""
+        },
+        parsedEventSeriesLocations() {
+            return this.page.eventSeries.associatedLocations.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.to}`,
+                }
+            })
+        },
+        parsedExhibitionLocations() {
+            return this.page.exhibition.associatedLocationsAndPrograms.map((obj) => {
+                return {
+                    ...obj,
+                    to: `/${obj.to}`,
+                }
+            })
         },
     },
     async mounted() {
