@@ -19,6 +19,7 @@
             :filters="searchFilters"
             class="generic-search"
             :search-generic-query="searchGenericQuery"
+            :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
         />
         <section-wrapper
@@ -31,7 +32,10 @@
             "
             theme="divider"
         >
-            <divider-way-finder class="search-margin" color="about" />
+            <divider-way-finder
+                class="search-margin"
+                color="about"
+            />
         </section-wrapper>
 
         <section-wrapper
@@ -85,7 +89,10 @@
         </section-wrapper>
 
         <!-- RESULTS -->
-        <section-wrapper v-else-if="hits && hits.length > 0" class="section-no-top-margin">
+        <section-wrapper
+            v-else-if="hits && hits.length > 0"
+            class="section-no-top-margin"
+        >
             <h2
                 v-if="$route.query.q"
                 class="about-results"
@@ -103,7 +110,10 @@
         </section-wrapper>
 
         <!-- NO RESULTS -->
-        <section-wrapper v-else-if="noResultsFound" class="section-no-top-margin">
+        <section-wrapper
+            v-else-if="noResultsFound"
+            class="section-no-top-margin"
+        >
             <div class="error-text">
                 <rich-text>
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
@@ -294,6 +304,9 @@ export default {
                     description: _get(obj, "text", null),
                 }
             })
+        },
+        parsedPlaceholder() {
+            return `Search ${this.page.title}`
         },
         parseHitsResults() {
             return this.parseHits(this.hits)
