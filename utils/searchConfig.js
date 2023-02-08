@@ -181,7 +181,9 @@ const config = {
             "title^3",
             "eventDescription^3",
             "summary^3",
+            "text^3",
             "sectionHandle",
+            "workshopOrEventSeriesType",
             // "startDateWithTime^2",
             // "endDateWithTime^2"
         ],

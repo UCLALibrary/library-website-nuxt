@@ -17,7 +17,7 @@
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
-
+        {{ series }}
         <!-- HIGHLIGHTED & FEATURED EVENTS -->
         <section-wrapper
             v-if="
@@ -234,7 +234,7 @@ export default {
             const results = await this.$dataApi.keywordSearchWithFilters(
                 query_text,
                 config.eventsExhibitionsList.searchFields,
-                "sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:workshopOrEventSeries",
+                "sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries",
                 [],
                 config.eventsExhibitionsList.sortField,
                 config.eventsExhibitionsList.orderBy,
@@ -450,16 +450,19 @@ export default {
                         endDate: _get(obj["_source"], "endDate", null),
                         category: _get(obj["_source"], "sectionHandle", null),
                     }
-                } else if (
-                    obj["_source"].sectionHandle === "workshopOrEventSeries"
-                ) {
+                } else if (obj["_source"].sectionHandle === "eventSeries") {
                     return {
                         ...obj["_source"],
                         to: `/${obj["_source"].uri}`,
                         image: _get(obj["_source"], "image[0].image[0]", null),
                         startDate: _get(obj["_source"], "startDate", null),
                         endDate: _get(obj["_source"], "endDate", null),
-                        category: _get(obj["_source"], "Event Series", null),
+                        category: "Event Series",
+                    }
+                } else {
+                    return {
+                        ...obj["_source"],
+                        to: `/${obj["_source"].uri}`,
                     }
                 }
             })
