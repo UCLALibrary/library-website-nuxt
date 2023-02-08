@@ -212,7 +212,6 @@ import removeTags from "~/utils/removeTags"
 
 // GQL
 import LOCATION_DETAIL from "~/gql/queries/LocationDetail"
-import { encode } from "querystring"
 
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
