@@ -18,22 +18,6 @@
             @search-ready="getSearchData"
         />
 
-        <!-- <section-wrapper
-            v-if="
-                page &&
-                    uclaLibraries &&
-                    parsedUclaLibraries.length &&
-                    hits.length == 0 &&
-                    !noResultsFound
-            "
-            theme="divider"
-        >
-            <divider-way-finder
-                class="divider-way-finder search-margin"
-                color="visit"
-            />
-        </section-wrapper> -->
-
         <section-wrapper theme="divider">
             <divider-way-finder
                 color="visit"
