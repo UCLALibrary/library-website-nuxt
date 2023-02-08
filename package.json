@@ -18,6 +18,7 @@
         "@nuxtjs/gtm": "^2.4.0",
         "@nuxtjs/sitemap": "^2.4.0",
         "@vue-a11y/skip-to": "^2.1.2",
+        "consola": "^2.15.3",
         "nuxt": "^2.15.8"
     },
     "devDependencies": {
