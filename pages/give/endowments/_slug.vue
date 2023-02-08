@@ -44,13 +44,15 @@
                     >
                         Made possible by a gift from {{ parsedDonors }}
                     </rich-text>
+
                     <icon-with-link
                         v-if="page.subjectAreas[0]"
                         class="subject-area"
                         icon-name="svg-icon-book"
                         :text="page.subjectAreas[0].title"
-                        to="/give"
+                        :to="parsedSubjectAreaLink"
                     />
+
                     <ul v-if="parsedAssociatedLocations.length > 0">
                         <li
                             v-for="(
@@ -209,6 +211,16 @@ export default {
                     to: `/${obj.uri}`,
                 }
             })
+        },
+        parsedSubjectAreaLink(){
+            if (this.page.subjectAreas[0].title) {
+                let searchLibrary = this.page.subjectAreas[0].title
+                let libConcat = '/give/endowments?q=&filters={\"subjectAreas.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+
+                return libConcat
+            } else {
+                return ""
+            }
         },
         parsedImage() {
             return this.page.heroImage[0].image[0]
