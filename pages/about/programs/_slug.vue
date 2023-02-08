@@ -102,7 +102,6 @@
 // HELPERS
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
-import { encode } from "querystring"
 
 // GQL
 import PROGRAM_DETAIL from "~/gql/queries/ProgramDetail"
