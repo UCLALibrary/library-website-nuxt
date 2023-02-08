@@ -31,14 +31,10 @@
             }}
         </h4-->
 
-        <section-wrapper
-            v-if="
-                (page.serviceOrResource || page.workshopseries) &&
-                    hits.length == 0
-            "
-            theme="divider"
-        >
-            <divider-way-finder class="search-margin" />
+        <section-wrapper theme="divider">
+            <divider-way-finder 
+                color="help"
+                class="search-margin" />
         </section-wrapper>
 
         <section-wrapper
@@ -53,42 +49,30 @@
                 :is-horizontal="true"
             />
         </section-wrapper>
-        <section-wrapper v-else-if="hits && hits.length > 0">
-            <h3
+        <section-wrapper class="section-no-top-margin" v-else-if="hits && hits.length > 0">
+            <h2
                 v-if="$route.query.q"
                 class="about-results"
             >
                 Displaying {{ hits.length }} results for
                 <strong><em>“{{ $route.query.q }}</em></strong>”
-            </h3>
-            <h3
+            </h2>
+            <h2
                 v-else
                 class="about-results"
             >
                 Displaying {{ hits.length }} results
-            </h3>
+            </h2>
             <section-cards-with-illustrations
                 :items="parseHitsResults"
                 :is-horizontal="true"
             />
         </section-wrapper>
 
-        <section-wrapper
-            v-if="
-                page.serviceOrResource ||
-                    page.workshopseries ||
-                    (hits && hits.length > 0)
-            "
-        >
-            <divider-way-finder
-                class="divider-way-finder"
-                color="help"
-            />
-        </section-wrapper>
-        <section-wrapper v-else-if="noResultsFound">
+        <section-wrapper class="section-no-top-margin" v-else-if="noResultsFound">
             <div class="error-text">
                 <rich-text>
-                    <h1>Search for “{{ $route.query.q }}” not found.</h1>
+                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
                         but we're here to help. <br>
@@ -112,6 +96,12 @@
                     </ul>
                 </rich-text>
             </div>
+        </section-wrapper>
+        <section-wrapper>
+            <divider-way-finder
+                class="divider-way-finder"
+                color="help"
+            />
         </section-wrapper>
 
         <section-wrapper>

@@ -105,7 +105,7 @@
         >
             <div class="error-text">
                 <rich-text>
-                    <h1>Search for “{{ $route.query.q }}” not found.</h1>
+                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
                         but we're here to help. <br>

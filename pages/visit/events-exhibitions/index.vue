@@ -16,13 +16,6 @@
             @search-ready="getSearchData"
         />
         <section-wrapper
-            v-if="
-                page &&
-                    page.featuredEvents &&
-                    page.featuredEvents.length > 0 &&
-                    hits.length == 0 &&
-                    !noResultsFound
-            "
             theme="divider"
         >
             <divider-way-finder class="search-margin" />
@@ -99,27 +92,27 @@
             <divider-way-finder color="visit" />
         </section-wrapper>
 
-        <section-wrapper v-else-if="hits && hits.length > 0">
-            <h3
+        <section-wrapper class="section-no-top-margin" v-else-if="hits && hits.length > 0">
+            <h2
                 v-if="$route.query.q"
                 class="about-results"
             >
                 Displaying {{ hits.length }} results for
                 <strong><em>“{{ $route.query.q }}</em></strong>”
-            </h3>
-            <h3
+            </h2>
+            <h2
                 v-else
                 class="about-results"
             >
                 Displaying {{ hits.length }} results
-            </h3>
+            </h2>
             <section-teaser-list :items="parseHitsResults" />
         </section-wrapper>
         <!-- NO RESULTS -->
-        <section-wrapper v-else-if="noResultsFound">
+        <section-wrapper class="section-no-top-margin" v-else-if="noResultsFound">
             <div class="error-text">
                 <rich-text>
-                    <h1>Search for “{{ $route.query.q }}” not found.</h1>
+                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
                         but we're here to help. <br>
