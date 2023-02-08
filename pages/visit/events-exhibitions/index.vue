@@ -61,25 +61,41 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="parsedFeaturedEventsAndExhibits.length && parsedEvents.length     hits.length == 0 &&
-                !noResultsFound"
+            v-if="
+                parsedFeaturedEventsAndExhibits.length &&
+                    parsedEvents.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
             theme="divider"
         >
             <divider-way-finder color="visit" />
         </section-wrapper>
+        -->
 
         <!-- UPCOMING EVENTS -->
-        <section-wrapper section-title="All Upcoming Events">
+        <section-wrapper
+            v-if="
+                page &&
+                    page.featuredEvents &&
+                    page.featuredEvents.length > 0 &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+            section-title="All Upcoming Events"
+        >
             <section-teaser-list :items="parsedEvents" />
         </section-wrapper>
 
-        <section-wrapper
+        <!-- <section-wrapper
             v-if="parsedEvents.length"
             theme="divider"
         >
             <divider-way-finder color="visit" />
+        </section-wrapper> -->
+        <section-wrapper v-else-if="hits && hits.length > 0">
+            <section-teaser-card :items="parseHitsResults" />
         </section-wrapper>
-
         <!-- EVENT SERIES & EXHIBITIONS -->
         <section-wrapper section-title="Event Series & Exhibitions">
             <section-teaser-card :items="parsedSeriesAndExhibitions" />
@@ -407,6 +423,8 @@ export default {
             return hits.map((obj) => {
                 return {
                     ...obj["_source"],
+                    to: `/${obj["_source"].to}`,
+                    image: _get(obj["_source"], "heroImage[0].image[0]", null),
                 }
             })
         },
