@@ -10,7 +10,7 @@ export default function () {
         const timeElapsed = Date.now()
         const now = new Date(timeElapsed)
        
-        let esIndex = `${this.nuxt.options.publicRuntimeConfig.esIndexPrefix}${now.toISOString().toLowerCase().replaceAll(":","-")}`
+        let esIndex = `${this.nuxt.options.publicRuntimeConfig.esIndexPrefix}-${now.toISOString().toLowerCase().replaceAll(":","-")}`
         consola.debug("Index named:"+esIndex)
         //console.warn("Index path:"+`${this.nuxt.options.publicRuntimeConfig.esURL}/${esIndex}`)
         //console.warn("Index write key:"+this.nuxt.options.privateRuntimeConfig.esWriteKey)
