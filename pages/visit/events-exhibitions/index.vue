@@ -25,7 +25,7 @@
 
         <!-- HIGHLIGHTED & FEATURED EVENTS -->
         <section-wrapper
-            v-if="page.featuredEvents.length"
+            v-if="parsedFeaturedEventsAndExhibits.length"
             class="section-no-top-margin"
         >
             <banner-featured
@@ -52,7 +52,7 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="page.featuredEvents.length && parsedEvents.length"
+            v-if="parsedFeaturedEventsAndExhibits.length && parsedEvents.length"
             theme="divider"
         >
             <divider-way-finder color="visit" />
@@ -140,6 +140,7 @@ export default {
             return this.page.featuredEvents.map((obj) => {
                 return {
                     ...obj,
+                    title: obj.eventTitle ? obj.eventTitle : obj.title,
                     to: `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     startDate:
@@ -150,18 +151,22 @@ export default {
                         obj.typeHandle === "event"
                             ? obj.endDateWithTime
                             : obj.endDate,
-                    // text: obj.typeHandle === "event" ? obj.eventDescription : obj.summary,
+                    text: obj.typeHandle === "event" ? obj.eventDescription : obj.summary,
                     prompt:
                         obj.typeHandle === "exhibition"
                             ? "View exhibition"
                             : obj.workshopOrEventSeriesType ===
-                              "visit/events-exhibitions"
+                            "visit/events-exhibitions"
                                 ? "View event series"
                                 : "View event",
                     locations:
-                        obj.typeHandle !== "exhibition"
-                            ? obj.associatedLocations
-                            : obj.associatedLocationsAndPrograms,
+                        obj.typeHandle === "exhibition"
+                            ? obj.associatedLocationsAndPrograms
+                            : obj.associatedLocations[0] != null
+                                ? obj.associatedLocations
+                                : obj.eventLocation != null
+                                    ? obj.eventLocation
+                                    : obj.associatedLocationsAndPrograms,
                 }
             })
         },
@@ -177,11 +182,14 @@ export default {
                         obj.typeHandle === "exhibition"
                             ? "Exhibition"
                             : obj.workshopOrEventSeriesType ===
-                              "visit/events-exhibitions"
+                            "visit/events-exhibitions"
                                 ? "Event Series"
-                                : obj.eventType.length > 0
-                                    ? obj.eventType[0].title
-                                    : "Event",
+                                : obj.workshopOrEventSeriesType ===
+                                "help/services-resources"
+                                    ? "Workshop Series"
+                                    : obj.eventType != null
+                                        ? obj.eventType[0].title
+                                        : "Event",
                     title: obj.title,
                 }
             })
@@ -209,6 +217,9 @@ export default {
                         "eventType[0].title",
                         null
                     ),
+                    locations: eventOrExhibtion.associatedLocations[0] != null
+                        ? eventOrExhibtion.associatedLocations
+                        : eventOrExhibtion.eventLocation,
                 }
             })
         },
@@ -253,6 +264,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-events-exhibits {
-    
+
 }
 </style>
