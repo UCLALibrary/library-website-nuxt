@@ -11,6 +11,7 @@
             <!--<search-generic
                 search-type="about"
                 class="generic-search"
+                :placeholder="parsedPlaceholder"
             />
             <:filters="searchFilters.filters"
                 :view-modes="searchFilters.views"
