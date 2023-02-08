@@ -13,6 +13,7 @@ export default {
         s3Bucket: process.env.S3_BUCKET,
         esReadKey: process.env.ES_READ_KEY || "",
         esIndex: process.env.ES_INDEX || "",
+        libguidesEsIndex: process.env.LIBGUIDES_ES_INDEX || "",
         esIndexPrefix: process.env.ES_INDEX_PREFIX || "",
         esTempIndex: "",
         esURL: process.env.ES_URL || "",

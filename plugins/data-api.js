@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 export default function ({ $config }, inject) {
     /*
     {"id":"j6tUj4IBzYVXfPB9-JvU","name":"dev-es-key","api_key":"N_f0_5WSSae3QOvm4hlq0g","encoded":"ajZ0VWo0SUJ6WVZYZlBCOS1KdlU6Tl9mMF81V1NTYWUzUU92bTRobHEwZw=="}
@@ -12,6 +13,9 @@ export default function ({ $config }, inject) {
         )
             return
         //console.log("keyword:"+keyword)
+        if(keyword && keyword !== "*:*") {
+            keyword = keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"])/g, "\\$1")  
+        }
         console.log(
             JSON.stringify({
                 from: from,
@@ -27,6 +31,7 @@ export default function ({ $config }, inject) {
                             "title^4",
                             "summary^3",
                             "text^3",
+                            "fullText^3",
                             "richText^2",
                         ],
                         fuzziness: "auto",
@@ -56,6 +61,7 @@ export default function ({ $config }, inject) {
                                 "title^4",
                                 "summary^3",
                                 "text^3",
+                                "fullText^3",
                                 "richText^2",
                             ],
                             fuzziness: "auto",
@@ -91,6 +97,10 @@ export default function ({ $config }, inject) {
         console.log("keyword:" + keyword)
         console.log("filters:" + filters)
         console.log("sort:" + sort)
+
+        if(keyword && keyword !== "*:*") {
+            keyword = keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"])/g, "\\$1")  
+        }
 
         let testquery = JSON.stringify({
             _source: [...source],
