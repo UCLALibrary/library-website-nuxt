@@ -18,7 +18,7 @@
             @search-ready="getSearchData"
         />
 
-        <section-wrapper
+        <!-- <section-wrapper
             v-if="
                 page &&
                     uclaLibraries &&
@@ -28,6 +28,13 @@
             "
             theme="divider"
         >
+            <divider-way-finder
+                color="visit"
+                class="search-margin"
+            />
+        </section-wrapper> -->
+
+        <section-wrapper theme="divider">
             <divider-way-finder
                 color="visit"
                 class="search-margin"
