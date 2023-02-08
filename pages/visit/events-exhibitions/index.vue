@@ -15,13 +15,26 @@
             :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
         />
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="
+                page &&
+                    page.featuredEvents &&
+                    page.featuredEvents.length > 0 &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+            theme="divider"
+        >
             <divider-way-finder class="search-margin" />
         </section-wrapper>
 
         <!-- HIGHLIGHTED & FEATURED EVENTS -->
         <section-wrapper
-            v-if="parsedFeaturedEventsAndExhibits.length"
+            v-if="
+                parsedFeaturedEventsAndExhibits.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
             class="section-no-top-margin"
         >
             <banner-featured
@@ -48,7 +61,8 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="parsedFeaturedEventsAndExhibits.length && parsedEvents.length"
+            v-if="parsedFeaturedEventsAndExhibits.length && parsedEvents.length     hits.length == 0 &&
+                !noResultsFound"
             theme="divider"
         >
             <divider-way-finder color="visit" />

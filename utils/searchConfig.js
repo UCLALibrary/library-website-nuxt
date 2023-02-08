@@ -159,9 +159,7 @@ const config = {
                 inputType: "checkbox",
             },
         ],
-        resultFields: [
-            "*"
-        ],
+        resultFields: ["*"],
         sortField: "title.keyword",
         orderBy: "asc",
     },
@@ -189,7 +187,7 @@ const config = {
         filters: [
             {
                 label: "Location",
-                esFieldName: "location.title.keyword",
+                esFieldName: "eventLocation.title.keyword",
                 inputType: "checkbox",
             },
             {
