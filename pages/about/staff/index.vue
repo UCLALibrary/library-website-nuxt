@@ -72,10 +72,16 @@
             "
             class="section-no-top-margin"
         >
+<<<<<<< HEAD
             <h2
                 v-if="$route.query.q"
                 class="about-results"
             >
+=======
+            <h2 
+                v-if="$route.query.q"
+                class="about-results">
+>>>>>>> 9bc35eb (standardize dividers and spacing for search results)
                 Displaying {{ hits.length }} results for
                 <strong><em>“{{ $route.query.q }}”</em></strong>
             </h2>
@@ -87,10 +93,14 @@
             </h2>
             <section-staff-list :items="parseHitsResults" />
         </section-wrapper>
+<<<<<<< HEAD
         <section-wrapper
             v-else-if="noResultsFound"
             class="section-no-top-margin"
         >
+=======
+        <section-wrapper class="section-no-top-margin" v-else-if="noResultsFound">
+>>>>>>> 9bc35eb (standardize dividers and spacing for search results)
             <div class="error-text">
                 <rich-text>
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
@@ -137,9 +147,9 @@
                 :table-headers="tableHeaders"
             />
         </section-wrapper>
-        <div v-else-if="noResultsFound">
+        <!-- <div v-else-if="noResultsFound">
             No results found
-        </div>
+        </div> -->
     </main>
 </template>
 
