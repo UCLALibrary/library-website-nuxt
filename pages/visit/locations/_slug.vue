@@ -45,6 +45,7 @@
                 class="divider-way-finder"
             />
         </section-wrapper>
+
         <section-wrapper>
             <div class="section-header">
                 <div
@@ -63,6 +64,7 @@
                     v-html="page.howToGetHere"
                 />
             </div>
+
             <block-hours
                 v-if="page.libcalLocationIdForHours"
                 :lid="page.libcalLocationIdForHours"
@@ -210,6 +212,7 @@ import removeTags from "~/utils/removeTags"
 
 // GQL
 import LOCATION_DETAIL from "~/gql/queries/LocationDetail"
+import { encode } from "querystring"
 
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
@@ -248,8 +251,11 @@ export default {
     },
     computed: {
         parsedStaffDirectory() {
+            let searchLibrary = this.page.title
+            let libConcat = '/about/staff?q=&filters={\"locations.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+
             if (this.page.locationType != "affiliateLibrary") {
-                return "/about/staff"
+                return libConcat
             } else {
                 return ""
             }
