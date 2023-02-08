@@ -102,6 +102,7 @@
 // HELPERS
 import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
+import { encode } from "querystring"
 
 // GQL
 import PROGRAM_DETAIL from "~/gql/queries/ProgramDetail"
@@ -148,11 +149,14 @@ export default {
             return _get(this.page, "buttonUrl[0].buttonUrl", "")
         },
         parsedStaffDirectory() {
+            let searchLibrary = this.page.title
+            let libConcat = '/about/staff?q=&filters={\"locations.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+
             let x = this.page.viewStaffDirectory
             if (x == "false") {
                 return ""
             } else {
-                return "/about/staff"
+                return libConcat
             }
         },
         parsedArticles() {
