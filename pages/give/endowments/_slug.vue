@@ -213,10 +213,10 @@ export default {
             })
         },
         parsedSubjectAreaLink(){
-            let searchLibrary = this.page.subjectAreas[0].title
-            let libConcat = '/give/endowments?q=&filters={\"subjectAreas.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+            if (this.page.subjectAreas[0].title) {
+                let searchLibrary = this.page.subjectAreas[0].title
+                let libConcat = '/give/endowments?q=&filters={\"subjectAreas.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
 
-            if (this.page.subjectAreas) {
                 return libConcat
             } else {
                 return ""
