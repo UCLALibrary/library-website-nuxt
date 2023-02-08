@@ -21,7 +21,7 @@ export default function () {
                     },
                     {
                         "add": {
-                            "index": this.nuxt.options.publicRuntimeConfig.esTempIndex,
+                            "indices": [this.nuxt.options.publicRuntimeConfig.esTempIndex,this.nuxt.options.publicRuntimeConfig.libguidesEsIndex],
                             "alias": this.nuxt.options.publicRuntimeConfig.esIndex
                         }
                     }
