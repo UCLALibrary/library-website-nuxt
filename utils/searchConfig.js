@@ -182,12 +182,18 @@ const config = {
             "eventDescription^3",
             "summary^3",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "text^3",
             "sectionHandle",
             "workshopOrEventSeriesType",
 =======
             "sectionHandle",
 >>>>>>> 3d08392 (just search box)
+=======
+            "text^3",
+            "sectionHandle",
+            "workshopOrEventSeriesType",
+>>>>>>> fe9f404 (update with event series)
             // "startDateWithTime^2",
             // "endDateWithTime^2"
         ],
