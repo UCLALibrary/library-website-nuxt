@@ -18,7 +18,7 @@
             @search-ready="getSearchData"
         />
 
-        <section-wrapper
+        <!-- <section-wrapper
             v-if="
                 page &&
                     uclaLibraries &&
@@ -31,6 +31,13 @@
             <divider-way-finder
                 class="divider-way-finder search-margin"
                 color="visit"
+            />
+        </section-wrapper> -->
+
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                color="visit"
+                class="search-margin"
             />
         </section-wrapper>
 
@@ -76,7 +83,7 @@
 
         <!-- RESULTS -->
 
-        <section-wrapper 
+        <section-wrapper
             v-else-if="hits && hits.length > 0"
             class="meta section-no-top-margin"
         >
