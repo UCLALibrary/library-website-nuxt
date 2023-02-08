@@ -14,7 +14,16 @@
             :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
         />
-        <section-wrapper theme="divider">
+        <section-wrapper
+            v-if="
+                page &&
+                    page.featuredEvents &&
+                    page.featuredEvents.length > 0 &&
+                    hits.length == 0 &&
+                    !noResultsFound
+            "
+            theme="divider"
+        >
             <divider-way-finder class="search-margin" />
         </section-wrapper>
         <!-- HIGHLIGHTED & FEATURED EVENTS -->
