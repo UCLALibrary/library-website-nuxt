@@ -17,7 +17,6 @@
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
-        {{ series }}
         <!-- HIGHLIGHTED & FEATURED EVENTS -->
         <section-wrapper
             v-if="
