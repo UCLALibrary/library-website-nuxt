@@ -15,9 +15,7 @@
             :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
         />
-        <section-wrapper
-            theme="divider"
-        >
+        <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
 
@@ -92,7 +90,10 @@
             <divider-way-finder color="visit" />
         </section-wrapper>
 
-        <section-wrapper class="section-no-top-margin" v-else-if="hits && hits.length > 0">
+        <section-wrapper
+            v-else-if="hits && hits.length > 0"
+            class="section-no-top-margin"
+        >
             <h2
                 v-if="$route.query.q"
                 class="about-results"
@@ -109,7 +110,10 @@
             <section-teaser-list :items="parseHitsResults" />
         </section-wrapper>
         <!-- NO RESULTS -->
-        <section-wrapper class="section-no-top-margin" v-else-if="noResultsFound">
+        <section-wrapper
+            v-else-if="noResultsFound"
+            class="section-no-top-margin"
+        >
             <div class="error-text">
                 <rich-text>
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
@@ -259,14 +263,7 @@ export default {
             //         config.eventsExhibitionsList.filters
             //     )
             console.log("getsearchdata method:" + JSON.stringify(results))
-            // console.log(
-            //     "getsearchdata method exhbition:" +
-            //         JSON.stringify(exhibitionResults)
-            // )
-            // console.log(
-            //     "getsearchdata method workshopOrEventSeries:" +
-            //         JSON.stringify(workshopOrEventSeriesResults)
-            // )
+
             this.events = []
             this.series = []
             this.exhibitions = []
