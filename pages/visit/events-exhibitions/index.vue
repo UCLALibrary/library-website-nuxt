@@ -212,22 +212,21 @@ export default {
     },
     async fetch() {
         this.events = []
-        this.series = []
-        this.exhibitions = []
+        // this.series = []
+        // this.exhibitions = []
         this.hits = []
-        const data = await this.$graphql.default.request(
-            EXHIBITIONS_AND_EVENTS_LIST
-        )
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
             this.$route.query.filters
         ) {
             if (!this.page.title) {
-                // const data = await this.$graphql.default.request(
-                //     EXHIBITIONS_AND_EVENTS_LIST
-                // )
+                const data = await this.$graphql.default.request(
+                    EXHIBITIONS_AND_EVENTS_LIST
+                )
                 this.page["title"] = _get(data, "entry.title", "")
                 this.page["text"] = _get(data, "entry.text", "")
+                this.series = _get(data, "series", [])
+                this.exhibitions = _get(data, "exhibitions", [])
             }
             let query_text = this.$route.query.q || "*"
             console.log("in router query in asyc data")
@@ -252,13 +251,13 @@ export default {
                 this.events = []
                 this.noResultsFound = false
             } else {
-                // const data = await this.$graphql.default.request(
-                //     EXHIBITIONS_AND_EVENTS_LIST
-                // )
+                const data = await this.$graphql.default.request(
+                    EXHIBITIONS_AND_EVENTS_LIST
+                )
                 this.hits = []
                 this.events = []
-                // this.series = _get(data, "series", [])
-                // this.exhibitions = _get(data, "exhibitions", [])
+                this.series = _get(data, "series", [])
+                this.exhibitions = _get(data, "exhibitions", [])
                 this.noResultsFound = true
             }
             this.searchGenericQuery = {
@@ -271,9 +270,9 @@ export default {
         } else {
             this.hits = []
             // if route queries are empty fetch data from craft
-            // const data = await this.$graphql.default.request(
-            //     EXHIBITIONS_AND_EVENTS_LIST
-            // )
+            const data = await this.$graphql.default.request(
+                EXHIBITIONS_AND_EVENTS_LIST
+            )
             this.page = _get(data, "entry", {})
             this.events = _get(data, "events", [])
             this.series = _get(data, "series", [])
@@ -415,7 +414,7 @@ export default {
             return this.parseHits(this.hits)
         },
         parsedPlaceholder() {
-            return `Search ${this.page.title}`
+            return `Search Events`
         },
     },
     // This will recall fetch() when these query params change
