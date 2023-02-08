@@ -54,22 +54,15 @@
                 </h2>
 
                 <section-wrapper
-                    v-for="(result, index) in page.hits.hits"
+                    v-for="(result, index) in parsedSearchResults"
                     :key="`SearchResultBlock${index}`"
                     class="section-wrapper-block"
                 >
                     <search-result
-                        :title="result._source.title"
-                        :category="parseCategory(result._source.sectionHandle)"
-                        :summary="result._source.summary || result._source.text"
-                        :to="
-                            result._source.sectionHandle == 'Libguide' ||
-                                result._source.sectionHandle ==
-                                'externalResource' ||
-                                result._source.sectionHandle == 'affiliateLibrary'
-                                ? result._source.uri
-                                : `/${result._source.uri}`
-                        "
+                        :title="result.title"
+                        :category="parseCategory(result.sectionHandle)"
+                        :summary="result.summary || result.text"
+                        :to="result.to"
                         class="search-result-item"
                     />
                     <divider-general class="divider-general" />
@@ -199,6 +192,27 @@ export default {
         }
     },
     computed: {
+        parsedSearchResults() {
+            return this.page.hits.hits.map((obj) => {
+                if (
+                    obj._source.sectionHandle == "Libguide" ||
+                    obj._source.sectionHandle == "externalResource" ||
+                    obj._source.sectionHandle == "affiliateLibrary"
+                ) {
+                    return {
+                        ...obj["_source"],
+                        to: obj._source.uri ? obj._source.uri : obj._source.to,
+                    }
+                } else {
+                    return {
+                        ...obj["_source"],
+                        to: obj._source.uri
+                            ? `/${obj._source.uri}`
+                            : `/${obj._source.to}`,
+                    }
+                }
+            })
+        },
         parsePrev() {
             if (this.previous)
                 return `${this.$route.path}?q=${this.$route.query.q}&from=${this.prevFrom}`
