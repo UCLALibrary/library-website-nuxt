@@ -29,7 +29,7 @@ jobs:
           url: ${{ secrets.ES_URL }}/_aliases
           headers: '{ "Content-Type": "application/json", "Authorization": "ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}" }'
           method: "POST"
-          body: '{ "actions": [ { "remove": { "index": "*", "alias": "${{ secrets.ES_INDEX_TEST }}--deploy-preview-alias-curl" } },{ "add": { "indices": ["${{ secrets.ES_INDEX_PREFIX_TEST }}-deploy-preview-index","${{ secrets.LIBGUIDES_ES_INDEX_TEST }}"], "alias": "${{ secrets.ES_INDEX_TEST }}--deploy-preview-alias-curl" } } ] }'
+          #body: '{ "actions": [ { "remove": { "index": "*", "alias": "${{ secrets.ES_INDEX_TEST }}--deploy-preview-alias-curl" } },{ "add": { "indices": ["${{ secrets.ES_INDEX_PREFIX_TEST }}-deploy-preview-index","${{ secrets.LIBGUIDES_ES_INDEX_TEST }}"], "alias": "${{ secrets.ES_INDEX_TEST }}--deploy-preview-alias-curl" } } ] }'
           log-response: true
   curl:
     runs-on: ubuntu-latest
