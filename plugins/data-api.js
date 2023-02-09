@@ -13,9 +13,9 @@ export default function ({ $config }, inject) {
         )
             return
         //console.log("keyword:"+keyword)
-        if(keyword && keyword !== "*:*") {
+        /*if(keyword && keyword !== "*:*") {
             keyword = keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"])/g, "\\$1")  
-        }
+        }*/
         console.log(
             JSON.stringify({
                 from: from,
@@ -98,9 +98,9 @@ export default function ({ $config }, inject) {
         console.log("filters:" + filters)
         console.log("sort:" + sort)
 
-        if(keyword && keyword !== "*:*") {
+        /* if(keyword && keyword !== "*:*" && keyword !== "*") {
             keyword = keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"])/g, "\\$1")  
-        }
+        }*/
 
         let testquery = JSON.stringify({
             _source: [...source],

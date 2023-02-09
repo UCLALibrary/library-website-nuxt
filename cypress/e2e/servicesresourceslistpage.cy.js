@@ -11,7 +11,7 @@ describe("All Services & Resources Listing page", () => {
             "have.value",
             "test"
         )
-        // cy.get("div.about-results").invoke("text").should("not.be.empty")
+        cy.get("h2.about-results").invoke("text").should("not.be.empty")
         //cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 })
