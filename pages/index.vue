@@ -299,7 +299,9 @@ export default {
             return newsList.map((obj) => {
                 return {
                     ...obj,
-                    to: `/${obj.uri}`,
+                    to: obj.externalResourceUrl != null
+                        ? _get(obj, "externalResourceUrl", "")
+                        : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", ""),
                     category: this.parseArticleCategory(obj.articleCategories),
                     startDate: _get(obj, "postDate", ""),

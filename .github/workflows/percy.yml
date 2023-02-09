@@ -22,7 +22,7 @@ jobs:
         key: nuxt-site-${{ github.sha }}
     - name: Sets env vars for PR preview
       run: |
-        echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-deploy-preview" >> $GITHUB_ENV
+        echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-percy-tests" >> $GITHUB_ENV
       if: github.ref_name!='main'
     - name: Sets env vars for main merge
       run: |

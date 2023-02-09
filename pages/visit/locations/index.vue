@@ -20,8 +20,8 @@
 
         <section-wrapper theme="divider">
             <divider-way-finder
-                class="divider-way-finder search-margin"
                 color="visit"
+                class="search-margin"
             />
         </section-wrapper>
 
@@ -67,7 +67,7 @@
 
         <!-- RESULTS -->
 
-        <section-wrapper 
+        <section-wrapper
             v-else-if="hits && hits.length > 0"
             class="meta section-no-top-margin"
         >
@@ -144,22 +144,38 @@
 // UTILITIES
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
-
 // HELPERS
 import _get from "lodash/get"
 import parseAddress from "~/utils/parseAddress"
 import parseAmenities from "~/utils/parseAmenities"
 import removeTags from "~/utils/removeTags"
-
 // GQL
 import LOCATIONS_LIST from "~/gql/queries/LocationsList"
-
 export default {
-    async asyncData({ $graphql, params }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin }) {
         const data = await $graphql.default.request(LOCATIONS_LIST, {
             uri: params.path,
         })
-
+        const serverData = await $graphql.default.request(LOCATIONS_LIST)
+        console.log(
+            "ALL External Resource indexing:" +
+                JSON.stringify(serverData.affiliateLibraries)
+        )
+        if (
+            serverData.affiliateLibraries &&
+            serverData.affiliateLibraries.length > 0
+        ) {
+            console.log("External Resource indexing:")
+            for (let affiliateLibrary of serverData.affiliateLibraries) {
+                console.log(
+                    "External Resource indexing:" + affiliateLibrary.slug
+                )
+                await $elasticsearchplugin.index(
+                    affiliateLibrary,
+                    affiliateLibrary.slug
+                )
+            }
+        }
         return {
             page: _get(data, "entry", {}),
             uclaLibraries: _get(data, "uclaLibraries", {}),
@@ -203,7 +219,7 @@ export default {
             const results = await this.$dataApi.keywordSearchWithFilters(
                 query_text,
                 config.locationsList.searchFields,
-                "sectionHandle:location",
+                "sectionHandle:location OR sectionHandle:affiliateLibrary",
                 JSON.parse(this.$route.query.filters) || {},
                 config.locationsList.sortField,
                 config.locationsList.orderBy,
@@ -242,7 +258,6 @@ export default {
     head() {
         let title = this.page ? this.page.title : "... loading"
         let metaDescription = removeTags(this.page.text)
-
         return {
             title: title,
             meta: [
@@ -341,7 +356,6 @@ export default {
                 config.locationsList.filters,
                 "location"
             )
-
             console.log(
                 "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
             )

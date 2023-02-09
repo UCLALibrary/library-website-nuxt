@@ -159,9 +159,7 @@ const config = {
                 inputType: "checkbox",
             },
         ],
-        resultFields: [
-            "*"
-        ],
+        resultFields: ["*"],
         sortField: "title.keyword",
         orderBy: "asc",
     },
@@ -183,13 +181,16 @@ const config = {
             "title^3",
             "eventDescription^3",
             "summary^3",
+            "text^3",
+            "sectionHandle",
+            "workshopOrEventSeriesType",
             // "startDateWithTime^2",
             // "endDateWithTime^2"
         ],
         filters: [
             {
                 label: "Location",
-                esFieldName: "location.title.keyword",
+                esFieldName: "eventLocation.title.keyword",
                 inputType: "checkbox",
             },
             {

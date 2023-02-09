@@ -26,7 +26,6 @@
 
         <!--h4 style="margin: 30px 400px">
                 No of hits
-
                 {{ `from craft is ${parsedPages.length}` }}
             </h4>
             <h4 style="margin: 30px 400px">
@@ -37,7 +36,7 @@
             ${hits.length}`
                 }}
             </h4-->
-        
+
         <!-- ALL STAFF -->
         <section-wrapper
             v-if="page.entries"
@@ -73,10 +72,51 @@
             "
             class="section-no-top-margin"
         >
-            <div class="about-results">
-                {{ parseDisplayResultsText }}
-            </div>
+            <h2
+                v-if="$route.query.q"
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results for
+                <strong><em>“{{ $route.query.q }}”</em></strong>
+            </h2>
+            <h2
+                v-else
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results
+            </h2>
             <section-staff-list :items="parseHitsResults" />
+        </section-wrapper>
+        <section-wrapper
+            v-else-if="noResultsFound"
+            class="section-no-top-margin"
+        >
+            <div class="error-text">
+                <rich-text>
+                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
+                    <p>
+                        We can’t find the term you are looking for on this page,
+                        but we're here to help. <br>
+                        Try searching the whole site from
+                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+                    </p>
+                    <ul>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/research-teaching-support/research-help"
+                            >Research Help</a>
+                        </li>
+                        <li>
+                            <a href="/help/services-resources/ask-us">Ask Us</a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
+                            >Accessibility Resources</a>
+                        </li>
+                    </ul>
+                </rich-text>
+            </div>
         </section-wrapper>
 
         <!-- SUBJECT LIBRARIANS -->
@@ -97,9 +137,9 @@
                 :table-headers="tableHeaders"
             />
         </section-wrapper>
-        <div v-else-if="noResultsFound">
+        <!-- <div v-else-if="noResultsFound">
             No results found
-        </div>
+        </div> -->
     </main>
 </template>
 
@@ -107,16 +147,13 @@
 // HELPERS
 import _get from "lodash/get"
 import _ from "lodash"
-
 // GQL
 import STAFF_LIST from "~/gql/queries/StaffList"
-
 // UTILITIES
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
 import removeTags from "~/utils/removeTags"
 import queryFilterHasValues from "~/utils/queryFilterHasValues"
-
 export default {
     async asyncData({ $graphql }) {
         console.warn("Asyncdata Hook  staff list")
@@ -229,7 +266,6 @@ export default {
     head() {
         let title = this.page ? this.summaryData.title : "... loading"
         let metaDescription = removeTags(this.summaryData.text)
-
         return {
             title: title,
             meta: [
@@ -251,7 +287,6 @@ export default {
             let parseResults = this.parseHitsResults
             let groupBySubjectAreas = []
             let allacademicDepts = []
-
             for (let item of parseResults) {
                 for (let obj of item.academicDepartments) {
                     allacademicDepts.push(obj.title)
@@ -279,7 +314,6 @@ export default {
                     }
                 }
             }
-
             /*const groupBySubjectAreas = _.groupBy(
                 parseResults,
                 (row) => row.academicDepartments[0].title
@@ -321,7 +355,6 @@ export default {
                 "ParseHits Results checking results data:" +
                     JSON.stringify(this.hits)
             )*/
-
             return this.parseHits(this.hits)
         },
     },
@@ -337,7 +370,6 @@ export default {
             console.log("watching lastNameLetter:" + newValue)
         },
     },
-
     async mounted() {
         console.log("In mounted")
         /*console.log("ESREADkey:" + this.$config.esReadKey)
@@ -351,7 +383,6 @@ export default {
                 config.staff.filters,
                 "staffMember"
             )
-
             console.log(
                 "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
             )
@@ -397,7 +428,6 @@ export default {
                 },
             })
         },
-
         getSearchData(data) {
             console.log("On the page getsearchdata called")
             /*this.page = {}
@@ -429,32 +459,26 @@ export default {
         margin-top: -96px;
         z-index: 10;
         border-radius: $rounded-slightly + px;
-
         padding: var(--space-l) var(--space-xl);
-
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
         flex-wrap: wrap;
-
         .empty-search-box {
             background: var(--color-primary-blue-01);
             width: 100%;
             height: var(--space-2xl);
         }
-
         .input-indicator {
             width: 100%;
             height: 2px;
             border-bottom: 2px solid var(--color-default-cyan-03);
             margin: var(--space-s) auto;
         }
-
         .filters {
             display: flex;
             flex-direction: row;
             gap: var(--space-xs);
-
             div {
                 background: var(--color-primary-blue-03);
                 height: var(--space-2xl);
@@ -462,30 +486,25 @@ export default {
                 flex-grow: 1;
             }
         }
-
         @media #{$medium} {
             width: 100%;
             margin-top: 0;
         }
-
         @media #{$small} {
             .filters {
                 flex-direction: column;
             }
         }
     }
-
     .browse-by {
         max-width: $container-l-main + px;
         margin: 0 auto var(--space-xl);
     }
-
     .section-heading {
         @include step-2;
         color: var(--color-primary-blue-03);
         margin-bottom: var(--space-m);
     }
-
     .browse-by-options {
         list-style: none;
         display: flex;
@@ -493,13 +512,11 @@ export default {
         @include step-1;
         color: var(--color-primary-blue-03);
     }
-
     .section-title {
         @include step-3;
         color: var(--color-primary-blue-03);
         margin-bottom: var(--space-xl);
     }
-
     @media #{$medium} {
         .search-container {
             margin-top: -64px;
@@ -509,19 +526,16 @@ export default {
             padding: 0 var(--unit-gutter);
         }
     }
-
     @media #{$small} {
         .search-container {
             margin-top: -48px;
         }
-
         .browse-by-options {
             flex-wrap: wrap;
             justify-content: flex-start;
             align-items: center;
             gap: 4px 0;
         }
-
         li {
             padding: 4px;
             min-width: 44px;

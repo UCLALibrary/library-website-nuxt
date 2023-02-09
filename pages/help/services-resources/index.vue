@@ -19,7 +19,6 @@
 
         <!--h4 style="margin: 30px 400px">
             No of hits
-
             {{ `from craft is ${parsedPages.length}` }}
         </h4>
         <h4 style="margin: 30px 400px">
@@ -32,7 +31,10 @@
         </h4-->
 
         <section-wrapper theme="divider">
-            <divider-way-finder class="search-margin" />
+            <divider-way-finder
+                color="help"
+                class="search-margin"
+            />
         </section-wrapper>
 
         <section-wrapper
@@ -47,27 +49,61 @@
                 :is-horizontal="true"
             />
         </section-wrapper>
-        <section-wrapper v-else-if="hits && hits.length > 0">
-            <div class="about-results">
-                {{ parseDisplayResultsText }}
-            </div>
+        <section-wrapper
+            v-else-if="hits && hits.length > 0"
+            class="section-no-top-margin"
+        >
+            <h2
+                v-if="$route.query.q"
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results for
+                <strong><em>“{{ $route.query.q }}</em></strong>”
+            </h2>
+            <h2
+                v-else
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results
+            </h2>
             <section-cards-with-illustrations
                 :items="parseHitsResults"
                 :is-horizontal="true"
             />
         </section-wrapper>
 
-        <div v-else-if="noResultsFound">
-            No results found
-        </div>
-
         <section-wrapper
-            v-if="
-                page.serviceOrResource ||
-                    page.workshopseries ||
-                    (hits && hits.length > 0)
-            "
+            v-else-if="noResultsFound"
+            class="section-no-top-margin"
         >
+            <div class="error-text">
+                <rich-text>
+                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
+                    <p>
+                        We can’t find the term you are looking for on this page,
+                        but we're here to help. <br>
+                        Try searching the whole site from
+                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+                    </p>
+                    <ul>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/research-teaching-support/research-help"
+                            >Research Help</a>
+                        </li>
+                        <li>
+                            <a href="/help/services-resources/ask-us">Ask Us</a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
+                            >Accessibility Resources</a>
+                        </li>
+                    </ul>
+                </rich-text>
+            </div>
+        </section-wrapper>
+        <section-wrapper>
             <divider-way-finder
                 class="divider-way-finder"
                 color="help"
@@ -88,14 +124,11 @@
 import _get from "lodash/get"
 import sortByTitle from "~/utils/sortByTitle"
 import removeTags from "~/utils/removeTags"
-
 // GQL
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceWorkshopSeriesList"
 import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
-
 // UTILITIES
 import config from "~/utils/searchConfig"
-
 export default {
     async asyncData({ $graphql, $elasticsearchplugin }) {
         console.log(
@@ -127,14 +160,12 @@ export default {
             SERVICE_RESOURCE_WORKSHOPSERIES_LIST
         )
         let helpTopicAsyncData = await $graphql.default.request(HELP_TOPIC_LIST)
-
         return {
             page: pageAsyncData,
             helpTopic: helpTopicAsyncData,
             summaryData: _get(pageAsyncData, "entry", {}),
         }
     },
-
     data() {
         return {
             page: {},
@@ -191,7 +222,6 @@ export default {
             this.page = await this.$graphql.default.request(
                 SERVICE_RESOURCE_WORKSHOPSERIES_LIST
             )
-
             this.helpTopic = await this.$graphql.default.request(
                 HELP_TOPIC_LIST
             )
@@ -203,7 +233,6 @@ export default {
     head() {
         let title = this.page ? this.summaryData.title : "... loading"
         let metaDescription = removeTags(this.summaryData.text)
-
         return {
             title: title,
             meta: [
@@ -277,7 +306,6 @@ export default {
                 "ParseHitsResults checking results data:" +
                     JSON.stringify(this.hits)
             )
-
             return this.parseHits()
         },
     },
@@ -309,7 +337,6 @@ export default {
                     iconName:
                         obj["_source"]["illustrationsResourcesAndServices"],
                     text: obj["_source"].text || obj["_source"].summary,
-
                     category:
                         obj["_source"].sectionHandle === "workshopSeries"
                             ? "workshop"
@@ -322,7 +349,6 @@ export default {
                 }
             })
         },
-
         async getSearchData(data) {
             // console.log("from search-generic: " + JSON.stringify(data))
             // console.log(config.serviceOrResources.resultFields)
@@ -339,6 +365,5 @@ export default {
 
 <style lang="scss" scoped>
 .page-help {
-    
 }
 </style>
