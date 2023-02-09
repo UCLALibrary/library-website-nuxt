@@ -19,10 +19,10 @@ jobs:
       #- name: "Call API"
        # uses: indiesdev/curl@v1.1
         #with:
-         # url: ${{ secrets.ES_URL }}/apps-test-2023-deploy-preview-index?pretty
-          #headers: '{ "Content-Type": "application/json", "Authorization": "ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}" }'
-          #method: "PUT"
-          #log-response: true
+         url: ${{ secrets.ES_URL }}/apps-test-2023-deploy-preview-index-1?pretty
+         headers: '{ "Content-Type": "application/json", "Authorization": "ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}" }'
+         method: "PUT"
+         log-response: true
       - name: "Call API 2"
         uses: indiesdev/curl@v1.1
         with:
@@ -37,6 +37,6 @@ jobs:
     - name: curl
       uses: enflo/curl-action@fabe347922c7a9e88bafa15c4b7d6326ea802695
       with:
-        curl: "-H 'Content-Type: application/json' -H 'Authorization: ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}' -X PUT ${{ secrets.ES_URL }}/_aliases"
+        curl: "-H 'Content-Type: application/json' -H 'Authorization: ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}' -X POST ${{ secrets.ES_URL }}/_aliases"
   
   
