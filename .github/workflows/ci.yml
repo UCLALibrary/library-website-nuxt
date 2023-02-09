@@ -12,6 +12,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  curl:
+    runs-on: ubuntu-latest
+    steps:
+    - name: curl
+      uses: wei/curl@v1
+      with:
+        args: -X PUT --header 'Authorization: ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}' --header "Content-Type: application/json" https://${{ secrets.ES_URL }}/apps-test-2023-deploy-preview-index?pretty
   eslint:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -58,7 +65,7 @@ jobs:
         key: nuxt-site-${{ github.sha }}
     - name: Sets env vars for PR preview
       run: |
-        echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-deploy-preview" >> $GITHUB_ENV
+        echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-deploy-preview-${{github.event.pull_request.number}}" >> $GITHUB_ENV
       if: github.ref_name!='main'
     - name: Sets env vars for main merge
       run: |
