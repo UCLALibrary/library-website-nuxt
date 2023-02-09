@@ -45,6 +45,7 @@
                 class="divider-way-finder"
             />
         </section-wrapper>
+
         <section-wrapper>
             <div class="section-header">
                 <div
@@ -63,6 +64,7 @@
                     v-html="page.howToGetHere"
                 />
             </div>
+
             <block-hours
                 v-if="page.libcalLocationIdForHours"
                 :lid="page.libcalLocationIdForHours"
@@ -248,8 +250,11 @@ export default {
     },
     computed: {
         parsedStaffDirectory() {
-            if (this.page.locationType != "affiliateLibrary") {
-                return "/about/staff"
+            if ( this.page.locationType != "affiliateLibrary" && this.page.title. length > 0) {
+                let searchLibrary = this.page.title
+                let libConcat = '/about/staff?q=&filters={\"locations.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+
+                return libConcat
             } else {
                 return ""
             }
