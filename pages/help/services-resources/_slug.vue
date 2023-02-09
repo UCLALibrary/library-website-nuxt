@@ -29,7 +29,9 @@
             <section-wrapper
                 v-if="
                     page.serviceOrResource.heroImage &&
-                        page.serviceOrResource.heroImage.length == 1
+                        page.serviceOrResource.heroImage.length == 1 &&
+                        page.serviceOrResource.heroImage[0].image &&
+                        page.serviceOrResource.heroImage[0].image.length > 0
                 "
                 class="section-banner"
             >
@@ -95,9 +97,13 @@
                 :title="page.workshopSeries.title"
                 parent-title="Services & Resources"
             />
-
             <banner-text
-                v-if="page.workshopSeries && !page.workshopSeries.image[0]"
+                v-if="
+                    page.workshopSeries &&
+                        (page.workshopSeries.image.length == 0 ||
+                            !page.workshopSeries.image[0].image ||
+                            page.workshopSeries.image[0].image.length == 0)
+                "
                 :title="page.workshopSeries.title"
                 :text="page.workshopSeries.summary"
                 :locations="page.workshopSeries.associatedLocations"
@@ -107,7 +113,12 @@
             />
 
             <section-wrapper
-                v-if="page.workshopSeries.image[0]"
+                v-if="
+                    page.workshopSeries.image &&
+                        page.workshopSeries.image.length == 1 &&
+                        page.workshopSeries.image[0].image &&
+                        page.workshopSeries.image[0].image.length > 0
+                "
                 class="section-banner"
             >
                 <banner-header
@@ -143,23 +154,25 @@
 
             <section-wrapper
                 v-if="upcomingEvents.length"
-                section-title="Upcoming Workshops in this Series">
-                    <section-teaser-list
-                        v-if="upcomingEvents"
-                        :items="upcomingEvents"
-                        class="section section-list"
-                    />
-                    <divider-general v-if="pastEvents.length" />
+                section-title="Upcoming Workshops in this Series"
+            >
+                <section-teaser-list
+                    v-if="upcomingEvents"
+                    :items="upcomingEvents"
+                    class="section section-list"
+                />
+                <divider-general v-if="pastEvents.length" />
             </section-wrapper>
 
             <section-wrapper
                 v-if="pastEvents.length"
-                section-title="Past Workshops in this Series">
-                    <section-teaser-list
-                        v-if="pastEvents"
-                        :items="pastEvents"
-                        class="section section-list"
-                    />
+                section-title="Past Workshops in this Series"
+            >
+                <section-teaser-list
+                    v-if="pastEvents"
+                    :items="pastEvents"
+                    class="section section-list"
+                />
             </section-wrapper>
 
             <section-wrapper
@@ -181,11 +194,12 @@
 
             <section-wrapper
                 v-if="parsedAssociatedSeries.length"
-                theme="divider">
-                    <divider-way-finder
-                        class="divider-way-finder"
-                        color="help"
-                    />
+                theme="divider"
+            >
+                <divider-way-finder
+                    class="divider-way-finder"
+                    color="help"
+                />
             </section-wrapper>
 
             <section-wrapper>
@@ -331,9 +345,10 @@ export default {
                     startDate: _get(obj, "startDateWithTime", null),
                     endDate: _get(obj, "endDateWithTime", null),
                     category: _get(obj, "category[0].title", ""),
-                    locations: obj.associatedLocations[0] != null
-                        ? obj.associatedLocations
-                        : obj.eventLocation,
+                    locations:
+                        obj.associatedLocations[0] != null
+                            ? obj.associatedLocations
+                            : obj.eventLocation,
                 }
             })
         },
@@ -346,9 +361,10 @@ export default {
                     startDate: _get(obj, "startDateWithTime", null),
                     endDate: _get(obj, "endDateWithTime", null),
                     category: _get(obj, "category[0].title", ""),
-                    locations: obj.associatedLocations[0] != null
-                        ? obj.associatedLocations
-                        : obj.eventLocation,
+                    locations:
+                        obj.associatedLocations[0] != null
+                            ? obj.associatedLocations
+                            : obj.eventLocation,
                 }
             })
         },
