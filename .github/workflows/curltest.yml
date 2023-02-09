@@ -27,23 +27,4 @@ jobs:
       - name: "Use Run"
         run:  |
           curl -X POST "${{ secrets.ES_URL }}/_aliases?pretty" -H 'Content-Type: application/json' -H 'Authorization: ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}' -d' { "actions": [ { "add": { "index": "${{ secrets.ES_INDEX_PREFIX_TEST }}-${{ github.event.inputs.indexname }}", "alias": "${{ secrets.ES_INDEX_TEST }}-deploy-preview" } } ] } '
-<<<<<<< HEAD
-=======
-      - name: "Call API 2"
-        uses: indiesdev/curl@v1.1
-        with:
-          url: ${{ secrets.ES_URL }}/_aliases
-          headers: '{ "Content-Type": "application/json", "Authorization": "ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}" }'
-          method: "POST"
-          #body: '{ "actions": [ { "remove": { "index": "*", "alias": "${{ secrets.ES_INDEX_TEST }}--deploy-preview-alias-curl" } },{ "add": { "indices": ["${{ secrets.ES_INDEX_PREFIX_TEST }}-deploy-preview-index","${{ secrets.LIBGUIDES_ES_INDEX_TEST }}"], "alias": "${{ secrets.ES_INDEX_TEST }}--deploy-preview-alias-curl" } } ] }'
-          log-response: true
-  curl:
-    runs-on: ubuntu-latest
-    steps:
-    - name: curl
-      uses: enflo/curl-action@fabe347922c7a9e88bafa15c4b7d6326ea802695
-      with:
-        curl: "-H 'Content-Type: application/json' -H 'Authorization: ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}' -X POST ${{ secrets.ES_URL }}/_aliases"
   
-  
->>>>>>> fix: correct the secrets name and add a curl test yml
