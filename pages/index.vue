@@ -287,11 +287,7 @@ export default {
                         : `/${bannerFeaturedNews.to}`,
                 image: _get(bannerFeaturedNews, "heroImage[0].image[0]", null),
                 // startDate: _get(bannerFeaturedNews, "postDate", null),
-                category: _get(
-                    bannerFeaturedNews,
-                    "articleCategories[0].title",
-                    ""
-                ),
+                category: this.parseArticleCategory(bannerFeaturedNews.articleCategories),
                 description: _get(bannerFeaturedNews, "text", ""),
                 startDate: _get(bannerFeaturedNews, "postDate", ""),
                 endDate: _get(bannerFeaturedNews, "postDate", ""),
@@ -307,7 +303,7 @@ export default {
                         ? _get(obj, "externalResourceUrl", "")
                         : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", ""),
-                    category: _get(obj, "articleCategories[0].title", ""),
+                    category: this.parseArticleCategory(obj.articleCategories),
                     startDate: _get(obj, "postDate", ""),
                     endDate: _get(obj, "postDate", ""),
                 }
@@ -320,6 +316,16 @@ export default {
     //     const searchResponse = await this.$dataApi.siteSearch("test")
     //     console.log("Search Response: " + JSON.stringify(searchResponse))
     // },
+    methods: {
+        parseArticleCategory(categories) {
+            if (!categories || categories.length == 0) return ""
+            let result = ""
+            categories.forEach((obj) => {
+                result = result + obj.title + ", "
+            })
+            return result.slice(0, -2)
+        },
+    }
 }
 </script>
 <style lang="scss" scoped>
