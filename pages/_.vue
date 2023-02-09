@@ -65,7 +65,7 @@ export default {
             "General Content page path is: " + path
         )
         if (data && data.entry && data.entry.slug) {
-            $elasticsearchplugin.index(data.entry, path.replace("/", "--"))
+            $elasticsearchplugin.index(data.entry, path.replaceAll("/", "--"))
         } else {
             error({ statusCode: 404, message: 'Page not found' })
         }
