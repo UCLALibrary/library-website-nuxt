@@ -16,9 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: curl
-      uses: wei/curl@v1
+      uses: enflo/curl-action@master
       with:
-        args: -X PUT --header 'Authorization: ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}' --header "Content-Type: application/json" https://${{ secrets.ES_URL }}/apps-test-2023-deploy-preview-index?pretty
+        curl: -X PUT 'https://${{ secrets.ES_URL }}/apps-test-2023-deploy-preview-index?pretty' --header 'Authorization:ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}' --header 'Content-Type:application/json'
   eslint:
     runs-on: ubuntu-latest
     timeout-minutes: 20
