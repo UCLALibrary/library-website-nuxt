@@ -18,7 +18,7 @@ jobs:
     - name: curl
       uses: enflo/curl-action@master
       with:
-        curl: 'https://elastical.library.ucla.edu/apps-test-2023-deploy-preview-index?pretty'
+        curl: 'https://${{ secrets.ES_URL }}/apps-test-2023-deploy-preview-index?pretty'
   eslint:
     runs-on: ubuntu-latest
     timeout-minutes: 20
