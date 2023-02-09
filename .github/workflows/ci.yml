@@ -16,13 +16,13 @@ jobs:
     name: "Perform REST API request"
     runs-on: ubuntu-latest
     steps:
-      -name: "Call API"
-       uses: indiesdev/curl@v1.1
-       with:
-         url: ${{ secrets.ES_URL }}/apps-test-2023-deploy-preview-index-1?pretty
-         headers: '{ "Content-Type": "application/json", "Authorization": "ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}" }'
-         method: "PUT"
-         log-response: true
+      - name: "Call API"
+        uses: indiesdev/curl@v1.1
+        with:
+          url: ${{ secrets.ES_URL }}/apps-test-2023-deploy-preview-index-1?pretty
+          headers: '{ "Content-Type": "application/json", "Authorization": "ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}" }'
+          method: "PUT"
+          log-response: true
       - name: "Call API 2"
         uses: indiesdev/curl@v1.1
         with:
