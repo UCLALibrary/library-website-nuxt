@@ -74,8 +74,8 @@ jobs:
         ESApiKey: ${{ secrets.ESApiKey }}
         ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
         ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
-        ES_INDEX: ${{ env.ES_INDEX }}
-        ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX}}
+        ES_INDEX: ${{ env.ES_INDEX }}-${{ github.event.pull_request.number }}
+        ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
         LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
     - name: Deploy to Netlify (preview)
       if: github.ref_name!='main'
@@ -121,4 +121,3 @@ jobs:
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-    
