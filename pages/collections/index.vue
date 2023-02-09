@@ -60,7 +60,7 @@
             </nuxt-link>
         </section-wrapper>
 
-        <!-- COLLECTIONS -->
+        <!-- COLLECTION NEWS -->
         <section-wrapper>
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
@@ -73,7 +73,7 @@
             <smart-link
                 v-if="pageArticleCount > 3"
                 class="button-more"
-                to="/about/news"
+                :to="allCollectionsNewsLink"
             >
                 <button-more text="See All Collections News" />
             </smart-link>
@@ -204,7 +204,17 @@ export default {
             } else {
                 return []
             }
-        },  
+        },
+        allCollectionsNewsLink() {
+            if (this.page.locationType != "affiliateLibrary") {
+                let searchLibrary = "Collections"
+                let libConcat = '/about/news?q=&filters={\"category.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+
+                return libConcat
+            } else {
+                return ""
+            }
+        }
     },
     methods: {
         parsedDate(postDate) {
