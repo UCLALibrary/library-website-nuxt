@@ -1,0 +1,15 @@
+name: On release
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  set-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - run: git tag -f production
+      - run: git push -f origin production
