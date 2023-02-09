@@ -19,7 +19,7 @@ jobs:
       - name: "Call API"
         uses: indiesdev/curl@v1.1
         with:
-          url: ${{ secrets.ES_URL }}/apps-test-2023-deploy-preview-index-1?pretty
+          url: ${{ secrets.ES_URL }}/${{ secrets.ES_INDEX_PREFIX_TEST }}-2023-deploy-preview-index-2?pretty
           headers: '{ "Content-Type": "application/json", "Authorization": "ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}" }'
           method: "PUT"
           log-response: true
@@ -31,6 +31,9 @@ jobs:
           method: "POST"
           #body: '{ "actions": [ { "remove": { "index": "*", "alias": "${{ secrets.ES_INDEX_TEST }}--deploy-preview-alias-curl" } },{ "add": { "indices": ["${{ secrets.ES_INDEX_PREFIX_TEST }}-deploy-preview-index","${{ secrets.LIBGUIDES_ES_INDEX_TEST }}"], "alias": "${{ secrets.ES_INDEX_TEST }}--deploy-preview-alias-curl" } } ] }'
           log-response: true
+      - name: "Use Run"
+        run:  |
+                curl -X POST "${{ secrets.ES_URL }}/_aliases?pretty" -H 'Content-Type: application/json' -H 'Authorization: ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}' -d' { "actions": [ { "add": { "index": "${{ secrets.ES_INDEX_PREFIX_TEST }}-deploy-preview-index-2", "alias": "${{ secrets.ES_INDEX_TEST }}-deploy-preview-alias-curl"" } } ] } '
   curl:
     runs-on: ubuntu-latest
     steps:
