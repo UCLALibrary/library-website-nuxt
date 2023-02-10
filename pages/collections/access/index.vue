@@ -52,6 +52,11 @@
         </section-wrapper>
     </main>
 </template>
+<router>
+  {
+    alias: '/listing-collections/access',
+  }
+</router>
 
 <script>
 // HELPERS
@@ -86,11 +91,11 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
