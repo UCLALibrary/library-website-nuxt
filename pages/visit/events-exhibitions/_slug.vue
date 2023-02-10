@@ -188,9 +188,9 @@
 
             <section-wrapper>
                 <section-cards-with-illustrations
-                    v-if="page.eventSeries.associatedTopics.length > 0"
+                    v-if="parsedAssociatedTopics.length > 0"
                     class="section-cards"
-                    :items="page.eventSeries.associatedTopics"
+                    :items="parsedAssociatedTopics"
                     section-title="Associated Topics"
                 />
             </section-wrapper>
@@ -536,6 +536,17 @@ export default {
                     locations: obj.associatedLocations[0] != null
                         ? obj.associatedLocations
                         : obj.eventLocation,
+                }
+            })
+        },
+        parsedAssociatedTopics() {
+            if (!this.page.eventSeries.associatedTopics) return []
+            return this.page.eventSeries.associatedTopics.map((obj) => {
+                return {
+                    ...obj,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.uri}`,
                 }
             })
         },

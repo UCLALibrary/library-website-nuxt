@@ -127,7 +127,8 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             id
             title
             text: summary
-            to: uri
+            uri
+            externalResourceUrl
             illustration
         }
         ...DefaultFpbWithCardsAndHighlight
