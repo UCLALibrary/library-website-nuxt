@@ -107,6 +107,11 @@
         </section-wrapper>
     </main>
 </template>
+<router>
+  {
+    alias: '/listing-collections/explore',
+  }
+</router>
 
 <script>
 // UTILITIES
