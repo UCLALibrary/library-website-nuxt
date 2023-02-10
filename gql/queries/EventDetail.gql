@@ -144,7 +144,7 @@ query EventDetail($slug: [String!]) {
                 id
                 title
                 text: summary
-                to: uri
+                uri
                 illustration
             }
             ...DefaultFpbWithCardsAndHighlight
