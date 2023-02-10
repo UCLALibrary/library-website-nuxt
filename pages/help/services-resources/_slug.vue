@@ -55,7 +55,7 @@
             />
 
             <section-wrapper
-                v-if="parsedAssociatedTopics.length"
+                v-if="parsedServiceResourceAssociatedTopics.length"
                 theme="divider"
             >
                 <divider-way-finder
@@ -66,9 +66,9 @@
 
             <section-wrapper>
                 <section-cards-with-illustrations
-                    v-if="parsedAssociatedTopics.length"
+                    v-if="parsedServiceResourceAssociatedTopics.length"
                     class="section-cards"
-                    :items="parsedAssociatedTopics"
+                    :items="parsedServiceResourceAssociatedTopics"
                     section-title="Associated Topics"
                     button-text="All Services and Resources"
                     to="/help/services-resources"
@@ -307,7 +307,8 @@ export default {
         }
     },
     computed: {
-        parsedAssociatedTopics() {
+        parsedServiceResourceAssociatedTopics() {
+            if (!this.page.serviceOrResource.associatedTopics) return []
             return this.page.serviceOrResource.associatedTopics.map((obj) => {
                 return {
                     ...obj,
