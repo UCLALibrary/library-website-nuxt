@@ -307,8 +307,7 @@ export default {
         }
     },
     computed: {
-        parsedServiceResourceAssociatedTopics() {
-            if (!this.page.serviceOrResource.associatedTopics) return []
+        parsedAssociatedTopics() {
             return this.page.serviceOrResource.associatedTopics.map((obj) => {
                 return {
                     ...obj,
@@ -319,7 +318,6 @@ export default {
             })
         },
         parsedWorkshopSeriesAssociatedTopics() {
-            if (!this.page.workshopSeries.associatedTopics) return []
             return this.page.workshopSeries.associatedTopics.map((obj) => {
                 return {
                     ...obj,
