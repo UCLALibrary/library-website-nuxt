@@ -15,4 +15,10 @@ describe("Article News Listing page", () => {
         cy.get('.search-generic-filter-buttons > div.single-checkbox').should('be.visible')
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
+
+    it("Visit Subject Librarian Listing page", () => {
+        cy.visit('/about/staff?q=&filters=%7B"subjectLibrarian.keyword"%3A"yes"%7D')
+
+        cy.get ('td.academic-department').should("be.visible")
+    })
 })

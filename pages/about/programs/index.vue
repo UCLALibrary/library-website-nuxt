@@ -23,7 +23,7 @@
             @search-ready="getSearchData"
         />
         <section-wrapper
-            v-if="
+            v-show="
                 page &&
                     page.featuredPrograms &&
                     page.featuredPrograms.length &&
@@ -39,7 +39,7 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="
+            v-show="
                 page &&
                     page.featuredPrograms &&
                     page.featuredPrograms.length &&
@@ -77,7 +77,7 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="
+            v-show="
                 parsedProgramsList &&
                     parsedProgramsList.length > 0 &&
                     hits.length == 0 &&
@@ -90,7 +90,7 @@
 
         <!-- RESULTS -->
         <section-wrapper
-            v-else-if="hits && hits.length > 0"
+            v-show="hits && hits.length > 0"
             class="section-no-top-margin"
         >
             <h2
@@ -111,7 +111,7 @@
 
         <!-- NO RESULTS -->
         <section-wrapper
-            v-else-if="noResultsFound"
+            v-show="noResultsFound"
             class="section-no-top-margin"
         >
             <div class="error-text">

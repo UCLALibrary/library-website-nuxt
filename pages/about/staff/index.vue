@@ -112,7 +112,7 @@
 
         <!-- SUBJECT LIBRARIANS -->
         <section-wrapper
-            v-if="
+            v-show="
                 searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
                     searchGenericQuery.queryFilters['subjectLibrarian.keyword'] ===
                     'yes'
