@@ -92,7 +92,7 @@
                 class="button-more"
                 :to="parsedSeeMore"
             >
-                <button-more text="See More" />
+                <button-more text="See More Associated Articles" />
             </nuxt-link>
         </section-wrapper>
     </main>

@@ -42,7 +42,7 @@
                 :items="parsedUclaLibraries"
             />
             <button-more
-                text="See More"
+                text="See Other Campus Libraries & Archives"
                 @click.native="showMoreOtherCampusLibrary()"
             />
         </section-wrapper>

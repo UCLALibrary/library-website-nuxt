@@ -112,7 +112,7 @@
                 class="button-more"
                 to="/help/services-resources"
             >
-                <button-more text="See More" />
+                <button-more text="See All Services & Resources" />
             </nuxt-link>
         </section-wrapper>
 
