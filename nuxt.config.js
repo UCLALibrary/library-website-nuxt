@@ -92,6 +92,7 @@ export default {
      ** Nuxt generate configuration. Used when generating a static site.
      */
     generate: {
+        // exclude is for npm run genereate uncomment for local builds
         // exclude:[/^\/help/,/^\/visit/,/^\/collections/,/^\/give/,/^\/impact/],
         fallback: "404.html",
         interval: 500,
