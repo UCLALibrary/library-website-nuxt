@@ -1,4 +1,5 @@
 <template lang="html">
+    <!-- v-ifs working on section wrappers without v-show -->
     <main
         id="main"
         class="page page-help"

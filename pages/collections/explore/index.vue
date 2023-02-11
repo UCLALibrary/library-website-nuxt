@@ -8,10 +8,14 @@
             title="Explore Featured Collections"
             parent-title="Collections"
         />
+
         <masthead-secondary
             :title="page.title"
             :text="page.summary"
         />
+
+        <!-- SEARCH
+                Filters by physical/digital & subject area -->
         <search-generic
             search-type="about"
             :filters="searchFilters"
@@ -20,12 +24,13 @@
             :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
         />
+
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
 
         <section-wrapper
-            v-if="
+            v-show="
                 page &&
                     parsedCollectionList &&
                     parsedCollectionList.length &&
@@ -37,8 +42,9 @@
             <section-teaser-card :items="parsedCollectionList" />
         </section-wrapper>
 
+        <!-- FILTERS -->
         <section-wrapper
-            v-else-if="hits && hits.length > 0"
+            v-show="hits && hits.length > 0"
             class="section-no-top-margin"
         >
             <h2
@@ -48,6 +54,7 @@
                 Displaying {{ hits.length }} results for
                 <strong><em>“{{ $route.query.q }}”</em></strong>
             </h2>
+
             <h2
                 v-else
                 class="about-results"
@@ -57,8 +64,9 @@
             <section-teaser-card :items="parseHitsResults" />
         </section-wrapper>
 
+        <!-- NO RESULTS -->
         <section-wrapper
-            v-else
+            v-show="noResultsFound"
             class="section-no-top-margin"
         >
             <div class="error-text">
