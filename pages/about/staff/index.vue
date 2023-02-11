@@ -9,7 +9,7 @@
             :text="summaryData.text || ''"
         />
 
-        <!-- SearchGeneric
+        <!-- SEARCH
                 Filters by location, department, subject libarian -->
         <search-generic
             search-type="about"

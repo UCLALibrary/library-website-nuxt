@@ -27,7 +27,7 @@
 
         <!-- UCLA LIBRARIES -->
         <section-wrapper
-            v-if="
+            v-show="
                 page &&
                     uclaLibraries &&
                     parsedUclaLibraries.length &&
@@ -49,7 +49,7 @@
 
         <!-- AFFILIATE LIBRARIES -->
         <section-wrapper
-            v-if="
+            v-show="
                 page &&
                     affiliateLibraries &&
                     parsedAffiliateLibraries.length &&
@@ -68,7 +68,7 @@
         <!-- RESULTS -->
 
         <section-wrapper
-            v-else-if="hits && hits.length > 0"
+            v-show="hits && hits.length > 0"
             class="meta section-no-top-margin"
         >
             <h2
@@ -93,7 +93,7 @@
 
         <!-- NO RESULTS -->
         <section-wrapper
-            v-else-if="noResultsFound"
+            v-show="noResultsFound"
             class="meta section-no-top-margin"
         >
             <div class="error-text">

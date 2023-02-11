@@ -49,7 +49,7 @@
                 class="meta section-no-top-margin"
             >
                 <h2 class="about-results">
-                    Displaying {{ page.hits.hits.length }} results for
+                    Displaying {{ page.hits.total.value }} results for
                     <strong><em>“{{ $route.query.q }}”</em></strong>
                 </h2>
 
