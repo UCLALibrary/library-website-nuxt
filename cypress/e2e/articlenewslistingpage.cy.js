@@ -19,6 +19,6 @@ describe("Article News Listing page", () => {
     it("Visit News Article Listing page filter by category", () => {
         cy.visit('/about/news?q=&filters=%7B"category.title.keyword"%3A%5B"Featured"%5D%7D')
 
-        cy.get ('div.block-staff-article-item').should("be.visible")
+        cy.get ('h2.about-results').should("be.visible")
     })
 })
