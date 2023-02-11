@@ -17,10 +17,9 @@
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
-
         <!-- HIGHLIGHTED & FEATURED EVENTS -->
         <section-wrapper
-            v-if="
+            v-show="
                 parsedFeaturedEventsAndExhibits.length > 0 &&
                     hits.length == 0 &&
                     !noResultsFound
@@ -28,6 +27,11 @@
             class="section-no-top-margin"
         >
             <banner-featured
+                v-if="
+                    parsedFeaturedEventsAndExhibits.length > 0 &&
+                        hits.length == 0 &&
+                        !noResultsFound
+                "
                 :image="parsedBannerHeader.image"
                 :title="parsedBannerHeader.title"
                 breadcrumb="Featured"
@@ -51,7 +55,7 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="
+            v-show="
                 parsedFeaturedEventsAndExhibits.length > 0 &&
                     parsedEvents.length &&
                     hits.length == 0 &&
@@ -64,7 +68,7 @@
 
         <!-- UPCOMING EVENTS -->
         <section-wrapper
-            v-if="
+            v-show="
                 parsedEvents &&
                     parsedEvents.length > 0 &&
                     hits.length == 0 &&
@@ -76,7 +80,7 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="
+            v-show="
                 parsedEvents &&
                     parsedEvents.length > 0 &&
                     hits.length == 0 &&
@@ -89,7 +93,7 @@
 
         <!-- EVENT SERIES & EXHIBITIONS -->
         <section-wrapper
-            v-if="
+            v-show="
                 parsedSeriesAndExhibitions &&
                     parsedSeriesAndExhibitions.length > 0 &&
                     hits.length == 0 &&
@@ -100,7 +104,7 @@
             <section-teaser-card :items="parsedSeriesAndExhibitions" />
         </section-wrapper>
         <section-wrapper
-            v-if="hits && hits.length > 0"
+            v-show="hits && hits.length > 0"
             class="section-no-top-margin"
         >
             <h2
@@ -120,7 +124,7 @@
         </section-wrapper>
         <!-- NO RESULTS -->
         <section-wrapper
-            v-else-if="noResultsFound"
+            v-show="noResultsFound"
             class="section-no-top-margin"
         >
             <div class="error-text">
@@ -177,10 +181,7 @@ export default {
         console.log("in asyncdata calling axios get event")
         const data = await $graphql.default.request(EXHIBITIONS_AND_EVENTS_LIST)
         const single = await $graphql.default.request(
-            EXHIBITIONS_AND_EVENTS_LIST_SINGLE,
-            {
-                slug: params.slug,
-            }
+            EXHIBITIONS_AND_EVENTS_LIST_SINGLE
         )
         return {
             page: _get(single, "entry", {}),
@@ -229,10 +230,10 @@ export default {
                 []
             )
             console.log("getsearchdata method:" + JSON.stringify(results))
-            this.events = []
-            this.series = []
-            this.exhibitions = []
-            this.hits = []
+            // this.events = []
+            // this.series = []
+            // this.exhibitions = []
+            // this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
                 this.events = []
