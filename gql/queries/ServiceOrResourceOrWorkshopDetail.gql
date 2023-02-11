@@ -140,7 +140,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
         startDateWithTime: "< now"
         relatedToEntries: { section: "workshopOrEventSeries", slug: $slug }
     ) {
-        title
+        title: eventTitle
         uri
         sectionHandle
         eventType {
@@ -183,7 +183,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
         startDateWithTime: ">= now"
         relatedToEntries: { section: "workshopOrEventSeries", slug: $slug }
     ) {
-        title
+        title: eventTitle
         uri
         sectionHandle
         eventType {

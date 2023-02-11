@@ -205,7 +205,7 @@ const config = {
             } */
         ],
         resultFields: ["*"],
-        sortField: "startDateWithTime",
+        sortField: "title.keyword",
         orderBy: "asc",
     },
 }
