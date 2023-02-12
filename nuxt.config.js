@@ -175,7 +175,7 @@ export default {
 
     sitemap: {
         hostname:
-            process.env.SITEMAP_HOST || "https://uclalibrary.library.ucla.edu",
+            process.env.SITEMAP_HOST || "https://www.library.ucla.edu",
         routes: [],
     },
 
