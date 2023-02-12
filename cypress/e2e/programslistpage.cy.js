@@ -13,4 +13,10 @@ describe("Program List page", () => {
     
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
+
+    it("Visit Program Listing page filter by type", () => {
+        cy.visit('/about/programs?q=&filters=%7B"programType.title.keyword"%3A%5B"Collections"%5D%7D')
+
+        cy.get ('h2.about-results').should("be.visible")
+    })
 })

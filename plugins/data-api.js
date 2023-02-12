@@ -62,6 +62,7 @@ export default function ({ $config }, inject) {
                                 "text^3",
                                 "fullText^3",
                                 "richText^2",
+                                "sectionHandle",
                             ],
                             fuzziness: "auto",
                         },

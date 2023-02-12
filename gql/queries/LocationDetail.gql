@@ -133,7 +133,7 @@ query LocationDetail($slug: [String!]) {
         ... on event_event_Entry {
             id
             slug
-            title
+            title: eventTitle
             startDateWithTime
                     @formatDateTime(
                         format: "Y-m-d\\TH:i"

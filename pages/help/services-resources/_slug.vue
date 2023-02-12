@@ -55,7 +55,7 @@
             />
 
             <section-wrapper
-                v-if="parsedAssociatedTopics.length"
+                v-if="parsedServiceResourceAssociatedTopics.length"
                 theme="divider"
             >
                 <divider-way-finder
@@ -66,9 +66,9 @@
 
             <section-wrapper>
                 <section-cards-with-illustrations
-                    v-if="parsedAssociatedTopics.length"
+                    v-if="parsedServiceResourceAssociatedTopics.length"
                     class="section-cards"
-                    :items="parsedAssociatedTopics"
+                    :items="parsedServiceResourceAssociatedTopics"
                     section-title="Associated Topics"
                     button-text="All Services and Resources"
                     to="/help/services-resources"
@@ -204,9 +204,9 @@
 
             <section-wrapper>
                 <section-cards-with-illustrations
-                    v-if="page.workshopSeries.associatedTopics.length > 0"
+                    v-if="parsedWorkshopSeriesAssociatedTopics.length > 0"
                     class="section-cards"
-                    :items="page.workshopSeries.associatedTopics"
+                    :items="parsedWorkshopSeriesAssociatedTopics"
                     section-title="Associated Topics"
                 />
             </section-wrapper>
@@ -307,9 +307,19 @@ export default {
         }
     },
     computed: {
-        parsedAssociatedTopics() {
+        parsedServiceResourceAssociatedTopics() {
             if (!this.page.serviceOrResource.associatedTopics) return []
             return this.page.serviceOrResource.associatedTopics.map((obj) => {
+                return {
+                    ...obj,
+                    to: obj.externalResourceUrl
+                        ? obj.externalResourceUrl
+                        : `/${obj.uri}`,
+                }
+            })
+        },
+        parsedWorkshopSeriesAssociatedTopics() {
+            return this.page.workshopSeries.associatedTopics.map((obj) => {
                 return {
                     ...obj,
                     to: obj.externalResourceUrl

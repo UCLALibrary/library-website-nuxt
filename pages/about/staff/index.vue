@@ -9,7 +9,7 @@
             :text="summaryData.text || ''"
         />
 
-        <!-- SearchGeneric
+        <!-- SEARCH
                 Filters by location, department, subject libarian -->
         <search-generic
             search-type="about"
@@ -24,22 +24,9 @@
             <divider-way-finder class="search-margin" />
         </section-wrapper>
 
-        <!--h4 style="margin: 30px 400px">
-                No of hits
-                {{ `from craft is ${parsedPages.length}` }}
-            </h4>
-            <h4 style="margin: 30px 400px">
-                No of hits from ES
-                {{
-                    hits &&
-                        `calling parsedhitsresults length
-            ${hits.length}`
-                }}
-            </h4-->
-
         <!-- ALL STAFF -->
         <section-wrapper
-            v-if="page.entries"
+            v-show="page.entries"
             class="section-no-top-margin"
         >
             <alphabetical-browse-by
@@ -58,8 +45,10 @@
             />
             <section-staff-list :items="parsedStaffList" />
         </section-wrapper>
+
+        <!-- FILTERS -->
         <section-wrapper
-            v-else-if="
+            v-show="
                 hits &&
                     hits.length > 0 &&
                     ((searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
@@ -87,8 +76,10 @@
             </h2>
             <section-staff-list :items="parseHitsResults" />
         </section-wrapper>
+
+        <!-- NO RESULTS -->
         <section-wrapper
-            v-else-if="noResultsFound"
+            v-show="noResultsFound"
             class="section-no-top-margin"
         >
             <div class="error-text">
@@ -121,7 +112,7 @@
 
         <!-- SUBJECT LIBRARIANS -->
         <section-wrapper
-            v-if="
+            v-show="
                 searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
                     searchGenericQuery.queryFilters['subjectLibrarian.keyword'] ===
                     'yes'

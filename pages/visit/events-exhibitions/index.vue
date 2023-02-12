@@ -17,18 +17,21 @@
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
-
         <!-- HIGHLIGHTED & FEATURED EVENTS -->
         <section-wrapper
-            v-if="
-                !searchDone &&
-                    parsedFeaturedEventsAndExhibits.length > 0 &&
+            v-show="
+                parsedFeaturedEventsAndExhibits.length > 0 &&
                     hits.length == 0 &&
                     !noResultsFound
             "
             class="section-no-top-margin"
         >
             <banner-featured
+                v-if="
+                    parsedFeaturedEventsAndExhibits.length > 0 &&
+                        hits.length == 0 &&
+                        !noResultsFound
+                "
                 :image="parsedBannerHeader.image"
                 :title="parsedBannerHeader.title"
                 breadcrumb="Featured"
@@ -52,9 +55,8 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="
-                !searchDone &&
-                    parsedFeaturedEventsAndExhibits.length > 0 &&
+            v-show="
+                parsedFeaturedEventsAndExhibits.length > 0 &&
                     parsedEvents.length &&
                     hits.length == 0 &&
                     !noResultsFound
@@ -66,11 +68,9 @@
 
         <!-- UPCOMING EVENTS -->
         <section-wrapper
-            v-if="
-                !searchDone &&
-                    page &&
-                    page.featuredEvents &&
-                    page.featuredEvents.length > 0 &&
+            v-show="
+                parsedEvents &&
+                    parsedEvents.length > 0 &&
                     hits.length == 0 &&
                     !noResultsFound
             "
@@ -80,11 +80,9 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="
-                !searchDone &&
-                    page &&
-                    page.featuredEvents &&
-                    page.featuredEvents.length > 0 &&
+            v-show="
+                parsedEvents &&
+                    parsedEvents.length > 0 &&
                     hits.length == 0 &&
                     !noResultsFound
             "
@@ -95,7 +93,7 @@
 
         <!-- EVENT SERIES & EXHIBITIONS -->
         <section-wrapper
-            v-if="
+            v-show="
                 parsedSeriesAndExhibitions &&
                     parsedSeriesAndExhibitions.length > 0 &&
                     hits.length == 0 &&
@@ -105,9 +103,8 @@
         >
             <section-teaser-card :items="parsedSeriesAndExhibitions" />
         </section-wrapper>
-
         <section-wrapper
-            v-else-if="hits && hits.length > 0"
+            v-show="hits && hits.length > 0"
             class="section-no-top-margin"
         >
             <h2
@@ -127,7 +124,7 @@
         </section-wrapper>
         <!-- NO RESULTS -->
         <section-wrapper
-            v-else-if="noResultsFound"
+            v-show="noResultsFound"
             class="section-no-top-margin"
         >
             <div class="error-text">
@@ -182,17 +179,9 @@ import EXHIBITIONS_AND_EVENTS_LIST_SINGLE from "~/gql/queries/ExhibitionsAndEven
 export default {
     async asyncData({ $graphql, params, store }) {
         console.log("in asyncdata calling axios get event")
-        const data = await $graphql.default.request(
-            EXHIBITIONS_AND_EVENTS_LIST,
-            {
-                slug: params.slug,
-            }
-        )
+        const data = await $graphql.default.request(EXHIBITIONS_AND_EVENTS_LIST)
         const single = await $graphql.default.request(
-            EXHIBITIONS_AND_EVENTS_LIST_SINGLE,
-            {
-                slug: params.slug,
-            }
+            EXHIBITIONS_AND_EVENTS_LIST_SINGLE
         )
         return {
             page: _get(single, "entry", {}),
@@ -209,7 +198,7 @@ export default {
             exhibitions: [],
             hits: [],
             title: "",
-            searchDone: false,
+
             noResultsFound: false,
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
@@ -217,20 +206,19 @@ export default {
         }
     },
     async fetch() {
-        /* this.events = []
-        this.series = []
-        this.exhibitions = []
-        this.hits = []*/
+        // this.events = []
+        // this.series = []
+        // this.exhibitions = []
+        this.hits = []
         if (this.$route.query.q && this.$route.query.q !== "") {
-            /*if (!this.page.title) {
+            if (!this.page.title) {
                 const data = await this.$graphql.default.request(
-                    EXHIBITIONS_AND_EVENTS_LIST
+                    EXHIBITIONS_AND_EVENTS_LIST_SINGLE
                 )
                 this.page["title"] = _get(data, "entry.title", "")
                 this.page["text"] = _get(data, "entry.text", "")
-            }*/
+            }
             let query_text = this.$route.query.q || "*"
-            console.log("in router query in asyc data")
             const results = await this.$dataApi.keywordSearchWithFilters(
                 query_text,
                 config.eventsExhibitionsList.searchFields,
@@ -242,52 +230,64 @@ export default {
                 []
             )
             console.log("getsearchdata method:" + JSON.stringify(results))
-            this.events = []
-            this.series = []
-            this.exhibitions = []
-            this.hits = []
+            // this.events = []
+            // this.series = []
+            // this.exhibitions = []
+            // this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
-                /*this.events = []
+                this.events = []
                 this.series = []
-                this.exhibitions = []*/
+                this.exhibitions = []
                 this.noResultsFound = false
             } else {
                 this.hits = []
-                /*this.events = []
+                this.events = []
                 this.series = []
-                this.exhibitions = []*/
+                this.exhibitions = []
                 this.noResultsFound = true
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
             }
-            this.searchDone = true
         } else {
-            this.hits = []
-            this.searchDone = false
+            // const results = await this.$dataApi.keywordSearchWithFilters(
+            //     "*",
+            //     config.eventsExhibitionsList.searchFields,
+            //     "sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries",
+            //     [],
+            //     config.eventsExhibitionsList.sortField,
+            //     config.eventsExhibitionsList.orderBy,
+            //     config.eventsExhibitionsList.resultFields,
+            //     []
+            // )
+            // if (results && results.hits && results.hits.total.value > 0) {
+            //     this.hits = results.hits.hits
+            //     this.events = []
+            //     this.series = []
+            //     this.exhibitions = []
+            //     this.noResultsFound = false
+            // } else {
+            //     this.hits = []
+            //     this.events = []
+            //     this.series = []
+            //     this.exhibitions = []
+            //     this.noResultsFound = true
+            // }
             // if route queries are empty fetch data from craft
-            if (
-                this.events.length == 0 ||
-                this.series.length == 0 ||
-                this.exhibitions == 0
-            ) {
-                const data = await this.$graphql.default.request(
-                    EXHIBITIONS_AND_EVENTS_LIST
-                )
-
-                this.events = _get(data, "events", [])
-                this.series = _get(data, "series", [])
-                this.exhibitions = _get(data, "exhibitions", [])
-            }
-            if (this.page) {
-                if (!this.page.title) {
-                    const data = await this.$graphql.default.request(
-                        EXHIBITIONS_AND_EVENTS_LIST_SINGLE
-                    )
-                    this.page = _get(data, "entry", {})
-                }
-            }
+            this.hits = []
+            this.noResultsFound = false
+            const single = await this.$graphql.default.request(
+                EXHIBITIONS_AND_EVENTS_LIST_SINGLE
+            )
+            const data = await this.$graphql.default.request(
+                EXHIBITIONS_AND_EVENTS_LIST
+            )
+            console.log("data:" + data)
+            this.single = _get(data, "entry", {})
+            this.events = _get(data, "events", {})
+            this.series = _get(data, "series", {})
+            this.exhibitions = _get(data, "exhibitions", {})
         }
     },
     head() {

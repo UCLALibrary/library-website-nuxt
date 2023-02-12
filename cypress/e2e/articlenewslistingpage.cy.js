@@ -12,8 +12,13 @@ describe("Article News Listing page", () => {
             cy.wrap($el).click()
             cy.get("fieldset.base-checkbox-group > ul.list > li.list-item").find("label").should("have.length.greaterThan",0)
         })
-       
-      
+
         cy.percySnapshot({ widths: [768, 992, 1200] })
+    })
+
+    it("Visit News Article Listing page filter by category", () => {
+        cy.visit('/about/news?q=&filters=%7B"category.title.keyword"%3A%5B"Featured"%5D%7D')
+
+        cy.get ('h2.about-results').should("be.visible")
     })
 })

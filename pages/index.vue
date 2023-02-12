@@ -220,9 +220,10 @@ export default {
                     bannerFeaturedEvent.sectionHandle === "event"
                         ? _get(bannerFeaturedEvent, "eventDescription", "")
                         : _get(bannerFeaturedEvent, "summary", ""),
-                locations: bannerFeaturedEvent.associatedLocations[0] != null
-                    ? bannerFeaturedEvent.associatedLocations
-                    : bannerFeaturedEvent.eventLocation,
+                locations:
+                    bannerFeaturedEvent.associatedLocations[0] != null
+                        ? bannerFeaturedEvent.associatedLocations
+                        : bannerFeaturedEvent.eventLocation,
             }
         },
         // TO DO need to update dates on component
@@ -287,7 +288,9 @@ export default {
                         : `/${bannerFeaturedNews.to}`,
                 image: _get(bannerFeaturedNews, "heroImage[0].image[0]", null),
                 // startDate: _get(bannerFeaturedNews, "postDate", null),
-                category: this.parseArticleCategory(bannerFeaturedNews.articleCategories),
+                category: this.parseArticleCategory(
+                    bannerFeaturedNews.articleCategories
+                ),
                 description: _get(bannerFeaturedNews, "text", ""),
                 startDate: _get(bannerFeaturedNews, "postDate", ""),
                 endDate: _get(bannerFeaturedNews, "postDate", ""),
@@ -299,9 +302,10 @@ export default {
             return newsList.map((obj) => {
                 return {
                     ...obj,
-                    to: obj.externalResourceUrl != null
-                        ? _get(obj, "externalResourceUrl", "")
-                        : `/${obj.to}`,
+                    to:
+                        obj.externalResourceUrl != null
+                            ? _get(obj, "externalResourceUrl", "")
+                            : `/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", ""),
                     category: this.parseArticleCategory(obj.articleCategories),
                     startDate: _get(obj, "postDate", ""),
@@ -325,7 +329,7 @@ export default {
             })
             return result.slice(0, -2)
         },
-    }
+    },
 }
 </script>
 <style lang="scss" scoped>

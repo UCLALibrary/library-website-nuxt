@@ -127,7 +127,8 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             id
             title
             text: summary
-            to: uri
+            uri
+            externalResourceUrl
             illustration
         }
         ...DefaultFpbWithCardsAndHighlight
@@ -139,7 +140,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
         startDateWithTime: "< now"
         relatedToEntries: { section: "workshopOrEventSeries", slug: $slug }
     ) {
-        title
+        title: eventTitle
         uri
         sectionHandle
         eventType {
@@ -182,7 +183,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
         startDateWithTime: ">= now"
         relatedToEntries: { section: "workshopOrEventSeries", slug: $slug }
     ) {
-        title
+        title: eventTitle
         uri
         sectionHandle
         eventType {

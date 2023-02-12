@@ -17,12 +17,13 @@
             :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
         />
+
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
 
         <section-wrapper
-            v-if="
+            v-show="
                 page &&
                     page.featuredNews &&
                     page.featuredNews.length &&
@@ -62,7 +63,7 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="
+            v-show="
                 page &&
                     page.featuredNews &&
                     page.featuredNews.length &&
@@ -75,13 +76,15 @@
         </section-wrapper>
 
         <section-wrapper
-            v-if="news && news.length > 0"
+            v-show="news && news.length > 0"
             section-title="All News"
         >
             <section-staff-article-list :items="parsedNewsList" />
         </section-wrapper>
+
+        <!-- FILTERS -->
         <section-wrapper
-            v-else-if="hits && hits.length > 0"
+            v-show="hits && hits.length > 0"
             class="section-no-top-margin"
         >
             <h2
@@ -99,8 +102,10 @@
             </h2>
             <section-staff-article-list :items="parseHitsResults" />
         </section-wrapper>
+
+        <!-- NO RESULTS -->
         <section-wrapper
-            v-else-if="noResultsFound"
+            v-show="noResultsFound"
             class="section-no-top-margin"
         >
             <div class="error-text">

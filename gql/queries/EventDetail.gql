@@ -144,7 +144,8 @@ query EventDetail($slug: [String!]) {
                 id
                 title
                 text: summary
-                to: uri
+                uri
+                externalResourceUrl
                 illustration
             }
             ...DefaultFpbWithCardsAndHighlight
@@ -157,7 +158,7 @@ query EventDetail($slug: [String!]) {
         startDateWithTime: "< now"
         relatedToEntries: { section: "workshopOrEventSeries", slug: $slug }
     ) {
-        title
+        title: eventTitle
         uri
         sectionHandle
         eventType {
@@ -200,7 +201,7 @@ query EventDetail($slug: [String!]) {
         startDateWithTime: ">= now"
         relatedToEntries: { section: "workshopOrEventSeries", slug: $slug }
     ) {
-        title
+        title: eventTitle
         uri
         sectionHandle
         eventType {
