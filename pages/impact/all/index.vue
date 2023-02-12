@@ -40,11 +40,11 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
@@ -66,7 +66,7 @@ export default {
         },
 
         parsedDate() {
-            return format(new Date(this.page.dateCreated), "MMMM d, Y")
+            return format(new Date(this.page.postDate), "MMMM d, Y")
         },
     },
 }

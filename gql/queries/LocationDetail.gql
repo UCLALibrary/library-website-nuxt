@@ -8,6 +8,7 @@ query LocationDetail($slug: [String!]) {
             sectionHandle
             slug
             uri
+            affiliateLibraryUrl
             locationType
             title
             text: summary
@@ -127,23 +128,24 @@ query LocationDetail($slug: [String!]) {
     }
     associatedEvents: entries(
         section: "event"
-        relatedToEntries: { section: "location", slug: $slug }
+        orderBy: "startDateWithTime ASC"
         startDateWithTime: ">= now"
+        relatedToEntries: { section: "location", slug: $slug }
     ) {
         ... on event_event_Entry {
             id
             slug
             title: eventTitle
             startDateWithTime
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
             endDateWithTime
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
             associatedLocations {
                 id
                 title
@@ -152,12 +154,12 @@ query LocationDetail($slug: [String!]) {
             requiresRegistration
             eventDescription
             #heroImage {
-             #   ... on heroImage_heroImage_BlockType {
-              #      id
-               #     image {
-                #        ...Image
-                 #   }
-                #}
+            #   ... on heroImage_heroImage_BlockType {
+            #      id
+            #     image {
+            #        ...Image
+            #   }
+            #}
             #}
             eventType {
                 title
@@ -183,6 +185,8 @@ query LocationDetail($slug: [String!]) {
             title
             summary
             dateUpdated
+
+            ongoing
             heroImage {
                 ... on heroImage_heroImage_BlockType {
                     id
@@ -192,15 +196,15 @@ query LocationDetail($slug: [String!]) {
                 }
             }
             startDate
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                endDate
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
+            endDate
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
             associatedLocations {
                 id
                 title
