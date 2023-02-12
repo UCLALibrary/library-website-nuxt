@@ -1,60 +1,65 @@
 #import "~/gql/fragments/Image"
 query EndowmentsList {
-  entry(section: "listingEndowments") {
-    ... on listingEndowments_listingEndowments_Entry {
-      title
-      text: summary
-      featuredEndowments {
-        titleGeneral
-        sectionSummary
-        ... on featuredEndowments_featuredEndowments_BlockType {
-          featuredEndowments {
+    entry(section: "listingEndowments") {
+        ... on listingEndowments_listingEndowments_Entry {
+            title
 
-            ... on endowment_endowments_Entry {
-              id
-              title
-              to: uri
-              text: summary
-              alternativeName {
-                languageAltName
-                fullName
-              }
-              heroImage {
-                ... on heroImage_heroImage_BlockType {
-                  id
-                  image {
-                    ...Image
-                  }
+            text: summary
+            featuredEndowments {
+                titleGeneral
+                sectionSummary
+                ... on featuredEndowments_featuredEndowments_BlockType {
+                    featuredEndowments {
+                        ... on endowment_endowments_Entry {
+                            sectionHandle
+                            id
+                            title
+                            to: uri
+                            text: summary
+                            alternativeName {
+                                languageAltName
+                                fullName
+                            }
+                            heroImage {
+                                ... on heroImage_heroImage_BlockType {
+                                    id
+                                    image {
+                                        ...Image
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
         }
-      }
     }
-  }
-  entries(section: "endowment", orderBy: "title ASC") {
-    title
-    alternativeName {
-      languageAltName
-      fullName
-    }
-    summary
-    to: uri
-    heroImage {
-      ... on heroImage_heroImage_BlockType {
-        id
-        image {
-          ...Image
+    entries(section: "endowment", orderBy: "title ASC") {
+        title
+        alternativeName {
+            languageAltName
+            fullName
         }
-        altText
-      }
+        summary
+        uri
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+                altText
+            }
+        }
+        associatedLocations {
+            title
+            uri
+        }
+        donors {
+            ... on donors_donor_BlockType {
+                firstName
+                lastName
+            }
+        }
     }
-    donors {
-      ... on donors_donor_BlockType {
-        firstName
-        lastName
-      }
-    }
-  }
 }

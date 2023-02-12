@@ -5,7 +5,7 @@ query AskUs {
   entry(section: "askUs") {
     ... on askUs_askUs_Entry {
       title
-      text: summary
+      summary
       ...AllFpb
     }
   }

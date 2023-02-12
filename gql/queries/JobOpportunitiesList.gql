@@ -8,7 +8,7 @@ query JobOpportunitiesList {
       associatedTopics {
         title
         text: summary
-        to: uri
+        uri
         externalResourceUrl
         illustrationsResourcesAndServices
       }
@@ -25,6 +25,7 @@ query JobOpportunitiesList {
       }
       jobRequisitionNumber
       jobPostingURL
+      payRate
       department {
         title
       }

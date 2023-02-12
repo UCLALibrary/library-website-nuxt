@@ -32,16 +32,6 @@ query EndowmentDetail($slug: [String!]) {
         lastName
       }
     }
-    endowmentDescription
-    subjectAreas {
-      title
-    }
-    donors {
-      ... on donors_donor_BlockType {
-        firstName
-        lastName
-      }
-    }
     to: donationUrl
     spakCode
     associatedLocations {
