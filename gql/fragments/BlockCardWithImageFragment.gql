@@ -15,7 +15,6 @@ fragment BlockCardWithImageFragment on ElementInterface {
                 to: uri
                 title
                 text: summary
-                eventDescription
                 # prompt: buttonText
                 projectCategory: format
                 # eventCategory: eventType
@@ -34,33 +33,8 @@ fragment BlockCardWithImageFragment on ElementInterface {
                     title
                 }
                 articleByline2: postDate
-                ongoing
-                startDateWithTime
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                endDateWithTime
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                startDate
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                endDate
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                eventType {
-                    ... on eventType_Category {
-                        id
-                        title
-                    }
-                }
+                # eventByline1: dateStartTime
+                # eventByline2: dateEndTime
                 associatedLocations {
                     id
                     title

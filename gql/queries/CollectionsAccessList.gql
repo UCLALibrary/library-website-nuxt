@@ -3,7 +3,7 @@ query AccessCollectionsListing {
         title
         text: summary
         ... on listingAccessCollections_listingAccessCollections_Entry {
-            accessCollections(orderBy: "title") {
+            accessCollections {
                 title
                 text: summary
                 uri

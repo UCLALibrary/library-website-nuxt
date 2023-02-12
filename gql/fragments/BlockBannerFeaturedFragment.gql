@@ -10,62 +10,41 @@ fragment BlockBannerFeaturedFragment on ElementInterface {
                 title
                 to: uri
                 summary
-                eventDescription
                 projectCategory: format
                 articleCategory: articleCategories {
-                    title
+                  title
                 }
                 projectByline1: meapProjectTopic {
-                    ... on meapProjectTopics_Category {
-                        id
-                        title
-                    }
-                }
-                startDateWithTime
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                endDateWithTime
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                startDate
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                endDate
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                articleByline1: staffMember {
+                  ... on meapProjectTopics_Category {
                     id
-                    slug
-                    uri
-                    url
                     title
+                  }
+                }
+                articleByline1: staffMember {
+                  id
+                  slug
+                  uri
+                  url
+                  title
                 }
                 articleByline2: postDate
                 articleLocations: associatedLocations {
-                    id
-                    title
-                    to: uri
+                  id
+                  title
+                  to: uri
                 }
                 projectLocations: region {
-                    ... on meapProjectRegion_Category {
-                        id
-                        title
-                    }
+                  ... on meapProjectRegion_Category {
+                    id
+                    title
+                  }
                 }
                 heroImage {
-                    ... on heroImage_heroImage_BlockType {
-                        image {
-                            ...Image
-                        }
+                  ... on heroImage_heroImage_BlockType {
+                    image {
+                      ...Image
                     }
+                  }
                 }
             }
         }

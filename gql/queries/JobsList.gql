@@ -8,7 +8,7 @@ query CareersList {
       associatedTopics {
         title
         text: summary
-        uri
+        to: uri
         externalResourceUrl
         illustrationsResourcesAndServices
       }

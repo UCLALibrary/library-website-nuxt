@@ -27,7 +27,7 @@ query StudentOpportunitiesList {
       associatedTopics {
         title
         text: summary
-        uri
+        to: uri
         externalResourceUrl
         illustrationsResourcesAndServices
       }
