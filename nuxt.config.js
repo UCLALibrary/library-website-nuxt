@@ -36,6 +36,9 @@ export default {
                     "width=device-width, initial-scale=1.0, minimum-scale=1.0",
             },
         ],
+        link: [
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        ]
     },
     /*
      ** Global CSS
