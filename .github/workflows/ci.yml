@@ -1,4 +1,3 @@
-
 name: Run CI Suite
 
 on:
@@ -69,7 +68,7 @@ jobs:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
         LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
         S3_BUCKET: "https://static.library.ucla.edu/"
-        SITEMAP_HOST: "https://uclalibrary-test.library.ucla.edu"
+        SITEMAP_HOST: ${{ secrets.SITEMAP_URL_TEST }}
         ES_URL: ${{ secrets.ES_URL }}
         ESApiKey: ${{ secrets.ESApiKey }}
         ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
@@ -100,8 +99,7 @@ jobs:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
         LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
         S3_BUCKET: "https://static.library.ucla.edu/"
-        SITEMAP_HOST: "https://uclalibrary-test.library.ucla.edu"
-        ES_URL: ${{ secrets.ES_URL }}
+        SITEMAP_HOST: ${{ secrets.SITEMAP_URL_TEST }}
         ESApiKey: ${{ secrets.ESApiKey }}
         ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
         ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}

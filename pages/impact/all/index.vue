@@ -41,10 +41,10 @@ export default {
             title: title,
             meta: [
                 {
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
