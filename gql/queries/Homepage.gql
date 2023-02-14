@@ -30,6 +30,7 @@ query Homepage {
                 uri
                 workshopOrEventSeriesType
                 title
+                eventTitle
                 startDateWithTime
                     @formatDateTime(
                         format: "Y-m-d\\TH:i"
