@@ -201,6 +201,9 @@ export default {
             return {
                 ...bannerFeaturedEvent,
                 to: `/${bannerFeaturedEvent.uri}`,
+                title: bannerFeaturedEvent.sectionHandle === "workshopOrEventSeries"
+                    ? bannerFeaturedEvent.title
+                    : bannerFeaturedEvent.eventTitle,
                 prompt:
                     bannerFeaturedEvent.sectionHandle ===
                     "workshopOrEventSeries"
@@ -233,6 +236,9 @@ export default {
                 return {
                     ...obj,
                     to: `/${obj.uri}`,
+                    title: obj.sectionHandle === "workshopOrEventSeries"
+                    ? obj.title
+                    : obj.eventTitle,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     startDate:
                         obj.sectionHandle === "event"
