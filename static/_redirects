@@ -377,7 +377,7 @@
 /location/library-special-collections/what-we-collect/world-histories-cultures	/about/policies/lsc-collections-development-policies-world-histories-cultures
 /location/library-special-collections/location/university-archives	/about/programs/university-archives
 https://docs.library.ucla.edu/display/WCE/Featured+Collections%3A+Barbados+Ephemera+Collection	https://meap.library.ucla.edu/projects/barbadian-voices
-/location/music-library/collections	/ucla-music-library-collections
+/location/music-library/collections	/collections/music-library-collections
 /staff/nicholas-carlozzi	/about/staff/nicholas-carlozzi
 /destination/rotunda	/visit/locations/powell-library
 /research-teaching-support/support-students/showcasing-student-achievement/library-prize-undergraduate-research	/about/programs/library-prize-for-undergraduate-research/
@@ -601,11 +601,11 @@ https://www.library.ucla.edu/service/iitems-stored-southern-regional-library-fac
 https://www.library.ucla.edu/srlf/about	/visit/locations/southern-regional-library-facility		
 # CLICC
 https://www.library.ucla.edu/clicc  /about/programs/campus-library-instructional-computing-commons-clicc
-clicc.ucla.edu  /about/programs/campus-library-instructional-computing-commons-clicc
-www.clicc.ucla.edu  /about/programs/campus-library-instructional-computing-commons-clicc
+https://clicc.ucla.edu  /about/programs/campus-library-instructional-computing-commons-clicc
+https://www.clicc.ucla.edu  /about/programs/campus-library-instructional-computing-commons-clicc
 # HELP
-help.library.ucla.edu   /help/services-resources/ask-us
+https://help.library.ucla.edu   /help/services-resources/ask-us
 https://www.library.ucla.edu/questions/questions-ask-us /help/services-resources/ask-us
 # HOURS
-hours.library.ucla.edu  /visit/locations
+https://hours.library.ucla.edu  /visit/locations
 https://www.library.ucla.edu/hours  /visit/locations
