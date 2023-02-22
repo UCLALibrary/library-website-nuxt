@@ -20,14 +20,19 @@ export default async function (to, from, savedPosition) {
     const notListingPage = (fullPath) =>{
         switch (fullPath) {
             case "/about/staff":
-                return true
+                return false
              
             case "/about/news":
-                return true
+                return false
              
             case "/visit/locations":
                 return false
-             
+            case "/help/services-resources":
+                return false
+            case "/give/endowments":
+                return false
+            case "/about/programs":
+                return false
             case "/collections/explore":
                 return false
             case "/visit/events-exhibitions":
