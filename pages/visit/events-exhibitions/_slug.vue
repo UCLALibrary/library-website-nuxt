@@ -346,7 +346,7 @@ export default {
         $elasticsearchplugin,
         error,
     }) {
-        // console.log("In fetch start")
+        // //console.log("In fetch start")
         const navData = await $graphql.default.request(HEADER_MAIN_MENU_ITEMS)
 
         const data = await $graphql.default.request(EVENT_DETAIL, {
@@ -468,7 +468,7 @@ export default {
                 : this.page.event.onlineJoinURL
         },
         parseRegistration() {
-            // console.log(
+            // //console.log(
             //     "In parse registration:" + this.page.event.requiresRegistration
             // )
             /*
@@ -607,7 +607,7 @@ export default {
     },
     async mounted() {
         // const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
-        // console.log(
+        // //console.log(
         //     "in mounted is registration required :" +
         //         this.page.event.requiresRegistration
         // )
@@ -617,16 +617,16 @@ export default {
             this.page.event.requiresRegistration === "1" &&
             this.page.event.onlineProvider !== "external"
         ) {
-            // console.log("getting formid")
+            // //console.log("getting formid")
             const formDataArray = this.$scrapeApi.scrapeFormId(
                 this.page.event.libcalId
             ) //please check the fieldname in the query
-            // console.log("is this a promise:" + formDataArray)
+            // //console.log("is this a promise:" + formDataArray)
             formDataArray.then((response) => {
-                // console.log(response)
+                // //console.log(response)
                 if (response && response.length == 1) {
                     this.formData = response[0]
-                    // console.log(
+                    // //console.log(
                     //     "In mounted client side:" +
                     //         JSON.stringify(this.formData)
                     // )

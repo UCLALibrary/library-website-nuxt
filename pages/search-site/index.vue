@@ -146,10 +146,10 @@ export default {
         // check if there is a url query, if there is then pass that to siteSearch
         // let data = await $dataApi.siteSearch() // using mounted and will fetch ES data in mounted below
         this.page = {}
-        console.log("In fetch start")
+        //console.log("In fetch start")
         try {
             if (this.$route.query.q && this.$route.query.q !== "") {
-                console.log("in router query in asyc data")
+                //console.log("in router query in asyc data")
                 this.page = await this.$dataApi.siteSearch(
                     this.$route.query.q,
                     this.$route.query.from || this.from
@@ -159,10 +159,10 @@ export default {
                     this.page.hits &&
                     this.page.hits.total.value > 0
                 ) {
-                    console.log("search success")
+                    //console.log("search success")
                     // This is pagination logic
                     this.from = Number(this.$route.query.from || 0)
-                    console.log("from 1: " + this.from)
+                    //console.log("from 1: " + this.from)
                     if (this.from + this.size >= this.page.hits.total.value)
                         this.next = false
                     else this.next = true
@@ -172,7 +172,7 @@ export default {
 
                     if (this.next) this.nextFrom = this.from + this.size
                     if (this.previous) this.prevFrom = this.from - this.size
-                    console.log("what is start now:" + this.from)
+                    //console.log("what is start now:" + this.from)
                     // Pagination logic ends
                 } else {
                     this.page = {}
@@ -186,7 +186,7 @@ export default {
             } else {
                 this.page = {}
             }
-            console.log("Search Response: " + JSON.stringify(this.page))
+            //console.log("Search Response: " + JSON.stringify(this.page))
         } catch (e) {
             throw new Error("Some Error with ES search " + e)
         }
@@ -252,11 +252,11 @@ export default {
     watch: {
         "$route.query": "$fetch",
         "$route.query.q"(newValue) {
-            console.log("watching querytEXT:" + newValue)
+            //console.log("watching querytEXT:" + newValue)
         },
     },
     async mounted() {
-        console.log("In mounted")
+        //console.log("In mounted")
     },
     methods: {
         parseCategory(sectionHandle) {

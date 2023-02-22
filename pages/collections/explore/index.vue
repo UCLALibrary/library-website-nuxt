@@ -1,18 +1,12 @@
 <template lang="html">
-    <main
-        id="main"
-        class="page page-collections-explore"
-    >
+    <main id="main" class="page page-collections-explore">
         <nav-breadcrumb
             to="/collections"
             title="Explore Featured Collections"
             parent-title="Collections"
         />
 
-        <masthead-secondary
-            :title="page.title"
-            :text="page.summary"
-        />
+        <masthead-secondary :title="page.title" :text="page.summary" />
 
         <!-- SEARCH
                 Filters by physical/digital & subject area -->
@@ -32,10 +26,10 @@
         <section-wrapper
             v-show="
                 page &&
-                    parsedCollectionList &&
-                    parsedCollectionList.length &&
-                    hits.length == 0 &&
-                    !noResultsFound
+                parsedCollectionList &&
+                parsedCollectionList.length &&
+                hits.length == 0 &&
+                !noResultsFound
             "
             class="section-no-top-margin"
         >
@@ -47,42 +41,37 @@
             v-show="hits && hits.length > 0"
             class="section-no-top-margin"
         >
-            <h2
-                v-if="$route.query.q"
-                class="about-results"
-            >
+            <h2 v-if="$route.query.q" class="about-results">
                 Displaying {{ hits.length }} results for
-                <strong><em>“{{ $route.query.q }}”</em></strong>
+                <strong
+                    ><em>“{{ $route.query.q }}”</em></strong
+                >
             </h2>
 
-            <h2
-                v-else
-                class="about-results"
-            >
+            <h2 v-else class="about-results">
                 Displaying {{ hits.length }} results
             </h2>
             <section-teaser-card :items="parseHitsResults" />
         </section-wrapper>
 
         <!-- NO RESULTS -->
-        <section-wrapper
-            v-show="noResultsFound"
-            class="section-no-top-margin"
-        >
+        <section-wrapper v-show="noResultsFound" class="section-no-top-margin">
             <div class="error-text">
                 <rich-text>
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
-                        but we're here to help. <br>
+                        but we're here to help. <br />
                         Try searching the whole site from
-                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+                        <a href="https://library.ucla.edu">UCLA Library Home</a
+                        >, or try one of the these regularly visited links:
                     </p>
                     <ul>
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/research-teaching-support/research-help"
-                            >Research Help</a>
+                                >Research Help</a
+                            >
                         </li>
                         <li>
                             <a href="/help/services-resources/ask-us">Ask Us</a>
@@ -90,7 +79,8 @@
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
-                            >Accessibility Resources</a>
+                                >Accessibility Resources</a
+                            >
                         </li>
                     </ul>
                 </rich-text>
@@ -98,10 +88,7 @@
         </section-wrapper>
 
         <section-wrapper>
-            <divider-way-finder
-                class="divider-way-finder"
-                color="default"
-            />
+            <divider-way-finder class="divider-way-finder" color="default" />
         </section-wrapper>
 
         <section-wrapper>
@@ -140,7 +127,7 @@ export default {
             {}
         )
 
-        // console.log("data:" + data)
+        // //console.log("data:" + data)
         return {
             page: _get(data, "entry", {}),
             collections: _get(data, "entries", {}),
@@ -192,7 +179,7 @@ export default {
                 config.exploreCollection.resultFields,
                 config.exploreCollection.filters
             )
-            console.log("getsearchdata method:" + JSON.stringify(results))
+            //console.log("getsearchdata method:" + JSON.stringify(results))
             this.collections = []
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
@@ -218,7 +205,7 @@ export default {
             const data = await this.$graphql.default.request(
                 COLLECTIONS_EXPLORE_LIST
             )
-            // console.log("data:" + data)
+            // //console.log("data:" + data)
             this.page = _get(data, "entry", {})
             this.collections = _get(data, "entries", [])
         }
@@ -273,14 +260,14 @@ export default {
     watch: {
         "$route.query": "$fetch",
         "$route.query.q"(newValue) {
-            console.log("watching querytEXT:" + newValue)
+            //console.log("watching querytEXT:" + newValue)
         },
         "$route.query.filters"(newValue) {
-            console.log("watching filters:" + newValue)
+            //console.log("watching filters:" + newValue)
         },
     },
     async mounted() {
-        console.log("In mounted")
+        //console.log("In mounted")
         this.setFilters()
     },
     methods: {
@@ -289,9 +276,9 @@ export default {
                 config.exploreCollection.filters,
                 "collection"
             )
-            console.log(
+            /*console.log(
                 "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-            )
+            )*/
             this.searchFilters = getListingFilters(
                 searchAggsResponse,
                 config.exploreCollection.filters
@@ -310,7 +297,7 @@ export default {
             })
         },
         getSearchData(data) {
-            console.log("On the page getsearchdata called")
+            //console.log("On the page getsearchdata called")
             /*this.page = {}
             this.hits = []*/
             this.$router.push({

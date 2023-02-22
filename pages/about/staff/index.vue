@@ -1,8 +1,5 @@
 <template>
-    <main
-        id="main"
-        class="page page-staff"
-    >
+    <main id="main" class="page page-staff">
         <masthead-secondary
             v-if="summaryData"
             :title="summaryData.title || ''"
@@ -25,10 +22,7 @@
         </section-wrapper>
 
         <!-- ALL STAFF -->
-        <section-wrapper
-            v-show="page.entries"
-            class="section-no-top-margin"
-        >
+        <section-wrapper v-show="page.entries" class="section-no-top-margin">
             <alphabetical-browse-by
                 v-if="
                     (searchGenericQuery.queryFilters[
@@ -37,7 +31,7 @@
                         searchGenericQuery.queryFilters[
                             'subjectLibrarian.keyword'
                         ] === '') ||
-                        !searchGenericQuery.queryFilters['subjectLibrarian.keyword']
+                    !searchGenericQuery.queryFilters['subjectLibrarian.keyword']
                 "
                 class="browse-margin"
                 :selected-letter-prop="selectedLetterProp"
@@ -50,52 +44,47 @@
         <section-wrapper
             v-show="
                 hits &&
-                    hits.length > 0 &&
-                    ((searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
-                        searchGenericQuery.queryFilters[
-                            'subjectLibrarian.keyword'
-                        ] === '') ||
-                        !searchGenericQuery.queryFilters[
-                            'subjectLibrarian.keyword'
-                        ])
+                hits.length > 0 &&
+                ((searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
+                    searchGenericQuery.queryFilters[
+                        'subjectLibrarian.keyword'
+                    ] === '') ||
+                    !searchGenericQuery.queryFilters[
+                        'subjectLibrarian.keyword'
+                    ])
             "
             class="section-no-top-margin"
         >
-            <h2
-                v-if="$route.query.q"
-                class="about-results"
-            >
+            <h2 v-if="$route.query.q" class="about-results">
                 Displaying {{ hits.length }} results for
-                <strong><em>“{{ $route.query.q }}”</em></strong>
+                <strong
+                    ><em>“{{ $route.query.q }}”</em></strong
+                >
             </h2>
-            <h2
-                v-else
-                class="about-results"
-            >
+            <h2 v-else class="about-results">
                 Displaying {{ hits.length }} results
             </h2>
             <section-staff-list :items="parseHitsResults" />
         </section-wrapper>
 
         <!-- NO RESULTS -->
-        <section-wrapper
-            v-show="noResultsFound"
-            class="section-no-top-margin"
-        >
+        <section-wrapper v-show="noResultsFound" class="section-no-top-margin">
             <div class="error-text">
                 <rich-text>
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
-                        but we're here to help. <br>
+                        but we're here to help. <br />
                         Try searching the whole site from
-                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+                        <a href="https://library.ucla.edu">UCLA Library Home</a
+                        >, or try one of the these regularly visited links:
                     </p>
                     <ul>
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/research-teaching-support/research-help"
-                            >Research Help</a>
+                                >Research Help</a
+                            >
                         </li>
                         <li>
                             <a href="/help/services-resources/ask-us">Ask Us</a>
@@ -103,7 +92,8 @@
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
-                            >Accessibility Resources</a>
+                                >Accessibility Resources</a
+                            >
                         </li>
                     </ul>
                 </rich-text>
@@ -114,7 +104,7 @@
         <section-wrapper
             v-show="
                 searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
-                    searchGenericQuery.queryFilters['subjectLibrarian.keyword'] ===
+                searchGenericQuery.queryFilters['subjectLibrarian.keyword'] ===
                     'yes'
             "
             class="section-no-top-margin"
@@ -183,8 +173,8 @@ export default {
         console.warn("Fetch Hook  staff list")
         this.page = {}
         this.hits = []
-        /*console.log("test query parameters: " + this.$route.query.q)
-        console.log("test query parameters: " + this.$route.query.filters)*/
+        /*//console.log("test query parameters: " + this.$route.query.q)
+        //console.log("test query parameters: " + this.$route.query.filters)*/
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
             (this.$route.query.filters &&
@@ -194,7 +184,7 @@ export default {
                 )) ||
             this.$route.query.lastNameLetter
         ) {
-            console.log("doing seraach")
+            //console.log("doing seraach")
             let query_text = this.$route.query.q || "*"
             if (
                 this.$route.query.lastNameLetter &&
@@ -209,7 +199,7 @@ export default {
             ) {
                 query_text = query_text + " AND nameLast:*"
             }
-            console.log("in router query in asyc data")
+            //console.log("in router query in asyc data")
             const results = await this.$dataApi.keywordSearchWithFilters(
                 query_text,
                 config.staff.searchFields,
@@ -220,7 +210,7 @@ export default {
                 config.staff.resultFields,
                 config.staff.filters
             )
-            console.log("getsearchdata method:" + JSON.stringify(results))
+            //console.log("getsearchdata method:" + JSON.stringify(results))
             this.page = {}
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
@@ -251,7 +241,7 @@ export default {
             }
             this.summaryData = _get(this.page, "entry", {})
             this.selectedLetterProp = ""
-            //console.log("Craft data:" + JSON.stringify(data))
+            ////console.log("Craft data:" + JSON.stringify(data))
         }
     },
     head() {
@@ -283,13 +273,13 @@ export default {
                     allacademicDepts.push(obj.title)
                 }
             }
-            console.log("All academicDepts:" + allacademicDepts)
+            //console.log("All academicDepts:" + allacademicDepts)
             let uniqueAcademicDepts = Array.from(
                 new Set(allacademicDepts.sort())
             )
-            console.log(
+            /*console.log(
                 "All uniqueAcademicDepts:" + JSON.stringify(uniqueAcademicDepts)
-            )
+            )*/
             for (let title of uniqueAcademicDepts) {
                 for (let item of parseResults) {
                     for (let obj of item.academicDepartments) {
@@ -315,7 +305,7 @@ export default {
             return this.page.entries || []
         },
         parsedStaffList() {
-            // console.log("in parsedStaff")
+            // //console.log("in parsedStaff")
             return (this.page.entries || []).map((obj) => {
                 return {
                     ...obj,
@@ -342,7 +332,7 @@ export default {
             return `Search ${this.summaryData.title}`
         },
         parseHitsResults() {
-            /*console.log(
+            /*//console.log(
                 "ParseHits Results checking results data:" +
                     JSON.stringify(this.hits)
             )*/
@@ -352,19 +342,19 @@ export default {
     watch: {
         "$route.query": "$fetch",
         "$route.query.q"(newValue) {
-            console.log("watching querytEXT:" + newValue)
+            //console.log("watching querytEXT:" + newValue)
         },
         "$route.query.filters"(newValue) {
-            console.log("watching filters:" + newValue)
+            //console.log("watching filters:" + newValue)
         },
         "$route.query.lastNameLetter"(newValue) {
-            console.log("watching lastNameLetter:" + newValue)
+            //console.log("watching lastNameLetter:" + newValue)
         },
     },
     async mounted() {
-        console.log("In mounted")
-        /*console.log("ESREADkey:" + this.$config.esReadKey)
-        console.log("ESURLkey:" + this.$config.esURL)*/
+        //console.log("In mounted")
+        /*//console.log("ESREADkey:" + this.$config.esReadKey)
+        //console.log("ESURLkey:" + this.$config.esURL)*/
         // bookmarked search queries are not calling fetch
         this.setFilters()
     },
@@ -374,9 +364,9 @@ export default {
                 config.staff.filters,
                 "staffMember"
             )
-            console.log(
+            /*console.log(
                 "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-            )
+            )*/
             this.searchFilters = getListingFilters(
                 searchAggsResponse,
                 config.staff.filters
@@ -384,7 +374,7 @@ export default {
         },
         parseHits(hits = []) {
             return hits.map((obj) => {
-                // console.log(obj["_source"]["image"])
+                // //console.log(obj["_source"]["image"])
                 return {
                     ...obj["_source"],
                     to: `/${obj["_source"].uri}`,
@@ -405,7 +395,7 @@ export default {
             })
         },
         searchBySelectedLetter(data) {
-            console.log("On the page searchBySelectedLetter called")
+            //console.log("On the page searchBySelectedLetter called")
             /*this.page = {}
             this.hits = []*/
             this.$router.push({
@@ -420,7 +410,7 @@ export default {
             })
         },
         getSearchData(data) {
-            console.log("On the page getsearchdata called")
+            //console.log("On the page getsearchdata called")
             /*this.page = {}
             this.hits = []*/
             this.$router.push({

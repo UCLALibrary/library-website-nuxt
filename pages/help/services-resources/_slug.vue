@@ -1,8 +1,5 @@
 <template lang="html">
-    <main
-        id="main"
-        class="page page-service-detail"
-    >
+    <main id="main" class="page page-service-detail">
         <!-- ServiceOrResource Detail -->
         <div v-if="page.serviceOrResource">
             <nav-breadcrumb
@@ -14,9 +11,9 @@
             <banner-text
                 v-if="
                     !page.serviceOrResource.heroImage ||
-                        page.serviceOrResource.heroImage.length == 0 ||
-                        !page.serviceOrResource.heroImage[0].image ||
-                        page.serviceOrResource.heroImage[0].image.length == 0
+                    page.serviceOrResource.heroImage.length == 0 ||
+                    !page.serviceOrResource.heroImage[0].image ||
+                    page.serviceOrResource.heroImage[0].image.length == 0
                 "
                 class="banner-text"
                 :category="page.serviceOrResource.type"
@@ -29,9 +26,9 @@
             <section-wrapper
                 v-if="
                     page.serviceOrResource.heroImage &&
-                        page.serviceOrResource.heroImage.length == 1 &&
-                        page.serviceOrResource.heroImage[0].image &&
-                        page.serviceOrResource.heroImage[0].image.length > 0
+                    page.serviceOrResource.heroImage.length == 1 &&
+                    page.serviceOrResource.heroImage[0].image &&
+                    page.serviceOrResource.heroImage[0].image.length > 0
                 "
                 class="section-banner"
             >
@@ -58,10 +55,7 @@
                 v-if="parsedServiceResourceAssociatedTopics.length"
                 theme="divider"
             >
-                <divider-way-finder
-                    class="divider-way-finder"
-                    color="help"
-                />
+                <divider-way-finder class="divider-way-finder" color="help" />
             </section-wrapper>
 
             <section-wrapper>
@@ -76,10 +70,7 @@
             </section-wrapper>
 
             <section-wrapper theme="divider">
-                <divider-way-finder
-                    class="divider-way-finder"
-                    color="help"
-                />
+                <divider-way-finder class="divider-way-finder" color="help" />
             </section-wrapper>
 
             <section-wrapper>
@@ -100,9 +91,9 @@
             <banner-text
                 v-if="
                     page.workshopSeries &&
-                        (page.workshopSeries.image.length == 0 ||
-                            !page.workshopSeries.image[0].image ||
-                            page.workshopSeries.image[0].image.length == 0)
+                    (page.workshopSeries.image.length == 0 ||
+                        !page.workshopSeries.image[0].image ||
+                        page.workshopSeries.image[0].image.length == 0)
                 "
                 :title="page.workshopSeries.title"
                 :text="page.workshopSeries.summary"
@@ -115,9 +106,9 @@
             <section-wrapper
                 v-if="
                     page.workshopSeries.image &&
-                        page.workshopSeries.image.length == 1 &&
-                        page.workshopSeries.image[0].image &&
-                        page.workshopSeries.image[0].image.length > 0
+                    page.workshopSeries.image.length == 1 &&
+                    page.workshopSeries.image[0].image &&
+                    page.workshopSeries.image[0].image.length > 0
                 "
                 class="section-banner"
             >
@@ -146,10 +137,7 @@
                 v-if="page.workshopSeries.blocks.length > 0"
                 theme="divider"
             >
-                <divider-way-finder
-                    class="divider-way-finder"
-                    color="help"
-                />
+                <divider-way-finder class="divider-way-finder" color="help" />
             </section-wrapper>
 
             <section-wrapper
@@ -179,10 +167,7 @@
                 v-if="page.upcomingEvents.length || page.pastEvents.length"
                 theme="divider"
             >
-                <divider-way-finder
-                    class="divider-way-finder"
-                    color="help"
-                />
+                <divider-way-finder class="divider-way-finder" color="help" />
             </section-wrapper>
 
             <section-wrapper
@@ -196,10 +181,7 @@
                 v-if="parsedAssociatedSeries.length"
                 theme="divider"
             >
-                <divider-way-finder
-                    class="divider-way-finder"
-                    color="help"
-                />
+                <divider-way-finder class="divider-way-finder" color="help" />
             </section-wrapper>
 
             <section-wrapper>
@@ -230,9 +212,9 @@ import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceO
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
-        console.log(
+        /*console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
-        )
+        )*/
         const data = await $graphql.default.request(
             SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL,
             {
@@ -243,23 +225,23 @@ export default {
             error({ statusCode: 404, message: "Page not found" })
         }
         if (data) {
-            console.log(
+            /*console.log(
                 "Is it workshop or service or resource Indexing slug: " +
                     params.slug
-            )
+            )*/
             if (data.workshopSeries) {
                 data.workshopSeries.sectionHandle = "workshopSeries"
-                console.log(
+                /*console.log(
                     "what is workshopseries sectionHandle in ES? " +
                         data.workshopSeries.sectionHandle
-                )
+                )*/
             }
             await $elasticsearchplugin.index(
                 data.serviceOrResource || data.workshopSeries,
                 params.slug
             )
         }
-        // console.log("Data fetched: " + JSON.stringify(data))
+        // //console.log("Data fetched: " + JSON.stringify(data))
         return {
             page: data,
         }

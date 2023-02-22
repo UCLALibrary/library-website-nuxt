@@ -1,8 +1,5 @@
 <template>
-    <main
-        id="main"
-        class="page page-program-detail"
-    >
+    <main id="main" class="page page-program-detail">
         <nav-breadcrumb
             to="/about/programs"
             :title="page.title"
@@ -38,17 +35,14 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
+            <divider-way-finder class="divider" color="about" />
         </section-wrapper>
 
         <section-wrapper>
             <block-hours
                 v-if="
                     page.uri ==
-                        'about/programs/campus-library-instructional-computing-commons-clicc'
+                    'about/programs/campus-library-instructional-computing-commons-clicc'
                 "
                 lid="0"
                 :is-clicc="true"
@@ -56,7 +50,7 @@
             <divider-way-finder
                 v-if="
                     page.uri ==
-                        'about/programs/campus-library-instructional-computing-commons-clicc'
+                    'about/programs/campus-library-instructional-computing-commons-clicc'
                 "
                 lid="0"
                 :is-clicc="true"
@@ -65,10 +59,7 @@
             />
         </section-wrapper>
 
-        <flexible-blocks
-            class="flexible-content"
-            :blocks="page.blocks"
-        />
+        <flexible-blocks class="flexible-content" :blocks="page.blocks" />
 
         <section-wrapper theme="divider">
             <divider-way-finder
@@ -109,16 +100,16 @@ import PROGRAM_DETAIL from "~/gql/queries/ProgramDetail"
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
-        console.log(
+        /*console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
-        )
+        )*/
         const data = await $graphql.default.request(PROGRAM_DETAIL, {
             slug: params.slug,
         })
         if (!data.entry) {
             error({ statusCode: 404, message: "Page not found" })
         }
-        // console.log("Data fetched: " + JSON.stringify(data))
+        // //console.log("Data fetched: " + JSON.stringify(data))
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         return {
             page: _get(data, "entry", {}),
@@ -162,7 +153,7 @@ export default {
             return this.associatedArticles.map((obj) => {
                 return {
                     ...obj,
-                    to: 
+                    to:
                         obj.externalResourceUrl != null
                             ? _get(obj, "externalResourceUrl", "")
                             : `/${obj.to}`,

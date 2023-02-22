@@ -1,9 +1,6 @@
 <template lang="html">
     <!-- v-ifs working on section wrappers without v-show -->
-    <main
-        id="main"
-        class="page page-help"
-    >
+    <main id="main" class="page page-help">
         <masthead-secondary
             v-if="summaryData"
             :title="summaryData.title || ''"
@@ -32,16 +29,13 @@
         </h4-->
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                color="help"
-                class="search-margin"
-            />
+            <divider-way-finder color="help" class="search-margin" />
         </section-wrapper>
 
         <section-wrapper
             v-if="
                 (page.serviceOrResource || page.workshopseries) &&
-                    hits.length == 0
+                hits.length == 0
             "
             class="section-no-top-margin"
         >
@@ -54,17 +48,13 @@
             v-else-if="hits && hits.length > 0"
             class="section-no-top-margin"
         >
-            <h2
-                v-if="$route.query.q"
-                class="about-results"
-            >
+            <h2 v-if="$route.query.q" class="about-results">
                 Displaying {{ hits.length }} results for
-                <strong><em>“{{ $route.query.q }}</em></strong>”
+                <strong
+                    ><em>“{{ $route.query.q }}</em></strong
+                >”
             </h2>
-            <h2
-                v-else
-                class="about-results"
-            >
+            <h2 v-else class="about-results">
                 Displaying {{ hits.length }} results
             </h2>
             <section-cards-with-illustrations
@@ -82,15 +72,17 @@
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
-                        but we're here to help. <br>
+                        but we're here to help. <br />
                         Try searching the whole site from
-                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+                        <a href="https://library.ucla.edu">UCLA Library Home</a
+                        >, or try one of the these regularly visited links:
                     </p>
                     <ul>
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/research-teaching-support/research-help"
-                            >Research Help</a>
+                                >Research Help</a
+                            >
                         </li>
                         <li>
                             <a href="/help/services-resources/ask-us">Ask Us</a>
@@ -98,17 +90,15 @@
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
-                            >Accessibility Resources</a>
+                                >Accessibility Resources</a
+                            >
                         </li>
                     </ul>
                 </rich-text>
             </div>
         </section-wrapper>
         <section-wrapper>
-            <divider-way-finder
-                class="divider-way-finder"
-                color="help"
-            />
+            <divider-way-finder class="divider-way-finder" color="help" />
         </section-wrapper>
 
         <section-wrapper>
@@ -132,25 +122,25 @@ import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
 import config from "~/utils/searchConfig"
 export default {
     async asyncData({ $graphql, $elasticsearchplugin }) {
-        console.log(
+        /*console.log(
             "In asyncdata hook  servicesorresourcesorworskhoporhelptopic list"
-        )
+        )*/
         const serverData = await $graphql.default.request(
             SERVICE_RESOURCE_WORKSHOPSERIES_LIST
         )
-        console.log(
+        /*console.log(
             "ALL External Resource indexing:" +
                 JSON.stringify(serverData.externalResource)
-        )
+        )*/
         if (
             serverData.externalResource &&
             serverData.externalResource.length > 0
         ) {
-            console.log("External Resource indexing:")
+            //console.log("External Resource indexing:")
             for (let externalResource of serverData.externalResource) {
-                console.log(
+                /*console.log(
                     "External Resource indexing:" + externalResource.slug
-                )
+                )*/
                 await $elasticsearchplugin.index(
                     externalResource,
                     externalResource.slug
@@ -179,14 +169,14 @@ export default {
         }
     },
     async fetch() {
-        console.log(
+        /*console.log(
             "In fetch hook  servicesorresourcesorworskhoporhelptopic list"
-        )
+        )*/
         this.page = {}
         this.hits = []
         this.helptopic = {}
         if (this.$route.query.q && this.$route.query.q !== "") {
-            console.log("in router query in fetch call")
+            //console.log("in router query in fetch call")
             this.page = {}
             this.hits = []
             this.helptopic = {}
@@ -200,7 +190,7 @@ export default {
                 config.serviceOrResources.resultFields,
                 []
             )
-            console.log("fetch method ES results:" + JSON.stringify(results))
+            //console.log("fetch method ES results:" + JSON.stringify(results))
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
                 this.noResultsFound = false
@@ -273,7 +263,7 @@ export default {
             }
         },
         parsedServiceAndResourceList() {
-            console.log("static mode what is parsedServiceAndResourceList")
+            //console.log("static mode what is parsedServiceAndResourceList")
             return [
                 ...(this.page.serviceOrResource || []),
                 ...(this.page.workshopseries || []),
@@ -303,31 +293,31 @@ export default {
             return `Search ${this.summaryData.title}`
         },
         parseHitsResults() {
-            console.log(
+            /*console.log(
                 "ParseHitsResults checking results data:" +
                     JSON.stringify(this.hits)
-            )
+            )*/
             return this.parseHits()
         },
     },
     watch: {
         "$route.query": "$fetch",
         "$route.query.q"(newValue) {
-            console.log("watching querytEXT:" + newValue)
+            //console.log("watching querytEXT:" + newValue)
             // if (newValue === "") this.hits = []
         },
     },
     async mounted() {
-        console.log("In mounted")
+        //console.log("In mounted")
     },
     methods: {
         parseHits() {
-            console.log("static mode what is parseHits")
+            //console.log("static mode what is parseHits")
             return this.hits.map((obj) => {
-                console.log(
+                /*console.log(
                     "what should be the category?:" +
                         obj["_source"].sectionHandle
-                )
+                )*/
                 return {
                     title: obj["_source"].title,
                     sectionHandle: obj["_source"].sectionHandle,
@@ -351,8 +341,8 @@ export default {
             })
         },
         async getSearchData(data) {
-            // console.log("from search-generic: " + JSON.stringify(data))
-            // console.log(config.serviceOrResources.resultFields)
+            // //console.log("from search-generic: " + JSON.stringify(data))
+            // //console.log(config.serviceOrResources.resultFields)
             this.$router.push({
                 path: "/help/services-resources",
                 query: {

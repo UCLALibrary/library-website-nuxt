@@ -178,7 +178,7 @@ import EXHIBITIONS_AND_EVENTS_LIST from "~/gql/queries/ExhibitionsAndEventsList.
 import EXHIBITIONS_AND_EVENTS_LIST_SINGLE from "~/gql/queries/ExhibitionsAndEventsListSingle.gql"
 export default {
     async asyncData({ $graphql, params, store }) {
-        console.log("in asyncdata calling axios get event")
+        //console.log("in asyncdata calling axios get event")
         const data = await $graphql.default.request(EXHIBITIONS_AND_EVENTS_LIST)
         const single = await $graphql.default.request(
             EXHIBITIONS_AND_EVENTS_LIST_SINGLE
@@ -229,7 +229,7 @@ export default {
                 config.eventsExhibitionsList.resultFields,
                 []
             )
-            console.log("getsearchdata method:" + JSON.stringify(results))
+            //console.log("getsearchdata method:" + JSON.stringify(results))
             // this.events = []
             // this.series = []
             // this.exhibitions = []
@@ -283,7 +283,7 @@ export default {
             const data = await this.$graphql.default.request(
                 EXHIBITIONS_AND_EVENTS_LIST
             )
-            console.log("data:" + data)
+            //console.log("data:" + data)
             this.single = _get(data, "entry", {})
             this.events = _get(data, "events", {})
             this.series = _get(data, "series", {})
@@ -430,7 +430,7 @@ export default {
     watch: {
         "$route.query": "$fetch",
         "$route.query.q"(newValue) {
-            console.log("watching queryText:" + newValue)
+            //console.log("watching queryText:" + newValue)
         },
     },
     methods: {
@@ -480,7 +480,7 @@ export default {
             })
         },
         getSearchData(data) {
-            console.log("On the page getsearchdata called " + data)
+            //console.log("On the page getsearchdata called " + data)
             this.$router.push({
                 path: "/visit/events-exhibitions",
                 query: {

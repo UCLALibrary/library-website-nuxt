@@ -56,7 +56,7 @@ export default {
             error({ statusCode: 404, message: "Page not found" })
         }
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
-        // console.log("Data fetched: " + JSON.stringify(data))
+        // //console.log("Data fetched: " + JSON.stringify(data))
 
         return {
             page: _get(data, "entry", {}),

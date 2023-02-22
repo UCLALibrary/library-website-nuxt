@@ -1,8 +1,5 @@
 <template>
-    <main
-        id="main"
-        class="page page-staff-detail"
-    >
+    <main id="main" class="page page-staff-detail">
         <!-- staff page here -->
         <!-- no search on this page -->
         <nav-breadcrumb
@@ -33,23 +30,20 @@
         <section-wrapper
             v-if="
                 parsedItems.length ||
-                    page.entry.publications ||
-                    page.entry.orcid
+                page.entry.publications ||
+                page.entry.orcid
             "
             class="selected-articles"
             theme="divider"
         >
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
+            <divider-way-finder class="divider" color="about" />
         </section-wrapper>
 
         <div
             v-if="
                 parsedItems.length ||
-                    page.entry.publications ||
-                    page.entry.orcid
+                page.entry.publications ||
+                page.entry.orcid
             "
             class="selected-articles"
         >
@@ -65,7 +59,7 @@
                 <divider-way-finder
                     v-if="
                         parsedItems.length &&
-                            (page.entry.publications || page.entry.orcid)
+                        (page.entry.publications || page.entry.orcid)
                     "
                     class="divider divider-first"
                     color="about"
@@ -83,10 +77,7 @@
         </div>
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider divider-first"
-                color="about"
-            />
+            <divider-way-finder class="divider divider-first" color="about" />
         </section-wrapper>
         <section-wrapper>
             <block-call-to-action
@@ -108,9 +99,9 @@ import STAFF_DETAIL from "~/gql/queries/StaffDetail"
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
-        console.log(
+        /*console.log(
             "fetching graphql data for staff detail from Craft for live preview"
-        )
+        )*/
 
         const data = await $graphql.default.request(STAFF_DETAIL, {
             slug: params.slug,
@@ -122,7 +113,7 @@ export default {
             await $elasticsearchplugin.index(data.entry, params.slug)
         else console.log("staff data missing:" + params.slug)
 
-        // console.log("Data fetched: " + JSON.stringify(data))
+        // //console.log("Data fetched: " + JSON.stringify(data))
         // _get(data, "entry", {}),
 
         return {
