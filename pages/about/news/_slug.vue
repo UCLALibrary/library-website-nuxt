@@ -1,8 +1,5 @@
 <template lang="html">
-    <main
-        id="main"
-        class="page page-news-detail"
-    >
+    <main id="main" class="page page-news-detail">
         <nav-breadcrumb
             to="/about/news"
             :title="page.title"
@@ -38,25 +35,16 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
+            <divider-way-finder class="divider" color="about" />
         </section-wrapper>
 
-        <flexible-blocks
-            class="flexible-content"
-            :blocks="page.blocks"
-        />
+        <flexible-blocks class="flexible-content" :blocks="page.blocks" />
 
         <section-wrapper
             v-if="parsedAssociatedStaffMember.length > 0"
             theme="divider"
         >
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
+            <divider-way-finder class="divider" color="about" />
         </section-wrapper>
 
         <section-wrapper
@@ -81,9 +69,9 @@ import ARTICLE_DETAIL from "~/gql/queries/ArticleDetail"
 export default {
     async asyncData({ $graphql, params, store, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
-        console.log(
+        /*console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
-        )
+        )*/
         const data = await $graphql.default.request(ARTICLE_DETAIL, {
             slug: params.slug,
         })
@@ -91,7 +79,7 @@ export default {
             error({ statusCode: 404, message: "Page not found" })
         }
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
-        // console.log("Data fetched: " + JSON.stringify(data))
+        // //console.log("Data fetched: " + JSON.stringify(data))
 
         return {
             page: _get(data, "entry", {}),

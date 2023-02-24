@@ -1,8 +1,5 @@
 <template>
-    <main
-        id="main"
-        class="page page-collection-detail"
-    >
+    <main id="main" class="page page-collection-detail">
         <nav-breadcrumb
             to="/collections/explore"
             :title="page.title"
@@ -37,10 +34,7 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider-way-finder"
-                color="default"
-            />
+            <divider-way-finder class="divider-way-finder" color="default" />
         </section-wrapper>
 
         <!-- Using the Collection -->
@@ -60,23 +54,17 @@
         </section-wrapper>
 
         <!-- Flexible Page Blocks -->
-        <flexible-blocks
-            class="flexible-content"
-            :blocks="page.blocks"
-        />
+        <flexible-blocks class="flexible-content" :blocks="page.blocks" />
 
         <section-wrapper
             v-if="
                 parsedServicesAndResources.length > 0 ||
-                    parsedEndowments.length > 0 ||
-                    parsedAssociatedStaffMember.length > 0
+                parsedEndowments.length > 0 ||
+                parsedAssociatedStaffMember.length > 0
             "
             theme="divider"
         >
-            <divider-way-finder
-                class="divider-way-finder"
-                color="default"
-            />
+            <divider-way-finder class="divider-way-finder" color="default" />
         </section-wrapper>
 
         <!-- Services and Resources -->
@@ -92,7 +80,7 @@
             <divider-way-finder
                 v-if="
                     parsedEndowments.length > 0 ||
-                        parsedAssociatedStaffMember.length > 0
+                    parsedAssociatedStaffMember.length > 0
                 "
                 class="divider-way-finder"
                 color="default"
@@ -135,16 +123,16 @@ import COLLECTION_DETAIL from "~/gql/queries/CollectionDetail"
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
-        console.log(
+        /*console.log(
             "fetching graphql data for Service or Resource detail from Craft for live preview"
-        )
+        )*/
         const data = await $graphql.default.request(COLLECTION_DETAIL, {
             slug: params.slug,
         })
         if (!data.entry) {
             error({ statusCode: 404, message: "Page not found" })
         }
-        // console.log("Data fetched: " + JSON.stringify(data))
+        // //console.log("Data fetched: " + JSON.stringify(data))
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         return {
             page: data.entry,
@@ -157,7 +145,7 @@ export default {
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription

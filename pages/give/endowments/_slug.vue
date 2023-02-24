@@ -1,8 +1,5 @@
 <template>
-    <main
-        id="main"
-        class="page page-endowments-detail"
-    >
+    <main id="main" class="page page-endowments-detail">
         <nav-breadcrumb
             to="/give/endowments"
             :title="page.title"
@@ -16,32 +13,26 @@
                 (page.alternativeName &&
                     page.alternativeName[0] &&
                     page.alternativeName[0].fullName) ||
-                    ''
+                ''
             "
             :language="
                 (page.alternativeName &&
                     page.alternativeName[0] &&
                     page.alternativeName[0].languageAltName) ||
-                    ''
+                ''
             "
             button-text="Give Now"
             :to="page.to"
         />
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
+            <divider-way-finder class="divider" color="about" />
         </section-wrapper>
 
         <section-wrapper>
             <div class="description-with-image">
                 <div class="description">
-                    <rich-text
-                        v-if="page.donors[0].lastName"
-                        class="donors"
-                    >
+                    <rich-text v-if="page.donors[0].lastName" class="donors">
                         Made possible by a gift from {{ parsedDonors }}
                     </rich-text>
 
@@ -88,15 +79,12 @@
                     :src="parsedImage.src"
                     :alt="parsedImage.alt"
                     class="bookplate"
-                >
+                />
             </div>
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
+            <divider-way-finder class="divider" color="about" />
         </section-wrapper>
 
         <section-wrapper>
@@ -167,12 +155,12 @@ export default {
         }
 
         if (data && data.entry) {
-            console.log(
+            /*console.log(
                 "Endowment detail page: slug: " +
                     data.entry.slug +
                     "Now uri:" +
                     data.entry.uri
-            )
+            )*/
             data.entry.donorNames = parsedDonorsForES(data.entry.donors)
             await $elasticsearchplugin.index(data.entry, params.slug)
         }

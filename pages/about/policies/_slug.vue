@@ -1,8 +1,5 @@
 <template lang="html">
-    <main
-        id="main"
-        class="page page-general-content"
-    >
+    <main id="main" class="page page-general-content">
         <nav-breadcrumb
             to="/about/policies"
             :title="page.title"
@@ -30,10 +27,7 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider-way-finder"
-                color="about"
-            />
+            <divider-way-finder class="divider-way-finder" color="about" />
         </section-wrapper>
 
         <!-- Rich Text is not showing up -->
@@ -56,9 +50,9 @@ import POLICY_DETAIL from "~/gql/queries/PolicyDetail"
 export default {
     async asyncData({ $graphql, params, store, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
-        console.log(
+        /*console.log(
             "fetching graphql data for Policy detail from Craft for live preview"
-        )
+        )*/
         const data = await $graphql.default.request(POLICY_DETAIL, {
             slug: params.slug,
         })
@@ -66,7 +60,7 @@ export default {
             error({ statusCode: 404, message: 'Page not found' })
         }
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
-        // console.log("Data fetched: " + JSON.stringify(data))
+        // //console.log("Data fetched: " + JSON.stringify(data))
 
         return {
             page: _get(data, "entry", {}),
@@ -79,7 +73,7 @@ export default {
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription

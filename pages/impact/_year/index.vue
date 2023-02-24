@@ -124,18 +124,18 @@ import flattenTimeLineStructure from "~/utils/flattenTimeLineStructure"
 export default {
     layout: "impact",
     async asyncData({ $graphql, params, error }) {
-        // console.log("impact report query")
+        // //console.log("impact report query")
         // TO DO since we are using alias to use this template for both /impact which will bring up the latest impact report and /impact/{2021} for past report based on path
-        // console.log(params)
+        // //console.log(params)
         let path = params && params.year ? `impact/${params.year}` : "*"
-        // console.log("path is " + path)
+        // //console.log("path is " + path)
         const craftresponse = await $graphql.default.request(IMPACT_REPORT, {
             path: path,
         })
         if (!craftresponse.entry) {
-            error({ statusCode: 404, message: 'Page not found' })
+            error({ statusCode: 404, message: "Page not found" })
         }
-        /* console.log(
+        /* //console.log(
             "craft-response:" + JSON.stringify(craftresponse.entry.blocks)
         )*/
         //const timelineGallery = IMPACT_API.timelineGallery
@@ -156,11 +156,11 @@ export default {
         return {
             title: title,
             meta: [
-                { 
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                {
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
         }
     },
@@ -169,12 +169,12 @@ export default {
             const timelineData = flattenTimeLineStructure(
                 this.page.timelineGallery
             )
-            // console.log("did it flatten?" + timelineData)
+            // //console.log("did it flatten?" + timelineData)
             const groupBySubtitle = _.groupBy(
                 timelineData,
                 (row) => row.subtitle
             )
-            /*console.log(
+            /*//console.log(
                 "parsed timeline by subtitle: " +
                     JSON.stringify(groupBySubtitle)
             )*/
@@ -183,7 +183,7 @@ export default {
                     groupBySubtitle[key],
                     (row) => row.sectionSummary
                 )
-                /*console.log(
+                /*//console.log(
                     "parsed timeline by summary: " +
                         JSON.stringify(groupByTimelineBySummary)
                 )*/
@@ -194,7 +194,7 @@ export default {
                                 ...obj,
                             }
                         })
-                    // console.log("key:" + innerKey)
+                    // //console.log("key:" + innerKey)
                 }
                 groupBySubtitle[key] = groupByTimelineBySummary
             }

@@ -215,7 +215,7 @@ import LOCATION_DETAIL from "~/gql/queries/LocationDetail"
 
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
-        console.log("rendered client side" + process.client)
+        //console.log("rendered client side" + process.client)
         const data = await $graphql.default.request(LOCATION_DETAIL, {
             slug: params.slug,
         })
@@ -250,9 +250,15 @@ export default {
     },
     computed: {
         parsedStaffDirectory() {
-            if ( this.page.locationType != "affiliateLibrary" && this.page.title. length > 0) {
+            if (
+                this.page.locationType != "affiliateLibrary" &&
+                this.page.title.length > 0
+            ) {
                 let searchLibrary = this.page.title
-                let libConcat = '/about/staff?q=&filters={\"locations.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+                let libConcat =
+                    '/about/staff?q=&filters={"locations.title.keyword":["' +
+                    encodeURIComponent(searchLibrary) +
+                    '"]}'
 
                 return libConcat
             } else {
@@ -413,7 +419,12 @@ export default {
     // }
     ::v-deep .section-banner {
         .gradient-no-category {
-            background: linear-gradient(120deg,rgba(15,15,15,0) 0,rgba(15,15,15,.2509803922) 67.57%,#0f0f0f 120%);
+            background: linear-gradient(
+                120deg,
+                rgba(15, 15, 15, 0) 0,
+                rgba(15, 15, 15, 0.2509803922) 67.57%,
+                #0f0f0f 120%
+            );
         }
     }
 

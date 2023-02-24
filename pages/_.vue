@@ -1,8 +1,5 @@
 <template lang="html">
-    <main
-        id="main"
-        class="page page-general-content"
-    >
+    <main id="main" class="page page-general-content">
         <nav-breadcrumb
             v-if="page"
             :title="page.title"
@@ -34,10 +31,7 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider-way-finder"
-                color="default"
-            />
+            <divider-way-finder class="divider-way-finder" color="default" />
         </section-wrapper>
 
         <flexible-blocks
@@ -61,9 +55,9 @@ export default {
         const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, {
             path: path,
         })
-        console.log(
+        /*console.log(
             "General Content page path is: " + path
-        )
+        )*/
         if (data && data.entry && data.entry.slug) {
             $elasticsearchplugin.index(data.entry, path.replaceAll("/", "--"))
         } else {

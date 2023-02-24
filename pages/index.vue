@@ -143,7 +143,7 @@ export default {
             .toISOString()
             .toLowerCase()
             .replaceAll(":", "-")}`
-        console.log("Index named:" + esIndex)
+        //console.log("Index named:" + esIndex)
         const response = await fetch(`${$config.esURL}/${esIndex}`, {
             headers: {
                 Authorization: `ApiKey ${$config.esWriteKey}`,
@@ -152,7 +152,7 @@ export default {
             method: "PUT",
         })*/
         /*const esData = await response.json()
-        console.log(JSON.stringify(esData))*/
+        //console.log(JSON.stringify(esData))*/
         const data = await $graphql.default.request(HOMEPAGE, {})
         return {
             page: _get(data, "entry", {}),
@@ -201,9 +201,11 @@ export default {
             return {
                 ...bannerFeaturedEvent,
                 to: `/${bannerFeaturedEvent.uri}`,
-                title: bannerFeaturedEvent.sectionHandle === "workshopOrEventSeries"
-                    ? bannerFeaturedEvent.title
-                    : bannerFeaturedEvent.eventTitle,
+                title:
+                    bannerFeaturedEvent.sectionHandle ===
+                    "workshopOrEventSeries"
+                        ? bannerFeaturedEvent.title
+                        : bannerFeaturedEvent.eventTitle,
                 prompt:
                     bannerFeaturedEvent.sectionHandle ===
                     "workshopOrEventSeries"
@@ -236,9 +238,10 @@ export default {
                 return {
                     ...obj,
                     to: `/${obj.uri}`,
-                    title: obj.sectionHandle === "workshopOrEventSeries"
-                    ? obj.title
-                    : obj.eventTitle,
+                    title:
+                        obj.sectionHandle === "workshopOrEventSeries"
+                            ? obj.title
+                            : obj.eventTitle,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     startDate:
                         obj.sectionHandle === "event"
@@ -322,9 +325,9 @@ export default {
     },
     // async mounted() {
     //     const mapping = await this.$dataApi.getMapping()
-    //     console.log(JSON.stringify(mapping))
+    //     //console.log(JSON.stringify(mapping))
     //     const searchResponse = await this.$dataApi.siteSearch("test")
-    //     console.log("Search Response: " + JSON.stringify(searchResponse))
+    //     //console.log("Search Response: " + JSON.stringify(searchResponse))
     // },
     methods: {
         parseArticleCategory(categories) {
