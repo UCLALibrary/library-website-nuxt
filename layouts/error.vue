@@ -38,6 +38,9 @@ export default {
             default: () => {},
         },
     },
+    head: {
+        title: "Error",
+    },
 }
 </script>
 <style lang="scss" scoped>
