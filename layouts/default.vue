@@ -41,7 +41,7 @@ export default {
         }
     },
     head: {
-        titleTemplate: "%s | UCLA Library",
+        titleTemplate: (title) => (title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library'),
         script: [
             {
                 hid: "libanswers",
