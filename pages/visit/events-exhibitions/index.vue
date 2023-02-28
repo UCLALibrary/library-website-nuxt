@@ -406,9 +406,12 @@ export default {
                             seriesOrExhibtion.category ===
                             "visit/events-exhibitions"
                                 ? "event series"
-                                : seriesOrExhibtion.typeHandle === "exhibition"
-                                    ? "exhibition"
-                                    : seriesOrExhibtion.category,
+                                : seriesOrExhibtion.category ===
+                                    "help/services-resources"
+                                    ? "workshop series"
+                                    : seriesOrExhibtion.typeHandle === "exhibition"
+                                        ? "exhibition"
+                                        : seriesOrExhibtion.category,
                         to: `/${seriesOrExhibtion.to}`,
                         image: _get(
                             seriesOrExhibtion,

@@ -41,7 +41,6 @@ query EventsExhibitionsList {
     }
     series: entries(
         section: "workshopOrEventSeries"
-        workshopOrEventSeriesType: "visit/events-exhibitions"
         orderBy: "title"
     ) {
         title
