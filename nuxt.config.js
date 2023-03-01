@@ -2,10 +2,20 @@
 export default {
     server: {
         port: 3000,
-        host: "0.0.0.0"
+        host: "0.0.0.0",
     },
     target: "static",
     components: true,
+    privateRuntimeConfig: {
+        esWriteKey: process.env.ES_WRITE_KEY,
+    },
+    publicRuntimeConfig: {
+        esReadKey: process.env.ES_READ_KEY || "",
+        esIndex: process.env.ES_INDEX || "",
+        esIndexPrefix: process.env.ES_INDEX_PREFIX || "",
+        esTempIndex: "",
+        esURL: process.env.ES_URL || "",
+    },
 
     /*
     * Extend routes
@@ -38,7 +48,7 @@ export default {
                     chunkName: chunkname ? chunkname : obj.chunkName
                 }
             })
-            
+
             console.log("Now are the routes? "+ JSON.stringify(routes))
         }
     },
@@ -50,17 +60,22 @@ export default {
     head: {
         titleTemplate: (titleChunk) => {
             // If undefined or blank then we don't need the pipe and space
-            return titleChunk ? `${titleChunk} | Modern Endangered Archives Program` : 'Modern Endangered Archives Program'
+            return titleChunk
+                ? `${titleChunk} | Modern Endangered Archives Program`
+                : "Modern Endangered Archives Program"
         },
         htmlAttrs: {
             lang: "en",
         },
         meta: [
             { charset: "utf-8" },
-            { name: "viewport", content: "width=device-width, initial-scale=1" },
+            {
+                name: "viewport",
+                content: "width=device-width, initial-scale=1",
+            },
         ],
         link: [
-            { rel: 'icon', type: 'image/svg', href: '/icon-ucla-favicon.svg' }
+            { rel: "icon", type: "image/svg", href: "/icon-ucla-favicon.svg" },
         ],
     },
     /*
@@ -143,8 +158,6 @@ export default {
         trailingSlash: false,
     },*/
 
-    
-
     /*
      * Nuxt modules
      */
@@ -155,18 +168,23 @@ export default {
     ],
 
     gtm: {
-        id: 'GTM-T2SXV2'
+        id: "GTM-T2SXV2",
     },
 
     sitemap: {
         hostname: process.env.SITEMAP_HOST || "https://meap.library.ucla.edu",
-        routes:[],
+        routes: [],
     },
 
     /*
      * Nuxt build modules
      */
-    buildModules: ["@nuxtjs/router-extras", "@nuxtjs/style-resources", "nuxt-graphql-request", "@/modules/sitemapRouteGenerator",],
+    buildModules: [
+        "@nuxtjs/router-extras",
+        "@nuxtjs/style-resources",
+        "nuxt-graphql-request",
+        "@/modules/sitemapRouteGenerator",
+    ],
 
     /*
      ** Nuxt webpack build configuration
