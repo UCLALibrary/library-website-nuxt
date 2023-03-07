@@ -33,7 +33,7 @@ query StudentOpportunitiesList {
       }
     }
   }
-  allJobs: entries(section: "job", staffOrStudentPosition: "student-opportunities") {
+  allJobs: entries(section: "job", staffOrStudentPosition: "student-opportunities", orderBy: "postDate DESC") {
     title
     summary
     ... on job_job_Entry {

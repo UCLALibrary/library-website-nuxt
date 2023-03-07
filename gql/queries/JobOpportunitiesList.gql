@@ -14,7 +14,7 @@ query JobOpportunitiesList {
       }
     }
   }
-  allJobs: entries(section: "job", staffOrStudentPosition: "careers") {
+  allJobs: entries(section: "job", staffOrStudentPosition: "careers", orderBy: "jobRequisitionNumber DESC") {
     title
     summary
     ... on job_job_Entry {
