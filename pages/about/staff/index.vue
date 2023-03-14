@@ -311,10 +311,7 @@ export default {
                     ...obj,
                     to: `/about/staff/${obj.to}`,
                     image: _get(obj, "image[0]", null),
-                    staffName:
-                        obj.alternativeName.length > 0
-                            ? `${obj.nameFirst} ${obj.nameLast} ${obj.alternativeName[0].fullName}`
-                            : `${obj.nameFirst} ${obj.nameLast}`,
+                    staffName: `${obj.nameFirst} ${obj.nameLast}`,
                     language: _get(
                         obj,
                         "alternativeName[0].languageAltName",
