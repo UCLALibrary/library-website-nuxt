@@ -60,15 +60,27 @@ query CollectionDetail($slug: [String!]) {
     }
     associatedStaffMember {
       email
-      phoneNumber
       staffMemberJobTitle
       nameFirst
       nameLast
+      alternativeName {
+                ... on alternativeName_alternativeName_BlockType {
+                    fullName
+                    languageAltName
+                }
+            }
       to: uri
-      bookAConsultation
-      staffDepartment {
-        title
-      }
+      phone: phoneNumber
+      consultation: bookAConsultation
+      departments: staffDepartment(orderBy: "level") {
+                id
+                title
+            }
+      locations: staffAssociatedLocations {
+                id
+                title
+                uri: slug
+            }
       image: staffPortrait {
           ...Image
       }

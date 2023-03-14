@@ -204,6 +204,16 @@ export default {
                     to: `/${obj.to}`,
                     image: _get(obj, "image[0]", null),
                     staffName: `${obj.nameFirst} ${obj.nameLast}`,
+                    language: _get(
+                        obj,
+                        "alternativeName[0].languageAltName",
+                        null
+                    ),
+                    alternativeFullName: _get(
+                        obj,
+                        "alternativeName[0].fullName",
+                        null
+                    ),
                 }
             })
         },
