@@ -60,7 +60,7 @@ query CollectionDetail($slug: [String!]) {
     }
     associatedStaffMember {
       email
-      staffMemberJobTitle
+      jobTitle: staffMemberJobTitle
       nameFirst
       nameLast
       alternativeName {
