@@ -384,10 +384,7 @@ export default {
                         obj["_source"].alternativeName.length > 0
                             ? obj["_source"].alternativeName[0].languageAltName
                             : null,
-                    staffName:
-                        obj["_source"].alternativeName.length > 0
-                            ? `${obj["_source"].nameFirst} ${obj["_source"].nameLast} ${obj["_source"].alternativeName[0].fullName}`
-                            : `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
+                    staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
                 }
             })
         },
