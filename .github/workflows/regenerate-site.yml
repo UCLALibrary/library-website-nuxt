@@ -6,7 +6,15 @@ on:
       environment:
         description: 'Environment(test/prod)'     
         required: true
+        type: choice
+        options:
+        - test
+        - prod
         default: 'test'
+
+concurrency:
+  group: deploy-${{ github.event.inputs.environment }}
+  cancel-in-progress: true
 
 jobs:
   nuxt-deploy:
@@ -26,6 +34,11 @@ jobs:
           CRAFT_ENDPOINT: "${{ github.event.inputs.environment == 'test' && secrets.CRAFT_ENDPOINT_TEST || secrets.CRAFT_PROD_ENDPOINT }}"
           S3_BUCKET: "https://static.library.ucla.edu/"
           SITEMAP_HOST: "${{ github.event.inputs.environment == 'test' && 'https://test-meap.library.ucla.edu' || 'https://meap.library.ucla.edu' }}"
+          ES_URL: ${{ secrets.ES_URL }}
+          ES_READ_KEY: "${{ github.event.inputs.environment == 'test' && secrets.ES_READ_KEY_TEST || secrets.ES_READ_KEY_PROD }}"
+          ES_WRITE_KEY: "${{ github.event.inputs.environment == 'test' && secrets.ES_WRITE_KEY_TEST || secrets.ES_WRITE_KEY_PROD }}"
+          ES_INDEX: "${{ github.event.inputs.environment == 'test' && secrets.ES_INDEX_TEST || secrets.ES_INDEX_PROD }}"
+          ES_INDEX_PREFIX: "${{ github.event.inputs.environment == 'test' && secrets.ES_INDEX_PREFIX_TEST || secrets.ES_INDEX_PREFIX_PROD }}"
       - name: Deploy to Netlify on release
         uses: nwtgck/actions-netlify@v2 #
         with:

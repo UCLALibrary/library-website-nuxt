@@ -37,6 +37,11 @@ jobs:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
         S3_BUCKET: "https://static.library.ucla.edu/"
         SITEMAP_HOST: "https://meap.library.ucla.edu"
+        ES_URL: ${{ secrets.ES_URL }}
+        ES_READ_KEY: ${{ secrets.ES_READ_KEY_PROD }}
+        ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_PROD }}
+        ES_INDEX: ${{ secrets.ES_INDEX_PROD }}
+        ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_PROD }}
     - name: Deploy to Netlify on release
       uses: nwtgck/actions-netlify@v2 #
       with:
