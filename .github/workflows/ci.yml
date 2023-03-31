@@ -1,95 +1,114 @@
 name: Run CI Suite
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 
 jobs:
-  eslint:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        repository: ${{ github.event.pull_request.head.repo.full_name }}
-        ref: ${{ github.event.pull_request.head.ref }}
-    - uses: ./.github/workflows/setup-workspace
-    - run: npm run lint-fix
-    - uses: EndBug/add-and-commit@v9
-      with:
-        message: "chore: linter autofixes"
-        default_author: github_actions
+    eslint:
+        runs-on: ubuntu-latest
+        timeout-minutes: 20
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  repository: ${{ github.event.pull_request.head.repo.full_name }}
+                  ref: ${{ github.event.pull_request.head.ref }}
+            - uses: ./.github/workflows/setup-workspace
+            - run: npm run lint-fix
+            - uses: EndBug/add-and-commit@v9
+              with:
+                  message: "chore: linter autofixes"
+                  default_author: github_actions
 
-  percy-instructions:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - name: Comment with percy instructions
-        uses: bubkoo/auto-comment@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          pullRequestOpened: >
-            # Percy Screenshots
+    percy-instructions:
+        if: github.event_name == 'pull_request'
+        runs-on: ubuntu-latest
+        timeout-minutes: 20
+        steps:
+            - name: Comment with percy instructions
+              uses: bubkoo/auto-comment@v1
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  pullRequestOpened: >
+                      # Percy Screenshots
 
-            In order to conserve our percy screenshot allowance, percy is not configured to run automatically. Please make sure the PR is ready and all other checks are passing, then start it manually:
-            1. Visit https://github.com/UCLALibrary/meap-website-nuxt/actions/workflows/percy.yml
-            2. Click the 'Run workflow' button in the blue bar. 
-            3. Select the correct branch for this PR and click 'Run workflow' again to confirm.
+                      In order to conserve our percy screenshot allowance, percy is not configured to run automatically. Please make sure the PR is ready and all other checks are passing, then start it manually:
+                      1. Visit https://github.com/UCLALibrary/meap-website-nuxt/actions/workflows/percy.yml
+                      2. Click the 'Run workflow' button in the blue bar.
+                      3. Select the correct branch for this PR and click 'Run workflow' again to confirm.
 
-  nuxt:
-    name: Nuxt build / Cypress tests / Netlify deploy
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-    - uses: actions/checkout@v3
-    - uses: ./.github/workflows/setup-workspace
-    - name: Cache built static site
-      uses: actions/cache@v3
-      with:
-        path: ./dist
-        key: nuxt-site-${{ github.sha }}
-    - run: npm run generate
-      env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT_TEST }}
-        S3_BUCKET: "https://static.library.ucla.edu/"
-        SITEMAP_HOST: "https://test-meap.library.ucla.edu"
-    - uses: cypress-io/github-action@v3
-      with:
-        start: npx http-server ./dist -p 3000
-        command-prefix: 'npx'
-        wait-on: http://localhost:3000
-      env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT_TEST }}
-        S3_BUCKET: "https://static.library.ucla.edu/"
-        SITEMAP_HOST: "https://test-meap.library.ucla.edu"
-    - name: Deploy to Netlify (test)
-      if: github.ref_name=='main'
-      uses: nwtgck/actions-netlify@v2 # 
-      with:
-        production-deploy: true
-        deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        publish-dir: './dist'
-        fails-without-credentials: true
-        github-deployment-environment: production
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_MEAP_TEST }}
-    - name: Deploy to Netlify (preview)
-      if: github.ref_name!='main'
-      uses: nwtgck/actions-netlify@v2 # 
-      with:
-        production-deploy: false
-        deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/pull/${{ github.event.pull_request.number }}
-        alias: deploy-preview-${{ github.event.pull_request.number }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        overwrites-pull-request-comment: true
-        publish-dir: './dist'
-        fails-without-credentials: true
-        github-deployment-environment: ${{ github.event_name }}-${{ github.event.number }}
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_MEAP_TEST }}
+    nuxt:
+        name: Nuxt build / Cypress tests / Netlify deploy
+        runs-on: ubuntu-latest
+        timeout-minutes: 20
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/workflows/setup-workspace
+            - name: Cache built static site
+              uses: actions/cache@v3
+              with:
+                  path: ./dist
+                  key: nuxt-site-${{ github.sha }}
+            - name: Sets env vars for PR preview
+              run: |
+                  echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-deploy-preview" >> $GITHUB_ENV
+              if: github.ref_name!='main'
+            - name: Sets env vars for main merge
+              run: |
+                  echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
+            - run: npm run generate
+              env:
+                  CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT_TEST }}
+                  S3_BUCKET: "https://static.library.ucla.edu/"
+                  SITEMAP_HOST: "https://test-meap.library.ucla.edu"
+                  ES_URL: ${{ secrets.ES_URL }}
+                  ESApiKey: ${{ secrets.ESApiKey }}
+                  ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
+                  ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
+                  ES_INDEX: ${{ env.ES_INDEX }}-${{ github.event.pull_request.number }}
+                  ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
+            - uses: cypress-io/github-action@v3
+              with:
+                  start: npx http-server ./dist -p 3000
+                  command-prefix: "npx"
+                  wait-on: http://localhost:3000
+              env:
+                  CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT_TEST }}
+                  S3_BUCKET: "https://static.library.ucla.edu/"
+                  SITEMAP_HOST: "https://test-meap.library.ucla.edu"
+                  ES_URL: ${{ secrets.ES_URL }}
+                  ESApiKey: ${{ secrets.ESApiKey }}
+                  ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
+                  ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
+                  ES_INDEX: ${{ env.ES_INDEX }}-${{ github.event.pull_request.number }}
+                  ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
+            - name: Deploy to Netlify (test)
+              if: github.ref_name=='main'
+              uses: nwtgck/actions-netlify@v2 #
+              with:
+                  production-deploy: true
+                  deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  publish-dir: "./dist"
+                  fails-without-credentials: true
+                  github-deployment-environment: production
+              env:
+                  NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+                  NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_MEAP_TEST }}
+            - name: Deploy to Netlify (preview)
+              if: github.ref_name!='main'
+              uses: nwtgck/actions-netlify@v2 #
+              with:
+                  production-deploy: false
+                  deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/pull/${{ github.event.pull_request.number }}
+                  alias: deploy-preview-${{ github.event.pull_request.number }}
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  overwrites-pull-request-comment: true
+                  publish-dir: "./dist"
+                  fails-without-credentials: true
+                  github-deployment-environment: ${{ github.event_name }}-${{ github.event.number }}
+              env:
+                  NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+                  NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_MEAP_TEST }}

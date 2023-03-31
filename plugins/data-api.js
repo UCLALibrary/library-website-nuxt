@@ -214,7 +214,9 @@ export default function ({ $config }, inject) {
                 }),
             }
         )
+
         const data = await response.json()
+        // console.log("this is data" + data)
         return data.aggregations
     }
 
@@ -280,7 +282,7 @@ export default function ({ $config }, inject) {
                 },
             }
         }
-        // console.log("aggsFields:" + JSON.stringify(aggsFields))
+        console.log("aggsFields:" + JSON.stringify(aggsFields))
         return aggsFields
     }
 }

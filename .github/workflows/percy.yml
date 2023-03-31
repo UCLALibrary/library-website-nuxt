@@ -1,34 +1,40 @@
-name:  Submit screenshots to Percy for visual regression testing.
+name: Submit screenshots to Percy for visual regression testing.
 
 on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
-    inputs: {}
+    push:
+        branches: [main]
+    workflow_dispatch:
+        inputs: {}
 
 jobs:
-  percy:
-    name: Percy - Nuxt Site
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-    - uses: actions/checkout@v3
-    - uses: ./.github/workflows/setup-workspace
-    - name: Cache built static site
-      id: cache-nuxt
-      uses: actions/cache@v3
-      with:
-        path: ./dist
-        key: nuxt-site-${{ github.sha }}
-    - run: npm run generate
-      if: steps.cache-nuxt.outputs.cache-hit != 'true'
-      env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT_TEST }}
-        S3_BUCKET: "https://static.library.ucla.edu/"
-    - uses: cypress-io/github-action@v3
-      with:
-        start: npx http-server ./dist -p 3000
-        command-prefix: 'percy exec -- npx'
-        wait-on: http://localhost:3000
-      env: 
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+    percy:
+        name: Percy - Nuxt Site
+        runs-on: ubuntu-latest
+        timeout-minutes: 20
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/workflows/setup-workspace
+            - name: Cache built static site
+              id: cache-nuxt
+              uses: actions/cache@v3
+              with:
+                  path: ./dist
+                  key: nuxt-site-${{ github.sha }}
+            - run: npm run generate
+              if: steps.cache-nuxt.outputs.cache-hit != 'true'
+              env:
+                  CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT_TEST }}
+                  S3_BUCKET: "https://static.library.ucla.edu/"
+                  ES_URL: ${{ secrets.ES_URL }}
+                  ESApiKey: ${{ secrets.ESApiKey }}
+                  ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
+                  ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
+                  ES_INDEX: ${{ env.ES_INDEX }}-${{ github.event.pull_request.number }}
+                  ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
+            - uses: cypress-io/github-action@v3
+              with:
+                  start: npx http-server ./dist -p 3000
+                  command-prefix: "percy exec -- npx"
+                  wait-on: http://localhost:3000
+              env:
+                  PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

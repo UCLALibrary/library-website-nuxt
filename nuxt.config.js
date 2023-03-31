@@ -1,4 +1,6 @@
 /* eslint-env node */
+// const axios = require("axios")
+
 export default {
     server: {
         port: 3000,
@@ -103,6 +105,8 @@ export default {
         "~/plugins/craft.js",
         "~/plugins/add-library-website-vue-components.js",
         "~/plugins/add-skip-to.js",
+        "~/plugins/elasticsearchplugin.js",
+        "~/plugins/data-api.js",
     ],
 
     /*
@@ -131,6 +135,31 @@ export default {
      */
     generate: {
         fallback: "404.html",
+        //       routes() {
+        //           axios({
+        //               url: process.env.CRAFT_ENDPOINT,
+        //               method: "post",
+        //               data: {
+        //                   query: `
+        //       query ProjectList {
+        //   entries(section: "meapProject", orderBy: "dateCreated asc") {
+        //     ... on meapProject_meapProject_Entry {
+        //       id
+        //       uri
+        //       title
+        //     }
+        //   }
+        // }
+        //   `,
+        //               },
+        //           }).then((result) => {
+        //               // console.log("in nuxt config" + result.data)
+        //               return result.data.entries.map((project) => {
+        //                   console.log(project)
+        //                   return "/" + project.uri
+        //               })
+        //           })
+        //       },
     },
 
     /*
@@ -184,6 +213,8 @@ export default {
         "@nuxtjs/style-resources",
         "nuxt-graphql-request",
         "@/modules/sitemapRouteGenerator",
+        "@/modules/indexAliasGenerator",
+        "@/modules/swapAliasIndexGenerator",
     ],
 
     /*

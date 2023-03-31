@@ -132,15 +132,11 @@ import PROJECT_DETAIL from "~/gql/queries/ProjectDetail"
 import _get from "lodash/get"
 
 export default {
-    async asyncData({ $graphql, params, store }) {
-        // Do not remove testing live preview
-        console.log(
-            "fetching graphql data for Service or Resource detail from Craft for live preview"
-        )
+    async asyncData({ $graphql, params, store, $elasticsearchplugin }) {
         const data = await $graphql.default.request(PROJECT_DETAIL, {
             slug: params.slug,
         })
-        console.log(data)
+        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         return {
             page: _get(data, "entry", {}),
         }
@@ -156,10 +152,6 @@ export default {
             return _get(this.page, "meapProjectCallToAction[0].buttonText", "")
         },
         parsedButtonTo() {
-            console.log(
-                "call to action data :" +
-                    JSON.stringify(this.page.meapProjectCallToAction[0])
-            )
             let buttonTo = _get(
                 this.page,
                 "meapProjectCallToAction[0].externalUrl",

@@ -2,57 +2,59 @@
 #import "~/gql/fragments/collections/MEAPAllFpb"
 
 query ProjectDetail($slug: [String!]) {
-  entry(section: "meapProject", slug: $slug) {
-    id
-    title
-    summary
-    heroImage {
-      ... on heroImage_heroImage_BlockType {
+    entry(section: "meapProject", slug: $slug) {
         id
-        image {
-          ...Image
-        }
-        altText
-      }
-    }
-    meapProjectCallToAction {
-      ... on meapProjectCallToAction_externalUrl_BlockType {
-        id
-        buttonText
-        externalUrl
-      }
-      ... on meapProjectCallToAction_uploadAsset_BlockType {
-        id
-        buttonText
-        uploadAsset {
-          id
-          url
-        }
-      }
-    }
-    titleGeneral
-    projectDescription
-    citation
-    projectContributorsSubheading
-    projectContributors
-    projectType(label: true)
-    region {
-      ... on meapProjectRegion_Category {
-        id
+        uri
+        sectionHandle
         title
-      }
+        summary
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+                altText
+            }
+        }
+        meapProjectCallToAction {
+            ... on meapProjectCallToAction_externalUrl_BlockType {
+                id
+                buttonText
+                externalUrl
+            }
+            ... on meapProjectCallToAction_uploadAsset_BlockType {
+                id
+                buttonText
+                uploadAsset {
+                    id
+                    url
+                }
+            }
+        }
+        titleGeneral
+        projectDescription
+        citation
+        projectContributorsSubheading
+        projectContributors
+        projectType(label: true)
+        region {
+            ... on meapProjectRegion_Category {
+                id
+                title
+            }
+        }
+        meapProjectTopic {
+            ... on meapProjectTopics_Category {
+                id
+                title
+            }
+        }
+        institution
+        languageOfOrigin
+        format
+        periodDateRange
+        institutionSubheading
+        ...MEAPAllFpb
     }
-    meapProjectTopic {
-      ... on meapProjectTopics_Category {
-        id
-        title
-      }
-    }
-    institution
-    languageOfOrigin
-    format
-    periodDateRange
-    institutionSubheading
-    ...MEAPAllFpb
-  }
 }

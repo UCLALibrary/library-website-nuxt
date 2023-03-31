@@ -94,7 +94,20 @@ button {
             padding: 0 $whitespace-s-sides + px;
         }
     }
+
+    .about-results {
+        margin-bottom: var(--space-l);
+        color: var(--color-primary-blue-05);
+        @include step-0;
+        font-weight: 400;
+    }
+    .results {
+        color: var(--color-primary-blue-05);
+        @include step-0;
+        font-style: italic;
+    }
 }
+
 
 // Animations
 .underline-hover {

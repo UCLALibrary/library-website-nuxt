@@ -39,6 +39,7 @@ query ArticleNewsList {
                 title
                 to: slug
                 text: summary
+                byline
                 articleStaff: staffMember {
                     id
                     slug

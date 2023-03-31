@@ -5,6 +5,9 @@ query ArticleNewsDetail($slug: [String!]) {
     entry(section: "meapArticle", slug: $slug) {
         ... on meapArticle_meapArticle_Entry {
             id
+            sectionHandle
+            uri
+            to: slug
             title
             text: summary
             dateCreated
