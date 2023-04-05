@@ -50,7 +50,6 @@
 /borrow-renew-return/course-reserves/information-students	/help/services-resources/course-reserves/
 /clark	https://clarklibrary.ucla.edu/?_ga=2.115221890.468074061.1675057809-161137075.1627793085
 /clicc	/about/programs/campus-library-instructional-computing-commons-clicc/
-/clicc  /about/programs/campus-library-instructional-computing-commons-clicc
 /clicc?page=Software+List	/about/programs/campus-library-instructional-computing-commons-clicc
 /clicc?page=Software+Shortcut	/about/programs/campus-library-instructional-computing-commons-clicc
 /clicc/clicc-classrooms	/help/services-resources/clicc-classrooms
@@ -211,7 +210,6 @@
 /help/services-resources/research-data-services/	/help/services-resources/data-services
 /help/services-resources/teaching-with-special-collections	/help/services-resources/teaching-with-library-special-collections
 /hours	/visit/locations
-/hours  /visit/locations
 /impact	/impact/all
 /lauc-la-affiliate-libraries-centers	/visit/locations
 /lauc-la-librarian-year-marjorie-lee	https://guides.library.ucla.edu/lauc-la/librarian-of-the-year#Marjorie
@@ -238,7 +236,6 @@
 /location/arts-library/paging-arts-storage-materials	/visit/locations/arts-library/
 /location/asian-american-studies-center-libraryreading-room	/locations
 /location/biomedical-library-louise-m-darling	/visit/locations/biomed
-/location/biomedical-library-louise-m-darling	/visit/locations/science-engineering-library/
 /location/biomedical-library-louise-m-darling/about	/visit/locations/biomed
 /location/biomedical-library-louise-m-darling/research-help	/help/research-help
 /location/chicano-studies-research-center-library	/locations
@@ -264,10 +261,8 @@
 /location/library-special-collections/about/contact-information	/help/services-resources/library-special-collections-contact-information-for-reference-instruction-and-donations
 /location/library-special-collections/about/giving-special-collections	/give
 /location/library-special-collections/about/research-fellowships-2021/past-research-fellows-ucla-library-special-collections	/about/programs/library-special-collections-lsc-research-fellowships-2023/
-/location/library-special-collections/about/research-fellowships-2022	/about/programs/library-special-collections-lsc-research-fellowships-2023
 /location/library-special-collections/about/research-fellowships-2022	/about/programs/library-special-collections-lsc-research-fellowships-2023/
 /location/library-special-collections/destination/center-oral-history-research	/about/programs/center-for-oral-history-research
-/location/library-special-collections/destination/center-oral-history-research	/help/services-resources/center-for-oral-history-research
 /location/library-special-collections/destination/history-medicine-sciences	/history-of-medicine-and-the-sciences-collection
 /location/library-special-collections/destination/university-archives	/about/programs/university-archives/
 /location/library-special-collections/discover-collections	/visit/locations/library-special-collections/
@@ -292,7 +287,6 @@
 /location/library-special-collections/research-instruction/access-digital-materials	/about/policies/access-to-lsc-digital-materials
 /location/library-special-collections/research-instruction/access-special-collections-reading-room	/about/policies/lsc-reading-room-policies-and-procedures
 /location/library-special-collections/research-instruction/requesting-duplication-lsc-materials	/about/policies/lsc-duplication-and-copyright-policies
-/location/library-special-collections/research-instruction/requesting-duplication-lsc-materials	/help/services-resources/request-duplication-of-lsc-materials
 /location/library-special-collections/research-instruction/requesting-lsc-archival-materials-described-online-archive-california	/help/lsc-materials
 /location/library-special-collections/research-instruction/teaching-special-collections	/help/services-resources/teaching-with-special-collections
 /location/library-special-collections/what-we-collect	/about/policies/library-special-collections-principles-for-collecting-material
@@ -315,7 +309,6 @@
 /location/powell-library	/visit/locations/powell-library/
 /location/powell-library/collections	/powell-community-collections
 /location/powell-library/location/faq-construction-closures-powell-library	/help/services-resources/construction-closures-at-powell-library/
-/location/powell-library/request-event-or-exhibit-powell	/help/services-resources/request-an-event-or-exhibit-at-powell
 /location/powell-library/request-event-or-exhibit-powell	/help/services-resources/request-an-event-or-exhibit-at-powell/
 /location/ralph-j-bunche-center-african-american-studies-library-media-center	/locations
 /location/research-library-charles-e-young	/visit/locations/research-library
@@ -387,7 +380,6 @@
 /questions/questions-ask-us /help/services-resources/ask-us
 /research-data-services	/help/services-resources/data-services/
 /research-teaching-support	/help/teaching
-/research-teaching-support	this is two pages now: /help/research-help/ and /help/teaching/
 /research-teaching-support/pilot-emergency-temporary-digitization-request-petdor-service-ucla-researchers	/help/services-resources
 /research-teaching-support/pilot-emergency-temporary-digitization-request-petdor-service-ucla-researchers/petdor-faq	/help/services-resources
 /research-teaching-support/research-help	/help/research-help
@@ -454,7 +446,6 @@
 /staff	/about/staff/
 /staff-departments/data-science-center	/about/staff?q=&filters=%7B%22locations.title.keyword%22%3A%5B%22UCLA%20Library%20Data%20Science%20Center%22%5D%7D
 /staff-departments/special-collections	/about/staff?q=&filters=%7B%22locations.title.keyword%22%3A%5B%22UCLA%20Library%20Special%20Collections%22%5D%7D
-/staff/Abdur-Mahmood	/about/staff/abdur-mahmood
 /staff/abdur-mahmood	/about/staff/abdur-mahmood/
 /staff/alena-aissing	/about/staff/alena-aissing
 /staff/alesia-m-haymon	/about/staff/alesia-m-haymon
@@ -514,7 +505,6 @@
 /staff/courtney-dean	/about/staff/courtney-dean
 /staff/courtney-hoffner	/about/staff/courtney-hoffner/
 /staff/courtney-jet-jacobs	/about/staff/courtney-jet-jacobs
-/staff/cynthia-perez-huerta	/about/staff/cynthia-perez-huerta
 /staff/cynthia-perez-huerta	/about/staff/cynthia-perez-huerta/
 /staff/D	/about/staff?q=&filters=%7B%7D&lastNameLetter=D
 /staff/dalena-hunter	/about/staff/dalena-hunter
@@ -536,7 +526,6 @@
 /staff/dianne-weinthal	/about/staff/dianne-weinthal/
 /staff/doris-wang	/about/staff/doris-wang
 /staff/douglas-arthur-daniels	/about/staff/doug-daniels
-/staff/douglas-ishimaru	/about/staff/douglas-ishimaru
 /staff/douglas-ishimaru	/about/staff/douglas-ishimaru/
 /staff/E	/about/staff?q=&filters=%7B%7D&lastNameLetter=E
 /staff/edson-smith	/about/staff/edson-smith
@@ -613,7 +602,6 @@
 /staff/judith-c-consales	/about/staff/judith-c-consales
 /staff/julian-j-calero	/about/staff/julian-calero
 /staff/junko-tanaka	/about/staff/junko-tanaka
-/staff/junko-tanaka	/about/staff/junko-tanaka-%E7%94%B0%E4%B8%AD%E9%A0%86%E5%AD%90
 /staff/jw-clark	/about/staff/jw-clark
 /staff/K	/about/staff?q=&filters=%7B%7D&lastNameLetter=K
 /staff/kara-molitor	/about/staff/kara-molitor
@@ -726,7 +714,6 @@
 /staff/su-chen	/about/staff/su-chen-%E9%99%B3%E8%82%85
 /staff/suzy-lee	/about/staff/suzy-lee/
 /staff/sylvia-page	/about/staff/sylvia-page/
-/staff/T	/about/staff?q=&filters=%7B%7D&lastNameLetter=T
 /staff/T	/about/staff?q=&filters=%7B%7D&lastNameLetter=T
 /staff/t-kay-sangwand	/about/staff/t-kay-sangwand
 /staff/tabitha-anctil	/about/staff/tabitha-anctil
