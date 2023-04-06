@@ -476,7 +476,6 @@
 /staff/anne-marie-battisfield_staff_is_subject_librarian=1search_api_views_fulltextpage=2	/about/staff/
 /staff/annie-watanabe-rocco	/about/staff/annie-a-watanabe-rocco
 /staff/calandra-holmes	/about/staff/callie-holmes
-/staff/chen-gao	/about/staff/chen-gao-%E9%AB%98%E6%99%A8
 /staff/christine-m-barone	/about/staff/christine-barone
 /staff/christopher-m-brennan	/about/staff/christopher-brennan
 /staff/christopher-murphy	/about/staff/chris-murphy
@@ -493,7 +492,6 @@
 /staff/gabriel-cardenas	/about/staff/gabe-cardenas
 /staff/gabriela-j-bueno	/about/staff/gabriela-bueno
 /staff/hermine-e-vermeij	/about/staff/hermine-vermeij
-/staff/hui-li	/about/staff/hui-li-%E6%9D%8E%E6%85%A7
 /staff/ian-kinzler	/about/staff/ian-a-kinzler
 /staff/ibraheem-ali	/about/staff/ibraheem-ali-phd
 /staff/james-j-fiala	/about/staff/josh-fiala
@@ -526,17 +524,14 @@
 /staff/renee-romana-romero	/about/staff/renee-romero
 /staff/rosa-m-barker	/about/staff/rosa-barker/
 /staff/ruby-bell-gam	/about/staff/ruby-a-bell-gam
-/staff/sanghun-cho	/about/staff/sanghun-cho-%EC%A1%B0%EC%83%81%ED%9B%88/
 /staff/science-libraries-team	/about/staff/sciences-libraries-team
 /staff/sharon-b-benamou	/about/staff/sharon-benamou
 /staff/sharon-m-shafer	/about/staff/sharon-shafer
-/staff/su-chen	/about/staff/su-chen-%E9%99%B3%E8%82%85
 /staff/tom-d-rosholt	/about/staff/tom-rosholt/
 /staff/victoria-puente	/about/staff/tori-puente
 /staff/wil-william-lin	/about/staff/wil-lin
-/staff/yun-hee-lee	/about/staff/yun-hee-lee-%EC%9D%B4%EC%9C%A4%ED%9D%AC
 /staff/zhiyuan-yao-spatial-data-science	/about/staff/zhiyuan-yao
-/staff/* /about/staff/:splat  # MUST come after any individual staff member redirects (for changed slug)
+/staff/* /about/staff/:splat  # MUST come after any individual staff member redirects
 /stafffield_staff_is_subject_librarian=1search_api_views_fulltextf%5B0%5D=field_staff_glossary_index%3ASpage=9	/about/staff?q=&filters=%7B%22subjectLibrarian.keyword%22%3A%22yes%22%7D
 /stafffield_staff_is_subject_librarian=1search_api_views_fulltextf%5B0%5D=field_staff_location%3A409	/about/staff?q=&filters=%7B%22subjectLibrarian.keyword%22%3A%22yes%22%7D&lastNameLetter=M
 /support/copyright-data-publishing	/help/copyright-data-publishing/
