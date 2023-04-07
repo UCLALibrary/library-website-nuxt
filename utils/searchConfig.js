@@ -45,7 +45,7 @@ const config = {
                 inputType: "checkbox",
             },
         ],
-        resultFields: ["title", "text", "uri", "heroImage", "date", "category"],
+        resultFields: ["title", "text", "uri", "heroImage", "date", "category", "to"],
         sortField: "date",
         orderBy: "desc",
     },

@@ -7,6 +7,7 @@ query ArticleNewsDetail($slug: [String!]) {
             id
             sectionHandle
             uri
+            slug
             to: slug
             title
             text: summary
