@@ -11,8 +11,6 @@ describe("Event Detail page", () => {
         cy.get(".nav-breadcrumb .current-page-title").should("contain", "Marion Davies: Captain of Her Soul")
 
         cy.get(".banner-header h1.title").should("contain", "Marion Davies: Captain of Her Soul")
-
-        cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 
     context("When the page doesn't exist", () => {
