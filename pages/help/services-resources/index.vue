@@ -188,7 +188,7 @@ export default {
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
                 config.serviceOrResources.searchFields,
-                "(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic) AND (displayEntry:yes)",
+                "(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)",
                 [],
                 config.serviceOrResources.sortField,
                 config.serviceOrResources.orderBy,
