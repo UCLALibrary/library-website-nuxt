@@ -15,14 +15,7 @@ describe("Event Series Detail page", () => {
 
     context("When there isn't an entry in craft", () => {
         it("Raises a 404 error", () => {
-            
-            /*cy.request({
-                url: "/visit/events-exhibitions/no_entry",
-                failOnStatusCode: false,
-            })
-                .its("status")
-                .should("equal", 404)*/
-            cy.visit("/visit/events-exhibitions/no_entry")
+            cy.visit("/visit/events-exhibitions/no_entry", {failOnStatusCode: false})
             cy.get("p.error").should("contain","404")
             cy.get("h1.error-title").should("contain","Page not found")
         })

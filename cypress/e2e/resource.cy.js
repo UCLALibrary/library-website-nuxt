@@ -13,9 +13,7 @@ describe("Resource page", () => {
 
     context("When there isn't an entry in craft", () => {
         it("Raises a 404 error", () => {
-            // cy.visit("/about/blogs/no_entry", {failOnStatusCode: false})
-            // cy.request({url: "/help/services-resources/no_entry", failOnStatusCode: false}).its("status").should("equal", 404)
-            cy.visit("/help/services-resources/no_entry")
+            cy.visit("/help/services-resources/no_entry", {failOnStatusCode: false})
             cy.get("p.error").should("contain","404")
             cy.get("h1.error-title").should("contain","Page not found")
         })

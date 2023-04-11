@@ -17,7 +17,9 @@ describe("Event Detail page", () => {
 
     context("When the page doesn't exist", () => {
         it("Raises a 404 error", () => {
-            cy.request({url: "/help/no_entry", failOnStatusCode: false}).its("status").should("equal", 404)
+            cy.visit("/visit/events-exhibitions/no_entry", {failOnStatusCode: false})
+            cy.get("p.error").should("contain","404")
+            cy.get("h1.error-title").should("contain","Page not found")
         })
     })
 })
