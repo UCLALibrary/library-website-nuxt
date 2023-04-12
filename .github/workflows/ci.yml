@@ -63,7 +63,9 @@ jobs:
       run: |
         echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
       if: github.ref_name=='main'
-    - run: npm run generate
+    - run: |
+        npm run generate
+        npm run generate -- visit/events-exhibitions/marion-davies-captain-of-her-soul # needed for spec but won't get crawled bc we only list future events
       env:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
         LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
