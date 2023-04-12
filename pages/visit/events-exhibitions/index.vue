@@ -374,7 +374,7 @@ export default {
                     to: `/${eventOrExhibtion.to}`,
                     image: _get(
                         eventOrExhibtion,
-                        "heroImage[0].image[0]",
+                        "image[0]",
                         null
                     ),
                     startDate: _get(

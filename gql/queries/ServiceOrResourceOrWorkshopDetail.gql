@@ -159,7 +159,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
         associatedLocations {
             title
         }
-        eventLocation {
+        eventLocation: location {
             title
         }
         image: heroImage {
@@ -202,7 +202,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
         associatedLocations {
             title
         }
-        eventLocation {
+        eventLocation: location {
             title
         }
         image: heroImage {

@@ -105,7 +105,7 @@ export default {
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription
@@ -125,7 +125,7 @@ export default {
                     associatedLocations: obj.associatedLocations.map((entry) => {
                         return {
                             ...entry,
-                            uri: `/${entry.uri}`
+                            uri: `${entry.uri}`
                         }
                     })
                 }
@@ -143,7 +143,7 @@ export default {
                     associatedLocations: obj.associatedLocations.map((entry) => {
                         return {
                             ...entry,
-                            uri: `/${entry.uri}`
+                            uri: `${entry.uri}`
                         }
                     })
                 }
