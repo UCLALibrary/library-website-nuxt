@@ -1,6 +1,9 @@
 <template lang="html">
     <!-- v-ifs working on section wrappers without v-show -->
-    <main id="main" class="page page-help">
+    <main
+        id="main"
+        class="page page-help"
+    >
         <masthead-secondary
             v-if="summaryData"
             :title="summaryData.title || ''"
@@ -29,13 +32,16 @@
         </h4-->
 
         <section-wrapper theme="divider">
-            <divider-way-finder color="help" class="search-margin" />
+            <divider-way-finder
+                color="help"
+                class="search-margin"
+            />
         </section-wrapper>
 
         <section-wrapper
             v-if="
                 (page.serviceOrResource || page.workshopseries) &&
-                hits.length == 0
+                    hits.length == 0
             "
             class="section-no-top-margin"
         >
@@ -48,13 +54,17 @@
             v-else-if="hits && hits.length > 0"
             class="section-no-top-margin"
         >
-            <h2 v-if="$route.query.q" class="about-results">
+            <h2
+                v-if="$route.query.q"
+                class="about-results"
+            >
                 Displaying {{ hits.length }} results for
-                <strong
-                    ><em>“{{ $route.query.q }}</em></strong
-                >”
+                <strong><em>“{{ $route.query.q }}</em></strong>”
             </h2>
-            <h2 v-else class="about-results">
+            <h2
+                v-else
+                class="about-results"
+            >
                 Displaying {{ hits.length }} results
             </h2>
             <section-cards-with-illustrations
@@ -72,17 +82,15 @@
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
-                        but we're here to help. <br />
+                        but we're here to help. <br>
                         Try searching the whole site from
-                        <a href="https://library.ucla.edu">UCLA Library Home</a
-                        >, or try one of the these regularly visited links:
+                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
                     </p>
                     <ul>
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/research-teaching-support/research-help"
-                                >Research Help</a
-                            >
+                            >Research Help</a>
                         </li>
                         <li>
                             <a href="/help/services-resources/ask-us">Ask Us</a>
@@ -90,15 +98,17 @@
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
-                                >Accessibility Resources</a
-                            >
+                            >Accessibility Resources</a>
                         </li>
                     </ul>
                 </rich-text>
             </div>
         </section-wrapper>
         <section-wrapper>
-            <divider-way-finder class="divider-way-finder" color="help" />
+            <divider-way-finder
+                class="divider-way-finder"
+                color="help"
+            />
         </section-wrapper>
 
         <section-wrapper>
@@ -125,19 +135,16 @@ export default {
         /*console.log(
             "In asyncdata hook  servicesorresourcesorworskhoporhelptopic list"
         )*/
-        const serverData = await $graphql.default.request(
+
+        let pageAsyncData = await $graphql.default.request(
             SERVICE_RESOURCE_WORKSHOPSERIES_LIST
         )
-        /*console.log(
-            "ALL External Resource indexing:" +
-                JSON.stringify(serverData.externalResource)
-        )*/
         if (
-            serverData.externalResource &&
-            serverData.externalResource.length > 0
+            pageAsyncData.externalResource &&
+            pageAsyncData.externalResource.length > 0
         ) {
             //console.log("External Resource indexing:")
-            for (let externalResource of serverData.externalResource) {
+            for (let externalResource of pageAsyncData.externalResource) {
                 /*console.log(
                     "External Resource indexing:" + externalResource.slug
                 )*/
@@ -147,9 +154,7 @@ export default {
                 )
             }
         }
-        let pageAsyncData = await $graphql.default.request(
-            SERVICE_RESOURCE_WORKSHOPSERIES_LIST
-        )
+
         let helpTopicAsyncData = await $graphql.default.request(HELP_TOPIC_LIST)
         return {
             page: pageAsyncData,
@@ -183,7 +188,7 @@ export default {
             const results = await this.$dataApi.keywordSearchWithFilters(
                 this.$route.query.q || "*",
                 config.serviceOrResources.searchFields,
-                "sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:externalResource OR sectionHandle:helpTopic",
+                "(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)",
                 [],
                 config.serviceOrResources.sortField,
                 config.serviceOrResources.orderBy,
@@ -264,10 +269,14 @@ export default {
         },
         parsedServiceAndResourceList() {
             //console.log("static mode what is parsedServiceAndResourceList")
+            let externalResourcesDisplay = (
+                this.page.externalResource || []
+            ).filter((obj) => obj.displayEntry === "yes")
+            console.log(externalResourcesDisplay)
             return [
                 ...(this.page.serviceOrResource || []),
                 ...(this.page.workshopseries || []),
-                ...(this.page.externalResource || []),
+                ...(externalResourcesDisplay || []),
                 ...(this.helpTopic.entries || []),
             ]
                 .sort(sortByTitle)
