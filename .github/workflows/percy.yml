@@ -14,12 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: ./.github/workflows/setup-workspace
-    - name: Cache built static site
-      id: cache-nuxt
-      uses: actions/cache@v3
-      with:
-        path: ./dist
-        key: nuxt-site-${{ github.sha }}
     - name: Sets env vars for PR preview
       run: |
         echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-percy-tests-${{ github.head_ref || github.ref_name }}" >> $GITHUB_ENV
