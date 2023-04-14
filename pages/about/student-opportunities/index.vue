@@ -152,7 +152,7 @@ export default {
                         (entry) => {
                             return {
                                 ...entry,
-                                uri: `/${entry.uri}`,
+                                uri: `${entry.uri}`,
                             }
                         }
                     ),
@@ -171,7 +171,7 @@ export default {
                         (entry) => {
                             return {
                                 ...entry,
-                                uri: `/${entry.uri}`,
+                                uri: `${entry.uri}`,
                             }
                         }
                     ),

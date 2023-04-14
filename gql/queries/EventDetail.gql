@@ -9,7 +9,7 @@ query EventDetail($slug: [String!]) {
             typehandle
             sectionHandle
             title: eventTitle
-            eventLocation {
+            eventLocation: location {
                 title
                 to: publicUrl
             }
@@ -121,7 +121,7 @@ query EventDetail($slug: [String!]) {
                     timezone: "America/Los_Angeles"
                 )
             ongoing
-            eventLocation {
+            eventLocation: location {
                 title
                 to: publicUrl
             }
@@ -177,7 +177,7 @@ query EventDetail($slug: [String!]) {
         associatedLocations {
             title
         }
-        eventLocation {
+        eventLocation: location {
             title
         }
         image: heroImage {
@@ -220,7 +220,7 @@ query EventDetail($slug: [String!]) {
         associatedLocations {
             title
         }
-        eventLocation {
+        eventLocation: location {
             title
         }
         image: heroImage {

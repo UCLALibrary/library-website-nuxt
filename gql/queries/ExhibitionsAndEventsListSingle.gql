@@ -39,7 +39,7 @@ query EventsExhibitionsList {
                     )
                 workshopOrEventSeriesType
                 typeHandle
-                eventLocation {
+                eventLocation: location {
                     title
                 }
                 associatedLocations {
