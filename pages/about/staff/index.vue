@@ -214,7 +214,9 @@ export default {
                 query_text,
                 config.staff.searchFields,
                 "sectionHandle:staffMember",
-                JSON.parse(this.$route.query.filters) || {},
+                (this.$route.query.filters &&
+                    JSON.parse(this.$route.query.filters)) ||
+                    {},
                 config.staff.sortField,
                 config.staff.orderBy,
                 config.staff.resultFields,

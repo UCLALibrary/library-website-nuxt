@@ -7,8 +7,7 @@ export default function ({ $config }, inject) {
     async function siteSearch(
         keyword = "*",
         from = 0,
-        filters,
-        aggFields = []
+        filters
     ) {
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
         if (

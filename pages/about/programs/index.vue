@@ -159,6 +159,7 @@
 // UTILITIES
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
+import queryFilterHasValues from "~/utils/queryFilterHasValues"
 
 // HELPERS
 import _get from "lodash/get"
@@ -200,7 +201,7 @@ export default {
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
             (this.$route.query.filters &&
-                this.queryFilterHasValues(
+                queryFilterHasValues(
                     this.$route.query.filters,
                     config.programsList.filters
                 ))
@@ -217,7 +218,9 @@ export default {
                 query_text,
                 config.programsList.searchFields,
                 "sectionHandle:program",
-                JSON.parse(this.$route.query.filters) || {},
+                (this.$route.query.filters &&
+                    JSON.parse(this.$route.query.filters)) ||
+                    {},
                 config.programsList.sortField,
                 config.programsList.orderBy,
                 config.programsList.resultFields,
@@ -330,29 +333,6 @@ export default {
         this.setFilters()
     },
     methods: {
-        queryFilterHasValues() {
-            if (!this.$route.query.filters) return false
-            let routeQueryFilters = JSON.parse(this.$route.query.filters)
-            // //console.log(
-            //     "is route query exixts:" + JSON.stringify(routeQueryFilters)
-            // )
-            let configFilters = config.programsList.filters
-            for (const filter of configFilters) {
-                if (
-                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName].length > 0
-                ) {
-                    return true
-                } else if (
-                    routeQueryFilters[filter.esFieldName] &&
-                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName] != ""
-                ) {
-                    return true
-                }
-            }
-            return false
-        },
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.programsList.filters,

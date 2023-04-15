@@ -128,6 +128,7 @@
 // UTILITIES
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
+import queryFilterHasValues from "~/utils/queryFilterHasValues"
 
 export default {
     data() {
@@ -161,7 +162,7 @@ export default {
             if (
                 (this.$route.query.q && this.$route.query.q !== "") ||
                 (this.$route.query.filters &&
-                    this.queryFilterHasValues(
+                    queryFilterHasValues(
                         this.$route.query.filters,
                         config.siteSearch.filters
                     ))
@@ -170,7 +171,9 @@ export default {
                 this.page = await this.$dataApi.siteSearch(
                     this.$route.query.q || "*",
                     this.$route.query.from || this.from,
-                    JSON.parse(this.$route.query.filters) || {},
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                        {},
                     config.siteSearch.filters
                 )
                 if (
@@ -286,29 +289,6 @@ export default {
         this.setFilters()
     },
     methods: {
-        queryFilterHasValues() {
-            if (!this.$route.query.filters) return false
-            let routeQueryFilters = JSON.parse(this.$route.query.filters)
-            // //console.log(
-            //     "is route query exixts:" + JSON.stringify(routeQueryFilters)
-            // )
-            let configFilters = config.siteSearch.filters
-            for (const filter of configFilters) {
-                if (
-                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName].length > 0
-                ) {
-                    return true
-                } else if (
-                    routeQueryFilters[filter.esFieldName] &&
-                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName] != ""
-                ) {
-                    return true
-                }
-            }
-            return false
-        },
         async setFilters() {
             const searchAggsResponse =
                 await this.$dataApi.getAggregationsForSiteSearch(
