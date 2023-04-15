@@ -1,4 +1,22 @@
 const config = {
+    siteSearch:{
+        searchFields: [
+            "title^4",
+            "summary^3",
+            "text^3",
+            "fullText^2",
+            "richText^2",
+            "sectionHandle",
+            "sectionHandleDisplayName"
+        ],
+        filters: [
+            {
+                label: "Type",
+                esFieldName: "sectionHandleDisplayName.keyword",
+                inputType: "checkbox",
+            },
+        ],
+    },
     serviceOrResources: {
         searchFields: ["title^6", "summary^6", "text^6"],
         resultFields: [

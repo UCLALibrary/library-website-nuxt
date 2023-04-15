@@ -8,6 +8,7 @@
         <search-generic
             :search-generic-query="searchGenericQuery"
             placeholder="Search library website"
+            :filters="searchFilters"
             @search-ready="getSearchData"
         />
 
@@ -60,7 +61,7 @@
                 >
                     <search-result
                         :title="result.title"
-                        :category="parseCategory(result.sectionHandle)"
+                        :category="result.sectionHandleDisplayName"
                         :summary="result.summary || result.text"
                         :to="result.to"
                         class="search-result-item"
@@ -124,6 +125,10 @@
 </template>
 
 <script>
+// UTILITIES
+import getListingFilters from "~/utils/getListingFilters"
+import config from "~/utils/searchConfig"
+
 export default {
     data() {
         return {
@@ -134,8 +139,13 @@ export default {
             prevFrom: 0,
             nextFrom: 0,
             size: 10,
+            searchFilters: [],
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
             },
         }
     },
@@ -148,11 +158,20 @@ export default {
         this.page = {}
         //console.log("In fetch start")
         try {
-            if (this.$route.query.q && this.$route.query.q !== "") {
-                //console.log("in router query in asyc data")
+            if (
+                (this.$route.query.q && this.$route.query.q !== "") ||
+                (this.$route.query.filters &&
+                    this.queryFilterHasValues(
+                        this.$route.query.filters,
+                        config.siteSearch.filters
+                    ))
+            ) {
+                console.log("in router query in asyc data")
                 this.page = await this.$dataApi.siteSearch(
-                    this.$route.query.q,
-                    this.$route.query.from || this.from
+                    this.$route.query.q || "*",
+                    this.$route.query.from || this.from,
+                    JSON.parse(this.$route.query.filters) || {},
+                    config.siteSearch.filters
                 )
                 if (
                     this.page &&
@@ -182,6 +201,10 @@ export default {
                 }
                 this.searchGenericQuery = {
                     queryText: this.$route.query.q || "",
+                    queryFilters:
+                        (this.$route.query.filters &&
+                            JSON.parse(this.$route.query.filters)) ||
+                        {},
                 }
             } else {
                 this.page = {}
@@ -254,20 +277,63 @@ export default {
         "$route.query.q"(newValue) {
             //console.log("watching querytEXT:" + newValue)
         },
+        "$route.query.filters"(newValue) {
+            //console.log("watching filters:" + newValue)
+        },
     },
     async mounted() {
         //console.log("In mounted")
+        this.setFilters()
     },
     methods: {
-        parseCategory(sectionHandle) {
-            if (!sectionHandle) return
-            return sectionHandle.split(/(?=[A-Z])/).join(" ")
+        queryFilterHasValues() {
+            if (!this.$route.query.filters) return false
+            let routeQueryFilters = JSON.parse(this.$route.query.filters)
+            // //console.log(
+            //     "is route query exixts:" + JSON.stringify(routeQueryFilters)
+            // )
+            let configFilters = config.siteSearch.filters
+            for (const filter of configFilters) {
+                if (
+                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName].length > 0
+                ) {
+                    return true
+                } else if (
+                    routeQueryFilters[filter.esFieldName] &&
+                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+                    routeQueryFilters[filter.esFieldName] != ""
+                ) {
+                    return true
+                }
+            }
+            return false
         },
+        async setFilters() {
+            const searchAggsResponse =
+                await this.$dataApi.getAggregationsForSiteSearch(
+                    config.siteSearch.filters
+                )
+
+            /*console.log(
+                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+            )*/
+            this.searchFilters = getListingFilters(
+                searchAggsResponse,
+                config.siteSearch.filters
+            )
+        },
+
         async getSearchData(data) {
+            //const queryString = new URLSearchParams(data.filters).toString()
+            // console.log("using url search params:" + queryString)
             try {
                 this.$router.push({
                     path: this.$route.path,
-                    query: { q: data.text },
+                    query: {
+                        q: data.text,
+                        filters: JSON.stringify(data.filters),
+                    },
                 })
             } catch (e) {
                 throw new Error("ES error maybe: " + e)

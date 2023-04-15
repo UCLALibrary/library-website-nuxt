@@ -15,11 +15,13 @@ function getListingFilters(searchAggsResponse,filterFields) {
             inputType: field.inputType,
             items: (searchAggsResponse && searchAggsResponse[field.label] && searchAggsResponse[field.label].buckets.reduce(
                 (accumulator, value) => {
+                    
                     return [...accumulator, { name: value.key }]
                 },
                 []
             ))|| []
         }
+        console.log("getlisting obj:"+JSON.stringify(obj))
         filters.push(obj)
     }
     
