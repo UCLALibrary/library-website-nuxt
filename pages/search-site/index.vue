@@ -220,6 +220,8 @@ export default {
     computed: {
         parsedSearchResults() {
             return this.page.hits.hits.map((obj) => {
+                if (obj._source.sectionHandle == "Libguide")
+                    obj._source.sectionHandleDisplayName = "Libguide"
                 if (
                     obj._source.sectionHandle == "Libguide" ||
                     obj._source.sectionHandle == "externalResource" ||
