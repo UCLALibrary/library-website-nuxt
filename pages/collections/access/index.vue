@@ -78,7 +78,9 @@ export default {
                         ? element.serviceOrResourceType
                         : element.typeHandle === "externalResource"
                             ? "resource"
-                            : element.typeHandle
+                            : element.typeHandle === "generalContentPage"
+                                ? "resource"
+                                : element.typeHandle
         })
         return {
             page: _get(data, "entry", {}),
