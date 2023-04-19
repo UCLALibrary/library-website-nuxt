@@ -174,6 +174,7 @@ import config from "~/utils/searchConfig"
 import removeTags from "~/utils/removeTags"
 import sortByTitle from "~/utils/sortByTitle"
 import queryFilterHasValues from "~/utils/queryFilterHasValues"
+import getListingFilters from "~/utils/getListingFilters"
 
 // HELPERS
 import _get from "lodash/get"
@@ -205,10 +206,13 @@ export default {
             title: "",
             searchFilters: [],
             noResultsFound: false,
-            queryFilters:
-                (this.$route.query.filters &&
-                    JSON.parse(this.$route.query.filters)) ||
-                {},
+            searchGenericQuery: {
+                queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
+            },
         }
     },
     async fetch() {
@@ -434,7 +438,7 @@ export default {
     methods: {
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
-                config.staff.filters,
+                config.eventsExhibitionsList.filters,
                 "event"
             )
             /*console.log(

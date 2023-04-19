@@ -194,7 +194,7 @@ const config = {
                 inputType: "checkbox",
             },*/
             {
-                label: "Event Type",
+                label: "Category",
                 esFieldName: "eventType.title.keyword",
                 inputType: "checkbox",
             },
