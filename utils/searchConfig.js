@@ -188,11 +188,11 @@ const config = {
             // "endDateWithTime^2"
         ],
         filters: [
-            {
+            /*{
                 label: "Location",
                 esFieldName: "eventLocation.title.keyword",
                 inputType: "checkbox",
-            },
+            },*/
             {
                 label: "Event Type",
                 esFieldName: "eventType.title.keyword",

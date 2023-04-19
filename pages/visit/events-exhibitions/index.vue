@@ -10,6 +10,7 @@
         <search-generic
             search-type="about"
             class="generic-search"
+            :filters="searchFilters"
             :search-generic-query="searchGenericQuery"
             :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
@@ -168,11 +169,15 @@
 </template>
 
 <script>
+// UTILITIES
 import config from "~/utils/searchConfig"
-// HELPERS
-import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
 import sortByTitle from "~/utils/sortByTitle"
+import queryFilterHasValues from "~/utils/queryFilterHasValues"
+
+// HELPERS
+import _get from "lodash/get"
+
 // GQL
 import EXHIBITIONS_AND_EVENTS_LIST from "~/gql/queries/ExhibitionsAndEventsList.gql"
 import EXHIBITIONS_AND_EVENTS_LIST_SINGLE from "~/gql/queries/ExhibitionsAndEventsListSingle.gql"
@@ -198,17 +203,25 @@ export default {
             exhibitions: [],
             hits: [],
             title: "",
-
+            searchFilters: [],
             noResultsFound: false,
-            searchGenericQuery: {
-                queryText: this.$route.query.q || "",
-            },
+            queryFilters:
+                (this.$route.query.filters &&
+                    JSON.parse(this.$route.query.filters)) ||
+                {},
         }
     },
     async fetch() {
         // this.events = []
         this.hits = []
-        if (this.$route.query.q && this.$route.query.q !== "") {
+        if (
+            (this.$route.query.q && this.$route.query.q !== "") ||
+            (this.$route.query.filters &&
+                queryFilterHasValues(
+                    this.$route.query.filters,
+                    config.eventsExhibitionsList.filters
+                ))
+        ) {
             if (!this.page.title) {
                 const data = await this.$graphql.default.request(
                     EXHIBITIONS_AND_EVENTS_LIST_SINGLE
@@ -221,55 +234,42 @@ export default {
                 query_text,
                 config.eventsExhibitionsList.searchFields,
                 "sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries",
-                [],
+                (this.$route.query.filters &&
+                    JSON.parse(this.$route.query.filters)) ||
+                    {},
                 config.eventsExhibitionsList.sortField,
                 config.eventsExhibitionsList.orderBy,
                 config.eventsExhibitionsList.resultFields,
-                []
+                config.eventsExhibitionsList.filters
             )
             //console.log("getsearchdata method:" + JSON.stringify(results))
             // this.events = []
             // this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
-                this.events = []
+                /*this.events = []
                 this.series = []
-                this.exhibitions = []
+                this.exhibitions = []*/
                 this.noResultsFound = false
             } else {
                 this.hits = []
-                this.events = []
+                /*this.events = []
                 this.series = []
-                this.exhibitions = []
+                this.exhibitions = []*/
                 this.noResultsFound = true
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
             }
         } else {
-            // const results = await this.$dataApi.keywordSearchWithFilters(
-            //     "*",
-            //     config.eventsExhibitionsList.searchFields,
-            //     "sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries",
-            //     [],
-            //     config.eventsExhibitionsList.sortField,
-            //     config.eventsExhibitionsList.orderBy,
-            //     config.eventsExhibitionsList.resultFields,
-            //     []
-            // )
-            // if (results && results.hits && results.hits.total.value > 0) {
-            //     this.hits = results.hits.hits
-            //     this.events = []
-            //     this.noResultsFound = false
-            // } else {
-            //     this.hits = []
-            //     this.events = []
-            //     this.noResultsFound = true
-            // }
             // if route queries are empty fetch data from craft
             this.hits = []
             this.noResultsFound = false
-            const single = await this.$graphql.default.request(
+            /*const single = await this.$graphql.default.request(
                 EXHIBITIONS_AND_EVENTS_LIST_SINGLE
             )
             const data = await this.$graphql.default.request(
@@ -279,7 +279,7 @@ export default {
             this.single = _get(data, "entry", {})
             this.events = _get(data, "events", {})
             this.series = _get(data, "series", {})
-            this.exhibitions = _get(data, "exhibitions", {})
+            this.exhibitions = _get(data, "exhibitions", {})*/
         }
     },
     head() {
@@ -316,7 +316,7 @@ export default {
                         obj.typeHandle === "exhibition"
                             ? "View exhibition"
                             : obj.workshopOrEventSeriesType ===
-                            "visit/events-exhibitions"
+                              "visit/events-exhibitions"
                                 ? "View event series"
                                 : "View event",
                     text:
@@ -346,10 +346,10 @@ export default {
                         obj.typeHandle === "exhibition"
                             ? "Exhibition"
                             : obj.workshopOrEventSeriesType ===
-                            "visit/events-exhibitions"
+                              "visit/events-exhibitions"
                                 ? "Event Series"
                                 : obj.workshopOrEventSeriesType ===
-                            "help/services-resources"
+                              "help/services-resources"
                                     ? "Workshop Series"
                                     : obj.eventType != null
                                         ? obj.eventType[0].title
@@ -364,11 +364,7 @@ export default {
                 return {
                     ...eventOrExhibtion,
                     to: `/${eventOrExhibtion.to}`,
-                    image: _get(
-                        eventOrExhibtion,
-                        "image[0]",
-                        null
-                    ),
+                    image: _get(eventOrExhibtion, "image[0]", null),
                     startDate: _get(
                         eventOrExhibtion,
                         "startDateWithTime",
@@ -388,25 +384,27 @@ export default {
             })
         },
         parsedSeriesAndExhibitions() {
-            return [...(this.page.featuredEventSeriesAndExhibitions || []),].sort(sortByTitle).map((obj) => {
-                return {
-                    ...obj,
-                    category:
-                        obj.typeHandle === "exhibition"
-                            ? "Exhibition"
-                            : obj.workshopOrEventSeriesType ===
-                            "visit/events-exhibitions"
-                                ? "Event Series"
+            return [...(this.page.featuredEventSeriesAndExhibitions || [])]
+                .sort(sortByTitle)
+                .map((obj) => {
+                    return {
+                        ...obj,
+                        category:
+                            obj.typeHandle === "exhibition"
+                                ? "Exhibition"
                                 : obj.workshopOrEventSeriesType ===
-                            "help/services-resources"
-                                    ? "Workshop Series"
-                                    : obj.eventType != null
-                                        ? obj.eventType[0].title
-                                        : "Event",
-                    to: `/${obj.to}`,
-                    image: _get(obj, "heroImage[0].image[0]", null),
-                }
-            })
+                                  "visit/events-exhibitions"
+                                    ? "Event Series"
+                                    : obj.workshopOrEventSeriesType ===
+                                  "help/services-resources"
+                                        ? "Workshop Series"
+                                        : obj.eventType != null
+                                            ? obj.eventType[0].title
+                                            : "Event",
+                        to: `/${obj.to}`,
+                        image: _get(obj, "heroImage[0].image[0]", null),
+                    }
+                })
         },
         parseHitsResults() {
             return this.parseHits(this.hits)
@@ -422,8 +420,31 @@ export default {
         "$route.query.q"(newValue) {
             //console.log("watching queryText:" + newValue)
         },
+        "$route.query.filters"(newValue) {
+            //console.log("watching filters:" + newValue)
+        },
+    },
+    async mounted() {
+        //console.log("In mounted")
+        /*//console.log("ESREADkey:" + this.$config.esReadKey)
+        //console.log("ESURLkey:" + this.$config.esURL)*/
+        // bookmarked search queries are not calling fetch
+        this.setFilters()
     },
     methods: {
+        async setFilters() {
+            const searchAggsResponse = await this.$dataApi.getAggregations(
+                config.staff.filters,
+                "event"
+            )
+            /*console.log(
+                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+            )*/
+            this.searchFilters = getListingFilters(
+                searchAggsResponse,
+                config.eventsExhibitionsList.filters
+            )
+        },
         parseHits(hits = []) {
             return hits.map((obj) => {
                 if (obj["_source"].sectionHandle === "event") {
@@ -475,6 +496,7 @@ export default {
                 path: "/visit/events-exhibitions",
                 query: {
                     q: data.text,
+                    filters: JSON.stringify(data.filters),
                 },
             })
         },
