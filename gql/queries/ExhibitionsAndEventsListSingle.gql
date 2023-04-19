@@ -58,6 +58,24 @@ query EventsExhibitionsList {
                     }
                 }
             }
+            featuredEventSeriesAndExhibitions {
+                title
+                typeHandle
+                uri
+                startDate
+                endDate
+                ongoing
+                text: summary
+                to: uri
+                heroImage {
+                    ... on heroImage_heroImage_BlockType {
+                        image {
+                            ...Image
+                        }
+                    }
+                }
+                workshopOrEventSeriesType
+            }
         }
     }
 }
