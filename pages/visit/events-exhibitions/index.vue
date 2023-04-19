@@ -207,8 +207,6 @@ export default {
     },
     async fetch() {
         // this.events = []
-        // this.series = []
-        // this.exhibitions = []
         this.hits = []
         if (this.$route.query.q && this.$route.query.q !== "") {
             if (!this.page.title) {
@@ -231,8 +229,6 @@ export default {
             )
             //console.log("getsearchdata method:" + JSON.stringify(results))
             // this.events = []
-            // this.series = []
-            // this.exhibitions = []
             // this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
@@ -264,14 +260,10 @@ export default {
             // if (results && results.hits && results.hits.total.value > 0) {
             //     this.hits = results.hits.hits
             //     this.events = []
-            //     this.series = []
-            //     this.exhibitions = []
             //     this.noResultsFound = false
             // } else {
             //     this.hits = []
             //     this.events = []
-            //     this.series = []
-            //     this.exhibitions = []
             //     this.noResultsFound = true
             // }
             // if route queries are empty fetch data from craft
@@ -324,7 +316,7 @@ export default {
                         obj.typeHandle === "exhibition"
                             ? "View exhibition"
                             : obj.workshopOrEventSeriesType ===
-                              "visit/events-exhibitions"
+                            "visit/events-exhibitions"
                                 ? "View event series"
                                 : "View event",
                     text:
@@ -354,10 +346,10 @@ export default {
                         obj.typeHandle === "exhibition"
                             ? "Exhibition"
                             : obj.workshopOrEventSeriesType ===
-                              "visit/events-exhibitions"
+                            "visit/events-exhibitions"
                                 ? "Event Series"
                                 : obj.workshopOrEventSeriesType ===
-                              "help/services-resources"
+                            "help/services-resources"
                                     ? "Workshop Series"
                                     : obj.eventType != null
                                         ? obj.eventType[0].title
@@ -396,30 +388,25 @@ export default {
             })
         },
         parsedSeriesAndExhibitions() {
-            return [...(this.series || []), ...(this.exhibitions || [])]
-                .sort(sortByTitle)
-                .map((obj) => {
-                    const seriesOrExhibtion = obj || {}
-                    return {
-                        ...seriesOrExhibtion,
-                        category:
-                            seriesOrExhibtion.category ===
+            return [...(this.page.featuredEventSeriesAndExhibitions || []),].sort(sortByTitle).map((obj) => {
+                return {
+                    ...obj,
+                    category:
+                        obj.typeHandle === "exhibition"
+                            ? "Exhibition"
+                            : obj.workshopOrEventSeriesType ===
                             "visit/events-exhibitions"
-                                ? "event series"
-                                : seriesOrExhibtion.category ===
-                                    "help/services-resources"
-                                    ? "workshop series"
-                                    : seriesOrExhibtion.typeHandle === "exhibition"
-                                        ? "exhibition"
-                                        : seriesOrExhibtion.category,
-                        to: `/${seriesOrExhibtion.to}`,
-                        image: _get(
-                            seriesOrExhibtion,
-                            "heroImage[0].image[0]",
-                            null
-                        ),
-                    }
-                })
+                                ? "Event Series"
+                                : obj.workshopOrEventSeriesType ===
+                            "help/services-resources"
+                                    ? "Workshop Series"
+                                    : obj.eventType != null
+                                        ? obj.eventType[0].title
+                                        : "Event",
+                    to: `/${obj.to}`,
+                    image: _get(obj, "heroImage[0].image[0]", null),
+                }
+            })
         },
         parseHitsResults() {
             return this.parseHits(this.hits)
