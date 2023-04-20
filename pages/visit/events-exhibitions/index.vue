@@ -273,6 +273,10 @@ export default {
             // if route queries are empty fetch data from craft
             this.hits = []
             this.noResultsFound = false
+            this.searchGenericQuery = {
+                queryText: "",
+                queryFilters: {},
+            }
             /*const single = await this.$graphql.default.request(
                 EXHIBITIONS_AND_EVENTS_LIST_SINGLE
             )
@@ -496,11 +500,13 @@ export default {
         },
         getSearchData(data) {
             //console.log("On the page getsearchdata called " + data)
+            const filterData =
+                (data.filters && JSON.stringify(data.filters)) || ""
             this.$router.push({
                 path: "/visit/events-exhibitions",
                 query: {
                     q: data.text,
-                    filters: JSON.stringify(data.filters),
+                    filters: filterData,
                 },
             })
         },
