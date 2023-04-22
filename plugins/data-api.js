@@ -7,7 +7,8 @@ export default function ({ $config }, inject) {
     async function siteSearch(
         keyword = "*",
         from = 0,
-        filters
+        queryFilters,
+        configMapping
     ) {
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
         if (
@@ -44,7 +45,7 @@ export default function ({ $config }, inject) {
                                 },
                             },
                         ],
-                        filter: [...parseFilterQuery(filters)],
+                        filter: [...parseFilterQuerySiteSearch(queryFilters, configMapping)],
                     },
                 },
             })
@@ -83,7 +84,7 @@ export default function ({ $config }, inject) {
                                     },
                                 },
                             ],
-                            filter: [...parseFilterQuery(filters)],
+                            filter: [...parseFilterQuerySiteSearch(queryFilters, configMapping)],
                         },
                     },
                 }),
@@ -91,6 +92,39 @@ export default function ({ $config }, inject) {
         )
         const data = await response.json()
         return data
+    }
+    function parseFilterQuerySiteSearch(queryFilters, configMapping){
+        console.log("In parseFilterQuerySiteSearch")
+        if (!queryFilters || queryFilters.length == 0) return []
+        let boolQuery = []
+        /*
+        [
+                {
+                    "term": {
+                        "sectionHandle.keyword":"Powell"
+                    }
+                }
+            ]
+
+
+        */
+        for (const key in queryFilters) {
+            // console.log(key)
+            
+            if (Array.isArray(queryFilters[key]) && queryFilters[key].length > 0) {
+                let filterObj = { terms: {} }
+                let values = []
+                for(let value of queryFilters[key]){
+                    const element = configMapping.find(element => element.key === value)
+                    values.push(element && element.terms)
+                }
+                // console.log("final values",values)
+                filterObj.terms[key] = values.flat()
+                boolQuery.push(filterObj)
+            } 
+        }
+        // console.log("bool query:"+JSON.stringify(boolQuery))
+        return boolQuery
     }
 
     async function keywordSearchWithFilters(

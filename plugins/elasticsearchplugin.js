@@ -1,7 +1,4 @@
-function parseCategory(sectionHandle) {
-    if (!sectionHandle) return
-    return sectionHandle.split(/(?=[A-Z])/).join(" ").toUpperCase()
-}
+
  
 export default function ({ $config }, inject) {
     const esIndex= $config.esTempIndex
@@ -13,7 +10,7 @@ export default function ({ $config }, inject) {
                 console.log(
                     "this is the elasticsearch plugin: " + JSON.stringify(data)
                 )
-                data.sectionHandleDisplayName = parseCategory(data.sectionHandle)
+               
                 console.warn(
                     "this is the elasticsearch plugin: " + slug
                 )

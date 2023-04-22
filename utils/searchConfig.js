@@ -1,5 +1,5 @@
 const config = {
-    siteSearch:{
+    siteSearch: {
         searchFields: [
             "title^4",
             "summary^3",
@@ -7,13 +7,56 @@ const config = {
             "fullText^2",
             "richText^2",
             "sectionHandle",
-            "sectionHandleDisplayName"
+            "sectionHandleDisplayName",
         ],
         filters: [
             {
-                label: "Type",
-                esFieldName: "sectionHandleDisplayName.keyword",
+                label: "Filter by Content Type",
+                esFieldName: "sectionHandle.keyword",
                 inputType: "checkbox",
+            },
+        ],
+        sectionHandleMapping: [
+            {
+                key: "Events & Exhibitions",
+                terms: ["event", "workshopOrEventSeries", "exhibition"],
+            },
+            {
+                key: "News",
+                terms: ["article"],
+            },
+            {
+                key: "Locations & Hours",
+                terms: ["location"],
+            },
+            {
+                key: "Staff Directory",
+                terms: ["staffMember"],
+            },
+            {
+                key: "Services & Resources",
+                terms:
+                    ["serviceOrResource", "externalResource", "helpTopic"],
+            },
+            {
+                key: "Research Guides",
+                terms: ["Libguide"],
+            },
+            {
+                key: "Featured Collection",
+                terms: ["collection"],
+            },
+            {
+                key: "Programs & Initiatives",
+                terms: ["program"],
+            },
+            {
+                key: "Policies",
+                terms: ["policy"],
+            },
+            {
+                key: "Endowments",
+                terms: ["endowment"],
             },
         ],
     },

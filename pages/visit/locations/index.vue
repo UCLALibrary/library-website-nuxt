@@ -206,22 +206,22 @@ export default {
         }
     },
     async fetch() {
-        this.uclaLibraries = []
+        //this.uclaLibraries = []
         this.hits = []
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
             (this.$route.query.filters &&
                 queryFilterHasValues(
                     this.$route.query.filters,
-                    config.siteSearch.filters
+                    config.locationsList.filters
                 ))
         ) {
-            if (!this.page.title) {
+            /*if (!this.page.title) {
                 const data = await this.$graphql.default.request(LOCATIONS_LIST)
                 //console.log("data for masthead:" + data)
                 this.page["title"] = _get(data, "entry.title", "")
                 this.page["text"] = _get(data, "entry.text", "")
-            }
+            }*/
             let query_text = this.$route.query.q || "*"
             //console.log("in router query in asyc data")
             const results = await this.$dataApi.keywordSearchWithFilters(
@@ -237,15 +237,15 @@ export default {
                 config.locationsList.filters
             )
             //console.log("getsearchdata method:" + JSON.stringify(results))
-            this.uclaLibraries = []
+            // this.uclaLibraries = []
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
-                this.uclaLibraries = []
+                // this.uclaLibraries = []
                 this.noResultsFound = false
             } else {
                 this.hits = []
-                this.uclaLibraries = []
+                // this.uclaLibraries = []
                 this.noResultsFound = true
             }
             this.searchGenericQuery = {
@@ -258,11 +258,15 @@ export default {
         } else {
             this.hits = []
             this.noResultsFound = false
+            this.searchGenericQuery = {
+                queryText: "",
+                queryFilters: {},
+            }
             // if route queries are empty fetch data from craft
-            const data = await this.$graphql.default.request(LOCATIONS_LIST)
+            // const data = await this.$graphql.default.request(LOCATIONS_LIST)
             // //console.log("data:" + data)
-            this.page = _get(data, "entry", {})
-            this.uclaLibraries = _get(data, "uclaLibraries", [])
+            /* this.page = _get(data, "entry", {})
+            this.uclaLibraries = _get(data, "uclaLibraries", [])*/
         }
     },
     head() {
@@ -338,29 +342,7 @@ export default {
         showMoreOtherCampusLibrary() {
             this.showOtherCampus = !this.showOtherCampus
         },
-        queryFilterHasValues() {
-            if (!this.$route.query.filters) return false
-            let routeQueryFilters = JSON.parse(this.$route.query.filters)
-            // //console.log(
-            //     "is route query exixts:" + JSON.stringify(routeQueryFilters)
-            // )
-            let configFilters = config.locationsList.filters
-            for (const filter of configFilters) {
-                if (
-                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName].length > 0
-                ) {
-                    return true
-                } else if (
-                    routeQueryFilters[filter.esFieldName] &&
-                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName] != ""
-                ) {
-                    return true
-                }
-            }
-            return false
-        },
+
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.locationsList.filters,
@@ -405,7 +387,8 @@ export default {
                 path: "/visit/locations",
                 query: {
                     q: data.text,
-                    filters: JSON.stringify(data.filters),
+                    filters:
+                        (data.filters && JSON.stringify(data.filters)) || "",
                 },
             })
         },

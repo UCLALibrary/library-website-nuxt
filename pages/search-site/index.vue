@@ -61,7 +61,7 @@
                 >
                     <search-result
                         :title="result.title"
-                        :category="result.sectionHandleDisplayName"
+                        :category="parseCategory(result.sectionHandle)"
                         :summary="result.summary || result.text"
                         :to="result.to"
                         class="search-result-item"
@@ -174,7 +174,7 @@ export default {
                     (this.$route.query.filters &&
                         JSON.parse(this.$route.query.filters)) ||
                         {},
-                    config.siteSearch.filters
+                    config.siteSearch.sectionHandleMapping
                 )
                 if (
                     this.page &&
@@ -291,19 +291,40 @@ export default {
         this.setFilters()
     },
     methods: {
+        parseCategory(sectionHandle) {
+            if (!sectionHandle) return
+            return sectionHandle
+                .split(/(?=[A-Z])/)
+                .join(" ")
+                .toUpperCase()
+        },
         async setFilters() {
-            const searchAggsResponse =
+            /*const searchAggsResponse =
                 await this.$dataApi.getAggregationsForSiteSearch(
-                    config.siteSearch.filters
-                )
+                    config.siteSearch.sectionHandleMapping
+                )*/
 
             /*console.log(
                 "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
             )*/
-            this.searchFilters = getListingFilters(
-                searchAggsResponse,
-                config.siteSearch.filters
-            )
+            const filters = []
+
+            let obj = {
+                label: config.siteSearch.filters[0].label,
+                esFieldName: config.siteSearch.filters[0].esFieldName,
+                inputType: config.siteSearch.filters[0].inputType,
+                items:
+                    config.siteSearch.sectionHandleMapping.reduce(
+                        (accumulator, value) => {
+                            return [...accumulator, { name: value.key }]
+                        },
+                        []
+                    ) || [],
+            }
+            console.log("getlisting obj:" + JSON.stringify(obj))
+            filters.push(obj)
+
+            this.searchFilters = filters
         },
 
         async getSearchData(data) {
