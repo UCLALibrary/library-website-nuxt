@@ -26,19 +26,10 @@
 
         <!-- ALL STAFF -->
         <section-wrapper
-            v-show="page.entries"
+            v-show="page.entries && hits.length == 0 && !noResultsFound"
             class="section-no-top-margin"
         >
             <alphabetical-browse-by
-                v-if="
-                    (searchGenericQuery.queryFilters[
-                        'subjectLibrarian.keyword'
-                    ] &&
-                        searchGenericQuery.queryFilters[
-                            'subjectLibrarian.keyword'
-                        ] === '') ||
-                        !searchGenericQuery.queryFilters['subjectLibrarian.keyword']
-                "
                 class="browse-margin"
                 :selected-letter-prop="selectedLetterProp"
                 @selectedLetter="searchBySelectedLetter"
@@ -61,6 +52,11 @@
             "
             class="section-no-top-margin"
         >
+            <alphabetical-browse-by
+                class="browse-margin"
+                :selected-letter-prop="selectedLetterProp"
+                @selectedLetter="searchBySelectedLetter"
+            />
             <h2
                 v-if="$route.query.q"
                 class="about-results"
@@ -115,7 +111,8 @@
             v-show="
                 searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
                     searchGenericQuery.queryFilters['subjectLibrarian.keyword'] ===
-                    'yes'
+                    'yes' &&
+                    groupByAcademicLibraries
             "
             class="section-no-top-margin"
         >
@@ -181,7 +178,7 @@ export default {
     fetchKey: "staff-list",
     async fetch() {
         console.warn("Fetch Hook  staff list")
-        this.page = {}
+        //this.page = {}
         this.hits = []
         /*//console.log("test query parameters: " + this.$route.query.q)
         //console.log("test query parameters: " + this.$route.query.filters)*/
@@ -223,15 +220,15 @@ export default {
                 config.staff.filters
             )
             //console.log("getsearchdata method:" + JSON.stringify(results))
-            this.page = {}
+            //this.page = {}
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
-                this.page = {}
+                //this.page = {}
                 this.noResultsFound = false
             } else {
                 this.hits = []
-                this.page = {}
+                //this.page = {}
                 this.noResultsFound = true
             }
             this.searchGenericQuery = {
@@ -244,14 +241,14 @@ export default {
             this.selectedLetterProp = this.$route.query.lastNameLetter || ""
         } else {
             // if route queries are empty fetch data from craft
-            this.page = await this.$graphql.default.request(STAFF_LIST)
+            // this.page = await this.$graphql.default.request(STAFF_LIST)
             this.hits = []
             this.noResultsFound = false
             this.searchGenericQuery = {
                 queryText: "",
                 queryFilters: {},
             }
-            this.summaryData = _get(this.page, "entry", {})
+            // this.summaryData = _get(this.page, "entry", {})
             this.selectedLetterProp = ""
             ////console.log("Craft data:" + JSON.stringify(data))
         }
@@ -423,7 +420,7 @@ export default {
                 path: "/about/staff",
                 query: {
                     q: data.text,
-                    filters: JSON.stringify(data.filters),
+                    filters: data.filters && JSON.stringify(data.filters),
                     lastNameLetter: this.$route.query.lastNameLetter,
                 },
             })

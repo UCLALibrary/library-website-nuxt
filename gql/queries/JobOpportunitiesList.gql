@@ -29,9 +29,9 @@ query JobOpportunitiesList {
       department {
         title
       }
-      associatedLocations {
+      associatedLocations: location {
         title
-        uri
+        uri: publicUrl
       }
     }
   }
