@@ -18,20 +18,36 @@ const config = {
         ],
         sectionHandleMapping: [
             {
+                key: "Endowments",
+                terms: ["endowment"],
+            },
+            {
                 key: "Events & Exhibitions",
                 terms: ["event", "workshopOrEventSeries", "exhibition"],
             },
             {
-                key: "News",
-                terms: ["article"],
+                key: "Featured Collection",
+                terms: ["collection"],
             },
             {
                 key: "Locations & Hours",
                 terms: ["location"],
             },
             {
-                key: "Staff Directory",
-                terms: ["staffMember"],
+                key: "News",
+                terms: ["article"],
+            },
+            {
+                key: "Policies",
+                terms: ["policy"],
+            },
+            {
+                key: "Programs & Initiatives",
+                terms: ["program"],
+            },
+            {
+                key: "Research Guides",
+                terms: ["Libguide"],
             },
             {
                 key: "Services & Resources",
@@ -39,24 +55,8 @@ const config = {
                     ["serviceOrResource", "externalResource", "helpTopic"],
             },
             {
-                key: "Research Guides",
-                terms: ["Libguide"],
-            },
-            {
-                key: "Featured Collection",
-                terms: ["collection"],
-            },
-            {
-                key: "Programs & Initiatives",
-                terms: ["program"],
-            },
-            {
-                key: "Policies",
-                terms: ["policy"],
-            },
-            {
-                key: "Endowments",
-                terms: ["endowment"],
+                key: "Staff Directory",
+                terms: ["staffMember"],
             },
         ],
     },
