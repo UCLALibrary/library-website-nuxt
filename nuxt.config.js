@@ -126,7 +126,6 @@ export default {
     /*router: {
         trailingSlash: false,
     },*/
-    
 
     /*
      * Nuxt modules

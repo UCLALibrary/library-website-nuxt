@@ -33,6 +33,8 @@
             />
         </section-wrapper>
 
+        <page-anchor :section-titles='["Using the Collection"]' />
+
         <section-wrapper theme="divider">
             <divider-way-finder class="divider-way-finder" color="default" />
         </section-wrapper>
@@ -219,6 +221,10 @@ export default {
         },
     },
     methods: {
+        kebabSectionTitles(title) {
+            let stringWithNoSpecialChars = string.replace('&', '').replace(/\s+/g, ' ').trim()
+            return stringWithNoSpecialChars.toLowerCase().replace(/ /g, "-")
+        },
         parsedDonors(obj) {
             let donorNames = []
             obj.donors.map((donor) => {

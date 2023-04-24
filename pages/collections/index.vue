@@ -117,7 +117,7 @@ export default {
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription
@@ -192,7 +192,7 @@ export default {
                     )
                     return {
                         ...obj,
-                        to: 
+                        to:
                             obj.externalResourceUrl != null
                                 ? _get(obj, "externalResourceUrl", "")
                                 : `/${obj.to}`,
