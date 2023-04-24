@@ -1,5 +1,8 @@
 <template>
-    <main id="main" class="page page-staff">
+    <main
+        id="main"
+        class="page page-staff"
+    >
         <masthead-secondary
             v-if="summaryData"
             :title="summaryData.title || ''"
@@ -22,17 +25,11 @@
         </section-wrapper>
 
         <!-- ALL STAFF -->
-        <section-wrapper v-show="page.entries" class="section-no-top-margin">
+        <section-wrapper
+            v-show="page.entries && hits.length == 0 && !noResultsFound"
+            class="section-no-top-margin"
+        >
             <alphabetical-browse-by
-                v-if="
-                    (searchGenericQuery.queryFilters[
-                        'subjectLibrarian.keyword'
-                    ] &&
-                        searchGenericQuery.queryFilters[
-                            'subjectLibrarian.keyword'
-                        ] === '') ||
-                    !searchGenericQuery.queryFilters['subjectLibrarian.keyword']
-                "
                 class="browse-margin"
                 :selected-letter-prop="selectedLetterProp"
                 @selectedLetter="searchBySelectedLetter"
@@ -44,47 +41,57 @@
         <section-wrapper
             v-show="
                 hits &&
-                hits.length > 0 &&
-                ((searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
-                    searchGenericQuery.queryFilters[
-                        'subjectLibrarian.keyword'
-                    ] === '') ||
-                    !searchGenericQuery.queryFilters[
-                        'subjectLibrarian.keyword'
-                    ])
+                    hits.length > 0 &&
+                    ((searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
+                        searchGenericQuery.queryFilters[
+                            'subjectLibrarian.keyword'
+                        ] === '') ||
+                        !searchGenericQuery.queryFilters[
+                            'subjectLibrarian.keyword'
+                        ])
             "
             class="section-no-top-margin"
         >
-            <h2 v-if="$route.query.q" class="about-results">
+            <alphabetical-browse-by
+                class="browse-margin"
+                :selected-letter-prop="selectedLetterProp"
+                @selectedLetter="searchBySelectedLetter"
+            />
+            <h2
+                v-if="$route.query.q"
+                class="about-results"
+            >
                 Displaying {{ hits.length }} results for
-                <strong
-                    ><em>“{{ $route.query.q }}”</em></strong
-                >
+                <strong><em>“{{ $route.query.q }}”</em></strong>
             </h2>
-            <h2 v-else class="about-results">
+            <h2
+                v-else
+                class="about-results"
+            >
                 Displaying {{ hits.length }} results
             </h2>
             <section-staff-list :items="parseHitsResults" />
         </section-wrapper>
 
         <!-- NO RESULTS -->
-        <section-wrapper v-show="noResultsFound" class="section-no-top-margin">
+        <section-wrapper
+            v-show="noResultsFound"
+            class="section-no-top-margin"
+        >
             <div class="error-text">
                 <rich-text>
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
-                        but we're here to help. <br />
+                        but we're here to help. <br>
                         Try searching the whole site from
-                        <a href="https://library.ucla.edu">UCLA Library Home</a
-                        >, or try one of the these regularly visited links:
+                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
                     </p>
                     <ul>
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/research-teaching-support/research-help"
-                                >Research Help</a
-                            >
+                            >Research Help</a>
                         </li>
                         <li>
                             <a href="/help/services-resources/ask-us">Ask Us</a>
@@ -92,8 +99,7 @@
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
-                                >Accessibility Resources</a
-                            >
+                            >Accessibility Resources</a>
                         </li>
                     </ul>
                 </rich-text>
@@ -104,8 +110,9 @@
         <section-wrapper
             v-show="
                 searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
-                searchGenericQuery.queryFilters['subjectLibrarian.keyword'] ===
-                    'yes'
+                    searchGenericQuery.queryFilters['subjectLibrarian.keyword'] ===
+                    'yes' &&
+                    groupByAcademicLibraries
             "
             class="section-no-top-margin"
         >
@@ -171,7 +178,7 @@ export default {
     fetchKey: "staff-list",
     async fetch() {
         console.warn("Fetch Hook  staff list")
-        this.page = {}
+        //this.page = {}
         this.hits = []
         /*//console.log("test query parameters: " + this.$route.query.q)
         //console.log("test query parameters: " + this.$route.query.filters)*/
@@ -211,15 +218,15 @@ export default {
                 config.staff.filters
             )
             //console.log("getsearchdata method:" + JSON.stringify(results))
-            this.page = {}
+            //this.page = {}
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
-                this.page = {}
+                //this.page = {}
                 this.noResultsFound = false
             } else {
                 this.hits = []
-                this.page = {}
+                //this.page = {}
                 this.noResultsFound = true
             }
             this.searchGenericQuery = {
@@ -232,14 +239,14 @@ export default {
             this.selectedLetterProp = this.$route.query.lastNameLetter || ""
         } else {
             // if route queries are empty fetch data from craft
-            this.page = await this.$graphql.default.request(STAFF_LIST)
+            // this.page = await this.$graphql.default.request(STAFF_LIST)
             this.hits = []
             this.noResultsFound = false
             this.searchGenericQuery = {
                 queryText: "",
                 queryFilters: {},
             }
-            this.summaryData = _get(this.page, "entry", {})
+            // this.summaryData = _get(this.page, "entry", {})
             this.selectedLetterProp = ""
             ////console.log("Craft data:" + JSON.stringify(data))
         }
@@ -411,7 +418,7 @@ export default {
                 path: "/about/staff",
                 query: {
                     q: data.text,
-                    filters: JSON.stringify(data.filters),
+                    filters: data.filters && JSON.stringify(data.filters),
                     lastNameLetter: this.$route.query.lastNameLetter,
                 },
             })
