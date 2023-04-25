@@ -4,7 +4,12 @@ export default function ({ $config }, inject) {
     {"id":"j6tUj4IBzYVXfPB9-JvU","name":"dev-es-key","api_key":"N_f0_5WSSae3QOvm4hlq0g","encoded":"ajZ0VWo0SUJ6WVZYZlBCOS1KdlU6Tl9mMF81V1NTYWUzUU92bTRobHEwZw=="}
     */
 
-    async function siteSearch(keyword = "*:*", from = 0) {
+    async function siteSearch(
+        keyword = "*",
+        from = 0,
+        queryFilters,
+        configMapping
+    ) {
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
         if (
             $config.esReadKey === "" ||
@@ -12,28 +17,35 @@ export default function ({ $config }, inject) {
             $config.esIndex === ""
         )
             return
-        //console.log("keyword:"+keyword)
+        console.log("keyword:"+keyword)
         /*if(keyword && keyword !== "*:*") {
             keyword = keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"])/g, "\\$1")  
         }*/
-        console.log(
+        console.log("Hello from dataapi",
             JSON.stringify({
                 from: from,
                 query: {
-                    query_string: {
-                        query:
-                            "(" +
-                            keyword +
-                            " AND NOT(sectionHandle:event)) OR (" +
-                            keyword +
-                            " AND startDateWithTime:[now TO *] AND sectionHandle:event)",
-                        fields: [
-                            "title^4",
-                            "summary^3",
-                            "text^3",
-                            "richText^2",
+                    bool: {
+                        must: [
+                            {
+                                query_string: {
+                                    query:
+                                        "(" +
+                                        keyword +
+                                        " AND NOT(sectionHandle:event)) OR (" +
+                                        keyword +
+                                        " AND startDateWithTime:[now TO *] AND sectionHandle:event)",
+                                    fields: [
+                                        "title^4",
+                                        "summary^3",
+                                        "text^3",
+                                        "richText^2",
+                                    ],
+                                    fuzziness: "auto",
+                                },
+                            },
                         ],
-                        fuzziness: "auto",
+                        filter: [...parseFilterQuerySiteSearch(queryFilters, configMapping)],
                     },
                 },
             })
@@ -49,22 +61,30 @@ export default function ({ $config }, inject) {
                 body: JSON.stringify({
                     from: from,
                     query: {
-                        query_string: {
-                            query:
-                                "(" +
-                                keyword +
-                                " AND NOT(sectionHandle:event)) OR (" +
-                                keyword +
-                                " AND startDateWithTime:[now TO *] AND sectionHandle:event)",
-                            fields: [
-                                "title^4",
-                                "summary^3",
-                                "text^3",
-                                "fullText^3",
-                                "richText^2",
-                                "sectionHandle",
+                        bool: {
+                            must: [
+                                {
+                                    query_string: {
+                                        query:
+                                            "(" +
+                                            keyword +
+                                            " AND NOT(sectionHandle:event)) OR (" +
+                                            keyword +
+                                            " AND startDateWithTime:[now TO *] AND sectionHandle:event)",
+                                        fields: [
+                                            "title^4",
+                                            "summary^3",
+                                            "text^3",
+                                            "fullText^2",
+                                            "richText^2",
+                                            "sectionHandle",
+                                            "sectionHandleDisplayName"
+                                        ],
+                                        fuzziness: "auto",
+                                    },
+                                },
                             ],
-                            fuzziness: "auto",
+                            filter: [...parseFilterQuerySiteSearch(queryFilters, configMapping)],
                         },
                     },
                 }),
@@ -72,6 +92,39 @@ export default function ({ $config }, inject) {
         )
         const data = await response.json()
         return data
+    }
+    function parseFilterQuerySiteSearch(queryFilters, configMapping){
+        console.log("In parseFilterQuerySiteSearch")
+        if (!queryFilters || queryFilters.length == 0) return []
+        let boolQuery = []
+        /*
+        [
+                {
+                    "term": {
+                        "sectionHandle.keyword":"Powell"
+                    }
+                }
+            ]
+
+
+        */
+        for (const key in queryFilters) {
+            // console.log(key)
+            
+            if (Array.isArray(queryFilters[key]) && queryFilters[key].length > 0) {
+                let filterObj = { terms: {} }
+                let values = []
+                for(let value of queryFilters[key]){
+                    const element = configMapping.find(element => element.key === value)
+                    values.push(element && element.terms)
+                }
+                // console.log("final values",values)
+                filterObj.terms[key] = values.flat()
+                boolQuery.push(filterObj)
+            } 
+        }
+        // console.log("bool query:"+JSON.stringify(boolQuery))
+        return boolQuery
     }
 
     async function keywordSearchWithFilters(
@@ -166,6 +219,7 @@ export default function ({ $config }, inject) {
         siteSearch,
         keywordSearchWithFilters,
         getAggregations,
+        getAggregationsForSiteSearch
     })
 
     async function getMapping() {
@@ -187,6 +241,33 @@ export default function ({ $config }, inject) {
         const data = await response.json()
         return data
     }
+
+    async function getAggregationsForSiteSearch(fields) {
+        // console.log("search text: "+fields)
+        if (!fields || fields.length == 0) return
+        const response = await fetch(
+            `${$config.esURL}/${$config.esIndex}/_search`,
+            {
+                headers: {
+                    Authorization: `ApiKey ${$config.esReadKey}`,
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    size: 0,
+                    query: {
+                        match_all: {},
+                    },
+                    aggs: {
+                        ...parseFieldNames(fields),
+                    },
+                }),
+            }
+        )
+        const data = await response.json()
+        return data.aggregations
+    }
+
 
     async function getAggregations(fields, sectionHandle) {
         // console.log("search text: "+fields)
@@ -276,7 +357,7 @@ export default function ({ $config }, inject) {
             aggsFields[element.label] = {
                 terms: {
                     field: element.esFieldName,
-                    size: 15,
+                    size: 25,
                 },
             }
         }

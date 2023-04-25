@@ -1,8 +1,18 @@
 <template>
-    <main id="main" class="page page-programs">
-        <nav-breadcrumb to="/about" :title="page.title" parent-title="About" />
+    <main
+        id="main"
+        class="page page-programs"
+    >
+        <nav-breadcrumb
+            to="/about"
+            :title="page.title"
+            parent-title="About"
+        />
 
-        <masthead-secondary :title="page.title" :text="page.text" />
+        <masthead-secondary
+            :title="page.title"
+            :text="page.text"
+        />
 
         <search-generic
             search-type="about"
@@ -15,23 +25,26 @@
         <section-wrapper
             v-show="
                 page &&
-                page.featuredPrograms &&
-                page.featuredPrograms.length &&
-                hits.length == 0 &&
-                !noResultsFound
+                    page.featuredPrograms &&
+                    page.featuredPrograms.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
             "
             theme="divider"
         >
-            <divider-way-finder class="search-margin" color="about" />
+            <divider-way-finder
+                class="search-margin"
+                color="about"
+            />
         </section-wrapper>
 
         <section-wrapper
             v-show="
                 page &&
-                page.featuredPrograms &&
-                page.featuredPrograms.length &&
-                hits.length == 0 &&
-                !noResultsFound
+                    page.featuredPrograms &&
+                    page.featuredPrograms.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
             "
             class="section-no-top-margin"
         >
@@ -66,9 +79,9 @@
         <section-wrapper
             v-show="
                 parsedProgramsList &&
-                parsedProgramsList.length > 0 &&
-                hits.length == 0 &&
-                !noResultsFound
+                    parsedProgramsList.length > 0 &&
+                    hits.length == 0 &&
+                    !noResultsFound
             "
             section-title="All Programs & Initiatives"
         >
@@ -80,36 +93,41 @@
             v-show="hits && hits.length > 0"
             class="section-no-top-margin"
         >
-            <h2 v-if="$route.query.q" class="about-results">
+            <h2
+                v-if="$route.query.q"
+                class="about-results"
+            >
                 Displaying {{ hits.length }} results for
-                <strong
-                    ><em>“{{ $route.query.q }}</em></strong
-                >”
+                <strong><em>“{{ $route.query.q }}</em></strong>”
             </h2>
-            <h2 v-else class="about-results">
+            <h2
+                v-else
+                class="about-results"
+            >
                 Displaying {{ hits.length }} results
             </h2>
             <section-staff-article-list :items="parseHitsResults" />
         </section-wrapper>
 
         <!-- NO RESULTS -->
-        <section-wrapper v-show="noResultsFound" class="section-no-top-margin">
+        <section-wrapper
+            v-show="noResultsFound"
+            class="section-no-top-margin"
+        >
             <div class="error-text">
                 <rich-text>
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
-                        but we're here to help. <br />
+                        but we're here to help. <br>
                         Try searching the whole site from
-                        <a href="https://library.ucla.edu">UCLA Library Home</a
-                        >, or try one of the these regularly visited links:
+                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
                     </p>
                     <ul>
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/research-teaching-support/research-help"
-                                >Research Help</a
-                            >
+                            >Research Help</a>
                         </li>
                         <li>
                             <a href="/help/services-resources/ask-us">Ask Us</a>
@@ -117,8 +135,7 @@
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
-                                >Accessibility Resources</a
-                            >
+                            >Accessibility Resources</a>
                         </li>
                     </ul>
                 </rich-text>
@@ -142,6 +159,7 @@
 // UTILITIES
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
+import queryFilterHasValues from "~/utils/queryFilterHasValues"
 
 // HELPERS
 import _get from "lodash/get"
@@ -182,7 +200,11 @@ export default {
         this.hits = []
         if (
             (this.$route.query.q && this.$route.query.q !== "") ||
-            this.$route.query.filters
+            (this.$route.query.filters &&
+                queryFilterHasValues(
+                    this.$route.query.filters,
+                    config.programsList.filters
+                ))
         ) {
             if (!this.page.title) {
                 const data = await this.$graphql.default.request(PROGRAMS_LIST)
@@ -196,7 +218,9 @@ export default {
                 query_text,
                 config.programsList.searchFields,
                 "sectionHandle:program",
-                JSON.parse(this.$route.query.filters) || {},
+                (this.$route.query.filters &&
+                    JSON.parse(this.$route.query.filters)) ||
+                    {},
                 config.programsList.sortField,
                 config.programsList.orderBy,
                 config.programsList.resultFields,
@@ -309,29 +333,6 @@ export default {
         this.setFilters()
     },
     methods: {
-        queryFilterHasValues() {
-            if (!this.$route.query.filters) return false
-            let routeQueryFilters = JSON.parse(this.$route.query.filters)
-            // //console.log(
-            //     "is route query exixts:" + JSON.stringify(routeQueryFilters)
-            // )
-            let configFilters = config.programsList.filters
-            for (const filter of configFilters) {
-                if (
-                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName].length > 0
-                ) {
-                    return true
-                } else if (
-                    routeQueryFilters[filter.esFieldName] &&
-                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName] != ""
-                ) {
-                    return true
-                }
-            }
-            return false
-        },
         async setFilters() {
             const searchAggsResponse = await this.$dataApi.getAggregations(
                 config.programsList.filters,

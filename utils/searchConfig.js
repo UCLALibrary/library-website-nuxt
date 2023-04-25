@@ -1,4 +1,65 @@
 const config = {
+    siteSearch: {
+        searchFields: [
+            "title^4",
+            "summary^3",
+            "text^3",
+            "fullText^2",
+            "richText^2",
+            "sectionHandle",
+            "sectionHandleDisplayName",
+        ],
+        filters: [
+            {
+                label: "Filter by Content Type",
+                esFieldName: "sectionHandle.keyword",
+                inputType: "checkbox",
+            },
+        ],
+        sectionHandleMapping: [
+            {
+                key: "Endowments",
+                terms: ["endowment"],
+            },
+            {
+                key: "Events & Exhibitions",
+                terms: ["event", "workshopOrEventSeries", "exhibition"],
+            },
+            {
+                key: "Featured Collection",
+                terms: ["collection"],
+            },
+            {
+                key: "Locations & Hours",
+                terms: ["location"],
+            },
+            {
+                key: "News",
+                terms: ["article"],
+            },
+            {
+                key: "Policies",
+                terms: ["policy"],
+            },
+            {
+                key: "Programs & Initiatives",
+                terms: ["program"],
+            },
+            {
+                key: "Research Guides",
+                terms: ["Libguide"],
+            },
+            {
+                key: "Services & Resources",
+                terms:
+                    ["serviceOrResource", "externalResource", "helpTopic"],
+            },
+            {
+                key: "Staff Directory",
+                terms: ["staffMember"],
+            },
+        ],
+    },
     serviceOrResources: {
         searchFields: ["title^6", "summary^6", "text^6"],
         resultFields: [

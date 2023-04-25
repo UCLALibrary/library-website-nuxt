@@ -1,5 +1,5 @@
 
-
+ 
 export default function ({ $config }, inject) {
     const esIndex= $config.esTempIndex
     async function index(data, slug) {
@@ -10,6 +10,7 @@ export default function ({ $config }, inject) {
                 console.log(
                     "this is the elasticsearch plugin: " + JSON.stringify(data)
                 )
+               
                 console.warn(
                     "this is the elasticsearch plugin: " + slug
                 )

@@ -1,5 +1,8 @@
 <template>
-    <main id="main" class="page page-news">
+    <main
+        id="main"
+        class="page page-news"
+    >
         <masthead-secondary
             v-if="page.title"
             :title="page.title"
@@ -22,10 +25,10 @@
         <section-wrapper
             v-show="
                 page &&
-                page.featuredNews &&
-                page.featuredNews.length &&
-                hits.length == 0 &&
-                !noResultsFound
+                    page.featuredNews &&
+                    page.featuredNews.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
             "
             class="section-no-top-margin"
         >
@@ -45,10 +48,10 @@
             <divider-general
                 v-if="
                     page &&
-                    page.featuredNews &&
-                    page.featuredNews.length &&
-                    hits.length == 0 &&
-                    !noResultsFound
+                        page.featuredNews &&
+                        page.featuredNews.length &&
+                        hits.length == 0 &&
+                        !noResultsFound
                 "
             />
 
@@ -62,10 +65,10 @@
         <section-wrapper
             v-show="
                 page &&
-                page.featuredNews &&
-                page.featuredNews.length &&
-                hits.length == 0 &&
-                !noResultsFound
+                    page.featuredNews &&
+                    page.featuredNews.length &&
+                    hits.length == 0 &&
+                    !noResultsFound
             "
             theme="divider"
         >
@@ -84,36 +87,41 @@
             v-show="hits && hits.length > 0"
             class="section-no-top-margin"
         >
-            <h2 v-if="$route.query.q" class="about-results">
+            <h2
+                v-if="$route.query.q"
+                class="about-results"
+            >
                 Displaying {{ hits.length }} results for
-                <strong
-                    ><em>“{{ $route.query.q }}”</em></strong
-                >
+                <strong><em>“{{ $route.query.q }}”</em></strong>
             </h2>
-            <h2 v-else class="about-results">
+            <h2
+                v-else
+                class="about-results"
+            >
                 Displaying {{ hits.length }} results
             </h2>
             <section-staff-article-list :items="parseHitsResults" />
         </section-wrapper>
 
         <!-- NO RESULTS -->
-        <section-wrapper v-show="noResultsFound" class="section-no-top-margin">
+        <section-wrapper
+            v-show="noResultsFound"
+            class="section-no-top-margin"
+        >
             <div class="error-text">
                 <rich-text>
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page,
-                        but we're here to help. <br />
+                        but we're here to help. <br>
                         Try searching the whole site from
-                        <a href="https://library.ucla.edu">UCLA Library Home</a
-                        >, or try one of the these regularly visited links:
+                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
                     </p>
                     <ul>
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/research-teaching-support/research-help"
-                                >Research Help</a
-                            >
+                            >Research Help</a>
                         </li>
                         <li>
                             <a href="/help/services-resources/ask-us">Ask Us</a>
@@ -121,8 +129,7 @@
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
-                                >Accessibility Resources</a
-                            >
+                            >Accessibility Resources</a>
                         </li>
                     </ul>
                 </rich-text>
@@ -212,7 +219,9 @@ export default {
                 query_text,
                 config.newsIndex.searchFields,
                 "sectionHandle:article",
-                JSON.parse(this.$route.query.filters) || {},
+                (this.$route.query.filters &&
+                    JSON.parse(this.$route.query.filters)) ||
+                    {},
                 config.newsIndex.sortField,
                 config.newsIndex.orderBy,
                 config.newsIndex.resultFields,

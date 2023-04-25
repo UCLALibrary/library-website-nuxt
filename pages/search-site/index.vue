@@ -8,6 +8,7 @@
         <search-generic
             :search-generic-query="searchGenericQuery"
             placeholder="Search library website"
+            :filters="searchFilters"
             @search-ready="getSearchData"
         />
 
@@ -124,6 +125,11 @@
 </template>
 
 <script>
+// UTILITIES
+import getListingFilters from "~/utils/getListingFilters"
+import config from "~/utils/searchConfig"
+import queryFilterHasValues from "~/utils/queryFilterHasValues"
+
 export default {
     data() {
         return {
@@ -134,8 +140,13 @@ export default {
             prevFrom: 0,
             nextFrom: 0,
             size: 10,
+            searchFilters: [],
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
             },
         }
     },
@@ -148,11 +159,22 @@ export default {
         this.page = {}
         //console.log("In fetch start")
         try {
-            if (this.$route.query.q && this.$route.query.q !== "") {
-                //console.log("in router query in asyc data")
+            if (
+                (this.$route.query.q && this.$route.query.q !== "") ||
+                (this.$route.query.filters &&
+                    queryFilterHasValues(
+                        this.$route.query.filters,
+                        config.siteSearch.filters
+                    ))
+            ) {
+                console.log("in router query in asyc data")
                 this.page = await this.$dataApi.siteSearch(
-                    this.$route.query.q,
-                    this.$route.query.from || this.from
+                    this.$route.query.q || "*",
+                    this.$route.query.from || this.from,
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                        {},
+                    config.siteSearch.sectionHandleMapping
                 )
                 if (
                     this.page &&
@@ -182,6 +204,10 @@ export default {
                 }
                 this.searchGenericQuery = {
                     queryText: this.$route.query.q || "",
+                    queryFilters:
+                        (this.$route.query.filters &&
+                            JSON.parse(this.$route.query.filters)) ||
+                        {},
                 }
             } else {
                 this.page = {}
@@ -194,6 +220,8 @@ export default {
     computed: {
         parsedSearchResults() {
             return this.page.hits.hits.map((obj) => {
+                if (obj._source.sectionHandle == "Libguide")
+                    obj._source.sectionHandleDisplayName = "Libguide"
                 if (
                     obj._source.sectionHandle == "Libguide" ||
                     obj._source.sectionHandle == "externalResource" ||
@@ -254,20 +282,61 @@ export default {
         "$route.query.q"(newValue) {
             //console.log("watching querytEXT:" + newValue)
         },
+        "$route.query.filters"(newValue) {
+            //console.log("watching filters:" + newValue)
+        },
     },
     async mounted() {
         //console.log("In mounted")
+        this.setFilters()
     },
     methods: {
         parseCategory(sectionHandle) {
             if (!sectionHandle) return
-            return sectionHandle.split(/(?=[A-Z])/).join(" ")
+            return sectionHandle
+                .split(/(?=[A-Z])/)
+                .join(" ")
+                .toUpperCase()
         },
+        async setFilters() {
+            /*const searchAggsResponse =
+                await this.$dataApi.getAggregationsForSiteSearch(
+                    config.siteSearch.sectionHandleMapping
+                )*/
+
+            /*console.log(
+                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+            )*/
+            const filters = []
+
+            let obj = {
+                label: config.siteSearch.filters[0].label,
+                esFieldName: config.siteSearch.filters[0].esFieldName,
+                inputType: config.siteSearch.filters[0].inputType,
+                items:
+                    config.siteSearch.sectionHandleMapping.reduce(
+                        (accumulator, value) => {
+                            return [...accumulator, { name: value.key }]
+                        },
+                        []
+                    ) || [],
+            }
+            console.log("getlisting obj:" + JSON.stringify(obj))
+            filters.push(obj)
+
+            this.searchFilters = filters
+        },
+
         async getSearchData(data) {
+            //const queryString = new URLSearchParams(data.filters).toString()
+            // console.log("using url search params:" + queryString)
             try {
                 this.$router.push({
                     path: this.$route.path,
-                    query: { q: data.text },
+                    query: {
+                        q: data.text,
+                        filters: JSON.stringify(data.filters),
+                    },
                 })
             } catch (e) {
                 throw new Error("ES error maybe: " + e)
