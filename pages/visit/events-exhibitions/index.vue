@@ -359,7 +359,7 @@ export default {
                                 : obj.workshopOrEventSeriesType ===
                               "help/services-resources"
                                     ? "Workshop Series"
-                                    : obj.eventType != null
+                                    : obj.eventType != null && obj.eventType.length > 0
                                         ? obj.eventType[0].title
                                         : "Event",
                     title: obj.title,
