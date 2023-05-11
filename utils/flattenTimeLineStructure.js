@@ -8,7 +8,6 @@
 function flattenTimeLineStructure(timeLineData=[]) {
     let flattenedValues = []
     for(let item of timeLineData){
-        
         for(let subitem of item.gridGalleryCards) {
             let obj = {}
             obj.subtitle = item.subtitle || ""
@@ -17,7 +16,8 @@ function flattenTimeLineStructure(timeLineData=[]) {
             obj.snippet = subitem.contentLink && subitem.contentLink[0] ? subitem.contentLink[0].snippet : subitem.snippet
             obj.featured = subitem.featured === "true" ? true : false
             obj.to = subitem.contentLink && subitem.contentLink[0] ? subitem.contentLink[0].to : subitem.to
-            obj.image = subitem.contentLink && subitem.contentLink[0] && subitem.contentLink[0].heroImage ? subitem.contentLink[0].heroImage[0].image[0] : subitem.image ? subitem.image[0] : {}
+            //console.log("subitem content link:",subitem)
+            obj.image = subitem.contentLink && subitem.contentLink[0] && subitem.contentLink[0].heroImage && subitem.contentLink[0].heroImage.length > 0 && subitem.contentLink[0].heroImage[0].image ? subitem.contentLink[0].heroImage[0].image[0] : subitem.image ? subitem.image[0] : {}
             flattenedValues.push(obj)
         }
         
