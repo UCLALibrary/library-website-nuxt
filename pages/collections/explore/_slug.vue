@@ -33,8 +33,7 @@
             />
         </section-wrapper>
 
-        <!-- <page-anchor :section-titles='getSectionTitles' /> -->
-        <page-anchor :section-titles= h2Array />
+        <!-- <page-anchor :section-titles= h2Array /> -->
 
         <section-wrapper theme="divider">
             <divider-way-finder class="divider-way-finder" color="default" />
@@ -249,24 +248,24 @@ export default {
             }
         }
     },
-     data() {
-        return {
-            h2Array: []
-        };
-    },
-    mounted() {
-        // Find all elements with class name "section-header3" or "section-header2"
-        const elements = document.querySelectorAll('.section-header3, .section-header2');
+//      data() {
+//         return {
+//             h2Array: []
+//         };
+//     },
+//     mounted() {
+//         // Find all elements with class name "section-header3" or "section-header2"
+//         const elements = document.querySelectorAll('.section-header3, .section-header2');
 
-        const h2Array = [];
+//         const h2Array = [];
 
-        // Loop through each h2 element and push it into the array
-        elements.forEach((element) => {
-            this.h2Array.push(element.textContent);
-        })
+//         // Loop through each h2 element and push it into the array
+//         elements.forEach((element) => {
+//             this.h2Array.push(element.textContent);
+//         })
 
-        console.log("LLAMA " + h2Array);
-  }
+//         console.log("LLAMA " + h2Array);
+//   }
 }
 </script>
 

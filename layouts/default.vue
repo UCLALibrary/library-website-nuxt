@@ -7,12 +7,13 @@
 
         <header-smart />
 
+        <page-anchor v-if="h2Array.length >=3" :section-titles= h2Array />
+
         <section-wrapper
             class="section-alert"
             theme="divider"
         >
-            <!-- <page-anchor :section-titles="sectionTitles"/> -->
-
+<h2>{{h2Array}}</h2>
             <site-notification-alert
                 v-if="libraryAlert"
                 class="library-alert"
@@ -40,6 +41,7 @@ export default {
             pageMeta: {
                 title: "UCLA Library",
             },
+            h2Array: []
         }
     },
     head: {
@@ -81,6 +83,29 @@ export default {
             }
         },
     },
+    //   beforeMount() {
+    //     // Refresh the page
+    //     location.reload();
+    // },
+    mounted() {
+        // Find all elements with class name "section-header3" or "section-header2"
+        const elements = document.querySelectorAll('.section-header3, .section-header2');
+
+        const h2Array = [];
+
+        // Loop through each h2 element and push it into the array
+        elements.forEach((element) => {
+            this.h2Array.push(element.textContent);
+        })
+
+        // Set a delay for the page refresh (e.g., 5 seconds)
+        //const refreshDelay = 1000;
+
+        // Wait for the specified delay and then refresh the page
+        // setTimeout(() => {
+        //     location.reload();
+        // }, refreshDelay);
+  },
     watch: {
         $route() {
             // this.$refs.skipLink.focus()
