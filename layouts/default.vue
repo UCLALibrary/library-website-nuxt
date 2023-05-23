@@ -11,6 +11,8 @@
             class="section-alert"
             theme="divider"
         >
+            <!-- <page-anchor :section-titles="sectionTitles"/> -->
+
             <site-notification-alert
                 v-if="libraryAlert"
                 class="library-alert"
