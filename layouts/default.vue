@@ -7,13 +7,14 @@
 
         <header-smart />
 
-        <page-anchor v-if="h2Array.length >=3" :section-titles= h2Array />
+<!-- <page-anchor v-if="scrapedheadersArray.length >=3" :section-titles= scrapedheadersArray /> -->
 
         <section-wrapper
             class="section-alert"
             theme="divider"
         >
-<h2>{{h2Array}}</h2>
+<h2>scrapedheadersArray!!: {{scrapedheadersArray}}</h2>
+
             <site-notification-alert
                 v-if="libraryAlert"
                 class="library-alert"
@@ -41,8 +42,22 @@ export default {
             pageMeta: {
                 title: "UCLA Library",
             },
-            h2Array: []
+            // h2Array: [],
         }
+    },
+    async asyncData() {
+        // Simulating data scraping on the server-side
+        const scrapedheadersArray = await new Promise((resolve) => {
+        // Find all elements with class names 'section-header2' and 'section-header3'
+        const elements = document.querySelectorAll('.section-header2, .section-header3');
+        const data = Array.from(elements).map((element) => ({ id: element.id, textContent: element.textContent }));
+
+        resolve(data);
+        });
+
+        return {
+            scrapedheadersArray
+        };
     },
     head: {
         titleTemplate: (title) => (title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library'),
@@ -87,16 +102,16 @@ export default {
     //     // Refresh the page
     //     location.reload();
     // },
-    mounted() {
-        // Find all elements with class name "section-header3" or "section-header2"
-        const elements = document.querySelectorAll('.section-header3, .section-header2');
+    // mounted() {
+    //     // Find all elements with class name "section-header3" or "section-header2"
+    //     const elements = document.querySelectorAll('.section-header3, .section-header2');
 
-        const h2Array = [];
+    //     const h2Array = [];
 
-        // Loop through each h2 element and push it into the array
-        elements.forEach((element) => {
-            this.h2Array.push(element.textContent);
-        })
+    //     // Loop through each h2 element and push it into the array
+    //     elements.forEach((element) => {
+    //         this.h2Array.push(element.textContent);
+    //     })
 
         // Set a delay for the page refresh (e.g., 5 seconds)
         //const refreshDelay = 1000;
@@ -105,7 +120,7 @@ export default {
         // setTimeout(() => {
         //     location.reload();
         // }, refreshDelay);
-  },
+  //},
     watch: {
         $route() {
             // this.$refs.skipLink.focus()
