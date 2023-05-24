@@ -7,14 +7,12 @@
 
         <header-smart />
 
-<!-- <page-anchor v-if="scrapedheadersArray.length >=3" :section-titles= scrapedheadersArray /> -->
+        <page-anchor v-if="h2Array.length >=3" :section-titles= h2Array />
 
         <section-wrapper
             class="section-alert"
             theme="divider"
         >
-<h2>scrapedheadersArray!!: {{scrapedheadersArray}}</h2>
-
             <site-notification-alert
                 v-if="libraryAlert"
                 class="library-alert"
@@ -23,6 +21,7 @@
         </section-wrapper>
 
         <nuxt class="page" />
+        <page-anchor v-if="h2Array.length >=3" :section-titles= h2Array />
         <footer>
             <footer-primary :form="true" />
             <footer-sock />
@@ -42,22 +41,8 @@ export default {
             pageMeta: {
                 title: "UCLA Library",
             },
-            // h2Array: [],
+            h2Array: []
         }
-    },
-    async asyncData() {
-        // Simulating data scraping on the server-side
-        const scrapedheadersArray = await new Promise((resolve) => {
-        // Find all elements with class names 'section-header2' and 'section-header3'
-        const elements = document.querySelectorAll('.section-header2, .section-header3');
-        const data = Array.from(elements).map((element) => ({ id: element.id, textContent: element.textContent }));
-
-        resolve(data);
-        });
-
-        return {
-            scrapedheadersArray
-        };
     },
     head: {
         titleTemplate: (title) => (title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library'),
@@ -98,29 +83,20 @@ export default {
             }
         },
     },
-    //   beforeMount() {
-    //     // Refresh the page
-    //     location.reload();
-    // },
-    // mounted() {
-    //     // Find all elements with class name "section-header3" or "section-header2"
-    //     const elements = document.querySelectorAll('.section-header3, .section-header2');
+    mounted() {
+        // Find all elements with class name "section-header2" or "section-header3"
+        const elements = document.querySelectorAll('.section-header2, .section-header3');
 
-    //     const h2Array = [];
+        const h2Array = [];
 
-    //     // Loop through each h2 element and push it into the array
-    //     elements.forEach((element) => {
-    //         this.h2Array.push(element.textContent);
-    //     })
-
-        // Set a delay for the page refresh (e.g., 5 seconds)
-        //const refreshDelay = 1000;
-
-        // Wait for the specified delay and then refresh the page
-        // setTimeout(() => {
-        //     location.reload();
-        // }, refreshDelay);
-  //},
+        // Loop through each section-header element and push it into the array
+        // Excludes the section-header2 More Information
+        // which is a visually-hidden element above the divider-way-finder
+        // in the Flexible Block component
+        elements.forEach((element) => {
+            if(element.textContent !== "More Information") this.h2Array.push(element.textContent);
+        })
+  },
     watch: {
         $route() {
             // this.$refs.skipLink.focus()
@@ -182,6 +158,7 @@ export default {
         .library-alert {
             position: absolute;
             z-index: 100;
+
             top: 32px;
             right: var(--unit-gutter);
         }
