@@ -105,7 +105,7 @@ query Homepage {
                 sectionHandle
                 title
                 text: summary
-                to: uri
+                uri
                 externalResourceUrl
                 postDate
                 articleCategories {
