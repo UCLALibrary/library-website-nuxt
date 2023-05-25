@@ -15,7 +15,7 @@ function flattenTimeLineStructure(timeLineData=[]) {
             obj.headlineText = subitem.contentLink && subitem.contentLink[0] ? subitem.contentLink[0].headlineText : subitem.headlineText
             obj.snippet = subitem.contentLink && subitem.contentLink[0] ? subitem.contentLink[0].snippet : subitem.snippet
             obj.featured = subitem.featured === "true" ? true : false
-            obj.to = subitem.contentLink && subitem.contentLink[0] ? subitem.contentLink[0].to : subitem.to
+            obj.to = subitem.contentLink && subitem.contentLink[0] ? `/${subitem.contentLink[0].to}` : subitem.to
             //console.log("subitem content link:",subitem)
             obj.image = subitem.contentLink && subitem.contentLink[0] && subitem.contentLink[0].heroImage && subitem.contentLink[0].heroImage.length > 0 && subitem.contentLink[0].heroImage[0].image ? subitem.contentLink[0].heroImage[0].image[0] : subitem.image ? subitem.image[0] : {}
             flattenedValues.push(obj)
