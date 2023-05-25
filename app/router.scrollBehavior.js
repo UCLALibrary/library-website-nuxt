@@ -3,24 +3,28 @@ export default async function (to, from, savedPosition) {
     console.log("ScrollBehaviour from:"+JSON.stringify(from))
     console.log("ScrollBehaviour savedPosition:"+JSON.stringify(savedPosition))
 
+
     const findEl = async (hash, x = 0) => {
         return (
-            document.querySelector(hash) || new Promise((resolve) => {
-                if (x > 0) {
-                    return resolve(document.querySelector("#app"))
-                }
-                setTimeout(() => {
-                    resolve(findEl(hash, 1))
-                }, 1000)
-            })
+            document.querySelector(hash) ||
+        new Promise((resolve) => {
+            if (x > 0) {
+                return resolve(document.querySelector("#app"))
+            }
+            setTimeout(() => {
+                resolve(findEl(hash, 1))
+            }, 1000)
+        })
         )
     }
     const notListingPage = (fullPath) =>{
         switch (fullPath) {
             case "/about/staff":
                 return false
+
             case "/about/news":
                 return false
+
             case "/visit/locations":
                 return false
             case "/help/services-resources":
@@ -35,9 +39,12 @@ export default async function (to, from, savedPosition) {
                 return false
             case "/search-site":
                 return false
+
             default:
                 return true
+
         }
+
     }
 
     if (to.hash) {
@@ -59,4 +66,7 @@ export default async function (to, from, savedPosition) {
         }
     }
     return { x: 0, y: 0, behavior: "smooth" }
+
 }
+
+

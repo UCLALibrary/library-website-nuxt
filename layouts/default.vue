@@ -7,8 +7,6 @@
 
         <header-smart />
 
-        <page-anchor v-if="h2Array.length >=3" :section-titles= h2Array />
-
         <section-wrapper
             class="section-alert"
             theme="divider"
@@ -20,12 +18,19 @@
             />
         </section-wrapper>
 
+        <page-anchor
+            v-if="h2Array.length >=3"
+            :section-titles= h2Array
+            class="page-anchor"
+        />
+
         <nuxt class="page" />
-        <page-anchor v-if="h2Array.length >=3" :section-titles= h2Array />
+
         <footer>
             <footer-primary :form="true" />
             <footer-sock />
         </footer>
+
         <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" />
     </div>
 </template>
@@ -149,6 +154,13 @@ export default {
 
     > * {
         width: 100%;
+    }
+
+    .page-anchor {
+        // position: sticky;
+        // top: 100px;
+        // right: 0;
+        // z-index: 40;
     }
 
     .section-alert {
