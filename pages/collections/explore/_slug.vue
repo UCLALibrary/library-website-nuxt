@@ -33,8 +33,6 @@
             />
         </section-wrapper>
 
-        <!-- <page-anchor :section-titles= h2Array /> -->
-
         <section-wrapper theme="divider">
             <divider-way-finder class="divider-way-finder" color="default" />
         </section-wrapper>
@@ -221,14 +219,6 @@ export default {
         },
     },
     methods: {
-        kebabSectionTitles(title) {
-            let stringWithNoSpecialChars = string.replace('&', '').replace(/\s+/g, ' ').trim()
-            return stringWithNoSpecialChars.toLowerCase().replace(/ /g, "-")
-        },
-        getSectionTitles() {
-            //get all section-titles in the HTML
-            //make and array
-        },
         parsedDonors(obj) {
             let donorNames = []
             obj.donors.map((donor) => {
@@ -247,25 +237,7 @@ export default {
                 return `Donors: ${names}`
             }
         }
-    },
-//      data() {
-//         return {
-//             h2Array: []
-//         };
-//     },
-//     mounted() {
-//         // Find all elements with class name "section-header3" or "section-header2"
-//         const elements = document.querySelectorAll('.section-header3, .section-header2');
-
-//         const h2Array = [];
-
-//         // Loop through each h2 element and push it into the array
-//         elements.forEach((element) => {
-//             this.h2Array.push(element.textContent);
-//         })
-
-//         console.log("LLAMA " + h2Array);
-//   }
+    }
 }
 </script>
 

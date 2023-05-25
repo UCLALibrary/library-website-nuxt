@@ -170,7 +170,6 @@ export default {
         .library-alert {
             position: absolute;
             z-index: 100;
-
             top: 32px;
             right: var(--unit-gutter);
         }
