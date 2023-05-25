@@ -138,6 +138,7 @@ import _ from "lodash"
 // GQL
 import STAFF_LIST from "~/gql/queries/StaffList"
 // UTILITIES
+import fixUri from "~/utils/fixUri"
 import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
 import removeTags from "~/utils/removeTags"
@@ -331,6 +332,12 @@ export default {
                         "alternativeName[0].fullName",
                         null
                     ),
+                    locations: _get(obj, "locations", []).map(loc => {
+                        return {
+                            ...loc,
+                            uri: fixUri(loc.uri),
+                        }
+                    }),
                 }
             })
         },
@@ -394,6 +401,12 @@ export default {
                             ? obj["_source"].alternativeName[0].languageAltName
                             : null,
                     staffName: `${obj["_source"].nameFirst} ${obj["_source"].nameLast}`,
+                    locations: _get(obj, "_source.locations", []).map(loc => {
+                        return {
+                            ...loc,
+                            uri: fixUri(loc.uri),
+                        }
+                    }),
                 }
             })
         },

@@ -131,6 +131,7 @@ import config from "~/utils/searchConfig"
 
 // HELPERS
 import _get from "lodash/get"
+import fixUri from "~/utils/fixUri"
 import removeTags from "~/utils/removeTags"
 
 // GQL
@@ -232,8 +233,7 @@ export default {
     },
     computed: {
         parsedFeaturedEndowments() {
-            return this.page.featuredEndowments[0].featuredEndowments.map(
-                (obj) => {
+            return _get(this, "page.featuredEndowments[0].featuredEndowments", []).map((obj) => {
                     return {
                         ...obj,
                         to: `/${obj.to}`,
@@ -257,6 +257,12 @@ export default {
                 return {
                     ...obj,
                     jobPostingURL: `/${obj.uri}`,
+                    associatedLocations: _get(obj, "associatedLocations", []).map(loc => {
+                        return {
+                            ...loc,
+                            uri: fixUri(loc.uri),
+                        }
+                    }),
                     alternativeFullName: _get(
                         obj,
                         "alternativeName[0].fullName",
@@ -344,6 +350,12 @@ export default {
                         null
                     ),
                     summary: _get(obj["_source"], "text", null),
+                    associatedLocations: _get(obj["_source"], "associatedLocations", []).map(loc => {
+                        return {
+                            ...loc,
+                            uri: fixUri(loc.uri),
+                        }
+                    }),
                 }
             })
         },
