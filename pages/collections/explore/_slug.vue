@@ -115,6 +115,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import fixUri from "~/utils/fixUri"
 import removeTags from "~/utils/removeTags"
 
 // GQL
@@ -214,6 +215,12 @@ export default {
                         "alternativeName[0].fullName",
                         null
                     ),
+                    locations: _get(obj, "locations", []).map(loc => {
+                        return {
+                            ...loc,
+                            uri: fixUri(loc.uri),
+                        }
+                    }),
                 }
             })
         },
