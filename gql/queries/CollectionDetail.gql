@@ -79,7 +79,7 @@ query CollectionDetail($slug: [String!]) {
       locations: staffAssociatedLocations {
                 id
                 title
-                uri: slug
+                uri
             }
       image: staffPortrait {
           ...Image
