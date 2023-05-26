@@ -88,10 +88,10 @@
         </section-wrapper>
 
         <!-- Endowments -->
-        <section-wrapper v-if="parsedEndowments.length">
+        <section-wrapper v-if="parsedEndowments.length"
+            section-title="Collection Endowments">
             <section-staff-article-list
                 :items="parsedEndowments"
-                section-title="Collection Endowments"
                 class="block-staff-article-item"
             />
 

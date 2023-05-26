@@ -99,6 +99,7 @@ export default {
         // which is a visually-hidden element above the divider-way-finder
         // in the Flexible Block component
         elements.forEach((element) => {
+            // if(.banner-header || BannerText || MastheadSecondary)
             if(element.textContent !== "More Information") this.h2Array.push(element.textContent);
         })
   },

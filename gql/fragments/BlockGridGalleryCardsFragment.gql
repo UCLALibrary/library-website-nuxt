@@ -1,8 +1,8 @@
 fragment BlockGridGalleryCardsFragment on ElementInterface {
         id
         typehandle
-        subtitle: titleGeneral
-        summary
+        sectionSummary: summary
+        sectionTitle: titleGeneral
         gridGalleryCards {
             ... on gridGalleryCards_internalContent_BlockType {
                 id
