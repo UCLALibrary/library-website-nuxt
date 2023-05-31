@@ -18,11 +18,11 @@
             />
         </section-wrapper>
 
-        <page-anchor
+        <!-- <page-anchor
             v-if="h2Array.length >=3"
             :section-titles= h2Array
             class="page-anchor"
-        />
+        /> -->
 
         <nuxt class="page" />
 
@@ -46,7 +46,7 @@ export default {
             pageMeta: {
                 title: "UCLA Library",
             },
-            h2Array: []
+            /* h2Array: [] */
         }
     },
     head: {
@@ -88,21 +88,21 @@ export default {
             }
         },
     },
-    mounted() {
-        // Find all elements with class name "section-header2" or "section-header3"
-        const elements = document.querySelectorAll('.section-header2, .section-header3');
+    // mounted() {
+    //     // Find all elements with class name "section-header2" or "section-header3"
+    //     const elements = document.querySelectorAll('.section-header2, .section-header3');
 
-        const h2Array = [];
+    //     const h2Array = [];
 
-        // Loop through each section-header element and push it into the array
-        // Excludes the section-header2 More Information
-        // which is a visually-hidden element above the divider-way-finder
-        // in the Flexible Block component
-        elements.forEach((element) => {
-            // if(.banner-header || BannerText || MastheadSecondary)
-            if(element.textContent !== "More Information") this.h2Array.push(element.textContent);
-        })
-  },
+    //     // Loop through each section-header element and push it into the array
+    //     // Excludes the section-header2 More Information
+    //     // which is a visually-hidden element above the divider-way-finder
+    //     // in the Flexible Block component
+    //     elements.forEach((element) => {
+    //         // if(.banner-header || BannerText || MastheadSecondary)
+    //         if(element.textContent !== "More Information") this.h2Array.push(element.textContent);
+    //     })
+    // },
     watch: {
         $route() {
             // this.$refs.skipLink.focus()
@@ -158,10 +158,7 @@ export default {
     }
 
     .page-anchor {
-        // position: sticky;
-        // top: 100px;
-        // right: 0;
-        // z-index: 40;
+        z-index: 500;
     }
 
     .section-alert {
