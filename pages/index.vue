@@ -100,7 +100,7 @@
         <section-wrapper class="section-banner">
             <banner-featured
                 :image="bannerFeaturedNews.image"
-                :to="bannerFeaturedNews.uri"
+                :to="bannerFeaturedNews.to"
                 :prompt="bannerFeaturedNews.prompt"
                 :title="bannerFeaturedNews.title"
                 :description="bannerFeaturedNews.description"
