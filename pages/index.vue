@@ -314,7 +314,7 @@ export default {
                     to:
                         obj.externalResourceUrl != null
                             ? _get(obj, "externalResourceUrl", "")
-                            : `/${obj.uri}`,
+                            : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", ""),
                     category: this.parseArticleCategory(obj.articleCategories),
                     startDate: _get(obj, "postDate", ""),
