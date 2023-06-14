@@ -100,7 +100,7 @@
         <section-wrapper class="section-banner">
             <banner-featured
                 :image="bannerFeaturedNews.image"
-                :to="bannerFeaturedNews.uri"
+                :to="bannerFeaturedNews.to"
                 :prompt="bannerFeaturedNews.prompt"
                 :title="bannerFeaturedNews.title"
                 :description="bannerFeaturedNews.description"
@@ -314,7 +314,7 @@ export default {
                     to:
                         obj.externalResourceUrl != null
                             ? _get(obj, "externalResourceUrl", "")
-                            : `/${obj.uri}`,
+                            : `/${obj.to}`,
                     image: _get(obj, "heroImage[0].image[0]", ""),
                     category: this.parseArticleCategory(obj.articleCategories),
                     startDate: _get(obj, "postDate", ""),
