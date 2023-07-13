@@ -30,7 +30,7 @@ describe("Website Homepage", () => {
             .and("contain", "UCLA Library Website")
             .and("contain", "UC Library Search")
         cy.get(".masthead-primary")
-            .find("input.input-search")
+            .find(".input-search")
             .should(
                 "have.attr",
                 "placeholder",
