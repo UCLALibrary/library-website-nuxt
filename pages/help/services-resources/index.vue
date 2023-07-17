@@ -165,6 +165,7 @@ export default {
     data() {
         return {
             page: {},
+            noResultsFound: false,
             summaryData: {},
             helpTopic: {},
             hits: [],

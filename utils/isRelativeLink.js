@@ -6,6 +6,9 @@
 
 function isRelativeLink(uri = "") {
     let output = false
+    if (uri == null) {
+        return output
+    }
 
     switch (true) {
         case String(uri).indexOf("/") === 0:
