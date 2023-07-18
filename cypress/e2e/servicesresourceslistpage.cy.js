@@ -7,7 +7,7 @@ describe("All Services & Resources Listing page", () => {
     it("Search Found", () => {
         cy.visit("help/services-resources?q=test")
         cy.get(".logo-ucla").should("be.visible")
-        cy.get("div.input-container > input[type=text]").should(
+        cy.get("input[type=search]").should(
             "have.value",
             "test"
         )
