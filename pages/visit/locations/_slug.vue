@@ -46,6 +46,13 @@
             />
         </section-wrapper>
 
+        <page-anchor
+            v-if="h2Array.length >=2"
+            :section-titles= h2Array
+            class="page-anchor"
+            color="default"
+        />
+
         <section-wrapper>
             <div class="section-header">
                 <div
@@ -248,6 +255,11 @@ export default {
             ],
         }
     },
+    data() {
+        return {
+            h2Array: [] // anchor tags
+        }
+    },
     computed: {
         parsedStaffDirectory() {
             if (
@@ -359,6 +371,21 @@ export default {
             //             : 0
             // )
         },
+    },
+    mounted() {
+        // Find all elements with class name "section-header2" or "section-header3"
+        const elements = document.querySelectorAll('.section-header2, .section-header3');
+
+        const h2Array = [];
+
+        // Loop through each section-header element and push it into the array
+        // Excludes the section-header2 More Information
+        // which is a visually-hidden element above the divider-way-finder
+        // in the Flexible Block component
+        elements.forEach((element) => {
+            // if(.banner-header || BannerText || MastheadSecondary)
+            if(element.textContent !== "More Information") this.h2Array.push(element.textContent);
+        })
     },
 }
 </script>

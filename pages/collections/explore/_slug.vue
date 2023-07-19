@@ -40,7 +40,6 @@
         <page-anchor
             v-if="h2Array.length >=3"
             :section-titles= h2Array
-            class="page-anchor"
             color="default"
         />
 
@@ -163,7 +162,7 @@ export default {
     },
     data() {
         return {
-            h2Array: []
+            h2Array: [] // anchor tags
         }
     },
     computed: {
