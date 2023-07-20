@@ -47,10 +47,8 @@
         </section-wrapper>
 
         <page-anchor
-            v-if="h2Array.length >=2"
+            v-if="h2Array.length >=3"
             :section-titles= h2Array
-            class="page-anchor"
-            color="default"
         />
 
         <section-wrapper>

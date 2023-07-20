@@ -127,6 +127,7 @@ export default {
         trailingSlash: false,
     },*/
 
+
     /*
      * Nuxt modules
      */

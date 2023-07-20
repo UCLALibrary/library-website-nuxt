@@ -3,6 +3,7 @@ export default async function (to, from, savedPosition) {
     console.log("ScrollBehaviour from:"+JSON.stringify(from))
     console.log("ScrollBehaviour savedPosition:"+JSON.stringify(savedPosition))
 
+
     const findEl = async (hash, x = 0) => {
         return (
             document.querySelector(hash) ||
@@ -20,8 +21,10 @@ export default async function (to, from, savedPosition) {
         switch (fullPath) {
             case "/about/staff":
                 return false
+
             case "/about/news":
                 return false
+
             case "/visit/locations":
                 return false
             case "/help/services-resources":
@@ -39,7 +42,9 @@ export default async function (to, from, savedPosition) {
 
             default:
                 return true
+
         }
+
     }
 
     if (to.hash) {
@@ -61,4 +66,6 @@ export default async function (to, from, savedPosition) {
         }
     }
     return { x: 0, y: 0, behavior: "smooth" }
+
 }
+
