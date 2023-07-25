@@ -40,7 +40,6 @@
         <page-anchor
             v-if="h2Array.length >=3"
             :section-titles= h2Array
-            color="default"
         />
 
         <!-- Using the Collection -->

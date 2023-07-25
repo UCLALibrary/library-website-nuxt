@@ -7,6 +7,12 @@
             :title="page.title"
             :text="page.text"
         />
+
+        <page-anchor
+            v-if="h2Array.length >=3"
+            :section-titles= h2Array
+        />
+
         <section-wrapper v-if="page.richText">
             <RichText :rich-text-content="page.richText" />
         </section-wrapper>
@@ -15,13 +21,14 @@
             v-for="(block, index) in parsedHelpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
         >
-            <section-wrapper>
+            <section-wrapper
+                :section-title="block.sectionTitle"
+                :section-summary="block.sectionSummary">
                 <simple-cards
-                    :section-title="block.sectionTitle"
-                    :section-summary="block.sectionSummary"
                     :items="block.parsedAssociatedEntries"
                 />
             </section-wrapper>
+
             <section-wrapper theme="divider">
                 <divider-way-finder
                     class="divider-way-finder"
@@ -95,6 +102,11 @@ export default {
             ],
         }
     },
+    data() {
+        return {
+            h2Array: [] // anchor tags
+        }
+    },
     computed: {
         parsedHelpTopicBlocks() {
             return this.page.helpTopicBlocks.map((obj) => {
@@ -113,6 +125,21 @@ export default {
                 }
             })
         },
+    },
+    mounted() {
+        // Find all elements with class name "section-header2" or "section-header3" which are only in section wrappers
+        const elements = document.querySelectorAll('.section-header2, .section-header3');
+
+        const h2Array = [];
+
+        // Loop through each section-header element and push it into the array
+        // Excludes the section-header2 More Information
+        // which is a visually-hidden element above the divider-way-finder
+        // in the Flexible Block component
+        elements.forEach((element) => {
+            // if(.banner-header || BannerText || MastheadSecondary)
+            if(element.textContent !== "More Information") this.h2Array.push(element.textContent);
+        })
     },
 }
 </script>

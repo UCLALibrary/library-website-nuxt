@@ -47,7 +47,7 @@
         </section-wrapper>
 
         <page-anchor
-            v-if="h2Array.length >=3"
+            v-if="h2Array.length >=2"
             :section-titles= h2Array
         />
 
