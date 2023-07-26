@@ -1,6 +1,6 @@
 describe("Collection Detail page", () => {
     it("Visits a Collection Detail Page", () => {
-        
+
         cy.request({
             url:'/collections/explore/halloween-costumes',
             timeout: 120000,
@@ -29,6 +29,16 @@ describe("Collection Detail page", () => {
             cy.visit("/collections/explore/no_entry")
             cy.get("p.error").should("contain","404")
             cy.get("h1.error-title").should("contain","Page not found")
+        })
+    })
+
+    context("Collection Listing page", () => {
+        it("Visit the Collection Listing Page", () => {
+            cy.visit("/collections")
+
+            // UCLA Library brand
+            cy.get(".logo-ucla").should("be.visible")
+            cy.percySnapshot({ widths: [768, 992, 1200] })
         })
     })
 })

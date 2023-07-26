@@ -7,8 +7,8 @@ function kebabCase(str) {
     return str
         .replace(/([A-Z])([A-Z])/g, "$1-$2")
         .replace(/([a-z])([A-Z])/g, "$1-$2")
-        .replace('&', '').replace(/\s+/g, ' ').trim()
-        .toLowerCase().replace(/ /g, "-")
+        .replace(/[\s_]+/g, "-")
+        .toLowerCase()
 }
 
 export default kebabCase
