@@ -110,6 +110,7 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import fixUri from "~/utils/fixUri"
 import removeTags from "~/utils/removeTags"
 
 // GQL
@@ -152,7 +153,7 @@ export default {
                         (entry) => {
                             return {
                                 ...entry,
-                                uri: `${entry.uri}`,
+                                uri: fixUri(entry.uri),
                             }
                         }
                     ),
