@@ -5,7 +5,12 @@
  */
 
 function fixUri(uri = "") {
-    return uri.replace(/^(?=[^/])/, '/')
+    if (typeof uri === 'string' || uri instanceof String) {
+        return uri.replace(/^(?=[^/])/, '/')
+            .replace(/^\/locations\//, '/visit/locations/')
+    } else {
+        return ""
+    }
 }
 
 export default fixUri
