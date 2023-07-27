@@ -4,22 +4,22 @@
 
 export default ({ app }, inject) => { // eslint-disable-line no-unused-vars
     function getHeadersMethod() {
-        const elements = document.querySelectorAll('.section-header2, .section-header3');
+        const elements = document.querySelectorAll('.section-header2, .section-header3')
 
-        const h2Array = [];
+        const h2Array = []
 
         elements.forEach((element) => {
             if (element.textContent !== 'More Information') {
-                h2Array.push(element.textContent);
+                h2Array.push(element.textContent)
             }
-        });
+        })
 
-        console.log('The plugin has been mounted!');
-        console.log('h2Array:', h2Array);
+        console.log('The plugin has been mounted!')
+        console.log('h2Array:', h2Array)
 
         return h2Array
-    };
+    }
 
     // Inject the plugin method into the context, so you can access it in components.
-    inject('getHeaders', { getHeadersMethod });
-};
+    inject('getHeaders', { getHeadersMethod })
+}
