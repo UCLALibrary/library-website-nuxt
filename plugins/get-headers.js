@@ -2,7 +2,7 @@
 // Loop through each section-header element and push it into the array
 // Excludes the section-header2 More Information which is a visually-hidden element above the divider-way-finder in the Flexible Block component
 
-export default ({ app }, inject) => {
+export default ({ app }, inject) => { // eslint-disable-line no-unused-vars
     function getHeadersMethod() {
         const elements = document.querySelectorAll('.section-header2, .section-header3');
 
