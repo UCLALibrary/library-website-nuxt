@@ -258,7 +258,7 @@ export default {
     mounted() {
         // Call the plugin method to get the .section-header2 and .section-header3 elements
         this.h2Array = this.$getHeaders.getHeadersMethod();
-    }
+    },
 }
 </script>
 
