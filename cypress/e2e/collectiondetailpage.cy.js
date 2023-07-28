@@ -31,14 +31,4 @@ describe("Collection Detail page", () => {
             cy.get("h1.error-title").should("contain","Page not found")
         })
     })
-
-    context("Collection Listing page", () => {
-        it("Visit the Collection Listing Page", () => {
-            cy.visit("/collections")
-
-            // UCLA Library brand
-            cy.get(".logo-ucla").should("be.visible")
-            cy.percySnapshot({ widths: [768, 992, 1200] })
-        })
-    })
 })
