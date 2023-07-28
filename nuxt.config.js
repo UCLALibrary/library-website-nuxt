@@ -66,7 +66,7 @@ export default {
         "~/plugins/craft.js",
         "~/plugins/data-api.js",
         "~/plugins/elasticsearchplugin.js",
-        "~/plugins/get-headers.js",
+        "~/plugins/get-headers.client.js",
         "~/plugins/scrape-formid.client.js",
         "~/plugins/add-skip-to.js",
     ],
