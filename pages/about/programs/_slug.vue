@@ -38,6 +38,11 @@
             <divider-way-finder class="divider" color="about" />
         </section-wrapper>
 
+        <page-anchor
+            v-if="h2Array.length >=3"
+            :section-titles= h2Array
+        />
+
         <section-wrapper>
             <block-hours
                 v-if="
@@ -131,6 +136,11 @@ export default {
             ],
         }
     },
+    data() {
+        return {
+            h2Array: [] // anchor tags
+        }
+    },
     computed: {
         parsedButtonText() {
             return _get(this.page, "buttonUrl[0].buttonText", "")
@@ -173,6 +183,10 @@ export default {
             }
         },
     },
+    mounted() {
+        // Call the plugin method to get the .section-header2 and .section-header3 elements
+        this.h2Array = this.$getHeaders.getHeadersMethod();
+    }
 }
 </script>
 

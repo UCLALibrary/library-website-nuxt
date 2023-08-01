@@ -2,7 +2,7 @@ export default async function (to, from, savedPosition) {
     console.log("ScrollBehaviour to:"+JSON.stringify(to))
     console.log("ScrollBehaviour from:"+JSON.stringify(from))
     console.log("ScrollBehaviour savedPosition:"+JSON.stringify(savedPosition))
-    
+
 
     const findEl = async (hash, x = 0) => {
         return (
@@ -21,10 +21,10 @@ export default async function (to, from, savedPosition) {
         switch (fullPath) {
             case "/about/staff":
                 return false
-             
+
             case "/about/news":
                 return false
-             
+
             case "/visit/locations":
                 return false
             case "/help/services-resources":
@@ -39,12 +39,12 @@ export default async function (to, from, savedPosition) {
                 return false
             case "/search-site":
                 return false
-    
+
             default:
                 return true
-              
+
         }
-      
+
     }
 
     if (to.hash) {
@@ -66,7 +66,6 @@ export default async function (to, from, savedPosition) {
         }
     }
     return { x: 0, y: 0, behavior: "smooth" }
-  
-}
 
+}
 

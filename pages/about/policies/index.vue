@@ -8,14 +8,20 @@
             :text="page.text"
         />
 
+        <page-anchor
+            v-if="h2Array.length >=3"
+            :section-titles= h2Array
+        />
+
         <div
             v-for="(policy, index) in parsedPolicyBlocks"
             :key="`PolicyBlocksKey${index}`"
         >
-            <section-wrapper>
+            <section-wrapper
+                :section-title="policy.sectionTitle"
+                :section-summary="policy.sectionSummary"
+            >
                 <simple-cards
-                    :section-title="policy.sectionTitle"
-                    :section-summary="policy.sectionSummary"
                     :items="policy.parsedAssociatedEntries"
                     button="View all"
                 />
@@ -61,12 +67,17 @@ export default {
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription
                 }
             ],
+        }
+    },
+    data() {
+        return {
+            h2Array: [] // anchor tags
         }
     },
     computed: {
@@ -83,6 +94,10 @@ export default {
                 }
             })
         }
+    },
+    mounted() {
+        // Call the plugin method to get the .section-header2 and .section-header3 elements
+        this.h2Array = this.$getHeaders.getHeadersMethod();
     }
 }
 </script>

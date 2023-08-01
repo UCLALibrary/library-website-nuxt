@@ -34,6 +34,11 @@
             <divider-way-finder class="divider-way-finder" color="default" />
         </section-wrapper>
 
+        <page-anchor
+            v-if="h2Array.length >=3"
+            :section-titles= h2Array
+        />
+
         <flexible-blocks
             v-if="page"
             class="flexible-content"
@@ -73,6 +78,11 @@ export default {
             title: title,
         }
     },
+    data() {
+        return {
+            h2Array: [] // anchor tags
+        }
+    },
     computed: {
         parseParentPageURL() {
             if (this.page.parent && this.page.parent.uri)
@@ -93,6 +103,10 @@ export default {
             return _get(this.page, "button[0].buttonUrl", "")
         },
     },
+    mounted() {
+        // Call the plugin method to get the .section-header2 and .section-header3 elements
+        this.h2Array = this.$getHeaders.getHeadersMethod();
+    }
 }
 </script>
 

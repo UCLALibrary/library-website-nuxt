@@ -30,6 +30,11 @@
             <divider-way-finder class="divider-way-finder" color="about" />
         </section-wrapper>
 
+        <page-anchor
+            v-if="h2Array.length >=3"
+            :section-titles= h2Array
+        />
+
         <!-- Rich Text is not showing up -->
         <flexible-blocks
             v-if="page"
@@ -81,6 +86,15 @@ export default {
             ],
         }
     },
+    data() {
+        return {
+            h2Array: [] // anchor tags
+        }
+    },
+    mounted() {
+        // Call the plugin method to get the .section-header2 and .section-header3 elements
+        this.h2Array = this.$getHeaders.getHeadersMethod();
+    }
 }
 </script>
 

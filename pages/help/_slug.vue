@@ -7,6 +7,12 @@
             :title="page.title"
             :text="page.text"
         />
+
+        <page-anchor
+            v-if="h2Array.length >=3"
+            :section-titles= h2Array
+        />
+
         <section-wrapper v-if="page.richText">
             <RichText :rich-text-content="page.richText" />
         </section-wrapper>
@@ -15,13 +21,14 @@
             v-for="(block, index) in parsedHelpTopicBlocks"
             :key="`HelpTopicBlocksKey${index}`"
         >
-            <section-wrapper>
+            <section-wrapper
+                :section-title="block.sectionTitle"
+                :section-summary="block.sectionSummary">
                 <simple-cards
-                    :section-title="block.sectionTitle"
-                    :section-summary="block.sectionSummary"
                     :items="block.parsedAssociatedEntries"
                 />
             </section-wrapper>
+
             <section-wrapper theme="divider">
                 <divider-way-finder
                     class="divider-way-finder"
@@ -95,6 +102,11 @@ export default {
             ],
         }
     },
+    data() {
+        return {
+            h2Array: [] // anchor tags
+        }
+    },
     computed: {
         parsedHelpTopicBlocks() {
             return this.page.helpTopicBlocks.map((obj) => {
@@ -114,6 +126,10 @@ export default {
             })
         },
     },
+    mounted() {
+        // Call the plugin method to get the .section-header2 and .section-header3 elements
+        this.h2Array = this.$getHeaders.getHeadersMethod();
+    }
 }
 </script>
 

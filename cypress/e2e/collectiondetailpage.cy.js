@@ -1,6 +1,6 @@
 describe("Collection Detail page", () => {
     it("Visits a Collection Detail Page", () => {
-        
+
         cy.request({
             url:'/collections/explore/halloween-costumes',
             timeout: 120000,
@@ -14,6 +14,7 @@ describe("Collection Detail page", () => {
             "contain",
             "TEST - Title of Collection - Halloween Costumes"
         )
+        cy.get(".page-anchor").scrollIntoView().should('be.visible')
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 

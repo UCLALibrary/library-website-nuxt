@@ -7,6 +7,7 @@ describe("Policy List page", () => {
             "contain",
             "Policies"
         )
+        cy.get(".page-anchor").scrollIntoView().should('be.visible')
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 })

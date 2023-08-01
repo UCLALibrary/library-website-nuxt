@@ -8,6 +8,7 @@ describe("Help Topic page", () => {
             "contain",
             "Printing Practices - Simple Card 3 Up - Rich Text - Pull Quote"
         )
+        cy.get(".page-anchor").scrollIntoView().should('be.visible')
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 

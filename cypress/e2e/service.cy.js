@@ -8,12 +8,13 @@ describe("Service page", () => {
             "contain",
             `Service with all flexible page block types`
         )
+        cy.get(".page-anchor").scrollIntoView().should('be.visible')
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 
     context("When there isn't an entry in craft", () => {
         it("Raises a 404 error", () => {
-           
+
             cy.visit("/help/services-resources/no_entry")
             cy.get("p.error").should("contain","404")
             cy.get("h1.error-title").should("contain","Page not found")
