@@ -13,13 +13,19 @@
             <divider-way-finder class="divider divider-way-finder" />
         </section-wrapper>
 
-        <section-wrapper>
+        <page-anchor
+            v-if="h2Array.length >=3"
+            :section-titles= h2Array
+        />
+
+        <section-wrapper
+            :section-title="parsedResources[0].titleGeneral"
+            :section-summary="parsedResources[0].sectionSummary"
+        >
             <section-cards-with-illustrations
                 v-if="parsedResources.length"
                 :items="parsedResources[0].featuredResources"
                 :is-horizontal="false"
-                :section-title="parsedResources[0].titleGeneral"
-                :section-summary="parsedResources[0].sectionSummary"
                 button-text="See More"
                 to="/collections/access"
             />
@@ -117,12 +123,17 @@ export default {
         return {
             title: title,
             meta: [
-                { 
+                {
                     hid: 'description',
                     name: 'description',
                     content: metaDescription
                 }
             ],
+        }
+    },
+    data() {
+        return {
+            h2Array: [] // anchor tags
         }
     },
     computed: {
@@ -192,7 +203,7 @@ export default {
                     )
                     return {
                         ...obj,
-                        to: 
+                        to:
                             obj.externalResourceUrl != null
                                 ? _get(obj, "externalResourceUrl", "")
                                 : `/${obj.to}`,
@@ -228,6 +239,10 @@ export default {
             return result.slice(0, -2)
         },
     },
+    mounted() {
+        // Call the plugin method to get the .section-header2 and .section-header3 elements
+        this.h2Array = this.$getHeaders.getHeadersMethod();
+    }
 }
 </script>
 

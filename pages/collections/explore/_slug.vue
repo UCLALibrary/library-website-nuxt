@@ -37,6 +37,11 @@
             <divider-way-finder class="divider-way-finder" color="default" />
         </section-wrapper>
 
+        <page-anchor
+            v-if="h2Array.length >=3"
+            :section-titles= h2Array
+        />
+
         <!-- Using the Collection -->
         <section-wrapper
             v-if="page.richTextSimplified"
@@ -88,10 +93,10 @@
         </section-wrapper>
 
         <!-- Endowments -->
-        <section-wrapper v-if="parsedEndowments.length">
+        <section-wrapper v-if="parsedEndowments.length"
+            section-title="Collection Endowments">
             <section-staff-article-list
                 :items="parsedEndowments"
-                section-title="Collection Endowments"
                 class="block-staff-article-item"
             />
 
@@ -152,6 +157,11 @@ export default {
                     content: metaDescription
                 }
             ],
+        }
+    },
+    data() {
+        return {
+            h2Array: [] // anchor tags
         }
     },
     computed: {
@@ -243,7 +253,11 @@ export default {
                 ].join(donorNames.length < 2 ? "" : " and ")
                 return `Donors: ${names}`
             }
-        },
+        }
+    },
+    mounted() {
+        // Call the plugin method to get the .section-header2 and .section-header3 elements
+        this.h2Array = this.$getHeaders.getHeadersMethod();
     },
 }
 </script>

@@ -46,6 +46,11 @@
             />
         </section-wrapper>
 
+        <page-anchor
+            v-if="h2Array.length >=2"
+            :section-titles= h2Array
+        />
+
         <section-wrapper>
             <div class="section-header">
                 <div
@@ -248,6 +253,11 @@ export default {
             ],
         }
     },
+    data() {
+        return {
+            h2Array: [] // anchor tags
+        }
+    },
     computed: {
         parsedStaffDirectory() {
             if (
@@ -360,6 +370,10 @@ export default {
             // )
         },
     },
+    mounted() {
+        // Call the plugin method to get the .section-header2 and .section-header3 elements
+        this.h2Array = this.$getHeaders.getHeadersMethod();
+    }
 }
 </script>
 
