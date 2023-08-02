@@ -210,5 +210,16 @@ export default {
     .button-more {
         margin: var(--space-2xl) auto;
     }
+
+    ::v-deep .section-banner {
+        .gradient-no-category {
+            background: linear-gradient(
+                120deg,
+                rgba(15, 15, 15, 0) 0,
+                rgba(15, 15, 15, 0.2509803922) 67.57%,
+                #0f0f0f 120%
+            );
+        }
+    }
 }
 </style>
