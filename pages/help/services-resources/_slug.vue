@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
     <main id="main" class="page page-service-detail">
         <!-- ServiceOrResource Detail -->
         <div v-if="page.serviceOrResource">
@@ -37,14 +37,17 @@
                     :category="page.serviceOrResource.type"
                     :title="page.serviceOrResource.title"
                     :text="page.serviceOrResource.text"
-                    :to="parsedButtonTo"
                     :prompt="parsedButtonText"
+                    :to="parsedButtonTo"
                 />
-
-                <section-wrapper theme="divider">
-                    <divider-way-finder color="help" />
-                </section-wrapper>
             </section-wrapper>
+
+            <section-wrapper theme="divider">
+                <divider-way-finder />
+            </section-wrapper>
+
+prompt {{parsedButtonText}}<br>
+to {{parsedButtonTo}}
 
             <page-anchor
                 v-if="h2Array.length >=3"
@@ -321,10 +324,10 @@ export default {
             })
         },
         parsedButtonText() {
-            return _get(this.page.serviceOrResource, "button[0].buttonText", "")
+            return _get(this.page.serviceOrResource, "buttonUrl[0].buttonText", "")
         },
         parsedButtonTo() {
-            return _get(this.page.serviceOrResource, "button[0].buttonUrl", "")
+            return _get(this.page.serviceOrResource, "buttonUrl[0].buttonUrl", "")
         },
         associatedEvents() {
             return this.page.workshopSeries.event.map((obj) => {
