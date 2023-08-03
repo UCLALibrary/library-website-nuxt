@@ -46,9 +46,6 @@
                 <divider-way-finder />
             </section-wrapper>
 
-prompt {{parsedButtonText}}<br>
-to {{parsedButtonTo}}
-
             <page-anchor
                 v-if="h2Array.length >=3"
                 :section-titles= h2Array
@@ -96,6 +93,7 @@ to {{parsedButtonTo}}
                 :title="page.workshopSeries.title"
                 parent-title="Services & Resources"
             />
+
             <banner-text
                 v-if="
                     page.workshopSeries &&
@@ -141,6 +139,7 @@ to {{parsedButtonTo}}
                 class="content"
                 :blocks="page.workshopSeries.blocks"
             />
+
             <section-wrapper
                 v-if="page.workshopSeries.blocks.length > 0"
                 theme="divider"
@@ -217,6 +216,7 @@ import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
 // GQL
 import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceOrResourceOrWorkshopDetail"
+
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
