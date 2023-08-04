@@ -8,9 +8,8 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             sectionHandle
             slug
             uri
-            button: buttonUrl {
+            buttonUrl {
                 ... on buttonUrl_button_BlockType {
-                    id
                     buttonText
                     buttonUrl
                 }
