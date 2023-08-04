@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
     <main id="main" class="page page-service-detail">
         <!-- ServiceOrResource Detail -->
         <div v-if="page.serviceOrResource">
@@ -37,13 +37,13 @@
                     :category="page.serviceOrResource.type"
                     :title="page.serviceOrResource.title"
                     :text="page.serviceOrResource.text"
-                    :to="parsedButtonTo"
                     :prompt="parsedButtonText"
+                    :to="parsedButtonTo"
                 />
+            </section-wrapper>
 
-                <section-wrapper theme="divider">
-                    <divider-way-finder color="help" />
-                </section-wrapper>
+            <section-wrapper theme="divider">
+                <divider-way-finder />
             </section-wrapper>
 
             <page-anchor
@@ -93,6 +93,7 @@
                 :title="page.workshopSeries.title"
                 parent-title="Services & Resources"
             />
+
             <banner-text
                 v-if="
                     page.workshopSeries &&
@@ -138,6 +139,7 @@
                 class="content"
                 :blocks="page.workshopSeries.blocks"
             />
+
             <section-wrapper
                 v-if="page.workshopSeries.blocks.length > 0"
                 theme="divider"
@@ -214,6 +216,7 @@ import _get from "lodash/get"
 import removeTags from "~/utils/removeTags"
 // GQL
 import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "~/gql/queries/ServiceOrResourceOrWorkshopDetail"
+
 export default {
     async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
@@ -321,10 +324,10 @@ export default {
             })
         },
         parsedButtonText() {
-            return _get(this.page.serviceOrResource, "button[0].buttonText", "")
+            return _get(this.page.serviceOrResource, "buttonUrl[0].buttonText", "")
         },
         parsedButtonTo() {
-            return _get(this.page.serviceOrResource, "button[0].buttonUrl", "")
+            return _get(this.page.serviceOrResource, "buttonUrl[0].buttonUrl", "")
         },
         associatedEvents() {
             return this.page.workshopSeries.event.map((obj) => {
