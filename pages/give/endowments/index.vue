@@ -2,14 +2,13 @@
     <!-- v-ifs working on section wrappers without v-show -->
     <main id="main" class="page page-endowment-listing">
         <masthead-secondary :title="page.title" :text="page.text" />
-        <!-- <search-generic
+        <search-generic
             search-type="about"
-            :filters="searchFilters"
             class="generic-search"
             :search-generic-query="searchGenericQuery"
             :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
-        /> -->
+        />
 
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" color="about" />
