@@ -165,8 +165,7 @@ export default {
         this.endowments = []
         this.hits = []
         if (
-            (this.$route.query.q && this.$route.query.q !== "") ||
-            this.$route.query.filters
+            (this.$route.query.q && this.$route.query.q !== "")
         ) {
             if (!this.page.title) {
                 const data = await this.$graphql.default.request(
@@ -186,6 +185,7 @@ export default {
                 config.endowmentsList.orderBy,
                 config.endowmentsList.resultFields,
                 // config.endowmentsList.filters
+                []
             )
             // console.log("getsearchdata method:" + JSON.stringify(results))
             this.endowments = []
