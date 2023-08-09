@@ -4,7 +4,6 @@
         <masthead-secondary :title="page.title" :text="page.text" />
         <search-generic
             search-type="about"
-            :filters="searchFilters"
             class="generic-search"
             :search-generic-query="searchGenericQuery"
             :placeholder="parsedPlaceholder"
@@ -126,7 +125,7 @@
 </template>
 
 <script>
-import getListingFilters from "~/utils/getListingFilters"
+// import getListingFilters from "~/utils/getListingFilters"
 import config from "~/utils/searchConfig"
 
 // HELPERS
@@ -152,13 +151,13 @@ export default {
             hits: [],
             title: "",
             noResultsFound: false,
-            searchFilters: [],
+            // searchFilters: [],
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
-                queryFilters:
-                    (this.$route.query.filters &&
-                        JSON.parse(this.$route.query.filters)) ||
-                    {},
+                // queryFilters:
+                //     (this.$route.query.filters &&
+                //         JSON.parse(this.$route.query.filters)) ||
+                //     {},
             },
         }
     },
@@ -166,8 +165,7 @@ export default {
         this.endowments = []
         this.hits = []
         if (
-            (this.$route.query.q && this.$route.query.q !== "") ||
-            this.$route.query.filters
+            (this.$route.query.q && this.$route.query.q !== "")
         ) {
             if (!this.page.title) {
                 const data = await this.$graphql.default.request(
@@ -182,13 +180,14 @@ export default {
                 query_text,
                 config.endowmentsList.searchFields,
                 "sectionHandle:endowment",
-                JSON.parse(this.$route.query.filters) || {},
+                JSON.parse(this.$route.query.q) || "*",
                 config.endowmentsList.sortField,
                 config.endowmentsList.orderBy,
                 config.endowmentsList.resultFields,
-                config.endowmentsList.filters
+                // config.endowmentsList.filters
+                []
             )
-            //console.log("getsearchdata method:" + JSON.stringify(results))
+            // console.log("getsearchdata method:" + JSON.stringify(results))
             this.endowments = []
             this.hits = []
             if (results && results.hits && results.hits.total.value > 0) {
@@ -202,10 +201,10 @@ export default {
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
-                queryFilters:
-                    (this.$route.query.filters &&
-                        JSON.parse(this.$route.query.filters)) ||
-                    {},
+                // queryFilters:
+                //     (this.$route.query.filters &&
+                //         JSON.parse(this.$route.query.filters)) ||
+                //     {},
             }
         } else {
             this.hits = []
@@ -288,51 +287,51 @@ export default {
         "$route.query.q"(newValue) {
             //console.log("watching queryText:" + newValue)
         },
-        "$route.query.filters"(newValue) {
-            //console.log("watching filters:" + newValue)
-        },
+        // "$route.query.filters"(newValue) {
+        //     //console.log("watching filters:" + newValue)
+        // },
     },
     async mounted() {
         //console.log("In mounted")
-        this.setFilters()
+        // this.setFilters()
     },
     methods: {
-        queryFilterHasValues() {
-            if (!this.$route.query.filters) return false
-            let routeQueryFilters = JSON.parse(this.$route.query.filters)
-            // //console.log(
-            //     "is route query exixts:" + JSON.stringify(routeQueryFilters)
-            // )
-            let configFilters = config.endowmentsList.filters
-            for (const filter of configFilters) {
-                if (
-                    Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName].length > 0
-                ) {
-                    return true
-                } else if (
-                    routeQueryFilters[filter.esFieldName] &&
-                    !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-                    routeQueryFilters[filter.esFieldName] != ""
-                ) {
-                    return true
-                }
-            }
-            return false
-        },
-        async setFilters() {
-            const searchAggsResponse = await this.$dataApi.getAggregations(
-                config.endowmentsList.filters,
-                "endowment"
-            )
-            /*console.log(
-                "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-            )*/
-            this.searchFilters = getListingFilters(
-                searchAggsResponse,
-                config.endowmentsList.filters
-            )
-        },
+        // queryFilterHasValues() {
+        //     if (!this.$route.query.filters) return false
+        //     let routeQueryFilters = JSON.parse(this.$route.query.filters)
+        //     // //console.log(
+        //     //     "is route query exixts:" + JSON.stringify(routeQueryFilters)
+        //     // )
+        //     let configFilters = config.endowmentsList.filters
+        //     for (const filter of configFilters) {
+        //         if (
+        //             Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+        //             routeQueryFilters[filter.esFieldName].length > 0
+        //         ) {
+        //             return true
+        //         } else if (
+        //             routeQueryFilters[filter.esFieldName] &&
+        //             !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
+        //             routeQueryFilters[filter.esFieldName] != ""
+        //         ) {
+        //             return true
+        //         }
+        //     }
+        //     return false
+        // },
+        // async setFilters() {
+        //     const searchAggsResponse = await this.$dataApi.getAggregations(
+        //         config.endowmentsList.filters,
+        //         "endowment"
+        //     )
+        //     /*console.log(
+        //         "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+        //     )*/
+        //     this.searchFilters = getListingFilters(
+        //         searchAggsResponse,
+        //         config.endowmentsList.filters
+        //     )
+        // },
         parseHits(hits = []) {
             return hits.map((obj) => {
                 return {
@@ -366,7 +365,7 @@ export default {
                 path: "/give/endowments",
                 query: {
                     q: data.text,
-                    filters: JSON.stringify(data.filters),
+                    // filters: JSON.stringify(data.filters),
                 },
             })
         },

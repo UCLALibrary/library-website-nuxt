@@ -135,7 +135,8 @@ export default function ({ $config }, inject) {
         sort,
         orderBy,
         source = ["*"],
-        aggFields = []
+        aggFields = [],
+        extraFilters = [],
     ) {
         //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
         console.log("In data api keywordsearchwithfilters")
@@ -201,6 +202,7 @@ export default function ({ $config }, inject) {
                                 },
                                 ...parseSectionHandle(sectionHandle),
                                 ...parseFilterQuery(filters),
+                                ...extraFilters,
                             ],
                         },
                     },
