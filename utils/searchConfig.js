@@ -265,8 +265,18 @@ const config = {
                 inputType: "date",
             } */
         ],
+        extraFilters: [
+            // no manual control
+            {
+                "range": {
+                    "endDateWithTime": {
+                        "gte": "now",
+                    },
+                },
+            },
+        ],
         resultFields: ["*"],
-        sortField: "title.keyword",
+        sortField: "startDateWithTime",
         orderBy: "asc",
     },
 }

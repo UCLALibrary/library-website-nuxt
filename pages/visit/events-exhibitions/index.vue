@@ -244,7 +244,8 @@ export default {
                 config.eventsExhibitionsList.sortField,
                 config.eventsExhibitionsList.orderBy,
                 config.eventsExhibitionsList.resultFields,
-                config.eventsExhibitionsList.filters
+                config.eventsExhibitionsList.filters,
+                config.eventsExhibitionsList.extraFilters,
             )
             //console.log("getsearchdata method:" + JSON.stringify(results))
             // this.events = []
