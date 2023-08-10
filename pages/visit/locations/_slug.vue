@@ -51,24 +51,13 @@
             :section-titles= h2Array
         />
 
-        <section-wrapper>
-            <div class="section-header">
-                <div
-                    v-if="
-                        page.libcalLocationIdForHours ||
-                            page.amenitiesIcons.length ||
-                            parsedSpaces.length
-                    "
-                    class="section-title"
-                >
-                    Using the Library
-                </div>
-                <div
-                    v-if="page.howToGetHere"
-                    class="section-summary"
-                    v-html="page.howToGetHere"
-                />
-            </div>
+        <section-wrapper
+            v-if="page.libcalLocationIdForHours ||
+                    page.amenitiesIcons.length ||
+                    parsedSpaces.length"
+            section-title="Using the Library"
+            :section-summary="page.howToGetHere"
+        >
 
             <block-hours
                 v-if="page.libcalLocationIdForHours"
