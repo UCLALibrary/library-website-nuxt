@@ -48,9 +48,6 @@
             section-title="Using the Collection"
             :section-summary="page.richTextSimplified"
         >
-            <!-- <div class="section-header">
-                <rich-text :rich-text-content="page.richTextSimplified" />
-            </div> -->
 
             <divider-way-finder
                 v-if="page.blocks.length > 0"
