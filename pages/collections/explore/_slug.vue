@@ -48,7 +48,6 @@
             section-title="Using the Collection"
             :section-summary="page.richTextSimplified"
         >
-
             <divider-way-finder
                 v-if="page.blocks.length > 0"
                 class="divider-way-finder"
