@@ -14,7 +14,7 @@
         />
 
         <section-wrapper v-if="page.richText">
-            <RichText :rich-text-content="page.richText" />
+            <rich-text :rich-text-content="page.richText" />
         </section-wrapper>
 
         <div

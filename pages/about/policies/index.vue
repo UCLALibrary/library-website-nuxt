@@ -30,7 +30,6 @@
             <section-wrapper theme="divider">
                 <divider-way-finder
                     class="divider"
-                    color="about"
                 />
             </section-wrapper>
         </div>
