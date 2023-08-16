@@ -12,7 +12,7 @@
             :category="parsedCategory"
             :title="page.title"
             :text="page.text"
-            :byline="parsedBylineBannerText"
+            :byline="parsedByline"
             :locations="parsedLocations"
             :date-created="page.postDate"
         />
@@ -102,24 +102,14 @@ export default {
     },
     computed: {
         parsedByline() {
-            let byline = (this.page.contributors || []).map((entry) => {
-                return `${entry.byline || ""} ${
-                    entry.title || entry.staffMember[0].title
-                }`
+            let byline = (this.page.contributors || []).map((contributor) => {
+                if ((contributor.staffMember && contributor.staffMember.length > 0) || contributor.title)
+                return `${contributor.byline || ""} ${ contributor.title || contributor.staffMember[0].title}`
             })
-            return byline.map((entry) => {
-                return entry
-            })
-        },
-
-        parsedBylineBannerText() {
-            return (this.page.contributors || []).map((entry) => {
-                return `${entry.byline} ${
-                    entry.title || entry.staffMember[0].title
-                }`
+            return byline.map((contributor) => {
+                return contributor
             })
         },
-
         parsedDate() {
             return format(new Date(this.page.postDate), "MMMM d, Y")
         },
@@ -151,30 +141,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-news-detail {
-    .highlighted-news {
-        @include visually-hidden;
-    }
-
-    // .flexible-content {
-    //     margin: 0 auto;
-    // }
-
-    // @media #{$medium} {
-    //     .block-campus-map,
-    //     .section-block-spaces,
-    //     .block-hours,
-    //     .block-amenities,
-    //     .simple-cards,
-    //     .section-teaser-list,
-    //     .section-teaser-card {
-    //         padding: 0 var(--unit-gutter);
-    //     }
-    // }
-
-    // @media #{$small} {
-    //     .page {
-    //         width: 100%;
-    //     }
-    // }
+.highlighted-news {
+    @include visually-hidden;
+}
 }
 </style>
