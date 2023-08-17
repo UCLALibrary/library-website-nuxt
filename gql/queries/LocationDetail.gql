@@ -94,7 +94,6 @@ query LocationDetail($slug: [String!]) {
                     altText
                 }
             }
-
             authors: staffMember {
                 id
                 slug
@@ -153,14 +152,14 @@ query LocationDetail($slug: [String!]) {
             }
             requiresRegistration
             eventDescription
-            #heroImage {
-            #   ... on heroImage_heroImage_BlockType {
-            #      id
-            #     image {
-            #        ...Image
-            #   }
-            #}
-            #}
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    id
+                    image {
+                        ...Image
+                    }
+                }
+            }
             eventType {
                 title
             }
@@ -185,7 +184,6 @@ query LocationDetail($slug: [String!]) {
             title
             summary
             dateUpdated
-
             ongoing
             heroImage {
                 ... on heroImage_heroImage_BlockType {

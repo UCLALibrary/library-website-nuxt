@@ -41,8 +41,8 @@
                         page.amenitiesIcons.length ||
                         parsedSpaces.length
                 "
-                color="visit"
                 class="divider-way-finder"
+                color="visit"
             />
         </section-wrapper>
 
@@ -51,6 +51,7 @@
             :section-titles= h2Array
         />
 
+        <!-- HOURS -->
         <section-wrapper
             v-if="page.libcalLocationIdForHours ||
                     page.amenitiesIcons.length ||
@@ -64,6 +65,7 @@
                 :lid="page.libcalLocationIdForHours"
             />
 
+        <!-- AMENITIES -->
             <divider-general
                 v-if="page.amenitiesIcons.length"
                 class="divider-general"
@@ -75,6 +77,7 @@
                 class="amenities"
             />
 
+        <!-- SPACES -->
             <divider-general
                 v-if="parsedSpaces.length"
                 class="divider-general"
@@ -87,11 +90,12 @@
             />
         </section-wrapper>
 
+        <!-- SERVICES & RESOURCES -->
         <section-wrapper theme="divider">
             <divider-way-finder
                 v-if="page.resourceServiceWorkshop.length"
-                color="visit"
                 class="divider-way-finder"
+                color="visit"
             />
         </section-wrapper>
 
@@ -110,6 +114,7 @@
             </nuxt-link>
         </section-wrapper>
 
+        <!-- EXHIBITIONS -->
         <section-wrapper theme="divider">
             <divider-way-finder
                 v-if="mergeSortEventsExhibitions.length"
@@ -136,11 +141,12 @@
             </nuxt-link> -->
         </section-wrapper>
 
+        <!-- FPB - FLEXIBLE PAGE BLOCKS -->
         <section-wrapper theme="divider">
             <divider-way-finder
                 v-if="page.blocks.length > 0"
-                color="visit"
                 class="divider-way-finder"
+                color="visit"
             />
         </section-wrapper>
 
@@ -149,6 +155,7 @@
             :blocks="page.blocks"
         />
 
+        <!-- ABOUT -->
         <section-wrapper theme="divider">
             <divider-way-finder
                 v-if="page.about"
@@ -168,6 +175,7 @@
             />
         </section-wrapper>
 
+        <!-- TODO MAP -->
         <!--  <section-wrapper theme="divider">
                 <divider-way-finder
                 v-if="page.about"
@@ -175,6 +183,7 @@
                 class="divider-way-finder"
             />
         </section-wrapper>
+
         <section-wrapper>
             <h2
                 v-if="page.campusMapId"
