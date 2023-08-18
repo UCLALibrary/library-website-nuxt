@@ -136,6 +136,7 @@ export default {
         "~/modules/populate",
         "@nuxtjs/axios",
         "@nuxtjs/gtm",
+        "nuxt-robots-module",
         "@nuxtjs/sitemap",
     ], // This needs to be last always,
 

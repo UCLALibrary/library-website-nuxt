@@ -1,6 +1,6 @@
 describe('Impact Report Page', () => {
     it('Visit the Impact Report Page', () => {
-        cy.visit('/impact')
+        cy.visit('/impact/2022')
 
         // UCLA Library brand
         cy.get('.logo-ucla').should('be.visible')
