@@ -1,9 +1,0 @@
-query ImpactReportsList {
-    entries(section: "impactReport", orderBy: "postDate desc") {
-        ... on impactReport_impactReport_Entry {
-            id
-            title
-            to: uri
-        }
-    }
-}
