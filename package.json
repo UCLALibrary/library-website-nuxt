@@ -1,49 +1,15 @@
 {
-    "name": "library-website-nuxt",
-    "engines": {
-        "npm": "8.5.5",
-        "node": "16.15.0"
-    },
-    "scripts": {
-        "dev": "nuxt",
-        "build": "nuxt build",
-        "generate": "nuxt generate",
-        "start": "nuxt start",
-        "cypress": "cypress open",
-        "cypress-run": "cypress run",
-        "lint": "eslint ./",
-        "lint-fix": "eslint --fix ./"
-    },
-    "dependencies": {
-        "@nuxtjs/gtm": "^2.4.0",
-        "@nuxtjs/sitemap": "^2.4.0",
-        "@vue-a11y/skip-to": "^2.1.2",
-        "consola": "^2.15.3",
-        "nuxt": "^2.15.8"
-    },
-    "devDependencies": {
-        "@nuxtjs/axios": "^5.13.6",
-        "@nuxtjs/router-extras": "^1.1.1",
-        "@nuxtjs/style-resources": "^1.0.0",
-        "@percy/cli": "^1.0.0-beta.67",
-        "@percy/cypress": "^3.1.2",
-        "core-js": "^3.11.0",
-        "cypress": "^12.5.1",
-        "date-fns": "^2.22.1",
-        "eslint": "^7.25.0",
-        "eslint-plugin-cypress": "^2.12.1",
-        "eslint-plugin-vue": "^7.9.0",
-        "graphql": "^15.5.1",
-        "graphql-tag": "^2.12.5",
-        "lodash": "^4.17.21",
-        "nuxt-graphql-request": "^4.0.0",
-        "prettier": "^2.2.1",
-        "prettier-eslint": "^12.0.0",
-        "sass": "^1.45.2",
-        "sass-loader": "^10.1.1",
-        "ucla-library-design-tokens": "^5.5.0",
-        "ucla-library-website-components": "^2.38.5",
-        "vue-svg-loader": "^0.16.0",
-        "vue-template-compiler": "^2.6.12"
-    }
+  "name": "library-website-nuxt",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@types/node": "^18.17.3",
+    "nuxt": "^3.6.5"
+  }
 }
