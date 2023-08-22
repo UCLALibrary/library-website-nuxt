@@ -7,13 +7,17 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "cypress": "cypress open",
-    "cypress-run": "cypress run"
+    "cypress-run": "cypress run",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^0.40.2",
     "@nuxt/devtools": "latest",
     "@percy/cypress": "^3.1.2",
     "@types/node": "^18.17.3",
     "cypress": "^12.17.4",
+    "eslint": "^8.47.0",
     "nuxt": "^3.6.5"
   }
 }
