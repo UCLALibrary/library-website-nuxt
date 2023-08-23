@@ -20,10 +20,10 @@ export default function () {
                 'Content-Type': 'application/json',
             },
             method: 'PUT',
-            body: JSON.stringify({
-                settings: { analysis: { analyzer: { my_analyzer: { tokenizer: "standard", filter: ["stemmer", "lowercase", "stop"] } } } }
-            }),
-            filter: ["stemmer", "lowercase", "stop", "asciifolding"]
+            body:
+                JSON.stringify({
+                    settings: { analysis: { analyzer: { my_analyzer: { tokenizer: "standard", filter: ["stemmer", "lowercase", "stop", "asciifolding"] } } } }
+                }),
         })
         const body = await response.text()
         try {
