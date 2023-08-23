@@ -1,0 +1,149 @@
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: 400;
+    margin: 0;
+}
+
+strong {
+    font-weight: 500;
+}
+
+ul,
+ol,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color $transition-timing-normal ease-in-out;
+}
+
+button {
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin: 0;
+}
+
+::selection {
+    background: var(--color-primary-blue-03);
+    color: var(--color-white);
+}
+
+// Z-indexs
+.header-sticky {
+    z-index: 100;
+}
+
+.header-main {
+    z-index: 200;
+}
+
+// Page Structure
+.page {
+    .section {
+        margin: var(--space-3xl) auto;
+        padding-left: $whitespace-m-sides + px;
+        padding-right: $whitespace-m-sides + px;
+        max-width: $container-xl-banner + px;
+        @media #{$small} {
+            padding-left: $whitespace-s-sides + px;
+            padding-right: $whitespace-s-sides + px;
+        }
+    }
+    .divider-first + .section {
+        margin-top: 75px;
+    }
+    .divider {
+        max-width: $container-l-main + px;
+        margin-left: auto;
+        margin-right: auto;
+        @media #{$medium} {
+            max-width: 100%;
+            padding: 0 $whitespace-m-sides + px;
+        }
+        @media #{$small} {
+            padding: 0 $whitespace-s-sides + px;
+        }
+    }
+    .about-results {
+        margin-bottom: var(--space-l);
+        color: var(--color-primary-blue-05);
+        @include step-0;
+        font-weight: 400;
+    }
+    .results {
+        color: var(--color-primary-blue-05);
+        @include step-0;
+        font-style: italic;
+    }
+    .error-text {
+        margin-top: var(--space-m);
+        h2 {
+            color: var(--color-primary-blue-05);
+        }
+    }
+}
+
+// Animations
+.underline-hover {
+    position: relative;
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        height: 2px;
+        width: 0;
+        background-color: var(--color-primary-blue-03);
+        transition-property: width, opacity;
+        transition-duration: 300ms;
+        transition-timing-function: ease-in-out;
+        opacity: 0;
+    }
+    &:hover {
+        &::before {
+            width: 100%;
+            opacity: 1;
+        }
+    }
+}
+
+// Generic Vue transitions
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 400ms ease-in-out;
+}
+
+.fade-enter,
+.fade-leave-active {
+    opacity: 0;
+}
+
+.visually-hidden {
+    @include visually-hidden;
+}
