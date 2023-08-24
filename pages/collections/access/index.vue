@@ -84,6 +84,30 @@ export default {
                                 : element.typeHandle
         })
 
+
+
+// add logic to reindex these documents to add a new field to support searching on this page
+        await $elasticsearchplugin.index(element, element.slug)
+        if (
+            serverData.affiliateLibraries &&
+            serverData.affiliateLibraries.length > 0
+        ) {
+            //console.log("External Resource indexing:")
+            for (let affiliateLibrary of serverData.affiliateLibraries) {
+                /*console.log(
+                    "External Resource indexing:" + affiliateLibrary.slug
+                )*/
+                await $elasticsearchplugin.index(
+                    affiliateLibrary,
+                    affiliateLibrary.slug
+                )
+            }
+        }
+
+
+
+
+
         return {
             page: _get(data, "entry", {}),
         }
@@ -93,8 +117,8 @@ export default {
             page: {},
             noResultsFound: false,
             hits: [],
-            searchGenericQuery: {                 queryText: this.$route.query.q || "",             }
-,
+            searchGenericQuery: {queryText: this.$route.query.q || "",
+        },
         }
     },
     head() {
@@ -131,6 +155,39 @@ export default {
                         ? obj.externalResourceUrl
                         : `/${obj.to}`,
                 }
+            })
+        },
+    },
+    watch: {
+        "$route.query": "$fetch",
+        "$route.query.q"(newValue) {
+            console.log("watching querytEXT:" + newValue)
+            // if (newValue === "") this.hits = []
+        },
+    },
+    methods: {
+        parseHits() {
+            console.log("static mode what is parseHits")
+            return this.hits.map((obj) => {
+                console.log(
+                    "what should be the category?:" +
+                        obj["_source"].sectionHandle
+                )
+                return {
+                    ...obj["_source"],
+                    to: obj["_source"].externalResourceUrl
+                        ? obj["_source"].externalResourceUrl
+                        : `/${obj["_source"].uri}`,
+                }
+            })
+        },
+        getSearchData(data) {
+
+            this.$router.push({
+                path: "/collections/access",
+                query: {
+                    q: data.text,
+                },
             })
         },
     },
