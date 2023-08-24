@@ -23,12 +23,11 @@
             @search-ready="getSearchData"
         />
         <section-wrapper
-            v-show="
-                page &&
-                    page.featuredPrograms &&
-                    page.featuredPrograms.length &&
-                    hits.length == 0 &&
-                    !noResultsFound
+            v-show="page &&
+                page.featuredPrograms &&
+                page.featuredPrograms.length &&
+                hits.length == 0 &&
+                !noResultsFound
             "
             theme="divider"
         >
@@ -39,12 +38,11 @@
         </section-wrapper>
 
         <section-wrapper
-            v-show="
-                page &&
-                    page.featuredPrograms &&
-                    page.featuredPrograms.length &&
-                    hits.length == 0 &&
-                    !noResultsFound
+            v-show="page &&
+                page.featuredPrograms &&
+                page.featuredPrograms.length &&
+                hits.length == 0 &&
+                !noResultsFound
             "
             class="section-no-top-margin"
         >
@@ -53,7 +51,6 @@
                 :title="parsedBannerHeader.title"
                 :category="parsedBannerHeader.category"
                 breadcrumb="Featured"
-                :byline="parsedByline"
                 :description="parsedBannerHeader.text"
                 :to="parsedBannerHeader.to"
                 :align-right="true"
@@ -61,9 +58,7 @@
                 class="banner section-featured-banner"
             />
 
-            <divider-general
-                v-if="parsedSectionHighlight && parsedSectionHighlight.length"
-            />
+            <divider-general v-if="parsedSectionHighlight && parsedSectionHighlight.length" />
 
             <section-teaser-highlight
                 v-if="parsedSectionHighlight && parsedSectionHighlight.length"
@@ -77,11 +72,10 @@
         </section-wrapper>
 
         <section-wrapper
-            v-show="
-                parsedProgramsList &&
-                    parsedProgramsList.length > 0 &&
-                    hits.length == 0 &&
-                    !noResultsFound
+            v-show="parsedProgramsList &&
+                parsedProgramsList.length > 0 &&
+                hits.length == 0 &&
+                !noResultsFound
             "
             section-title="All Programs & Initiatives"
         >
@@ -121,21 +115,19 @@
                         We can’t find the term you are looking for on this page,
                         but we're here to help. <br>
                         Try searching the whole site from
-                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited
+                        links:
                     </p>
                     <ul>
                         <li>
-                            <a
-                                href="https://www.library.ucla.edu/research-teaching-support/research-help"
-                            >Research Help</a>
+                            <a href="https://www.library.ucla.edu/research-teaching-support/research-help">Research Help</a>
                         </li>
                         <li>
                             <a href="/help/services-resources/ask-us">Ask Us</a>
                         </li>
                         <li>
-                            <a
-                                href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
-                            >Accessibility Resources</a>
+                            <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility
+                                Resources</a>
                         </li>
                     </ul>
                 </rich-text>
@@ -220,7 +212,7 @@ export default {
                 "sectionHandle:program",
                 (this.$route.query.filters &&
                     JSON.parse(this.$route.query.filters)) ||
-                    {},
+                {},
                 config.programsList.sortField,
                 config.programsList.orderBy,
                 config.programsList.resultFields,
@@ -299,11 +291,13 @@ export default {
         },
         parsedProgramsList() {
             return this.programs.map((obj) => {
+                if( obj.programUrlBehavior === "externalSite")
+                    console.log(obj.programUrlBehavior,obj)
                 return {
                     ...obj,
                     to:
                         obj.programUrlBehavior === "externalSite"
-                            ? obj.buttonUrl[0].buttonUrl
+                            ? obj.buttonUrl && obj.buttonUrl.length > 0 && obj.buttonUrl[0].buttonUrl ? obj.buttonUrl[0].buttonUrl : null
                             : `/${obj.uri}`,
                     image: _get(obj, "heroImage[0].image[0]", null),
                     staffName: `${obj.fullName}`,
@@ -386,6 +380,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-programs {
-}
+.page-programs {}
 </style>
