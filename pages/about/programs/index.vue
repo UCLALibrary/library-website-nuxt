@@ -349,7 +349,7 @@ export default {
                     description: obj["_source"].text,
                     to:
                         obj["_source"].programUrlBehavior === "externalSite"
-                            ? obj["_source"].buttonUrl[0].buttonUrl
+                            ? obj["_source"].buttonUrl && obj["_source"].buttonUrl.length > 0 && obj["_source"].buttonUrl[0].buttonUrl ? obj["_source"].buttonUrl[0].buttonUrl : null
                             : `/${obj["_source"].uri}`,
                     image: _get(obj["_source"], "heroImage[0].image[0]", null),
                     category: _get(
