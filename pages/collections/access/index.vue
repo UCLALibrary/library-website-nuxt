@@ -12,21 +12,21 @@
         <masthead-secondary
             :title="page.title"
             :text="page.text"
-        >
-            <!-- TODO Add SearchGenric here when complete -->
-            <!-- search-generic
-                search-type="about"
+        />
+            <search-generic
+                search-type="default"
                 class="generic-search"
-            />-->
+                :search-generic-query="searchGenericQuery"
+                :placeholder="parsedPlaceholder"
+                @search-ready="getSearchData"
+            />
             <!-- :filters="searchFilters.filters"
                 :view-modes="searchFilters.views"
                 @view-mode-change="viewModeChanger" -->
-        </masthead-secondary>
 
-        <!-- TODO add divider once SearchGeneric is implemented -->
-        <!-- <section-wrapper theme="divider">
+        <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
-        </section-wrapper> -->
+        </section-wrapper>
 
         <section-wrapper>
             <section-cards-with-illustrations
@@ -67,10 +67,11 @@ import removeTags from "~/utils/removeTags"
 import ACCESS_COLLECTIONS from "~/gql/queries/CollectionsAccessList.gql"
 
 export default {
-    async asyncData({ $graphql }) {
+    async asyncData({ $graphql, $elasticsearchplugin }) {
         const data = await $graphql.default.request(ACCESS_COLLECTIONS)
         data.entry.accessCollections.forEach((element) => {
             element.to = element.uri ? element.uri : element.externalResourceUrl
+            element.searchType = "accessCollections"
             element.category =
                 element.workshopOrEventSeriesType === "help/services-resources"
                     ? "workshop"
@@ -82,8 +83,18 @@ export default {
                                 ? "resource"
                                 : element.typeHandle
         })
+
         return {
             page: _get(data, "entry", {}),
+        }
+    },
+    data() {
+        return {
+            page: {},
+            noResultsFound: false,
+            hits: [],
+            searchGenericQuery: {                 queryText: this.$route.query.q || "",             }
+,
         }
     },
     head() {

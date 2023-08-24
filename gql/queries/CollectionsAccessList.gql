@@ -5,6 +5,7 @@ query AccessCollectionsListing {
         ... on listingAccessCollections_listingAccessCollections_Entry {
             accessCollections(orderBy: "title") {
                 title
+                slug
                 text: summary
                 uri
                 externalResourceUrl
