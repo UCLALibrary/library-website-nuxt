@@ -21,5 +21,8 @@
     "nuxt": "^3.6.5",
     "sass": "^1.66.1",
     "ucla-library-design-tokens": "^5.5.0"
+  },
+  "dependencies": {
+    "@vue-a11y/skip-to": "^3.0.3"
   }
 }
