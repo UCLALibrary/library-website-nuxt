@@ -1,0 +1,242 @@
+{
+    "image": {
+        "src": "https://via.placeholder.com/1920x1080",
+        "srcset": "https://via.placeholder.com/960x540 960w, https://via.placeholder.com/1280x720 1280w, https://via.placeholder.com/1920x1080 1920w",
+        "sizes": "100vw",
+        "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "title": "Lorem ipsum",
+        "caption": "Lorem ipsum",
+        "height": 1080,
+        "width": 1920
+    },
+    "images": [
+        {
+            "src": "https://via.placeholder.com/1920x1080",
+            "srcset": "https://via.placeholder.com/960x540 960w, https://via.placeholder.com/1280x720 1280w, https://via.placeholder.com/1920x1080 1920w",
+            "sizes": "100vw",
+            "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "title": "Lorem ipsum"
+        },
+        {
+            "src": "https://via.placeholder.com/960x540",
+            "srcset": "https://via.placeholder.com/960x960",
+            "sizes": "100vw",
+            "alt": "Morbi quis tellus vel turpis auctor sagittis.",
+            "title": "Morbi quis tellus"
+        }
+    ],
+    "image_people": {
+        "src": "https://via.placeholder.com/960x540",
+        "srcset": "https://via.placeholder.com/960x960",
+        "sizes": "100vw",
+        "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "title": "Lorem ipsum"
+    },
+    "video": {
+        "height": 1892,
+        "width": 3360,
+        "videoUrl": "https://static.library.ucla.edu/ucla-impact-report-animation.mp4"
+    },
+    "links": [
+        {
+            "name": "Loripsum",
+            "text": "Lorem ipsum",
+            "to": "/example/uri/1",
+            "target": "_blank"
+        },
+        {
+            "name": "Mauris finibus",
+            "text": "Mauris finibus",
+            "to": "/example/uri/2",
+            "target": "_self"
+        },
+        {
+            "name": "Curabitur ac odio vulputate",
+            "text": "Curabitur ac odio vulputate",
+            "to": "/example/uri/3",
+            "target": "_self"
+        },
+        {
+            "name": "Morbi quis tellus vel turpis",
+            "text": "Morbi quis tellus vel turpis",
+            "to": "/example/uri/4",
+            "target": "_self"
+        }
+    ],
+    "shortLinks": [
+        {
+            "name": "Vulputa",
+            "text": "Lorem ipsum",
+            "to": "/example/uri/1",
+            "target": "_blank"
+        },
+        {
+            "name": "Marinibus",
+            "text": "Mauris finibus",
+            "to": "/example/uri/2",
+            "target": "_self"
+        },
+        {
+            "name": "Curabitur",
+            "text": "Curabitur ac odio vulputate",
+            "to": "/example/uri/3",
+            "target": "_self"
+        },
+        {
+            "name": "Morbiquis",
+            "text": "Morbi quis tellus vel turpis",
+            "to": "/example/uri/4",
+            "target": "_self"
+        }
+    ],
+    "bricks": [
+        {
+            "image": {
+                "src": "https://via.placeholder.com/1920x1920",
+                "srcset": "https://via.placeholder.com/960x960 960w, https://via.placeholder.com/1280x1280 1280w, https://via.placeholder.com/1920x1920 1920w",
+                "sizes": "100vw",
+                "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "title": "Lorem ipsum"
+            },
+            "category": "Fermentu",
+            "title": "Maecenas Leo Mauris",
+            "prompt": "Velit Exceptur",
+            "dates": "Datum 12 - Datum 23, 2021",
+            "to": "/llamacorn/uri/1"
+        },
+        {
+            "image": {
+                "src": "https://via.placeholder.com/1920x1920",
+                "srcset": "https://via.placeholder.com/960x960 960w, https://via.placeholder.com/1280x1280 1280w, https://via.placeholder.com/1920x1920 1920w",
+                "sizes": "100vw",
+                "alt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "title": "Lorem ipsum"
+            },
+            "category": "Fermentu",
+            "title": "Maecenas Leo Mauris Praesent finibus fermentum ligula, nec tristique",
+            "prompt": "Velit Exceptur",
+            "dates": "Datum 1 - Datum 18, 2021",
+            "to": "/visit/uri/2"
+        }
+    ],
+    "primaryNavlinks": [
+        {
+            "name": "Get Help With...",
+            "url": "/help/",
+            "children": [
+                {
+                    "name": "Lorem ipsum",
+                    "to": "/help/uri/1",
+                    "target": ""
+                },
+                {
+                    "name": "Mauris finibus",
+                    "to": "/help/uri/2",
+                    "target": ""
+                },
+                {
+                    "name": "Curabitur ac odio vulputate",
+                    "to": "https://catalog.library.ucla.edu/",
+                    "target": "1"
+                }
+            ]
+        },
+        {
+            "name": "Visit",
+            "url": "/visit/",
+            "children": [
+                {
+                    "name": "Lorem ipsum",
+                    "to": "/visit/ur_self",
+                    "target": ""
+                },
+                {
+                    "name": "Mauris finibus",
+                    "to": "/visit/uri/2",
+                    "target": ""
+                },
+                {
+                    "name": "Curabitur ac odio vulputate",
+                    "to": "https://catalog.library.ucla.edu/",
+                    "target": "1"
+                }
+            ]
+        },
+        {
+            "name": "About",
+            "url": "/about/",
+            "children": [
+                {
+                    "name": "Lorem ipsum",
+                    "to": "/about/uri/1",
+                    "target": ""
+                },
+                {
+                    "name": "Mauris finibus",
+                    "to": "/about/uri/2",
+                    "target": ""
+                },
+                {
+                    "name": "Curabitur ac odio vulputate",
+                    "to": "https://catalog.library.ucla.edu/",
+                    "target": "1"
+                }
+            ]
+        },
+        {
+            "name": "Support Us",
+            "to": "http://www.google.com",
+            "target": "1",
+            "children": []
+        }
+    ],
+    "alert": {
+        "title": "Dropio, heroku",
+        "text": "Napster mozy sococo orkut convore scribd napster, twones diigo joukuu weebly. Sclipo jibjab scribd.",
+        "textLong": "Greplin prezi zillow zoosk orkut, zoosk gooru. Kiko xobni joukuu ideeli bitly joukuu, squidoo heroku hulu sifteo, zooomr jumo dropio chumby. Qeyno wikia oooooc jajah, ebay qeyno lala, jajah lijit. Etsy wufoo flickr movity sclipo heroku, oooooc etsy oooooc. Vimeo foodzie zoosk ebay, wesabe. Ebay doostang vuvox, xobni. Mozy joyent dropio gooru kippt, greplin skype. Kiko napster geni dogster yoono yammer disqus, hipmunk xobni odeo zynga loopt. Groupon klout divvyshot zinch elgg yoono airbnb, orkut zinch chartly squidoo."
+    },
+    "categories": [
+        {
+            "name": "Lorem ipsum",
+            "to": "/example/uri/1"
+        },
+        {
+            "name": "Aliquam porta",
+            "to": "/example/uri/2"
+        }
+    ],
+    "article": {
+        "title": "Lorem ipsum dolor sit amet",
+        "to": "/example/to/uri/",
+        "author": "Mauris Finibus",
+        "categoryName": "Consectetur Adipiscing",
+        "excerpt": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis tellus vel turpis auctor sagittis.</p>",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis tellus vel turpis auctor sagittis. In blandit consectetur nisl, ut dignissim erat malesuada et. Vivamus eget viverra diam. Maecenas id sapien at est feugiat ultrices. In ornare ante sed turpis dapibus sodales. Curabitur tristique tristique ultrices. Duis at pharetra enim. Fusce imperdiet suscipit egestas. Duis ac porta justo, ac ultricies ipsum. Aliquam erat volutpat. Vestibulum dapibus malesuada lorem vel lobortis. Mauris finibus ante posuere justo aliquam, vel aliquet purus elementum.</p>",
+        "article": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis tellus vel turpis auctor sagittis. In blandit consectetur nisl, ut dignissim erat malesuada et. Vivamus eget viverra diam. Maecenas id sapien at est feugiat ultrices. In ornare ante sed turpis dapibus sodales. Curabitur tristique tristique ultrices. Duis at pharetra enim. Fusce imperdiet suscipit egestas. Duis ac porta justo, ac ultricies ipsum. Aliquam erat volutpat. Vestibulum dapibus malesuada lorem vel lobortis. Mauris finibus ante posuere justo aliquam, vel aliquet purus elementum.</p><p>Aenean bibendum nisl tortor, vitae aliquet mi tristique a. Sed quis viverra sapien. Fusce pretium lorem nec nunc auctor, sed fringilla nisi consequat. Maecenas semper dolor sem, porttitor scelerisque lacus vestibulum eu. Praesent commodo, felis ac commodo pulvinar, ante lacus rutrum sapien, vel semper ex purus consectetur sem. Aenean dictum dolor in arcu ullamcorper auctor vitae quis nulla. Nullam felis nibh, vestibulum ac tellus fringilla, posuere varius lacus. Phasellus rhoncus quam at arcu lobortis commodo non id nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sit amet velit id ante tristique mollis sit amet vel felis. Donec auctor justo in mi luctus sagittis.</p><p>Donec eu eros in magna feugiat congue. Fusce pulvinar tempor ex eget gravida. Proin at metus nunc. Aliquam eu tempus augue. Donec porta et erat a ornare. Donec gravida mauris mi, vel imperdiet urna finibus sed. Nam id ex lacus. Ut faucibus aliquam nulla quis semper. Nunc commodo leo nec bibendum placerat. Integer fringilla accumsan enim, ac rhoncus lacus facilisis nec.</p><p>Fusce sed facilisis libero. Aenean elit neque, efficitur non orci nec, pellentesque cursus erat. Sed hendrerit laoreet fringilla. Nulla condimentum, sapien eget sodales efficitur, purus elit hendrerit mi, eget suscipit sem neque condimentum urna. Cras ullamcorper dolor libero, quis scelerisque magna maximus ut. Cras a enim dolor. Aliquam porta quam nec nunc mollis pretium. Morbi mattis, nunc in fringilla finibus, elit velit fringilla nibh, non auctor eros orci at mi. Nam sagittis maximus ante a tempus. Sed tincidunt lacus et tortor cursus fringilla. Quisque pretium malesuada finibus. Pellentesque placerat semper augue et viverra. In suscipit pretium vulputate. Pellentesque maximus ante vel diam scelerisque rutrum.</p>",
+        "date": "Fri, 02 Feb 1996 03:04:05 GMT"
+    },
+    "searchHomeLinks": {
+        "linkItems": [
+            {
+                "text": "Course Reserves",
+                "url": "https://catalog.library.ucla.edu/vwebv/enterCourseReserve.do",
+                "target": "_blank"
+            },
+            {
+                "text": "UCLA Research Guides",
+                "url": "https://guides.library.ucla.edu/",
+                "target": ""
+            },
+            {
+                "text": "Databases A-Z",
+                "url": "https://guides.library.ucla.edu/az.php",
+                "target": "_blank"
+            }
+        ],
+        "advancedSearchLink": {
+            "text": "Advanced Search",
+            "url": "https://www.library.ucla.edu/search",
+            "target": "_blank"
+        }
+    }
+}
