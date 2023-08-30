@@ -1,0 +1,14 @@
+name: Github Action with a cronjob trigger
+on:
+  schedule:
+    - cron: "45 18 * * *"
+# This workflow will automatically create a dummy commit in your repo 
+# if the last commit in your repo is 50 days (default) ago. 
+# This will keep the cronjob trigger active so that it will run indefinitely without getting suspended by GitHub for inactivity.
+jobs:
+  cronjob-based-github-action:
+    name: Cronjob based github action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: gautamkrishnar/keepalive-workflow@v1 # using the workflow with default settings
