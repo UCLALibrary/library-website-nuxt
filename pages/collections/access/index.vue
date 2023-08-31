@@ -87,7 +87,7 @@ export default {
 
 
 // add logic to reindex these documents to add a new field to support searching on this page
-        await $elasticsearchplugin.index(element, element.slug)
+
         if (
             serverData.affiliateLibraries &&
             serverData.affiliateLibraries.length > 0
@@ -97,10 +97,7 @@ export default {
                 /*console.log(
                     "External Resource indexing:" + affiliateLibrary.slug
                 )*/
-                await $elasticsearchplugin.index(
-                    affiliateLibrary,
-                    affiliateLibrary.slug
-                )
+                await $elasticsearchplugin.index(element, element.slug)
             }
         }
 
