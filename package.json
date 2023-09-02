@@ -23,6 +23,7 @@
     "ucla-library-design-tokens": "^5.5.0"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.4.11",
     "@vue-a11y/skip-to": "^3.0.3"
   }
 }
