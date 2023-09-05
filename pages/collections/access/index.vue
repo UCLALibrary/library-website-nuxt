@@ -70,27 +70,32 @@ import config from "~/utils/searchConfig"
 
 export default {
     async asyncData({ $graphql, $elasticsearchplugin }) {
+        console.log( "In asyncdata hook collectionsAccess list")
+
         const pageAsyncData = await $graphql.default.request(ACCESS_COLLECTIONS)
-        pageAsyncData.entry.accessCollections.forEach((element) => {
-            element.searchType = "accessCollections"
-            element.to = element.uri ? element.uri : element.externalResourceUrl
-            element.category =
-                element.workshopOrEventSeriesType === "help/services-resources"
-                    ? "workshop"
-                    : element.serviceOrResourceTypej
-                        ? element.serviceOrResourceType
-                        : element.typeHandle === "externalResource"
-                            ? "resource"
-                            : element.typeHandle === "generalContentPage"
+
+        if (
+            pageAsyncData.entry.accessCollections &&
+            pageAsyncData.entry.accessCollections.length > 0
+        ) {
+            pageAsyncData.entry.accessCollections.forEach((element) => {
+                element.searchType = "accessCollections"
+                element.to = element.uri ? element.uri : element.externalResourceUrl
+                element.category =
+                    element.workshopOrEventSeriesType === "help/services-resources"
+                        ? "workshop"
+                        : element.serviceOrResourceTypej
+                            ? element.serviceOrResourceType
+                            : element.typeHandle === "externalResource"
                                 ? "resource"
-                                : element.typeHandle
-        })
+                                : element.typeHandle === "generalContentPage"
+                                    ? "resource"
+                                    : element.typeHandle
 
-        // add logic to reindex these documents to add a new field to support searching on this page
-
-        await $elasticsearchplugin.index(element, element.slug)
-
-
+            })
+            // add logic to reindex these documents to add a new field to support searching on this page
+            await $elasticsearchplugin.index(element, element.slug)
+        }
         return {
             page: _get(pageAsyncData, "entry", {}),
         }
@@ -129,8 +134,7 @@ export default {
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
             }
-        }
-        else {
+        } else {
             this.hits = []
             this.noResultsFound = false
             this.searchGenericQuery = { queryText: "" }
