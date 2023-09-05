@@ -13,16 +13,14 @@
             :title="page.title"
             :text="page.text"
         />
-            <search-generic
-                search-type="default"
-                class="generic-search"
-                :search-generic-query="searchGenericQuery"
-                :placeholder="parsedPlaceholder"
-                @search-ready="getSearchData"
-            />
-            <!-- :filters="searchFilters.filters"
-                :view-modes="searchFilters.views"
-                @view-mode-change="viewModeChanger" -->
+
+        <search-generic
+            search-type="default"
+            class="generic-search"
+            :search-generic-query="searchGenericQuery"
+            :placeholder="parsedPlaceholder"
+            @search-ready="getSearchData"
+        />
 
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
@@ -52,6 +50,7 @@
         </section-wrapper>
     </main>
 </template>
+
 <router>
   {
     alias: '/listing-collections/access',
@@ -66,16 +65,19 @@ import removeTags from "~/utils/removeTags"
 // GQL
 import ACCESS_COLLECTIONS from "~/gql/queries/CollectionsAccessList.gql"
 
+// UTILITIES
+import config from "~/utils/searchConfig"
+
 export default {
     async asyncData({ $graphql, $elasticsearchplugin }) {
-        const data = await $graphql.default.request(ACCESS_COLLECTIONS)
-        data.entry.accessCollections.forEach((element) => {
-            element.to = element.uri ? element.uri : element.externalResourceUrl
+        const pageAsyncData = await $graphql.default.request(ACCESS_COLLECTIONS)
+        pageAsyncData.entry.accessCollections.forEach((element) => {
             element.searchType = "accessCollections"
+            element.to = element.uri ? element.uri : element.externalResourceUrl
             element.category =
                 element.workshopOrEventSeriesType === "help/services-resources"
                     ? "workshop"
-                    : element.serviceOrResourceType
+                    : element.serviceOrResourceTypej
                         ? element.serviceOrResourceType
                         : element.typeHandle === "externalResource"
                             ? "resource"
@@ -84,29 +86,13 @@ export default {
                                 : element.typeHandle
         })
 
+        // add logic to reindex these documents to add a new field to support searching on this page
 
-
-// add logic to reindex these documents to add a new field to support searching on this page
-
-        if (
-            serverData.affiliateLibraries &&
-            serverData.affiliateLibraries.length > 0
-        ) {
-            //console.log("External Resource indexing:")
-            for (let affiliateLibrary of serverData.affiliateLibraries) {
-                /*console.log(
-                    "External Resource indexing:" + affiliateLibrary.slug
-                )*/
-                await $elasticsearchplugin.index(element, element.slug)
-            }
-        }
-
-
-
+        await $elasticsearchplugin.index(element, element.slug)
 
 
         return {
-            page: _get(data, "entry", {}),
+            page: _get(pageAsyncData, "entry", {}),
         }
     },
     data() {
@@ -114,8 +100,40 @@ export default {
             page: {},
             noResultsFound: false,
             hits: [],
-            searchGenericQuery: {queryText: this.$route.query.q || "",
-        },
+            searchGenericQuery: {
+                queryText: this.$route.query.q || "",
+            },
+        }
+    },
+    async fetch() {
+        this.hits = []
+        if (this.$route.query.q && this.$route.query.q !== "") {
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                this.$route.query.q || "*",
+                config.accessCollections.searchFields,
+                "searchType:accessCollection",
+                [],
+                config.accessCollections.sortField,
+                config.accessCollections.orderBy,
+                config.accessCollections.resultFields,
+                []
+            )
+            this.hits = []
+            if (results && results.hits && results.hits.total.value > 0) {
+                this.hits = results.hits.hits
+                this.noResultsFound = false
+            } else {
+                this.hits = []
+                this.noResultsFound = true
+            }
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+            }
+        }
+        else {
+            this.hits = []
+            this.noResultsFound = false
+            this.searchGenericQuery = { queryText: "" }
         }
     },
     head() {

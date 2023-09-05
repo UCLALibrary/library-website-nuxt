@@ -128,12 +128,14 @@ import removeTags from "~/utils/removeTags"
 // GQL
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceWorkshopSeriesList"
 import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
+
 // UTILITIES
 import config from "~/utils/searchConfig"
+
 export default {
     async asyncData({ $graphql, $elasticsearchplugin }) {
         /*console.log(
-            "In asyncdata hook  servicesorresourcesorworskhoporhelptopic list"
+            "In asyncdata hook servicesorresourcesorworskhoporhelptopic list"
         )*/
 
         let pageAsyncData = await $graphql.default.request(
@@ -143,7 +145,7 @@ export default {
             pageAsyncData.externalResource &&
             pageAsyncData.externalResource.length > 0
         ) {
-            //console.log("External Resource indexing:")
+            // console.log("External Resource indexing:")
             for (let externalResource of pageAsyncData.externalResource) {
                 /*console.log(
                     "External Resource indexing:" + externalResource.slug
@@ -156,6 +158,7 @@ export default {
         }
 
         let helpTopicAsyncData = await $graphql.default.request(HELP_TOPIC_LIST)
+
         return {
             page: pageAsyncData,
             helpTopic: helpTopicAsyncData,
