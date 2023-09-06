@@ -18,7 +18,7 @@
             search-type="default"
             class="generic-search"
             :search-generic-query="searchGenericQuery"
-            :placeholder="parsedPlaceholder"
+            placeholder="ACCESS COLLECTIONS"
             @search-ready="getSearchData"
         />
 
@@ -70,32 +70,41 @@ import config from "~/utils/searchConfig"
 
 export default {
     async asyncData({ $graphql, $elasticsearchplugin }) {
-        console.log( "In asyncdata hook collectionsAccess list")
+        console.log("In asyncData hook collectionsAccess list")
+
+        element.to = element.uri ? element.uri : element.externalResourceUrl
 
         const pageAsyncData = await $graphql.default.request(ACCESS_COLLECTIONS)
 
-        if (
-            pageAsyncData.entry.accessCollections &&
-            pageAsyncData.entry.accessCollections.length > 0
-        ) {
-            pageAsyncData.entry.accessCollections.forEach((element) => {
-                element.searchType = "accessCollections"
-                element.to = element.uri ? element.uri : element.externalResourceUrl
-                element.category =
-                    element.workshopOrEventSeriesType === "help/services-resources"
-                        ? "workshop"
-                        : element.serviceOrResourceTypej
-                            ? element.serviceOrResourceType
-                            : element.typeHandle === "externalResource"
-                                ? "resource"
-                                : element.typeHandle === "generalContentPage"
-                                    ? "resource"
-                                    : element.typeHandle
+            if (
+                pageAsyncData.entry.accessCollections &&
+                pageAsyncData.entry.accessCollections.length > 0
+            ) {
 
+                for (let collection of pageAsyncData.entry.accessCollections) {
+                    /*console.log(
+                        "External Resource indexing:" + externalResource.slug
+                    )*/
+                    await $elasticsearchplugin.index(collection, collection.slug)
+                }
+            }
+
+            pageAsyncData.entry.accessCollections.forEach((collection) => {
+                collection.searchType = "accessCollections"
+                collection.to = collection.uri ? collection.uri : collection.externalResourceUrl
+                collection.category =
+                    collection.workshopOrEventSeriesType === "help/services-resources"
+                        ? "workshop"
+                        : collection.serviceOrResourceTypej
+                            ? collection.serviceOrResourceType
+                            : collection.typeHandle === "externalResource"
+                                ? "resource"
+                                : collection.typeHandle === "generalContentPage"
+                                    ? "resource"
+                                        : collection.typeHandle
+                await $elasticsearchplugin.index(element, element.slug)
             })
-            // add logic to reindex these documents to add a new field to support searching on this page
-            await $elasticsearchplugin.index(element, element.slug)
-        }
+
         return {
             page: _get(pageAsyncData, "entry", {}),
         }
@@ -131,7 +140,7 @@ export default {
                 this.hits = []
                 this.noResultsFound = true
             }
-            this.searchGenericQuery = {
+            this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
             }
         } else {
@@ -180,7 +189,7 @@ export default {
     watch: {
         "$route.query": "$fetch",
         "$route.query.q"(newValue) {
-            console.log("watching querytEXT:" + newValue)
+            console.log("watching queryTEXT: " + newValue)
             // if (newValue === "") this.hits = []
         },
     },
@@ -189,7 +198,7 @@ export default {
             console.log("static mode what is parseHits")
             return this.hits.map((obj) => {
                 console.log(
-                    "what should be the category?:" +
+                    "What should the category be?:" +
                         obj["_source"].sectionHandle
                 )
                 return {
@@ -201,7 +210,6 @@ export default {
             })
         },
         getSearchData(data) {
-
             this.$router.push({
                 path: "/collections/access",
                 query: {

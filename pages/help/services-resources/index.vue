@@ -125,6 +125,7 @@
 import _get from "lodash/get"
 import sortByTitle from "~/utils/sortByTitle"
 import removeTags from "~/utils/removeTags"
+
 // GQL
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceWorkshopSeriesList"
 import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
@@ -141,6 +142,7 @@ export default {
         let pageAsyncData = await $graphql.default.request(
             SERVICE_RESOURCE_WORKSHOPSERIES_LIST
         )
+
         if (
             pageAsyncData.externalResource &&
             pageAsyncData.externalResource.length > 0
