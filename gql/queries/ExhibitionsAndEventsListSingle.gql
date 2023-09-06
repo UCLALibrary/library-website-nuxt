@@ -1,6 +1,6 @@
 #import "~/gql/fragments/Image"
 
-query EventsExhibitionsList {
+query ExhibitionsAndEventsListSingle {
     entry(section: "listingEventsExhibitions") {
         ... on listingEventsExhibitions_listingEventsExhibitions_Entry {
             title

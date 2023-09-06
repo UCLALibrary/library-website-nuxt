@@ -1,4 +1,6 @@
 <script setup>
+import { storeToRefs } from 'pinia'
+
 useHead({
     titleTemplate: (title) => (title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library'),
     script: [
@@ -15,18 +17,23 @@ const classes = computed(() => [
     // { "has-scrolled": this.$store.state.sTop },
     // { "has-scrolled-past-header": this.$store.state.sTop >= 150 },
 ])
+const globalStore = useGlobals();
+const { globals } = storeToRefs(globalStore)
 const libraryAlert = computed(() => {
-    /*var alert = this.$store.state.globals.libraryAlert
-    if (alert &&
-        alert.title &&
-        alert.title.length > 0 &&
-        alert.text &&
-        alert.text.length > 0
-    ) {
-        return alert
-    } else {
-        return null
-    }*/
+    console.log("in library alert computed property", globals.value.libraryAlert)
+    if (globals.value) {
+        var alert = globals.value.libraryAlert
+        if (alert &&
+            alert.title &&
+            alert.title.length > 0 &&
+            alert.text &&
+            alert.text.length > 0
+        ) {
+            return alert
+        } else {
+            return null
+        }
+    }
 })
 </script>
 <template>
@@ -37,6 +44,7 @@ const libraryAlert = computed(() => {
         <section-wrapper class="section-alert" theme="divider">
             <site-notification-alert v-if="libraryAlert" class="library-alert" v-bind="libraryAlert" />
         </section-wrapper-->
+        {{ libraryAlert }}
 
         <main>
             <slot></slot>

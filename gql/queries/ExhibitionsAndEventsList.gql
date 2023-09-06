@@ -1,6 +1,6 @@
 #import "~/gql/fragments/Image"
 
-query EventsExhibitionsList {
+query ExhibitionsAndEventsList {
     events: entries(
         section: "event"
         orderBy: "startDateWithTime ASC"

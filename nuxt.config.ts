@@ -49,4 +49,26 @@ export default defineNuxtConfig({
         // use the following line when using pnpm link --global ucla-library-website-components-vue3.x
         "ucla-library-website-components-vue3.x/dist/style.css",
     ],
+
+    modules: [
+        [
+            "@pinia/nuxt",
+            {
+                autoImports: ["defineStore", "acceptHMRUpdate"],
+            },
+        ],
+        "@nuxtjs/apollo",
+    ],
+
+    imports: {
+        dirs: ["store", "gql"],
+    },
+
+    apollo: {
+        clients: {
+            default: {
+                httpEndpoint: process.env.CRAFT_ENDPOINT || "",
+            },
+        },
+    },
 })
