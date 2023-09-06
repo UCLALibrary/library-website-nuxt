@@ -57,9 +57,18 @@ export default defineNuxtConfig({
                 autoImports: ["defineStore", "acceptHMRUpdate"],
             },
         ],
+        "@nuxtjs/apollo",
     ],
 
     imports: {
-        dirs: ["stores"],
+        dirs: ["store", "gql"],
+    },
+
+    apollo: {
+        clients: {
+            default: {
+                httpEndpoint: process.env.CRAFT_ENDPOINT || "",
+            },
+        },
     },
 })

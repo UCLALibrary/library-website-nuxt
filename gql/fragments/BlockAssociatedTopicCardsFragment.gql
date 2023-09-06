@@ -1,4 +1,4 @@
-fragment BlockAssociatedTopicCardsFragment on ElementInterface {
+fragment BlockAssociatedTopicCardsFragment on NeoBlockInterface {
     id
     typeHandle
     sectionTitle: titleGeneral

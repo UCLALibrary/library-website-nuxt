@@ -14,6 +14,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.40.2",
     "@nuxt/devtools": "latest",
+    "@nuxtjs/apollo": "5.0.0-alpha.6",
     "@percy/cypress": "^3.1.2",
     "@types/node": "^18.17.3",
     "cypress": "^12.17.4",

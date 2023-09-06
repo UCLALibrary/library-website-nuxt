@@ -1,15 +1,15 @@
 // GQL
-import GLOBALS from "~/gql/queries/Globals"
-import HEADER_MAIN_MENU_ITEMS from "~/gql/queries/HeaderMainMenuItems"
-import FOOTER_PRIMARY_ITEMS from "~/gql/queries/FooterPrimaryItems"
-import FOOTER_SOCK_ITEMS from "~/gql/queries/FooterSockItems"
+import GLOBALS from "../gql/queries/Globals.gql"
+import HEADER_MAIN_MENU_ITEMS from "../gql/queries/HeaderMainMenuItems.gql"
+import FOOTER_PRIMARY_ITEMS from "~/gql/queries/FooterPrimaryItems.gql"
+import FOOTER_SOCK_ITEMS from "~/gql/queries/FooterSockItems.gql"
 
 export const useGlobals = defineStore("globals", {
     state: () => ({
         winHeight: 0,
         winWidth: 0,
         sTop: 0,
-        globals: {},
+        _globals: {},
         header: {},
         footerPrimary: {},
         footerSock: {},
@@ -18,7 +18,7 @@ export const useGlobals = defineStore("globals", {
     }),
     getters: {
         globals() {
-            return this.globals
+            return this._globals
         },
         /* user() {
             return this._user
@@ -45,7 +45,18 @@ export const useGlobals = defineStore("globals", {
             this.footerSock = data
         },
 
-        async fetchGlobal() {},
+        async fetchGlobals() {
+            const { data } = await useAsyncQuery(GLOBALS)
+            console.log(data?._value?.globalSets)
+            const globalData = removeEmpties(data._value.globalSets || [])
+
+            // Shape data from Craft
+            const craftData = Object.fromEntries(
+                globalData.map((item) => [item.handle, item])
+            )
+            this._globals = craftData
+            console.log("global store", this._globals)
+        },
         async fetchHeader() {},
         async fetchFooterPrimary() {},
         async fetchFooterSock() {},

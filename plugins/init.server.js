@@ -1,9 +1,7 @@
 export default defineNuxtPlugin(async (nuxtApp) => {
-    const token = cookieFromRequestHeaders("token")
-
-    if (token) {
-        const auth = useAuth(nuxtApp.$pinia)
-        auth.setToken(token)
-        await auth.fetchUser()
-    }
+    console.log(
+        "this is called only once during build time and should not run on every page load"
+    )
+    const craftGlobals = useGlobals(nuxtApp.$pinia)
+    await craftGlobals.fetchGlobals()
 })
