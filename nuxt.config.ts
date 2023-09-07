@@ -18,6 +18,26 @@ export default defineNuxtConfig({
             },
         },
     },
+
+    runtimeConfig: {
+        // Private keys are only available on the server
+        esWriteKey: process.env.ES_WRITE_KEY,
+
+        // Public keys that are exposed to the client
+        public: {
+            craftGraphqlURL: process.env.CRAFT_ENDPOINT || "",
+            s3Bucket: process.env.S3_BUCKET,
+            esReadKey: process.env.ES_READ_KEY || "",
+            esIndex: process.env.ES_INDEX || "",
+            libguidesEsIndex: process.env.LIBGUIDES_ES_INDEX || "",
+            esIndexPrefix: process.env.ES_INDEX_PREFIX || "",
+            esTempIndex: "",
+            esURL: process.env.ES_URL || "",
+            libcalProxy:
+                process.env.LIBCAL_ENDPOINT ||
+                "https://proxy.calendar.library.ucla.edu/",
+        },
+    },
     /*
      ** Required charset and viewport meta tags
      */
