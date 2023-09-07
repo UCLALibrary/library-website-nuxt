@@ -72,38 +72,38 @@ export default {
     async asyncData({ $graphql, $elasticsearchplugin }) {
         console.log("In asyncData hook collectionsAccess list")
 
-        element.to = element.uri ? element.uri : element.externalResourceUrl
+        collection.to = collection.uri ? collection.uri : collection.externalResourceUrl
 
         const pageAsyncData = await $graphql.default.request(ACCESS_COLLECTIONS)
 
-            if (
-                pageAsyncData.entry.accessCollections &&
-                pageAsyncData.entry.accessCollections.length > 0
-            ) {
+        if (
+            pageAsyncData.entry.accessCollections &&
+            pageAsyncData.entry.accessCollections.length > 0
+        ) {
 
-                for (let collection of pageAsyncData.entry.accessCollections) {
-                    /*console.log(
-                        "External Resource indexing:" + externalResource.slug
-                    )*/
-                    await $elasticsearchplugin.index(collection, collection.slug)
-                }
+            for (let collection of pageAsyncData.entry.accessCollections) {
+                /*console.log(
+                    "External Resource indexing:" + externalResource.slug
+                )*/
+                await $elasticsearchplugin.index(collection, collection.slug)
             }
+        }
 
-            pageAsyncData.entry.accessCollections.forEach((collection) => {
-                collection.searchType = "accessCollections"
-                collection.to = collection.uri ? collection.uri : collection.externalResourceUrl
-                collection.category =
-                    collection.workshopOrEventSeriesType === "help/services-resources"
-                        ? "workshop"
-                        : collection.serviceOrResourceTypej
-                            ? collection.serviceOrResourceType
-                            : collection.typeHandle === "externalResource"
+        pageAsyncData.entry.accessCollections.forEach((collection) => {
+            collection.searchType = "accessCollections"
+            collection.to = collection.uri ? collection.uri : collection.externalResourceUrl
+            collection.category =
+                collection.workshopOrEventSeriesType === "help/services-resources"
+                    ? "workshop"
+                    : collection.serviceOrResourceTypej
+                        ? collection.serviceOrResourceType
+                        : collection.typeHandle === "externalResource"
+                            ? "resource"
+                            : collection.typeHandle === "generalContentPage"
                                 ? "resource"
-                                : collection.typeHandle === "generalContentPage"
-                                    ? "resource"
-                                        : collection.typeHandle
-                await $elasticsearchplugin.index(element, element.slug)
-            })
+                                    : collection.typeHandle
+            await $elasticsearchplugin.index(collection, collection.slug)
+        })
 
         return {
             page: _get(pageAsyncData, "entry", {}),
