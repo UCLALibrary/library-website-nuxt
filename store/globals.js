@@ -47,7 +47,7 @@ export const useGlobals = defineStore("globals", {
 
         async fetchGlobals() {
             const { data } = await useAsyncQuery(GLOBALS)
-            console.log(data?._value?.globalSets)
+            // console.log(data?._value?.globalSets)
             const globalData = removeEmpties(data._value.globalSets || [])
 
             // Shape data from Craft
@@ -55,7 +55,7 @@ export const useGlobals = defineStore("globals", {
                 globalData.map((item) => [item.handle, item])
             )
             this._globals = craftData
-            console.log("global store", this._globals)
+            // console.log("global store", this._globals)
         },
         async fetchHeader() {},
         async fetchFooterPrimary() {},
