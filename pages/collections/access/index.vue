@@ -80,9 +80,12 @@ export default {
         ) {
 
             for (let collection of pageAsyncData.entry.accessCollections) {
-                /*console.log(
+                console.log(
                     "Collection indexing:" + collection.slug
-                )*/
+                )
+                console.log(
+                    "Collection:" + collection
+                )
                 collection.searchType = "accessCollections"
                 collection.to = collection.uri ? collection.uri : collection.externalResourceUrl
                 collection.category =
