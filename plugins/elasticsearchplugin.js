@@ -14,33 +14,24 @@ export default function ({ $config }, inject) {
                     "this is the elasticsearch plugin: " + slug
                 )
                 // GET Response
-                const getBody = {
-                    query: {
-                      query_string: {
-                        query: slug,
-                          default_field : "slug",
-                      }
-                    }
-                }
                 const getResponse = await fetch(
-                    `${$config.esURL}/${esIndex}/_search`,
+                    `${$config.esURL}/${esIndex}/_doc/${slug}`,
                     {
                         headers: {
                             Authorization: `ApiKey ${$config.esReadKey}`,
-                            "Content-Type": "application/json",
                         },
-                        method: "POST",
-                        body: JSON.stringify(getBody),
                     }
                 )
-                console.log("Stringified getResponse: " + JSON.stringify(getResponse))
-                if (getResponse && getResponse["_source"]) {
+                const getJson = await getResponse.json()
+                
+                console.log("Stringified getResponse: " + JSON.stringify(getJson))
+                if (getJson && getJson["_source"]) {
                     console.log("GET-RESPONSE: " + slug)
 
                     const postBody = {
                         doc: data
                     }
-                    const response = await fetch(
+                    const updateResponse = await fetch(
                         `${$config.esURL}/${esIndex}/_update/${slug}`,
                         {
                             headers: {
@@ -51,21 +42,24 @@ export default function ({ $config }, inject) {
                             body: JSON.stringify(postBody),
                         }
                     )
+                    const updateJson = await updateResponse.json()
+                
+                    console.log("Stringified updateResponse: " + JSON.stringify(updateJson))
                 } else {
-                const response = await fetch(
-                    `${$config.esURL}/${esIndex}/_doc/${slug}`,
-                    {
-                        headers: {
-                            Authorization: `ApiKey ${$config.esWriteKey}`,
-                            "Content-Type": "application/json",
-                        },
-                        method: "POST",
-                        body: JSON.stringify(data),
-                    }
-                )
-                const json = await response.json()
-                console.warn("Response from ES: " + JSON.stringify(json))
-            }
+                    const response = await fetch(
+                        `${$config.esURL}/${esIndex}/_doc/${slug}`,
+                        {
+                            headers: {
+                                Authorization: `ApiKey ${$config.esWriteKey}`,
+                                "Content-Type": "application/json",
+                            },
+                            method: "POST",
+                            body: JSON.stringify(data),
+                        }
+                    )
+                    const json = await response.json()
+                    console.warn("Response from ES: " + JSON.stringify(json))
+                }
             } else {
                 console.warn("not indexing anything")
             }

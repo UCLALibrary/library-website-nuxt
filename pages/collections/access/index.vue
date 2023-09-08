@@ -78,18 +78,16 @@ export default {
             pageAsyncData.entry.accessCollections &&
             pageAsyncData.entry.accessCollections.length > 0
         ) {
-
             for (let collection of pageAsyncData.entry.accessCollections) {
-                console.log(
-                    "Collection indexing:" + collection.slug
-                )
-                console.log(
-                    "Collection:" + collection
-                )
+                console.log("Collection indexing:" + collection.slug)
+                console.log("Collection:" + collection)
                 collection.searchType = "accessCollections"
-                collection.to = collection.uri ? collection.uri : collection.externalResourceUrl
+                collection.to = collection.uri
+                    ? collection.uri
+                    : collection.externalResourceUrl
                 collection.category =
-                    collection.workshopOrEventSeriesType === "help/services-resources"
+                    collection.workshopOrEventSeriesType ===
+                    "help/services-resources"
                         ? "workshop"
                         : collection.serviceOrResourceType
                             ? collection.serviceOrResourceType
