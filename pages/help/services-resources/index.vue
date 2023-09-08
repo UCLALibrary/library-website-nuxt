@@ -13,6 +13,7 @@
         <search-generic
             search-type="help"
             class="generic-search"
+            :filters="searchFilters"
             :search-generic-query="searchGenericQuery"
             :placeholder="parsedPlaceholder"
             @search-ready="getSearchData"
@@ -59,7 +60,7 @@
                 class="about-results"
             >
                 Displaying {{ hits.length }} results for
-                <strong><em>“{{ $route.query.q }}</em></strong>”
+                <strong><em>“{{ $route.query.q }}”</em></strong>
             </h2>
             <h2
                 v-else
@@ -123,7 +124,9 @@
 <script>
 // HELPERS
 import _get from "lodash/get"
+import getListingFilters from "~/utils/getListingFilters"
 import sortByTitle from "~/utils/sortByTitle"
+import queryFilterHasValues from "~/utils/queryFilterHasValues"
 import removeTags from "~/utils/removeTags"
 // GQL
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceWorkshopSeriesList"
@@ -132,10 +135,6 @@ import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
 import config from "~/utils/searchConfig"
 export default {
     async asyncData({ $graphql, $elasticsearchplugin }) {
-        /*console.log(
-            "In asyncdata hook  servicesorresourcesorworskhoporhelptopic list"
-        )*/
-
         let pageAsyncData = await $graphql.default.request(
             SERVICE_RESOURCE_WORKSHOPSERIES_LIST
         )
@@ -143,13 +142,9 @@ export default {
             pageAsyncData.externalResource &&
             pageAsyncData.externalResource.length > 0
         ) {
-            //console.log("External Resource indexing:")
             for (let externalResource of pageAsyncData.externalResource) {
-                /*console.log(
-                    "External Resource indexing:" + externalResource.slug
-                )*/
                 await $elasticsearchplugin.index(
-                    externalResource,
+                    {...externalResource, serviceOrResourceType: "external resource"},
                     externalResource.slug
                 )
             }
@@ -168,21 +163,29 @@ export default {
             noResultsFound: false,
             summaryData: {},
             helpTopic: {},
+            searchFilters: [],
             hits: [],
             searchGenericQuery: {
                 queryText: this.$route.query.q || "",
+                queryFilters:
+                    (this.$route.query.filters &&
+                        JSON.parse(this.$route.query.filters)) ||
+                    {},
             },
         }
     },
     async fetch() {
-        /*console.log(
-            "In fetch hook  servicesorresourcesorworskhoporhelptopic list"
-        )*/
         this.page = {}
         this.hits = []
         this.helptopic = {}
-        if (this.$route.query.q && this.$route.query.q !== "") {
-            //console.log("in router query in fetch call")
+        if (
+            (this.$route.query.q && this.$route.query.q !== "") ||
+            (this.$route.query.filters &&
+                queryFilterHasValues(
+                    this.$route.query.filters,
+                    config.eventsExhibitionsList.filters
+                ))
+        ) {
             this.page = {}
             this.hits = []
             this.helptopic = {}
@@ -196,7 +199,6 @@ export default {
                 config.serviceOrResources.resultFields,
                 []
             )
-            //console.log("fetch method ES results:" + JSON.stringify(results))
             if (results && results.hits && results.hits.total.value > 0) {
                 this.hits = results.hits.hits
                 this.noResultsFound = false
@@ -269,11 +271,9 @@ export default {
             }
         },
         parsedServiceAndResourceList() {
-            //console.log("static mode what is parsedServiceAndResourceList")
             let externalResourcesDisplay = (
                 this.page.externalResource || []
             ).filter((obj) => obj.displayEntry === "yes")
-            console.log(externalResourcesDisplay)
             return [
                 ...(this.page.serviceOrResource || []),
                 ...(this.page.workshopseries || []),
@@ -303,31 +303,31 @@ export default {
             return `Search ${this.summaryData.title}`
         },
         parseHitsResults() {
-            /*console.log(
-                "ParseHitsResults checking results data:" +
-                    JSON.stringify(this.hits)
-            )*/
             return this.parseHits()
         },
     },
     watch: {
         "$route.query": "$fetch",
         "$route.query.q"(newValue) {
-            //console.log("watching querytEXT:" + newValue)
             // if (newValue === "") this.hits = []
         },
     },
     async mounted() {
-        //console.log("In mounted")
+        this.setFilters()
     },
     methods: {
+        async setFilters() {
+            const searchAggsResponse = await this.$dataApi.getAggregations(
+                config.serviceOrResources.filters,
+                "serviceOrResource OR workshopSeries OR helpTopic OR externalResource",
+            )
+            this.searchFilters = getListingFilters(
+                searchAggsResponse,
+                config.serviceOrResources.filters
+            )
+        },
         parseHits() {
-            //console.log("static mode what is parseHits")
             return this.hits.map((obj) => {
-                /*console.log(
-                    "what should be the category?:" +
-                        obj["_source"].sectionHandle
-                )*/
                 return {
                     title: obj["_source"].title,
                     sectionHandle: obj["_source"].sectionHandle,
@@ -351,8 +351,6 @@ export default {
             })
         },
         async getSearchData(data) {
-            // //console.log("from search-generic: " + JSON.stringify(data))
-            // //console.log(config.serviceOrResources.resultFields)
             this.$router.push({
                 path: "/help/services-resources",
                 query: {
@@ -366,5 +364,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-help {
+        ::v-deep label.label {
+            text-transform: capitalize;
+        }
 }
 </style>
