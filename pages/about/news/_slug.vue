@@ -1,5 +1,8 @@
 <template lang="html">
-    <main id="main" class="page page-news-detail">
+    <main
+        id="main"
+        class="page page-news-detail"
+    >
         <nav-breadcrumb
             to="/about/news"
             :title="page.title"
@@ -35,16 +38,25 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder class="divider" color="about" />
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
         </section-wrapper>
 
-        <flexible-blocks class="flexible-content" :blocks="page.blocks" />
+        <flexible-blocks
+            class="flexible-content"
+            :blocks="page.blocks"
+        />
 
         <section-wrapper
             v-if="parsedAssociatedStaffMember.length > 0"
             theme="divider"
         >
-            <divider-way-finder class="divider" color="about" />
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
         </section-wrapper>
 
         <section-wrapper
@@ -103,8 +115,14 @@ export default {
     computed: {
         parsedByline() {
             let byline = (this.page.contributors || []).map((contributor) => {
-                if ((contributor.staffMember && contributor.staffMember.length > 0) || contributor.title)
-                return `${contributor.byline || ""} ${ contributor.title || contributor.staffMember[0].title}`
+                if (
+                    (contributor.staffMember &&
+                        contributor.staffMember.length > 0) ||
+                    contributor.title
+                )
+                    return `${contributor.byline || ""} ${
+                        contributor.title || contributor.staffMember[0].title
+                    }`
             })
             return byline.map((contributor) => {
                 return contributor
@@ -141,8 +159,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-news-detail {
-.highlighted-news {
-    @include visually-hidden;
-}
+    .highlighted-news {
+        @include visually-hidden;
+    }
 }
 </style>

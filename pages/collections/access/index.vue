@@ -38,9 +38,22 @@
             />
         </section-wrapper>
         <section-wrapper v-show="hits && hits.length > 0">
+            <h2
+                v-if="$route.query.q"
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results for
+                <strong><em>“{{ $route.query.q }}</em></strong>”
+            </h2>
+            <h2
+                v-else
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results
+            </h2>
             <section-cards-with-illustrations
                 class="section"
-                :items="parsedAccessCollections"
+                :items="parseHitsResults"
                 :is-horizontal="true"
             />
         </section-wrapper>
@@ -222,6 +235,13 @@ export default {
                         : `/${obj.to}`,
                 }
             })
+        },
+        parseHitsResults() {
+            /*console.log(
+                "ParseHitsResults checking results data:" +
+                    JSON.stringify(this.hits)
+            )*/
+            return this.parseHits()
         },
     },
     fetchOnServer: false,
