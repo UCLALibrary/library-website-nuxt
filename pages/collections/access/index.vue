@@ -26,12 +26,55 @@
             <divider-way-finder class="search-margin" />
         </section-wrapper>
 
-        <section-wrapper>
+        <section-wrapper
+            v-show="
+                page.accessCollections && hits.length == 0 && !noResultsFound
+            "
+        >
             <section-cards-with-illustrations
                 class="section"
                 :items="parsedAccessCollections"
                 :is-horizontal="true"
             />
+        </section-wrapper>
+        <section-wrapper v-show="hits && hits.length > 0">
+            <section-cards-with-illustrations
+                class="section"
+                :items="parsedAccessCollections"
+                :is-horizontal="true"
+            />
+        </section-wrapper>
+
+        <section-wrapper
+            v-show="noResultsFound"
+            class="section-no-top-margin"
+        >
+            <div class="error-text">
+                <rich-text>
+                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
+                    <p>
+                        We can’t find the term you are looking for on this page,
+                        but we're here to help. <br>
+                        Try searching the whole site from
+                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+                    </p>
+                    <ul>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/research-teaching-support/research-help"
+                            >Research Help</a>
+                        </li>
+                        <li>
+                            <a href="/help/services-resources/ask-us">Ask Us</a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
+                            >Accessibility Resources</a>
+                        </li>
+                    </ul>
+                </rich-text>
+            </div>
         </section-wrapper>
 
         <section-wrapper>
@@ -181,6 +224,8 @@ export default {
             })
         },
     },
+    fetchOnServer: false,
+    fetchKey: "collections-access",
     watch: {
         "$route.query": "$fetch",
         "$route.query.q"(newValue) {
