@@ -12,7 +12,7 @@ describe("Access Collection page", () => {
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
     it("Search Found", () => {
-        cy.visit("/collections/access")
+        cy.visit("/collections/access?q=test")
         cy.get(".logo-ucla").should("be.visible")
         cy.get("input[type=search]").should(
             "have.value",
