@@ -183,7 +183,7 @@ export default {
             (this.$route.query.filters &&
                 queryFilterHasValues(
                     this.$route.query.filters,
-                    config.eventsExhibitionsList.filters
+                    config.serviceOrResources.filters
                 ))
         ) {
             this.page = {}
@@ -193,7 +193,9 @@ export default {
                 this.$route.query.q || "*",
                 config.serviceOrResources.searchFields,
                 "(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)",
-                [],
+                (this.$route.query.filters &&
+                    JSON.parse(this.$route.query.filters)) ||
+                    {},
                 config.serviceOrResources.sortField,
                 config.serviceOrResources.orderBy,
                 config.serviceOrResources.resultFields,
@@ -208,6 +210,7 @@ export default {
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
+                queryFilters: (this.$route.query.filters && JSON.parse(this.$route.query.filters)) || {},
             }
             const getSummaryData = await this.$graphql.default.request(
                 SERVICE_RESOURCE_WORKSHOPSERIES_LIST
@@ -355,6 +358,7 @@ export default {
                 path: "/help/services-resources",
                 query: {
                     q: data.text,
+                    filters: JSON.stringify(data.filters),
                 },
             })
         },
