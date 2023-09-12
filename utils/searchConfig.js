@@ -76,6 +76,13 @@ const config = {
             "uri",
             "type",
         ],
+        filters: [
+            {
+                label: "Category",
+                esFieldName: "serviceOrResourceType.keyword",
+                inputType: "checkbox",
+            },
+        ],
         sortField: "title.keyword",
         orderBy: "asc",
     },
