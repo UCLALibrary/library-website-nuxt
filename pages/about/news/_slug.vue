@@ -93,8 +93,11 @@ export default {
         if (data) {
             if (data.entry) {
                 data.entry.articleCategory = data.entry.category
+                delete data.entry.category
+
+                await $elasticsearchplugin.index(data.entry, params.slug)
+                data.entry.category = data.entry.articleCategory
             }
-            await $elasticsearchplugin.index(data.entry, params.slug)
             /*console.log(
                 "News Data fetched: " + JSON.stringify(data.entry.category)
             )*/
