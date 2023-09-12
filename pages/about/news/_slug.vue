@@ -90,8 +90,15 @@ export default {
         if (!data.entry) {
             error({ statusCode: 404, message: "Page not found" })
         }
-        if (data) await $elasticsearchplugin.index(data.entry, params.slug)
-        console.log("News Data fetched: " + JSON.stringify(data.entry.category))
+        if (data) {
+            if (data.entry) {
+                data.entry.articleCategory = data.entry.category
+            }
+            await $elasticsearchplugin.index(data.entry, params.slug)
+            /*console.log(
+                "News Data fetched: " + JSON.stringify(data.entry.category)
+            )*/
+        }
 
         return {
             page: _get(data, "entry", {}),

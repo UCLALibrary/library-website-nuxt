@@ -97,7 +97,7 @@ export default {
      */
     generate: {
         // exclude is for npm run genereate uncomment for local builds
-        // exclude:[/^\/help/,/^\/collections/,/^\/about/,/^\/give/,/^\/impact/],
+        exclude:[/^\/help/,/^\/collections/,/^\/about/,/^\/give/,/^\/impact/],
         fallback: "404.html",
         interval: 500,
         concurrency: 10,

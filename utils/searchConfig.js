@@ -197,7 +197,7 @@ const config = {
             },
             {
                 label: "Category",
-                esFieldName: "category.title.keyword",
+                esFieldName: "articleCategory.title.keyword",
                 inputType: "checkbox",
             },
         ],
