@@ -239,6 +239,7 @@ export default {
             )*/
             if (data.workshopSeries) {
                 data.workshopSeries.sectionHandle = "workshopSeries"
+                data.workshopSeries.serviceOrResourceType = "workshop series"
                 /*console.log(
                     "what is workshopseries sectionHandle in ES? " +
                         data.workshopSeries.sectionHandle
