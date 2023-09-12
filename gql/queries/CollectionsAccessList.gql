@@ -4,9 +4,12 @@ query AccessCollectionsListing {
         text: summary
         ... on listingAccessCollections_listingAccessCollections_Entry {
             accessCollections(orderBy: "title") {
+                id
                 title
+                slug
                 text: summary
                 uri
+                sectionHandle
                 externalResourceUrl
                 iconName: illustrationsResourcesAndServices
                 ... on externalResource_externalResource_Entry {

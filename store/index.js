@@ -96,19 +96,19 @@ export const actions = {
             commit("SET_FOOTER_SOCK", data)
             return data
         } catch (e) {
-            throw new Error("Craft API error, trying to set gobals. " + e)
+            throw new Error("Craft API error, trying to set globals setFooterSockData. " + e)
         }
     },
     async setFooterPrimaryData({ commit }, data) {
         try {
             if (!data) {
                 data = await this.$graphql.default.request(FOOTER_PRIMARY_ITEMS)
-                
+
             }
             commit("SET_FOOTER_PRIMARY", data)
             return data
         } catch (e) {
-            throw new Error("Craft API error, trying to set gobals. " + e)
+            throw new Error("Craft API error, trying to set globals setFooterPrimary. " + e)
         }
     },
     async setHeaderData({ commit }, data) {
@@ -119,7 +119,7 @@ export const actions = {
             commit("SET_HEADER", data)
             return data
         } catch (e) {
-            throw new Error("Craft API error, trying to set gobals. " + e)
+            throw new Error("Craft API error, trying to set globals setHeader. " + e)
         }
     },
     async getGlobals({ commit }, data) {
@@ -139,7 +139,7 @@ export const actions = {
             commit("SET_GLOBALS", data)
             return data
         } catch (e) {
-            throw new Error("Craft API error, trying to set gobals. " + e)
+            throw new Error("Craft API error, trying to set globals getGlobals. " + e)
         }
     },
 }

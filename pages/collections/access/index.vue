@@ -12,28 +12,82 @@
         <masthead-secondary
             :title="page.title"
             :text="page.text"
-        >
-            <!-- TODO Add SearchGenric here when complete -->
-            <!-- search-generic
-                search-type="about"
-                class="generic-search"
-            />-->
-            <!-- :filters="searchFilters.filters"
-                :view-modes="searchFilters.views"
-                @view-mode-change="viewModeChanger" -->
-        </masthead-secondary>
+        />
 
-        <!-- TODO add divider once SearchGeneric is implemented -->
-        <!-- <section-wrapper theme="divider">
+        <search-generic
+            search-type="default"
+            class="generic-search"
+            :search-generic-query="searchGenericQuery"
+            placeholder="ACCESS COLLECTIONS"
+            @search-ready="getSearchData"
+        />
+
+        <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
-        </section-wrapper> -->
+        </section-wrapper>
 
-        <section-wrapper>
+        <section-wrapper
+            v-show="
+                page.accessCollections && hits.length == 0 && !noResultsFound
+            "
+        >
             <section-cards-with-illustrations
                 class="section"
                 :items="parsedAccessCollections"
                 :is-horizontal="true"
             />
+        </section-wrapper>
+        <section-wrapper v-show="hits && hits.length > 0">
+            <h2
+                v-if="$route.query.q"
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results for
+                <strong><em>“{{ $route.query.q }}</em></strong>”
+            </h2>
+            <h2
+                v-else
+                class="about-results"
+            >
+                Displaying {{ hits.length }} results
+            </h2>
+            <section-cards-with-illustrations
+                class="section"
+                :items="parseHitsResults"
+                :is-horizontal="true"
+            />
+        </section-wrapper>
+
+        <section-wrapper
+            v-show="noResultsFound"
+            class="section-no-top-margin"
+        >
+            <div class="error-text">
+                <rich-text>
+                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
+                    <p>
+                        We can’t find the term you are looking for on this page,
+                        but we're here to help. <br>
+                        Try searching the whole site from
+                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+                    </p>
+                    <ul>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/research-teaching-support/research-help"
+                            >Research Help</a>
+                        </li>
+                        <li>
+                            <a href="/help/services-resources/ask-us">Ask Us</a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
+                            >Accessibility Resources</a>
+                        </li>
+                    </ul>
+                </rich-text>
+            </div>
         </section-wrapper>
 
         <section-wrapper>
@@ -52,6 +106,7 @@
         </section-wrapper>
     </main>
 </template>
+
 <router>
   {
     alias: '/listing-collections/access',
@@ -66,24 +121,83 @@ import removeTags from "~/utils/removeTags"
 // GQL
 import ACCESS_COLLECTIONS from "~/gql/queries/CollectionsAccessList.gql"
 
+// UTILITIES
+import config from "~/utils/searchConfig"
+
 export default {
-    async asyncData({ $graphql }) {
-        const data = await $graphql.default.request(ACCESS_COLLECTIONS)
-        data.entry.accessCollections.forEach((element) => {
-            element.to = element.uri ? element.uri : element.externalResourceUrl
-            element.category =
-                element.workshopOrEventSeriesType === "help/services-resources"
-                    ? "workshop"
-                    : element.serviceOrResourceType
-                        ? element.serviceOrResourceType
-                        : element.typeHandle === "externalResource"
-                            ? "resource"
-                            : element.typeHandle === "generalContentPage"
+    async asyncData({ $graphql, $elasticsearchplugin }) {
+        console.log("In asyncData hook collectionsAccess list")
+
+        const pageAsyncData = await $graphql.default.request(ACCESS_COLLECTIONS)
+
+        if (
+            pageAsyncData.entry.accessCollections &&
+            pageAsyncData.entry.accessCollections.length > 0
+        ) {
+            for (let collection of pageAsyncData.entry.accessCollections) {
+                console.log("Collection indexing:" + collection.slug)
+                console.log("Collection:" + collection)
+                collection.searchType = "accessCollections"
+                collection.to = collection.uri
+                    ? collection.uri
+                    : collection.externalResourceUrl
+                collection.category =
+                    collection.workshopOrEventSeriesType ===
+                    "help/services-resources"
+                        ? "workshop"
+                        : collection.serviceOrResourceType
+                            ? collection.serviceOrResourceType
+                            : collection.typeHandle === "externalResource"
                                 ? "resource"
-                                : element.typeHandle
-        })
+                                : collection.typeHandle === "generalContentPage"
+                                    ? "resource"
+                                    : collection.typeHandle
+                await $elasticsearchplugin.index(collection, collection.slug)
+            }
+        }
+
         return {
-            page: _get(data, "entry", {}),
+            page: _get(pageAsyncData, "entry", {}),
+        }
+    },
+    data() {
+        return {
+            page: {},
+            noResultsFound: false,
+            hits: [],
+            searchGenericQuery: {
+                queryText: this.$route.query.q || "",
+            },
+        }
+    },
+    async fetch() {
+        this.hits = []
+        if (this.$route.query.q && this.$route.query.q !== "") {
+            const results = await this.$dataApi.keywordSearchWithFilters(
+                this.$route.query.q || "*",
+                config.accessCollections.searchFields,
+                "searchType:accessCollection",
+                [],
+                config.accessCollections.sortField,
+                config.accessCollections.orderBy,
+                config.accessCollections.resultFields,
+                []
+            )
+            this.hits = []
+            if (results && results.hits && results.hits.total.value > 0) {
+                this.hits = results.hits.hits
+                this.noResultsFound = false
+            } else {
+                this.hits = []
+                this.noResultsFound = true
+            }
+            this.searchGenericQuery = {
+                queryText: this.$route.query.q || "",
+            }
+        } else {
+            this.hits = []
+            this.noResultsFound = false
+            this.searchGenericQuery = { queryText: "" }
         }
     },
     head() {
@@ -120,6 +234,47 @@ export default {
                         ? obj.externalResourceUrl
                         : `/${obj.to}`,
                 }
+            })
+        },
+        parseHitsResults() {
+            /*console.log(
+                "ParseHitsResults checking results data:" +
+                    JSON.stringify(this.hits)
+            )*/
+            return this.parseHits()
+        },
+    },
+    fetchOnServer: false,
+    fetchKey: "collections-access",
+    watch: {
+        "$route.query": "$fetch",
+        "$route.query.q"(newValue) {
+            console.log("watching queryTEXT: " + newValue)
+            // if (newValue === "") this.hits = []
+        },
+    },
+    methods: {
+        parseHits() {
+            console.log("static mode what is parseHits")
+            return this.hits.map((obj) => {
+                console.log(
+                    "What should the category be?:" +
+                        obj["_source"].sectionHandle
+                )
+                return {
+                    ...obj["_source"],
+                    to: obj["_source"].externalResourceUrl
+                        ? obj["_source"].externalResourceUrl
+                        : `/${obj["_source"].uri}`,
+                }
+            })
+        },
+        getSearchData(data) {
+            this.$router.push({
+                path: "/collections/access",
+                query: {
+                    q: data.text,
+                },
             })
         },
     },
