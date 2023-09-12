@@ -285,10 +285,9 @@ export default function ({ $config }, inject) {
                 body: JSON.stringify({
                     size: 0,
                     query: {
-                        match: {
-                            sectionHandle: {
-                                query: sectionHandle,
-                            },
+                        query_string: {
+                            query: sectionHandle,
+                            default_field: "sectionHandle"
                         },
                     },
                     aggs: {

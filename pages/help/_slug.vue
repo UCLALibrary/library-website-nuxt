@@ -83,6 +83,10 @@ export default {
         }
         // //console.log("Data fetched: " + JSON.stringify(data))
 
+        if (data.entry) {
+            data.entry.serviceOrResourceType = "help topic"
+        }
+
         return {
             page: _get(data, "entry", {}),
         }
