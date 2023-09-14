@@ -62,6 +62,7 @@ export default {
         const data = await $graphql.default.request(ARTICLE_NEWS_DETAIL, {
             slug: params.slug,
         })
+        //  console.log("news data", data)
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         return {
             page: _get(data, "entry", {}),

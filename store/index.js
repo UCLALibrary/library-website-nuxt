@@ -46,53 +46,111 @@ export const mutations = {
 
 // Define actions
 export const actions = {
-    async nuxtServerInit({ commit }) {
+    
+    // generatePayload is desructured from nuxt context, dispatch is vuex-store dispatch
+    async nuxtGenerateInit({ dispatch }, { generatePayload }) {
+        // console.log("In nuxtgenerateinit start")
+        let data = generatePayload || {}
+
+        // Fetch data in parallel
+        let headerQuery = dispatch("setHeaderData", data.header)
+        let footerPrimaryQuery = dispatch("setFooterPrimaryData", data.footerPrimary)
+        let footerSponsorQuery = dispatch("setFooterSponsoryData", data.footerSponsor)
+        let footerSockQuery = dispatch("setFooterSockData", data.footerSock)
+        let globalsQuery = dispatch("getGlobals", data.globals)
+        const [headerResult, footerPrimaryResult,footerSponsorResult, footerSockResult, globalsResult] = await Promise.all([
+            headerQuery,
+            footerPrimaryQuery,
+            footerSponsorQuery,
+            footerSockQuery,
+            globalsQuery,
+        ])
+
+        // console.log("In nuxtgenerateinit end")
+
+        return {
+            header: headerResult,
+            footerPrimary: footerPrimaryResult,
+            footerSponsor: footerSponsorResult,
+            footerSock: footerSockResult,
+            globals: globalsResult,
+        }
+    },
+    async setFooterSockData({ commit }, data) {
         try {
-            // console.log("Get Global data from Craft")
-
-            // ASK A LIBRARIAN Data -------------- --------------
-            let globalData = await this.$graphql.default.request(GLOBALS)
-            globalData = removeEmpties(globalData.globalSets || [])
-
-            // Shape data from Craft
-            globalData = {
-                askALibrarian: globalData[0],
-                meapCallToAction: globalData[1],
+            if (!data) {
+                // console.log("footersock is being fetched start")
+                data = await this.$graphql.default.request(FOOTER_SOCK_ITEMS)
             }
-            commit("SET_GLOBALS", globalData)
-
-            // MAIN MENU Data -------------- --------------
-            let headerData = await this.$graphql.default.request(
-                HEADER_MAIN_MENU_ITEMS
-            )
-            commit("SET_HEADER", headerData)
-
-            // FOOTER SPONSOR Data -------------- --------------
-            let footerSponsorData = await this.$graphql.default.request(
-                FOOTER_SPONSOR_ITEMS
-            )
-
-            // Shape data from Craft
-            footerSponsorData = removeEmpties(
-                footerSponsorData.footerSponsor || []
-            )
-
-            commit("SET_FOOTER_SPONSOR", footerSponsorData[0])
-            // console.log(JSON.stringify(footerSponsorData))
-
-            // FOOTER PRIMARY Data -------------- --------------
-            let footerPrimaryData = await this.$graphql.default.request(
-                FOOTER_PRIMARY_ITEMS
-            )
-            commit("SET_FOOTER_PRIMARY", footerPrimaryData)
-
-            // FOOTER SOCK Data -------------- --------------
-            let footerSockData = await this.$graphql.default.request(
-                FOOTER_SOCK_ITEMS
-            )
-            commit("SET_FOOTER_SOCK", footerSockData)
+            commit("SET_FOOTER_SOCK", data)
+            return data
         } catch (e) {
-            throw new Error("Craft API error, trying to set gobals. " + e)
+            throw new Error("Craft API error, trying to set globals setFooterSockData. " + e)
+        }
+    },
+    async setFooterPrimaryData({ commit }, data) {
+        try {
+            if (!data) {
+                // console.log("footerprimary is being fetched start")
+                data = await this.$graphql.default.request(FOOTER_PRIMARY_ITEMS)
+
+            }
+            commit("SET_FOOTER_PRIMARY", data)
+            return data
+        } catch (e) {
+            throw new Error("Craft API error, trying to set globals setFooterPrimary. " + e)
+        }
+    },
+    async setFooterSponsoryData({ commit }, data){
+        try {
+            if (!data) {
+                // console.log("footersponsor is being fetched start")
+                data = await this.$graphql.default.request(
+                    FOOTER_SPONSOR_ITEMS
+                )
+    
+                // Shape data from Craft
+                data = removeEmpties(
+                    data.footerSponsor || []
+                )
+    
+            }
+            commit("SET_FOOTER_SPONSOR", data[0])
+            return data
+        } catch (e) {
+            throw new Error("Craft API error, trying to set globals setFooterSponsor. " + e)
+        }
+    },
+    async setHeaderData({ commit }, data) {
+        try {
+            if (!data) {
+                // console.log("header is being fetched start")
+                data = await this.$graphql.default.request(HEADER_MAIN_MENU_ITEMS)
+            }
+            commit("SET_HEADER", data)
+            return data
+        } catch (e) {
+            throw new Error("Craft API error, trying to  setHeader. " + e)
+        }
+    },
+    async getGlobals({ commit }, data) {
+        try {
+            if (!data) {
+                // console.log("global is being fetched start")
+                data = await this.$graphql.default.request(GLOBALS)
+                data = removeEmpties(data.globalSets || [])
+
+                // Shape data from Craft
+                data = {
+                    askALibrarian: data[0],
+                    meapCallToAction: data[1],
+                }
+               
+            }
+            commit("SET_GLOBALS", data)
+            return data
+        } catch (e) {
+            throw new Error("Craft API error, trying to set globals getGlobals. " + e)
         }
     },
 }
