@@ -37,10 +37,7 @@
             <divider-way-finder class="divider-way-finder" color="default" />
         </section-wrapper>
 
-        <page-anchor
-            v-if="h2Array.length >=3"
-            :section-titles= h2Array
-        />
+        <page-anchor v-if="h2Array.length >= 3" :section-titles="h2Array" />
 
         <!-- Using the Collection -->
         <section-wrapper
@@ -90,8 +87,10 @@
         </section-wrapper>
 
         <!-- Endowments -->
-        <section-wrapper v-if="parsedEndowments.length"
-            section-title="Collection Endowments">
+        <section-wrapper
+            v-if="parsedEndowments.length"
+            section-title="Collection Endowments"
+        >
             <section-staff-article-list
                 :items="parsedEndowments"
                 class="block-staff-article-item"
@@ -141,6 +140,11 @@ export default {
             page: data.entry,
         }
     },
+    data() {
+        return {
+            h2Array: [], // anchor tags
+        }
+    },
     head() {
         let title = this.page ? this.page.title : "... loading"
         let metaDescription = removeTags(this.page.text)
@@ -149,16 +153,11 @@ export default {
             title: title,
             meta: [
                 {
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
-        }
-    },
-    data() {
-        return {
-            h2Array: [] // anchor tags
         }
     },
     computed: {
@@ -222,7 +221,7 @@ export default {
                         "alternativeName[0].fullName",
                         null
                     ),
-                    locations: _get(obj, "locations", []).map(loc => {
+                    locations: _get(obj, "locations", []).map((loc) => {
                         return {
                             ...loc,
                             uri: fixUri(loc.uri),
@@ -231,6 +230,10 @@ export default {
                 }
             })
         },
+    },
+    mounted() {
+        // Call the plugin method to get the .section-header2 and .section-header3 elements
+        this.h2Array = this.$getHeaders.getHeadersMethod()
     },
     methods: {
         parsedDonors(obj) {
@@ -250,11 +253,7 @@ export default {
                 ].join(donorNames.length < 2 ? "" : " and ")
                 return `Donors: ${names}`
             }
-        }
-    },
-    mounted() {
-        // Call the plugin method to get the .section-header2 and .section-header3 elements
-        this.h2Array = this.$getHeaders.getHeadersMethod();
+        },
     },
 }
 </script>

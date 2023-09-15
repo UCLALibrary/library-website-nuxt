@@ -4,6 +4,7 @@ fragment BlockMediaGalleryFragment on ElementInterface {
     dataId: id
     sectionTitle: titleGeneral
     sectionSummary: summary
+    mediaGalleryStyle
     mediaGallery {
         dataId: id
         captionTitle: captionHeading
