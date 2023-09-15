@@ -32,6 +32,9 @@ export const useGlobals = defineStore("globals", {
             this.winHeight = height
             this.winWidth = width
         },
+        setSTop(data) {
+            this.sTop = data
+        },
         setGlobals(data) {
             this.globals = data
         },
