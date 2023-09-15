@@ -1,8 +1,9 @@
 <script setup>
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from "pinia";
 
 useHead({
-    titleTemplate: (title) => (title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library'),
+    titleTemplate: (title) =>
+        title === "Homepage" ? "UCLA Library" : `${title}` + " | UCLA Library",
     script: [
         {
             hid: "libanswers",
@@ -10,45 +11,50 @@ useHead({
             defer: true,
         },
     ],
-})
+});
 const classes = computed(() => [
     "layout",
     "layout-default",
     // { "has-scrolled": this.$store.state.sTop },
     // { "has-scrolled-past-header": this.$store.state.sTop >= 150 },
-])
+]);
 const globalStore = useGlobals();
-const { globals } = storeToRefs(globalStore)
+const { globals } = storeToRefs(globalStore);
 const libraryAlert = computed(() => {
-    console.log("in library alert computed property", globals.value.libraryAlert)
+    console.log(
+        "in library alert computed property",
+        globals.value.libraryAlert
+    );
     if (globals.value) {
-        var alert = globals.value.libraryAlert
-        if (alert &&
+        var alert = globals.value.libraryAlert;
+        if (
+            alert &&
             alert.title &&
             alert.title.length > 0 &&
             alert.text &&
             alert.text.length > 0
         ) {
-            return alert
+            return alert;
         } else {
-            return null
+            return null;
         }
     }
-})
+});
 </script>
 <template>
     <div :class="classes">
         <VueSkipTo to="#main" label="Skip to main content" />
-        <!--header-smart />
+        <!--header-smart /-->
 
-        <section-wrapper class="section-alert" theme="divider">
-            <site-notification-alert v-if="libraryAlert" class="library-alert" v-bind="libraryAlert" />
-        </section-wrapper-->
-        {{ libraryAlert }}
+        <!--section-wrapper class="section-alert" theme="divider"-->
+        <site-notification-alert
+            v-if="libraryAlert"
+            class="library-alert"
+            v-bind="libraryAlert"
+        />
+        <!--/section-wrapper-->
 
-        <main>
-            <slot></slot>
-        </main>
+        <slot></slot>
 
         <!--footer>
             <footer-primary :form="true" />
@@ -68,7 +74,7 @@ const libraryAlert = computed(() => {
     align-content: center;
     align-items: center;
 
-    >* {
+    > * {
         width: 100%;
     }
 

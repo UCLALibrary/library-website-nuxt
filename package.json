@@ -1,31 +1,31 @@
 {
-  "name": "library-website-nuxt",
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "cypress": "cypress open",
-    "cypress-run": "cypress run",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
-  },
-  "devDependencies": {
-    "@antfu/eslint-config": "^0.40.2",
-    "@nuxt/devtools": "latest",
-    "@nuxtjs/apollo": "5.0.0-alpha.6",
-    "@percy/cypress": "^3.1.2",
-    "@types/node": "^18.17.3",
-    "cypress": "^12.17.4",
-    "eslint": "^8.47.0",
-    "nuxt": "^3.6.5",
-    "sass": "^1.66.1",
-    "ucla-library-design-tokens": "^5.5.0",
-    "ucla-library-website-components": "2.39.0-alpha.3"
-  },
-  "dependencies": {
-    "@pinia/nuxt": "^0.4.11",
-    "@vue-a11y/skip-to": "^3.0.3"
-  }
+    "name": "library-website-nuxt",
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "cypress": "cypress open",
+        "cypress-run": "cypress run",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix"
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "^0.40.2",
+        "@nuxt/devtools": "latest",
+        "@nuxtjs/apollo": "5.0.0-alpha.6",
+        "@percy/cypress": "^3.1.2",
+        "@types/node": "^18.17.3",
+        "cypress": "^12.17.4",
+        "eslint": "^8.47.0",
+        "nuxt": "^3.6.5",
+        "sass": "^1.66.1",
+        "ucla-library-design-tokens": "^5.5.0",
+        "ucla-library-website-components": "2.39.0-alpha.4"
+    },
+    "dependencies": {
+        "@pinia/nuxt": "^0.4.11",
+        "@vue-a11y/skip-to": "^3.0.3"
+    }
 }
