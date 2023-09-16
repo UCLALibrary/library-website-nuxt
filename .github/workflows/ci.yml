@@ -2,10 +2,8 @@ name: Run CI Suite
 
 on:
   push:
-    branches: [ main ]
     branches: [ nuxt3.x ]
   pull_request:
-    branches: [ main ]
     branches: [ nuxt3.x ]
 
 concurrency:
