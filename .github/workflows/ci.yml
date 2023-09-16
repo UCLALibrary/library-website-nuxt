@@ -3,11 +3,13 @@ name: Run CI Suite
 on:
   push:
     branches: [ main ]
+    branches: [ nuxt3.x ]
   pull_request:
     branches: [ main ]
+    branches: [ nuxt3.x ]
 
 concurrency:
-  group: ci-${{ github.ref_name=='main' && github.sha || github.ref_name }} # Cancel runs for previous version of PR, but not main (after merge). For hacked ternary, see https://github.com/actions/runner/issues/409#issuecomment-727565588
+  group: ci-${{ github.ref_name=='nuxt3.x' && github.sha || github.ref_name }} # Cancel runs for previous version of PR, but not main (after merge). For hacked ternary, see https://github.com/actions/runner/issues/409#issuecomment-727565588
   cancel-in-progress: true
 
 jobs:
@@ -20,7 +22,7 @@ jobs:
         repository: ${{ github.event.pull_request.head.repo.full_name }}
         ref: ${{ github.event.pull_request.head.ref }}
     - uses: ./.github/workflows/setup-workspace
-    - run: npm run lint-fix
+    - run: pnpm run lint:fix
     - uses: EndBug/add-and-commit@v9
       with:
         message: "chore: linter autofixes"
@@ -53,16 +55,16 @@ jobs:
     - name: Cache built static site
       uses: actions/cache@v3
       with:
-        path: ./dist
+        path: .output/public
         key: nuxt-site-${{ github.sha }}
     - name: Sets env vars for PR preview
       run: |
         echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-deploy-preview" >> $GITHUB_ENV
-      if: github.ref_name!='main'
+      if: github.ref_name!='nuxt3.x'
     - name: Sets env vars for main merge
       run: |
         echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
-      if: github.ref_name=='main'
+      if: github.ref_name=='nuxt3.x'
     - run: npm run generate
       env:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
@@ -77,7 +79,7 @@ jobs:
         ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
         LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
     - name: Deploy to Netlify (preview)
-      if: github.ref_name!='main'
+      if: github.ref_name!='nuxt3.x'
       uses: nwtgck/actions-netlify@v2 #
       with:
         production-deploy: false
@@ -85,15 +87,15 @@ jobs:
         alias: deploy-preview-${{ github.event.pull_request.number }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
         overwrites-pull-request-comment: true
-        publish-dir: './dist'
+        publish-dir: '.output/public'
         fails-without-credentials: true
         github-deployment-environment: ${{ github.event_name }}-${{ github.event.number }}
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_NUXT3X }}
     - uses: cypress-io/github-action@v3
       with:
-        start: npm run start
+        start: pnpm dlx serve .output/public
         wait-on: http://127.0.0.1:3000
       env:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
@@ -118,4 +120,4 @@ jobs:
         github-deployment-environment: production
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_NUXT3X }}

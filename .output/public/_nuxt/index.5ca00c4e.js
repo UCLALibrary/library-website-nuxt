@@ -1,0 +1,1 @@
+import{_ as e,a as o,o as s,e as t}from"./entry.5ffbc0aa.js";const c={},n=t("h1",null,"Welcome this is library home page!",-1),a=[n];function r(_,i){return s(),o("main",null,a)}const d=e(c,[["render",r]]);export{d as default};

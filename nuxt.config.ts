@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: { enabled: true },
+
     // when using local pnpm link with component library uncomment this line
     vite: {
         server: {
@@ -16,6 +17,12 @@ export default defineNuxtConfig({
                     `,
                 },
             },
+        },
+    },
+    nitro: {
+        prerender: {
+            crawlLinks: true,
+            ignore: ["/components"],
         },
     },
 
@@ -67,7 +74,7 @@ export default defineNuxtConfig({
         // once we have npm package for vite vue3 component library use
         // "ucla-library-website-components-vue3.x/style.css"
         // use the following line when using pnpm link --global ucla-library-website-components-vue3.x
-        "ucla-library-website-components-vue3.x/dist/style.css",
+        "ucla-library-website-components/dist/style.css",
     ],
 
     modules: [

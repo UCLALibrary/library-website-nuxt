@@ -19,7 +19,7 @@
         "@types/node": "^18.17.3",
         "cypress": "^12.17.4",
         "eslint": "^8.47.0",
-        "nuxt": "^3.6.5",
+        "nuxt": "^v3.7.3",
         "sass": "^1.66.1",
         "ucla-library-design-tokens": "^5.5.0",
         "ucla-library-website-components": "2.39.0-alpha.4"

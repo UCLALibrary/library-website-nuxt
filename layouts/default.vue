@@ -1,5 +1,5 @@
 <script setup>
-import { storeToRefs } from "pinia";
+import { storeToRefs } from "pinia"
 
 useHead({
     titleTemplate: (title) =>
@@ -11,22 +11,17 @@ useHead({
             defer: true,
         },
     ],
-});
-const classes = computed(() => [
-    "layout",
-    "layout-default",
-    // { "has-scrolled": this.$store.state.sTop },
-    // { "has-scrolled-past-header": this.$store.state.sTop >= 150 },
-]);
-const globalStore = useGlobals();
-const { globals } = storeToRefs(globalStore);
+})
+
+const globalStore = useGlobals()
+const { globals, sTop } = storeToRefs(globalStore)
 const libraryAlert = computed(() => {
     console.log(
         "in library alert computed property",
         globals.value.libraryAlert
-    );
+    )
     if (globals.value) {
-        var alert = globals.value.libraryAlert;
+        var alert = globals.value.libraryAlert
         if (
             alert &&
             alert.title &&
@@ -34,16 +29,23 @@ const libraryAlert = computed(() => {
             alert.text &&
             alert.text.length > 0
         ) {
-            return alert;
+            return alert
         } else {
-            return null;
+            return null
         }
     }
-});
+})
+const classes = computed(() => [
+    "layout",
+    "layout-default",
+    { "has-scrolled": sTop.value },
+    { "has-scrolled-past-header": sTop.value >= 150 },
+])
 </script>
 <template>
     <div :class="classes">
-        <VueSkipTo to="#main" label="Skip to main content" />
+        <!--VueSkipTo to="#main" label="Skip to main content" /-->
+        <!-- this is not working in static build -->
         <!--header-smart /-->
 
         <!--section-wrapper class="section-alert" theme="divider"-->
@@ -54,7 +56,7 @@ const libraryAlert = computed(() => {
         />
         <!--/section-wrapper-->
 
-        <slot></slot>
+        <slot />
 
         <!--footer>
             <footer-primary :form="true" />
