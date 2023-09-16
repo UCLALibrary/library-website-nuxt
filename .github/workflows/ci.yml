@@ -63,7 +63,7 @@ jobs:
       run: |
         echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
       if: github.ref_name=='nuxt3.x'
-    - run: npm run generate
+    - run: pnpm run generate
       env:
         CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
         LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
