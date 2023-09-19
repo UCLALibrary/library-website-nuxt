@@ -1,8 +1,5 @@
 <template lang="html">
-    <main
-        id="main"
-        class="page page-search-site"
-    >
+    <main id="main" class="page page-search-site">
         <masthead-secondary title="Search Results" />
 
         <search-generic
@@ -13,10 +10,7 @@
         />
 
         <section-wrapper theme="divider">
-            <divider-way-finder
-                class="search-margin"
-                color="default"
-            />
+            <divider-way-finder class="search-margin" color="default" />
         </section-wrapper>
 
         <section-wrapper
@@ -28,10 +22,7 @@
             </div>
         </section-wrapper>
 
-        <section-wrapper
-            v-else-if="$fetchState.error"
-            class="results"
-        >
+        <section-wrapper v-else-if="$fetchState.error" class="results">
             <p>There is an error</p>
         </section-wrapper>
 
@@ -51,7 +42,9 @@
             >
                 <h2 class="about-results">
                     Displaying {{ page.hits.total.value }} results for
-                    <strong><em>“{{ $route.query.q }}”</em></strong>
+                    <strong
+                        ><em>“{{ $route.query.q }}”</em></strong
+                    >
                 </h2>
 
                 <section-wrapper
@@ -75,10 +68,7 @@
                     />
                 </section-wrapper>
             </section-wrapper>
-            <section-wrapper
-                v-else
-                class="section-no-top-margin"
-            >
+            <section-wrapper v-else class="section-no-top-margin">
                 <rich-text class="error-text">
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
@@ -88,14 +78,15 @@
                     </p>
                     <ul>
                         <li>
-                            <a
-                                href="https://library.ucla.edu"
-                            >UCLA Library Home</a>
+                            <a href="https://library.ucla.edu"
+                                >UCLA Library Home</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/research-teaching-support/research-help"
-                            >Research Help</a>
+                                >Research Help</a
+                            >
                         </li>
                         <li>
                             <a href="/help/services-resources/ask-us">Ask Us</a>
@@ -103,7 +94,8 @@
                         <li>
                             <a
                                 href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
-                            >Accessibility Resources</a>
+                                >Accessibility Resources</a
+                            >
                         </li>
                     </ul>
                 </rich-text>
@@ -293,10 +285,13 @@ export default {
     methods: {
         parseCategory(sectionHandle) {
             if (!sectionHandle) return
-            return sectionHandle
-                .split(/(?=[A-Z])/)
-                .join(" ")
-                .toUpperCase()
+            if (sectionHandle == "Libguide") {
+                return "RESEARCH GUIDE"
+            } else
+                return sectionHandle
+                    .split(/(?=[A-Z])/)
+                    .join(" ")
+                    .toUpperCase()
         },
         async setFilters() {
             /*const searchAggsResponse =
