@@ -4,6 +4,7 @@ fragment BlockMediaGalleryExtraFieldsFragment on ElementInterface {
     id
     sectionTitle: titleGeneral
     richTextSimplified
+    mediaGalleryStyle
     mediaGallery: mediaGalleryExtraFields {
         dataId: id
         captionTitle: captionHeading
