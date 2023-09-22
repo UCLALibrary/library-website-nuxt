@@ -35,9 +35,13 @@ const textLong =
         <br />
         <br />
 
+        <button-link label="Egest perl Conub" to="/help/more" />
+        <br />
+        <br />
         <button-link
             label="Etiam et Ultrices"
             :is-secondary="true"
+            :is-download="true"
             to="https://calendar.library.ucla.edu/"
         />
         <br />
@@ -45,40 +49,13 @@ const textLong =
         <button-link
             label="Etiam et Ultrices"
             :is-secondary="true"
-            to="https://www.google.com/"
+            to="https://calendar.library.ucla.edu/"
         />
         <br />
         <br />
-        <button-link
-            label="Proin sodales dolor sit amet."
-            icon-name="svg-arrow-right"
-            to="/help/more"
-        />
+        <hr />
         <br />
-        <br />
-        <button-link
-            label="Aug id Dignissim"
-            :is-secondary="true"
-            icon-name="svg-arrow-right"
-            to="/help/more"
-        />
-        <br />
-        <br />
-        <button-link
-            label="Aug id Dignissim"
-            :is-secondary="true"
-            icon-name="svg-arrow-diagonal"
-            to="www.google.com"
-        />
-        <br />
-        <br />
-        <button-link
-            label="Aug id Dignissim"
-            :is-secondary="true"
-            icon-name="none"
-            to="www.google.com"
-        />
-        <br />
+        <!-- button-hide / -->
         <br />
         <hr />
     </div>

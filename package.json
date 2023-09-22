@@ -8,8 +8,8 @@
         "postinstall": "nuxt prepare",
         "cypress": "cypress open",
         "cypress-run": "cypress run",
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix"
+        "lint": "eslint . --ext .vue,.js,.ts --ignore-path .gitignore",
+        "lint:fix": "eslint --fix ."
     },
     "devDependencies": {
         "@antfu/eslint-config": "^0.40.2",
@@ -21,8 +21,7 @@
         "eslint": "^8.47.0",
         "nuxt": "^v3.7.3",
         "sass": "^1.66.1",
-        "ucla-library-design-tokens": "^5.5.0",
-        "ucla-library-website-components": "2.39.0-alpha.4"
+        "ucla-library-design-tokens": "^5.5.0"
     },
     "dependencies": {
         "@pinia/nuxt": "^0.4.11",

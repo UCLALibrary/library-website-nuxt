@@ -71,9 +71,8 @@ export default defineNuxtConfig({
         "ucla-library-design-tokens/scss/fonts.scss",
         "ucla-library-design-tokens/scss/app-global.scss",
         "~/assets/styles/global.scss",
-        // once we have npm package for vite vue3 component library use
-        // "ucla-library-website-components-vue3.x/style.css"
-        // use the following line when using pnpm link --global ucla-library-website-components-vue3.x
+
+        // use the following line when using pnpm link --global ucla-library-website-components-vue
         "ucla-library-website-components/dist/style.css",
     ],
 

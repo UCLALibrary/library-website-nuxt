@@ -1,4 +1,4 @@
-import UCLALibraryWebsiteComponents from "ucla-library-website-components-vue3.x"
+import UCLALibraryWebsiteComponents from "ucla-library-website-components"
 
 export default defineNuxtPlugin((nuxtApp) => {
     // Doing something with nuxtApp

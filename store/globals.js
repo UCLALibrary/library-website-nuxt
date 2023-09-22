@@ -1,8 +1,5 @@
 // GQL
 import GLOBALS from "../gql/queries/Globals.gql"
-import HEADER_MAIN_MENU_ITEMS from "../gql/queries/HeaderMainMenuItems.gql"
-import FOOTER_PRIMARY_ITEMS from "~/gql/queries/FooterPrimaryItems.gql"
-import FOOTER_SOCK_ITEMS from "~/gql/queries/FooterSockItems.gql"
 
 export const useGlobals = defineStore("globals", {
     state: () => ({
@@ -14,7 +11,7 @@ export const useGlobals = defineStore("globals", {
         footerPrimary: {},
         footerSock: {},
         /* _token: "",
-        _user: {},*/
+        _user: {}, */
     }),
     getters: {
         globals() {
@@ -25,7 +22,7 @@ export const useGlobals = defineStore("globals", {
         },
         isAuthed() {
             return Object.keys(this._user).length > 0
-        },*/
+        }, */
     },
     actions: {
         setWindowDimension(width, height) {
@@ -63,7 +60,7 @@ export const useGlobals = defineStore("globals", {
         async fetchHeader() {},
         async fetchFooterPrimary() {},
         async fetchFooterSock() {},
-        /*setToken(token) {
+        /* setToken(token) {
             this._token = token
             cookie.set("token", token, { expires: 7 })
         },
@@ -90,6 +87,6 @@ export const useGlobals = defineStore("globals", {
             if (!error.value) {
                 this.reset()
             }
-        },*/
+        }, */
     },
 })

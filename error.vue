@@ -5,15 +5,15 @@ useHead({
 const { error } = defineProps({
     error: {
         type: Object,
-        default: () => { },
+        default: () => {},
     },
 })
-
-</script >
+</script>
 <template>
     <main id="main" class="page page-error">
-        <p class="error">
-            404
+        <p class="error">404</p>
+        <p>
+            {{ error }}
         </p>
         <divider-way-finder />
 
@@ -38,7 +38,7 @@ const { error } = defineProps({
             </ul>
         </rich-text-->
     </main>
-</template >
+</template>
 
 <style lang="scss" scoped>
 .page-error {
@@ -49,7 +49,16 @@ const { error } = defineProps({
         font-size: 248px;
         font-weight: 600;
         line-height: 1;
-        background: linear-gradient(20deg, #FD9BE0 10.99%, #E29AEE 23.02%, #C099FF 32.91%, #8BA0EF 42.44%, #0AA5FF 56.68%, #06BEF2 73.09%, #00E0E0 89.01%);
+        background: linear-gradient(
+            20deg,
+            #fd9be0 10.99%,
+            #e29aee 23.02%,
+            #c099ff 32.91%,
+            #8ba0ef 42.44%,
+            #0aa5ff 56.68%,
+            #06bef2 73.09%,
+            #00e0e0 89.01%
+        );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
