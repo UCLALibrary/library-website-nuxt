@@ -4,5 +4,5 @@
  * @returns {Array}
  */
 export function removeEmpties(arr) {
-    return arr.filter((value) => Object.keys(value).length !== 0)
+  return arr.filter(value => Object.keys(value).length !== 0)
 }

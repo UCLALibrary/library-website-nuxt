@@ -13,4 +13,3 @@ jobs:
           EVENT: ${{ toJson(github.event) }}
         run: echo "$EVENT"
       - run: echo "{{ github.event.node.latestStatus.environmentUrl }}"
-

@@ -1,17 +1,17 @@
-name: Manually rebuild and deploy the static site 
+name: Manually rebuild and deploy the static site
 
 on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment'     
+        description: Environment
         required: true
         type: choice
         options:
-        - test
-        - stage
-        - prod
-        default: 'test'
+          - test
+          - stage
+          - prod
+        default: test
 
 concurrency:
   group: deploy-${{ github.event.inputs.environment }}
@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   nuxt-deploy:
-    name: Static Generation build 
+    name: Static Generation build
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -66,7 +66,7 @@ jobs:
       - run: npm run generate
         env:
           CRAFT_ENDPOINT: ${{env.CRAFT_ENDPOINT}}
-          S3_BUCKET: "https://static.library.ucla.edu/"
+          S3_BUCKET: 'https://static.library.ucla.edu/'
           SITEMAP_HOST: ${{env.SITEMAP_HOST}}
           ES_URL: ${{ secrets.ES_URL }}
           ESApiKey: ${{ secrets.ESApiKey }}
@@ -82,7 +82,7 @@ jobs:
           production-deploy: true
           deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          publish-dir: "./dist"
+          publish-dir: ./dist
           fails-without-credentials: true
           github-deployment-environment: production
         env:

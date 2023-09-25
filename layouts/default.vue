@@ -1,70 +1,72 @@
 <script setup>
-import { storeToRefs } from "pinia"
+import { storeToRefs } from 'pinia'
 
 useHead({
-    titleTemplate: (title) =>
-        title === "Homepage" ? "UCLA Library" : `${title}` + " | UCLA Library",
-    script: [
-        {
-            hid: "libanswers",
-            src: "https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753",
-            defer: true,
-        },
-    ],
+  titleTemplate: title =>
+    title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library',
+  script: [
+    {
+      hid: 'libanswers',
+      src: 'https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753',
+      defer: true
+    }
+  ]
 })
 
 const globalStore = useGlobals()
 const { globals, sTop } = storeToRefs(globalStore)
 const libraryAlert = computed(() => {
-    console.log(
-        "in library alert computed property",
-        globals.value.libraryAlert
+  /* console.log(
+    'in library alert computed property',
+    globals.value.libraryAlert,
+  ) */
+  if (globals.value) {
+    const alert = globals.value.libraryAlert
+    if (
+      alert
+            && alert.title
+            && alert.title.length > 0
+            && alert.text
+            && alert.text.length > 0
     )
-    if (globals.value) {
-        var alert = globals.value.libraryAlert
-        if (
-            alert &&
-            alert.title &&
-            alert.title.length > 0 &&
-            alert.text &&
-            alert.text.length > 0
-        ) {
-            return alert
-        } else {
-            return null
-        }
-    }
+      return alert
+
+    else
+      return null
+  }
 })
 const classes = computed(() => [
-    "layout",
-    "layout-default",
-    { "has-scrolled": sTop.value },
-    { "has-scrolled-past-header": sTop.value >= 150 },
+  'layout',
+  'layout-default',
+  { 'has-scrolled': sTop.value },
+  { 'has-scrolled-past-header': sTop.value >= 150 }
 ])
 </script>
+
 <template>
-    <div :class="classes">
-        <!--VueSkipTo to="#main" label="Skip to main content" /-->
-        <!-- this is not working in static build -->
-        <!--header-smart /-->
+  <div :class="classes">
+    <!-- VueSkipTo to="#main" label="Skip to main content" / -->
+    <!-- this is not working in static build -->
+    <!-- header-smart / -->
 
-        <!--section-wrapper class="section-alert" theme="divider"-->
-        <site-notification-alert
-            v-if="libraryAlert"
-            class="library-alert"
-            v-bind="libraryAlert"
-        />
-        <!--/section-wrapper-->
+    <!-- section-wrapper class="section-alert" theme="divider" -->
+    <site-notification-alert
+      v-if="libraryAlert"
+      class="library-alert"
+      v-bind="libraryAlert"
+    />
+    <!-- /section-wrapper -->
 
-        <slot />
+    <slot />
 
-        <!--footer>
+    <!-- footer>
             <footer-primary :form="true" />
             <footer-sock />
-        </footer-->
-        <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" />
-    </div>
+        </footer -->
+    <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" />
+  </div>
 </template>
+
 <style lang="scss" scoped>
 .layout-default {
     min-height: 100vh;

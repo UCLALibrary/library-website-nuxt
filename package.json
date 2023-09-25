@@ -9,22 +9,24 @@
         "cypress": "cypress open",
         "cypress-run": "cypress run",
         "lint": "eslint . --ext .vue,.js,.ts --ignore-path .gitignore",
-        "lint:fix": "eslint --fix ."
+        "lint:fix": "eslint --fix . --ext .vue,.js,.ts --ignore-path .gitignore"
+    },
+    "dependencies": {
+        "@pinia/nuxt": "^0.4.11",
+        "@vue-a11y/skip-to": "^3.0.3"
     },
     "devDependencies": {
-        "@antfu/eslint-config": "^0.40.2",
+        "@antfu/eslint-config": "^0.42.0",
         "@nuxt/devtools": "latest",
         "@nuxtjs/apollo": "5.0.0-alpha.6",
         "@percy/cypress": "^3.1.2",
         "@types/node": "^18.17.3",
         "cypress": "^12.17.4",
-        "eslint": "^8.47.0",
+        "eslint": "^8.49.0",
+        "eslint-plugin-cypress": "^2.15.1",
         "nuxt": "^v3.7.3",
         "sass": "^1.66.1",
-        "ucla-library-design-tokens": "^5.5.0"
-    },
-    "dependencies": {
-        "@pinia/nuxt": "^0.4.11",
-        "@vue-a11y/skip-to": "^3.0.3"
+        "ucla-library-design-tokens": "^5.5.0",
+        "ucla-library-website-components": "2.39.0-alpha.5"
     }
 }
