@@ -94,7 +94,7 @@ jobs:
       - uses: cypress-io/github-action@v3
         with:
           start: pnpm dlx serve .output/public
-          install-command: pnpm install
+          install-command: pnpm i --frozen-lockfile
           wait-on: http://127.0.0.1:3000
         env:
           CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
