@@ -16,6 +16,7 @@
         "@vue-a11y/skip-to": "^3.0.3"
     },
     "devDependencies": {
+        "@percy/cli": "^1.27.0",
         "@antfu/eslint-config": "^0.42.0",
         "@nuxt/devtools": "latest",
         "@nuxtjs/apollo": "5.0.0-alpha.6",
