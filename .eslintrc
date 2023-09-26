@@ -1,14 +1,7 @@
 {
     "extends": "@antfu",
-    "overrides": [
-        {
-            "files": ["*.spec.js", "/**/*.md"],
-            "rules": {
-                "comma-dangle": ["error", "never"],
-                "semi": ["error", "never"],
-                "@typescript-eslint/semi": "off",
-                "@typescript-eslint/comma-dangle": "off"
-            }
-        }
-    ]
+    "rules": {
+        "@typescript-eslint/comma-dangle": "off",
+        "n/prefer-global/process": "off"
+    }
 }

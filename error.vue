@@ -1,23 +1,26 @@
 <script setup>
-useHead({
-    title: "Error",
-})
 const { error } = defineProps({
-    error: {
-        type: Object,
-        default: () => { },
-    },
+  error: {
+    type: Object,
+    default: () => { }
+  }
 })
+useHead({
+  title: 'Error'
+})
+</script>
 
-</script >
 <template>
-    <main id="main" class="page page-error">
-        <p class="error">
-            404
-        </p>
-        <divider-way-finder />
+  <main id="main" class="page page-error">
+    <p class="error">
+      404
+    </p>
+    <p>
+      {{ error }}
+    </p>
+    <divider-way-finder />
 
-        <!--rich-text class="error-text">
+    <!-- rich-text class="error-text">
             <h1
                 v-if="error.statusCode === 404"
                 class="error-title"
@@ -36,40 +39,47 @@ const { error } = defineProps({
                 <li><a href="https://library.ucla.edu/help/research-help">Research Help</a></li>
                 <li><a href="https://library.ucla.edu/help/services-resources/accessibility-resources">Accessibility Resources</a></li>
             </ul>
-        </rich-text-->
-    </main>
-</template >
+        </rich-text -->
+  </main>
+</template>
 
 <style lang="scss" scoped>
 .page-error {
-    padding: var(--space-3xl) var(--unit-gutter);
+  padding: var(--space-3xl) var(--unit-gutter);
 
+  .error {
+    font-family: var(--font-secondary);
+    font-size: 248px;
+    font-weight: 600;
+    line-height: 1;
+    background: linear-gradient(20deg,
+        #fd9be0 10.99%,
+        #e29aee 23.02%,
+        #c099ff 32.91%,
+        #8ba0ef 42.44%,
+        #0aa5ff 56.68%,
+        #06bef2 73.09%,
+        #00e0e0 89.01%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    text-align: center;
+  }
+
+  .error-title {
+    @include step-5;
+    margin-bottom: 32px;
+
+    p {
+      margin-bottom: var(--space-xl);
+    }
+  }
+
+  @media #{$small} {
     .error {
-        font-family: var(--font-secondary);
-        font-size: 248px;
-        font-weight: 600;
-        line-height: 1;
-        background: linear-gradient(20deg, #FD9BE0 10.99%, #E29AEE 23.02%, #C099FF 32.91%, #8BA0EF 42.44%, #0AA5FF 56.68%, #06BEF2 73.09%, #00E0E0 89.01%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-        text-align: center;
+      font-size: 128px;
     }
-
-    .error-title {
-        @include step-5;
-        margin-bottom: 32px;
-
-        p {
-            margin-bottom: var(--space-xl);
-        }
-    }
-
-    @media #{$small} {
-        .error {
-            font-size: 128px;
-        }
-    }
+  }
 }
 </style>

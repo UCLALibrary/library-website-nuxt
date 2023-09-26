@@ -1,49 +1,50 @@
 <script setup>
 // MOCK DATA
-import * as MOCK_API from "~/data/mock-api.json"
 
-const footerPrimaryItems = [...MOCK_API.shortLinks]
+/* const footerPrimaryItems = [...MOCK_API.shortLinks]
 const parsedItems = computed(() => {
-    // Restructuring item to support text key
-    return footerPrimaryItems.map((obj) => {
-        return {
-            ...obj,
-            text: obj.name,
-        }
-    })
+  // Restructuring item to support text key
+  return footerPrimaryItems.map((obj) => {
+    return {
+      ...obj,
+      text: obj.name,
+    }
+  })
 })
 const pressItems = [{ ...MOCK_API.links[0] }]
 const parsedPressItems = computed(() => {
-    // Restructuring item to support text key
-    return pressItems.map((obj) => {
-        return {
-            ...obj,
-            text: obj.name,
-        }
-    })
-})
+  // Restructuring item to support text key
+  return pressItems.map((obj) => {
+    return {
+      ...obj,
+      text: obj.name,
+    }
+  })
+}) */
 
 const classes = computed(() => [
-    "layout",
-    "layout-default",
-    // { "has-scrolled": this.$store.state.sTop },
-    // { "has-scrolled-past-header": this.$store.state.sTop >= 150 },
+  'layout',
+  'layout-default',
+  { 'has-scrolled': sTop.value },
+  { 'has-scrolled-past-header': sTop.value >= 150 }
 ])
 
 useHead({
-    titleTemplate: "%s | UCLA Library",
+  titleTemplate: '%s | UCLA Library'
 })
 </script>
-<template>
-    <div :class="classes">
-        <!--nav-primary class="primary" /-->
-        <main>
-            <slot></slot>
-        </main>
 
-        <!--footer-primary :social-items="parsedItems" :press-items="parsedPressItems" :form="false" /-->
-    </div>
+<template>
+  <div :class="classes">
+    <!-- nav-primary class="primary" / -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- footer-primary :social-items="parsedItems" :press-items="parsedPressItems" :form="false" / -->
+  </div>
 </template>
+
 <style lang="scss" scoped>
 .layout-default {
     min-height: 100vh;

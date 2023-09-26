@@ -70,6 +70,7 @@ typings/
 
 # Nuxt generate
 dist
+.output
 
 # vuepress build output
 .vuepress/dist
@@ -97,3 +98,4 @@ storybook-static
 # Cypress
 cypress/fixtures/example.json
 cypress/screenshots
+
