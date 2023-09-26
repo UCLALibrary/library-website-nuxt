@@ -39,11 +39,11 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 8
-      - uses: cypress-io/github-action@v3
+      - uses: cypress-io/github-action@v5
         with:
           start: pnpm dlx serve .output/public
           install: false
-          command-prefix: percy exec -- pnpx
+          command-prefix: 'percy exec -- pnpx'
           wait-on: http://localhost:3000
         env:
           PERCY_TOKEN: ${{ secrets.NETLIFY_SITE_ID_NUXT3X }}
