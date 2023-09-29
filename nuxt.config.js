@@ -1,4 +1,6 @@
 /* eslint-env node */
+import axios from 'axios'
+
 export default {
     server: {
         port: 3000,
@@ -101,6 +103,15 @@ export default {
         fallback: "404.html",
         interval: 500,
         concurrency: 10,
+        async routes() {
+            const result = await axios({
+                url: process.env.CRAFT_ENDPOINT,
+                method: "post",
+                data: { query: "query AllPages { entries { uri } }" },
+            })
+            console.log(result)
+            return result.data.data.entries.map(entry => "/" + entry.uri)
+        },
     },
 
     /*

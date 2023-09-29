@@ -1,6 +1,8 @@
 function queryFilterHasValues(filters,configFilters) {
     if (!filters) return false
-    let routeQueryFilters = JSON.parse(filters)
+    let routeQueryFilters = (typeof filters === 'string' || filters instanceof String)
+        ? JSON.parse(filters)
+        : filters
     /* console.log(
                 "is route query exixts:" + JSON.stringify(routeQueryFilters)
             )*/

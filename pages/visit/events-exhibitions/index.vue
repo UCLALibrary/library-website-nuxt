@@ -218,14 +218,7 @@ export default {
     async fetch() {
         // this.events = []
         this.hits = []
-        if (
-            (this.$route.query.q && this.$route.query.q !== "") ||
-            (this.$route.query.filters &&
-                queryFilterHasValues(
-                    this.$route.query.filters,
-                    config.eventsExhibitionsList.filters
-                ))
-        ) {
+        if ( this.hasSearchQuery ) {
             if (!this.page.title) {
                 const data = await this.$graphql.default.request(
                     EXHIBITIONS_AND_EVENTS_LIST_SINGLE
@@ -234,18 +227,27 @@ export default {
                 this.page["text"] = _get(data, "entry.text", "")
             }
             let query_text = this.$route.query.q || "*"
+
+            const { past, ...filters } = this.routeFilters
+            const extrafilters = ( past != "yes" ) ? [
+                {
+                    "range": {
+                        "endDateWithTime": {
+                            "gte": "now",
+                        },
+                    },
+                },
+            ] : []
             const results = await this.$dataApi.keywordSearchWithFilters(
                 query_text,
                 config.eventsExhibitionsList.searchFields,
                 "sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries",
-                (this.$route.query.filters &&
-                    JSON.parse(this.$route.query.filters)) ||
-                    {},
+                filters,
                 config.eventsExhibitionsList.sortField,
                 config.eventsExhibitionsList.orderBy,
                 config.eventsExhibitionsList.resultFields,
                 config.eventsExhibitionsList.filters,
-                config.eventsExhibitionsList.extraFilters,
+                extrafilters,
             )
             //console.log("getsearchdata method:" + JSON.stringify(results))
             // this.events = []
@@ -265,10 +267,7 @@ export default {
             }
             this.searchGenericQuery = {
                 queryText: this.$route.query.q || "",
-                queryFilters:
-                    (this.$route.query.filters &&
-                        JSON.parse(this.$route.query.filters)) ||
-                    {},
+                queryFilters: this.routeFilters,
             }
         } else {
             // if route queries are empty fetch data from craft
@@ -306,6 +305,11 @@ export default {
         }
     },
     computed: {
+        hasSearchQuery() {
+            return _get(this, "$route.query.q", "") !== ""
+                || queryFilterHasValues(this.routeFilters, config.eventsExhibitionsList.filters)
+                || this.routeFilters.past == "yes"
+        },
         parsedFeaturedEventsAndExhibits() {
             return this.page.featuredEvents.map((obj) => {
                 return {
@@ -421,6 +425,9 @@ export default {
         parsedPlaceholder() {
             return `Search ${this.page.title}`
         },
+        routeFilters() {
+            return JSON.parse(_get(this, "$route.query.filters", "[]"))
+        },            
     },
     // This will recall fetch() when these query params change
     // watchQuery: ["offset", "q"],
@@ -449,10 +456,17 @@ export default {
             /*console.log(
                 "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
             )*/
-            this.searchFilters = getListingFilters(
-                searchAggsResponse,
-                config.eventsExhibitionsList.filters
-            )
+            this.searchFilters = [
+                ...getListingFilters(
+                    searchAggsResponse,
+                    config.eventsExhibitionsList.filters
+                ),
+                {
+                    esFieldName: "past",
+                    inputType: "single-checkbox",
+                    label: "Include Past Events",
+                }, 
+            ]
         },
         parseHits(hits = []) {
             return hits.map((obj) => {
