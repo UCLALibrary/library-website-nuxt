@@ -1,21 +1,35 @@
 <template>
-    <main id="main" class="page page-error">
-        <p class="error">404</p>
+    <main
+        id="main"
+        class="page page-error"
+    >
+        <p class="error">
+            404
+        </p>
         <divider-way-finder />
 
         <rich-text class="error-text">
-            <h1 v-if="error.statusCode === 404" class="error-title">
+            <h1
+                v-if="error.statusCode === 404"
+                class="error-title"
+            >
                 Page not found
             </h1>
-            <h1 v-else class="error-title">An error occurred</h1>
+            <h1
+                v-else
+                class="error-title"
+            >
+                An error occurred
+            </h1>
 
-            <h3 class="error-title">
-                {{ error }}
+            {{ error }}
             </h3>
 
             <p>
                 We can’t find the page you are looking for, but we're here to
-                help. <nuxt-link to="/"> Go back to home page </nuxt-link> or
+                help. <nuxt-link to="/">
+                    Go back to home page
+                </nuxt-link> or
                 try these regularly visited links:
             </p>
             <ul>
@@ -23,15 +37,14 @@
                     <a href="https://library.ucla.edu">UCLA Library Home</a>
                 </li>
                 <li>
-                    <a href="https://library.ucla.edu/help/research-help"
-                        >Research Help</a
-                    >
+                    <a
+                        href="https://library.ucla.edu/help/research-help"
+                    >Research Help</a>
                 </li>
                 <li>
                     <a
                         href="https://library.ucla.edu/help/services-resources/accessibility-resources"
-                        >Accessibility Resources</a
-                    >
+                    >Accessibility Resources</a>
                 </li>
             </ul>
         </rich-text>
