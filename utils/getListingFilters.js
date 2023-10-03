@@ -12,7 +12,7 @@ function getListingFilters(searchAggsResponse,filterFields) {
             label: field.label,
             esFieldName: field.esFieldName,
             inputType: field.inputType,
-            items: field.items || _get(searchAggsResponse, `${field.label}.buckets`, []).map(
+            items: _get(searchAggsResponse, `${field.label}.buckets`, []).map(
                 (value) => {
                     return { name: value.key }
                 }),
