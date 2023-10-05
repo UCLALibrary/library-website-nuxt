@@ -1,8 +1,5 @@
 <template lang="html">
-    <main
-        id="main"
-        class="page page-project-list"
-    >
+    <main id="main" class="page page-project-list">
         <masthead-secondary
             :title="summaryData.projectListTitle"
             :text="summaryData.projectListSummary"
@@ -16,35 +13,34 @@
             placeholder="Search Projects"
             @search-ready="getSearchData"
         />
+
         <section-wrapper theme="divider">
             <divider-way-finder class="search-margin" />
         </section-wrapper>
+
         <section-wrapper
             v-show="
                 page &&
-                    projectList.length &&
-                    hits.length == 0 &&
-                    !noResultsFound
+                projectList.length &&
+                hits.length == 0 &&
+                !noResultsFound
             "
             section-title="All Projects"
         >
             <section-teaser-card :items="projectList" />
         </section-wrapper>
+
         <section-wrapper
             v-show="hits && hits.length > 0"
             class="section-no-top-margin"
         >
-            <h2
-                v-if="$route.query.q"
-                class="about-results"
-            >
+            <h2 v-if="$route.query.q" class="about-results">
                 Displaying {{ hits.length }} results for
-                <strong><em>“{{ $route.query.q }}</em></strong>”
+                <strong
+                    ><em>“{{ $route.query.q }}</em></strong
+                >”
             </h2>
-            <h2
-                v-else
-                class="about-results"
-            >
+            <h2 v-else class="about-results">
                 Displaying {{ hits.length }} results
             </h2>
 
@@ -52,16 +48,13 @@
         </section-wrapper>
 
         <!-- NO RESULTS -->
-        <section-wrapper
-            v-show="noResultsFound"
-            class="section-no-top-margin"
-        >
+        <section-wrapper v-show="noResultsFound" class="section-no-top-margin">
             <div class="error-text">
                 <rich-text>
                     <h2>Search for “{{ $route.query.q }}” not found.</h2>
                     <p>
                         We can’t find the term you are looking for on this page.
-                        <br>
+                        <br />
                         <!-- Try searching the whole site from
                         <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
                     </p>
@@ -302,4 +295,16 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.generic-search {
+    z-index: 30;
+}
+
+::v-deep .section-teaser-card {
+    z-index: 0;
+}
+
+::v-deep .block-highlight .meta {
+    z-index: 0;
+}
+</style>
