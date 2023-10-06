@@ -54,7 +54,7 @@ export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-lin
     async fetchHeader() {
       try {
         const { data } = await useAsyncQuery(HEADER_MAIN_MENU_ITEMS) // eslint-disable-line no-undef
-        console.log(JSON.stringify(data._value))
+
         this.header = data._value
       } catch (e) {
         throw new Error("Craft API error, trying to set globals Header. " + e)
