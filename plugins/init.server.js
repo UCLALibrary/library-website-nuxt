@@ -4,4 +4,8 @@ export default defineNuxtPlugin(async (nuxtApp) => { // eslint-disable-line no-u
   ) */
   const craftGlobals = useGlobals(nuxtApp.$pinia) // eslint-disable-line no-undef
   await craftGlobals.fetchGlobals()
+  await craftGlobals.fetchHeader()
+  await craftGlobals.fetchFooterPrimary()
+  await craftGlobals.fetchFooterSock()
+  await craftGlobals.fetchFooterSponsor()
 })

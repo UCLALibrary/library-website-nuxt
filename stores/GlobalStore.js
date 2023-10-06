@@ -1,12 +1,12 @@
 // GQL
 import GLOBALS from '../gql/queries/Globals.gql'
 
-export const useGlobals = defineStore('globals', { // eslint-disable-line no-undef
+export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-line no-undef
   state: () => ({
     winHeight: 0,
     winWidth: 0,
     sTop: 0,
-    _globals: {},
+    globals: {},
     header: {},
     footerPrimary: {},
     footerSock: {}
@@ -14,9 +14,7 @@ export const useGlobals = defineStore('globals', { // eslint-disable-line no-und
         _user: {}, */
   }),
   getters: {
-    globals() {
-      return this._globals
-    }
+
     /* user() {
             return this._user
         },
@@ -32,18 +30,18 @@ export const useGlobals = defineStore('globals', { // eslint-disable-line no-und
     setSTop(data) {
       this.sTop = data
     },
-    setGlobals(data) {
-      this.globals = data
-    },
-    setHeader(data) {
-      this.header = data
-    },
-    setFooterPrimary(data) {
-      this.footerPrimary = data
-    },
-    setFooterSock(data) {
-      this.footerSock = data
-    },
+    /* setGlobals(data) {
+       this._globals = data
+     },
+     setHeader(data) {
+       this._header = data
+     },
+     setFooterPrimary(data) {
+       this.footerPrimary = data
+     },
+     setFooterSock(data) {
+       this.footerSock = data
+     },*/
 
     async fetchGlobals() {
       const { data } = await useAsyncQuery(GLOBALS) // eslint-disable-line no-undef
@@ -59,7 +57,8 @@ export const useGlobals = defineStore('globals', { // eslint-disable-line no-und
     },
     async fetchHeader() { },
     async fetchFooterPrimary() { },
-    async fetchFooterSock() { }
+    async fetchFooterSock() { },
+    async fetchFooterSponsor() { }
     /* setToken(token) {
             this._token = token
             cookie.set("token", token, { expires: 7 })
