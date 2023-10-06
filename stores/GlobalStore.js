@@ -1,5 +1,8 @@
 // GQL
 import GLOBALS from '../gql/queries/Globals.gql'
+import HEADER_MAIN_MENU_ITEMS from '../gql/queries/HeaderMainMenuItems.gql'
+import FOOTER_PRIMARY_ITEMS from "../gql/queries/FooterPrimaryItems.gql"
+import FOOTER_SOCK_ITEMS from "../gql/queries/FooterSockItems.gql"
 
 export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-line no-undef
   state: () => ({
@@ -30,35 +33,51 @@ export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-lin
     setSTop(data) {
       this.sTop = data
     },
-    /* setGlobals(data) {
-       this._globals = data
-     },
-     setHeader(data) {
-       this._header = data
-     },
-     setFooterPrimary(data) {
-       this.footerPrimary = data
-     },
-     setFooterSock(data) {
-       this.footerSock = data
-     },*/
+
 
     async fetchGlobals() {
-      const { data } = await useAsyncQuery(GLOBALS) // eslint-disable-line no-undef
-      // console.log(data?._value?.globalSets)
-      const globalData = removeEmpties(data._value.globalSets || []) // eslint-disable-line no-undef
+      try {
+        const { data } = await useAsyncQuery(GLOBALS) // eslint-disable-line no-undef
 
-      // Shape data from Craft
-      const craftData = Object.fromEntries(
-        globalData.map(item => [item.handle, item])
-      )
-      this._globals = craftData
-      // console.log("global store", this._globals)
+        const globalData = removeEmpties(data._value.globalSets || []) // eslint-disable-line no-undef
+
+        // Shape data from Craft
+        const craftData = Object.fromEntries(
+          globalData.map(item => [item.handle, item])
+        )
+        this.globals = craftData
+      } catch (e) {
+        throw new Error("Craft API error, trying to set globals. " + e)
+      }
+
     },
-    async fetchHeader() { },
-    async fetchFooterPrimary() { },
-    async fetchFooterSock() { },
-    async fetchFooterSponsor() { }
+    async fetchHeader() {
+      try {
+        const { data } = await useAsyncQuery(HEADER_MAIN_MENU_ITEMS) // eslint-disable-line no-undef
+        console.log(JSON.stringify(data._value))
+        this.header = data._value
+      } catch (e) {
+        throw new Error("Craft API error, trying to set globals Header. " + e)
+      }
+    },
+    async fetchFooterPrimary() {
+      try {
+        const { data } = await useAsyncQuery(FOOTER_PRIMARY_ITEMS) // eslint-disable-line no-undef
+
+        this.footerPrimary = data._value
+      } catch (e) {
+        throw new Error("Craft API error, trying to set globals FooterPrimary. " + e)
+      }
+    },
+    async fetchFooterSock() {
+      try {
+        const { data } = await useAsyncQuery(FOOTER_SOCK_ITEMS) // eslint-disable-line no-undef
+        this.footerSock = data._value
+      } catch (e) {
+        throw new Error("Craft API error, trying to set globals FooterSockData. " + e)
+      }
+    }
+
     /* setToken(token) {
             this._token = token
             cookie.set("token", token, { expires: 7 })

@@ -49,6 +49,9 @@ devDependencies:
   ucla-library-design-tokens:
     specifier: ^5.5.0
     version: 5.5.0
+  ucla-library-website-components:
+    specifier: 2.39.0-alpha.10
+    version: 2.39.0-alpha.10(typescript@5.2.2)(vue-router@4.2.5)(vue@3.3.4)
 
 packages:
 
@@ -6731,7 +6734,6 @@ packages:
       typescript: 5.2.2
       vue: 3.3.4
       vue-demi: 0.14.6(vue@3.3.4)
-    dev: false
 
   /pkg-types@1.0.3:
     resolution: {integrity: sha512-nN7pYi0AQqJnoLPC9eHFQ8AcyaixBUOwvqc5TDnIKCMEE6I0y8P7OKA7fPexsXGCGxQDl/cmrLAp26LhcwxZ4A==}
@@ -8105,6 +8107,21 @@ packages:
     resolution: {integrity: sha512-Y2qRlOdTbtU03S+/0gRQn/h2SypxP0QEPxkqLKDDVgDePR9tepf7iOCkWWUwfvcRtyEWtQirsC20e13kKAbBLg==}
     dev: true
 
+  /ucla-library-website-components@2.39.0-alpha.10(typescript@5.2.2)(vue-router@4.2.5)(vue@3.3.4):
+    resolution: {integrity: sha512-KcAKuVPePPV4CqJXTb0M+Q5HOj1CdI6f6mh9J0pGzxPf5Y8yC7282wtuJKiKmCw1dRjM7vV9WR0pZjm/MqbF/A==}
+    peerDependencies:
+      vue: ^3.3.4
+      vue-router: ^4.2.4
+    dependencies:
+      lodash: 4.17.21
+      pinia: 2.1.6(typescript@5.2.2)(vue@3.3.4)
+      vue: 3.3.4
+      vue-router: 4.2.5(vue@3.3.4)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - typescript
+    dev: true
+
   /ufo@1.3.0:
     resolution: {integrity: sha512-bRn3CsoojyNStCZe0BG0Mt4Nr/4KF+rhFlnNXybgqt5pXHNFRlqinSoQaTrGyzE4X8aHplSb+TorH+COin9Yxw==}
 
@@ -8607,7 +8624,6 @@ packages:
         optional: true
     dependencies:
       vue: 3.3.4
-    dev: false
 
   /vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}

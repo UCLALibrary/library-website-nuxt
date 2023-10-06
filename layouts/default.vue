@@ -12,14 +12,14 @@ useHead({
   ]
 })
 
-const globalStore = useGlobalsStore()
+const globalStore = useGlobalStore()
 
 const libraryAlert = computed(() => {
-  /* console.log(
+  /*console.log(
     'in library alert computed property',
-    globals.value.libraryAlert,
-  ) */
-  if (globals.value) {
+    globalStore.header,
+  )*/
+  if (globalStore.globals) {
     const alert = globalStore.globals.libraryAlert
     if (
       alert
