@@ -87,7 +87,7 @@ export default defineNuxtConfig({
   ],
 
   imports: {
-    dirs: ['store', 'gql'],
+    dirs: ['stores', 'gql'],
   },
 
   apollo: {

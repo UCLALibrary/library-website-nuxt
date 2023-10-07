@@ -13,7 +13,7 @@ function onScroll(store, event = {}) {
 }
 
 export default defineNuxtPlugin((nuxtApp) => { // eslint-disable-line no-undef
-  const windowSizeGlobals = useGlobals(nuxtApp.$pinia) // eslint-disable-line no-undef
+  const windowSizeGlobals = useGlobalStore(nuxtApp.$pinia) // eslint-disable-line no-undef
   window.addEventListener('resize', (event) => {
     onResize(windowSizeGlobals, event)
   })
