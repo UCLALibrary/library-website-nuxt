@@ -1,5 +1,4 @@
 <script setup>
-
 useHead({
   titleTemplate: title =>
     title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library',
@@ -15,10 +14,10 @@ useHead({
 const globalStore = useGlobalStore()
 
 const libraryAlert = computed(() => {
-  /*console.log(
+  /* console.log(
     'in library alert computed property',
     globalStore.header,
-  )*/
+  ) */
   if (globalStore.globals) {
     const alert = globalStore.globals.libraryAlert
     if (

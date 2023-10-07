@@ -1,8 +1,8 @@
 // GQL
 import GLOBALS from '../gql/queries/Globals.gql'
 import HEADER_MAIN_MENU_ITEMS from '../gql/queries/HeaderMainMenuItems.gql'
-import FOOTER_PRIMARY_ITEMS from "../gql/queries/FooterPrimaryItems.gql"
-import FOOTER_SOCK_ITEMS from "../gql/queries/FooterSockItems.gql"
+import FOOTER_PRIMARY_ITEMS from '../gql/queries/FooterPrimaryItems.gql'
+import FOOTER_SOCK_ITEMS from '../gql/queries/FooterSockItems.gql'
 
 export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-line no-undef
   state: () => ({
@@ -34,7 +34,6 @@ export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-lin
       this.sTop = data
     },
 
-
     async fetchGlobals() {
       try {
         const { data } = await useAsyncQuery(GLOBALS) // eslint-disable-line no-undef
@@ -46,18 +45,19 @@ export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-lin
           globalData.map(item => [item.handle, item])
         )
         this.globals = craftData
-      } catch (e) {
-        throw new Error("Craft API error, trying to set globals. " + e)
       }
-
+      catch (e) {
+        throw new Error(`Craft API error, trying to set globals. ${e}`)
+      }
     },
     async fetchHeader() {
       try {
         const { data } = await useAsyncQuery(HEADER_MAIN_MENU_ITEMS) // eslint-disable-line no-undef
 
         this.header = data._value
-      } catch (e) {
-        throw new Error("Craft API error, trying to set globals Header. " + e)
+      }
+      catch (e) {
+        throw new Error(`Craft API error, trying to set globals Header. ${e}`)
       }
     },
     async fetchFooterPrimary() {
@@ -65,16 +65,18 @@ export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-lin
         const { data } = await useAsyncQuery(FOOTER_PRIMARY_ITEMS) // eslint-disable-line no-undef
 
         this.footerPrimary = data._value
-      } catch (e) {
-        throw new Error("Craft API error, trying to set globals FooterPrimary. " + e)
+      }
+      catch (e) {
+        throw new Error(`Craft API error, trying to set globals FooterPrimary. ${e}`)
       }
     },
     async fetchFooterSock() {
       try {
         const { data } = await useAsyncQuery(FOOTER_SOCK_ITEMS) // eslint-disable-line no-undef
         this.footerSock = data._value
-      } catch (e) {
-        throw new Error("Craft API error, trying to set globals FooterSockData. " + e)
+      }
+      catch (e) {
+        throw new Error(`Craft API error, trying to set globals FooterSockData. ${e}`)
       }
     }
 
