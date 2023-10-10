@@ -81,8 +81,8 @@ export default function ({ $config }, inject) {
         const dataAlias = await responseAlias.json()
 
         // use omputed values for object keys: indices_boost: [ { [libraryIndex]: 3.0 },{ [libguideIndex]: 1.3 }],
-        const libraryIndex = Object.keys(dataAlias)[0]
-        const libguideIndex = Object.keys(dataAlias)[1]
+        const libraryIndex = !Object.keys(dataAlias)[0].includes('libguides') ? Object.keys(dataAlias)[0] : Object.keys(dataAlias)[1]
+        const libguideIndex = Object.keys(dataAlias)[1].includes('libguides') ? Object.keys(dataAlias)[1] : Object.keys(dataAlias)[0]
 
         const response = await fetch(
             `${$config.esURL}/${$config.esIndex}/_search`,
