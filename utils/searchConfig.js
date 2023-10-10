@@ -307,16 +307,6 @@ const config = {
                 inputType: "date",
             } */
         ],
-        extraFilters: [
-            // no manual control
-            {
-                "range": {
-                    "endDateWithTime": {
-                        "gte": "now",
-                    },
-                },
-            },
-        ],
         resultFields: ["*"],
         sortField: "startDateWithTime",
         orderBy: "asc",

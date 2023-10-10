@@ -23,6 +23,16 @@ query EventsExhibitionsList {
                     format: "Y-m-d\\TH:i:s"
                     timezone: "America/Los_Angeles"
                 )
+            startDate: startDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i:s"
+                    timezone: "America/Los_Angeles"
+                )
+            endDate: endDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i:s"
+                    timezone: "America/Los_Angeles"
+                )
             associatedLocations {
                 title
             }

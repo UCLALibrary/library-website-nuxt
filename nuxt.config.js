@@ -1,4 +1,7 @@
 /* eslint-env node */
+import axios from 'axios'
+import _get from "lodash/get"
+
 export default {
     server: {
         port: 3000,
@@ -101,6 +104,18 @@ export default {
         fallback: "404.html",
         interval: 500,
         concurrency: 10,
+        async routes() {
+            const result = await axios({
+                url: process.env.CRAFT_ENDPOINT,
+                method: "post",
+                data: { query: 'query EventsExhibitionsList { events: entries(section: "event") { uri }  series: entries(section: "workshopOrEventSeries") { uri } exhibitions: entries(section: "exhibition") { uri } }' },
+            })
+            return [
+                ..._get(result, "data.data.events", []),
+                ..._get(result, "data.data.series", []),
+                ..._get(result, "data.data.exhibitions", []),
+            ].map(entry => "/" + entry.uri)
+        },
     },
 
     /*
