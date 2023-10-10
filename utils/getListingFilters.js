@@ -4,28 +4,20 @@
  * @returns {Array}
  */
 
+import _get from "lodash/get"
 
 function getListingFilters(searchAggsResponse,filterFields) {
-    //console.log()
-    const filters = []
-    for(const field of filterFields){
-        let obj = {
+    return filterFields.map( field => {
+        return {
             label: field.label,
             esFieldName: field.esFieldName,
             inputType: field.inputType,
-            items: (searchAggsResponse && searchAggsResponse[field.label] && searchAggsResponse[field.label].buckets.reduce(
-                (accumulator, value) => {
-                    
-                    return [...accumulator, { name: value.key }]
-                },
-                []
-            ))|| []
+            items: _get(searchAggsResponse, `${field.label}.buckets`, []).map(
+                (value) => {
+                    return { name: value.key }
+                }),
         }
-        console.log("getlisting obj:"+JSON.stringify(obj))
-        filters.push(obj)
-    }
-    
-    return filters
+    })
 }
 
 export default getListingFilters

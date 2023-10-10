@@ -34,6 +34,16 @@ query EventDetail($slug: [String!]) {
                     format: "Y-m-d\\TH:i"
                     timezone: "America/Los_Angeles"
                 )
+            startDate: startDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
+            endDate: endDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i"
+                    timezone: "America/Los_Angeles"
+                )
             eventType {
                 ... on eventType_Category {
                     id
