@@ -17,13 +17,17 @@ export default function ({ $config }, inject) {
             $config.esIndex === ""
         )
             return
-        console.log("keyword:"+keyword)
+        console.log("keyword:" + keyword)
         /*if(keyword && keyword !== "*:*") {
-            keyword = keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"])/g, "\\$1")  
+            keyword = keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"])/g, "\\$1")
         }*/
         console.log("Hello from dataapi",
             JSON.stringify({
                 from: from,
+                indices_boost: [
+                    { "`${$config.esTempIndex}`": 1.4 },
+                    { "`${$config.libguidesEsIndex}`": 1.3 }
+                ],
                 query: {
                     bool: {
                         must: [
@@ -50,6 +54,36 @@ export default function ({ $config }, inject) {
                 },
             })
         )
+
+        // dataAlias returns:
+        // {
+        //     "apps-dev-parinita-local-2023-09-12t19-40-30.171z" : {
+        //       "aliases" : {
+        //         "apps-dev-current-library-website" : { }
+        //       }
+        //     },
+        //     "apps-dev-libguides" : {
+        //       "aliases" : {
+        //         "apps-dev-current-library-website" : { }
+        //       }
+        //     }
+        //   }
+
+        const responseAlias = await fetch(
+            `${$config.esURL}/_alias/${$config.esIndex}`,
+            {
+                headers: {
+                    Authorization: `ApiKey ${$config.esReadKey}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        )
+        const dataAlias = await responseAlias.json()
+
+        // use omputed values for object keys: indices_boost: [ { [libraryIndex]: 3.0 },{ [libguideIndex]: 1.3 }],
+        const libraryIndex = !Object.keys(dataAlias)[0].includes('libguides') ? Object.keys(dataAlias)[0] : Object.keys(dataAlias)[1]
+        const libguideIndex = Object.keys(dataAlias)[1].includes('libguides') ? Object.keys(dataAlias)[1] : Object.keys(dataAlias)[0]
+
         const response = await fetch(
             `${$config.esURL}/${$config.esIndex}/_search`,
             {
@@ -60,6 +94,10 @@ export default function ({ $config }, inject) {
                 method: "POST",
                 body: JSON.stringify({
                     from: from,
+                    indices_boost: [
+                        { [libraryIndex]: 3.0 },
+                        { [libguideIndex]: 1.3 }
+                    ],
                     query: {
                         bool: {
                             must: [
@@ -93,35 +131,35 @@ export default function ({ $config }, inject) {
         const data = await response.json()
         return data
     }
-    function parseFilterQuerySiteSearch(queryFilters, configMapping){
+    function parseFilterQuerySiteSearch(queryFilters, configMapping) {
         console.log("In parseFilterQuerySiteSearch")
         if (!queryFilters || queryFilters.length == 0) return []
         let boolQuery = []
         /*
-        [
-                {
-                    "term": {
-                        "sectionHandle.keyword":"Powell"
-                    }
+    [
+            {
+                "term": {
+                    "sectionHandle.keyword":"Powell"
                 }
-            ]
+            }
+        ]
 
 
-        */
+    */
         for (const key in queryFilters) {
             // console.log(key)
-            
+
             if (Array.isArray(queryFilters[key]) && queryFilters[key].length > 0) {
                 let filterObj = { terms: {} }
                 let values = []
-                for(let value of queryFilters[key]){
+                for (let value of queryFilters[key]) {
                     const element = configMapping.find(element => element.key === value)
                     values.push(element && element.terms)
                 }
                 // console.log("final values",values)
                 filterObj.terms[key] = values.flat()
                 boolQuery.push(filterObj)
-            } 
+            }
         }
         // console.log("bool query:"+JSON.stringify(boolQuery))
         return boolQuery
@@ -153,8 +191,8 @@ export default function ({ $config }, inject) {
         console.log("sort:" + sort)
 
         /* if(keyword && keyword !== "*:*" && keyword !== "*") {
-            keyword = keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"])/g, "\\$1")  
-        }*/
+        keyword = keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"])/g, "\\$1")
+    }*/
 
         let testquery = JSON.stringify({
             _source: [...source],
@@ -325,16 +363,16 @@ export default function ({ $config }, inject) {
         if (!filters || filters.length == 0) return []
         let boolQuery = []
         /*
-        [
-                {
-                    "term": {
-                        "locations.title.keyword":"Powell"
-                    }
+    [
+            {
+                "term": {
+                    "locations.title.keyword":"Powell"
                 }
-            ]
+            }
+        ]
 
 
-        */
+    */
         for (const key in filters) {
             // console.log(key)
             if (Array.isArray(filters[key]) && filters[key].length > 0) {
