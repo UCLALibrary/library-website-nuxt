@@ -27,7 +27,7 @@ describe("Website Homepage", () => {
         cy.get(".masthead-primary")
             .find(".search-home")
             .should("be.visible")
-            .and("contain", "UCLA Library Website")
+            .and("contain", "Site Search")
             .and("contain", "UC Library Search")
         cy.get(".masthead-primary")
             .find("input[type='search']")
