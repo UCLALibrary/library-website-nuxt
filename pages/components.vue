@@ -142,10 +142,8 @@ const amenities = [
     <button-link label="Egest perl Conub" to="/help/more" />
     <br>
     <br>
-    <button-link
-      label="Etiam et Ultrices" :is-secondary="true" :is-download="true"
-      to="https://calendar.library.ucla.edu/"
-    />
+    <button-link label="Etiam et Ultrices" :is-secondary="true" :is-download="true"
+      to="https://calendar.library.ucla.edu/" />
     <br>
     <br>
     <button-link label="Etiam et Ultrices" :is-secondary="true" to="https://calendar.library.ucla.edu/" />
@@ -166,13 +164,11 @@ const amenities = [
     <br>
     <h2> BlockMediaWithText</h2>
     <br>
-    <block-media-with-text
-      :section-header="mockMediaWithText.mediaWithText[0].titleLink"
+    <block-media-with-text :section-header="mockMediaWithText.mediaWithText[0].titleLink"
       :short-description="mockMediaWithText.mediaWithText[0].description"
       :button-text="mockMediaWithText.mediaWithText[0].buttonText"
       :button-url="mockMediaWithText.mediaWithText[0].buttonUrl" :item="itemVideo" :cover-image="coverImage"
-      type-media="video"
-    />
+      type-media="video" />
     <br>
     <br>
     <h2>AlphabeticalBrowseBy Component</h2>
@@ -184,10 +180,8 @@ const amenities = [
     <br>
     <h2>SearchResult Component</h2>
     <br>
-    <SearchResult
-      :category="mockSearchResult.category" :title="mockSearchResult.title"
-      :summary="mockSearchResult.summary" :to="mockSearchResult.to"
-    />
+    <SearchResult :category="mockSearchResult.category" :title="mockSearchResult.title"
+      :summary="mockSearchResult.summary" :to="mockSearchResult.to" />
     <br>
     <hr>
     <br>
@@ -199,16 +193,12 @@ const amenities = [
     <br>
     <h2>BlockCallToAction Component</h2>
     <br>
-    <BlockCallToAction
-      :svg-name="mockBlockToAction.svgName" :title="mockBlockToAction.title"
+    <BlockCallToAction :svg-name="mockBlockToAction.svgName" :title="mockBlockToAction.title"
       :text="mockBlockToAction.text" :name="mockBlockToAction.name" :to="mockBlockToAction.to" :is-dark="false"
-      :is-small-size="false"
-    />
+      :is-small-size="false" />
     <br>
-    <BlockCallToAction
-      svg-name="svg-call-to-action-money" :title="mockBlockToAction.title" :text="mockBlockToAction.text"
-      :name="mockBlockToAction.name" :to="mockBlockToAction.to" :is-small-size="true" :is-dark="true"
-    />
+    <BlockCallToAction svg-name="svg-call-to-action-money" :title="mockBlockToAction.title" :text="mockBlockToAction.text"
+      :name="mockBlockToAction.name" :to="mockBlockToAction.to" :is-small-size="true" :is-dark="true" />
     <br>
     <hr>
     <br>
