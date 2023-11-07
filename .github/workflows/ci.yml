@@ -59,7 +59,7 @@ jobs:
         run: |
           echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-deploy-preview" >> $GITHUB_ENV
         if: github.ref_name!='nuxt3.x'
-      - name: Sets env vars for main merge
+      - name: Sets env vars for nuxt3.x merge
         run: |
           echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
         if: github.ref_name=='nuxt3.x'

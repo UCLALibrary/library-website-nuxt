@@ -45,18 +45,18 @@ const classes = computed(() => [
   <div :class="classes">
     <!-- VueSkipTo to="#main" label="Skip to main content" / -->
     <!-- this is not working in static build -->
-    <!-- header-smart / -->
+    <header-smart />
 
-    <!-- section-wrapper class="section-alert" theme="divider" -->
-    <site-notification-alert v-if="libraryAlert" class="library-alert" v-bind="libraryAlert" />
-    <!-- /section-wrapper -->
+    <section-wrapper class="section-alert" theme="divider">
+      <site-notification-alert v-if="libraryAlert" class="library-alert" v-bind="libraryAlert" />
+    </section-wrapper>
 
     <slot />
 
-    <!-- footer>
-            <footer-primary :form="true" />
-            <footer-sock />
-        </footer -->
+    <footer>
+      <footer-primary :form="true" />
+      <footer-sock />
+    </footer>
     <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" />
   </div>
 </template>

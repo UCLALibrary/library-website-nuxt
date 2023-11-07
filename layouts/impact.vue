@@ -1,7 +1,8 @@
 <script setup>
 // MOCK DATA
+import * as MOCK_API from '~/data/mock-api.json'
 
-/* const footerPrimaryItems = [...MOCK_API.shortLinks]
+const footerPrimaryItems = [...MOCK_API.shortLinks]
 const parsedItems = computed(() => {
   // Restructuring item to support text key
   return footerPrimaryItems.map((obj) => {
@@ -20,13 +21,14 @@ const parsedPressItems = computed(() => {
       text: obj.name,
     }
   })
-}) */
+})
+const globalStore = useGlobalStore()
 
 const classes = computed(() => [
   'layout',
   'layout-default',
-  { 'has-scrolled': sTop.value },
-  { 'has-scrolled-past-header': sTop.value >= 150 }
+  { 'has-scrolled': globalStore.sTop },
+  { 'has-scrolled-past-header': globalStore.sTop >= 150 }
 ])
 
 useHead({
@@ -36,32 +38,31 @@ useHead({
 
 <template>
   <div :class="classes">
-    <!-- nav-primary class="primary" / -->
-    <main>
-      <slot />
-    </main>
+    <nav-primary class="primary" />
 
-    <!-- footer-primary :social-items="parsedItems" :press-items="parsedPressItems" :form="false" / -->
+    <slot />
+
+    <footer-primary :social-items="parsedItems" :press-items="parsedPressItems" :form="false" />
   </div>
 </template>
 
 <style lang="scss" scoped>
 .layout-default {
-    min-height: 100vh;
+  min-height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
 
-    > * {
-        width: 100%;
-    }
+  >* {
+    width: 100%;
+  }
 
-    .page {
-        flex: 1 1 auto;
-    }
+  .page {
+    flex: 1 1 auto;
+  }
 }
 </style>
