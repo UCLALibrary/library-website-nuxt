@@ -40,6 +40,9 @@ devDependencies:
   eslint-plugin-cypress:
     specifier: ^2.15.1
     version: 2.15.1(eslint@8.49.0)
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   nuxt:
     specifier: ^v3.7.3
     version: 3.7.3(@types/node@18.17.3)(eslint@8.49.0)(sass@1.66.1)(typescript@5.2.2)
@@ -50,8 +53,8 @@ devDependencies:
     specifier: ^5.5.0
     version: 5.5.0
   ucla-library-website-components:
-    specifier: 2.39.0-alpha.10
-    version: 2.39.0-alpha.10(typescript@5.2.2)(vue-router@4.2.5)(vue@3.3.4)
+    specifier: 2.39.0-alpha.15
+    version: 2.39.0-alpha.15(typescript@5.2.2)(vue-router@4.2.5)(vue@3.3.4)
 
 packages:
 
@@ -477,6 +480,13 @@ packages:
       '@babel/helper-create-class-features-plugin': 7.22.15(@babel/core@7.22.20)
       '@babel/helper-plugin-utils': 7.22.5
       '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.22.20)
+    dev: true
+
+  /@babel/runtime@7.23.2:
+    resolution: {integrity: sha512-mM8eg4yl5D6i3lu2QKPuPH4FArvJ8KhTofbE7jwMUv9KX5mBvwPAqnV3MlyBNqdp9RyRKP6Yck8TrfYrPvX3bg==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.0
     dev: true
 
   /@babel/standalone@7.22.20:
@@ -3555,6 +3565,13 @@ packages:
   /data-uri-to-buffer@4.0.1:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
     engines: {node: '>= 12'}
+    dev: true
+
+  /date-fns@2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
+    dependencies:
+      '@babel/runtime': 7.23.2
     dev: true
 
   /dayjs@1.11.10:
@@ -7304,6 +7321,10 @@ packages:
       redis-errors: 1.2.0
     dev: true
 
+  /regenerator-runtime@0.14.0:
+    resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
+    dev: true
+
   /regexp-tree@0.1.27:
     resolution: {integrity: sha512-iETxpjK6YoRWJG5o6hXLwvjYAoW+FEZn9os0PD/b6AP6xQwsa/Y7lCVgIixBbUPMfhu+i2LtdeAqVTgGlQarfA==}
     hasBin: true
@@ -8107,12 +8128,13 @@ packages:
     resolution: {integrity: sha512-Y2qRlOdTbtU03S+/0gRQn/h2SypxP0QEPxkqLKDDVgDePR9tepf7iOCkWWUwfvcRtyEWtQirsC20e13kKAbBLg==}
     dev: true
 
-  /ucla-library-website-components@2.39.0-alpha.10(typescript@5.2.2)(vue-router@4.2.5)(vue@3.3.4):
-    resolution: {integrity: sha512-KcAKuVPePPV4CqJXTb0M+Q5HOj1CdI6f6mh9J0pGzxPf5Y8yC7282wtuJKiKmCw1dRjM7vV9WR0pZjm/MqbF/A==}
+  /ucla-library-website-components@2.39.0-alpha.15(typescript@5.2.2)(vue-router@4.2.5)(vue@3.3.4):
+    resolution: {integrity: sha512-tQ36OI4Ld88RI+Ep+HtjHgWdSNUUbq1gD898tvNSPoJ2Uu17OIpCTh8WInRyAran0Jf6ATcoOfhI+6OWfmsefA==}
     peerDependencies:
       vue: ^3.3.4
       vue-router: ^4.2.4
     dependencies:
+      date-fns: 2.30.0
       lodash: 4.17.21
       pinia: 2.1.6(typescript@5.2.2)(vue@3.3.4)
       vue: 3.3.4

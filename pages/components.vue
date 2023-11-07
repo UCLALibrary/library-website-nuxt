@@ -25,10 +25,101 @@ const propsForMediaWithText = {
 }
 const itemVideo = MEDIA.VideoFile
 const coverImage = MEDIA.VideoFileCoverImage
+const mockStaff = {
+  subjectArea: 'African American Studies',
+  nameFirst: 'Ariane',
+  nameLast: 'Bicho',
+  to: '/about/staff/ariane-bicho',
+  staffName: 'Ariane Bicho 娘の洋子より',
+  image: null,
+
+  jobTitle: 'Director of Communications and Marketing',
+  departments: [
+    {
+      id: '7272',
+      title: 'Communications',
+    },
+    {
+      id: '7373',
+      title: 'Marketing',
+    },
+  ],
+  alternativeName: [
+    {
+      fullName: '娘の洋子より',
+      languageAltName: 'zh',
+    },
+  ],
+  uri: 'about/staff/ariane-bicho',
+  phone: '(222) 444-5555',
+  email: 'abicho@library.ucla.edu',
+  consultation: 'https://calendar.library.ucla.edu/appointments/aogarcia',
+  academicDepartments: [
+    {
+      id: '11947',
+      title: 'African American Studies',
+    },
+    {
+      id: '11955',
+      title: 'Cluster 60: America in Sixties: Politics, Society, and Culture, 1954 to 1974',
+    },
+  ],
+  locations: [
+    {
+      title: 'DIIT',
+      to: 'location/bar',
+    },
+  ],
+}
+
+const mockStaff2 = {
+  title: 'Humanities and Social Sciences Librarian',
+  alternativeFullName: '陳餘敏卿纪念基金',
+  language: 'zh',
+  text:
+    '<p><span>The UCLA Library seeks a highly collaborative, user-focused professional for the position of Humanities and Social Sciences Librarian. The incumbent will join a multi-location, cross disciplinary team that supports teaching and all levels of research in the humanities and social sciences. </span><span>Note: Two positions are being filled.</span><br /></p>',
+  jobType: [
+    {
+      title: 'Academic Librarian',
+    },
+  ],
+  jobRequisitionNumber: 'JPF08053',
+  jobPostingURL: 'https://recruit.apo.ucla.edu/JPF08053',
+  department: [
+    {
+      title: 'User Engagement',
+    },
+    {
+      title: 'Human Resources',
+    },
+  ],
+  associatedLocations: [
+    {
+      title: 'UCLA Film & Television Archive',
+      uri: 'visit/locations/film-television-archive',
+    },
+    {
+      title: 'Powell Library',
+      uri: 'visit/locations/powell-library',
+    },
+  ],
+}
+const amenities = [
+  'icon-clock',
+  'icon-accessible',
+  'icon-chair',
+  'icon-virtual',
+  'icon-laptop',
+  'icon-locker',
+  'icon-light',
+  'icon-share-printer',
+  'icon-book',
+]
+
 </script>
 
 <template>
-  <div>
+  <div class="components">
     <hr>
     <h2>DividerGeneral Component</h2>
     <DividerGeneral />
@@ -52,10 +143,8 @@ const coverImage = MEDIA.VideoFileCoverImage
     <button-link label="Egest perl Conub" to="/help/more" />
     <br>
     <br>
-    <button-link
-      label="Etiam et Ultrices" :is-secondary="true" :is-download="true"
-      to="https://calendar.library.ucla.edu/"
-    />
+    <button-link label="Etiam et Ultrices" :is-secondary="true" :is-download="true"
+      to="https://calendar.library.ucla.edu/" />
     <br>
     <br>
     <button-link label="Etiam et Ultrices" :is-secondary="true" to="https://calendar.library.ucla.edu/" />
@@ -76,13 +165,11 @@ const coverImage = MEDIA.VideoFileCoverImage
     <br>
     <h2> BlockMediaWithText</h2>
     <br>
-    <block-media-with-text
-      :section-header="mockMediaWithText.mediaWithText[0].titleLink"
+    <block-media-with-text :section-header="mockMediaWithText.mediaWithText[0].titleLink"
       :short-description="mockMediaWithText.mediaWithText[0].description"
       :button-text="mockMediaWithText.mediaWithText[0].buttonText"
       :button-url="mockMediaWithText.mediaWithText[0].buttonUrl" :item="itemVideo" :cover-image="coverImage"
-      type-media="video"
-    />
+      type-media="video" />
     <br>
     <br>
     <h2>AlphabeticalBrowseBy Component</h2>
@@ -94,10 +181,8 @@ const coverImage = MEDIA.VideoFileCoverImage
     <br>
     <h2>SearchResult Component</h2>
     <br>
-    <SearchResult
-      :category="mockSearchResult.category" :title="mockSearchResult.title"
-      :summary="mockSearchResult.summary" :to="mockSearchResult.to"
-    />
+    <SearchResult :category="mockSearchResult.category" :title="mockSearchResult.title"
+      :summary="mockSearchResult.summary" :to="mockSearchResult.to" />
     <br>
     <hr>
     <br>
@@ -109,16 +194,12 @@ const coverImage = MEDIA.VideoFileCoverImage
     <br>
     <h2>BlockCallToAction Component</h2>
     <br>
-    <BlockCallToAction
-      :svg-name="mockBlockToAction.svgName" :title="mockBlockToAction.title"
+    <BlockCallToAction :svg-name="mockBlockToAction.svgName" :title="mockBlockToAction.title"
       :text="mockBlockToAction.text" :name="mockBlockToAction.name" :to="mockBlockToAction.to" :is-dark="false"
-      :is-small-size="false"
-    />
+      :is-small-size="false" />
     <br>
-    <BlockCallToAction
-      svg-name="svg-call-to-action-money" :title="mockBlockToAction.title" :text="mockBlockToAction.text"
-      :name="mockBlockToAction.name" :to="mockBlockToAction.to" :is-small-size="true" :is-dark="true"
-    />
+    <BlockCallToAction svg-name="svg-call-to-action-money" :title="mockBlockToAction.title" :text="mockBlockToAction.text"
+      :name="mockBlockToAction.name" :to="mockBlockToAction.to" :is-small-size="true" :is-dark="true" />
     <br>
     <hr>
     <br>
@@ -126,7 +207,34 @@ const coverImage = MEDIA.VideoFileCoverImage
     <BlockCallToActionTwoUp :items="mockItemsBlockCallToActionTwoUp" />
     <hr>
     <br>
+    <br>
+    <h2>BlockStaffSubjectLibrarian Component</h2>
+    <table>
+      <tbody>
+        <BlockStaffSubjectLibrarian v-bind="mockStaff" />
+      </tbody>
+    </table>
+    <br>
+    <hr>
+    <br>
+    <h2>BlockGenericList Component</h2>
+    <ul>
+      <BlockGenericList v-bind="mockStaff2" />
+    </ul>
+    <br>
+    <hr>
+    <br>
+    <block-amenities :amenities="amenities" />
+    <br>
+    <br>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+div.components,
+ul,
+li,
+div,
+table {
+  margin: 20px;
+}</style>
