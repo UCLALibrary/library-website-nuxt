@@ -1,6 +1,6 @@
 <script setup>
 // MOCK DATA
-import * as MOCK_API from "~/data/mock-api.json"
+import * as MOCK_API from '~/data/mock-api.json'
 
 const footerPrimaryItems = [...MOCK_API.shortLinks]
 const parsedItems = computed(() => {
@@ -41,7 +41,6 @@ useHead({
     <nav-primary class="primary" />
 
     <slot />
-
 
     <footer-primary :social-items="parsedItems" :press-items="parsedPressItems" :form="false" />
   </div>

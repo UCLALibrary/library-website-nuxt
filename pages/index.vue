@@ -1,26 +1,22 @@
 <script setup>
 // HELPERS
-import _get from "lodash/get"
+import _get from 'lodash/get'
 
 // GQL
-import HOMEPAGE from "../gql/queries/Homepage.gql"
+import HOMEPAGE from '../gql/queries/Homepage.gql'
 
 const { data } = await useAsyncQuery(HOMEPAGE)
-if (data.value?.title) {
-  // log response
-  console.log(data.value.title)
-}
-const page = ref(_get(data.value, "entry", {}))
 
+const page = ref(_get(data.value, 'entry', {}))
 
 const parsedAdvancedSearchLink = computed(() => {
   // Last item in searchLinks
-  let advancedLink = page.value.searchLinks.slice(-1)[0]
+  const advancedLink = page.value.searchLinks.slice(-1)[0]
   return advancedLink
 })
 const parsedSearchLinks = computed(() => {
   // Remove last item in searchLinks
-  let searchLinks = [...page.value.searchLinks].slice(0, -1)
+  const searchLinks = [...page.value.searchLinks].slice(0, -1)
   return searchLinks
 })
 
@@ -35,34 +31,34 @@ const parsedGetHelpWith = computed(() => {
   })
 })
 const bannerFeaturedEvent = computed(() => {
-  let bannerFeaturedEvent = page.value.featuredEvents[0]
+  const bannerFeaturedEvent = page.value.featuredEvents[0]
   return {
     ...bannerFeaturedEvent,
     to: `/${bannerFeaturedEvent.uri}`,
     title:
-      bannerFeaturedEvent.sectionHandle ===
-        "workshopOrEventSeries"
+      bannerFeaturedEvent.sectionHandle
+        === 'workshopOrEventSeries'
         ? bannerFeaturedEvent.title
         : bannerFeaturedEvent.eventTitle,
     prompt:
-      bannerFeaturedEvent.sectionHandle ===
-        "workshopOrEventSeries"
-        ? "View series"
+      bannerFeaturedEvent.sectionHandle
+        === 'workshopOrEventSeries'
+        ? 'View series'
         : `View ${bannerFeaturedEvent.sectionHandle}`,
-    image: _get(bannerFeaturedEvent, "heroImage[0].image[0]", null),
+    image: _get(bannerFeaturedEvent, 'heroImage[0].image[0]', null),
     startDate:
-      bannerFeaturedEvent.sectionHandle === "event"
-        ? _get(bannerFeaturedEvent, "startDateWithTime", null)
-        : _get(bannerFeaturedEvent, "startDate", null),
+      bannerFeaturedEvent.sectionHandle === 'event'
+        ? _get(bannerFeaturedEvent, 'startDateWithTime', null)
+        : _get(bannerFeaturedEvent, 'startDate', null),
     endDate:
-      bannerFeaturedEvent.sectionHandle === "event"
-        ? _get(bannerFeaturedEvent, "endDateWithTime", null)
-        : _get(bannerFeaturedEvent, "endDate", null),
-    category: _get(bannerFeaturedEvent, "category[0].title", ""),
+      bannerFeaturedEvent.sectionHandle === 'event'
+        ? _get(bannerFeaturedEvent, 'endDateWithTime', null)
+        : _get(bannerFeaturedEvent, 'endDate', null),
+    category: _get(bannerFeaturedEvent, 'category[0].title', ''),
     description:
-      bannerFeaturedEvent.sectionHandle === "event"
-        ? _get(bannerFeaturedEvent, "eventDescription", "")
-        : _get(bannerFeaturedEvent, "summary", ""),
+      bannerFeaturedEvent.sectionHandle === 'event'
+        ? _get(bannerFeaturedEvent, 'eventDescription', '')
+        : _get(bannerFeaturedEvent, 'summary', ''),
     locations:
       bannerFeaturedEvent.associatedLocations[0] != null
         ? bannerFeaturedEvent.associatedLocations
@@ -71,112 +67,113 @@ const bannerFeaturedEvent = computed(() => {
 })
 // TO DO need to update dates on component
 const parsedDualMasonryEvents = computed(() => {
-  let masonaryEvents = page.value.featuredEvents.slice(1, 3)
+  const masonaryEvents = page.value.featuredEvents.slice(1, 3)
   return masonaryEvents.map((obj) => {
     return {
       ...obj,
       to: `/${obj.uri}`,
       title:
-        obj.sectionHandle === "workshopOrEventSeries"
+        obj.sectionHandle === 'workshopOrEventSeries'
           ? obj.title
           : obj.eventTitle,
-      image: _get(obj, "heroImage[0].image[0]", null),
+      image: _get(obj, 'heroImage[0].image[0]', null),
       startDate:
-        obj.sectionHandle === "event"
-          ? _get(obj, "startDateWithTime", null)
-          : _get(obj, "startDate", null),
+        obj.sectionHandle === 'event'
+          ? _get(obj, 'startDateWithTime', null)
+          : _get(obj, 'startDate', null),
       endDate:
-        obj.sectionHandle === "event"
-          ? _get(obj, "endDateWithTime", null)
-          : _get(obj, "endDate", null),
-      category: "Featured",
+        obj.sectionHandle === 'event'
+          ? _get(obj, 'endDateWithTime', null)
+          : _get(obj, 'endDate', null),
+      category: 'Featured',
       prompt:
-        obj.sectionHandle === "workshopOrEventSeries"
-          ? "View series"
+        obj.sectionHandle === 'workshopOrEventSeries'
+          ? 'View series'
           : `View ${obj.sectionHandle}`,
     }
   })
 })
 const bannerFeaturedCollection = computed(() => {
-  let bannerFeaturedCollection = page.value.featuredCollections[0]
+  const bannerFeaturedCollection = page.value.featuredCollections[0]
   return {
     ...bannerFeaturedCollection,
     to: `/${bannerFeaturedCollection.uri}`,
     image: _get(
       bannerFeaturedCollection,
-      "heroImage[0].image[0]",
+      'heroImage[0].image[0]',
       null
     ),
     category: bannerFeaturedCollection.category
       ? bannerFeaturedCollection.category.toString()
-      : "",
-    description: _get(bannerFeaturedCollection, "text", ""),
+      : '',
+    description: _get(bannerFeaturedCollection, 'text', ''),
     prompt: `View ${bannerFeaturedCollection.sectionHandle}`,
   }
 })
 const parsedSectionHighlightCollection = computed(() => {
-  let highlightCollections = page.value.featuredCollections.slice(1)
+  const highlightCollections = page.value.featuredCollections.slice(1)
   return highlightCollections.map((obj) => {
     return {
       ...obj,
       to: `/${obj.uri}`,
-      image: _get(obj, "heroImage[0].image[0]", ""),
-      category: obj.category ? obj.category.toString() : "",
+      image: _get(obj, 'heroImage[0].image[0]', ''),
+      category: obj.category ? obj.category.toString() : '',
     }
   })
 })
 
-const parseArticleCategory = (categories) => {
-  if (!categories || categories.length == 0) return ""
-  let result = ""
+function parseArticleCategory(categories) {
+  if (!categories || categories.length === 0)
+    return ''
+  let result = ''
   categories.forEach((obj) => {
-    result = result + obj.title + ", "
+    result = `${result + obj.title}, `
   })
   return result.slice(0, -2)
 }
 const bannerFeaturedNews = computed(() => {
-  let bannerFeaturedNews = page.value.featuredNews[0]
+  const bannerFeaturedNews = page.value.featuredNews[0]
   return {
     ...bannerFeaturedNews,
     to:
       bannerFeaturedNews.externalResourceUrl != null
-        ? _get(bannerFeaturedNews, "externalResourceUrl", "")
+        ? _get(bannerFeaturedNews, 'externalResourceUrl', '')
         : `/${bannerFeaturedNews.to}`,
-    image: _get(bannerFeaturedNews, "heroImage[0].image[0]", null),
+    image: _get(bannerFeaturedNews, 'heroImage[0].image[0]', null),
     // startDate: _get(bannerFeaturedNews, "postDate", null),
     category: parseArticleCategory(
       bannerFeaturedNews.articleCategories
     ),
-    description: _get(bannerFeaturedNews, "text", ""),
-    startDate: _get(bannerFeaturedNews, "postDate", ""),
-    endDate: _get(bannerFeaturedNews, "postDate", ""),
+    description: _get(bannerFeaturedNews, 'text', ''),
+    startDate: _get(bannerFeaturedNews, 'postDate', ''),
+    endDate: _get(bannerFeaturedNews, 'postDate', ''),
     prompt: `View ${bannerFeaturedNews.sectionHandle}`,
   }
 })
 const parsedNewsList = computed(() => {
-  let newsList = page.value.featuredNews.slice(1)
+  const newsList = page.value.featuredNews.slice(1)
   return newsList.map((obj) => {
     return {
       ...obj,
       to:
         obj.externalResourceUrl != null
-          ? _get(obj, "externalResourceUrl", "")
+          ? _get(obj, 'externalResourceUrl', '')
           : `/${obj.to}`,
-      image: _get(obj, "heroImage[0].image[0]", ""),
+      image: _get(obj, 'heroImage[0].image[0]', ''),
       category: parseArticleCategory(obj.articleCategories),
-      startDate: _get(obj, "postDate", ""),
-      endDate: _get(obj, "postDate", ""),
+      startDate: _get(obj, 'postDate', ''),
+      endDate: _get(obj, 'postDate', ''),
     }
   })
 })
 
 useHead({
-  title: page.value?.title || "... loading",
+  title: page.value?.title || '... loading',
   meta: [
     {
-      hid: "description",
-      name: "description",
-      content: "The UCLA Library creates a vibrant nexus of ideas, collections, expertise, and spaces in which users illuminate solutions for local and global challenges. We constantly evolve to advance UCLA’s research, education, and public service mission by empowering and inspiring communities of scholars and learners to discover, access, create, share, and preserve knowledge.",
+      hid: 'description',
+      name: 'description',
+      content: 'The UCLA Library creates a vibrant nexus of ideas, collections, expertise, and spaces in which users illuminate solutions for local and global challenges. We constantly evolve to advance UCLA’s research, education, and public service mission by empowering and inspiring communities of scholars and learners to discover, access, create, share, and preserve knowledge.',
     },
   ],
 })
@@ -187,10 +184,10 @@ useHead({
     <masthead-primary :link-items="parsedSearchLinks" :advanced-search-link="parsedAdvancedSearchLink" />
 
     <!-- TODO elastic search testing -->
-    <!--h4>Mapping:</h4>
+    <!-- h4>Mapping:</h4>
         <p>{{ mapping }}</p>
         <h4>Search Responsee</h4>
-        <p>{{ searchResponse }}</p-->
+        <p>{{ searchResponse }}</p -->
 
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" color="help" />
@@ -198,11 +195,11 @@ useHead({
 
     <section-wrapper class="section-no-top-margin">
       {{ page.getHelpWith[0].titleGeneral }}
-      <br />
+      <br>
       {{ page.getHelpWith[0].sectionSummary }}
-      <br />
+      <br>
       {{ parsedGetHelpWith }}
-      <!--section-cards-with-illustrations
+      <!-- section-cards-with-illustrations
                 class="section"
                 :items="parsedGetHelpWith"
                 :section-title="page.getHelpWith[0].titleGeneral"
@@ -210,7 +207,7 @@ useHead({
                 button-text="See All Services &amp; Resources"
                 to="/help/services-resources"
                 :is-horizontal="false"
-            /-->
+            / -->
     </section-wrapper>
 
     <section-wrapper theme="divider">
@@ -219,7 +216,7 @@ useHead({
 
     <section-wrapper class="section-banner">
       {{ bannerFeaturedEvent }}
-      <!--banner-featured
+      <!-- banner-featured
                 :image="bannerFeaturedEvent.image"
                 :to="bannerFeaturedEvent.to"
                 :prompt="bannerFeaturedEvent.prompt"
@@ -231,17 +228,17 @@ useHead({
                 :category="bannerFeaturedEvent.category"
             >
                 <heading-arrow text="Featured Events &amp; Exhibitions" />
-            </banner-featured-->
+            </banner-featured -->
     </section-wrapper>
 
     <section-wrapper class="section-dual-masonry">
       {{ parsedDualMasonryEvents }}
-      <!--section-dual-masonry
+      <!-- section-dual-masonry
                 v-if="parsedDualMasonryEvents.length > 0"
                 :items="parsedDualMasonryEvents"
                 to="/visit/events-exhibitions"
                 text="See All Events &amp; Exhibitions"
-            /-->
+            / -->
     </section-wrapper>
 
     <section-wrapper theme="divider">
@@ -250,7 +247,7 @@ useHead({
 
     <section-wrapper class="section-banner">
       {{ bannerFeaturedCollection }}
-      <!--banner-featured
+      <!-- banner-featured
                 :image="bannerFeaturedCollection.image"
                 :to="bannerFeaturedCollection.to"
                 :title="bannerFeaturedCollection.title"
@@ -260,16 +257,16 @@ useHead({
                 :align-right="true"
             >
                 <heading-arrow text="Featured Collections" />
-            </banner-featured-->
+            </banner-featured -->
     </section-wrapper>
 
     <section-wrapper>
       {{ parsedSectionHighlightCollection }}
-      <br />
-      <!--section-teaser-highlight
+      <br>
+      <!-- section-teaser-highlight
                 v-if="parsedSectionHighlightCollection.length > 1"
                 :items="parsedSectionHighlightCollection"
-            /-->
+            / -->
       <nuxt-link to="/collections/explore" class="button-more">
         <button-more text="See All Featured Collections" />
       </nuxt-link>
@@ -281,7 +278,7 @@ useHead({
 
     <section-wrapper class="section-banner">
       {{ bannerFeaturedNews }}
-      <!--banner-featured
+      <!-- banner-featured
                 :image="bannerFeaturedNews.image"
                 :to="bannerFeaturedNews.to"
                 :prompt="bannerFeaturedNews.prompt"
@@ -293,21 +290,22 @@ useHead({
                 :align-right="false"
             >
                 <heading-arrow text="Featured News" />
-            </banner-featured-->
+            </banner-featured -->
     </section-wrapper>
 
     <section-wrapper>
       {{ parsedNewsList }}
-      <!--section-teaser-card
+      <!-- section-teaser-card
                 v-if="parsedNewsList.length > 1"
                 :items="parsedNewsList"
-            /-->
+            / -->
       <nuxt-link to="/about/news" class="button-more">
         <button-more text="See All News" />
       </nuxt-link>
     </section-wrapper>
   </main>
 </template>
+
 <style lang="scss" scoped>
 .page-home {
   .button-more {
