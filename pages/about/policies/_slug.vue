@@ -1,5 +1,8 @@
 <template lang="html">
-    <main id="main" class="page page-general-content">
+    <main
+        id="main"
+        class="page page-general-content"
+    >
         <nav-breadcrumb
             to="/about/policies"
             :title="page.title"
@@ -27,12 +30,15 @@
         </section-wrapper>
 
         <section-wrapper theme="divider">
-            <divider-way-finder class="divider-way-finder" color="about" />
+            <divider-way-finder
+                class="divider-way-finder"
+                color="about"
+            />
         </section-wrapper>
 
         <page-anchor
-            v-if="h2Array.length >=3"
-            :section-titles= h2Array
+            v-if="h2Array.length >= 3"
+            :section-titles="h2Array"
         />
 
         <!-- Rich Text is not showing up -->
@@ -43,6 +49,24 @@
         />
     </main>
 </template>
+<router>
+    {
+      redirect: to => {
+        // the function receives the target route as the argument
+        // a relative location doesn't start with `/`
+        // or { path: 'profile'}
+        const { hash, params, query } = to
+        if (params.slug === 'report-problematic-content-and-description-in-uclas-library-collections-and-archives') {
+          return "https://ucla.libwizard.com/id/38f45c482a5fcb0b715a7e9e3ddee8b2"
+        } else  if (
+            params.slug ===
+            "toward-ethical-and-inclusive-descriptive-practices-in-ucla-library-special-collections"
+        ) {
+            return "/about/polices/ethical-description"
+        }
+      },
+    }
+  </router>
 
 <script>
 // HELPERS
@@ -53,22 +77,28 @@ import removeTags from "~/utils/removeTags"
 import POLICY_DETAIL from "~/gql/queries/PolicyDetail"
 
 export default {
-    async asyncData({ $graphql, params, store, $elasticsearchplugin, error }) {
+    async asyncData({ $graphql, params, $elasticsearchplugin, error }) {
         // Do not remove testing live preview
         /*console.log(
             "fetching graphql data for Policy detail from Craft for live preview"
         )*/
+
         const data = await $graphql.default.request(POLICY_DETAIL, {
             slug: params.slug,
         })
         if (!data.entry) {
-            error({ statusCode: 404, message: 'Page not found' })
+            error({ statusCode: 404, message: "Page not found" })
         }
         if (data) await $elasticsearchplugin.index(data.entry, params.slug)
         // //console.log("Data fetched: " + JSON.stringify(data))
 
         return {
             page: _get(data, "entry", {}),
+        }
+    },
+    data() {
+        return {
+            h2Array: [], // anchor tags
         }
     },
     head() {
@@ -79,22 +109,18 @@ export default {
             title: title,
             meta: [
                 {
-                    hid: 'description',
-                    name: 'description',
-                    content: metaDescription
-                }
+                    hid: "description",
+                    name: "description",
+                    content: metaDescription,
+                },
             ],
-        }
-    },
-    data() {
-        return {
-            h2Array: [] // anchor tags
         }
     },
     mounted() {
         // Call the plugin method to get the .section-header2 and .section-header3 elements
-        this.h2Array = this.$getHeaders.getHeadersMethod();
-    }
+        this.h2Array = this.$getHeaders.getHeadersMethod()
+        //window.onNuxtReady(() => { window.$nuxt.$router.push('/your-route') })
+    },
 }
 </script>
 
