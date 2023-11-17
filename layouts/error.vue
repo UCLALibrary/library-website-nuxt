@@ -22,9 +22,6 @@
                 An error occurred
             </h1>
 
-            {{ error }}
-            </h3>
-
             <p>
                 We can’t find the page you are looking for, but we're here to
                 help. <nuxt-link to="/">
