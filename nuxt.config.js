@@ -13,6 +13,7 @@ export default {
         esWriteKey: process.env.ES_WRITE_KEY,
     },
     publicRuntimeConfig: {
+        host: process.env.SITEMAP_HOST,
         s3Bucket: process.env.S3_BUCKET,
         esReadKey: process.env.ES_READ_KEY || "",
         esIndex: process.env.ES_INDEX || "",
