@@ -2,7 +2,7 @@ describe("Policy Detail page", () => {
     it("Visits a Policy Detail Page", () => {
         cy.visit("about/policies/shhh")
         cy.get(".logo-ucla").should("be.visible")
-        cy.get(".page-anchor").scrollIntoView().should('be.visible')
+        cy.get(".page-anchor").scrollIntoView({ force:true }).should('be.visible')
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 
