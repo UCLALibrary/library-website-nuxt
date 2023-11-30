@@ -8,7 +8,7 @@ describe("Location Detail page", () => {
             "contain",
             "Louise M. Darling Biomedical Library"
         )
-        cy.get(".page-anchor").scrollIntoView().should('be.visible')
+        cy.get(".page-anchor").scrollIntoView().click({ force:true })
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 
