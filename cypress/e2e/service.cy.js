@@ -8,7 +8,7 @@ describe("Service page", () => {
             "contain",
             `Service with all flexible page block types`
         )
-        cy.get(".page-anchor").scrollIntoView().click({ force:true })
+        cy.get(".page-anchor").scrollIntoView().should('be.visible')
         cy.percySnapshot({ widths: [768, 992, 1200] })
     })
 
