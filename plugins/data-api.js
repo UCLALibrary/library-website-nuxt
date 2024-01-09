@@ -190,9 +190,9 @@ export default function ({ $config }, inject) {
         console.log("filters:" + filters)
         console.log("sort:" + sort)
 
-        /* if(keyword && keyword !== "*:*" && keyword !== "*") {
-        keyword = keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"])/g, "\\$1")
-    }*/
+        if(keyword && keyword !== "*:*" && keyword !== "*") {
+            keyword = keyword + "~1" // Add this to support fuzzy searches
+        }
 
         let testquery = JSON.stringify({
             _source: [...source],
@@ -233,7 +233,7 @@ export default function ({ $config }, inject) {
                             must: [
                                 {
                                     query_string: {
-                                        query: keyword + "*",
+                                        query: keyword,
                                         fields: [...searchFields],
                                         fuzziness: "auto",
                                     },
