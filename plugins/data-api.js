@@ -190,9 +190,7 @@ export default function ({ $config }, inject) {
         console.log("filters:" + filters)
         console.log("sort:" + sort)
 
-        /* if(keyword && keyword !== "*:*" && keyword !== "*") {
-        keyword = keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"])/g, "\\$1")
-    }*/
+        
 
         let testquery = JSON.stringify({
             _source: [...source],
@@ -217,8 +215,23 @@ export default function ({ $config }, inject) {
 
         // need to know fields to boost on for listing pages when searching like title etc
 
+        const responseAlias = await fetch(
+            `${$config.esURL}/_alias/${$config.esIndex}`,
+            {
+                headers: {
+                    Authorization: `ApiKey ${$config.esReadKey}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        )
+        const dataAlias = await responseAlias.json()
+
+        // use omputed values for object keys: indices_boost: [ { [libraryIndex]: 3.0 },{ [libguideIndex]: 1.3 }],
+        const libraryIndex = !Object.keys(dataAlias)[0].includes('libguides') ? Object.keys(dataAlias)[0] : Object.keys(dataAlias)[1]
+       
+
         const response = await fetch(
-            `${$config.esURL}/${$config.esIndex}/_search`,
+            `${$config.esURL}/${libraryIndex}/_search`, // replace alias with indexname
             {
                 headers: {
                     Authorization: `ApiKey ${$config.esReadKey}`,
@@ -233,7 +246,7 @@ export default function ({ $config }, inject) {
                             must: [
                                 {
                                     query_string: {
-                                        query: keyword + "*",
+                                        query: keyword,
                                         fields: [...searchFields],
                                         fuzziness: "auto",
                                     },
