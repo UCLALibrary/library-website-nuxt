@@ -113,7 +113,7 @@ jobs:
           production-deploy: true
           deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          publish-dir: ./dist
+          publish-dir: .output/public
           fails-without-credentials: true
           github-deployment-environment: production
         env:
