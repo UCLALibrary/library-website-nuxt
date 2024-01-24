@@ -80,7 +80,7 @@ definePageMeta({
             @include step-3;
             line-height: 120%;
 
-            ::v-deep p {
+            :deep(p) {
                 @include step-3;
             }
         }
@@ -92,7 +92,7 @@ definePageMeta({
         margin-left: 24px;
         float: right;
 
-        ::v-deep .media {
+        :deep(.media) {
             object-fit: cover;
         }
     }
@@ -101,7 +101,7 @@ definePageMeta({
         margin: 0 auto;
         max-width: $container-xl-banner + px;
 
-        ::v-deep {
+        :deep {
             --banner-color-theme: var(--color-help-green-03);
 
             // refactor when option to turn off overlays is available in craft
@@ -113,7 +113,7 @@ definePageMeta({
         }
     }
 
-    ::v-deep .block-highlight .text {
+    :deep(.block-highlight .text) {
         display: initial;
     }
 
@@ -123,7 +123,7 @@ definePageMeta({
         margin-bottom: var(--space-xl);
     }
 
-    ::v-deep .grid-gallery {
+    :deep(.grid-gallery) {
         padding: 0;
     }
 
@@ -194,8 +194,8 @@ definePageMeta({
         font-style: italic;
         line-height: 26px;
 
-        ::v-deep p,
-        ::v-deep a {
+        :deep(p),
+        :deep(a) {
             font-family: var(--font-secondary);
             font-size: var(--step--1);
             color: var(--color-secondary-grey-04);
@@ -272,7 +272,7 @@ definePageMeta({
             width: calc(100% - (var(--unit-gutter) * 2));
         }
 
-        ::v-deep .grid-gallery {
+        :deep(.grid-gallery) {
             padding: unset;
 
             .section-summary {
@@ -290,8 +290,8 @@ definePageMeta({
             }
         }
 
-        .banner-featured.hatch-left {
-            ::v-deep .meta {
+        :deep(.banner-featured.hatch-left) {
+            .meta {
                 padding-left: var(--unit-gutter);
                 padding-right: var(--unit-gutter);
             }

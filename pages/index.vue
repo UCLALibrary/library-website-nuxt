@@ -194,20 +194,14 @@ useHead({
     </section-wrapper>
 
     <section-wrapper class="section-no-top-margin">
-      {{ page.getHelpWith[0].titleGeneral }}
+      <!-- {{ page.getHelpWith[0].titleGeneral }}
       <br>
       {{ page.getHelpWith[0].sectionSummary }}
       <br>
-      {{ parsedGetHelpWith }}
-      <!-- section-cards-with-illustrations
-                class="section"
-                :items="parsedGetHelpWith"
-                :section-title="page.getHelpWith[0].titleGeneral"
-                :section-summary="page.getHelpWith[0].sectionSummary"
-                button-text="See All Services &amp; Resources"
-                to="/help/services-resources"
-                :is-horizontal="false"
-            / -->
+      {{ parsedGetHelpWith }}-->
+      <section-cards-with-illustrations class="section" :items="parsedGetHelpWith"
+        :section-title="page.getHelpWith[0].titleGeneral" :section-summary="page.getHelpWith[0].sectionSummary"
+        button-text="See All Services &amp; Resources" to="/help/services-resources" :is-horizontal="false" />
     </section-wrapper>
 
     <section-wrapper theme="divider">
@@ -215,30 +209,20 @@ useHead({
     </section-wrapper>
 
     <section-wrapper class="section-banner">
-      {{ bannerFeaturedEvent }}
-      <!-- banner-featured
-                :image="bannerFeaturedEvent.image"
-                :to="bannerFeaturedEvent.to"
-                :prompt="bannerFeaturedEvent.prompt"
-                :title="bannerFeaturedEvent.title"
-                :start-date="bannerFeaturedEvent.startDate"
-                :end-date="bannerFeaturedEvent.endDate"
-                :locations="bannerFeaturedEvent.associatedLocations"
-                :align-right="false"
-                :category="bannerFeaturedEvent.category"
-            >
-                <heading-arrow text="Featured Events &amp; Exhibitions" />
-            </banner-featured -->
+      <!-- {{ bannerFeaturedEvent }} -->
+      <banner-featured :media="bannerFeaturedEvent.image" :to="bannerFeaturedEvent.to"
+        :prompt="bannerFeaturedEvent.prompt" :title="bannerFeaturedEvent.title"
+        :start-date="bannerFeaturedEvent.startDate" :end-date="bannerFeaturedEvent.endDate"
+        :locations="bannerFeaturedEvent.associatedLocations" :align-right="false"
+        :category="bannerFeaturedEvent.category">
+        <heading-arrow text="Featured Events &amp; Exhibitions" />
+      </banner-featured>
     </section-wrapper>
 
     <section-wrapper class="section-dual-masonry">
-      {{ parsedDualMasonryEvents }}
-      <!-- section-dual-masonry
-                v-if="parsedDualMasonryEvents.length > 0"
-                :items="parsedDualMasonryEvents"
-                to="/visit/events-exhibitions"
-                text="See All Events &amp; Exhibitions"
-            / -->
+      <!-- {{ parsedDualMasonryEvents }} -->
+      <section-dual-masonry v-if="parsedDualMasonryEvents.length > 0" :items="parsedDualMasonryEvents"
+        to="/visit/events-exhibitions" text="See All Events &amp; Exhibitions" />
     </section-wrapper>
 
     <section-wrapper theme="divider">
@@ -246,18 +230,12 @@ useHead({
     </section-wrapper>
 
     <section-wrapper class="section-banner">
-      {{ bannerFeaturedCollection }}
-      <!-- banner-featured
-                :image="bannerFeaturedCollection.image"
-                :to="bannerFeaturedCollection.to"
-                :title="bannerFeaturedCollection.title"
-                :description="bannerFeaturedCollection.description"
-                :category="bannerFeaturedCollection.category"
-                :prompt="bannerFeaturedCollection.prompt"
-                :align-right="true"
-            >
-                <heading-arrow text="Featured Collections" />
-            </banner-featured -->
+      <!-- {{ bannerFeaturedCollection }} -->
+      <banner-featured :media="bannerFeaturedCollection.image" :to="bannerFeaturedCollection.to"
+        :title="bannerFeaturedCollection.title" :description="bannerFeaturedCollection.description"
+        :category="bannerFeaturedCollection.category" :prompt="bannerFeaturedCollection.prompt" :align-right="true">
+        <heading-arrow text="Featured Collections" />
+      </banner-featured>
     </section-wrapper>
 
     <section-wrapper>
@@ -277,20 +255,13 @@ useHead({
     </section-wrapper>
 
     <section-wrapper class="section-banner">
-      {{ bannerFeaturedNews }}
-      <!-- banner-featured
-                :image="bannerFeaturedNews.image"
-                :to="bannerFeaturedNews.to"
-                :prompt="bannerFeaturedNews.prompt"
-                :title="bannerFeaturedNews.title"
-                :description="bannerFeaturedNews.description"
-                :category="bannerFeaturedNews.category"
-                :start-date="bannerFeaturedNews.startDate"
-                :end-date="bannerFeaturedNews.endDate"
-                :align-right="false"
-            >
-                <heading-arrow text="Featured News" />
-            </banner-featured -->
+      <!-- {{ bannerFeaturedNews }} -->
+      <banner-featured :media="bannerFeaturedNews.image" :to="bannerFeaturedNews.to" :prompt="bannerFeaturedNews.prompt"
+        :title="bannerFeaturedNews.title" :description="bannerFeaturedNews.description"
+        :category="bannerFeaturedNews.category" :start-date="bannerFeaturedNews.startDate"
+        :end-date="bannerFeaturedNews.endDate" :align-right="false">
+        <heading-arrow text="Featured News" />
+      </banner-featured>
     </section-wrapper>
 
     <section-wrapper>
