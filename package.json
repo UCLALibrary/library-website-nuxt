@@ -43,7 +43,7 @@
         "sass": "^1.45.2",
         "sass-loader": "^10.1.1",
         "ucla-library-design-tokens": "^5.5.1",
-        "ucla-library-website-components": "^2.41.3",
+        "ucla-library-website-components": "^v2.41.4",
         "vue-svg-loader": "^0.16.0",
         "vue-template-compiler": "^2.6.12"
     }
