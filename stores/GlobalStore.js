@@ -1,10 +1,6 @@
-// GQL
-import GLOBALS from '../gql/queries/Globals.gql'
-import HEADER_MAIN_MENU_ITEMS from '../gql/queries/HeaderMainMenuItems.gql'
-import FOOTER_PRIMARY_ITEMS from '../gql/queries/FooterPrimaryItems.gql'
-import FOOTER_SOCK_ITEMS from '../gql/queries/FooterSockItems.gql'
 
-export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-line no-undef
+
+export const useGlobalStore = defineStore('GlobalStore', {
   state: () => ({
     winHeight: 0,
     winWidth: 0,
@@ -18,7 +14,9 @@ export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-lin
   }),
   getters: {
 
-    /* user() {
+    /*
+      Examples of getter methods:
+    user() {
             return this._user
         },
         isAuthed() {
@@ -36,15 +34,19 @@ export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-lin
 
     async fetchGlobals() {
       try {
-        const { data } = await useAsyncQuery(GLOBALS) // eslint-disable-line no-undef
 
-        const globalData = removeEmpties(data._value.globalSets || []) // eslint-disable-line no-undef
+        const { data } = await useFetch('/api/fetchNitroStorageCraftGlobalData')
+        // console.log("Pinia store Global Data object:" + JSON.stringify(data.value.data))
 
+        const globalData = removeEmpties(data.value.data.globalSets || [])
+        // console.log("remove empties: " + JSON.stringify(globalData))
         // Shape data from Craft
         const craftData = Object.fromEntries(
           globalData.map(item => [item.handle, item])
         )
         this.globals = craftData
+        // console.log("Pinia store fetchGlobals end:" + JSON.stringify(this.globals))
+
       }
       catch (e) {
         throw new Error(`Craft API error, trying to set globals. ${e}`)
@@ -52,9 +54,9 @@ export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-lin
     },
     async fetchHeader() {
       try {
-        const { data } = await useAsyncQuery(HEADER_MAIN_MENU_ITEMS) // eslint-disable-line no-undef
-
-        this.header = data._value
+        const { data } = await useFetch('/api/fetchNitroStorageCraftHeaderData')
+        // console.log("Pinia store Header Data object:" + JSON.stringify(data.value.data))
+        this.header = data.value.data
       }
       catch (e) {
         throw new Error(`Craft API error, trying to set globals Header. ${e}`)
@@ -62,9 +64,9 @@ export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-lin
     },
     async fetchFooterPrimary() {
       try {
-        const { data } = await useAsyncQuery(FOOTER_PRIMARY_ITEMS) // eslint-disable-line no-undef
-
-        this.footerPrimary = data._value
+        const { data } = await useFetch('/api/fetchNitroStorageCraftFooterPrimaryData')
+        // console.log("Pinia store FooterPrimary Data object:" + JSON.stringify(data.value.data))
+        this.footerPrimary = data.value.data
       }
       catch (e) {
         throw new Error(`Craft API error, trying to set globals FooterPrimary. ${e}`)
@@ -72,15 +74,17 @@ export const useGlobalStore = defineStore('GlobalStore', { // eslint-disable-lin
     },
     async fetchFooterSock() {
       try {
-        const { data } = await useAsyncQuery(FOOTER_SOCK_ITEMS) // eslint-disable-line no-undef
-        this.footerSock = data._value
+        const { data } = await useFetch('/api/fetchNitroStorageCraftFooterSockData')
+        // console.log("Pinia store Footer Sock Data object:" + JSON.stringify(data.value.data))
+        this.footerSock = data.value.data
       }
       catch (e) {
         throw new Error(`Craft API error, trying to set globals FooterSockData. ${e}`)
       }
     }
 
-    /* setToken(token) {
+    /* Examples of action methods:    
+    setToken(token) {
             this._token = token
             cookie.set("token", token, { expires: 7 })
         },

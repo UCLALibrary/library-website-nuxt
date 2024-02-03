@@ -19,7 +19,7 @@ const libraryAlert = computed(() => {
     globalStore.header,
   ) */
   if (globalStore.globals) {
-    const alert = globalStore.globals.libraryAlert
+    const alert = globalStore.globals?.libraryAlert
     if (
       alert
       && alert.title
