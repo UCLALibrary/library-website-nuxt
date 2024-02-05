@@ -20,6 +20,7 @@ jobs:
   # TODO: invoke auto-build.yml instead
   deploy:
     name: Netlify deploy
+    needs: set-tag
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
