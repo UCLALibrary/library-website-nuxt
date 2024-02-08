@@ -1,39 +1,39 @@
 <script setup>
 definePageMeta({
-    layout: 'impact'
+  layout: 'impact'
 })
 </script>
 
 <template lang="html">
-    <main id="main" class="page page-impact-report">
-        <!-- This is template for impact reports -->
-        <div class="meta">
-            Hello impact report
-            <!-- h1 class="intro" v-html="page.title" />
+  <main id="main" class="page page-impact-report">
+    <!-- This is template for impact reports -->
+    <div class="meta">
+      Hello impact report
+      <!-- h1 class="intro" v-html="page.title" />
             <responsive-image v-if="page.portrait && page.portrait.length > 0" :image="page.portrait[0]" :aspect-ratio="60"
                 class="portrait-Ginny"
                 alt="Sketch of Ginny Steel wearing glasses and a grey blazer, with a yellow background" />
 
             <rich-text class="text" v-html="page.text" / -->
-        </div>
-        <section-wrapper theme="divider">
-            <divider-way-finder class="divider" color="about" />
-        </section-wrapper>
-        <h2 class="visually-hidden">
-            Main Story
-        </h2>
-        <!-- banner-featured v-if="page.keyArt && page.keyArt.length != 0" class="section-banner"
+    </div>
+    <section-wrapper theme="divider">
+      <divider-way-finder class="divider" color="about" />
+    </section-wrapper>
+    <h2 class="visually-hidden">
+      Main Story
+    </h2>
+    <!-- banner-featured v-if="page.keyArt && page.keyArt.length != 0" class="section-banner"
             :image="page.keyArt[0].heroImage[0]" :ratio="40" :title="page.keyArt[0].titleGeneral"
             :description="page.keyArt[0].summary" :prompt="page.keyArt[0].buttonText" :to="page.keyArt[0].buttonUrl"
             :align-right="false" />
 
         <flexible-blocks v-if="page.blocks" class="flexible-content" :blocks="page.blocks" / -->
 
-        <section-wrapper theme="divider">
-            <divider-way-finder class="divider" color="about" />
-        </section-wrapper>
+    <section-wrapper theme="divider">
+      <divider-way-finder class="divider" color="about" />
+    </section-wrapper>
 
-        <!-- section-wrapper :section-title="page.timelineTitle">
+    <!-- section-wrapper :section-title="page.timelineTitle">
             <div v-for="(value, propertyName) in timelineSortedBySubtitle" :key="propertyName" class="sub-section-grid">
                 <h3 class="grid-gallery-subtitle" v-html="propertyName" />
 
@@ -41,10 +41,10 @@ definePageMeta({
                     :section-summary="propertySubName" :items="subValue" />
             </div>
         </section-wrapper -->
-        <section-wrapper theme="divider">
-            <divider-way-finder class="divider" color="about" />
-        </section-wrapper>
-        <!-- section-wrapper v-if="page.acknowledgements && page.acknowledgements.length == 1">
+    <section-wrapper theme="divider">
+      <divider-way-finder class="divider" color="about" />
+    </section-wrapper>
+    <!-- section-wrapper v-if="page.acknowledgements && page.acknowledgements.length == 1">
             <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
                 ? ''
                 : 'visually-hidden'
@@ -53,7 +53,7 @@ definePageMeta({
             </h2>
             <rich-text class="credits" v-html="page.acknowledgements[0].acknowledgements" />
         </section-wrapper -->
-    </main>
+  </main>
 </template>
 
 <style lang="scss" scoped>
