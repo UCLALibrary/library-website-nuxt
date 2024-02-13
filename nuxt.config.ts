@@ -83,18 +83,61 @@ export default defineNuxtConfig({
         autoImports: ['defineStore', 'acceptHMRUpdate'],
       },
     ],
-    '@nuxtjs/apollo',
+    'nuxt-graphql-request',
   ],
 
   imports: {
     dirs: ['stores'],
   },
 
-  apollo: {
+
+
+  graphql: {
+    /**
+     * An Object of your GraphQL clients
+     */
+    clients: {
+      default: {
+        /**
+         * The client endpoint url
+         */
+        endpoint: process.env.CRAFT_ENDPOINT || '',
+        /**
+         * Per-client options overrides
+         * See: https://github.com/prisma-labs/graphql-request#passing-more-options-to-fetch
+         */
+        options: {},
+      },
+
+    },
+
+    /**
+     * Options
+     * See: https://github.com/prisma-labs/graphql-request#passing-more-options-to-fetch
+     */
+    options: {
+      method: 'get', // Default to `POST`
+    },
+
+    /**
+     * Optional
+     * default: false (this includes cross-fetch/polyfill before creating the graphql client)
+     */
+    useFetchPolyfill: true,
+
+    /**
+     * Optional
+     * default: false (this includes graphql-tag for node_modules folder)
+     */
+    includeNodeModules: true,
+  },
+
+
+  /*apollo: {
     clients: {
       default: {
         httpEndpoint: process.env.CRAFT_ENDPOINT || '',
       },
     },
-  },
+  },*/
 })

@@ -1,59 +1,179 @@
 <script setup>
+// HELPERS
+import _get from "lodash/get"
+import _ from "lodash"
+import removeTags from "../utils/removeTags"
+
+// GQL
+import IMPACT_REPORT from "../gql/queries/ImpactReport.gql"
+
+// UTILITIES
+import flattenTimeLineStructure from "../utils/flattenTimeLineStructure"
+const { $graphql } = useNuxtApp();
+
 definePageMeta({
-  layout: 'impact'
+    layout: 'impact'
 })
+const route = useRoute()
+let path = route.params && route.params.year ? `impact/${route.params.year}` : "*"
+// console.log("Path: ", path)
+const variables = { path: path }
+const { data: data, error } = await useAsyncData('impact-report-index', async () => {
+    // try {
+    const data = await $graphql.default.request(IMPACT_REPORT, variables)
+    // console.log("Fetched data:", JSON.stringify(data))
+    return data
+    /*} catch (error) {
+        console.error("Error fetching data:", error)
+    }*/
+})
+if (error.value) {
+    console.log(error.value)
+    throw createError({
+        statusCode: 404, statusMessage: "Page not found.", fatal: true
+    })
+}
+// console.log("Impact Report data:", JSON.stringify(data))
+if (!data.value.entry) {
+    throw createError({
+        statusCode: 404,
+        statusMessage: 'Page Not Found'
+    })
+}
+const page = ref(_get(data.value, 'entry', {}))
+
+console.log("Impact Report page:", JSON.stringify(page.value.text))
+useHead({
+    title: page.value?.title || '... loading',
+    meta: [
+        {
+            hid: 'description',
+            name: 'description',
+            content: removeTags(page.value?.text),
+        },
+    ],
+})
+
+
+
+const timelineSortedBySubtitle = computed(() => {
+    const timelineData = flattenTimeLineStructure(page.timelineGallery)
+
+    const groupBySubtitle = _.groupBy(timelineData, 'subtitle')
+
+    console.log("parsed timeline by subtitle: " + JSON.stringify(groupBySubtitle))
+
+    for (const key in groupBySubtitle) {
+        groupBySubtitle[key] = _.groupBy(groupBySubtitle[key], 'sectionSummary')
+
+        console.log("parsed timeline by summary: " + JSON.stringify(groupBySubtitle[key]))
+    }
+
+    return groupBySubtitle
+})
+
+
 </script>
 
 <template lang="html">
-  <main id="main" class="page page-impact-report">
-    <!-- This is template for impact reports -->
-    <div class="meta">
-      Hello impact report
-      <!-- h1 class="intro" v-html="page.title" />
-            <responsive-image v-if="page.portrait && page.portrait.length > 0" :image="page.portrait[0]" :aspect-ratio="60"
+    <main
+        id="main"
+        class="page page-impact-report"
+    >
+        <!-- This is template for impact reports -->
+        <div class="meta">
+
+            <h1
+                class="intro"
+                v-html="page.title"
+            />
+
+            <responsive-image
+                v-if="page.portrait && page.portrait.length > 0"
+                :media="page.portrait[0]"
+                :aspect-ratio="60"
                 class="portrait-Ginny"
-                alt="Sketch of Ginny Steel wearing glasses and a grey blazer, with a yellow background" />
+                alt="Sketch of Ginny Steel wearing glasses and a grey blazer, with a yellow background"
+            />
 
-            <rich-text class="text" v-html="page.text" / -->
-    </div>
-    <section-wrapper theme="divider">
-      <divider-way-finder class="divider" color="about" />
-    </section-wrapper>
-    <h2 class="visually-hidden">
-      Main Story
-    </h2>
-    <!-- banner-featured v-if="page.keyArt && page.keyArt.length != 0" class="section-banner"
-            :image="page.keyArt[0].heroImage[0]" :ratio="40" :title="page.keyArt[0].titleGeneral"
-            :description="page.keyArt[0].summary" :prompt="page.keyArt[0].buttonText" :to="page.keyArt[0].buttonUrl"
-            :align-right="false" />
+            <rich-text
+                class="text"
+                :rich-text-content="page.text"
+            />
 
-        <flexible-blocks v-if="page.blocks" class="flexible-content" :blocks="page.blocks" / -->
+        </div>
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+        <h2 class="visually-hidden">
+            Main Story
+        </h2>
+        <banner-featured
+            v-if="page.keyArt && page.keyArt.length != 0"
+            class="section-banner"
+            :media="page.keyArt[0].heroImage[0]"
+            :ratio="40"
+            :title="page.keyArt[0].titleGeneral"
+            :description="page.keyArt[0].summary"
+            :prompt="page.keyArt[0].buttonText"
+            :to="page.keyArt[0].buttonUrl"
+            :align-right="false"
+        />
+        <div v-if="page.blocks">
+            {{ page.blocks }}
+        </div>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder class="divider" color="about" />
-    </section-wrapper>
 
-    <!-- section-wrapper :section-title="page.timelineTitle">
-            <div v-for="(value, propertyName) in timelineSortedBySubtitle" :key="propertyName" class="sub-section-grid">
-                <h3 class="grid-gallery-subtitle" v-html="propertyName" />
+        <!--flexible-blocks v-if="page.blocks" class="flexible-content" :blocks="page.blocks" / -->
 
-                <grid-gallery v-for="(subValue, propertySubName) in value" :key="propertySubName"
-                    :section-summary="propertySubName" :items="subValue" />
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+
+        <section-wrapper :section-title="page.timelineTitle">
+            <div
+                v-for="(value, propertyName) in timelineSortedBySubtitle"
+                :key="propertyName"
+                class="sub-section-grid"
+            >
+                <h3
+                    class="grid-gallery-subtitle"
+                    v-html="propertyName"
+                />
+
+                <grid-gallery
+                    v-for="(subValue, propertySubName) in value"
+                    :key="propertySubName"
+                    :section-summary="propertySubName"
+                    :items="subValue"
+                />
             </div>
-        </section-wrapper -->
-    <section-wrapper theme="divider">
-      <divider-way-finder class="divider" color="about" />
-    </section-wrapper>
-    <!-- section-wrapper v-if="page.acknowledgements && page.acknowledgements.length == 1">
+        </section-wrapper>
+        <section-wrapper theme="divider">
+            <divider-way-finder
+                class="divider"
+                color="about"
+            />
+        </section-wrapper>
+        <section-wrapper v-if="page.acknowledgements && page.acknowledgements.length == 1">
             <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
                 ? ''
                 : 'visually-hidden'
                 ">
                 {{ page.acknowledgements[0].titleGeneral }}
             </h2>
-            <rich-text class="credits" v-html="page.acknowledgements[0].acknowledgements" />
-        </section-wrapper -->
-  </main>
+            <rich-text
+                class="credits"
+                v-html="page.acknowledgements[0].acknowledgements"
+            />
+        </section-wrapper>
+    </main>
 </template>
 
 <style lang="scss" scoped>
@@ -313,5 +433,4 @@ definePageMeta({
             height: 40px;
         }
     }
-}
-</style>
+}</style>
