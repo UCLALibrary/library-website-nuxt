@@ -311,11 +311,11 @@ useHead({
     </section-wrapper>
 
     <section-wrapper>
-      {{ parsedNewsList }}
-      <!-- section-teaser-card
-                v-if="parsedNewsList.length > 1"
-                :items="parsedNewsList"
-            / -->
+      <!-- {{ parsedNewsList }} -->
+      <section-teaser-card
+        v-if="parsedNewsList.length > 1"
+        :items="parsedNewsList"
+      />
       <nuxt-link
         to="/about/news"
         class="button-more"

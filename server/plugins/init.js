@@ -1,9 +1,9 @@
-import { useLogger } from '@nuxt/kit'
+import { consola } from "consola";
 
 /* eslint-disable-next-line require-await */
 export default defineNitroPlugin(async () => {
   const storage = useStorage('SOME_KEY')
-  const consola = useLogger()
+
   const endpoint = useRuntimeConfig().public.craftGraphqlURL
   const MenuItem = `
             id

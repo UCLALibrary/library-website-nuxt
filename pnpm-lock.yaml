@@ -11,6 +11,9 @@ dependencies:
   '@vue-a11y/skip-to':
     specifier: ^3.0.3
     version: 3.0.3(vue@3.4.19)
+  consola:
+    specifier: ^3.2.3
+    version: 3.2.3
 
 devDependencies:
   '@nuxt/eslint-config':
