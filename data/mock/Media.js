@@ -29,7 +29,7 @@ export const VideoFile = [
 ]
 
 export const VideoEmbed
-    = '<figure><iframe width="560" height="315" src="https://www.youtube.com/embed/3sQ9k4yvvPw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></figure>'
+  = '<figure><iframe width="560" height="315" src="https://www.youtube.com/embed/3sQ9k4yvvPw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></figure>'
 
 export const AudioFile = [
   {
@@ -47,7 +47,7 @@ export const AudioFile = [
 ]
 
 export const AudioEmbed
-    = '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2LSKvAsHw4SUaCx932SsAo?utm_source=generator" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>'
+  = '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2LSKvAsHw4SUaCx932SsAo?utm_source=generator" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>'
 
 export const AudioFileCoverImage = [
   {
@@ -114,14 +114,14 @@ export const Gallery = {
   typeHandle: 'mediaGallery',
   sectionTitle: 'Pine Needles are Awesome',
   richTextSimplified:
-        '<p>Pine needles. It’s not because the gangly-limbed tree is particularly beautiful. The pine doesn’t have a magnolia’s flowers or an oak’s shade. <strong>East Coast Pine Needles live up to their reputation of excellence.</strong></p>',
+    '<p>Pine needles. It’s not because the gangly-limbed tree is particularly beautiful. The pine doesn’t have a magnolia’s flowers or an oak’s shade. <strong>East Coast Pine Needles live up to their reputation of excellence.</strong></p>',
   mediaGalleryStyle: 'fullWidth',
   mediaGallery: [
     {
       id: '46451',
       captionTitle: 'Image Pine Needles',
       captionText:
-                'Pine needles. It’s not because the gangly-limbed tree is particularly beautiful. The pine doesn’t have a magnolia’s flowers or an oak’s shade. And it has nothing to do with the endangered red-cockaded woodpecker that calls the tree home. The longleaf pine’s most obvious attribute is its strong, straight timber — perfect for utility poles.',
+        'Pine needles. It’s not because the gangly-limbed tree is particularly beautiful. The pine doesn’t have a magnolia’s flowers or an oak’s shade. And it has nothing to do with the endangered red-cockaded woodpecker that calls the tree home. The longleaf pine’s most obvious attribute is its strong, straight timber — perfect for utility poles.',
       sortOrder: 1,
       item: ImageFile,
       credit: 'photo by someone',
@@ -153,7 +153,7 @@ export const Gallery = {
       id: '46576',
       captionTitle: 'Audio',
       captionText:
-                'The Sporting Life, "Queen of Sandcastles". Portland, 2000ish.',
+        'The Sporting Life, "Queen of Sandcastles". Portland, 2000ish.',
       sortOrder: 4,
       item: AudioFile,
       coverImage: AudioFileCoverImage,
@@ -163,7 +163,7 @@ export const Gallery = {
       id: '46454',
       captionTitle: 'Audio Embed',
       captionText:
-                'Shira Small! Embeds shouldn\'t really care if they\'re audio of video',
+        'Shira Small! Embeds shouldn\'t really care if they\'re audio of video',
       sortOrder: 5,
       item: [],
       embedCode: AudioEmbed,
@@ -177,14 +177,14 @@ export const GalleryHalfWidth = {
   typeHandle: 'mediaGallery',
   sectionTitle: 'Pine Needles are Awesome',
   richTextSimplified:
-        '<p>Pine needles. It’s not because the gangly-limbed tree is particularly beautiful. The pine doesn’t have a magnolia’s flowers or an oak’s shade. <strong>East Coast Pine Needles live up to their reputation of excellence.</strong></p>',
+    '<p>Pine needles. It’s not because the gangly-limbed tree is particularly beautiful. The pine doesn’t have a magnolia’s flowers or an oak’s shade. <strong>East Coast Pine Needles live up to their reputation of excellence.</strong></p>',
   mediaGalleryStyle: 'halfWidth',
   mediaGallery: [
     {
       id: '46451',
       captionTitle: 'Image Pine Needles',
       captionText:
-                'Pine needles. It’s not because the gangly-limbed tree is particularly beautiful. The pine doesn’t have a magnolia’s flowers or an oak’s shade. And it has nothing to do with the endangered red-cockaded woodpecker that calls the tree home. The longleaf pine’s most obvious attribute is its strong, straight timber — perfect for utility poles.',
+        'Pine needles. It’s not because the gangly-limbed tree is particularly beautiful. The pine doesn’t have a magnolia’s flowers or an oak’s shade. And it has nothing to do with the endangered red-cockaded woodpecker that calls the tree home. The longleaf pine’s most obvious attribute is its strong, straight timber — perfect for utility poles.',
       sortOrder: 1,
       item: ImageFile,
       credit: 'photo by someone',
@@ -216,7 +216,7 @@ export const GalleryHalfWidth = {
       id: '46576',
       captionTitle: 'Audio',
       captionText:
-                'The Sporting Life, "Queen of Sandcastles". Portland, 2000ish.',
+        'The Sporting Life, "Queen of Sandcastles". Portland, 2000ish.',
       sortOrder: 4,
       item: AudioFile,
       coverImage: AudioFileCoverImage,
@@ -226,7 +226,7 @@ export const GalleryHalfWidth = {
       id: '46454',
       captionTitle: 'Audio Embed',
       captionText:
-                'Shira Small! Embeds shouldn\'t really care if they\'re audio of video',
+        'Shira Small! Embeds shouldn\'t really care if they\'re audio of video',
       sortOrder: 5,
       item: [],
       embedCode: AudioEmbed,

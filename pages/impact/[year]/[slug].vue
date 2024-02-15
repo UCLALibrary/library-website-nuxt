@@ -1,253 +1,247 @@
 <script setup>
 // HELPERS
-import _get from "lodash/get"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import IMPACT_REPORT_STORY from "../gql/queries/ImpactReportStory.gql"
+import IMPACT_REPORT_STORY from '../gql/queries/ImpactReportStory.gql'
 
 definePageMeta({
-    layout: 'impact'
+  layout: 'impact'
 })
 const route = useRoute()
 const variables = { slug: route.params.slug }
-const { data: data, error } = await useAsyncData('impact-report-index', async () => {
-    // try {
-    const data = await $graphql.default.request(IMPACT_REPORT_STORY, variables)
-    // console.log("Fetched data:", JSON.stringify(data))
-    return data
-    /*} catch (error) {
-        console.error("Error fetching data:", error)
-    }*/
+const { data, error } = await useAsyncData('impact-report-index', async () => {
+  // try {
+  const data = await $graphql.default.request(IMPACT_REPORT_STORY, variables)
+  // console.log("Fetched data:", JSON.stringify(data))
+  return data
+  /* } catch (error) {
+          console.error("Error fetching data:", error)
+      } */
 })
 
 if (error.value) {
-    console.log(error.value)
-    throw createError({
-        statusCode: 404, statusMessage: "Page not found.", fatal: true
-    })
+  // console.log(error.value)
+  throw createError({
+    statusCode: 404, statusMessage: 'Page not found.', fatal: true
+  })
 }
 if (!data.value.entry) {
-    throw createError({
-        statusCode: 404,
-        statusMessage: 'Page Not Found'
-    })
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page Not Found'
+  })
 }
 const page = ref(_get(data.value, 'entry', {}))
 
 useHead({
 
-
-
-    title: page ? page.value?.title : "... loading",
-    meta: [
-        {
-            hid: "description",
-            name: "description",
-            content: removeTags(page.value?.text),
-        },
-    ],
+  title: page ? page.value?.title : '... loading',
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: removeTags(page.value?.text),
+    },
+  ],
 
 })
 
 const parsedByline = computed(() => {
-    let bannerFeaturedByline = page.value.contributors.map((obj) => {
-        if (obj.typeHandle === "externalContributor") {
-            return `${obj.byline + " " + obj.title}`
-        } else if (obj.typeHandle === "staffMember") {
-            return `${obj.byline + " " + obj.staffMember[0].title}`
-        } else {
-            return []
-        }
-    })
-    return bannerFeaturedByline
+  const bannerFeaturedByline = page.value.contributors.map((obj) => {
+    if (obj.typeHandle === 'externalContributor')
+      return `${`${obj.byline} ${obj.title}`}`
+    else if (obj.typeHandle === 'staffMember')
+      return `${`${obj.byline} ${obj.staffMember[0].title}`}`
+    else
+      return []
+  })
+  return bannerFeaturedByline
 })
-
-
 </script>
+
 <template lang="html">
-    <main
-        id="main"
-        class="page page-impact-report"
+  <main
+    id="main"
+    class="page page-impact-report"
+  >
+    <banner-text
+      v-if="page && (!page.heroImage || page.heroImage.length === 0)"
+      class="banner-text"
+      :title="page.title"
+      :text="page.text"
+      :byline="parsedByline"
+    />
+
+    <section-wrapper
+      v-if="page && page.heroImage && page.heroImage.length === 1"
+      class="section-banner"
     >
-        <banner-text
-            v-if="page && (!page.heroImage || page.heroImage.length == 0)"
-            class="banner-text"
-            :title="page.title"
-            :text="page.text"
-            :byline="parsedByline"
-        />
+      <banner-header
+        :title="page.title"
+        :text="page.text"
+        :align-right="true"
+        :media="page.heroImage[0].image[0]"
+        :byline="parsedByline"
+      />
+    </section-wrapper>
 
-        <section-wrapper
-            v-if="page && page.heroImage && page.heroImage.length == 1"
-            class="section-banner"
-        >
-            <banner-header
-                :title="page.title"
-                :text="page.text"
-                :align-right="true"
-                :media="page.heroImage[0].image[0]"
-                :byline="parsedByline"
-            />
-        </section-wrapper>
+    <section-wrapper theme="divider">
+      <divider-way-finder
+        class="divider"
+        color="about"
+      />
+    </section-wrapper>
 
-        <section-wrapper theme="divider">
-            <divider-way-finder
-                class="divider"
-                color="about"
-            />
-        </section-wrapper>
-
-        <flexible-blocks
-            class="content"
-            :blocks="page.blocks"
-        />
-    </main>
+    <flexible-blocks
+      class="content"
+      :blocks="page.blocks"
+    />
+  </main>
 </template>
-
-
 
 <style lang="scss" scoped>
 .page-impact-report {
-    margin: 0 0 0 0;
+  margin: 0 0 0 0;
 
-    .section {
-        margin: 1px auto;
+  .section {
+    margin: 1px auto;
+  }
+
+  ::v-deep .section-wrapper.top-level.theme-gray {
+    --color-theme: var(--color-white);
+    padding: 0;
+  }
+
+  // refactor when option to turn off overlays is available in craft
+  ::v-deep .section-banner {
+
+    .gradient-no-category,
+    .molecule,
+    .hatch {
+      display: none;
     }
+  }
 
-    ::v-deep .section-wrapper.top-level.theme-gray {
-        --color-theme: var(--color-white);
-        padding: 0;
-    }
+  // .section-banner {
+  //     margin-top: 0;
+  //     margin-bottom: 0;
+  // }
+  // .banner-header {
+  //     // margin-bottom: var(--space-xl);
+  //     padding: 0;
+  //     max-width: $container-xl-full-width + px;
+  // }
+  // ::v-deep .banner-header {
+  //     margin-bottom: 0px;
+  // }
+  // .rich-text {
+  //     margin: var(--unit-gutter) auto;
+  // }
+  // .breadcrumb-link {
+  //     margin: var(--space-xl) auto;
+  //     padding: 0 $whitespace-m-sides + px;
+  //     max-width: $container-l-main + px;
+  //     font-style: var(--font-secondary);
+  //     font-size: 20px;
+  //     color: var(--color-primary-blue-03);
+  //     font-weight: 400;
 
-    // refactor when option to turn off overlays is available in craft
-    ::v-deep .section-banner {
+  //     display: flex;
+  //     align-items: center;
+  // }
+  // .divider {
+  //     margin: var(--space-xl) auto;
+  // }
+  // .divider-way-finder {
+  //     max-width: $container-l-main + px;
+  //     margin: var(--space-3xl) auto;
+  //     &.divider {
+  //         box-sizing: unset;
+  //     }
+  // }
+  // .divider-general {
+  //     margin: var(--space-3xl) auto;
+  //     max-width: $container-l-main + px;
+  // }
+  // .call-to-action {
+  //     font-weight: 500;
+  //     font-size: 18px;
+  //     line-height: 100%;
+  //     margin: var(--space-3xl) auto;
+  //     padding: 0 $whitespace-m-sides + px;
+  //     max-width: $container-l-main + px;
 
-        .gradient-no-category,
-        .molecule,
-        .hatch {
-            display: none;
-        }
-    }
+  //     display: flex;
+  //     align-items: center;
+  // }
+  // .svg {
+  //     text-decoration: underline;
+  //     text-decoration-color: var(--color-primary-blue-03);
+  //     padding-left: 5px;
+  //     .line {
+  //         stroke: var(--color-primary-blue-03);
+  //     }
+  //     .arrow-diagonal {
+  //         fill: var(--color-primary-blue-03);
+  //     }
+  // }
+  // .svg-arrow-right {
+  //     flex-shrink: 0;
+  //     .arrow-right {
+  //         stroke: var(--color-primary-blue-03);
+  //     }
+  // }
 
-    // .section-banner {
-    //     margin-top: 0;
-    //     margin-bottom: 0;
-    // }
-    // .banner-header {
-    //     // margin-bottom: var(--space-xl);
-    //     padding: 0;
-    //     max-width: $container-xl-full-width + px;
-    // }
-    // ::v-deep .banner-header {
-    //     margin-bottom: 0px;
-    // }
-    // .rich-text {
-    //     margin: var(--unit-gutter) auto;
-    // }
-    // .breadcrumb-link {
-    //     margin: var(--space-xl) auto;
-    //     padding: 0 $whitespace-m-sides + px;
-    //     max-width: $container-l-main + px;
-    //     font-style: var(--font-secondary);
-    //     font-size: 20px;
-    //     color: var(--color-primary-blue-03);
-    //     font-weight: 400;
+  // .content {
+  //     ::v-deep .section-wrapper {
+  //         .flexible-block {
+  //             background-color: var(--color-white);
+  //             ul > * {
+  //                 background-color: var(--color-white);
+  //             }
+  //             div.clipped-box {
+  //                 background-color: var(--color-white);
+  //             }
+  //         }
+  //         background-color: var(--color-white);
+  //     }
+  // }
+  // @media #{$medium} {
+  //     .divider-general {
+  //         width: calc(100% - (var(--unit-gutter) * 2));
+  //     }
 
-    //     display: flex;
-    //     align-items: center;
-    // }
-    // .divider {
-    //     margin: var(--space-xl) auto;
-    // }
-    // .divider-way-finder {
-    //     max-width: $container-l-main + px;
-    //     margin: var(--space-3xl) auto;
-    //     &.divider {
-    //         box-sizing: unset;
-    //     }
-    // }
-    // .divider-general {
-    //     margin: var(--space-3xl) auto;
-    //     max-width: $container-l-main + px;
-    // }
-    // .call-to-action {
-    //     font-weight: 500;
-    //     font-size: 18px;
-    //     line-height: 100%;
-    //     margin: var(--space-3xl) auto;
-    //     padding: 0 $whitespace-m-sides + px;
-    //     max-width: $container-l-main + px;
+  //     .rich-text {
+  //         padding: 0 var(--unit-gutter);
+  //     }
 
-    //     display: flex;
-    //     align-items: center;
-    // }
-    // .svg {
-    //     text-decoration: underline;
-    //     text-decoration-color: var(--color-primary-blue-03);
-    //     padding-left: 5px;
-    //     .line {
-    //         stroke: var(--color-primary-blue-03);
-    //     }
-    //     .arrow-diagonal {
-    //         fill: var(--color-primary-blue-03);
-    //     }
-    // }
-    // .svg-arrow-right {
-    //     flex-shrink: 0;
-    //     .arrow-right {
-    //         stroke: var(--color-primary-blue-03);
-    //     }
-    // }
+  //     .call-to-action,
+  //     .breadcrumb-link {
+  //         padding: 0 var(--unit-gutter);
+  //     }
+  // }
 
-    // .content {
-    //     ::v-deep .section-wrapper {
-    //         .flexible-block {
-    //             background-color: var(--color-white);
-    //             ul > * {
-    //                 background-color: var(--color-white);
-    //             }
-    //             div.clipped-box {
-    //                 background-color: var(--color-white);
-    //             }
-    //         }
-    //         background-color: var(--color-white);
-    //     }
-    // }
-    // @media #{$medium} {
-    //     .divider-general {
-    //         width: calc(100% - (var(--unit-gutter) * 2));
-    //     }
+  // @media #{$has-hover} {
+  //     .svg:hover {
+  //         .arrow {
+  //             path {
+  //                 fill: var(--color-primary-blue-03);
+  //             }
+  //         }
+  //         path {
+  //             fill: var(--color-primary-blue-03);
+  //             .arrow-diagonal {
+  //                 color: var(--color-primary-blue-03);
+  //             }
+  //         }
+  //     }
 
-    //     .rich-text {
-    //         padding: 0 var(--unit-gutter);
-    //     }
-
-    //     .call-to-action,
-    //     .breadcrumb-link {
-    //         padding: 0 var(--unit-gutter);
-    //     }
-    // }
-
-    // @media #{$has-hover} {
-    //     .svg:hover {
-    //         .arrow {
-    //             path {
-    //                 fill: var(--color-primary-blue-03);
-    //             }
-    //         }
-    //         path {
-    //             fill: var(--color-primary-blue-03);
-    //             .arrow-diagonal {
-    //                 color: var(--color-primary-blue-03);
-    //             }
-    //         }
-    //     }
-
-    //     .hover-text:hover {
-    //         color: var(--color-primary-blue-03);
-    //         @include link-hover;
-    //     }
-    // }
+  //     .hover-text:hover {
+  //         color: var(--color-primary-blue-03);
+  //         @include link-hover;
+  //     }
+  // }
 }
 </style>

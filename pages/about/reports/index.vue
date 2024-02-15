@@ -1,119 +1,116 @@
-
-
 <script setup>
 // HELPERS
-import _get from "lodash/get"
-import fixUri from "../utils/fixUri"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import fixUri from '../utils/fixUri'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import IMPACT_REPORTS_LIST from "../gql/queries/ImpactReportsList.gql"
+import IMPACT_REPORTS_LIST from '../gql/queries/ImpactReportsList.gql'
 
 const { $graphql } = useNuxtApp()
 const { data: page, error } = await useAsyncData('impact-report-all-list', async () => {
-    // try {
-    const data = await $graphql.default.request(IMPACT_REPORTS_LIST)
-    // console.log("Fetched data:", JSON.stringify(data))
-    return data
-    /*} catch (error) {
+  // try {
+  const data = await $graphql.default.request(IMPACT_REPORTS_LIST)
+  // console.log("Fetched data:", JSON.stringify(data))
+  return data
+  /* } catch (error) {
         console.error("Error fetching data:", error)
-    }*/
+    } */
 })
 if (error.value) {
-    console.log(error.value)
-    throw createError({
-        statusCode: 404, statusMessage: "Page not found.", fatal: true
-    })
+  // console.log(error.value)
+  throw createError({
+    statusCode: 404, statusMessage: 'Page not found.', fatal: true
+  })
 }
 
 useHead({
-    title: page.value?.entry?.title || '... loading',
-    meta: [
-        {
-            hid: 'description',
-            name: 'description',
-            content: removeTags(page.value?.entry?.summary),
-        },
-    ],
+  title: page.value?.entry?.title || '... loading',
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: removeTags(page.value?.entry?.summary),
+    },
+  ],
 })
 const parsedReportsList = computed(() => {
-    return page.value?.entries.map((obj) => {
-        return {
-            to: fixUri(_get(obj, "to", null)),
-            image: _get(obj, "image[0]", null),
-            title: _get(obj, "title", "hi"),
-            description: _get(obj, "richText", null),
-        }
-    })
+  return page.value?.entries.map((obj) => {
+    return {
+      to: fixUri(_get(obj, 'to', null)),
+      image: _get(obj, 'image[0]', null),
+      title: _get(obj, 'title', 'hi'),
+      description: _get(obj, 'richText', null),
+    }
+  })
 })
-
 </script>
 
 <template>
-    <main
-        id="main"
-        class="page page-news"
-    >
-        <nav-breadcrumb
-            to="/about"
-            :title="page.entry.title"
-            parent-title="About Us"
-        />
-        <banner-text
-            :title="page.entry.title"
-            :text="page.entry.summary"
-            button-text="View this year's report"
-            :to="parsedReportsList[0].to"
-        />
+  <main
+    id="main"
+    class="page page-news"
+  >
+    <nav-breadcrumb
+      to="/about"
+      :title="page.entry.title"
+      parent-title="About Us"
+    />
+    <banner-text
+      :title="page.entry.title"
+      :text="page.entry.summary"
+      button-text="View this year's report"
+      :to="parsedReportsList[0].to"
+    />
 
-        <section-wrapper theme="divider">
-            <divider-way-finder color="about" />
-        </section-wrapper>
+    <section-wrapper theme="divider">
+      <divider-way-finder color="about" />
+    </section-wrapper>
 
-        <section-wrapper>
-            <section-staff-article-list :items="parsedReportsList" />
-        </section-wrapper>
+    <section-wrapper>
+      <section-staff-article-list :items="parsedReportsList" />
+    </section-wrapper>
 
-        <section-wrapper theme="divider">
-            <divider-way-finder color="about" />
-        </section-wrapper>
+    <section-wrapper theme="divider">
+      <divider-way-finder color="about" />
+    </section-wrapper>
 
-        <section-wrapper>
-            <block-call-to-action
-                class="block-call-to-action"
-                :is-global="true"
-            />
-        </section-wrapper>
-    </main>
+    <section-wrapper>
+      <block-call-to-action
+        class="block-call-to-action"
+        :is-global="true"
+      />
+    </section-wrapper>
+  </main>
 </template>
 
 <style lang="scss" scoped>
 .page-news {
-    padding-left: 50px;
+  padding-left: 50px;
 
-    .entry-count {
-        @include step-2;
-        color: var(--color-primary-blue-03);
-        margin: var(--space-m);
-    }
+  .entry-count {
+    @include step-2;
+    color: var(--color-primary-blue-03);
+    margin: var(--space-m);
+  }
 
-    .section-heading {
-        @include step-2;
-        color: var(--color-primary-blue-03);
-        margin-bottom: var(--space-m);
-    }
+  .section-heading {
+    @include step-2;
+    color: var(--color-primary-blue-03);
+    margin-bottom: var(--space-m);
+  }
 
-    .all-news-heading {
-        @include step-1;
-        color: var(--color-primary-blue-03);
-    }
+  .all-news-heading {
+    @include step-1;
+    color: var(--color-primary-blue-03);
+  }
 
-    .news-item-link {
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        @include step-1;
-        color: var(--color-primary-blue-03);
-    }
+  .news-item-link {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    @include step-1;
+    color: var(--color-primary-blue-03);
+  }
 }
 </style>

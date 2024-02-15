@@ -1,18 +1,18 @@
 import { useLogger } from '@nuxt/kit'
 
-
+/* eslint-disable-next-line require-await */
 export default defineNitroPlugin(async () => {
-    const storage = useStorage('SOME_KEY')
-    const consola = useLogger()
-    const endpoint = useRuntimeConfig().public.craftGraphqlURL
-    const MenuItem = `
+  const storage = useStorage('SOME_KEY')
+  const consola = useLogger()
+  const endpoint = useRuntimeConfig().public.craftGraphqlURL
+  const MenuItem = `
             id
             name: title
             to: url
             classes
             target: newWindow  
     `
-    const globalsQuery = `
+  const globalsQuery = `
         query Globals {
             globalSets {
                 dataId: id
@@ -34,7 +34,7 @@ export default defineNitroPlugin(async () => {
             }
         }
     `
-    const headerQuery = `
+  const headerQuery = `
         query HeaderMainMenuItems {
             secondary: nodes(navHandle: "secondaryMenu", level: 1) {
                 ${MenuItem}
@@ -47,7 +47,7 @@ export default defineNitroPlugin(async () => {
             }
         }
     `
-    const footerPrimaryQuery = `
+  const footerPrimaryQuery = `
         query FooterPrimaryItems {
             nodes(navHandle: "footerPrimary", level: 1) {
                 ${MenuItem}
@@ -58,105 +58,103 @@ export default defineNitroPlugin(async () => {
         }
     `
 
-    const footerSockQuery = `
+  const footerSockQuery = `
     query FooterSockItems {
         nodes(navHandle: "footerSockLinks") {
             ${MenuItem}
         }
       }
     `
-
-    async function fetchCraftData() {
-        try {
-            consola.start('Fetching global craft data...')
-            fetchGlobals()
-            fetchHeader()
-            fetchFooterPrimary()
-            fetchFooterSock()
-
-            consola.success(`Craft data fetched succesfully!`)
-        } catch (e) {
-            consola.error('Error fetching global craft data...')
-            throw new Error(`Error fetching global craft data: ${e}`)
-        }
-    }
-    async function fetchGlobals() {
-        try {
-
-            const response = await $fetch(endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ query: globalsQuery }),
-            })
-            // consola.log("Nitro Global Data object:" + JSON.stringify(response))
-            const data = response
-            await storage.setItem('globals', data)
-
-        }
-        catch (e) {
-            throw new Error(`Craft API error, trying to set globals. ${e}`)
-        }
-    }
-    async function fetchHeader() {
-        try {
-            const response = await $fetch(endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ query: headerQuery }),
-            })
-            // consola.log("Nitro Header Data object:" + JSON.stringify(response))
-            const data = response
-            await storage.setItem('header', data)
-
-        }
-        catch (e) {
-            throw new Error(`Craft API error, trying to set globals Header. ${e}`)
-        }
-    }
-    async function fetchFooterPrimary() {
-        try {
-
-            const response = await $fetch(endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ query: footerPrimaryQuery }),
-            })
-            // consola.log("Nitro Footer Primary Data object:" + JSON.stringify(response))
-            const data = response
-            await storage.setItem('footerPrimary', data)
-        }
-        catch (e) {
-            throw new Error(`Craft API error, trying to set globals FooterPrimary. ${e}`)
-        }
-    }
-    async function fetchFooterSock() {
-        try {
-            const response = await $fetch(endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ query: footerSockQuery }),
-            })
-            // consola.log("Nitro Footer Sock Data object:" + JSON.stringify(response))
-            const data = response
-            await storage.setItem('footerSock', data)
-        }
-        catch (e) {
-            throw new Error(`Craft API error, trying to set globals FooterSockData. ${e}`)
-        }
-    }
+  /* eslint-disable-next-line require-await */
+  async function fetchCraftData() {
     try {
-        fetchCraftData()
-    } catch (e) {
-        consola.error('Error fetching global craft data...')
-        // Error handling here
-        throw new Error(`Error fetching global craft data: ${e}`)
+      consola.start('Fetching global craft data...')
+      fetchGlobals()
+      fetchHeader()
+      fetchFooterPrimary()
+      fetchFooterSock()
+
+      consola.success('Craft data fetched succesfully!')
     }
+    catch (e) {
+      consola.error('Error fetching global craft data...')
+      throw new Error(`Error fetching global craft data: ${e}`)
+    }
+  }
+  async function fetchGlobals() {
+    try {
+      const response = await $fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: globalsQuery }),
+      })
+      // consola.log("Nitro Global Data object:" + JSON.stringify(response))
+      const data = response
+      await storage.setItem('globals', data)
+    }
+    catch (e) {
+      throw new Error(`Craft API error, trying to set globals. ${e}`)
+    }
+  }
+  async function fetchHeader() {
+    try {
+      const response = await $fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: headerQuery }),
+      })
+      // consola.log("Nitro Header Data object:" + JSON.stringify(response))
+      const data = response
+      await storage.setItem('header', data)
+    }
+    catch (e) {
+      throw new Error(`Craft API error, trying to set globals Header. ${e}`)
+    }
+  }
+  async function fetchFooterPrimary() {
+    try {
+      const response = await $fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: footerPrimaryQuery }),
+      })
+      // consola.log("Nitro Footer Primary Data object:" + JSON.stringify(response))
+      const data = response
+      await storage.setItem('footerPrimary', data)
+    }
+    catch (e) {
+      throw new Error(`Craft API error, trying to set globals FooterPrimary. ${e}`)
+    }
+  }
+  async function fetchFooterSock() {
+    try {
+      const response = await $fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: footerSockQuery }),
+      })
+      // consola.log("Nitro Footer Sock Data object:" + JSON.stringify(response))
+      const data = response
+      await storage.setItem('footerSock', data)
+    }
+    catch (e) {
+      throw new Error(`Craft API error, trying to set globals FooterSockData. ${e}`)
+    }
+  }
+  try {
+    fetchCraftData()
+  }
+  catch (e) {
+    consola.error('Error fetching global craft data...')
+    // Error handling here
+    throw new Error(`Error fetching global craft data: ${e}`)
+  }
 })

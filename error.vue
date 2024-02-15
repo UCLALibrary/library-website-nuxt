@@ -11,7 +11,10 @@ useHead({
 </script>
 
 <template>
-  <main id="main" class="page page-error">
+  <main
+    id="main"
+    class="page page-error"
+  >
     <p class="error">
       404
     </p>

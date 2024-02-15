@@ -1,7 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-
   // when using local pnpm link with component library uncomment this line
   vite: {
     server: {
@@ -19,6 +17,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   nitro: {
     prerender: {
       crawlLinks: true,
@@ -45,6 +44,7 @@ export default defineNuxtConfig({
         || 'https://proxy.calendar.library.ucla.edu/',
     },
   },
+
   /*
      ** Required charset and viewport meta tags
      */
@@ -64,6 +64,7 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },
   },
+
   /*
      ** Global CSS
      */
@@ -84,13 +85,12 @@ export default defineNuxtConfig({
       },
     ],
     'nuxt-graphql-request',
+
   ],
 
   imports: {
     dirs: ['stores'],
   },
-
-
 
   graphql: {
     /**
@@ -130,14 +130,5 @@ export default defineNuxtConfig({
      * default: false (this includes graphql-tag for node_modules folder)
      */
     includeNodeModules: true,
-  },
-
-
-  /*apollo: {
-    clients: {
-      default: {
-        httpEndpoint: process.env.CRAFT_ENDPOINT || '',
-      },
-    },
-  },*/
+  }
 })

@@ -131,24 +131,43 @@ const amenities = [
     <rich-text :rich-text-content="richTextContent" />
     <hr>
     <h2>SiteNotificationAlert Component</h2>
-    <site-notification-alert :title="title" :text="text" />
-    <site-notification-alert :title="title" :text="textLong" />
+    <site-notification-alert
+      :title="title"
+      :text="text"
+    />
+    <site-notification-alert
+      :title="title"
+      :text="textLong"
+    />
     <hr>
     <h2>ButtonLink Component</h2>
-    <button-link label="Etiam et Ultrices" :is-secondary="true" to="/help/more" />
+    <button-link
+      label="Etiam et Ultrices"
+      :is-secondary="true"
+      to="/help/more"
+    />
     <br>
     <br>
 
-    <button-link label="Egest perl Conub" to="/help/more" />
+    <button-link
+      label="Egest perl Conub"
+      to="/help/more"
+    />
     <br>
     <br>
     <button-link
-      label="Etiam et Ultrices" :is-secondary="true" :is-download="true"
+      label="Etiam et Ultrices"
+      :is-secondary="true"
+      :is-download="true"
       to="https://calendar.library.ucla.edu/"
     />
     <br>
     <br>
-    <button-link label="Etiam et Ultrices" :is-secondary="true" to="https://calendar.library.ucla.edu/" />
+    <button-link
+      label="Etiam et Ultrices"
+      :is-secondary="true"
+      to="https://calendar.library.ucla.edu/"
+    />
     <br>
     <br>
     <hr>
@@ -159,7 +178,10 @@ const amenities = [
     <br>
     <h2> Section Wrapper component</h2>
     <br>
-    <section-wrapper :section-title="sectionTitle" :section-summary="sectionSummary">
+    <section-wrapper
+      :section-title="sectionTitle"
+      :section-summary="sectionSummary"
+    >
       <block-media-with-text v-bind="propsForMediaWithText" />
     </section-wrapper>
     <hr>
@@ -170,7 +192,9 @@ const amenities = [
       :section-header="mockMediaWithText.mediaWithText[0].titleLink"
       :short-description="mockMediaWithText.mediaWithText[0].description"
       :button-text="mockMediaWithText.mediaWithText[0].buttonText"
-      :button-url="mockMediaWithText.mediaWithText[0].buttonUrl" :item="itemVideo" :cover-image="coverImage"
+      :button-url="mockMediaWithText.mediaWithText[0].buttonUrl"
+      :item="itemVideo"
+      :cover-image="coverImage"
       type-media="video"
     />
     <br>
@@ -185,8 +209,10 @@ const amenities = [
     <h2>SearchResult Component</h2>
     <br>
     <SearchResult
-      :category="mockSearchResult.category" :title="mockSearchResult.title"
-      :summary="mockSearchResult.summary" :to="mockSearchResult.to"
+      :category="mockSearchResult.category"
+      :title="mockSearchResult.title"
+      :summary="mockSearchResult.summary"
+      :to="mockSearchResult.to"
     />
     <br>
     <hr>
@@ -200,14 +226,23 @@ const amenities = [
     <h2>BlockCallToAction Component</h2>
     <br>
     <BlockCallToAction
-      :svg-name="mockBlockToAction.svgName" :title="mockBlockToAction.title"
-      :text="mockBlockToAction.text" :name="mockBlockToAction.name" :to="mockBlockToAction.to" :is-dark="false"
+      :svg-name="mockBlockToAction.svgName"
+      :title="mockBlockToAction.title"
+      :text="mockBlockToAction.text"
+      :name="mockBlockToAction.name"
+      :to="mockBlockToAction.to"
+      :is-dark="false"
       :is-small-size="false"
     />
     <br>
     <BlockCallToAction
-      svg-name="svg-call-to-action-money" :title="mockBlockToAction.title" :text="mockBlockToAction.text"
-      :name="mockBlockToAction.name" :to="mockBlockToAction.to" :is-small-size="true" :is-dark="true"
+      svg-name="svg-call-to-action-money"
+      :title="mockBlockToAction.title"
+      :text="mockBlockToAction.text"
+      :name="mockBlockToAction.name"
+      :to="mockBlockToAction.to"
+      :is-small-size="true"
+      :is-dark="true"
     />
     <br>
     <hr>

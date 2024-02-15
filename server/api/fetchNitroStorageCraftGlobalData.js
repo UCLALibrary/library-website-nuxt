@@ -1,3 +1,3 @@
 export default cachedEventHandler(async () => {
-    return await useStorage('SOME_KEY').getItem('globals')
+  return await useStorage('SOME_KEY').getItem('globals')
 })

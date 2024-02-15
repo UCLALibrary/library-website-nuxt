@@ -42,7 +42,11 @@ useHead({
 
     <slot />
 
-    <footer-primary :social-items="parsedItems" :press-items="parsedPressItems" :form="false" />
+    <footer-primary
+      :social-items="parsedItems"
+      :press-items="parsedPressItems"
+      :form="false"
+    />
   </div>
 </template>
 

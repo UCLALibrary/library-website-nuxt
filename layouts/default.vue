@@ -28,7 +28,6 @@ const libraryAlert = computed(() => {
       && alert.text.length > 0
     )
       return alert
-
     else
       return null
   }
@@ -47,8 +46,15 @@ const classes = computed(() => [
     <!-- this is not working in static build -->
     <header-smart />
 
-    <section-wrapper class="section-alert" theme="divider">
-      <site-notification-alert v-if="libraryAlert" class="library-alert" v-bind="libraryAlert" />
+    <section-wrapper
+      class="section-alert"
+      theme="divider"
+    >
+      <site-notification-alert
+        v-if="libraryAlert"
+        class="library-alert"
+        v-bind="libraryAlert"
+      />
     </section-wrapper>
 
     <slot />

@@ -5,16 +5,14 @@ import _get from 'lodash/get'
 // GQL
 import HOMEPAGE from '../gql/queries/Homepage.gql'
 
+const { $graphql } = useNuxtApp()
 
-const { $graphql } = useNuxtApp();
-
-const { data: data } = await useAsyncData('home-page', async () => {
+const { data } = await useAsyncData('home-page', async () => {
   const data = await $graphql.default.request(HOMEPAGE)
   return data
 })
 
 const page = ref(_get(data.value, 'entry', {}))
-
 
 const parsedAdvancedSearchLink = computed(() => {
   // Last item in searchLinks
@@ -333,4 +331,5 @@ useHead({
   .button-more {
     margin: var(--space-2xl) auto;
   }
-}</style>
+}
+</style>
