@@ -275,8 +275,8 @@ useHead({
     </section-wrapper>
 
     <section-wrapper>
-      <!-- {{ parsedSectionHighlightCollection }}
-      <br> --->
+      <!--{{ parsedSectionHighlightCollection }}
+      <br-->
       <section-teaser-highlight
         v-if="parsedSectionHighlightCollection.length > 1"
         :items="parsedSectionHighlightCollection"
@@ -311,7 +311,7 @@ useHead({
     </section-wrapper>
 
     <section-wrapper>
-      <!-- {{ parsedNewsList }} -->
+      <!--{{ parsedNewsList }}-->
       <section-teaser-card
         v-if="parsedNewsList.length > 1"
         :items="parsedNewsList"

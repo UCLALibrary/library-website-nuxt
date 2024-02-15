@@ -2,6 +2,15 @@
 export default defineNuxtConfig({
   // when using local pnpm link with component library uncomment this line
   vite: {
+    // ADDED FOLLOWING LINE TO RESOLVE CROSS-FETCH ERROR
+    // Uncaught SyntaxError: The requested module '/_nuxt/node_modules/.pnpm/cross-fetch@3.1.8/node_modules/cross-fetch/dist/browser-ponyfill.js?v=4dc3293b' 
+    //does not provide an export named 'default' (at index.js?v=4dc3293b:6:8)
+    // localhost/: 1  
+    resolve: {
+      alias: {
+        'cross-fetch': 'cross-fetch/dist/browser-ponyfill.js',
+      },
+    },
     server: {
       fs: {
         strict: false,
@@ -123,12 +132,12 @@ export default defineNuxtConfig({
      * Optional
      * default: false (this includes cross-fetch/polyfill before creating the graphql client)
      */
-    useFetchPolyfill: true,
+    // useFetchPolyfill: true,
 
     /**
      * Optional
      * default: false (this includes graphql-tag for node_modules folder)
      */
-    includeNodeModules: true,
+    // includeNodeModules: true,
   }
 })

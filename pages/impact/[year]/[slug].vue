@@ -9,7 +9,9 @@ import IMPACT_REPORT_STORY from '../gql/queries/ImpactReportStory.gql'
 definePageMeta({
   layout: 'impact'
 })
+const { $graphql } = useNuxtApp()
 const route = useRoute()
+
 const variables = { slug: route.params.slug }
 const { data, error } = await useAsyncData('impact-report-index', async () => {
   // try {
@@ -24,7 +26,7 @@ const { data, error } = await useAsyncData('impact-report-index', async () => {
 if (error.value) {
   // console.log(error.value)
   throw createError({
-    statusCode: 404, statusMessage: 'Page not found.', fatal: true
+    statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
   })
 }
 if (!data.value.entry) {
