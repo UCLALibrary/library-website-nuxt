@@ -9,16 +9,10 @@ import IMPACT_REPORTS_LIST from '../gql/queries/ImpactReportsList.gql'
 
 const { $graphql } = useNuxtApp()
 const { data: page, error } = await useAsyncData('impact-report-all-list', async () => {
-  // try {
   const data = await $graphql.default.request(IMPACT_REPORTS_LIST)
-  // console.log("Fetched data:", JSON.stringify(data))
   return data
-  /* } catch (error) {
-        console.error("Error fetching data:", error)
-    } */
 })
 if (error.value) {
-  // console.log(error.value)
   throw createError({
     statusCode: 404, statusMessage: 'Page not found.', fatal: true
   })

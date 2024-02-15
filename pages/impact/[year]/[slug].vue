@@ -14,17 +14,11 @@ const route = useRoute()
 
 const variables = { slug: route.params.slug }
 const { data, error } = await useAsyncData('impact-report-index', async () => {
-  // try {
   const data = await $graphql.default.request(IMPACT_REPORT_STORY, variables)
-  // console.log("Fetched data:", JSON.stringify(data))
   return data
-  /* } catch (error) {
-          console.error("Error fetching data:", error)
-      } */
 })
 
 if (error.value) {
-  // console.log(error.value)
   throw createError({
     statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
   })

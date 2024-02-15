@@ -17,24 +17,16 @@ definePageMeta({
 })
 const route = useRoute()
 const path = route.params && route.params.year ? `impact/${route.params.year}` : '*'
-// console.log("Path: ", path)
 const variables = { path }
 const { data, error } = await useAsyncData('impact-report-index', async () => {
-  // try {
   const data = await $graphql.default.request(IMPACT_REPORT, variables)
-  // console.log("Fetched data:", JSON.stringify(data))
   return data
-  /* } catch (error) {
-          console.error("Error fetching data:", error)
-      } */
 })
 if (error.value) {
-  // console.log(error.value)
   throw createError({
     statusCode: 404, statusMessage: 'Page not found.', fatal: true
   })
 }
-// console.log("Impact Report data:", JSON.stringify(data))
 if (!data.value.entry) {
   throw createError({
     statusCode: 404,
@@ -43,7 +35,6 @@ if (!data.value.entry) {
 }
 const page = ref(_get(data.value, 'entry', {}))
 
-// console.log("Impact Report page:", JSON.stringify(page.value.text))
 useHead({
   title: page.value?.title || '... loading',
   meta: [
@@ -155,12 +146,10 @@ const timelineSortedBySubtitle = computed(() => {
       />
     </section-wrapper>
     <section-wrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
-      <h2
-        :class="page.acknowledgements[0].displaySectionTitle === 'true'
-          ? ''
-          : 'visually-hidden'
-        "
-      >
+      <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
+        ? ''
+        : 'visually-hidden'
+        ">
         {{ page.acknowledgements[0].titleGeneral }}
       </h2>
       <rich-text
