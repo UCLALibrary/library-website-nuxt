@@ -1,4 +1,4 @@
-import { consola } from "consola";
+import { consola } from 'consola'
 
 /* eslint-disable-next-line require-await */
 export default defineNitroPlugin(async () => {
