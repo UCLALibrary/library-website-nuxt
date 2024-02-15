@@ -99,3 +99,7 @@ storybook-static
 cypress/fixtures/example.json
 cypress/screenshots
 
+# local component testing
+page/component.vue
+data/
+
