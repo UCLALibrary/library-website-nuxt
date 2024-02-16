@@ -5,6 +5,7 @@
 		"build": "nuxt build",
 		"dev": "nuxt dev",
 		"generate": "nuxt generate",
+		"start": "pnpm dlx serve .output/public",
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare",
 		"cypress": "cypress open",
@@ -32,6 +33,6 @@
 		"nuxt-graphql-request": "^7.0.5",
 		"sass": "^1.66.1",
 		"ucla-library-design-tokens": "^5.5.0",
-		"ucla-library-website-components": "2.39.0-alpha.35"
+		"ucla-library-website-components": "2.39.0-alpha.36"
 	}
 }
