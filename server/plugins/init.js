@@ -1,7 +1,7 @@
 import { consola } from 'consola'
 
 /* eslint-disable-next-line require-await */
-export default defineNitroPlugin(async () => {
+export default defineNitroPlugin(async (nitroApp) => {
   const storage = useStorage('SOME_KEY')
 
   const endpoint = useRuntimeConfig().public.craftGraphqlURL
@@ -69,10 +69,10 @@ export default defineNitroPlugin(async () => {
   async function fetchCraftData() {
     try {
       consola.start('Fetching global craft data...')
-      fetchGlobals()
-      fetchHeader()
-      fetchFooterPrimary()
-      fetchFooterSock()
+      await fetchGlobals()
+      await fetchHeader()
+      await fetchFooterPrimary()
+      await fetchFooterSock()
 
       consola.success('Craft data fetched succesfully!')
     }
@@ -150,7 +150,7 @@ export default defineNitroPlugin(async () => {
     }
   }
   try {
-    fetchCraftData()
+    await fetchCraftData()
   }
   catch (e) {
     consola.error('Error fetching global craft data...')

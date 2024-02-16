@@ -1,6 +1,6 @@
 <script setup>
 // MOCK DATA
-import * as MOCK_API from '~/data/mock-api.json'
+import * as MOCK_API from '~/data/impact-social-media.json'
 
 const footerPrimaryItems = [...MOCK_API.shortLinks]
 const parsedItems = computed(() => {

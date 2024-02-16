@@ -1,0 +1,54 @@
+{
+  "links": [
+    {
+      "name": "Loripsum",
+      "text": "Lorem ipsum",
+      "to": "/example/uri/1",
+      "target": "_blank"
+    },
+    {
+      "name": "Mauris finibus",
+      "text": "Mauris finibus",
+      "to": "/example/uri/2",
+      "target": "_self"
+    },
+    {
+      "name": "Curabitur ac odio vulputate",
+      "text": "Curabitur ac odio vulputate",
+      "to": "/example/uri/3",
+      "target": "_self"
+    },
+    {
+      "name": "Morbi quis tellus vel turpis",
+      "text": "Morbi quis tellus vel turpis",
+      "to": "/example/uri/4",
+      "target": "_self"
+    }
+  ],
+  "shortLinks": [
+    {
+      "name": "Vulputa",
+      "text": "Lorem ipsum",
+      "to": "/example/uri/1",
+      "target": "_blank"
+    },
+    {
+      "name": "Marinibus",
+      "text": "Mauris finibus",
+      "to": "/example/uri/2",
+      "target": "_self"
+    },
+    {
+      "name": "Curabitur",
+      "text": "Curabitur ac odio vulputate",
+      "to": "/example/uri/3",
+      "target": "_self"
+    },
+    {
+      "name": "Morbiquis",
+      "text": "Morbi quis tellus vel turpis",
+      "to": "/example/uri/4",
+      "target": "_self"
+    }
+  ]
+}

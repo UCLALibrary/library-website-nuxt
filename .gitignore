@@ -101,5 +101,5 @@ cypress/screenshots
 
 # local component testing
 page/component.vue
-data/
+data/mock
 

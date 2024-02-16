@@ -208,11 +208,6 @@ useHead({
     </section-wrapper>
 
     <section-wrapper class="section-no-top-margin">
-      <!-- {{ page.getHelpWith[0].titleGeneral }}
-      <br>
-      {{ page.getHelpWith[0].sectionSummary }}
-      <br>
-      {{ parsedGetHelpWith }} -->
       <section-cards-with-illustrations
         class="section"
         :items="parsedGetHelpWith"
@@ -229,7 +224,6 @@ useHead({
     </section-wrapper>
 
     <section-wrapper class="section-banner">
-      <!-- {{ bannerFeaturedEvent }} -->
       <banner-featured
         :media="bannerFeaturedEvent.image"
         :to="bannerFeaturedEvent.to"
@@ -246,7 +240,6 @@ useHead({
     </section-wrapper>
 
     <section-wrapper class="section-dual-masonry">
-      <!-- {{ parsedDualMasonryEvents }} -->
       <section-dual-masonry
         v-if="parsedDualMasonryEvents.length > 0"
         :items="parsedDualMasonryEvents"
@@ -260,7 +253,6 @@ useHead({
     </section-wrapper>
 
     <section-wrapper class="section-banner">
-      <!-- {{ bannerFeaturedCollection }} -->
       <banner-featured
         :media="bannerFeaturedCollection.image"
         :to="bannerFeaturedCollection.to"
@@ -275,8 +267,6 @@ useHead({
     </section-wrapper>
 
     <section-wrapper>
-      <!--{{ parsedSectionHighlightCollection }}
-      <br-->
       <section-teaser-highlight
         v-if="parsedSectionHighlightCollection.length > 1"
         :items="parsedSectionHighlightCollection"
@@ -294,7 +284,6 @@ useHead({
     </section-wrapper>
 
     <section-wrapper class="section-banner">
-      <!-- {{ bannerFeaturedNews }} -->
       <banner-featured
         :media="bannerFeaturedNews.image"
         :to="bannerFeaturedNews.to"
@@ -311,7 +300,6 @@ useHead({
     </section-wrapper>
 
     <section-wrapper>
-      <!--{{ parsedNewsList }}-->
       <section-teaser-card
         v-if="parsedNewsList.length > 1"
         :items="parsedNewsList"
