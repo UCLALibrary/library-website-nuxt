@@ -13,8 +13,11 @@ import flattenTimeLineStructure from '../utils/flattenTimeLineStructure'
 const { $graphql } = useNuxtApp()
 
 definePageMeta({
-  layout: 'impact'
+  layout: 'impact',
+  path: '/impact/:year?',
+  alias: ['/impact'],
 })
+
 const route = useRoute()
 const path = route.params && route.params.year ? `impact/${route.params.year}` : '*'
 const variables = { path }
@@ -205,7 +208,7 @@ const timelineSortedBySubtitle = computed(() => {
     margin: 0 auto;
     max-width: $container-xl-banner + px;
 
-    :deep {
+    :deep() {
       --banner-color-theme: var(--color-help-green-03);
 
       // refactor when option to turn off overlays is available in craft

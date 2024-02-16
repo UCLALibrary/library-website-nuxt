@@ -105,13 +105,13 @@ const parsedByline = computed(() => {
     margin: 1px auto;
   }
 
-  ::v-deep .section-wrapper.top-level.theme-gray {
+  :deep(.section-wrapper.top-level.theme-gray) {
     --color-theme: var(--color-white);
     padding: 0;
   }
 
   // refactor when option to turn off overlays is available in craft
-  ::v-deep .section-banner {
+  :deep(.section-banner) {
 
     .gradient-no-category,
     .molecule,
