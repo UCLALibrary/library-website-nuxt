@@ -100,7 +100,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores'],
     transform: {
-      // you could also add the path of your built library to prevent this happening 
+      // you could also add the path of your built library to prevent this happening
       // for your users, but the issue is probably only replicable in your monorepo
       exclude: [/\bsfui\b/]
     }
