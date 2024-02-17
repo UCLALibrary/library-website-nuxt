@@ -2,7 +2,7 @@ import { consola } from 'consola'
 
 /* eslint-disable-next-line require-await */
 export default defineNitroPlugin(async (nitroApp) => {
-  const storage = useStorage('SOME_KEY')
+  const storage = useStorage('craftData')
 
   const endpoint = useRuntimeConfig().public.craftGraphqlURL
   const MenuItem = `
@@ -65,7 +65,20 @@ export default defineNitroPlugin(async (nitroApp) => {
         }
       }
     `
-  /* eslint-disable-next-line require-await */
+
+  try {
+    await fetchCraftData()
+  }
+  catch (e) {
+    consola.error('Error fetching global craft data...')
+    // Error handling here
+    throw new Error(`Error fetching global craft data: ${e}`)
+  }
+
+
+
+
+
   async function fetchCraftData() {
     try {
       consola.start('Fetching global craft data...')
@@ -149,12 +162,5 @@ export default defineNitroPlugin(async (nitroApp) => {
       throw new Error(`Craft API error, trying to set globals FooterSockData. ${e}`)
     }
   }
-  try {
-    await fetchCraftData()
-  }
-  catch (e) {
-    consola.error('Error fetching global craft data...')
-    // Error handling here
-    throw new Error(`Error fetching global craft data: ${e}`)
-  }
+
 })

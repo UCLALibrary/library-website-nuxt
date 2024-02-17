@@ -1,3 +1,3 @@
 export default cachedEventHandler(async () => {
-  return await useStorage('SOME_KEY').getItem('header')
+  return await useStorage().getItem('craftData:header')
 })

@@ -27,12 +27,7 @@ export default defineNuxtConfig({
     },
   },
 
-  nitro: {
-    prerender: {
-      crawlLinks: true,
-      ignore: ['/components'],
-    },
-  },
+
 
   runtimeConfig: {
     // Private keys are only available on the server
@@ -94,7 +89,6 @@ export default defineNuxtConfig({
       },
     ],
     'nuxt-graphql-request',
-
   ],
 
   imports: {
