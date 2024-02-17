@@ -27,6 +27,13 @@ export default defineNuxtConfig({
     },
   },
 
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      ignore: ['/help', '/impact/all', '/about/reports'],
+    },
+  },
+
   runtimeConfig: {
     // Private keys are only available on the server
     esWriteKey: process.env.ES_WRITE_KEY,

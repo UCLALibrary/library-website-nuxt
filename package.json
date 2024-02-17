@@ -4,7 +4,7 @@
 	"scripts": {
 		"build": "nuxt build",
 		"dev": "nuxt dev",
-		"generate": "nuxt generate",
+		"generate": "nuxt build --prerender --log-level verbose",
 		"start": "pnpm dlx serve .output/public",
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare",
