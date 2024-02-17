@@ -27,8 +27,6 @@ export default defineNuxtConfig({
     },
   },
 
-
-
   runtimeConfig: {
     // Private keys are only available on the server
     esWriteKey: process.env.ES_WRITE_KEY,

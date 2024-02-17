@@ -1,6 +1,5 @@
 import { defineNuxtModule } from 'nuxt/kit'
-import fetch from "node-fetch"
-
+import fetch from 'node-fetch'
 
 const MenuItem = `
             id
@@ -71,7 +70,7 @@ export default defineNuxtModule({
     /* const endpoint = nuxt.options.runtimeConfig.public.craftGraphqlURL
      nuxt.hooks.hook("nitro:init", async (nitro) => {
        console.log('Fetching global craft data...')
- 
+
        try {
          const response = await fetch(endpoint, {
            method: 'POST',
@@ -80,7 +79,7 @@ export default defineNuxtModule({
            },
            body: JSON.stringify({ query: globalsQuery }),
          })
- 
+
          const data = await response.json()
          console.log("Nitro Global Data object:" + JSON.stringify(data))
          const setData = await nitro.storage.setItem('craftData:globals', data)
@@ -92,7 +91,7 @@ export default defineNuxtModule({
        catch (e) {
          throw new Error(`Craft API error, trying to set globals. ${e}`)
        }
- 
+
        /* try {
           const response = await fetch(endpoint, {
             method: 'POST',
@@ -101,7 +100,7 @@ export default defineNuxtModule({
             },
             body: JSON.stringify({ query: headerQuery }),
           })
-  
+
           const data = await response.json()
           console.log("Nitro Header Data object:" + JSON.stringify(data))
           await nitro.storage.setItem('craftData:header', data)
@@ -109,7 +108,7 @@ export default defineNuxtModule({
         catch (e) {
           throw new Error(`Craft API error, trying to set globals Header. ${e}`)
         }
-  
+
         try {
           const response = await fetch(endpoint, {
             method: 'POST',
@@ -118,7 +117,7 @@ export default defineNuxtModule({
             },
             body: JSON.stringify({ query: footerPrimaryQuery }),
           })
-  
+
           const data = await response.json()
           console.log("Nitro Footer Primary Data object:" + JSON.stringify(data))
           await nitro.storage.setItem('craftData:footerPrimary', data)
@@ -126,7 +125,7 @@ export default defineNuxtModule({
         catch (e) {
           throw new Error(`Craft API error, trying to set globals FooterPrimary. ${e}`)
         }
-  
+
         try {
           const response = await fetch(endpoint, {
             method: 'POST',
@@ -135,7 +134,7 @@ export default defineNuxtModule({
             },
             body: JSON.stringify({ query: footerSockQuery }),
           })
-  
+
           const data = await response.json()
           console.log("Nitro Footer Sock Data object:" + JSON.stringify(data))
           await nitro.storage.setItem('craftData:footerSock', data)
@@ -143,8 +142,8 @@ export default defineNuxtModule({
         catch (e) {
           throw new Error(`Craft API error, trying to set globals FooterSockData. ${e}`)
         }
- 
-       console.log('Craft data fetched succesfully!')*/
+
+       console.log('Craft data fetched succesfully!') */
 
   }
 })

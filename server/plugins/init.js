@@ -1,6 +1,5 @@
 import { consola } from 'consola'
 
-/* eslint-disable-next-line require-await */
 export default defineNitroPlugin(async (nitroApp) => {
   const storage = useStorage('craftData')
 
@@ -74,10 +73,6 @@ export default defineNitroPlugin(async (nitroApp) => {
     // Error handling here
     throw new Error(`Error fetching global craft data: ${e}`)
   }
-
-
-
-
 
   async function fetchCraftData() {
     try {
@@ -162,5 +157,4 @@ export default defineNitroPlugin(async (nitroApp) => {
       throw new Error(`Craft API error, trying to set globals FooterSockData. ${e}`)
     }
   }
-
 })
