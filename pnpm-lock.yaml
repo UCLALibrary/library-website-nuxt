@@ -59,8 +59,8 @@ devDependencies:
     specifier: ^5.5.0
     version: 5.5.0
   ucla-library-website-components:
-    specifier: 2.39.0-alpha.38
-    version: 2.39.0-alpha.38(typescript@5.3.3)(vue-router@4.2.5)(vue@3.4.19)
+    specifier: 2.39.0-alpha.40
+    version: 2.39.0-alpha.40(typescript@5.3.3)(vue-router@4.2.5)(vue@3.4.19)
 
 packages:
 
@@ -8817,8 +8817,8 @@ packages:
     resolution: {integrity: sha512-Y2qRlOdTbtU03S+/0gRQn/h2SypxP0QEPxkqLKDDVgDePR9tepf7iOCkWWUwfvcRtyEWtQirsC20e13kKAbBLg==}
     dev: true
 
-  /ucla-library-website-components@2.39.0-alpha.38(typescript@5.3.3)(vue-router@4.2.5)(vue@3.4.19):
-    resolution: {integrity: sha512-CdnqwzzmpL5FktAMb+81KsTFBE7+r6xNvhexcgEhy7NXI0doe5sUWzbQpfWnZn1UvVt6TK1AclH6/PPbc7LY7A==}
+  /ucla-library-website-components@2.39.0-alpha.40(typescript@5.3.3)(vue-router@4.2.5)(vue@3.4.19):
+    resolution: {integrity: sha512-+SaD641CP86/hx9/bZP3qUUeO3q+azxL0WC7ZkVtqDxUPGIq2Coa4ojZt3f3wRdNr7POtquvMvyyDR/ZR6VpuQ==}
     peerDependencies:
       vue: ^3.3.4
       vue-router: ^4.2.4
