@@ -98,9 +98,13 @@ export default defineNitroPlugin(async (nitroApp) => {
         },
         body: JSON.stringify({ query: globalsQuery }),
       })
-      // consola.log("Nitro Global Data object:" + JSON.stringify(response))
+      console.log('Nitro Global Data object:' + JSON.stringify(response))
       const data = response
-      await storage.setItem('globals', data)
+      const setglobaldatainstorage = await storage.setItem('globals', data)
+      console.log('Nitro server plugin Global Data object:' + JSON.stringify(setglobaldatainstorage))
+      console.log('Nitro storage keys:' + JSON.stringify(await storage.getKeys()))
+      const globalGetData = await storage.getItem('globals')
+      console.log('Nitro storage Global Data object:' + JSON.stringify(globalGetData))
     }
     catch (e) {
       throw new Error(`Craft API error, trying to set globals. ${e}`)
