@@ -27,12 +27,12 @@ export default defineNuxtConfig({
     },
   },
 
-  /*nitro: {
+  /* nitro: {
     prerender: {
       crawlLinks: true,
       // ignore: ['/help', '/impact/all', '/about/reports'],
     },
-  },*/
+  }, */
 
   runtimeConfig: {
     // Private keys are only available on the server

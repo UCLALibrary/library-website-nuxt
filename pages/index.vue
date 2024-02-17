@@ -268,10 +268,10 @@ useHead({
 
     <section-wrapper>
       <!-- fix card meta useroute add a check for route undefined-->
-      <!--section-teaser-highlight
+      <section-teaser-highlight
         v-if="parsedSectionHighlightCollection.length > 1"
         :items="parsedSectionHighlightCollection"
-      /-->
+      />
       <nuxt-link
         to="/collections/explore"
         class="button-more"
@@ -301,10 +301,10 @@ useHead({
     </section-wrapper>
 
     <section-wrapper>
-      <!--section-teaser-card
+      <section-teaser-card
         v-if="parsedNewsList.length > 1"
         :items="parsedNewsList"
-      /-->
+      />
       <nuxt-link
         to="/about/news"
         class="button-more"

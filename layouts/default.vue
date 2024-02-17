@@ -60,8 +60,11 @@ const classes = computed(() => [
     <slot />
 
     <footer>
-      <footer-primary :form="true" />
-      <footer-sock />
+      <footer-primary
+        v-if="globalStore.footerPrimary"
+        :form="true"
+      />
+      <footer-sock v-if="globalStore.footerSock" />
     </footer>
     <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" />
   </div>

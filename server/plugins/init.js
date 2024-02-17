@@ -1,7 +1,5 @@
-import { consola } from 'consola'
-
 export default defineNitroPlugin(async (nitroApp) => {
-  const storage = useStorage('craftData')
+  /* const storage = useStorage('craftData')
 
   const endpoint = useRuntimeConfig().public.craftGraphqlURL
   const MenuItem = `
@@ -9,14 +7,14 @@ export default defineNitroPlugin(async (nitroApp) => {
             name: title
             to: url
             classes
-            target: newWindow  
+            target: newWindow
     `
   const globalsQuery = `
         query Globals {
             globalSets {
                 dataId: id
                 handle
-        
+
                 ... on askALibrarian_GlobalSet {
                     askALibrarianTitle: titleGeneral
                     askALibrarianText: summary
@@ -25,7 +23,7 @@ export default defineNitroPlugin(async (nitroApp) => {
                         buttonUrl
                     }
                 }
-        
+
                 ... on libraryAlert_GlobalSet {
                     title: entryTitle
                     text: richTextAlertBox
@@ -160,5 +158,5 @@ export default defineNitroPlugin(async (nitroApp) => {
     catch (e) {
       throw new Error(`Craft API error, trying to set globals FooterSockData. ${e}`)
     }
-  }
+  } */
 })
