@@ -33,7 +33,7 @@ export const useGlobalStore = defineStore('GlobalStore', {
     async fetchGlobals() {
       try {
         const { data } = await useFetch('/api/fetchNitroStorageCraftGlobalData')
-        console.log("Pinia store Global Data object:" + JSON.stringify(data?.value?.data))
+        console.log('Pinia store Global Data object:' + JSON.stringify(data?.value?.data))
         if (data?.value?.data) {
           const globalData = removeEmpties(data?.value?.data?.globalSets || [])
           // console.log("remove empties: " + JSON.stringify(globalData))
