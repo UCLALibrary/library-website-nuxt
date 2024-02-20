@@ -13,7 +13,7 @@ const { $graphql } = useNuxtApp()
 const route = useRoute()
 
 const variables = { slug: route.params.slug }
-const { data, error } = await useAsyncData('impact-report-index', async () => {
+const { data, error } = await useAsyncData('impact-report-story', async () => {
   const data = await $graphql.default.request(IMPACT_REPORT_STORY, variables)
   return data
 })
@@ -24,6 +24,7 @@ if (error.value) {
   })
 }
 if (!data.value.entry) {
+  console.log('no data throw impact report main stry error')
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found'

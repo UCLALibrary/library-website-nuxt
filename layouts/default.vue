@@ -1,4 +1,8 @@
 <script setup>
+import { onMounted } from 'vue'
+
+
+
 useHead({
   titleTemplate: title =>
     title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library',
@@ -38,13 +42,38 @@ const classes = computed(() => [
   { 'has-scrolled': globalStore.sTop },
   { 'has-scrolled-past-header': globalStore.sTop >= 150 }
 ])
+// on mounted I want to want to check if visiblity change event is triggered and use $fetch or $graghql to fetch data from api
+// I want to use this data to update the global store
+// const { $graphql } = useNuxtApp()
+const { $alerts } = useNuxtApp();
+onMounted(async () => {
+  console.log('onMounted in Default layout')
+  /*document.addEventListener('visibilitychange', async () => {
+    if (document.visibilityState === 'visible') {
+      const data = await $graphql.default.request(Globals)
+
+      console.log('Pinia store Global Data object:' + JSON.stringify(data.value))
+      if (data.value) {
+        const globalData = removeEmpties(data.value?.globalSets || [])
+        // console.log("remove empties: " + JSON.stringify(globalData))
+        // Shape data from Craft
+        const craftData = Object.fromEntries(
+          globalData?.map(item => [item.handle, item])
+        )
+        globalStore.globals = craftData
+      }
+    }
+  })*/
+  await $alerts()
+
+})
 </script>
 
 <template>
   <div :class="classes">
     <!-- VueSkipTo to="#main" label="Skip to main content" / -->
     <!-- this is not working in static build -->
-    <header-smart />
+    <header-smart v-if="globalStore.header" />
 
     <section-wrapper
       class="section-alert"

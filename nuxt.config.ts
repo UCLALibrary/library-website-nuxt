@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
 export default defineNuxtConfig({
   // when using local pnpm link with component library uncomment this line
   vite: {
@@ -27,12 +28,11 @@ export default defineNuxtConfig({
     },
   },
 
-  /* nitro: {
+  nitro: {
     prerender: {
       crawlLinks: true,
-      // ignore: ['/help', '/impact/all', '/about/reports'],
     },
-  }, */
+  },
 
   runtimeConfig: {
     // Private keys are only available on the server

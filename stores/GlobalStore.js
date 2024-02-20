@@ -33,7 +33,7 @@ export const useGlobalStore = defineStore('GlobalStore', {
     async fetchGlobals() {
       try {
         const { data } = await useFetch('/api/fetchNitroStorageCraftGlobalData')
-        console.log('Pinia store Global Data object:' + JSON.stringify(data.value))
+        // console.log('Pinia store Global Data object:' + JSON.stringify(data.value))
         if (data.value) {
           const globalData = removeEmpties(data.value?.globalSets || [])
           // console.log("remove empties: " + JSON.stringify(globalData))
@@ -52,7 +52,7 @@ export const useGlobalStore = defineStore('GlobalStore', {
     async fetchHeader() {
       try {
         const { data } = await useFetch('/api/fetchNitroStorageCraftHeaderData')
-        console.log('Pinia store Header Data object:' + JSON.stringify(data))
+        // console.log('Pinia store Header Data object:' + JSON.stringify(data))
         this.header = data.value
       }
       catch (e) {
@@ -62,7 +62,7 @@ export const useGlobalStore = defineStore('GlobalStore', {
     async fetchFooterPrimary() {
       try {
         const { data } = await useFetch('/api/fetchNitroStorageCraftFooterPrimaryData')
-        console.log('Pinia store FooterPrimary Data object:' + JSON.stringify(data.value))
+        // console.log('Pinia store FooterPrimary Data object:' + JSON.stringify(data.value))
         this.footerPrimary = data
       }
       catch (e) {
@@ -72,7 +72,7 @@ export const useGlobalStore = defineStore('GlobalStore', {
     async fetchFooterSock() {
       try {
         const { data } = await useFetch('/api/fetchNitroStorageCraftFooterSockData')
-        console.log('Pinia store Footer Sock Data object:' + JSON.stringify(data.value))
+        // console.log('Pinia store Footer Sock Data object:' + JSON.stringify(data.value))
         this.footerSock = data.value
       }
       catch (e) {
