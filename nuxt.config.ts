@@ -1,9 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-export default defineNuxtConfig({
-  devtools: { enabled: true },
 
+export default defineNuxtConfig({
   // when using local pnpm link with component library uncomment this line
   vite: {
+    // ADDED FOLLOWING LINE TO RESOLVE CROSS-FETCH ERROR
+    // Uncaught SyntaxError: The requested module '/_nuxt/node_modules/.pnpm/cross-fetch@3.1.8/node_modules/cross-fetch/dist/browser-ponyfill.js?v=4dc3293b'
+    // does not provide an export named 'default' (at index.js?v=4dc3293b:6:8)
+    // localhost/: 1
+    resolve: {
+      alias: {
+        'cross-fetch': 'cross-fetch/dist/browser-ponyfill.js',
+      },
+    },
     server: {
       fs: {
         strict: false,
@@ -19,10 +27,10 @@ export default defineNuxtConfig({
       },
     },
   },
+
   nitro: {
     prerender: {
       crawlLinks: true,
-      ignore: ['/components'],
     },
   },
 
@@ -45,6 +53,7 @@ export default defineNuxtConfig({
         || 'https://proxy.calendar.library.ucla.edu/',
     },
   },
+
   /*
      ** Required charset and viewport meta tags
      */
@@ -64,6 +73,7 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },
   },
+
   /*
      ** Global CSS
      */
@@ -83,18 +93,55 @@ export default defineNuxtConfig({
         autoImports: ['defineStore', 'acceptHMRUpdate'],
       },
     ],
-    '@nuxtjs/apollo',
+    'nuxt-graphql-request',
   ],
 
   imports: {
     dirs: ['stores'],
+    transform: {
+      // you could also add the path of your built library to prevent this happening
+      // for your users, but the issue is probably only replicable in your monorepo
+      exclude: [/\bsfui\b/]
+    }
   },
 
-  apollo: {
+  graphql: {
+    /**
+     * An Object of your GraphQL clients
+     */
     clients: {
       default: {
-        httpEndpoint: process.env.CRAFT_ENDPOINT || '',
+        /**
+         * The client endpoint url
+         */
+        endpoint: process.env.CRAFT_ENDPOINT || '',
+        /**
+         * Per-client options overrides
+         * See: https://github.com/prisma-labs/graphql-request#passing-more-options-to-fetch
+         */
+        options: {},
       },
+
     },
-  },
+
+    /**
+     * Options
+     * See: https://github.com/prisma-labs/graphql-request#passing-more-options-to-fetch
+     */
+    options: {
+      method: 'get', // Default to `POST`
+    },
+
+    /**
+     * Optional
+     * default: false (this includes cross-fetch/polyfill before creating the graphql client)
+     */
+    // useFetchPolyfill: true,
+
+    /**
+     * Optional
+     * default: false (this includes graphql-tag for node_modules folder)
+     */
+    // includeNodeModules: true,
+  }
 })

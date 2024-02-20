@@ -80,7 +80,7 @@ dist
 
 # IDE
 .idea
-.vscode
+
 
 # Service worker
 sw.*
@@ -98,4 +98,8 @@ storybook-static
 # Cypress
 cypress/fixtures/example.json
 cypress/screenshots
+
+# local component testing
+page/component.vue
+data/mock
 

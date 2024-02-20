@@ -5,7 +5,12 @@ import _get from 'lodash/get'
 // GQL
 import HOMEPAGE from '../gql/queries/Homepage.gql'
 
-const { data } = await useAsyncQuery(HOMEPAGE)
+const { $graphql } = useNuxtApp()
+
+const { data } = await useAsyncData('home-page', async () => {
+  const data = await $graphql.default.request(HOMEPAGE)
+  return data
+})
 
 const page = ref(_get(data.value, 'entry', {}))
 
@@ -180,8 +185,14 @@ useHead({
 </script>
 
 <template>
-  <main id="main" class="page page-home">
-    <masthead-primary :link-items="parsedSearchLinks" :advanced-search-link="parsedAdvancedSearchLink" />
+  <main
+    id="main"
+    class="page page-home"
+  >
+    <masthead-primary
+      :link-items="parsedSearchLinks"
+      :advanced-search-link="parsedAdvancedSearchLink"
+    />
 
     <!-- TODO elastic search testing -->
     <!-- h4>Mapping:</h4>
@@ -190,24 +201,22 @@ useHead({
         <p>{{ searchResponse }}</p -->
 
     <section-wrapper theme="divider">
-      <divider-way-finder class="search-margin" color="help" />
+      <divider-way-finder
+        class="search-margin"
+        color="help"
+      />
     </section-wrapper>
 
     <section-wrapper class="section-no-top-margin">
-      {{ page.getHelpWith[0].titleGeneral }}
-      <br>
-      {{ page.getHelpWith[0].sectionSummary }}
-      <br>
-      {{ parsedGetHelpWith }}
-      <!-- section-cards-with-illustrations
-                class="section"
-                :items="parsedGetHelpWith"
-                :section-title="page.getHelpWith[0].titleGeneral"
-                :section-summary="page.getHelpWith[0].sectionSummary"
-                button-text="See All Services &amp; Resources"
-                to="/help/services-resources"
-                :is-horizontal="false"
-            / -->
+      <section-cards-with-illustrations
+        class="section"
+        :items="parsedGetHelpWith"
+        :section-title="page.getHelpWith[0].titleGeneral"
+        :section-summary="page.getHelpWith[0].sectionSummary"
+        button-text="See All Services &amp; Resources"
+        to="/help/services-resources"
+        :is-horizontal="false"
+      />
     </section-wrapper>
 
     <section-wrapper theme="divider">
@@ -215,30 +224,28 @@ useHead({
     </section-wrapper>
 
     <section-wrapper class="section-banner">
-      {{ bannerFeaturedEvent }}
-      <!-- banner-featured
-                :image="bannerFeaturedEvent.image"
-                :to="bannerFeaturedEvent.to"
-                :prompt="bannerFeaturedEvent.prompt"
-                :title="bannerFeaturedEvent.title"
-                :start-date="bannerFeaturedEvent.startDate"
-                :end-date="bannerFeaturedEvent.endDate"
-                :locations="bannerFeaturedEvent.associatedLocations"
-                :align-right="false"
-                :category="bannerFeaturedEvent.category"
-            >
-                <heading-arrow text="Featured Events &amp; Exhibitions" />
-            </banner-featured -->
+      <banner-featured
+        :media="bannerFeaturedEvent.image"
+        :to="bannerFeaturedEvent.to"
+        :prompt="bannerFeaturedEvent.prompt"
+        :title="bannerFeaturedEvent.title"
+        :start-date="bannerFeaturedEvent.startDate"
+        :end-date="bannerFeaturedEvent.endDate"
+        :locations="bannerFeaturedEvent.associatedLocations"
+        :align-right="false"
+        :category="bannerFeaturedEvent.category"
+      >
+        <heading-arrow text="Featured Events &amp; Exhibitions" />
+      </banner-featured>
     </section-wrapper>
 
     <section-wrapper class="section-dual-masonry">
-      {{ parsedDualMasonryEvents }}
-      <!-- section-dual-masonry
-                v-if="parsedDualMasonryEvents.length > 0"
-                :items="parsedDualMasonryEvents"
-                to="/visit/events-exhibitions"
-                text="See All Events &amp; Exhibitions"
-            / -->
+      <section-dual-masonry
+        v-if="parsedDualMasonryEvents.length > 0"
+        :items="parsedDualMasonryEvents"
+        to="/visit/events-exhibitions"
+        text="See All Events &amp; Exhibitions"
+      />
     </section-wrapper>
 
     <section-wrapper theme="divider">
@@ -246,28 +253,29 @@ useHead({
     </section-wrapper>
 
     <section-wrapper class="section-banner">
-      {{ bannerFeaturedCollection }}
-      <!-- banner-featured
-                :image="bannerFeaturedCollection.image"
-                :to="bannerFeaturedCollection.to"
-                :title="bannerFeaturedCollection.title"
-                :description="bannerFeaturedCollection.description"
-                :category="bannerFeaturedCollection.category"
-                :prompt="bannerFeaturedCollection.prompt"
-                :align-right="true"
-            >
-                <heading-arrow text="Featured Collections" />
-            </banner-featured -->
+      <banner-featured
+        :media="bannerFeaturedCollection.image"
+        :to="bannerFeaturedCollection.to"
+        :title="bannerFeaturedCollection.title"
+        :description="bannerFeaturedCollection.description"
+        :category="bannerFeaturedCollection.category"
+        :prompt="bannerFeaturedCollection.prompt"
+        :align-right="true"
+      >
+        <heading-arrow text="Featured Collections" />
+      </banner-featured>
     </section-wrapper>
 
     <section-wrapper>
-      {{ parsedSectionHighlightCollection }}
-      <br>
-      <!-- section-teaser-highlight
-                v-if="parsedSectionHighlightCollection.length > 1"
-                :items="parsedSectionHighlightCollection"
-            / -->
-      <nuxt-link to="/collections/explore" class="button-more">
+      <!-- fix card meta useroute add a check for route undefined-->
+      <section-teaser-highlight
+        v-if="parsedSectionHighlightCollection.length > 1"
+        :items="parsedSectionHighlightCollection"
+      />
+      <nuxt-link
+        to="/collections/explore"
+        class="button-more"
+      >
         <button-more text="See All Featured Collections" />
       </nuxt-link>
     </section-wrapper>
@@ -277,29 +285,30 @@ useHead({
     </section-wrapper>
 
     <section-wrapper class="section-banner">
-      {{ bannerFeaturedNews }}
-      <!-- banner-featured
-                :image="bannerFeaturedNews.image"
-                :to="bannerFeaturedNews.to"
-                :prompt="bannerFeaturedNews.prompt"
-                :title="bannerFeaturedNews.title"
-                :description="bannerFeaturedNews.description"
-                :category="bannerFeaturedNews.category"
-                :start-date="bannerFeaturedNews.startDate"
-                :end-date="bannerFeaturedNews.endDate"
-                :align-right="false"
-            >
-                <heading-arrow text="Featured News" />
-            </banner-featured -->
+      <banner-featured
+        :media="bannerFeaturedNews.image"
+        :to="bannerFeaturedNews.to"
+        :prompt="bannerFeaturedNews.prompt"
+        :title="bannerFeaturedNews.title"
+        :description="bannerFeaturedNews.description"
+        :category="bannerFeaturedNews.category"
+        :start-date="bannerFeaturedNews.startDate"
+        :end-date="bannerFeaturedNews.endDate"
+        :align-right="false"
+      >
+        <heading-arrow text="Featured News" />
+      </banner-featured>
     </section-wrapper>
 
     <section-wrapper>
-      {{ parsedNewsList }}
-      <!-- section-teaser-card
-                v-if="parsedNewsList.length > 1"
-                :items="parsedNewsList"
-            / -->
-      <nuxt-link to="/about/news" class="button-more">
+      <section-teaser-card
+        v-if="parsedNewsList.length > 1"
+        :items="parsedNewsList"
+      />
+      <nuxt-link
+        to="/about/news"
+        class="button-more"
+      >
         <button-more text="See All News" />
       </nuxt-link>
     </section-wrapper>

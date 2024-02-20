@@ -1,4 +1,4 @@
-#import "~/gql/fragments/MediaAsset.gql"
+#import "../gql/fragments/MediaAsset.gql"
 
 fragment BlockMediaWithTextFragment on ElementInterface {
     dataId : id

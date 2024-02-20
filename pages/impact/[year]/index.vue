@@ -1,317 +1,351 @@
 <script setup>
+// HELPERS
+import _get from 'lodash/get'
+import _ from 'lodash'
+import removeTags from '../utils/removeTags'
+
+// GQL
+import IMPACT_REPORT from '../gql/queries/ImpactReport.gql'
+
+// UTILITIES
+import flattenTimeLineStructure from '../utils/flattenTimeLineStructure'
+
+const { $graphql } = useNuxtApp()
+
 definePageMeta({
-  layout: 'impact'
+  layout: 'impact',
+  path: '/impact/:year?',
+  alias: ['/impact'],
+})
+
+const route = useRoute()
+const path = route.params && route.params.year ? `impact/${route.params.year}` : '*'
+const variables = { path }
+const { data, error } = await useAsyncData('impact-report-index', async () => {
+  const data = await $graphql.default.request(IMPACT_REPORT, variables)
+  return data
+})
+if (error.value) {
+  throw createError({
+    statusCode: 404, statusMessage: 'Page not found.', fatal: true
+  })
+}
+if (!data.value.entry) {
+  console.log('no data throw impact report error')
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page Not Found'
+  })
+}
+const page = ref(_get(data.value, 'entry', {}))
+
+useHead({
+  title: page.value?.title || '... loading',
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: removeTags(page.value?.text),
+    },
+  ],
+})
+
+const timelineSortedBySubtitle = computed(() => {
+  const timelineData = flattenTimeLineStructure(page.timelineGallery)
+
+  const groupBySubtitle = _.groupBy(timelineData, 'subtitle')
+
+  // console.log("parsed timeline by subtitle: " + JSON.stringify(groupBySubtitle))
+
+  for (const key in groupBySubtitle)
+    groupBySubtitle[key] = _.groupBy(groupBySubtitle[key], 'sectionSummary')
+
+  // console.log("parsed timeline by summary: " + JSON.stringify(groupBySubtitle[key]))
+
+  return groupBySubtitle
 })
 </script>
 
 <template lang="html">
-  <main id="main" class="page page-impact-report">
+  <main
+    id="main"
+    class="page page-impact-report"
+  >
     <!-- This is template for impact reports -->
     <div class="meta">
-      Hello impact report
-      <!-- h1 class="intro" v-html="page.title" />
-            <responsive-image v-if="page.portrait && page.portrait.length > 0" :image="page.portrait[0]" :aspect-ratio="60"
-                class="portrait-Ginny"
-                alt="Sketch of Ginny Steel wearing glasses and a grey blazer, with a yellow background" />
+      <h1
+        class="intro"
+        v-html="page.title"
+      />
 
-            <rich-text class="text" v-html="page.text" / -->
+      <responsive-image
+        v-if="page.portrait && page.portrait.length > 0"
+        :media="page.portrait[0]"
+        :aspect-ratio="60"
+        class="portrait-Ginny"
+        alt="Sketch of Ginny Steel wearing glasses and a grey blazer, with a yellow background"
+      />
+
+      <rich-text
+        class="text"
+        :rich-text-content="page.text"
+      />
     </div>
     <section-wrapper theme="divider">
-      <divider-way-finder class="divider" color="about" />
+      <divider-way-finder
+        class="divider"
+        color="about"
+      />
     </section-wrapper>
     <h2 class="visually-hidden">
       Main Story
     </h2>
-    <!-- banner-featured v-if="page.keyArt && page.keyArt.length != 0" class="section-banner"
-            :image="page.keyArt[0].heroImage[0]" :ratio="40" :title="page.keyArt[0].titleGeneral"
-            :description="page.keyArt[0].summary" :prompt="page.keyArt[0].buttonText" :to="page.keyArt[0].buttonUrl"
-            :align-right="false" />
+    <banner-featured
+      v-if="page.keyArt && page.keyArt.length !== 0"
+      class="section-banner"
+      :media="page.keyArt[0].heroImage[0]"
+      :ratio="40"
+      :title="page.keyArt[0].titleGeneral"
+      :description="page.keyArt[0].summary"
+      :prompt="page.keyArt[0].buttonText"
+      :to="page.keyArt[0].buttonUrl"
+      :align-right="false"
+    />
+    <div v-if="page.blocks">
+      {{ page.blocks }}
+    </div>
 
-        <flexible-blocks v-if="page.blocks" class="flexible-content" :blocks="page.blocks" / -->
+    <!-- flexible-blocks v-if="page.blocks" class="flexible-content" :blocks="page.blocks" / -->
 
     <section-wrapper theme="divider">
-      <divider-way-finder class="divider" color="about" />
+      <divider-way-finder
+        class="divider"
+        color="about"
+      />
     </section-wrapper>
 
-    <!-- section-wrapper :section-title="page.timelineTitle">
-            <div v-for="(value, propertyName) in timelineSortedBySubtitle" :key="propertyName" class="sub-section-grid">
-                <h3 class="grid-gallery-subtitle" v-html="propertyName" />
+    <section-wrapper :section-title="page.timelineTitle">
+      <div
+        v-for="(value, propertyName) in timelineSortedBySubtitle"
+        :key="propertyName"
+        class="sub-section-grid"
+      >
+        <h3
+          class="grid-gallery-subtitle"
+          v-html="propertyName"
+        />
 
-                <grid-gallery v-for="(subValue, propertySubName) in value" :key="propertySubName"
-                    :section-summary="propertySubName" :items="subValue" />
-            </div>
-        </section-wrapper -->
+        <grid-gallery
+          v-for="(subValue, propertySubName) in value"
+          :key="propertySubName"
+          :section-summary="propertySubName"
+          :items="subValue"
+        />
+      </div>
+    </section-wrapper>
     <section-wrapper theme="divider">
-      <divider-way-finder class="divider" color="about" />
+      <divider-way-finder
+        class="divider"
+        color="about"
+      />
     </section-wrapper>
-    <!-- section-wrapper v-if="page.acknowledgements && page.acknowledgements.length == 1">
-            <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
-                ? ''
-                : 'visually-hidden'
-                ">
-                {{ page.acknowledgements[0].titleGeneral }}
-            </h2>
-            <rich-text class="credits" v-html="page.acknowledgements[0].acknowledgements" />
-        </section-wrapper -->
+    <section-wrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
+      <h2
+        :class="page.acknowledgements[0].displaySectionTitle === 'true'
+          ? ''
+          : 'visually-hidden'
+        "
+      >
+        {{ page.acknowledgements[0].titleGeneral }}
+      </h2>
+      <rich-text
+        class="credits"
+        :rich-text-content="page.acknowledgements[0].acknowledgements"
+      />
+    </section-wrapper>
   </main>
 </template>
 
 <style lang="scss" scoped>
 .page-impact-report {
-    .meta {
-        padding: 0 var(--unit-gutter);
-        margin: var(--space-xl) auto 0 auto;
-        max-width: $container-xl-banner + px;
+  .meta {
+    padding: 0 var(--unit-gutter);
+    margin: var(--space-xl) auto 0 auto;
+    max-width: $container-xl-banner + px;
 
-        .intro {
-            @include step-5;
-            margin-bottom: var(--space-xl);
-            color: var(--color-primary-blue-03);
-        }
-
-        .rich-text {
-            margin: 0;
-            padding-right: 0;
-            margin-right: 0;
-            max-width: $container-xl-banner + px;
-        }
-
-        .text {
-            @include step-3;
-            line-height: 120%;
-
-            ::v-deep p {
-                @include step-3;
-            }
-        }
+    .intro {
+      @include step-5;
+      margin-bottom: var(--space-xl);
+      color: var(--color-primary-blue-03);
     }
 
-    .portrait-Ginny {
-        width: 100%;
-        max-width: 50%;
-        margin-left: 24px;
-        float: right;
-
-        ::v-deep .media {
-            object-fit: cover;
-        }
+    .rich-text {
+      margin: 0;
+      padding-right: 0;
+      margin-right: 0;
+      max-width: $container-xl-banner + px;
     }
 
-    .section-banner {
-        margin: 0 auto;
-        max-width: $container-xl-banner + px;
+    .text {
+      @include step-3;
+      line-height: 120%;
 
-        ::v-deep {
-            --banner-color-theme: var(--color-help-green-03);
-
-            // refactor when option to turn off overlays is available in craft
-            .gradient,
-            .molecule,
-            &.hatch-left .hatch {
-                display: none;
-            }
-        }
-    }
-
-    ::v-deep .block-highlight .text {
-        display: initial;
-    }
-
-    h2 {
+      :deep(p) {
         @include step-3;
-        color: var(--color-primary-blue-03);
-        margin-bottom: var(--space-xl);
+      }
     }
+  }
 
-    ::v-deep .grid-gallery {
-        padding: 0;
+  .portrait-Ginny {
+    width: 100%;
+    max-width: 50%;
+    margin-left: 24px;
+    float: right;
+
+    :deep(.media) {
+      object-fit: cover;
     }
+  }
 
-    /* .banner {
-        margin: var(--space-3xl) auto;
-    }*/
+  .section-banner {
+    margin: 0 auto;
+    max-width: $container-xl-banner + px;
 
-    /* .section-grid {
-        max-width: $container-l-main + px;
+    :deep() {
+      --banner-color-theme: var(--color-help-green-03);
 
-        display: flex;
-        flex-direction: column;
-        justify-content: left;
-
-        margin: 0 auto;
-        .title {
-            color: var(--color-primary-blue-03);
-            font-size: 48px;
-            line-height: 56px;
-            margin-bottom: var(--space-xl);
-            @include step-3;
-        }
-        .sub-section-grid {
-            margin: 12px auto;
-            position: relative;
-        }
-        .grid-gallery-subtitle {
-            color: var(--color-primary-blue-03);
-            font-size: 35.538px;
-            line-height: 43px;
-            @include step-2;
-            position: sticky;
-            top: 0;
-            background-color: var(--color-white);
-            padding-top: 8px;
-            z-index: 30;
-            min-height: 46px;
-        }
-        .divider-section {
-            max-width: $container-l-main + px;
-            margin: var(--space-3xl) 0;
-        }
-    }*/
-    .sub-section-grid {
-        margin: 12px auto;
-        position: relative;
+      // refactor when option to turn off overlays is available in craft
+      .gradient,
+      .molecule,
+      &.hatch-left .hatch {
+        display: none;
+      }
     }
+  }
 
-    .grid-gallery-subtitle {
-        color: var(--color-primary-blue-03);
-        font-size: 35.538px;
-        line-height: 43px;
-        @include step-2;
-        position: sticky;
-        top: 0;
-        background-color: var(--color-white);
-        padding-top: 8px;
-        z-index: 30;
-        min-height: 46px;
+  :deep(.block-highlight .text) {
+    display: initial;
+  }
+
+  h2 {
+    @include step-3;
+    color: var(--color-primary-blue-03);
+    margin-bottom: var(--space-xl);
+  }
+
+  :deep(.grid-gallery) {
+    padding: 0;
+  }
+
+  .sub-section-grid {
+    margin: 12px auto;
+    position: relative;
+  }
+
+  .grid-gallery-subtitle {
+    color: var(--color-primary-blue-03);
+    font-size: 35.538px;
+    line-height: 43px;
+    @include step-2;
+    position: sticky;
+    top: 0;
+    background-color: var(--color-white);
+    padding-top: 8px;
+    z-index: 30;
+    min-height: 46px;
+  }
+
+  .teaser-card {
+    margin: 0 auto;
+  }
+
+  .credits {
+    max-width: $container-l-main + px;
+    font-style: italic;
+    line-height: 26px;
+
+    :deep(p),
+    :deep(a) {
+      font-family: var(--font-secondary);
+      font-size: var(--step--1);
+      color: var(--color-secondary-grey-04);
+
+      strong {
+        font-weight: 600;
+      }
     }
+  }
 
-    .teaser-card {
-        margin: 0 auto;
-    }
+  .divider {
+    max-width: $container-l-main + px;
+    margin: var(--space-3xl) auto;
+  }
 
-    .credits {
-        max-width: $container-l-main + px;
-        font-style: italic;
-        line-height: 26px;
+  .divider-general {
+    margin-top: var(--space-3xl);
+    margin-bottom: var(--space-3xl);
+    max-width: $container-l-main + px;
+  }
 
-        ::v-deep p,
-        ::v-deep a {
-            font-family: var(--font-secondary);
-            font-size: var(--step--1);
-            color: var(--color-secondary-grey-04);
+  // Hover states
+  @media #{$has-hover} {}
 
-            strong {
-                font-weight: 600;
-            }
-        }
-    }
+  @media #{$medium} {
+    .meta {
+      padding: 0 $whitespace-m-sides + px;
+      margin-top: 24px;
 
-    /* .credit-list {
-        display: inline;
-    }*/
-    .divider {
-        max-width: $container-l-main + px;
-        margin: var(--space-3xl) auto;
+      .portrait-Ginny {
+        float: none;
+        max-width: 100%;
+        margin: 32px auto;
+      }
     }
 
     .divider-general {
-        margin-top: var(--space-3xl);
-        margin-bottom: var(--space-3xl);
-        max-width: $container-l-main + px;
+      width: calc(100% - (var(--unit-gutter) * 2));
     }
 
-    /* .credits dt,
-    dd {
-        display: inline;
-        font-family: var(--font-secondary);
-        line-height: 26px;
+    :deep(.grid-gallery) {
+      padding: unset;
+
+      .section-summary {
+        top: 36px;
+      }
     }
-    .credits dd,
-    .credits dl {
-        margin: 0;
-        color: var(--color-secondary-grey-04);
-    }
-    dt {
-        font-weight: 600;
-        padding-left: 2px;
-    }
-    .credit-header {
-        display: inline;
-        color: var(--color-primary-blue-03);
-        font-weight: 700;
-        font-size: 18px;
-        padding-right: 5px;
-    }
-    .illustrator a {
-        text-decoration: underline;
-        text-decoration-color: var(--color-default-cyan-03);
-        text-decoration-thickness: 2px;
-        text-underline-offset: 1px;
-    }*/
-    // Hover states
-    @media #{$has-hover} {
-        /* .illustrator:hover {
-            color: var(--color-primary-blue-03);
-            @include link-hover;
-        }*/
+  }
+
+  @media #{$small} {
+    .meta {
+      padding: 0 $whitespace-s-sides + px;
+
+      .portrait-Ginny {
+        width: 100%;
+      }
     }
 
-    @media #{$medium} {
-        .meta {
-            padding: 0 $whitespace-m-sides + px;
-            margin-top: 24px;
-
-            .portrait-Ginny {
-                float: none;
-                max-width: 100%;
-                margin: 32px auto;
-            }
-        }
-
-        .divider-general {
-            width: calc(100% - (var(--unit-gutter) * 2));
-        }
-
-        ::v-deep .grid-gallery {
-            padding: unset;
-
-            .section-summary {
-                top: 36px;
-            }
-        }
+    :deep(.banner-featured.hatch-left) {
+      .meta {
+        padding-left: var(--unit-gutter);
+        padding-right: var(--unit-gutter);
+      }
     }
 
-    @media #{$small} {
-        .meta {
-            padding: 0 $whitespace-s-sides + px;
-
-            .portrait-Ginny {
-                width: 100%;
-            }
-        }
-
-        .banner-featured.hatch-left {
-            ::v-deep .meta {
-                padding-left: var(--unit-gutter);
-                padding-right: var(--unit-gutter);
-            }
-        }
-
-        .grid-gallery-subtitle {
-            height: 80px;
-        }
+    .grid-gallery-subtitle {
+      height: 80px;
     }
+  }
 
-    @media (min-width: 400px) {
-        .grid-gallery-subtitle {
-            height: 60px;
-        }
+  @media (min-width: 400px) {
+    .grid-gallery-subtitle {
+      height: 60px;
     }
+  }
 
-    @media (min-width: 860px) {
-        .grid-gallery-subtitle {
-            height: 40px;
-        }
+  @media (min-width: 860px) {
+    .grid-gallery-subtitle {
+      height: 40px;
     }
+  }
 }
 </style>
