@@ -8,7 +8,6 @@ const props = defineProps({
 
 <template>
   <NuxtLayout>
-
     <main
       id="main"
       class="page page-error"

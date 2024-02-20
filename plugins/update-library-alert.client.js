@@ -13,7 +13,7 @@ export default defineNuxtPlugin((nuxtApp) => { //
     console.log('Pinia store Global Data object:' + JSON.stringify(data))
     if (data) {
       const globalData = removeEmpties(data.globalSets || [])
-      console.log("remove empties: " + JSON.stringify(globalData))
+      console.log('remove empties: ' + JSON.stringify(globalData))
       // Shape data from Craft
       const craftData = Object.fromEntries(
         globalData?.map(item => [item.handle, item])

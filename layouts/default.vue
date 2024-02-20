@@ -1,8 +1,6 @@
 <script setup>
 import { onMounted } from 'vue'
 
-
-
 useHead({
   titleTemplate: title =>
     title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library',
@@ -45,10 +43,10 @@ const classes = computed(() => [
 // on mounted I want to want to check if visiblity change event is triggered and use $fetch or $graghql to fetch data from api
 // I want to use this data to update the global store
 // const { $graphql } = useNuxtApp()
-const { $alerts } = useNuxtApp();
+const { $alerts } = useNuxtApp()
 onMounted(async () => {
   console.log('onMounted in Default layout')
-  /*document.addEventListener('visibilitychange', async () => {
+  /* document.addEventListener('visibilitychange', async () => {
     if (document.visibilityState === 'visible') {
       const data = await $graphql.default.request(Globals)
 
@@ -63,9 +61,8 @@ onMounted(async () => {
         globalStore.globals = craftData
       }
     }
-  })*/
+  }) */
   await $alerts()
-
 })
 </script>
 
