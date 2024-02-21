@@ -1,19 +1,19 @@
 import { defineNuxtModule } from 'nuxt/kit'
-import fetch from 'node-fetch'
+/* import fetch from 'node-fetch'
 
 const MenuItem = `
             id
             name: title
             to: url
             classes
-            target: newWindow  
+            target: newWindow
     `
 const globalsQuery = `
         query Globals {
             globalSets {
                 dataId: id
                 handle
-        
+
                 ... on askALibrarian_GlobalSet {
                     askALibrarianTitle: titleGeneral
                     askALibrarianText: summary
@@ -22,7 +22,7 @@ const globalsQuery = `
                         buttonUrl
                     }
                 }
-        
+
                 ... on libraryAlert_GlobalSet {
                     title: entryTitle
                     text: richTextAlertBox
@@ -61,7 +61,7 @@ query FooterSockItems {
     }
   }
 `
-
+*/
 export default defineNuxtModule({
 
   /* async setup(options, nuxt) {
