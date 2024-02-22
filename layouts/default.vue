@@ -41,7 +41,10 @@ export default {
         }
     },
     head: {
-        titleTemplate: (title) => (title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library'),
+        titleTemplate: (title) =>
+            title === "Homepage"
+                ? "UCLA Library"
+                : `${title}` + " | UCLA Library",
         script: [
             {
                 hid: "libanswers",
@@ -84,6 +87,11 @@ export default {
             // this.$refs.skipLink.focus()
         },
     },
+    async mounted() {
+        console.log("In mounted for default layout")
+        await this.$updateSiteAlert.updateSiteAlert()
+    },
+
     // meta: [
     //     {
     //         hid: "description",
