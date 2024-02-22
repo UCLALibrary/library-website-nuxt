@@ -21,6 +21,7 @@ export default {
         esIndexPrefix: process.env.ES_INDEX_PREFIX || "",
         esTempIndexPrefixLibguides: process.env.ES_TEMP_INDEX_PREFIX_LIBGUIDES || "",
         esTempIndex: "",
+        esTempIndexLibguides: "",
         esURL: process.env.ES_URL || "",
         libcalProxy:
             process.env.LIBCAL_ENDPOINT ||

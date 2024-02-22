@@ -68,6 +68,7 @@ export default function () {
             let testJsonReindex = JSON.parse(reindexBody)
 
             consola.debug("Reindex done :"+JSON.stringify(testJsonReindex))
+            this.nuxt.options.publicRuntimeConfig['esTempIndexLibguides'] = esIndex
         } catch (err) {
             consola.error("Reindex Error:", err)
             consola.error("Reindex Response body:", reindexBody)
