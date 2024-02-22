@@ -16,7 +16,7 @@ const props = defineProps({
         404
       </p>
       <pre>
-        {{ error }}
+        {{ error?.message }}
       </pre>
       <divider-way-finder />
 

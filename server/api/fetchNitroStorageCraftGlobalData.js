@@ -25,7 +25,7 @@ export default cachedEventHandler(async (event) => {
 
   // const keys = await useStorage().getKeys()
   // console.log('Server api storage keys:' + JSON.stringify(keys))
-  let globalData = await useStorage().getItem('craftData:globals')
+  const globalData = await useStorage().getItem('craftData:globals')
   // console.log('Server api Global Data object:' + JSON.stringify(globalData))
   if (!globalData) {
     const { data } = await $fetch(endpoint, {
@@ -36,7 +36,7 @@ export default cachedEventHandler(async (event) => {
       body: JSON.stringify({ query: globalsQuery })
     })
     await useStorage().setItem('craftData:globals', data)
-    globalData = await useStorage().getItem('craftData:globals')
+    // globalData = await useStorage().getItem('craftData:globals')
     // console.log('Server api Global Data object first set and then get:' + JSON.stringify(globalData))
   }
   return globalData
