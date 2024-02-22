@@ -19,6 +19,7 @@ export default {
         esIndex: process.env.ES_INDEX || "",
         libguidesEsIndex: process.env.LIBGUIDES_ES_INDEX || "",
         esIndexPrefix: process.env.ES_INDEX_PREFIX || "",
+        esTempIndexPrefixLibguides: process.env.ES_TEMP_INDEX_PREFIX_LIBGUIDES || "",
         esTempIndex: "",
         esURL: process.env.ES_URL || "",
         libcalProxy:
@@ -73,6 +74,7 @@ export default {
         "~/plugins/get-headers.client.js",
         "~/plugins/scrape-formid.client.js",
         "~/plugins/add-skip-to.js",
+        "~/plugins/update-library-site-alert.client.js",
     ],
 
     /*

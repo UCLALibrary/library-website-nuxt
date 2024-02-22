@@ -142,4 +142,22 @@ export const actions = {
             throw new Error("Craft API error, trying to set globals getGlobals. " + e)
         }
     },
+    async updateGlobals({commit}) {
+        try {
+            console.log("This should be called from nuxt client plugin")
+            let globalData = await this.$graphql.default.request(GLOBALS)
+            globalData = removeEmpties(globalData.globalSets || [])
+
+            // Shape data from Craft
+            let data = Object.fromEntries(
+                globalData.map((item) => [item.handle, item] )
+            )
+            
+            
+            commit("SET_GLOBALS", data)
+            return data
+        } catch (e) {
+            throw new Error("Craft API error, trying to update globals updateGlobals. " + e)
+        }
+    },
 }
