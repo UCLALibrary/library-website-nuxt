@@ -36,7 +36,9 @@ jobs:
 
       # For release events, GitHub Actions automatically checks out the commit of the release.
       # Additional steps remain unchanged.
-
+      - name: Checkout code
+        uses: actions/checkout@v3
+        if: ${{ github.event_name == 'release' }}
       - uses: ./.github/workflows/setup-workspace
 
       - name: Cache built static site
