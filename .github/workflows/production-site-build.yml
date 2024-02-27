@@ -3,7 +3,7 @@ name: Production Site Build
 # Performs a Website release using Netlify when a new GitHub release has been published
 on:
   release:
-    types: [ published ]
+    types: [published]
   workflow_dispatch:
     inputs: {}
   schedule:
@@ -15,42 +15,56 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0 # Required due to the way Git works, without it this action won't be able to find any or the correct tags
-    - name: 'Get Previous tag' # need to run after initial checkout to get tag list
-      if: ${{ github.event_name != 'release' }}
-      id: previoustag
-      uses: 'WyriHaximus/github-action-get-previous-tag@eaf1fb5bec4dfd28cebf179fe555507f8bbc0652'
-    - uses: actions/checkout@v3 # check out again with most recent tag
-      if: ${{ github.event_name != 'release' }}
-      with:
-        ref: ${{ steps.previoustag.outputs.tag }}
-    - uses: ./.github/workflows/setup-workspace
-    - name: Cache built static site
-      uses: actions/cache@v3
-      with:
-        path: ./dist
-        key: nuxt-site-${{ github.sha }}
-    - run: npm run generate
-      env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
-        S3_BUCKET: "https://static.library.ucla.edu/"
-        SITEMAP_HOST: "https://meap.library.ucla.edu"
-        ES_URL: ${{ secrets.ES_URL }}
-        ES_READ_KEY: ${{ secrets.ES_READ_KEY_PROD }}
-        ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_PROD }}
-        ES_INDEX: ${{ secrets.ES_INDEX_PROD }}
-        ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_PROD }}
-    - name: Deploy to Netlify on release
-      uses: nwtgck/actions-netlify@v2 #
-      with:
-        production-deploy: true
-        deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        publish-dir: './dist'
-        fails-without-credentials: true
-        github-deployment-environment: production
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_MEAP_SITE_ID }}
+      # Initial checkout to fetch repository content and tags
+      - uses: actions/checkout@v3
+        if: ${{ github.event_name != 'release' }}
+        with:
+          fetch-depth: 0 # Fetch all history for all tags and branches
+
+      # Determine the latest tag; this step will be skipped for direct release triggers
+      - name: Get Latest Tag
+        if: ${{ github.event_name != 'release' }}
+        id: latesttag
+        run: echo "LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+
+      # Conditionally checkout the latest tag for non-release events
+      - name: Checkout Latest Tag
+        if: ${{ github.event_name != 'release' }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.LATEST_TAG }}
+
+      # For release events, GitHub Actions automatically checks out the commit of the release.
+      # Additional steps remain unchanged.
+
+      - uses: ./.github/workflows/setup-workspace
+
+      - name: Cache built static site
+        uses: actions/cache@v3
+        with:
+          path: ./dist
+          key: nuxt-site-${{ github.sha }}
+
+      - run: npm run generate
+        env:
+          CRAFT_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
+          S3_BUCKET: "https://static.library.ucla.edu/"
+          SITEMAP_HOST: "https://meap.library.ucla.edu"
+          ES_URL: ${{ secrets.ES_URL }}
+          ES_READ_KEY: ${{ secrets.ES_READ_KEY_PROD }}
+          ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_PROD }}
+          ES_INDEX: ${{ secrets.ES_INDEX_PROD }}
+          ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_PROD }}
+
+      - name: Deploy to Netlify on release
+        uses: nwtgck/actions-netlify@v2
+        with:
+          production-deploy: true
+          deploy-message: "https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          publish-dir: './dist'
+          fails-without-credentials: true
+          github-deployment-environment: production
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_MEAP_SITE_ID }}
