@@ -1,7 +1,7 @@
 <script setup>
 // HELPERS
 import _get from 'lodash/get'
-import format from 'date-fns/format'
+import { format } from 'date-fns'
 import removeTags from '../utils/removeTags'
 
 // GQL
@@ -322,7 +322,7 @@ function parseArticleCategory(categories) {
         page.featuredNews.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <banner-featured
@@ -338,14 +338,12 @@ function parseArticleCategory(categories) {
         class="banner section-featured-banner"
       />
 
-      <divider-general
-        v-if="page &&
-          page.featuredNews &&
-          page.featuredNews.length &&
-          hits.length == 0 &&
-          !noResultsFound
-        "
-      />
+      <divider-general v-if="page &&
+        page.featuredNews &&
+        page.featuredNews.length &&
+        hits.length == 0 &&
+        !noResultsFound
+        " />
 
       <section-teaser-highlight
         v-if="parsedSectionHighlight.length"
@@ -360,7 +358,7 @@ function parseArticleCategory(categories) {
         page.featuredNews.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <divider-way-finder color="about" />

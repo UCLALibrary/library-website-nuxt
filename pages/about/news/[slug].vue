@@ -1,7 +1,7 @@
 <script setup>
 // HELPERS
 import _get from 'lodash/get'
-import format from 'date-fns/format'
+import { format } from 'date-fns'
 import removeTags from '../utils/removeTags'
 
 // GQL
