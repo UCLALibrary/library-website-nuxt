@@ -459,7 +459,7 @@ export default {
         promptName() {
             if (this.parseRegistrations) return "Register"
             else if (this.page.event && this.page.event.onlineJoinURL)
-                return "More Details"
+                return "Register"
             return null
         },
         parseURL() {
