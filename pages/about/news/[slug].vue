@@ -1,5 +1,3 @@
-<!-- eslint-disable no-console -->
-
 <script setup>
 // HELPERS
 import _get from 'lodash/get'
@@ -10,9 +8,10 @@ import removeTags from '../utils/removeTags'
 import ARTICLE_DETAIL from '../gql/queries/ArticleDetail.gql'
 
 const { $graphql } = useNuxtApp()
+const route = useRoute()
 
-const { data } = await useAsyncData('news-story', async () => {
-  const data = await $graphql.default.request(ARTICLE_DETAIL, { slug: params.slug })
+const { data } = await useAsyncData('news-detail', async () => {
+  const data = await $graphql.default.request(ARTICLE_DETAIL, { slug: route.params.slug })
 
   if (!data.entry) {
     error({ statusCode: 404, message: 'Page not found' })
@@ -34,13 +33,8 @@ const { data } = await useAsyncData('news-story', async () => {
 
   return data
 })
-console.log('hello')
-console.log(data.value)
 
 const page = ref(_get(data.value, 'entry', {}))
-
-console.log('goodbye')
-console.log(page.value)
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -48,56 +42,56 @@ useHead({
     {
       hid: 'description',
       name: 'description',
-      content: removeTags(page.value.text)
+      content: removeTags(page.text)
     }
   ]
 })
 
-// const parsedByline = computed(() => {
-//   const byline = (page.value.contributors || []).map((contributor) => {
-//     if (
-//       (contributor.staffMember &&
-//         contributor.staffMember.length > 0) ||
-//       contributor.title
-//     )
-//       return `${contributor.byline || ''} ${contributor.title || contributor.staffMember[0].title
-//         }`
+const parsedByline = computed(() => {
+  const contributors = page.value.contributors || []
 
-//     return contributor
-//   })
+  const byline = contributors.reduce((acc, contributor) => {
+    const hasStaffMember = contributor.staffMember && contributor.staffMember.length > 0
+    const hasTitle = !!contributor.title
 
-//   return byline.map((contributor) => {
-//     return contributor
-//   })
-// })
+    if (hasStaffMember || hasTitle) {
+      const title = contributor.title || contributor.staffMember[0].title
+      const bylineText = `${contributor.byline || ''} ${title}`
+      acc.push(bylineText)
+    }
+    return acc
+  }, [])
 
-const parsedDate = computed(() => {
-  return format(new Date(page.value.postDate), 'MMMM d, Y')
+  return byline
 })
 
-// const parsedAssociatedStaffMember = computed(() => {
-//   return page.value.associatedStaffMember.map((obj) => {
-//     return {
-//       ...obj,
-//       to: `/about/staff/${obj.to}`,
-//       image: _get(obj, 'image[0]', null),
-//       staffName: `${obj.nameFirst} ${obj.nameLast}`,
-//     }
-//   })
-// })
+const parsedDate = computed(() => {
+  return format(new Date(page.postDate), 'MMMM d, Y')
+})
 
-// const parsedCategory = computed(() => {
-//   return page.value.category[0] ? page.value.category[0].title : ''
-// })
+const parsedAssociatedStaffMember = computed(() => {
+  return page.value.associatedStaffMember.map((obj) => {
+    return {
+      ...obj,
+      to: `/about/staff/${obj.to}`,
+      image: _get(obj, 'image[0]', null),
+      staffName: `${obj.nameFirst} ${obj.nameLast}`,
+    }
+  })
+})
 
-// const parsedLocations = computed(() => {
-//   return page.value.locations.map((obj) => {
-//     return {
-//       ...obj,
-//       to: `/${obj.to}`,
-//     }
-//   })
-// })
+const parsedCategory = computed(() => {
+  return page.value.category[0] ? page.value.category[0].title : ''
+})
+
+const parsedLocations = computed(() => {
+  return page.value.locations.map((obj) => {
+    return {
+      ...obj,
+      to: `/${obj.to}`,
+    }
+  })
+})
 </script>
 
 <template>
@@ -127,7 +121,7 @@ const parsedDate = computed(() => {
       class="section-banner"
     >
       <banner-header
-        :image="page.heroImage[0].image[0]"
+        :media="page.heroImage[0].image[0]"
         :to="page.to"
         :category="parsedCategory"
         :title="page.title"
@@ -151,7 +145,7 @@ const parsedDate = computed(() => {
       :blocks="page.blocks"
     />
 
-    <!-- <section-wrapper
+    <section-wrapper
       v-if="parsedAssociatedStaffMember.length > 0"
       theme="divider"
     >
@@ -159,15 +153,15 @@ const parsedDate = computed(() => {
         class="divider"
         color="about"
       />
-    </section-wrapper> -->
+    </section-wrapper>
 
-    <!-- <section-wrapper
+    <section-wrapper
       v-if="parsedAssociatedStaffMember.length > 0"
       class="associated-staff-member"
       section-title="Associated Staff Member"
     >
       <section-staff-list :items="parsedAssociatedStaffMember" />
-    </section-wrapper> -->
+    </section-wrapper>
   </main>
 </template>
 
