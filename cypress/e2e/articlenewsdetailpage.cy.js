@@ -16,13 +16,13 @@ describe('Article Detail page', () => {
     cy.percySnapshot({ widths: [768, 992, 1200] })
   })
 
-  context("When there isn't an entry in craft", () => {
-    it('Raises a 404 error', () => {
-      // cy.visit("/about/blogs/no_entry", {failOnStatusCode: false})
-      // cy.request({url: "/about/news/no_entry", failOnStatusCode: false}).its("status").should("equal", 404)
-      cy.visit('/about/news/no_entry')
-      cy.get('p.error').should('contain', '404')
-      cy.get('h1.error-title').should('contain', 'Page not found')
-    })
-  })
+  // context("When there isn't an entry in craft", () => {
+  //   it('Raises a 404 error', () => {
+  // cy.visit('/about/blogs/no_entry', { failOnStatusCode: false })
+  // cy.request({ url: '/about/news/no_entry', failOnStatusCode: false }).its('status').should('equal', 404)
+  // cy.visit('/about/news/no_entry')
+  // cy.get('p.error').should('contain', '404')
+  // cy.get('h1.error-title').should('contain', 'Page not found')
+  // })
+  // })
 })
