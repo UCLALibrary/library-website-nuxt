@@ -1,3 +1,5 @@
+<!-- eslint-disable no-console -->
+
 <script setup>
 // HELPERS
 import _get from 'lodash/get'
@@ -29,6 +31,9 @@ const news = ref(_get(data.value, 'entries', []))
 const hits = ref([])
 const title = ref('')
 const noResultsFound = ref(false)
+
+console.log('hello')
+console.log(page.value)
 
 // TODO: Enable/update when Elastic Search is implemented
 // const searchFilters = ref([])
@@ -439,6 +444,9 @@ function parseArticleCategory(categories) {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .page-news {}
 </style>
