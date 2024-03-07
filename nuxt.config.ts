@@ -51,6 +51,8 @@ export default defineNuxtConfig({
       libcalProxy:
         process.env.LIBCAL_ENDPOINT
         || 'https://proxy.calendar.library.ucla.edu/',
+      esTempIndexPrefixLibguides: process.env.ES_TEMP_INDEX_PREFIX_LIBGUIDES || '',
+      esTempIndexLibguides: '',
     },
   },
 

@@ -80,7 +80,7 @@
     "editor.defaultFormatter": "Vue.volar"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "Vue.volar"
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   },
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.tabSize": 2,
