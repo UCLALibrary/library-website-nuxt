@@ -96,7 +96,10 @@ onMounted(async () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .layout-default {
   min-height: 100vh;
 
@@ -107,7 +110,7 @@ onMounted(async () => {
   align-content: center;
   align-items: center;
 
-  >* {
+  :deep(>*) {
     width: 100%;
   }
 

@@ -15,8 +15,7 @@
 	},
 	"dependencies": {
 		"@pinia/nuxt": "^0.4.11",
-		"@vue-a11y/skip-to": "^3.0.3",
-		"consola": "^3.2.3"
+		"@vue-a11y/skip-to": "^3.0.3"
 	},
 	"devDependencies": {
 		"@nuxt/eslint-config": "^0.2.0",
@@ -33,6 +32,6 @@
 		"nuxt-graphql-request": "^7.0.5",
 		"sass": "^1.66.1",
 		"ucla-library-design-tokens": "^5.8.0",
-		"ucla-library-website-components": "2.39.0-alpha.44"
+		"ucla-library-website-components": "2.39.0-alpha.46"
 	}
 }
