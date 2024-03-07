@@ -5,6 +5,7 @@ export default defineNuxtModule({
 
   setup(options, nuxt) {
     console.log('Nuxt module start ')
+    if (process.env.NODE_ENV !== "development") {
     // const endpoint = nuxt.options.runtimeConfig.public.craftGraphqlURL
     nuxt.hooks.hook('build:before', async (nitro) => {
       console.log('Ready to create library temp index...')
@@ -51,6 +52,7 @@ export default defineNuxtModule({
         throw err
       }
     })
+  }
     console.log('Nuxt module end ')
   }
 })
