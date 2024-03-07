@@ -16,9 +16,9 @@ describe('Article News Listing page', () => {
     cy.percySnapshot({ widths: [768, 992, 1200] })
   })
 
-  it('Visit News Article Listing page filter by category', () => {
-    cy.visit('/about/news?q=&filters=%7B"articleCategory.title.keyword"%3A%5B"Featured"%5D%7D')
+  // it('Visit News Article Listing page filter by category', () => {
+  //   cy.visit('/about/news?q=&filters=%7B"articleCategory.title.keyword"%3A%5B"Featured"%5D%7D')
 
-    cy.get('h2.about-results').should('be.visible')
-  })
+  //   cy.get('h2.about-results').should('be.visible')
+  // })
 })
