@@ -88,15 +88,16 @@ export default defineNuxtConfig({
     'ucla-library-website-components/dist/style.css',
   ],
 
-  modules: [
-    [
-      '@pinia/nuxt',
-      {
-        autoImports: ['defineStore', 'acceptHMRUpdate'],
-      },
-    ],
-    'nuxt-graphql-request',
-  ],
+  modules: [[
+    '@pinia/nuxt',
+    {
+      autoImports: ['defineStore', 'acceptHMRUpdate'],
+    },
+  ], 'nuxt-graphql-request', '@nuxtjs/sitemap'],
+
+  site: {
+    url: process.env.SITEMAP_HOST || 'https://www.library.ucla.edu',
+  },
 
   imports: {
     dirs: ['stores'],

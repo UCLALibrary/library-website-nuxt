@@ -8,7 +8,7 @@ export default defineNuxtModule({
     async function createTempLibGuideIndex(now) {
       const tempLibGuideIndex = `${nuxt.options.runtimeConfig.public.esTempIndexPrefixLibguides}-${now.toISOString().toLowerCase().replaceAll(':', '-')}`
       logger.warn('Libguides Temp Index named: ' + tempLibGuideIndex)
-      
+
       const response = await fetch(`${nuxt.options.runtimeConfig.public.esURL}/${tempLibGuideIndex}`, {
         headers: {
           Authorization: `ApiKey ${nuxt.options.runtimeConfig.esWriteKey}`,
