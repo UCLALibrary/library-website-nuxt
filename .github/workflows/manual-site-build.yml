@@ -40,6 +40,7 @@ jobs:
           echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
           echo "ES_INDEX_PREFIX=${{secrets.ES_INDEX_PREFIX_TEST}}" >> $GITHUB_ENV
           echo "LIBGUIDES_ES_INDEX=${{secrets.LIBGUIDES_ES_INDEX_TEST}}" >> $GITHUB_ENV
+          echo "ES_TEMP_INDEX_PREFIX_LIBGUIDES=${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}" >> $GITHUB_ENV
         if: github.event.inputs.environment == 'test'
       - name: Sets env vars for stage
         run: |
@@ -51,6 +52,7 @@ jobs:
           echo "ES_INDEX=${{secrets.ES_INDEX_STAGE}}" >> $GITHUB_ENV
           echo "ES_INDEX_PREFIX=${{secrets.ES_INDEX_PREFIX_STAGE}}" >> $GITHUB_ENV
           echo "LIBGUIDES_ES_INDEX=${{secrets.LIBGUIDES_ES_INDEX_STAGE}}" >> $GITHUB_ENV
+          echo "ES_TEMP_INDEX_PREFIX_LIBGUIDES=${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_STAGE}}" >> $GITHUB_ENV
         if: github.event.inputs.environment == 'stage'
       - name: Sets env vars for prod
         run: |
@@ -62,6 +64,7 @@ jobs:
           echo "ES_INDEX=${{secrets.ES_INDEX_PROD}}" >> $GITHUB_ENV
           echo "ES_INDEX_PREFIX=${{secrets.ES_INDEX_PREFIX_PROD}}" >> $GITHUB_ENV
           echo "LIBGUIDES_ES_INDEX=${{secrets.LIBGUIDES_ES_INDEX_PROD}}" >> $GITHUB_ENV
+          echo "ES_TEMP_INDEX_PREFIX_LIBGUIDES=${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_PROD}}" >> $GITHUB_ENV
         if: github.event.inputs.environment == 'prod'
       - run: npm run generate
         env:
@@ -75,6 +78,7 @@ jobs:
           ES_WRITE_KEY: ${{env.ES_WRITE_KEY}}
           ES_INDEX: ${{env.ES_INDEX}}
           ES_INDEX_PREFIX: ${{env.ES_INDEX_PREFIX}}
+          ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES}}
           LIBGUIDES_ES_INDEX: ${{env.LIBGUIDES_ES_INDEX}}
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2 #
