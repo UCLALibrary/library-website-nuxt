@@ -5,6 +5,7 @@ export default defineNuxtModule({
 
   setup(options, nuxt) {
     console.log('Nuxt module start ')
+    console.log('process.env.NODE_ENV:' + process.env.NODE_ENV)
     if (process.env.NODE_ENV !== 'development') {
     // const endpoint = nuxt.options.runtimeConfig.public.craftGraphqlURL
       nuxt.hooks.hook('build:before', async (nitro) => {
