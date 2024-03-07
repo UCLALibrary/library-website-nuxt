@@ -10,12 +10,8 @@ import ARTICLE_DETAIL from '../gql/queries/ArticleDetail.gql'
 const { $graphql } = useNuxtApp()
 const route = useRoute()
 
-const { data } = await useAsyncData('news-detail', async () => {
+const { data, error } = await useAsyncData('news-detail', async () => {
   const data = await $graphql.default.request(ARTICLE_DETAIL, { slug: route.params.slug })
-
-  if (!data.entry) {
-    error({ statusCode: 404, message: 'Page not found' })
-  }
 
   // Elastic search?
   // if (data) {
@@ -33,6 +29,21 @@ const { data } = await useAsyncData('news-detail', async () => {
 
   return data
 })
+
+if (error.value) {
+  throw createError({
+    statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
+  })
+}
+
+if (!data.value.entry) {
+  // eslint-disable-next-line no-console
+  console.log('no data throw impact report main stry error')
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page Not Found'
+  })
+}
 
 const page = ref(_get(data.value, 'entry', {}))
 
