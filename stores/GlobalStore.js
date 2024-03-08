@@ -52,7 +52,7 @@ export const useGlobalStore = defineStore('GlobalStore', {
     async fetchHeader() {
       try {
         const { data } = await useFetch('/api/fetchNitroStorageCraftHeaderData')
-        // console.log('Pinia store Header Data object:' + JSON.stringify(data))
+        console.log('Pinia store Header Data object:' + JSON.stringify(data))
         this.header = data.value
       }
       catch (e) {
