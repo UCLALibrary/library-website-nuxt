@@ -14,7 +14,7 @@ useHead({
 })
 
 const globalStore = useGlobalStore()
-console.log("In default layout:", globalStore.header)
+console.log('In default layout:', globalStore.header)
 const libraryAlert = computed(() => {
   /* console.log(
     'in library alert computed property',
