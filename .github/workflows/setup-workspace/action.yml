@@ -31,4 +31,4 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: pnpm install --ignore-scripts=true
+      run: pnpm install
