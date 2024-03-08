@@ -15,7 +15,7 @@ const footerSockQuery = `
 
 export default cachedEventHandler(async () => {
   const endpoint = useRuntimeConfig().public.craftGraphqlURL
-  const footerSockData = await useStorage().getItem('craftData:footerSock')
+  let footerSockData = await useStorage().getItem('craftData:footerSock')
   // console.log('Server api Craft Footer sock Data object:' + JSON.stringify(footerSockData))
   if (!footerSockData) {
     const { data } = await $fetch(endpoint, {
@@ -26,8 +26,8 @@ export default cachedEventHandler(async () => {
       body: JSON.stringify({ query: footerSockQuery })
     })
     await useStorage().setItem('craftData:footerSock', data)
-    // footerSockData = await useStorage().getItem('craftData:footerSock')
-    // console.log('Server api Craft Footer sock Data object first set and then get:' + JSON.stringify(footerSockData))
+    footerSockData = await useStorage().getItem('craftData:footerSock')
+    console.log('Server api Craft Footer sock Data object first set and then get:' + JSON.stringify(footerSockData))
   }
   return footerSockData
 })
