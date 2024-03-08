@@ -59,8 +59,8 @@ devDependencies:
     specifier: ^5.8.0
     version: 5.8.0
   ucla-library-website-components:
-    specifier: 2.39.0-alpha.41
-    version: 2.39.0-alpha.41(typescript@5.3.3)(vue-router@4.2.5)(vue@3.4.19)
+    specifier: 2.39.0-alpha.45
+    version: 2.39.0-alpha.45(typescript@5.3.3)(vue-router@4.2.5)(vue@3.4.19)
 
 packages:
 
@@ -8784,8 +8784,8 @@ packages:
     resolution: {integrity: sha512-mA2U9f36FXB+7uB91S6H14ERKfKseNgZGJ73b2rt1PG5jt4thE2HEFnKMaTlz/jCjTTDSmaIHZcLcCA4CGrGyw==}
     dev: true
 
-  /ucla-library-website-components@2.39.0-alpha.41(typescript@5.3.3)(vue-router@4.2.5)(vue@3.4.19):
-    resolution: {integrity: sha512-bJLSpPwuAqSOb23wq9TeIIiO/kTAgDwGks3uFuMSkYhwXwyEJpSPvlOFZK9o6qLel01UYCynXUUKo2PaKXhLAw==}
+  /ucla-library-website-components@2.39.0-alpha.45(typescript@5.3.3)(vue-router@4.2.5)(vue@3.4.19):
+    resolution: {integrity: sha512-ryJUdWsQl9UyfvruRGw8C4m5MQE1KxjcC2LsjRcWOT2iqE47MD7WgEPF77tNKtzN/7V8Kv4IsbXEqO2iqyGwNQ==}
     peerDependencies:
       vue: ^3.3.4
       vue-router: ^4.2.4
@@ -8795,6 +8795,7 @@ packages:
       pinia: 2.1.6(typescript@5.3.3)(vue@3.4.19)
       vue: 3.4.19(typescript@5.3.3)
       vue-router: 4.2.5(vue@3.4.19)
+      vue3-carousel: 0.3.1(vue@3.4.19)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - typescript
@@ -9405,6 +9406,14 @@ packages:
       vue: ^3.2.0
     dependencies:
       '@vue/devtools-api': 6.5.0
+      vue: 3.4.19(typescript@5.3.3)
+    dev: true
+
+  /vue3-carousel@0.3.1(vue@3.4.19):
+    resolution: {integrity: sha512-86vUkNPBzL2PVuR9w6hUsI90ccFjLp+K8cSFpRTISf+SjUQY3fMHc5CFF5MUL62v1xYYm27zEBmQupO9VQx9Kw==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
       vue: 3.4.19(typescript@5.3.3)
     dev: true
 
