@@ -15,12 +15,12 @@
 	},
 	"dependencies": {
 		"@pinia/nuxt": "^0.4.11",
-		"@vue-a11y/skip-to": "^3.0.3",
-		"consola": "^3.2.3"
+		"@vue-a11y/skip-to": "^3.0.3"
 	},
 	"devDependencies": {
 		"@nuxt/eslint-config": "^0.2.0",
 		"@nuxtjs/eslint-config-typescript": "^12.1.0",
+		"@nuxtjs/sitemap": "^5.1.1",
 		"@percy/cli": "^1.27.0",
 		"@percy/cypress": "^3.1.2",
 		"@types/node": "^18.17.3",
@@ -33,6 +33,6 @@
 		"nuxt-graphql-request": "^7.0.5",
 		"sass": "^1.66.1",
 		"ucla-library-design-tokens": "^5.8.0",
-		"ucla-library-website-components": "2.39.0-alpha.45"
+		"ucla-library-website-components": "2.39.0-alpha.46"
 	}
 }
