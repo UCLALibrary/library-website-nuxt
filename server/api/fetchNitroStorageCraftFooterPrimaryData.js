@@ -28,7 +28,8 @@ export default cachedEventHandler(async () => {
       body: JSON.stringify({ query: footerPrimaryQuery })
     })
     await useStorage().setItem('craftData:footerPrimary', data)
-    footerPrimaryData = await useStorage().getItem('craftData:footerPrimary')
+    footerPrimaryData = data
+    // footerPrimaryData = await useStorage().getItem('craftData:footerPrimary')
     console.log('Server api Craft Footer primary Data object first set and then get:' + JSON.stringify(footerPrimaryData))
   }
   return footerPrimaryData

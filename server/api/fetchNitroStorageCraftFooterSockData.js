@@ -26,7 +26,8 @@ export default cachedEventHandler(async () => {
       body: JSON.stringify({ query: footerSockQuery })
     })
     await useStorage().setItem('craftData:footerSock', data)
-    footerSockData = await useStorage().getItem('craftData:footerSock')
+    footerSockData = data
+    // footerSockData = await useStorage().getItem('craftData:footerSock')
     console.log('Server api Craft Footer sock Data object first set and then get:' + JSON.stringify(footerSockData))
   }
   return footerSockData
