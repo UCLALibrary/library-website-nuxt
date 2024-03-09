@@ -36,7 +36,8 @@ export default cachedEventHandler(async (event) => {
       body: JSON.stringify({ query: globalsQuery })
     })
     await useStorage().setItem('craftData:globals', data)
-    globalData = await useStorage().getItem('craftData:globals')
+    globalData = data
+    // globalData = await useStorage().getItem('craftData:globals')
     console.log('Server api Global Data object first set and then get:' + JSON.stringify(globalData))
   }
   return globalData

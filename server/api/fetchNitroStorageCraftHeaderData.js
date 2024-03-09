@@ -31,7 +31,8 @@ export default cachedEventHandler(async () => {
       body: JSON.stringify({ query: headerQuery })
     })
     await useStorage().setItem('craftData:header', data)
-    headerData = await useStorage().getItem('craftData:header')
+    headerData = data
+    // headerData = await useStorage().getItem('craftData:header')
     console.log('Server api Header Data object first set and then get:' + JSON.stringify(headerData))
   }
   return headerData
