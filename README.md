@@ -6,31 +6,28 @@ A [Nuxt](https://nuxtjs.org/) powered frontend website for the UCLA Library.
 
 <details><summary>SET UP THE NUXT SITE</summary>
 
-**This is a Nuxt site, it builds and deploys like any other Nuxt project.**
+1. Duplicate and rename `.example.env` to `.env`. Define any vars environment needed there.
+Be sure to do this before running `npm install`
 
-Works best with the [fuxt-backend](https://github.com/funkhaus/fuxt-backend) WordPress theme as the backend.
+2. install dependencies
+$ `npm install`
 
-**First step:** Duplicate and rename `.example.env` to `.env`. Define any vars environment needed there.
+3. serve with hot reload at localhost:3000
+$ `npm run dev`
 
-```bash
-# install dependencies
-$ npm install
+4. serve with hot reload Storybook at localhost:3003
+$ `npm run storybook`
 
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# serve with hot reload Storybook at localhost:3003
-$ npm run storybook
-
-# build for production and launch server
+### Build for production and launch server
 $ npm run build
-$ npm start
+$ `npm start`
 
-# build Storybook for production
-$ npx nuxt storybook build
-
-# generate static nuxt site
-$ npm run generate
+### Generate static nuxt site
+$ `npm run generate`
+    
+**This is a Nuxt site, it builds and deploys like any other Nuxt project.**
+    
+(Works best with the [fuxt-backend](https://github.com/funkhaus/fuxt-backend) WordPress theme as the backend.)
 
 ```
 
