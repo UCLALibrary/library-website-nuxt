@@ -1,4 +1,3 @@
-<!-- eslint-disable no-console -->
 <script setup>
 // HELPERS
 import _get from 'lodash/get'
@@ -10,16 +9,12 @@ const { $graphql } = useNuxtApp()
 
 const route = useRoute()
 
-const path = route.params.slug
+const path = route.path.replace(/^\/|\/$/g, '') // trim initial and/or final slashes
 
-console.log(path)
+const variables = { path }
 
 const { data, error } = await useAsyncData('general-content', async () => {
-  // const path = params.pathMatch.replace(/^\/|\/$/g, '') // trim initial and/or final slashes
-
-  const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, path)
-
-  console.log('General Content page path is: ' + path)
+  const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, variables)
 
   // if (data.value && data.value.entry && data.value.entry.slug) {
   //   $elasticsearchplugin.index(data.value.entry, path.replaceAll('/', '--'))
@@ -30,8 +25,6 @@ const { data, error } = await useAsyncData('general-content', async () => {
   return data
 })
 
-console.log(data.value)
-
 if (error.value) {
   throw createError({
     statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
@@ -39,7 +32,8 @@ if (error.value) {
 }
 
 if (!data.value.entry) {
-  console.log('no data throw impact report main story error')
+  // eslint-disable-next-line no-console
+  console.log('no data')
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found'
@@ -47,6 +41,7 @@ if (!data.value.entry) {
 }
 
 const page = ref(_get(data.value, 'entry', {}))
+
 let h2Array = ref([]) // anchor tags
 
 useHead({
@@ -109,7 +104,7 @@ onMounted(() => {
     <section-wrapper class="section-banner">
       <banner-header
         v-if="page && page.heroImage && page.heroImage.length == 1"
-        :image="page.heroImage[0].image[0]"
+        :media="page.heroImage[0].image[0]"
         :category="page.format"
         :title="page.title"
         :text="page.summary"

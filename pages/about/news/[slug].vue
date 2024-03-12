@@ -38,7 +38,7 @@ if (error.value) {
 
 if (!data.value.entry) {
   // eslint-disable-next-line no-console
-  console.log('no data throw impact report main stry error')
+  console.log('no data')
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found'
