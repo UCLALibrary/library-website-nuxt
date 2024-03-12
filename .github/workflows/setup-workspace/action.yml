@@ -15,7 +15,10 @@ runs:
     - uses: pnpm/action-setup@v2
       with:
         version: 8
-        run_install: false
+        run_install: |
+          - recursive: true
+            args: [--frozen-lockfile, --strict-peer-dependencies]
+          - args: [--global, gulp, prettier, typescript]
     - name: Get pnpm store directory
       shell: bash
       run: |
