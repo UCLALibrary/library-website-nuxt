@@ -15,7 +15,10 @@ runs:
     - uses: pnpm/action-setup@v2
       with:
         version: 8
-        run_install: false
+        run_install: |
+          - recursive: true
+            args: [--frozen-lockfile, --strict-peer-dependencies]
+          - args: [--global, gulp, prettier, typescript]
     - name: Get pnpm store directory
       shell: bash
       run: |
@@ -29,16 +32,6 @@ runs:
         restore-keys: |
           ${{ runner.os }}-pnpm-store-
 
-    - uses: actions/cache@v3
-      name: Cache Cypress binary
-      with:
-        path: ~/.cache/Cypress
-        key: ${{ runner.os }}-cypress-${{ hashFiles('**/package-lock.json', '**/pnpm-lock.yaml') }}
-        restore-keys: | 
-          ${{ runner.os }}-cypress-
-
     - name: Install dependencies
       shell: bash
-      run: |
-        pnpm install --frozen-lockfile
-        pnpx cypress install
+      run: pnpm install
