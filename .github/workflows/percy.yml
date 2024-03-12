@@ -48,3 +48,4 @@ jobs:
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_NUXT3X_E2E }}
           PERCY_TARGET_BRANCH: nuxt3.x
+
