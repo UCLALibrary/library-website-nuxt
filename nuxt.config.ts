@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     resolve: {
       alias: {
         'cross-fetch': 'cross-fetch/dist/browser-ponyfill.js',
+        '~ucla-library-design-tokens': 'ucla-library-design-tokens',
       },
     },
     server: {
@@ -21,6 +22,7 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           additionalData: ` 
+                        @import "ucla-library-design-tokens/scss/fonts.scss";
                         @import "ucla-library-design-tokens/scss/app.scss";
                     `,
         },
@@ -80,7 +82,7 @@ export default defineNuxtConfig({
      ** Global CSS
      */
   css: [
-    'ucla-library-design-tokens/scss/fonts.scss',
+    // 'ucla-library-design-tokens/scss/fonts.scss',
     'ucla-library-design-tokens/scss/app-global.scss',
     '~/assets/styles/global.scss',
 
