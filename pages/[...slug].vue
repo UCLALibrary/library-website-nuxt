@@ -138,10 +138,6 @@ onMounted(() => {
   scoped
 >
 .page-general-content {
-  :deep(.divider-way-finder) {
-    --color-border: var(--color-visit-fushia-03);
-  }
-
   .section-banner {
     margin-top: 0;
   }
