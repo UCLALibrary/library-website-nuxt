@@ -112,10 +112,14 @@ const timelineSortedBySubtitle = computed(() => {
       :align-right="false"
     />
     <div v-if="page.blocks">
-      {{ page.blocks }}
+      <flexible-blocks
+        v-if="page.blocks"
+        class="flexible-content"
+        :blocks="page.blocks"
+      />
     </div>
 
-    <!-- flexible-blocks v-if="page.blocks" class="flexible-content" :blocks="page.blocks" / -->
+
 
     <section-wrapper theme="divider">
       <divider-way-finder
@@ -150,12 +154,10 @@ const timelineSortedBySubtitle = computed(() => {
       />
     </section-wrapper>
     <section-wrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
-      <h2
-        :class="page.acknowledgements[0].displaySectionTitle === 'true'
+      <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
           ? ''
           : 'visually-hidden'
-        "
-      >
+          ">
         {{ page.acknowledgements[0].titleGeneral }}
       </h2>
       <rich-text
@@ -166,7 +168,10 @@ const timelineSortedBySubtitle = computed(() => {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .page-impact-report {
   .meta {
     padding: 0 var(--unit-gutter);
