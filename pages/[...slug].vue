@@ -114,10 +114,7 @@ onMounted(() => {
     </section-wrapper>
 
     <section-wrapper theme="divider">
-      <divider-way-finder
-        class="divider-way-finder"
-        color="default"
-      />
+      <divider-way-finder class="divider-way-finder" />
     </section-wrapper>
 
     <page-anchor
