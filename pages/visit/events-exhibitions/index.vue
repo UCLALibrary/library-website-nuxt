@@ -34,7 +34,7 @@ const series = ref(_get(data.value.data, 'series', []))
 const exhibitions = ref(_get(data.value.data, 'exhibitions', []))
 const hits = ref([])
 const title = ref('')
-let searchFilters = ref([])
+// let searchFilters = ref([])
 const noResultsFound = ref(false)
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
@@ -45,6 +45,7 @@ const searchGenericQuery = ref({
 })
 
 console.log('Page variable: ', page.value)
+console.log('Event variable: ', events.value)
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -285,37 +286,36 @@ const routeFilters = computed(() => {
 //   },
 // }
 
-// eslint-disable-next-line require-await
-onMounted(async () => {
-  // console.log("In mounted")
-  /* //console.log("ESREADkey:" + this.$config.esReadKey)
+// onMounted(async () => {
+// console.log("In mounted")
+/* //console.log("ESREADkey:" + this.$config.esReadKey)
       //console.log("ESURLkey:" + this.$config.esURL) */
-  // bookmarked search queries are not calling fetch
-  setFilters()
-})
+// bookmarked search queries are not calling fetch
+//   setFilters()
+// })
 
 // Methods
 
-async function setFilters() {
-  const searchAggsResponse = await this.$dataApi.getAggregations(
-    config.eventsExhibitionsList.filters,
-    'event'
-  )
-  /* console.log(
-          "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-      ) */
-  searchFilters = [
-    ...getListingFilters(
-      searchAggsResponse,
-      config.eventsExhibitionsList.filters
-    ),
-    {
-      esFieldName: 'past',
-      inputType: 'single-checkbox',
-      label: 'Include Past Events',
-    },
-  ]
-}
+// async function setFilters() {
+//   const searchAggsResponse = await this.$dataApi.getAggregations(
+//     config.eventsExhibitionsList.filters,
+//     'event'
+//   )
+//   /* console.log(
+//           "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+//       ) */
+//   searchFilters = [
+//     ...getListingFilters(
+//       searchAggsResponse,
+//       config.eventsExhibitionsList.filters
+//     ),
+//     {
+//       esFieldName: 'past',
+//       inputType: 'single-checkbox',
+//       label: 'Include Past Events',
+//     },
+//   ]
+// }
 
 /* TODO: Enable for search */
 
