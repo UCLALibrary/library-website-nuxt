@@ -12,7 +12,7 @@ describe("Collection Detail page", () => {
         cy.get(".page-collection-detail").should("be.visible")
         cy.get("h1.title").should(
             "contain",
-            "TEST - Title of Collection - Halloween Costumes"
+            "TEST - Collection - Halloween Costumes"
         )
         cy.get(".page-anchor").scrollIntoView().should('be.visible')
         cy.percySnapshot({ widths: [768, 992, 1200] })
