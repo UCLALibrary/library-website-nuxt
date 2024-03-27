@@ -8,25 +8,29 @@ import removeTags from '../utils/removeTags'
 import EVENT_DETAIL from '../gql/queries/EventDetail.gql'
 import HEADER_MAIN_MENU_ITEMS from '../gql/queries/HeaderMainMenuItems.gql'
 
+// Note: This may not actually be needed?
 // vue: {
 //   config: {
 //     unwrapInjectedRef: true,
 //         },
 // }
 
-const { $graphql, $config } = useNuxtApp()
+const config = useRuntimeConfig()
+
+const { $graphql } = useNuxtApp()
 
 const route = useRoute()
 
 const { data, error } = await useAsyncData('events-listing-detail', async () => {
   const data = await $graphql.default.request(EVENT_DETAIL, { slug: route.params.slug })
   const navData = await $graphql.default.request(HEADER_MAIN_MENU_ITEMS)
+  console.log('test:', data)
 
   if (!data.event && !data.eventSeries && !data.exhibition) {
     error({ statusCode: 404, message: 'Page not found' })
   }
 
-  // Elastic search ?
+  // Note: Dependent on Elastic search?
   // if (data && (data.event || data.exhibition || data.eventSeries)) {
   //   if (data.eventSeries) data.eventSeries.sectionHandle = "eventSeries"
   //   if (data.event)
@@ -56,7 +60,7 @@ const primaryItems = ref(_get(data.value.navData, 'primary', []))
 const secondaryItems = ref(_get(data.value.navData, 'secondary', []))
 let formData = ref({})
 const formId = ref('')
-const eventId = ref(data.value.data && data.value.event ? data.value.event.libcalId : '')
+const eventId = ref(data.value.data && data.value.data.event ? data.value.data.event.libcalId : '')
 const inPersonEvent = ref(!!(data.value.data &&
   data.value.data.event && data.value.data.event.libcalPhysicalSeats > 0 &&
   data.value.data.event.libcalPhysicalSeats >=
@@ -68,7 +72,7 @@ const onlineEvent = ref(!!(data.value.data &&
   data.value.data.event.libcalOnlineSeats -
   data.value.data.event.libcalOnlineSeatsTaken))
 const libcalWaitlist = ref(data.value.data && data.value.data.event && data.value.data.event.libcalWaitlist)
-const libcalEndpointProxy = ref($config.libcalProxy)
+const libcalEndpointProxy = ref(config.public.libcalProxy)
 
 console.log('page variable:', page.value)
 console.log('allEvents variable:', allEvents.value)
@@ -306,7 +310,7 @@ const parsedExhibitionLocations = computed(() => {
   })
 })
 
-onMounted(() => {
+onMounted(async () => {
   // const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
   // //console.log(
   //     "in mounted is registration required :" +
@@ -318,7 +322,7 @@ onMounted(() => {
     page.value.event.requiresRegistration === '1' &&
     page.value.event.onlineProvider !== 'external'
   ) {
-    // //console.log("getting formid")
+    console.log("getting formid")
     const formDataArray = $scrapeApi.scrapeFormId(
       page.value.event.libcalId
     ) // please check the fieldname in the query
@@ -343,6 +347,301 @@ onMounted(() => {
     id="main"
     class="page page-event-detail"
   >
-    Hello
+    <!-- EVENT DETAIL -->
+    <div v-if="page.event">
+      <nav-breadcrumb
+        to="/visit/events-exhibitions"
+        :title="page.event.title"
+        parent-title="Events & Exhibitions"
+      />
+
+      <!-- <header-sticky
+                class="sticky-header"
+                :primary-items="primaryItems"
+                :secondary-items="secondaryItems"
+            /> -->
+
+      <banner-text
+        v-if="page.event &&
+      (!page.event.image || !page.event.image[0] || !page.event.image[0].image || !page.event.image[0].image[0] ||
+        page.event.image[0].image[0].length == 0)
+      "
+        :title="page.event.title"
+        :locations="page.event.eventLocation"
+        :start-date="page.event.startDateWithTime"
+        :end-date="page.event.endDateWithTime"
+        :category="parseEventType"
+        :to="parseURL"
+        :button-text="promptName"
+        :register-event="parseRegistration"
+        :section-handle="page.event.sectionHandle"
+      />
+
+      <section-wrapper
+        v-if="page.event.image && page.event.image.length > 0 && page.event.image[0].image && page.event.image[0].image.length > 0 && page.event.image[0].image[0]"
+        class="section-banner"
+      >
+        <banner-header
+          :media="page.event.image[0].image[0]"
+          :title="page.event.title"
+          :locations="page.event.eventLocation"
+          :start-date="page.event.startDateWithTime"
+          :end-date="page.event.endDateWithTime"
+          :category="parseEventType"
+          :to="parseURL"
+          :align-right="true"
+          :prompt="promptName"
+          :register-event="parseRegistration"
+          :section-handle="page.event.sectionHandle"
+        />
+      </section-wrapper>
+
+      <section-wrapper theme="divider">
+        <divider-way-finder
+          v-if="page.event.image && page.event.image.length > 0 && page.event.image[0].image && page.event.image[0].image[0]"
+          color="visit"
+        />
+      </section-wrapper>
+      <section-wrapper v-if="page.event || page.event.eventDescription">
+        <rich-text
+          v-if="page.event.presenter"
+          :rich-text-content="page.event.presenter"
+          class="presenter"
+        />
+        <rich-text :rich-text-content="page.event.eventDescription" />
+        <divider-general v-if="page.event.moreInformation" />
+        <rich-text
+          v-if="page.event.moreInformation"
+          :rich-text-content="page.event.moreInformation"
+        />
+      </section-wrapper>
+
+      <section-wrapper
+        v-if="parsedAssociatedSeries.length"
+        theme="divider"
+      >
+        <divider-way-finder color="visit" />
+      </section-wrapper>
+
+      <section-wrapper
+        v-if="parsedAssociatedSeries.length"
+        section-title="Related Series"
+      >
+        <section-teaser-list :items="parsedAssociatedSeries" />
+      </section-wrapper>
+      <section-wrapper theme="divider">
+        <divider-way-finder color="visit" />
+      </section-wrapper>
+
+      <block-call-to-action
+        class="section block-call-to-action"
+        :is-global="true"
+      />
+      <!-- </libcalphysicalseats> -->
+    </div>
+
+    <!-- EVENT SERIES -->
+    <div v-else-if="page.eventSeries">
+      <nav-breadcrumb
+        to="/visit/events-exhibitions"
+        :title="page.eventSeries.title"
+        parent-title="Events & Exhibitions"
+      />
+
+      <banner-text
+        v-if="page.eventSeries && !page.eventSeries.image[0]"
+        :title="page.eventSeries.title"
+        :text="page.eventSeries.summary"
+        :locations="parsedEventSeriesLocations"
+        :start-date="page.eventSeries.startDate"
+        :end-date="page.eventSeries.endDate"
+        category="Event Series"
+      />
+
+      <section-wrapper
+        v-if="page.eventSeries.image[0]"
+        class="section-banner"
+      >
+        <banner-header
+          :media="page.eventSeries.image[0].image[0]"
+          :title="page.eventSeries.title"
+          :locations="parsedEventSeriesLocations"
+          category="Event Series"
+          :text="page.eventSeries.summary"
+          :start-date="page.eventSeries.startDate"
+          :end-date="page.eventSeries.endDate"
+          :align-right="true"
+        />
+      </section-wrapper>
+
+      <section-wrapper theme="divider">
+        <divider-way-finder
+          v-if="page.eventSeries.image"
+          color="visit"
+        />
+      </section-wrapper>
+
+      <flexible-blocks
+        class="content"
+        :blocks="page.eventSeries.blocks"
+      />
+
+      <section-wrapper
+        v-if="page.eventSeries.blocks.length > 0"
+        theme="divider"
+      >
+        <divider-way-finder
+          class="divider-way-finder"
+          color="visit"
+        />
+      </section-wrapper>
+
+      <section-wrapper
+        v-if="upcomingEvents.length"
+        section-title="Upcoming Events in this Series"
+      >
+        <section-teaser-list
+          v-if="upcomingEvents"
+          :items="upcomingEvents"
+          class="section section-list"
+        />
+        <divider-general v-if="pastEvents.length" />
+      </section-wrapper>
+
+      <section-wrapper
+        v-if="pastEvents.length"
+        section-title="Past Events in this Series"
+      >
+        <section-teaser-list
+          v-if="pastEvents"
+          :items="pastEvents"
+          class="section section-list"
+        />
+      </section-wrapper>
+
+      <section-wrapper
+        v-if="page.eventSeries.associatedTopics.length > 0"
+        theme="divider"
+      >
+        <divider-way-finder
+          class="divider-way-finder"
+          color="visit"
+        />
+      </section-wrapper>
+
+      <section-wrapper>
+        <section-cards-with-illustrations
+          v-if="parsedAssociatedTopics.length > 0"
+          class="section-cards"
+          :items="parsedAssociatedTopics"
+          section-title="Associated Topics"
+        />
+      </section-wrapper>
+
+      <section-wrapper theme="divider">
+        <divider-way-finder
+          class="divider-way-finder"
+          color="visit"
+        />
+      </section-wrapper>
+
+      <block-call-to-action
+        class="section block-call-to-action"
+        :is-global="true"
+      />
+    </div>
+
+    <!-- EXHIBITION -->
+    <div v-else>
+      <nav-breadcrumb
+        to="/visit/events-exhibitions"
+        :title="page.exhibition.title"
+        parent-title="Events & Exhibitions"
+      />
+
+      <banner-text
+        v-if="page.exhibition && !page.exhibition.image[0]"
+        :title="page.exhibition.title"
+        :text="page.exhibition.summary"
+        :locations="parsedExhibitionLocations"
+        :to="parsedExhibitionBannerTo"
+        :banner-text="parsedExhibitionBannerPrompt"
+        :start-date="page.exhibition.startDate"
+        :end-date="page.exhibition.endDate"
+        category="Exhibition"
+      />
+
+      <section-wrapper
+        v-if="page.exhibition.image[0]"
+        class="section-banner"
+      >
+        <banner-header
+          :media="page.exhibition.image[0].image[0]"
+          :title="page.exhibition.title"
+          :locations="parsedExhibitionLocations"
+          category="Exhibition"
+          :text="page.exhibition.summary"
+          :align-right="true"
+          :start-date="page.exhibition.startDate"
+          :end-date="page.exhibition.endDate"
+          :prompt="parsedExhibitionBannerPrompt"
+          :to="parsedExhibitionBannerTo"
+        />
+      </section-wrapper>
+
+      <section-wrapper theme="divider">
+        <divider-way-finder color="visit" />
+      </section-wrapper>
+
+      <flexible-blocks
+        class="content"
+        :blocks="page.exhibition.blocks"
+      />
+
+      <section-wrapper
+        v-if="page.exhibition.blocks.length > 0"
+        theme="divider"
+      >
+        <divider-way-finder color="visit" />
+      </section-wrapper>
+
+      <section-wrapper
+        v-if="associatedExhibitionEvents.length"
+        section-title="Associated Events"
+      >
+        <section-teaser-list
+          v-if="associatedExhibitionEvents.length > 0"
+          :items="associatedExhibitionEvents"
+          class="section section-list"
+        />
+      </section-wrapper>
+
+      <section-wrapper
+        v-if="associatedExhibitionEvents.length > 0"
+        theme="divider"
+      >
+        <divider-way-finder color="visit" />
+      </section-wrapper>
+
+      <section-wrapper
+        v-if="parsedAssociatedStaffMember.length > 0"
+        section-title="Contact a Subject Specialist"
+      >
+        <section-staff-list :items="parsedAssociatedStaffMember" />
+      </section-wrapper>
+
+      <section-wrapper
+        v-if="parsedAssociatedStaffMember.length > 0"
+        theme="divider"
+      >
+        <divider-way-finder color="visit" />
+      </section-wrapper>
+
+      <section-wrapper :section-title="parsedAcknowledgementTitle">
+        <rich-text :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+      " />
+      </section-wrapper>
+    </div>
+    <!-- </div> -->
   </main>
 </template>

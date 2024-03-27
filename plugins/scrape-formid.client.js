@@ -1,7 +1,10 @@
 /* eslint-disable no-console */
 async function scrapeFormId(eventId = '') {
   console.log('event ID:' + eventId)
-  const response = await fetch($config.libcalProxy + 'event/' + eventId)
+
+  // const response = await fetch($config.libcalProxy+"event/" + eventId)
+  const response = await useFetch($config.libcalProxy + 'event/' + eventId)
+
   const html = await response.text()
   console.log('event html:' + html)
   const parser = new DOMParser()
@@ -20,8 +23,10 @@ async function scrapeFormId(eventId = '') {
 }
 
 async function fetchformData(formId) {
+
   console.log('you are in fetchformdata:' + formId)
-  const formData = await $axios.$get(`api/1.1/events/form/${formId}`)
+  // const formData = await $axios.$get(`api/1.1/events/form/${formId}`)
+  const formData = await useFetch($config.libcalProxy + `api/1.1/events/form/${formId}`)
   console.log('is data ready:' + JSON.stringify(formData))
   return formData
 }
