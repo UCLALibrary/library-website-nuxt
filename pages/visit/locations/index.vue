@@ -1,4 +1,3 @@
-<!-- eslint-disable no-console -->
 <script setup>
 // UTILITIES
 import _get from 'lodash/get'
@@ -25,6 +24,7 @@ const { data } = await useAsyncData('locations-list', async () => {
 
   const serverData = await $graphql.default.request(LOCATIONS_LIST)
 
+  /* TODO: Enable when search functionality is ready */
   /*
   if (
     serverData.affiliateLibraries &&
@@ -42,8 +42,6 @@ const { data } = await useAsyncData('locations-list', async () => {
     }
   }
   */
-  console.log('Expected data:', data)
-  console.log('Expected serverData:', serverData)
   return { data, serverData }
 })
 
@@ -62,10 +60,6 @@ const searchGenericQuery = ref({
       JSON.parse(route.query.filters)) ||
     {},
 })
-
-console.log('page variable: ', page.value)
-console.log('affiliateLibraries variable: ', affiliateLibraries.value)
-console.log('uclaLibraries variable: ', uclaLibraries.value)
 
 /* TODO: Refactor when search functionality is ready */
 /*
@@ -164,8 +158,6 @@ const parsedUclaLibraries = computed(() => {
   })
 })
 
-console.log('parsedUclaLibraries: ', parsedUclaLibraries.value)
-
 const parsedAffiliateLibraries = computed(() => {
   return affiliateLibraries.value.map((obj) => {
     return {
@@ -185,12 +177,11 @@ const parsedAffiliateLibraries = computed(() => {
   })
 })
 
-console.log('parsedAffiliateLibraries: ', parsedAffiliateLibraries.value)
-
 const parsedPlaceholder = computed(() => {
   return `Search ${page.value.title}`
 })
 
+/* TODO: Enable when search functionality is ready */
 // const parseHitsResults = computed(() => {
 //   return parseHits(hits.value)
 // })
@@ -235,6 +226,7 @@ async function setFilters() {
 }
 */
 
+/* TODO: Enable when search functionality is ready */
 /*
 function parseHits(hits = []) {
   return hits.value.map((obj) => {
@@ -258,13 +250,14 @@ function parseHits(hits = []) {
   })
 }
 */
-
 // console.log('parseHits: ', parseHits())
 
+/* TODO: Refactor when search functionality is ready */
+/*
 function getSearchData(data) {
   // console.log("On the page getsearchdata called " + data)
-  /* this.page = {}
-  this.hits = [] */
+  // this.page = {}
+  // this.hits = []
   route.push({
     path: '/visit/locations',
     query: {
@@ -273,7 +266,7 @@ function getSearchData(data) {
         (data.filters && JSON.stringify(data.filters)) || '',
     },
   })
-}
+} */
 
 // fetchOnServer: false,
 // multiple components can return the same `fetchKey` and Nuxt will track them both separately
@@ -290,6 +283,7 @@ function getSearchData(data) {
       :text="page.text"
     />
 
+    <!-- ToDo: Enable for search -->
     <!-- SEARCH -->
     <!-- <search-generic
       search-type="about"
@@ -307,6 +301,7 @@ function getSearchData(data) {
       />
     </section-wrapper>
 
+    <!-- ToDo: Remove text listing when location-list component is ready -->
     <!-- UCLA LIBRARIES -->
     <section-wrapper
       v-show="page &&
@@ -321,13 +316,14 @@ function getSearchData(data) {
       <section-location-list
         class="blockLocationListWrapper"
         :items="parsedUclaLibraries"
-      />
+      />{{ parsedUclaLibraries }}
       <button-more
         text="See Other Campus Libraries & Archives"
         @click="showMoreOtherCampusLibrary()"
       />
     </section-wrapper>
 
+    <!-- ToDo: Remove text listing when location-list component is ready -->
     <!-- AFFILIATE LIBRARIES -->
     <section-wrapper
       v-show="page &&
@@ -343,6 +339,7 @@ function getSearchData(data) {
         class="blockLocationListWrapper"
         :items="parsedAffiliateLibraries"
       />
+      {{ parsedAffiliateLibraries }}
     </section-wrapper>
 
     <!-- RESULTS -->
