@@ -1,5 +1,5 @@
-#import "~/gql/fragments/collections/AllFpb"
-#import "~/gql/fragments/Image"
+#import "../gql/fragments/collections/AllFpb.gql"
+#import "../gql/fragments/Image.gql"
 
 query LocationDetail($slug: [String!]) {
     entry(section: "location", slug: $slug) {
