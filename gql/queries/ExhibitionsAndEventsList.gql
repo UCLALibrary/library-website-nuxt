@@ -1,92 +1,77 @@
-#import "~/gql/fragments/Image"
+#import "../gql/fragments/Image.gql"
 
 query ExhibitionsAndEventsList {
-    events: entries(
-        section: "event"
-        orderBy: "startDateWithTime ASC"
-        startDateWithTime: ">= now"
-    ) {
-        ... on event_event_Entry {
-            title: eventTitle
-            to: uri
-            sectionHandle
-            eventType {
-                title
-            }
-            startDateWithTime
-                @formatDateTime(
-                    format: "Y-m-d\\TH:i:s"
-                    timezone: "America/Los_Angeles"
-                )
-            endDateWithTime
-                @formatDateTime(
-                    format: "Y-m-d\\TH:i:s"
-                    timezone: "America/Los_Angeles"
-                )
-            associatedLocations {
-                title
-            }
-            eventLocation: location {
-                title
-            }
-            image {
-                ...Image
-            }
-        }
-    }
-    series: entries(
-        section: "workshopOrEventSeries"
-        orderBy: "title"
-    ) {
+  events: entries(
+    section: "event"
+    orderBy: "startDateWithTime ASC"
+    startDateWithTime: ">= now"
+  ) {
+    ... on event_event_Entry {
+      title: eventTitle
+      to: uri
+      sectionHandle
+      eventType {
         title
-        sectionHandle
-        startDate
-            @formatDateTime(
-                format: "Y-m-d\\TH:i:s"
-                timezone: "America/Los_Angeles"
-            )
-        endDate
-            @formatDateTime(
-                format: "Y-m-d\\TH:i:s"
-                timezone: "America/Los_Angeles"
-            )
-        ongoing
-        text: summary
-        to: uri
-        category: workshopOrEventSeriesType
-        heroImage {
-            ... on heroImage_heroImage_BlockType {
-                id
-                image {
-                    ...Image
-                }
-            }
-        }
-    }
-    exhibitions: entries(section: "exhibition", orderBy: "title") {
+      }
+      startDateWithTime
+        @formatDateTime(
+          format: "Y-m-d\\TH:i:s"
+          timezone: "America/Los_Angeles"
+        )
+      endDateWithTime
+        @formatDateTime(
+          format: "Y-m-d\\TH:i:s"
+          timezone: "America/Los_Angeles"
+        )
+      associatedLocations {
         title
-        typeHandle
-        sectionHandle
-        startDate
-            @formatDateTime(
-                format: "Y-m-d\\TH:i:s"
-                timezone: "America/Los_Angeles"
-            )
-        endDate
-            @formatDateTime(
-                format: "Y-m-d\\TH:i:s"
-                timezone: "America/Los_Angeles"
-            )
-        ongoing
-        text: summary
-        to: uri
-        heroImage {
-            ... on heroImage_heroImage_BlockType {
-                id
-                image {
-                    ...Image
-                }
-            }
-        }
+      }
+      eventLocation: location {
+        title
+      }
+      image {
+        ...Image
+      }
     }
+  }
+  series: entries(section: "workshopOrEventSeries", orderBy: "title") {
+    title
+    sectionHandle
+    startDate
+      @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    endDate
+      @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    ongoing
+    text: summary
+    to: uri
+    category: workshopOrEventSeriesType
+    heroImage {
+      ... on heroImage_heroImage_BlockType {
+        id
+        image {
+          ...Image
+        }
+      }
+    }
+  }
+  exhibitions: entries(section: "exhibition", orderBy: "title") {
+    title
+    typeHandle
+    sectionHandle
+    startDate
+      @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    endDate
+      @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
+    ongoing
+    text: summary
+    to: uri
+    heroImage {
+      ... on heroImage_heroImage_BlockType {
+        id
+        image {
+          ...Image
+        }
+      }
+    }
+  }
 }
