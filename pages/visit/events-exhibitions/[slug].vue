@@ -310,6 +310,8 @@ const parsedExhibitionLocations = computed(() => {
   })
 })
 
+const { $scrapeApi } = useNuxtApp()
+
 onMounted(async () => {
   // const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
   // //console.log(
@@ -322,8 +324,8 @@ onMounted(async () => {
     page.value.event.requiresRegistration === '1' &&
     page.value.event.onlineProvider !== 'external'
   ) {
-    console.log("getting formid")
-    const formDataArray = $scrapeApi.scrapeFormId(
+    console.log('getting formid')
+    const formDataArray = await $scrapeApi.scrapeFormId(
       page.value.event.libcalId
     ) // please check the fieldname in the query
     console.log('is this a promise:' + formDataArray)
@@ -437,7 +439,6 @@ onMounted(async () => {
         class="section block-call-to-action"
         :is-global="true"
       />
-      <!-- </libcalphysicalseats> -->
     </div>
 
     <!-- EVENT SERIES -->
