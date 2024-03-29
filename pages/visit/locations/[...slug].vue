@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script setup>
 // HELPERS
 import _get from 'lodash/get'
@@ -30,6 +31,9 @@ const associatedExhibitions = ref(_get(data.value, 'associatedExhibitions', {}))
 const associatedEndowments = ref(_get(data.value, 'associatedEndowments', {}))
 const associatedEvents = ref(_get(data.value, 'associatedEvents', {}))
 let h2Array = ref([]) // anchor tags
+
+console.log('expected page data: ', page.value)
+console.log('expected block data: ', page.value.blocks)
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -159,6 +163,13 @@ const mergeSortEventsExhibitions = computed(() => {
   //             : 0
   // )
 })
+
+// const parsedBlocks = computed(() => {
+//   const arr
+//   ...obj, // Spread the properties of the original block
+//   componentName: convertName(obj.typeHandle), // Convert the typeHandle to a component
+//   return page.value.blocks
+// })
 
 const { $getHeaders } = useNuxtApp()
 
@@ -311,10 +322,13 @@ onMounted(() => {
       />
     </section-wrapper>
 
-    <flexible-blocks
+    <!-- <flexible-blocks
       class="content"
       :blocks="page.blocks"
-    />
+    /> -->
+    <flexible-blocks class="content" />
+    <pre>{{ page.blocks }}</pre>
+    <!-- <pre>{{ parsedBlocks }}</pre> -->
 
     <!-- ABOUT -->
     <section-wrapper theme="divider">
