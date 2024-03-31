@@ -30,6 +30,10 @@ if (!data.value.entry) {
     statusMessage: 'Page Not Found'
   })
 }
+const { $elasticsearchplugin } = useNuxtApp()
+if (data.value.entry.slug)
+  await $elasticsearchplugin.index(data.value.entry, data.value.entry.slug)
+
 const page = ref(_get(data.value, 'entry', {}))
 
 useHead({
@@ -98,7 +102,10 @@ const parsedByline = computed(() => {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .page-impact-report {
   margin: 0 0 0 0;
 

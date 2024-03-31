@@ -17,13 +17,6 @@ const variables = { path }
 
 const { data, error } = await useAsyncData(`general-content-${path}`, async () => {
   const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, variables)
-
-  // if (data.value && data.value.entry && data.value.entry.slug) {
-  //   $elasticsearchplugin.index(data.value.entry, path.replaceAll('/', '--'))
-  // } else {
-  //   error({ statusCode: 404, message: 'Page not found' })
-  // }
-
   return data
 })
 
@@ -40,6 +33,10 @@ if (!data.value.entry) {
     statusCode: 404,
     statusMessage: 'Page Not Found'
   })
+}
+const { $elasticsearchplugin } = useNuxtApp()
+if (data.value.entry.slug) {
+  await $elasticsearchplugin.index(data.value.entry, path.replaceAll('/', '--'))
 }
 
 const page = ref(_get(data.value, 'entry', {}))

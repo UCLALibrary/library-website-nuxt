@@ -12,21 +12,6 @@ const route = useRoute()
 
 const { data, error } = await useAsyncData(`news-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(ARTICLE_DETAIL, { slug: route.params.slug })
-
-  // Elastic search?
-  // if (data) {
-  //   if (data.entry) {
-  //     data.entry.articleCategory = data.entry.category
-  //     delete data.entry.category
-
-  //     await $elasticsearchplugin.index(data.entry, params.slug)
-  //     data.entry.category = data.entry.articleCategory
-  //   }
-  //   console.log(
-  //     'News Data fetched: ' + JSON.stringify(data.entry.category)
-  //   )
-  // }
-
   return data
 })
 
@@ -43,6 +28,10 @@ if (!data.value.entry) {
     statusCode: 404,
     statusMessage: 'Page Not Found'
   })
+}
+const { $elasticsearchplugin } = useNuxtApp()
+if (data.value.entry.slug) {
+  await $elasticsearchplugin.index(data.value.entry, data.value.entry.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))
