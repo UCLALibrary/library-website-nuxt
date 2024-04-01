@@ -6,7 +6,6 @@ import removeTags from '../utils/removeTags'
 
 // GQL
 import EVENT_DETAIL from '../gql/queries/EventDetail.gql'
-import HEADER_MAIN_MENU_ITEMS from '../gql/queries/HeaderMainMenuItems.gql'
 
 // Note: This may not actually be needed?
 // vue: {
@@ -23,12 +22,10 @@ const route = useRoute()
 
 const { data, error } = await useAsyncData('events-listing-detail', async () => {
   const data = await $graphql.default.request(EVENT_DETAIL, { slug: route.params.slug })
-  const navData = await $graphql.default.request(HEADER_MAIN_MENU_ITEMS)
+
   console.log('test:', data)
 
-  if (!data.event && !data.eventSeries && !data.exhibition) {
-    error({ statusCode: 404, message: 'Page not found' })
-  }
+
 
   // Note: Dependent on Elastic search?
   // if (data && (data.event || data.exhibition || data.eventSeries)) {
@@ -51,13 +48,11 @@ const { data, error } = await useAsyncData('events-listing-detail', async () => 
 })
 
 console.log('Expecting data:', data.value.data)
-console.log('Expecting navData:', data.value.navData)
 
 // Data
 const page = ref(data.value.data)
 const allEvents = ref([])
-const primaryItems = ref(_get(data.value.navData, 'primary', []))
-const secondaryItems = ref(_get(data.value.navData, 'secondary', []))
+
 let formData = ref({})
 const formId = ref('')
 const eventId = ref(data.value.data && data.value.data.event ? data.value.data.event.libcalId : '')
