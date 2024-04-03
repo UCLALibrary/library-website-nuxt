@@ -15,15 +15,25 @@ const { data, error } = await useAsyncData('locations-detail', async () => {
     slug: route.params.slug
   })
 
-  if (!data.entry) {
-    error({ statusCode: 404, message: 'Page not found' })
-  }
+  // if (!data.entry) {
+  //   error({ statusCode: 404, message: 'Page not found' })
+  // }
 
   /* TODO: Incorporate when search functionality is ready? */
   // if (data) await $elasticsearchplugin.index(data.entry, params.slug)
 
   return data
 })
+
+if (!data.value.entry) {
+  // eslint-disable-next-line no-console
+  // console.log('no data')
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page Not Found'
+  })
+}
+
 
 const page = ref(_get(data.value, 'entry', {}))
 const associatedArticles = ref(_get(data.value, 'associatedArticles', {}))
