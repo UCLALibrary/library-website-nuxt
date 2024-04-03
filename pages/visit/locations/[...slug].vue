@@ -1,4 +1,3 @@
-<!-- eslint-disable no-console -->
 <script setup>
 // HELPERS
 import _get from 'lodash/get'
@@ -20,6 +19,7 @@ const { data, error } = await useAsyncData('locations-detail', async () => {
     error({ statusCode: 404, message: 'Page not found' })
   }
 
+  /* TODO: Incorporate when search functionality is ready? */
   // if (data) await $elasticsearchplugin.index(data.entry, params.slug)
 
   return data
@@ -31,9 +31,6 @@ const associatedExhibitions = ref(_get(data.value, 'associatedExhibitions', {}))
 const associatedEndowments = ref(_get(data.value, 'associatedEndowments', {}))
 const associatedEvents = ref(_get(data.value, 'associatedEvents', {}))
 let h2Array = ref([]) // anchor tags
-
-console.log('expected page data: ', page.value)
-console.log('expected block data: ', page.value.blocks)
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -163,13 +160,6 @@ const mergeSortEventsExhibitions = computed(() => {
   //             : 0
   // )
 })
-
-// const parsedBlocks = computed(() => {
-//   const arr
-//   ...obj, // Spread the properties of the original block
-//   componentName: convertName(obj.typeHandle), // Convert the typeHandle to a component
-//   return page.value.blocks
-// })
 
 const { $getHeaders } = useNuxtApp()
 
@@ -322,13 +312,10 @@ onMounted(() => {
       />
     </section-wrapper>
 
-    <!-- <flexible-blocks
+    <flexible-blocks
       class="content"
       :blocks="page.blocks"
-    /> -->
-    <flexible-blocks class="content" />
-    <pre>{{ page.blocks }}</pre>
-    <!-- <pre>{{ parsedBlocks }}</pre> -->
+    />
 
     <!-- ABOUT -->
     <section-wrapper theme="divider">
@@ -371,7 +358,7 @@ onMounted(() => {
     @include step-0;
     margin-top: var(--space-m);
 
-    ::v-deep p {
+    :deep(p) {
       margin: 0;
     }
   }
@@ -410,9 +397,9 @@ onMounted(() => {
     @include visually-hidden;
   }
 
-  // :deep(.flexible-block:last-child:not(.flexible-simple-cards)) {
-  //     background: red;
-  // }
+  /* :deep(.flexible-block:last-child:not(.flexible-simple-cards)) {
+      background: red;
+   } */
   :deep(.section-banner) {
     .gradient-no-category {
       background: linear-gradient(120deg,

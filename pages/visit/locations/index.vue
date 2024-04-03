@@ -24,7 +24,7 @@ const { data } = await useAsyncData('locations-list', async () => {
 
   const serverData = await $graphql.default.request(LOCATIONS_LIST)
 
-  /* TODO: Enable when search functionality is ready */
+  /* TODO: Incorporate when search functionality is ready? */
   /*
   if (
     serverData.affiliateLibraries &&
@@ -186,7 +186,7 @@ const parsedPlaceholder = computed(() => {
 //   return parseHits(hits.value)
 // })
 
-/* TODO: Refactor? when search functionality is ready */
+/* TODO: Incorporate when search functionality is ready? */
 // watch: {
 //   'route.query': '$fetch',
 //     '$route.query.q'(newValue) {
@@ -268,6 +268,7 @@ function getSearchData(data) {
   })
 } */
 
+/* TODO: Incorporate when search functionality is ready? */
 // fetchOnServer: false,
 // multiple components can return the same `fetchKey` and Nuxt will track them both separately
 // fetchKey: 'locations-index'
@@ -301,7 +302,6 @@ function getSearchData(data) {
       />
     </section-wrapper>
 
-    <!-- ToDo: Remove text listing when location-list component is ready -->
     <!-- UCLA LIBRARIES -->
     <section-wrapper
       v-show="page &&
@@ -316,14 +316,13 @@ function getSearchData(data) {
       <section-location-list
         class="blockLocationListWrapper"
         :items="parsedUclaLibraries"
-      />{{ parsedUclaLibraries }}
+      />
       <button-more
         text="See Other Campus Libraries & Archives"
         @click="showMoreOtherCampusLibrary()"
       />
     </section-wrapper>
 
-    <!-- ToDo: Remove text listing when location-list component is ready -->
     <!-- AFFILIATE LIBRARIES -->
     <section-wrapper
       v-show="page &&
@@ -339,11 +338,9 @@ function getSearchData(data) {
         class="blockLocationListWrapper"
         :items="parsedAffiliateLibraries"
       />
-      {{ parsedAffiliateLibraries }}
     </section-wrapper>
 
     <!-- RESULTS -->
-
     <section-wrapper
       v-show="hits && hits.length > 0"
       class="meta section-no-top-margin"
