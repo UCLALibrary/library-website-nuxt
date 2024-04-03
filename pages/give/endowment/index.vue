@@ -15,12 +15,12 @@ const route = useRoute()
 
 const { data } = await useAsyncData('endowments-list', async () => {
   const data = await $graphql.default.request(ENDOWMENTS_LIST, {})
-  console.log('expected data: ', data)
   return { data }
 })
 
 const page = ref(_get(data.value.data, 'entry', {}))
 const endowments = ref(_get(data.value.data, 'entries', []))
+const featuredEndowments = ref(_get(data.value.data, 'entry.featuredEndowments[0].featuredEndowments', []))
 const hits = ref([])
 const title = ref('')
 const noResultsFound = ref(false)
@@ -28,9 +28,6 @@ const noResultsFound = ref(false)
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
 })
-
-console.log('page data: ', page.value)
-console.log('endowments data: ', endowments.value)
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -103,7 +100,8 @@ useHead({
 
 // Computed
 const parsedFeaturedEndowments = computed(() => {
-  return _get(data.value.data, "page.featuredEndowments[0].featuredEndowments", []).map((obj) => {
+  return featuredEndowments.value.map((obj) => {
+    console.log(obj)
     return {
       ...obj,
       to: `/${obj.to}`,
@@ -122,8 +120,6 @@ const parsedFeaturedEndowments = computed(() => {
   }
   )
 })
-
-console.log('parsedFeaturedEndowments: ', parsedFeaturedEndowments.value)
 
 const parsedEndowmentsList = computed(() => {
   return endowments.value.map((obj) => {
@@ -149,8 +145,6 @@ const parsedEndowmentsList = computed(() => {
     }
   })
 })
-
-console.log('parsedEndowmentsList: ', parsedEndowmentsList.value)
 
 const parsedPlaceholder = computed(() => {
   return `Search ${page.value.title}`
@@ -272,13 +266,15 @@ function getSearchData(data) {
       :title="page.title"
       :text="page.text"
     />
-    <search-generic
+
+    <!-- ToDo: Enable for search -->
+    <!-- <search-generic
       search-type="about"
       class="generic-search"
       :search-generic-query="searchGenericQuery"
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
-    />
+    /> -->
 
     <section-wrapper theme="divider">
       <divider-way-finder
@@ -317,6 +313,7 @@ function getSearchData(data) {
       <divider-way-finder color="about" />
     </section-wrapper>
 
+    <!-- ToDo: Remove json data display -->
     <section-wrapper
       v-if="page &&
         parsedEndowmentsList &&
@@ -327,6 +324,7 @@ function getSearchData(data) {
       section-title="All Collection Endowments"
     >
       <section-generic-list :items="parsedEndowmentsList" />
+      <pre>{{ parsedEndowmentsList }}</pre>
       <!-- pagination -->
     </section-wrapper>
 
@@ -335,11 +333,11 @@ function getSearchData(data) {
       class="section-no-top-margin"
     >
       <h2
-        v-if="$route.query.q"
+        v-if="route.query.q"
         class="about-results"
       >
         Displaying {{ hits.length }} results for
-        <strong><em>"{{ $route.query.q }}"</em></strong>
+        <strong><em>"{{ route.query.q }}"</em></strong>
       </h2>
       <h2
         v-else
@@ -353,7 +351,7 @@ function getSearchData(data) {
     <section-wrapper v-else>
       <div class="error-text">
         <rich-text>
-          <h2>Search for "{{ $route.query.q }}" not found.</h2>
+          <h2>Search for "{{ route.query.q }}" not found.</h2>
           <p>
             We can't find the term you are looking for on this page,
             but we're here to help. <br />
