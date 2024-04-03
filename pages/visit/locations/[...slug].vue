@@ -26,14 +26,12 @@ const { data, error } = await useAsyncData('locations-detail', async () => {
 })
 
 if (!data.value.entry) {
-  // eslint-disable-next-line no-console
   // console.log('no data')
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found'
   })
 }
-
 
 const page = ref(_get(data.value, 'entry', {}))
 const associatedArticles = ref(_get(data.value, 'associatedArticles', {}))
@@ -218,8 +216,8 @@ onMounted(() => {
     <section-wrapper theme="divider">
       <divider-way-finder
         v-if="page.libcalLocationIdForHours ||
-        page.amenitiesIcons.length ||
-        parsedSpaces.length
+          page.amenitiesIcons.length ||
+          parsedSpaces.length
         "
         class="divider-way-finder"
         color="visit"
