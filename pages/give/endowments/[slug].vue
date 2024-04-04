@@ -10,7 +10,7 @@ const { $graphql } = useNuxtApp()
 
 const route = useRoute()
 
-const { data, error } = await useAsyncData('endowment-detail', async () => {
+const { data, error } = await useAsyncData(`endowment-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(ENDOWMENT_DETAIL, {
     slug: route.params.slug,
   })
@@ -154,12 +154,12 @@ function computeDonors(donors) {
         page.alternativeName[0] &&
         page.alternativeName[0].fullName) ||
         ''
-      "
+        "
       :language="(page.alternativeName &&
         page.alternativeName[0] &&
         page.alternativeName[0].languageAltName) ||
         ''
-      "
+        "
       button-text="Give Now"
       :to="page.to"
     />
@@ -247,10 +247,7 @@ function computeDonors(donors) {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-endowments-detail {
   .description-with-image {
     max-width: $container-l-main + px;
