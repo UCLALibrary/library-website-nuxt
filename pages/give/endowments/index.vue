@@ -1,14 +1,14 @@
 <script setup>
 // import getListingFilters from "~/utils/getListingFilters"
-import config from "../utils/searchConfig"
+import _get from 'lodash/get'
+import config from '../utils/searchConfig'
 
 // HELPERS
-import _get from "lodash/get"
-import fixUri from "../utils/fixUri"
-import removeTags from "../utils/removeTags"
+import fixUri from '../utils/fixUri'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import ENDOWMENTS_LIST from "../gql/queries/EndowmentList.gql"
+import ENDOWMENTS_LIST from '../gql/queries/EndowmentList.gql'
 
 const { $graphql } = useNuxtApp()
 const route = useRoute()
@@ -101,19 +101,18 @@ useHead({
 // Computed
 const parsedFeaturedEndowments = computed(() => {
   return featuredEndowments.value.map((obj) => {
-    console.log(obj)
     return {
       ...obj,
       to: `/${obj.to}`,
-      image: _get(obj, "heroImage[0].image[0]", null),
+      image: _get(obj, 'heroImage[0].image[0]', null),
       alternativeFullName: _get(
         obj,
-        "alternativeName[0].fullName",
+        'alternativeName[0].fullName',
         null
       ),
       language: _get(
         obj,
-        "alternativeName[0].languageAltName",
+        'alternativeName[0].languageAltName',
         null
       ),
     }
@@ -126,7 +125,7 @@ const parsedEndowmentsList = computed(() => {
     return {
       ...obj,
       jobPostingURL: `/${obj.uri}`,
-      associatedLocations: _get(obj, "associatedLocations", []).map(loc => {
+      associatedLocations: _get(obj, 'associatedLocations', []).map((loc) => {
         return {
           ...loc,
           uri: fixUri(loc.uri),
@@ -134,12 +133,12 @@ const parsedEndowmentsList = computed(() => {
       }),
       alternativeFullName: _get(
         obj,
-        "alternativeName[0].fullName",
+        'alternativeName[0].fullName',
         null
       ),
       language: _get(
         obj,
-        "alternativeName[0].languageAltName",
+        'alternativeName[0].languageAltName',
         null
       ),
     }
@@ -214,21 +213,21 @@ watch: {
 function parseHits(hits = []) {
   return hits.value.map((obj) => {
     return {
-      ...obj["_source"],
-      jobPostingURL: `/${obj["_source"].uri}`,
-      image: _get(obj["_source"], "heroImage[0].image[0]", null),
+      ...obj._source,
+      jobPostingURL: `/${obj._source.uri}`,
+      image: _get(obj._source, 'heroImage[0].image[0]', null),
       alternativeFullName: _get(
-        obj["_source"],
-        "alternativeName[0].fullName",
+        obj._source,
+        'alternativeName[0].fullName',
         null
       ),
       language: _get(
-        obj["_source"],
-        "alternativeName[0].languageAltName",
+        obj._source,
+        'alternativeName[0].languageAltName',
         null
       ),
-      summary: _get(obj["_source"], "text", null),
-      associatedLocations: _get(obj["_source"], "associatedLocations", []).map(loc => {
+      summary: _get(obj._source, 'text', null),
+      associatedLocations: _get(obj._source, 'associatedLocations', []).map((loc) => {
         return {
           ...loc,
           uri: fixUri(loc.uri),
@@ -239,10 +238,10 @@ function parseHits(hits = []) {
 }
 
 function getSearchData(data) {
-  //console.log("On the page getsearchdata called " + data)
+  // console.log("On the page getsearchdata called " + data)
 
   route.push({
-    path: "/give/endowments",
+    path: '/give/endowments',
     query: {
       q: data.text,
       // filters: JSON.stringify(data.filters),
@@ -354,7 +353,7 @@ function getSearchData(data) {
           <h2>Search for "{{ route.query.q }}" not found.</h2>
           <p>
             We can't find the term you are looking for on this page,
-            but we're here to help. <br />
+            but we're here to help. <br>
             Try searching the whole site from
             <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these
             regularly visited links:

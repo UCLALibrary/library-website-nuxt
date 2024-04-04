@@ -1,10 +1,10 @@
 <script setup>
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from "../utils/removeTags"
+import removeTags from '../utils/removeTags'
 
 // GQL
-import ENDOWMENT_DETAIL from "../gql/queries/EndowmentDetail.gql"
+import ENDOWMENT_DETAIL from '../gql/queries/EndowmentDetail.gql'
 
 const { $graphql } = useNuxtApp()
 
@@ -29,7 +29,7 @@ const { data, error } = await useAsyncData('endowment-detail', async () => {
   }
   */
 
-  console.log('Expected data: ', data.value)
+  console.log('Expected data: ', data)
   return data
 })
 
@@ -61,13 +61,17 @@ useHead({
   ],
 })
 
+console.log('expected donors: ', page.value.donors)
+
 const parsedDonors = computed(() => {
   if (page.value.donors && page.value.donors.length > 0) {
     return computeDonors(page.value.donors)
   } else {
-    return ""
+    return ''
   }
 })
+
+console.log('expected parsedDonors: ', parsedDonors.value)
 
 const parsedAssociatedLocations = computed(() => {
   return page.value.associatedLocations.map((obj) => {
@@ -80,12 +84,14 @@ const parsedAssociatedLocations = computed(() => {
 
 const parsedSubjectAreaLink = computed(() => {
   if (page.value.subjectAreas[0].title) {
-    let searchLibrary = page.value.subjectAreas[0].title
-    let libConcat = '/give/endowments?q=&filters={\"subjectAreas.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+    const searchLibrary = page.value.subjectAreas[0].title
+    const libConcat = `/give/endowments?q=&filters={subjectAreas.title.keyword:['${encodeURIComponent(searchLibrary)}']}`
+
+    // '/give/endowments?q=&filters={\"subjectAreas.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
 
     return libConcat
   } else {
-    return ""
+    return ''
   }
 })
 
@@ -98,42 +104,41 @@ const catalogLink = computed(() => {
 })
 
 function parsedDonorsForES(donors) {
-  return donors && donors.length > 0 ? computeDonors(donors) : ""
+  return donors && donors.length > 0 ? computeDonors(donors) : ''
 }
 
 function computeDonors(donors) {
-  let donorNames = []
-  for (let donor of donors) {
-    let name = ""
+  const donorNames = []
+  for (const donor of donors) {
+    let name = ''
     if (
       donor.firstName &&
-      donor.firstName !== "" &&
-      (!donor.lastName || donor.lastName === "")
+      donor.firstName !== '' &&
+      (!donor.lastName || donor.lastName === '')
     ) {
       name = donor.firstName
     } else if (
       donor.firstName &&
-      donor.firstName !== "" &&
+      donor.firstName !== '' &&
       donor.lastName &&
-      donor.lastName !== ""
+      donor.lastName !== ''
     ) {
-      name = donor.firstName + " " + donor.lastName
+      name = donor.firstName + ' ' + donor.lastName
     } else {
       name = donor.lastName
     }
-    if (name !== "") donorNames.push(name)
+    if (name !== '') donorNames.push(name)
   }
 
-  if (donorNames.length == 1) {
+  if (donorNames.length === 1) {
     return `${donorNames[0]}`
   } else {
-    let names = [
-      donorNames.slice(0, -1).join(", "),
+    const names = [
+      donorNames.slice(0, -1).join(', '),
       donorNames.slice(-1)[0],
-    ].join(donorNames.length < 2 ? "" : " and ")
+    ].join(donorNames.length < 2 ? '' : ' and ')
     return `${names}`
   }
-  return donorNames
 }
 </script>
 
@@ -142,7 +147,109 @@ function computeDonors(donors) {
     id="main"
     class="page page-endowments-detail"
   >
-    <h1>Hello</h1>
+    <nav-breadcrumb
+      to="/give/endowments"
+      :title="page.title"
+      parent-title="Collection Endowments"
+    />
+
+    <banner-text
+      :title="page.title"
+      :text="page.text"
+      :alternative-full-name="(page.alternativeName &&
+        page.alternativeName[0] &&
+        page.alternativeName[0].fullName) ||
+        ''
+        "
+      :language="(page.alternativeName &&
+        page.alternativeName[0] &&
+        page.alternativeName[0].languageAltName) ||
+        ''
+        "
+      button-text="Give Now"
+      :to="page.to"
+    />
+
+    <section-wrapper theme="divider">
+      <divider-way-finder
+        class="divider"
+        color="about"
+      />
+    </section-wrapper>
+
+    <section-wrapper>
+      <div class="description-with-image">
+        <div class="description">
+          <rich-text
+            v-if="page.donors[0].lastName"
+            class="donors"
+          >
+            Made possible by a gift from {{ parsedDonors }}
+          </rich-text>
+
+          <icon-with-link
+            v-if="page.subjectAreas[0]"
+            class="subject-area"
+            icon-name="svg-icon-book"
+            :text="page.subjectAreas[0].title"
+            :to="parsedSubjectAreaLink"
+          />
+
+          <ul v-if="parsedAssociatedLocations.length > 0">
+            <li
+              v-for="(
+                location, index
+              ) in parsedAssociatedLocations"
+              :key="`AssociatedLocation${index}`"
+            >
+              <icon-with-link
+                class="associated-locations"
+                icon-name="svg-icon-location"
+                :text="location.title"
+                :to="location.to"
+              />
+            </li>
+          </ul>
+
+          <rich-text
+            v-if="page.endowmentDescription"
+            class="description-text"
+            :rich-text-content="page.endowmentDescription"
+          />
+          <smart-link
+            v-if="page.spakCode"
+            class="catalog-link"
+            :to="catalogLink"
+          >
+            See all items purchased through this Endowment
+          </smart-link>
+        </div>
+
+        <img
+          v-if="page.heroImage.length > 0"
+          :src="parsedImage.src"
+          :alt="parsedImage.alt"
+          class="bookplate"
+        >
+      </div>
+    </section-wrapper>
+
+    <section-wrapper theme="divider">
+      <divider-way-finder
+        class="divider"
+        color="about"
+      />
+    </section-wrapper>
+
+    <section-wrapper>
+      <block-call-to-action
+        svg-name="svg-call-to-action-money"
+        title="Give to this endowment"
+        text="Your contributions help us build our collections for the benefit or our students, faculty, staff, and the general public."
+        name="Donate"
+        :to="page.to"
+      />
+    </section-wrapper>
   </main>
 </template>
 
