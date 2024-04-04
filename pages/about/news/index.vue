@@ -12,20 +12,23 @@ import ARTICLE_LIST from '../gql/queries/ArticleList.gql'
 // import getListingFilters from '../utils/getListingFilters'
 // import config from '../utils/searchConfig'
 // import queryFilterHasValues from '../utils/queryFilterHasValues'
+console.log('In news listing page')
 
 const { $graphql } = useNuxtApp()
-
-const { data } = await useAsyncData('news', async () => {
+const { data, error } = await useAsyncData('news', async () => {
   const data = await $graphql.default.request(ARTICLE_LIST)
   return data
-})
+}
+)
 
+console.log('In news listing page data.value: ', data.value.entry.title)
 // TODO: Enable when Elastic Search is implemented
 // const route = useRoute()
 
 // Data
 const page = ref(_get(data.value, 'entry', {}))
 const news = ref(_get(data.value, 'entries', []))
+// console.log(news)
 const hits = ref([])
 const title = ref('')
 const noResultsFound = ref(false)
@@ -367,12 +370,19 @@ function parseArticleCategory(categories) {
     </section-wrapper>
 
     <section-wrapper
-      v-show="news && news.length > 0"
+      v-if="news && news.length > 0"
       section-title="All News"
     >
       <section-staff-article-list :items="parsedNewsList" />
       <!-- TODO: Remove JSON output when Staff Article Component is migrated -->
-      {{ parsedNewsList }}
+      <div
+        v-for="item in parsedNewsList "
+        :key="item.to"
+      >
+        <NuxtLink :href="item.to">
+          {{ item.title }}
+        </NuxtLink>
+      </div>
     </section-wrapper>
 
     <!-- FILTERS -->

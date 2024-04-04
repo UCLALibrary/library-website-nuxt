@@ -152,10 +152,12 @@ const timelineSortedBySubtitle = computed(() => {
       />
     </section-wrapper>
     <section-wrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
-      <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
+      <h2
+        :class="page.acknowledgements[0].displaySectionTitle === 'true'
           ? ''
           : 'visually-hidden'
-          ">
+        "
+      >
         {{ page.acknowledgements[0].titleGeneral }}
       </h2>
       <rich-text

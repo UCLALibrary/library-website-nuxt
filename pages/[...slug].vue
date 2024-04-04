@@ -27,15 +27,15 @@ if (error.value) {
 }
 
 if (!data.value.entry) {
-  // eslint-disable-next-line no-console
-  console.log('no data')
+  // console.log('no data')
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found'
   })
 }
-const { $elasticsearchplugin } = useNuxtApp()
-if (data.value.entry.slug) {
+
+if (data.value.entry.slug && process.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
   await $elasticsearchplugin.index(data.value.entry, path.replaceAll('/', '--'))
 }
 

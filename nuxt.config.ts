@@ -27,13 +27,36 @@ export default defineNuxtConfig({
                     `,
         },
       },
-    },
+    }
   },
 
   nitro: {
     prerender: {
       crawlLinks: true,
+      failOnError: false,
+      // routes: ['/', '/404.html', '/200.html'],
     },
+    hooks: {
+      'prerender:generate' (route) {
+        // TODO: fix issue with recursive fetches with query string, e.g.
+        // `/enterprise/agencies?region=europe&amp;amp;amp;service=ecommerce&amp;amp;service=ecommerce&amp;service=content-marketing`
+        /* if (route.route?.includes('&amp;')) {
+          route.skip = true
+        } */
+        console.log('prerender:generate', route)
+      }
+    },
+    hooks: {
+      'prerender:routes' (routes) {
+        // Add Nuxt 2 modules to the prerender list
+        /* const { modules } = await ofetch<{ modules: [] }>('https://api.nuxt.com/modules?version=2').catch(() => ({ modules: [] }))
+        for (const module of modules) {
+          ctx.routes.add(`/modules/${module.name}`)
+        } */
+        console.log('prerender:routes ctx.routes', routes)
+      }
+    },
+
   },
 
   runtimeConfig: {
@@ -90,12 +113,20 @@ export default defineNuxtConfig({
     'ucla-library-website-components/dist/style.css',
   ],
 
+  typescript: {
+    strict: false
+  },
+
   modules: [[
     '@pinia/nuxt',
     {
       autoImports: ['defineStore', 'acceptHMRUpdate'],
     },
   ], 'nuxt-graphql-request', '@nuxtjs/sitemap'],
+
+  build: {
+    transpile: ['nuxt-graphql-request'],
+  },
 
   site: {
     url: process.env.SITEMAP_HOST || 'https://www.library.ucla.edu',
@@ -148,5 +179,10 @@ export default defineNuxtConfig({
      * default: false (this includes graphql-tag for node_modules folder)
      */
     // includeNodeModules: true,
+  },
+
+  experimental: {
+    payloadExtraction: true,
+    sharedPrerenderData: true
   }
 })
