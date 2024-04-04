@@ -15,15 +15,17 @@ const { data, error } = await useAsyncData('locations-detail', async () => {
     slug: route.params.slug
   })
 
-  // if (!data.entry) {
-  //   error({ statusCode: 404, message: 'Page not found' })
-  // }
-
   /* TODO: Incorporate when search functionality is ready? */
   // if (data) await $elasticsearchplugin.index(data.entry, params.slug)
 
   return data
 })
+
+if (error.value) {
+  throw createError({
+    statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
+  })
+}
 
 if (!data.value.entry) {
   // console.log('no data')
@@ -216,8 +218,8 @@ onMounted(() => {
     <section-wrapper theme="divider">
       <divider-way-finder
         v-if="page.libcalLocationIdForHours ||
-          page.amenitiesIcons.length ||
-          parsedSpaces.length
+        page.amenitiesIcons.length ||
+        parsedSpaces.length
         "
         class="divider-way-finder"
         color="visit"
