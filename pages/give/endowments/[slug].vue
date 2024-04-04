@@ -29,7 +29,6 @@ const { data, error } = await useAsyncData('endowment-detail', async () => {
   }
   */
 
-  console.log('Expected data: ', data)
   return data
 })
 
@@ -48,7 +47,6 @@ if (!data.value.entry) {
 }
 
 const page = ref(_get(data.value, 'entry', {}))
-console.log('Expected page data: ', page.value)
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -61,8 +59,6 @@ useHead({
   ],
 })
 
-console.log('expected donors: ', page.value.donors)
-
 const parsedDonors = computed(() => {
   if (page.value.donors && page.value.donors.length > 0) {
     return computeDonors(page.value.donors)
@@ -70,8 +66,6 @@ const parsedDonors = computed(() => {
     return ''
   }
 })
-
-console.log('expected parsedDonors: ', parsedDonors.value)
 
 const parsedAssociatedLocations = computed(() => {
   return page.value.associatedLocations.map((obj) => {
@@ -160,12 +154,12 @@ function computeDonors(donors) {
         page.alternativeName[0] &&
         page.alternativeName[0].fullName) ||
         ''
-        "
+      "
       :language="(page.alternativeName &&
         page.alternativeName[0] &&
         page.alternativeName[0].languageAltName) ||
         ''
-        "
+      "
       button-text="Give Now"
       :to="page.to"
     />

@@ -288,7 +288,7 @@ function getSearchData(data) {
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
       :section-title="page.featuredEndowments[0].titleGeneral"
       :section-summary="page.featuredEndowments[0].sectionSummary"
@@ -306,7 +306,7 @@ function getSearchData(data) {
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <divider-way-finder color="about" />
@@ -319,7 +319,7 @@ function getSearchData(data) {
         parsedEndowmentsList.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="All Collection Endowments"
     >
       <section-generic-list :items="parsedEndowmentsList" />
