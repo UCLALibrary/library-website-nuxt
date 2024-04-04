@@ -1,6 +1,6 @@
 <script setup>
 // HELPERS
-import _get from "lodash/get"
+import _get from 'lodash/get'
 import removeTags from "../utils/removeTags"
 
 // GQL
