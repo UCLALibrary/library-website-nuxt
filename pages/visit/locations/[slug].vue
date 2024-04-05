@@ -10,7 +10,7 @@ const { $graphql } = useNuxtApp()
 
 const route = useRoute()
 
-const { data, error } = await useAsyncData('locations-detail', async () => {
+const { data, error } = await useAsyncData(`locations-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(LOCATION_DETAIL, {
     slug: route.params.slug
   })
@@ -218,8 +218,8 @@ onMounted(() => {
     <section-wrapper theme="divider">
       <divider-way-finder
         v-if="page.libcalLocationIdForHours ||
-        page.amenitiesIcons.length ||
-        parsedSpaces.length
+          page.amenitiesIcons.length ||
+          parsedSpaces.length
         "
         class="divider-way-finder"
         color="visit"
@@ -349,10 +349,7 @@ onMounted(() => {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-location-detail {
   .section-header {
     margin: var(--space-xl) auto;

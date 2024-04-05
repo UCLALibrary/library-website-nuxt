@@ -10,7 +10,7 @@ import ARTICLE_DETAIL from '../gql/queries/ArticleDetail.gql'
 const { $graphql } = useNuxtApp()
 const route = useRoute()
 
-const { data, error } = await useAsyncData('news-detail', async () => {
+const { data, error } = await useAsyncData(`news-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(ARTICLE_DETAIL, { slug: route.params.slug })
 
   // Elastic search?
@@ -176,10 +176,7 @@ const parsedLocations = computed(() => {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-news-detail {
   .highlighted-news {
     @include visually-hidden;

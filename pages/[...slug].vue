@@ -13,7 +13,7 @@ const path = route.path.replace(/^\/|\/$/g, '') // trim initial and/or final sla
 
 const variables = { path }
 
-const { data, error } = await useAsyncData('general-content', async () => {
+const { data, error } = await useAsyncData(`general-content-${variables}`, async () => {
   const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, variables)
 
   // if (data.value && data.value.entry && data.value.entry.slug) {
@@ -130,10 +130,7 @@ onMounted(() => {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-general-content {
   .section-banner {
     margin-top: 0;
