@@ -1,17 +1,17 @@
 <script setup>
 // HELPERS
-import _get from "lodash/get"
-import getListingFilters from "../utils/getListingFilters"
-import sortByTitle from "../utils/sortByTitle"
-import queryFilterHasValues from "../utils/queryFilterHasValues"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import getListingFilters from '../utils/getListingFilters'
+import sortByTitle from '../utils/sortByTitle'
+import queryFilterHasValues from '../utils/queryFilterHasValues'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "../gql/queries/ServiceResourceWorkshopSeriesList.gql"
-import HELP_TOPIC_LIST from "../gql/queries/HelpTopicList.gql"
+import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from '../gql/queries/ServiceResourceWorkshopSeriesList.gql'
+import HELP_TOPIC_LIST from '../gql/queries/HelpTopicList.gql'
 
 // UTILITIES
-import config from "../utils/searchConfig"
+import config from '../utils/searchConfig'
 
 const { $graphql } = useNuxtApp()
 const route = useRoute()
@@ -42,12 +42,12 @@ const { data } = await useAsyncData('services-resources-list', async () => {
 const page = ref(data.value.data)
 const helpTopic = ref(data.value.helpTopicData)
 const noResultsFound = ref(false)
-const summaryData = ref(_get(data.value.data, "entry", {}))
+const summaryData = ref(_get(data.value.data, 'entry', {}))
 const searchFilters = ref([])
 const hits = ref([])
 const searchGenericQuery = ref(
   {
-    queryText: route.query.q || "",
+    queryText: route.query.q || '',
     queryFilters:
       (route.query.filters &&
         JSON.parse(route.query.filters)) ||
@@ -68,7 +68,6 @@ useHead({
     },
   ],
 })
-
 
 //   async fetch() {
 //   this.page = {}
@@ -155,9 +154,9 @@ const parsedPages = computed(() => {
 })
 
 const parsedServiceAndResourceList = computed(() => {
-  let externalResourcesDisplay = (
+  const externalResourcesDisplay = (
     page.value.externalResource || []
-  ).filter((obj) => obj.displayEntry === "yes")
+  ).filter(obj => obj.displayEntry === 'yes')
   return [
     ...(page.value.serviceOrResource || []),
     ...(page.value.workshopseries || []),
@@ -169,15 +168,15 @@ const parsedServiceAndResourceList = computed(() => {
       return {
         ...obj,
         category:
-          obj.category === "help/services-resources"
-            ? "workshop series"
-            : obj.typeHandle === "helpTopic"
-              ? "help topic"
-              : obj.typeHandle === "externalResource"
-                ? "resource"
+          obj.category === 'help/services-resources'
+            ? 'workshop series'
+            : obj.typeHandle === 'helpTopic'
+              ? 'help topic'
+              : obj.typeHandle === 'externalResource'
+                ? 'resource'
                 : obj.category,
         to:
-          obj.typeHandle === "externalResource"
+          obj.typeHandle === 'externalResource'
             ? `${obj.to}`
             : `/${obj.to}`,
       }
@@ -255,7 +254,6 @@ const parseHitsResults = computed(() => {
 //   })
 // }
 
-
 // fetchOnServer: false,
 // multiple components can return the same `fetchKey` and Nuxt will track them both separately
 // fetchKey: "services-resources-workshops",
@@ -306,7 +304,7 @@ const parseHitsResults = computed(() => {
     <section-wrapper
       v-if="
         (page.serviceOrResource || page.workshopseries) &&
-        hits.length == 0
+          hits.length == 0
       "
       class="section-no-top-margin"
     >

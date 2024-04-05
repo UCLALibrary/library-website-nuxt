@@ -1,18 +1,16 @@
 <script setup>
 // HELPERS
-import _get from "lodash/get"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from "../gql/queries/ServiceOrResourceOrWorkshopDetail.gql"
+import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from '../gql/queries/ServiceOrResourceOrWorkshopDetail.gql'
 
 const { $graphql } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData(`services-resources-detail-${route.params.slug}`, async () => {
-
   const data = await $graphql.default.request(SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL, { slug: route.params.slug, })
-
 
   /* TODO: Incorporate when search functionality is ready? */
   //
@@ -35,7 +33,6 @@ const { data, error } = await useAsyncData(`services-resources-detail-${route.pa
   //   )
   // }
 
-  console.log('async data: ', data)
   return data
 })
 
@@ -46,21 +43,21 @@ if (error.value) {
 }
 
 if (!data.value.serviceOrResource && !data.value.workshopSeries) {
-  error({ statusCode: 404, message: "Page not found" })
+  error({ statusCode: 404, message: 'Page not found' })
 }
 
 const page = ref(data.value)
 let h2Array = ref([]) // anchor tags
-console.log('page data: ', page.value)
 
 if (page.value) {
   if (page.value.serviceOrResource) {
     useHead({
-      title: page.value ? page.value.serviceOrResource.title
-        : "... loading",
+      title: page.value
+        ? page.value.serviceOrResource.title
+        : '... loading',
       meta: [{
-        hid: "description",
-        name: "description",
+        hid: 'description',
+        name: 'description',
         content: removeTags(
           page.value.serviceOrResource.text)
       }]
@@ -69,11 +66,12 @@ if (page.value) {
 
   if (page.value.workshopSeries) {
     useHead({
-      title: page.value ? page.value.workshopSeries.title
-        : "... loading",
+      title: page.value
+        ? page.value.workshopSeries.title
+        : '... loading',
       meta: [{
-        hid: "description",
-        name: "description",
+        hid: 'description',
+        name: 'description',
         content: removeTags(
           page.value.workshopSeries.summary)
       }]
@@ -106,11 +104,11 @@ const parsedWorkshopSeriesAssociatedTopics = computed(() => {
 })
 
 const parsedButtonText = computed(() => {
-  return _get(page.value.serviceOrResource, "buttonUrl[0].buttonText", "")
+  return _get(page.value.serviceOrResource, 'buttonUrl[0].buttonText', '')
 })
 
 const parsedButtonTo = computed(() => {
-  return _get(page.value.serviceOrResource, "buttonUrl[0].buttonUrl", "")
+  return _get(page.value.serviceOrResource, 'buttonUrl[0].buttonUrl', '')
 })
 
 const associatedEvents = computed(() => {
@@ -118,10 +116,10 @@ const associatedEvents = computed(() => {
     return {
       ...obj,
       to: `/${obj.uri}`,
-      image: _get(obj, "image[0].image[0]", null),
-      startDate: _get(obj, "startDateWithTime", null),
-      endDate: _get(obj, "endDateWithTime", null),
-      category: _get(obj, "category.title", ""),
+      image: _get(obj, 'image[0].image[0]', null),
+      startDate: _get(obj, 'startDateWithTime', null),
+      endDate: _get(obj, 'endDateWithTime', null),
+      category: _get(obj, 'category.title', ''),
     }
   })
 })
@@ -131,10 +129,10 @@ const upcomingEvents = computed(() => {
     return {
       ...obj,
       to: `/${obj.uri}`,
-      image: _get(obj, "image[0].image[0]", null),
-      startDate: _get(obj, "startDateWithTime", null),
-      endDate: _get(obj, "endDateWithTime", null),
-      category: _get(obj, "category[0].title", ""),
+      image: _get(obj, 'image[0].image[0]', null),
+      startDate: _get(obj, 'startDateWithTime', null),
+      endDate: _get(obj, 'endDateWithTime', null),
+      category: _get(obj, 'category[0].title', ''),
       locations:
         obj.associatedLocations[0] != null
           ? obj.associatedLocations
@@ -148,10 +146,10 @@ const pastEvents = computed(() => {
     return {
       ...obj,
       to: `/${obj.uri}`,
-      image: _get(obj, "image[0].image[0]", null),
-      startDate: _get(obj, "startDateWithTime", null),
-      endDate: _get(obj, "endDateWithTime", null),
-      category: _get(obj, "category[0].title", ""),
+      image: _get(obj, 'image[0].image[0]', null),
+      startDate: _get(obj, 'startDateWithTime', null),
+      endDate: _get(obj, 'endDateWithTime', null),
+      category: _get(obj, 'category[0].title', ''),
       locations:
         obj.associatedLocations[0] != null
           ? obj.associatedLocations
@@ -165,8 +163,8 @@ const parsedAssociatedSeries = computed(() => {
     return {
       ...obj,
       to: `/${obj.to}`,
-      image: _get(obj, "image[0].image[0]", null),
-      category: "Workshop Series",
+      image: _get(obj, 'image[0].image[0]', null),
+      category: 'Workshop Series',
     }
   })
 })
@@ -197,9 +195,9 @@ onMounted(() => {
       <banner-text
         v-if="
           !page.serviceOrResource.heroImage ||
-          page.serviceOrResource.heroImage.length == 0 ||
-          !page.serviceOrResource.heroImage[0].image ||
-          page.serviceOrResource.heroImage[0].image.length == 0
+            page.serviceOrResource.heroImage.length == 0 ||
+            !page.serviceOrResource.heroImage[0].image ||
+            page.serviceOrResource.heroImage[0].image.length == 0
         "
         class="banner-text"
         :category="page.serviceOrResource.type"
@@ -212,9 +210,9 @@ onMounted(() => {
       <section-wrapper
         v-if="
           page.serviceOrResource.heroImage &&
-          page.serviceOrResource.heroImage.length == 1 &&
-          page.serviceOrResource.heroImage[0].image &&
-          page.serviceOrResource.heroImage[0].image.length > 0
+            page.serviceOrResource.heroImage.length == 1 &&
+            page.serviceOrResource.heroImage[0].image &&
+            page.serviceOrResource.heroImage[0].image.length > 0
         "
         class="section-banner"
       >
@@ -234,7 +232,7 @@ onMounted(() => {
 
       <page-anchor
         v-if="h2Array.length >= 3"
-        :section-titles=h2Array
+        :section-titles="h2Array"
       />
 
       <flexible-blocks
@@ -289,9 +287,9 @@ onMounted(() => {
       <banner-text
         v-if="
           page.workshopSeries &&
-          (page.workshopSeries.image.length == 0 ||
-            !page.workshopSeries.image[0].image ||
-            page.workshopSeries.image[0].image.length == 0)
+            (page.workshopSeries.image.length == 0 ||
+              !page.workshopSeries.image[0].image ||
+              page.workshopSeries.image[0].image.length == 0)
         "
         :title="page.workshopSeries.title"
         :text="page.workshopSeries.summary"
@@ -304,9 +302,9 @@ onMounted(() => {
       <section-wrapper
         v-if="
           page.workshopSeries.image &&
-          page.workshopSeries.image.length == 1 &&
-          page.workshopSeries.image[0].image &&
-          page.workshopSeries.image[0].image.length > 0
+            page.workshopSeries.image.length == 1 &&
+            page.workshopSeries.image[0].image &&
+            page.workshopSeries.image[0].image.length > 0
         "
         class="section-banner"
       >
