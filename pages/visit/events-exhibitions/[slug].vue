@@ -20,22 +20,14 @@ const { $graphql } = useNuxtApp()
 
 const route = useRoute()
 
-<<<<<<< HEAD
 const { data, error } = await useAsyncData('events-listing-detail-${route.params.slug}', async () => {
-=======
-const { data, error } = await useAsyncData('events-listing-detail', async () => {
->>>>>>> 7c5dd153ff053ee8893ee974045110fa1fe430f1
+
   const data = await $graphql.default.request(EVENT_DETAIL, { slug: route.params.slug })
 
   console.log('test:', data)
 
-
-
-<<<<<<< HEAD
   // Note: Dependent on Elastic search, We are indexing either event or exhibition or event series here
-=======
-  // Note: Dependent on Elastic search?
->>>>>>> 7c5dd153ff053ee8893ee974045110fa1fe430f1
+
   // if (data && (data.event || data.exhibition || data.eventSeries)) {
   //   if (data.eventSeries) data.eventSeries.sectionHandle = "eventSeries"
   //   if (data.event)
