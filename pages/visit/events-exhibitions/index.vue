@@ -23,7 +23,7 @@ const { data } = await useAsyncData('events-list', async () => {
   return { data, single }
 })
 
-console.log('Expecting data: ', data.value)
+// console.log('Expecting data: ', data.value)
 
 const route = useRoute()
 
@@ -44,8 +44,8 @@ const searchGenericQuery = ref({
     {},
 })
 
-console.log('Page variable: ', page.value)
-console.log('Event variable: ', events.value)
+// console.log('Page variable: ', page.value)
+// console.log('Event variable: ', events.value)
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -415,8 +415,8 @@ const routeFilters = computed(() => {
     >
       <banner-featured
         v-if="parsedFeaturedEventsAndExhibits.length > 0 &&
-        hits.length == 0 &&
-        !noResultsFound
+          hits.length == 0 &&
+          !noResultsFound
         "
         :media="parsedBannerHeader.image"
         :title="parsedBannerHeader.title"
@@ -549,7 +549,4 @@ const routeFilters = computed(() => {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
-></style>
+<style lang="scss" scoped></style>

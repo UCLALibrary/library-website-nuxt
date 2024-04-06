@@ -20,14 +20,14 @@ const { $graphql } = useNuxtApp()
 
 const route = useRoute()
 
-const { data, error } = await useAsyncData('events-listing-detail', async () => {
+const { data, error } = await useAsyncData('events-listing-detail-${route.params.slug}', async () => {
   const data = await $graphql.default.request(EVENT_DETAIL, { slug: route.params.slug })
 
   console.log('test:', data)
 
 
 
-  // Note: Dependent on Elastic search?
+  // Note: Dependent on Elastic search, We are indexing either event or exhibition or event series here
   // if (data && (data.event || data.exhibition || data.eventSeries)) {
   //   if (data.eventSeries) data.eventSeries.sectionHandle = "eventSeries"
   //   if (data.event)
@@ -44,35 +44,41 @@ const { data, error } = await useAsyncData('events-listing-detail', async () => 
   //   )
   // }
 
-  return { data, navData }
+  return data
 })
 
-console.log('Expecting data:', data.value.data)
+
+console.log('test:', data.value.event.libcalOnlineSeats, data.value.event.libcalOnlineSeatsTaken)
+
+
 
 // Data
-const page = ref(data.value.data)
+
+const page = ref(data.value)
 const allEvents = ref([])
+console.log("online?", Number(page.value.event.libcalOnlineSeats) - Number(page.value.event.libcalOnlineSeatsTaken))
 
 let formData = ref({})
 const formId = ref('')
-const eventId = ref(data.value.data && data.value.data.event ? data.value.data.event.libcalId : '')
-const inPersonEvent = ref(!!(data.value.data &&
-  data.value.data.event && data.value.data.event.libcalPhysicalSeats > 0 &&
-  data.value.data.event.libcalPhysicalSeats >=
-  data.value.data.event.libcalPhysicalSeats -
-  data.value.data.event.libcalPhysicalSeatsTaken),)
-const onlineEvent = ref(!!(data.value.data &&
-  data.value.data.event && data.value.data.event.libcalOnlineSeats > 0 &&
-  data.value.data.event.libcalOnlineSeats >=
-  data.value.data.event.libcalOnlineSeats -
-  data.value.data.event.libcalOnlineSeatsTaken))
-const libcalWaitlist = ref(data.value.data && data.value.data.event && data.value.data.event.libcalWaitlist)
+const eventId = ref(page.value && page.value.event ? page.value.event.libcalId : '')
+const inPersonEvent = ref(!!(page.value &&
+  page.value.event &&
+  Number(page.value.event.libcalPhysicalSeats) > 0 &&
+  Number(page.value.event.libcalPhysicalSeats) >=
+  Number(page.value.event.libcalPhysicalSeats) -
+  Number(page.value.event.libcalPhysicalSeatsTaken)))
+const onlineEvent = ref(!!(page.value &&
+  page.value.event &&
+  Number(page.value.event.libcalOnlineSeats) > 0 &&
+  Number(page.value.event.libcalOnlineSeats) >=
+  Number(page.value.event.libcalOnlineSeats) -
+  Number(page.value.event.libcalOnlineSeatsTaken)))
+const libcalWaitlist = ref(page.value && page.value.event && page.value.event.libcalWaitlist)
 const libcalEndpointProxy = ref(config.public.libcalProxy)
 
-console.log('page variable:', page.value)
-console.log('allEvents variable:', allEvents.value)
-console.log('primaryItems variable:', primaryItems.value)
-console.log('secondaryItems variable:', secondaryItems.value)
+// console.log('page variable:', page.value)
+// console.log('allEvents variable:', allEvents.value)
+
 console.log('eventId variable:', eventId.value)
 console.log('formData variable:', formData.value)
 console.log('formId variable:', formId.value)
@@ -81,10 +87,15 @@ console.log('inPersonEvent variable:', inPersonEvent.value)
 console.log('onlineEvent variable:', onlineEvent.value)
 console.log('libcalWaitlist variable:', libcalWaitlist.value)
 console.log('libcalEndpointProxy variable:', libcalEndpointProxy.value)
-
-//
-provide('eventId', computed(() => eventId.value))
-provide('blockFormData', computed(() => formData.value))
+console.log("in-person event", inPersonEvent.value)
+console.log("online event", onlineEvent.value)
+const providerEventId = computed(() => {
+  // console.log("In provder for event id is called")
+  return eventId.value
+})
+provide('eventId', providerEventId)
+const injectEventId = inject('eventId')
+// console.log("injectEventId", injectEventId)
 provide('registrationType', computed(() => {
   if (inPersonEvent.value && !onlineEvent.value) return 'in-person'
   else if (!inPersonEvent.value && onlineEvent.value)
@@ -155,15 +166,15 @@ const parseURL = computed(() => {
     ? null
     : page.value.event.onlineJoinURL
 })
+// //console.log(
+//     "In parse registration:" + this.page.event.requiresRegistration
+// )
 
+//  if requiresRegistration = 1 & libcalRegistrationOpened = 1 & libcalRegistrationClosed = null
+//     then show registration button/form
+//  
 const parseRegistration = computed(() => {
-  // //console.log(
-  //     "In parse registration:" + this.page.event.requiresRegistration
-  // )
-  /*
-  if requiresRegistration = 1 & libcalRegistrationOpened = 1 & libcalRegistrationClosed = null
-      then show registration button/form
-  */
+
   if (
     page.value.event &&
     page.value.event.requiresRegistration === '1' &&
@@ -304,8 +315,12 @@ const parsedExhibitionLocations = computed(() => {
     }
   })
 })
-
+const providedFormData = computed(() => formData.value);
+provide('blockFormData', providedFormData);
 const { $scrapeApi } = useNuxtApp()
+watch(formData, (newVal, oldVal) => {
+  console.log("formdata is updated", newVal, oldVal)
+})
 
 onMounted(async () => {
   // const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
@@ -323,17 +338,8 @@ onMounted(async () => {
     const formDataArray = await $scrapeApi.scrapeFormId(
       page.value.event.libcalId
     ) // please check the fieldname in the query
-    console.log('is this a promise:' + formDataArray)
-    formDataArray.then((response) => {
-      // //console.log(response)
-      if (response && response.length === 1) {
-        formData = response[0]
-        // //console.log(
-        //     "In mounted client side:" +
-        //         JSON.stringify(this.formData)
-        // )
-      }
-    })
+    console.log('is this a promise:' + JSON.stringify(formDataArray.data.value))
+    formData.value = formDataArray.data.value[0]
   }
 })
 
@@ -352,17 +358,11 @@ onMounted(async () => {
         parent-title="Events & Exhibitions"
       />
 
-      <!-- <header-sticky
-                class="sticky-header"
-                :primary-items="primaryItems"
-                :secondary-items="secondaryItems"
-            /> -->
-
       <banner-text
         v-if="page.event &&
-      (!page.event.image || !page.event.image[0] || !page.event.image[0].image || !page.event.image[0].image[0] ||
-        page.event.image[0].image[0].length == 0)
-      "
+          (!page.event.image || !page.event.image[0] || !page.event.image[0].image || !page.event.image[0].image[0] ||
+            page.event.image[0].image[0].length == 0)
+        "
         :title="page.event.title"
         :locations="page.event.eventLocation"
         :start-date="page.event.startDateWithTime"
@@ -635,9 +635,8 @@ onMounted(async () => {
 
       <section-wrapper :section-title="parsedAcknowledgementTitle">
         <rich-text :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-      " />
+          " />
       </section-wrapper>
     </div>
-    <!-- </div> -->
   </main>
 </template>

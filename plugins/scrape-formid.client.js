@@ -3,10 +3,10 @@ async function scrapeFormId(eventId = '') {
   console.log('event ID:' + eventId)
 
   // const response = await fetch($config.libcalProxy+"event/" + eventId)
-  const response = await useFetch($config.libcalProxy + 'event/' + eventId)
-
-  const html = await response.text()
-  console.log('event html:' + html)
+  const html = await $fetch(useRuntimeConfig().public.libcalProxy + 'event/' + eventId)
+  // console.log("response",response)
+  // const html = await response.text()
+  // console.log('event html:' + html)
   const parser = new DOMParser()
   const doc = parser.parseFromString(html, 'text/html')
   if (doc.querySelector("input[name='fid']")) {
@@ -14,7 +14,7 @@ async function scrapeFormId(eventId = '') {
     console.log(formId)
     console.log(doc)
     const formData = await fetchformData(formId)
-    console.log('form data in scarpe function is :' + JSON.stringify(formData))
+    // console.log('form data in scarpe function is :' + JSON.stringify(formData))
     return formData
   } else {
     console.log('there is no formid on the page')
@@ -26,8 +26,8 @@ async function fetchformData(formId) {
 
   console.log('you are in fetchformdata:' + formId)
   // const formData = await $axios.$get(`api/1.1/events/form/${formId}`)
-  const formData = await useFetch($config.libcalProxy + `api/1.1/events/form/${formId}`)
-  console.log('is data ready:' + JSON.stringify(formData))
+  const formData = await useFetch(useRuntimeConfig().public.libcalProxy + `api/1.1/events/form/${formId}`)
+  // console.log('is data ready:' + JSON.stringify(formData))
   return formData
 }
 
