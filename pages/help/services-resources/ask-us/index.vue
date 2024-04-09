@@ -1,21 +1,20 @@
 <script setup>
 // HELPERS
-import _get from "lodash/get"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import ASK_US from "../gql/queries/AskUs.gql"
+import ASK_US from '../gql/queries/AskUs.gql'
 
 const { $graphql } = useNuxtApp()
 
 const { data } = await useAsyncData('ask-us-list', async () => {
-
   const data = await $graphql.default.request(ASK_US)
 
   return data
 })
 
-const page = ref(_get(data.value, "entry", {}))
+const page = ref(_get(data.value, 'entry', {}))
 
 useHead({
   title: page.value ? page.value.title : '... loading',

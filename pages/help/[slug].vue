@@ -1,27 +1,26 @@
 <script setup>
 // HELPERS
-import _get from "lodash/get"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import HELP_TOPIC_DETAIL from "../gql/queries/HelpTopicDetail.gql"
+import HELP_TOPIC_DETAIL from '../gql/queries/HelpTopicDetail.gql'
 
 const { $graphql } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData(`help-topic-detail-${route.params.slug}`, async () => {
-
   const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
     slug: route.params.slug,
   })
 
   if (data.entry) {
-    data.entry.serviceOrResourceType = "help topic"
+    data.entry.serviceOrResourceType = 'help topic'
   }
 
   // ToDo: Enable when elastic search is added
   // if (data && params.slug !== undefined) {
-  //console.log("Helptopics slugs Indexing slug: " + params.slug)
+  // console.log("Helptopics slugs Indexing slug: " + params.slug)
   //   await $elasticsearchplugin.index(data.entry, params.slug)
   // }
 
@@ -35,10 +34,10 @@ if (error.value) {
 }
 
 if (!data.value.entry) {
-  error({ statusCode: 404, message: "Page not found" })
+  error({ statusCode: 404, message: 'Page not found' })
 }
 
-const page = ref(_get(data.value, "entry", {}))
+const page = ref(_get(data.value, 'entry', {}))
 let h2Array = ref([]) // anchor tags
 
 useHead({
@@ -92,7 +91,7 @@ onMounted(() => {
 
     <page-anchor
       v-if="h2Array.length >= 3"
-      :section-titles=h2Array
+      :section-titles="h2Array"
     />
 
     <section-wrapper v-if="page.richText">
