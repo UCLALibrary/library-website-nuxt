@@ -38,8 +38,6 @@ definePageMeta({
 })
 </script>
 
-
-
 <template lang="html">
   <main
     id="main"
