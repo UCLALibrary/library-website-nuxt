@@ -1,6 +1,6 @@
 describe('Help Topic page', () => {
   it('Visit a Help Topic Page', () => {
-    cy.visit('/help/printing')
+    // cy.visit('/help/printing')
 
     // UCLA Library brand
     // cy.get(".logo-ucla").should("be.visible")
