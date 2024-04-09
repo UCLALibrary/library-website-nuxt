@@ -6,20 +6,16 @@ import removeTags from "../utils/removeTags"
 // GQL
 import ASK_US from "../gql/queries/AskUs.gql"
 
-// export default {
 const { $graphql } = useNuxtApp()
 
 const { data } = await useAsyncData('ask-us-list', async () => {
+
   const data = await $graphql.default.request(ASK_US)
 
-  // console.log('expected async data: ', data)
   return data
 })
 
-// console.log('expected data: ', data.value)
-
 const page = ref(_get(data.value, "entry", {}))
-// console.log('expected page data: ', page.value)
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -30,8 +26,19 @@ useHead({
       content: removeTags(page.value.text),
     },
   ],
+  script: [{
+    hid: 'libchat',
+    src: 'https://ucla.libanswers.com/load_chat.php?hash=e6e621712e7b0ed0193f065d84d4e0c9',
+    defer: true
+  }],
+})
+
+definePageMeta({
+  alias: ['/help']
 })
 </script>
+
+
 
 <template lang="html">
   <main
@@ -50,8 +57,6 @@ useHead({
     />
     <!-- LibChat Widget -->
     <section-wrapper class="section-ask-us">
-      <script
-        src="https://ucla.libanswers.com/load_chat.php?hash=e6e621712e7b0ed0193f065d84d4e0c9" />
       <div id="libchat_e6e621712e7b0ed0193f065d84d4e0c9" />
     </section-wrapper>
 
