@@ -33,9 +33,6 @@ const { data } = await useAsyncData('services-resources-list', async () => {
   //   }
   // }
 
-  console.log('async data: ', data)
-  console.log('async helpTopicData: ', helpTopicData)
-
   return { data, helpTopicData }
 })
 
@@ -54,9 +51,6 @@ const searchGenericQuery = ref(
       {},
   }
 )
-
-console.log('expected page data: ', page.value)
-console.log('expected helpTopic data: ', helpTopic.value.entries)
 
 useHead({
   title: page.value ? summaryData.value.title : '... loading',

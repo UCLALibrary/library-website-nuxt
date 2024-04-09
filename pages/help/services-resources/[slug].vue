@@ -174,7 +174,6 @@ const { $getHeaders } = useNuxtApp()
 onMounted(() => {
   // Call the plugin method to get the .section-header2 and .section-header3 elements
   h2Array = $getHeaders.getHeadersMethod()
-  console.log('headers: ', h2Array)
 })
 
 </script>
