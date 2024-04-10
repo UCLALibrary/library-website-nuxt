@@ -1,4 +1,6 @@
 <script setup>
+import { onMounted } from 'vue'
+
 // UTILITIES
 import _get from 'lodash/get'
 import getListingFilters from '../utils/getListingFilters'
@@ -413,10 +415,7 @@ function getSearchData(data) {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-location {
   .about-results {
     margin-top: var(--space-xl);

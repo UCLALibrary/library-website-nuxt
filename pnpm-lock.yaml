@@ -59,8 +59,8 @@ devDependencies:
     specifier: ^5.8.0
     version: 5.9.1
   ucla-library-website-components:
-    specifier: 2.39.0-alpha.59
-    version: 2.39.0-alpha.59(typescript@5.4.3)(vue-router@4.3.0)(vue@3.4.21)
+    specifier: 2.39.0-alpha.65
+    version: 2.39.0-alpha.65(typescript@5.4.3)(vue-router@4.3.0)(vue@3.4.21)
 
 packages:
 
@@ -1574,6 +1574,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: true
     bundledDependencies:
       - napi-wasm
@@ -6880,6 +6881,10 @@ packages:
     hasBin: true
     dev: true
 
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: true
+
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
@@ -9248,8 +9253,8 @@ packages:
     resolution: {integrity: sha512-1yoZOhiy93kHAGHyJnnmgj7eESGENUUTbXHaUsKHkFLNS9qw8Ajp4H8ppMuxkZMs/LnYBlibngZGsQC8w/vtlQ==}
     dev: true
 
-  /ucla-library-website-components@2.39.0-alpha.59(typescript@5.4.3)(vue-router@4.3.0)(vue@3.4.21):
-    resolution: {integrity: sha512-JwozctR2Ci8WdvVmyEhX3k13UsgBCq23X4CfLnguRXljOwrDW1fMfA5lIZ1KKqlqmA4tvgJsG/+yQKH6Df8Dcw==}
+  /ucla-library-website-components@2.39.0-alpha.65(typescript@5.4.3)(vue-router@4.3.0)(vue@3.4.21):
+    resolution: {integrity: sha512-EE8LPZfFWCHz4sVGXCf2uA2EVs21RWIuH3w25+ZSSpiJu4g7VwO0g2H0k1MAc7WN0zMmOkXhsElX7/yinVshEw==}
     peerDependencies:
       vue: ^3.3.4
       vue-router: ^4.2.4
