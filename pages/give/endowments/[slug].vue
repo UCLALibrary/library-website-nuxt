@@ -147,12 +147,12 @@ function computeDonors(donors) {
         page.alternativeName[0] &&
         page.alternativeName[0].fullName) ||
         ''
-      "
+        "
       :language="(page.alternativeName &&
         page.alternativeName[0] &&
         page.alternativeName[0].languageAltName) ||
         ''
-      "
+        "
       button-text="Give Now"
       :to="page.to"
     />
@@ -187,7 +187,7 @@ function computeDonors(donors) {
               v-for="(
                 location, index
               ) in parsedAssociatedLocations"
-              :key="`AssociatedLocation${index}`"
+              :key="`AssociatedLocation-${location}-${index}`"
             >
               <icon-with-link
                 class="associated-locations"

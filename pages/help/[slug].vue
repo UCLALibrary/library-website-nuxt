@@ -100,7 +100,7 @@ onMounted(() => {
 
     <div
       v-for="(block, index) in parsedHelpTopicBlocks"
-      :key="`HelpTopicBlocksKey${index}`"
+      :key="`HelpTopicBlocksKey-${block}-${index}`"
     >
       <section-wrapper
         :section-title="block.sectionTitle"

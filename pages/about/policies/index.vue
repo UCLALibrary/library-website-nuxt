@@ -2,11 +2,11 @@
 import { onMounted } from 'vue'
 
 // HELPERS
-import _get from "lodash/get"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import POLICIES_LIST from "../gql/queries/PoliciesList.gql"
+import POLICIES_LIST from '../gql/queries/PoliciesList.gql'
 
 const { $graphql } = useNuxtApp()
 
@@ -20,13 +20,13 @@ const { data } = await useAsyncData('policy-list', async () => {
   return data
 })
 
-const page = ref(_get(data.value, "entry", {}))
-const policyBlock = ref(_get(data.value, "entry.policyBlock", {}))
-const blocks = ref(_get(data.value, "entry.blocks", {}))
+const page = ref(_get(data.value, 'entry', {}))
+const policyBlock = ref(_get(data.value, 'entry.policyBlock', {}))
+const blocks = ref(_get(data.value, 'entry.blocks', {}))
 let h2Array = ref([]) // anchor tags
 
 useHead({
-  title: page.value ? page.value.title : "... loading",
+  title: page.value ? page.value.title : '... loading',
   meta: [
     {
       hid: 'description',
@@ -70,12 +70,12 @@ onMounted(() => {
 
     <page-anchor
       v-if="h2Array.length >= 3"
-      :section-titles=h2Array
+      :section-titles="h2Array"
     />
 
     <div
       v-for="(policy, index) in parsedPolicyBlocks"
-      :key="`PolicyBlocksKey-${policy}`"
+      :key="`PolicyBlocksKey-${policy}-${index}`"
     >
       <section-wrapper
         :section-title="policy.sectionTitle"
