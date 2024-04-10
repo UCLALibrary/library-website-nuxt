@@ -1,4 +1,6 @@
 <script setup>
+import { onMounted } from 'vue'
+
 // HELPERS
 import _get from 'lodash/get'
 

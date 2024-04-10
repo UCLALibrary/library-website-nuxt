@@ -1,5 +1,7 @@
 <script setup>
-// import getListingFilters from "~/utils/getListingFilters"
+import { onMounted } from 'vue'
+
+// import getListingFilters from "../utils/getListingFilters"
 import _get from 'lodash/get'
 import config from '../utils/searchConfig'
 
@@ -391,10 +393,7 @@ function getSearchData(data) {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-endowment-listing {
   :deep(.block-highlight.is-vertical:not(.has-triangle)) .image {
     height: 572px;
