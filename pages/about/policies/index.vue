@@ -22,7 +22,6 @@ const { data } = await useAsyncData('policy-list', async () => {
 
 const page = ref(_get(data.value, 'entry', {}))
 const policyBlock = ref(_get(data.value, 'entry.policyBlock', {}))
-const blocks = ref(_get(data.value, 'entry.blocks', {}))
 let h2Array = ref([]) // anchor tags
 
 useHead({
