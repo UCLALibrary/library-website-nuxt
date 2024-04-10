@@ -20,8 +20,7 @@ const { $graphql } = useNuxtApp()
 
 const route = useRoute()
 
-const { data, error } = await useAsyncData('events-listing-detail-${route.params.slug}', async () => {
-
+const { data, error } = await useAsyncData(`events-listing-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(EVENT_DETAIL, { slug: route.params.slug })
 
   console.log('test:', data)
@@ -47,18 +46,15 @@ const { data, error } = await useAsyncData('events-listing-detail-${route.params
   return data
 })
 
-
 console.log('test:', data.value.event.libcalOnlineSeats, data.value.event.libcalOnlineSeatsTaken)
-
-
 
 // Data
 
 const page = ref(data.value)
 const allEvents = ref([])
-console.log("online?", Number(page.value.event.libcalOnlineSeats) - Number(page.value.event.libcalOnlineSeatsTaken))
+console.log('online?', Number(page.value.event.libcalOnlineSeats) - Number(page.value.event.libcalOnlineSeatsTaken))
 
-let formData = ref({})
+const formData = ref({})
 const formId = ref('')
 const eventId = ref(page.value && page.value.event ? page.value.event.libcalId : '')
 const inPersonEvent = ref(!!(page.value &&
@@ -87,8 +83,8 @@ console.log('inPersonEvent variable:', inPersonEvent.value)
 console.log('onlineEvent variable:', onlineEvent.value)
 console.log('libcalWaitlist variable:', libcalWaitlist.value)
 console.log('libcalEndpointProxy variable:', libcalEndpointProxy.value)
-console.log("in-person event", inPersonEvent.value)
-console.log("online event", onlineEvent.value)
+console.log('in-person event', inPersonEvent.value)
+console.log('online event', onlineEvent.value)
 const providerEventId = computed(() => {
   // console.log("In provder for event id is called")
   return eventId.value
@@ -172,9 +168,8 @@ const parseURL = computed(() => {
 
 //  if requiresRegistration = 1 & libcalRegistrationOpened = 1 & libcalRegistrationClosed = null
 //     then show registration button/form
-//  
+//
 const parseRegistration = computed(() => {
-
   if (
     page.value.event &&
     page.value.event.requiresRegistration === '1' &&
@@ -315,11 +310,11 @@ const parsedExhibitionLocations = computed(() => {
     }
   })
 })
-const providedFormData = computed(() => formData.value);
-provide('blockFormData', providedFormData);
+const providedFormData = computed(() => formData.value)
+provide('blockFormData', providedFormData)
 const { $scrapeApi } = useNuxtApp()
 watch(formData, (newVal, oldVal) => {
-  console.log("formdata is updated", newVal, oldVal)
+  console.log('formdata is updated', newVal, oldVal)
 })
 
 onMounted(async () => {
@@ -634,8 +629,10 @@ onMounted(async () => {
       </section-wrapper>
 
       <section-wrapper :section-title="parsedAcknowledgementTitle">
-        <rich-text :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-          " />
+        <rich-text
+          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+          "
+        />
       </section-wrapper>
     </div>
   </main>

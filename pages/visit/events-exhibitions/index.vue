@@ -410,7 +410,7 @@ const routeFilters = computed(() => {
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <banner-featured
@@ -445,7 +445,7 @@ const routeFilters = computed(() => {
         parsedEvents.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <divider-way-finder color="visit" />
@@ -457,7 +457,7 @@ const routeFilters = computed(() => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="All Upcoming Events"
     >
       <section-teaser-list :items="parsedEvents" />
@@ -468,7 +468,7 @@ const routeFilters = computed(() => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <divider-way-finder color="visit" />
@@ -480,7 +480,7 @@ const routeFilters = computed(() => {
         parsedSeriesAndExhibitions.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="Event Series & Exhibitions"
     >
       <section-teaser-card :items="parsedSeriesAndExhibitions" />
