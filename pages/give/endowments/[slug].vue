@@ -15,20 +15,6 @@ const { data, error } = await useAsyncData(`endowment-detail-${route.params.slug
     slug: route.params.slug,
   })
 
-  /* TODO: Incorporate when search functionality is ready? */
-  /*
-  if (data && data.entry) {
-    // console.log(
-    //     "Endowment detail page: slug: " +
-    //         data.entry.slug +
-    //         "Now uri:" +
-    //         data.entry.uri
-    // )
-    data.entry.donorNames = parsedDonorsForES(data.entry.donors)
-    await $elasticsearchplugin.index(data.entry, params.slug)
-  }
-  */
-
   return data
 })
 
@@ -44,6 +30,13 @@ if (!data.value.entry) {
     statusCode: 404,
     statusMessage: 'Page Not Found'
   })
+}
+
+if (data.value.entry.slug && process.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  // console.log("elasticsearchplugin", $elasticsearchplugin, data.value.entry.slug)
+  data.value.entry.donorNames = parsedDonorsForES(data.entry.donors)
+  await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))
@@ -154,12 +147,12 @@ function computeDonors(donors) {
         page.alternativeName[0] &&
         page.alternativeName[0].fullName) ||
         ''
-      "
+        "
       :language="(page.alternativeName &&
         page.alternativeName[0] &&
         page.alternativeName[0].languageAltName) ||
         ''
-      "
+        "
       button-text="Give Now"
       :to="page.to"
     />

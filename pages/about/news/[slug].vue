@@ -122,8 +122,6 @@ const parsedLocations = computed(() => {
       :date-created="page.postDate"
     />
 
-    <div> {{ getResponse }}</div>
-
     <section-wrapper
       v-if="page && page.heroImage && page.heroImage.length == 1"
       class="section-banner"
@@ -168,7 +166,8 @@ const parsedLocations = computed(() => {
       class="associated-staff-member"
       section-title="Associated Staff Member"
     >
-      <section-staff-list :items="parsedAssociatedStaffMember" />
+      {{ parsedAssociatedStaffMember }}
+      <!--section-staff-list :items="parsedAssociatedStaffMember" /-->
     </section-wrapper>
   </main>
 </template>

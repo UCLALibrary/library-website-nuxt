@@ -20,12 +20,6 @@ const { data, error } = await useAsyncData(`help-topic-detail-${route.params.slu
     data.entry.serviceOrResourceType = 'help topic'
   }
 
-  // ToDo: Enable when elastic search is added
-  // if (data && params.slug !== undefined) {
-  // console.log("Helptopics slugs Indexing slug: " + params.slug)
-  //   await $elasticsearchplugin.index(data.entry, params.slug)
-  // }
-
   return data
 })
 
@@ -37,6 +31,11 @@ if (error.value) {
 
 if (!data.value.entry) {
   error({ statusCode: 404, message: 'Page not found' })
+}
+
+if (route.params.slug !== undefined && data.value.entry.slug && process.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))

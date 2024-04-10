@@ -14,26 +14,6 @@ const route = useRoute()
 const { data, error } = await useAsyncData(`services-resources-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL, { slug: route.params.slug, })
 
-  /* TODO: Incorporate when search functionality is ready? */
-  //
-  // if (data) {
-  //   /*console.log(
-  //       "Is it workshop or service or resource Indexing slug: " +
-  //           params.slug
-  //   )*/
-  //   if (data.workshopSeries) {
-  //     data.workshopSeries.sectionHandle = "workshopSeries"
-  //     data.workshopSeries.serviceOrResourceType = "workshop series"
-  //     /*console.log(
-  //         "what is workshopseries sectionHandle in ES? " +
-  //             data.workshopSeries.sectionHandle
-  //     )*/
-  //   }
-  //   await $elasticsearchplugin.index(
-  //     data.serviceOrResource || data.workshopSeries,
-  //     params.slug
-  //   )
-  // }
 
   return data
 })
@@ -46,6 +26,36 @@ if (error.value) {
 
 if (!data.value.serviceOrResource && !data.value.workshopSeries) {
   error({ statusCode: 404, message: 'Page not found' })
+}
+
+/* TODO: Incorporate when search functionality is ready? */
+//
+// if (data) {
+//   /*console.log(
+//       "Is it workshop or service or resource Indexing slug: " +
+//           params.slug
+//   )*/
+//   if (data.workshopSeries) {
+//     data.workshopSeries.sectionHandle = "workshopSeries"
+//     data.workshopSeries.serviceOrResourceType = "workshop series"
+//     /*console.log(
+//         "what is workshopseries sectionHandle in ES? " +
+//             data.workshopSeries.sectionHandle
+//     )*/
+//   }
+//   await $elasticsearchplugin.index(
+//     data.serviceOrResource || data.workshopSeries,
+//     params.slug
+//   )
+// }
+
+if (process.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  if (data.value.workshopSeries) {
+    data.value.workshopSeries.sectionHandle = "workshopSeries"
+    data.value.workshopSeries.serviceOrResourceType = "workshop series"
+  }
+  await $elasticsearchplugin?.index(data.value.serviceOrResource || data.value.workshopSeries, route.params.slug)
 }
 
 const page = ref(data.value)
@@ -196,9 +206,9 @@ onMounted(() => {
       <banner-text
         v-if="
           !page.serviceOrResource.heroImage ||
-            page.serviceOrResource.heroImage.length == 0 ||
-            !page.serviceOrResource.heroImage[0].image ||
-            page.serviceOrResource.heroImage[0].image.length == 0
+          page.serviceOrResource.heroImage.length == 0 ||
+          !page.serviceOrResource.heroImage[0].image ||
+          page.serviceOrResource.heroImage[0].image.length == 0
         "
         class="banner-text"
         :category="page.serviceOrResource.type"
@@ -211,9 +221,9 @@ onMounted(() => {
       <section-wrapper
         v-if="
           page.serviceOrResource.heroImage &&
-            page.serviceOrResource.heroImage.length == 1 &&
-            page.serviceOrResource.heroImage[0].image &&
-            page.serviceOrResource.heroImage[0].image.length > 0
+          page.serviceOrResource.heroImage.length == 1 &&
+          page.serviceOrResource.heroImage[0].image &&
+          page.serviceOrResource.heroImage[0].image.length > 0
         "
         class="section-banner"
       >
@@ -288,9 +298,9 @@ onMounted(() => {
       <banner-text
         v-if="
           page.workshopSeries &&
-            (page.workshopSeries.image.length == 0 ||
-              !page.workshopSeries.image[0].image ||
-              page.workshopSeries.image[0].image.length == 0)
+          (page.workshopSeries.image.length == 0 ||
+            !page.workshopSeries.image[0].image ||
+            page.workshopSeries.image[0].image.length == 0)
         "
         :title="page.workshopSeries.title"
         :text="page.workshopSeries.summary"
@@ -303,9 +313,9 @@ onMounted(() => {
       <section-wrapper
         v-if="
           page.workshopSeries.image &&
-            page.workshopSeries.image.length == 1 &&
-            page.workshopSeries.image[0].image &&
-            page.workshopSeries.image[0].image.length > 0
+          page.workshopSeries.image.length == 1 &&
+          page.workshopSeries.image[0].image &&
+          page.workshopSeries.image[0].image.length > 0
         "
         class="section-banner"
       >
