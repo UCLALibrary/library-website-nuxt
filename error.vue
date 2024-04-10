@@ -1,4 +1,7 @@
-<script setup lang="ts">
+<script
+  setup
+  lang="ts"
+>
 import type { NuxtError } from '#app'
 
 const props = defineProps({
@@ -17,6 +20,7 @@ const props = defineProps({
       </p>
       <pre>
         {{ error?.message }}
+        {{ error }}
       </pre>
       <divider-way-finder />
 
@@ -49,7 +53,8 @@ const props = defineProps({
             <a href="https://library.ucla.edu/help/research-help">Research Help</a>
           </li>
           <li>
-            <a href="https://library.ucla.edu/help/services-resources/accessibility-resources">Accessibility Resources</a>
+            <a href="https://library.ucla.edu/help/services-resources/accessibility-resources">Accessibility
+              Resources</a>
           </li>
         </ul>
       </rich-text>
@@ -57,7 +62,10 @@ const props = defineProps({
   </NuxtLayout>
 </template>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .page-error {
   padding: var(--space-3xl) var(--unit-gutter);
 

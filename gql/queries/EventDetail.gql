@@ -1,6 +1,6 @@
-#import "~/gql/fragments/Image"
-#import "~/gql/fragments/collections/DefaultFpbWithCardsAndHighlight.gql"
-#import "~/gql/fragments/collections/ExhibitionsAndCollectionsFpb"
+#import "../gql/fragments/Image.gql"
+#import "../gql/fragments/collections/DefaultFpbWithCardsAndHighlight.gql"
+#import "../gql/fragments/collections/ExhibitionsAndCollectionsFpb.gql"
 query EventDetail($slug: [String!]) {
     event: entry(section: "event", slug: $slug) {
         ... on event_event_Entry {
