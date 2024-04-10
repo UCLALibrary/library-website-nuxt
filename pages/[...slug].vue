@@ -15,7 +15,7 @@ const path = route.path.replace(/^\/|\/$/g, '') // trim initial and/or final sla
 
 const variables = { path }
 
-const { data, error } = await useAsyncData(`general-content-${variables}`, async () => {
+const { data, error } = await useAsyncData(`general-content-${path}`, async () => {
   const data = await $graphql.default.request(GENERAL_CONTENT_DETAIL, variables)
 
   // if (data.value && data.value.entry && data.value.entry.slug) {
