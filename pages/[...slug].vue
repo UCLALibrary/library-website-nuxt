@@ -41,7 +41,7 @@ if (data.value.entry.slug && process.server) {
 
 const page = ref(_get(data.value, 'entry', {}))
 
-let h2Array = ref([]) // anchor tags
+const h2Array = ref([]) // anchor tags
 
 useHead({
   title: page.value ? page.value.title : '... loading'

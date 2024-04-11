@@ -22,7 +22,7 @@ const { data } = await useAsyncData('policy-list', async () => {
 
 const page = ref(_get(data.value, 'entry', {}))
 const policyBlock = ref(_get(data.value, 'entry.policyBlock', {}))
-let h2Array = ref([]) // anchor tags
+const h2Array = ref([]) // anchor tags
 console.log('headers1c: ', h2Array.value)
 
 useHead({
@@ -50,7 +50,7 @@ const parsedPolicyBlocks = computed(() => {
   })
 })
 
-onMounted(async () => {
+onMounted(() => {
   // Call the plugin to get the .section-header2 and .section-header3 elements
   h2Array.value = $getHeaders.getHeadersMethod()
 })

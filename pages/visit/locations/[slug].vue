@@ -43,7 +43,7 @@ const associatedArticles = ref(_get(data.value, 'associatedArticles', {}))
 const associatedExhibitions = ref(_get(data.value, 'associatedExhibitions', {}))
 const associatedEndowments = ref(_get(data.value, 'associatedEndowments', {}))
 const associatedEvents = ref(_get(data.value, 'associatedEvents', {}))
-let h2Array = ref([]) // anchor tags
+const h2Array = ref([]) // anchor tags
 
 useHead({
   title: page.value ? page.value.title : '... loading',
