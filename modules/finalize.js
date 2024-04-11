@@ -67,7 +67,7 @@ export default defineNuxtModule({
       const body = await response.text()
       try {
         const jsonData = JSON.parse(body)
-        logger.debug('Reindex done: ' + JSON.stringify(jsonData))
+        logger.warn('Reindex done: ' + JSON.stringify(jsonData))
         nuxt.options.runtimeConfig.public.esTempIndexLibguides = tempLibGuideIndex
       } catch (err) {
         logger.error('Reindex Error:', err)
@@ -104,7 +104,7 @@ export default defineNuxtModule({
       const body = await response.text()
       try {
         const jsonData = JSON.parse(body)
-        logger.debug('Alias updated: ' + JSON.stringify(jsonData))
+        logger.warn('Alias updated: ', JSON.stringify(jsonData), nuxt.options.runtimeConfig.public.esIndex)
       } catch (err) {
         logger.error('Error:', err)
         logger.error('Response body:', body)

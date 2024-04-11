@@ -30,6 +30,12 @@ if (!data.value.entry) {
     statusMessage: 'Page Not Found'
   })
 }
+
+if (data.value.entry.slug && process.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  await $elasticsearchplugin.index(data.value.entry, data.value.entry.slug)
+}
+
 const page = ref(_get(data.value, 'entry', {}))
 
 useHead({

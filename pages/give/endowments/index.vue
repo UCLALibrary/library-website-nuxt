@@ -325,7 +325,7 @@ function getSearchData(data) {
       section-title="All Collection Endowments"
     >
       <section-generic-list :items="parsedEndowmentsList" />
-      <pre>{{ parsedEndowmentsList }}</pre>
+
       <!-- pagination -->
     </section-wrapper>
 

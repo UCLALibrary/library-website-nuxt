@@ -4,14 +4,17 @@
 	"scripts": {
 		"build": "nuxt build",
 		"dev": "nuxt dev",
-		"generate": "nuxt build --prerender --log-level verbose",
+		"generate": "nuxi generate",
+		"prerender": "nuxt build --prerender --log-level verbose",
 		"start": "pnpm dlx serve .output/public",
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare",
 		"cypress": "cypress open",
 		"cypress-run": "cypress run",
 		"lint": "eslint . --ext .vue,.js,.ts --ignore-path .gitignore",
-		"lint:fix": "eslint --fix . --ext .vue,.js,.ts --ignore-path .gitignore"
+		"lint:fix": "eslint --fix . --ext .vue,.js,.ts --ignore-path .gitignore",
+		"typecheck": "nuxi typecheck",
+		"test": "pnpm lint && pnpm typecheck"
 	},
 	"dependencies": {
 		"@pinia/nuxt": "^0.4.11",
@@ -25,11 +28,12 @@
 		"@percy/cypress": "^3.1.2",
 		"@types/node": "^18.17.3",
 		"cypress": "^12.17.4",
+		"date-fns": "^3.6.0",
 		"eslint": "^8.56.0",
 		"eslint-plugin-cypress": "^2.15.1",
 		"graphql": "^16.8.1",
 		"lodash": "^4.17.21",
-		"nuxt": "^v3.10.2",
+		"nuxt": "^3.11.2",
 		"nuxt-graphql-request": "^7.0.5",
 		"sass": "^1.66.1",
 		"ucla-library-design-tokens": "^5.8.0",

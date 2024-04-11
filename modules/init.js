@@ -1,14 +1,12 @@
 import { defineNuxtModule } from 'nuxt/kit'
 import fetch from 'node-fetch'
-
 export default defineNuxtModule({
 
   setup(options, nuxt) {
     console.log('Nuxt module start ')
     console.log('process.env.NODE_ENV:' + process.env.NODE_ENV)
     if (!nuxt.options._prepare && process.env.NODE_ENV !== 'development') {
-    // const endpoint = nuxt.options.runtimeConfig.public.craftGraphqlURL
-      nuxt.hooks.hook('build:before', async (nitro) => {
+      nuxt.hooks.hook('nitro:init', async (nitro) => {
         console.log('Ready to create library temp index...')
         const timeElapsed = Date.now()
         const now = new Date(timeElapsed)
@@ -43,8 +41,11 @@ export default defineNuxtModule({
           })
           const body = await response.text()
           const testJson = JSON.parse(body)
+
           nuxt.options.tempIndex = esLibraryIndexTemp
           nuxt.options.runtimeConfig.public.esTempIndex = esLibraryIndexTemp
+          const storage = await nitro.storage.setItem('esData:tempIndex', esLibraryIndexTemp) // do this to access tempindex in nuxt indexer plugin
+          console.log(await nitro.storage.getItem('esData:tempIndex'), await nitro.storage.hasItem('esData:tempIndex'))
           console.log('Index created:' + JSON.stringify(testJson))
           console.log('Elastic Search index created succesfully!')
         } catch (err) {
