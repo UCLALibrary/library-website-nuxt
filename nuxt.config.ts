@@ -31,6 +31,12 @@ export default defineNuxtConfig({
   },
 
   nitro: {
+    storage:{
+      esData:{
+        driver: 'fs',
+        base: './data/db'
+      }
+    },
     prerender: {
       crawlLinks: true,
       failOnError: false,
@@ -60,7 +66,9 @@ export default defineNuxtConfig({
         // console.log('All pages', JSON.stringify(postPages.data.entries))
         if (postPages && postPages.data && postPages.data.entries) {
           const postWithoutPayloadRoutes = postPages.data.entries.filter(item => 
-            !item.sectionHandle.includes('meap') && !item.sectionHandle.includes('ftva')
+            !item.sectionHandle.includes('meap') && !item.sectionHandle.includes('ftva') 
+            && !item.sectionHandle.includes('organization') && !item.sectionHandle.includes('/__home__')
+            && !item.sectionHandle.includes('visit/spaces') && !item.sectionHandle.includes('null')
           ).map(entry => '/' + entry.uri)
 
           allRoutes.push(...postWithoutPayloadRoutes)

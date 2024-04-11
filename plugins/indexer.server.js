@@ -1,20 +1,21 @@
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(async (nuxtApp) => {
   // console.log("elastic search plugin index  :")
-  const esIndex = useRuntimeConfig().public.esTempIndex
+  //const esIndex = useRuntimeConfig().public.esTempIndex
+  const esIndex = await useFetch('/api/fetchTempIndexName')
   const esURL = useRuntimeConfig().public.esURL
   const esReadKey = useRuntimeConfig().public.esReadKey
   const esWriteKey = useRuntimeConfig().esWriteKey
   async function index(data, slug) {
-    // console.log("elastic search plugin index function :" , esIndex)
+    console.log("elastic search plugin index function :" , esIndex.data.value)
 
     try {
-      if (process.env.NODE_ENV !== 'development' && data && slug && esIndex) {
+      if (process.env.NODE_ENV !== 'development' && data && slug && esIndex?.data?.value) {
         /* console.log(
                 "this is the elasticsearch plugin: " + JSON.stringify(data)
             ) */
-        // console.log(`Requesting URL: ${esURL}/${esIndex}/_doc/${slug}`)
+        // console.log(`Requesting URL: ${esURL}/${esIndex.data.value}/_doc/${slug}`)
         const docExists = await fetch(
-                `${esURL}/${esIndex}/_doc/${slug}`,
+                `${esURL}/${esIndex.data.value}/_doc/${slug}`,
                 {
                   headers: {
                     Authorization: `ApiKey ${esReadKey}`,
@@ -34,7 +35,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             doc: data
           }
           const updateResponse = await fetch(
-                    `${esURL}/${esIndex}/_update/${slug}`,
+                    `${esURL}/${esIndex.data.value}/_update/${slug}`,
                     {
                       headers: {
                         Authorization: `ApiKey ${esWriteKey}`,
@@ -48,7 +49,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           const updateJson = await updateResponse.text()
         } else {
           const response = await fetch(
-                    `${esURL}/${esIndex}/_doc/${slug}`,
+                    `${esURL}/${esIndex.data.value}/_doc/${slug}`,
                     {
                       headers: {
                         Authorization: `ApiKey ${esWriteKey}`,
