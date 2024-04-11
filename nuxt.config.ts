@@ -44,15 +44,35 @@ export default defineNuxtConfig({
           route.skip = true
         } */
         console.log('prerender:generate', route)
-      }
-    },
-    hooks: {
-      'prerender:routes' (routes) {
-        // Add Nuxt 2 modules to the prerender list
-        /* const { modules } = await ofetch<{ modules: [] }>('https://api.nuxt.com/modules?version=2').catch(() => ({ modules: [] }))
-        for (const module of modules) {
-          ctx.routes.add(`/modules/${module.name}`)
-        } */
+      },
+      async 'prerender:routes' (routes) {
+        const allRoutes = [];
+
+        const response = await fetch(process.env.CRAFT_ENDPOINT,{
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify({ query: "query AllPages { entries { uri, sectionHandle } }" })
+        })
+       
+        const postPages = await response.json()
+        console.log("All pages",JSON.stringify(postPages.data.entries))
+        if (postPages && postPages.data && postPages.data.entries) {
+          
+
+          const postWithoutPayloadRoutes = postPages.data.entries.filter((item)=> !item.sectionHandle.includes("meap")).map((entry) => 
+            "/" + entry.uri
+          )
+
+          allRoutes.push(...postWithoutPayloadRoutes)
+        }
+
+        if (allRoutes.length) {
+          for (const route of allRoutes) {
+            routes.add(route)
+          }
+        }
         console.log('prerender:routes ctx.routes', routes)
       }
     },

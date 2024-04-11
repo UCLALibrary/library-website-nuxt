@@ -46,13 +46,13 @@ const { data, error } = await useAsyncData(`events-listing-detail-${route.params
   return data
 })
 
-console.log('test:', data.value.event.libcalOnlineSeats, data.value.event.libcalOnlineSeatsTaken)
+// console.log('test:', data.value.event.libcalOnlineSeats, data.value.event.libcalOnlineSeatsTaken)
 
 // Data
 
 const page = ref(data.value)
 const allEvents = ref([])
-console.log('online?', Number(page.value.event.libcalOnlineSeats) - Number(page.value.event.libcalOnlineSeatsTaken))
+// console.log('online?', Number(page.value.event.libcalOnlineSeats) - Number(page.value.event.libcalOnlineSeatsTaken))
 
 const formData = ref({})
 const formId = ref('')
@@ -629,10 +629,8 @@ onMounted(async () => {
       </section-wrapper>
 
       <section-wrapper :section-title="parsedAcknowledgementTitle">
-        <rich-text
-          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-          "
-        />
+        <rich-text :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+          " />
       </section-wrapper>
     </div>
   </main>
