@@ -1,12 +1,12 @@
 export default defineNuxtPlugin(async (nuxtApp) => {
   // console.log("elastic search plugin index  :")
-  //const esIndex = useRuntimeConfig().public.esTempIndex
+  // const esIndex = useRuntimeConfig().public.esTempIndex
   const esIndex = await useFetch('/api/fetchTempIndexName')
   const esURL = useRuntimeConfig().public.esURL
   const esReadKey = useRuntimeConfig().public.esReadKey
   const esWriteKey = useRuntimeConfig().esWriteKey
   async function index(data, slug) {
-    console.log("elastic search plugin index function :" , esIndex.data.value)
+    console.log('elastic search plugin index function :', esIndex.data.value)
 
     try {
       if (process.env.NODE_ENV !== 'development' && data && slug && esIndex?.data?.value) {

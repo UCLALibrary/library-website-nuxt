@@ -102,4 +102,4 @@ cypress/screenshots
 # local component testing
 page/component.vue
 data/mock
-
+data/db/tempIndex
