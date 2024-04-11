@@ -1,14 +1,14 @@
 <script setup>
 // HELPERS
-import _get from "lodash/get"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import ACCESS_COLLECTIONS from "../gql/queries/CollectionsAccessList.gql"
-const { $graphql } = useNuxtApp()
+import ACCESS_COLLECTIONS from '../gql/queries/CollectionsAccessList.gql'
 
 // UTILITIES
-import config from "../utils/searchConfig"
+import config from '../utils/searchConfig'
+const { $graphql } = useNuxtApp()
 
 // ROUTING
 const route = useRoute()
@@ -17,7 +17,6 @@ definePageMeta({
   path: '/collections/access',
   alias: ['/listing-collections/access'],
 })
-
 
 // ASYNC DATA
 const { data: page, error } = await useAsyncData('access-collections', async () => {
@@ -107,19 +106,19 @@ const searchGenericQuery = ref({
 
 // HEAD
 useHead({
-  title: page.value ? page.value.title : '... loading',
+  title: page.value.entry ? page.value.entry.title : '... loading',
   meta: [
     {
       hid: 'description',
       name: 'description',
-      content: removeTags(page.value.text)
+      content: removeTags(page.value.entry.text)
     },
   ],
 })
 
-// COMPUTED 
+// COMPUTED
 const parsedAccessCollections = computed(() => {
-  return page.value.accessCollections.map((obj) => {
+  return page.value.entry.accessCollections.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
@@ -129,7 +128,7 @@ const parsedAccessCollections = computed(() => {
   })
 })
 const parsedAssociatedTopics = computed(() => {
-  return page.value.associatedTopics.map((obj) => {
+  return page.value.entry.associatedTopics.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
@@ -139,12 +138,12 @@ const parsedAssociatedTopics = computed(() => {
   })
 })
 const parseHitsResults = computed(() => {
-  console.log("ParseHitsResults checking results data:" + JSON.stringify(hits))
+  console.log('ParseHitsResults checking results data:' + JSON.stringify(hits))
   return parseHits(hits)
 })
 
 // WATCHERS - TODO: after elastic search ready, implement these
-// watch(() => route.query, async (newValue) => { 
+// watch(() => route.query, async (newValue) => {
 //   // await $fetch(newValue)
 // })
 // watch(() => route.query.q, (newValue) => {
@@ -156,20 +155,20 @@ const parseHitsResults = computed(() => {
 function parseHits(hits) {
   return hits.value.map((obj) => {
     console.log(
-      "What should the category be?:" +
-      obj["_source"].sectionHandle
+      'What should the category be?:' +
+      obj._source.sectionHandle
     )
     return {
-      ...obj["_source"],
-      to: obj["_source"].externalResourceUrl
-        ? obj["_source"].externalResourceUrl
-        : `/${obj["_source"].uri}`,
+      ...obj._source,
+      to: obj._source.externalResourceUrl
+        ? obj._source.externalResourceUrl
+        : `/${obj._source.uri}`,
     }
   })
 }
 function getSearchData(data) {
   route.push({
-    path: "/collections/access",
+    path: '/collections/access',
     query: {
       q: data.text,
     },
@@ -193,7 +192,6 @@ function getSearchData(data) {
       :text="page.entry.text"
       class="secondary"
     />
-    <h1> HALLO JESS</h1>
 
     <!-- <search-generic
       search-type="default"
@@ -201,14 +199,16 @@ function getSearchData(data) {
       :search-generic-query="searchGenericQuery"
       placeholder="ACCESS COLLECTIONS"
       @search-ready="getSearchData"
-    />
+    /> -->
 
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper v-show="page.accessCollections && hits.length == 0 && !noResultsFound
-        ">
+    <section-wrapper
+      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+      "
+    >
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
@@ -217,11 +217,11 @@ function getSearchData(data) {
     </section-wrapper>
     <section-wrapper v-show="hits && hits.length > 0">
       <h2
-        v-if="$route.query.q"
+        v-if="route.query && route.query.q"
         class="about-results"
       >
         Displaying {{ hits.length }} results for
-        <strong><em>“{{ $route.query.q }}</em></strong>”
+        <strong><em>“{{ route.query.q }}</em></strong>”
       </h2>
       <h2
         v-else
@@ -242,7 +242,7 @@ function getSearchData(data) {
     >
       <div class="error-text">
         <rich-text>
-          <h2>Search for “{{ $route.query.q }}” not found.</h2>
+          <h2>Search for “{{ route.query.q }}” not found.</h2>
           <p>
             We can’t find the term you are looking for on this page,
             but we're here to help. <br>
@@ -267,9 +267,9 @@ function getSearchData(data) {
 
     <section-wrapper>
       <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper> -->
+    </section-wrapper>
 
-    <!-- <section-wrapper>
+    <section-wrapper>
       <section-cards-with-illustrations
         class="section"
         :items="parsedAssociatedTopics"
@@ -278,7 +278,7 @@ function getSearchData(data) {
         button-text="All services & Resources"
         :is-horizontal="false"
       />
-    </section-wrapper> -->
+    </section-wrapper>
   </main>
 </template>
 <style
