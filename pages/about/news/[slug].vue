@@ -7,26 +7,13 @@ import removeTags from '../utils/removeTags'
 // GQL
 import ARTICLE_DETAIL from '../gql/queries/ArticleDetail.gql'
 
-const { $graphql } = useNuxtApp()
 const route = useRoute()
 
-const { data, error } = await useAsyncData(`news-detail-${route.params.slug}`, async () => {
+console.log('In news Slug page')
+
+const { $graphql } = useNuxtApp()
+const { data, error } = await useAsyncData(`news/${route.params.slug}`, async () => {
   const data = await $graphql.default.request(ARTICLE_DETAIL, { slug: route.params.slug })
-
-  // Elastic search?
-  // if (data) {
-  //   if (data.entry) {
-  //     data.entry.articleCategory = data.entry.category
-  //     delete data.entry.category
-
-  //     await $elasticsearchplugin.index(data.entry, params.slug)
-  //     data.entry.category = data.entry.articleCategory
-  //   }
-  //   console.log(
-  //     'News Data fetched: ' + JSON.stringify(data.entry.category)
-  //   )
-  // }
-
   return data
 })
 
@@ -38,11 +25,19 @@ if (error.value) {
 
 if (!data.value.entry) {
   // eslint-disable-next-line no-console
-  console.log('no data')
+  console.log('In news Slug page no data')
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found'
   })
+}
+
+// console.log("process.server", process.server, process.client)
+
+if (data.value.entry.slug && process.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  // console.log("elasticsearchplugin", $elasticsearchplugin, data.value.entry.slug)
+  await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))
@@ -171,7 +166,8 @@ const parsedLocations = computed(() => {
       class="associated-staff-member"
       section-title="Associated Staff Member"
     >
-      <section-staff-list :items="parsedAssociatedStaffMember" />
+      {{ parsedAssociatedStaffMember }}
+      <!--section-staff-list :items="parsedAssociatedStaffMember" /-->
     </section-wrapper>
   </main>
 </template>

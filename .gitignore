@@ -103,3 +103,4 @@ cypress/screenshots
 page/component.vue
 pages/components.vue
 data/mock
+data/db/tempIndex

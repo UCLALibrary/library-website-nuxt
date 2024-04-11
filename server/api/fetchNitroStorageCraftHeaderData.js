@@ -21,7 +21,7 @@ const headerQuery = `
 export default cachedEventHandler(async () => {
   const endpoint = useRuntimeConfig().public.craftGraphqlURL
   let headerData = await useStorage().getItem('craftData:header')
-  console.log('Server api Craft Header Data object:' + JSON.stringify(headerData))
+  // console.log('Server api Craft Header Data object:' + JSON.stringify(headerData))
   if (!headerData) {
     const { data } = await $fetch(endpoint, {
       method: 'POST',
@@ -32,8 +32,7 @@ export default cachedEventHandler(async () => {
     })
     await useStorage().setItem('craftData:header', data)
     headerData = data
-    // headerData = await useStorage().getItem('craftData:header')
-    console.log('Server api Header Data object first set and then get:' + JSON.stringify(headerData))
+    // console.log('Server api Header Data object first set and then get:' + JSON.stringify(headerData))
   }
   return headerData
 })

@@ -17,9 +17,6 @@ const { data, error } = await useAsyncData(`locations-detail-${route.params.slug
     slug: route.params.slug
   })
 
-  /* TODO: Incorporate when search functionality is ready? */
-  // if (data) await $elasticsearchplugin.index(data.entry, params.slug)
-
   return data
 })
 
@@ -35,6 +32,10 @@ if (!data.value.entry) {
     statusCode: 404,
     statusMessage: 'Page Not Found'
   })
+}
+if (data.value.entry.slug && process.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))

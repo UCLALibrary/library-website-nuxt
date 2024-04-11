@@ -34,6 +34,9 @@ devDependencies:
   cypress:
     specifier: ^12.17.4
     version: 12.17.4
+  date-fns:
+    specifier: ^3.6.0
+    version: 3.6.0
   eslint:
     specifier: ^8.56.0
     version: 8.57.0
@@ -47,7 +50,7 @@ devDependencies:
     specifier: ^4.17.21
     version: 4.17.21
   nuxt:
-    specifier: ^v3.10.2
+    specifier: ^3.11.2
     version: 3.11.2(@types/node@18.19.29)(@unocss/reset@0.58.9)(eslint@8.57.0)(floating-vue@5.2.2)(sass@1.74.1)(typescript@5.4.3)(unocss@0.58.9)(vite@5.2.8)
   nuxt-graphql-request:
     specifier: ^7.0.5

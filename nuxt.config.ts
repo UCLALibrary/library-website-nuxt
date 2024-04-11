@@ -27,13 +27,62 @@ export default defineNuxtConfig({
                     `,
         },
       },
-    },
+    }
   },
 
   nitro: {
+    storage: {
+      esData: {
+        driver: 'fs',
+        base: './data/db'
+      }
+    },
     prerender: {
       crawlLinks: true,
+      failOnError: false,
+      // routes: ['/', '/404.html', '/200.html'],
     },
+    hooks: {
+      'prerender:generate' (route) {
+        // TODO: fix issue with recursive fetches with query string, e.g.
+        // `/enterprise/agencies?region=europe&amp;amp;amp;service=ecommerce&amp;amp;service=ecommerce&amp;service=content-marketing`
+        /* if (route.route?.includes('&amp;')) {
+          route.skip = true
+        } */
+        console.log('prerender:generate', route)
+      },
+      async 'prerender:routes' (routes) {
+        const allRoutes = []
+
+        const response = await fetch(process.env.CRAFT_ENDPOINT, {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: JSON.stringify({ query: 'query AllPages { entries { uri, sectionHandle } }' })
+        })
+
+        const postPages = await response.json()
+        // console.log('All pages', JSON.stringify(postPages.data.entries))
+        if (postPages && postPages.data && postPages.data.entries) {
+          const postWithoutPayloadRoutes = postPages.data.entries.filter(item =>
+            !item.sectionHandle.includes('meap') && !item.sectionHandle.includes('ftva')
+            && !item.sectionHandle.includes('organization') && !item.sectionHandle.includes('/__home__')
+            && !item.sectionHandle.includes('visit/spaces') && !item.sectionHandle.includes('null')
+          ).map(entry => '/' + entry.uri)
+
+          allRoutes.push(...postWithoutPayloadRoutes)
+        }
+
+        if (allRoutes.length) {
+          for (const route of allRoutes) {
+            routes.add(route)
+          }
+        }
+        console.log('prerender:routes ctx.routes', routes)
+      }
+    },
+
   },
 
   runtimeConfig: {
@@ -90,12 +139,20 @@ export default defineNuxtConfig({
     'ucla-library-website-components/dist/style.css',
   ],
 
+  typescript: {
+    strict: false
+  },
+
   modules: [[
     '@pinia/nuxt',
     {
       autoImports: ['defineStore', 'acceptHMRUpdate'],
     },
   ], 'nuxt-graphql-request', '@nuxtjs/sitemap'],
+
+  build: {
+    transpile: ['nuxt-graphql-request'],
+  },
 
   site: {
     url: process.env.SITEMAP_HOST || 'https://www.library.ucla.edu',
@@ -148,5 +205,10 @@ export default defineNuxtConfig({
      * default: false (this includes graphql-tag for node_modules folder)
      */
     // includeNodeModules: true,
+  },
+
+  experimental: {
+    payloadExtraction: true,
+    sharedPrerenderData: true
   }
 })
