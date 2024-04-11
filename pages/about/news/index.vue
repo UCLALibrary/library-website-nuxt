@@ -325,7 +325,7 @@ function parseArticleCategory(categories) {
         page.featuredNews.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <banner-featured
@@ -341,12 +341,14 @@ function parseArticleCategory(categories) {
         class="banner section-featured-banner"
       />
 
-      <divider-general v-if="page &&
-        page.featuredNews &&
-        page.featuredNews.length &&
-        hits.length == 0 &&
-        !noResultsFound
-      " />
+      <divider-general
+        v-if="page &&
+          page.featuredNews &&
+          page.featuredNews.length &&
+          hits.length == 0 &&
+          !noResultsFound
+        "
+      />
 
       <section-teaser-highlight
         v-if="parsedSectionHighlight.length"
@@ -361,7 +363,7 @@ function parseArticleCategory(categories) {
         page.featuredNews.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <divider-way-finder color="about" />

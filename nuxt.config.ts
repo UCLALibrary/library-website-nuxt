@@ -46,24 +46,22 @@ export default defineNuxtConfig({
         console.log('prerender:generate', route)
       },
       async 'prerender:routes' (routes) {
-        const allRoutes = [];
+        const allRoutes = []
 
-        const response = await fetch(process.env.CRAFT_ENDPOINT,{
-            headers: {
-                "Content-Type": "application/json"
-            },
-            method: "POST",
-            body: JSON.stringify({ query: "query AllPages { entries { uri, sectionHandle } }" })
+        const response = await fetch(process.env.CRAFT_ENDPOINT, {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: JSON.stringify({ query: 'query AllPages { entries { uri, sectionHandle } }' })
         })
-       
-        const postPages = await response.json()
-        console.log("All pages",JSON.stringify(postPages.data.entries))
-        if (postPages && postPages.data && postPages.data.entries) {
-          
 
-          const postWithoutPayloadRoutes = postPages.data.entries.filter((item)=> !item.sectionHandle.includes("meap")).map((entry) => 
-            "/" + entry.uri
-          )
+        const postPages = await response.json()
+        // console.log('All pages', JSON.stringify(postPages.data.entries))
+        if (postPages && postPages.data && postPages.data.entries) {
+          const postWithoutPayloadRoutes = postPages.data.entries.filter(item => 
+            !item.sectionHandle.includes('meap') && !item.sectionHandle.includes('ftva')
+          ).map(entry => '/' + entry.uri)
 
           allRoutes.push(...postWithoutPayloadRoutes)
         }

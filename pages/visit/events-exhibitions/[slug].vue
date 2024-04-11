@@ -629,8 +629,10 @@ onMounted(async () => {
       </section-wrapper>
 
       <section-wrapper :section-title="parsedAcknowledgementTitle">
-        <rich-text :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-          " />
+        <rich-text
+          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+          "
+        />
       </section-wrapper>
     </div>
   </main>
