@@ -8,7 +8,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from '../gql/queries/ServiceOrResourceOrWorkshopDetail.gql'
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData(`services-resources-detail-${route.params.slug}`, async () => {
@@ -180,11 +180,9 @@ const parsedAssociatedSeries = computed(() => {
   })
 })
 
-const { $getHeaders } = useNuxtApp()
-
 onMounted(() => {
   // Call the plugin method to get the .section-header2 and .section-header3 elements
-  h2Array = $getHeaders.getHeadersMethod()
+  h2Array.value = $getHeaders.getHeadersMethod()
 })
 
 </script>
@@ -205,9 +203,9 @@ onMounted(() => {
       <banner-text
         v-if="
           !page.serviceOrResource.heroImage ||
-            page.serviceOrResource.heroImage.length == 0 ||
-            !page.serviceOrResource.heroImage[0].image ||
-            page.serviceOrResource.heroImage[0].image.length == 0
+          page.serviceOrResource.heroImage.length == 0 ||
+          !page.serviceOrResource.heroImage[0].image ||
+          page.serviceOrResource.heroImage[0].image.length == 0
         "
         class="banner-text"
         :category="page.serviceOrResource.type"
@@ -220,9 +218,9 @@ onMounted(() => {
       <section-wrapper
         v-if="
           page.serviceOrResource.heroImage &&
-            page.serviceOrResource.heroImage.length == 1 &&
-            page.serviceOrResource.heroImage[0].image &&
-            page.serviceOrResource.heroImage[0].image.length > 0
+          page.serviceOrResource.heroImage.length == 1 &&
+          page.serviceOrResource.heroImage[0].image &&
+          page.serviceOrResource.heroImage[0].image.length > 0
         "
         class="section-banner"
       >
@@ -297,9 +295,9 @@ onMounted(() => {
       <banner-text
         v-if="
           page.workshopSeries &&
-            (page.workshopSeries.image.length == 0 ||
-              !page.workshopSeries.image[0].image ||
-              page.workshopSeries.image[0].image.length == 0)
+          (page.workshopSeries.image.length == 0 ||
+            !page.workshopSeries.image[0].image ||
+            page.workshopSeries.image[0].image.length == 0)
         "
         :title="page.workshopSeries.title"
         :text="page.workshopSeries.summary"
@@ -312,9 +310,9 @@ onMounted(() => {
       <section-wrapper
         v-if="
           page.workshopSeries.image &&
-            page.workshopSeries.image.length == 1 &&
-            page.workshopSeries.image[0].image &&
-            page.workshopSeries.image[0].image.length > 0
+          page.workshopSeries.image.length == 1 &&
+          page.workshopSeries.image[0].image &&
+          page.workshopSeries.image[0].image.length > 0
         "
         class="section-banner"
       >

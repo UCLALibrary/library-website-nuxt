@@ -7,7 +7,7 @@ import _get from 'lodash/get'
 // GQL
 import GENERAL_CONTENT_DETAIL from '../gql/queries/GeneralContentDetail.gql'
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 
 const route = useRoute()
 
@@ -69,11 +69,9 @@ const parsedButtonTo = computed(() => {
   return _get(page.value, 'button[0].buttonUrl', '')
 })
 
-const { $getHeaders } = useNuxtApp()
-
 onMounted(() => {
   // Call the plugin method to get the .section-header2 and .section-header3 elements
-  h2Array = $getHeaders.getHeadersMethod()
+  h2Array.value = $getHeaders.getHeadersMethod()
 })
 </script>
 

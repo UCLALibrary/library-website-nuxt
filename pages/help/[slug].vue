@@ -8,7 +8,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import HELP_TOPIC_DETAIL from '../gql/queries/HelpTopicDetail.gql'
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData(`help-topic-detail-${route.params.slug}`, async () => {
@@ -70,11 +70,9 @@ const parsedHelpTopicBlocks = computed(() => {
   })
 })
 
-const { $getHeaders } = useNuxtApp()
-
 onMounted(() => {
   // Call plugin method to get the .section-header2 and .section-header3 elements
-  h2Array = $getHeaders.getHeadersMethod()
+  h2Array.value = $getHeaders.getHeadersMethod()
 })
 
 </script>

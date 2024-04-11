@@ -8,7 +8,7 @@ import removeTags from "../utils/removeTags"
 // GQL
 import POLICY_DETAIL from "../gql/queries/PolicyDetail.gql"
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
 const config = useRuntimeConfig()
 
@@ -32,7 +32,6 @@ const { data, error } = await useAsyncData(`policy-detail-${route.params.slug}`,
     })
 
     // if (data) await $elasticsearchplugin.index(data.entry, route.params.slug)
-    console.log('expected async data: ', data)
     return data
   }
 })
@@ -53,8 +52,6 @@ if (!data.value.entry) {
 const page = ref(_get(data.value, 'entry', {}))
 let h2Array = ref([]) // anchor tags
 
-console.log('expected page data: ', page.value)
-
 useHead({
   title: page.value ? page.value.title : '... loading',
   meta: [
@@ -66,13 +63,9 @@ useHead({
   ]
 })
 
-const { $getHeaders } = useNuxtApp()
-
 onMounted(() => {
-  console.log("In mounted client side")
   // Call the plugin method to get the .section-header2 and .section-header3 elements
-  h2Array = $getHeaders.getHeadersMethod()
-  console.log('headers: ', h2Array)
+  h2Array.value = $getHeaders.getHeadersMethod()
 })
 
 </script>

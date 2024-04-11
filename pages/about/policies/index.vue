@@ -8,7 +8,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import POLICIES_LIST from '../gql/queries/PoliciesList.gql'
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 
 const route = useRoute()
 
@@ -23,6 +23,7 @@ const { data } = await useAsyncData('policy-list', async () => {
 const page = ref(_get(data.value, 'entry', {}))
 const policyBlock = ref(_get(data.value, 'entry.policyBlock', {}))
 let h2Array = ref([]) // anchor tags
+console.log('headers1c: ', h2Array.value)
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -49,11 +50,9 @@ const parsedPolicyBlocks = computed(() => {
   })
 })
 
-const { $getHeaders } = useNuxtApp()
-
-onMounted(() => {
+onMounted(async () => {
   // Call the plugin to get the .section-header2 and .section-header3 elements
-  h2Array = $getHeaders.getHeadersMethod()
+  h2Array.value = $getHeaders.getHeadersMethod()
 })
 </script>
 
