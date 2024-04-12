@@ -8,7 +8,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import POLICY_DETAIL from '../gql/queries/PolicyDetail.gql'
 
-const { $graphql, $getHeaders } = useNuxtApp()
+const { $graphql, $getHeaders, $elasticsearchplugin } = useNuxtApp()
 const route = useRoute()
 const config = useRuntimeConfig()
 
@@ -34,6 +34,10 @@ const { data, error } = await useAsyncData(`policy-detail-${route.params.slug}`,
     return data
   }
 })
+
+// if (data.value) {
+//   await $elasticsearchplugin.index(data.value.entry, route.params.slug)
+// }
 
 if (error.value) {
   throw createError({
