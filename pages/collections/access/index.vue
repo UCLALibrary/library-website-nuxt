@@ -8,7 +8,7 @@ import ACCESS_COLLECTIONS from '../gql/queries/CollectionsAccessList.gql'
 
 // UTILITIES & PLUGINS
 import config from '../utils/searchConfig'
-const { $graphql, $dataApi, $fetch } = useNuxtApp()
+const { $graphql } = useNuxtApp() // TODO $dataApi, $fetch
 
 // ROUTING
 const route = useRoute()
@@ -71,36 +71,36 @@ const searchGenericQuery = ref({
 })
 
 // FETCH
-const fetchNew = async () => {
-  hits.value = []
-  if (route.query.q && route.query.q !== '') {
-    const results = await $dataApi.keywordSearchWithFilters(
-      route.query.q || '*',
-      config.accessCollections.searchFields,
-      'searchType:accessCollection',
-      [],
-      config.accessCollections.sortField,
-      config.accessCollections.orderBy,
-      config.accessCollections.resultFields,
-      []
-    )
-    hits.value = []
-    if (results && results.hits && results.hits.total.value > 0) {
-      hits.value = results.hits.hits
-      noResultsFound.value = false
-    } else {
-      hits.value = []
-      noResultsFound.value = true
-    }
-    searchGenericQuery.value = {
-      queryText: route.query.q || '',
-    }
-  } else {
-    hits.value = []
-    noResultsFound.value = false
-    searchGenericQuery.value = { queryText: '' }
-  }
-}
+// const fetchNew = async () => {
+//   hits.value = []
+//   if (route.query.q && route.query.q !== '') {
+//     const results = await $dataApi.keywordSearchWithFilters(
+//       route.query.q || '*',
+//       config.accessCollections.searchFields,
+//       'searchType:accessCollection',
+//       [],
+//       config.accessCollections.sortField,
+//       config.accessCollections.orderBy,
+//       config.accessCollections.resultFields,
+//       []
+//     )
+//     hits.value = []
+//     if (results && results.hits && results.hits.total.value > 0) {
+//       hits.value = results.hits.hits
+//       noResultsFound.value = false
+//     } else {
+//       hits.value = []
+//       noResultsFound.value = true
+//     }
+//     searchGenericQuery.value = {
+//       queryText: route.query.q || '',
+//     }
+//   } else {
+//     hits.value = []
+//     noResultsFound.value = false
+//     searchGenericQuery.value = { queryText: '' }
+//   }
+// }
 
 // HEAD
 useHead({
@@ -141,13 +141,13 @@ const parseHitsResults = computed(() => {
 })
 
 // WATCHERS - TODO: after elastic search ready, implement these
-watch(() => route.query, async (newValue) => {
-  await $fetch(newValue)
-})
-watch(() => route.query.q, (newValue) => {
-  // console.log("watching queryTEXT: " + newValue)
-  if (newValue === '') hits.value = []
-})
+// watch(() => route.query, async (newValue) => {
+//   await $fetch(newValue)
+// })
+// watch(() => route.query.q, (newValue) => {
+//   // console.log("watching queryTEXT: " + newValue)
+//   if (newValue === '') hits.value = []
+// })
 
 // METHODS
 function parseHits(hits) {
