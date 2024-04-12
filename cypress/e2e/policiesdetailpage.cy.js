@@ -9,8 +9,8 @@ describe('Policy Detail page', () => {
 
   context("When there isn't an entry in craft", () => {
     it('Raises a 404 error', () => {
-      // TODO COMMENT THIS LINE later if static page 404 starts working 
-      cy.request({url: "/about/policies/no_entry", failOnStatusCode: false}).its("status").should("equal", 404)
+      // TODO COMMENT THIS LINE later if static page 404 starts working
+      cy.request({ url: '/about/policies/no_entry', failOnStatusCode: false }).its('status').should('equal', 404)
       /*
         These tests will run once our 404 page starts working in static mode
         cy.visit("/about/policies/no_entry")

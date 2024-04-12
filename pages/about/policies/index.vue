@@ -23,7 +23,6 @@ const { data } = await useAsyncData('policy-list', async () => {
 const page = ref(_get(data.value, 'entry', {}))
 const policyBlock = ref(_get(data.value, 'entry.policyBlock', {}))
 const h2Array = ref([]) // anchor tags
-console.log('headers1c: ', h2Array.value)
 
 useHead({
   title: page.value ? page.value.title : '... loading',

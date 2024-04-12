@@ -12,7 +12,7 @@ import ARTICLE_LIST from '../gql/queries/ArticleList.gql'
 // import getListingFilters from '../utils/getListingFilters'
 // import config from '../utils/searchConfig'
 // import queryFilterHasValues from '../utils/queryFilterHasValues'
-console.log('In news listing page')
+// console.log('In news listing page')
 
 const { $graphql } = useNuxtApp()
 const { data, error } = await useAsyncData('news', async () => {
@@ -21,14 +21,13 @@ const { data, error } = await useAsyncData('news', async () => {
 }
 )
 
-console.log('In news listing page data.value: ', data.value.entry.title)
+// console.log('In news listing page data.value: ', data.value.entry.title)
 // TODO: Enable when Elastic Search is implemented
 // const route = useRoute()
 
 // Data
 const page = ref(_get(data.value, 'entry', {}))
 const news = ref(_get(data.value, 'entries', []))
-// console.log(news)
 const hits = ref([])
 const title = ref('')
 const noResultsFound = ref(false)

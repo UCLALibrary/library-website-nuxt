@@ -31,7 +31,6 @@ if (error.value) {
   })
 }
 if (!data.value.entry) {
-  console.log('no data throw impact report error')
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found'
@@ -168,10 +167,7 @@ const timelineSortedBySubtitle = computed(() => {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-impact-report {
   .meta {
     padding: 0 var(--unit-gutter);
