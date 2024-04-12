@@ -1,22 +1,11 @@
 export default defineNuxtPlugin((nuxtApp) => { //
-  const route = useRoute() //
-
-  const config = useRuntimeConfig() //
-
-  // craft cms graphql link
-  /* const httpLink = new HttpLink({
-    uri: config.public.craftGraphqlURL,
-    headers: {
-      'X-Craft-Token': route.query.token
-    }
-  })
-  // Cache implementation
-  const cache = new InMemoryCache()
-
-  // Create the apollo client
-  const apolloClient = new ApolloClient({
-    link: httpLink,
-    cache
-  })
-  nuxtApp._apolloClients.default = apolloClient */
+  // const { enabled, state } = usePreviewMode()
+  // console.log("Is preview enabled?", enabled)
+  const route = useRoute()
+  const { $graphql } = useNuxtApp()
+  // If `token` is set in query parameters, pass it along to Craft API endpoint
+  console.log("in craftjs plugin : token= ", route.query.token)
+  console.log("In craft.js "+ JSON.stringify(route.query))
+  $graphql.default.setHeader( 'X-Craft-Token', route.query.token )
+  
 })
