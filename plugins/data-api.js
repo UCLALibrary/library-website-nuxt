@@ -241,7 +241,8 @@
 //     const data = await response.json()
 //     return data.aggregations
 // }
-const config = useRuntimeConfig()
+
+// const config = useRuntimeConfig() // TODO 
 
 async function keywordSearchWithFilters(
   keyword = '*:*',
@@ -256,6 +257,7 @@ async function keywordSearchWithFilters(
 ) {
   // var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
   console.log('In data api keywordsearchwithfilters')
+  const config = useRuntimeConfig()
   // console.log($config.esReadKey)
   // console.log($config.esURL)
   if (
@@ -290,12 +292,11 @@ async function keywordSearchWithFilters(
   console.log('this is the query: ' + testquery)
 
   // need to know fields to boost on for listing pages when searching like title etc
-
   const responseAlias = await fetch(
-            `${config.esURL}/_alias/${config.esIndex}`,
+            `${useRuntimeConfig().esURL}/_alias/${useRuntimeConfig().esIndex}`,
             {
               headers: {
-                Authorization: `ApiKey ${config.esReadKey}`,
+                Authorization: `ApiKey ${useRuntimeConfig().esReadKey}`,
                 'Content-Type': 'application/json',
               },
             }
@@ -306,10 +307,10 @@ async function keywordSearchWithFilters(
   const libraryIndex = !Object.keys(dataAlias)[0].includes('libguides') ? Object.keys(dataAlias)[0] : Object.keys(dataAlias)[1]
 
   const response = await fetch(
-            `${config.esURL}/${libraryIndex}/_search`, // replace alias with indexname
+            `${useRuntimeConfig().esURL}/${libraryIndex}/_search`, // replace alias with indexname
             {
               headers: {
-                Authorization: `ApiKey ${config.esReadKey}`,
+                Authorization: `ApiKey ${useRuntimeConfig().esReadKey}`,
                 'Content-Type': 'application/json',
               },
               method: 'POST',
