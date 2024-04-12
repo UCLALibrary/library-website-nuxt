@@ -242,7 +242,7 @@
 //     return data.aggregations
 // }
 
-// const config = useRuntimeConfig() // TODO 
+// const config = useRuntimeConfig() // TODO
 
 async function keywordSearchWithFilters(
   keyword = '*:*',
