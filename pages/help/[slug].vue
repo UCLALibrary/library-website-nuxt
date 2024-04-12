@@ -10,11 +10,14 @@ import HELP_TOPIC_DETAIL from '../gql/queries/HelpTopicDetail.gql'
 
 const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
+// console.log("$graphql.default", $graphql.default)
+
 
 const { data, error } = await useAsyncData(`help-topic-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
     slug: route.params.slug,
   })
+  console.log("preview useasycdata $graphql called again", data.entry.title)
 
   if (data.entry) {
     data.entry.serviceOrResourceType = 'help topic'
@@ -22,6 +25,7 @@ const { data, error } = await useAsyncData(`help-topic-detail-${route.params.slu
 
   return data
 })
+
 
 if (error.value) {
   throw createError({
@@ -32,6 +36,13 @@ if (error.value) {
 if (!data.value.entry) {
   error({ statusCode: 404, message: 'Page not found' })
 }
+
+const { enabled, state } = usePreviewMode({
+  getState: () => {
+    return { data }
+  },
+})
+console.log("process.server", process.server)
 
 if (route.params.slug !== undefined && data.value.entry.slug && process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
@@ -53,6 +64,7 @@ useHead({
 })
 
 const parsedHelpTopicBlocks = computed(() => {
+  console.log("page Help topic computed called when preview=true", page.value.title)
   return page.value.helpTopicBlocks.map((obj) => {
     return {
       ...obj,
@@ -86,12 +98,21 @@ onMounted(() => {
       :title="page.title"
       :text="page.text"
     />
+    <div> test if title gets updated
+      <br>
+      Is preview enabled {{ enabled }}
+      <pre>{{ page.title }}</pre>
+      <pre>{{ page.richText }}</pre>
+    </div>
 
     <page-anchor
       v-if="h2Array.length >= 3"
       :section-titles="h2Array"
     />
-
+    <div v-if="enabled">
+      Preview mode set and this value is updated
+      <pre>{{ page.richText }}</pre>
+    </div>
     <section-wrapper v-if="page.richText">
       <rich-text :rich-text-content="page.richText" />
     </section-wrapper>
@@ -114,7 +135,7 @@ onMounted(() => {
         />
       </section-wrapper>
     </div>
-
+    <pre>{{ page.richText }}</pre>
     <flexible-blocks
       class="content"
       :blocks="page.blocks"
