@@ -6,9 +6,9 @@ import removeTags from '../utils/removeTags'
 // GQL
 import ACCESS_COLLECTIONS from '../gql/queries/CollectionsAccessList.gql'
 
-// UTILITIES
+// UTILITIES & PLUGINS
 import config from '../utils/searchConfig'
-const { $graphql } = useNuxtApp()
+const { $graphql, $dataApi } = useNuxtApp()
 
 // ROUTING
 const route = useRoute()
@@ -18,7 +18,7 @@ definePageMeta({
   alias: ['/listing-collections/access'],
 })
 
-// ASYNC DATA
+// ASYNC DATA // collections-access
 const { data: page, error } = await useAsyncData('access-collections', async () => {
   const data = await $graphql.default.request(ACCESS_COLLECTIONS)
   console.log('data in fn', data)
@@ -59,50 +59,48 @@ if (error.value) {
     statusCode: 404, statusMessage: 'Page not found.', fatal: true
   })
 }
+// TODO do we still need these for elastic search?
+// fetchOnServer: false,
+// fetchKey: "collections-access",
 
 // DATA VARS
-// const page = ref(_get(data, "entry", {})) // todo check if this is correct, data = pagreAsyncData?
 const noResultsFound = ref(false)
 const hits = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
 })
 
-// TODO after elastic search ready, implement these
-// fetchOnServer: false,
-// fetchKey: "collections-access",
-
 // FETCH
-//   async fetch() {
-//     this.hits = []
-//     if (this.$route.query.q && this.$route.query.q !== "") {
-//       const results = await this.$dataApi.keywordSearchWithFilters(
-//         this.$route.query.q || "*",
-//         config.accessCollections.searchFields,
-//         "searchType:accessCollection",
-//         [],
-//         config.accessCollections.sortField,
-//         config.accessCollections.orderBy,
-//         config.accessCollections.resultFields,
-//         []
-//       )
-//       this.hits = []
-//       if (results && results.hits && results.hits.total.value > 0) {
-//         this.hits = results.hits.hits
-//         this.noResultsFound = false
-//       } else {
-//         this.hits = []
-//         this.noResultsFound = true
-//       }
-//       this.searchGenericQuery = {
-//         queryText: this.$route.query.q || "",
-//       }
-//     } else {
-//       this.hits = []
-//       this.noResultsFound = false
-//       this.searchGenericQuery = { queryText: "" }
-//     }
-//   },
+const fetchNew = async () => {
+  hits.value = []
+  if (route.query.q && route.query.q !== "") {
+    const results = await $dataApi.keywordSearchWithFilters(
+      route.query.q || "*",
+      config.accessCollections.searchFields,
+      "searchType:accessCollection",
+      [],
+      config.accessCollections.sortField,
+      config.accessCollections.orderBy,
+      config.accessCollections.resultFields,
+      []
+    )
+    hits.value = []
+    if (results && results.hits && results.hits.total.value > 0) {
+      hits.value = results.hits.hits
+      noResultsFound.value = false
+    } else {
+      hits.value = []
+      noResultsFound.value = true
+    }
+    searchGenericQuery.value = {
+      queryText: route.query.q || "",
+    }
+  } else {
+    hits.value = []
+    noResultsFound.value = false
+    searchGenericQuery.value = { queryText: "" }
+  }
+}
 
 // HEAD
 useHead({
@@ -143,13 +141,13 @@ const parseHitsResults = computed(() => {
 })
 
 // WATCHERS - TODO: after elastic search ready, implement these
-// watch(() => route.query, async (newValue) => {
-//   // await $fetch(newValue)
-// })
-// watch(() => route.query.q, (newValue) => {
-//   console.log("watching queryTEXT: " + newValue)
-//   // if (newValue === "") this.hits = []
-// }
+watch(() => route.query, async (newValue) => {
+  // await $fetch(newValue)
+})
+watch(() => route.query.q, async (newValue) => {
+  // console.log("watching queryTEXT: " + newValue)
+  if (newValue === '') hits.value = []
+})
 
 // METHODS
 function parseHits(hits) {
@@ -170,7 +168,7 @@ function getSearchData(data) {
   route.push({
     path: '/collections/access',
     query: {
-      q: data.text,
+      q: data.value.entry.text,
     },
   })
 }
@@ -193,7 +191,8 @@ function getSearchData(data) {
       class="secondary"
     />
 
-    <!-- <search-generic
+    <!-- TODO awaiting SearchGeneric.vue refactor
+      <search-generic
       search-type="default"
       class="generic-search"
       :search-generic-query="searchGenericQuery"
@@ -205,10 +204,8 @@ function getSearchData(data) {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper
-      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+        ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
