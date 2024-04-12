@@ -241,7 +241,6 @@
 //     const data = await response.json()
 //     return data.aggregations
 // }
-
 const config = useRuntimeConfig()
 
 async function keywordSearchWithFilters(

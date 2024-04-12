@@ -8,7 +8,7 @@ import ACCESS_COLLECTIONS from '../gql/queries/CollectionsAccessList.gql'
 
 // UTILITIES & PLUGINS
 import config from '../utils/searchConfig'
-const { $graphql, $dataApi } = useNuxtApp()
+const { $graphql, $dataApi, $fetch } = useNuxtApp()
 
 // ROUTING
 const route = useRoute()
@@ -142,9 +142,9 @@ const parseHitsResults = computed(() => {
 
 // WATCHERS - TODO: after elastic search ready, implement these
 watch(() => route.query, async (newValue) => {
-  // await $fetch(newValue)
+  await $fetch(newValue)
 })
-watch(() => route.query.q, async (newValue) => {
+watch(() => route.query.q, (newValue) => {
   // console.log("watching queryTEXT: " + newValue)
   if (newValue === '') hits.value = []
 })
@@ -204,10 +204,8 @@ function getSearchData(data) {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper
-      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+        ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
