@@ -30,14 +30,13 @@ const { data, error } = await useAsyncData(`policy-detail-${route.params.slug}`,
       slug: route.params.slug,
     })
 
-    // if (data) await $elasticsearchplugin.index(data.entry, route.params.slug)
     return data
   }
 })
 
-// if (data.value) {
-//   await $elasticsearchplugin.index(data.value.entry, route.params.slug)
-// }
+if (data.value.entry.slug && process.server) {
+  await $elasticsearchplugin.index(data.value.entry, route.params.slug)
+}
 
 if (error.value) {
   throw createError({
