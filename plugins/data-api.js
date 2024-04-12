@@ -416,7 +416,7 @@ async function keywordSearchWithFilters(
   const libraryIndex = !Object.keys(dataAlias)[0].includes('libguides') ? Object.keys(dataAlias)[0] : Object.keys(dataAlias)[1]
 
   const response = await fetch(
-            `${config}.esURL}/${libraryIndex}/_search`, // replace alias with indexname
+            `${config.esURL}/${libraryIndex}/_search`, // replace alias with indexname
             {
               headers: {
                 Authorization: `ApiKey ${config.esReadKey}`,
