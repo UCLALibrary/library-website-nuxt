@@ -73,11 +73,11 @@ const searchGenericQuery = ref({
 // FETCH
 const fetchNew = async () => {
   hits.value = []
-  if (route.query.q && route.query.q !== "") {
+  if (route.query.q && route.query.q !== '') {
     const results = await $dataApi.keywordSearchWithFilters(
-      route.query.q || "*",
+      route.query.q || '*',
       config.accessCollections.searchFields,
-      "searchType:accessCollection",
+      'searchType:accessCollection',
       [],
       config.accessCollections.sortField,
       config.accessCollections.orderBy,
@@ -93,12 +93,12 @@ const fetchNew = async () => {
       noResultsFound.value = true
     }
     searchGenericQuery.value = {
-      queryText: route.query.q || "",
+      queryText: route.query.q || '',
     }
   } else {
     hits.value = []
     noResultsFound.value = false
-    searchGenericQuery.value = { queryText: "" }
+    searchGenericQuery.value = { queryText: '' }
   }
 }
 
@@ -204,8 +204,10 @@ function getSearchData(data) {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-        ">
+    <section-wrapper
+      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+      "
+    >
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"

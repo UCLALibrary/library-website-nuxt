@@ -165,115 +165,6 @@
 //     return boolQuery
 // }
 
-// async function keywordSearchWithFilters(
-//     keyword = "*:*",
-//     searchFields,
-//     sectionHandle,
-//     filters,
-//     sort,
-//     orderBy,
-//     source = ["*"],
-//     aggFields = [],
-//     extraFilters = [],
-// ) {
-//     //var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
-//     console.log("In data api keywordsearchwithfilters")
-//     // console.log($config.esReadKey)
-//     // console.log($config.esURL)
-//     if (
-//         $config.esReadKey === "" ||
-//         $config.esURL === "" ||
-//         $config.esIndex === ""
-//     )
-//         return
-//     console.log("keyword:" + keyword)
-//     console.log("filters:" + filters)
-//     console.log("sort:" + sort)
-
-//     let testquery = JSON.stringify({
-//         _source: [...source],
-//         query: {
-//             bool: {
-//                 must: [
-//                     {
-//                         query_string: {
-//                             query: keyword,
-//                             fields: [...searchFields],
-//                             fuzziness: "auto",
-//                         },
-//                     },
-//                     ...parseSectionHandle(sectionHandle),
-//                     ...parseFilterQuery(filters),
-//                 ],
-//             },
-//         },
-//         ...parseSort(sort),
-//     })
-//     console.log("this is the query: " + testquery)
-
-//     // need to know fields to boost on for listing pages when searching like title etc
-
-//     const responseAlias = await fetch(
-//         `${$config.esURL}/_alias/${$config.esIndex}`,
-//         {
-//             headers: {
-//                 Authorization: `ApiKey ${$config.esReadKey}`,
-//                 "Content-Type": "application/json",
-//             },
-//         }
-//     )
-//     const dataAlias = await responseAlias.json()
-
-//     // use omputed values for object keys: indices_boost: [ { [libraryIndex]: 3.0 },{ [libguideIndex]: 1.3 }],
-//     const libraryIndex = !Object.keys(dataAlias)[0].includes('libguides') ? Object.keys(dataAlias)[0] : Object.keys(dataAlias)[1]
-
-//     const response = await fetch(
-//         `${$config.esURL}/${libraryIndex}/_search`, // replace alias with indexname
-//         {
-//             headers: {
-//                 Authorization: `ApiKey ${$config.esReadKey}`,
-//                 "Content-Type": "application/json",
-//             },
-//             method: "POST",
-//             body: JSON.stringify({
-//                 size: "1000",
-//                 _source: [...source],
-//                 query: {
-//                     bool: {
-//                         must: [
-//                             {
-//                                 query_string: {
-//                                     query: keyword,
-//                                     fields: [...searchFields],
-//                                     fuzziness: "auto",
-//                                 },
-//                             },
-//                             ...parseSectionHandle(sectionHandle),
-//                             ...parseFilterQuery(filters),
-//                             ...extraFilters,
-//                         ],
-//                     },
-//                 },
-//                 ...parseSort(sort, orderBy),
-//                 aggs: {
-//                     ...parseFieldNames(aggFields),
-//                 },
-//             }),
-//         }
-//     )
-//     const data = await response.json()
-//     return data
-// }
-
-// DONE
-// inject("dataApi", {
-//     getMapping,
-//     siteSearch,
-//     keywordSearchWithFilters,
-//     getAggregations,
-//     getAggregationsForSiteSearch
-// })
-
 // TODO
 // async function getMapping() {
 // if (
@@ -525,7 +416,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     provide: {
       dataApi: {
         // getMapping,
-        // siteSearch, 
+        // siteSearch,
         keywordSearchWithFilters,
         // getAggregations,
         // getAggregationsForSiteSearch
