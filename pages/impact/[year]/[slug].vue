@@ -27,7 +27,8 @@ if (!data.value.entry) {
   console.log('no data throw impact report main stry error')
   throw createError({
     statusCode: 404,
-    statusMessage: 'Page Not Found'
+    statusMessage: 'Page Not Found',
+    fatal: true
   })
 }
 
