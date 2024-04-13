@@ -24,6 +24,7 @@ const { data, error } = await useAsyncData(`help-topic-detail-${route.params.slu
   return data
 })
 
+
 if (error.value) {
   throw createError({
     statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
@@ -33,6 +34,7 @@ if (error.value) {
 if (!data.value.entry) {
   error({ statusCode: 404, message: 'Page not found', fatal: true })
 }
+
 
 if (route.params.slug !== undefined && data.value.entry.slug && process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
