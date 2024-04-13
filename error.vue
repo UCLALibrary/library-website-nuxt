@@ -1,12 +1,10 @@
-<script
-  setup
-  lang="ts"
->
+<script setup lang="ts">
 import type { NuxtError } from '#app'
 
 const props = defineProps({
   error: Object as () => NuxtError
 })
+const isDevelopment = computed(() => process.env.NODE_ENV === 'development') 
 </script>
 
 <template>
@@ -18,13 +16,14 @@ const props = defineProps({
       <p class="error">
         404
       </p>
-      <pre>
+      <pre v-if="isDevelopment">
         {{ error?.message }}
         {{ error }}
       </pre>
       <divider-way-finder />
 
-      <rich-text class="error-text">
+      <rich-text class="
+        error-text">
         <h1
           v-if="error?.statusCode === 404"
           class="error-title"
@@ -62,10 +61,7 @@ const props = defineProps({
   </NuxtLayout>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-error {
   padding: var(--space-3xl) var(--unit-gutter);
 

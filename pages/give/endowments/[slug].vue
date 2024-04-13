@@ -28,7 +28,8 @@ if (!data.value.entry) {
   // console.log('no data')
   throw createError({
     statusCode: 404,
-    statusMessage: 'Page Not Found'
+    statusMessage: 'Page Not Found',
+    fatal: true
   })
 }
 
@@ -147,12 +148,12 @@ function computeDonors(donors) {
         page.alternativeName[0] &&
         page.alternativeName[0].fullName) ||
         ''
-      "
+        "
       :language="(page.alternativeName &&
         page.alternativeName[0] &&
         page.alternativeName[0].languageAltName) ||
         ''
-      "
+        "
       button-text="Give Now"
       :to="page.to"
     />

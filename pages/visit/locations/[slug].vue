@@ -30,7 +30,8 @@ if (!data.value.entry) {
   // console.log('no data')
   throw createError({
     statusCode: 404,
-    statusMessage: 'Page Not Found'
+    statusMessage: 'Page Not Found',
+    fatal: true
   })
 }
 if (data.value.entry.slug && process.server) {

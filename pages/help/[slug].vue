@@ -10,8 +10,6 @@ import HELP_TOPIC_DETAIL from '../gql/queries/HelpTopicDetail.gql'
 
 const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
-// console.log("$graphql.default", $graphql.default)
-
 
 const { data, error } = await useAsyncData(`help-topic-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
@@ -34,15 +32,9 @@ if (error.value) {
 }
 
 if (!data.value.entry) {
-  error({ statusCode: 404, message: 'Page not found' })
+  error({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-const { enabled, state } = usePreviewMode({
-  getState: () => {
-    return { data }
-  },
-})
-console.log("process.server", process.server)
 
 if (route.params.slug !== undefined && data.value.entry.slug && process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
@@ -50,6 +42,12 @@ if (route.params.slug !== undefined && data.value.entry.slug && process.server) 
 }
 
 const page = ref(_get(data.value, 'entry', {}))
+// Have to add a watcher for data when in preview mode as, page ref was not getting updated after the data was refetched from craft
+watch(data, (newVal, oldVal) => {
+  console.log("In watch preview enabled, newVal, oldVal", newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+})
+
 const h2Array = ref([]) // anchor tags
 
 useHead({
@@ -98,21 +96,12 @@ onMounted(() => {
       :title="page.title"
       :text="page.text"
     />
-    <div> test if title gets updated
-      <br>
-      Is preview enabled {{ enabled }}
-      <pre>{{ page.title }}</pre>
-      <pre>{{ page.richText }}</pre>
-    </div>
 
     <page-anchor
       v-if="h2Array.length >= 3"
       :section-titles="h2Array"
     />
-    <div v-if="enabled">
-      Preview mode set and this value is updated
-      <pre>{{ page.richText }}</pre>
-    </div>
+
     <section-wrapper v-if="page.richText">
       <rich-text :rich-text-content="page.richText" />
     </section-wrapper>
@@ -135,7 +124,7 @@ onMounted(() => {
         />
       </section-wrapper>
     </div>
-    <pre>{{ page.richText }}</pre>
+
     <flexible-blocks
       class="content"
       :blocks="page.blocks"
