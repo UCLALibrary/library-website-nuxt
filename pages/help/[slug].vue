@@ -8,7 +8,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import HELP_TOPIC_DETAIL from '../gql/queries/HelpTopicDetail.gql'
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData(`help-topic-detail-${route.params.slug}`, async () => {
@@ -39,7 +39,7 @@ if (route.params.slug !== undefined && data.value.entry.slug && process.server) 
 }
 
 const page = ref(_get(data.value, 'entry', {}))
-let h2Array = ref([]) // anchor tags
+const h2Array = ref([]) // anchor tags
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -70,11 +70,9 @@ const parsedHelpTopicBlocks = computed(() => {
   })
 })
 
-const { $getHeaders } = useNuxtApp()
-
 onMounted(() => {
   // Call plugin method to get the .section-header2 and .section-header3 elements
-  h2Array = $getHeaders.getHeadersMethod()
+  h2Array.value = $getHeaders.getHeadersMethod()
 })
 
 </script>
@@ -100,7 +98,7 @@ onMounted(() => {
 
     <div
       v-for="(block, index) in parsedHelpTopicBlocks"
-      :key="`HelpTopicBlocksKey${index}`"
+      :key="`HelpTopicBlocksKey-${block}-${index}`"
     >
       <section-wrapper
         :section-title="block.sectionTitle"

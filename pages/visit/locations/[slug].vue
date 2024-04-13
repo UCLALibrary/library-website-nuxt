@@ -8,7 +8,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import LOCATION_DETAIL from '../gql/queries/LocationDetail.gql'
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 
 const route = useRoute()
 
@@ -43,7 +43,7 @@ const associatedArticles = ref(_get(data.value, 'associatedArticles', {}))
 const associatedExhibitions = ref(_get(data.value, 'associatedExhibitions', {}))
 const associatedEndowments = ref(_get(data.value, 'associatedEndowments', {}))
 const associatedEvents = ref(_get(data.value, 'associatedEvents', {}))
-let h2Array = ref([]) // anchor tags
+const h2Array = ref([]) // anchor tags
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -174,11 +174,9 @@ const mergeSortEventsExhibitions = computed(() => {
   // )
 })
 
-const { $getHeaders } = useNuxtApp()
-
 onMounted(() => {
   // Call the plugin method to get the .section-header2 and .section-header3 elements
-  h2Array = $getHeaders.getHeadersMethod()
+  h2Array.value = $getHeaders.getHeadersMethod()
 })
 </script>
 
