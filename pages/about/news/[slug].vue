@@ -9,7 +9,7 @@ import ARTICLE_DETAIL from '../gql/queries/ArticleDetail.gql'
 
 const route = useRoute()
 
-console.log('In news Slug page')
+// console.log('In news Slug page')
 
 const { $graphql } = useNuxtApp()
 const { data, error } = await useAsyncData(`news/${route.params.slug}`, async () => {

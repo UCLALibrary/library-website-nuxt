@@ -8,7 +8,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from '../gql/queries/ServiceOrResourceOrWorkshopDetail.gql'
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData(`services-resources-detail-${route.params.slug}`, async () => {
@@ -58,7 +58,7 @@ if (process.server) {
 }
 
 const page = ref(data.value)
-let h2Array = ref([]) // anchor tags
+const h2Array = ref([]) // anchor tags
 
 if (page.value) {
   if (page.value.serviceOrResource) {
@@ -180,11 +180,9 @@ const parsedAssociatedSeries = computed(() => {
   })
 })
 
-const { $getHeaders } = useNuxtApp()
-
 onMounted(() => {
   // Call the plugin method to get the .section-header2 and .section-header3 elements
-  h2Array = $getHeaders.getHeadersMethod()
+  h2Array.value = $getHeaders.getHeadersMethod()
 })
 
 </script>

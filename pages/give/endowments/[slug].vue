@@ -187,7 +187,7 @@ function computeDonors(donors) {
               v-for="(
                 location, index
               ) in parsedAssociatedLocations"
-              :key="`AssociatedLocation${index}`"
+              :key="`AssociatedLocation-${location}-${index}`"
             >
               <icon-with-link
                 class="associated-locations"
