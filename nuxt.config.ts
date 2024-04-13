@@ -207,8 +207,8 @@ export default defineNuxtConfig({
     // includeNodeModules: true,
   },
 
-  /*experimental: {
+  /* experimental: {
     payloadExtraction: true,
     sharedPrerenderData: true
-  }*/
+  } */
 })

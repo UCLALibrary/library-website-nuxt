@@ -15,7 +15,7 @@ const { data, error } = await useAsyncData(`help-topic-detail-${route.params.slu
   const data = await $graphql.default.request(HELP_TOPIC_DETAIL, {
     slug: route.params.slug,
   })
-  console.log("preview useasycdata $graphql called again", data.entry.title)
+  console.log('preview useasycdata $graphql called again', data.entry.title)
 
   if (data.entry) {
     data.entry.serviceOrResourceType = 'help topic'
@@ -23,7 +23,6 @@ const { data, error } = await useAsyncData(`help-topic-detail-${route.params.slu
 
   return data
 })
-
 
 if (error.value) {
   throw createError({
@@ -35,7 +34,6 @@ if (!data.value.entry) {
   error({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-
 if (route.params.slug !== undefined && data.value.entry.slug && process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
   await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
@@ -44,7 +42,7 @@ if (route.params.slug !== undefined && data.value.entry.slug && process.server) 
 const page = ref(_get(data.value, 'entry', {}))
 // Have to add a watcher for data when in preview mode as, page ref was not getting updated after the data was refetched from craft
 watch(data, (newVal, oldVal) => {
-  console.log("In watch preview enabled, newVal, oldVal", newVal, oldVal)
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
 })
 
@@ -62,7 +60,7 @@ useHead({
 })
 
 const parsedHelpTopicBlocks = computed(() => {
-  console.log("page Help topic computed called when preview=true", page.value.title)
+  console.log('page Help topic computed called when preview=true', page.value.title)
   return page.value.helpTopicBlocks.map((obj) => {
     return {
       ...obj,

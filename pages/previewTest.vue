@@ -22,13 +22,10 @@ onMounted(() => {
     </NuxtLink>
 
     preview {{ state }}
-    <br />
+    <br>
     data1 {{ state.data1 }}
 
-
-
     data2 {{ state.data2 }}
-
 
     <button
       id="toggle-preview"

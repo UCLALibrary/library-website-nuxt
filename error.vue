@@ -4,7 +4,7 @@ import type { NuxtError } from '#app'
 const props = defineProps({
   error: Object as () => NuxtError
 })
-const isDevelopment = computed(() => process.env.NODE_ENV === 'development') 
+const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
 </script>
 
 <template>
@@ -22,8 +22,10 @@ const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
       </pre>
       <divider-way-finder />
 
-      <rich-text class="
-        error-text">
+      <rich-text
+        class="
+        error-text"
+      >
         <h1
           v-if="error?.statusCode === 404"
           class="error-title"
