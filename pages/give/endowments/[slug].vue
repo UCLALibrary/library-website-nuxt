@@ -41,6 +41,10 @@ if (data.value.entry.slug && process.server) {
 }
 
 const page = ref(_get(data.value, 'entry', {}))
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+})
 
 useHead({
   title: page.value ? page.value.title : '... loading',

@@ -34,10 +34,6 @@ const { data, error } = await useAsyncData(`policy-detail-${route.params.slug}`,
   }
 })
 
-if (data.value.entry.slug && process.server) {
-  await $elasticsearchplugin.index(data.value.entry, route.params.slug)
-}
-
 if (error.value) {
   throw createError({
     statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
@@ -50,8 +46,16 @@ if (!data.value.entry) {
     statusMessage: 'Page Not Found'
   })
 }
+if (data.value.entry.slug && process.server) {
+  await $elasticsearchplugin.index(data.value.entry, route.params.slug)
+}
 
 const page = ref(_get(data.value, 'entry', {}))
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+})
+
 const h2Array = ref([]) // anchor tags
 
 useHead({
