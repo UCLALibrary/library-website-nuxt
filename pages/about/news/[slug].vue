@@ -19,7 +19,7 @@ const { data, error } = await useAsyncData(`news/${route.params.slug}`, async ()
 
 if (error.value) {
   throw createError({
-    statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
   })
 }
 

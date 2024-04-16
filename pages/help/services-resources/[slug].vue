@@ -19,12 +19,12 @@ const { data, error } = await useAsyncData(`services-resources-detail-${route.pa
 
 if (error.value) {
   throw createError({
-    statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
   })
 }
 
 if (!data.value.serviceOrResource && !data.value.workshopSeries) {
-  error({ statusCode: 404, message: 'Page not found', fatal: true })
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
 if (process.server) {

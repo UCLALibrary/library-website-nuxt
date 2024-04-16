@@ -14,8 +14,11 @@ const { data: page, error } = await useAsyncData('impact-report-all-list', async
 })
 if (error.value) {
   throw createError({
-    statusCode: 404, statusMessage: 'Page not found.', fatal: true
+    ...error.value, statusMessage: 'Page not found.', fatal: true
   })
+}
+if (!page.value.entry) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
 useHead({

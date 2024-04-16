@@ -24,6 +24,10 @@ if (!data.value.entry) {
   })
 }
 const page = ref(_get(data.value, 'entry', {}))
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+})
 
 const parsedAdvancedSearchLink = computed(() => {
   // Last item in searchLinks

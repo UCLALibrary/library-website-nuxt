@@ -18,7 +18,7 @@ import config from '../utils/searchConfig'
 const { $graphql } = useNuxtApp()
 const route = useRoute()
 
-const { data } = await useAsyncData('services-resources-list', async () => {
+const { data, error } = await useAsyncData('services-resources-list', async () => {
   const data = await $graphql.default.request(SERVICE_RESOURCE_WORKSHOPSERIES_LIST)
   const helpTopicData = await $graphql.default.request(HELP_TOPIC_LIST)
 
@@ -38,10 +38,27 @@ const { data } = await useAsyncData('services-resources-list', async () => {
   return { data, helpTopicData }
 })
 
+if (error.value) {
+  throw createError({
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
+  })
+}
+
+if (!data.value.data && !data.value.helpTopicData) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
 const page = ref(data.value.data)
 const helpTopic = ref(data.value.helpTopicData)
-const noResultsFound = ref(false)
 const summaryData = ref(_get(data.value.data, 'entry', {}))
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal.data, 'entry', {})
+  helpTopic.value = ref(newVal.helpTopicData)
+  summaryData.value = ref(_get(newVal.data, 'entry', {}))
+})
+
+const noResultsFound = ref(false)
 const searchFilters = ref([])
 const hits = ref([])
 const searchGenericQuery = ref(

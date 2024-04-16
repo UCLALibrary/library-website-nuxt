@@ -20,7 +20,7 @@ const { data, error } = await useAsyncData(`endowment-detail-${route.params.slug
 
 if (error.value) {
   throw createError({
-    statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
   })
 }
 
@@ -36,7 +36,7 @@ if (!data.value.entry) {
 if (data.value.entry.slug && process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
   // console.log("elasticsearchplugin", $elasticsearchplugin, data.value.entry.slug)
-  data.value.entry.donorNames = parsedDonorsForES(data.entry.donors)
+  data.value.entry.donorNames = parsedDonorsForES(data.value.entry.donors)
   await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
 }
 
@@ -58,7 +58,7 @@ useHead({
 })
 
 const parsedDonors = computed(() => {
-  if (page.value.donors && page.value.donors.length > 0) {
+  if (page.value?.donors && page.value?.donors.length > 0) {
     return computeDonors(page.value.donors)
   } else {
     return ''

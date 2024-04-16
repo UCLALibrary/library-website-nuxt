@@ -14,10 +14,11 @@ const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
       class="page page-error"
     >
       <p class="error">
-        404
+        {{ error?.statusCode }}
       </p>
       <pre v-if="isDevelopment">
         {{ error?.message }}
+        <br>
         {{ error }}
       </pre>
       <divider-way-finder />

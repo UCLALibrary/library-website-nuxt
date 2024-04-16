@@ -20,7 +20,7 @@ const { data, error } = await useAsyncData(`impact-report-story-${route.params.s
 
 if (error.value) {
   throw createError({
-    statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
   })
 }
 if (!data.value.entry) {

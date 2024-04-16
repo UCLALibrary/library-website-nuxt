@@ -15,14 +15,32 @@ import ENDOWMENTS_LIST from '../gql/queries/EndowmentList.gql'
 const { $graphql } = useNuxtApp()
 const route = useRoute()
 
-const { data } = await useAsyncData('endowments-list', async () => {
+const { data, error } = await useAsyncData('endowments-list', async () => {
   const data = await $graphql.default.request(ENDOWMENTS_LIST, {})
   return { data }
 })
+if (error.value) {
+  throw createError({
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
+  })
+}
+// console.log('In endowment listing page data.value: ', JSON.stringify(data.value))
+
+if (!data.value.data.entry && !data.value.data.entries) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
 
 const page = ref(_get(data.value.data, 'entry', {}))
 const endowments = ref(_get(data.value.data, 'entries', []))
 const featuredEndowments = ref(_get(data.value.data, 'entry.featuredEndowments[0].featuredEndowments', []))
+
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal.data, 'entry', {})
+  endowments.value = _get(newVal.data, 'entries', [])
+  featuredEndowments.value = _get(newVal.data, 'entry.featuredEndowments[0].featuredEndowments', [])
+})
+
 const hits = ref([])
 const title = ref('')
 const noResultsFound = ref(false)

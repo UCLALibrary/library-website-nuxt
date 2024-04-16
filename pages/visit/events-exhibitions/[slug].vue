@@ -23,19 +23,19 @@ const { data, error } = await useAsyncData(`events-listing-detail-${route.params
 
 if (error.value) {
   throw createError({
-    statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
   })
 }
 
 if (!data.value.event && !data.value.eventSeries && !data.value.exhibition) {
-  error({ statusCode: 404, message: 'Page not found', fatal: true })
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
 if (process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
-  if (data.value.eventSeries) data.eventSeries.sectionHandle = 'eventSeries'
+  if (data.value.eventSeries) data.value.eventSeries.sectionHandle = 'eventSeries'
   if (data.value.event)
-    data.value.event.locations = data.event.associatedLocations
+    data.value.event.locations = data.value.event.associatedLocations
   if (data.value.eventSeries)
     data.value.eventSeries.locations =
       data.value.eventSeries.associatedLocations
@@ -217,7 +217,7 @@ const upcomingEvents = computed(() => {
       category: obj.category.length
         ? obj.category[0].title
         : null,
-      locations: obj.associatedLocations[0] != null
+      locations: obj.associatedLocations && obj.associatedLocations.length > 0
         ? obj.associatedLocations
         : obj.eventLocation,
     }
@@ -322,12 +322,6 @@ watch(formData, (newVal, oldVal) => {
 })
 
 onMounted(async () => {
-  // const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
-  // //console.log(
-  //     "in mounted is registration required :" +
-  //         this.page.event.requiresRegistration
-  // )
-  // libcal events registration logic
   if (
     page.value.event &&
     page.value.event.requiresRegistration === '1' &&
@@ -337,8 +331,8 @@ onMounted(async () => {
     const formDataArray = await $scrapeApi.scrapeFormId(
       page.value.event.libcalId
     ) // please check the fieldname in the query
-    console.log('is this a promise:' + JSON.stringify(formDataArray.data.value))
-    formData.value = formDataArray.data.value[0]
+    console.log('is this a promise:' + JSON.stringify(formDataArray))
+    formData.value = formDataArray[0]
   }
 })
 

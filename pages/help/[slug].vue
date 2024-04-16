@@ -26,12 +26,12 @@ const { data, error } = await useAsyncData(`help-topic-detail-${route.params.slu
 
 if (error.value) {
   throw createError({
-    statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
   })
 }
 
 if (!data.value.entry) {
-  error({ statusCode: 404, message: 'Page not found', fatal: true })
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
 if (route.params.slug !== undefined && data.value.entry.slug && process.server) {
