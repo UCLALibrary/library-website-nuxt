@@ -1,11 +1,11 @@
 <script setup>
 // HELPERS
-import _get from "lodash/get"
-import fixUri from "../utils/fixUri"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import fixUri from '../utils/fixUri'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import JOB_OPPORTUNITIES_LIST from "../gql/queries/JobOpportunitiesList.gql"
+import JOB_OPPORTUNITIES_LIST from '../gql/queries/JobOpportunitiesList.gql'
 
 const { $graphql } = useNuxtApp()
 
@@ -30,13 +30,13 @@ useHead({
 })
 
 const parsedAcademicLibrarianJobs = computed(() => {
-  let allAcademicLibrarianJobs = allJobs.value.filter((obj) => {
-    return obj.jobType[0].title === "Academic Librarian"
+  const allAcademicLibrarianJobs = allJobs.value.filter((obj) => {
+    return obj.jobType[0].title === 'Academic Librarian'
   })
   return allAcademicLibrarianJobs.map((obj) => {
     return {
       ...obj,
-      text: _get(obj, "text", ""),
+      text: _get(obj, 'text', ''),
       associatedLocations: obj.associatedLocations.map((entry) => {
         return {
           ...entry,
@@ -48,14 +48,14 @@ const parsedAcademicLibrarianJobs = computed(() => {
 })
 
 const parsedStaffJobs = computed(() => {
-  let allStaffJobs = allJobs.value.filter((obj) => {
-    return obj.jobType[0].title === "Staff"
+  const allStaffJobs = allJobs.value.filter((obj) => {
+    return obj.jobType[0].title === 'Staff'
   })
   return allStaffJobs.map((obj) => {
     return {
       ...obj,
-      payRate: _get(obj, "payRate", null),
-      text: _get(obj, "text", ""),
+      payRate: _get(obj, 'payRate', null),
+      text: _get(obj, 'text', ''),
       associatedLocations: obj.associatedLocations.map((entry) => {
         return {
           ...entry,
@@ -139,8 +139,8 @@ const parsedAssociatedTopics = computed(() => {
       </div>
     </section-wrapper>
     <section-wrapper
-      theme="divider"
       v-if="parsedAssociatedTopics.length > 0"
+      theme="divider"
     >
       <divider-way-finder
         class="divider"
