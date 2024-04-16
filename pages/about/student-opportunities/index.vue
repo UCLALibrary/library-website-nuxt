@@ -1,11 +1,11 @@
 <script setup>
 // HELPERS
-import _get from "lodash/get"
-import fixUri from "../utils/fixUri"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import fixUri from '../utils/fixUri'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import STUDENT_OPPORTUNITIES_LIST from "../gql/queries/JobStudentOpportunitiesList.gql"
+import STUDENT_OPPORTUNITIES_LIST from '../gql/queries/JobStudentOpportunitiesList.gql'
 
 const { $graphql } = useNuxtApp()
 
@@ -30,13 +30,13 @@ useHead({
 })
 
 const parsedStudentJobs = computed(() => {
-  let allStudentJobs = allJobs.value.filter((obj) => {
-    return obj.jobType[0].title === "Student Job"
+  const allStudentJobs = allJobs.value.filter((obj) => {
+    return obj.jobType[0].title === 'Student Job'
   })
   return allStudentJobs.map((obj) => {
     return {
       ...obj,
-      payRate: _get(obj, "payRate", null),
+      payRate: _get(obj, 'payRate', null),
       associatedLocations: obj.associatedLocations.map(
         (entry) => {
           return {
@@ -50,13 +50,13 @@ const parsedStudentJobs = computed(() => {
 })
 
 const parsedStudentInternships = computed(() => {
-  let allInternships = allJobs.value.filter((obj) => {
-    return obj.jobType[0].title === "Student Internship"
+  const allInternships = allJobs.value.filter((obj) => {
+    return obj.jobType[0].title === 'Student Internship'
   })
   return allInternships.map((obj) => {
     return {
       ...obj,
-      payRate: _get(obj, "payRate", null),
+      payRate: _get(obj, 'payRate', null),
       associatedLocations: obj.associatedLocations.map(
         (entry) => {
           return {
@@ -74,7 +74,7 @@ const parsedAssociatedPrograms = computed(() => {
     return {
       ...obj,
       jobPostingURL:
-        obj.programUrlBehavior === "externalSite"
+        obj.programUrlBehavior === 'externalSite'
           ? obj.buttonUrl[0].buttonUrl
           : `/${obj.jobPostingURL}`,
     }
@@ -107,8 +107,8 @@ const parsedAssociatedTopics = computed(() => {
     <banner-text
       v-if="
         page.buttonUrl &&
-        page.buttonUrl[0] &&
-        page.buttonUrl[0].buttonText
+          page.buttonUrl[0] &&
+          page.buttonUrl[0].buttonText
       "
       class="banner-text"
       :title="page.title"
