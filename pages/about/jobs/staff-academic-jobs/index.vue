@@ -9,7 +9,7 @@ import JOB_OPPORTUNITIES_LIST from "../gql/queries/JobOpportunitiesList.gql"
 
 const { $graphql } = useNuxtApp()
 
-const { data } = useAsyncData('job-opportunities-list', async () => {
+const { data } = await useAsyncData('job-opportunities-list', async () => {
   const data = await $graphql.default.request(JOB_OPPORTUNITIES_LIST)
 
   return data
