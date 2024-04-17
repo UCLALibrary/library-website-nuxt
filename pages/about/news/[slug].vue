@@ -171,8 +171,7 @@ const parsedLocations = computed(() => {
       class="associated-staff-member"
       section-title="Associated Staff Member"
     >
-      {{ parsedAssociatedStaffMember }}
-      <!--section-staff-list :items="parsedAssociatedStaffMember" /-->
+      <section-staff-list :items="parsedAssociatedStaffMember" />
     </section-wrapper>
   </main>
 </template>
