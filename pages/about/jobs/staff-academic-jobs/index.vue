@@ -9,14 +9,29 @@ import JOB_OPPORTUNITIES_LIST from '../gql/queries/JobOpportunitiesList.gql'
 
 const { $graphql } = useNuxtApp()
 
-const { data } = await useAsyncData('job-opportunities-list', async () => {
+const { data, error } = await useAsyncData('job-opportunities-list', async () => {
   const data = await $graphql.default.request(JOB_OPPORTUNITIES_LIST)
 
   return data
 })
 
+if (error.value) {
+  throw createError({
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
+  })
+}
+if (!data.value.entry && !data.value.allJobs) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
 const page = ref(_get(data.value, 'entry', {}))
 const allJobs = ref(_get(data.value, 'allJobs', {}))
+
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+  allJobs.value = _get(newVal, 'allJobs', {})
+})
 
 useHead({
   title: page.value ? page.value.title : '... loading',
