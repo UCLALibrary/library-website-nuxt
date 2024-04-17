@@ -2,12 +2,12 @@
 import { onMounted } from 'vue'
 
 // HELPERS
-import _get from "lodash/get"
-import fixUri from "../utils/fixUri"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import fixUri from '../utils/fixUri'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import COLLECTION_DETAIL from "../gql/queries/CollectionDetail.gql"
+import COLLECTION_DETAIL from '../gql/queries/CollectionDetail.gql'
 
 const { $graphql, $getHeaders, $elasticsearchplugin } = useNuxtApp()
 
@@ -18,7 +18,6 @@ const { data, error } = await useAsyncData(`collection-detail-${route.params.slu
     slug: route.params.slug,
   })
 
-  console.log('async data: ', data)
   return data
 })
 
@@ -55,33 +54,33 @@ useHead({
 })
 
 const parsedPhysicalDigital = computed(() => {
-  return page.value.physicalDigital.length == 1
+  return page.value.physicalDigital.length === 1
     ? page.value.physicalDigital[0]
     : `${page.value.physicalDigital[0]} & ${page.value.physicalDigital[1]}`
 })
 
 const parsedButtonText = computed(() => {
-  return _get(page.value, "buttonUrl[0].buttonText", "")
+  return _get(page.value, 'buttonUrl[0].buttonText', '')
 })
 
 const parsedButtonTo = computed(() => {
-  return _get(page.value, "buttonUrl[0].buttonUrl", "")
+  return _get(page.value, 'buttonUrl[0].buttonUrl', '')
 })
 
 const parsedSubjectAreas = computed(() => {
-  return _get(page.value, "subjectAreas", "")
+  return _get(page.value, 'subjectAreas', '')
 })
 
 const parsedServicesAndResources = computed(() => {
-  let services = page.value.resourceServiceWorkshop
+  const services = page.value.resourceServiceWorkshop
   return services.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
         ? obj.externalResourceUrl
         : `/${obj.to}`,
-      title: _get(obj, "title", ""),
-      text: _get(obj, "text", ""),
+      title: _get(obj, 'title', ''),
+      text: _get(obj, 'text', ''),
     }
   })
 })
@@ -91,15 +90,15 @@ const parsedEndowments = computed(() => {
     return page.value.endowment.map((obj, index) => {
       return {
         to: `/${obj.to}`,
-        image: _get(obj, "image[0].image[0]", null),
-        title: _get(obj, "title", ""),
-        description: _get(obj, "description", ""),
+        image: _get(obj, 'image[0].image[0]', null),
+        title: _get(obj, 'title', ''),
+        description: _get(obj, 'description', ''),
         category:
-          obj.donors.length > 0 ? parsedDonors(obj) : "",
+          obj.donors.length > 0 ? parsedDonors(obj) : '',
       }
     })
   } else {
-    return ""
+    return ''
   }
 })
 
@@ -108,19 +107,19 @@ const parsedAssociatedStaffMember = computed(() => {
     return {
       ...obj,
       to: `/${obj.to}`,
-      image: _get(obj, "image[0]", null),
+      image: _get(obj, 'image[0]', null),
       staffName: `${obj.nameFirst} ${obj.nameLast}`,
       language: _get(
         obj,
-        "alternativeName[0].languageAltName",
+        'alternativeName[0].languageAltName',
         null
       ),
       alternativeFullName: _get(
         obj,
-        "alternativeName[0].fullName",
+        'alternativeName[0].fullName',
         null
       ),
-      locations: _get(obj, "locations", []).map((loc) => {
+      locations: _get(obj, 'locations', []).map((loc) => {
         return {
           ...loc,
           uri: fixUri(loc.uri),
@@ -131,20 +130,20 @@ const parsedAssociatedStaffMember = computed(() => {
 })
 
 function parsedDonors(obj) {
-  let donorNames = []
+  const donorNames = []
   obj.donors.map((donor) => {
-    donor.firstName == null
+    return donor.firstName === null
       ? donorNames.push(`${donor.lastName}`)
       : donorNames.push(`${donor.firstName} ${donor.lastName}`)
   })
 
-  if (donorNames.length == 1) {
+  if (donorNames.length === 1) {
     return `Donor: ${donorNames[0]}`
   } else {
-    let names = [
-      donorNames.slice(0, -1).join(", "),
+    const names = [
+      donorNames.slice(0, -1).join(', '),
       donorNames.slice(-1)[0],
-    ].join(donorNames.length < 2 ? "" : " and ")
+    ].join(donorNames.length < 2 ? '' : ' and ')
     return `Donors: ${names}`
   }
 }
@@ -227,8 +226,8 @@ onMounted(() => {
     <section-wrapper
       v-if="
         parsedServicesAndResources.length > 0 ||
-        parsedEndowments.length > 0 ||
-        parsedAssociatedStaffMember.length > 0
+          parsedEndowments.length > 0 ||
+          parsedAssociatedStaffMember.length > 0
       "
       theme="divider"
     >
@@ -251,7 +250,7 @@ onMounted(() => {
       <divider-way-finder
         v-if="
           parsedEndowments.length > 0 ||
-          parsedAssociatedStaffMember.length > 0
+            parsedAssociatedStaffMember.length > 0
         "
         class="divider-way-finder"
         color="default"
