@@ -25,7 +25,7 @@ async function scrapeFormId(eventId = '') {
 async function fetchformData(formId) {
   console.log('you are in fetchformdata:' + formId)
   // const formData = await $axios.$get(`api/1.1/events/form/${formId}`)
-  const formData = await useFetch(useRuntimeConfig().public.libcalProxy + `api/1.1/events/form/${formId}`)
+  const formData = await $fetch(useRuntimeConfig().public.libcalProxy + `api/1.1/events/form/${formId}`)
   // console.log('is data ready:' + JSON.stringify(formData))
   return formData
 }

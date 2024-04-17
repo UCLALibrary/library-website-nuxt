@@ -7,12 +7,27 @@ import HOMEPAGE from '../gql/queries/Homepage.gql'
 
 const { $graphql } = useNuxtApp()
 
-const { data } = await useAsyncData('home-page', async () => {
+const { data, error } = await useAsyncData('home-page', async () => {
   const data = await $graphql.default.request(HOMEPAGE)
   return data
 })
-
+if (error.value) {
+  throw createError({
+    statusCode: error.value.statusCode, statusMessage: error.value.statusMessage + error.value, fatal: true
+  })
+}
+if (!data.value.entry) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page Not Found',
+    fatal: true
+  })
+}
 const page = ref(_get(data.value, 'entry', {}))
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+})
 
 const parsedAdvancedSearchLink = computed(() => {
   // Last item in searchLinks
@@ -315,10 +330,7 @@ useHead({
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-home {
   .button-more {
     margin: var(--space-2xl) auto;

@@ -21,13 +21,30 @@ const { data, error } = await useAsyncData('news', async () => {
 }
 )
 
-// console.log('In news listing page data.value: ', data.value.entry.title)
+if (error.value) {
+  throw createError({
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
+  })
+}
+
+if (!data.value.entry && !data.value.entries) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
+// console.log('In news listing page data.value: ', JSON.stringify(data.value))
 // TODO: Enable when Elastic Search is implemented
 // const route = useRoute()
 
 // Data
 const page = ref(_get(data.value, 'entry', {}))
 const news = ref(_get(data.value, 'entries', []))
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+  news.value = _get(newVal, 'entries', [])
+})
+//
+
 const hits = ref([])
 const title = ref('')
 const noResultsFound = ref(false)

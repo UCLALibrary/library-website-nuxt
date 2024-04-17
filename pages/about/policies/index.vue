@@ -12,7 +12,7 @@ const { $graphql, $getHeaders } = useNuxtApp()
 
 const route = useRoute()
 
-const { data } = await useAsyncData('policy-list', async () => {
+const { data, error } = await useAsyncData('policy-list', async () => {
   const data = await $graphql.default.request(POLICIES_LIST, {
     uri: route.params.uri,
   })
@@ -20,8 +20,23 @@ const { data } = await useAsyncData('policy-list', async () => {
   return data
 })
 
+if (error.value) {
+  throw createError({
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
+  })
+}
+
+if (!data.value.entry) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
 const page = ref(_get(data.value, 'entry', {}))
 const policyBlock = ref(_get(data.value, 'entry.policyBlock', {}))
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+  policyBlock.value = _get(newVal, 'entry.policyBlock', [])
+})
 const h2Array = ref([]) // anchor tags
 
 useHead({

@@ -7,13 +7,6 @@ import removeTags from '../utils/removeTags'
 // GQL
 import EVENT_DETAIL from '../gql/queries/EventDetail.gql'
 
-// Note: This may not actually be needed?
-// vue: {
-//   config: {
-//     unwrapInjectedRef: true,
-//         },
-// }
-
 const config = useRuntimeConfig()
 
 const { $graphql } = useNuxtApp()
@@ -25,32 +18,43 @@ const { data, error } = await useAsyncData(`events-listing-detail-${route.params
 
   console.log('test:', data)
 
-  // Note: Dependent on Elastic search, We are indexing either event or exhibition or event series here
-
-  // if (data && (data.event || data.exhibition || data.eventSeries)) {
-  //   if (data.eventSeries) data.eventSeries.sectionHandle = "eventSeries"
-  //   if (data.event)
-  //     data.event.locations = data.event.associatedLocations
-  //   if (data.eventSeries)
-  //     data.eventSeries.locations =
-  //       data.eventSeries.associatedLocations
-  //   if (data.exhibition)
-  //     data.exhibition.locations =
-  //       data.exhibition.associatedLocationsAndPrograms
-  //   await $elasticsearchplugin.index(
-  //     data.event || data.exhibition || data.eventSeries,
-  //     params.slug
-  //   )
-  // }
-
   return data
 })
+
+if (error.value) {
+  throw createError({
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
+  })
+}
+
+if (!data.value.event && !data.value.eventSeries && !data.value.exhibition) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
+if (process.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  if (data.value.eventSeries) data.value.eventSeries.sectionHandle = 'eventSeries'
+  if (data.value.event)
+    data.value.event.locations = data.value.event.associatedLocations
+  if (data.value.eventSeries)
+    data.value.eventSeries.locations =
+      data.value.eventSeries.associatedLocations
+  if (data.value.exhibition)
+    data.value.exhibition.locations =
+      data.value.exhibition.associatedLocationsAndPrograms
+  await $elasticsearchplugin?.index(data.value.event || data.value.eventSeries || data.value.exhibition, route.params.slug)
+}
 
 // console.log('test:', data.value.event.libcalOnlineSeats, data.value.event.libcalOnlineSeatsTaken)
 
 // Data
 
 const page = ref(data.value)
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = newVal
+})
+
 const allEvents = ref([])
 // console.log('online?', Number(page.value.event.libcalOnlineSeats) - Number(page.value.event.libcalOnlineSeatsTaken))
 
@@ -213,7 +217,7 @@ const upcomingEvents = computed(() => {
       category: obj.category.length
         ? obj.category[0].title
         : null,
-      locations: obj.associatedLocations[0] != null
+      locations: obj.associatedLocations && obj.associatedLocations.length > 0
         ? obj.associatedLocations
         : obj.eventLocation,
     }
@@ -318,12 +322,6 @@ watch(formData, (newVal, oldVal) => {
 })
 
 onMounted(async () => {
-  // const formDataArray = await this.$scrapeApi.scrapeFormId("9383207")
-  // //console.log(
-  //     "in mounted is registration required :" +
-  //         this.page.event.requiresRegistration
-  // )
-  // libcal events registration logic
   if (
     page.value.event &&
     page.value.event.requiresRegistration === '1' &&
@@ -333,8 +331,8 @@ onMounted(async () => {
     const formDataArray = await $scrapeApi.scrapeFormId(
       page.value.event.libcalId
     ) // please check the fieldname in the query
-    console.log('is this a promise:' + JSON.stringify(formDataArray.data.value))
-    formData.value = formDataArray.data.value[0]
+    console.log('is this a promise:' + JSON.stringify(formDataArray))
+    formData.value = formDataArray[0]
   }
 })
 
