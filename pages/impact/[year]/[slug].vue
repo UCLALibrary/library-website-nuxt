@@ -20,13 +20,14 @@ const { data, error } = await useAsyncData(`impact-report-story-${route.params.s
 
 if (error.value) {
   throw createError({
-    statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
   })
 }
 if (!data.value.entry) {
   throw createError({
     statusCode: 404,
-    statusMessage: 'Page Not Found'
+    statusMessage: 'Page Not Found',
+    fatal: true
   })
 }
 
@@ -36,6 +37,10 @@ if (data.value.entry.slug && process.server) {
 }
 
 const page = ref(_get(data.value, 'entry', {}))
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+})
 
 useHead({
 

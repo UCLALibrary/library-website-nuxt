@@ -19,37 +19,51 @@ const { $graphql } = useNuxtApp()
 
 const route = useRoute()
 
-const { data } = await useAsyncData('locations-list', async () => {
-  const data = await $graphql.default.request(LOCATIONS_LIST, {
-    uri: route.params.uri,
+const { data, error } = await useAsyncData('locations-list', async () => {
+  const data = await $graphql.default.request(LOCATIONS_LIST)
+
+  return data
+})
+
+if (error.value) {
+  throw createError({
+    statusCode: 404, statusMessage: 'Page not found.', fatal: true
   })
+}
+if (!data.value.entry) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page Not Found'
+  })
+}
 
-  const serverData = await $graphql.default.request(LOCATIONS_LIST)
+// console.log('In endowment listing page data.value: ', JSON.stringify(data.value))
 
-  /* TODO: Incorporate when search functionality is ready? */
-  /*
+if (data.value.entry.slug && process.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
   if (
-    serverData.affiliateLibraries &&
-    serverData.affiliateLibraries.length > 0
+    data.value.entry.affiliateLibraries &&
+    data.value.entry.affiliateLibraries.length > 0
   ) {
-    // console.log("External Resource indexing:")
-    for (const affiliateLibrary of serverData.affiliateLibraries) {
-      // console.log(
-      //     "External Resource indexing:" + affiliateLibrary.slug
-      // )
+    for (const affiliateLibrary of data.value.entry.affiliateLibraries) {
       await $elasticsearchplugin.index(
         affiliateLibrary,
         affiliateLibrary.slug
       )
     }
   }
-  */
-  return { data, serverData }
+}
+
+const page = ref(_get(data.value, 'entry', {}))
+const uclaLibraries = ref(_get(data.value, 'uclaLibraries', []))
+const affiliateLibraries = ref(_get(data.value, 'affiliateLibraries', []))
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+  uclaLibraries.value = _get(newVal, 'uclaLibraries', [])
+  affiliateLibraries.value = _get(newVal, 'affiliateLibraries', [])
 })
 
-const page = ref(_get(data.value.data, 'entry', {}))
-const uclaLibraries = ref(_get(data.value.data, 'uclaLibraries', []))
-const affiliateLibraries = ref(_get(data.value.data, 'affiliateLibraries', []))
 const showOtherCampus = ref(false)
 const hits = ref([])
 const title = ref('')

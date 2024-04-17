@@ -8,13 +8,27 @@ import ASK_US from '../gql/queries/AskUs.gql'
 
 const { $graphql } = useNuxtApp()
 
-const { data } = await useAsyncData('ask-us-list', async () => {
+const { data, error } = await useAsyncData('ask-us-list', async () => {
   const data = await $graphql.default.request(ASK_US)
 
   return data
 })
 
+if (error.value) {
+  throw createError({
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
+  })
+}
+
+if (!data.value.entry) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
 const page = ref(_get(data.value, 'entry', {}))
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+})
 
 useHead({
   title: page.value ? page.value.title : '... loading',

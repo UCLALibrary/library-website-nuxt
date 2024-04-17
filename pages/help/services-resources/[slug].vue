@@ -19,34 +19,13 @@ const { data, error } = await useAsyncData(`services-resources-detail-${route.pa
 
 if (error.value) {
   throw createError({
-    statusCode: 404, statusMessage: 'Page not found.' + error.value, fatal: true
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
   })
 }
 
 if (!data.value.serviceOrResource && !data.value.workshopSeries) {
-  error({ statusCode: 404, message: 'Page not found' })
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
-
-/* TODO: Incorporate when search functionality is ready? */
-//
-// if (data) {
-//   /*console.log(
-//       "Is it workshop or service or resource Indexing slug: " +
-//           params.slug
-//   )*/
-//   if (data.workshopSeries) {
-//     data.workshopSeries.sectionHandle = "workshopSeries"
-//     data.workshopSeries.serviceOrResourceType = "workshop series"
-//     /*console.log(
-//         "what is workshopseries sectionHandle in ES? " +
-//             data.workshopSeries.sectionHandle
-//     )*/
-//   }
-//   await $elasticsearchplugin.index(
-//     data.serviceOrResource || data.workshopSeries,
-//     params.slug
-//   )
-// }
 
 if (process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
@@ -58,6 +37,11 @@ if (process.server) {
 }
 
 const page = ref(data.value)
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = newVal
+})
+
 const h2Array = ref([]) // anchor tags
 
 if (page.value) {

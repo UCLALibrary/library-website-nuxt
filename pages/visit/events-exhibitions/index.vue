@@ -16,12 +16,24 @@ import sortByTitle from '../utils/sortByTitle'
 
 const { $graphql } = useNuxtApp()
 
-const { data } = await useAsyncData('events-list', async () => {
+const { data, error } = await useAsyncData('events-list', async () => {
   const data = await $graphql.default.request(EXHIBITIONS_AND_EVENTS_LIST)
   const single = await $graphql.default.request(EXHIBITIONS_AND_EVENTS_LIST_SINGLE)
 
   return { data, single }
 })
+
+if (error.value) {
+  throw createError({
+    statusCode: 404, statusMessage: 'Page not found.', fatal: true
+  })
+}
+if (!data.value.data && !data.value.single) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page Not Found'
+  })
+}
 
 // console.log('Expecting data: ', data.value)
 
@@ -32,6 +44,14 @@ const page = ref(_get(data.value.single, 'entry', {}))
 const events = ref(_get(data.value.data, 'events', []))
 const series = ref(_get(data.value.data, 'series', []))
 const exhibitions = ref(_get(data.value.data, 'exhibitions', []))
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal.single, 'entry', {})
+  events.value = _get(newVal.data, 'events', [])
+  series.value = _get(newVal.data, 'series', [])
+  exhibitions.value = _get(newVal.data, 'exhibitions', [])
+})
+
 const hits = ref([])
 const title = ref('')
 // let searchFilters = ref([])

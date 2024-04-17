@@ -56,8 +56,11 @@ const { data: page, error } = await useAsyncData('access-collections', async () 
 })
 if (error.value) {
   throw createError({
-    statusCode: 404, statusMessage: 'Page not found.', fatal: true
+    ...error.value, statusMessage: 'Page not found.', fatal: true
   })
+}
+if (!page.value.entry) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 // TODO do we still need these for elastic search?
 // fetchOnServer: false,
@@ -204,8 +207,10 @@ function getSearchData(data) {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-        ">
+    <section-wrapper
+      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+      "
+    >
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
@@ -278,7 +283,4 @@ function getSearchData(data) {
     </section-wrapper>
   </main>
 </template>
-<style
-  lang="scss"
-  scoped
-></style>
+<style lang="scss" scoped></style>
