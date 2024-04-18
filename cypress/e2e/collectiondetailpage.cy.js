@@ -19,13 +19,13 @@ describe('Collection Detail page', () => {
 
   context("When there isn't an entry in craft", () => {
     it('Raises a 404 error', () => {
-      cy.visit("/about/blogs/no_entry", {failOnStatusCode: false})
+      cy.visit('/about/blogs/no_entry', { failOnStatusCode: false })
       cy.request({
-                url: "/collections/explore/no_entry",
-                failOnStatusCode: false,
-            })
-                .its("status")
-                .should("equal", 404)
+        url: '/collections/explore/no_entry',
+        failOnStatusCode: false,
+      })
+        .its('status')
+        .should('equal', 404)
       // cy.visit('/collections/explore/no_entry')
       // cy.get('p.error').should('contain', '404')
       // cy.get('h1.error-title').should('contain', 'Page not found')
