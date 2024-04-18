@@ -21,17 +21,18 @@ const { data, error } = await useAsyncData(`collection-detail-${route.params.slu
   return data
 })
 
-if (data.value.entry.slug && process.server) {
-  await $elasticsearchplugin.index(data.value.entry, route.params.slug)
-}
-
 if (error.value) {
   throw createError({
     ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
   })
 }
+
 if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
+if (data.value.entry.slug && process.server) {
+  await $elasticsearchplugin.index(data.value.entry, route.params.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))
@@ -226,8 +227,8 @@ onMounted(() => {
     <section-wrapper
       v-if="
         parsedServicesAndResources.length > 0 ||
-          parsedEndowments.length > 0 ||
-          parsedAssociatedStaffMember.length > 0
+        parsedEndowments.length > 0 ||
+        parsedAssociatedStaffMember.length > 0
       "
       theme="divider"
     >
@@ -250,7 +251,7 @@ onMounted(() => {
       <divider-way-finder
         v-if="
           parsedEndowments.length > 0 ||
-            parsedAssociatedStaffMember.length > 0
+          parsedAssociatedStaffMember.length > 0
         "
         class="divider-way-finder"
         color="default"
