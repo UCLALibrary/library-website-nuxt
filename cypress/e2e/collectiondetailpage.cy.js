@@ -13,7 +13,8 @@ describe('Collection Detail page', () => {
       'contain',
       'TEST - Collection - Halloween Costumes'
     )
-    cy.get('.page-anchor').scrollIntoView().should('be.visible')
+    cy.get('.page-anchor').scrollIntoView()
+    cy.get('.page-anchor').should('be.visible')
     cy.percySnapshot({ widths: [768, 992, 1200] })
   })
 
