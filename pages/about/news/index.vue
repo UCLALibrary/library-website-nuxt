@@ -114,7 +114,7 @@ const parsedNewsList = computed(() => {
 })
 
 const parsedDate = computed(() => {
-  return format(new Date(news?.value?.postDate), 'MMMM d, Y')
+  return format(new Date(news.value?.postDate), 'MMMM d, Y')
 })
 
 const parsedByline = computed(() => {
@@ -139,7 +139,19 @@ const searchGenericQuery = ref({
       JSON.parse(route.query.filters)) ||
     {},
 })
-const searchES = async () => {
+
+// This watcher is called when router push updates the query params
+watch(
+  () => route.query,
+  (newVal, oldVal) => {
+    console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchES()
+  }, { deep: true, immediate: true }
+)
+
+async function searchES() {
   if (
     (route.query.q && route.query.q !== '') ||
     (route.query.filters &&
@@ -149,9 +161,9 @@ const searchES = async () => {
       ))
   ) {
     console.log('Search ES HITS query,', route.query.q)
-    const query_text = route.query.q || '*'
+    const queryText = route.query.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
-      query_text,
+      queryText,
       config.newsIndex.searchFields,
       'sectionHandle:article',
       (route.query.filters &&
@@ -179,19 +191,6 @@ const searchES = async () => {
     noResultsFound.value = false
   }
 }
-
-// This watcher is called when router push uodates the query params
-watch(
-  () => route.query,
-  (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', newVal, oldVal)
-    searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = (route.query.filters &&
-      JSON.parse(route.query.filters)) ||
-      {},
-    searchES()
-  }, { deep: true, immediate: true }
-)
 
 const parseDisplayResults = computed(() => {
   if (hits.length > 1)
@@ -295,7 +294,7 @@ onMounted(async () => {
         page.featuredNews.length &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <banner-featured
@@ -311,14 +310,12 @@ onMounted(async () => {
         class="banner section-featured-banner"
       />
 
-      <divider-general
-        v-show="page &&
-          page.featuredNews &&
-          page.featuredNews.length &&
-          hits.length === 0 &&
-          !noResultsFound
-        "
-      />
+      <divider-general v-show="page &&
+        page.featuredNews &&
+        page.featuredNews.length &&
+        hits.length === 0 &&
+        !noResultsFound
+        " />
 
       <section-teaser-highlight
         v-show="parsedSectionHighlight.length"
@@ -333,7 +330,7 @@ onMounted(async () => {
         page.featuredNews.length &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <divider-way-finder color="about" />

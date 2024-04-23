@@ -13,7 +13,7 @@ async function siteSearch(
   if (
     config.public.esReadKey === '' ||
         config.public.esURL === '' ||
-        config.public.esIndex === ''
+        config.public.esAlias === ''
   )
     return
   console.log('keyword:' + keyword)
@@ -24,10 +24,10 @@ async function siteSearch(
     JSON.stringify({
       from,
       indices_boost: [{
-        '`${config.public.esTempIndex}`': 1.4
+        [config.public.esTempIndex]: 1.4
       },
       {
-        '`${config.public.libguidesEsIndex}`': 1.3
+        [config.public.libguidesEsIndex]: 1.3
       }
       ],
       query: {
@@ -69,7 +69,7 @@ async function siteSearch(
   //   }
 
   const responseAlias = await fetch(
-        `${config.public.esURL}/_alias/${config.public.esIndex}`, {
+        `${config.public.esURL}/_alias/${config.public.esAlias}`, {
           headers: {
             Authorization: `ApiKey ${config.public.esReadKey}`,
             'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ async function siteSearch(
   const libguideIndex = Object.keys(dataAlias)[1].includes('libguides') ? Object.keys(dataAlias)[1] : Object.keys(dataAlias)[0]
 
   const response = await fetch(
-        `${config.public.esURL}/${config.public.esIndex}/_search`, {
+        `${config.public.esURL}/${config.public.esAlias}/_search`, {
           headers: {
             Authorization: `ApiKey ${config.public.esReadKey}`,
             'Content-Type': 'application/json',
@@ -169,11 +169,11 @@ async function getMapping() {
   if (
     config.public.esReadKey === '' ||
         config.public.esURL === '' ||
-        config.public.esIndex === ''
+        config.public.esAlias === ''
   )
     return
   const response = await fetch(
-        `${config.public.esURL}/${config.public.esIndex}/_mapping`, {
+        `${config.public.esURL}/${config.public.esAlias}/_mapping`, {
           headers: {
             Authorization: `ApiKey ${config.public.esReadKey}`,
             // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -189,7 +189,7 @@ async function getAggregationsForSiteSearch(fields) {
   const config = useRuntimeConfig()
   if (!fields || fields.length === 0) return
   const response = await fetch(
-        `${config.public.esURL}/${config.public.esIndex}/_search`, {
+        `${config.public.esURL}/${config.public.esAlias}/_search`, {
           headers: {
             Authorization: `ApiKey ${config.public.esReadKey}`,
             'Content-Type': 'application/json',
@@ -215,7 +215,7 @@ async function getAggregations(fields, sectionHandle) {
   const config = useRuntimeConfig()
   if (!fields || fields.length === 0) return
   const response = await fetch(
-        `${config.public.esURL}/${config.public.esIndex}/_search`, {
+        `${config.public.esURL}/${config.public.esAlias}/_search`, {
           headers: {
             Authorization: `ApiKey ${config.public.esReadKey}`,
             'Content-Type': 'application/json',
@@ -258,7 +258,7 @@ async function keywordSearchWithFilters(
   if (
     config.public.esReadKey === '' ||
         config.public.esURL === '' ||
-        config.public.esIndex === ''
+        config.public.esAlias === ''
   )
     return
   console.log('keyword:' + keyword)
@@ -287,7 +287,7 @@ async function keywordSearchWithFilters(
 
   // need to know fields to boost on for listing pages when searching like title etc
   const responseAlias = await fetch(
-        `${config.public.esURL}/_alias/${config.public.esIndex}`, {
+        `${config.public.esURL}/_alias/${config.public.esAlias}`, {
           headers: {
             Authorization: `ApiKey ${config.public.esReadKey}`,
             'Content-Type': 'application/json',
