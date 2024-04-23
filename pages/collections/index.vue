@@ -1,111 +1,11 @@
-<template lang="html">
-  <main
-    id="main"
-    class="page page-collections"
-  >
-    <banner-text
-      class="banner-text"
-      :title="page.title"
-      :text="page.text"
-    />
-
-    <section-wrapper>
-      <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper>
-
-    <page-anchor
-      v-if="h2Array.length >= 3"
-      :section-titles=h2Array
-    />
-
-    <section-wrapper
-      :section-title="parsedResources[0].titleGeneral"
-      :section-summary="parsedResources[0].sectionSummary"
-    >
-      <section-cards-with-illustrations
-        v-if="parsedResources.length"
-        :items="parsedResources[0].featuredResources"
-        :is-horizontal="false"
-        button-text="See More"
-        to="/collections/access"
-      />
-    </section-wrapper>
-
-    <section-wrapper>
-      <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper>
-
-    <!-- FEATURED & HIGHLIGHTED -->
-    <section-wrapper
-      :section-title="page.featuredCollectionsSection[0].titleGeneral"
-      :section-summary="page.featuredCollectionsSection[0].sectionSummary"
-    >
-      <banner-featured
-        v-if="page.featuredCollectionsSection.length > 0"
-        class="banner banner-about"
-        :image="parsedBannerFeatured[0].image"
-        :title="parsedBannerFeatured[0].title"
-        :description="parsedBannerFeatured[0].summary"
-        :category="parsedBannerFeatured[0].category"
-        :to="parsedBannerFeatured[0].to"
-        :prompt="parsedBannerFeatured[0].prompt"
-        :title-link="parsedBannerFeatured[0].titleLink"
-      />
-
-      <section-teaser-highlight
-        v-if="parsedCollections.featuredCollections.length > 1"
-        class="section-teaser-highlight"
-        :items="parsedSectionHighlight"
-      />
-
-      <nuxt-link
-        to="/collections/explore"
-        class="button-more"
-      >
-        <button-more text="Browse Collections" />
-      </nuxt-link>
-    </section-wrapper>
-
-    <!-- COLLECTION NEWS -->
-    <section-wrapper>
-      <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper>
-
-    <section-wrapper section-title="Collections News">
-      <section-teaser-card
-        class="section-teaser-card"
-        :items="parsedArticles"
-      />
-      <smart-link
-        v-if="pageArticleCount > 3"
-        class="button-more"
-        :to="allCollectionsNewsLink"
-      >
-        <button-more text="See All Collections News" />
-      </smart-link>
-    </section-wrapper>
-
-    <section-wrapper>
-      <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper>
-
-    <!-- FLEXIBLE PAGE BLOCKS -->
-    <flexible-blocks
-      v-if="page.blocks"
-      class="flexible-content"
-      :blocks="page.blocks"
-    />
-  </main>
-</template>
-
 <script>
 // HELPERS
 import _get from "lodash/get"
 import format from "date-fns/format"
-import removeTags from "~/utils/removeTags"
+import removeTags from "../utils/removeTags"
 
 // GQL
-import COLLECTIONS_LIST from "~/gql/queries/CollectionsList.gql"
+import COLLECTIONS_LIST from "../gql/queries/CollectionsList.gql"
 
 export default {
   async asyncData({ $graphql }) {
@@ -245,6 +145,15 @@ export default {
   }
 }
 </script>
+
+<template lang="html">
+  <main
+    id="main"
+    class="page page-collections"
+  >
+    <h1>HELLO Jen from the Collections Listing Page</h1>
+  </main>
+</template>
 
 <style
   lang="scss"
