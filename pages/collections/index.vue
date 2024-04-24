@@ -61,8 +61,6 @@ const parsedCollections = computed(() => {
     : {}
 })
 
-// const pageArticles = ref(_get(data.value.data, 'entries', []))
-
 const parsedBannerFeatured = computed(() => {
   const meta = page.value.featuredCollectionsSection[0].featuredCollections
 
@@ -82,48 +80,48 @@ const parsedBannerFeatured = computed(() => {
   })
 })
 
-// const parsedSectionHighlight = computed(() => {
-//   if (
-//     page.value.featuredCollectionsSection[0].featuredCollections
-//       .length > 1
-//   ) {
-//     return page.value.featuredCollectionsSection[0].featuredCollections
-//       .slice(1)
-//       .map((obj) => {
-//         return {
-//           ...obj,
-//           image: _get(obj, "heroImage[0].image[0]", ""),
-//           category: obj.category.join(", "),
-//           to: `/${obj.uri}`,
-//           text: obj.summary
-//         }
-//       })
-//   } else {
-//     return []
-//   }
-// })
+const parsedSectionHighlight = computed(() => {
+  if (
+    page.value.featuredCollectionsSection[0].featuredCollections
+      .length > 1
+  ) {
+    return page.value.featuredCollectionsSection[0].featuredCollections
+      .slice(1)
+      .map((obj) => {
+        return {
+          ...obj,
+          image: _get(obj, "heroImage[0].image[0]", ""),
+          category: obj.category.join(", "),
+          to: `/${obj.uri}`,
+          text: obj.summary
+        }
+      })
+  } else {
+    return []
+  }
+})
 
-// const parsedArticles = computed(() => {
-//   if (pageArticles) {
-//     return pageArticles.map((obj) => {
-//       let parsedCategories = parseArticleCategory(
-//         obj.articleCategories
-//       )
-//       return {
-//         ...obj,
-//         to:
-//           obj.externalResourceUrl != null
-//             ? _get(obj, "externalResourceUrl", "")
-//             : `/${obj.to}`,
-//         image: _get(obj, "heroImage[0].image[0]", null),
-//         category: parsedCategories,
-//         bylineOne: parsedDate(obj.postDate),
-//       }
-//     })
-//   } else {
-//     return []
-//   }
-// })
+const parsedArticles = computed(() => {
+  if (pageArticles.value) {
+    return pageArticles.value.map((obj) => {
+      let parsedCategories = parseArticleCategory(
+        obj.articleCategories
+      )
+      return {
+        ...obj,
+        to:
+          obj.externalResourceUrl != null
+            ? _get(obj, "externalResourceUrl", "")
+            : `/${obj.to}`,
+        image: _get(obj, "heroImage[0].image[0]", null),
+        category: parsedCategories,
+        bylineOne: parsedDate(obj.postDate),
+      }
+    })
+  } else {
+    return []
+  }
+})
 
 const allCollectionsNewsLink = computed(() => {
   if (page.value.locationType != "affiliateLibrary") {
@@ -174,16 +172,6 @@ onMounted(() => {
       v-if="h2Array.length >= 3"
       :section-titles=h2Array
     />
-    <!-- <h3>allCollectionsNewsLink --- {{ allCollectionsNewsLink }}</h3>
-    <hr>-->
-    <h3>parsedBannerFeatured --- {{ parsedBannerFeatured }}</h3>
-    <hr>
-
-    <h3>parsedCollections --- {{ parsedCollections }}</h3>
-    <hr>
-    <h3> --- {{ }}</h3>
-
-
 
     <section-wrapper
       :section-title="parsedResources[0].titleGeneral"
@@ -203,12 +191,12 @@ onMounted(() => {
     </section-wrapper>
 
     <!-- FEATURED & HIGHLIGHTED -->
-    <!-- <section-wrapper
-      :section-title="page.value.featuredCollectionsSection[0].titleGeneral"
-      :section-summary="page.value.featuredCollectionsSection[0].sectionSummary"
+    <section-wrapper
+      :section-title="page.featuredCollectionsSection[0].titleGeneral"
+      :section-summary="page.featuredCollectionsSection[0].sectionSummary"
     >
       <banner-featured
-        v-if="page.value.featuredCollectionsSection.length > 0"
+        v-if="page.featuredCollectionsSection.length > 0"
         class="banner banner-about"
         :image="parsedBannerFeatured[0].image"
         :title="parsedBannerFeatured[0].title"
@@ -231,10 +219,10 @@ onMounted(() => {
       >
         <button-more text="Browse Collections" />
       </nuxt-link>
-    </section-wrapper> -->
+    </section-wrapper>
 
     <!-- COLLECTION NEWS -->
-    <!-- <section-wrapper>
+    <section-wrapper>
       <divider-way-finder class="divider divider-way-finder" />
     </section-wrapper>
 
@@ -254,14 +242,14 @@ onMounted(() => {
 
     <section-wrapper>
       <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper> -->
+    </section-wrapper>
 
     <!-- FLEXIBLE PAGE BLOCKS -->
-    <!-- <flexible-blocks
-      v-if="page.value.blocks"
+    <flexible-blocks
+      v-if="page.blocks"
       class="flexible-content"
-      :blocks="page.value.blocks"
-    /> -->
+      :blocks="page.blocks"
+    />
   </main>
 </template>
 
