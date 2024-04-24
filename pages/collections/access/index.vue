@@ -8,7 +8,7 @@ import ACCESS_COLLECTIONS from '../gql/queries/CollectionsAccessList.gql'
 
 // UTILITIES & PLUGINS
 import config from '../utils/searchConfig'
-const { $graphql } = useNuxtApp() // TODO $dataApi, $fetch
+const { $graphql, $elasticsearchplugin } = useNuxtApp() // TODO $dataApi, $fetch
 
 // ROUTING
 const route = useRoute()
@@ -45,8 +45,7 @@ const { data: page, error } = await useAsyncData('access-collections', async () 
               : collection.typeHandle === 'generalContentPage'
                 ? 'resource'
                 : collection.typeHandle
-      // TODO enable
-      // await $elasticsearchplugin.index(collection, collection.slug)
+      await $elasticsearchplugin.index(collection, collection.slug)
     }
   }
 
@@ -192,14 +191,13 @@ function getSearchData(data) {
       class="secondary"
     />
 
-    <!-- TODO awaiting SearchGeneric.vue refactor
-      <search-generic
+    <search-generic
       search-type="default"
       class="generic-search"
       :search-generic-query="searchGenericQuery"
       placeholder="ACCESS COLLECTIONS"
       @search-ready="getSearchData"
-    /> -->
+    />
 
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
