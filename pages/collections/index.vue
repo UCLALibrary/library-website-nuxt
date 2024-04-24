@@ -9,7 +9,7 @@ import { onMounted } from 'vue'
 import COLLECTIONS_LIST from "../gql/queries/CollectionsList.gql"
 
 // GET DATA
-const { $graphql } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData('collections-list', async () => {
@@ -40,7 +40,7 @@ useHead({
 const h2Array = ref([]) // anchor tags
 
 const parsedResources = computed(() => {
-  return page.featuredResourcesSection.map((obj) => {
+  return page.value.featuredResourcesSection.map((obj) => {
     return {
       ...obj,
       featuredResources: obj.featuredResources.map((item) => {
@@ -55,37 +55,39 @@ const parsedResources = computed(() => {
   })
 })
 
-// const parsedCollections = computed(() => {
-//   return this.page.featuredCollectionsSection[0]
-//     ? this.page.featuredCollectionsSection[0]
-//     : {}
-// })
+const parsedCollections = computed(() => {
+  return page.value.featuredCollectionsSection[0]
+    ? page.value.featuredCollectionsSection[0]
+    : {}
+})
 
-// const parsedBannerFeatured = computed(() => {
-//   let meta = this.page.featuredCollectionsSection[0].featuredCollections
+// const pageArticles = ref(_get(data.value.data, 'entries', []))
 
-//   return meta.map((obj) => {
-//     return {
-//       ...obj,
-//       image: obj.heroImage[0].image[0],
-//       title: _get(obj, "title", ""),
-//       titleLink: `/${obj.titleLink}`,
-//       description: (obj, "summary", ""),
-//       category: obj.category
-//         ? obj.category.join(", ")
-//         : "",
-//       to: _get(obj, "button[0].buttonUrl", ""),
-//       prompt: _get(obj, "button[0].buttonText", ""),
-//     }
-//   })
-// })
+const parsedBannerFeatured = computed(() => {
+  const meta = page.value.featuredCollectionsSection[0].featuredCollections
+
+  return meta.map((obj) => {
+    return {
+      ...obj,
+      image: obj.heroImage[0].image[0],
+      title: _get(obj, "title", ""),
+      titleLink: `/${obj.titleLink}`,
+      description: (obj, "summary", ""),
+      category: obj.category
+        ? obj.category.join(", ")
+        : "",
+      to: _get(obj, "button[0].buttonUrl", ""),
+      prompt: _get(obj, "button[0].buttonText", ""),
+    }
+  })
+})
 
 // const parsedSectionHighlight = computed(() => {
 //   if (
-//     this.page.featuredCollectionsSection[0].featuredCollections
+//     page.value.featuredCollectionsSection[0].featuredCollections
 //       .length > 1
 //   ) {
-//     return this.page.featuredCollectionsSection[0].featuredCollections
+//     return page.value.featuredCollectionsSection[0].featuredCollections
 //       .slice(1)
 //       .map((obj) => {
 //         return {
@@ -102,9 +104,9 @@ const parsedResources = computed(() => {
 // })
 
 // const parsedArticles = computed(() => {
-//   if (this.pageArticles) {
-//     return this.pageArticles.map((obj) => {
-//       let parsedCategories = this.parseArticleCategory(
+//   if (pageArticles) {
+//     return pageArticles.map((obj) => {
+//       let parsedCategories = parseArticleCategory(
 //         obj.articleCategories
 //       )
 //       return {
@@ -115,7 +117,7 @@ const parsedResources = computed(() => {
 //             : `/${obj.to}`,
 //         image: _get(obj, "heroImage[0].image[0]", null),
 //         category: parsedCategories,
-//         bylineOne: this.parsedDate(obj.postDate),
+//         bylineOne: parsedDate(obj.postDate),
 //       }
 //     })
 //   } else {
@@ -123,49 +125,35 @@ const parsedResources = computed(() => {
 //   }
 // })
 
-// const allCollectionsNewsLink = computed(() => {
-//   if (this.page.locationType != "affiliateLibrary") {
-//     let searchLibrary = "Collections"
-//     let libConcat = '/about/news?q=&filters={\"category.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+const allCollectionsNewsLink = computed(() => {
+  if (page.value.locationType != "affiliateLibrary") {
+    let searchLibrary = "Collections"
+    let libConcat = '/about/news?q=&filters={\"category.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
 
-//     return libConcat
-//   } else {
-//     return ""
-//   }
-// })
+    return libConcat
+  } else {
+    return ""
+  }
+})
 
 // METHODS
-// function parsedDate(postDate) {
-//   return format(new Date(postDate), "MMMM d, Y")
-// }
+function parsedDate(postDate) {
+  return format(new Date(postDate), "MMMM d, Y")
+}
 
-// function parseArticleCategory(categories) {
-//   let result = ""
-//   categories.forEach((obj) => {
-//     result = result + obj.title + ", "
-//   })
-//   return result.slice(0, -2)
-// }
+function parseArticleCategory(categories) {
+  let result = ""
+  categories.forEach((obj) => {
+    result = result + obj.title + ", "
+  })
+  return result.slice(0, -2)
+}
 
 onMounted(() => {
   // Call the plugin to get the .section-header2 and .section-header3 elements
   h2Array.value = $getHeaders.getHeadersMethod()
 })
 </script>
-
-<!-- <template>
-  <main
-    id="main"
-    class="page page-collections"
-  >
-    <h1>HELLO Jen from the Collections Listing Page</h1>
-    <h3>data ----- {{ data }}</h3>
-    <h2>page ----- {{ page }}</h2>
-    <h3>pageArticles ----- {{ pageArticles }}</h3>
-    <h2>pageArticleCount ----- {{ pageArticleCount }}</h2>
-  </main>
-</template> -->
-
 
 <template>
   <main
@@ -186,19 +174,18 @@ onMounted(() => {
       v-if="h2Array.length >= 3"
       :section-titles=h2Array
     />
+    <!-- <h3>allCollectionsNewsLink --- {{ allCollectionsNewsLink }}</h3>
+    <hr>-->
+    <h3>parsedBannerFeatured --- {{ parsedBannerFeatured }}</h3>
+    <hr>
 
-    <h3>{{ page.featuredResourcesSection }}</h3>
-    <h3>parsedResources --- {{ parsedResources }}</h3>
-    <!-- <h3> ---{{ parsedCollections }}</h3>
-    <h3>parsedCollections ---{{ }}</h3>
-    <h3>parsedBannerFeatured ---{{ parsedBannerFeatured }}</h3>
-    <h3>parsedSectionHighlight ---{{ parsedSectionHighlight }}</h3>
-    <h3>parsedArticles ---{{ parsedArticles }}</h3>
-    <h3>allCollectionsNewsLink ---{{ allCollectionsNewsLink }}</h3>
-
+    <h3>parsedCollections --- {{ parsedCollections }}</h3>
+    <hr>
+    <h3> --- {{ }}</h3>
 
 
-    <!-- <section-wrapper
+
+    <section-wrapper
       :section-title="parsedResources[0].titleGeneral"
       :section-summary="parsedResources[0].sectionSummary"
     >
@@ -209,19 +196,19 @@ onMounted(() => {
         button-text="See More"
         to="/collections/access"
       />
-    </section-wrapper> -->
+    </section-wrapper>
 
-    <!-- <section-wrapper>
+    <section-wrapper>
       <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper> -->
+    </section-wrapper>
 
     <!-- FEATURED & HIGHLIGHTED -->
     <!-- <section-wrapper
-      :section-title="page.featuredCollectionsSection[0].titleGeneral"
-      :section-summary="page.featuredCollectionsSection[0].sectionSummary"
+      :section-title="page.value.featuredCollectionsSection[0].titleGeneral"
+      :section-summary="page.value.featuredCollectionsSection[0].sectionSummary"
     >
       <banner-featured
-        v-if="page.featuredCollectionsSection.length > 0"
+        v-if="page.value.featuredCollectionsSection.length > 0"
         class="banner banner-about"
         :image="parsedBannerFeatured[0].image"
         :title="parsedBannerFeatured[0].title"
@@ -249,9 +236,9 @@ onMounted(() => {
     <!-- COLLECTION NEWS -->
     <!-- <section-wrapper>
       <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper> -->
+    </section-wrapper>
 
-    <!-- <section-wrapper section-title="Collections News">
+    <section-wrapper section-title="Collections News">
       <section-teaser-card
         class="section-teaser-card"
         :items="parsedArticles"
@@ -263,17 +250,17 @@ onMounted(() => {
       >
         <button-more text="See All Collections News" />
       </smart-link>
-    </section-wrapper> -->
+    </section-wrapper>
 
-    <!-- <section-wrapper>
+    <section-wrapper>
       <divider-way-finder class="divider divider-way-finder" />
     </section-wrapper> -->
 
     <!-- FLEXIBLE PAGE BLOCKS -->
     <!-- <flexible-blocks
-      v-if="page.blocks"
+      v-if="page.value.blocks"
       class="flexible-content"
-      :blocks="page.blocks"
+      :blocks="page.value.blocks"
     /> -->
   </main>
 </template>

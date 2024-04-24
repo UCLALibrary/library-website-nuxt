@@ -325,7 +325,7 @@ function getSearchData(data) {
         parsedUclaLibraries.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
       section-title="UCLA Library Locations"
     >
@@ -347,7 +347,7 @@ function getSearchData(data) {
         showOtherCampus &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Other Campus Libraries & Archives"
     >
       <section-location-list
@@ -429,7 +429,10 @@ function getSearchData(data) {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .page-location {
   .about-results {
     margin-top: var(--space-xl);
