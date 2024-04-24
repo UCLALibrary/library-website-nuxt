@@ -19,7 +19,7 @@ definePageMeta({
 })
 
 // ASYNC DATA // collections-access
-const { data, error } = await useAsyncData('access-collections', async () => {
+const { data: page, error } = await useAsyncData('access-collections', async () => {
   const data = await $graphql.default.request(ACCESS_COLLECTIONS)
   console.log('data in fn', data)
 
@@ -52,7 +52,7 @@ const { data, error } = await useAsyncData('access-collections', async () => {
 
   return data
 })
-const page = ref(_get(data.value, 'entry', {}))
+// const page = ref(_get(data.value, 'entry', {}))
 
 if (error.value) {
   throw createError({
@@ -205,10 +205,8 @@ function getSearchData(data) {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper
-      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+        ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
