@@ -88,13 +88,13 @@ export default defineNuxtModule({
             {
               remove: {
                 index: '*',
-                alias: nuxt.options.runtimeConfig.public.esIndex,
+                alias: nuxt.options.runtimeConfig.public.esAlias,
               },
             },
             {
               add: {
                 indices: [nuxt.options.runtimeConfig.public.esTempIndex, tempLibGuideIndex],
-                alias: nuxt.options.runtimeConfig.public.esIndex,
+                alias: nuxt.options.runtimeConfig.public.esAlias,
               },
             },
           ],
@@ -104,7 +104,7 @@ export default defineNuxtModule({
       const body = await response.text()
       try {
         const jsonData = JSON.parse(body)
-        logger.warn('Alias updated: ', JSON.stringify(jsonData), nuxt.options.runtimeConfig.public.esIndex)
+        logger.warn('Alias updated: ', JSON.stringify(jsonData), nuxt.options.runtimeConfig.public.esAlias)
       } catch (err) {
         logger.error('Error:', err)
         logger.error('Response body:', body)

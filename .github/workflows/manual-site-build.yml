@@ -38,6 +38,7 @@ jobs:
           echo "ES_READ_KEY=${{secrets.ES_READ_KEY_TEST}}" >> $GITHUB_ENV
           echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_TEST}}" >> $GITHUB_ENV
           echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
+          echo "ES_ALIAS=${{secrets.ES_ALIAS_TEST}}" >> $GITHUB_ENV
           echo "ES_INDEX_PREFIX=${{secrets.ES_INDEX_PREFIX_TEST}}" >> $GITHUB_ENV
           echo "LIBGUIDES_ES_INDEX=${{secrets.LIBGUIDES_ES_INDEX_TEST}}" >> $GITHUB_ENV
           echo "ES_TEMP_INDEX_PREFIX_LIBGUIDES=${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}" >> $GITHUB_ENV
@@ -50,6 +51,7 @@ jobs:
           echo "ES_READ_KEY=${{secrets.ES_READ_KEY_STAGE}}" >> $GITHUB_ENV
           echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_STAGE}}" >> $GITHUB_ENV
           echo "ES_INDEX=${{secrets.ES_INDEX_STAGE}}" >> $GITHUB_ENV
+          echo "ES_ALIAS=${{secrets.ES_ALIAS_STAGE}}" >> $GITHUB_ENV
           echo "ES_INDEX_PREFIX=${{secrets.ES_INDEX_PREFIX_STAGE}}" >> $GITHUB_ENV
           echo "LIBGUIDES_ES_INDEX=${{secrets.LIBGUIDES_ES_INDEX_STAGE}}" >> $GITHUB_ENV
           echo "ES_TEMP_INDEX_PREFIX_LIBGUIDES=${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_STAGE}}" >> $GITHUB_ENV
@@ -62,6 +64,7 @@ jobs:
           echo "ES_READ_KEY=${{secrets.ES_READ_KEY_PROD}}" >> $GITHUB_ENV
           echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_PROD}}" >> $GITHUB_ENV
           echo "ES_INDEX=${{secrets.ES_INDEX_PROD}}" >> $GITHUB_ENV
+          echo "ES_ALIAS=${{secrets.ES_ALIAS_PROD}}" >> $GITHUB_ENV
           echo "ES_INDEX_PREFIX=${{secrets.ES_INDEX_PREFIX_PROD}}" >> $GITHUB_ENV
           echo "LIBGUIDES_ES_INDEX=${{secrets.LIBGUIDES_ES_INDEX_PROD}}" >> $GITHUB_ENV
           echo "ES_TEMP_INDEX_PREFIX_LIBGUIDES=${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_PROD}}" >> $GITHUB_ENV
@@ -77,6 +80,7 @@ jobs:
           ES_READ_KEY: ${{env.ES_READ_KEY}}
           ES_WRITE_KEY: ${{env.ES_WRITE_KEY}}
           ES_INDEX: ${{env.ES_INDEX}}
+          ES_ALIAS: ${{env.ES_ALIAS}}
           ES_INDEX_PREFIX: ${{env.ES_INDEX_PREFIX}}
           ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES}}
           LIBGUIDES_ES_INDEX: ${{env.LIBGUIDES_ES_INDEX}}

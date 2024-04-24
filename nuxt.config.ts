@@ -97,6 +97,7 @@ export default defineNuxtConfig({
       s3Bucket: process.env.S3_BUCKET,
       esReadKey: process.env.ES_READ_KEY || '',
       esIndex: process.env.ES_INDEX || '',
+      esAlias: process.env.ES_ALIAS || '',
       libguidesEsIndex: process.env.LIBGUIDES_ES_INDEX || '',
       esIndexPrefix: process.env.ES_INDEX_PREFIX || '',
       esTempIndex: '',
