@@ -294,7 +294,7 @@ onMounted(async () => {
         page.featuredNews.length &&
         hits.length === 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <banner-featured
@@ -310,12 +310,14 @@ onMounted(async () => {
         class="banner section-featured-banner"
       />
 
-      <divider-general v-show="page &&
-        page.featuredNews &&
-        page.featuredNews.length &&
-        hits.length === 0 &&
-        !noResultsFound
-        " />
+      <divider-general
+        v-show="page &&
+          page.featuredNews &&
+          page.featuredNews.length &&
+          hits.length === 0 &&
+          !noResultsFound
+        "
+      />
 
       <section-teaser-highlight
         v-show="parsedSectionHighlight.length"
@@ -330,7 +332,7 @@ onMounted(async () => {
         page.featuredNews.length &&
         hits.length === 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <divider-way-finder color="about" />

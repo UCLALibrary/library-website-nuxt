@@ -1,12 +1,12 @@
 <script setup>
 // HELPERS
-import _get from "lodash/get"
-import format from "date-fns/format"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import format from 'date-fns/format'
 import { onMounted } from 'vue'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import COLLECTIONS_LIST from "../gql/queries/CollectionsList.gql"
+import COLLECTIONS_LIST from '../gql/queries/CollectionsList.gql'
 
 // GET DATA
 const { $graphql, $getHeaders } = useNuxtApp()
@@ -68,14 +68,14 @@ const parsedBannerFeatured = computed(() => {
     return {
       ...obj,
       image: obj.heroImage[0].image[0],
-      title: _get(obj, "title", ""),
+      title: _get(obj, 'title', ''),
       titleLink: `/${obj.titleLink}`,
-      description: (obj, "summary", ""),
+      description: (obj, 'summary', ''),
       category: obj.category
-        ? obj.category.join(", ")
-        : "",
-      to: _get(obj, "button[0].buttonUrl", ""),
-      prompt: _get(obj, "button[0].buttonText", ""),
+        ? obj.category.join(', ')
+        : '',
+      to: _get(obj, 'button[0].buttonUrl', ''),
+      prompt: _get(obj, 'button[0].buttonText', ''),
     }
   })
 })
@@ -90,8 +90,8 @@ const parsedSectionHighlight = computed(() => {
       .map((obj) => {
         return {
           ...obj,
-          image: _get(obj, "heroImage[0].image[0]", ""),
-          category: obj.category.join(", "),
+          image: _get(obj, 'heroImage[0].image[0]', ''),
+          category: obj.category.join(', '),
           to: `/${obj.uri}`,
           text: obj.summary
         }
@@ -104,16 +104,16 @@ const parsedSectionHighlight = computed(() => {
 const parsedArticles = computed(() => {
   if (pageArticles.value) {
     return pageArticles.value.map((obj) => {
-      let parsedCategories = parseArticleCategory(
+      const parsedCategories = parseArticleCategory(
         obj.articleCategories
       )
       return {
         ...obj,
         to:
           obj.externalResourceUrl != null
-            ? _get(obj, "externalResourceUrl", "")
+            ? _get(obj, 'externalResourceUrl', '')
             : `/${obj.to}`,
-        image: _get(obj, "heroImage[0].image[0]", null),
+        image: _get(obj, 'heroImage[0].image[0]', null),
         category: parsedCategories,
         bylineOne: parsedDate(obj.postDate),
       }
@@ -124,25 +124,25 @@ const parsedArticles = computed(() => {
 })
 
 const allCollectionsNewsLink = computed(() => {
-  if (page.value.locationType != "affiliateLibrary") {
-    let searchLibrary = "Collections"
-    let libConcat = '/about/news?q=&filters={\"category.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+  if (page.value.locationType != 'affiliateLibrary') {
+    const searchLibrary = 'Collections'
+    const libConcat = '/about/news?q=&filters={\"category.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
 
     return libConcat
   } else {
-    return ""
+    return ''
   }
 })
 
 // METHODS
 function parsedDate(postDate) {
-  return format(new Date(postDate), "MMMM d, Y")
+  return format(new Date(postDate), 'MMMM d, Y')
 }
 
 function parseArticleCategory(categories) {
-  let result = ""
+  let result = ''
   categories.forEach((obj) => {
-    result = result + obj.title + ", "
+    result = result + obj.title + ', '
   })
   return result.slice(0, -2)
 }
@@ -170,7 +170,7 @@ onMounted(() => {
 
     <page-anchor
       v-if="h2Array.length >= 3"
-      :section-titles=h2Array
+      :section-titles="h2Array"
     />
 
     <section-wrapper
