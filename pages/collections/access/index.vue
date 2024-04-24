@@ -19,39 +19,37 @@ definePageMeta({
 })
 
 // ASYNC DATA // collections-access
-const { data: page, error } = await useAsyncData('access-collections', async () => {
+const { data, error } = await useAsyncData('access-collections', async () => {
   const data = await $graphql.default.request(ACCESS_COLLECTIONS)
   console.log('data in fn', data)
-  // TODO: after elastic search ready, implement these
-  // if (
-  //   pageAsyncData.entry.accessCollections &&
-  //   pageAsyncData.entry.accessCollections.length > 0
-  // ) {
-  //   for (let collection of pageAsyncData.entry.accessCollections) {
-  //     console.log("Collection indexing:" + collection.slug)
-  //     console.log("Collection:" + collection)
-  //     collection.searchType = "accessCollections"
-  //     collection.to = collection.uri
-  //       ? collection.uri
-  //       : collection.externalResourceUrl
-  //     collection.category =
-  //       collection.workshopOrEventSeriesType ===
-  //         "help/services-resources"
-  //         ? "workshop"
-  //         : collection.serviceOrResourceType
-  //           ? collection.serviceOrResourceType
-  //           : collection.typeHandle === "externalResource"
-  //             ? "resource"
-  //             : collection.typeHandle === "generalContentPage"
-  //               ? "resource"
-  //               : collection.typeHandle
-  //     await $elasticsearchplugin.index(collection, collection.slug)
-  //   }
-  // }
 
-  // return {
-  //   page: _get(pageAsyncData, "entry", {}),
-  // }
+  if (
+    data.entry.accessCollections &&
+    data.entry.accessCollections.length > 0
+  ) {
+    for (let collection of data.entry.accessCollections) {
+      console.log("Collection indexing:" + collection.slug)
+      console.log("Collection:" + collection)
+      collection.searchType = "accessCollections"
+      collection.to = collection.uri
+        ? collection.uri
+        : collection.externalResourceUrl
+      collection.category =
+        collection.workshopOrEventSeriesType ===
+          "help/services-resources"
+          ? "workshop"
+          : collection.serviceOrResourceType
+            ? collection.serviceOrResourceType
+            : collection.typeHandle === "externalResource"
+              ? "resource"
+              : collection.typeHandle === "generalContentPage"
+                ? "resource"
+                : collection.typeHandle
+      // TODO enable
+      // await $elasticsearchplugin.index(collection, collection.slug)
+    }
+  }
+
   return data
 })
 if (error.value) {
@@ -62,17 +60,16 @@ if (error.value) {
 if (!page.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
-// TODO do we still need these for elastic search?
-// fetchOnServer: false,
-// fetchKey: "collections-access",
 
 // DATA VARS
+const page = ref(_get(data.value, 'entry', {}))
 const noResultsFound = ref(false)
 const hits = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
 })
 
+// TODO AFTER ELASTIC SEARCH
 // FETCH
 // const fetchNew = async () => {
 //   hits.value = []
@@ -143,7 +140,7 @@ const parseHitsResults = computed(() => {
   return parseHits(hits)
 })
 
-// WATCHERS - TODO: after elastic search ready, implement these
+// WATCHERS - TODO: after elastic search ready, implement these if needed
 // watch(() => route.query, async (newValue) => {
 //   await $fetch(newValue)
 // })
@@ -207,10 +204,8 @@ function getSearchData(data) {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper
-      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+        ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
@@ -283,4 +278,7 @@ function getSearchData(data) {
     </section-wrapper>
   </main>
 </template>
-<style lang="scss" scoped></style>
+<style
+  lang="scss"
+  scoped
+></style>
