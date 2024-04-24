@@ -52,6 +52,8 @@ const { data, error } = await useAsyncData('access-collections', async () => {
 
   return data
 })
+const page = ref(_get(data.value, 'entry', {}))
+
 if (error.value) {
   throw createError({
     ...error.value, statusMessage: 'Page not found.', fatal: true
@@ -62,7 +64,6 @@ if (!page.value.entry) {
 }
 
 // DATA VARS
-const page = ref(_get(data.value, 'entry', {}))
 const noResultsFound = ref(false)
 const hits = ref([])
 const searchGenericQuery = ref({
