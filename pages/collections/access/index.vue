@@ -21,15 +21,15 @@ definePageMeta({
 // ASYNC DATA // collections-access
 const { data: page, error } = await useAsyncData('access-collections', async () => {
   const data = await $graphql.default.request(ACCESS_COLLECTIONS)
-  console.log('data in fn', data)
+  // console.log('data in fn', data)
 
   if (
     data.entry.accessCollections &&
     data.entry.accessCollections.length > 0
   ) {
     for (const collection of data.entry.accessCollections) {
-      console.log('Collection indexing:' + collection.slug)
-      console.log('Collection:' + collection)
+      // console.log('Collection indexing:' + collection.slug)
+      // console.log('Collection:' + collection)
       collection.searchType = 'accessCollections'
       collection.to = collection.uri
         ? collection.uri
@@ -137,7 +137,7 @@ const parsedAssociatedTopics = computed(() => {
   })
 })
 const parseHitsResults = computed(() => {
-  console.log('ParseHitsResults checking results data:' + JSON.stringify(hits))
+  // console.log('ParseHitsResults checking results data:' + JSON.stringify(hits))
   return parseHits(hits)
 })
 
