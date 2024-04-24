@@ -27,23 +27,23 @@ const { data, error } = await useAsyncData('access-collections', async () => {
     data.entry.accessCollections &&
     data.entry.accessCollections.length > 0
   ) {
-    for (let collection of data.entry.accessCollections) {
-      console.log("Collection indexing:" + collection.slug)
-      console.log("Collection:" + collection)
-      collection.searchType = "accessCollections"
+    for (const collection of data.entry.accessCollections) {
+      console.log('Collection indexing:' + collection.slug)
+      console.log('Collection:' + collection)
+      collection.searchType = 'accessCollections'
       collection.to = collection.uri
         ? collection.uri
         : collection.externalResourceUrl
       collection.category =
         collection.workshopOrEventSeriesType ===
-          "help/services-resources"
-          ? "workshop"
+          'help/services-resources'
+          ? 'workshop'
           : collection.serviceOrResourceType
             ? collection.serviceOrResourceType
-            : collection.typeHandle === "externalResource"
-              ? "resource"
-              : collection.typeHandle === "generalContentPage"
-                ? "resource"
+            : collection.typeHandle === 'externalResource'
+              ? 'resource'
+              : collection.typeHandle === 'generalContentPage'
+                ? 'resource'
                 : collection.typeHandle
       // TODO enable
       // await $elasticsearchplugin.index(collection, collection.slug)
@@ -204,8 +204,10 @@ function getSearchData(data) {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-        ">
+    <section-wrapper
+      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+      "
+    >
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
