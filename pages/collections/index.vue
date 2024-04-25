@@ -169,7 +169,7 @@ onMounted(() => {
 })
 </script>
 
-<template>
+<template lang="html">
   <main
     id="main"
     class="page page-collections"
