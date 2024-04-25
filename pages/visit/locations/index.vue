@@ -429,7 +429,10 @@ function getSearchData(data) {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .page-location {
   .about-results {
     margin-top: var(--space-xl);
