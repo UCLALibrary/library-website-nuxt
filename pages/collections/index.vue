@@ -22,9 +22,22 @@ if (error.value) {
   })
 }
 
+if (!data.value.entry) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
 const page = ref(_get(data.value.data, 'entry', {}))
 const pageArticles = ref(_get(data.value.data, 'entries', []))
 const pageArticleCount = ref(_get(data.value.data, 'entryCount', 0))
+
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+  pageArticles.value = _get(newVal, 'entry.policyBlock', [])
+  const pageArticleCount = ref(_get(data.value.data, 'entryCount', 0))
+})
+
+const h2Array = ref([]) // anchor tags
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -36,8 +49,6 @@ useHead({
     },
   ],
 })
-
-const h2Array = ref([]) // anchor tags
 
 const parsedResources = computed(() => {
   return page.value.featuredResourcesSection.map((obj) => {
@@ -67,7 +78,12 @@ const parsedBannerFeatured = computed(() => {
   return meta.map((obj) => {
     return {
       ...obj,
-      image: obj.heroImage[0].image[0],
+      image: _get(
+        obj,
+        'heroImage[0].image[0]',
+        null
+      ),
+      //image: obj.heroImage[0].image[0],
       title: _get(obj, 'title', ''),
       titleLink: `/${obj.titleLink}`,
       description: (obj, 'summary', ''),
@@ -276,5 +292,7 @@ onMounted(() => {
   .section-teaser-highlight {
     margin: var(--space-xl) auto;
   }
+
+
 }
 </style>
