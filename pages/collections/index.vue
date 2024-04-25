@@ -83,7 +83,7 @@ const parsedBannerFeatured = computed(() => {
         'heroImage[0].image[0]',
         null
       ),
-      //image: obj.heroImage[0].image[0],
+      // image: obj.heroImage[0].image[0],
       title: _get(obj, 'title', ''),
       titleLink: `/${obj.titleLink}`,
       description: (obj, 'summary', ''),
@@ -292,7 +292,6 @@ onMounted(() => {
   .section-teaser-highlight {
     margin: var(--space-xl) auto;
   }
-
 
 }
 </style>
