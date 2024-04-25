@@ -34,7 +34,7 @@ watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
   pageArticles.value = _get(newVal, 'entry.policyBlock', [])
-  const pageArticleCount = ref(_get(data.value.data, 'entryCount', 0))
+  pageArticleCount.value = _get(data.value.data, 'entryCount', 0)
 })
 
 const h2Array = ref([]) // anchor tags
