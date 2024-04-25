@@ -22,20 +22,20 @@ if (error.value) {
   })
 }
 
-if (!data.value.entry) {
-  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
-}
+// if (!data.value.entry) {
+//   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+// }
 
 const page = ref(_get(data.value.data, 'entry', {}))
 const pageArticles = ref(_get(data.value.data, 'entries', []))
 const pageArticleCount = ref(_get(data.value.data, 'entryCount', 0))
 
-watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
-  page.value = _get(newVal, 'entry', {})
-  pageArticles.value = _get(newVal, 'entry.policyBlock', [])
-  const pageArticleCount = ref(_get(data.value.data, 'entryCount', 0))
-})
+// watch(data, (newVal, oldVal) => {
+//   console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+//   page.value = _get(newVal, 'entry', {})
+//   pageArticles.value = _get(newVal, 'entry.policyBlock', [])
+//   const pageArticleCount = ref(_get(data.value.data, 'entryCount', 0))
+// })
 
 const h2Array = ref([]) // anchor tags
 
@@ -78,12 +78,7 @@ const parsedBannerFeatured = computed(() => {
   return meta.map((obj) => {
     return {
       ...obj,
-      image: _get(
-        obj,
-        'heroImage[0].image[0]',
-        null
-      ),
-      // image: obj.heroImage[0].image[0],
+      media: obj.heroImage[0].image[0],
       title: _get(obj, 'title', ''),
       titleLink: `/${obj.titleLink}`,
       description: (obj, 'summary', ''),
@@ -214,7 +209,7 @@ onMounted(() => {
       <banner-featured
         v-if="page.featuredCollectionsSection.length > 0"
         class="banner banner-about"
-        :image="parsedBannerFeatured[0].image"
+        :media="parsedBannerFeatured[0].image"
         :title="parsedBannerFeatured[0].title"
         :description="parsedBannerFeatured[0].summary"
         :category="parsedBannerFeatured[0].category"
