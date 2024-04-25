@@ -67,7 +67,7 @@ const searchGenericQuery = ref({
 // FETCH
 const fetchNew = async () => {
   hits.value = []
-  if (route.query.q && route.query.q !== '') {
+  if (route.query && route.query.q && route.query.q !== '') {
     const results = await $dataApi.keywordSearchWithFilters(
       route.query.q || '*',
       config.accessCollections.searchFields,
