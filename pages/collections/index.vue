@@ -140,7 +140,7 @@ const parsedArticles = computed(() => {
 })
 
 const allCollectionsNewsLink = computed(() => {
-  if (page.value.locationType != 'affiliateLibrary') {
+  if (page.value.locationType !== 'affiliateLibrary') {
     const searchLibrary = 'Collections'
     const libConcat = '/about/news?q=&filters={\"category.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
 
