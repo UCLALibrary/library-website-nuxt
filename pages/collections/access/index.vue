@@ -8,7 +8,7 @@ import ACCESS_COLLECTIONS from '../gql/queries/CollectionsAccessList.gql'
 
 // UTILITIES & PLUGINS
 import config from '../utils/searchConfig'
-const { $graphql, $elasticsearchplugin } = useNuxtApp() // TODO $dataApi, $fetch
+const { $graphql, $elasticsearchplugin, $dataApi } = useNuxtApp()
 
 // ROUTING
 const route = useRoute()
@@ -18,7 +18,7 @@ definePageMeta({
   alias: ['/listing-collections/access'],
 })
 
-// ASYNC DATA // collections-access
+// ASYNC DATA
 const { data: page, error } = await useAsyncData('access-collections', async () => {
   const data = await $graphql.default.request(ACCESS_COLLECTIONS)
   if (
@@ -65,36 +65,36 @@ const searchGenericQuery = ref({
 })
 
 // FETCH
-// const fetchNew = async () => {
-//   hits.value = []
-//   if (route.query.q && route.query.q !== '') {
-//     const results = await $dataApi.keywordSearchWithFilters(
-//       route.query.q || '*',
-//       config.accessCollections.searchFields,
-//       'searchType:accessCollection',
-//       [],
-//       config.accessCollections.sortField,
-//       config.accessCollections.orderBy,
-//       config.accessCollections.resultFields,
-//       []
-//     )
-//     hits.value = []
-//     if (results && results.hits && results.hits.total.value > 0) {
-//       hits.value = results.hits.hits
-//       noResultsFound.value = false
-//     } else {
-//       hits.value = []
-//       noResultsFound.value = true
-//     }
-//     searchGenericQuery.value = {
-//       queryText: route.query.q || '',
-//     }
-//   } else {
-//     hits.value = []
-//     noResultsFound.value = false
-//     searchGenericQuery.value = { queryText: '' }
-//   }
-// }
+const fetchNew = async () => {
+  hits.value = []
+  if (route.query.q && route.query.q !== '') {
+    const results = await $dataApi.keywordSearchWithFilters(
+      route.query.q || '*',
+      config.accessCollections.searchFields,
+      'searchType:accessCollection',
+      [],
+      config.accessCollections.sortField,
+      config.accessCollections.orderBy,
+      config.accessCollections.resultFields,
+      []
+    )
+    hits.value = []
+    if (results && results.hits && results.hits.total.value > 0) {
+      hits.value = results.hits.hits
+      noResultsFound.value = false
+    } else {
+      hits.value = []
+      noResultsFound.value = true
+    }
+    searchGenericQuery.value = {
+      queryText: route.query.q || '',
+    }
+  } else {
+    hits.value = []
+    noResultsFound.value = false
+    searchGenericQuery.value = { queryText: '' }
+  }
+}
 
 // HEAD
 useHead({
@@ -134,9 +134,8 @@ const parseHitsResults = computed(() => {
 })
 
 // WATCHERS
-watch(() => route.query, async (newValue) => {
-  // TODO enable?
-  // await $fetch(newValue)
+watch(() => route.query, async (oldValue, newValue) => {
+  if (oldValue !== newValue) await fetchNew()
 })
 watch(() => route.query.q, (newValue) => {
   if (newValue === '') hits.value = []
@@ -145,10 +144,6 @@ watch(() => route.query.q, (newValue) => {
 // METHODS
 function parseHits(hits) {
   return hits.value.map((obj) => {
-    // console.log(
-    //   'What should the category be?:' +
-    //   obj._source.sectionHandle
-    // )
     return {
       ...obj._source,
       to: obj._source.externalResourceUrl
