@@ -21,15 +21,11 @@ definePageMeta({
 // ASYNC DATA // collections-access
 const { data: page, error } = await useAsyncData('access-collections', async () => {
   const data = await $graphql.default.request(ACCESS_COLLECTIONS)
-  // console.log('data in fn', data)
-
   if (
     data.entry.accessCollections &&
     data.entry.accessCollections.length > 0
   ) {
     for (const collection of data.entry.accessCollections) {
-      // console.log('Collection indexing:' + collection.slug)
-      // console.log('Collection:' + collection)
       collection.searchType = 'accessCollections'
       collection.to = collection.uri
         ? collection.uri
@@ -51,7 +47,6 @@ const { data: page, error } = await useAsyncData('access-collections', async () 
 
   return data
 })
-// const page = ref(_get(data.value, 'entry', {}))
 
 if (error.value) {
   throw createError({
@@ -69,7 +64,6 @@ const searchGenericQuery = ref({
   queryText: route.query.q || '',
 })
 
-// TODO AFTER ELASTIC SEARCH
 // FETCH
 // const fetchNew = async () => {
 //   hits.value = []
@@ -136,26 +130,25 @@ const parsedAssociatedTopics = computed(() => {
   })
 })
 const parseHitsResults = computed(() => {
-  // console.log('ParseHitsResults checking results data:' + JSON.stringify(hits))
   return parseHits(hits)
 })
 
-// WATCHERS - TODO: after elastic search ready, implement these if needed
-// watch(() => route.query, async (newValue) => {
-//   await $fetch(newValue)
-// })
-// watch(() => route.query.q, (newValue) => {
-//   // console.log("watching queryTEXT: " + newValue)
-//   if (newValue === '') hits.value = []
-// })
+// WATCHERS
+watch(() => route.query, async (newValue) => {
+  // TODO enable?
+  // await $fetch(newValue)
+})
+watch(() => route.query.q, (newValue) => {
+  if (newValue === '') hits.value = []
+})
 
 // METHODS
 function parseHits(hits) {
   return hits.value.map((obj) => {
-    console.log(
-      'What should the category be?:' +
-      obj._source.sectionHandle
-    )
+    // console.log(
+    //   'What should the category be?:' +
+    //   obj._source.sectionHandle
+    // )
     return {
       ...obj._source,
       to: obj._source.externalResourceUrl
