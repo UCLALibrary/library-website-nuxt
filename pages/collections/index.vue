@@ -18,13 +18,13 @@ const { data, error } = await useAsyncData('collections-list', async () => {
 })
 if (error.value) {
   throw createError({
-    ...error.value, statusMessage: 'Page not found JEN.' + error.value, fatal: true
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
   })
 }
 
-// if (!data.value.entry) {
-//   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
-// }
+if (!data.value.data.entry && !data.value.data.entries) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
 
 const page = ref(_get(data.value.data, 'entry', {}))
 const pageArticles = ref(_get(data.value.data, 'entries', []))
