@@ -57,15 +57,15 @@ if (!page.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-// DATA VARS
+// ES search functionality
 const noResultsFound = ref(false)
 const hits = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
 })
 
-// FETCH
-const fetchNew = async () => {
+// ES search function
+const searchES = async () => {
   hits.value = []
   if (route.query && route.query.q && route.query.q !== '') {
     const results = await $dataApi.keywordSearchWithFilters(
@@ -95,6 +95,14 @@ const fetchNew = async () => {
     searchGenericQuery.value = { queryText: '' }
   }
 }
+
+// ES watcher
+watch(() => route.query, async (oldValue, newValue) => {
+  if (oldValue !== newValue) {
+    if (newValue?.q === '') hits.value = []
+    await searchES()
+  }
+}, { deep: true, immediate: true })
 
 // HEAD
 useHead({
@@ -131,14 +139,6 @@ const parsedAssociatedTopics = computed(() => {
 })
 const parseHitsResults = computed(() => {
   return parseHits(hits)
-})
-
-// WATCHERS
-watch(() => route.query, async (oldValue, newValue) => {
-  if (oldValue !== newValue) await fetchNew()
-})
-watch(() => route.query.q, (newValue) => {
-  if (newValue === '') hits.value = []
 })
 
 // METHODS
@@ -191,10 +191,8 @@ function getSearchData(data) {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper
-      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+        ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
