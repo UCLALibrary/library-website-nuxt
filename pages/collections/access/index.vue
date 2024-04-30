@@ -57,19 +57,33 @@ if (!page.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
+// TODO another watcher? when does this fire?
+// TODO was data
+watch(page, (newVal, oldVal) => {
+  console.log('In watch preview enabled', newVal, oldVal)
+  // page.value = _get(newVal, 'entry', {})
+  // news.value = _get(newVal, 'entries', [])
+})
+
 // ES search functionality
 const noResultsFound = ref(false)
 const hits = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
+  // queryFilters must be passed even if not used
+  queryFilters:
+    (route.query.filters &&
+      JSON.parse(route.query.filters)) ||
+    {},
 })
 
 // ES search function
-const searchES = async () => {
+async function searchES() {
   hits.value = []
-  if (route.query && route.query.q && route.query.q !== '') {
+  if (route?.query && route?.query.q && route?.query.q !== '') {
+    const queryText = route.query.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
-      route.query.q || '*',
+      queryText,
       config.accessCollections.searchFields,
       'searchType:accessCollection',
       [],
@@ -78,6 +92,7 @@ const searchES = async () => {
       config.accessCollections.resultFields,
       []
     )
+
     hits.value = []
     if (results && results.hits && results.hits.total.value > 0) {
       hits.value = results.hits.hits
@@ -87,20 +102,22 @@ const searchES = async () => {
       noResultsFound.value = true
     }
     searchGenericQuery.value = {
+      ...searchGenericQuery.value,
       queryText: route.query.q || '',
     }
   } else {
     hits.value = []
     noResultsFound.value = false
-    searchGenericQuery.value = { queryText: '' }
+    searchGenericQuery.value = { ...searchGenericQuery.value, queryText: '' }
   }
 }
 
 // ES watcher
-watch(() => route.query, async (oldValue, newValue) => {
+watch(() => route?.query, (oldValue, newValue) => {
   if (oldValue !== newValue) {
     if (newValue?.q === '') hits.value = []
-    await searchES()
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchES()
   }
 }, { deep: true, immediate: true })
 
@@ -152,11 +169,13 @@ function parseHits(hits) {
     }
   })
 }
+
 function getSearchData(data) {
-  route.push({
+  useRouter().push({
     path: '/collections/access',
     query: {
-      q: data.value.entry.text,
+      q: data?.text,
+      filters: [],
     },
   })
 }
@@ -182,17 +201,22 @@ function getSearchData(data) {
     <search-generic
       search-type="default"
       class="generic-search"
-      :search-generic-query="searchGenericQuery"
       placeholder="ACCESS COLLECTIONS"
+      :search-generic-query="searchGenericQuery"
       @search-ready="getSearchData"
     />
 
-    <section-wrapper theme="divider">
+    <section-wrapper
+      theme="
+      divider"
+    >
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-        ">
+    <section-wrapper
+      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+      "
+    >
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
