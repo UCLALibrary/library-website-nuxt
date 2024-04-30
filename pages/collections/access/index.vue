@@ -206,17 +206,11 @@ function getSearchData(data) {
       @search-ready="getSearchData"
     />
 
-    <section-wrapper
-      theme="
-      divider"
-    >
+    <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
-
-    <section-wrapper
-      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+        ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
