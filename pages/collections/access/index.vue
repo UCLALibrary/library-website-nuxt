@@ -21,7 +21,9 @@ definePageMeta({
 // ASYNC DATA
 const { data, error } = await useAsyncData('access-collections', async () => {
   const data = await $graphql.default.request(ACCESS_COLLECTIONS)
+  // only index on server
   if (
+    process.server &&
     data.entry.accessCollections &&
     data.entry.accessCollections.length > 0
   ) {
@@ -44,7 +46,7 @@ const { data, error } = await useAsyncData('access-collections', async () => {
       await $elasticsearchplugin.index(collection, collection.slug)
     }
   }
-  console.log('In async data', data)
+  // end indexing
   return data
 })
 const page = ref(_get(data.value, 'entry', {}))
@@ -212,7 +214,7 @@ function getSearchData(data) {
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
-    <section-wrapper v-show="page.accessCollections && hits.length == 0 && !noResultsFound
+    <section-wrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
         ">
       <section-cards-with-illustrations
         class="section"
