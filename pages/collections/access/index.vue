@@ -61,10 +61,9 @@ if (!page.value) {
 
 // TODO another watcher? when does this fire?
 // TODO was data
-watch(page, (newVal, oldVal) => {
+watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
-  // news.value = _get(newVal, 'entries', [])
 })
 
 // ES search functionality
@@ -212,10 +211,8 @@ function getSearchData(data) {
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
-    <section-wrapper
-      v-show="page.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <section-wrapper v-show="page.accessCollections && hits.length == 0 && !noResultsFound
+        ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
