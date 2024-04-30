@@ -19,7 +19,7 @@ definePageMeta({
 })
 
 // ASYNC DATA
-const { data: page, error } = await useAsyncData('access-collections', async () => {
+const { data, error } = await useAsyncData('access-collections', async () => {
   const data = await $graphql.default.request(ACCESS_COLLECTIONS)
   if (
     data.entry.accessCollections &&
@@ -44,16 +44,18 @@ const { data: page, error } = await useAsyncData('access-collections', async () 
       await $elasticsearchplugin.index(collection, collection.slug)
     }
   }
-
+  console.log('In async data', data)
   return data
 })
+const page = ref(_get(data.value, 'entry', {}))
+console.log('In page', page.value)
 
 if (error.value) {
   throw createError({
     ...error.value, statusMessage: 'Page not found.', fatal: true
   })
 }
-if (!page.value.entry) {
+if (!page.value) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
@@ -61,7 +63,7 @@ if (!page.value.entry) {
 // TODO was data
 watch(page, (newVal, oldVal) => {
   console.log('In watch preview enabled', newVal, oldVal)
-  // page.value = _get(newVal, 'entry', {})
+  page.value = _get(newVal, 'entry', {})
   // news.value = _get(newVal, 'entries', [])
 })
 
@@ -81,6 +83,7 @@ const searchGenericQuery = ref({
 async function searchES() {
   hits.value = []
   if (route?.query && route?.query.q && route?.query.q !== '') {
+    console.log('searchES', route.query.q)
     const queryText = route.query.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
@@ -123,19 +126,19 @@ watch(() => route?.query, (oldValue, newValue) => {
 
 // HEAD
 useHead({
-  title: page.value.entry ? page.value.entry.title : '... loading',
+  title: page.value ? page.value.title : '... loading',
   meta: [
     {
       hid: 'description',
       name: 'description',
-      content: removeTags(page.value.entry.text)
-    },
+      content: removeTags(page.value.text),
+    }
   ],
 })
 
 // COMPUTED
 const parsedAccessCollections = computed(() => {
-  return page.value.entry.accessCollections.map((obj) => {
+  return page.value.accessCollections.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
@@ -145,7 +148,7 @@ const parsedAccessCollections = computed(() => {
   })
 })
 const parsedAssociatedTopics = computed(() => {
-  return page.value.entry.associatedTopics.map((obj) => {
+  return page.value.associatedTopics.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
@@ -187,14 +190,14 @@ function getSearchData(data) {
   >
     <nav-breadcrumb
       to="/collections"
-      :title="page.entry.title"
+      :title="page.title"
       parent-title="Collections"
       class="secondary-breadcrumb"
     />
 
     <masthead-secondary
-      :title="page.entry.title"
-      :text="page.entry.text"
+      :title="page.title"
+      :text="page.text"
       class="secondary"
     />
 
@@ -209,8 +212,10 @@ function getSearchData(data) {
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
-    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-        ">
+    <section-wrapper
+      v-show="page.accessCollections && hits.length == 0 && !noResultsFound
+      "
+    >
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
