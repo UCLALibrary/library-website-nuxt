@@ -2,11 +2,11 @@
 import { onMounted } from 'vue'
 
 // HELPERS
-import _get from "lodash/get"
-import removeTags from "../utils/removeTags"
+import _get from 'lodash/get'
+import removeTags from '../utils/removeTags'
 
 // GQL
-import PROGRAM_DETAIL from "../gql/queries/ProgramDetail.gql"
+import PROGRAM_DETAIL from '../gql/queries/ProgramDetail.gql'
 
 const { $graphql, $getHeaders, $elasticsearchplugin } = useNuxtApp()
 
@@ -38,9 +38,6 @@ const page = ref(_get(data.value, 'entry', {}))
 const associatedArticles = ref(_get(data.value, 'associatedArticles', {}))
 const h2Array = ref([]) // anchor tags
 
-console.log('expected page: ', page.value)
-console.log('expected articles: ', associatedArticles.value)
-
 watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal.data, 'entry', {})
@@ -59,20 +56,20 @@ useHead({
 })
 
 const parsedButtonText = computed(() => {
-  return _get(page.value, "buttonUrl[0].buttonText", "")
+  return _get(page.value, 'buttonUrl[0].buttonText', '')
 })
 
 const parsedButtonTo = computed(() => {
-  return _get(page.value, "buttonUrl[0].buttonUrl", "")
+  return _get(page.value, 'buttonUrl[0].buttonUrl', '')
 })
 
 const parsedStaffDirectory = computed(() => {
-  let x = page.value.viewStaffDirectory
-  if (x == "false" && page.value.title.length > 0) {
-    return ""
+  const x = page.value.viewStaffDirectory
+  if (x === 'false' && page.value.title.length > 0) {
+    return ''
   } else {
-    let searchLibrary = page.value.title
-    let libConcat = '/about/staff?q=&filters={\"departments.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
+    const searchLibrary = page.value.title
+    const libConcat = '/about/staff?q=&filters={"departments.title.keyword":["' + encodeURIComponent(searchLibrary) + '"]}'
 
     return libConcat
   }
@@ -84,28 +81,28 @@ const parsedArticles = computed(() => {
       ...obj,
       to:
         obj.externalResourceUrl != null
-          ? _get(obj, "externalResourceUrl", "")
+          ? _get(obj, 'externalResourceUrl', '')
           : `/${obj.to}`,
-      image: _get(obj, "heroImage[0].image[0]", {}),
-      category: _get(obj, "category", ""),
-      title: _get(obj, "title", ""),
-      text: _get(obj, "description", ""),
-      startDate: _get(obj, "startDate", ""),
+      image: _get(obj, 'heroImage[0].image[0]', {}),
+      category: _get(obj, 'category', ''),
+      title: _get(obj, 'title', ''),
+      text: _get(obj, 'description', ''),
+      startDate: _get(obj, 'startDate', ''),
     }
   })
 })
 
 const parsedSeeMore = computed(() => {
-  if (page.value.slug == "preservation-conservation-program") {
-    return "/about/blogs/listing-preservation-and-conservation-blog"
+  if (page.value.slug === 'preservation-conservation-program') {
+    return '/about/blogs/listing-preservation-and-conservation-blog'
   } else {
-    return "/about/news"
+    return '/about/news'
   }
 })
 
 onMounted(() => {
   // Call the plugin method to get the .section-header2 and .section-header3 elements
-  h2Array.value = $getHeaders.getHeadersMethod();
+  h2Array.value = $getHeaders.getHeadersMethod()
 })
 </script>
 
@@ -157,14 +154,14 @@ onMounted(() => {
 
     <page-anchor
       v-if="h2Array.length >= 3"
-      :section-titles=h2Array
+      :section-titles="h2Array"
     />
 
     <section-wrapper>
       <block-hours
         v-if="
           page.uri ==
-          'about/programs/campus-library-instructional-computing-commons-clicc'
+            'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         lid="0"
         :is-clicc="true"
@@ -172,7 +169,7 @@ onMounted(() => {
       <divider-way-finder
         v-if="
           page.uri ==
-          'about/programs/campus-library-instructional-computing-commons-clicc'
+            'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         lid="0"
         :is-clicc="true"
