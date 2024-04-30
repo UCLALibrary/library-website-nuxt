@@ -8,7 +8,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import COLLECTIONS_LIST from '../gql/queries/CollectionsList.gql'
 
-// GET DATA
+// GET DATA-
 const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
 
