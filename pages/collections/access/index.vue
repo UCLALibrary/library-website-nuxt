@@ -195,6 +195,7 @@ function getSearchData(data) {
     />
 
     <masthead-secondary
+      v-if="page.title"
       :title="page.title"
       :text="page.text"
       class="secondary"
