@@ -23,9 +23,9 @@ const { data, error } = await useAsyncData('access-collections', async () => {
   const data = await $graphql.default.request(ACCESS_COLLECTIONS)
   // only index on server
   if (
-    process.server &&
     data.entry.accessCollections &&
-    data.entry.accessCollections.length > 0
+    data.entry.accessCollections.length > 0 &&
+    process.server
   ) {
     for (const collection of data.entry.accessCollections) {
       collection.searchType = 'accessCollections'
