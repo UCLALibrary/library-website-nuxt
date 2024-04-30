@@ -8,7 +8,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import COLLECTIONS_LIST from '../gql/queries/CollectionsList.gql'
 
-// GET DATA
+// GET DATA-
 const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
 
@@ -32,9 +32,9 @@ const pageArticleCount = ref(_get(data.value.data, 'entryCount', 0))
 
 watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
-  page.value = _get(newVal, 'entry', {})
-  pageArticles.value = _get(newVal, 'entry.policyBlock', [])
-  pageArticleCount.value = _get(data.value.data, 'entryCount', 0)
+  page.value = _get(newVal.data, 'entry', {})
+  pageArticles.value = _get(newVal.data, 'entries', [])
+  pageArticleCount.value = _get(newVal.data, 'entryCount', 0)
 })
 
 const h2Array = ref([]) // anchor tags
