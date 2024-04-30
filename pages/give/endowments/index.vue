@@ -1,30 +1,27 @@
 <script setup>
 import { onMounted } from 'vue'
-
-// import getListingFilters from "../utils/getListingFilters"
 import _get from 'lodash/get'
-import config from '../utils/searchConfig'
 
-// HELPERS
+import config from '../utils/searchConfig'
 import fixUri from '../utils/fixUri'
 import removeTags from '../utils/removeTags'
 
 // GQL
 import ENDOWMENTS_LIST from '../gql/queries/EndowmentList.gql'
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $dataApi } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData('endowments-list', async () => {
   const data = await $graphql.default.request(ENDOWMENTS_LIST, {})
   return { data }
 })
+
 if (error.value) {
   throw createError({
     ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
   })
 }
-// console.log('In endowment listing page data.value: ', JSON.stringify(data.value))
 
 if (!data.value.data.entry && !data.value.data.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
@@ -41,14 +38,6 @@ watch(data, (newVal, oldVal) => {
   featuredEndowments.value = _get(newVal.data, 'entry.featuredEndowments[0].featuredEndowments', [])
 })
 
-const hits = ref([])
-const title = ref('')
-const noResultsFound = ref(false)
-// const searchFilters = ref([])
-const searchGenericQuery = ref({
-  queryText: route.query.q || '',
-})
-
 useHead({
   title: page.value ? page.value.title : '... loading',
   meta: [
@@ -59,64 +48,6 @@ useHead({
     },
   ],
 })
-
-/* TODO: Refactor when search functionality is ready */
-/*
-  async fetch() {
-  this.endowments = []
-  this.hits = []
-  if (
-    (this.$route.query.q && this.$route.query.q !== "")
-  ) {
-    if (!this.page.title) {
-      const data = await this.$graphql.default.request(
-        ENDOWMENTS_LIST
-      )
-      this.page["title"] = _get(data, "entry.title", "")
-      this.page["text"] = _get(data, "entry.text", "")
-    }
-    let query_text = this.$route.query.q || "*"
-    //console.log("in router query in asyc data")
-    const results = await this.$dataApi.keywordSearchWithFilters(
-      query_text,
-      config.endowmentsList.searchFields,
-      "sectionHandle:endowment",
-      JSON.parse(this.$route.query.q) || "*",
-      config.endowmentsList.sortField,
-      config.endowmentsList.orderBy,
-      config.endowmentsList.resultFields,
-      // config.endowmentsList.filters
-      []
-    )
-    // console.log("getsearchdata method:" + JSON.stringify(results))
-    this.endowments = []
-    this.hits = []
-    if (results && results.hits && results.hits.total.value > 0) {
-      this.hits = results.hits.hits
-      this.endowments = []
-      this.noResultsFound = false
-    } else {
-      this.hits = []
-      this.endowments = []
-      this.noResultsFound = true
-    }
-    this.searchGenericQuery = {
-      queryText: this.$route.query.q || "",
-      // queryFilters:
-      //     (this.$route.query.filters &&
-      //         JSON.parse(this.$route.query.filters)) ||
-      //     {},
-    }
-  } else {
-    this.hits = []
-    // if route queries are empty fetch data from craft
-    const data = await this.$graphql.default.request(ENDOWMENTS_LIST)
-    // //console.log("data:" + data)
-    this.page = _get(data, "entry", {})
-    this.endowments = _get(data, "entries", [])
-  }
-}
-*/
 
 // Computed
 const parsedFeaturedEndowments = computed(() => {
@@ -173,65 +104,58 @@ const parseHitsResults = computed(() => {
   return parseHits(hits.value)
 })
 
-/* TODO: Refactor when search functionality is ready */
-/*
-watch: {
-  "$route.query": "$fetch",
-    "$route.query.q"(newValue) {
-    //console.log("watching queryText:" + newValue)
-  },
-  // "$route.query.filters"(newValue) {
-  //     //console.log("watching filters:" + newValue)
-  // },
+
+// ES search functionality
+const hits = ref([])
+const title = ref('')
+const noResultsFound = ref(false)
+const searchGenericQuery = ref({
+  queryText: route.query.q || '',
+  queryFilters: {} // queryFilters must be passed even if not used
+})
+
+watch(() => {
+  route.query,
+    (newVal, oldVal) => {
+      console.log('ES newVal, oldVal', newVal, oldVal)
+      searchGenericQuery.value.queryText = route.query.q || ''
+      searchES()
+    }, { deep: true, immediate: true }
+})
+
+async function searchES() {
+  if (
+    route.query.q && route.query.q !== ''
+  ) {
+    console.log('Search ES HITS query,', route.query.q)
+    const queryText = route.query.q || '*'
+    const results = await $dataApi.keywordSearchWithFilters(
+      queryText,
+      config.endowmentsList.searchFields,
+      "sectionHandle:endowment",
+      JSON.parse(route.query.q) || "*",
+      config.endowmentsList.sortField,
+      config.endowmentsList.orderBy,
+      config.endowmentsList.resultFields,
+      // config.endowmentsList.filters
+      []
+    )
+    if (results && results.hits && results.hits.total.value > 0) {
+      console.log('Search ES HITS,', results.hits.hits)
+      hits.value = results.hits.hits
+      noResultsFound.value = false
+    } else {
+      noResultsFound.value = true
+      hits.value = []
+    }
+  } else {
+    hits.value = []
+    noResultsFound.value = false
+  }
 }
-*/
-
-// onMounted(async () => {
-//   console.log("In mounted")
-//   setFilters()
-// })
-
-/* TODO: Refactor when search functionality is ready */
-// methods: {
-// queryFilterHasValues() {
-//     if (!this.$route.query.filters) return false
-//     let routeQueryFilters = JSON.parse(this.$route.query.filters)
-//     // //console.log(
-//     //     "is route query exixts:" + JSON.stringify(routeQueryFilters)
-//     // )
-//     let configFilters = config.endowmentsList.filters
-//     for (const filter of configFilters) {
-//         if (
-//             Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-//             routeQueryFilters[filter.esFieldName].length > 0
-//         ) {
-//             return true
-//         } else if (
-//             routeQueryFilters[filter.esFieldName] &&
-//             !Array.isArray(routeQueryFilters[filter.esFieldName]) &&
-//             routeQueryFilters[filter.esFieldName] != ""
-//         ) {
-//             return true
-//         }
-//     }
-//     return false
-// },
-// async setFilters() {
-//     const searchAggsResponse = await this.$dataApi.getAggregations(
-//         config.endowmentsList.filters,
-//         "endowment"
-//     )
-//     /*console.log(
-//         "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-//     )*/
-//     this.searchFilters = getListingFilters(
-//         searchAggsResponse,
-//         config.endowmentsList.filters
-//     )
-// },
 
 function parseHits(hits = []) {
-  return hits.value.map((obj) => {
+  return hits.map((obj) => {
     return {
       ...obj._source,
       jobPostingURL: `/${obj._source.uri}`,
@@ -257,22 +181,17 @@ function parseHits(hits = []) {
   })
 }
 
+//  Event handler invoked by search-generic component selections
 function getSearchData(data) {
-  // console.log("On the page getsearchdata called " + data)
+  // console.log('On the page getsearchdata called')
 
-  route.push({
+  useRouter().push({
     path: '/give/endowments',
     query: {
       q: data.text,
-      // filters: JSON.stringify(data.filters),
     },
   })
 }
-
-// fetchOnServer: false,
-// multiple components can return the same `fetchKey` and Nuxt will track them both separately
-// fetchKey: "endowments-index",
-// }
 </script>
 
 <template lang="html">
@@ -286,14 +205,13 @@ function getSearchData(data) {
       :text="page.text"
     />
 
-    <!-- ToDo: Enable for search -->
-    <!-- <search-generic
+    <search-generic
       search-type="about"
       class="generic-search"
       :search-generic-query="searchGenericQuery"
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
-    /> -->
+    />
 
     <section-wrapper theme="divider">
       <divider-way-finder
@@ -332,7 +250,6 @@ function getSearchData(data) {
       <divider-way-finder color="about" />
     </section-wrapper>
 
-    <!-- ToDo: Remove json data display -->
     <section-wrapper
       v-if="page &&
         parsedEndowmentsList &&
