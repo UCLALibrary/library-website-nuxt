@@ -137,7 +137,7 @@ useHead({
 
 // COMPUTED
 const parsedAccessCollections = computed(() => {
-  return page.value.accessCollections.map((obj) => {
+  return page.value?.accessCollections?.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
@@ -147,7 +147,7 @@ const parsedAccessCollections = computed(() => {
   })
 })
 const parsedAssociatedTopics = computed(() => {
-  return page.value.associatedTopics.map((obj) => {
+  return page.value?.associatedTopics?.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
@@ -162,7 +162,7 @@ const parseHitsResults = computed(() => {
 
 // METHODS
 function parseHits(hits) {
-  return hits.value.map((obj) => {
+  return hits.value?.map((obj) => {
     return {
       ...obj._source,
       to: obj._source.externalResourceUrl
