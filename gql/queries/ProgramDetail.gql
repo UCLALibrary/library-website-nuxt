@@ -1,5 +1,5 @@
-#import "~/gql/fragments/Image"
-#import "~/gql/fragments/collections/AllFpb"
+#import "../gql/fragments/Image.gql"
+#import "../gql/fragments/collections/AllFpb.gql"
 
 query ProgramDetail($slug: [String!]) {
     entry(section: "program", slug: $slug) {
