@@ -169,6 +169,7 @@ useHead({
 })
 
 // COMPUTED PROPERTIES
+
 // DATA FROM CRAFT
 const parsedPages = computed(() => {
   if (
@@ -223,6 +224,7 @@ const parsedPlaceholder = computed(() => {
   return `Search ${summaryData.value.title}`
 })
 
+// DATA FROM ES
 const parseHitsResults = computed(() => {
   return parseHits()
 })
