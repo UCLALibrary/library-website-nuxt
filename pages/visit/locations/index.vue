@@ -58,7 +58,7 @@ const page = ref(_get(data.value, 'entry', {}))
 const uclaLibraries = ref(_get(data.value, 'uclaLibraries', []))
 const affiliateLibraries = ref(_get(data.value, 'affiliateLibraries', []))
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
   uclaLibraries.value = _get(newVal, 'uclaLibraries', [])
   affiliateLibraries.value = _get(newVal, 'affiliateLibraries', [])
@@ -131,8 +131,9 @@ async function searchES() {
 watch(
   () => route.query,
   (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', newVal, oldVal)
+    // console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
+    // TODO is the line correct? empty object not array?
     searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
     searchES()
   }, { deep: true, immediate: true }
@@ -195,12 +196,6 @@ const parsedPlaceholder = computed(() => {
 const parseHitsResults = computed(() => {
   return parseHits(hits.value)
 })
-
-// ON MOUNTED HOOK
-onMounted(async () => {
-  setFilters()
-})
-
 // METHODS
 function showMoreOtherCampusLibrary() {
   showOtherCampus.value = !showOtherCampus.value
@@ -211,9 +206,9 @@ async function setFilters() {
     config.locationsList.filters,
     'location'
   )
-  // console.log(
-  //     "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-  // )
+  console.log(
+    "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+  )
   searchFilters.value = getListingFilters(
     searchAggsResponse,
     config.locationsList.filters
@@ -248,6 +243,8 @@ function getSearchData(data) {
   // console.log("On the page getsearchdata called " + data)
   // this.page = {}
   // this.hits = []
+  console.log('data text', data.text)
+  console.log('data filters', JSON.stringify(data.filters))
   useRouter().push({
     path: '/visit/locations',
     query: {
@@ -257,6 +254,10 @@ function getSearchData(data) {
     },
   })
 }
+// ON MOUNTED HOOK
+onMounted(async () => {
+  await setFilters()
+})
 </script>
 
 <template lang="html">
