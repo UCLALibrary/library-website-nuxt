@@ -7,15 +7,15 @@ import _get from 'lodash/get'
 // SEARCH UTILS
 import getListingFilters from '../utils/getListingFilters'
 import config from '../utils/searchConfig'
-import sortByTitle from '../utils/sortByTitle'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
+
+// UTILITIES
+import removeTags from '../utils/removeTags'
+import sortByTitle from '../utils/sortByTitle'
 
 // GQL
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from '../gql/queries/ServiceResourceWorkshopSeriesList.gql'
 import HELP_TOPIC_LIST from '../gql/queries/helpTopicList.gql'
-
-// UTILITIES
-import removeTags from '../utils/removeTags'
 
 const { $graphql, $elasticsearchplugin, $dataApi } = useNuxtApp()
 const route = useRoute()
@@ -37,10 +37,11 @@ if (!data.value.data && !data.value.helpTopicData) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-// SEARCH ELASTIC SEARCH INDEX - CREATES INDEX TO BE SEARCHED
-// GETS THEM FROM CRAFT & CREATES ES INDEX
+// ELASTIC SEARCH INDEX
+// GETS DATA FROM CRAFT
+// CREATES ES INDEX TO BE SEARCHED
 // CHECK THAT NUXT IS RUNNING ON THE SERVER (process.server)
-console.log("DATDATDADTDATDA" + data)
+console.log("DATA-DATA-DATA-DATA" + data)
 if (
   data.value.externalResource &&
   data.value.externalResource.length > 0 &&
@@ -66,7 +67,8 @@ watch(data, (newVal, oldVal) => {
   summaryData.value = ref(_get(newVal.data, 'entry', {}))
 })
 
-// ES SEARCH FUNCTIONALITY
+// FUNCTION AND METHODS RELATED TO ES
+//COMPUTED METHODS THAT USE CRAFT DATA
 const hits = ref([])
 const noResultsFound = ref(false)
 const searchFilters = ref([])
@@ -79,16 +81,16 @@ const searchGenericQuery = ref({
     {},
 })
 
-useHead({
-  title: page.value ? summaryData.value.title : '... loading',
-  meta: [
-    {
-      hid: 'description',
-      name: 'description',
-      content: removeTags(summaryData.value.text),
-    },
-  ],
-})
+// THIS WATCHER IS CALLED WHEN THE ROUTER PUSHES UPDATES TO THE QUERY PARAM
+// ie: someone changes the query or starts viewing from a bookmarked page
+watch(() => route?.query, (oldValue, newValue) => {
+  if (oldValue !== newValue) {
+    if (newValue?.q === '') hits.value = []
+    // DO WE NEED THIS LINE BELOW?
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchES()
+  }
+}, { deep: true, immediate: true })
 
 // ES search function
 async function searchES() {
@@ -146,7 +148,7 @@ async function searchES() {
     page.value = await $graphql.default.request(
       SERVICE_RESOURCE_WORKSHOPSERIES_LIST
     )
-    helpTopic.value = await this.$graphql.default.request(
+    helpTopic.value = await $graphql.default.request(
       HELP_TOPIC_LIST
     )
     summaryData.value = _get(page.value, "entry", {})
@@ -155,15 +157,16 @@ async function searchES() {
   }
 }
 
-// ES WATCHER - UPDATES WHEN SOMEONE CHANGES THE QUERY AND LOOKS FOR BOOKMARK
-watch(() => route?.query, (oldValue, newValue) => {
-  if (oldValue !== newValue) {
-    if (newValue?.q === '') hits.value = []
-    // DO WE NEED THIS LINE BELOW?
-    searchGenericQuery.value.queryText = route.query.q || ''
-    searchES()
-  }
-}, { deep: true, immediate: true })
+useHead({
+  title: page.value ? summaryData.value.title : '... loading',
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: removeTags(summaryData.value.text),
+    },
+  ],
+})
 
 // COMPUTED PROPERTIES
 const parsedPages = computed(() => {
@@ -238,7 +241,7 @@ onMounted(async () => {
 // METHODS
 // FETCH FILTERS FROM ES
 async function setFilters() {
-  const searchAggsResponse = await this.$dataApi.getAggregations(
+  const searchAggsResponse = await $dataApi.getAggregations(
     config.serviceOrResources.filters,
     "serviceOrResource OR workshopSeries OR helpTopic OR externalResource",
   )
@@ -287,7 +290,6 @@ function getSearchData(data) {
     },
   })
 }
-
 </script>
 
 <template lang="html">
@@ -321,23 +323,29 @@ function getSearchData(data) {
     <hr>
     <h3>parsedPlaceholder -- {{ parsedPlaceholder }}</h3>
     <hr> -->
-    <h3>parseHitsResults -- {{ parseHitsResults }}</h3>
-    <hr>
-    <h3>parseDisplayResultsText -- {{ parseDisplayResultsText }}</h3>
+    <h3 style="margin: 30px 400px">
+      hits -- {{ hits }}
+    </h3>
+
+    <h3 style="margin: 30px 400px">
+      parseHitsResults -- {{ parseHitsResults }}
+    </h3>
+
+    <h3 style="margin: 30px 400px">
+      parseDisplayResultsText -- {{ parseDisplayResultsText }}
+    </h3>
 
 
-    <h4 style="margin: 30px 400px">
-      No of hits
-      {{ `from craft is ${parsedPages.length}` }}
-    </h4>
-    <h4 style="margin: 30px 400px">
-      No of hits from ES
+    <h3 style="margin: 30px 400px">
+      {{ `Number of hits from craft is ${parsedPages.length}` }}
+    </h3>
+    <h3 style="margin: 30px 400px">
       {{
         hits &&
-        `calling parsedhitsresults length
+        `Number of hits from ES calling parsedhitsresults length
       ${hits.length}`
       }}
-    </h4>
+    </h3>
 
     <section-wrapper theme="divider">
       <divider-way-finder
