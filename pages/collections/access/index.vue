@@ -1,180 +1,3 @@
-<script setup>
-// HELPERS
-import _get from 'lodash/get'
-import removeTags from '../utils/removeTags'
-
-// GQL
-import ACCESS_COLLECTIONS from '../gql/queries/CollectionsAccessList.gql'
-
-// UTILITIES & PLUGINS
-import config from '../utils/searchConfig'
-const { $graphql, $elasticsearchplugin } = useNuxtApp() // TODO $dataApi, $fetch
-
-// ROUTING
-const route = useRoute()
-definePageMeta({
-  layout: 'default',
-  path: '/collections/access',
-  alias: ['/listing-collections/access'],
-})
-
-// ASYNC DATA // collections-access
-const { data: page, error } = await useAsyncData('access-collections', async () => {
-  const data = await $graphql.default.request(ACCESS_COLLECTIONS)
-  // console.log('data in fn', data)
-
-  if (
-    data.entry.accessCollections &&
-    data.entry.accessCollections.length > 0
-  ) {
-    for (const collection of data.entry.accessCollections) {
-      // console.log('Collection indexing:' + collection.slug)
-      // console.log('Collection:' + collection)
-      collection.searchType = 'accessCollections'
-      collection.to = collection.uri
-        ? collection.uri
-        : collection.externalResourceUrl
-      collection.category =
-        collection.workshopOrEventSeriesType ===
-          'help/services-resources'
-          ? 'workshop'
-          : collection.serviceOrResourceType
-            ? collection.serviceOrResourceType
-            : collection.typeHandle === 'externalResource'
-              ? 'resource'
-              : collection.typeHandle === 'generalContentPage'
-                ? 'resource'
-                : collection.typeHandle
-      await $elasticsearchplugin.index(collection, collection.slug)
-    }
-  }
-
-  return data
-})
-// const page = ref(_get(data.value, 'entry', {}))
-
-if (error.value) {
-  throw createError({
-    ...error.value, statusMessage: 'Page not found.', fatal: true
-  })
-}
-if (!page.value.entry) {
-  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
-}
-
-// DATA VARS
-const noResultsFound = ref(false)
-const hits = ref([])
-const searchGenericQuery = ref({
-  queryText: route.query.q || '',
-})
-
-// TODO AFTER ELASTIC SEARCH
-// FETCH
-// const fetchNew = async () => {
-//   hits.value = []
-//   if (route.query.q && route.query.q !== '') {
-//     const results = await $dataApi.keywordSearchWithFilters(
-//       route.query.q || '*',
-//       config.accessCollections.searchFields,
-//       'searchType:accessCollection',
-//       [],
-//       config.accessCollections.sortField,
-//       config.accessCollections.orderBy,
-//       config.accessCollections.resultFields,
-//       []
-//     )
-//     hits.value = []
-//     if (results && results.hits && results.hits.total.value > 0) {
-//       hits.value = results.hits.hits
-//       noResultsFound.value = false
-//     } else {
-//       hits.value = []
-//       noResultsFound.value = true
-//     }
-//     searchGenericQuery.value = {
-//       queryText: route.query.q || '',
-//     }
-//   } else {
-//     hits.value = []
-//     noResultsFound.value = false
-//     searchGenericQuery.value = { queryText: '' }
-//   }
-// }
-
-// HEAD
-useHead({
-  title: page.value.entry ? page.value.entry.title : '... loading',
-  meta: [
-    {
-      hid: 'description',
-      name: 'description',
-      content: removeTags(page.value.entry.text)
-    },
-  ],
-})
-
-// COMPUTED
-const parsedAccessCollections = computed(() => {
-  return page.value.entry.accessCollections.map((obj) => {
-    return {
-      ...obj,
-      to: obj.externalResourceUrl
-        ? obj.externalResourceUrl
-        : `/${obj.uri}`,
-    }
-  })
-})
-const parsedAssociatedTopics = computed(() => {
-  return page.value.entry.associatedTopics.map((obj) => {
-    return {
-      ...obj,
-      to: obj.externalResourceUrl
-        ? obj.externalResourceUrl
-        : `/${obj.to}`,
-    }
-  })
-})
-const parseHitsResults = computed(() => {
-  console.log('ParseHitsResults checking results data:' + JSON.stringify(hits))
-  return parseHits(hits)
-})
-
-// WATCHERS - After elastic search ready, implement these if needed
-watch(() => route.query, async (newValue) => {
-  await $fetch(newValue)
-})
-watch(() => route.query.q, (newValue) => {
-  console.log('watching queryTEXT: ' + newValue)
-  if (newValue === '') hits.value = []
-})
-
-// METHODS
-function parseHits(hits) {
-  return hits.value.map((obj) => {
-    console.log(
-      'What should the category be?:' +
-      obj._source.sectionHandle
-    )
-    return {
-      ...obj._source,
-      to: obj._source.externalResourceUrl
-        ? obj._source.externalResourceUrl
-        : `/${obj._source.uri}`,
-    }
-  })
-}
-
-function getSearchData(data) {
-  route.push({
-    path: '/collections/access',
-    query: {
-      q: data.value.entry.text,
-    },
-  })
-}
-</script>
-
 <template lang="html">
   <main
     id="main"
@@ -182,15 +5,13 @@ function getSearchData(data) {
   >
     <nav-breadcrumb
       to="/collections"
-      :title="page.entry.title"
+      :title="page.title"
       parent-title="Collections"
-      class="secondary-breadcrumb"
     />
 
     <masthead-secondary
-      :title="page.entry.title"
-      :text="page.entry.text"
-      class="secondary"
+      :title="page.title"
+      :text="page.text"
     />
 
     <search-generic
@@ -205,10 +26,8 @@ function getSearchData(data) {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper
-      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <section-wrapper v-show="page.accessCollections && hits.length == 0 && !noResultsFound
+        ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
@@ -217,11 +36,11 @@ function getSearchData(data) {
     </section-wrapper>
     <section-wrapper v-show="hits && hits.length > 0">
       <h2
-        v-if="route.query && route.query.q"
+        v-if="$route.query.q"
         class="about-results"
       >
         Displaying {{ hits.length }} results for
-        <strong><em>“{{ route.query.q }}</em></strong>”
+        <strong><em>“{{ $route.query.q }}</em></strong>”
       </h2>
       <h2
         v-else
@@ -242,7 +61,7 @@ function getSearchData(data) {
     >
       <div class="error-text">
         <rich-text>
-          <h2>Search for “{{ route.query.q }}” not found.</h2>
+          <h2>Search for “{{ $route.query.q }}” not found.</h2>
           <p>
             We can’t find the term you are looking for on this page,
             but we're here to help. <br>
@@ -281,7 +100,184 @@ function getSearchData(data) {
     </section-wrapper>
   </main>
 </template>
+
+<router>
+  {
+    alias: '/listing-collections/access',
+  }
+</router>
+
+<script>
+// HELPERS
+import _get from "lodash/get"
+import removeTags from "~/utils/removeTags"
+
+// GQL
+import ACCESS_COLLECTIONS from "~/gql/queries/CollectionsAccessList.gql"
+
+// UTILITIES
+import config from "~/utils/searchConfig"
+
+export default {
+  async asyncData({ $graphql, $elasticsearchplugin }) {
+    console.log("In asyncData hook collectionsAccess list")
+
+    const pageAsyncData = await $graphql.default.request(ACCESS_COLLECTIONS)
+
+    if (
+      pageAsyncData.entry.accessCollections &&
+      pageAsyncData.entry.accessCollections.length > 0
+    ) {
+      for (let collection of pageAsyncData.entry.accessCollections) {
+        console.log("Collection indexing:" + collection.slug)
+        console.log("Collection:" + collection)
+        collection.searchType = "accessCollections"
+        collection.to = collection.uri
+          ? collection.uri
+          : collection.externalResourceUrl
+        collection.category =
+          collection.workshopOrEventSeriesType ===
+            "help/services-resources"
+            ? "workshop"
+            : collection.serviceOrResourceType
+              ? collection.serviceOrResourceType
+              : collection.typeHandle === "externalResource"
+                ? "resource"
+                : collection.typeHandle === "generalContentPage"
+                  ? "resource"
+                  : collection.typeHandle
+        await $elasticsearchplugin.index(collection, collection.slug)
+      }
+    }
+
+    return {
+      page: _get(pageAsyncData, "entry", {}),
+    }
+  },
+  data() {
+    return {
+      page: {},
+      noResultsFound: false,
+      hits: [],
+      searchGenericQuery: {
+        queryText: this.$route.query.q || "",
+      },
+    }
+  },
+  async fetch() {
+    this.hits = []
+    if (this.$route.query.q && this.$route.query.q !== "") {
+      const results = await this.$dataApi.keywordSearchWithFilters(
+        this.$route.query.q || "*",
+        config.accessCollections.searchFields,
+        "searchType:accessCollection",
+        [],
+        config.accessCollections.sortField,
+        config.accessCollections.orderBy,
+        config.accessCollections.resultFields,
+        []
+      )
+      this.hits = []
+      if (results && results.hits && results.hits.total.value > 0) {
+        this.hits = results.hits.hits
+        this.noResultsFound = false
+      } else {
+        this.hits = []
+        this.noResultsFound = true
+      }
+      this.searchGenericQuery = {
+        queryText: this.$route.query.q || "",
+      }
+    } else {
+      this.hits = []
+      this.noResultsFound = false
+      this.searchGenericQuery = { queryText: "" }
+    }
+  },
+  head() {
+    let title = this.page ? this.page.title : "... loading"
+    let metaDescription = removeTags(this.page.text)
+
+    return {
+      title: title,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: metaDescription,
+        },
+      ],
+    }
+  },
+  computed: {
+    parsedAccessCollections() {
+      return this.page.accessCollections.map((obj) => {
+        return {
+          ...obj,
+          to: obj.externalResourceUrl
+            ? obj.externalResourceUrl
+            : `/${obj.uri}`,
+        }
+      })
+    },
+    parsedAssociatedTopics() {
+      return this.page.associatedTopics.map((obj) => {
+        return {
+          ...obj,
+          to: obj.externalResourceUrl
+            ? obj.externalResourceUrl
+            : `/${obj.to}`,
+        }
+      })
+    },
+    parseHitsResults() {
+      /*console.log(
+          "ParseHitsResults checking results data:" +
+              JSON.stringify(this.hits)
+      )*/
+      return this.parseHits()
+    },
+  },
+  fetchOnServer: false,
+  fetchKey: "collections-access",
+  watch: {
+    "$route.query": "$fetch",
+    "$route.query.q"(newValue) {
+      console.log("watching queryTEXT: " + newValue)
+      // if (newValue === "") this.hits = []
+    },
+  },
+  methods: {
+    parseHits() {
+      console.log("static mode what is parseHits")
+      return this.hits.map((obj) => {
+        console.log(
+          "What should the category be?:" +
+          obj["_source"].sectionHandle
+        )
+        return {
+          ...obj["_source"],
+          to: obj["_source"].externalResourceUrl
+            ? obj["_source"].externalResourceUrl
+            : `/${obj["_source"].uri}`,
+        }
+      })
+    },
+    getSearchData(data) {
+      this.$router.push({
+        path: "/collections/access",
+        query: {
+          q: data.text,
+        },
+      })
+    },
+  },
+}
+</script>
+
 <style
   lang="scss"
   scoped
-></style>
+>
+.page-collections-access {}
+</style>
