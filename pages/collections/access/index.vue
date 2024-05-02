@@ -136,18 +136,18 @@ const parsedAssociatedTopics = computed(() => {
   })
 })
 const parseHitsResults = computed(() => {
-  // console.log('ParseHitsResults checking results data:' + JSON.stringify(hits))
+  console.log('ParseHitsResults checking results data:' + JSON.stringify(hits))
   return parseHits(hits)
 })
 
-// WATCHERS - TODO: after elastic search ready, implement these if needed
-// watch(() => route.query, async (newValue) => {
-//   await $fetch(newValue)
-// })
-// watch(() => route.query.q, (newValue) => {
-//   // console.log("watching queryTEXT: " + newValue)
-//   if (newValue === '') hits.value = []
-// })
+// WATCHERS - After elastic search ready, implement these if needed
+watch(() => route.query, async (newValue) => {
+  await $fetch(newValue)
+})
+watch(() => route.query.q, (newValue) => {
+  console.log("watching queryTEXT: " + newValue)
+  if (newValue === '') hits.value = []
+})
 
 // METHODS
 function parseHits(hits) {
@@ -164,6 +164,7 @@ function parseHits(hits) {
     }
   })
 }
+
 function getSearchData(data) {
   route.push({
     path: '/collections/access',
@@ -173,6 +174,7 @@ function getSearchData(data) {
   })
 }
 </script>
+
 <template lang="html">
   <main
     id="main"
@@ -203,10 +205,8 @@ function getSearchData(data) {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper
-      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+        ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"

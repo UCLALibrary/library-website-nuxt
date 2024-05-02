@@ -25,6 +25,7 @@ query ServiceResourceWorkshopSeriesList {
     }
   }
   externalResource: entries(section: "externalResource") {
+    id
     title
     text: summary
     slug

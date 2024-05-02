@@ -3,38 +3,27 @@ import { onMounted } from 'vue'
 
 // HELPERS
 import _get from 'lodash/get'
+
+// SEARCH UTILS
 import getListingFilters from '../utils/getListingFilters'
+import config from '../utils/searchConfig'
 import sortByTitle from '../utils/sortByTitle'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
-import removeTags from '../utils/removeTags'
 
 // GQL
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from '../gql/queries/ServiceResourceWorkshopSeriesList.gql'
-import HELP_TOPIC_LIST from '../gql/queries/HelpTopicList.gql'
+import HELP_TOPIC_LIST from '../gql/queries/helpTopicList.gql'
 
 // UTILITIES
-import config from '../utils/searchConfig'
+import removeTags from '../utils/removeTags'
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $elasticsearchplugin, $dataApi } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData('services-resources-list', async () => {
   const data = await $graphql.default.request(SERVICE_RESOURCE_WORKSHOPSERIES_LIST)
   const helpTopicData = await $graphql.default.request(HELP_TOPIC_LIST)
-
-  // SEARCH
-  // if (
-  //   pageAsyncData.externalResource &&
-  //   pageAsyncData.externalResource.length > 0
-  // ) {
-  //   for (let externalResource of pageAsyncData.externalResource) {
-  //     await $elasticsearchplugin.index(
-  //       { ...externalResource, serviceOrResourceType: "external resource" },
-  //       externalResource.slug
-  //     )
-  //   }
-  // }
-
+  console.log("DATDATDADTDATDA" + data)
   return { data, helpTopicData }
 })
 
@@ -46,6 +35,23 @@ if (error.value) {
 
 if (!data.value.data && !data.value.helpTopicData) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
+// SEARCH ELASTIC SEARCH INDEX - CREATES INDEX TO BE SEARCHED
+// GETS THEM FROM CRAFT & CREATES ES INDEX
+// CHECK THAT NUXT IS RUNNING ON THE SERVER (process.server)
+console.log("DATDATDADTDATDA" + data)
+if (
+  data.value.externalResource &&
+  data.value.externalResource.length > 0 &&
+  process.server
+) {
+  for (let externalResource of data.value.externalResource) {
+    await $elasticsearchplugin.index(
+      { ...externalResource, serviceOrResourceType: "external resource" },
+      externalResource.slug
+    )
+  }
 }
 
 const page = ref(data.value.data)
@@ -60,18 +66,18 @@ watch(data, (newVal, oldVal) => {
   summaryData.value = ref(_get(newVal.data, 'entry', {}))
 })
 
+// ES SEARCH FUNCTIONALITY
+const hits = ref([])
 const noResultsFound = ref(false)
 const searchFilters = ref([])
-const hits = ref([])
-const searchGenericQuery = ref(
-  {
-    queryText: route.query.q || '',
-    queryFilters:
-      (route.query.filters &&
-        JSON.parse(route.query.filters)) ||
-      {},
-  }
-)
+
+const searchGenericQuery = ref({
+  queryText: route.query.q || '',
+  queryFilters:
+    (route.query.filters &&
+      JSON.parse(route.query.filters)) ||
+    {},
+})
 
 useHead({
   title: page.value ? summaryData.value.title : '... loading',
@@ -84,65 +90,82 @@ useHead({
   ],
 })
 
-//   async fetch() {
-//   this.page = {}
-//   this.hits = []
-//   this.helptopic = {}
-//   if (
-//     (this.$route.query.q && this.$route.query.q !== "") ||
-//     (this.$route.query.filters &&
-//       queryFilterHasValues(
-//         this.$route.query.filters,
-//         config.serviceOrResources.filters
-//       ))
-//   ) {
-//     this.page = {}
-//     this.hits = []
-//     this.helptopic = {}
-//     const results = await this.$dataApi.keywordSearchWithFilters(
-//       this.$route.query.q || "*",
-//       config.serviceOrResources.searchFields,
-//       "(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)",
-//       (this.$route.query.filters &&
-//         JSON.parse(this.$route.query.filters)) ||
-//       {},
-//       config.serviceOrResources.sortField,
-//       config.serviceOrResources.orderBy,
-//       config.serviceOrResources.resultFields,
-//       []
-//     )
-//     if (results && results.hits && results.hits.total.value > 0) {
-//       this.hits = results.hits.hits
-//       this.noResultsFound = false
-//     } else {
-//       this.hits = []
-//       this.noResultsFound = true
-//     }
-//     this.searchGenericQuery = {
-//       queryText: this.$route.query.q || "",
-//       queryFilters: (this.$route.query.filters && JSON.parse(this.$route.query.filters)) || {},
-//     }
-//     const getSummaryData = await this.$graphql.default.request(
-//       SERVICE_RESOURCE_WORKSHOPSERIES_LIST
-//     )
-//     this.summaryData = _get(getSummaryData, "entry", {})
-//   } else {
-//     this.hits = []
-//     this.noResultsFound = false
-//     this.page = {}
-//     this.helptopic = {}
-//     this.page = await this.$graphql.default.request(
-//       SERVICE_RESOURCE_WORKSHOPSERIES_LIST
-//     )
-//     this.helpTopic = await this.$graphql.default.request(
-//       HELP_TOPIC_LIST
-//     )
-//     this.summaryData = _get(this.page, "entry", {})
-//     this.hits = []
-//     this.searchGenericQuery.queryText = ""
-//   }
-// }
+// ES search function
+async function searchES() {
+  page.value = {}
+  hits.value = []
+  helpTopic.value = {}
+  if (
+    (route?.query && route?.query.q && route?.query.q !== '') ||
+    (route?.query.filters &&
+      queryFilterHasValues(
+        route?.query.filters,
+        config.serviceOrResources.filters
+      ))
+  ) {
+    page.value = {}
+    hits.value = []
+    helpTopic.value = {}
 
+    const queryText = route.query.q || '*'
+    const results = await $dataApi.keywordSearchWithFilters(
+      queryText,
+      config.serviceOrResources.searchFields,
+      '(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)',
+      (route.query.filters &&
+        JSON.parse(route.query.filters)) ||
+      [],
+      config.serviceOrResources.sortField,
+      config.serviceOrResources.orderBy,
+      config.serviceOrResources.resultFields,
+      []
+    )
+    if (results && results.hits && results.hits.total.value > 0) {
+      console.log('Search ES HITS,', results.hits.hits)
+      hits.value = results.hits.hits
+      noResultsFound.value = false
+    } else {
+      noResultsFound.value = true
+      hits.value = []
+    }
+    searchGenericQuery.value = {
+      queryText: route.query.q || "",
+      queryFilters: (route.query.filters && JSON.parse(route.query.filters)) || {},
+    }
+    const getSummaryData = await $graphql.default.request(
+      SERVICE_RESOURCE_WORKSHOPSERIES_LIST
+    )
+    summaryData.value = _get(getSummaryData, "entry", {})
+  } else {
+    // console.log('data.value', data.value)
+    // console.log('page.value', page.value)
+    hits.value = []
+    noResultsFound.value = false
+    page.value = {}
+    helpTopic.value = {}
+    page.value = await $graphql.default.request(
+      SERVICE_RESOURCE_WORKSHOPSERIES_LIST
+    )
+    helpTopic.value = await this.$graphql.default.request(
+      HELP_TOPIC_LIST
+    )
+    summaryData.value = _get(page.value, "entry", {})
+    hits.value = []
+    searchGenericQuery.value.queryText = ""
+  }
+}
+
+// ES WATCHER - UPDATES WHEN SOMEONE CHANGES THE QUERY AND LOOKS FOR BOOKMARK
+watch(() => route?.query, (oldValue, newValue) => {
+  if (oldValue !== newValue) {
+    if (newValue?.q === '') hits.value = []
+    // DO WE NEED THIS LINE BELOW?
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchES()
+  }
+}, { deep: true, immediate: true })
+
+// COMPUTED PROPERTIES
 const parseDisplayResultsText = computed(() => {
   if (hits.value.length > 1)
     return `Displaying ${hits.value.length} results`
@@ -206,21 +229,13 @@ const parseHitsResults = computed(() => {
   return parseHits()
 })
 
-/* TODO: Refactor when search functionality is ready */
-// watch: {
-//   "$route.query": "$fetch",
-//     "$route.query.q"(newValue) {
-//     // if (newValue === "") this.hits = []
-//   }
-// }
+// ES MOUNTED for FILTERS
+onMounted(async () => {
+  setFilters()
+});
 
-/* TODO: Enable for search */
-// onMounted(async () => {
-//   setFilters()
-// })
+// METHODS
 
-// Methods
-/* TODO: Enable for search */
 // async function setFilters() {
 //   const searchAggsResponse = await this.$dataApi.getAggregations(
 //     config.serviceOrResources.filters,
@@ -268,10 +283,6 @@ const parseHitsResults = computed(() => {
 //     },
 //   })
 // }
-
-// fetchOnServer: false,
-// multiple components can return the same `fetchKey` and Nuxt will track them both separately
-// fetchKey: "services-resources-workshops",
 
 </script>
 
