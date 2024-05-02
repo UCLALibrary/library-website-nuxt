@@ -26,8 +26,10 @@
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper v-show="page.accessCollections && hits.length == 0 && !noResultsFound
-        ">
+    <section-wrapper
+      v-show="page.accessCollections && hits.length == 0 && !noResultsFound
+      "
+    >
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
@@ -109,18 +111,18 @@
 
 <script>
 // HELPERS
-import _get from "lodash/get"
-import removeTags from "~/utils/removeTags"
+import _get from 'lodash/get'
+import removeTags from '~/utils/removeTags'
 
 // GQL
-import ACCESS_COLLECTIONS from "~/gql/queries/CollectionsAccessList.gql"
+import ACCESS_COLLECTIONS from '~/gql/queries/CollectionsAccessList.gql'
 
 // UTILITIES
-import config from "~/utils/searchConfig"
+import config from '~/utils/searchConfig'
 
 export default {
   async asyncData({ $graphql, $elasticsearchplugin }) {
-    console.log("In asyncData hook collectionsAccess list")
+    console.log('In asyncData hook collectionsAccess list')
 
     const pageAsyncData = await $graphql.default.request(ACCESS_COLLECTIONS)
 
@@ -128,30 +130,30 @@ export default {
       pageAsyncData.entry.accessCollections &&
       pageAsyncData.entry.accessCollections.length > 0
     ) {
-      for (let collection of pageAsyncData.entry.accessCollections) {
-        console.log("Collection indexing:" + collection.slug)
-        console.log("Collection:" + collection)
-        collection.searchType = "accessCollections"
+      for (const collection of pageAsyncData.entry.accessCollections) {
+        console.log('Collection indexing:' + collection.slug)
+        console.log('Collection:' + collection)
+        collection.searchType = 'accessCollections'
         collection.to = collection.uri
           ? collection.uri
           : collection.externalResourceUrl
         collection.category =
           collection.workshopOrEventSeriesType ===
-            "help/services-resources"
-            ? "workshop"
+            'help/services-resources'
+            ? 'workshop'
             : collection.serviceOrResourceType
               ? collection.serviceOrResourceType
-              : collection.typeHandle === "externalResource"
-                ? "resource"
-                : collection.typeHandle === "generalContentPage"
-                  ? "resource"
+              : collection.typeHandle === 'externalResource'
+                ? 'resource'
+                : collection.typeHandle === 'generalContentPage'
+                  ? 'resource'
                   : collection.typeHandle
         await $elasticsearchplugin.index(collection, collection.slug)
       }
     }
 
     return {
-      page: _get(pageAsyncData, "entry", {}),
+      page: _get(pageAsyncData, 'entry', {}),
     }
   },
   data() {
@@ -160,17 +162,17 @@ export default {
       noResultsFound: false,
       hits: [],
       searchGenericQuery: {
-        queryText: this.$route.query.q || "",
+        queryText: this.$route.query.q || '',
       },
     }
   },
   async fetch() {
     this.hits = []
-    if (this.$route.query.q && this.$route.query.q !== "") {
+    if (this.$route.query.q && this.$route.query.q !== '') {
       const results = await this.$dataApi.keywordSearchWithFilters(
-        this.$route.query.q || "*",
+        this.$route.query.q || '*',
         config.accessCollections.searchFields,
-        "searchType:accessCollection",
+        'searchType:accessCollection',
         [],
         config.accessCollections.sortField,
         config.accessCollections.orderBy,
@@ -186,24 +188,24 @@ export default {
         this.noResultsFound = true
       }
       this.searchGenericQuery = {
-        queryText: this.$route.query.q || "",
+        queryText: this.$route.query.q || '',
       }
     } else {
       this.hits = []
       this.noResultsFound = false
-      this.searchGenericQuery = { queryText: "" }
+      this.searchGenericQuery = { queryText: '' }
     }
   },
   head() {
-    let title = this.page ? this.page.title : "... loading"
-    let metaDescription = removeTags(this.page.text)
+    const title = this.page ? this.page.title : '... loading'
+    const metaDescription = removeTags(this.page.text)
 
     return {
-      title: title,
+      title,
       meta: [
         {
-          hid: "description",
-          name: "description",
+          hid: 'description',
+          name: 'description',
           content: metaDescription,
         },
       ],
@@ -231,41 +233,41 @@ export default {
       })
     },
     parseHitsResults() {
-      /*console.log(
+      /* console.log(
           "ParseHitsResults checking results data:" +
               JSON.stringify(this.hits)
-      )*/
+      ) */
       return this.parseHits()
     },
   },
   fetchOnServer: false,
-  fetchKey: "collections-access",
+  fetchKey: 'collections-access',
   watch: {
-    "$route.query": "$fetch",
-    "$route.query.q"(newValue) {
-      console.log("watching queryTEXT: " + newValue)
+    '$route.query': '$fetch',
+    '$route.query.q'(newValue) {
+      console.log('watching queryTEXT: ' + newValue)
       // if (newValue === "") this.hits = []
     },
   },
   methods: {
     parseHits() {
-      console.log("static mode what is parseHits")
+      console.log('static mode what is parseHits')
       return this.hits.map((obj) => {
         console.log(
-          "What should the category be?:" +
-          obj["_source"].sectionHandle
+          'What should the category be?:' +
+          obj._source.sectionHandle
         )
         return {
-          ...obj["_source"],
-          to: obj["_source"].externalResourceUrl
-            ? obj["_source"].externalResourceUrl
-            : `/${obj["_source"].uri}`,
+          ...obj._source,
+          to: obj._source.externalResourceUrl
+            ? obj._source.externalResourceUrl
+            : `/${obj._source.uri}`,
         }
       })
     },
     getSearchData(data) {
       this.$router.push({
-        path: "/collections/access",
+        path: '/collections/access',
         query: {
           q: data.text,
         },
