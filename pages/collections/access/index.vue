@@ -145,7 +145,7 @@ watch(() => route.query, async (newValue) => {
   await $fetch(newValue)
 })
 watch(() => route.query.q, (newValue) => {
-  console.log("watching queryTEXT: " + newValue)
+  console.log('watching queryTEXT: ' + newValue)
   if (newValue === '') hits.value = []
 })
 
@@ -205,8 +205,10 @@ function getSearchData(data) {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-    <section-wrapper v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-        ">
+    <section-wrapper
+      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
+      "
+    >
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"

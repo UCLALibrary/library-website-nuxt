@@ -23,7 +23,7 @@ const route = useRoute()
 const { data, error } = await useAsyncData('services-resources-list', async () => {
   const data = await $graphql.default.request(SERVICE_RESOURCE_WORKSHOPSERIES_LIST)
   const helpTopicData = await $graphql.default.request(HELP_TOPIC_LIST)
-  console.log("DATDATDADTDATDA" + data)
+  console.log('DATDATDADTDATDA' + data)
   return { data, helpTopicData }
 })
 
@@ -41,15 +41,15 @@ if (!data.value.data && !data.value.helpTopicData) {
 // GETS DATA FROM CRAFT
 // CREATES ES INDEX TO BE SEARCHED
 // CHECK THAT NUXT IS RUNNING ON THE SERVER (process.server)
-console.log("DATA-DATA-DATA-DATA" + data)
+console.log('DATA-DATA-DATA-DATA' + data)
 if (
   data.value.externalResource &&
   data.value.externalResource.length > 0 &&
   process.server
 ) {
-  for (let externalResource of data.value.externalResource) {
+  for (const externalResource of data.value.externalResource) {
     await $elasticsearchplugin.index(
-      { ...externalResource, serviceOrResourceType: "external resource" },
+      { ...externalResource, serviceOrResourceType: 'external resource' },
       externalResource.slug
     )
   }
@@ -68,7 +68,7 @@ watch(data, (newVal, oldVal) => {
 })
 
 // FUNCTION AND METHODS RELATED TO ES
-//COMPUTED METHODS THAT USE CRAFT DATA
+// COMPUTED METHODS THAT USE CRAFT DATA
 const hits = ref([])
 const noResultsFound = ref(false)
 const searchFilters = ref([])
@@ -131,13 +131,13 @@ async function searchES() {
       hits.value = []
     }
     searchGenericQuery.value = {
-      queryText: route.query.q || "",
+      queryText: route.query.q || '',
       queryFilters: (route.query.filters && JSON.parse(route.query.filters)) || {},
     }
     const getSummaryData = await $graphql.default.request(
       SERVICE_RESOURCE_WORKSHOPSERIES_LIST
     )
-    summaryData.value = _get(getSummaryData, "entry", {})
+    summaryData.value = _get(getSummaryData, 'entry', {})
   } else {
     // console.log('data.value', data.value)
     // console.log('page.value', page.value)
@@ -151,9 +151,9 @@ async function searchES() {
     helpTopic.value = await $graphql.default.request(
       HELP_TOPIC_LIST
     )
-    summaryData.value = _get(page.value, "entry", {})
+    summaryData.value = _get(page.value, 'entry', {})
     hits.value = []
-    searchGenericQuery.value.queryText = ""
+    searchGenericQuery.value.queryText = ''
   }
 }
 
@@ -239,14 +239,14 @@ const parseDisplayResultsText = computed(() => {
 onMounted(async () => {
   console.log('onMounted called')
   await setFilters()
-});
+})
 
 // ELEASTIC SEARCH METHODS
 // FETCH FILTERS FROM ES
 async function setFilters() {
   const searchAggsResponse = await $dataApi.getAggregations(
     config.serviceOrResources.filters,
-    "serviceOrResource OR workshopSeries OR helpTopic OR externalResource",
+    'serviceOrResource OR workshopSeries OR helpTopic OR externalResource',
   )
   searchFilters.value = getListingFilters(
     searchAggsResponse,
@@ -257,24 +257,24 @@ async function setFilters() {
 function parseHits() {
   return hits.value.map((obj) => {
     return {
-      title: obj["_source"].title,
-      sectionHandle: obj["_source"].sectionHandle,
+      title: obj._source.title,
+      sectionHandle: obj._source.sectionHandle,
       to:
-        obj["_source"].sectionHandle === "externalResource"
-          ? `${obj["_source"].externalResourceUrl}`
-          : `/${obj["_source"].uri}`,
+        obj._source.sectionHandle === 'externalResource'
+          ? `${obj._source.externalResourceUrl}`
+          : `/${obj._source.uri}`,
       iconName:
-        obj["_source"]["illustrationsResourcesAndServices"],
-      text: obj["_source"].text || obj["_source"].summary,
+        obj._source.illustrationsResourcesAndServices,
+      text: obj._source.text || obj._source.summary,
       category:
-        obj["_source"].sectionHandle === "workshopSeries"
-          ? "workshop"
-          : obj["_source"].sectionHandle === "helpTopic"
-            ? "help topic"
-            : obj["_source"].sectionHandle ===
-              "externalResource"
-              ? "resource"
-              : obj["_source"].type,
+        obj._source.sectionHandle === 'workshopSeries'
+          ? 'workshop'
+          : obj._source.sectionHandle === 'helpTopic'
+            ? 'help topic'
+            : obj._source.sectionHandle ===
+              'externalResource'
+              ? 'resource'
+              : obj._source.type,
     }
   })
 }
@@ -315,8 +315,6 @@ function getSearchData(data) {
       @search-ready="getSearchData"
     />
 
-
-
     <!-- COMMENT OUT -->
 
     <!-- <h3>parsedPages -- {{ parsedPages }}</h3>
@@ -337,14 +335,13 @@ function getSearchData(data) {
       parseDisplayResultsText -- {{ parseDisplayResultsText }}
     </h3>
 
-
     <h3 style="margin: 30px 400px">
       {{ `Number of hits from craft is ${parsedPages.length}` }}
     </h3>
     <h3 style="margin: 30px 400px">
       {{
         hits &&
-        `Number of hits from ES calling parsedhitsresults length
+          `Number of hits from ES calling parsedhitsresults length
       ${hits.length}`
       }}
     </h3>
@@ -359,7 +356,7 @@ function getSearchData(data) {
     <section-wrapper
       v-if="(page.serviceOrResource || page.workshopseries) &&
         hits.length == 0
-        "
+      "
       class="section-no-top-margin"
     >
       <section-cards-with-illustrations
