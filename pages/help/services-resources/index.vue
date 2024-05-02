@@ -22,7 +22,7 @@ const { data, error } = await useAsyncData('services-resources-list', async () =
   const data = await $graphql.default.request(SERVICE_RESOURCE_WORKSHOPSERIES_LIST)
   const helpTopicData = await $graphql.default.request(HELP_TOPIC_LIST)
 
-  /* TODO: Incorporate when search functionality is ready? */
+  // SEARCH
   // if (
   //   pageAsyncData.externalResource &&
   //   pageAsyncData.externalResource.length > 0
@@ -51,6 +51,8 @@ if (!data.value.data && !data.value.helpTopicData) {
 const page = ref(data.value.data)
 const helpTopic = ref(data.value.helpTopicData)
 const summaryData = ref(_get(data.value.data, 'entry', {}))
+
+// ENABLE PREVIEW
 watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal.data, 'entry', {})
@@ -315,10 +317,9 @@ const parseHitsResults = computed(() => {
     </section-wrapper>
 
     <section-wrapper
-      v-if="
-        (page.serviceOrResource || page.workshopseries) &&
-          hits.length == 0
-      "
+      v-if="(page.serviceOrResource || page.workshopseries) &&
+        hits.length == 0
+        "
       class="section-no-top-margin"
     >
       <section-cards-with-illustrations
@@ -395,7 +396,10 @@ const parseHitsResults = computed(() => {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .page-help {
   :deep(label.label) {
     text-transform: capitalize;
