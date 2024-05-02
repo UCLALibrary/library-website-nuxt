@@ -51,7 +51,7 @@ export default defineNuxtConfig({
         /* if (route.route?.includes('&amp;')) {
           route.skip = true
         } */
-        console.log('prerender:generate', route)
+        // console.log('prerender:generate', route)
       },
       async 'prerender:routes' (routes) {
         const allRoutes = []

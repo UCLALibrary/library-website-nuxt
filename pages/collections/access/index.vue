@@ -21,45 +21,50 @@ definePageMeta({
 // ASYNC DATA
 const { data, error } = await useAsyncData('access-collections', async () => {
   const data = await $graphql.default.request(ACCESS_COLLECTIONS)
-  // only index on server
-  if (
-    data.entry.accessCollections &&
-    data.entry.accessCollections.length > 0 &&
-    process.server
-  ) {
-    for (const collection of data.entry.accessCollections) {
-      collection.searchType = 'accessCollections'
-      collection.to = collection.uri
-        ? collection.uri
-        : collection.externalResourceUrl
-      collection.category =
-        collection.workshopOrEventSeriesType ===
-          'help/services-resources'
-          ? 'workshop'
-          : collection.serviceOrResourceType
-            ? collection.serviceOrResourceType
-            : collection.typeHandle === 'externalResource'
-              ? 'resource'
-              : collection.typeHandle === 'generalContentPage'
-                ? 'resource'
-                : collection.typeHandle
-      await $elasticsearchplugin.index(collection, collection.slug)
-    }
-  }
-  // end indexing
   return data
 })
-const page = ref(_get(data.value, 'entry', {}))
-console.log('In page', page.value)
 
 if (error.value) {
   throw createError({
     ...error.value, statusMessage: 'Page not found.', fatal: true
   })
 }
-if (!page.value) {
+if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
+
+// only index on server
+// console.log("Access collections to be indexed are:", JSON.stringify(data.value.entry.accessCollections))
+if (
+  data.value.entry.accessCollections &&
+  data.value.entry.accessCollections.length > 0 &&
+  process.server
+) {
+  for (const collection of data.value.entry.accessCollections) {
+    collection.searchType = 'accessCollections'
+    collection.to = collection.uri
+      ? collection.uri
+      : collection.externalResourceUrl
+    // The below code is not required and is causing ES errors, as category filed is of type object, hence cannot be of type text
+    /* collection.category =
+      collection.workshopOrEventSeriesType ===
+        'help/services-resources'
+        ? 'workshop'
+        : collection.serviceOrResourceType
+          ? collection.serviceOrResourceType
+          : collection.typeHandle === 'externalResource'
+            ? 'resource'
+            : collection.typeHandle === 'generalContentPage'
+              ? 'resource'
+              : collection.typeHandle */
+    console.log('Index Access collections:', collection.slug)
+    await $elasticsearchplugin.index(collection, collection.slug)
+  }
+}
+// end indexing
+
+const page = ref(_get(data.value, 'entry', {}))
+// console.log('In page', page.value)
 
 // TODO another watcher? when does this fire?
 // TODO was data
@@ -82,7 +87,6 @@ const searchGenericQuery = ref({
 
 // ES search function
 async function searchES() {
-  hits.value = []
   if (route?.query && route?.query.q && route?.query.q !== '') {
     console.log('searchES', route.query.q)
     const queryText = route.query.q || '*'
@@ -96,23 +100,19 @@ async function searchES() {
       config.accessCollections.resultFields,
       []
     )
-
-    hits.value = []
     if (results && results.hits && results.hits.total.value > 0) {
+      console.log('Search ES HITS,', results.hits.hits)
       hits.value = results.hits.hits
       noResultsFound.value = false
     } else {
-      hits.value = []
       noResultsFound.value = true
-    }
-    searchGenericQuery.value = {
-      ...searchGenericQuery.value,
-      queryText: route.query.q || '',
+      hits.value = []
     }
   } else {
+    // console.log('data.value', data.value)
+    // console.log('page.value', page.value)
     hits.value = []
     noResultsFound.value = false
-    searchGenericQuery.value = { ...searchGenericQuery.value, queryText: '' }
   }
 }
 
@@ -214,8 +214,10 @@ function getSearchData(data) {
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
-    <section-wrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-        ">
+    <section-wrapper
+      v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      "
+    >
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
@@ -288,7 +290,4 @@ function getSearchData(data) {
     </section-wrapper>
   </main>
 </template>
-<style
-  lang="scss"
-  scoped
-></style>
+<style lang="scss" scoped></style>

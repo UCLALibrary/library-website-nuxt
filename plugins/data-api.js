@@ -10,6 +10,7 @@ async function siteSearch(
 ) {
   const config = useRuntimeConfig()
   // var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
+  // https://www.elastic.co/guide/en/elasticsearch/reference/current/flattened.html
   if (
     config.public.esReadKey === '' ||
         config.public.esURL === '' ||
