@@ -236,7 +236,7 @@ onMounted(async () => {
 });
 
 // METHODS
-
+// FETCH FILTERS FROM ES
 async function setFilters() {
   const searchAggsResponse = await this.$dataApi.getAggregations(
     config.serviceOrResources.filters,
@@ -274,13 +274,16 @@ function parseHits() {
   })
 }
 
-/* TODO: Enable for search */
-async function getSearchData(data) {
-  route.push({
-    path: "/help/services-resources",
+//  This is event handler which is invoked by search-generic component selections
+function getSearchData(data) {
+  console.log('On the page getsearchdata called')
+  const filterData =
+    (data.filters && JSON.stringify(data.filters)) || {}
+  useRouter().push({
+    path: '/help/services-resources',
     query: {
       q: data.text,
-      filters: JSON.stringify(data.filters),
+      filters: filterData,
     },
   })
 }
@@ -312,12 +315,12 @@ async function getSearchData(data) {
 
     <!-- COMMENT OUT -->
 
-    <h3>parsedPages -- {{ parsedPages }}</h3>
+    <!-- <h3>parsedPages -- {{ parsedPages }}</h3>
     <hr>
     <h3>parsedServiceAndResourceList -- {{ parsedServiceAndResourceList }}</h3>
     <hr>
     <h3>parsedPlaceholder -- {{ parsedPlaceholder }}</h3>
-    <hr>
+    <hr> -->
     <h3>parseHitsResults -- {{ parseHitsResults }}</h3>
     <hr>
     <h3>parseDisplayResultsText -- {{ parseDisplayResultsText }}</h3>
