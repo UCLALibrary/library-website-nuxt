@@ -248,7 +248,7 @@ async function setFilters() {
     config.serviceOrResources.filters,
     "serviceOrResource OR workshopSeries OR helpTopic OR externalResource",
   )
-  searchFilters = getListingFilters(
+  searchFilters.value = getListingFilters(
     searchAggsResponse,
     config.serviceOrResources.filters
   )
