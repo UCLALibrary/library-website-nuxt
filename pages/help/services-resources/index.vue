@@ -166,12 +166,6 @@ watch(() => route?.query, (oldValue, newValue) => {
 }, { deep: true, immediate: true })
 
 // COMPUTED PROPERTIES
-const parseDisplayResultsText = computed(() => {
-  if (hits.value.length > 1)
-    return `Displaying ${hits.value.length} results`
-  else return `Displaying ${hits.value.length} result`
-})
-
 const parsedPages = computed(() => {
   if (
     page.value &&
@@ -227,6 +221,12 @@ const parsedPlaceholder = computed(() => {
 
 const parseHitsResults = computed(() => {
   return parseHits()
+})
+
+const parseDisplayResultsText = computed(() => {
+  if (hits.value.length > 1)
+    return `Displaying ${hits.value.length} results`
+  else return `Displaying ${hits.value.length} result`
 })
 
 // ES MOUNTED for FILTERS
@@ -308,7 +308,21 @@ async function getSearchData(data) {
       @search-ready="getSearchData"
     />
 
+
+
     <!-- COMMENT OUT -->
+
+    <h3>parsedPages -- {{ parsedPages }}</h3>
+    <hr>
+    <h3>parsedServiceAndResourceList -- {{ parsedServiceAndResourceList }}</h3>
+    <hr>
+    <h3>parsedPlaceholder -- {{ parsedPlaceholder }}</h3>
+    <hr>
+    <h3>parseHitsResults -- {{ parseHitsResults }}</h3>
+    <hr>
+    <h3>parseDisplayResultsText -- {{ parseDisplayResultsText }}</h3>
+
+
     <h4 style="margin: 30px 400px">
       No of hits
       {{ `from craft is ${parsedPages.length}` }}
