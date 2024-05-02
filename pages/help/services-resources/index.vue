@@ -169,6 +169,7 @@ useHead({
 })
 
 // COMPUTED PROPERTIES
+// DATA FROM CRAFT
 const parsedPages = computed(() => {
   if (
     page.value &&
@@ -238,7 +239,7 @@ onMounted(async () => {
   await setFilters()
 });
 
-// METHODS
+// ELEASTIC SEARCH METHODS
 // FETCH FILTERS FROM ES
 async function setFilters() {
   const searchAggsResponse = await $dataApi.getAggregations(
@@ -251,7 +252,6 @@ async function setFilters() {
   )
 }
 
-/* TODO: Enable for search */
 function parseHits() {
   return hits.value.map((obj) => {
     return {
@@ -277,7 +277,7 @@ function parseHits() {
   })
 }
 
-//  This is event handler which is invoked by search-generic component selections
+//  This event handler is invoked by the search-generic component filtered search selections
 function getSearchData(data) {
   console.log('On the page getsearchdata called')
   const filterData =
