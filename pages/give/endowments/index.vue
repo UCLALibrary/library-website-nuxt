@@ -115,11 +115,11 @@ const searchGenericQuery = ref({
 
 watch(() =>
   route.query,
-(newVal, oldVal) => {
-  console.log('ES newVal, oldVal', newVal, oldVal)
-  searchGenericQuery.value.queryText = route.query.q || ''
-  searchES()
-}, { deep: true, immediate: true }
+  (newVal, oldVal) => {
+    console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchES()
+  }, { deep: true, immediate: true }
 )
 
 async function searchES() {
@@ -132,11 +132,10 @@ async function searchES() {
       queryText,
       config.endowmentsList.searchFields,
       'sectionHandle:endowment',
-      JSON.parse(route.query.q) || '*',
+      [],
       config.endowmentsList.sortField,
       config.endowmentsList.orderBy,
       config.endowmentsList.resultFields,
-      // config.endowmentsList.filters
       []
     )
     if (results && results.hits && results.hits.total.value > 0) {
