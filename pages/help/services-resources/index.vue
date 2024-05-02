@@ -277,7 +277,7 @@ function parseHits() {
   })
 }
 
-//  This event handler is invoked by the search-generic component filtered search selections
+//  This event handler is invoked by the search-generic component (filtered search )selections
 function getSearchData(data) {
   console.log('On the page getsearchdata called')
   const filterData =
