@@ -115,11 +115,11 @@ const searchGenericQuery = ref({
 
 watch(() =>
   route.query,
-  (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', newVal, oldVal)
-    searchGenericQuery.value.queryText = route.query.q || ''
-    searchES()
-  }, { deep: true, immediate: true }
+(newVal, oldVal) => {
+  console.log('ES newVal, oldVal', newVal, oldVal)
+  searchGenericQuery.value.queryText = route.query.q || ''
+  searchES()
+}, { deep: true, immediate: true }
 )
 
 async function searchES() {
