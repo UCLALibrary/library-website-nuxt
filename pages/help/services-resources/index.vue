@@ -231,58 +231,59 @@ const parseHitsResults = computed(() => {
 
 // ES MOUNTED for FILTERS
 onMounted(async () => {
-  setFilters()
+  console.log('onMounted called')
+  await setFilters()
 });
 
 // METHODS
 
-// async function setFilters() {
-//   const searchAggsResponse = await this.$dataApi.getAggregations(
-//     config.serviceOrResources.filters,
-//     "serviceOrResource OR workshopSeries OR helpTopic OR externalResource",
-//   )
-//   searchFilters = getListingFilters(
-//     searchAggsResponse,
-//     config.serviceOrResources.filters
-//   )
-// }
+async function setFilters() {
+  const searchAggsResponse = await this.$dataApi.getAggregations(
+    config.serviceOrResources.filters,
+    "serviceOrResource OR workshopSeries OR helpTopic OR externalResource",
+  )
+  searchFilters = getListingFilters(
+    searchAggsResponse,
+    config.serviceOrResources.filters
+  )
+}
 
 /* TODO: Enable for search */
-// function parseHits() {
-//   return hits.value.map((obj) => {
-//     return {
-//       title: obj["_source"].title,
-//       sectionHandle: obj["_source"].sectionHandle,
-//       to:
-//         obj["_source"].sectionHandle === "externalResource"
-//           ? `${obj["_source"].externalResourceUrl}`
-//           : `/${obj["_source"].uri}`,
-//       iconName:
-//         obj["_source"]["illustrationsResourcesAndServices"],
-//       text: obj["_source"].text || obj["_source"].summary,
-//       category:
-//         obj["_source"].sectionHandle === "workshopSeries"
-//           ? "workshop"
-//           : obj["_source"].sectionHandle === "helpTopic"
-//             ? "help topic"
-//             : obj["_source"].sectionHandle ===
-//               "externalResource"
-//               ? "resource"
-//               : obj["_source"].type,
-//     }
-//   })
-// }
+function parseHits() {
+  return hits.value.map((obj) => {
+    return {
+      title: obj["_source"].title,
+      sectionHandle: obj["_source"].sectionHandle,
+      to:
+        obj["_source"].sectionHandle === "externalResource"
+          ? `${obj["_source"].externalResourceUrl}`
+          : `/${obj["_source"].uri}`,
+      iconName:
+        obj["_source"]["illustrationsResourcesAndServices"],
+      text: obj["_source"].text || obj["_source"].summary,
+      category:
+        obj["_source"].sectionHandle === "workshopSeries"
+          ? "workshop"
+          : obj["_source"].sectionHandle === "helpTopic"
+            ? "help topic"
+            : obj["_source"].sectionHandle ===
+              "externalResource"
+              ? "resource"
+              : obj["_source"].type,
+    }
+  })
+}
 
 /* TODO: Enable for search */
-// async function getSearchData(data) {
-//   route.push({
-//     path: "/help/services-resources",
-//     query: {
-//       q: data.text,
-//       filters: JSON.stringify(data.filters),
-//     },
-//   })
-// }
+async function getSearchData(data) {
+  route.push({
+    path: "/help/services-resources",
+    query: {
+      q: data.text,
+      filters: JSON.stringify(data.filters),
+    },
+  })
+}
 
 </script>
 
@@ -307,18 +308,19 @@ onMounted(async () => {
       @search-ready="getSearchData"
     />
 
-    <!--h4 style="margin: 30px 400px">
-            No of hits
-            {{ `from craft is ${parsedPages.length}` }}
-        </h4>
-        <h4 style="margin: 30px 400px">
-            No of hits from ES
-            {{
-                hits &&
-                    `calling parsedhitsresults length
-            ${hits.length}`
-            }}
-        </h4-->
+    <!-- COMMENT OUT -->
+    <h4 style="margin: 30px 400px">
+      No of hits
+      {{ `from craft is ${parsedPages.length}` }}
+    </h4>
+    <h4 style="margin: 30px 400px">
+      No of hits from ES
+      {{
+        hits &&
+        `calling parsedhitsresults length
+      ${hits.length}`
+      }}
+    </h4>
 
     <section-wrapper theme="divider">
       <divider-way-finder
