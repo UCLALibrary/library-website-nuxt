@@ -104,7 +104,6 @@ const parseHitsResults = computed(() => {
   return parseHits(hits.value)
 })
 
-
 // ES search functionality
 const hits = ref([])
 const title = ref('')
@@ -114,14 +113,14 @@ const searchGenericQuery = ref({
   queryFilters: {} // queryFilters must be passed even if not used
 })
 
-watch(() => {
+watch(() =>
   route.query,
-    (newVal, oldVal) => {
-      console.log('ES newVal, oldVal', newVal, oldVal)
-      searchGenericQuery.value.queryText = route.query.q || ''
-      searchES()
-    }, { deep: true, immediate: true }
-})
+(newVal, oldVal) => {
+  console.log('ES newVal, oldVal', newVal, oldVal)
+  searchGenericQuery.value.queryText = route.query.q || ''
+  searchES()
+}, { deep: true, immediate: true }
+)
 
 async function searchES() {
   if (
@@ -132,8 +131,8 @@ async function searchES() {
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
       config.endowmentsList.searchFields,
-      "sectionHandle:endowment",
-      JSON.parse(route.query.q) || "*",
+      'sectionHandle:endowment',
+      JSON.parse(route.query.q) || '*',
       config.endowmentsList.sortField,
       config.endowmentsList.orderBy,
       config.endowmentsList.resultFields,
