@@ -23,7 +23,6 @@ const route = useRoute()
 const { data, error } = await useAsyncData('services-resources-list', async () => {
   const data = await $graphql.default.request(SERVICE_RESOURCE_WORKSHOPSERIES_LIST)
   const helpTopicData = await $graphql.default.request(HELP_TOPIC_LIST)
-  console.log('DATDATDADTDATDA' + data)
   return { data, helpTopicData }
 })
 
