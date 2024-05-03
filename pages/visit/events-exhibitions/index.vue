@@ -195,6 +195,8 @@ const routeFilters = computed(() => {
   return JSON.parse(_get(route, 'query.filters', '[]'))
 })
 
+console.log('route filter values: ', routeFilters.value)
+
 // ES search functionality
 const hits = ref([])
 const title = ref('')
@@ -233,14 +235,14 @@ async function searchES() {
     const { past, ...filters } = routeFilters.value
     const extrafilters = (past !== 'yes')
       ? [
-          {
-            range: {
-              endDateWithTime: {
-                gte: 'now',
-              },
+        {
+          range: {
+            endDateWithTime: {
+              gte: 'now',
             },
           },
-        ]
+        },
+      ]
       : []
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
@@ -371,12 +373,13 @@ onMounted(async () => {
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
+
     <!-- HIGHLIGHTED & FEATURED EVENTS -->
     <section-wrapper
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <banner-featured
@@ -411,7 +414,7 @@ onMounted(async () => {
         parsedEvents.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <divider-way-finder color="visit" />
@@ -423,7 +426,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Upcoming Events"
     >
       <section-teaser-list :items="parsedEvents" />
@@ -434,7 +437,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <divider-way-finder color="visit" />
@@ -446,7 +449,7 @@ onMounted(async () => {
         parsedSeriesAndExhibitions.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Event Series & Exhibitions"
     >
       <section-teaser-card :items="parsedSeriesAndExhibitions" />
@@ -456,11 +459,11 @@ onMounted(async () => {
       class="section-no-top-margin"
     >
       <h2
-        v-if="$route.query.q"
+        v-if="route.query.q"
         class="about-results"
       >
         Displaying {{ hits.length }} results for
-        <strong><em>“{{ $route.query.q }}</em></strong>”
+        <strong><em>“{{ route.query.q }}</em></strong>”
       </h2>
       <h2
         v-else
@@ -468,9 +471,10 @@ onMounted(async () => {
       >
         Displaying {{ hits.length }} results
       </h2>
-      <!-- TODO: Enable for search -->
-      <!-- <section-teaser-list :items="parseHitsResults" /> -->
+
+      <section-teaser-list :items="parseHitsResults" />
     </section-wrapper>
+
     <!-- NO RESULTS -->
     <section-wrapper
       v-show="noResultsFound"
@@ -478,7 +482,7 @@ onMounted(async () => {
     >
       <div class="error-text">
         <rich-text>
-          <h2>Search for “{{ $route.query.q }}” not found.</h2>
+          <h2>Search for “{{ route.query.q }}” not found.</h2>
           <p>
             We can’t find the term you are looking for on this page,
             but we're here to help. <br>
