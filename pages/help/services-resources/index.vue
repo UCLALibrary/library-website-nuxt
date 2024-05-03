@@ -156,6 +156,7 @@ async function searchES() {
   }
 }
 
+// METADATA FOR THE TAB
 useHead({
   title: page.value ? summaryData.value.title : '... loading',
   meta: [
@@ -223,7 +224,7 @@ const parsedPlaceholder = computed(() => {
   return `Search ${summaryData.value.title}`
 })
 
-// DATA FROM ES
+// DATA FROM ELASTIC SEARCH
 const parseHitsResults = computed(() => {
   return hits.value.map((obj) => {
     return {
@@ -274,31 +275,6 @@ async function setFilters() {
   )
 }
 
-// function parseHits() {
-//   return hits.value.map((obj) => {
-//     return {
-//       title: obj._source.title,
-//       sectionHandle: obj._source.sectionHandle,
-//       to:
-//         obj._source.sectionHandle === 'externalResource'
-//           ? `${obj._source.externalResourceUrl}`
-//           : `/${obj._source.uri}`,
-//       iconName:
-//         obj._source.illustrationsResourcesAndServices,
-//       text: obj._source.text || obj._source.summary,
-//       category:
-//         obj._source.sectionHandle === 'workshopSeries'
-//           ? 'workshop'
-//           : obj._source.sectionHandle === 'helpTopic'
-//             ? 'help topic'
-//             : obj._source.sectionHandle ===
-//               'externalResource'
-//               ? 'resource'
-//               : obj._source.type,
-//     }
-//   })
-// }
-
 //  This event handler is invoked by the search-generic component (filtered search )selections
 function getSearchData(data) {
   console.log('On the page getsearchdata called')
@@ -336,14 +312,6 @@ function getSearchData(data) {
     />
 
     <!--
-    <h3 style="margin: 30px 400px">
-      parseHitsResults -- {{ parseHitsResults }}
-    </h3>
-
-    <h3 style="margin: 30px 400px">
-      parseDisplayResultsText -- {{ parseDisplayResultsText }}
-    </h3>
-
     <h3 style="margin: 30px 400px">
       {{ `Number of hits from craft is ${parsedPages.length}` }}
     </h3>
@@ -427,6 +395,7 @@ function getSearchData(data) {
         </rich-text>
       </div>
     </section-wrapper>
+
     <section-wrapper>
       <divider-way-finder
         class="divider-way-finder"
