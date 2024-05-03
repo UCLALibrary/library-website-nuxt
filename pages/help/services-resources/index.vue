@@ -341,7 +341,7 @@ function getSearchData(data) {
     <h3 style="margin: 30px 400px">
       {{
         hits &&
-        `Number of hits from ES calling parsedhitsresults length
+          `Number of hits from ES calling parsedhitsresults length
       ${hits.length}`
       }}
     </h3>
@@ -356,7 +356,7 @@ function getSearchData(data) {
     <section-wrapper
       v-if="(page.serviceOrResource || page.workshopseries) &&
         hits.length == 0
-        "
+      "
       class="section-no-top-margin"
     >
       <section-cards-with-illustrations
