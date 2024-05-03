@@ -8,7 +8,7 @@ import ACCESS_COLLECTIONS from '../gql/queries/CollectionsAccessList.gql'
 
 // UTILITIES & PLUGINS
 import config from '../utils/searchConfig'
-const { $graphql, $elasticsearchplugin } = useNuxtApp() // TODO $dataApi, $fetch
+const { $graphql, $elasticsearchplugin, $dataApi } = useNuxtApp()
 
 // ROUTING
 const route = useRoute()
@@ -18,115 +18,143 @@ definePageMeta({
   alias: ['/listing-collections/access'],
 })
 
-// ASYNC DATA // collections-access
-const { data: page, error } = await useAsyncData('access-collections', async () => {
+// ASYNC DATA
+const { data, error } = await useAsyncData('access-collections', async () => {
   const data = await $graphql.default.request(ACCESS_COLLECTIONS)
-  // console.log('data in fn', data)
-
-  if (
-    data.entry.accessCollections &&
-    data.entry.accessCollections.length > 0
-  ) {
-    for (const collection of data.entry.accessCollections) {
-      // console.log('Collection indexing:' + collection.slug)
-      // console.log('Collection:' + collection)
-      collection.searchType = 'accessCollections'
-      collection.to = collection.uri
-        ? collection.uri
-        : collection.externalResourceUrl
-      collection.category =
-        collection.workshopOrEventSeriesType ===
-          'help/services-resources'
-          ? 'workshop'
-          : collection.serviceOrResourceType
-            ? collection.serviceOrResourceType
-            : collection.typeHandle === 'externalResource'
-              ? 'resource'
-              : collection.typeHandle === 'generalContentPage'
-                ? 'resource'
-                : collection.typeHandle
-      await $elasticsearchplugin.index(collection, collection.slug)
-    }
-  }
-
   return data
 })
-// const page = ref(_get(data.value, 'entry', {}))
 
 if (error.value) {
   throw createError({
     ...error.value, statusMessage: 'Page not found.', fatal: true
   })
 }
-if (!page.value.entry) {
+if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-// DATA VARS
+// only index on server
+// console.log("Access collections to be indexed are:", JSON.stringify(data.value.entry.accessCollections))
+if (
+  data.value.entry.accessCollections &&
+  data.value.entry.accessCollections.length > 0 &&
+  process.server
+) {
+  for (const collection of data.value.entry.accessCollections) {
+    collection.searchType = 'accessCollections'
+    collection.to = collection.uri
+      ? collection.uri
+      : collection.externalResourceUrl
+    console.log('Index Access collections:', collection.slug)
+    await $elasticsearchplugin.index(collection, collection.slug)
+  }
+}
+// end indexing
+
+const page = ref(_get(data.value, 'entry', {}))
+// console.log('In page', page.value)
+
+// TODO another watcher? when does this fire?
+// TODO was data
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+})
+
+// ES search functionality
 const noResultsFound = ref(false)
 const hits = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
+  // queryFilters must be passed even if not used
+  queryFilters:
+    (route.query.filters &&
+      JSON.parse(route.query.filters)) ||
+    {},
 })
 
-// TODO AFTER ELASTIC SEARCH
-// FETCH
-// const fetchNew = async () => {
-//   hits.value = []
-//   if (route.query.q && route.query.q !== '') {
-//     const results = await $dataApi.keywordSearchWithFilters(
-//       route.query.q || '*',
-//       config.accessCollections.searchFields,
-//       'searchType:accessCollection',
-//       [],
-//       config.accessCollections.sortField,
-//       config.accessCollections.orderBy,
-//       config.accessCollections.resultFields,
-//       []
-//     )
-//     hits.value = []
-//     if (results && results.hits && results.hits.total.value > 0) {
-//       hits.value = results.hits.hits
-//       noResultsFound.value = false
-//     } else {
-//       hits.value = []
-//       noResultsFound.value = true
-//     }
-//     searchGenericQuery.value = {
-//       queryText: route.query.q || '',
-//     }
-//   } else {
-//     hits.value = []
-//     noResultsFound.value = false
-//     searchGenericQuery.value = { queryText: '' }
-//   }
-// }
+// ES search function
+async function searchES() {
+  if (route?.query && route?.query.q && route?.query.q !== '') {
+    console.log('searchES', route.query.q)
+    const queryText = route.query.q || '*'
+    const results = await $dataApi.keywordSearchWithFilters(
+      queryText,
+      config.accessCollections.searchFields,
+      'searchType:accessCollection',
+      [],
+      config.accessCollections.sortField,
+      config.accessCollections.orderBy,
+      config.accessCollections.resultFields,
+      []
+    )
+    if (results && results.hits && results.hits.total.value > 0) {
+      console.log('Search ES HITS,', results.hits.hits)
+      hits.value = results.hits.hits
+      noResultsFound.value = false
+    } else {
+      noResultsFound.value = true
+      hits.value = []
+    }
+  } else {
+    // console.log('data.value', data.value)
+    // console.log('page.value', page.value)
+    hits.value = []
+    noResultsFound.value = false
+  }
+}
+
+// ES watcher
+watch(() => route?.query, (oldValue, newValue) => {
+  if (oldValue !== newValue) {
+    if (newValue?.q === '') hits.value = []
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchES()
+  }
+}, { deep: true, immediate: true })
 
 // HEAD
 useHead({
-  title: page.value.entry ? page.value.entry.title : '... loading',
+  title: page.value ? page.value.title : '... loading',
   meta: [
     {
       hid: 'description',
       name: 'description',
-      content: removeTags(page.value.entry.text)
-    },
+      content: removeTags(page.value.text),
+    }
   ],
 })
 
+function getCategory(obj) {
+  console.log('TypeHandle', obj.typeHandle)
+  const category = obj.workshopOrEventSeriesType ===
+    'help/services-resources'
+    ? 'workshop'
+    : obj.serviceOrResourceType
+      ? obj.serviceOrResourceType
+      : obj.typeHandle === 'externalResource'
+        ? 'resource'
+        : obj.typeHandle === 'generalContentPage'
+          ? 'resource'
+          : obj.typeHandle
+  return category
+}
+
 // COMPUTED
 const parsedAccessCollections = computed(() => {
-  return page.value.entry.accessCollections.map((obj) => {
+  return page.value?.accessCollections?.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
         ? obj.externalResourceUrl
         : `/${obj.uri}`,
+      category:
+        getCategory(obj)
     }
   })
 })
 const parsedAssociatedTopics = computed(() => {
-  return page.value.entry.associatedTopics.map((obj) => {
+  return page.value?.associatedTopics?.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
@@ -136,39 +164,24 @@ const parsedAssociatedTopics = computed(() => {
   })
 })
 const parseHitsResults = computed(() => {
-  // console.log('ParseHitsResults checking results data:' + JSON.stringify(hits))
-  return parseHits(hits)
-})
-
-// WATCHERS - TODO: after elastic search ready, implement these if needed
-// watch(() => route.query, async (newValue) => {
-//   await $fetch(newValue)
-// })
-// watch(() => route.query.q, (newValue) => {
-//   // console.log("watching queryTEXT: " + newValue)
-//   if (newValue === '') hits.value = []
-// })
-
-// METHODS
-function parseHits(hits) {
-  return hits.value.map((obj) => {
-    console.log(
-      'What should the category be?:' +
-      obj._source.sectionHandle
-    )
+  return hits.value?.map((obj) => {
     return {
       ...obj._source,
       to: obj._source.externalResourceUrl
         ? obj._source.externalResourceUrl
         : `/${obj._source.uri}`,
+      category:
+        getCategory(obj._source)
     }
   })
-}
+})
+
 function getSearchData(data) {
-  route.push({
+  useRouter().push({
     path: '/collections/access',
     query: {
-      q: data.value.entry.text,
+      q: data?.text,
+      filters: [],
     },
   })
 }
@@ -180,33 +193,31 @@ function getSearchData(data) {
   >
     <nav-breadcrumb
       to="/collections"
-      :title="page.entry.title"
+      :title="page.title"
       parent-title="Collections"
       class="secondary-breadcrumb"
     />
 
     <masthead-secondary
-      :title="page.entry.title"
-      :text="page.entry.text"
+      v-if="page.title"
+      :title="page.title"
+      :text="page.text"
       class="secondary"
     />
 
     <search-generic
       search-type="default"
       class="generic-search"
-      :search-generic-query="searchGenericQuery"
       placeholder="ACCESS COLLECTIONS"
+      :search-generic-query="searchGenericQuery"
       @search-ready="getSearchData"
     />
 
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
-
-    <section-wrapper
-      v-show="page.entry.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <section-wrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
@@ -280,7 +291,4 @@ function getSearchData(data) {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
-></style>
+<style lang="scss" scoped></style>

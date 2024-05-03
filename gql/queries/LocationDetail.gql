@@ -5,6 +5,7 @@ query LocationDetail($slug: [String!]) {
     entry(section: "location", slug: $slug) {
         ... on location_location_Entry {
             id
+            typehandle
             sectionHandle
             slug
             uri

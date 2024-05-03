@@ -6,7 +6,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const esReadKey = useRuntimeConfig().public.esReadKey
   const esWriteKey = useRuntimeConfig().esWriteKey
   async function index(data, slug) {
-    console.log('elastic search plugin index function :', esIndex.data.value)
+    // console.log('elastic search plugin index function :', esIndex.data.value)
 
     try {
       if (process.env.NODE_ENV !== 'development' && data && slug && esIndex?.data?.value) {
@@ -25,15 +25,16 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
         const body = await docExists.text()
         const docExistsResponseValue = JSON.parse(body)
-
-        // console.log("responseValue",docExistsResponseValue)
+        // console.log('Existing data in ES', docExistsResponseValue)
 
         if (docExistsResponseValue && docExistsResponseValue._source) {
           console.log('GET-RESPONSE: ' + slug)
-
+          const updateUrl = `${esURL}/${esIndex.data.value}/_update/${slug}`
+          console.log('ES update url', updateUrl)
           const postBody = {
             doc: data
           }
+          console.log('postBody', JSON.stringify(postBody))
           const updateResponse = await fetch(
                     `${esURL}/${esIndex.data.value}/_update/${slug}`,
                     {
@@ -45,8 +46,9 @@ export default defineNuxtPlugin(async (nuxtApp) => {
                       body: JSON.stringify(postBody),
                     }
           )
-          // console.log("updateResponse",updateResponse)
+          console.log('Update document in ES', updateResponse)
           const updateJson = await updateResponse.text()
+          console.log('Update in ES', updateJson)
         } else {
           const response = await fetch(
                     `${esURL}/${esIndex.data.value}/_doc/${slug}`,
@@ -60,7 +62,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
                     }
           )
 
-          console.log('Response from ES:', await response.text())
+          // console.log("Create a new document in ES:", await response.text())
         }
       } else {
         console.warn('not indexing anything')
