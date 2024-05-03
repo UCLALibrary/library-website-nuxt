@@ -28,6 +28,7 @@ if (error.value) {
     statusCode: 404, statusMessage: 'Page not found.', fatal: true
   })
 }
+
 if (!data.value.data && !data.value.single) {
   throw createError({
     statusCode: 404,
@@ -35,7 +36,7 @@ if (!data.value.data && !data.value.single) {
   })
 }
 
-
+const route = useRoute()
 
 // Data
 const page = ref(_get(data.value.single, 'entry', {}))
@@ -61,81 +62,6 @@ useHead({
     },
   ],
 })
-
-const route = useRoute()
-
-// ES search functionality
-const hits = ref([])
-const title = ref('')
-let searchFilters = ref([])
-const noResultsFound = ref(false)
-const searchGenericQuery = ref({
-  queryText: route.query.q || '',
-  queryFilters:
-    (route.query.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
-})
-
-// This watcher is called when router push updates the query params
-watch(
-  () => route.query,
-  (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', newVal, oldVal)
-    searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
-    searchES()
-  }, { deep: true, immediate: true }
-)
-
-async function searchES() {
-  if (
-    (route.query.q && route.query.q !== '') ||
-    (route.query.filters &&
-      queryFilterHasValues(
-        route.query.filters,
-        config.eventsExhibitionsList.filters
-      ))
-  ) {
-    console.log('Search ES HITS query,', route.query.q)
-    const queryText = route.query.q || '*'
-    const { past, ...filters } = routeFilters.value
-    const extrafilters = (past !== 'yes')
-      ? [
-        {
-          range: {
-            endDateWithTime: {
-              gte: 'now',
-            },
-          },
-        },
-      ]
-      : []
-    const results = await $dataApi.keywordSearchWithFilters(
-      queryText,
-      config.eventsExhibitionsList.searchFields,
-      'sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries',
-      (route.query.filters && JSON.parse(route.query.filters)) ||
-      {},
-      config.eventsExhibitionsList.sortField,
-      config.eventsExhibitionsList.orderBy,
-      config.eventsExhibitionsList.resultFields,
-      config.eventsExhibitionsList.filters,
-      extrafilters,
-    )
-    if (results && results.hits && results.hits.total.value > 0) {
-      console.log('Search ES HITS,', results.hits.hits)
-      hits.value = results.hits.hits
-      noResultsFound.value = false
-    } else {
-      noResultsFound.value = true
-      hits.value = []
-    }
-  } else {
-    hits.value = []
-    noResultsFound.value = false
-  }
-}
 
 const hasSearchQuery = computed(() => {
   return route.query.q !== ''
@@ -269,24 +195,77 @@ const routeFilters = computed(() => {
   return JSON.parse(_get(route, 'query.filters', '[]'))
 })
 
-onMounted(async () => {
-  await setFilters()
+// ES search functionality
+const hits = ref([])
+const title = ref('')
+const searchFilters = ref([])
+const noResultsFound = ref(false)
+const searchGenericQuery = ref({
+  queryText: route.query.q || '',
+  queryFilters:
+    (route.query.filters &&
+      JSON.parse(route.query.filters)) ||
+    {},
 })
 
-async function setFilters() {
-  const searchAggsResponse = await $dataApi.getAggregations(
-    config.eventsExhibitionsList.filters,
-    'event'
-  )
-  /* console.log(
-          "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-      ) */
-  searchFilters = [
-    ...getListingFilters(
-      searchAggsResponse,
-      config.eventsExhibitionsList.filters
+// This watcher is called when router push updates the query params
+watch(
+  () => route.query,
+  (newVal, oldVal) => {
+    console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchES()
+  }, { deep: true, immediate: true }
+)
+
+async function searchES() {
+  if (
+    (route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
+      queryFilterHasValues(
+        route.query.filters,
+        config.eventsExhibitionsList.filters
+      ))
+  ) {
+    console.log('Search ES HITS query,', route.query.q)
+    const queryText = route.query.q || '*'
+    const { past, ...filters } = routeFilters.value
+    const extrafilters = (past !== 'yes')
+      ? [
+          {
+            range: {
+              endDateWithTime: {
+                gte: 'now',
+              },
+            },
+          },
+        ]
+      : []
+    const results = await $dataApi.keywordSearchWithFilters(
+      queryText,
+      config.eventsExhibitionsList.searchFields,
+      'sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries',
+      (route.query.filters && JSON.parse(route.query.filters)) ||
+      {},
+      config.eventsExhibitionsList.sortField,
+      config.eventsExhibitionsList.orderBy,
+      config.eventsExhibitionsList.resultFields,
+      config.eventsExhibitionsList.filters,
+      extrafilters,
     )
-  ]
+    if (results && results.hits && results.hits.total.value > 0) {
+      console.log('Search ES HITS,', results.hits.hits)
+      hits.value = results.hits.hits
+      noResultsFound.value = false
+    } else {
+      noResultsFound.value = true
+      hits.value = []
+    }
+  } else {
+    hits.value = []
+    noResultsFound.value = false
+  }
 }
 
 function parseHits(hits = []) {
@@ -350,6 +329,26 @@ function getSearchData(data) {
     },
   })
 }
+
+async function setFilters() {
+  const searchAggsResponse = await $dataApi.getAggregations(
+    config.eventsExhibitionsList.filters,
+    'event'
+  )
+  /* console.log(
+          "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+      ) */
+  searchFilters.value = [
+    ...getListingFilters(
+      searchAggsResponse,
+      config.eventsExhibitionsList.filters
+    )
+  ]
+}
+
+onMounted(async () => {
+  await setFilters()
+})
 </script>
 
 <template lang="html">
@@ -377,7 +376,7 @@ function getSearchData(data) {
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <banner-featured
@@ -412,7 +411,7 @@ function getSearchData(data) {
         parsedEvents.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <divider-way-finder color="visit" />
@@ -424,7 +423,7 @@ function getSearchData(data) {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="All Upcoming Events"
     >
       <section-teaser-list :items="parsedEvents" />
@@ -435,7 +434,7 @@ function getSearchData(data) {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <divider-way-finder color="visit" />
@@ -447,7 +446,7 @@ function getSearchData(data) {
         parsedSeriesAndExhibitions.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="Event Series & Exhibitions"
     >
       <section-teaser-card :items="parsedSeriesAndExhibitions" />
