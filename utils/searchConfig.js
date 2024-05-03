@@ -177,6 +177,7 @@ const config = {
       'workshopOrEventSeries',
       'externalResourceUrl',
       'sectionHandle',
+      'typeHandle',
       'category',
       'serviceOrResourceType',
     ],

@@ -16,7 +16,7 @@ const route = useRoute()
 const { data, error } = await useAsyncData(`events-listing-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(EVENT_DETAIL, { slug: route.params.slug })
 
-  console.log('test:', data)
+  // console.log('test:', data)
 
   return data
 })

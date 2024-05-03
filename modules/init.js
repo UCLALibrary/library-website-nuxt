@@ -13,6 +13,7 @@ export default defineNuxtModule({
 
         const esLibraryIndexTemp = `${nuxt.options.runtimeConfig.public.esIndexPrefix}-${now.toISOString().toLowerCase().replaceAll(':', '-')}`
         console.log('Index named:' + esLibraryIndexTemp)
+        // https://www.elastic.co/guide/en/elasticsearch/reference/current/flattened.html
         try {
           const response = await fetch(`${nuxt.options.runtimeConfig.public.esURL}/${esLibraryIndexTemp}`, {
             headers: {
@@ -21,7 +22,15 @@ export default defineNuxtModule({
             },
             method: 'PUT',
             body: JSON.stringify({
+              mappings: {
+                properties: {
+                  blocks: { // TODO Making all flexible blocks flattened in ES to avoid any performnce issues further
+                    type: 'flattened'
+                  }
+                }
+              },
               settings: {
+                'index.mapping.total_fields.limit': 1500, // Or a suitable limit
                 analysis: {
                   analyzer: {
                     default: {
