@@ -225,7 +225,28 @@ const parsedPlaceholder = computed(() => {
 
 // DATA FROM ES
 const parseHitsResults = computed(() => {
-  return parseHits()
+  return hits.value.map((obj) => {
+    return {
+      title: obj._source.title,
+      sectionHandle: obj._source.sectionHandle,
+      to:
+        obj._source.sectionHandle === 'externalResource'
+          ? `${obj._source.externalResourceUrl}`
+          : `/${obj._source.uri}`,
+      iconName:
+        obj._source.illustrationsResourcesAndServices,
+      text: obj._source.text || obj._source.summary,
+      category:
+        obj._source.sectionHandle === 'workshopSeries'
+          ? 'workshop'
+          : obj._source.sectionHandle === 'helpTopic'
+            ? 'help topic'
+            : obj._source.sectionHandle ===
+              'externalResource'
+              ? 'resource'
+              : obj._source.type,
+    }
+  })
 })
 
 const parseDisplayResultsText = computed(() => {
@@ -253,30 +274,30 @@ async function setFilters() {
   )
 }
 
-function parseHits() {
-  return hits.value.map((obj) => {
-    return {
-      title: obj._source.title,
-      sectionHandle: obj._source.sectionHandle,
-      to:
-        obj._source.sectionHandle === 'externalResource'
-          ? `${obj._source.externalResourceUrl}`
-          : `/${obj._source.uri}`,
-      iconName:
-        obj._source.illustrationsResourcesAndServices,
-      text: obj._source.text || obj._source.summary,
-      category:
-        obj._source.sectionHandle === 'workshopSeries'
-          ? 'workshop'
-          : obj._source.sectionHandle === 'helpTopic'
-            ? 'help topic'
-            : obj._source.sectionHandle ===
-              'externalResource'
-              ? 'resource'
-              : obj._source.type,
-    }
-  })
-}
+// function parseHits() {
+//   return hits.value.map((obj) => {
+//     return {
+//       title: obj._source.title,
+//       sectionHandle: obj._source.sectionHandle,
+//       to:
+//         obj._source.sectionHandle === 'externalResource'
+//           ? `${obj._source.externalResourceUrl}`
+//           : `/${obj._source.uri}`,
+//       iconName:
+//         obj._source.illustrationsResourcesAndServices,
+//       text: obj._source.text || obj._source.summary,
+//       category:
+//         obj._source.sectionHandle === 'workshopSeries'
+//           ? 'workshop'
+//           : obj._source.sectionHandle === 'helpTopic'
+//             ? 'help topic'
+//             : obj._source.sectionHandle ===
+//               'externalResource'
+//               ? 'resource'
+//               : obj._source.type,
+//     }
+//   })
+// }
 
 //  This event handler is invoked by the search-generic component (filtered search )selections
 function getSearchData(data) {
