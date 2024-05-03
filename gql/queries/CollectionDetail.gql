@@ -8,6 +8,7 @@ query CollectionDetail($slug: [String!]) {
     physicalDigital
     uri
     slug
+    typeHandle
     sectionHandle
     heroImage {
       ... on heroImage_heroImage_BlockType {
