@@ -302,6 +302,11 @@ const config = {
         esFieldName: 'eventType.title.keyword',
         inputType: 'checkbox',
       },
+      {
+        esFieldName: 'past',
+        inputType: 'single-checkbox',
+        label: 'Include Past Events',
+      }
       /*  {
               label: "Date Range",
               esFieldNameArray: ["startDateWithTime","endDateWithTime"],

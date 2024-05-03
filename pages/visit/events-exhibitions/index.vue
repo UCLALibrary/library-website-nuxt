@@ -14,7 +14,7 @@ import queryFilterHasValues from '../utils/queryFilterHasValues'
 import removeTags from '../utils/removeTags'
 import sortByTitle from '../utils/sortByTitle'
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $dataApi } = useNuxtApp()
 
 const { data, error } = await useAsyncData('events-list', async () => {
   const data = await $graphql.default.request(EXHIBITIONS_AND_EVENTS_LIST)
@@ -35,15 +35,12 @@ if (!data.value.data && !data.value.single) {
   })
 }
 
-// console.log('Expecting data: ', data.value)
-
-const route = useRoute()
-
 // Data
 const page = ref(_get(data.value.single, 'entry', {}))
 const events = ref(_get(data.value.data, 'events', []))
 const series = ref(_get(data.value.data, 'series', []))
 const exhibitions = ref(_get(data.value.data, 'exhibitions', []))
+
 watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal.single, 'entry', {})
@@ -51,21 +48,6 @@ watch(data, (newVal, oldVal) => {
   series.value = _get(newVal.data, 'series', [])
   exhibitions.value = _get(newVal.data, 'exhibitions', [])
 })
-
-const hits = ref([])
-const title = ref('')
-// let searchFilters = ref([])
-const noResultsFound = ref(false)
-const searchGenericQuery = ref({
-  queryText: route.query.q || '',
-  queryFilters:
-    (route.query.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
-})
-
-// console.log('Page variable: ', page.value)
-// console.log('Event variable: ', events.value)
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -78,85 +60,80 @@ useHead({
   ],
 })
 
-/* TODO: Refactor when search functionality is ready */
+const route = useRoute()
 
-//   async fetch(){
-//   // this.events = []
-//   hits.value = []
-//   if (hasSearchQuery.value) {
-//     if (!page.value.title) {
-//       const data = await this.$graphql.default.request(
-//         EXHIBITIONS_AND_EVENTS_LIST_SINGLE
-//       )
-//       page.value.title = _get(data, 'entry.title', '')
-//       page.value.text = _get(data, 'entry.text', '')
-//     }
-//     const query_text = this.$route.query.q || '*'
+// ES search functionality
+const hits = ref([])
+const title = ref('')
+let searchFilters = ref([])
+const noResultsFound = ref(false)
+const searchGenericQuery = ref({
+  queryText: route.query.q || '',
+  queryFilters:
+    (route.query.filters &&
+      JSON.parse(route.query.filters)) ||
+    {},
+})
 
-//     const { past, ...filters } = routeFilters.value
-//     const extrafilters = (past !== 'yes')
-//       ? [
-//         {
-//           range: {
-//             endDateWithTime: {
-//               gte: 'now',
-//             },
-//           },
-//         },
-//       ]
-//       : []
-//     const results = await this.$dataApi.keywordSearchWithFilters(
-//       query_text,
-//       config.eventsExhibitionsList.searchFields,
-//       'sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries',
-//       filters,
-//       config.eventsExhibitionsList.sortField,
-//       config.eventsExhibitionsList.orderBy,
-//       config.eventsExhibitionsList.resultFields,
-//       config.eventsExhibitionsList.filters,
-//       extrafilters,
-//     )
-//     // console.log("getsearchdata method:" + JSON.stringify(results))
-//     // this.events = []
-//     // this.hits = []
-//     if (results && results.hits && results.hits.total.value > 0) {
-//       hits.value = results.hits.hits
-//       /* this.events = []
-//             this.series = []
-//             this.exhibitions = [] */
-//       noResultsFound.value = false
-//     } else {
-//       hits.value = []
-//       /* this.events = []
-//             this.series = []
-//             this.exhibitions = [] */
-//       noResultsFound.value = true
-//     }
-//     searchGenericQuery.value = {
-//       queryText: this.$route.query.q || '',
-//       queryFilters: routeFilters.value,
-//     }
-//   } else {
-//     // if route queries are empty fetch data from craft
-//     hits.value = []
-//     noResultsFound.value = false
-//     searchGenericQuery.value = {
-//       queryText: '',
-//       queryFilters: {},
-//     }
-//     /* const single = await this.$graphql.default.request(
-//             EXHIBITIONS_AND_EVENTS_LIST_SINGLE
-//         )
-//         const data = await this.$graphql.default.request(
-//             EXHIBITIONS_AND_EVENTS_LIST
-//         )
-//         //console.log("data:" + data)
-//         this.single = _get(data, "entry", {})
-//         this.events = _get(data, "events", {})
-//         this.series = _get(data, "series", {})
-//         this.exhibitions = _get(data, "exhibitions", {}) */
-//   }
-// }
+// This watcher is called when router push updates the query params
+watch(
+  () => route.query,
+  (newVal, oldVal) => {
+    console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchES()
+  }, { deep: true, immediate: true }
+)
+
+async function searchES() {
+  if (
+    (route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
+      queryFilterHasValues(
+        route.query.filters,
+        config.eventsExhibitionsList.filters
+      ))
+  ) {
+    console.log('Search ES HITS query,', route.query.q)
+    const queryText = route.query.q || '*'
+    const { past, ...filters } = routeFilters.value
+    const extrafilters = (past !== 'yes')
+      ? [
+        {
+          range: {
+            endDateWithTime: {
+              gte: 'now',
+            },
+          },
+        },
+      ]
+      : []
+    const results = await $dataApi.keywordSearchWithFilters(
+      queryText,
+      config.eventsExhibitionsList.searchFields,
+      'sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries',
+      (route.query.filters && JSON.parse(route.query.filters)) ||
+      {},
+      config.eventsExhibitionsList.sortField,
+      config.eventsExhibitionsList.orderBy,
+      config.eventsExhibitionsList.resultFields,
+      config.eventsExhibitionsList.filters,
+      extrafilters,
+    )
+    if (results && results.hits && results.hits.total.value > 0) {
+      console.log('Search ES HITS,', results.hits.hits)
+      hits.value = results.hits.hits
+      noResultsFound.value = false
+    } else {
+      noResultsFound.value = true
+      hits.value = []
+    }
+  } else {
+    hits.value = []
+    noResultsFound.value = false
+  }
+}
 
 const hasSearchQuery = computed(() => {
   return route.query.q !== ''
@@ -278,130 +255,99 @@ const parsedSeriesAndExhibitions = computed(() => {
     })
 })
 
-/* TODO: Enable for search and in template markup */
+const parseHitsResults = computed(() => {
+  return parseHits(hits.value)
+})
 
-// const parseHitsResults = computed(() => {
-//   return parseHits(hits.value)
-// })
-
-// const parsedPlaceholder = computed(() => {
-//   return `Search ${page.value.title}`
-// })
+const parsedPlaceholder = computed(() => {
+  return `Search ${page.value.title}`
+})
 
 const routeFilters = computed(() => {
   return JSON.parse(_get(route, 'query.filters', '[]'))
 })
 
-/* TODO: Refactor when search functionality is ready */
+onMounted(async () => {
+  await setFilters()
+})
 
-// This will recall fetch() when these query params change
-// watchQuery: ["offset", "q"],
-// watch: {
-//   '$route.query': '$fetch',
-//     '$route.query.q'(newValue) {
-//     // console.log("watching queryText:" + newValue)
-//   },
-//   '$route.query.filters'(newValue) {
-//     // console.log("watching filters:" + newValue)
-//   },
-// }
+async function setFilters() {
+  const searchAggsResponse = await $dataApi.getAggregations(
+    config.eventsExhibitionsList.filters,
+    'event'
+  )
+  /* console.log(
+          "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+      ) */
+  searchFilters = [
+    ...getListingFilters(
+      searchAggsResponse,
+      config.eventsExhibitionsList.filters
+    )
+  ]
+}
 
-// onMounted(async () => {
-// console.log("In mounted")
-/* //console.log("ESREADkey:" + this.$config.esReadKey)
-      //console.log("ESURLkey:" + this.$config.esURL) */
-// bookmarked search queries are not calling fetch
-//   setFilters()
-// })
+function parseHits(hits = []) {
+  return hits.map((obj) => {
+    if (obj._source.sectionHandle === 'event') {
+      return {
+        ...obj._source,
+        to: `/${obj._source.to}`,
+        image: _get(obj._source, 'image[0].image[0]', null),
+        startDate: _get(
+          obj._source,
+          'startDateWithTime',
+          null
+        ),
+        endDate: _get(obj._source, 'endDateWithTime', null),
+        category: _get(
+          obj._source,
+          'eventType[0].title',
+          null
+        ),
+      }
+    } else if (obj._source.sectionHandle === 'exhibition') {
+      return {
+        ...obj._source,
+        to: `/${obj._source.uri}`,
+        image: _get(obj._source, 'image[0].image[0]', null),
+        startDate: _get(obj._source, 'startDate', null),
+        endDate: _get(obj._source, 'endDate', null),
+        category: _get(obj._source, 'sectionHandle', null),
+      }
+    } else if (obj._source.sectionHandle === 'eventSeries') {
+      return {
+        ...obj._source,
+        to: `/${obj._source.uri}`,
+        image: _get(obj._source, 'image[0].image[0]', null),
+        startDate: _get(obj._source, 'startDate', null),
+        endDate: _get(obj._source, 'endDate', null),
+        category: 'Event Series',
+      }
+    } else {
+      return {
+        ...obj._source,
+        to: `/${obj._source.uri}`,
+      }
+    }
+  })
+}
 
-// Methods
+//  This is event handler which is invoked by search-generic component selections
+function getSearchData(data) {
+  console.log('On the page getsearchdata called')
 
-// async function setFilters() {
-//   const searchAggsResponse = await this.$dataApi.getAggregations(
-//     config.eventsExhibitionsList.filters,
-//     'event'
-//   )
-//   /* console.log(
-//           "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-//       ) */
-//   searchFilters = [
-//     ...getListingFilters(
-//       searchAggsResponse,
-//       config.eventsExhibitionsList.filters
-//     ),
-//     {
-//       esFieldName: 'past',
-//       inputType: 'single-checkbox',
-//       label: 'Include Past Events',
-//     },
-//   ]
-// }
+  const filterData =
+    (data.filters && JSON.stringify(data.filters)) || {}
 
-/* TODO: Enable for search */
-
-// function parseHits(hits = []) {
-//   return hits.value.map((obj) => {
-//     if (obj._source.sectionHandle === 'event') {
-//       return {
-//         ...obj._source,
-//         to: `/${obj._source.to}`,
-//         image: _get(obj._source, 'image[0].image[0]', null),
-//         startDate: _get(
-//           obj._source,
-//           'startDateWithTime',
-//           null
-//         ),
-//         endDate: _get(obj._source, 'endDateWithTime', null),
-//         category: _get(
-//           obj._source,
-//           'eventType[0].title',
-//           null
-//         ),
-//       }
-//     } else if (obj._source.sectionHandle === 'exhibition') {
-//       return {
-//         ...obj._source,
-//         to: `/${obj._source.uri}`,
-//         image: _get(obj._source, 'image[0].image[0]', null),
-//         startDate: _get(obj._source, 'startDate', null),
-//         endDate: _get(obj._source, 'endDate', null),
-//         category: _get(obj._source, 'sectionHandle', null),
-//       }
-//     } else if (obj._source.sectionHandle === 'eventSeries') {
-//       return {
-//         ...obj._source,
-//         to: `/${obj._source.uri}`,
-//         image: _get(obj._source, 'image[0].image[0]', null),
-//         startDate: _get(obj._source, 'startDate', null),
-//         endDate: _get(obj._source, 'endDate', null),
-//         category: 'Event Series',
-//       }
-//     } else {
-//       return {
-//         ...obj._source,
-//         to: `/${obj._source.uri}`,
-//       }
-//     }
-//   })
-// }
-
-// function getSearchData(data) {
-//   // console.log("On the page getsearchdata called " + data)
-//   const filterData =
-//     (data.filters && JSON.stringify(data.filters)) || ''
-//   this.$router.push({
-//     path: '/visit/events-exhibitions',
-//     query: {
-//       q: data.text,
-//       filters: filterData,
-//     },
-//   })
-// }
-
-//
-// fetchOnServer: false,
-// multiple components can return the same `fetchKey` and Nuxt will track them both separately
-// fetchKey: 'events-exhibitions-index',
+  useRouter().push({
+    path: '/visit/events-exhibitions',
+    query: {
+      q: data.text,
+      filters: filterData,
+    },
+  })
+}
 </script>
 
 <template lang="html">
@@ -413,15 +359,14 @@ const routeFilters = computed(() => {
       :title="page.title"
       :text="page.text"
     />
-    <!-- TODO: Enable for search -->
-    <!--<search-generic
+    <search-generic
       search-type="about"
       class="generic-search"
       :filters="searchFilters"
       :search-generic-query="searchGenericQuery"
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
-    />-->
+    />
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
@@ -430,7 +375,7 @@ const routeFilters = computed(() => {
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <banner-featured
@@ -465,7 +410,7 @@ const routeFilters = computed(() => {
         parsedEvents.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <divider-way-finder color="visit" />
@@ -477,7 +422,7 @@ const routeFilters = computed(() => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Upcoming Events"
     >
       <section-teaser-list :items="parsedEvents" />
@@ -488,7 +433,7 @@ const routeFilters = computed(() => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <divider-way-finder color="visit" />
@@ -500,7 +445,7 @@ const routeFilters = computed(() => {
         parsedSeriesAndExhibitions.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Event Series & Exhibitions"
     >
       <section-teaser-card :items="parsedSeriesAndExhibitions" />
