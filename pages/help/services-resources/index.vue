@@ -315,18 +315,7 @@ function getSearchData(data) {
       @search-ready="getSearchData"
     />
 
-    <!-- COMMENT OUT -->
-
-    <!-- <h3>parsedPages -- {{ parsedPages }}</h3>
-    <hr>
-    <h3>parsedServiceAndResourceList -- {{ parsedServiceAndResourceList }}</h3>
-    <hr>
-    <h3>parsedPlaceholder -- {{ parsedPlaceholder }}</h3>
-    <hr> -->
-    <h3 style="margin: 30px 400px">
-      hits -- {{ hits }}
-    </h3>
-
+    <!--
     <h3 style="margin: 30px 400px">
       parseHitsResults -- {{ parseHitsResults }}
     </h3>
@@ -345,6 +334,7 @@ function getSearchData(data) {
       ${hits.length}`
       }}
     </h3>
+    -->
 
     <section-wrapper theme="divider">
       <divider-way-finder
@@ -356,7 +346,7 @@ function getSearchData(data) {
     <section-wrapper
       v-if="(page.serviceOrResource || page.workshopseries) &&
         hits.length == 0
-      "
+        "
       class="section-no-top-margin"
     >
       <section-cards-with-illustrations
