@@ -35,6 +35,8 @@ if (!data.value.data && !data.value.single) {
   })
 }
 
+
+
 // Data
 const page = ref(_get(data.value.single, 'entry', {}))
 const events = ref(_get(data.value.data, 'events', []))
