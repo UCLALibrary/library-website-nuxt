@@ -13,15 +13,15 @@ describe('Access Collection page', () => {
       )
       cy.percySnapshot({ widths: [768, 992, 1200] })
     })
-    // TODO renable with search
-    //   it('Search Found', () => {
-    //     cy.visit('/collections/access?q=test')
-    //     cy.get('.logo-ucla').should('be.visible')
-    //     cy.get('input[type=search]').should(
-    //       'have.value',
-    //       'test'
-    //     )
-    //     cy.get('h2.about-results').invoke('text').should('not.be.empty')
-    //   })
+  })
+
+  it('Search Found', () => {
+    cy.visit('/collections/access?q=test')
+    cy.get('.logo-ucla').should('be.visible')
+    cy.get('input[type=search]').should(
+      'have.value',
+      'test'
+    )
+    cy.get('h2.about-results').invoke('text').should('not.be.empty')
   })
 })
