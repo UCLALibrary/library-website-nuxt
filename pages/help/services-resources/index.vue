@@ -85,7 +85,6 @@ const searchGenericQuery = ref({
 watch(() => route?.query, (oldValue, newValue) => {
   if (oldValue !== newValue) {
     if (newValue?.q === '') hits.value = []
-    // DO WE NEED THIS LINE BELOW?
     searchGenericQuery.value.queryText = route.query.q || ''
     searchES()
   }
@@ -93,21 +92,15 @@ watch(() => route?.query, (oldValue, newValue) => {
 
 // ES search function
 async function searchES() {
-  page.value = {}
-  hits.value = []
-  helpTopic.value = {}
   if (
-    (route?.query && route?.query.q && route?.query.q !== '') ||
-    (route?.query.filters &&
+    (route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
       queryFilterHasValues(
-        route?.query.filters,
+        route.query.filters,
         config.serviceOrResources.filters
       ))
   ) {
-    page.value = {}
-    hits.value = []
-    helpTopic.value = {}
-
+    console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
@@ -129,30 +122,11 @@ async function searchES() {
       noResultsFound.value = true
       hits.value = []
     }
-    searchGenericQuery.value = {
-      queryText: route.query.q || '',
-      queryFilters: (route.query.filters && JSON.parse(route.query.filters)) || {},
-    }
-    const getSummaryData = await $graphql.default.request(
-      SERVICE_RESOURCE_WORKSHOPSERIES_LIST
-    )
-    summaryData.value = _get(getSummaryData, 'entry', {})
   } else {
     // console.log('data.value', data.value)
-    // console.log('page.value', page.value)
+
     hits.value = []
     noResultsFound.value = false
-    page.value = {}
-    helpTopic.value = {}
-    page.value = await $graphql.default.request(
-      SERVICE_RESOURCE_WORKSHOPSERIES_LIST
-    )
-    helpTopic.value = await $graphql.default.request(
-      HELP_TOPIC_LIST
-    )
-    summaryData.value = _get(page.value, 'entry', {})
-    hits.value = []
-    searchGenericQuery.value.queryText = ''
   }
 }
 
@@ -310,19 +284,6 @@ function getSearchData(data) {
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
     />
-
-    <!--
-    <h3 style="margin: 30px 400px">
-      {{ `Number of hits from craft is ${parsedPages.length}` }}
-    </h3>
-    <h3 style="margin: 30px 400px">
-      {{
-        hits &&
-          `Number of hits from ES calling parsedhitsresults length
-      ${hits.length}`
-      }}
-    </h3>
-    -->
 
     <section-wrapper theme="divider">
       <divider-way-finder
