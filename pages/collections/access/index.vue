@@ -126,6 +126,7 @@ useHead({
 })
 
 function getCategory(obj) {
+  console.log("TypeHandle", obj.typeHandle)
   const category = obj.workshopOrEventSeriesType ===
     'help/services-resources'
     ? 'workshop'
@@ -215,10 +216,8 @@ function getSearchData(data) {
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
-    <section-wrapper
-      v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <section-wrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
@@ -239,6 +238,7 @@ function getSearchData(data) {
       >
         Displaying {{ hits.length }} results
       </h2>
+      {{ parseHitsResults }}
       <section-cards-with-illustrations
         class="section"
         :items="parseHitsResults"
