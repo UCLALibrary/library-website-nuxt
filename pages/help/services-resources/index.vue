@@ -342,6 +342,7 @@ function getSearchData(data) {
         :is-horizontal="true"
       />
     </section-wrapper>
+
     <section-wrapper
       v-else-if="hits && hits.length > 0"
       class="section-no-top-margin"
