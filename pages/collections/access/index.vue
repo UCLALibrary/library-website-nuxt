@@ -125,6 +125,19 @@ useHead({
   ],
 })
 
+function getCategory(obj) {
+  return category = obj.workshopOrEventSeriesType ===
+    'help/services-resources'
+    ? 'workshop'
+    : obj.serviceOrResourceType
+      ? obj.serviceOrResourceType
+      : obj.typeHandle === 'externalResource'
+        ? 'resource'
+        : obj.typeHandle === 'generalContentPage'
+          ? 'resource'
+          : obj.typeHandle
+}
+
 // COMPUTED
 const parsedAccessCollections = computed(() => {
   return page.value?.accessCollections?.map((obj) => {
@@ -134,16 +147,7 @@ const parsedAccessCollections = computed(() => {
         ? obj.externalResourceUrl
         : `/${obj.uri}`,
       category:
-        obj.workshopOrEventSeriesType ===
-          'help/services-resources'
-          ? 'workshop'
-          : obj.serviceOrResourceType
-            ? obj.serviceOrResourceType
-            : obj.typeHandle === 'externalResource'
-              ? 'resource'
-              : obj.typeHandle === 'generalContentPage'
-                ? 'resource'
-                : obj.typeHandle
+        getCategory(obj)
     }
   })
 })
@@ -158,11 +162,6 @@ const parsedAssociatedTopics = computed(() => {
   })
 })
 const parseHitsResults = computed(() => {
-  return parseHits(hits)
-})
-
-// METHODS
-function parseHits(hits) {
   return hits.value?.map((obj) => {
     return {
       ...obj._source,
@@ -170,19 +169,10 @@ function parseHits(hits) {
         ? obj._source.externalResourceUrl
         : `/${obj._source.uri}`,
       category:
-        obj.workshopOrEventSeriesType ===
-          'help/services-resources'
-          ? 'workshop'
-          : obj.serviceOrResourceType
-            ? obj.serviceOrResourceType
-            : obj.typeHandle === 'externalResource'
-              ? 'resource'
-              : obj.typeHandle === 'generalContentPage'
-                ? 'resource'
-                : obj.typeHandle
+        getCategory(obj._source)
     }
   })
-}
+})
 
 function getSearchData(data) {
   useRouter().push({
