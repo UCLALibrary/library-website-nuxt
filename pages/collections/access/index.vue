@@ -45,18 +45,6 @@ if (
     collection.to = collection.uri
       ? collection.uri
       : collection.externalResourceUrl
-    // The below code is not required and is causing ES errors, as category filed is of type object, hence cannot be of type text
-    /* collection.category =
-      collection.workshopOrEventSeriesType ===
-        'help/services-resources'
-        ? 'workshop'
-        : collection.serviceOrResourceType
-          ? collection.serviceOrResourceType
-          : collection.typeHandle === 'externalResource'
-            ? 'resource'
-            : collection.typeHandle === 'generalContentPage'
-              ? 'resource'
-              : collection.typeHandle */
     console.log('Index Access collections:', collection.slug)
     await $elasticsearchplugin.index(collection, collection.slug)
   }
@@ -145,6 +133,17 @@ const parsedAccessCollections = computed(() => {
       to: obj.externalResourceUrl
         ? obj.externalResourceUrl
         : `/${obj.uri}`,
+      category:
+        obj.workshopOrEventSeriesType ===
+          'help/services-resources'
+          ? 'workshop'
+          : obj.serviceOrResourceType
+            ? obj.serviceOrResourceType
+            : obj.typeHandle === 'externalResource'
+              ? 'resource'
+              : obj.typeHandle === 'generalContentPage'
+                ? 'resource'
+                : obj.typeHandle
     }
   })
 })
@@ -170,6 +169,17 @@ function parseHits(hits) {
       to: obj._source.externalResourceUrl
         ? obj._source.externalResourceUrl
         : `/${obj._source.uri}`,
+      category:
+        obj.workshopOrEventSeriesType ===
+          'help/services-resources'
+          ? 'workshop'
+          : obj.serviceOrResourceType
+            ? obj.serviceOrResourceType
+            : obj.typeHandle === 'externalResource'
+              ? 'resource'
+              : obj.typeHandle === 'generalContentPage'
+                ? 'resource'
+                : obj.typeHandle
     }
   })
 }
@@ -214,10 +224,8 @@ function getSearchData(data) {
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
-    <section-wrapper
-      v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <section-wrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
