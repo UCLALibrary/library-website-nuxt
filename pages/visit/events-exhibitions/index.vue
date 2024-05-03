@@ -235,14 +235,14 @@ async function searchES() {
     const { past, ...filters } = routeFilters.value
     const extrafilters = (past !== 'yes')
       ? [
-        {
-          range: {
-            endDateWithTime: {
-              gte: 'now',
+          {
+            range: {
+              endDateWithTime: {
+                gte: 'now',
+              },
             },
           },
-        },
-      ]
+        ]
       : []
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
@@ -379,7 +379,7 @@ onMounted(async () => {
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <banner-featured
@@ -414,7 +414,7 @@ onMounted(async () => {
         parsedEvents.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <divider-way-finder color="visit" />
@@ -426,7 +426,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="All Upcoming Events"
     >
       <section-teaser-list :items="parsedEvents" />
@@ -437,7 +437,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <divider-way-finder color="visit" />
@@ -449,7 +449,7 @@ onMounted(async () => {
         parsedSeriesAndExhibitions.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="Event Series & Exhibitions"
     >
       <section-teaser-card :items="parsedSeriesAndExhibitions" />

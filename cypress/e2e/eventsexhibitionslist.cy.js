@@ -11,6 +11,6 @@ describe('Events & Exhibitions List page', () => {
   it('Visit Events & Exhibitions Listing page filter by event type', () => {
     cy.visit('/visit/events-exhibitions/?q&filters=%7B"eventType.title.keyword"%3A%5B"Workshop"%5D%7D')
 
-    cy.get ('h2.about-results').should("be.visible")
+    cy.get('h2.about-results').should('be.visible')
   })
 })
