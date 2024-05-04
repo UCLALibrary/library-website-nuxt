@@ -344,7 +344,12 @@ async function setFilters() {
     ...getListingFilters(
       searchAggsResponse,
       config.eventsExhibitionsList.filters
-    )
+    ),
+    {
+      esFieldName: 'past',
+      inputType: 'single-checkbox',
+      label: 'Include Past Events',
+    }
   ]
 }
 
