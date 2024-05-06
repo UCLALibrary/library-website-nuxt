@@ -219,7 +219,7 @@ function getSearchData(data) {
     </section-wrapper>
 
     <section-wrapper
-      v-if="page &&
+      v-show="page &&
         parsedFeaturedEndowments &&
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
@@ -230,14 +230,14 @@ function getSearchData(data) {
       :section-summary="page.featuredEndowments[0].sectionSummary"
     >
       <section-teaser-card
-        v-if="parsedFeaturedEndowments.length"
+        v-if="parsedFeaturedEndowments.length > 0"
         class="section"
         :items="parsedFeaturedEndowments"
       />
     </section-wrapper>
 
     <section-wrapper
-      v-if="page &&
+      v-show="page &&
         parsedFeaturedEndowments &&
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
@@ -249,7 +249,7 @@ function getSearchData(data) {
     </section-wrapper>
 
     <section-wrapper
-      v-if="page &&
+      v-show="page &&
         parsedEndowmentsList &&
         parsedEndowmentsList.length &&
         hits.length == 0 &&
@@ -263,7 +263,7 @@ function getSearchData(data) {
     </section-wrapper>
 
     <section-wrapper
-      v-else-if="hits && hits.length > 0"
+      v-show="hits && hits.length > 0"
       class="section-no-top-margin"
     >
       <h2
@@ -282,7 +282,7 @@ function getSearchData(data) {
       <section-generic-list :items="parseHitsResults" />
       <!-- pagination -->
     </section-wrapper>
-    <section-wrapper v-else>
+    <section-wrapper v-show="noResultsFound">
       <div class="error-text">
         <rich-text>
           <h2>Search for "{{ route.query.q }}" not found.</h2>

@@ -291,7 +291,7 @@ onMounted(async () => {
     <section-wrapper
       v-show="page &&
         page.featuredNews &&
-        page.featuredNews.length &&
+        page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
       "
@@ -320,7 +320,7 @@ onMounted(async () => {
       />
 
       <section-teaser-highlight
-        v-show="parsedSectionHighlight.length"
+        v-show="parsedSectionHighlight.length > 0"
         class="section"
         :items="parsedSectionHighlight"
       />
@@ -329,7 +329,7 @@ onMounted(async () => {
     <section-wrapper
       v-show="page &&
         page.featuredNews &&
-        page.featuredNews.length &&
+        page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
       "

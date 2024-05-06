@@ -16,6 +16,6 @@ describe('Endowments Listing page', () => {
       'have.value',
       'lifu'
     )
-    // cy.get('h2.about-results').should('be.visible')
+    cy.get('h2.about-results').should('be.visible')
   })
 })
