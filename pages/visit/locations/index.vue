@@ -78,52 +78,40 @@ const searchGenericQuery = ref({
 })
 // ELASTICSEARCH
 async function searchES() {
-  hits.value = []
   if (
-    (route?.query && route?.query.q && route?.query.q !== '') ||
-    (route?.query.filters &&
+    (route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
       queryFilterHasValues(
-        route?.query.filters,
+        route.query.filters,
         config.locationsList.filters
       ))
   ) {
+    // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
-    // console.log("in router query in asyc data")
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
       config.locationsList.searchFields,
       'sectionHandle:location OR sectionHandle:affiliateLibrary',
       (route.query.filters &&
         JSON.parse(route.query.filters)) ||
-      [],
+      {},
       config.locationsList.sortField,
       config.locationsList.orderBy,
       config.locationsList.resultFields,
-      config.locationsList.filters
+      []
     )
-    // console.log("getsearchdata method:" + JSON.stringify(results))
-    hits.value = []
     if (results && results.hits && results.hits.total.value > 0) {
+      // console.log('Search ES HITS,', results.hits.hits)
       hits.value = results.hits.hits
       noResultsFound.value = false
     } else {
-      hits.value = []
       noResultsFound.value = true
-    }
-    searchGenericQuery.value = {
-      queryText: route.query.q || '',
-      queryFilters:
-        (route.query.filters &&
-          JSON.parse(route.query.filters)) ||
-        {},
+      hits.value = []
     }
   } else {
+    // console.log('data.value', data.value)
     hits.value = []
     noResultsFound.value = false
-    searchGenericQuery.value = {
-      queryText: '',
-      queryFilters: {},
-    }
   }
 }
 
@@ -294,7 +282,7 @@ onMounted(async () => {
         parsedUclaLibraries.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
       section-title="UCLA Library Locations"
     >
@@ -316,7 +304,7 @@ onMounted(async () => {
         showOtherCampus &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Other Campus Libraries & Archives"
     >
       <section-location-list
