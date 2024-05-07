@@ -186,6 +186,7 @@ function getSearchData(data) {
   })
 }
 </script>
+
 <template lang="html">
   <main
     id="main"
@@ -217,7 +218,7 @@ function getSearchData(data) {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
     <section-wrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-      ">
+        ">
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
@@ -290,4 +291,8 @@ function getSearchData(data) {
     </section-wrapper>
   </main>
 </template>
-<style lang="scss" scoped></style>
+
+<style
+  lang="scss"
+  scoped
+></style>
