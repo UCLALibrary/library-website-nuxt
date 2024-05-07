@@ -37,6 +37,7 @@ jobs:
           ES_INDEX: ${{ env.ES_INDEX }}
           ES_ALIAS: ${{ env.ES_ALIAS }}
           ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
+          ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}
           LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
       - name: Install pnpm
         uses: pnpm/action-setup@v2
