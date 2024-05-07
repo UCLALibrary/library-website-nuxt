@@ -61,17 +61,15 @@ const summaryData = ref(_get(data.value.data, 'entry', {}))
 // ENABLE PREVIEW
 watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
-  page.value = _get(newVal.data, 'entry', {})
-  helpTopic.value = ref(newVal.helpTopicData)
-  summaryData.value = ref(_get(newVal.data, 'entry', {}))
+  page.value = newVal.data
+  helpTopic.value = newVal.helpTopicData
+  summaryData.value = _get(newVal.data, 'entry', {})
 })
 
-// FUNCTION AND METHODS RELATED TO ES
-// COMPUTED METHODS THAT USE CRAFT DATA
+// ES SEARCH FUNCTIONALITY
 const hits = ref([])
 const noResultsFound = ref(false)
 const searchFilters = ref([])
-
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
   queryFilters:
@@ -82,12 +80,11 @@ const searchGenericQuery = ref({
 
 // THIS WATCHER IS CALLED WHEN THE ROUTER PUSHES UPDATES TO THE QUERY PARAM
 // ie: someone changes the query or starts viewing from a bookmarked page
-watch(() => route?.query, (oldValue, newValue) => {
-  if (oldValue !== newValue) {
-    if (newValue?.q === '') hits.value = []
-    searchGenericQuery.value.queryText = route.query.q || ''
-    searchES()
-  }
+watch(() => route.query, (oldValue, newValue) => {
+  // console.log('ES newVal, oldVal', newVal, oldVal)
+  searchGenericQuery.value.queryText = route.query.q || ''
+  searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+  searchES()
 }, { deep: true, immediate: true })
 
 // ES search function
@@ -295,7 +292,7 @@ function getSearchData(data) {
     <section-wrapper
       v-if="(page.serviceOrResource || page.workshopseries) &&
         hits.length == 0
-      "
+        "
       class="section-no-top-margin"
     >
       <section-cards-with-illustrations
