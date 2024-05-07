@@ -63,12 +63,6 @@ useHead({
   ],
 })
 
-const hasSearchQuery = computed(() => {
-  return route.query.q !== ''
-    || queryFilterHasValues(routeFilters.value, config.eventsExhibitionsList.filters)
-    || routeFilters.value.past === 'yes'
-})
-
 const parsedFeaturedEventsAndExhibits = computed(() => {
   return page.value.featuredEvents.map((obj) => {
     return {
@@ -209,12 +203,18 @@ const searchGenericQuery = ref({
       JSON.parse(route.query.filters)) ||
     {},
 })
+const hasSearchQuery = computed(() => {
+  // console.log("hasSearchQuery", (route.query.q !== undefined && route.query.q !== ''), (route.query.filters && queryFilterHasValues(routeFilters.value, config.eventsExhibitionsList.filters)), (routeFilters.value.past[0] === 'yes'))
+  return (route.query.q !== undefined && route.query.q !== '')
+    || (route.query.filters && queryFilterHasValues(routeFilters.value, config.eventsExhibitionsList.filters))
+    || (routeFilters.value.past && routeFilters.value.past.length > 0 && routeFilters.value.past[0] === 'yes')
+})
 
 // This watcher is called when router push updates the query params
 watch(
   () => route.query,
   (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', newVal, oldVal)
+    console.log('ES newVal, oldVal', JSON.stringify(newVal), JSON.stringify(oldVal))
     searchGenericQuery.value.queryText = route.query.q || ''
     searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
     searchES()
@@ -222,18 +222,15 @@ watch(
 )
 
 async function searchES() {
+  // console.log("searchES route details", route.query.q, route.query.filters, routeFilters.value.past)
+  // Followed what was done in Nuxt 2 https://github.com/UCLALibrary/library-website-nuxt/blob/main/pages/visit/events-exhibitions/index.vue#L221C19-L221C33
   if (
-    (route.query.q && route.query.q !== '') ||
-    (route.query.filters &&
-      queryFilterHasValues(
-        route.query.filters,
-        config.eventsExhibitionsList.filters
-      ))
+    hasSearchQuery.value
   ) {
     console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
     const { past, ...filters } = routeFilters.value
-    const extrafilters = (past !== 'yes')
+    const extrafilters = (past && past.length > 0 && past[0] !== 'yes')
       ? [
           {
             range: {
@@ -248,8 +245,7 @@ async function searchES() {
       queryText,
       config.eventsExhibitionsList.searchFields,
       'sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries',
-      (route.query.filters && JSON.parse(route.query.filters)) ||
-      {},
+      filters, // following this line in nuxt 2 https://github.com/UCLALibrary/library-website-nuxt/blob/main/pages/visit/events-exhibitions/index.vue#L245C19-L245C24
       config.eventsExhibitionsList.sortField,
       config.eventsExhibitionsList.orderBy,
       config.eventsExhibitionsList.resultFields,
