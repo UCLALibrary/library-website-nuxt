@@ -1,18 +1,23 @@
 <script setup>
-
 // LODASH
 import _get from "lodash/get"
+
+// UTILITIES
+import removeTags from "../utils/removeTags"
+
+// GQL
+import EXPLORE_COLLECTIONS from "../gql/queries/CollectionsExploreList.gql"
 
 // ELASTIC SEARCH UTILITIES
 import getListingFilters from "../utils/getListingFilters"
 import config from "../utils/searchConfig"
 import queryFilterHasValues from "../utils/queryFilterHasValues"
 
-// UTILITIES
-import removeTags from "../utils/removeTags"
-
-// GQL
-import COLLECTIONS_EXPLORE_LIST from "../gql/queries/CollectionsExploreList.gql"
+const { $graphql, $dataApi } = useNuxtApp()
+const { data, error } = await useAsyncData('collection', async () => {
+  const data = await $graphql.default.request(COLLECTIONS_EXPLORE_LIST)
+  return data
+})
 
 // ROUTING
 const route = useRoute()
@@ -22,226 +27,238 @@ definePageMeta({
   alias: ['/listing-collections/explore'],
 })
 
+const page = ref(_get(data.value, 'entry', {}))
+const collections = ref(_get(data.value, 'entries', []))
+
+if (error.value) {
+  throw createError({
+    ...error.value, statusMessage: 'Page not found.', fatal: true
+  })
+}
+if (!data.value.entry) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
 // ASYNC DATA
-// const { data, error } = await useAsyncData('access-collections', async () => {
-//   const data = await $graphql.default.request(ACCESS_COLLECTIONS)
-//   return data
-// })
+const { data, error } = await useAsyncData('explore-collections', async () => {
+  const data = await $graphql.default.request(ACCESS_COLLECTIONS)
+  return data
+})
   async asyncData({ $graphql, route }) {
   const data = await $graphql.default.request(
     COLLECTIONS_EXPLORE_LIST,
     {}
   )
 
-  // //console.log("data:" + data)
-  // const page = ref(_get(data.value, 'entry', {}))
-  return {
-    page: _get(data, "entry", {}),
-    collections: _get(data, "entries", {}),
-  }
-}
+  //   // //console.log("data:" + data)
 
-data() {
-  return {
-    page: {},
-    collections: [],
-    hits: [],
-    title: "",
-    noResultsFound: false,
-    searchFilters: [],
-    searchGenericQuery: {
-      queryText: this.$route.query.q || "",
-      queryFilters:
+  //   return {
+  //     page: _get(data, "entry", {}),
+  //     collections: _get(data, "entries", {}),
+  //   }
+  // }
+
+  data() {
+    return {
+      page: {},
+      collections: [],
+      hits: [],
+      title: "",
+      noResultsFound: false,
+      searchFilters: [],
+      searchGenericQuery: {
+        queryText: this.$route.query.q || "",
+        queryFilters:
+          (this.$route.query.filters &&
+            JSON.parse(this.$route.query.filters)) ||
+          {},
+      },
+    }
+  }
+
+  async fetch() {
+    this.collections = []
+    this.hits = []
+    if (
+      (this.$route.query.q && this.$route.query.q !== "") ||
+      (this.$route.query.filters &&
+        queryFilterHasValues(
+          this.$route.query.filters,
+          config.exploreCollection.filters
+        ))
+    ) {
+      if (!this.page.title) {
+        const data = await this.$graphql.default.request(
+          COLLECTIONS_EXPLORE_LIST
+        )
+        this.page["title"] = _get(data, "entry.title", "")
+        this.page["text"] = _get(data, "entry.text", "")
+      }
+      let query_text = this.$route.query.q || "*"
+      const results = await this.$dataApi.keywordSearchWithFilters(
+        query_text,
+        config.exploreCollection.searchFields,
+        "sectionHandle:collection",
         (this.$route.query.filters &&
           JSON.parse(this.$route.query.filters)) ||
         {},
-    },
-  }
-}
-
-  async fetch() {
-  this.collections = []
-  this.hits = []
-  if (
-    (this.$route.query.q && this.$route.query.q !== "") ||
-    (this.$route.query.filters &&
-      queryFilterHasValues(
-        this.$route.query.filters,
+        config.exploreCollection.sortField,
+        config.exploreCollection.orderBy,
+        config.exploreCollection.resultFields,
         config.exploreCollection.filters
-      ))
-  ) {
-    if (!this.page.title) {
+      )
+      //console.log("getsearchdata method:" + JSON.stringify(results))
+      this.collections = []
+      this.hits = []
+      if (results && results.hits && results.hits.total.value > 0) {
+        this.hits = results.hits.hits
+        this.collections = []
+        this.noResultsFound = false
+      } else {
+        this.hits = []
+        this.collections = []
+        this.noResultsFound = true
+      }
+      this.searchGenericQuery = {
+        queryText: this.$route.query.q || "",
+        queryFilters:
+          (this.$route.query.filters &&
+            JSON.parse(this.$route.query.filters)) ||
+          {},
+      }
+    } else {
+      this.hits = []
+      this.noResultsFound = false
+      // if route queries are empty fetch data from craft
       const data = await this.$graphql.default.request(
         COLLECTIONS_EXPLORE_LIST
       )
-      this.page["title"] = _get(data, "entry.title", "")
-      this.page["text"] = _get(data, "entry.text", "")
+      // //console.log("data:" + data)
+      this.page = _get(data, "entry", {})
+      this.collections = _get(data, "entries", [])
     }
-    let query_text = this.$route.query.q || "*"
-    const results = await this.$dataApi.keywordSearchWithFilters(
-      query_text,
-      config.exploreCollection.searchFields,
-      "sectionHandle:collection",
-      (this.$route.query.filters &&
-        JSON.parse(this.$route.query.filters)) ||
-      {},
-      config.exploreCollection.sortField,
-      config.exploreCollection.orderBy,
-      config.exploreCollection.resultFields,
+  },
+
+
+
+  // HEAD
+  useHead({
+    title: page.value ? page.value.title : '... loading',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: removeTags(page.value.summary),
+      }
+    ],
+  })
+
+  // COMPUTED
+  const parsedCollectionList = computed(() => {
+    return this.collections.map((obj) => {
+      return {
+        ...obj,
+        to: obj.externalResourceUrl
+          ? obj.externalResourceUrl
+          : `/${obj.uri}`,
+        image: _get(obj, "heroImage[0]image[0]", null),
+        category: obj.category.join(", "),
+        title: _get(obj, "title", ""),
+        text: _get(obj, "text", ""),
+      }
+    })
+  })
+
+  const parsedAssociatedTopics = computed(() => {
+    return this.page.associatedTopics.map((obj) => {
+      return {
+        ...obj,
+        to: obj.externalResourceUrl
+          ? obj.externalResourceUrl
+          : `/${obj.uri}`,
+      }
+    })
+  })
+
+  const parsedPlaceholder = computed(() => {
+    return `Search ${this.page.title}`
+  })
+
+  const parseHitsResults = computed(() => {
+    return this.parseHits(this.hits)
+  })
+
+  // METHODS
+  // ENABLE PREVIEW MODE
+
+  // Watch route for new queries
+  watch: {
+    "$route.query": "$fetch",
+      "$route.query.q"(newValue) {
+      //console.log("watching querytEXT:" + newValue)
+    },
+    "$route.query.filters"(newValue) {
+      //console.log("watching filters:" + newValue)
+    },
+  }
+
+  // watch(() => route.query, (newVal, oldVal) => {
+
+  // }, { deep: true, immediate: true })
+
+  //   async mounted() {
+  //   //console.log("In mounted")
+  //   this.setFilters()
+  // }
+
+  // ES watcher
+
+  async function setFilters() {
+    const searchAggsResponse = await this.$dataApi.getAggregations(
+      config.exploreCollection.filters,
+      "collection"
+    )
+    /*console.log(
+        "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+    )*/
+    searchFilters.value = getListingFilters(
+      searchAggsResponse,
       config.exploreCollection.filters
     )
-    //console.log("getsearchdata method:" + JSON.stringify(results))
-    this.collections = []
-    this.hits = []
-    if (results && results.hits && results.hits.total.value > 0) {
-      this.hits = results.hits.hits
-      this.collections = []
-      this.noResultsFound = false
-    } else {
-      this.hits = []
-      this.collections = []
-      this.noResultsFound = true
-    }
-    this.searchGenericQuery = {
-      queryText: this.$route.query.q || "",
-      queryFilters:
-        (this.$route.query.filters &&
-          JSON.parse(this.$route.query.filters)) ||
-        {},
-    }
-  } else {
-    this.hits = []
-    this.noResultsFound = false
-    // if route queries are empty fetch data from craft
-    const data = await this.$graphql.default.request(
-      COLLECTIONS_EXPLORE_LIST
-    )
-    // //console.log("data:" + data)
-    this.page = _get(data, "entry", {})
-    this.collections = _get(data, "entries", [])
   }
-},
+
+  function parseHits(hits = []) {
+    return hits?.map((obj) => {
+      return {
+        ...obj["_source"],
+        to: obj["_source"].externalResourceUrl
+          ? obj["_source"].externalResourceUrl
+          : `/${obj["_source"].uri}`,
+        image: _get(obj["_source"], "heroImage[0]image[0]", null),
+        category: obj["_source"].physicalDigital.join(", "),
+      }
+    })
+  }
+
+  function getSearchData(data) {
+    // console.log("On the page getsearchdata called " + data)
+    // this.page = {}
+    // this.hits = []
+    console.log('data text', data.text)
+    console.log('data filters', JSON.stringify(data.filters))
+    useRouter().push({
+      path: "/collections/explore",
+      query: {
+        q: data.text,
+        filters: JSON.stringify(data.filters),
+      },
+    })
+  }
 
 
-
-// HEAD
-useHead({
-  title: page.value ? page.value.title : '... loading',
-  meta: [
-    {
-      hid: 'description',
-      name: 'description',
-      content: removeTags(page.value.summary),
-    }
-  ],
-})
-
-// COMPUTED
-const parsedCollectionList = computed(() => {
-  return this.collections.map((obj) => {
-    return {
-      ...obj,
-      to: obj.externalResourceUrl
-        ? obj.externalResourceUrl
-        : `/${obj.uri}`,
-      image: _get(obj, "heroImage[0]image[0]", null),
-      category: obj.category.join(", "),
-      title: _get(obj, "title", ""),
-      text: _get(obj, "text", ""),
-    }
-  })
-})
-
-const parsedAssociatedTopics = computed(() => {
-  return this.page.associatedTopics.map((obj) => {
-    return {
-      ...obj,
-      to: obj.externalResourceUrl
-        ? obj.externalResourceUrl
-        : `/${obj.uri}`,
-    }
-  })
-})
-
-const parsedPlaceholder = computed(() => {
-  return `Search ${this.page.title}`
-})
-
-const parseHitsResults = computed(() => {
-  return this.parseHits(this.hits)
-})
-
-// METHODS
-// ENABLE PREVIEW MODE
-
-// Watch route for new queries
-watch: {
-  "$route.query": "$fetch",
-    "$route.query.q"(newValue) {
-    //console.log("watching querytEXT:" + newValue)
-  },
-  "$route.query.filters"(newValue) {
-    //console.log("watching filters:" + newValue)
-  },
-}
-
-// watch(() => route.query, (newVal, oldVal) => {
-
-// }, { deep: true, immediate: true })
-
-//   async mounted() {
-//   //console.log("In mounted")
-//   this.setFilters()
-// }
-
-// ES watcher
-
-async function setFilters() {
-  const searchAggsResponse = await this.$dataApi.getAggregations(
-    config.exploreCollection.filters,
-    "collection"
-  )
-  /*console.log(
-      "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-  )*/
-  searchFilters.value = getListingFilters(
-    searchAggsResponse,
-    config.exploreCollection.filters
-  )
-}
-
-function parseHits(hits = []) {
-  return hits?.map((obj) => {
-    return {
-      ...obj["_source"],
-      to: obj["_source"].externalResourceUrl
-        ? obj["_source"].externalResourceUrl
-        : `/${obj["_source"].uri}`,
-      image: _get(obj["_source"], "heroImage[0]image[0]", null),
-      category: obj["_source"].physicalDigital.join(", "),
-    }
-  })
-}
-
-function getSearchData(data) {
-  // console.log("On the page getsearchdata called " + data)
-  // this.page = {}
-  // this.hits = []
-  console.log('data text', data.text)
-  console.log('data filters', JSON.stringify(data.filters))
-  useRouter().push({
-    path: "/collections/explore",
-    query: {
-      q: data.text,
-      filters: JSON.stringify(data.filters),
-    },
-  })
-}
-
-
-fetchOnServer: false,
-  // multiple components can return the same `fetchKey` and Nuxt will track them both separately
-  fetchKey: "explore-collections-index",
+  fetchOnServer: false,
+    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
+    fetchKey: "explore-collections-index",
 
 </script>
 
