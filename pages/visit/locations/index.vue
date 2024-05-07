@@ -39,18 +39,13 @@ if (!data.value.entry) {
 
 // console.log('In endowment listing page data.value: ', JSON.stringify(data.value))
 // Index data on server only
-if (data.value.entry.slug && process.server) {
+if (data?.value?.entry.affiliateLibraries && data.value.entry.affiliateLibraries.length > 0 && process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
-  if (
-    data.value.entry.affiliateLibraries &&
-    data.value.entry.affiliateLibraries.length > 0
-  ) {
-    for (const affiliateLibrary of data.value.entry.affiliateLibraries) {
-      await $elasticsearchplugin.index(
-        affiliateLibrary,
-        affiliateLibrary.slug
-      )
-    }
+  for (const affiliateLibrary of data.value.entry.affiliateLibraries) {
+    await $elasticsearchplugin.index(
+      affiliateLibrary,
+      affiliateLibrary.slug
+    )
   }
 }
 
@@ -282,7 +277,7 @@ onMounted(async () => {
         parsedUclaLibraries.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
       section-title="UCLA Library Locations"
     >
@@ -304,7 +299,7 @@ onMounted(async () => {
         showOtherCampus &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="Other Campus Libraries & Archives"
     >
       <section-location-list
