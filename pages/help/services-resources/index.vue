@@ -292,7 +292,7 @@ function getSearchData(data) {
     <section-wrapper
       v-if="(page.serviceOrResource || page.workshopseries) &&
         hits.length == 0
-        "
+      "
       class="section-no-top-margin"
     >
       <section-cards-with-illustrations
