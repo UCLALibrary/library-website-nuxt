@@ -284,6 +284,21 @@ const parsedAssociatedTopics = computed(() => {
     id="main"
     class="page page-collections-explore"
   >
+    HELLO from the Collections index page<br> 🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅
+    <!-- <h3>DATA: {{ data }}</h3>
+    <h3>PAGE: {{ page }}</h3> -->
+    <h3>COLLECTIONS: {{ collections }}</h3>
+
+    <!-- DELETE AT THE END -->
+    <h3> parsedCollectionList -- {{ parsedCollectionList }}</h3>
+    <hr>
+    <h3>parsedAssociatedTopics -- {{ parsedAssociatedTopics }}</h3>
+    <hr>
+    <h3>parsedPlaceholder -- {{ parsedPlaceholder }}</h3>
+    <hr>
+    <h3>parseHitsResults -- {{ parseHitsResults }}</h3>
+    <hr>
+    <h3>data: {{ `On the page getsearchdata called ${data}` }}</h3>
 
     <nav-breadcrumb
       to="/collections"
@@ -296,34 +311,37 @@ const parsedAssociatedTopics = computed(() => {
       :text="page.summary"
     />
 
-    <!-- SEARCH Filters by physical/digital & subject area -->
-    <search-generic
+    <!-- SEARCH
+                Filters by physical/digital & subject area -->
+    <!-- <search-generic
       search-type="about"
       :filters="searchFilters"
       class="generic-search"
       :search-generic-query="searchGenericQuery"
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
-    />
+    /> -->
 
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
+
+
     <section-wrapper
       v-show="page &&
-        parsedCollectionList &&
-        parsedCollectionList.length &&
-        hits.length == 0 &&
-        !noResultsFound
-        "
+      parsedCollectionList &&
+      parsedCollectionList.length &&
+      hits.length == 0 &&
+      !noResultsFound
+      "
       class="section-no-top-margin"
     >
       <section-teaser-card :items="parsedCollectionList" />
     </section-wrapper>
 
     <!-- FILTERS -->
-    <section-wrapper
+    <!-- <section-wrapper
       v-show="hits && hits.length > 0"
       class="section-no-top-margin"
     >
@@ -342,10 +360,10 @@ const parsedAssociatedTopics = computed(() => {
         Displaying {{ hits.length }} results
       </h2>
       <section-teaser-card :items="parseHitsResults" />
-    </section-wrapper>
+    </section-wrapper> -->
 
     <!-- NO RESULTS -->
-    <section-wrapper
+    <!-- <section-wrapper
       v-show="noResultsFound"
       class="section-no-top-margin"
     >
@@ -373,7 +391,7 @@ const parsedAssociatedTopics = computed(() => {
           </ul>
         </rich-text>
       </div>
-    </section-wrapper>
+    </section-wrapper> -->
 
     <section-wrapper>
       <divider-way-finder
