@@ -315,9 +315,8 @@ const parseHitsResults = computed(() => {
     </section-wrapper>
 
     <section-wrapper
-      v-if="
-        (page.serviceOrResource || page.workshopseries) &&
-          hits.length == 0
+      v-if="(page.serviceOrResource || page.workshopseries) &&
+        hits.length == 0
       "
       class="section-no-top-margin"
     >
@@ -395,7 +394,10 @@ const parseHitsResults = computed(() => {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .page-help {
   :deep(label.label) {
     text-transform: capitalize;
