@@ -259,6 +259,7 @@ const parsedAssociatedTopics = computed(() => {
     id="main"
     class="page page-collections-explore"
   >
+    HELLO from the Collections index page<br> 🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅
     <!-- <nav-breadcrumb
       to="/collections"
       title="Explore Featured Collections"
@@ -286,7 +287,7 @@ const parsedAssociatedTopics = computed(() => {
     </section-wrapper> -->
 
     <!-- DELETE AT THE END -->
-    <h3> {{ parsedCollectionList }}</h3>
+    <!-- <h3> {{ parsedCollectionList }}</h3>
     <hr>
     <h3>{{ parsedAssociatedTopics }}</h3>
     <hr>
@@ -294,7 +295,7 @@ const parsedAssociatedTopics = computed(() => {
     <hr>
     <h3>{{ parseHitsResults }}</h3>
     <hr>
-    <h3>{{ `On the page getsearchdata called ${data}` }}</h3>
+    <h3>{{ `On the page getsearchdata called ${data}` }}</h3> -->
 
     <!-- <section-wrapper
       v-show="page &&
