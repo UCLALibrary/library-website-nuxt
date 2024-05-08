@@ -6,7 +6,7 @@ import _get from 'lodash/get'
 import removeTags from '../utils/removeTags'
 
 // GQL
-import EXPLORE_COLLECTIONS from '../gql/queries/CollectionsExploreList.gql'
+import COLLECTIONS_EXPLORE_LIST from '../gql/queries/CollectionsExploreList.gql'
 
 // ELASTIC SEARCH UTILITIES
 // import getListingFilters from '../utils/getListingFilters'
@@ -24,7 +24,7 @@ definePageMeta({
 })
 
 // ASYNC DATA
-const { data: page, error } = await useAsyncData('collection', async () => {
+const { data, error } = await useAsyncData('collection', async () => {
   const data = await $graphql.default.request(COLLECTIONS_EXPLORE_LIST)
   return data
 })
@@ -48,6 +48,14 @@ const searchGenericQuery = ref({
   queryText: route.query.q || '',
 })
 
+// PREVIEW MODE
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+  collections.value = _get(newVal, 'entries', [])
+})
+
+
 // TODO: change these into constants
 // data() {
 //   return {
@@ -70,6 +78,10 @@ const searchGenericQuery = ref({
 
 
 /* TODO: Refactor when search functionality is ready */
+// BECOME THE ESSEARCH FUNCTION
+// async function searchES() {
+
+
 // async fetch() {
 // this.collections = []
 // this.hits = []
@@ -133,6 +145,13 @@ const searchGenericQuery = ref({
 // }
 // }
 
+
+// ENABLE PREVIEW MODE
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+})
+
 // HEAD
 
 useHead({
@@ -163,7 +182,7 @@ const parsedCollectionList = computed(() => {
 })
 
 const parsedAssociatedTopics = computed(() => {
-  return this.page.associatedTopics.map((obj) => {
+  return page.value.associatedTopics.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
@@ -182,8 +201,8 @@ const parsedAssociatedTopics = computed(() => {
 //   return this.parseHits(this.hits)
 // })
 
-// METHODS
-// ENABLE PREVIEW MODE
+
+
 
 /* TODO: Incorporate when search functionality is ready? */
 // Watch route for new queries
@@ -265,8 +284,8 @@ const parsedAssociatedTopics = computed(() => {
     id="main"
     class="page page-collections-explore"
   >
-    HELLO from the Collections index page<br> 🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅
-    <!-- <nav-breadcrumb
+
+    <nav-breadcrumb
       to="/collections"
       title="Explore Featured Collections"
       parent-title="Collections"
@@ -275,35 +294,23 @@ const parsedAssociatedTopics = computed(() => {
     <masthead-secondary
       :title="page.title"
       :text="page.summary"
-    /> -->
+    />
 
-    <!-- SEARCH
-                Filters by physical/digital & subject area -->
-    <!-- <search-generic
+    <!-- SEARCH Filters by physical/digital & subject area -->
+    <search-generic
       search-type="about"
       :filters="searchFilters"
       class="generic-search"
       :search-generic-query="searchGenericQuery"
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
-    /> -->
+    />
 
-    <!-- <section-wrapper theme="divider">
+    <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
-    </section-wrapper> -->
+    </section-wrapper>
 
-    <!-- DELETE AT THE END -->
-    <!-- <h3> {{ parsedCollectionList }}</h3>
-    <hr>
-    <h3>{{ parsedAssociatedTopics }}</h3>
-    <hr>
-    <h3> {{ parsedPlaceholder }}</h3>
-    <hr>
-    <h3>{{ parseHitsResults }}</h3>
-    <hr>
-    <h3>{{ `On the page getsearchdata called ${data}` }}</h3> -->
-
-    <!-- <section-wrapper
+    <section-wrapper
       v-show="page &&
         parsedCollectionList &&
         parsedCollectionList.length &&
@@ -313,10 +320,10 @@ const parsedAssociatedTopics = computed(() => {
       class="section-no-top-margin"
     >
       <section-teaser-card :items="parsedCollectionList" />
-    </section-wrapper> -->
+    </section-wrapper>
 
     <!-- FILTERS -->
-    <!-- <section-wrapper
+    <section-wrapper
       v-show="hits && hits.length > 0"
       class="section-no-top-margin"
     >
@@ -335,10 +342,10 @@ const parsedAssociatedTopics = computed(() => {
         Displaying {{ hits.length }} results
       </h2>
       <section-teaser-card :items="parseHitsResults" />
-    </section-wrapper> -->
+    </section-wrapper>
 
     <!-- NO RESULTS -->
-    <!-- <section-wrapper
+    <section-wrapper
       v-show="noResultsFound"
       class="section-no-top-margin"
     >
@@ -366,16 +373,16 @@ const parsedAssociatedTopics = computed(() => {
           </ul>
         </rich-text>
       </div>
-    </section-wrapper> -->
+    </section-wrapper>
 
-    <!-- <section-wrapper>
+    <section-wrapper>
       <divider-way-finder
         class="divider-way-finder"
         color="default"
       />
-    </section-wrapper> -->
+    </section-wrapper>
 
-    <!-- <section-wrapper>
+    <section-wrapper>
       <section-cards-with-illustrations
         class="section"
         :items="parsedAssociatedTopics"
@@ -383,7 +390,7 @@ const parsedAssociatedTopics = computed(() => {
         to="/help/services-resources"
         section-title="Associated Topics"
       />
-    </section-wrapper> -->
+    </section-wrapper>
   </main>
 </template>
 
