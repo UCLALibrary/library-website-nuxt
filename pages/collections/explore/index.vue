@@ -10,13 +10,21 @@ import EXPLORE_COLLECTIONS from '../gql/queries/CollectionsExploreList.gql'
 
 // ELASTIC SEARCH UTILITIES
 // import getListingFilters from '../utils/getListingFilters'
-// import config from '../utils/searchConfig'
+import config from '../utils/searchConfig'
 // import queryFilterHasValues from '../utils/queryFilterHasValues'
 
 const { $graphql } = useNuxtApp()
 
+// ROUTING
+const route = useRoute()
+definePageMeta({
+  layout: 'default',
+  path: '/collections/explore',
+  alias: ['/listing-collections/explore'],
+})
+
 // ASYNC DATA
-const { data, error } = await useAsyncData('collection', async () => {
+const { data: page, error } = await useAsyncData('collection', async () => {
   const data = await $graphql.default.request(COLLECTIONS_EXPLORE_LIST)
   return data
 })
@@ -30,13 +38,15 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-// ROUTING
-const route = useRoute()
 
 // DATA
 const page = ref(_get(data.value, 'entry', {}))
-
 const collections = ref(_get(data.value, 'entries', []))
+const noResultsFound = ref(false)
+const hits = ref([])
+const searchGenericQuery = ref({
+  queryText: route.query.q || '',
+})
 
 // TODO: change these into constants
 // data() {
@@ -57,11 +67,7 @@ const collections = ref(_get(data.value, 'entries', []))
 //   }
 // }
 
-definePageMeta({
-  layout: 'default',
-  path: '/collections/explore',
-  alias: ['/listing-collections/explore'],
-})
+
 
 /* TODO: Refactor when search functionality is ready */
 // async fetch() {
@@ -142,7 +148,7 @@ useHead({
 
 // COMPUTED
 const parsedCollectionList = computed(() => {
-  return this.collections.map((obj) => {
+  return collections.value.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
