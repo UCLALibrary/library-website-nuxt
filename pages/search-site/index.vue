@@ -12,6 +12,7 @@ const next = ref(false)
 const prevFrom = ref(0)
 const nextFrom = ref(0)
 const size = ref(10)
+const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
@@ -64,20 +65,17 @@ async function searchES() {
         if (previous.value) prevFrom.value = from.value - size.value
         // console.log("what is start now:" + from.value)
         // Pagination logic ends
+        noResultsFound.value = false
       } else {
+        noResultsFound.value = true
         page.value = {}
         from.value = 0
         previous.value = false
         next.value = false
       }
-      searchGenericQuery.value = {
-        queryText: route.query.q || '',
-        queryFilters:
-          (route.query.filters &&
-            JSON.parse(route.query.filters)) ||
-          {},
-      }
+
     } else {
+      noResultsFound.value = true
       page.value = {}
     }
     isSearching.value = false
@@ -242,7 +240,7 @@ function getSearchData(data) {
     </section-wrapper>
     <div v-else>
       <section-wrapper
-        v-if="page && page.hits && page.hits.hits.length > 0"
+        v-show="page && page.hits && page.hits.hits.length > 0"
         class="meta section-no-top-margin"
       >
         <h2 class="about-results">
@@ -272,7 +270,7 @@ function getSearchData(data) {
         </section-wrapper>
       </section-wrapper>
       <section-wrapper
-        v-else
+        v-show="noResultsFound"
         class="section-no-top-margin"
       >
         <rich-text class="error-text">
