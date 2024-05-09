@@ -9,11 +9,11 @@ import removeTags from '../utils/removeTags'
 import COLLECTIONS_EXPLORE_LIST from '../gql/queries/CollectionsExploreList.gql'
 
 // ELASTIC SEARCH UTILITIES
-// import getListingFilters from '../utils/getListingFilters'
+import getListingFilters from '../utils/getListingFilters'
 import config from '../utils/searchConfig'
-// import queryFilterHasValues from '../utils/queryFilterHasValues'
+import queryFilterHasValues from '../utils/queryFilterHasValues'
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $dataApi } = useNuxtApp()
 
 // ROUTING
 const route = useRoute()
@@ -38,15 +38,10 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-
 // DATA
 const page = ref(_get(data.value, 'entry', {}))
 const collections = ref(_get(data.value, 'entries', []))
-const noResultsFound = ref(false)
-const hits = ref([])
-const searchGenericQuery = ref({
-  queryText: route.query.q || '',
-})
+const title = ref('')
 
 // PREVIEW MODE
 watch(data, (newVal, oldVal) => {
@@ -55,96 +50,90 @@ watch(data, (newVal, oldVal) => {
   collections.value = _get(newVal, 'entries', [])
 })
 
+// ES search functionality
+const hits = ref([])
+const noResultsFound = ref(false)
+const searchFilters = ref([])
+const searchGenericQuery = ref({
+  queryText: route.query.q || '',
+  queryFilters:
+    (route.query.filters &&
+      JSON.parse(route.query.filters)) ||
+    {},
+})
 
-// TODO: change these into constants
-// data() {
-//   return {
-//     page: {},
-//     collections: [],
-//     hits: [],
-//     title: "",
-//     noResultsFound: false,
-//     searchFilters: [],
-//     searchGenericQuery: {
-//       queryText: this.$route.query.q || "",
-//       queryFilters:
-//         (this.$route.query.filters &&
-//           JSON.parse(this.$route.query.filters)) ||
-//         {},
-//     },
-//   }
-// }
+// Elastic Search Function
+async function searchES() {
+  collections.value = []
+  hits.value = []
+  if (
+    (route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
+      queryFilterHasValues(
+        route.query.filters,
+        config.exploreCollection.filters
+      ))
+  ) {
+    if (!page.title) {
+      const data = await $graphql.default.request(
+        COLLECTIONS_EXPLORE_LIST
+      )
+      page["title"] = _get(data, "entry.title", "")
+      page["text"] = _get(data, "entry.text", "")
+    }
 
-
-
-/* TODO: Refactor when search functionality is ready */
-// BECOME THE ESSEARCH FUNCTION
-// async function searchES() {
-
-
-// async fetch() {
-// this.collections = []
-// this.hits = []
-// if (
-//   (this.$route.query.q && this.$route.query.q !== "") ||
-//   (this.$route.query.filters &&
-//     queryFilterHasValues(
-//       this.$route.query.filters,
-//       config.exploreCollection.filters
-//     ))
-// ) {
-//   if (!this.page.title) {
-//     const data = await this.$graphql.default.request(
-//       COLLECTIONS_EXPLORE_LIST
-//     )
-//     this.page["title"] = _get(data, "entry.title", "")
-//     this.page["text"] = _get(data, "entry.text", "")
-//   }
-//   let query_text = this.$route.query.q || "*"
-//   const results = await this.$dataApi.keywordSearchWithFilters(
-//     query_text,
-//     config.exploreCollection.searchFields,
-//     "sectionHandle:collection",
-//     (this.$route.query.filters &&
-//       JSON.parse(this.$route.query.filters)) ||
-//     {},
-//     config.exploreCollection.sortField,
-//     config.exploreCollection.orderBy,
-//     config.exploreCollection.resultFields,
-//     config.exploreCollection.filters
-//   )
-//   //console.log("getsearchdata method:" + JSON.stringify(results))
-//   this.collections = []
-//   this.hits = []
-//   if (results && results.hits && results.hits.total.value > 0) {
-//     this.hits = results.hits.hits
-//     this.collections = []
-//     this.noResultsFound = false
-//   } else {
-//     this.hits = []
-//     this.collections = []
-//     this.noResultsFound = true
-//   }
-//   this.searchGenericQuery = {
-//     queryText: this.$route.query.q || "",
-//     queryFilters:
-//       (this.$route.query.filters &&
-//         JSON.parse(this.$route.query.filters)) ||
-//       {},
-//   }
-// } else {
-//   this.hits = []
-//   this.noResultsFound = false
-//   // if route queries are empty fetch data from craft
-//   const data = await this.$graphql.default.request(
-//     COLLECTIONS_EXPLORE_LIST
-//   )
-//   // //console.log("data:" + data)
-//   this.page = _get(data, "entry", {})
-//   this.collections = _get(data, "entries", [])
-// }
-// }
-
+    const query_text = route.query.q || "*"
+    const results = await $dataApi.keywordSearchWithFilters(
+      query_text,
+      config.exploreCollection.searchFields,
+      "sectionHandle:collection",
+      (route.query.filters &&
+        JSON.parse(route.query.filters)) ||
+      {},
+      config.exploreCollection.sortField,
+      config.exploreCollection.orderBy,
+      config.exploreCollection.resultFields,
+      config.exploreCollection.filters
+    )
+    //console.log("getsearchdata method:" + JSON.stringify(results))
+    collections.value = []
+    hits.value = []
+    if (results && results.hits && results.hits.total.value > 0) {
+      hits.value = results.hits.hits
+      collections = []
+      noResultsFound.value = false
+    } else {
+      hits.value = []
+      collections.value = []
+      noResultsFound.value = true
+    }
+    searchGenericQuery = {
+      queryText: route.query.q || "",
+      queryFilters:
+        ($route.query.filters &&
+          JSON.parse(route.query.filters)) ||
+        {},
+    }
+  } else {
+    hits.value = []
+    noResultsFound.value = false
+    // if route queries are empty fetch data from craft
+    const data = await $graphql.default.request(
+      COLLECTIONS_EXPLORE_LIST
+    )
+    // //console.log("data:" + data)
+    page.value = _get(data, "entry", {})
+    collections.value = _get(data, "entries", [])
+  }
+}
+// ES watcher
+watch(() => route?.query, (oldValue, newValue) => {
+  if (oldValue !== newValue) {
+    if (newValue?.q === '') hits.value = []
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchES()
+  }
+}, { deep: true, immediate: true })
 
 // ENABLE PREVIEW MODE
 watch(data, (newVal, oldVal) => {
@@ -193,13 +182,13 @@ const parsedAssociatedTopics = computed(() => {
 })
 
 /* TODO: Enable when search functionality is ready */
-// const parsedPlaceholder = computed(() => {
-//   return `Search ${this.page.title}`
-// })
+const parsedPlaceholder = computed(() => {
+  return `Search ${page.title}`
+})
 
-// const parseHitsResults = computed(() => {
-//   return this.parseHits(this.hits)
-// })
+const parseHitsResults = computed(() => {
+  return parseHits(hits)
+})
 
 
 
@@ -284,21 +273,21 @@ const parsedAssociatedTopics = computed(() => {
     id="main"
     class="page page-collections-explore"
   >
-    HELLO from the Collections index page<br> 🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅🐅
+
     <!-- <h3>DATA: {{ data }}</h3>
     <h3>PAGE: {{ page }}</h3> -->
-    <h3>COLLECTIONS: {{ collections }}</h3>
+    <!-- <h3>COLLECTIONS: {{ collections }}</h3> -->
 
     <!-- DELETE AT THE END -->
-    <h3> parsedCollectionList -- {{ parsedCollectionList }}</h3>
-    <hr>
-    <h3>parsedAssociatedTopics -- {{ parsedAssociatedTopics }}</h3>
-    <hr>
+    <!-- <h3> parsedCollectionList -- {{ parsedCollectionList }}</h3>
+    <hr> -->
+    <!-- <h3>parsedAssociatedTopics -- {{ parsedAssociatedTopics }}</h3>
+    <hr> -->
     <h3>parsedPlaceholder -- {{ parsedPlaceholder }}</h3>
     <hr>
     <h3>parseHitsResults -- {{ parseHitsResults }}</h3>
     <hr>
-    <h3>data: {{ `On the page getsearchdata called ${data}` }}</h3>
+    <h3>DATA -- {{ `On the page getsearchdata called ${data}` }}</h3>
 
     <nav-breadcrumb
       to="/collections"
