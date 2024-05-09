@@ -15,7 +15,7 @@ import parseAmenities from '../utils/parseAmenities'
 // GQL
 import LOCATIONS_LIST from '../gql/queries/LocationsList.gql'
 
-const { $graphql } = useNuxtApp()
+const { $graphql, $dataApi } = useNuxtApp()
 
 const route = useRoute()
 
@@ -38,19 +38,14 @@ if (!data.value.entry) {
 }
 
 // console.log('In endowment listing page data.value: ', JSON.stringify(data.value))
-
-if (data.value.entry.slug && process.server) {
+// Index data on server only
+if (data?.value?.entry.affiliateLibraries && data.value.entry.affiliateLibraries.length > 0 && process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
-  if (
-    data.value.entry.affiliateLibraries &&
-    data.value.entry.affiliateLibraries.length > 0
-  ) {
-    for (const affiliateLibrary of data.value.entry.affiliateLibraries) {
-      await $elasticsearchplugin.index(
-        affiliateLibrary,
-        affiliateLibrary.slug
-      )
-    }
+  for (const affiliateLibrary of data.value.entry.affiliateLibraries) {
+    await $elasticsearchplugin.index(
+      affiliateLibrary,
+      affiliateLibrary.slug
+    )
   }
 }
 
@@ -58,7 +53,7 @@ const page = ref(_get(data.value, 'entry', {}))
 const uclaLibraries = ref(_get(data.value, 'uclaLibraries', []))
 const affiliateLibraries = ref(_get(data.value, 'affiliateLibraries', []))
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
   uclaLibraries.value = _get(newVal, 'uclaLibraries', [])
   affiliateLibraries.value = _get(newVal, 'affiliateLibraries', [])
@@ -76,74 +71,56 @@ const searchGenericQuery = ref({
       JSON.parse(route.query.filters)) ||
     {},
 })
-
-/* TODO: Refactor when search functionality is ready */
-/*
-  async fetch() {
-  // this.uclaLibraries = []
-  this.hits = []
+// ELASTICSEARCH
+async function searchES() {
   if (
-    (this.$route.query.q && this.$route.query.q !== '') ||
-    (this.$route.query.filters &&
+    (route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
       queryFilterHasValues(
-        this.$route.query.filters,
+        route.query.filters,
         config.locationsList.filters
       ))
   ) {
-    // if (!this.page.title) {
-    //     const data = await this.$graphql.default.request(LOCATIONS_LIST)
-    //     //console.log("data for masthead:" + data)
-    //     this.page["title"] = _get(data, "entry.title", "")
-    //     this.page["text"] = _get(data, "entry.text", "")
-    // }
-    const query_text = this.$route.query.q || '*'
-    // console.log("in router query in asyc data")
-    const results = await this.$dataApi.keywordSearchWithFilters(
-      query_text,
+    // console.log('Search ES HITS query,', route.query.q)
+    const queryText = route.query.q || '*'
+    const results = await $dataApi.keywordSearchWithFilters(
+      queryText,
       config.locationsList.searchFields,
       'sectionHandle:location OR sectionHandle:affiliateLibrary',
-      (this.$route.query.filters &&
-        JSON.parse(this.$route.query.filters)) ||
+      (route.query.filters &&
+        JSON.parse(route.query.filters)) ||
       {},
       config.locationsList.sortField,
       config.locationsList.orderBy,
       config.locationsList.resultFields,
-      config.locationsList.filters
+      []
     )
-    // console.log("getsearchdata method:" + JSON.stringify(results))
-    // this.uclaLibraries = []
-    this.hits = []
     if (results && results.hits && results.hits.total.value > 0) {
-      this.hits = results.hits.hits
-      // this.uclaLibraries = []
-      this.noResultsFound = false
+      // console.log('Search ES HITS,', results.hits.hits)
+      hits.value = results.hits.hits
+      noResultsFound.value = false
     } else {
-      this.hits = []
-      // this.uclaLibraries = []
-      this.noResultsFound = true
-    }
-    this.searchGenericQuery = {
-      queryText: this.$route.query.q || '',
-      queryFilters:
-        (this.$route.query.filters &&
-          JSON.parse(this.$route.query.filters)) ||
-        {},
+      noResultsFound.value = true
+      hits.value = []
     }
   } else {
-    this.hits = []
-    this.noResultsFound = false
-    this.searchGenericQuery = {
-      queryText: '',
-      queryFilters: {},
-    }
-    // if route queries are empty fetch data from craft
-    // const data = await this.$graphql.default.request(LOCATIONS_LIST)
-    // //console.log("data:" + data)
-    // this.page = _get(data, "entry", {})
-    // this.uclaLibraries = _get(data, "uclaLibraries", [])
+    // console.log('data.value', data.value)
+    hits.value = []
+    noResultsFound.value = false
   }
 }
-*/
+
+// Watch route for new queries
+watch(
+  () => route.query,
+  (newVal, oldVal) => {
+    // console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    // TODO is the line correct? empty object not array?
+    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchES()
+  }, { deep: true, immediate: true }
+)
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -193,59 +170,36 @@ const parsedAffiliateLibraries = computed(() => {
   })
 })
 
+// COMPUTED VALUES
+
 const parsedPlaceholder = computed(() => {
   return `Search ${page.value.title}`
 })
 
-/* TODO: Enable when search functionality is ready */
-// const parseHitsResults = computed(() => {
-//   return parseHits(hits.value)
-// })
-
-/* TODO: Incorporate when search functionality is ready? */
-// watch: {
-//   'route.query': '$fetch',
-//     '$route.query.q'(newValue) {
-//     // console.log("watching querytEXT:" + newValue)
-//   },
-//   'route.query.filters'(newValue) {
-//     // console.log("watching filters:" + newValue)
-//   },
-// }
-
-/* TODO: Enable when search functionality is ready */
-// onMounted(async () => {
-//   console.log("In mounted")
-//   setFilters()
-// })
-
-// Methods
-
+const parseHitsResults = computed(() => {
+  return parseHits(hits.value)
+})
+// METHODS
 function showMoreOtherCampusLibrary() {
   showOtherCampus.value = !showOtherCampus.value
 }
 
-/* TODO: Refactor when search functionality is ready */
-/*
 async function setFilters() {
   const searchAggsResponse = await $dataApi.getAggregations(
     config.locationsList.filters,
     'location'
   )
-  // console.log(
-  //     "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-  // )
-  searchFilters = getListingFilters(
+  console.log(
+    'Search Aggs Response: ' + JSON.stringify(searchAggsResponse)
+  )
+  searchFilters.value = getListingFilters(
     searchAggsResponse,
     config.locationsList.filters
   )
 }
-*/
 
-/* TODO: Enable when search functionality is ready */
-/*
 function parseHits(hits = []) {
-  return hits.value.map((obj) => {
+  return hits?.map((obj) => {
     // //console.log(obj["_source"]["_source"]["image"])
     return {
       ...obj._source,
@@ -265,16 +219,16 @@ function parseHits(hits = []) {
     }
   })
 }
-*/
 // console.log('parseHits: ', parseHits())
 
 /* TODO: Refactor when search functionality is ready */
-/*
 function getSearchData(data) {
   // console.log("On the page getsearchdata called " + data)
   // this.page = {}
   // this.hits = []
-  route.push({
+  console.log('data text', data.text)
+  console.log('data filters', JSON.stringify(data.filters))
+  useRouter().push({
     path: '/visit/locations',
     query: {
       q: data.text,
@@ -282,12 +236,11 @@ function getSearchData(data) {
         (data.filters && JSON.stringify(data.filters)) || '',
     },
   })
-} */
-
-/* TODO: Incorporate when search functionality is ready? */
-// fetchOnServer: false,
-// multiple components can return the same `fetchKey` and Nuxt will track them both separately
-// fetchKey: 'locations-index'
+}
+// ON MOUNTED HOOK
+onMounted(async () => {
+  await setFilters()
+})
 </script>
 
 <template lang="html">
@@ -300,16 +253,15 @@ function getSearchData(data) {
       :text="page.text"
     />
 
-    <!-- ToDo: Enable for search -->
     <!-- SEARCH -->
-    <!-- <search-generic
+    <search-generic
       search-type="about"
       :filters="searchFilters"
       class="generic-search"
       :search-generic-query="searchGenericQuery"
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
-    /> -->
+    />
 
     <section-wrapper theme="divider">
       <divider-way-finder
