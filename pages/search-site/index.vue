@@ -73,7 +73,6 @@ async function searchES() {
         previous.value = false
         next.value = false
       }
-
     } else {
       noResultsFound.value = true
       page.value = {}
