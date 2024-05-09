@@ -15,6 +15,7 @@ const { $graphql, $elasticsearchplugin } = useNuxtApp()
 // ASYNC DATA into PAGE const
 const { data, error } = await useAsyncData(`staff/${route.params.slug}`, async () => {
   const data = await $graphql.default.request(STAFF_DETAIL, { slug: route.params.slug })
+  // console.log('In staff Slug page data', data)
   return data
 })
 
@@ -41,11 +42,13 @@ if (data.value.entry.slug && process.server) {
 }
 
 const page = ref(_get(data.value, 'entry', {}))
+const entries = ref(_get(data.value, 'entries', {}))
 
-// watch(data, (newVal, oldVal) => {
-//   console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
-//   page.value = _get(newVal, 'entry', {})
-// })
+watch(data, (newVal, oldVal) => {
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal, 'entry', {})
+  entries.value = _get(newVal, 'entries', {})
+})
 
 useHead({
   title: page.value ? page.value.title : '... loading',
@@ -60,19 +63,21 @@ useHead({
 
 // COMPUTED
 const parsedImage = computed(() => {
-  return _get(page.value.entry, 'image[0]', null)
+  return _get(page.value, 'image[0]', null)
 })
 const parsedStaffName = computed(() => {
-  return `${page.value.entry.nameFirst} ${page.value.entry.nameLast}`
+  console.log('In parsedStaffName', page.value.nameFirst + ' ' + page.value.nameLast)
+  return `${page.value.nameFirst} ${page.value.nameLast}`
 })
 const parsedAlternativeFullName = computed(() => {
-  return _get(page.value.entry, 'alternativeName[0].fullName', '')
+  return _get(page.value, 'alternativeName[0].fullName', '')
 })
 const parsedLanguage = computed(() => {
-  return _get(page.value.entry, 'alternativeName[0].languageAltName', '')
+  return _get(page.value, 'alternativeName[0].languageAltName', '')
 })
 const parsedItems = computed(() => {
-  return page.value.entries.map((obj) => {
+  // was page value entries
+  return entries.value.map((obj) => {
     return {
       ...obj,
       to:
@@ -92,36 +97,35 @@ const parsedItems = computed(() => {
     class="page page-staff-detail"
   >
     <!-- staff page here -->
-    <!-- no search on this page -->
     <nav-breadcrumb
       to="/about/staff"
-      :title="page.entry.title"
+      :title="page.title"
       parent-title="Staff Directory"
     />
-
+    <!-- block staff detail failing if pronouns = null or consultation = null? -->
     <section-wrapper>
       <block-staff-detail
         :image="parsedImage"
         :staff-name="parsedStaffName"
         :alternative-full-name="parsedAlternativeFullName"
         :language="parsedLanguage"
-        :job-title="page.entry.jobTitle"
-        :departments="page.entry.departments"
-        :locations="page.entry.locations"
-        :pronouns="page.entry.pronouns"
-        :email="page.entry.email"
-        :phone="page.entry.phone"
-        :consultation="page.entry.consultation"
-        :topics="page.entry.topics"
-        :academic-departments="page.entry.academicDepartments"
-        :biography="page.entry.biography"
+        :job-title="page.jobTitle"
+        :departments="page.departments"
+        :locations="page.locations"
+        :pronouns="page.pronouns"
+        :email="page.email"
+        :phone="page.phone"
+        :consultation="page.consultation"
+        :topics="page.topics"
+        :academic-departments="page.academicDepartments"
+        :biography="page.biography"
       />
     </section-wrapper>
 
     <section-wrapper
-      v-if="parsedItems.length ||
-        page.entry.publications ||
-        page.entry.orcid
+      v-if="parsedItems?.length ||
+        page.publications ||
+        page.orcid
       "
       class="selected-articles"
       theme="divider"
@@ -133,24 +137,24 @@ const parsedItems = computed(() => {
     </section-wrapper>
 
     <div
-      v-if="parsedItems.length ||
-        page.entry.publications ||
-        page.entry.orcid
+      v-if="parsedItems?.length ||
+        page.publications ||
+        page.orcid
       "
       class="selected-articles"
     >
       <section-wrapper>
         <section-staff-orcid-publications
           class="staff-orcid-publications"
-          :orcid="page.entry.orcid"
-          :publications="page.entry.publications"
+          :orcid="page.orcid"
+          :publications="page.publications"
         />
       </section-wrapper>
 
       <section-wrapper theme="divider">
         <divider-way-finder
-          v-if="parsedItems.length &&
-            (page.entry.publications || page.entry.orcid)
+          v-if="parsedItems?.length &&
+            (page.publications || page.orcid)
           "
           class="divider divider-first"
           color="about"
@@ -159,7 +163,7 @@ const parsedItems = computed(() => {
 
       <section-wrapper>
         <section-staff-article-list
-          v-if="parsedItems.length"
+          v-if="parsedItems?.length"
           class="staff-article-list-section"
           section-title="Articles"
           :items="parsedItems"
