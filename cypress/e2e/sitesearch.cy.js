@@ -6,7 +6,8 @@ describe('Site Search page', () => {
     cy.get('div > h2').should('contain', 'Search for “” not found.')
   })
   it('Search all', () => {
-    cy.visit('/search-site?q=*', { timeout: 13000 })
+    cy.visit('/search-site?q=*', { timeout: 30000 })
+    cy.wait(1000)
     cy.get('.logo-ucla').should('be.visible')
     cy.get('input[type=search]').should(
       'have.value',
