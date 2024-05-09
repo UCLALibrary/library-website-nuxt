@@ -1,8 +1,8 @@
 <script setup>
 // UTILITIES
-import getListingFilters from "../utils/getListingFilters"
-import config from "../utils/searchConfig"
-import queryFilterHasValues from "../utils/queryFilterHasValues"
+import getListingFilters from '../utils/getListingFilters'
+import config from '../utils/searchConfig'
+import queryFilterHasValues from '../utils/queryFilterHasValues'
 
 const route = useRoute()
 const page = ref({})
@@ -14,7 +14,7 @@ const nextFrom = ref(0)
 const size = ref(10)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
-  queryText: route.query.q || "",
+  queryText: route.query.q || '',
   queryFilters:
     (route.query.filters &&
       JSON.parse(route.query.filters)) ||
@@ -25,19 +25,19 @@ const isSearching = ref(true)
 const { $dataApi } = useNuxtApp()
 async function searchES() {
   page.value = {}
-  //console.log("In fetch start")
+  // console.log("In fetch start")
   try {
     if (
-      (route.query.q && route.query.q !== "") ||
+      (route.query.q && route.query.q !== '') ||
       (route.query.filters &&
         queryFilterHasValues(
           route.query.filters,
           config.siteSearch.filters
         ))
     ) {
-      console.log("in router query in asyc data")
+      console.log('in router query in asyc data')
       page.value = await $dataApi.siteSearch(
-        route.query.q || "*",
+        route.query.q || '*',
         route.query.from || from.value,
         (route.query.filters &&
           JSON.parse(route.query.filters)) ||
@@ -49,20 +49,20 @@ async function searchES() {
         page.value.hits &&
         page.value.hits.total.value > 0
       ) {
-        //console.log("search success")
+        // console.log("search success")
         // This is pagination logic
         from.value = Number(route.query.from || 0)
-        //console.log("from 1: " + from.value)
+        // console.log("from 1: " + from.value)
         if (from.value + size.value >= page.value.hits.total.value)
           next.value = false
         else next.value = true
 
-        if (from.value == 0) previous.value = false
+        if (from.value === 0) previous.value = false
         else previous.value = true
 
         if (next.value) nextFrom.value = from.value + size.value
         if (previous.value) prevFrom.value = from.value - size.value
-        //console.log("what is start now:" + from.value)
+        // console.log("what is start now:" + from.value)
         // Pagination logic ends
       } else {
         page.value = {}
@@ -71,7 +71,7 @@ async function searchES() {
         next.value = false
       }
       searchGenericQuery.value = {
-        queryText: route.query.q || "",
+        queryText: route.query.q || '',
         queryFilters:
           (route.query.filters &&
             JSON.parse(route.query.filters)) ||
@@ -81,28 +81,28 @@ async function searchES() {
       page.value = {}
     }
     isSearching.value = false
-    //console.log("Search Response: " + JSON.stringify(this.page))
+    // console.log("Search Response: " + JSON.stringify(this.page))
   } catch (e) {
-    throw new Error("Some Error with ES search " + e)
+    throw new Error('Some Error with ES search ' + e)
   }
 }
 
 const parsedSearchResults = computed(() => {
   return page.value.hits.hits.map((obj) => {
-    if (obj._source.sectionHandle == "Libguide")
-      obj._source.sectionHandleDisplayName = "Libguide"
+    if (obj._source.sectionHandle === 'Libguide')
+      obj._source.sectionHandleDisplayName = 'Libguide'
     if (
-      obj._source.sectionHandle == "Libguide" ||
-      obj._source.sectionHandle == "externalResource" ||
-      obj._source.sectionHandle == "affiliateLibrary"
+      obj._source.sectionHandle === 'Libguide' ||
+      obj._source.sectionHandle === 'externalResource' ||
+      obj._source.sectionHandle === 'affiliateLibrary'
     ) {
       return {
-        ...obj["_source"],
+        ...obj._source,
         to: obj._source.uri ? obj._source.uri : obj._source.to,
       }
     } else {
       return {
-        ...obj["_source"],
+        ...obj._source,
         to: obj._source.uri
           ? `/${obj._source.uri}`
           : `/${obj._source.to}`,
@@ -113,34 +113,34 @@ const parsedSearchResults = computed(() => {
 const parsePrev = computed(() => {
   if (previous.value)
     return `${route.path}?q=${route.query.q}&from=${prevFrom.value}`
-  return ""
+  return ''
 })
 const parseNext = computed(() => {
   if (next.value)
     return `${route.path}?q=${route.query.q}&from=${nextFrom.value}`
-  return ""
+  return ''
 })
 const searchAdditionalResources = computed(() => {
   return [
     {
-      iconName: "illustration-book-binding",
-      to: "https://search.library.ucla.edu/discovery/search?vid=01UCS_LAL:UCLA&_ga=2.45842788.1343136842.1666633264-241535065.1664829276",
-      title: "UC Library Search",
-      text: "Locate books, journal articles, course reserves and other content at UCLA, other UC schools and beyond.",
+      iconName: 'illustration-book-binding',
+      to: 'https://search.library.ucla.edu/discovery/search?vid=01UCS_LAL:UCLA&_ga=2.45842788.1343136842.1666633264-241535065.1664829276',
+      title: 'UC Library Search',
+      text: 'Locate books, journal articles, course reserves and other content at UCLA, other UC schools and beyond.',
       isHorizontal: false,
     },
     {
-      iconName: "illustration-find-space",
-      to: "https://guides.library.ucla.edu/az.php?&_ga=2.94193502.2106042584.1646675621-1729352043.1643913957",
-      title: "A-Z Databases",
-      text: "Find the best library databases for your research.",
+      iconName: 'illustration-find-space',
+      to: 'https://guides.library.ucla.edu/az.php?&_ga=2.94193502.2106042584.1646675621-1729352043.1643913957',
+      title: 'A-Z Databases',
+      text: 'Find the best library databases for your research.',
       isHorizontal: false,
     },
     {
-      iconName: "illustration-digitized-resources",
-      to: "https://guides.library.ucla.edu/index.php",
-      title: "Library Research Guides",
-      text: "Our research guides help users of all backgrounds discover resources by subject, course, format or topic.",
+      iconName: 'illustration-digitized-resources',
+      to: 'https://guides.library.ucla.edu/index.php',
+      title: 'Library Research Guides',
+      text: 'Our research guides help users of all backgrounds discover resources by subject, course, format or topic.',
       isHorizontal: false,
     },
   ]
@@ -165,19 +165,18 @@ onMounted(async () => {
 
 function parseCategory(sectionHandle) {
   if (!sectionHandle) return
-  if (sectionHandle == "Libguide") {
-    return "RESEARCH GUIDE"
+  if (sectionHandle === 'Libguide') {
+    return 'RESEARCH GUIDE'
   } else
     return sectionHandle
       .split(/(?=[A-Z])/)
-      .join(" ")
+      .join(' ')
       .toUpperCase()
 }
-async function setFilters() {
-
+function setFilters() {
   const filters = []
   // Not using searchconfig here as types filter data comming from ES was not useful
-  let obj = {
+  const obj = {
     label: config.siteSearch.filters[0].label,
     esFieldName: config.siteSearch.filters[0].esFieldName,
     inputType: config.siteSearch.filters[0].inputType,
@@ -189,14 +188,14 @@ async function setFilters() {
         []
       ) || [],
   }
-  console.log("getlisting obj:" + JSON.stringify(obj))
+  console.log('getlisting obj:' + JSON.stringify(obj))
   filters.push(obj)
 
   searchFilters.value = filters
 }
 
-async function getSearchData(data) {
-  //const queryString = new URLSearchParams(data.filters).toString()
+function getSearchData(data) {
+  // const queryString = new URLSearchParams(data.filters).toString()
   // console.log("using url search params:" + queryString)
   try {
     useRouter().push({
@@ -207,7 +206,7 @@ async function getSearchData(data) {
       },
     })
   } catch (e) {
-    throw new Error("ES error maybe: " + e)
+    throw new Error('ES error maybe: ' + e)
   }
 }
 
@@ -232,7 +231,6 @@ async function getSearchData(data) {
         color="default"
       />
     </section-wrapper>
-
 
     <section-wrapper
       v-if="isSearching"
