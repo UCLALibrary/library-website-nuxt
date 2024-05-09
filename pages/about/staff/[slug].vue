@@ -1,7 +1,4 @@
-<script
-  lang="ts"
-  setup
->
+<script lang="ts" setup>
 // HELPERS
 import _get from 'lodash/get'
 import removeTags from '../utils/removeTags'
@@ -15,7 +12,7 @@ const { $graphql, $elasticsearchplugin } = useNuxtApp()
 // ASYNC DATA into PAGE const
 const { data, error } = await useAsyncData(`staff/${route.params.slug}`, async () => {
   const data = await $graphql.default.request(STAFF_DETAIL, { slug: route.params.slug })
-  // console.log('In staff Slug page data', data)
+  console.log('In staff Slug page data', data)
   return data
 })
 
@@ -35,7 +32,7 @@ if (!data.value.entry) {
 }
 // ES Index
 // TODO - check if this is correct, not route.params.slug?
-if (data.value.entry.slug && process.server) {
+if (route.params.slug && process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
   // console.log("elasticsearchplugin", $elasticsearchplugin, route.params.slug)
   await $elasticsearchplugin?.index(data.value.entry, route.params.slug)
@@ -63,14 +60,16 @@ useHead({
 
 // COMPUTED
 const parsedImage = computed(() => {
-  return _get(page.value, 'image[0]', null)
+  const pageImage = _get(page.value, 'image', [])
+  console.log('In parsedImage', pageImage)
+  return _get(page.value, 'image', [])
 })
-const parsedStaffName = computed(() => {
-  console.log('In parsedStaffName', page.value.nameFirst + ' ' + page.value.nameLast)
-  return `${page.value.nameFirst} ${page.value.nameLast}`
-})
+// const parsedStaffName = computed(() => {
+//   console.log('In parsedStaffName', page.value.nameFirst + ' ' + page.value.nameLast)
+//   return `${page.value.nameFirst} ${page.value.nameLast}`
+// })
 const parsedAlternativeFullName = computed(() => {
-  return _get(page.value, 'alternativeName[0].fullName', '')
+  return _get(page.value, 'alternativeName', '')
 })
 const parsedLanguage = computed(() => {
   return _get(page.value, 'alternativeName[0].languageAltName', '')
@@ -89,7 +88,6 @@ const parsedItems = computed(() => {
     }
   })
 })
-// TODO do we need a second watcher?
 </script>
 <template>
   <main
@@ -102,12 +100,13 @@ const parsedItems = computed(() => {
       :title="page.title"
       parent-title="Staff Directory"
     />
-    <!-- block staff detail failing if pronouns = null or consultation = null? -->
     <section-wrapper>
       <block-staff-detail
-        :image="parsedImage"
-        :staff-name="parsedStaffName"
-        :alternative-full-name="parsedAlternativeFullName"
+        v-if="page.image.length"
+        :image="page.image.length ? page.image : []"
+        :name-first="page.nameFirst"
+        :name-last="page.nameLast"
+        :alternative-name="parsedAlternativeFullName"
         :language="parsedLanguage"
         :job-title="page.jobTitle"
         :departments="page.departments"
@@ -185,10 +184,7 @@ const parsedItems = computed(() => {
     </section-wrapper>
   </main>
 </template>
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-staff-detail {
   .selected-articles {
     :deep(.divider .dotted) {
