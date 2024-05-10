@@ -88,6 +88,13 @@ const parsedItems = computed(() => {
     }
   })
 })
+const mockImageArray = [{
+  src: "https://via.placeholder.com/960x540",
+  height: 2560,
+  width: 2560,
+  alt: "black and white photograph of woman with dark hair and ear piercings against a white wall",
+}]
+
 </script>
 <template>
   <main
@@ -102,8 +109,7 @@ const parsedItems = computed(() => {
     />
     <section-wrapper>
       <block-staff-detail
-        v-if="page.image.length"
-        :image="page.image.length ? page.image : []"
+        :image="mockImageArray"
         :name-first="page.nameFirst"
         :name-last="page.nameLast"
         :alternative-name="parsedAlternativeFullName"
