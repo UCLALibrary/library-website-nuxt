@@ -89,10 +89,10 @@ const parsedItems = computed(() => {
   })
 })
 const mockImageArray = [{
-  src: "https://via.placeholder.com/960x540",
+  src: 'https://via.placeholder.com/960x540',
   height: 2560,
   width: 2560,
-  alt: "black and white photograph of woman with dark hair and ear piercings against a white wall",
+  alt: 'black and white photograph of woman with dark hair and ear piercings against a white wall',
 }]
 
 </script>

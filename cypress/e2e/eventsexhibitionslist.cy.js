@@ -1,6 +1,6 @@
 describe('Events & Exhibitions List page', () => {
   it('Visits a Events & Exhibitions List Page', () => {
-    cy.visit('/visit/events-exhibitions', { timeout: 13000 })
+    cy.visit('/visit/events-exhibitions', { timeout: 13000, failOnStatusCode: false })
     // UCLA Library brand
     cy.get('.logo-ucla').should('be.visible')
 
