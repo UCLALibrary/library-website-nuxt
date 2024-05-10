@@ -12,7 +12,7 @@ const { $graphql, $elasticsearchplugin } = useNuxtApp()
 // ASYNC DATA into PAGE const
 const { data, error } = await useAsyncData(`staff/${route.params.slug}`, async () => {
   const data = await $graphql.default.request(STAFF_DETAIL, { slug: route.params.slug })
-  console.log('In staff Slug page data', data)
+  // console.log('In staff Slug page data', data)
   return data
 })
 
@@ -31,7 +31,6 @@ if (!data.value.entry) {
   })
 }
 // ES Index
-// TODO - check if this is correct, not route.params.slug?
 if (route.params.slug && process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
   // console.log("elasticsearchplugin", $elasticsearchplugin, route.params.slug)
@@ -42,7 +41,7 @@ const page = ref(_get(data.value, 'entry', {}))
 const entries = ref(_get(data.value, 'entries', {}))
 
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
   entries.value = _get(newVal, 'entries', {})
 })
@@ -60,14 +59,8 @@ useHead({
 
 // COMPUTED
 const parsedImage = computed(() => {
-  const pageImage = _get(page.value, 'image', [])
-  console.log('In parsedImage', pageImage)
-  return _get(page.value, 'image', [])
+  return _get(page.value, 'image[0]', {})
 })
-// const parsedStaffName = computed(() => {
-//   console.log('In parsedStaffName', page.value.nameFirst + ' ' + page.value.nameLast)
-//   return `${page.value.nameFirst} ${page.value.nameLast}`
-// })
 const parsedAlternativeFullName = computed(() => {
   return _get(page.value, 'alternativeName', '')
 })
@@ -88,13 +81,6 @@ const parsedItems = computed(() => {
     }
   })
 })
-const mockImageArray = [{
-  src: 'https://via.placeholder.com/960x540',
-  height: 2560,
-  width: 2560,
-  alt: 'black and white photograph of woman with dark hair and ear piercings against a white wall',
-}]
-
 </script>
 <template>
   <main
@@ -109,7 +95,7 @@ const mockImageArray = [{
     />
     <section-wrapper>
       <block-staff-detail
-        :image="mockImageArray"
+        :image="parsedImage"
         :name-first="page.nameFirst"
         :name-last="page.nameLast"
         :alternative-name="parsedAlternativeFullName"
