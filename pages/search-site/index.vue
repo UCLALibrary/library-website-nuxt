@@ -22,11 +22,21 @@ const searchGenericQuery = ref({
     {},
 })
 const isSearching = ref(true)
-
 const { $dataApi } = useNuxtApp()
+// This watcher is called when router push updates the query params
+watch(
+  () => route.query,
+  (newVal, oldVal) => {
+    console.log('Site search page ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchES()
+  }, { deep: true, immediate: true }
+)
+
 async function searchES() {
   page.value = {}
-  // console.log("In fetch start")
+  console.log('In fetch start')
   try {
     if (
       (route.query.q && route.query.q !== '') ||
@@ -36,7 +46,7 @@ async function searchES() {
           config.siteSearch.filters
         ))
     ) {
-      console.log('in router query in asyc data')
+      console.log('Search site in router query in asyc data')
       page.value = await $dataApi.siteSearch(
         route.query.q || '*',
         route.query.from || from.value,
@@ -66,26 +76,32 @@ async function searchES() {
         // console.log("what is start now:" + from.value)
         // Pagination logic ends
         noResultsFound.value = false
+        isSearching.value = false
       } else {
         noResultsFound.value = true
         page.value = {}
         from.value = 0
         previous.value = false
         next.value = false
+        isSearching.value = false
       }
-    } else {
+    }
+    else {
+      isSearching.value = false
+      console.log('No Search site in router query in asyc data')
       noResultsFound.value = true
       page.value = {}
     }
-    isSearching.value = false
-    // console.log("Search Response: " + JSON.stringify(this.page))
+
+    console.log('Search Response: ' + JSON.stringify(page.value))
   } catch (e) {
-    throw new Error('Some Error with ES search ' + e)
+    console.log('Search Site Error found ' + JSON.stringify(e))
+    throw e
   }
 }
 
 const parsedSearchResults = computed(() => {
-  return page.value.hits.hits.map((obj) => {
+  return page.value?.hits?.hits?.map((obj) => {
     if (obj._source.sectionHandle === 'Libguide')
       obj._source.sectionHandleDisplayName = 'Libguide'
     if (
@@ -143,23 +159,6 @@ const searchAdditionalResources = computed(() => {
   ]
 })
 
-// This watcher is called when router push updates the query params
-watch(
-  () => route.query,
-  (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', newVal, oldVal)
-    searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
-    searchES()
-  }, { deep: true, immediate: true }
-)
-onMounted(async () => {
-  console.log('onMounted called')
-  // console.log("ESREADkey:" + config.esReadKey)
-  // console.log("ESURLkey:" + config.esURL)
-  await setFilters()
-})
-
 function parseCategory(sectionHandle) {
   if (!sectionHandle) return
   if (sectionHandle === 'Libguide') {
@@ -170,6 +169,14 @@ function parseCategory(sectionHandle) {
       .join(' ')
       .toUpperCase()
 }
+
+onMounted(async () => {
+  console.log('onMounted called')
+  // console.log("ESREADkey:" + config.esReadKey)
+  // console.log("ESURLkey:" + config.esURL)
+  await setFilters()
+})
+
 function setFilters() {
   const filters = []
   // Not using searchconfig here as types filter data comming from ES was not useful
@@ -230,23 +237,22 @@ function getSearchData(data) {
     </section-wrapper>
 
     <section-wrapper
-      v-if="isSearching"
+      v-show="isSearching"
       class="results section-no-top-margin"
     >
       <div>
         <p>...Search results loading</p>
       </div>
     </section-wrapper>
-    <div v-else>
+    <div v-show="!isSearching">
       <section-wrapper
-        v-show="page && page.hits && page.hits.hits.length > 0"
+        v-show="page && page?.hits && page?.hits?.hits?.length > 0"
         class="meta section-no-top-margin"
       >
         <h2 class="about-results">
-          Displaying {{ page.hits.total.value }} results for
+          Displaying {{ page?.hits?.total?.value }} results for
           <strong><em>“{{ route.query.q }}”</em></strong>
         </h2>
-
         <section-wrapper
           v-for="(result, index) in parsedSearchResults"
           :key="`SearchResultBlock${index}`"
@@ -261,7 +267,7 @@ function getSearchData(data) {
           />
           <divider-general class="divider-general" />
         </section-wrapper>
-        <section-wrapper v-if="page.hits.total.value > 10">
+        <section-wrapper v-if="page?.hits?.total?.value > 10">
           <section-pagination
             :previous-to="parsePrev"
             :next-to="parseNext"
