@@ -9,13 +9,13 @@ import queryFilterHasValues from '../utils/queryFilterHasValues'
 import removeTags from '../utils/removeTags'
 
 // GQL
-import PROGRAMS_LIST from '../gql/queries/ProgramsList'
+import PROGRAMS_LIST from '../gql/queries/ProgramsList.gql'
 
 // GET DATA-
 const { $graphql, $dataApi } = useNuxtApp()
 const route = useRoute()
 
-const { data, error } = await useAsyncData('news', async () => {
+const { data, error } = await useAsyncData('programs-list', async () => {
   const data = await $graphql.default.request(PROGRAMS_LIST, {})
   return data
 }
@@ -53,7 +53,6 @@ useHead({
 
 // ES search functionality
 const hits = ref([])
-const title = ref('')
 const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
@@ -200,7 +199,7 @@ async function setFilters() {
   )
   searchFilters.value = getListingFilters(
     searchAggsResponse,
-    config.programList.filters
+    config.programsList.filters
   )
 }
 
@@ -238,7 +237,7 @@ onMounted(async () => {
         page.featuredPrograms.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <divider-way-finder
@@ -253,7 +252,7 @@ onMounted(async () => {
         page.featuredPrograms.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <banner-featured
@@ -286,7 +285,7 @@ onMounted(async () => {
         parsedProgramsList.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Programs & Initiatives"
     >
       <section-staff-article-list :items="parsedProgramsList" />
