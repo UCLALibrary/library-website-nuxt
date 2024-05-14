@@ -36,7 +36,7 @@ const programs = ref(_get(data.value, 'entries', []))
 watch(data, (newVal, oldVal) => {
   // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
-  news.value = _get(newVal, 'entries', [])
+  programs.value = _get(newVal, 'entries', [])
 })
 
 // HEAD META INFO
@@ -127,7 +127,7 @@ const parsedFeaturedPrograms = computed(() => {
   })
 })
 const parsedBannerHeader = computed(() => {
-  console.log('parsedFeaturedPrograms', parsedFeaturedPrograms)
+  // console.log('parsedFeaturedPrograms', parsedFeaturedPrograms)
   return parsedFeaturedPrograms[0]
 })
 const parsedSectionHighlight = computed(() => {
@@ -143,8 +143,9 @@ const parsedSectionHighlight = computed(() => {
 })
 const parsedProgramsList = computed(() => {
   return programs.value.map((obj) => {
-    if (obj.programUrlBehavior === 'externalSite')
+    if (obj.programUrlBehavior === 'externalSite') {
       console.log(obj.programUrlBehavior, obj)
+    }
     return {
       ...obj,
       to:
