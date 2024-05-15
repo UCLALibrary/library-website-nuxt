@@ -36,6 +36,7 @@ if (!data.value.entry) {
 }
 if (data.value.entry.slug && process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
+  console.log('Indexing location', data.value.entry.slug)
   await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
 }
 

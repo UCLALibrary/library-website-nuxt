@@ -75,7 +75,6 @@ jobs:
           ESApiKey: ${{ secrets.ESApiKey }}
           ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
           ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
-          ES_INDEX: ${{ env.ES_INDEX }}-${{ github.event.pull_request.number }}
           ES_ALIAS: ${{ env.ES_ALIAS }}-${{ github.event.pull_request.number }}
           ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
           ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}
@@ -107,7 +106,6 @@ jobs:
           ESApiKey: ${{ secrets.ESApiKey }}
           ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
           ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
-          ES_INDEX: ${{ secrets.ES_INDEX_TEST }}
           ES_ALIAS: ${{ secrets.ES_ALIAS_TEST }}
           ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_TEST }}
           ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}

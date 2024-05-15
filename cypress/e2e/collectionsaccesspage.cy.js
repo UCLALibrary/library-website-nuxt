@@ -2,7 +2,7 @@ describe('Access Collection page', () => {
   it('Visit a Access Collection Page', () => {
     // prevent cypress 404 errors on slow page load
     cy.intercept('/collections/*').as('getCollectionsRoutes')
-    cy.visit('/collections/access', { failOnStatusCode: false })
+    cy.visit('/collections/access')
     cy.wait('@getCollectionsRoutes').then(() => {
       // UCLA Library brand
       cy.get('.logo-ucla').should('be.visible')

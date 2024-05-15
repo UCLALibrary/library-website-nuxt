@@ -11,7 +11,7 @@ export default defineNuxtModule({
         const timeElapsed = Date.now()
         const now = new Date(timeElapsed)
 
-        const esLibraryIndexTemp = `${nuxt.options.runtimeConfig.public.esIndexPrefix}-${now.toISOString().toLowerCase().replaceAll(':', '-')}`
+        const esLibraryIndexTemp = nuxt.options.runtimeConfig.public.esTempIndex
         console.log('Index named:' + esLibraryIndexTemp)
         // https://www.elastic.co/guide/en/elasticsearch/reference/current/flattened.html
         try {
@@ -50,11 +50,6 @@ export default defineNuxtModule({
           })
           const body = await response.text()
           const testJson = JSON.parse(body)
-
-          nuxt.options.tempIndex = esLibraryIndexTemp
-          nuxt.options.runtimeConfig.public.esTempIndex = esLibraryIndexTemp
-          const storage = await nitro.storage.setItem('esData:tempIndex', esLibraryIndexTemp) // do this to access tempindex in nuxt indexer plugin
-          console.log(await nitro.storage.getItem('esData:tempIndex'), await nitro.storage.hasItem('esData:tempIndex'))
           console.log('Index created:' + JSON.stringify(testJson))
           console.log('Elastic Search index created succesfully!')
         } catch (err) {
