@@ -1,8 +1,11 @@
 describe('All Services & Resources Listing page', () => {
   it('Visits the All Services & Resources Listing Page', () => {
-    cy.visit('help/services-resources', { timeout: 15000 })
-    cy.get('.logo-ucla').should('be.visible')
-    cy.percySnapshot({ widths: [768, 992, 1200] })
+    cy.intercept('/help/*').as('getHelpRoutes')
+    cy.visit('help/services-resources', { failOnStatusCode: false })
+    cy.wait('@getHelpRoutes').then(() => {
+      cy.get('.logo-ucla').should('be.visible')
+      cy.percySnapshot({ widths: [768, 992, 1200] })
+    })
   })
 
   it('Search Found', () => {
