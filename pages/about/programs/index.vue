@@ -114,7 +114,10 @@ watch(
 
 // COMPUTED
 const parsedFeaturedPrograms = computed(() => {
-  return page.value.featuredPrograms.map((obj) => {
+  if (!page.value?.featuredPrograms) {
+    return []
+  }
+  return page.value.featuredPrograms?.map((obj) => {
     return {
       ...obj,
       image: _get(obj, 'heroImage[0].image[0]', ''),
@@ -126,11 +129,11 @@ const parsedFeaturedPrograms = computed(() => {
   })
 })
 const parsedBannerHeader = computed(() => {
-  // console.log('parsedFeaturedPrograms', parsedFeaturedPrograms)
-  return parsedFeaturedPrograms[0]
+  // console.log('bannerheader', parsedFeaturedPrograms.value[0]);
+  return parsedFeaturedPrograms.value[0]
 })
 const parsedSectionHighlight = computed(() => {
-  return parsedFeaturedPrograms.slice(1).map((obj) => {
+  return parsedFeaturedPrograms.value.slice(1).map((obj) => {
     return {
       ...obj,
       image: _get(obj, 'heroImage[0].image[0]', ''),
@@ -256,7 +259,7 @@ onMounted(async () => {
       class="section-no-top-margin"
     >
       <banner-featured
-        :image="parsedBannerHeader.image"
+        :media="parsedBannerHeader.image"
         :title="parsedBannerHeader.title"
         :category="parsedBannerHeader.category"
         breadcrumb="Featured"
