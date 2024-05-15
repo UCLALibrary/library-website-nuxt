@@ -10,7 +10,7 @@ describe('All Services & Resources Listing page', () => {
 
   it('Search Found', () => {
     cy.intercept('/help/services-resources?*').as('getResourcesSearchRoutes')
-    cy.visit('help/services-resources?q=test', {failOnStatusCode: false})
+    cy.visit('help/services-resources?q=test', { failOnStatusCode: false })
     cy.wait('@getResourcesSearchRoutes').then(() => {
       cy.get('.logo-ucla').should('be.visible')
       cy.get('input[type=search]').should(
