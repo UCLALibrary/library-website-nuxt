@@ -86,16 +86,10 @@ async function searchES() {
     )
     if (results && results.hits && results.hits.total.value > 0) {
       hits.value = results.hits.hits
-      programs.value = []
       noResultsFound.value = false
     } else {
       hits.value = []
-      programs.value = []
       noResultsFound.value = true
-    }
-    searchGenericQuery.value = {
-      queryText: route.query.q || '',
-      queryFilters: (route.query.filters && JSON.parse(route.query.filters)) || {},
     }
   } else {
     hits.value = []
