@@ -90,7 +90,6 @@ const parsedAssociatedTopics = computed(() => {
   })
 })
 
-
 // ELASTIC SEARCH FUNCTIONALITY
 const hits = ref([])
 const noResultsFound = ref(false)
@@ -148,7 +147,7 @@ async function searchES() {
       config.exploreCollection.resultFields,
       config.exploreCollection.filters
     )
-    console.log("getsearchdata method:" + JSON.stringify(results))
+    console.log('getsearchdata method:' + JSON.stringify(results))
     collections.value = []
     hits.value = []
     if (results && results.hits && results.hits.total.value > 0) {
@@ -187,12 +186,12 @@ const parsedPlaceholder = computed(() => {
 const parseHitsResults = computed(() => {
   return hits.value.map((obj) => {
     return {
-      ...obj["_source"],
-      to: obj["_source"].externalResourceUrl
-        ? obj["_source"].externalResourceUrl
-        : `/${obj["_source"].uri}`,
-      image: _get(obj["_source"], "heroImage[0]image[0]", null),
-      category: obj["_source"].physicalDigital.join(", "),
+      ...obj._source,
+      to: obj._source.externalResourceUrl
+        ? obj._source.externalResourceUrl
+        : `/${obj._source.uri}`,
+      image: _get(obj._source, 'heroImage[0]image[0]', null),
+      category: obj._source.physicalDigital.join(', '),
     }
   })
 })
@@ -205,7 +204,7 @@ function getSearchData(data) {
   console.log('data text', data.text)
   console.log('data filters', JSON.stringify(data.filters))
   useRouter().push({
-    path: "/collections/explore",
+    path: '/collections/explore',
     query: {
       q: data.text,
       filters: JSON.stringify(data.filters),
@@ -217,11 +216,11 @@ function getSearchData(data) {
 async function setFilters() {
   const searchAggsResponse = await $dataApi.getAggregations(
     config.exploreCollection.filters,
-    "collection"
+    'collection'
   )
-  /*console.log(
+  /* console.log(
       "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-  )*/
+  ) */
   searchFilters.value = getListingFilters(
     searchAggsResponse,
     config.exploreCollection.filters
@@ -247,8 +246,6 @@ onMounted(async () => {
     <h3>PAGE: {{ page }}</h3>
     <h3>COLLECTIONS: {{ collections }}</h3>
     -->
-
-
 
     <!-- <h3>parseHitsResults -- {{ parseHitsResults }}</h3> -->
     <!-- <hr>
@@ -286,7 +283,7 @@ onMounted(async () => {
         parsedCollectionList.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <section-teaser-card :items="parsedCollectionList" />
