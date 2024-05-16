@@ -84,7 +84,7 @@ async function searchES() {
 
     const query_text = route.query.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
-      query_text,
+      queryText,
       config.exploreCollection.searchFields,
       'sectionHandle:collection',
       (route.query.filters &&
@@ -313,10 +313,10 @@ const parseHitsResults = computed(() => {
 
     <section-wrapper
       v-show="page &&
-        parsedCollectionList &&
-        parsedCollectionList.length &&
-        hits.length == 0 &&
-        !noResultsFound
+      parsedCollectionList &&
+      parsedCollectionList.length &&
+      hits.length == 0 &&
+      !noResultsFound
       "
       class="section-no-top-margin"
     >
