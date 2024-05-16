@@ -31,12 +31,6 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    storage: {
-      esData: {
-        driver: 'fs',
-        base: './data/db'
-      }
-    },
     prerender: {
       crawlLinks: true,
       failOnError: false,
@@ -100,7 +94,7 @@ export default defineNuxtConfig({
       esAlias: process.env.ES_ALIAS || '',
       libguidesEsIndex: process.env.LIBGUIDES_ES_INDEX || '',
       esIndexPrefix: process.env.ES_INDEX_PREFIX || '',
-      esTempIndex: '',
+      esTempIndex: process.env.ES_INDEX_PREFIX + '-' + new Date().toISOString().toLowerCase().replaceAll(':', '-'),
       esURL: process.env.ES_URL || '',
       libcalProxy:
         process.env.LIBCAL_ENDPOINT

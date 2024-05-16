@@ -215,14 +215,18 @@ function getSearchData(data) {
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
-    <section-wrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-        ">
+
+    <section-wrapper
+      v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      "
+    >
       <section-cards-with-illustrations
         class="section"
         :items="parsedAccessCollections"
         :is-horizontal="true"
       />
     </section-wrapper>
+    
     <section-wrapper v-show="hits && hits.length > 0">
       <h2
         v-if="route.query && route.query.q"
