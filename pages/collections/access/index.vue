@@ -226,7 +226,7 @@ function getSearchData(data) {
         :is-horizontal="true"
       />
     </section-wrapper>
-    
+
     <section-wrapper v-show="hits && hits.length > 0">
       <h2
         v-if="route.query && route.query.q"

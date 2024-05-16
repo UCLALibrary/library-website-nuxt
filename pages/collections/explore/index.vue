@@ -78,15 +78,15 @@ async function searchES() {
       const data = await $graphql.default.request(
         COLLECTIONS_EXPLORE_LIST
       )
-      page["title"] = _get(data, "entry.title", "")
-      page["text"] = _get(data, "entry.text", "")
+      page.title = _get(data, 'entry.title', '')
+      page.text = _get(data, 'entry.text', '')
     }
 
-    const query_text = route.query.q || "*"
+    const query_text = route.query.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
       query_text,
       config.exploreCollection.searchFields,
-      "sectionHandle:collection",
+      'sectionHandle:collection',
       (route.query.filters &&
         JSON.parse(route.query.filters)) ||
       {},
@@ -95,7 +95,7 @@ async function searchES() {
       config.exploreCollection.resultFields,
       config.exploreCollection.filters
     )
-    //console.log("getsearchdata method:" + JSON.stringify(results))
+    // console.log("getsearchdata method:" + JSON.stringify(results))
     collections.value = []
     hits.value = []
     if (results && results.hits && results.hits.total.value > 0) {
@@ -108,7 +108,7 @@ async function searchES() {
       noResultsFound.value = true
     }
     searchGenericQuery = {
-      queryText: route.query.q || "",
+      queryText: route.query.q || '',
       queryFilters:
         ($route.query.filters &&
           JSON.parse(route.query.filters)) ||
@@ -122,8 +122,8 @@ async function searchES() {
       COLLECTIONS_EXPLORE_LIST
     )
     // //console.log("data:" + data)
-    page.value = _get(data, "entry", {})
-    collections.value = _get(data, "entries", [])
+    page.value = _get(data, 'entry', {})
+    collections.value = _get(data, 'entries', [])
   }
 }
 // ES watcher
@@ -189,9 +189,6 @@ const parsedPlaceholder = computed(() => {
 const parseHitsResults = computed(() => {
   return parseHits(hits)
 })
-
-
-
 
 /* TODO: Incorporate when search functionality is ready? */
 // Watch route for new queries
@@ -273,7 +270,6 @@ const parseHitsResults = computed(() => {
     id="main"
     class="page page-collections-explore"
   >
-
     <!-- <h3>DATA: {{ data }}</h3>
     <h3>PAGE: {{ page }}</h3> -->
     <!-- <h3>COLLECTIONS: {{ collections }}</h3> -->
@@ -315,14 +311,12 @@ const parseHitsResults = computed(() => {
       <divider-way-finder class="search-margin" />
     </section-wrapper>
 
-
-
     <section-wrapper
       v-show="page &&
-      parsedCollectionList &&
-      parsedCollectionList.length &&
-      hits.length == 0 &&
-      !noResultsFound
+        parsedCollectionList &&
+        parsedCollectionList.length &&
+        hits.length == 0 &&
+        !noResultsFound
       "
       class="section-no-top-margin"
     >
