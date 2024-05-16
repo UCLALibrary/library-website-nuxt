@@ -16,8 +16,7 @@ const { $graphql, $dataApi } = useNuxtApp()
 const { data, error } = await useAsyncData('news', async () => {
   const data = await $graphql.default.request(ARTICLE_LIST)
   return data
-}
-)
+})
 
 if (error.value) {
   throw createError({
@@ -33,15 +32,18 @@ if (!data.value.entry && !data.value.entries) {
 
 const route = useRoute()
 
-// Data
+// DATA
 const page = ref(_get(data.value, 'entry', {}))
 const news = ref(_get(data.value, 'entries', []))
+
+// PREVIEW MODE
 watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
   news.value = _get(newVal, 'entries', [])
 })
 
+// HEAD METADATA FOR THE TAB TITLES ON THE PAGE
 useHead({
   title: page.value ? page.value.title : '... loading',
   meta: [
@@ -53,6 +55,7 @@ useHead({
   ]
 })
 
+// COMPUTED
 const parsedFeaturedNews = computed(() => {
   return page.value?.featuredNews?.map((obj) => {
     return {
@@ -127,7 +130,7 @@ const parsedByline = computed(() => {
   })
 })
 
-// ES search functionality
+// ELASTIC SEARCH FUNCTIONALITY
 const hits = ref([])
 const title = ref('')
 const noResultsFound = ref(false)
@@ -140,7 +143,7 @@ const searchGenericQuery = ref({
     {},
 })
 
-// This watcher is called when router push updates the query params
+// This watcher is called when router pushes updates the query params
 watch(
   () => route.query,
   (newVal, oldVal) => {
@@ -229,7 +232,7 @@ function parseHits(hits = []) {
   })
 }
 
-//  This is event handler which is invoked by search-generic component selections
+// This is event handler which is invoked by search-generic component selections
 function getSearchData(data) {
   console.log('On the page getsearchdata called')
   useRouter().push({
@@ -294,7 +297,7 @@ onMounted(async () => {
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <banner-featured
@@ -310,14 +313,12 @@ onMounted(async () => {
         class="banner section-featured-banner"
       />
 
-      <divider-general
-        v-show="page &&
-          page.featuredNews &&
-          page.featuredNews.length &&
-          hits.length === 0 &&
-          !noResultsFound
-        "
-      />
+      <divider-general v-show="page &&
+        page.featuredNews &&
+        page.featuredNews.length &&
+        hits.length === 0 &&
+        !noResultsFound
+        " />
 
       <section-teaser-highlight
         v-show="parsedSectionHighlight.length > 0"
@@ -332,7 +333,7 @@ onMounted(async () => {
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <divider-way-finder color="about" />
@@ -414,6 +415,9 @@ onMounted(async () => {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .page-news {}
 </style>

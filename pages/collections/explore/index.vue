@@ -28,6 +28,7 @@ const { data, error } = await useAsyncData('collection', async () => {
   const data = await $graphql.default.request(COLLECTIONS_EXPLORE_LIST)
   return data
 })
+
 if (error.value) {
   throw createError({
     ...error.value, statusMessage: 'Page not found.', fatal: true
@@ -50,99 +51,7 @@ watch(data, (newVal, oldVal) => {
   collections.value = _get(newVal, 'entries', [])
 })
 
-// ES search functionality
-const hits = ref([])
-const noResultsFound = ref(false)
-const searchFilters = ref([])
-const searchGenericQuery = ref({
-  queryText: route.query.q || '',
-  queryFilters:
-    (route.query.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
-})
-
-// Elastic Search Function
-async function searchES() {
-  collections.value = []
-  hits.value = []
-  if (
-    (route.query.q && route.query.q !== '') ||
-    (route.query.filters &&
-      queryFilterHasValues(
-        route.query.filters,
-        config.exploreCollection.filters
-      ))
-  ) {
-    if (!page.title) {
-      const data = await $graphql.default.request(
-        COLLECTIONS_EXPLORE_LIST
-      )
-      page.title = _get(data, 'entry.title', '')
-      page.text = _get(data, 'entry.text', '')
-    }
-
-    const query_text = route.query.q || '*'
-    const results = await $dataApi.keywordSearchWithFilters(
-      queryText,
-      config.exploreCollection.searchFields,
-      'sectionHandle:collection',
-      (route.query.filters &&
-        JSON.parse(route.query.filters)) ||
-      {},
-      config.exploreCollection.sortField,
-      config.exploreCollection.orderBy,
-      config.exploreCollection.resultFields,
-      config.exploreCollection.filters
-    )
-    // console.log("getsearchdata method:" + JSON.stringify(results))
-    collections.value = []
-    hits.value = []
-    if (results && results.hits && results.hits.total.value > 0) {
-      hits.value = results.hits.hits
-      collections = []
-      noResultsFound.value = false
-    } else {
-      hits.value = []
-      collections.value = []
-      noResultsFound.value = true
-    }
-    searchGenericQuery = {
-      queryText: route.query.q || '',
-      queryFilters:
-        ($route.query.filters &&
-          JSON.parse(route.query.filters)) ||
-        {},
-    }
-  } else {
-    hits.value = []
-    noResultsFound.value = false
-    // if route queries are empty fetch data from craft
-    const data = await $graphql.default.request(
-      COLLECTIONS_EXPLORE_LIST
-    )
-    // //console.log("data:" + data)
-    page.value = _get(data, 'entry', {})
-    collections.value = _get(data, 'entries', [])
-  }
-}
-// ES watcher
-watch(() => route?.query, (oldValue, newValue) => {
-  if (oldValue !== newValue) {
-    if (newValue?.q === '') hits.value = []
-    searchGenericQuery.value.queryText = route.query.q || ''
-    searchES()
-  }
-}, { deep: true, immediate: true })
-
-// ENABLE PREVIEW MODE
-watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled', newVal, oldVal)
-  page.value = _get(newVal, 'entry', {})
-})
-
-// HEAD
-
+// HEAD METADATA FOR THE TAB TITLES ON THE PAGE
 useHead({
   title: page.value ? page.value.title : '... loading',
   meta: [
@@ -181,88 +90,150 @@ const parsedAssociatedTopics = computed(() => {
   })
 })
 
-/* TODO: Enable when search functionality is ready */
+
+// ELASTIC SEARCH FUNCTIONALITY
+const hits = ref([])
+const noResultsFound = ref(false)
+const searchFilters = ref([])
+const searchGenericQuery = ref({
+  queryText: route.query.q || '',
+  queryFilters:
+    (route.query.filters &&
+      JSON.parse(route.query.filters)) ||
+    {},
+})
+
+// This watcher is called when router pushes updates the query params
+watch(
+  () => route.query,
+  (newVal, oldVal) => {
+    console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchES()
+  }, { deep: true, immediate: true }
+)
+
+// Elastic Search Function
+async function searchES() {
+  // collections.value = []
+  // hits.value = []
+  if (
+    (route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
+      queryFilterHasValues(
+        route.query.filters,
+        config.exploreCollection.filters
+      ))
+  ) {
+    if (!page.title) {
+      const data = await $graphql.default.request(
+        COLLECTIONS_EXPLORE_LIST
+      )
+      page.title = _get(data, 'entry.title', '')
+      page.text = _get(data, 'entry.text', '')
+    }
+
+    console.log('Search ES HITS query,', route.query.q)
+    const queryText = route.query.q || '*'
+    const results = await $dataApi.keywordSearchWithFilters(
+      queryText,
+      config.exploreCollection.searchFields,
+      'sectionHandle:collection',
+      (route.query.filters &&
+        JSON.parse(route.query.filters)) ||
+      {},
+      config.exploreCollection.sortField,
+      config.exploreCollection.orderBy,
+      config.exploreCollection.resultFields,
+      config.exploreCollection.filters
+    )
+    console.log("getsearchdata method:" + JSON.stringify(results))
+    collections.value = []
+    hits.value = []
+    if (results && results.hits && results.hits.total.value > 0) {
+      hits.value = results.hits.hits
+      collections.value = []
+      noResultsFound.value = false
+    } else {
+      hits.value = []
+      collections.value = []
+      noResultsFound.value = true
+    }
+    searchGenericQuery.value = {
+      queryText: route.query.q || '',
+      queryFilters:
+        (route.query.filters &&
+          JSON.parse(route.query.filters)) ||
+        {},
+    }
+  } else {
+    hits.value = []
+    noResultsFound.value = false
+    // if route queries are empty fetch data from craft
+    const data = await $graphql.default.request(
+      COLLECTIONS_EXPLORE_LIST
+    )
+    // //console.log("data:" + data)
+    page.value = _get(data, 'entry', {})
+    collections.value = _get(data, 'entries', [])
+  }
+}
+
 const parsedPlaceholder = computed(() => {
-  return `Search ${page.title}`
+  return `Search ${page.value.title}`
 })
 
 const parseHitsResults = computed(() => {
-  return parseHits(hits)
+  return hits.value.map((obj) => {
+    return {
+      ...obj["_source"],
+      to: obj["_source"].externalResourceUrl
+        ? obj["_source"].externalResourceUrl
+        : `/${obj["_source"].uri}`,
+      image: _get(obj["_source"], "heroImage[0]image[0]", null),
+      category: obj["_source"].physicalDigital.join(", "),
+    }
+  })
 })
 
-/* TODO: Incorporate when search functionality is ready? */
-// Watch route for new queries
-// watch: {
-//   "$route.query": "$fetch",
-//     "$route.query.q"(newValue) {
-//     //console.log("watching querytEXT:" + newValue)
-//   },
-//   "$route.query.filters"(newValue) {
-//     //console.log("watching filters:" + newValue)
-//   },
-// }
+// This is event handler which is invoked by search-generic component selections
+function getSearchData(data) {
+  // console.log("On the page getsearchdata called " + data)
+  // page = {}
+  // hits = []
+  console.log('data text', data.text)
+  console.log('data filters', JSON.stringify(data.filters))
+  useRouter().push({
+    path: "/collections/explore",
+    query: {
+      q: data.text,
+      filters: JSON.stringify(data.filters),
+    },
+  })
+}
 
-// watch(() => route.query, (newVal, oldVal) => {
+// fetch filters for the page from ES after page loads in Onmounted hook on the client side
+async function setFilters() {
+  const searchAggsResponse = await $dataApi.getAggregations(
+    config.exploreCollection.filters,
+    "collection"
+  )
+  /*console.log(
+      "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+  )*/
+  searchFilters.value = getListingFilters(
+    searchAggsResponse,
+    config.exploreCollection.filters
+  )
+}
 
-// }, { deep: true, immediate: true })
-
-//   async mounted() {
-//   //console.log("In mounted")
-//   this.setFilters()
-// }
-
-// ES watcher
-/* TODO: Incorporate when search functionality is ready? */
-// async function setFilters() {
-//   const searchAggsResponse = await this.$dataApi.getAggregations(
-//     config.exploreCollection.filters,
-//     "collection"
-//   )
-//   /*console.log(
-//       "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-//   )*/
-//   searchFilters.value = getListingFilters(
-//     searchAggsResponse,
-//     config.exploreCollection.filters
-//   )
-// }
-
-/* TODO: Incorporate when search functionality is ready? */
-// function parseHits(hits = []) {
-//   return hits?.map((obj) => {
-//     return {
-//       ...obj["_source"],
-//       to: obj["_source"].externalResourceUrl
-//         ? obj["_source"].externalResourceUrl
-//         : `/${obj["_source"].uri}`,
-//       image: _get(obj["_source"], "heroImage[0]image[0]", null),
-//       category: obj["_source"].physicalDigital.join(", "),
-//     }
-//   })
-// }
-
-/* TODO: Incorporate when search functionality is ready? */
-// function getSearchData(data) {
-//   // console.log("On the page getsearchdata called " + data)
-//   // this.page = {}
-//   // this.hits = []
-//   console.log('data text', data.text)
-//   console.log('data filters', JSON.stringify(data.filters))
-//   useRouter().push({
-//     path: "/collections/explore",
-//     query: {
-//       q: data.text,
-//       filters: JSON.stringify(data.filters),
-//     },
-//   })
-// }
-
-// NOT A METHOD
-/* TODO: Refactor when search functionality is ready */
-// fetchOnServer: false,
-//   // multiple components can return the same `fetchKey` and Nuxt will track them both separately
-//   fetchKey: "explore-collections-index",
-
+onMounted(async () => {
+  console.log('onMounted called')
+  // console.log("ESREADkey:" + config.esReadKey)
+  // console.log("ESURLkey:" + config.esURL)
+  await setFilters()
+})
 </script>
 
 <template lang="html">
@@ -270,20 +241,18 @@ const parseHitsResults = computed(() => {
     id="main"
     class="page page-collections-explore"
   >
-    <!-- <h3>DATA: {{ data }}</h3>
-    <h3>PAGE: {{ page }}</h3> -->
-    <!-- <h3>COLLECTIONS: {{ collections }}</h3> -->
+    <!--
+    THESE ALL WORK
+    <h3>DATA: {{ data }}</h3>
+    <h3>PAGE: {{ page }}</h3>
+    <h3>COLLECTIONS: {{ collections }}</h3>
+    -->
 
-    <!-- DELETE AT THE END -->
-    <!-- <h3> parsedCollectionList -- {{ parsedCollectionList }}</h3>
-    <hr> -->
-    <!-- <h3>parsedAssociatedTopics -- {{ parsedAssociatedTopics }}</h3>
-    <hr> -->
-    <h3>parsedPlaceholder -- {{ parsedPlaceholder }}</h3>
-    <hr>
-    <h3>parseHitsResults -- {{ parseHitsResults }}</h3>
-    <hr>
-    <h3>DATA -- {{ `On the page getsearchdata called ${data}` }}</h3>
+
+
+    <!-- <h3>parseHitsResults -- {{ parseHitsResults }}</h3> -->
+    <!-- <hr>
+    <h3>HITS -- {{ hits.value }}</h3> -->
 
     <nav-breadcrumb
       to="/collections"
@@ -297,15 +266,15 @@ const parseHitsResults = computed(() => {
     />
 
     <!-- SEARCH
-                Filters by physical/digital & subject area -->
-    <!-- <search-generic
+      Filter by physical/digital & subject area -->
+    <search-generic
       search-type="about"
       :filters="searchFilters"
       class="generic-search"
       :search-generic-query="searchGenericQuery"
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
-    /> -->
+    />
 
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
@@ -313,18 +282,18 @@ const parseHitsResults = computed(() => {
 
     <section-wrapper
       v-show="page &&
-      parsedCollectionList &&
-      parsedCollectionList.length &&
-      hits.length == 0 &&
-      !noResultsFound
-      "
+        parsedCollectionList &&
+        parsedCollectionList.length &&
+        hits.length == 0 &&
+        !noResultsFound
+        "
       class="section-no-top-margin"
     >
       <section-teaser-card :items="parsedCollectionList" />
     </section-wrapper>
 
     <!-- FILTERS -->
-    <!-- <section-wrapper
+    <section-wrapper
       v-show="hits && hits.length > 0"
       class="section-no-top-margin"
     >
@@ -343,10 +312,10 @@ const parseHitsResults = computed(() => {
         Displaying {{ hits.length }} results
       </h2>
       <section-teaser-card :items="parseHitsResults" />
-    </section-wrapper> -->
+    </section-wrapper>
 
     <!-- NO RESULTS -->
-    <!-- <section-wrapper
+    <section-wrapper
       v-show="noResultsFound"
       class="section-no-top-margin"
     >
@@ -374,7 +343,7 @@ const parseHitsResults = computed(() => {
           </ul>
         </rich-text>
       </div>
-    </section-wrapper> -->
+    </section-wrapper>
 
     <section-wrapper>
       <divider-way-finder
