@@ -40,7 +40,7 @@ if (!data.value.data && !data.value.helpTopicData) {
 // GETS DATA FROM CRAFT
 // CREATES ES INDEX TO BE SEARCHED
 // CHECK THAT NUXT IS RUNNING ON THE SERVER (process.server)
-console.log('DATA-DATA-DATA-DATA' + data)
+// console.log('DATA-DATA-DATA-DATA' + data)
 if (
   data.value.externalResource &&
   data.value.externalResource.length > 0 &&
@@ -60,7 +60,7 @@ const summaryData = ref(_get(data.value.data, 'entry', {}))
 
 // ENABLE PREVIEW
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = newVal.data
   helpTopic.value = newVal.helpTopicData
   summaryData.value = _get(newVal.data, 'entry', {})
@@ -71,9 +71,9 @@ const hits = ref([])
 const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
-  queryText: route.query.q || '',
+  queryText: route.query?.q || '',
   queryFilters:
-    (route.query.filters &&
+    (route.query?.filters &&
       JSON.parse(route.query.filters)) ||
     {},
 })
@@ -90,14 +90,14 @@ watch(() => route.query, (oldValue, newValue) => {
 // ES search function
 async function searchES() {
   if (
-    (route.query.q && route.query.q !== '') ||
+    (route.query && route.query.q && route.query.q !== '') ||
     (route.query.filters &&
       queryFilterHasValues(
         route.query.filters,
         config.serviceOrResources.filters
       ))
   ) {
-    console.log('Search ES HITS query,', route.query.q)
+    // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
@@ -112,7 +112,7 @@ async function searchES() {
       []
     )
     if (results && results.hits && results.hits.total.value > 0) {
-      console.log('Search ES HITS,', results.hits.hits)
+      // console.log('Search ES HITS,', results.hits.hits)
       hits.value = results.hits.hits
       noResultsFound.value = false
     } else {
@@ -221,15 +221,16 @@ const parseHitsResults = computed(() => {
   })
 })
 
-const parseDisplayResultsText = computed(() => {
-  if (hits.value.length > 1)
-    return `Displaying ${hits.value.length} results`
-  else return `Displaying ${hits.value.length} result`
-})
+// Not being used?
+// const parseDisplayResultsText = computed(() => {
+//   if (hits.value.length > 1)
+//     return `Displaying ${hits.value.length} results`
+//   else return `Displaying ${hits.value.length} result`
+// })
 
 // ES MOUNTED for FILTERS
 onMounted(async () => {
-  console.log('onMounted called')
+  // console.log('onMounted called')
   await setFilters()
 })
 
@@ -248,7 +249,7 @@ async function setFilters() {
 
 //  This event handler is invoked by the search-generic component (filtered search )selections
 function getSearchData(data) {
-  console.log('On the page getsearchdata called')
+  // console.log('On the page getsearchdata called')
   const filterData =
     (data.filters && JSON.stringify(data.filters)) || {}
   useRouter().push({
@@ -371,10 +372,7 @@ function getSearchData(data) {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-help {
   :deep(label.label) {
     text-transform: capitalize;
