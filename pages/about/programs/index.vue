@@ -56,24 +56,24 @@ const hits = ref([])
 const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
-  queryText: route.query.q || '',
+  queryText: route.query?.q || '',
   queryFilters:
-    (route.query.filters &&
+    (route.query?.filters &&
       JSON.parse(route.query.filters)) ||
     {},
 })
 async function searchES() {
   if (
-    (route.query.q && route.query.q !== '') ||
+    (route.query && route.query.q && route.query.q !== '') ||
     (route.query.filters &&
       queryFilterHasValues(
         route.query.filters,
         config.programsList.filters
       ))
   ) {
-    const queryText = route.query.q || '*'
+    const queryText = route.query?.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
-      queryText,
+      queryText as string,
       config.programsList.searchFields,
       'sectionHandle:program',
       (route.query.filters &&
@@ -100,8 +100,8 @@ watch(
   () => route.query,
   (newVal, oldVal) => {
     // console.log('ES newVal, oldVal', newVal, oldVal)
-    searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchGenericQuery.value.queryText = route.query?.q || ''
+    searchGenericQuery.value.queryFilters = (route.query?.filters && JSON.parse(route.query.filters)) || {}
     searchES()
   }, { deep: true, immediate: true }
 )
