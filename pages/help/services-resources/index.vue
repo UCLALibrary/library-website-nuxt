@@ -306,7 +306,7 @@ function getSearchData(data) {
       class="section-no-top-margin"
     >
       <h2
-        v-if="route.query.q"
+        v-if="route.query && route.query.q"
         class="about-results"
       >
         Displaying {{ hits.length }} results for
@@ -325,7 +325,7 @@ function getSearchData(data) {
     </section-wrapper>
 
     <section-wrapper
-      v-show="noResultsFound"
+      v-show="noResultsFound && route.query.q"
       class="section-no-top-margin"
     >
       <div class="error-text">
