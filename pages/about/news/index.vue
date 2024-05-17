@@ -154,6 +154,7 @@ watch(
   }, { deep: true, immediate: true }
 )
 
+// ELASTIC SEARCH FUNCTION
 async function searchES() {
   if (
     (route.query.q && route.query.q !== '') ||

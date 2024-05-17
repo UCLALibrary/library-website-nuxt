@@ -199,8 +199,6 @@ const parseHitsResults = computed(() => {
 // This is event handler which is invoked by search-generic component selections
 function getSearchData(data) {
   // console.log("On the page getsearchdata called " + data)
-  // page = {}
-  // hits = []
   console.log('data text', data.text)
   console.log('data filters', JSON.stringify(data.filters))
   useRouter().push({
@@ -240,17 +238,6 @@ onMounted(async () => {
     id="main"
     class="page page-collections-explore"
   >
-    <!--
-    THESE ALL WORK
-    <h3>DATA: {{ data }}</h3>
-    <h3>PAGE: {{ page }}</h3>
-    <h3>COLLECTIONS: {{ collections }}</h3>
-    -->
-
-    <!-- <h3>parseHitsResults -- {{ parseHitsResults }}</h3> -->
-    <!-- <hr>
-    <h3>HITS -- {{ hits.value }}</h3> -->
-
     <nav-breadcrumb
       to="/collections"
       title="Explore Featured Collections"
