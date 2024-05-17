@@ -113,10 +113,8 @@ watch(
   }, { deep: true, immediate: true }
 )
 
-// Elastic Search Function
+// ELASTIC SEARCH FUNCTION
 async function searchES() {
-  // collections.value = []
-  // hits.value = []
   if (
     (route.query.q && route.query.q !== '') ||
     (route.query.filters &&
@@ -125,14 +123,6 @@ async function searchES() {
         config.exploreCollection.filters
       ))
   ) {
-    if (!page.title) {
-      const data = await $graphql.default.request(
-        COLLECTIONS_EXPLORE_LIST
-      )
-      page.title = _get(data, 'entry.title', '')
-      page.text = _get(data, 'entry.text', '')
-    }
-
     console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
@@ -147,35 +137,19 @@ async function searchES() {
       config.exploreCollection.resultFields,
       config.exploreCollection.filters
     )
-    console.log('getsearchdata method:' + JSON.stringify(results))
-    collections.value = []
+
     hits.value = []
     if (results && results.hits && results.hits.total.value > 0) {
+      console.log('Search ES HITS,', results.hits.hits)
       hits.value = results.hits.hits
-      collections.value = []
       noResultsFound.value = false
     } else {
       hits.value = []
-      collections.value = []
       noResultsFound.value = true
-    }
-    searchGenericQuery.value = {
-      queryText: route.query.q || '',
-      queryFilters:
-        (route.query.filters &&
-          JSON.parse(route.query.filters)) ||
-        {},
     }
   } else {
     hits.value = []
     noResultsFound.value = false
-    // if route queries are empty fetch data from craft
-    const data = await $graphql.default.request(
-      COLLECTIONS_EXPLORE_LIST
-    )
-    // //console.log("data:" + data)
-    page.value = _get(data, 'entry', {})
-    collections.value = _get(data, 'entries', [])
   }
 }
 
@@ -282,11 +256,11 @@ onMounted(async () => {
       class="section-no-top-margin"
     >
       <h2
-        v-if="$route.query.q"
+        v-if="route.query.q"
         class="about-results"
       >
         Displaying {{ hits.length }} results for
-        <strong><em>“{{ $route.query.q }}”</em></strong>
+        <strong><em>“{{ route.query.q }}”</em></strong>
       </h2>
 
       <h2
@@ -305,7 +279,7 @@ onMounted(async () => {
     >
       <div class="error-text">
         <rich-text>
-          <h2>Search for “{{ $route.query.q }}” not found.</h2>
+          <h2>Search for “{{ route.query.q }}” not found.</h2>
           <p>
             We can’t find the term you are looking for on this page,
             but we're here to help. <br>
