@@ -279,10 +279,14 @@ async function keywordSearchWithFilters(
         },
         ...parseSectionHandle(sectionHandle),
         ...parseFilterQuery(filters),
+        ...extraFilters,
         ],
       },
     },
-    ...parseSort(sort),
+    ...parseSort(sort, orderBy),
+    aggs: {
+      ...parseFieldNames(aggFields),
+    },
   })
   console.log('this is the query: ' + testquery)
 
