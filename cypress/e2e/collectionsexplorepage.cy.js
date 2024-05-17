@@ -18,9 +18,23 @@ describe('Explore Collection page', () => {
     cy.percySnapshot({ widths: [768, 992, 1200] })
   })
 
-  it('Visit Collections Explore Listing page filter by category', () => {
-    cy.visit('/collections/explore?q=&filters=%7B"subjectAreas.title.keyword"%3A%5B"Arts%20%26%20Music"%5D%7D')
-
-    cy.get('h2.about-results').should('be.visible')
+  it('Search Found', () => {
+    cy.intercept('/collections/explore/?*').as('getExploreSearchRoutes')
+    cy.visit('collections/explore/?q=test', { timeout: 35000 })
+    cy.wait('@getExploreSearchRoutes').then(() => {
+      cy.get('.logo-ucla').should('be.visible')
+      cy.get('input[type=search]').should(
+        'have.value',
+        'test'
+      )
+      cy.get('h2.about-results').invoke('text').should('not.be.empty')
+      cy.percySnapshot({ widths: [768, 992, 1200] })
+    })
   })
+
+    it("Visit Collections Explore Listing page filter by category", () => {
+        cy.visit('/collections/explore?q=&filters=%7B"subjectAreas.title.keyword"%3A%5B"Arts%20%26%20Music"%5D%7D')
+
+        cy.get ('h2.about-results').should("be.visible")
+    })
 })
