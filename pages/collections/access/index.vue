@@ -294,7 +294,4 @@ function getSearchData(data) {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
-></style>
+<style lang="scss" scoped></style>
