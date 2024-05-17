@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: ` 
+          additionalData: `
                         @import "ucla-library-design-tokens/scss/fonts.scss";
                         @import "ucla-library-design-tokens/scss/app.scss";
                     `,
