@@ -263,7 +263,6 @@ function getSearchData(data) {
 </script>
 
 <template lang="html">
-  <!-- v-ifs working on section wrappers without v-show -->
   <main
     id="main"
     class="page page-help"
@@ -290,10 +289,10 @@ function getSearchData(data) {
       />
     </section-wrapper>
 
+    <!-- ALL RESULTS -->
     <section-wrapper
-      v-if="(page.serviceOrResource || page.workshopseries) &&
-        hits.length == 0
-      "
+      v-show="(page.serviceOrResource || page.workshopseries) &&
+        hits.length == 0 && !noResultsFound"
       class="section-no-top-margin"
     >
       <section-cards-with-illustrations
@@ -303,7 +302,7 @@ function getSearchData(data) {
     </section-wrapper>
 
     <section-wrapper
-      v-else-if="hits && hits.length > 0"
+      v-show="hits && hits.length > 0"
       class="section-no-top-margin"
     >
       <h2
@@ -326,7 +325,7 @@ function getSearchData(data) {
     </section-wrapper>
 
     <section-wrapper
-      v-else-if="noResultsFound"
+      v-show="noResultsFound"
       class="section-no-top-margin"
     >
       <div class="error-text">
