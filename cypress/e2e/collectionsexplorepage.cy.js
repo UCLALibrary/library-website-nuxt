@@ -32,9 +32,9 @@ describe('Explore Collection page', () => {
     })
   })
 
-    it("Visit Collections Explore Listing page filter by category", () => {
-        cy.visit('/collections/explore?q=&filters=%7B"subjectAreas.title.keyword"%3A%5B"Arts%20%26%20Music"%5D%7D')
+  it('Visit Collections Explore Listing page filter by category', () => {
+    cy.visit('/collections/explore?q=&filters=%7B"subjectAreas.title.keyword"%3A%5B"Arts%20%26%20Music"%5D%7D')
 
-        cy.get ('h2.about-results').should("be.visible")
-    })
+    cy.get('h2.about-results').should('be.visible')
+  })
 })
