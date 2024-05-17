@@ -104,10 +104,10 @@ const searchGenericQuery = ref({
 
 // This watcher is called when router pushes updates the query params
 watch(
-  () => route.query,
+  () => route?.query,
   (newVal, oldVal) => {
     console.log('ES newVal, oldVal', newVal, oldVal)
-    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryText = route?.query.q || ''
     searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
     searchES()
   }, { deep: true, immediate: true }
@@ -116,7 +116,7 @@ watch(
 // ELASTIC SEARCH FUNCTION
 async function searchES() {
   if (
-    (route.query.q && route.query.q !== '') ||
+    (route?.query.q && route?.query.q !== '') ||
     (route.query.filters &&
       queryFilterHasValues(
         route.query.filters,
@@ -244,7 +244,7 @@ onMounted(async () => {
         parsedCollectionList.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <section-teaser-card :items="parsedCollectionList" />
