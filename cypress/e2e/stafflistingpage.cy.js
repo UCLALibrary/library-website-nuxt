@@ -17,8 +17,10 @@ describe('Article News Listing page', () => {
   })
 
   it('Visit Subject Librarian Listing page', () => {
-    cy.visit('/about/staff?q=&filters=%7B"subjectLibrarian.keyword"%3A"yes"%7D')
-
-    cy.get('td.academic-department').should('be.visible')
+    cy.intercept('/about/staff/*').as('getStaffRoutes')
+    cy.visit('/about/staff/?q=&filters=%7B"subjectLibrarian.keyword"%3A"yes"%7D', { timeout: 30000 })
+    cy.wait('@getStaffRoutes').then(() => {
+      cy.get('td.academic-department').should('be.visible')
+    })
   })
 })
