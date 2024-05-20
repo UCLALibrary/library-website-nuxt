@@ -3,38 +3,26 @@ import { onMounted } from 'vue'
 
 // HELPERS
 import _get from 'lodash/get'
+
+// SEARCH UTILS
 import getListingFilters from '../utils/getListingFilters'
-import sortByTitle from '../utils/sortByTitle'
+import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
+
+// UTILITIES
 import removeTags from '../utils/removeTags'
+import sortByTitle from '../utils/sortByTitle'
 
 // GQL
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from '../gql/queries/ServiceResourceWorkshopSeriesList.gql'
 import HELP_TOPIC_LIST from '../gql/queries/HelpTopicList.gql'
 
-// UTILITIES
-import config from '../utils/searchConfig'
-
-const { $graphql } = useNuxtApp()
+const { $graphql, $elasticsearchplugin, $dataApi } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData('services-resources-list', async () => {
   const data = await $graphql.default.request(SERVICE_RESOURCE_WORKSHOPSERIES_LIST)
   const helpTopicData = await $graphql.default.request(HELP_TOPIC_LIST)
-
-  /* TODO: Incorporate when search functionality is ready? */
-  // if (
-  //   pageAsyncData.externalResource &&
-  //   pageAsyncData.externalResource.length > 0
-  // ) {
-  //   for (let externalResource of pageAsyncData.externalResource) {
-  //     await $elasticsearchplugin.index(
-  //       { ...externalResource, serviceOrResourceType: "external resource" },
-  //       externalResource.slug
-  //     )
-  //   }
-  // }
-
   return { data, helpTopicData }
 })
 
@@ -48,29 +36,98 @@ if (!data.value.data && !data.value.helpTopicData) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
+// ELASTIC SEARCH INDEX
+// GETS DATA FROM CRAFT
+// CREATES ES INDEX TO BE SEARCHED
+// CHECK THAT NUXT IS RUNNING ON THE SERVER (process.server)
+// console.log('DATA-DATA-DATA-DATA' + data)
+if (
+  data.value.externalResource &&
+  data.value.externalResource.length > 0 &&
+  process.server
+) {
+  for (const externalResource of data.value.externalResource) {
+    await $elasticsearchplugin.index(
+      { ...externalResource, serviceOrResourceType: 'external resource' },
+      externalResource.slug
+    )
+  }
+}
+
 const page = ref(data.value.data)
 const helpTopic = ref(data.value.helpTopicData)
 const summaryData = ref(_get(data.value.data, 'entry', {}))
+
+// ENABLE PREVIEW
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
-  page.value = _get(newVal.data, 'entry', {})
-  helpTopic.value = ref(newVal.helpTopicData)
-  summaryData.value = ref(_get(newVal.data, 'entry', {}))
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = newVal.data
+  helpTopic.value = newVal.helpTopicData
+  summaryData.value = _get(newVal.data, 'entry', {})
 })
 
+// ES SEARCH FUNCTIONALITY
+const hits = ref([])
 const noResultsFound = ref(false)
 const searchFilters = ref([])
-const hits = ref([])
-const searchGenericQuery = ref(
-  {
-    queryText: route.query.q || '',
-    queryFilters:
+const searchGenericQuery = ref({
+  queryText: route.query?.q || '',
+  queryFilters:
+    (route.query?.filters &&
+      JSON.parse(route.query.filters)) ||
+    {},
+})
+
+// THIS WATCHER IS CALLED WHEN THE ROUTER PUSHES UPDATES TO THE QUERY PARAM
+// ie: someone changes the query or starts viewing from a bookmarked page
+watch(() => route.query, (oldValue, newValue) => {
+  // console.log('ES newVal, oldVal', newVal, oldVal)
+  searchGenericQuery.value.queryText = route.query.q || ''
+  searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+  searchES()
+}, { deep: true, immediate: true })
+
+// ES search function
+async function searchES() {
+  if (
+    (route.query && route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
+      queryFilterHasValues(
+        route.query.filters,
+        config.serviceOrResources.filters
+      ))
+  ) {
+    // console.log('Search ES HITS query,', route.query.q)
+    const queryText = route.query.q || '*'
+    const results = await $dataApi.keywordSearchWithFilters(
+      queryText,
+      config.serviceOrResources.searchFields,
+      '(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)',
       (route.query.filters &&
         JSON.parse(route.query.filters)) ||
-      {},
-  }
-)
+      [],
+      config.serviceOrResources.sortField,
+      config.serviceOrResources.orderBy,
+      config.serviceOrResources.resultFields,
+      []
+    )
+    if (results && results.hits && results.hits.total.value > 0) {
+      // console.log('Search ES HITS,', results.hits.hits)
+      hits.value = results.hits.hits
+      noResultsFound.value = false
+    } else {
+      noResultsFound.value = true
+      hits.value = []
+    }
+  } else {
+    // console.log('data.value', data.value)
 
+    hits.value = []
+    noResultsFound.value = false
+  }
+}
+
+// METADATA FOR THE TAB
 useHead({
   title: page.value ? summaryData.value.title : '... loading',
   meta: [
@@ -82,71 +139,9 @@ useHead({
   ],
 })
 
-//   async fetch() {
-//   this.page = {}
-//   this.hits = []
-//   this.helptopic = {}
-//   if (
-//     (this.$route.query.q && this.$route.query.q !== "") ||
-//     (this.$route.query.filters &&
-//       queryFilterHasValues(
-//         this.$route.query.filters,
-//         config.serviceOrResources.filters
-//       ))
-//   ) {
-//     this.page = {}
-//     this.hits = []
-//     this.helptopic = {}
-//     const results = await this.$dataApi.keywordSearchWithFilters(
-//       this.$route.query.q || "*",
-//       config.serviceOrResources.searchFields,
-//       "(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)",
-//       (this.$route.query.filters &&
-//         JSON.parse(this.$route.query.filters)) ||
-//       {},
-//       config.serviceOrResources.sortField,
-//       config.serviceOrResources.orderBy,
-//       config.serviceOrResources.resultFields,
-//       []
-//     )
-//     if (results && results.hits && results.hits.total.value > 0) {
-//       this.hits = results.hits.hits
-//       this.noResultsFound = false
-//     } else {
-//       this.hits = []
-//       this.noResultsFound = true
-//     }
-//     this.searchGenericQuery = {
-//       queryText: this.$route.query.q || "",
-//       queryFilters: (this.$route.query.filters && JSON.parse(this.$route.query.filters)) || {},
-//     }
-//     const getSummaryData = await this.$graphql.default.request(
-//       SERVICE_RESOURCE_WORKSHOPSERIES_LIST
-//     )
-//     this.summaryData = _get(getSummaryData, "entry", {})
-//   } else {
-//     this.hits = []
-//     this.noResultsFound = false
-//     this.page = {}
-//     this.helptopic = {}
-//     this.page = await this.$graphql.default.request(
-//       SERVICE_RESOURCE_WORKSHOPSERIES_LIST
-//     )
-//     this.helpTopic = await this.$graphql.default.request(
-//       HELP_TOPIC_LIST
-//     )
-//     this.summaryData = _get(this.page, "entry", {})
-//     this.hits = []
-//     this.searchGenericQuery.queryText = ""
-//   }
-// }
+// COMPUTED PROPERTIES
 
-const parseDisplayResultsText = computed(() => {
-  if (hits.value.length > 1)
-    return `Displaying ${hits.value.length} results`
-  else return `Displaying ${hits.value.length} result`
-})
-
+// DATA FROM CRAFT
 const parsedPages = computed(() => {
   if (
     page.value &&
@@ -200,87 +195,80 @@ const parsedPlaceholder = computed(() => {
   return `Search ${summaryData.value.title}`
 })
 
+// DATA FROM ELASTIC SEARCH
 const parseHitsResults = computed(() => {
-  return parseHits()
+  return hits.value.map((obj) => {
+    return {
+      title: obj._source.title,
+      sectionHandle: obj._source.sectionHandle,
+      to:
+        obj._source.sectionHandle === 'externalResource'
+          ? `${obj._source.externalResourceUrl}`
+          : `/${obj._source.uri}`,
+      iconName:
+        obj._source.illustrationsResourcesAndServices,
+      text: obj._source.text || obj._source.summary,
+      category:
+        obj._source.sectionHandle === 'workshopSeries'
+          ? 'workshop'
+          : obj._source.sectionHandle === 'helpTopic'
+            ? 'help topic'
+            : obj._source.sectionHandle ===
+              'externalResource'
+              ? 'resource'
+              : obj._source.type,
+    }
+  })
 })
 
-/* TODO: Refactor when search functionality is ready */
-// watch: {
-//   "$route.query": "$fetch",
-//     "$route.query.q"(newValue) {
-//     // if (newValue === "") this.hits = []
-//   }
-// }
-
-/* TODO: Enable for search */
-// onMounted(async () => {
-//   setFilters()
+// Not being used?
+// const parseDisplayResultsText = computed(() => {
+//   if (hits.value.length > 1)
+//     return `Displaying ${hits.value.length} results`
+//   else return `Displaying ${hits.value.length} result`
 // })
 
-// Methods
-/* TODO: Enable for search */
-// async function setFilters() {
-//   const searchAggsResponse = await this.$dataApi.getAggregations(
-//     config.serviceOrResources.filters,
-//     "serviceOrResource OR workshopSeries OR helpTopic OR externalResource",
-//   )
-//   searchFilters = getListingFilters(
-//     searchAggsResponse,
-//     config.serviceOrResources.filters
-//   )
-// }
+// ES MOUNTED for FILTERS
+onMounted(async () => {
+  // console.log('onMounted called')
+  await setFilters()
+})
 
-/* TODO: Enable for search */
-// function parseHits() {
-//   return hits.value.map((obj) => {
-//     return {
-//       title: obj["_source"].title,
-//       sectionHandle: obj["_source"].sectionHandle,
-//       to:
-//         obj["_source"].sectionHandle === "externalResource"
-//           ? `${obj["_source"].externalResourceUrl}`
-//           : `/${obj["_source"].uri}`,
-//       iconName:
-//         obj["_source"]["illustrationsResourcesAndServices"],
-//       text: obj["_source"].text || obj["_source"].summary,
-//       category:
-//         obj["_source"].sectionHandle === "workshopSeries"
-//           ? "workshop"
-//           : obj["_source"].sectionHandle === "helpTopic"
-//             ? "help topic"
-//             : obj["_source"].sectionHandle ===
-//               "externalResource"
-//               ? "resource"
-//               : obj["_source"].type,
-//     }
-//   })
-// }
+// ELEASTIC SEARCH METHODS
+// FETCH FILTERS FROM ES
+async function setFilters() {
+  const searchAggsResponse = await $dataApi.getAggregations(
+    config.serviceOrResources.filters,
+    'serviceOrResource OR workshopSeries OR helpTopic OR externalResource',
+  )
+  searchFilters.value = getListingFilters(
+    searchAggsResponse,
+    config.serviceOrResources.filters
+  )
+}
 
-/* TODO: Enable for search */
-// async function getSearchData(data) {
-//   route.push({
-//     path: "/help/services-resources",
-//     query: {
-//       q: data.text,
-//       filters: JSON.stringify(data.filters),
-//     },
-//   })
-// }
-
-// fetchOnServer: false,
-// multiple components can return the same `fetchKey` and Nuxt will track them both separately
-// fetchKey: "services-resources-workshops",
-
+//  This event handler is invoked by the search-generic component (filtered search )selections
+function getSearchData(data) {
+  // console.log('On the page getsearchdata called')
+  const filterData =
+    (data.filters && JSON.stringify(data.filters)) || {}
+  useRouter().push({
+    path: '/help/services-resources',
+    query: {
+      q: data.text,
+      filters: filterData,
+    },
+  })
+}
 </script>
 
 <template lang="html">
-  <!-- v-ifs working on section wrappers without v-show -->
   <main
     id="main"
     class="page page-help"
   >
     <masthead-secondary
-      v-if="summaryData"
+      v-show="summaryData"
       :title="summaryData.title || ''"
       :text="summaryData.text || ''"
     />
@@ -294,19 +282,6 @@ const parseHitsResults = computed(() => {
       @search-ready="getSearchData"
     />
 
-    <!--h4 style="margin: 30px 400px">
-            No of hits
-            {{ `from craft is ${parsedPages.length}` }}
-        </h4>
-        <h4 style="margin: 30px 400px">
-            No of hits from ES
-            {{
-                hits &&
-                    `calling parsedhitsresults length
-            ${hits.length}`
-            }}
-        </h4-->
-
     <section-wrapper theme="divider">
       <divider-way-finder
         color="help"
@@ -314,11 +289,10 @@ const parseHitsResults = computed(() => {
       />
     </section-wrapper>
 
+    <!-- ALL RESULTS -->
     <section-wrapper
-      v-if="
-        (page.serviceOrResource || page.workshopseries) &&
-          hits.length == 0
-      "
+      v-show="(page.serviceOrResource || page.workshopseries) &&
+        hits.length == 0 && !noResultsFound"
       class="section-no-top-margin"
     >
       <section-cards-with-illustrations
@@ -326,12 +300,13 @@ const parseHitsResults = computed(() => {
         :is-horizontal="true"
       />
     </section-wrapper>
+
     <section-wrapper
-      v-else-if="hits && hits.length > 0"
+      v-show="hits && hits.length > 0"
       class="section-no-top-margin"
     >
       <h2
-        v-if="route.query.q"
+        v-if="route.query && route.query.q"
         class="about-results"
       >
         Displaying {{ hits.length }} results for
@@ -350,7 +325,7 @@ const parseHitsResults = computed(() => {
     </section-wrapper>
 
     <section-wrapper
-      v-else-if="noResultsFound"
+      v-show="noResultsFound && route.query.q"
       class="section-no-top-margin"
     >
       <div class="error-text">
@@ -379,6 +354,7 @@ const parseHitsResults = computed(() => {
         </rich-text>
       </div>
     </section-wrapper>
+
     <section-wrapper>
       <divider-way-finder
         class="divider-way-finder"
