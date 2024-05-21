@@ -62,8 +62,8 @@ devDependencies:
     specifier: ^5.8.0
     version: 5.9.1
   ucla-library-website-components:
-    specifier: 2.39.0-alpha.79
-    version: 2.39.0-alpha.79(typescript@5.4.3)(vue-router@4.3.0)(vue@3.4.21)
+    specifier: 2.39.0-alpha.80
+    version: 2.39.0-alpha.80(typescript@5.4.3)(vue-router@4.3.0)(vue@3.4.21)
 
 packages:
 
@@ -398,8 +398,8 @@ packages:
       '@babel/plugin-transform-typescript': 7.24.4(@babel/core@7.24.4)
     dev: true
 
-  /@babel/runtime@7.24.4:
-    resolution: {integrity: sha512-dkxf7+hn8mFBwKjs9bvBlArzLVxVbS8usaPUDd5p2a9JCL9tB8OaOVN1isD4+Xyk4ns89/xeOmbQvgdK7IIVdA==}
+  /@babel/runtime@7.24.5:
+    resolution: {integrity: sha512-Nms86NXrsaeU9vbBJKni6gXiEXZ4CVpYVzEjDH9Sb8vmZ3UljyA1GSOJl/6LGPO8EHLuSF9H+IxNXHPX8QHJ4g==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
@@ -2970,8 +2970,8 @@ packages:
   /@vue/shared@3.4.21:
     resolution: {integrity: sha512-PuJe7vDIi6VYSinuEbUIQgMIRZGgM8e4R+G+/dQTk0X1NEdvgvvgv7m+rfmDH1gZzyA1OjjoWskvHlfRNfQf3g==}
 
-  /@vuepic/vue-datepicker@8.3.2(vue@3.4.21):
-    resolution: {integrity: sha512-kOAUl6EVGU7BgNByjUuLRBUWvTBiYJHUj9jll7fTQSz/vNNkhYoo8vEH75zPMXyVmn1gRmeoom4cMl77GtNraw==}
+  /@vuepic/vue-datepicker@8.6.0(vue@3.4.21):
+    resolution: {integrity: sha512-ZnG7xquVf7WyMKXk7JxWOJ5ursig1t8o2AtH9ycetiik+lemV9+HNEx+YOR1xeCUfhupGTgJmyAxCSZHP/Sv/w==}
     engines: {node: '>=18.12.0'}
     peerDependencies:
       vue: '>=3.2.0'
@@ -4279,7 +4279,7 @@ packages:
     resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
     engines: {node: '>=0.11'}
     dependencies:
-      '@babel/runtime': 7.24.4
+      '@babel/runtime': 7.24.5
     dev: true
 
   /date-fns@3.6.0:
@@ -9256,13 +9256,13 @@ packages:
     resolution: {integrity: sha512-1yoZOhiy93kHAGHyJnnmgj7eESGENUUTbXHaUsKHkFLNS9qw8Ajp4H8ppMuxkZMs/LnYBlibngZGsQC8w/vtlQ==}
     dev: true
 
-  /ucla-library-website-components@2.39.0-alpha.79(typescript@5.4.3)(vue-router@4.3.0)(vue@3.4.21):
-    resolution: {integrity: sha512-8Dj27gSerHptTbvVS1CwU6HGZ0Qag1tYJvSfGQK5u4PM4c8QiC6fj0Y+hLmxYUxSqRdORtSuTFAejxdToHcVWQ==}
+  /ucla-library-website-components@2.39.0-alpha.80(typescript@5.4.3)(vue-router@4.3.0)(vue@3.4.21):
+    resolution: {integrity: sha512-2tXYzd+2LjkLKnSSe2RqswVXX9xwX3kgYqDmi1bFfKnRJVRvXQhhQ55rt2alx4o566TIX54KDfXshjm/G8sX8Q==}
     peerDependencies:
       vue: ^3.4
       vue-router: ^4.2.4
     dependencies:
-      '@vuepic/vue-datepicker': 8.3.2(vue@3.4.21)
+      '@vuepic/vue-datepicker': 8.6.0(vue@3.4.21)
       '@vueuse/core': 10.9.0(vue@3.4.21)
       date-fns: 2.30.0
       lodash: 4.17.21
