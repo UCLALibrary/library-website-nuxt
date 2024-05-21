@@ -12,10 +12,12 @@ function getListingFilters(searchAggsResponse, filterFields) {
       label: field.label,
       esFieldName: field.esFieldName,
       inputType: field.inputType,
-      items: _get(searchAggsResponse, `${field.label}.buckets`, []).map(
-        (value) => {
-          return { name: value.key }
-        }),
+      items: field.inputType !== 'single-checkbox'
+        ? _get(searchAggsResponse, `${field.label}.buckets`, []).map(
+          (value) => {
+            return { name: value.key }
+          })
+        : []
     }
   })
 }
