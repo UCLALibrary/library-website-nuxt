@@ -54,8 +54,6 @@ if (
 const page = ref(_get(data.value, 'entry', {}))
 // console.log('In page', page.value)
 
-// TODO another watcher? when does this fire?
-// TODO was data
 watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
@@ -186,6 +184,7 @@ function getSearchData(data) {
   })
 }
 </script>
+
 <template lang="html">
   <main
     id="main"
@@ -216,6 +215,7 @@ function getSearchData(data) {
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
+
     <section-wrapper
       v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
       "
@@ -226,6 +226,7 @@ function getSearchData(data) {
         :is-horizontal="true"
       />
     </section-wrapper>
+
     <section-wrapper v-show="hits && hits.length > 0">
       <h2
         v-if="route.query && route.query.q"
