@@ -42,7 +42,7 @@ jobs:
           ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_PROD}}
           LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_PROD}}
       - name: Deploy to Netlify on release
-        uses: nwtgck/actions-netlify@v2 #
+        uses: nwtgck/actions-netlify@v3 #
         with:
           production-deploy: true
           deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
