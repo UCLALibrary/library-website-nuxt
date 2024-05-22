@@ -371,7 +371,10 @@ function getSearchData(data) {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .page-help {
   :deep(label.label) {
     text-transform: capitalize;
