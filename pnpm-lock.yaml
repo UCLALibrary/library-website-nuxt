@@ -31,6 +31,9 @@ devDependencies:
   '@types/node':
     specifier: ^18.17.3
     version: 18.19.29
+  '@zadigetvoltaire/nuxt-gtm':
+    specifier: ^0.0.13
+    version: 0.0.13(nuxt@3.11.2)(vue@3.4.21)
   cypress:
     specifier: ^12.17.4
     version: 12.17.4
@@ -765,6 +768,24 @@ packages:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       graphql: 16.8.1
+    dev: true
+
+  /@gtm-support/core@2.3.1:
+    resolution: {integrity: sha512-eD0hndQjhgKm5f/7IA9fZYujmHiVMY+fnYv4mdZSmz5XJQlS4TiTmpdZx2l7I2A9rI9J6Ysz8LpXYYNo/Xq4LQ==}
+    dev: true
+
+  /@gtm-support/vue-gtm@2.2.0(vue@3.4.21):
+    resolution: {integrity: sha512-7nhBTRkTG0mD+7r7JvNalJz++YwszZk0oP1HIY6fCgz6wNKxT6LuiXCqdPrZmNPe/WbPIKuqxGZN5s+i6NZqow==}
+    peerDependencies:
+      vue: '>= 3.2.0 < 4.0.0'
+    peerDependenciesMeta:
+      vue-router:
+        optional: true
+    dependencies:
+      '@gtm-support/core': 2.3.1
+      vue: 3.4.21(typescript@5.4.3)
+    optionalDependencies:
+      vue-router: 4.3.0(vue@3.4.21)
     dev: true
 
   /@humanwhocodes/config-array@0.11.14:
@@ -3196,6 +3217,22 @@ packages:
 
   /@xtuc/long@4.2.2:
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
+    dev: true
+
+  /@zadigetvoltaire/nuxt-gtm@0.0.13(nuxt@3.11.2)(vue@3.4.21):
+    resolution: {integrity: sha512-7SgXtIB8uLdLGJaoUAQSGCSbRnNzplNkNVFKIHaVI4We0vqghstBoVPlJCJ9VdwsfdNyk3/C+Lh1uKpzTrtEuw==}
+    peerDependencies:
+      nuxt: ^3.0.0
+    dependencies:
+      '@gtm-support/vue-gtm': 2.2.0(vue@3.4.21)
+      '@nuxt/kit': 3.11.2
+      defu: 6.1.4
+      nuxt: 3.11.2(@types/node@18.19.29)(@unocss/reset@0.58.9)(eslint@8.57.0)(floating-vue@5.2.2)(sass@1.74.1)(typescript@5.4.3)(unocss@0.58.9)(vite@5.2.8)
+      sirv: 2.0.4
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - vue
     dev: true
 
   /abbrev@1.1.1:
