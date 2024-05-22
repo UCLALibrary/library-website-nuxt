@@ -81,7 +81,7 @@ jobs:
           ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES}}
           LIBGUIDES_ES_INDEX: ${{env.LIBGUIDES_ES_INDEX}}
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v2 #
+        uses: nwtgck/actions-netlify@v3 #
         with:
           production-deploy: true
           deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}

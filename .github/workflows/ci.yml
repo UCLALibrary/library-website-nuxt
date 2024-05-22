@@ -81,7 +81,7 @@ jobs:
           LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
       - name: Deploy to Netlify (preview)
         if: github.ref_name!='nuxt3.x'
-        uses: nwtgck/actions-netlify@v2 #
+        uses: nwtgck/actions-netlify@v3 #
         with:
           production-deploy: false
           deploy-message: https://github.com/UCLALibrary/library-website-nuxt/pull/${{ github.event.pull_request.number }}
@@ -98,6 +98,7 @@ jobs:
         with:
           start: pnpm dlx serve .output/public
           wait-on: http://127.0.0.1:3000
+          wait-on-timeout: 110
         env:
           CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
           LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
@@ -112,7 +113,7 @@ jobs:
           LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
       - name: Deploy to Netlify (merged)
         if: github.ref_name=='nuxt3.x'
-        uses: nwtgck/actions-netlify@v2 #
+        uses: nwtgck/actions-netlify@v3 #
         with:
           production-deploy: true
           deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
