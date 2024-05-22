@@ -101,6 +101,9 @@ export default defineNuxtConfig({
         || 'https://proxy.calendar.library.ucla.edu/',
       esTempIndexPrefixLibguides: process.env.ES_TEMP_INDEX_PREFIX_LIBGUIDES || '',
       esTempIndexLibguides: '',
+      gtm: {
+        id: 'GTM-T2SXV2'
+      }
     },
   },
 
