@@ -98,6 +98,7 @@ jobs:
         with:
           start: pnpm dlx serve .output/public
           wait-on: http://127.0.0.1:3000
+          wait-on-timeout: 110
         env:
           CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
           LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}

@@ -46,6 +46,7 @@ jobs:
           install: false
           command-prefix: 'percy exec -- pnpx'
           wait-on: http://localhost:3000
+          wait-on-timeout: 110
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_NUXT3X_E2E }}
           PERCY_TARGET_BRANCH: nuxt3.x
