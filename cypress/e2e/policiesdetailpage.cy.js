@@ -1,10 +1,13 @@
 describe('Policy Detail page', () => {
   it('Visits a Policy Detail Page', () => {
-    cy.visit('about/policies/shhh')
-    cy.get('.logo-ucla').should('be.visible')
-    // TODO following line will be uncommented when headers are working for Flexible page blocks
-    // cy.get(".page-anchor").scrollIntoView().should('be.visible')
-    cy.percySnapshot({ widths: [768, 992, 1200] })
+    cy.intercept('about/policies/shhh').as('getPolicyDetailRoute')
+    cy.visit('/about/policies/shhh')
+    cy.wait('@getPolicyDetailRoute').then(() => {
+      cy.get('.logo-ucla').should('be.visible')
+      // TODO following line will be uncommented when headers are working for Flexible page blocks
+      // cy.get(".page-anchor").scrollIntoView().should('be.visible')
+      cy.percySnapshot({ widths: [768, 992, 1200] })
+    })
   })
 
   context("When there isn't an entry in craft", () => {
