@@ -1,6 +1,6 @@
 describe('Policy List page', () => {
   it('Visits a Policy List Page', () => {
-    cy.intercept('about/policies*').as('getPolicyListRoutes')
+    cy.intercept('about/policies').as('getPolicyListRoutes')
     cy.visit('about/policies')
     cy.wait('@getPolicyListRoutes').then(() => {
       cy.get('.logo-ucla').should('be.visible')
