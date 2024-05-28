@@ -19,7 +19,7 @@ describe('Program List page', () => {
 
   it('Visit Program Listing page filter by type', () => {
     cy.wait('@getProgramListRoutes').then(() => {
-      cy.visit('/about/programs?q=&filters=%7B"programType.title.keyword"%3A%5B"Collections"%5D%7D')
+      cy.visit('/about/programs/?q=&filters=%7B"programType.title.keyword"%3A%5B"Collections"%5D%7D')
 
       cy.get('h2.about-results').should('be.visible')
     })
