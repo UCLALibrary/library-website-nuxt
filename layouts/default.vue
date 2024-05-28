@@ -67,15 +67,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <vue-skip-to
-    to="#main"
-    label="Skip to main content"
-  />
   <div :class="classes">
-    <!-- VueSkipTo to="#main" label="Skip to main content" / -->
-    <!-- this is not working in static build -->
     <header-smart v-if="globalStore.header" />
-
     <section-wrapper
       class="section-alert"
       theme="divider"
