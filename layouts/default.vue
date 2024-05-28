@@ -67,6 +67,10 @@ onMounted(async () => {
 </script>
 
 <template>
+  <vue-skip-to
+    to="#main"
+    label="Skip to main content"
+  />
   <div :class="classes">
     <!-- VueSkipTo to="#main" label="Skip to main content" / -->
     <!-- this is not working in static build -->
@@ -96,10 +100,7 @@ onMounted(async () => {
   </div>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .layout-default {
   min-height: 100vh;
 
