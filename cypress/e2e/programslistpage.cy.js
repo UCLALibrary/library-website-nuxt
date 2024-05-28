@@ -1,6 +1,6 @@
 describe('Program List page', () => {
   it('Visits a Program List Page', () => {
-    cy.intercept('about/programs*').as('getProgramListRoutes')
+    cy.intercept('about/programs').as('getProgramListRoutes')
     cy.visit('about/programs')
     cy.wait('@getProgramListRoutes').then(() => {
       cy.get('.logo-ucla').should('be.visible')
@@ -18,9 +18,9 @@ describe('Program List page', () => {
   })
 
   it('Visit Program Listing page filter by type', () => {
-    cy.wait('@getProgramListRoutes').then(() => {
-      cy.visit('/about/programs/?q=&filters=%7B"programType.title.keyword"%3A%5B"Collections"%5D%7D')
-
+    cy.intercept('about/programs/*').as('getProgramListSearchRoutes')
+    cy.visit('/about/programs/?q=&filters=%7B"programType.title.keyword"%3A%5B"Collections"%5D%7D')
+    cy.wait('@getProgramListSearchRoutes').then(() => {
       cy.get('h2.about-results').should('be.visible')
     })
   })
