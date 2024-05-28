@@ -330,7 +330,10 @@ useHead({
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .page-home {
   .button-more {
     margin: var(--space-2xl) auto;
