@@ -91,7 +91,7 @@ const selectedLetterProp = ref('')
 
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters: parseFilters(route.query.filters || ""),
+  queryFilters: parseFilters(route.query.filters || ''),
 })
 function parseFilters(filtersString) {
   if (!filtersString) return {}
@@ -99,7 +99,7 @@ function parseFilters(filtersString) {
   const filters = {}
   const conditions = filtersString.split(' AND ')
 
-  conditions.forEach(condition => {
+  conditions.forEach((condition) => {
     const [key, value] = condition.split(':(')
     const cleanedKey = key.trim()
     const values = value.replace(')', '').split(' OR ').map(v => v.trim())
@@ -130,7 +130,7 @@ watch(
   (newVal, oldVal) => {
     console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || "")
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     selectedLetterProp.value = route.query.lastNameLetter
     searchES()
   }, { deep: true, immediate: true }
@@ -141,7 +141,7 @@ async function searchES() {
     (route.query.q && route.query.q !== '') ||
     (route.query.filters &&
       queryFilterHasValues(
-        parseFilters(route.query.filters || ""),
+        parseFilters(route.query.filters || ''),
         config.staff.filters
       )) ||
     (route.query && route.query.lastNameLetter)
@@ -163,9 +163,9 @@ async function searchES() {
     }
     const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, ...filters } = routeFilters.value
     const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-      [
-        { term: { 'subjectLibrarian.keyword': 'yes' } }
-      ]
+        [
+          { term: { 'subjectLibrarian.keyword': 'yes' } }
+        ]
       : []
     // console.log("in router query in asyc data")
     const results = await $dataApi.keywordSearchWithFilters(
@@ -404,9 +404,9 @@ onMounted(async () => {
             'subjectLibrarian.keyword'
           ].length === 0) ||
           !searchGenericQuery.queryFilters[
-          'subjectLibrarian.keyword'
+            'subjectLibrarian.keyword'
           ])
-        "
+      "
       class="section-no-top-margin"
     >
       <alphabetical-browse-by
@@ -466,7 +466,7 @@ onMounted(async () => {
         searchGenericQuery.queryFilters['subjectLibrarian.keyword'][0] ===
         'yes' &&
         groupByAcademicLibraries
-        "
+      "
       class="section-no-top-margin"
     >
       <h3 class="section-title subject-librarian">
