@@ -332,9 +332,11 @@ onMounted(async () => {
       v-show="hits &&
         hits.length > 0 &&
         ((searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
-          searchGenericQuery.queryFilters[
+          (searchGenericQuery.queryFilters[
             'subjectLibrarian.keyword'
-          ][0] === '') ||
+          ][0] === '') || searchGenericQuery.queryFilters[
+            'subjectLibrarian.keyword'
+          ].length === 0) ||
           !searchGenericQuery.queryFilters[
             'subjectLibrarian.keyword'
           ])
