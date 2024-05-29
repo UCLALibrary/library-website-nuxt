@@ -71,32 +71,32 @@ const parsedFeaturedEventsAndExhibits = computed(() => {
       title: obj.eventTitle ? obj.eventTitle : obj.title,
       image: _get(obj, 'heroImage[0].image[0]', null),
       startDate:
-        obj.typeHandle === 'event'
-          ? obj.startDateWithTime
-          : obj.startDate,
+                obj.typeHandle === 'event'
+                  ? obj.startDateWithTime
+                  : obj.startDate,
       endDate:
-        obj.typeHandle === 'event'
-          ? obj.endDateWithTime
-          : obj.endDate,
+                obj.typeHandle === 'event'
+                  ? obj.endDateWithTime
+                  : obj.endDate,
       prompt:
-        obj.typeHandle === 'exhibition'
-          ? 'View exhibition'
-          : obj.workshopOrEventSeriesType ===
-            'visit/events-exhibitions'
-            ? 'View event series'
-            : 'View event',
+                obj.typeHandle === 'exhibition'
+                  ? 'View exhibition'
+                  : obj.workshopOrEventSeriesType ===
+                        'visit/events-exhibitions'
+                    ? 'View event series'
+                    : 'View event',
       text:
-        obj.typeHandle === 'event'
-          ? obj.eventDescription
-          : obj.summary,
+                obj.typeHandle === 'event'
+                  ? obj.eventDescription
+                  : obj.summary,
       locations:
-        obj.typeHandle === 'exhibition'
-          ? obj.associatedLocationsAndPrograms
-          : obj.associatedLocations[0] != null
-            ? obj.associatedLocations
-            : obj.eventLocation != null
-              ? obj.eventLocation
-              : obj.associatedLocationsAndPrograms,
+                obj.typeHandle === 'exhibition'
+                  ? obj.associatedLocationsAndPrograms
+                  : obj.associatedLocations[0] != null
+                    ? obj.associatedLocations
+                    : obj.eventLocation != null
+                      ? obj.eventLocation
+                      : obj.associatedLocationsAndPrograms,
     }
   })
 })
@@ -111,17 +111,17 @@ const parsedSectionHighlight = computed(() => {
     return {
       ...obj,
       category:
-        obj.typeHandle === 'exhibition'
-          ? 'Exhibition'
-          : obj.workshopOrEventSeriesType ===
-            'visit/events-exhibitions'
-            ? 'Event Series'
-            : obj.workshopOrEventSeriesType ===
-              'help/services-resources'
-              ? 'Workshop Series'
-              : obj.eventType != null && obj.eventType.length > 0
-                ? obj.eventType[0].title
-                : 'Event',
+                obj.typeHandle === 'exhibition'
+                  ? 'Exhibition'
+                  : obj.workshopOrEventSeriesType ===
+                        'visit/events-exhibitions'
+                    ? 'Event Series'
+                    : obj.workshopOrEventSeriesType ===
+                            'help/services-resources'
+                      ? 'Workshop Series'
+                      : obj.eventType != null && obj.eventType.length > 0
+                        ? obj.eventType[0].title
+                        : 'Event',
       title: obj.title,
     }
   })
@@ -146,9 +146,9 @@ const parsedEvents = computed(() => {
         null
       ),
       locations:
-        eventOrExhibtion.associatedLocations[0] != null
-          ? eventOrExhibtion.associatedLocations
-          : eventOrExhibtion.eventLocation,
+                eventOrExhibtion.associatedLocations[0] != null
+                  ? eventOrExhibtion.associatedLocations
+                  : eventOrExhibtion.eventLocation,
     }
   })
 })
@@ -160,17 +160,17 @@ const parsedSeriesAndExhibitions = computed(() => {
       return {
         ...obj,
         category:
-          obj.typeHandle === 'exhibition'
-            ? 'Exhibition'
-            : obj.workshopOrEventSeriesType ===
-              'visit/events-exhibitions'
-              ? 'Event Series'
-              : obj.workshopOrEventSeriesType ===
-                'help/services-resources'
-                ? 'Workshop Series'
-                : obj.eventType != null
-                  ? obj.eventType[0].title
-                  : 'Event',
+                    obj.typeHandle === 'exhibition'
+                      ? 'Exhibition'
+                      : obj.workshopOrEventSeriesType ===
+                            'visit/events-exhibitions'
+                        ? 'Event Series'
+                        : obj.workshopOrEventSeriesType ===
+                                'help/services-resources'
+                          ? 'Workshop Series'
+                          : obj.eventType != null
+                            ? obj.eventType[0].title
+                            : 'Event',
         to: `/${obj.to}`,
         image: _get(obj, 'heroImage[0].image[0]', null),
       }
@@ -199,15 +199,15 @@ const noResultsFound = ref(false)
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
   queryFilters:
-    (route.query.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
+        (route.query.filters &&
+            JSON.parse(route.query.filters)) ||
+        {},
 })
 const hasSearchQuery = computed(() => {
   // console.log("hasSearchQuery", (route.query.q !== undefined && route.query.q !== ''), (route.query.filters && queryFilterHasValues(routeFilters.value, config.eventsExhibitionsList.filters)), (routeFilters.value.past[0] === 'yes'))
   return (route.query.q !== undefined && route.query.q !== '')
-    || (route.query.filters && queryFilterHasValues(routeFilters.value, config.eventsExhibitionsList.filters))
-    || (routeFilters.value.past && routeFilters.value.past.length > 0 && routeFilters.value.past[0] === 'yes')
+        || (route.query.filters && queryFilterHasValues(routeFilters.value, config.eventsExhibitionsList.filters))
+        || (routeFilters.value.past && routeFilters.value.past.length > 0 && routeFilters.value.past[0] === 'yes')
 })
 
 // This watcher is called when router push updates the query params
@@ -224,14 +224,16 @@ watch(
 async function searchES() {
   // console.log("searchES route details", route.query.q, route.query.filters, routeFilters.value.past)
   // Followed what was done in Nuxt 2 https://github.com/UCLALibrary/library-website-nuxt/blob/main/pages/visit/events-exhibitions/index.vue#L221C19-L221C33
-  if (
-    hasSearchQuery.value
-  ) {
+  if (hasSearchQuery.value) {
     console.log('Search ES HITS query,', route.query.q)
+
     const queryText = route.query.q || '*'
+
     const { past, ...filters } = routeFilters.value
-    const extrafilters = (past && past.length > 0 && past[0] !== 'yes')
-      ? [
+
+    const extrafilters = (past && past.length > 0 && past[0] === 'yes')
+      ? []
+      : [
           {
             range: {
               endDateWithTime: {
@@ -240,7 +242,7 @@ async function searchES() {
             },
           },
         ]
-      : []
+
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
       config.eventsExhibitionsList.searchFields,
@@ -317,7 +319,7 @@ function getSearchData(data) {
   console.log('On the page getsearchdata called')
 
   const filterData =
-    (data.filters && JSON.stringify(data.filters)) || {}
+        (data.filters && JSON.stringify(data.filters)) || {}
 
   useRouter().push({
     path: '/visit/events-exhibitions',
@@ -334,8 +336,8 @@ async function setFilters() {
     'event'
   )
   /* console.log(
-          "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
-      ) */
+            "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+        ) */
   searchFilters.value = [
     ...getListingFilters(
       searchAggsResponse,
@@ -520,4 +522,7 @@ onMounted(async () => {
   </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style
+    lang="scss"
+    scoped
+></style>
