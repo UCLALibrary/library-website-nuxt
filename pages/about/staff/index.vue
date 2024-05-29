@@ -80,38 +80,68 @@ const hits = ref([])
 const noResultsFound = ref(false)
 const searchFilters = ref([])
 const selectedLetterProp = ref('')
+
+// const searchGenericQuery = ref({
+//   queryText: route.query.q || '',
+//   queryFilters:
+//     (route.query.filters &&
+//       JSON.parse(route.query.filters)) ||
+//     {},
+// })
+
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters:
-    (route.query.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
+  queryFilters: parseFilters(route.query.filters || ""),
 })
+function parseFilters(filtersString) {
+  if (!filtersString) return {}
+
+  const filters = {}
+  const conditions = filtersString.split(' AND ')
+
+  conditions.forEach(condition => {
+    const [key, value] = condition.split(':(')
+    const cleanedKey = key.trim()
+    const values = value.replace(')', '').split(' OR ').map(v => v.trim())
+
+    filters[cleanedKey] = values
+  })
+
+  return filters
+}
+
 const tableHeaders = ref([
   'Academic Departments',
   'Name',
   'Contact Information',
 ])
+
+// const routeFilters = computed(() => {
+//   return JSON.parse(_get(route, 'query.filters', []))
+// })
+
 const routeFilters = computed(() => {
-  return JSON.parse(_get(route, 'query.filters', '[]'))
+  return parseFilters(_get(route, 'query.filters', ''))
 })
+
 // This watcher is called when router push updates the query params
 watch(
   () => route.query,
   (newVal, oldVal) => {
     console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || "")
     selectedLetterProp.value = route.query.lastNameLetter
     searchES()
   }, { deep: true, immediate: true }
 )
+
 async function searchES() {
   if (
-    (route.query && route.query.q && route.query.q !== '') ||
-    (route.query && route.query.filters &&
+    (route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
       queryFilterHasValues(
-        route.query.filters,
+        parseFilters(route.query.filters || ""),
         config.staff.filters
       )) ||
     (route.query && route.query.lastNameLetter)
@@ -133,9 +163,9 @@ async function searchES() {
     }
     const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, ...filters } = routeFilters.value
     const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-        [
-          { term: { 'subjectLibrarian.keyword': 'yes' } }
-        ]
+      [
+        { term: { 'subjectLibrarian.keyword': 'yes' } }
+      ]
       : []
     // console.log("in router query in asyc data")
     const results = await $dataApi.keywordSearchWithFilters(
@@ -245,19 +275,55 @@ function searchBySelectedLetter(data) {
     },
   })
 }
+
+// function getSearchData(data) {
+//   // console.log("On the page getsearchdata called")
+//   /* this.page = {}
+//   this.hits = [] */
+//   useRouter().push({
+//     path: '/about/staff',
+//     query: {
+//       q: data.text,
+//       filters: data.filters && JSON.stringify(data.filters),
+//       lastNameLetter: route.query.lastNameLetter,
+//     },
+//   })
+// }
+
 function getSearchData(data) {
-  // console.log("On the page getsearchdata called")
-  /* this.page = {}
-  this.hits = [] */
+  console.log('On the page getsearchdata called')
+
+  // Create a URLSearchParams object
+  const params = new URLSearchParams()
+
+  // Add the text query parameter
+  params.append('q', data.text)
+
+  // Construct the filters parameter dynamically
+  const filters = []
+  for (const key in data.filters) {
+    if (data.filters[key].length > 0) {
+      filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+    }
+  }
+
+  // Add the filters parameter to the URLSearchParams
+  if (filters.length > 0) {
+    params.append('filters', filters.join(' AND '))
+  }
+
+  // Add the lastNameLetter parameter if it exists
+  if (data.lastNameLetter) {
+    params.append('lastNameLetter', route.query.lastNameLetter)
+  }
+
+  // Use the router to navigate with the new query parameters
   useRouter().push({
     path: '/about/staff',
-    query: {
-      q: data.text,
-      filters: data.filters && JSON.stringify(data.filters),
-      lastNameLetter: route.query.lastNameLetter,
-    },
+    query: params.toString(),
   })
 }
+
 async function setFilters() {
   const searchAggsResponse = await $dataApi.getAggregations(
     config.staff.filters,
@@ -294,7 +360,7 @@ onMounted(async () => {
     />
 
     <!-- SEARCH
-              Filters by location, department, subject libarian -->
+    Filters by location, department, subject libarian -->
     <search-generic
       search-type="about"
       :filters="searchFilters"
@@ -338,9 +404,9 @@ onMounted(async () => {
             'subjectLibrarian.keyword'
           ].length === 0) ||
           !searchGenericQuery.queryFilters[
-            'subjectLibrarian.keyword'
+          'subjectLibrarian.keyword'
           ])
-      "
+        "
       class="section-no-top-margin"
     >
       <alphabetical-browse-by
@@ -400,7 +466,7 @@ onMounted(async () => {
         searchGenericQuery.queryFilters['subjectLibrarian.keyword'][0] ===
         'yes' &&
         groupByAcademicLibraries
-      "
+        "
       class="section-no-top-margin"
     >
       <h3 class="section-title subject-librarian">
@@ -414,7 +480,10 @@ onMounted(async () => {
     </section-wrapper>
   </main>
 </template>
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .page-staff {
   .browse-margin {
     margin-bottom: var(--space-m);
