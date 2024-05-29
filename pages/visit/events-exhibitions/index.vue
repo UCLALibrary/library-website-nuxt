@@ -17,23 +17,23 @@ import sortByTitle from '../utils/sortByTitle'
 const { $graphql, $dataApi } = useNuxtApp()
 
 const { data, error } = await useAsyncData('events-list', async () => {
-    const data = await $graphql.default.request(EXHIBITIONS_AND_EVENTS_LIST)
-    const single = await $graphql.default.request(EXHIBITIONS_AND_EVENTS_LIST_SINGLE)
+  const data = await $graphql.default.request(EXHIBITIONS_AND_EVENTS_LIST)
+  const single = await $graphql.default.request(EXHIBITIONS_AND_EVENTS_LIST_SINGLE)
 
-    return { data, single }
+  return { data, single }
 })
 
 if (error.value) {
-    throw createError({
-        statusCode: 404, statusMessage: 'Page not found.', fatal: true
-    })
+  throw createError({
+    statusCode: 404, statusMessage: 'Page not found.', fatal: true
+  })
 }
 
 if (!data.value.data && !data.value.single) {
-    throw createError({
-        statusCode: 404,
-        statusMessage: 'Page Not Found'
-    })
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page Not Found'
+  })
 }
 
 const route = useRoute()
@@ -45,148 +45,148 @@ const series = ref(_get(data.value.data, 'series', []))
 const exhibitions = ref(_get(data.value.data, 'exhibitions', []))
 
 watch(data, (newVal, oldVal) => {
-    console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
-    page.value = _get(newVal.single, 'entry', {})
-    events.value = _get(newVal.data, 'events', [])
-    series.value = _get(newVal.data, 'series', [])
-    exhibitions.value = _get(newVal.data, 'exhibitions', [])
+  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = _get(newVal.single, 'entry', {})
+  events.value = _get(newVal.data, 'events', [])
+  series.value = _get(newVal.data, 'series', [])
+  exhibitions.value = _get(newVal.data, 'exhibitions', [])
 })
 
 useHead({
-    title: page.value ? page.value.title : '... loading',
-    meta: [
-        {
-            hid: 'description',
-            name: 'description',
-            content: removeTags(page.value.text),
-        },
-    ],
+  title: page.value ? page.value.title : '... loading',
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: removeTags(page.value.text),
+    },
+  ],
 })
 
 const parsedFeaturedEventsAndExhibits = computed(() => {
-    return page.value.featuredEvents.map((obj) => {
-        return {
-            ...obj,
-            to: `/${obj.to}`,
-            title: obj.eventTitle ? obj.eventTitle : obj.title,
-            image: _get(obj, 'heroImage[0].image[0]', null),
-            startDate:
+  return page.value.featuredEvents.map((obj) => {
+    return {
+      ...obj,
+      to: `/${obj.to}`,
+      title: obj.eventTitle ? obj.eventTitle : obj.title,
+      image: _get(obj, 'heroImage[0].image[0]', null),
+      startDate:
                 obj.typeHandle === 'event'
-                    ? obj.startDateWithTime
-                    : obj.startDate,
-            endDate:
+                  ? obj.startDateWithTime
+                  : obj.startDate,
+      endDate:
                 obj.typeHandle === 'event'
-                    ? obj.endDateWithTime
-                    : obj.endDate,
-            prompt:
+                  ? obj.endDateWithTime
+                  : obj.endDate,
+      prompt:
                 obj.typeHandle === 'exhibition'
-                    ? 'View exhibition'
-                    : obj.workshopOrEventSeriesType ===
+                  ? 'View exhibition'
+                  : obj.workshopOrEventSeriesType ===
                         'visit/events-exhibitions'
-                        ? 'View event series'
-                        : 'View event',
-            text:
+                    ? 'View event series'
+                    : 'View event',
+      text:
                 obj.typeHandle === 'event'
-                    ? obj.eventDescription
-                    : obj.summary,
-            locations:
+                  ? obj.eventDescription
+                  : obj.summary,
+      locations:
                 obj.typeHandle === 'exhibition'
-                    ? obj.associatedLocationsAndPrograms
-                    : obj.associatedLocations[0] != null
-                        ? obj.associatedLocations
-                        : obj.eventLocation != null
-                            ? obj.eventLocation
-                            : obj.associatedLocationsAndPrograms,
-        }
-    })
+                  ? obj.associatedLocationsAndPrograms
+                  : obj.associatedLocations[0] != null
+                    ? obj.associatedLocations
+                    : obj.eventLocation != null
+                      ? obj.eventLocation
+                      : obj.associatedLocationsAndPrograms,
+    }
+  })
 })
 
 const parsedBannerHeader = computed(() => {
-    return parsedFeaturedEventsAndExhibits.value[0]
+  return parsedFeaturedEventsAndExhibits.value[0]
 })
 
 const parsedSectionHighlight = computed(() => {
-    const highlights = parsedFeaturedEventsAndExhibits.value.slice(1)
-    return highlights.map((obj) => {
-        return {
-            ...obj,
-            category:
+  const highlights = parsedFeaturedEventsAndExhibits.value.slice(1)
+  return highlights.map((obj) => {
+    return {
+      ...obj,
+      category:
                 obj.typeHandle === 'exhibition'
-                    ? 'Exhibition'
-                    : obj.workshopOrEventSeriesType ===
+                  ? 'Exhibition'
+                  : obj.workshopOrEventSeriesType ===
                         'visit/events-exhibitions'
-                        ? 'Event Series'
-                        : obj.workshopOrEventSeriesType ===
+                    ? 'Event Series'
+                    : obj.workshopOrEventSeriesType ===
                             'help/services-resources'
-                            ? 'Workshop Series'
-                            : obj.eventType != null && obj.eventType.length > 0
-                                ? obj.eventType[0].title
-                                : 'Event',
-            title: obj.title,
-        }
-    })
+                      ? 'Workshop Series'
+                      : obj.eventType != null && obj.eventType.length > 0
+                        ? obj.eventType[0].title
+                        : 'Event',
+      title: obj.title,
+    }
+  })
 })
 
 const parsedEvents = computed(() => {
-    return [...(events.value || [])].map((obj) => {
-        const eventOrExhibtion = obj || {}
-        return {
-            ...eventOrExhibtion,
-            to: `/${eventOrExhibtion.to}`,
-            image: _get(eventOrExhibtion, 'image[0]', null),
-            startDate: _get(
-                eventOrExhibtion,
-                'startDateWithTime',
-                null
-            ),
-            endDate: _get(eventOrExhibtion, 'endDateWithTime', null),
-            category: _get(
-                eventOrExhibtion,
-                'eventType[0].title',
-                null
-            ),
-            locations:
+  return [...(events.value || [])].map((obj) => {
+    const eventOrExhibtion = obj || {}
+    return {
+      ...eventOrExhibtion,
+      to: `/${eventOrExhibtion.to}`,
+      image: _get(eventOrExhibtion, 'image[0]', null),
+      startDate: _get(
+        eventOrExhibtion,
+        'startDateWithTime',
+        null
+      ),
+      endDate: _get(eventOrExhibtion, 'endDateWithTime', null),
+      category: _get(
+        eventOrExhibtion,
+        'eventType[0].title',
+        null
+      ),
+      locations:
                 eventOrExhibtion.associatedLocations[0] != null
-                    ? eventOrExhibtion.associatedLocations
-                    : eventOrExhibtion.eventLocation,
-        }
-    })
+                  ? eventOrExhibtion.associatedLocations
+                  : eventOrExhibtion.eventLocation,
+    }
+  })
 })
 
 const parsedSeriesAndExhibitions = computed(() => {
-    return [...(page.value.featuredEventSeriesAndExhibitions || [])]
-        .sort(sortByTitle)
-        .map((obj) => {
-            return {
-                ...obj,
-                category:
+  return [...(page.value.featuredEventSeriesAndExhibitions || [])]
+    .sort(sortByTitle)
+    .map((obj) => {
+      return {
+        ...obj,
+        category:
                     obj.typeHandle === 'exhibition'
-                        ? 'Exhibition'
-                        : obj.workshopOrEventSeriesType ===
+                      ? 'Exhibition'
+                      : obj.workshopOrEventSeriesType ===
                             'visit/events-exhibitions'
-                            ? 'Event Series'
-                            : obj.workshopOrEventSeriesType ===
+                        ? 'Event Series'
+                        : obj.workshopOrEventSeriesType ===
                                 'help/services-resources'
-                                ? 'Workshop Series'
-                                : obj.eventType != null
-                                    ? obj.eventType[0].title
-                                    : 'Event',
-                to: `/${obj.to}`,
-                image: _get(obj, 'heroImage[0].image[0]', null),
-            }
-        })
+                          ? 'Workshop Series'
+                          : obj.eventType != null
+                            ? obj.eventType[0].title
+                            : 'Event',
+        to: `/${obj.to}`,
+        image: _get(obj, 'heroImage[0].image[0]', null),
+      }
+    })
 })
 
 const parseHitsResults = computed(() => {
-    return parseHits(hits.value)
+  return parseHits(hits.value)
 })
 
 const parsedPlaceholder = computed(() => {
-    return `Search ${page.value.title}`
+  return `Search ${page.value.title}`
 })
 
 const routeFilters = computed(() => {
-    return JSON.parse(_get(route, 'query.filters', '[]'))
+  return JSON.parse(_get(route, 'query.filters', '[]'))
 })
 
 console.log('route filter values: ', routeFilters.value)
@@ -197,329 +197,329 @@ const title = ref('')
 const searchFilters = ref([])
 const noResultsFound = ref(false)
 const searchGenericQuery = ref({
-    queryText: route.query.q || '',
-    queryFilters:
+  queryText: route.query.q || '',
+  queryFilters:
         (route.query.filters &&
             JSON.parse(route.query.filters)) ||
         {},
 })
 const hasSearchQuery = computed(() => {
-    // console.log("hasSearchQuery", (route.query.q !== undefined && route.query.q !== ''), (route.query.filters && queryFilterHasValues(routeFilters.value, config.eventsExhibitionsList.filters)), (routeFilters.value.past[0] === 'yes'))
-    return (route.query.q !== undefined && route.query.q !== '')
+  // console.log("hasSearchQuery", (route.query.q !== undefined && route.query.q !== ''), (route.query.filters && queryFilterHasValues(routeFilters.value, config.eventsExhibitionsList.filters)), (routeFilters.value.past[0] === 'yes'))
+  return (route.query.q !== undefined && route.query.q !== '')
         || (route.query.filters && queryFilterHasValues(routeFilters.value, config.eventsExhibitionsList.filters))
         || (routeFilters.value.past && routeFilters.value.past.length > 0 && routeFilters.value.past[0] === 'yes')
 })
 
 // This watcher is called when router push updates the query params
 watch(
-    () => route.query,
-    (newVal, oldVal) => {
-        console.log('ES newVal, oldVal', JSON.stringify(newVal), JSON.stringify(oldVal))
-        searchGenericQuery.value.queryText = route.query.q || ''
-        searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
-        searchES()
-    }, { deep: true, immediate: true }
+  () => route.query,
+  (newVal, oldVal) => {
+    console.log('ES newVal, oldVal', JSON.stringify(newVal), JSON.stringify(oldVal))
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchES()
+  }, { deep: true, immediate: true }
 )
 
 async function searchES() {
-    // console.log("searchES route details", route.query.q, route.query.filters, routeFilters.value.past)
-    // Followed what was done in Nuxt 2 https://github.com/UCLALibrary/library-website-nuxt/blob/main/pages/visit/events-exhibitions/index.vue#L221C19-L221C33
-    if (hasSearchQuery.value) {
-        console.log('Search ES HITS query,', route.query.q)
+  // console.log("searchES route details", route.query.q, route.query.filters, routeFilters.value.past)
+  // Followed what was done in Nuxt 2 https://github.com/UCLALibrary/library-website-nuxt/blob/main/pages/visit/events-exhibitions/index.vue#L221C19-L221C33
+  if (hasSearchQuery.value) {
+    console.log('Search ES HITS query,', route.query.q)
 
-        const queryText = route.query.q || '*'
+    const queryText = route.query.q || '*'
 
-        const { past, ...filters } = routeFilters.value
+    const { past, ...filters } = routeFilters.value
 
-        const extrafilters = (past && past.length > 0 && past[0] === 'yes')
-            ? []
-            : [
-                {
-                    range: {
-                        endDateWithTime: {
-                            gte: 'now',
-                        },
-                    },
-                },
-            ]
+    const extrafilters = (past && past.length > 0 && past[0] === 'yes')
+      ? []
+      : [
+          {
+            range: {
+              endDateWithTime: {
+                gte: 'now',
+              },
+            },
+          },
+        ]
 
-        const results = await $dataApi.keywordSearchWithFilters(
-            queryText,
-            config.eventsExhibitionsList.searchFields,
-            'sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries',
-            filters, // following this line in nuxt 2 https://github.com/UCLALibrary/library-website-nuxt/blob/main/pages/visit/events-exhibitions/index.vue#L245C19-L245C24
-            config.eventsExhibitionsList.sortField,
-            config.eventsExhibitionsList.orderBy,
-            config.eventsExhibitionsList.resultFields,
-            config.eventsExhibitionsList.filters,
-            extrafilters,
-        )
-        if (results && results.hits && results.hits.total.value > 0) {
-            console.log('Search ES HITS,', results.hits.hits)
-            hits.value = results.hits.hits
-            noResultsFound.value = false
-        } else {
-            noResultsFound.value = true
-            hits.value = []
-        }
+    const results = await $dataApi.keywordSearchWithFilters(
+      queryText,
+      config.eventsExhibitionsList.searchFields,
+      'sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries',
+      filters, // following this line in nuxt 2 https://github.com/UCLALibrary/library-website-nuxt/blob/main/pages/visit/events-exhibitions/index.vue#L245C19-L245C24
+      config.eventsExhibitionsList.sortField,
+      config.eventsExhibitionsList.orderBy,
+      config.eventsExhibitionsList.resultFields,
+      config.eventsExhibitionsList.filters,
+      extrafilters,
+    )
+    if (results && results.hits && results.hits.total.value > 0) {
+      console.log('Search ES HITS,', results.hits.hits)
+      hits.value = results.hits.hits
+      noResultsFound.value = false
     } else {
-        hits.value = []
-        noResultsFound.value = false
+      noResultsFound.value = true
+      hits.value = []
     }
+  } else {
+    hits.value = []
+    noResultsFound.value = false
+  }
 }
 
 function parseHits(hits = []) {
-    return hits.map((obj) => {
-        if (obj._source.sectionHandle === 'event') {
-            return {
-                ...obj._source,
-                to: `/${obj._source.to}`,
-                image: _get(obj._source, 'image[0].image[0]', null),
-                startDate: _get(
-                    obj._source,
-                    'startDateWithTime',
-                    null
-                ),
-                endDate: _get(obj._source, 'endDateWithTime', null),
-                category: _get(
-                    obj._source,
-                    'eventType[0].title',
-                    null
-                ),
-            }
-        } else if (obj._source.sectionHandle === 'exhibition') {
-            return {
-                ...obj._source,
-                to: `/${obj._source.uri}`,
-                image: _get(obj._source, 'image[0].image[0]', null),
-                startDate: _get(obj._source, 'startDate', null),
-                endDate: _get(obj._source, 'endDate', null),
-                category: _get(obj._source, 'sectionHandle', null),
-            }
-        } else if (obj._source.sectionHandle === 'eventSeries') {
-            return {
-                ...obj._source,
-                to: `/${obj._source.uri}`,
-                image: _get(obj._source, 'image[0].image[0]', null),
-                startDate: _get(obj._source, 'startDate', null),
-                endDate: _get(obj._source, 'endDate', null),
-                category: 'Event Series',
-            }
-        } else {
-            return {
-                ...obj._source,
-                to: `/${obj._source.uri}`,
-            }
-        }
-    })
+  return hits.map((obj) => {
+    if (obj._source.sectionHandle === 'event') {
+      return {
+        ...obj._source,
+        to: `/${obj._source.to}`,
+        image: _get(obj._source, 'image[0].image[0]', null),
+        startDate: _get(
+          obj._source,
+          'startDateWithTime',
+          null
+        ),
+        endDate: _get(obj._source, 'endDateWithTime', null),
+        category: _get(
+          obj._source,
+          'eventType[0].title',
+          null
+        ),
+      }
+    } else if (obj._source.sectionHandle === 'exhibition') {
+      return {
+        ...obj._source,
+        to: `/${obj._source.uri}`,
+        image: _get(obj._source, 'image[0].image[0]', null),
+        startDate: _get(obj._source, 'startDate', null),
+        endDate: _get(obj._source, 'endDate', null),
+        category: _get(obj._source, 'sectionHandle', null),
+      }
+    } else if (obj._source.sectionHandle === 'eventSeries') {
+      return {
+        ...obj._source,
+        to: `/${obj._source.uri}`,
+        image: _get(obj._source, 'image[0].image[0]', null),
+        startDate: _get(obj._source, 'startDate', null),
+        endDate: _get(obj._source, 'endDate', null),
+        category: 'Event Series',
+      }
+    } else {
+      return {
+        ...obj._source,
+        to: `/${obj._source.uri}`,
+      }
+    }
+  })
 }
 
 //  This is event handler which is invoked by search-generic component selections
 function getSearchData(data) {
-    console.log('On the page getsearchdata called')
+  console.log('On the page getsearchdata called')
 
-    const filterData =
+  const filterData =
         (data.filters && JSON.stringify(data.filters)) || {}
 
-    useRouter().push({
-        path: '/visit/events-exhibitions',
-        query: {
-            q: data.text,
-            filters: filterData,
-        },
-    })
+  useRouter().push({
+    path: '/visit/events-exhibitions',
+    query: {
+      q: data.text,
+      filters: filterData,
+    },
+  })
 }
 
 async function setFilters() {
-    const searchAggsResponse = await $dataApi.getAggregations(
-        config.eventsExhibitionsList.filters,
-        'event'
-    )
-    /* console.log(
+  const searchAggsResponse = await $dataApi.getAggregations(
+    config.eventsExhibitionsList.filters,
+    'event'
+  )
+  /* console.log(
             "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
         ) */
-    searchFilters.value = [
-        ...getListingFilters(
-            searchAggsResponse,
-            config.eventsExhibitionsList.filters
-        ),
-        {
-            esFieldName: 'past',
-            inputType: 'single-checkbox',
-            label: 'Include Past Events',
-        }
-    ]
+  searchFilters.value = [
+    ...getListingFilters(
+      searchAggsResponse,
+      config.eventsExhibitionsList.filters
+    ),
+    {
+      esFieldName: 'past',
+      inputType: 'single-checkbox',
+      label: 'Include Past Events',
+    }
+  ]
 }
 
 onMounted(async () => {
-    await setFilters()
+  await setFilters()
 })
 </script>
 
 <template lang="html">
-    <main
-        id="main"
-        class="page page-events-exhibits"
+  <main
+    id="main"
+    class="page page-events-exhibits"
+  >
+    <masthead-secondary
+      :title="page.title"
+      :text="page.text"
+    />
+    <search-generic
+      search-type="about"
+      class="generic-search"
+      :filters="searchFilters"
+      :search-generic-query="searchGenericQuery"
+      :placeholder="parsedPlaceholder"
+      @search-ready="getSearchData"
+    />
+    <section-wrapper theme="divider">
+      <divider-way-finder class="search-margin" />
+    </section-wrapper>
+
+    <!-- HIGHLIGHTED & FEATURED EVENTS -->
+    <section-wrapper
+      v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
+        hits.length == 0 &&
+        !noResultsFound
+      "
+      class="section-no-top-margin"
     >
-        <masthead-secondary
-            :title="page.title"
-            :text="page.text"
-        />
-        <search-generic
-            search-type="about"
-            class="generic-search"
-            :filters="searchFilters"
-            :search-generic-query="searchGenericQuery"
-            :placeholder="parsedPlaceholder"
-            @search-ready="getSearchData"
-        />
-        <section-wrapper theme="divider">
-            <divider-way-finder class="search-margin" />
-        </section-wrapper>
+      <banner-featured
+        v-if="parsedFeaturedEventsAndExhibits.length > 0 &&
+          hits.length == 0 &&
+          !noResultsFound
+        "
+        :media="parsedBannerHeader.image"
+        :title="parsedBannerHeader.title"
+        breadcrumb="Featured"
+        :align-right="false"
+        :start-date="parsedBannerHeader.startDate"
+        :end-date="parsedBannerHeader.endDate"
+        :text="parsedBannerHeader.text"
+        :to="parsedBannerHeader.to"
+        :prompt="parsedBannerHeader.prompt"
+        :locations="parsedBannerHeader.locations"
+        :section-handle="parsedBannerHeader.sectionHandle"
+        class="banner section-featured-banner"
+      />
 
-        <!-- HIGHLIGHTED & FEATURED EVENTS -->
-        <section-wrapper
-            v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
-                hits.length == 0 &&
-                !noResultsFound
-                "
-            class="section-no-top-margin"
-        >
-            <banner-featured
-                v-if="parsedFeaturedEventsAndExhibits.length > 0 &&
-                hits.length == 0 &&
-                !noResultsFound
-                "
-                :media="parsedBannerHeader.image"
-                :title="parsedBannerHeader.title"
-                breadcrumb="Featured"
-                :align-right="false"
-                :start-date="parsedBannerHeader.startDate"
-                :end-date="parsedBannerHeader.endDate"
-                :text="parsedBannerHeader.text"
-                :to="parsedBannerHeader.to"
-                :prompt="parsedBannerHeader.prompt"
-                :locations="parsedBannerHeader.locations"
-                :section-handle="parsedBannerHeader.sectionHandle"
-                class="banner section-featured-banner"
-            />
+      <divider-general v-if="parsedSectionHighlight.length" />
 
-            <divider-general v-if="parsedSectionHighlight.length" />
+      <section-teaser-highlight
+        class="section"
+        :items="parsedSectionHighlight"
+      />
+    </section-wrapper>
 
-            <section-teaser-highlight
-                class="section"
-                :items="parsedSectionHighlight"
-            />
-        </section-wrapper>
+    <section-wrapper
+      v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
+        parsedEvents.length &&
+        hits.length == 0 &&
+        !noResultsFound
+      "
+      theme="divider"
+    >
+      <divider-way-finder color="visit" />
+    </section-wrapper>
 
-        <section-wrapper
-            v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
-                parsedEvents.length &&
-                hits.length == 0 &&
-                !noResultsFound
-                "
-            theme="divider"
-        >
-            <divider-way-finder color="visit" />
-        </section-wrapper>
+    <!-- UPCOMING EVENTS -->
+    <section-wrapper
+      v-show="parsedEvents &&
+        parsedEvents.length > 0 &&
+        hits.length == 0 &&
+        !noResultsFound
+      "
+      section-title="All Upcoming Events"
+    >
+      <section-teaser-list :items="parsedEvents" />
+    </section-wrapper>
 
-        <!-- UPCOMING EVENTS -->
-        <section-wrapper
-            v-show="parsedEvents &&
-                parsedEvents.length > 0 &&
-                hits.length == 0 &&
-                !noResultsFound
-                "
-            section-title="All Upcoming Events"
-        >
-            <section-teaser-list :items="parsedEvents" />
-        </section-wrapper>
+    <section-wrapper
+      v-show="parsedEvents &&
+        parsedEvents.length > 0 &&
+        hits.length == 0 &&
+        !noResultsFound
+      "
+      theme="divider"
+    >
+      <divider-way-finder color="visit" />
+    </section-wrapper>
 
-        <section-wrapper
-            v-show="parsedEvents &&
-                parsedEvents.length > 0 &&
-                hits.length == 0 &&
-                !noResultsFound
-                "
-            theme="divider"
-        >
-            <divider-way-finder color="visit" />
-        </section-wrapper>
+    <!-- EVENT SERIES & EXHIBITIONS -->
+    <section-wrapper
+      v-show="parsedSeriesAndExhibitions &&
+        parsedSeriesAndExhibitions.length > 0 &&
+        hits.length == 0 &&
+        !noResultsFound
+      "
+      section-title="Event Series & Exhibitions"
+    >
+      <section-teaser-card :items="parsedSeriesAndExhibitions" />
+    </section-wrapper>
+    <section-wrapper
+      v-show="hits && hits.length > 0"
+      class="section-no-top-margin"
+    >
+      <h2
+        v-if="route.query.q"
+        class="about-results"
+      >
+        Displaying {{ hits.length }} results for
+        <strong><em>“{{ route.query.q }}</em></strong>”
+      </h2>
+      <h2
+        v-else
+        class="about-results"
+      >
+        Displaying {{ hits.length }} results
+      </h2>
 
-        <!-- EVENT SERIES & EXHIBITIONS -->
-        <section-wrapper
-            v-show="parsedSeriesAndExhibitions &&
-                parsedSeriesAndExhibitions.length > 0 &&
-                hits.length == 0 &&
-                !noResultsFound
-                "
-            section-title="Event Series & Exhibitions"
-        >
-            <section-teaser-card :items="parsedSeriesAndExhibitions" />
-        </section-wrapper>
-        <section-wrapper
-            v-show="hits && hits.length > 0"
-            class="section-no-top-margin"
-        >
-            <h2
-                v-if="route.query.q"
-                class="about-results"
-            >
-                Displaying {{ hits.length }} results for
-                <strong><em>“{{ route.query.q }}</em></strong>”
-            </h2>
-            <h2
-                v-else
-                class="about-results"
-            >
-                Displaying {{ hits.length }} results
-            </h2>
+      <section-teaser-list :items="parseHitsResults" />
+    </section-wrapper>
 
-            <section-teaser-list :items="parseHitsResults" />
-        </section-wrapper>
+    <!-- NO RESULTS -->
+    <section-wrapper
+      v-show="noResultsFound"
+      class="section-no-top-margin"
+    >
+      <div class="error-text">
+        <rich-text>
+          <h2>Search for “{{ route.query.q }}” not found.</h2>
+          <p>
+            We can’t find the term you are looking for on this page,
+            but we're here to help. <br>
+            Try searching the whole site from
+            <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these
+            regularly visited links:
+          </p>
+          <ul>
+            <li>
+              <a href="https://www.library.ucla.edu/research-teaching-support/research-help">Research
+                Help</a>
+            </li>
+            <li>
+              <a href="/help/services-resources/ask-us">Ask Us</a>
+            </li>
+            <li>
+              <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility
+                Resources</a>
+            </li>
+          </ul>
+        </rich-text>
+      </div>
+    </section-wrapper>
 
-        <!-- NO RESULTS -->
-        <section-wrapper
-            v-show="noResultsFound"
-            class="section-no-top-margin"
-        >
-            <div class="error-text">
-                <rich-text>
-                    <h2>Search for “{{ route.query.q }}” not found.</h2>
-                    <p>
-                        We can’t find the term you are looking for on this page,
-                        but we're here to help. <br>
-                        Try searching the whole site from
-                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these
-                        regularly visited links:
-                    </p>
-                    <ul>
-                        <li>
-                            <a href="https://www.library.ucla.edu/research-teaching-support/research-help">Research
-                                Help</a>
-                        </li>
-                        <li>
-                            <a href="/help/services-resources/ask-us">Ask Us</a>
-                        </li>
-                        <li>
-                            <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility
-                                Resources</a>
-                        </li>
-                    </ul>
-                </rich-text>
-            </div>
-        </section-wrapper>
-
-        <section-wrapper>
-            <divider-way-finder color="visit" />
-        </section-wrapper>
-        <section-wrapper>
-            <block-call-to-action
-                class="section block-call-to-action"
-                :is-global="true"
-            />
-        </section-wrapper>
-    </main>
+    <section-wrapper>
+      <divider-way-finder color="visit" />
+    </section-wrapper>
+    <section-wrapper>
+      <block-call-to-action
+        class="section block-call-to-action"
+        :is-global="true"
+      />
+    </section-wrapper>
+  </main>
 </template>
 
 <style
