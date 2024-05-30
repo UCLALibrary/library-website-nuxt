@@ -145,14 +145,12 @@ async function searchES() {
   ) {
     console.log('Search ES HITS query,', route.query.q)
 
-    const queryText = route.query.q || '*'
+    let queryText = route.query.q || '*'
     if (
       route.query.lastNameLetter &&
       route.query.lastNameLetter !== 'All'
     ) {
-      queryText =
-        queryText +
-        ` AND nameLast:${route.query.lastNameLetter}*`
+      queryText = queryText + ` AND nameLast:${route.query.lastNameLetter}*`
     } else if (
       route.query.lastNameLetter &&
       route.query.lastNameLetter === 'All'
@@ -166,7 +164,7 @@ async function searchES() {
       ]
       : []
 
-    // console.log("in router query in asyc data")
+    console.log("in router query in asyc data queryText", queryText)
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
       config.staff.searchFields,
@@ -266,13 +264,19 @@ function searchBySelectedLetter(data) {
   // console.log("On the page searchBySelectedLetter called")
   /* this.page = {}
   this.hits = [] */
+  const filters = []
+  if (data.filters) {
+    for (const key in data.filters) {
+      if (data.filters[key].length > 0) {
+        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      }
+    }
+  }
   useRouter().push({
     path: '/about/staff',
     query: {
       q: searchGenericQuery.value.queryText,
-      filters: JSON.stringify(
-        searchGenericQuery.value.queryFilters
-      ),
+      filters: filters.join(' AND '),
       lastNameLetter: data,
     },
   })
@@ -386,9 +390,7 @@ onMounted(async () => {
         ((searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
           (searchGenericQuery.queryFilters[
             'subjectLibrarian.keyword'
-          ][0] === '') || searchGenericQuery.queryFilters[
-            'subjectLibrarian.keyword'
-          ].length === 0) ||
+          ][0] === '')) ||
           !searchGenericQuery.queryFilters[
           'subjectLibrarian.keyword'
           ])
@@ -466,10 +468,7 @@ onMounted(async () => {
     </section-wrapper>
   </main>
 </template>
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-staff {
   .browse-margin {
     margin-bottom: var(--space-m);
