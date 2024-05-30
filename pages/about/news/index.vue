@@ -132,14 +132,12 @@ const parsedByline = computed(() => {
 
 // ELASTIC SEARCH FUNCTIONALITY\
 function parseFilters(filtersString) {
-  console.log([parseFilters], filtersString)
   if (!filtersString) return {}
 
   const filters = {}
   const conditions = filtersString.split(' AND ')
-  console.log('conditions', conditions)
 
-  conditions.forEach(condition => {
+  conditions.forEach((condition) => {
     const [key, value] = condition.split(':(')
     const cleanedKey = key.trim()
     const values = value.replace(')', '').split(' OR ').map(v => v.trim())
@@ -156,7 +154,7 @@ const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters: parseFilters(route.query.filters || ""),
+  queryFilters: parseFilters(route.query.filters || ''),
 })
 
 // This watcher is called when router pushes updates the query params
@@ -165,7 +163,7 @@ watch(
   (newVal, oldVal) => {
     console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || "")
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
   }, { deep: true, immediate: true }
 )
@@ -176,7 +174,7 @@ async function searchES() {
     (route.query.q && route.query.q !== '') ||
     (route.query.filters &&
       queryFilterHasValues(
-        parseFilters(route.query.filters || ""),
+        parseFilters(route.query.filters || ''),
         config.newsIndex.filters
       ))
   ) {
@@ -186,7 +184,7 @@ async function searchES() {
       queryText,
       config.newsIndex.searchFields,
       'sectionHandle:article',
-      parseFilters(route.query.filters || ""),
+      parseFilters(route.query.filters || ''),
       config.newsIndex.sortField,
       config.newsIndex.orderBy,
       config.newsIndex.resultFields,
@@ -202,9 +200,6 @@ async function searchES() {
       hits.value = []
     }
   } else {
-    // console.log('data.value', data.value)
-    // console.log('page.value', page.value)
-    // console.log('news.value', news.value)
     hits.value = []
     noResultsFound.value = false
   }
@@ -249,12 +244,13 @@ function parseHits(hits = []) {
 
 // This is event handler which is invoked by search-generic component selections
 function getSearchData(data) {
-
   // Construct the filters parameter dynamically
   const filters = []
-  for (const key in data.filters) {
-    if (data.filters[key].length > 0) {
-      filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+  if (data.filters) {
+    for (const key in data.filters) {
+      if (data.filters[key].length > 0) {
+        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      }
     }
   }
 
