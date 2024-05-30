@@ -161,9 +161,9 @@ async function searchES() {
     }
     const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, ...filters } = routeFilters.value
     const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-      [
-        { term: { 'subjectLibrarian.keyword': 'yes' } }
-      ]
+        [
+          { term: { 'subjectLibrarian.keyword': 'yes' } }
+        ]
       : []
 
     // console.log("in router query in asyc data")
@@ -393,9 +393,9 @@ onMounted(async () => {
             'subjectLibrarian.keyword'
           ].length === 0) ||
           !searchGenericQuery.queryFilters[
-          'subjectLibrarian.keyword'
+            'subjectLibrarian.keyword'
           ])
-        "
+      "
       class="section-no-top-margin"
     >
       <alphabetical-browse-by
@@ -455,7 +455,7 @@ onMounted(async () => {
         searchGenericQuery.queryFilters['subjectLibrarian.keyword'][0] ===
         'yes' &&
         groupByAcademicLibraries
-        "
+      "
       class="section-no-top-margin"
     >
       <h3 class="section-title subject-librarian">
