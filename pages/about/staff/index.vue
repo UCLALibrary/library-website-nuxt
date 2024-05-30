@@ -49,7 +49,7 @@ useHead({
 })
 
 const parsedStaffList = computed(() => {
-  // //console.log("in parsedStaff")
+  console.log('in parsedStaff')
   return (page.value.entries || []).map((obj) => {
     return {
       ...obj,
@@ -76,28 +76,14 @@ const parsedStaffList = computed(() => {
   })
 })
 
-const hits = ref([])
-const noResultsFound = ref(false)
-const searchFilters = ref([])
-const selectedLetterProp = ref('')
-
-// const searchGenericQuery = ref({
-//   queryText: route.query.q || '',
-//   queryFilters:
-//     (route.query.filters &&
-//       JSON.parse(route.query.filters)) ||
-//     {},
-// })
-
-const searchGenericQuery = ref({
-  queryText: route.query.q || '',
-  queryFilters: parseFilters(route.query.filters || ''),
-})
+// ELASTIC SEARCH FUNCTIONALITY
 function parseFilters(filtersString) {
+  console.log([parseFilters], filtersString)
   if (!filtersString) return {}
 
   const filters = {}
   const conditions = filtersString.split(' AND ')
+  console.log('conditions', conditions)
 
   conditions.forEach((condition) => {
     const [key, value] = condition.split(':(')
@@ -124,6 +110,16 @@ const routeFilters = computed(() => {
   return parseFilters(_get(route, 'query.filters', ''))
 })
 
+const hits = ref([])
+const noResultsFound = ref(false)
+const searchFilters = ref([])
+const selectedLetterProp = ref('')
+
+const searchGenericQuery = ref({
+  queryText: route.query.q || '',
+  queryFilters: parseFilters(route.query.filters || ''),
+})
+
 // This watcher is called when router push updates the query params
 watch(
   () => route.query,
@@ -136,6 +132,7 @@ watch(
   }, { deep: true, immediate: true }
 )
 
+// ELASTIC SEARCH FUNCTION
 async function searchES() {
   if (
     (route.query.q && route.query.q !== '') ||
@@ -147,7 +144,8 @@ async function searchES() {
     (route.query && route.query.lastNameLetter)
   ) {
     console.log('Search ES HITS query,', route.query.q)
-    let queryText = route.query.q || '*'
+
+    const queryText = route.query.q || '*'
     if (
       route.query.lastNameLetter &&
       route.query.lastNameLetter !== 'All'
@@ -167,6 +165,7 @@ async function searchES() {
           { term: { 'subjectLibrarian.keyword': 'yes' } }
         ]
       : []
+
     // console.log("in router query in asyc data")
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
@@ -181,14 +180,18 @@ async function searchES() {
     )
 
     if (results && results.hits && results.hits.total.value > 0) {
-      hits.value = results.hits.hits
+      console.log('Search ES HITS,', results.hits.hits)
 
+      hits.value = results.hits.hits
       noResultsFound.value = false
     } else {
       noResultsFound.value = true
       hits.value = []
     }
   } else {
+    // console.log('data.value', data.value)
+    // console.log('page.value', page.value)
+    // console.log('news.value', staffMember.value)
     hits.value = []
     noResultsFound.value = false
   }
@@ -231,9 +234,11 @@ const groupByAcademicLibraries = computed(() => {
   ) */
   return groupBySubjectAreas
 })
+
 const parsedPlaceholder = computed(() => {
   return `Search ${summaryData.value.title}`
 })
+
 const parseHitsResults = computed(() => {
   return hits.value.map((obj) => {
     // //console.log(obj["_source"]["image"])
@@ -275,20 +280,6 @@ function searchBySelectedLetter(data) {
     },
   })
 }
-
-// function getSearchData(data) {
-//   // console.log("On the page getsearchdata called")
-//   /* this.page = {}
-//   this.hits = [] */
-//   useRouter().push({
-//     path: '/about/staff',
-//     query: {
-//       q: data.text,
-//       filters: data.filters && JSON.stringify(data.filters),
-//       lastNameLetter: route.query.lastNameLetter,
-//     },
-//   })
-// }
 
 function getSearchData(data) {
   console.log('On the page getsearchdata called')
