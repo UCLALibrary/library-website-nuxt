@@ -292,26 +292,29 @@ function getSearchData(data) {
 
   // Construct the filters parameter dynamically
   const filters = []
-  for (const key in data.filters) {
-    if (data.filters[key].length > 0) {
-      filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+  if (data.filters) {
+    for (const key in data.filters) {
+      if (data.filters[key].length > 0) {
+        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      }
     }
-  }
-
-  // Add the filters parameter to the URLSearchParams
-  if (filters.length > 0) {
-    params.append('filters', filters.join(' AND '))
-  }
-
-  // Add the lastNameLetter parameter if it exists
-  if (data.lastNameLetter) {
-    params.append('lastNameLetter', route.query.lastNameLetter)
   }
 
   // Use the router to navigate with the new query parameters
   useRouter().push({
     path: '/about/staff',
-    query: params.toString(),
+    // query: {
+    //   q: searchGenericQuery.value.queryText,
+    //   filters: JSON.stringify(
+    //     searchGenericQuery.value.queryFilters
+    //   ),
+    //   lastNameLetter: this.$route.query.lastNameLetter,
+    // }
+    query: {
+      q: data.text,
+      lastNameLetter: route.query.lastNameLetter,
+      filters: filters.join(' AND ')
+    }
   })
 }
 
@@ -370,7 +373,7 @@ onMounted(async () => {
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
-
+    <h3>LAST NAME: {{ route.query.lastNameLetter }}</h3>
     <!-- ALL STAFF -->
     <section-wrapper
       v-show="page.entries && hits.length == 0 && !noResultsFound"
