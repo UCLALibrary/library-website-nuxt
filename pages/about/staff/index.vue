@@ -145,7 +145,7 @@ async function searchES() {
   ) {
     console.log('Search ES HITS query,', route.query.q)
 
-    const queryText = route.query.q || '*'
+    let queryText = route.query.q || '*'
     if (
       route.query.lastNameLetter &&
       route.query.lastNameLetter !== 'All'
