@@ -161,9 +161,9 @@ async function searchES() {
     }
     const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, ...filters } = routeFilters.value
     const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-        [
-          { term: { 'subjectLibrarian.keyword': 'yes' } }
-        ]
+      [
+        { term: { 'subjectLibrarian.keyword': 'yes' } }
+      ]
       : []
 
     // console.log("in router query in asyc data")
@@ -301,15 +301,10 @@ function getSearchData(data) {
   }
 
   // Use the router to navigate with the new query parameters
+  // https://uclalibrary-test-nuxt3x.netlify.app/about/staff?q=&departments=Software Development and Library Systems, Administration&locations=UCLA Film & Television Archive, Eugene and Maxine Rosenfeld Management Library&subjectLibrarian=yes&lastNameLetter=G
+
   useRouter().push({
     path: '/about/staff',
-    // query: {
-    //   q: searchGenericQuery.value.queryText,
-    //   filters: JSON.stringify(
-    //     searchGenericQuery.value.queryFilters
-    //   ),
-    //   lastNameLetter: this.$route.query.lastNameLetter,
-    // }
     query: {
       q: data.text,
       lastNameLetter: route.query.lastNameLetter,
@@ -373,7 +368,7 @@ onMounted(async () => {
     <section-wrapper theme="divider">
       <divider-way-finder class="search-margin" />
     </section-wrapper>
-    <h3>LAST NAME: {{ route.query.lastNameLetter }}</h3>
+
     <!-- ALL STAFF -->
     <section-wrapper
       v-show="page.entries && hits.length == 0 && !noResultsFound"
@@ -398,9 +393,9 @@ onMounted(async () => {
             'subjectLibrarian.keyword'
           ].length === 0) ||
           !searchGenericQuery.queryFilters[
-            'subjectLibrarian.keyword'
+          'subjectLibrarian.keyword'
           ])
-      "
+        "
       class="section-no-top-margin"
     >
       <alphabetical-browse-by
@@ -460,7 +455,7 @@ onMounted(async () => {
         searchGenericQuery.queryFilters['subjectLibrarian.keyword'][0] ===
         'yes' &&
         groupByAcademicLibraries
-      "
+        "
       class="section-no-top-margin"
     >
       <h3 class="section-title subject-librarian">
