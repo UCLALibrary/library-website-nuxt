@@ -3,6 +3,7 @@
 import getListingFilters from '../utils/getListingFilters'
 import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
+// import parseFilters from '../utils/parseFilters'
 
 const route = useRoute()
 const page = ref({})
@@ -16,10 +17,7 @@ const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters:
-    (route.query.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
+  queryFilters: parseFilters(route.query.filters || "")
 })
 const isSearching = ref(true)
 const { $dataApi } = useNuxtApp()
@@ -29,7 +27,7 @@ watch(
   (newVal, oldVal) => {
     console.log('Site search page ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || "")
     searchES()
   }, { deep: true, immediate: true }
 )
@@ -42,7 +40,7 @@ async function searchES() {
       (route.query.q && route.query.q !== '') ||
       (route.query.filters &&
         queryFilterHasValues(
-          route.query.filters,
+          parseFilters(route.query.filters || ""),
           config.siteSearch.filters
         ))
     ) {
@@ -50,9 +48,7 @@ async function searchES() {
       page.value = await $dataApi.siteSearch(
         route.query.q || '*',
         route.query.from || from.value,
-        (route.query.filters &&
-          JSON.parse(route.query.filters)) ||
-        {},
+        parseFilters(route.query.filters || ""),
         config.siteSearch.sectionHandleMapping
       )
       if (
@@ -60,7 +56,6 @@ async function searchES() {
         page.value.hits &&
         page.value.hits.total.value > 0
       ) {
-        // console.log("search success")
         // This is pagination logic
         from.value = Number(route.query.from || 0)
         // console.log("from 1: " + from.value)
@@ -73,7 +68,6 @@ async function searchES() {
 
         if (next.value) nextFrom.value = from.value + size.value
         if (previous.value) prevFrom.value = from.value - size.value
-        // console.log("what is start now:" + from.value)
         // Pagination logic ends
         noResultsFound.value = false
         isSearching.value = false
@@ -199,14 +193,21 @@ function setFilters() {
 }
 
 function getSearchData(data) {
-  // const queryString = new URLSearchParams(data.filters).toString()
-  // console.log("using url search params:" + queryString)
+  // Construct the filters parameter dynamically
+  const filters = []
+  if (data.filters) {
+    for (const key in data.filters) {
+      if (data.filters[key].length > 0) {
+        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      }
+    }
+  }
   try {
     useRouter().push({
       path: route.path,
       query: {
         q: data.text,
-        filters: JSON.stringify(data.filters),
+        filters: filters.join(' AND ')
       },
     })
   } catch (e) {
