@@ -3,6 +3,7 @@
 import _get from 'lodash/get'
 import { format } from 'date-fns'
 import removeTags from '../utils/removeTags'
+import parseFilters from '../utils/parseFilters'
 
 // GQL
 import ARTICLE_LIST from '../gql/queries/ArticleList.gql'
@@ -130,17 +131,31 @@ const parsedByline = computed(() => {
   })
 })
 
-// ELASTIC SEARCH FUNCTIONALITY
+// ELASTIC SEARCH FUNCTIONALITY\
+// function parseFilters(filtersString) {
+//   if (!filtersString) return {}
+
+//   const filters = {}
+//   const conditions = filtersString.split(' AND ')
+
+//   conditions.forEach((condition) => {
+//     const [key, value] = condition.split(':(')
+//     const cleanedKey = key.trim()
+//     const values = value.replace(')', '').split(' OR ').map(v => v.trim())
+
+//     filters[cleanedKey] = values
+//   })
+
+//   return filters
+// }
+
 const hits = ref([])
 const title = ref('')
 const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters:
-    (route.query.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
+  queryFilters: parseFilters(route.query.filters || ''),
 })
 
 // This watcher is called when router pushes updates the query params
@@ -149,7 +164,7 @@ watch(
   (newVal, oldVal) => {
     console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
   }, { deep: true, immediate: true }
 )
@@ -160,7 +175,7 @@ async function searchES() {
     (route.query.q && route.query.q !== '') ||
     (route.query.filters &&
       queryFilterHasValues(
-        route.query.filters,
+        parseFilters(route.query.filters || ''),
         config.newsIndex.filters
       ))
   ) {
@@ -170,9 +185,7 @@ async function searchES() {
       queryText,
       config.newsIndex.searchFields,
       'sectionHandle:article',
-      (route.query.filters &&
-        JSON.parse(route.query.filters)) ||
-      {},
+      parseFilters(route.query.filters || ''),
       config.newsIndex.sortField,
       config.newsIndex.orderBy,
       config.newsIndex.resultFields,
@@ -188,9 +201,6 @@ async function searchES() {
       hits.value = []
     }
   } else {
-    // console.log('data.value', data.value)
-    // console.log('page.value', page.value)
-    // console.log('news.value', news.value)
     hits.value = []
     noResultsFound.value = false
   }
@@ -235,13 +245,23 @@ function parseHits(hits = []) {
 
 // This is event handler which is invoked by search-generic component selections
 function getSearchData(data) {
-  console.log('On the page getsearchdata called')
+  // Construct the filters parameter dynamically
+  const filters = []
+  if (data.filters) {
+    for (const key in data.filters) {
+      if (data.filters[key].length > 0) {
+        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      }
+    }
+  }
+
+  // Use the router to navigate with the new query parameters
   useRouter().push({
     path: '/about/news',
     query: {
       q: data.text,
-      filters: JSON.stringify(data.filters),
-    },
+      filters: filters.join(' AND ')
+    }
   })
 }
 
@@ -418,9 +438,6 @@ onMounted(async () => {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-news {}
 </style>

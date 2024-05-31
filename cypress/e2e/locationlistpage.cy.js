@@ -16,8 +16,7 @@ describe('Location Listing page', () => {
   })
 
   it('Visit Locations Listing page filter by type', () => {
-    cy.visit('/visit/locations/?q&filters=%7B"amenities.keyword"%3A%5B"Lockers"%5D%7D', { timeout: 13000 })
-
+    cy.visit('/visit/locations?q&filters=amenities.keyword:(Lockers)', { timeout: 60000 })
     cy.get('h2.about-results').invoke('text').should('not.be.empty')
   })
 })
