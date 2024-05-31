@@ -6,6 +6,7 @@ import _get from 'lodash/get'
 import getListingFilters from '../utils/getListingFilters'
 import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
+import parseFilters from '../utils/parseFilters'
 
 // HELPERS
 import removeTags from '../utils/removeTags'
@@ -66,10 +67,7 @@ const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters:
-    (route.query.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
+  queryFilters: parseFilters(route.query.filters || ''),
 })
 // ELASTICSEARCH
 async function searchES() {
@@ -77,7 +75,7 @@ async function searchES() {
     (route.query.q && route.query.q !== '') ||
     (route.query.filters &&
       queryFilterHasValues(
-        route.query.filters,
+        parseFilters(route.query.filters || ''),
         config.locationsList.filters
       ))
   ) {
@@ -87,9 +85,7 @@ async function searchES() {
       queryText,
       config.locationsList.searchFields,
       'sectionHandle:location OR sectionHandle:affiliateLibrary',
-      (route.query.filters &&
-        JSON.parse(route.query.filters)) ||
-      {},
+      parseFilters(route.query.filters || ''),
       config.locationsList.sortField,
       config.locationsList.orderBy,
       config.locationsList.resultFields,
@@ -117,7 +113,7 @@ watch(
     // console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
     // TODO is the line correct? empty object not array?
-    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
   }, { deep: true, immediate: true }
 )
@@ -223,17 +219,20 @@ function parseHits(hits = []) {
 
 /* TODO: Refactor when search functionality is ready */
 function getSearchData(data) {
-  // console.log("On the page getsearchdata called " + data)
-  // this.page = {}
-  // this.hits = []
-  console.log('data text', data.text)
-  console.log('data filters', JSON.stringify(data.filters))
+  const filters = []
+  // if filters are selected, add to the filters parameter
+  if (data.filters) {
+    for (const key in data.filters) {
+      if (data.filters[key].length > 0) {
+        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      }
+    }
+  }
   useRouter().push({
     path: '/visit/locations',
     query: {
       q: data.text,
-      filters:
-        (data.filters && JSON.stringify(data.filters)) || '',
+      filters: filters.join(' AND ')
     },
   })
 }
@@ -381,10 +380,7 @@ onMounted(async () => {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-location {
   .about-results {
     margin-top: var(--space-xl);

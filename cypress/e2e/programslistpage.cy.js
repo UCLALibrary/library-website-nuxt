@@ -19,7 +19,7 @@ describe('Program List page', () => {
 
   it('Visit Program Listing page filter by type', () => {
     cy.intercept('about/programs/*').as('getProgramListSearchRoutes')
-    cy.visit('/about/programs/?q=&filters=%7B"programType.title.keyword"%3A%5B"Collections"%5D%7D')
+    cy.visit('/about/programs?q=&filters=programType.title.keyword:(Collections)', { timeout: 60000 })
     cy.wait('@getProgramListSearchRoutes').then(() => {
       cy.get('h2.about-results').should('be.visible')
     })
