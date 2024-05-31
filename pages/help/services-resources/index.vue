@@ -73,7 +73,7 @@ const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters: parseFilters(route.query.filters || ""),
+  queryFilters: parseFilters(route.query.filters || ''),
 })
 
 // THIS WATCHER IS CALLED WHEN THE ROUTER PUSHES UPDATES TO THE QUERY PARAM
@@ -84,7 +84,7 @@ watch(
   (newVal, oldVal) => {
     console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || "")
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
   }, { deep: true, immediate: true }
 )
@@ -95,7 +95,7 @@ async function searchES() {
     (route.query.q && route.query.q !== '') ||
     (route.query.filters &&
       queryFilterHasValues(
-        parseFilters(route.query.filters || ""),
+        parseFilters(route.query.filters || ''),
         config.serviceOrResources.filters
       ))
   ) {
@@ -105,7 +105,7 @@ async function searchES() {
       queryText,
       config.serviceOrResources.searchFields,
       '(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)',
-      parseFilters(route.query.filters || ""),
+      parseFilters(route.query.filters || ''),
       config.serviceOrResources.sortField,
       config.serviceOrResources.orderBy,
       config.serviceOrResources.resultFields,
