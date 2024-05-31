@@ -49,7 +49,7 @@ useHead({
 })
 
 const parsedStaffList = computed(() => {
-  // //console.log("in parsedStaff")
+  console.log('in parsedStaff')
   return (page.value.entries || []).map((obj) => {
     return {
       ...obj,
@@ -76,55 +76,81 @@ const parsedStaffList = computed(() => {
   })
 })
 
-const hits = ref([])
-const noResultsFound = ref(false)
-const searchFilters = ref([])
-const selectedLetterProp = ref('')
-const searchGenericQuery = ref({
-  queryText: route.query.q || '',
-  queryFilters:
-    (route.query.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
-})
+// ELASTIC SEARCH FUNCTIONALITY
+function parseFilters(filtersString) {
+  console.log([parseFilters], filtersString)
+  if (!filtersString) return {}
+
+  const filters = {}
+  const conditions = filtersString.split(' AND ')
+  console.log('conditions', conditions)
+
+  conditions.forEach((condition) => {
+    const [key, value] = condition.split(':(')
+    const cleanedKey = key.trim()
+    const values = value.replace(')', '').split(' OR ').map(v => v.trim())
+
+    filters[cleanedKey] = values
+  })
+
+  return filters
+}
+
 const tableHeaders = ref([
   'Academic Departments',
   'Name',
   'Contact Information',
 ])
+
+// const routeFilters = computed(() => {
+//   return JSON.parse(_get(route, 'query.filters', []))
+// })
+
 const routeFilters = computed(() => {
-  return JSON.parse(_get(route, 'query.filters', '[]'))
+  return parseFilters(_get(route, 'query.filters', ''))
 })
+
+const hits = ref([])
+const noResultsFound = ref(false)
+const searchFilters = ref([])
+const selectedLetterProp = ref('')
+
+const searchGenericQuery = ref({
+  queryText: route.query.q || '',
+  queryFilters: parseFilters(route.query.filters || ''),
+})
+
 // This watcher is called when router push updates the query params
 watch(
   () => route.query,
   (newVal, oldVal) => {
     console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     selectedLetterProp.value = route.query.lastNameLetter
     searchES()
   }, { deep: true, immediate: true }
 )
+
+// ELASTIC SEARCH FUNCTION
 async function searchES() {
   if (
-    (route.query && route.query.q && route.query.q !== '') ||
-    (route.query && route.query.filters &&
+    (route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
       queryFilterHasValues(
-        route.query.filters,
+        parseFilters(route.query.filters || ''),
         config.staff.filters
       )) ||
     (route.query && route.query.lastNameLetter)
   ) {
     console.log('Search ES HITS query,', route.query.q)
+
     let queryText = route.query.q || '*'
     if (
       route.query.lastNameLetter &&
       route.query.lastNameLetter !== 'All'
     ) {
-      queryText =
-        queryText +
-        ` AND nameLast:${route.query.lastNameLetter}*`
+      queryText = queryText + ` AND nameLast:${route.query.lastNameLetter}*`
     } else if (
       route.query.lastNameLetter &&
       route.query.lastNameLetter === 'All'
@@ -137,7 +163,8 @@ async function searchES() {
           { term: { 'subjectLibrarian.keyword': 'yes' } }
         ]
       : []
-    // console.log("in router query in asyc data")
+
+    console.log('in router query in asyc data queryText', queryText)
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
       config.staff.searchFields,
@@ -151,8 +178,9 @@ async function searchES() {
     )
 
     if (results && results.hits && results.hits.total.value > 0) {
-      hits.value = results.hits.hits
+      console.log('Search ES HITS,', results.hits.hits)
 
+      hits.value = results.hits.hits
       noResultsFound.value = false
     } else {
       noResultsFound.value = true
@@ -201,9 +229,11 @@ const groupByAcademicLibraries = computed(() => {
   ) */
   return groupBySubjectAreas
 })
+
 const parsedPlaceholder = computed(() => {
   return `Search ${summaryData.value.title}`
 })
+
 const parseHitsResults = computed(() => {
   return hits.value.map((obj) => {
     // //console.log(obj["_source"]["image"])
@@ -234,30 +264,56 @@ function searchBySelectedLetter(data) {
   // console.log("On the page searchBySelectedLetter called")
   /* this.page = {}
   this.hits = [] */
+  const filters = []
+  if (data.filters) {
+    for (const key in data.filters) {
+      if (data.filters[key].length > 0) {
+        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      }
+    }
+  }
   useRouter().push({
     path: '/about/staff',
     query: {
       q: searchGenericQuery.value.queryText,
-      filters: JSON.stringify(
-        searchGenericQuery.value.queryFilters
-      ),
+      filters: filters.join(' AND '),
       lastNameLetter: data,
     },
   })
 }
+
 function getSearchData(data) {
-  // console.log("On the page getsearchdata called")
-  /* this.page = {}
-  this.hits = [] */
+  console.log('On the page getsearchdata called')
+
+  // Create a URLSearchParams object
+  const params = new URLSearchParams()
+
+  // Add the text query parameter
+  params.append('q', data.text)
+
+  // Construct the filters parameter dynamically
+  const filters = []
+  if (data.filters) {
+    for (const key in data.filters) {
+      if (data.filters[key].length > 0) {
+        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      }
+    }
+  }
+
+  // Use the router to navigate with the new query parameters
+  // https://uclalibrary-test-nuxt3x.netlify.app/about/staff?q=&departments=Software Development and Library Systems, Administration&locations=UCLA Film & Television Archive, Eugene and Maxine Rosenfeld Management Library&subjectLibrarian=yes&lastNameLetter=G
+
   useRouter().push({
     path: '/about/staff',
     query: {
       q: data.text,
-      filters: data.filters && JSON.stringify(data.filters),
       lastNameLetter: route.query.lastNameLetter,
-    },
+      filters: filters.join(' AND ')
+    }
   })
 }
+
 async function setFilters() {
   const searchAggsResponse = await $dataApi.getAggregations(
     config.staff.filters,
@@ -294,7 +350,7 @@ onMounted(async () => {
     />
 
     <!-- SEARCH
-              Filters by location, department, subject libarian -->
+    Filters by location, department, subject libarian -->
     <search-generic
       search-type="about"
       :filters="searchFilters"
@@ -334,9 +390,7 @@ onMounted(async () => {
         ((searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
           (searchGenericQuery.queryFilters[
             'subjectLibrarian.keyword'
-          ][0] === '') || searchGenericQuery.queryFilters[
-            'subjectLibrarian.keyword'
-          ].length === 0) ||
+          ][0] === '')) ||
           !searchGenericQuery.queryFilters[
             'subjectLibrarian.keyword'
           ])

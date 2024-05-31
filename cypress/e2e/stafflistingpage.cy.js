@@ -1,3 +1,5 @@
+// https://uclalibrary-test-nuxt3x.netlify.app/about/staff?q=&departments=Software Development and Library Systems, Administration&locations=UCLA Film & Television Archive, Eugene and Maxine Rosenfeld Management Library&subjectLibrarian=yes&lastNameLetter=G
+
 describe('Article News Listing page', () => {
   it('Visit the Article News Listing Page', () => {
     cy.visit('/about/staff')
@@ -18,7 +20,7 @@ describe('Article News Listing page', () => {
 
   it('Visit Subject Librarian Listing page', () => {
     cy.intercept('/about/staff/*').as('getStaffRoutes')
-    cy.visit('/about/staff/?q=&filters={"subjectLibrarian.keyword":["yes"]}', { timeout: 30000 })
+    cy.visit('/about/staff?q=&filters=subjectLibrarian.keyword:(yes)', { timeout: 30000 })
     cy.wait('@getStaffRoutes').then(() => {
       cy.get('td.academic-department').should('be.visible')
     })
