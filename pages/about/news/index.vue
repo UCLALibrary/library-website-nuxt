@@ -3,6 +3,7 @@
 import _get from 'lodash/get'
 import { format } from 'date-fns'
 import removeTags from '../utils/removeTags'
+import parseFilters from '../utils/parseFilters'
 
 // GQL
 import ARTICLE_LIST from '../gql/queries/ArticleList.gql'
@@ -131,22 +132,22 @@ const parsedByline = computed(() => {
 })
 
 // ELASTIC SEARCH FUNCTIONALITY\
-function parseFilters(filtersString) {
-  if (!filtersString) return {}
+// function parseFilters(filtersString) {
+//   if (!filtersString) return {}
 
-  const filters = {}
-  const conditions = filtersString.split(' AND ')
+//   const filters = {}
+//   const conditions = filtersString.split(' AND ')
 
-  conditions.forEach((condition) => {
-    const [key, value] = condition.split(':(')
-    const cleanedKey = key.trim()
-    const values = value.replace(')', '').split(' OR ').map(v => v.trim())
+//   conditions.forEach((condition) => {
+//     const [key, value] = condition.split(':(')
+//     const cleanedKey = key.trim()
+//     const values = value.replace(')', '').split(' OR ').map(v => v.trim())
 
-    filters[cleanedKey] = values
-  })
+//     filters[cleanedKey] = values
+//   })
 
-  return filters
-}
+//   return filters
+// }
 
 const hits = ref([])
 const title = ref('')
@@ -317,7 +318,7 @@ onMounted(async () => {
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <banner-featured
@@ -333,12 +334,14 @@ onMounted(async () => {
         class="banner section-featured-banner"
       />
 
-      <divider-general v-show="page &&
-        page.featuredNews &&
-        page.featuredNews.length &&
-        hits.length === 0 &&
-        !noResultsFound
-        " />
+      <divider-general
+        v-show="page &&
+          page.featuredNews &&
+          page.featuredNews.length &&
+          hits.length === 0 &&
+          !noResultsFound
+        "
+      />
 
       <section-teaser-highlight
         v-show="parsedSectionHighlight.length > 0"
@@ -353,7 +356,7 @@ onMounted(async () => {
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <divider-way-finder color="about" />
