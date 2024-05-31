@@ -71,13 +71,6 @@ watch(data, (newVal, oldVal) => {
 const hits = ref([])
 const noResultsFound = ref(false)
 const searchFilters = ref([])
-// const searchGenericQuery = ref({
-//   queryText: route.query?.q || '',
-//   queryFilters:
-//     (route.query?.filters &&
-//       JSON.parse(route.query.filters)) ||
-//     {},
-// })
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
   queryFilters: parseFilters(route.query.filters || ""),
@@ -85,13 +78,6 @@ const searchGenericQuery = ref({
 
 // THIS WATCHER IS CALLED WHEN THE ROUTER PUSHES UPDATES TO THE QUERY PARAM
 // ie: someone changes the query or starts viewing from a bookmarked page
-
-// watch(() => route.query, (oldValue, newValue) => {
-//   // console.log('ES newVal, oldVal', newVal, oldVal)
-//   searchGenericQuery.value.queryText = route.query.q || ''
-//   searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
-//   searchES()
-// }, { deep: true, immediate: true })
 
 watch(
   () => route.query,
@@ -105,14 +91,6 @@ watch(
 
 // ES search function
 async function searchES() {
-  // if (
-  //   (route.query && route.query.q && route.query.q !== '') ||
-  //   (route.query.filters &&
-  //     queryFilterHasValues(
-  //       route.query.filters,
-  //       config.serviceOrResources.filters
-  //     ))
-  // )
   if (
     (route.query.q && route.query.q !== '') ||
     (route.query.filters &&
@@ -124,18 +102,6 @@ async function searchES() {
     // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
 
-    // const results = await $dataApi.keywordSearchWithFilters(
-    //   queryText,
-    //   config.serviceOrResources.searchFields,
-    //   '(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)',
-    //   (route.query.filters &&
-    //     JSON.parse(route.query.filters)) ||
-    //   [],
-    //   config.serviceOrResources.sortField,
-    //   config.serviceOrResources.orderBy,
-    //   config.serviceOrResources.resultFields,
-    //   []
-    // )
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
       config.serviceOrResources.searchFields,
@@ -285,18 +251,6 @@ async function setFilters() {
 }
 
 //  This event handler is invoked by the search-generic component (filtered search )selections
-// function getSearchData(data) {
-//   // console.log('On the page getsearchdata called')
-//   const filterData =
-//     (data.filters && JSON.stringify(data.filters)) || {}
-//   useRouter().push({
-//     path: '/help/services-resources',
-//     query: {
-//       q: data.text,
-//       filters: filterData,
-//     },
-//   })
-// }
 function getSearchData(data) {
   console.log('On the page getsearchdata called')
   // Construct the filters parameter dynamically
@@ -308,7 +262,7 @@ function getSearchData(data) {
   }
   // Use the router to navigate with the new query parameters
   useRouter().push({
-    path: '/collections/explore',
+    path: '/help/services-resources',
     query: {
       q: data.text,
       filters: filters.join(' AND ')
