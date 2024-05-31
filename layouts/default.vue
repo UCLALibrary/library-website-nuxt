@@ -68,10 +68,7 @@ onMounted(async () => {
 
 <template>
   <div :class="classes">
-    <!-- VueSkipTo to="#main" label="Skip to main content" / -->
-    <!-- this is not working in static build -->
     <header-smart v-if="globalStore.header" />
-
     <section-wrapper
       class="section-alert"
       theme="divider"
@@ -96,10 +93,7 @@ onMounted(async () => {
   </div>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .layout-default {
   min-height: 100vh;
 
