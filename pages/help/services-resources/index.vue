@@ -101,17 +101,14 @@ async function searchES() {
   ) {
     // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
-
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
       config.serviceOrResources.searchFields,
       '(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)',
       parseFilters(route.query.filters || ""),
-      [],
       config.serviceOrResources.sortField,
       config.serviceOrResources.orderBy,
       config.serviceOrResources.resultFields,
-      []
     )
 
     if (results && results.hits && results.hits.total.value > 0) {

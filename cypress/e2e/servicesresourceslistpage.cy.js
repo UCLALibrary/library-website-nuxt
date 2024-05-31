@@ -23,7 +23,7 @@ describe('All Services & Resources Listing page', () => {
   })
 
   it('Visit Services Listing page filter by category', () => {
-    cy.visit('/help/services-resources?')
+    cy.visit('/help/services-resources?q=Radical&filters=serviceOrResourceType.keyword:(workshop+series)')
 
     cy.get('h2.about-results').should('be.visible')
   })
