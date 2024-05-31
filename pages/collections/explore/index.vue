@@ -12,6 +12,7 @@ import COLLECTIONS_EXPLORE_LIST from '../gql/queries/CollectionsExploreList.gql'
 import getListingFilters from '../utils/getListingFilters'
 import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
+import parseFilters from '../utils/parseFilters'
 
 const { $graphql, $dataApi } = useNuxtApp()
 
@@ -187,23 +188,6 @@ function getSearchData(data) {
   })
 }
 
-function parseFilters(filtersString) {
-  if (!filtersString) return {}
-
-  const filters = {}
-  const conditions = filtersString.split(' AND ')
-
-  conditions.forEach((condition) => {
-    const [key, value] = condition.split(':(')
-    const cleanedKey = key.trim()
-    const values = value.replace(')', '').split(' OR ').map(v => v.trim())
-
-    filters[cleanedKey] = values
-  })
-
-  return filters
-}
-
 // fetch filters for the page from ES after page loads in Onmounted hook on the client side
 async function setFilters() {
   const searchAggsResponse = await $dataApi.getAggregations(
@@ -264,7 +248,7 @@ onMounted(async () => {
         parsedCollectionList.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <section-teaser-card :items="parsedCollectionList" />
