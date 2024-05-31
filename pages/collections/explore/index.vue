@@ -96,7 +96,7 @@ const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters: parseFilters(route.query.filters || ""),
+  queryFilters: parseFilters(route.query.filters || ''),
 })
 
 // This watcher is called when router pushes updates the query params
@@ -105,7 +105,7 @@ watch(
   (newVal, oldVal) => {
     console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || "")
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
   }, { deep: true, immediate: true }
 )
@@ -116,7 +116,7 @@ async function searchES() {
     (route.query.q && route.query.q !== '') ||
     (route.query.filters &&
       queryFilterHasValues(
-        parseFilters(route.query.filters || ""),
+        parseFilters(route.query.filters || ''),
         config.exploreCollection.filters
       ))
   ) {
@@ -126,7 +126,7 @@ async function searchES() {
       queryText,
       config.exploreCollection.searchFields,
       'sectionHandle:collection',
-      parseFilters(route.query.filters || ""),
+      parseFilters(route.query.filters || ''),
       config.exploreCollection.sortField,
       config.exploreCollection.orderBy,
       config.exploreCollection.resultFields,
@@ -193,7 +193,7 @@ function parseFilters(filtersString) {
   const filters = {}
   const conditions = filtersString.split(' AND ')
 
-  conditions.forEach(condition => {
+  conditions.forEach((condition) => {
     const [key, value] = condition.split(':(')
     const cleanedKey = key.trim()
     const values = value.replace(')', '').split(' OR ').map(v => v.trim())
@@ -264,7 +264,7 @@ onMounted(async () => {
         parsedCollectionList.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <section-teaser-card :items="parsedCollectionList" />
