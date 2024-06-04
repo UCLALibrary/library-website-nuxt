@@ -8,6 +8,7 @@
             :title="page.title"
             parent-title="News"
         />
+
         <banner-text
             v-if="!page.heroImage || page.heroImage.length == 0"
             class="banner-text"
@@ -24,7 +25,7 @@
                 :title="page.title"
                 :text="page.text"
                 :category="parsedCategory"
-                :byline="page.byline"
+                :byline="parsedByline"
                 :locations="page.locations"
                 :date-created="page.dateCreated"
                 :align-right="true"
@@ -78,12 +79,33 @@ export default {
         parsedCategory() {
             return _get(this.page, "category[0].title", "")
         },
+        parsedByline() {
+            let byline = (this.page.contributors || []).map((contributor) => {
+                if (
+                    (contributor.staffMember &&
+                        contributor.staffMember.length > 0) ||
+                    contributor.title
+                )
+                    return `${contributor.byline || ""} ${contributor.title || contributor.staffMember[0].title
+                        }`
+            })
+            return byline.map((contributor) => {
+                return contributor
+            })
+        },
+        parsedDate() {
+            return format(new Date(this.page.postDate), "MMMM d, Y")
+        },
     },
 }
 </script>
 
-<style lang="scss" scoped>
+<style
+    lang="scss"
+    scoped
+>
 .page-news-detail {
+
     .banner-text,
     .banner-header {
         --color-theme: var(--color-visit-fushia-03);

@@ -4,6 +4,7 @@
 query ArticleNewsDetail($slug: [String!]) {
     entry(section: "meapArticle", slug: $slug) {
         ... on meapArticle_meapArticle_Entry {
+            postDate
             id
             sectionHandle
             uri
@@ -14,6 +15,20 @@ query ArticleNewsDetail($slug: [String!]) {
             dateCreated
             category: articleCategories {
                 title
+                uri
+            }
+            contributors {
+                ... on contributors_staffMember_BlockType {
+                    byline
+                    staffMember {
+                        title
+                        to: slug
+                    }
+                }
+                ... on contributors_externalContributor_BlockType {
+                byline
+                title: contributor
+                }
             }
             heroImage {
                 ... on heroImage_heroImage_BlockType {
