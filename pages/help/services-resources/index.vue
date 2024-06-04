@@ -8,6 +8,7 @@ import _get from 'lodash/get'
 import getListingFilters from '../utils/getListingFilters'
 import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
+import parseFilters from '../utils/parseFilters'
 
 // UTILITIES
 import removeTags from '../utils/removeTags'
@@ -71,29 +72,30 @@ const hits = ref([])
 const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
-  queryText: route.query?.q || '',
-  queryFilters:
-    (route.query?.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
+  queryText: route.query.q || '',
+  queryFilters: parseFilters(route.query.filters || ''),
 })
 
 // THIS WATCHER IS CALLED WHEN THE ROUTER PUSHES UPDATES TO THE QUERY PARAM
 // ie: someone changes the query or starts viewing from a bookmarked page
-watch(() => route.query, (oldValue, newValue) => {
-  // console.log('ES newVal, oldVal', newVal, oldVal)
-  searchGenericQuery.value.queryText = route.query.q || ''
-  searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
-  searchES()
-}, { deep: true, immediate: true })
+
+watch(
+  () => route.query,
+  (newVal, oldVal) => {
+    console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
+    searchES()
+  }, { deep: true, immediate: true }
+)
 
 // ES search function
 async function searchES() {
   if (
-    (route.query && route.query.q && route.query.q !== '') ||
+    (route.query.q && route.query.q !== '') ||
     (route.query.filters &&
       queryFilterHasValues(
-        route.query.filters,
+        parseFilters(route.query.filters || ''),
         config.serviceOrResources.filters
       ))
   ) {
@@ -103,14 +105,12 @@ async function searchES() {
       queryText,
       config.serviceOrResources.searchFields,
       '(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)',
-      (route.query.filters &&
-        JSON.parse(route.query.filters)) ||
-      [],
+      parseFilters(route.query.filters || ''),
       config.serviceOrResources.sortField,
       config.serviceOrResources.orderBy,
       config.serviceOrResources.resultFields,
-      []
     )
+
     if (results && results.hits && results.hits.total.value > 0) {
       // console.log('Search ES HITS,', results.hits.hits)
       hits.value = results.hits.hits
@@ -249,15 +249,21 @@ async function setFilters() {
 
 //  This event handler is invoked by the search-generic component (filtered search )selections
 function getSearchData(data) {
-  // console.log('On the page getsearchdata called')
-  const filterData =
-    (data.filters && JSON.stringify(data.filters)) || {}
+  console.log('On the page getsearchdata called')
+  // Construct the filters parameter dynamically
+  const filters = []
+  for (const key in data.filters) {
+    if (data.filters[key].length > 0) {
+      filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+    }
+  }
+  // Use the router to navigate with the new query parameters
   useRouter().push({
     path: '/help/services-resources',
     query: {
       q: data.text,
-      filters: filterData,
-    },
+      filters: filters.join(' AND ')
+    }
   })
 }
 </script>
@@ -371,10 +377,7 @@ function getSearchData(data) {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-help {
   :deep(label.label) {
     text-transform: capitalize;
