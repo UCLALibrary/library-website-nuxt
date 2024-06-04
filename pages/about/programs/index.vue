@@ -4,6 +4,7 @@ import _get from 'lodash/get'
 import getListingFilters from '../utils/getListingFilters'
 import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
+import parseFilters from '../utils/parseFilters'
 
 // HELPERS
 import removeTags from '../utils/removeTags'
@@ -57,17 +58,14 @@ const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query?.q || '',
-  queryFilters:
-    (route.query?.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
+  queryFilters: parseFilters(route.query.filters || ''),
 })
 async function searchES() {
   if (
     (route.query && route.query.q && route.query.q !== '') ||
     (route.query.filters &&
       queryFilterHasValues(
-        route.query.filters,
+        parseFilters(route.query.filters || ''),
         config.programsList.filters
       ))
   ) {
@@ -76,9 +74,7 @@ async function searchES() {
       queryText as string,
       config.programsList.searchFields,
       'sectionHandle:program',
-      (route.query.filters &&
-        JSON.parse(route.query.filters)) ||
-      {},
+      parseFilters(route.query.filters || ''),
       config.programsList.sortField,
       config.programsList.orderBy,
       config.programsList.resultFields,
@@ -101,7 +97,7 @@ watch(
   (newVal, oldVal) => {
     // console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query?.q || ''
-    searchGenericQuery.value.queryFilters = (route.query?.filters && JSON.parse(route.query.filters)) || {}
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
   }, { deep: true, immediate: true }
 )
@@ -180,11 +176,21 @@ const parseHitsResults = computed(() => {
 // METHODS
 //  This is event handler which is invoked by search-generic component selections
 function getSearchData(data) {
+  // Construct the filters parameter dynamically
+  const filters = []
+  // if filters are selected, add to the filters parameter
+  if (data.filters) {
+    for (const key in data.filters) {
+      if (data.filters[key].length > 0) {
+        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      }
+    }
+  }
   useRouter().push({
     path: '/about/programs',
     query: {
       q: data.text,
-      filters: JSON.stringify(data.filters),
+      filters: filters.join(' AND ')
     },
   })
 }

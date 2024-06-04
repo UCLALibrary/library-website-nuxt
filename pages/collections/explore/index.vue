@@ -12,6 +12,7 @@ import COLLECTIONS_EXPLORE_LIST from '../gql/queries/CollectionsExploreList.gql'
 import getListingFilters from '../utils/getListingFilters'
 import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
+import parseFilters from '../utils/parseFilters'
 
 const { $graphql, $dataApi } = useNuxtApp()
 
@@ -96,19 +97,16 @@ const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters:
-    (route.query.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
+  queryFilters: parseFilters(route.query.filters || ''),
 })
 
 // This watcher is called when router pushes updates the query params
 watch(
-  () => route?.query,
+  () => route.query,
   (newVal, oldVal) => {
     console.log('ES newVal, oldVal', newVal, oldVal)
-    searchGenericQuery.value.queryText = route?.query.q || ''
-    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
   }, { deep: true, immediate: true }
 )
@@ -116,10 +114,10 @@ watch(
 // ELASTIC SEARCH FUNCTION
 async function searchES() {
   if (
-    (route?.query.q && route?.query.q !== '') ||
+    (route.query.q && route.query.q !== '') ||
     (route.query.filters &&
       queryFilterHasValues(
-        route.query.filters,
+        parseFilters(route.query.filters || ''),
         config.exploreCollection.filters
       ))
   ) {
@@ -129,9 +127,7 @@ async function searchES() {
       queryText,
       config.exploreCollection.searchFields,
       'sectionHandle:collection',
-      (route.query.filters &&
-        JSON.parse(route.query.filters)) ||
-      {},
+      parseFilters(route.query.filters || ''),
       config.exploreCollection.sortField,
       config.exploreCollection.orderBy,
       config.exploreCollection.resultFields,
@@ -172,15 +168,23 @@ const parseHitsResults = computed(() => {
 
 // This is event handler which is invoked by search-generic component selections
 function getSearchData(data) {
-  // console.log("On the page getsearchdata called " + data)
-  console.log('data text', data.text)
-  console.log('data filters', JSON.stringify(data.filters))
+  console.log('On the page getsearchdata called')
+
+  // Construct the filters parameter dynamically
+  const filters = []
+  for (const key in data.filters) {
+    if (data.filters[key].length > 0) {
+      filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+    }
+  }
+
+  // Use the router to navigate with the new query parameters
   useRouter().push({
     path: '/collections/explore',
     query: {
       q: data.text,
-      filters: JSON.stringify(data.filters),
-    },
+      filters: filters.join(' AND ')
+    }
   })
 }
 
@@ -284,12 +288,14 @@ onMounted(async () => {
             We can’t find the term you are looking for on this page,
             but we're here to help. <br>
             Try searching the whole site from
-            <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited
+            <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these
+            regularly visited
             links:
           </p>
           <ul>
             <li>
-              <a href="https://www.library.ucla.edu/research-teaching-support/research-help">Research Help</a>
+              <a href="https://www.library.ucla.edu/research-teaching-support/research-help">Research
+                Help</a>
             </li>
             <li>
               <a href="/help/services-resources/ask-us">Ask Us</a>
@@ -322,9 +328,6 @@ onMounted(async () => {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-collections-explore {}
 </style>

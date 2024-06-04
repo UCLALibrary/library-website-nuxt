@@ -98,6 +98,7 @@ storybook-static
 # Cypress
 cypress/fixtures/example.json
 cypress/screenshots
+cypress/downloads
 
 # local component testing
 page/component.vue
