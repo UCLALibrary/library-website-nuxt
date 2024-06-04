@@ -3,7 +3,7 @@
 import getListingFilters from '../utils/getListingFilters'
 import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
-// import parseFilters from '../utils/parseFilters'
+import parseFilters from '../utils/parseFilters'
 
 const route = useRoute()
 const page = ref({})
@@ -17,7 +17,7 @@ const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters: parseFilters(route.query.filters || "")
+  queryFilters: parseFilters(route.query.filters || '')
 })
 const isSearching = ref(true)
 const { $dataApi } = useNuxtApp()
@@ -27,7 +27,7 @@ watch(
   (newVal, oldVal) => {
     console.log('Site search page ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || "")
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
   }, { deep: true, immediate: true }
 )
@@ -40,7 +40,7 @@ async function searchES() {
       (route.query.q && route.query.q !== '') ||
       (route.query.filters &&
         queryFilterHasValues(
-          parseFilters(route.query.filters || ""),
+          parseFilters(route.query.filters || ''),
           config.siteSearch.filters
         ))
     ) {
@@ -48,7 +48,7 @@ async function searchES() {
       page.value = await $dataApi.siteSearch(
         route.query.q || '*',
         route.query.from || from.value,
-        parseFilters(route.query.filters || ""),
+        parseFilters(route.query.filters || ''),
         config.siteSearch.sectionHandleMapping
       )
       if (
