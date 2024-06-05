@@ -199,7 +199,7 @@ const noResultsFound = ref(false)
 
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters: parseFilters(route.query.filters || ""),
+  queryFilters: parseFilters(route.query.filters || ''),
 })
 
 function parseFilters(filtersString) {
@@ -208,7 +208,7 @@ function parseFilters(filtersString) {
   const filters = {}
   const conditions = filtersString.split(' AND ')
 
-  conditions.forEach(condition => {
+  conditions.forEach((condition) => {
     const [key, value] = condition.split(':(')
     const cleanedKey = key.trim()
     const values = value.replace(')', '').split(' OR ').map(v => v.trim())
@@ -232,7 +232,7 @@ watch(
   (newVal, oldVal) => {
     console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || "")
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
   }, { deep: true, immediate: true }
 )
@@ -250,14 +250,14 @@ async function searchES() {
     const extrafilters = (past && past.length > 0 && past[0] === 'yes')
       ? []
       : [
-        {
-          range: {
-            endDateWithTime: {
-              gte: 'now',
+          {
+            range: {
+              endDateWithTime: {
+                gte: 'now',
+              },
             },
           },
-        },
-      ]
+        ]
 
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
@@ -404,13 +404,13 @@ onMounted(async () => {
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <banner-featured
         v-if="parsedFeaturedEventsAndExhibits.length > 0 &&
-        hits.length == 0 &&
-        !noResultsFound
+          hits.length == 0 &&
+          !noResultsFound
         "
         :media="parsedBannerHeader.image"
         :title="parsedBannerHeader.title"
@@ -439,7 +439,7 @@ onMounted(async () => {
         parsedEvents.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <divider-way-finder color="visit" />
@@ -451,7 +451,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="All Upcoming Events"
     >
       <section-teaser-list :items="parsedEvents" />
@@ -462,7 +462,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <divider-way-finder color="visit" />
@@ -474,7 +474,7 @@ onMounted(async () => {
         parsedSeriesAndExhibitions.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="Event Series & Exhibitions"
     >
       <section-teaser-card :items="parsedSeriesAndExhibitions" />
