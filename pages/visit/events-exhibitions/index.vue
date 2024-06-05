@@ -71,32 +71,32 @@ const parsedFeaturedEventsAndExhibits = computed(() => {
       title: obj.eventTitle ? obj.eventTitle : obj.title,
       image: _get(obj, 'heroImage[0].image[0]', null),
       startDate:
-                obj.typeHandle === 'event'
-                  ? obj.startDateWithTime
-                  : obj.startDate,
+        obj.typeHandle === 'event'
+          ? obj.startDateWithTime
+          : obj.startDate,
       endDate:
-                obj.typeHandle === 'event'
-                  ? obj.endDateWithTime
-                  : obj.endDate,
+        obj.typeHandle === 'event'
+          ? obj.endDateWithTime
+          : obj.endDate,
       prompt:
-                obj.typeHandle === 'exhibition'
-                  ? 'View exhibition'
-                  : obj.workshopOrEventSeriesType ===
-                        'visit/events-exhibitions'
-                    ? 'View event series'
-                    : 'View event',
+        obj.typeHandle === 'exhibition'
+          ? 'View exhibition'
+          : obj.workshopOrEventSeriesType ===
+            'visit/events-exhibitions'
+            ? 'View event series'
+            : 'View event',
       text:
-                obj.typeHandle === 'event'
-                  ? obj.eventDescription
-                  : obj.summary,
+        obj.typeHandle === 'event'
+          ? obj.eventDescription
+          : obj.summary,
       locations:
-                obj.typeHandle === 'exhibition'
-                  ? obj.associatedLocationsAndPrograms
-                  : obj.associatedLocations[0] != null
-                    ? obj.associatedLocations
-                    : obj.eventLocation != null
-                      ? obj.eventLocation
-                      : obj.associatedLocationsAndPrograms,
+        obj.typeHandle === 'exhibition'
+          ? obj.associatedLocationsAndPrograms
+          : obj.associatedLocations[0] != null
+            ? obj.associatedLocations
+            : obj.eventLocation != null
+              ? obj.eventLocation
+              : obj.associatedLocationsAndPrograms,
     }
   })
 })
@@ -111,17 +111,17 @@ const parsedSectionHighlight = computed(() => {
     return {
       ...obj,
       category:
-                obj.typeHandle === 'exhibition'
-                  ? 'Exhibition'
-                  : obj.workshopOrEventSeriesType ===
-                        'visit/events-exhibitions'
-                    ? 'Event Series'
-                    : obj.workshopOrEventSeriesType ===
-                            'help/services-resources'
-                      ? 'Workshop Series'
-                      : obj.eventType != null && obj.eventType.length > 0
-                        ? obj.eventType[0].title
-                        : 'Event',
+        obj.typeHandle === 'exhibition'
+          ? 'Exhibition'
+          : obj.workshopOrEventSeriesType ===
+            'visit/events-exhibitions'
+            ? 'Event Series'
+            : obj.workshopOrEventSeriesType ===
+              'help/services-resources'
+              ? 'Workshop Series'
+              : obj.eventType != null && obj.eventType.length > 0
+                ? obj.eventType[0].title
+                : 'Event',
       title: obj.title,
     }
   })
@@ -146,9 +146,9 @@ const parsedEvents = computed(() => {
         null
       ),
       locations:
-                eventOrExhibtion.associatedLocations[0] != null
-                  ? eventOrExhibtion.associatedLocations
-                  : eventOrExhibtion.eventLocation,
+        eventOrExhibtion.associatedLocations[0] != null
+          ? eventOrExhibtion.associatedLocations
+          : eventOrExhibtion.eventLocation,
     }
   })
 })
@@ -160,17 +160,17 @@ const parsedSeriesAndExhibitions = computed(() => {
       return {
         ...obj,
         category:
-                    obj.typeHandle === 'exhibition'
-                      ? 'Exhibition'
-                      : obj.workshopOrEventSeriesType ===
-                            'visit/events-exhibitions'
-                        ? 'Event Series'
-                        : obj.workshopOrEventSeriesType ===
-                                'help/services-resources'
-                          ? 'Workshop Series'
-                          : obj.eventType != null
-                            ? obj.eventType[0].title
-                            : 'Event',
+          obj.typeHandle === 'exhibition'
+            ? 'Exhibition'
+            : obj.workshopOrEventSeriesType ===
+              'visit/events-exhibitions'
+              ? 'Event Series'
+              : obj.workshopOrEventSeriesType ===
+                'help/services-resources'
+                ? 'Workshop Series'
+                : obj.eventType != null
+                  ? obj.eventType[0].title
+                  : 'Event',
         to: `/${obj.to}`,
         image: _get(obj, 'heroImage[0].image[0]', null),
       }
@@ -186,7 +186,7 @@ const parsedPlaceholder = computed(() => {
 })
 
 const routeFilters = computed(() => {
-  return JSON.parse(_get(route, 'query.filters', '[]'))
+  return parseFilters(_get(route, 'query.filters', ''))
 })
 
 console.log('route filter values: ', routeFilters.value)
@@ -196,27 +196,43 @@ const hits = ref([])
 const title = ref('')
 const searchFilters = ref([])
 const noResultsFound = ref(false)
+
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters:
-        (route.query.filters &&
-            JSON.parse(route.query.filters)) ||
-        {},
+  queryFilters: parseFilters(route.query.filters || ''),
 })
+
+function parseFilters(filtersString) {
+  if (!filtersString) return {}
+
+  const filters = {}
+  const conditions = filtersString.split(' AND ')
+
+  conditions.forEach((condition) => {
+    const [key, value] = condition.split(':(')
+    const cleanedKey = key.trim()
+    const values = value.replace(')', '').split(' OR ').map(v => v.trim())
+
+    filters[cleanedKey] = values
+  })
+
+  return filters
+}
+
 const hasSearchQuery = computed(() => {
   // console.log("hasSearchQuery", (route.query.q !== undefined && route.query.q !== ''), (route.query.filters && queryFilterHasValues(routeFilters.value, config.eventsExhibitionsList.filters)), (routeFilters.value.past[0] === 'yes'))
   return (route.query.q !== undefined && route.query.q !== '')
-        || (route.query.filters && queryFilterHasValues(routeFilters.value, config.eventsExhibitionsList.filters))
-        || (routeFilters.value.past && routeFilters.value.past.length > 0 && routeFilters.value.past[0] === 'yes')
+    || (route.query.filters && queryFilterHasValues(routeFilters.value, config.eventsExhibitionsList.filters))
+    || (routeFilters.value.past && routeFilters.value.past.length > 0 && routeFilters.value.past[0] === 'yes')
 })
 
 // This watcher is called when router push updates the query params
 watch(
   () => route.query,
   (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', JSON.stringify(newVal), JSON.stringify(oldVal))
+    console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = (route.query.filters && JSON.parse(route.query.filters)) || {}
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
   }, { deep: true, immediate: true }
 )
@@ -314,19 +330,25 @@ function parseHits(hits = []) {
   })
 }
 
-//  This is event handler which is invoked by search-generic component selections
+// This is event handler which is invoked by search-generic component selections
 function getSearchData(data) {
-  console.log('On the page getsearchdata called')
+  // Construct the filters parameter dynamically
+  const filters = []
+  if (data.filters) {
+    for (const key in data.filters) {
+      if (data.filters[key].length > 0) {
+        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      }
+    }
+  }
 
-  const filterData =
-        (data.filters && JSON.stringify(data.filters)) || {}
-
+  // Use the router to navigate with the new query parameters
   useRouter().push({
     path: '/visit/events-exhibitions',
     query: {
       q: data.text,
-      filters: filterData,
-    },
+      filters: filters.join(' AND ')
+    }
   })
 }
 
@@ -523,6 +545,6 @@ onMounted(async () => {
 </template>
 
 <style
-    lang="scss"
-    scoped
+  lang="scss"
+  scoped
 ></style>
