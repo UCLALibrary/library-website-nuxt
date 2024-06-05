@@ -332,31 +332,23 @@ function parseHits(hits = []) {
 
 // This is event handler which is invoked by search-generic component selections
 function getSearchData(data) {
-  console.log('On the page getsearchdata called')
-
-  // Create a URLSearchParams object
-  const params = new URLSearchParams()
-
-  // Add the text query parameter
-  params.append('q', data.text)
-
   // Construct the filters parameter dynamically
   const filters = []
-  for (const key in data.filters) {
-    if (data.filters[key].length > 0) {
-      filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+  if (data.filters) {
+    for (const key in data.filters) {
+      if (data.filters[key].length > 0) {
+        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      }
     }
-  }
-
-  // Add the filters parameter to the URLSearchParams
-  if (filters.length > 0) {
-    params.append('filters', filters.join(' AND '))
   }
 
   // Use the router to navigate with the new query parameters
   useRouter().push({
     path: '/visit/events-exhibitions',
-    query: params.toString(),
+    query: {
+      q: data.text,
+      filters: filters.join(' AND ')
+    }
   })
 }
 
