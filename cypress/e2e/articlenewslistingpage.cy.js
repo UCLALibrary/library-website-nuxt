@@ -4,7 +4,7 @@ describe('Article News Listing page', () => {
     cy.visit('/about/news')
     cy.wait('@getNews').then(() => {
       // UCLA Library brand
-      cy.get('.logo-ucla').should('be.visible')
+      cy.get('.logo-ucla').should('be.visible').debug()
       cy.get('.page-news').should('be.visible')
       cy.get('h1.title').should('contain', 'Library News')
       // cy.get('.search-generic-filter-buttons').find('button').should('have.length', 2)
