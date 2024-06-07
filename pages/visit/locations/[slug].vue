@@ -68,7 +68,6 @@ const parsedStaffDirectory = computed(() => {
     page.value.locationType !== 'affiliateLibrary' &&
     page.value.title.length > 0
   ) {
-    // TODO does page.value.title make sense here? Yet to find sample data
     const searchLibrary = page.value.title
     const libConcat =
       '/about/staff?q=&filters=locations.title.keyword:(' +
