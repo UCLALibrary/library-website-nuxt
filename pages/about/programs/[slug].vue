@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { onMounted } from 'vue'
 
 // HELPERS
@@ -64,13 +64,13 @@ const parsedButtonTo = computed(() => {
 })
 
 const parsedStaffDirectory = computed(() => {
-  const x = page.value.viewStaffDirectory
-  if (x === 'false' && page.value.title.length > 0) {
+  // determine if staff directory should be shown & staff department title
+  const showStaffDirectory = page.value.viewStaffDirectory
+  const staffDepartmentTitle = page.value.department[0]?.title ? page.value.department[0].title : null
+  if (showStaffDirectory === 'false' || staffDepartmentTitle === null) {
     return ''
   } else {
-    const searchLibrary = page.value.title
-    const libConcat = '/about/staff?q=&filters={"departments.title.keyword":["' + encodeURIComponent(searchLibrary) + '"]}'
-
+    const libConcat = '/about/staff?q=&filters=departments.title.keyword:(' + staffDepartmentTitle.replaceAll(' ', '+') + ')'
     return libConcat
   }
 })
