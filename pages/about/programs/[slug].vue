@@ -64,14 +64,19 @@ const parsedButtonTo = computed(() => {
 })
 
 const parsedStaffDirectory = computed(() => {
-  // determine if staff directory should be shown & staff department title
   const showStaffDirectory = page.value.viewStaffDirectory
   const staffDepartmentTitle = page.value.department[0]?.title ? page.value.department[0].title : null
-  if (showStaffDirectory === 'false' || staffDepartmentTitle === null) {
+
+  if (showStaffDirectory === 'false') {
+    // if the showStaffDirectory is false, show nothing
     return ''
+  } else if (staffDepartmentTitle !== null) {
+    // else if true & department title exists, show the department title
+    return '/about/staff?q=&filters=departments.title.keyword:(' + staffDepartmentTitle.replaceAll(' ', '+') + ')'
   } else {
-    const libConcat = '/about/staff?q=&filters=departments.title.keyword:(' + staffDepartmentTitle.replaceAll(' ', '+') + ')'
-    return libConcat
+    // else if true & department title does not exist, show the page title instead
+    // (we implemented this fallback based on request from APPS-2159)
+    return '/about/staff?q=&filters=departments.title.keyword:(' + page.value.title.replaceAll(' ', '+') + ')'
   }
 })
 
