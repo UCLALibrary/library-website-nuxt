@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { onMounted } from 'vue'
 
 // HELPERS
@@ -64,14 +64,19 @@ const parsedButtonTo = computed(() => {
 })
 
 const parsedStaffDirectory = computed(() => {
-  const x = page.value.viewStaffDirectory
-  if (x === 'false' && page.value.title.length > 0) {
-    return ''
-  } else {
-    const searchLibrary = page.value.title
-    const libConcat = '/about/staff?q=&filters={"departments.title.keyword":["' + encodeURIComponent(searchLibrary) + '"]}'
+  const showStaffDirectory = page.value.viewStaffDirectory
+  const staffDepartmentTitle = page.value.department[0]?.title ? page.value.department[0].title : null
 
-    return libConcat
+  if (showStaffDirectory === 'false') {
+    // if the showStaffDirectory is false, show nothing
+    return ''
+  } else if (staffDepartmentTitle !== null) {
+    // else if true & department title exists, show the department title
+    return '/about/staff?q=&filters=departments.title.keyword:(' + staffDepartmentTitle.replaceAll(' ', '+') + ')'
+  } else {
+    // else if true & department title does not exist, show the page title instead
+    // (we implemented this fallback based on request from APPS-2159)
+    return '/about/staff?q=&filters=departments.title.keyword:(' + page.value.title.replaceAll(' ', '+') + ')'
   }
 })
 

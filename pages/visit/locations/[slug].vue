@@ -70,9 +70,9 @@ const parsedStaffDirectory = computed(() => {
   ) {
     const searchLibrary = page.value.title
     const libConcat =
-      '/about/staff?q=&filters={"locations.title.keyword":["' +
-      encodeURIComponent(searchLibrary) +
-      '"]}'
+      '/about/staff?q=&filters=locations.title.keyword:(' +
+      searchLibrary.replaceAll(' ', '+') +
+      ')'
 
     return libConcat
   } else {
