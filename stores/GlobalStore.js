@@ -63,7 +63,7 @@ export const useGlobalStore = defineStore('GlobalStore', {
       try {
         const { data } = await useFetch('/api/fetchNitroStorageCraftFooterPrimaryData')
         // console.log('Pinia store FooterPrimary Data object:' + JSON.stringify(data.value))
-        this.footerPrimary = data
+        this.footerPrimary = data.value
       }
       catch (e) {
         throw new Error(`Craft API error, trying to set globals FooterPrimary. ${e}`)
