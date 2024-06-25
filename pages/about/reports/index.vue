@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, SectionWrapper, DividerWayFinder, SectionStaffArticleList, BlockCallToAction } from 'ucla-library-website-components'
+
 // HELPERS
 import _get from 'lodash/get'
 import fixUri from '../utils/fixUri'
@@ -48,36 +51,36 @@ const parsedReportsList = computed(() => {
     id="main"
     class="page page-news"
   >
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/about"
       :title="page.entry.title"
       parent-title="About Us"
     />
-    <banner-text
+    <BannerText
       :title="page.entry.title"
       :text="page.entry.summary"
       button-text="View this year's report"
       :to="parsedReportsList[0].to"
     />
 
-    <section-wrapper theme="divider">
-      <divider-way-finder color="about" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder color="about" />
+    </SectionWrapper>
 
-    <section-wrapper>
-      <section-staff-article-list :items="parsedReportsList" />
-    </section-wrapper>
+    <SectionWrapper>
+      <SectionStaffArticleList :items="parsedReportsList" />
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder color="about" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder color="about" />
+    </SectionWrapper>
 
-    <section-wrapper>
-      <block-call-to-action
+    <SectionWrapper>
+      <BlockCallToAction
         class="block-call-to-action"
         :is-global="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 

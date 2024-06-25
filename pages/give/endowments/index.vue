@@ -1,5 +1,7 @@
 <script setup>
-import { onMounted } from 'vue'
+// COMPONENTS
+import { MastheadSecondary, SearchGeneric, BlockCallToAction, SectionGenericList, SectionTeaserCard, SectionWrapper, DividerWayFinder, RichText } from 'ucla-library-website-components'
+
 import _get from 'lodash/get'
 
 import config from '../utils/searchConfig'
@@ -115,11 +117,11 @@ const searchGenericQuery = ref({
 
 watch(() =>
   route.query,
-(newVal, oldVal) => {
-  console.log('ES newVal, oldVal', newVal, oldVal)
-  searchGenericQuery.value.queryText = route.query.q || ''
-  searchES()
-}, { deep: true, immediate: true }
+  (newVal, oldVal) => {
+    console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchES()
+  }, { deep: true, immediate: true }
 )
 
 async function searchES() {
@@ -198,12 +200,12 @@ function getSearchData(data) {
     id="main"
     class="page page-endowment-listing"
   >
-    <masthead-secondary
+    <MastheadSecondary
       :title="page.title"
       :text="page.text"
     />
 
-    <search-generic
+    <SearchGeneric
       search-type="about"
       class="generic-search"
       :search-generic-query="searchGenericQuery"
@@ -211,58 +213,58 @@ function getSearchData(data) {
       @search-ready="getSearchData"
     />
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="search-margin"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="page &&
         parsedFeaturedEndowments &&
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
       :section-title="page.featuredEndowments[0].titleGeneral"
       :section-summary="page.featuredEndowments[0].sectionSummary"
     >
-      <section-teaser-card
+      <SectionTeaserCard
         v-if="parsedFeaturedEndowments.length > 0"
         class="section"
         :items="parsedFeaturedEndowments"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="page &&
         parsedFeaturedEndowments &&
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
-      <divider-way-finder color="about" />
-    </section-wrapper>
+      <DividerWayFinder color="about" />
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="page &&
         parsedEndowmentsList &&
         parsedEndowmentsList.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Collection Endowments"
     >
-      <section-generic-list :items="parsedEndowmentsList" />
+      <SectionGenericList :items="parsedEndowmentsList" />
 
       <!-- pagination -->
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="hits && hits.length > 0"
       class="section-no-top-margin"
     >
@@ -279,12 +281,12 @@ function getSearchData(data) {
       >
         Displaying {{ hits.length }} results
       </h2>
-      <section-generic-list :items="parseHitsResults" />
+      <SectionGenericList :items="parseHitsResults" />
       <!-- pagination -->
-    </section-wrapper>
-    <section-wrapper v-show="noResultsFound">
+    </SectionWrapper>
+    <SectionWrapper v-show="noResultsFound">
       <div class="error-text">
-        <rich-text>
+        <RichText>
           <h2>Search for "{{ route.query.q }}" not found.</h2>
           <p>
             We can't find the term you are looking for on this page,
@@ -306,23 +308,23 @@ function getSearchData(data) {
                 Resources</a>
             </li>
           </ul>
-        </rich-text>
+        </RichText>
       </div>
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder color="about" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder color="about" />
+    </SectionWrapper>
 
-    <section-wrapper>
-      <block-call-to-action
+    <SectionWrapper>
+      <BlockCallToAction
         svg-name="svg-call-to-action-money"
         title="Give to the UCLA Library"
         text="Your contributions help us build our collections for the benefit or our students, faculty, staff and the general public."
         name="Give Now"
         to="/give"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 

@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, SectionCardsWithIllustrations, RichText } from 'ucla-library-website-components'
+
 // HELPERS
 import _get from 'lodash/get'
 import removeTags from '../utils/removeTags'
@@ -190,21 +193,21 @@ function getSearchData(data) {
     id="main"
     class="page page-collections-access"
   >
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/collections"
       :title="page.title"
       parent-title="Collections"
       class="secondary-breadcrumb"
     />
 
-    <masthead-secondary
+    <MastheadSecondary
       v-if="page.title"
       :title="page.title"
       :text="page.text"
       class="secondary"
     />
 
-    <search-generic
+    <SearchGeneric
       search-type="default"
       class="generic-search"
       placeholder="ACCESS COLLECTIONS"
@@ -212,22 +215,20 @@ function getSearchData(data) {
       @search-ready="getSearchData"
     />
 
-    <section-wrapper theme="divider">
-      <divider-way-finder class="search-margin" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder class="search-margin" />
+    </SectionWrapper>
 
-    <section-wrapper
-      v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
-      <section-cards-with-illustrations
+    <SectionWrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      ">
+      <SectionCardsWithIllustrations
         class="section"
         :items="parsedAccessCollections"
         :is-horizontal="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper v-show="hits && hits.length > 0">
+    <SectionWrapper v-show="hits && hits.length > 0">
       <h2
         v-if="route.query && route.query.q"
         class="about-results"
@@ -241,25 +242,26 @@ function getSearchData(data) {
       >
         Displaying {{ hits.length }} results
       </h2>
-      <section-cards-with-illustrations
+      <SectionCardsWithIllustrations
         class="section"
         :items="parseHitsResults"
         :is-horizontal="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="noResultsFound"
       class="section-no-top-margin"
     >
       <div class="error-text">
-        <rich-text>
+        <RichText>
           <h2>Search for “{{ route.query.q }}” not found.</h2>
           <p>
             We can’t find the term you are looking for on this page,
             but we're here to help. <br>
             Try searching the whole site from
-            <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+            <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited
+            links:
           </p>
           <ul>
             <li>
@@ -273,16 +275,16 @@ function getSearchData(data) {
                 Resources</a>
             </li>
           </ul>
-        </rich-text>
+        </RichText>
       </div>
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper>
-      <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper>
+    <SectionWrapper>
+      <DividerWayFinder class="divider divider-way-finder" />
+    </SectionWrapper>
 
-    <section-wrapper>
-      <section-cards-with-illustrations
+    <SectionWrapper>
+      <SectionCardsWithIllustrations
         class="section"
         :items="parsedAssociatedTopics"
         section-title="Associated Topics"
@@ -290,7 +292,7 @@ function getSearchData(data) {
         button-text="All services & Resources"
         :is-horizontal="false"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 

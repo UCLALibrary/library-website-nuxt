@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFinder, PageAnchor, FlexibleBlocks, BlockHours, ButtonMore, SectionTeaserCard } from 'ucla-library-website-components'
+
 import { onMounted } from 'vue'
 
 // HELPERS
@@ -116,13 +119,12 @@ onMounted(() => {
     id="main"
     class="page page-program-detail"
   >
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/about/programs"
       :title="page.title"
       parent-title="Programs"
     />
-
-    <banner-text
+    <BannerText
       v-if="!page.heroImage || page.heroImage.length == 0"
       :title="page.title"
       :text="page.text"
@@ -133,11 +135,11 @@ onMounted(() => {
       :to="parsedButtonTo"
     />
 
-    <section-wrapper
+    <SectionWrapper
       v-if="page.heroImage && page.heroImage.length == 1"
       class="section-banner"
     >
-      <banner-header
+      <BannerHeader
         :media="page.heroImage[0].image[0]"
         :title="page.title"
         :text="page.text"
@@ -148,60 +150,58 @@ onMounted(() => {
         :to="parsedButtonTo"
         :align-right="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="divider"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <page-anchor
+    <PageAnchor
       v-if="h2Array.length >= 3"
       :section-titles="h2Array"
     />
 
-    <section-wrapper>
-      <block-hours
+    <SectionWrapper>
+      <BlockHours
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         lid="0"
         :is-clicc="true"
       />
-      <divider-way-finder
+      <DividerWayFinder
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
-        lid="0"
-        :is-clicc="true"
         class="divider"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <flexible-blocks
+    <FlexibleBlocks
       class="flexible-content"
       :blocks="page.blocks"
     />
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         v-if="parsedArticles.length > 0"
         color="about"
         class="divider-way-finder"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-if="parsedArticles.length > 0"
       class="associated-articles"
       section-title="Associated News"
     >
-      <section-teaser-card
+      <SectionTeaserCard
         class="section-teaser-card"
         :items="parsedArticles"
       />
@@ -210,9 +210,9 @@ onMounted(() => {
         class="button-more"
         :to="parsedSeeMore"
       >
-        <button-more text="See More Associated Articles" />
+        <ButtonMore text="See More Associated Articles" />
       </nuxt-link>
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 

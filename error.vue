@@ -21,12 +21,10 @@ const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
         <br>
         {{ error }}
       </pre>
-      <divider-way-finder />
+      <DividerWayFinder />
 
-      <rich-text
-        class="
-        error-text"
-      >
+      <RichText class="
+        error-text">
         <h1
           v-if="error?.statusCode === 404"
           class="error-title"
@@ -59,7 +57,7 @@ const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
               Resources</a>
           </li>
         </ul>
-      </rich-text>
+      </RichText>
     </main>
   </NuxtLayout>
 </template>

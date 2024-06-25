@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, AlphabeticalBrowseBy, SectionStaffList, RichText, SectionStaffSubjectLibrarian } from 'ucla-library-website-components'
+
 // HELPERS
 import _get from 'lodash/get'
 import _ from 'lodash'
@@ -159,9 +162,9 @@ async function searchES() {
     }
     const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, ...filters } = routeFilters.value
     const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-        [
-          { term: { 'subjectLibrarian.keyword': 'yes' } }
-        ]
+      [
+        { term: { 'subjectLibrarian.keyword': 'yes' } }
+      ]
       : []
 
     console.log('in router query in asyc data queryText', queryText)
@@ -343,7 +346,7 @@ onMounted(async () => {
     id="main"
     class="page page-staff"
   >
-    <masthead-secondary
+    <MastheadSecondary
       v-if="summaryData"
       :title="summaryData.title || ''"
       :text="summaryData.text || ''"
@@ -351,7 +354,7 @@ onMounted(async () => {
 
     <!-- SEARCH
     Filters by location, department, subject libarian -->
-    <search-generic
+    <SearchGeneric
       search-type="about"
       :filters="searchFilters"
       class="generic-search"
@@ -366,25 +369,25 @@ onMounted(async () => {
       {{ searchGenericQuery }}
     </div-->
 
-    <section-wrapper theme="divider">
-      <divider-way-finder class="search-margin" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder class="search-margin" />
+    </SectionWrapper>
 
     <!-- ALL STAFF -->
-    <section-wrapper
+    <SectionWrapper
       v-show="page.entries && hits.length == 0 && !noResultsFound"
       class="section-no-top-margin"
     >
-      <alphabetical-browse-by
+      <AlphabeticalBrowseBy
         class="browse-margin"
         :selected-letter-prop="selectedLetterProp"
         @selected-letter="searchBySelectedLetter"
       />
-      <section-staff-list :items="parsedStaffList" />
-    </section-wrapper>
+      <SectionStaffList :items="parsedStaffList" />
+    </SectionWrapper>
 
     <!-- FILTERS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="hits &&
         hits.length > 0 &&
         ((searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
@@ -392,12 +395,12 @@ onMounted(async () => {
             'subjectLibrarian.keyword'
           ][0] === '')) ||
           !searchGenericQuery.queryFilters[
-            'subjectLibrarian.keyword'
+          'subjectLibrarian.keyword'
           ])
-      "
+        "
       class="section-no-top-margin"
     >
-      <alphabetical-browse-by
+      <AlphabeticalBrowseBy
         class="browse-margin"
         :selected-letter-prop="selectedLetterProp"
         @selected-letter="searchBySelectedLetter"
@@ -415,22 +418,23 @@ onMounted(async () => {
       >
         Displaying {{ hits.length }} results
       </h2>
-      <section-staff-list :items="parseHitsResults" />
-    </section-wrapper>
+      <SectionStaffList :items="parseHitsResults" />
+    </SectionWrapper>
 
     <!-- NO RESULTS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="noResultsFound"
       class="section-no-top-margin"
     >
       <div class="error-text">
-        <rich-text>
+        <RichText>
           <h2>Search for “{{ route.query.q }}” not found.</h2>
           <p>
             We can’t find the term you are looking for on this page,
             but we're here to help. <br>
             Try searching the whole site from
-            <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
+            <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited
+            links:
           </p>
           <ul>
             <li>
@@ -444,28 +448,28 @@ onMounted(async () => {
                 Resources</a>
             </li>
           </ul>
-        </rich-text>
+        </RichText>
       </div>
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- SUBJECT LIBRARIANS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="searchGenericQuery.queryFilters['subjectLibrarian.keyword'] &&
         searchGenericQuery.queryFilters['subjectLibrarian.keyword'][0] ===
         'yes' &&
         groupByAcademicLibraries
-      "
+        "
       class="section-no-top-margin"
     >
       <h3 class="section-title subject-librarian">
         Contact a Subject Librarian
       </h3>
 
-      <section-staff-subject-librarian
+      <SectionStaffSubjectLibrarian
         :items="groupByAcademicLibraries"
         :table-headers="tableHeaders"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 <style lang="scss" scoped>

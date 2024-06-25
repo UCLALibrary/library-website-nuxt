@@ -1,6 +1,8 @@
 <script setup>
+// COMPONENTS
+import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, RichText, SectionCardsWithIllustrations, SearchResult, SectionPagination } from 'ucla-library-website-components'
+
 // UTILITIES
-import getListingFilters from '../utils/getListingFilters'
 import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
 import parseFilters from '../utils/parseFilters'
@@ -221,32 +223,32 @@ function getSearchData(data) {
     id="main"
     class="page page-search-site"
   >
-    <masthead-secondary title="Search Results" />
+    <MastheadSecondary title="Search Results" />
 
-    <search-generic
+    <SearchGeneric
       :search-generic-query="searchGenericQuery"
       placeholder="Search library website"
       :filters="searchFilters"
       @search-ready="getSearchData"
     />
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="search-margin"
         color="default"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="isSearching"
       class="results section-no-top-margin"
     >
       <div>
         <p>...Search results loading</p>
       </div>
-    </section-wrapper>
+    </SectionWrapper>
     <div v-show="!isSearching">
-      <section-wrapper
+      <SectionWrapper
         v-show="page && page?.hits && page?.hits?.hits?.length > 0"
         class="meta section-no-top-margin"
       >
@@ -254,32 +256,32 @@ function getSearchData(data) {
           Displaying {{ page?.hits?.total?.value }} results for
           <strong><em>“{{ route.query.q }}”</em></strong>
         </h2>
-        <section-wrapper
+        <SectionWrapper
           v-for="(result, index) in parsedSearchResults"
           :key="`SearchResultBlock${index}`"
           class="section-wrapper-block"
         >
-          <search-result
+          <SearchResult
             :title="result.title"
             :category="parseCategory(result.sectionHandle)"
             :summary="result.summary || result.text"
             :to="result.to"
             class="search-result-item"
           />
-          <divider-general class="divider-general" />
-        </section-wrapper>
-        <section-wrapper v-if="page?.hits?.total?.value > 10">
-          <section-pagination
+          <DividerGeneral class="divider-general" />
+        </SectionWrapper>
+        <SectionWrapper v-if="page?.hits?.total?.value > 10">
+          <SectionPagination
             :previous-to="parsePrev"
             :next-to="parseNext"
           />
-        </section-wrapper>
-      </section-wrapper>
-      <section-wrapper
+        </SectionWrapper>
+      </SectionWrapper>
+      <SectionWrapper
         v-show="noResultsFound"
         class="section-no-top-margin"
       >
-        <rich-text class="error-text">
+        <RichText class="error-text">
           <h2>Search for “{{ route.query.q }}” not found.</h2>
           <p>
             We can’t find the page you are looking for, but we're
@@ -301,20 +303,20 @@ function getSearchData(data) {
                 Resources</a>
             </li>
           </ul>
-        </rich-text>
-      </section-wrapper>
+        </RichText>
+      </SectionWrapper>
 
-      <section-wrapper>
-        <divider-way-finder class="divider-way-finder" />
-      </section-wrapper>
+      <SectionWrapper>
+        <DividerWayFinder class="divider-way-finder" />
+      </SectionWrapper>
 
-      <section-wrapper>
-        <section-cards-with-illustrations
+      <SectionWrapper>
+        <SectionCardsWithIllustrations
           class="section-cards"
           :items="searchAdditionalResources"
           section-title="Additional Search Tools"
         />
-      </section-wrapper>
+      </SectionWrapper>
     </div>
   </main>
 </template>

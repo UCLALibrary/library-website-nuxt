@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, BannerHeader, SectionTeaserList, SectionWrapper, BlockCallToAction, DividerWayFinder, PageAnchor, FlexibleBlocks, SectionCardsWithIllustrations } from 'ucla-library-website-components'
+
 import { onMounted } from 'vue'
 
 // HELPERS
@@ -178,18 +181,18 @@ onMounted(() => {
   >
     <!-- ServiceOrResource Detail -->
     <div v-if="page.serviceOrResource">
-      <nav-breadcrumb
+      <NavBreadcrumb
         to="/help/services-resources"
         :title="page.serviceOrResource.title"
         parent-title="Services & Resources"
       />
 
-      <banner-text
+      <BannerText
         v-if="
           !page.serviceOrResource.heroImage ||
-            page.serviceOrResource.heroImage.length == 0 ||
-            !page.serviceOrResource.heroImage[0].image ||
-            page.serviceOrResource.heroImage[0].image.length == 0
+          page.serviceOrResource.heroImage.length == 0 ||
+          !page.serviceOrResource.heroImage[0].image ||
+          page.serviceOrResource.heroImage[0].image.length == 0
         "
         class="banner-text"
         :category="page.serviceOrResource.type"
@@ -199,16 +202,16 @@ onMounted(() => {
         :to="parsedButtonTo"
       />
 
-      <section-wrapper
+      <SectionWrapper
         v-if="
           page.serviceOrResource.heroImage &&
-            page.serviceOrResource.heroImage.length == 1 &&
-            page.serviceOrResource.heroImage[0].image &&
-            page.serviceOrResource.heroImage[0].image.length > 0
+          page.serviceOrResource.heroImage.length == 1 &&
+          page.serviceOrResource.heroImage[0].image &&
+          page.serviceOrResource.heroImage[0].image.length > 0
         "
         class="section-banner"
       >
-        <banner-header
+        <BannerHeader
           :media="page.serviceOrResource.heroImage[0].image[0]"
           :category="page.serviceOrResource.type"
           :title="page.serviceOrResource.title"
@@ -216,34 +219,34 @@ onMounted(() => {
           :prompt="parsedButtonText"
           :to="parsedButtonTo"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper theme="divider">
-        <divider-way-finder />
-      </section-wrapper>
+      <SectionWrapper theme="divider">
+        <DividerWayFinder />
+      </SectionWrapper>
 
-      <page-anchor
+      <PageAnchor
         v-if="h2Array.length >= 3"
         :section-titles="h2Array"
       />
 
-      <flexible-blocks
+      <FlexibleBlocks
         class="content"
         :blocks="page.serviceOrResource.blocks"
       />
 
-      <section-wrapper
+      <SectionWrapper
         v-if="parsedServiceResourceAssociatedTopics.length"
         theme="divider"
       >
-        <divider-way-finder
+        <DividerWayFinder
           class="divider-way-finder"
           color="help"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper>
-        <section-cards-with-illustrations
+      <SectionWrapper>
+        <SectionCardsWithIllustrations
           v-if="parsedServiceResourceAssociatedTopics.length"
           class="section-cards"
           :items="parsedServiceResourceAssociatedTopics"
@@ -251,37 +254,37 @@ onMounted(() => {
           button-text="All Services and Resources"
           to="/help/services-resources"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper theme="divider">
-        <divider-way-finder
+      <SectionWrapper theme="divider">
+        <DividerWayFinder
           class="divider-way-finder"
           color="help"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper>
-        <block-call-to-action
+      <SectionWrapper>
+        <BlockCallToAction
           class="block-call-to-action"
           :is-global="true"
         />
-      </section-wrapper>
+      </SectionWrapper>
     </div>
 
     <!-- WORKSHOP SERIES -->
     <div v-else>
-      <nav-breadcrumb
+      <NavBreadcrumb
         to="/help/services-resources"
         :title="page.workshopSeries.title"
         parent-title="Services & Resources"
       />
 
-      <banner-text
+      <BannerText
         v-if="
           page.workshopSeries &&
-            (page.workshopSeries.image.length == 0 ||
-              !page.workshopSeries.image[0].image ||
-              page.workshopSeries.image[0].image.length == 0)
+          (page.workshopSeries.image.length == 0 ||
+            !page.workshopSeries.image[0].image ||
+            page.workshopSeries.image[0].image.length == 0)
         "
         :title="page.workshopSeries.title"
         :text="page.workshopSeries.summary"
@@ -291,16 +294,16 @@ onMounted(() => {
         category="Workshop Series"
       />
 
-      <section-wrapper
+      <SectionWrapper
         v-if="
           page.workshopSeries.image &&
-            page.workshopSeries.image.length == 1 &&
-            page.workshopSeries.image[0].image &&
-            page.workshopSeries.image[0].image.length > 0
+          page.workshopSeries.image.length == 1 &&
+          page.workshopSeries.image[0].image &&
+          page.workshopSeries.image[0].image.length > 0
         "
         class="section-banner"
       >
-        <banner-header
+        <BannerHeader
           :media="page.workshopSeries.image[0].image[0]"
           :title="page.workshopSeries.title"
           :locations="page.workshopSeries.associatedLocations"
@@ -311,92 +314,92 @@ onMounted(() => {
           :align-right="true"
         />
 
-        <section-wrapper theme="divider">
-          <divider-way-finder color="help" />
-        </section-wrapper>
-      </section-wrapper>
+        <SectionWrapper theme="divider">
+          <DividerWayFinder color="help" />
+        </SectionWrapper>
+      </SectionWrapper>
 
-      <flexible-blocks
+      <FlexibleBlocks
         v-if="page.workshopSeries.blocks.length > 0"
         class="content"
         :blocks="page.workshopSeries.blocks"
       />
 
-      <section-wrapper
+      <SectionWrapper
         v-if="page.workshopSeries.blocks.length > 0"
         theme="divider"
       >
-        <divider-way-finder
+        <DividerWayFinder
           class="divider-way-finder"
           color="help"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="upcomingEvents.length"
         section-title="Upcoming Workshops in this Series"
       >
-        <section-teaser-list
+        <SectionTeaserList
           v-if="upcomingEvents"
           :items="upcomingEvents"
           class="section section-list"
         />
-        <divider-general v-if="pastEvents.length" />
-      </section-wrapper>
+        <DividerGeneral v-if="pastEvents.length" />
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="pastEvents.length"
         section-title="Past Workshops in this Series"
       >
-        <section-teaser-list
+        <SectionTeaserList
           v-if="pastEvents"
           :items="pastEvents"
           class="section section-list"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="page.upcomingEvents.length || page.pastEvents.length"
         theme="divider"
       >
-        <divider-way-finder
+        <DividerWayFinder
           class="divider-way-finder"
           color="help"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="parsedAssociatedSeries.length"
         section-title="Related Series"
       >
-        <section-teaser-list :items="parsedAssociatedSeries" />
-      </section-wrapper>
+        <SectionTeaserList :items="parsedAssociatedSeries" />
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="parsedAssociatedSeries.length"
         theme="divider"
       >
-        <divider-way-finder
+        <DividerWayFinder
           class="divider-way-finder"
           color="help"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper>
-        <section-cards-with-illustrations
+      <SectionWrapper>
+        <SectionCardsWithIllustrations
           v-if="parsedWorkshopSeriesAssociatedTopics.length > 0"
           class="section-cards"
           :items="parsedWorkshopSeriesAssociatedTopics"
           section-title="Associated Topics"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper>
-        <block-call-to-action
+      <SectionWrapper>
+        <BlockCallToAction
           class="block-call-to-action"
           :is-global="true"
         />
-      </section-wrapper>
+      </SectionWrapper>
     </div>
   </main>
 </template>

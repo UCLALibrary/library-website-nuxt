@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { MastheadSecondary, SearchGeneric, BannerFeatured, SectionTeaserHighlight, SectionWrapper, DividerWayFinder, SectionStaffArticleList, RichText, BlockCallToAction } from 'ucla-library-website-components'
+
 // HELPERS
 import _get from 'lodash/get'
 import { format } from 'date-fns'
@@ -294,13 +297,13 @@ onMounted(async () => {
     id="main"
     class="page page-news"
   >
-    <masthead-secondary
+    <MastheadSecondary
       v-if="page.title"
       :title="page.title"
       :text="page.text"
     />
 
-    <search-generic
+    <SearchGeneric
       search-type="about"
       :filters="searchFilters"
       class="generic-search"
@@ -309,19 +312,19 @@ onMounted(async () => {
       @search-ready="getSearchData"
     />
 
-    <section-wrapper theme="divider">
-      <divider-way-finder class="search-margin" />
-    </section-wrapper>
-    <section-wrapper
+    <SectionWrapper theme="divider">
+      <DividerWayFinder class="search-margin" />
+    </SectionWrapper>
+    <SectionWrapper
       v-show="page &&
         page.featuredNews &&
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
-      <banner-featured
+      <BannerFeatured
         :media="parsedBannerHeader.image"
         :title="parsedBannerHeader.title"
         breadcrumb="Featured"
@@ -334,46 +337,44 @@ onMounted(async () => {
         class="banner section-featured-banner"
       />
 
-      <divider-general
-        v-show="page &&
-          page.featuredNews &&
-          page.featuredNews.length &&
-          hits.length === 0 &&
-          !noResultsFound
-        "
-      />
+      <DividerGeneral v-show="page &&
+        page.featuredNews &&
+        page.featuredNews.length &&
+        hits.length === 0 &&
+        !noResultsFound
+        " />
 
-      <section-teaser-highlight
+      <SectionTeaserHighlight
         v-show="parsedSectionHighlight.length > 0"
         class="section"
         :items="parsedSectionHighlight"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="page &&
         page.featuredNews &&
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
-      <divider-way-finder color="about" />
-    </section-wrapper>
+      <DividerWayFinder color="about" />
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="news &&
         news.length > 0 &&
         hits.length === 0 &&
         !noResultsFound"
       section-title="All News"
     >
-      <section-staff-article-list :items="parsedNewsList" />
-    </section-wrapper>
+      <SectionStaffArticleList :items="parsedNewsList" />
+    </SectionWrapper>
 
     <!-- FILTERS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="hits && hits.length > 0"
       class="section-no-top-margin"
     >
@@ -390,16 +391,16 @@ onMounted(async () => {
       >
         Displaying {{ hits.length }} results
       </h2>
-      <section-staff-article-list :items="parseHitsResults" />
-    </section-wrapper>
+      <SectionStaffArticleList :items="parseHitsResults" />
+    </SectionWrapper>
 
     <!-- NO RESULTS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="noResultsFound"
       class="section-no-top-margin"
     >
       <div class="error-text">
-        <rich-text>
+        <RichText>
           <h2>Search for “{{ route.query.q }}” not found.</h2>
           <p>
             We can’t find the term you are looking for on this page,
@@ -421,20 +422,20 @@ onMounted(async () => {
                 Resources</a>
             </li>
           </ul>
-        </rich-text>
+        </RichText>
       </div>
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder color="about" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder color="about" />
+    </SectionWrapper>
 
-    <section-wrapper>
-      <block-call-to-action
+    <SectionWrapper>
+      <BlockCallToAction
         class="block-call-to-action"
         :is-global="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 

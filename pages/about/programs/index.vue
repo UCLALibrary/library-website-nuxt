@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+// COMPONENTS
+import { MastheadSecondary, SearchGeneric, BannerFeatured, SectionTeaserHighlight, SectionWrapper, DividerWayFinder, SectionStaffArticleList, RichText, BlockCallToAction } from 'ucla-library-website-components'
+
 // UTILITIES
 import _get from 'lodash/get'
 import getListingFilters from '../utils/getListingFilters'
@@ -215,18 +218,18 @@ onMounted(async () => {
     id="main"
     class="page page-programs"
   >
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/about"
       :title="page.title"
       parent-title="About"
     />
 
-    <masthead-secondary
+    <MastheadSecondary
       :title="page.title"
       :text="page.text"
     />
 
-    <search-generic
+    <SearchGeneric
       search-type="about"
       :filters="searchFilters"
       class="generic-search"
@@ -234,31 +237,31 @@ onMounted(async () => {
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
     />
-    <section-wrapper
+    <SectionWrapper
       v-show="page &&
         page.featuredPrograms &&
         page.featuredPrograms.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
-      <divider-way-finder
+      <DividerWayFinder
         class="search-margin"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="page &&
         page.featuredPrograms &&
         page.featuredPrograms.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
-      <banner-featured
+      <BannerFeatured
         :media="parsedBannerHeader.image"
         :title="parsedBannerHeader.title"
         :category="parsedBannerHeader.category"
@@ -270,32 +273,32 @@ onMounted(async () => {
         class="banner section-featured-banner"
       />
 
-      <divider-general v-if="parsedSectionHighlight && parsedSectionHighlight.length" />
+      <DividerGeneral v-if="parsedSectionHighlight && parsedSectionHighlight.length" />
 
-      <section-teaser-highlight
+      <SectionTeaserHighlight
         v-if="parsedSectionHighlight && parsedSectionHighlight.length"
         class="section"
         :items="parsedSectionHighlight"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder class="search-margin" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder class="search-margin" />
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="parsedProgramsList &&
         parsedProgramsList.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Programs & Initiatives"
     >
-      <section-staff-article-list :items="parsedProgramsList" />
-    </section-wrapper>
+      <SectionStaffArticleList :items="parsedProgramsList" />
+    </SectionWrapper>
 
     <!-- RESULTS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="hits && hits.length > 0"
       class="section-no-top-margin"
     >
@@ -312,22 +315,23 @@ onMounted(async () => {
       >
         Displaying {{ hits.length }} results
       </h2>
-      <section-staff-article-list :items="parseHitsResults" />
-    </section-wrapper>
+      <SectionStaffArticleList :items="parseHitsResults" />
+    </SectionWrapper>
 
     <!-- NO RESULTS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="noResultsFound"
       class="section-no-top-margin"
     >
       <div class="error-text">
-        <rich-text>
+        <RichText>
           <h2>Search for “{{ route.query.q }}” not found.</h2>
           <p>
             We can’t find the term you are looking for on this page,
             but we're here to help. <br>
             Try searching the whole site from
-            <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited
+            <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly
+            visited
             links:
           </p>
           <ul>
@@ -342,19 +346,19 @@ onMounted(async () => {
                 Resources</a>
             </li>
           </ul>
-        </rich-text>
+        </RichText>
       </div>
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder color="about" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder color="about" />
+    </SectionWrapper>
 
-    <section-wrapper>
-      <block-call-to-action
+    <SectionWrapper>
+      <BlockCallToAction
         class="block-call-to-action"
         :is-global="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>

@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { BannerText, BannerHeader, SectionWrapper, DividerWayFinder, FlexibleBlocks } from 'ucla-library-website-components'
+
 // HELPERS
 import _get from 'lodash/get'
 import removeTags from '../utils/removeTags'
@@ -73,7 +76,7 @@ const parsedByline = computed(() => {
     id="main"
     class="page page-impact-report"
   >
-    <banner-text
+    <BannerText
       v-if="page && (!page.heroImage || page.heroImage.length === 0)"
       class="banner-text"
       :title="page.title"
@@ -81,27 +84,27 @@ const parsedByline = computed(() => {
       :byline="parsedByline"
     />
 
-    <section-wrapper
+    <SectionWrapper
       v-if="page && page.heroImage && page.heroImage.length === 1"
       class="section-banner"
     >
-      <banner-header
+      <BannerHeader
         :title="page.title"
         :text="page.text"
         :align-right="true"
         :media="page.heroImage[0].image[0]"
         :byline="parsedByline"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="divider"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <flexible-blocks
+    <FlexibleBlocks
       class="content"
       :blocks="page.blocks"
     />

@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { MastheadSecondary, SearchGeneric, SectionLocationList, ButtonMore, SectionWrapper, DividerWayFinder, RichText, BlockCallToAction } from 'ucla-library-website-components'
+
 import { onMounted } from 'vue'
 
 // UTILITIES
@@ -247,13 +250,13 @@ onMounted(async () => {
     id="main"
     class="page page-location"
   >
-    <masthead-secondary
+    <MastheadSecondary
       :title="page.title"
       :text="page.text"
     />
 
     <!-- SEARCH -->
-    <search-generic
+    <SearchGeneric
       search-type="about"
       :filters="searchFilters"
       class="generic-search"
@@ -262,53 +265,53 @@ onMounted(async () => {
       @search-ready="getSearchData"
     />
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         color="visit"
         class="search-margin"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- UCLA LIBRARIES -->
-    <section-wrapper
+    <SectionWrapper
       v-show="page &&
         uclaLibraries &&
         parsedUclaLibraries.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
       section-title="UCLA Library Locations"
     >
-      <section-location-list
+      <SectionLocationList
         class="blockLocationListWrapper"
         :items="parsedUclaLibraries"
       />
-      <button-more
+      <ButtonMore
         text="See Other Campus Libraries & Archives"
         @click="showMoreOtherCampusLibrary()"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- AFFILIATE LIBRARIES -->
-    <section-wrapper
+    <SectionWrapper
       v-show="page &&
         affiliateLibraries &&
         parsedAffiliateLibraries.length &&
         showOtherCampus &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Other Campus Libraries & Archives"
     >
-      <section-location-list
+      <SectionLocationList
         class="blockLocationListWrapper"
         :items="parsedAffiliateLibraries"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- RESULTS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="hits && hits.length > 0"
       class="meta section-no-top-margin"
     >
@@ -326,19 +329,19 @@ onMounted(async () => {
         Displaying {{ hits.length }} results
       </h2>
 
-      <section-location-list
+      <SectionLocationList
         class="blockLocationListWrapper"
         :items="parseHitsResults"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- NO RESULTS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="noResultsFound"
       class="meta section-no-top-margin"
     >
       <div class="error-text">
-        <rich-text>
+        <RichText>
           <h2>Search for "{{ route.query.q }}" not found.</h2>
           <p>
             We can't find the term you are looking for on this page,
@@ -360,23 +363,23 @@ onMounted(async () => {
                 Resources</a>
             </li>
           </ul>
-        </rich-text>
+        </RichText>
       </div>
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="divider-way-finder"
         color="visit"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper>
-      <block-call-to-action
+    <SectionWrapper>
+      <BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 

@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, FlexibleBlocks, SectionWrapper, DividerWayFinder } from 'ucla-library-website-components'
+
 // HELPERS
 import _get from 'lodash/get'
 import removeTags from '../utils/removeTags'
@@ -39,11 +42,13 @@ useHead({
       content: removeTags(page.value.text),
     },
   ],
-  script: [{
-    hid: 'libchat',
-    src: 'https://ucla.libanswers.com/load_chat.php?hash=e6e621712e7b0ed0193f065d84d4e0c9',
-    defer: true
-  }],
+  script: [
+    {
+      hid: 'libchat',
+      src: 'https://ucla.libanswers.com/load_chat.php?hash=e6e621712e7b0ed0193f065d84d4e0c9',
+      defer: true
+    }
+  ]
 })
 
 definePageMeta({
@@ -56,31 +61,31 @@ definePageMeta({
     id="main"
     class="page page-ask-us"
   >
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/help/services-resources"
       title="Ask Us"
       parent-title="Services & Resources"
     />
-    <banner-text
+    <BannerText
       class="banner-text"
       :title="page.title"
       :text="page.summary"
     />
     <!-- LibChat Widget -->
-    <section-wrapper class="section-ask-us">
+    <SectionWrapper class="section-ask-us">
       <div id="libchat_e6e621712e7b0ed0193f065d84d4e0c9" />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         v-if="page.blocks.length > 0"
         color="help"
         class="divider-way-finder"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- Flexible Page Blocks -->
-    <flexible-blocks
+    <FlexibleBlocks
       class="flexible-content"
       :blocks="page.blocks"
     />
@@ -91,10 +96,6 @@ definePageMeta({
 .page-ask-us {
   .banner-text {
     margin-bottom: var(--space-l);
-  }
-
-  .section-wrapper.section-ask-us {
-    margin-top: 0;
   }
 }
 </style>
