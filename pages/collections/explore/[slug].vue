@@ -230,8 +230,8 @@ onMounted(() => {
     <SectionWrapper
       v-if="
         parsedServicesAndResources.length > 0 ||
-        parsedEndowments.length > 0 ||
-        parsedAssociatedStaffMember.length > 0
+          parsedEndowments.length > 0 ||
+          parsedAssociatedStaffMember.length > 0
       "
       theme="divider"
     >
@@ -254,7 +254,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           parsedEndowments.length > 0 ||
-          parsedAssociatedStaffMember.length > 0
+            parsedAssociatedStaffMember.length > 0
         "
         class="divider-way-finder"
         color="default"

@@ -126,8 +126,8 @@ const parsedAssociatedTopics = computed(() => {
     <BannerText
       v-if="
         page.buttonUrl &&
-        page.buttonUrl[0] &&
-        page.buttonUrl[0].buttonText
+          page.buttonUrl[0] &&
+          page.buttonUrl[0].buttonText
       "
       class="banner-text"
       :title="page.title"

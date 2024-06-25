@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RichText, DividerWayFinder } from 'ucla-library-website-components'
 import type { NuxtError } from '#app'
 
 const props = defineProps({
@@ -23,8 +24,10 @@ const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
       </pre>
       <DividerWayFinder />
 
-      <RichText class="
-        error-text">
+      <RichText
+        class="
+        error-text"
+      >
         <h1
           v-if="error?.statusCode === 404"
           class="error-title"

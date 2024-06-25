@@ -117,11 +117,11 @@ const searchGenericQuery = ref({
 
 watch(() =>
   route.query,
-  (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', newVal, oldVal)
-    searchGenericQuery.value.queryText = route.query.q || ''
-    searchES()
-  }, { deep: true, immediate: true }
+(newVal, oldVal) => {
+  console.log('ES newVal, oldVal', newVal, oldVal)
+  searchGenericQuery.value.queryText = route.query.q || ''
+  searchES()
+}, { deep: true, immediate: true }
 )
 
 async function searchES() {
@@ -226,7 +226,7 @@ function getSearchData(data) {
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
       :section-title="page.featuredEndowments[0].titleGeneral"
       :section-summary="page.featuredEndowments[0].sectionSummary"
@@ -244,7 +244,7 @@ function getSearchData(data) {
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <DividerWayFinder color="about" />
@@ -256,7 +256,7 @@ function getSearchData(data) {
         parsedEndowmentsList.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="All Collection Endowments"
     >
       <SectionGenericList :items="parsedEndowmentsList" />

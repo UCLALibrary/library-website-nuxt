@@ -47,8 +47,8 @@ export default defineNuxtConfig({
         } */
         // console.log('prerender:generate', route)
       },
-      async 'prerender:routes'(routes) {
-        /*const allRoutes = []
+      'prerender:routes'(routes) {
+        /* const allRoutes = []
 
         const response = await fetch(process.env.CRAFT_ENDPOINT, {
           headers: {
@@ -74,7 +74,7 @@ export default defineNuxtConfig({
           for (const route of allRoutes) {
             routes.add(route)
           }
-        }*/
+        } */
         console.log('prerender:routes ctx.routes', routes)
       }
     },
