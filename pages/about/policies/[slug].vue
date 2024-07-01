@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFinder, PageAnchor, FlexibleBlocks } from 'ucla-library-website-components'
+
 import { onMounted } from 'vue'
 
 // HELPERS
@@ -81,13 +84,13 @@ onMounted(() => {
     id="main"
     class="page page-general-content"
   >
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/about/policies"
       :title="page.title"
       parent-title="Policies"
     />
 
-    <banner-text
+    <BannerText
       v-if="page && (!page.heroImage || page.heroImage.length == 0)"
       class="banner-text"
       :category="page.format"
@@ -95,31 +98,31 @@ onMounted(() => {
       :text="page.text"
     />
 
-    <section-wrapper
+    <SectionWrapper
       v-if="page && page.heroImage && page.heroImage.length == 1"
       class="section-banner"
     >
-      <banner-header
+      <BannerHeader
         :media="page.heroImage[0].image[0]"
         :category="page.format"
         :title="page.title"
         :text="page.text"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="divider-way-finder"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <page-anchor
+    <PageAnchor
       v-if="h2Array.length >= 3"
       :section-titles="h2Array"
     />
 
-    <flexible-blocks
+    <FlexibleBlocks
       v-if="page"
       class="flexible-content"
       :blocks="page.blocks"

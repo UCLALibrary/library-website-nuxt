@@ -1,4 +1,6 @@
 <script setup>
+// COMPONENTS
+import { MastheadPrimary, SectionWrapper, DividerWayFinder, ButtonMore, SectionTeaserCard, SectionTeaserHighlight, SectionDualMasonry, SectionCardsWithIllustrations, BannerFeatured, HeadingArrow, } from 'ucla-library-website-components'
 // HELPERS
 import _get from 'lodash/get'
 
@@ -204,7 +206,7 @@ useHead({
     id="main"
     class="page page-home"
   >
-    <masthead-primary
+    <MastheadPrimary
       :link-items="parsedSearchLinks"
       :advanced-search-link="parsedAdvancedSearchLink"
     />
@@ -215,15 +217,15 @@ useHead({
         <h4>Search Responsee</h4>
         <p>{{ searchResponse }}</p -->
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="search-margin"
         color="help"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper class="section-no-top-margin">
-      <section-cards-with-illustrations
+    <SectionWrapper class="section-no-top-margin">
+      <SectionCardsWithIllustrations
         class="section"
         :items="parsedGetHelpWith"
         :section-title="page.getHelpWith[0].titleGeneral"
@@ -232,14 +234,14 @@ useHead({
         to="/help/services-resources"
         :is-horizontal="false"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder color="visit" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder color="visit" />
+    </SectionWrapper>
 
-    <section-wrapper class="section-banner">
-      <banner-featured
+    <SectionWrapper class="section-banner">
+      <BannerFeatured
         :media="bannerFeaturedEvent.image"
         :to="bannerFeaturedEvent.to"
         :prompt="bannerFeaturedEvent.prompt"
@@ -250,25 +252,25 @@ useHead({
         :align-right="false"
         :category="bannerFeaturedEvent.category"
       >
-        <heading-arrow text="Featured Events &amp; Exhibitions" />
-      </banner-featured>
-    </section-wrapper>
+        <HeadingArrow text="Featured Events &amp; Exhibitions" />
+      </BannerFeatured>
+    </SectionWrapper>
 
-    <section-wrapper class="section-dual-masonry">
-      <section-dual-masonry
+    <SectionWrapper class="section-dual-masonry">
+      <SectionDualMasonry
         v-if="parsedDualMasonryEvents.length > 0"
         :items="parsedDualMasonryEvents"
         to="/visit/events-exhibitions"
         text="See All Events &amp; Exhibitions"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder color="default" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder color="default" />
+    </SectionWrapper>
 
-    <section-wrapper class="section-banner">
-      <banner-featured
+    <SectionWrapper class="section-banner">
+      <BannerFeatured
         :media="bannerFeaturedCollection.image"
         :to="bannerFeaturedCollection.to"
         :title="bannerFeaturedCollection.title"
@@ -277,13 +279,13 @@ useHead({
         :prompt="bannerFeaturedCollection.prompt"
         :align-right="true"
       >
-        <heading-arrow text="Featured Collections" />
-      </banner-featured>
-    </section-wrapper>
+        <HeadingArrow text="Featured Collections" />
+      </BannerFeatured>
+    </SectionWrapper>
 
-    <section-wrapper>
+    <SectionWrapper>
       <!-- fix card meta useroute add a check for route undefined-->
-      <section-teaser-highlight
+      <SectionTeaserHighlight
         v-if="parsedSectionHighlightCollection.length > 1"
         :items="parsedSectionHighlightCollection"
       />
@@ -291,16 +293,16 @@ useHead({
         to="/collections/explore"
         class="button-more"
       >
-        <button-more text="See All Featured Collections" />
+        <ButtonMore text="See All Featured Collections" />
       </nuxt-link>
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder color="about" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder color="about" />
+    </SectionWrapper>
 
-    <section-wrapper class="section-banner">
-      <banner-featured
+    <SectionWrapper class="section-banner">
+      <BannerFeatured
         :media="bannerFeaturedNews.image"
         :to="bannerFeaturedNews.to"
         :prompt="bannerFeaturedNews.prompt"
@@ -311,12 +313,12 @@ useHead({
         :end-date="bannerFeaturedNews.endDate"
         :align-right="false"
       >
-        <heading-arrow text="Featured News" />
-      </banner-featured>
-    </section-wrapper>
+        <HeadingArrow text="Featured News" />
+      </BannerFeatured>
+    </SectionWrapper>
 
-    <section-wrapper>
-      <section-teaser-card
+    <SectionWrapper>
+      <SectionTeaserCard
         v-if="parsedNewsList.length > 1"
         :items="parsedNewsList"
       />
@@ -324,16 +326,13 @@ useHead({
         to="/about/news"
         class="button-more"
       >
-        <button-more text="See All News" />
+        <ButtonMore text="See All News" />
       </nuxt-link>
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-home {
   .button-more {
     margin: var(--space-2xl) auto;

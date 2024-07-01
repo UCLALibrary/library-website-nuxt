@@ -1,4 +1,6 @@
 <script setup>
+// Components
+import { FooterPrimary, NavPrimary } from 'ucla-library-website-components'
 // MOCK DATA
 import * as MOCK_API from '~/data/impact-social-media.json'
 
@@ -38,11 +40,11 @@ useHead({
 
 <template>
   <div :class="classes">
-    <nav-primary class="primary" />
+    <NavPrimary class="primary" />
 
     <slot />
 
-    <footer-primary
+    <FooterPrimary
       :social-items="parsedItems"
       :press-items="parsedPressItems"
       :form="false"

@@ -17,6 +17,9 @@
 		"test": "pnpm lint && pnpm typecheck"
 	},
 	"dependencies": {
+		"nuxt": "^3.12.2",
+		"vue": "^3.4.29",
+		"vue-router": "^4.3.3",
 		"@pinia/nuxt": "^0.4.11",
 		"@vue-a11y/skip-to": "^3.0.3"
 	},
@@ -34,10 +37,9 @@
 		"eslint-plugin-cypress": "^2.15.1",
 		"graphql": "^16.8.1",
 		"lodash": "^4.17.21",
-		"nuxt": "^3.11.2",
 		"nuxt-graphql-request": "^7.0.5",
 		"sass": "^1.66.1",
 		"ucla-library-design-tokens": "^5.12.6",
-		"ucla-library-website-components": "2.39.0-alpha.82"
+		"ucla-library-website-components": "2.39.0-alpha.86"
 	}
 }

@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, SectionWrapper, RichText, ResponsiveImage, DividerWayFinder, IconWithLink, BlockCallToAction } from 'ucla-library-website-components'
+
 // HELPERS
 import _get from 'lodash/get'
 import removeTags from '../utils/removeTags'
@@ -139,13 +142,13 @@ function computeDonors(donors) {
     id="main"
     class="page page-endowments-detail"
   >
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/give/endowments"
       :title="page.title"
       parent-title="Collection Endowments"
     />
 
-    <banner-text
+    <BannerText
       :title="page.title"
       :text="page.text"
       :alternative-full-name="(page.alternativeName &&
@@ -162,24 +165,24 @@ function computeDonors(donors) {
       :to="page.to"
     />
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="divider"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper>
+    <SectionWrapper>
       <div class="description-with-image">
         <div class="description">
-          <rich-text
+          <RichText
             v-if="page.donors[0].lastName"
             class="donors"
           >
             Made possible by a gift from {{ parsedDonors }}
-          </rich-text>
+          </RichText>
 
-          <icon-with-link
+          <IconWithLink
             v-if="page.subjectAreas[0]"
             class="subject-area"
             icon-name="svg-icon-book"
@@ -194,7 +197,7 @@ function computeDonors(donors) {
               ) in parsedAssociatedLocations"
               :key="`AssociatedLocation-${location}-${index}`"
             >
-              <icon-with-link
+              <IconWithLink
                 class="associated-locations"
                 icon-name="svg-icon-location"
                 :text="location.title"
@@ -203,45 +206,44 @@ function computeDonors(donors) {
             </li>
           </ul>
 
-          <rich-text
+          <RichText
             v-if="page.endowmentDescription"
             class="description-text"
             :rich-text-content="page.endowmentDescription"
           />
-          <smart-link
+          <NuxtLink
             v-if="page.spakCode"
             class="catalog-link"
             :to="catalogLink"
           >
             See all items purchased through this Endowment
-          </smart-link>
+          </NuxtLink>
         </div>
 
-        <img
+        <ResponsiveImage
           v-if="page.heroImage.length > 0"
-          :src="parsedImage.src"
-          :alt="parsedImage.alt"
+          :media="parsedImage"
           class="bookplate"
-        >
+        />
       </div>
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="divider"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper>
-      <block-call-to-action
+    <SectionWrapper>
+      <BlockCallToAction
         svg-name="svg-call-to-action-money"
         title="Give to this endowment"
         text="Your contributions help us build our collections for the benefit or our students, faculty, staff, and the general public."
         name="Donate"
         :to="page.to"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 

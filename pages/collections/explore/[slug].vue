@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFinder, PageAnchor, FlexibleBlocks, SimpleCards, SectionStaffArticleList, SectionStaffList } from 'ucla-library-website-components'
+
 import { onMounted } from 'vue'
 
 // HELPERS
@@ -160,13 +163,13 @@ onMounted(() => {
     id="main"
     class="page page-collection-detail"
   >
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/collections/explore"
       :title="page.title"
       parent-title="Explore Collections"
     />
 
-    <banner-text
+    <BannerText
       v-if="!page.heroImage || page.heroImage.length == 0"
       :title="page.title"
       :text="page.text"
@@ -176,11 +179,11 @@ onMounted(() => {
       :to="parsedButtonTo"
     />
 
-    <section-wrapper
+    <SectionWrapper
       v-if="page.heroImage && page.heroImage.length == 1"
       class="section-banner"
     >
-      <banner-header
+      <BannerHeader
         :media="page.heroImage[0].image[0]"
         :title="page.title"
         :text="page.text"
@@ -191,40 +194,40 @@ onMounted(() => {
         :to="parsedButtonTo"
         :align-right="false"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="divider-way-finder"
         color="default"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <page-anchor
+    <PageAnchor
       v-if="h2Array.length >= 3"
       :section-titles="h2Array"
     />
 
     <!-- Using the Collection -->
-    <section-wrapper
+    <SectionWrapper
       v-if="page.richTextSimplified"
       section-title="Using the Collection"
       :section-summary="page.richTextSimplified"
     >
-      <divider-way-finder
+      <DividerWayFinder
         v-if="page.blocks.length > 0"
         class="divider-way-finder"
         color="default"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- Flexible Page Blocks -->
-    <flexible-blocks
+    <FlexibleBlocks
       class="flexible-content"
       :blocks="page.blocks"
     />
 
-    <section-wrapper
+    <SectionWrapper
       v-if="
         parsedServicesAndResources.length > 0 ||
           parsedEndowments.length > 0 ||
@@ -232,23 +235,23 @@ onMounted(() => {
       "
       theme="divider"
     >
-      <divider-way-finder
+      <DividerWayFinder
         class="divider-way-finder"
         color="default"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- Services and Resources -->
-    <section-wrapper
+    <SectionWrapper
       v-if="parsedServicesAndResources.length"
       section-title="Services &amp; Resources"
     >
-      <simple-cards
+      <SimpleCards
         :items="parsedServicesAndResources"
         class="section-header"
       />
 
-      <divider-way-finder
+      <DividerWayFinder
         v-if="
           parsedEndowments.length > 0 ||
             parsedAssociatedStaffMember.length > 0
@@ -256,32 +259,32 @@ onMounted(() => {
         class="divider-way-finder"
         color="default"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- Endowments -->
-    <section-wrapper
+    <SectionWrapper
       v-if="parsedEndowments.length"
       section-title="Collection Endowments"
     >
-      <section-staff-article-list
+      <SectionStaffArticleList
         :items="parsedEndowments"
         class="block-staff-article-item"
       />
 
-      <divider-way-finder
+      <DividerWayFinder
         v-if="parsedAssociatedStaffMember.length > 0"
         class="divider-way-finder"
         color="default"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- Subject Specialist -->
-    <section-wrapper
+    <SectionWrapper
       v-if="parsedAssociatedStaffMember.length > 0"
       section-title="Contact a Subject Specialist"
     >
-      <section-staff-list :items="parsedAssociatedStaffMember" />
-    </section-wrapper>
+      <SectionStaffList :items="parsedAssociatedStaffMember" />
+    </SectionWrapper>
   </main>
 </template>
 

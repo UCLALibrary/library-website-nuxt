@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionStaffList } from 'ucla-library-website-components'
+
 // HELPERS
 import _get from 'lodash/get'
 import { format } from 'date-fns'
@@ -110,13 +113,13 @@ const parsedLocations = computed(() => {
     id="main"
     class="page page-news-detail"
   >
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/about/news"
       :title="page.title"
       parent-title="All Library News"
     />
 
-    <banner-text
+    <BannerText
       v-if="!page.heroImage || page.heroImage.length == 0"
       class="banner-text"
       :category="parsedCategory"
@@ -127,11 +130,11 @@ const parsedLocations = computed(() => {
       :date-created="page.postDate"
     />
 
-    <section-wrapper
+    <SectionWrapper
       v-if="page && page.heroImage && page.heroImage.length == 1"
       class="section-banner"
     >
-      <banner-header
+      <BannerHeader
         :media="page.heroImage[0].image[0]"
         :to="page.to"
         :category="parsedCategory"
@@ -142,37 +145,37 @@ const parsedLocations = computed(() => {
         :date-created="page.postDate"
         :align-right="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="divider"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <flexible-blocks
+    <FlexibleBlocks
       class="flexible-content"
       :blocks="page.blocks"
     />
 
-    <section-wrapper
+    <SectionWrapper
       v-if="parsedAssociatedStaffMember.length > 0"
       theme="divider"
     >
-      <divider-way-finder
+      <DividerWayFinder
         class="divider"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-if="parsedAssociatedStaffMember.length > 0"
       class="associated-staff-member"
       section-title="Associated Staff Member"
     >
-      <section-staff-list :items="parsedAssociatedStaffMember" />
-    </section-wrapper>
+      <SectionStaffList :items="parsedAssociatedStaffMember" />
+    </SectionWrapper>
   </main>
 </template>
 

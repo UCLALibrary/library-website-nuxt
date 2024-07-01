@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { BannerText, PageAnchor, BannerFeatured, FlexibleBlocks, ButtonMore, SectionWrapper, SectionTeaserHighlight, SectionTeaserCard, DividerWayFinder, SectionCardsWithIllustrations } from 'ucla-library-website-components'
+
 // HELPERS
 import _get from 'lodash/get'
 import format from 'date-fns/format'
@@ -169,44 +172,44 @@ onMounted(() => {
     id="main"
     class="page page-collections"
   >
-    <banner-text
+    <BannerText
       class="banner-text"
       :title="page.title"
       :text="page.text"
     />
 
-    <section-wrapper>
-      <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper>
+    <SectionWrapper>
+      <DividerWayFinder class="divider divider-way-finder" />
+    </SectionWrapper>
 
-    <page-anchor
+    <PageAnchor
       v-if="h2Array.length >= 3"
       :section-titles="h2Array"
     />
 
-    <section-wrapper
+    <SectionWrapper
       :section-title="parsedResources[0].titleGeneral"
       :section-summary="parsedResources[0].sectionSummary"
     >
-      <section-cards-with-illustrations
+      <SectionCardsWithIllustrations
         v-if="parsedResources.length"
         :items="parsedResources[0].featuredResources"
         :is-horizontal="false"
         button-text="See More"
         to="/collections/access"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper>
-      <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper>
+    <SectionWrapper>
+      <DividerWayFinder class="divider divider-way-finder" />
+    </SectionWrapper>
 
     <!-- FEATURED & HIGHLIGHTED -->
-    <section-wrapper
+    <SectionWrapper
       :section-title="page.featuredCollectionsSection[0].titleGeneral"
       :section-summary="page.featuredCollectionsSection[0].sectionSummary"
     >
-      <banner-featured
+      <BannerFeatured
         v-if="page.featuredCollectionsSection.length > 0"
         class="banner banner-about"
         :media="parsedBannerFeatured[0].media"
@@ -218,7 +221,7 @@ onMounted(() => {
         :title-link="parsedBannerFeatured[0].titleLink"
       />
 
-      <section-teaser-highlight
+      <SectionTeaserHighlight
         v-if="parsedCollections.featuredCollections.length > 1"
         class="section-teaser-highlight"
         :items="parsedSectionHighlight"
@@ -228,35 +231,35 @@ onMounted(() => {
         to="/collections/explore"
         class="button-more"
       >
-        <button-more text="Browse Collections" />
+        <ButtonMore text="Browse Collections" />
       </nuxt-link>
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- COLLECTION NEWS -->
-    <section-wrapper>
-      <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper>
+    <SectionWrapper>
+      <DividerWayFinder class="divider divider-way-finder" />
+    </SectionWrapper>
 
-    <section-wrapper section-title="Collections News">
-      <section-teaser-card
+    <SectionWrapper section-title="Collections News">
+      <SectionTeaserCard
         class="section-teaser-card"
         :items="parsedArticles"
       />
-      <smart-link
+      <NuxtLink
         v-if="pageArticleCount > 3"
         class="button-more"
         :to="allCollectionsNewsLink"
       >
-        <button-more text="See All Collections News" />
-      </smart-link>
-    </section-wrapper>
+        <ButtonMore text="See All Collections News" />
+      </NuxtLink>
+    </SectionWrapper>
 
-    <section-wrapper>
-      <divider-way-finder class="divider divider-way-finder" />
-    </section-wrapper>
+    <SectionWrapper>
+      <DividerWayFinder class="divider divider-way-finder" />
+    </SectionWrapper>
 
     <!-- FLEXIBLE PAGE BLOCKS -->
-    <flexible-blocks
+    <FlexibleBlocks
       v-if="page.blocks"
       class="flexible-content"
       :blocks="page.blocks"
@@ -264,10 +267,7 @@ onMounted(() => {
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .page-collections {
   .banner-text {
     margin-top: var(--space-m);

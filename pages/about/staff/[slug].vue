@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+// COMPONENTS
+import { NavBreadcrumb, SectionWrapper, DividerWayFinder, BlockStaffDetail, SectionStaffOrcidPublications, SectionStaffArticleList, BlockCallToAction } from 'ucla-library-website-components'
+
 // HELPERS
 import _get from 'lodash/get'
 import removeTags from '../utils/removeTags'
@@ -88,13 +91,13 @@ const parsedItems = computed(() => {
     class="page page-staff-detail"
   >
     <!-- staff page here -->
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/about/staff"
       :title="page.title"
       parent-title="Staff Directory"
     />
-    <section-wrapper>
-      <block-staff-detail
+    <SectionWrapper>
+      <BlockStaffDetail
         :image="parsedImage"
         :name-first="page.nameFirst"
         :name-last="page.nameLast"
@@ -111,9 +114,9 @@ const parsedItems = computed(() => {
         :academic-departments="page.academicDepartments"
         :biography="page.biography"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-if="parsedItems?.length ||
         page.publications ||
         page.orcid
@@ -121,11 +124,11 @@ const parsedItems = computed(() => {
       class="selected-articles"
       theme="divider"
     >
-      <divider-way-finder
+      <DividerWayFinder
         class="divider"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <div
       v-if="parsedItems?.length ||
@@ -134,46 +137,46 @@ const parsedItems = computed(() => {
       "
       class="selected-articles"
     >
-      <section-wrapper>
-        <section-staff-orcid-publications
+      <SectionWrapper>
+        <SectionStaffOrcidPublications
           class="staff-orcid-publications"
           :orcid="page.orcid"
           :publications="page.publications"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper theme="divider">
-        <divider-way-finder
+      <SectionWrapper theme="divider">
+        <DividerWayFinder
           v-if="parsedItems?.length &&
             (page.publications || page.orcid)
           "
           class="divider divider-first"
           color="about"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper>
-        <section-staff-article-list
+      <SectionWrapper>
+        <SectionStaffArticleList
           v-if="parsedItems?.length"
           class="staff-article-list-section"
           section-title="Articles"
           :items="parsedItems"
         />
-      </section-wrapper>
+      </SectionWrapper>
     </div>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="divider divider-first"
         color="about"
       />
-    </section-wrapper>
-    <section-wrapper>
-      <block-call-to-action
+    </SectionWrapper>
+    <SectionWrapper>
+      <BlockCallToAction
         class="block-call-to-action"
         :is-global="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 <style lang="scss" scoped>
