@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, PageAnchor, SimpleCards, SectionWrapper, DividerWayFinder } from 'ucla-library-website-components'
+import { MastheadSecondary, PageAnchor, SimpleCards, FlexibleBlocks, SectionWrapper, DividerWayFinder } from 'ucla-library-website-components'
 
 import { onMounted } from 'vue'
 
