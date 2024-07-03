@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { MastheadSecondary, SearchGeneric, SectionTeaserCard, SectionWrapper, DividerWayFinder, RichText, SectionCardsWithIllustrations } from 'ucla-library-website-components'
+
 // LODASH
 import _get from 'lodash/get'
 
@@ -216,20 +219,20 @@ onMounted(async () => {
     id="main"
     class="page page-collections-explore"
   >
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/collections"
       title="Explore Featured Collections"
       parent-title="Collections"
     />
 
-    <masthead-secondary
+    <MastheadSecondary
       :title="page.title"
       :text="page.summary"
     />
 
     <!-- SEARCH
       Filter by physical/digital & subject area -->
-    <search-generic
+    <SearchGeneric
       search-type="about"
       :filters="searchFilters"
       class="generic-search"
@@ -238,11 +241,11 @@ onMounted(async () => {
       @search-ready="getSearchData"
     />
 
-    <section-wrapper theme="divider">
-      <divider-way-finder class="search-margin" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder class="search-margin" />
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="page &&
         parsedCollectionList &&
         parsedCollectionList.length &&
@@ -251,11 +254,11 @@ onMounted(async () => {
       "
       class="section-no-top-margin"
     >
-      <section-teaser-card :items="parsedCollectionList" />
-    </section-wrapper>
+      <SectionTeaserCard :items="parsedCollectionList" />
+    </SectionWrapper>
 
     <!-- FILTERS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="hits && hits.length > 0"
       class="section-no-top-margin"
     >
@@ -273,16 +276,16 @@ onMounted(async () => {
       >
         Displaying {{ hits.length }} results
       </h2>
-      <section-teaser-card :items="parseHitsResults" />
-    </section-wrapper>
+      <SectionTeaserCard :items="parseHitsResults" />
+    </SectionWrapper>
 
     <!-- NO RESULTS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="noResultsFound"
       class="section-no-top-margin"
     >
       <div class="error-text">
-        <rich-text>
+        <RichText>
           <h2>Search for “{{ route.query.q }}” not found.</h2>
           <p>
             We can’t find the term you are looking for on this page,
@@ -305,26 +308,26 @@ onMounted(async () => {
                 Resources</a>
             </li>
           </ul>
-        </rich-text>
+        </RichText>
       </div>
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper>
-      <divider-way-finder
+    <SectionWrapper>
+      <DividerWayFinder
         class="divider-way-finder"
         color="default"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper>
-      <section-cards-with-illustrations
+    <SectionWrapper>
+      <SectionCardsWithIllustrations
         class="section"
         :items="parsedAssociatedTopics"
         button-text="All services & resources"
         to="/help/services-resources"
         section-title="Associated Topics"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 

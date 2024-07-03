@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, SectionWrapper, DividerWayFinder, SectionGenericList, SectionCardsWithIllustrations } from 'ucla-library-website-components'
+
 // HELPERS
 import _get from 'lodash/get'
 import fixUri from '../utils/fixUri'
@@ -98,13 +101,13 @@ const parsedAssociatedTopics = computed(() => {
     id="main"
     class="page page-job-opportunities"
   >
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/about/jobs"
       :title="page.title"
       parent-title="Jobs"
     />
 
-    <banner-text
+    <BannerText
       class="banner-text"
       :title="page.title"
       :text="page.text"
@@ -112,16 +115,16 @@ const parsedAssociatedTopics = computed(() => {
       :phone="page.phoneNumber"
     />
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="divider"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- ASSOCIATED LIBRARIAN JOBS -->
-    <section-wrapper section-title="Academic Librarian Jobs">
-      <section-generic-list
+    <SectionWrapper section-title="Academic Librarian Jobs">
+      <SectionGenericList
         v-if="parsedAcademicLibrarianJobs.length > 0"
         :items="parsedAcademicLibrarianJobs"
       />
@@ -131,18 +134,18 @@ const parsedAssociatedTopics = computed(() => {
       >
         No positions available at this time
       </div>
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         class="divider"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- STAFF JOBS -->
-    <section-wrapper section-title="Staff Jobs">
-      <section-generic-list
+    <SectionWrapper section-title="Staff Jobs">
+      <SectionGenericList
         v-if="parsedStaffJobs.length > 0"
         :items="parsedStaffJobs"
       />
@@ -152,25 +155,25 @@ const parsedAssociatedTopics = computed(() => {
       >
         No positions available at this time
       </div>
-    </section-wrapper>
-    <section-wrapper
+    </SectionWrapper>
+    <SectionWrapper
       v-if="parsedAssociatedTopics.length > 0"
       theme="divider"
     >
-      <divider-way-finder
+      <DividerWayFinder
         class="divider"
         color="about"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- ASSOCIATED TOPICS -->
-    <section-wrapper>
-      <section-cards-with-illustrations
+    <SectionWrapper>
+      <SectionCardsWithIllustrations
         v-if="parsedAssociatedTopics.length > 0"
         :items="parsedAssociatedTopics"
         section-title="Associated Topics"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 

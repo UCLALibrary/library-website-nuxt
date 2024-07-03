@@ -1,5 +1,8 @@
 <!-- eslint-disable no-console -->
 <script setup>
+// COMPONENTS
+import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, BannerFeatured, SectionTeaserHighlight, SectionTeaserCard, SectionTeaserList, RichText, BlockCallToAction } from 'ucla-library-website-components'
+
 // UTILITIES
 import _get from 'lodash/get'
 
@@ -383,11 +386,11 @@ onMounted(async () => {
     id="main"
     class="page page-events-exhibits"
   >
-    <masthead-secondary
+    <MastheadSecondary
       :title="page.title"
       :text="page.text"
     />
-    <search-generic
+    <SearchGeneric
       search-type="about"
       class="generic-search"
       :filters="searchFilters"
@@ -395,19 +398,19 @@ onMounted(async () => {
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
     />
-    <section-wrapper theme="divider">
-      <divider-way-finder class="search-margin" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder class="search-margin" />
+    </SectionWrapper>
 
     <!-- HIGHLIGHTED & FEATURED EVENTS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
       "
       class="section-no-top-margin"
     >
-      <banner-featured
+      <BannerFeatured
         v-if="parsedFeaturedEventsAndExhibits.length > 0 &&
           hits.length == 0 &&
           !noResultsFound
@@ -426,15 +429,15 @@ onMounted(async () => {
         class="banner section-featured-banner"
       />
 
-      <divider-general v-if="parsedSectionHighlight.length" />
+      <DividerGeneral v-if="parsedSectionHighlight.length" />
 
-      <section-teaser-highlight
+      <SectionTeaserHighlight
         class="section"
         :items="parsedSectionHighlight"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         parsedEvents.length &&
         hits.length == 0 &&
@@ -442,11 +445,11 @@ onMounted(async () => {
       "
       theme="divider"
     >
-      <divider-way-finder color="visit" />
-    </section-wrapper>
+      <DividerWayFinder color="visit" />
+    </SectionWrapper>
 
     <!-- UPCOMING EVENTS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="parsedEvents &&
         parsedEvents.length > 0 &&
         hits.length == 0 &&
@@ -454,10 +457,10 @@ onMounted(async () => {
       "
       section-title="All Upcoming Events"
     >
-      <section-teaser-list :items="parsedEvents" />
-    </section-wrapper>
+      <SectionTeaserList :items="parsedEvents" />
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="parsedEvents &&
         parsedEvents.length > 0 &&
         hits.length == 0 &&
@@ -465,11 +468,11 @@ onMounted(async () => {
       "
       theme="divider"
     >
-      <divider-way-finder color="visit" />
-    </section-wrapper>
+      <DividerWayFinder color="visit" />
+    </SectionWrapper>
 
     <!-- EVENT SERIES & EXHIBITIONS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="parsedSeriesAndExhibitions &&
         parsedSeriesAndExhibitions.length > 0 &&
         hits.length == 0 &&
@@ -477,9 +480,9 @@ onMounted(async () => {
       "
       section-title="Event Series & Exhibitions"
     >
-      <section-teaser-card :items="parsedSeriesAndExhibitions" />
-    </section-wrapper>
-    <section-wrapper
+      <SectionTeaserCard :items="parsedSeriesAndExhibitions" />
+    </SectionWrapper>
+    <SectionWrapper
       v-show="hits && hits.length > 0"
       class="section-no-top-margin"
     >
@@ -497,16 +500,16 @@ onMounted(async () => {
         Displaying {{ hits.length }} results
       </h2>
 
-      <section-teaser-list :items="parseHitsResults" />
-    </section-wrapper>
+      <SectionTeaserList :items="parseHitsResults" />
+    </SectionWrapper>
 
     <!-- NO RESULTS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="noResultsFound"
       class="section-no-top-margin"
     >
       <div class="error-text">
-        <rich-text>
+        <RichText>
           <h2>Search for “{{ route.query.q }}” not found.</h2>
           <p>
             We can’t find the term you are looking for on this page,
@@ -528,23 +531,20 @@ onMounted(async () => {
                 Resources</a>
             </li>
           </ul>
-        </rich-text>
+        </RichText>
       </div>
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper>
-      <divider-way-finder color="visit" />
-    </section-wrapper>
-    <section-wrapper>
-      <block-call-to-action
+    <SectionWrapper>
+      <DividerWayFinder color="visit" />
+    </SectionWrapper>
+    <SectionWrapper>
+      <BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 
-<style
-  lang="scss"
-  scoped
-></style>
+<style lang="scss" scoped></style>

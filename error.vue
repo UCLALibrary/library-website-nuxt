@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RichText, DividerWayFinder } from 'ucla-library-website-components'
 import type { NuxtError } from '#app'
 
 const props = defineProps({
@@ -21,9 +22,9 @@ const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
         <br>
         {{ error }}
       </pre>
-      <divider-way-finder />
+      <DividerWayFinder />
 
-      <rich-text
+      <RichText
         class="
         error-text"
       >
@@ -59,7 +60,7 @@ const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
               Resources</a>
           </li>
         </ul>
-      </rich-text>
+      </RichText>
     </main>
   </NuxtLayout>
 </template>

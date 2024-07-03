@@ -11,6 +11,7 @@ export default defineNuxtConfig({
       alias: {
         'cross-fetch': 'cross-fetch/dist/browser-ponyfill.js',
         '~ucla-library-design-tokens': 'ucla-library-design-tokens',
+        // 'vue-router': 'vue-router'
       },
     },
     server: {
@@ -39,7 +40,7 @@ export default defineNuxtConfig({
       // routes: ['/', '/404.html', '/200.html'],
     },
     hooks: {
-      'prerender:generate' (route) {
+      'prerender:generate'(route) {
         // TODO: fix issue with recursive fetches with query string, e.g.
         // `/enterprise/agencies?region=europe&amp;amp;amp;service=ecommerce&amp;amp;service=ecommerce&amp;service=content-marketing`
         /* if (route.route?.includes('&amp;')) {
@@ -47,8 +48,8 @@ export default defineNuxtConfig({
         } */
         // console.log('prerender:generate', route)
       },
-      async 'prerender:routes' (routes) {
-        const allRoutes = []
+      'prerender:routes'(routes) {
+        /* const allRoutes = []
 
         const response = await fetch(process.env.CRAFT_ENDPOINT, {
           headers: {
@@ -74,7 +75,7 @@ export default defineNuxtConfig({
           for (const route of allRoutes) {
             routes.add(route)
           }
-        }
+        } */
         console.log('prerender:routes ctx.routes', routes)
       }
     },
@@ -156,7 +157,7 @@ export default defineNuxtConfig({
   ], 'nuxt-graphql-request', '@nuxtjs/sitemap', '@zadigetvoltaire/nuxt-gtm'],
 
   build: {
-    transpile: ['nuxt-graphql-request'],
+    transpile: ['nuxt-graphql-request', 'ucla-library-website-components'],
   },
 
   site: {
@@ -212,8 +213,8 @@ export default defineNuxtConfig({
     // includeNodeModules: true,
   },
 
-  /* experimental: {
+  experimental: {
     payloadExtraction: true,
     sharedPrerenderData: true
-  } */
+  }
 })

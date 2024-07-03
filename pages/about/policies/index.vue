@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { MastheadSecondary, PageAnchor, SimpleCards, FlexibleBlocks, SectionWrapper, DividerWayFinder } from 'ucla-library-website-components'
+
 import { onMounted } from 'vue'
 
 // HELPERS
@@ -75,12 +78,12 @@ onMounted(() => {
     id="main"
     class="page page-policies"
   >
-    <masthead-secondary
+    <MastheadSecondary
       :title="page.title"
       :text="page.text"
     />
 
-    <page-anchor
+    <PageAnchor
       v-if="h2Array.length >= 3"
       :section-titles="h2Array"
     />
@@ -89,22 +92,22 @@ onMounted(() => {
       v-for="(policy, index) in parsedPolicyBlocks"
       :key="`PolicyBlocksKey-${policy}-${index}`"
     >
-      <section-wrapper
+      <SectionWrapper
         :section-title="policy.sectionTitle"
         :section-summary="policy.sectionSummary"
       >
-        <simple-cards
+        <SimpleCards
           :items="policy.parsedAssociatedEntries"
           button="View all"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper theme="divider">
-        <divider-way-finder class="divider" />
-      </section-wrapper>
+      <SectionWrapper theme="divider">
+        <DividerWayFinder class="divider" />
+      </SectionWrapper>
     </div>
 
-    <flexible-blocks :blocks="page.blocks" />
+    <FlexibleBlocks :blocks="page.blocks" />
   </main>
 </template>
 

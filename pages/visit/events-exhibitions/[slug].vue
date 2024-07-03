@@ -1,5 +1,8 @@
 <!-- eslint-disable no-console -->
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, BannerHeader, DividerGeneral, SectionCardsWithIllustrations, RichText, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionStaffList, SectionTeaserList, BlockCallToAction } from 'ucla-library-website-components'
+
 // HELPERS
 import _get from 'lodash/get'
 import removeTags from '../utils/removeTags'
@@ -345,13 +348,13 @@ onMounted(async () => {
   >
     <!-- EVENT DETAIL -->
     <div v-if="page.event">
-      <nav-breadcrumb
+      <NavBreadcrumb
         to="/visit/events-exhibitions"
         :title="page.event.title"
         parent-title="Events & Exhibitions"
       />
 
-      <banner-text
+      <BannerText
         v-if="page.event &&
           (!page.event.image || !page.event.image[0] || !page.event.image[0].image || !page.event.image[0].image[0] ||
             page.event.image[0].image[0].length == 0)
@@ -367,11 +370,11 @@ onMounted(async () => {
         :section-handle="page.event.sectionHandle"
       />
 
-      <section-wrapper
+      <SectionWrapper
         v-if="page.event.image && page.event.image.length > 0 && page.event.image[0].image && page.event.image[0].image.length > 0 && page.event.image[0].image[0]"
         class="section-banner"
       >
-        <banner-header
+        <BannerHeader
           :media="page.event.image[0].image[0]"
           :title="page.event.title"
           :locations="page.event.eventLocation"
@@ -384,46 +387,46 @@ onMounted(async () => {
           :register-event="parseRegistration"
           :section-handle="page.event.sectionHandle"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper theme="divider">
-        <divider-way-finder
+      <SectionWrapper theme="divider">
+        <DividerWayFinder
           v-if="page.event.image && page.event.image.length > 0 && page.event.image[0].image && page.event.image[0].image[0]"
           color="visit"
         />
-      </section-wrapper>
-      <section-wrapper v-if="page.event || page.event.eventDescription">
-        <rich-text
+      </SectionWrapper>
+      <SectionWrapper v-if="page.event || page.event.eventDescription">
+        <RichText
           v-if="page.event.presenter"
           :rich-text-content="page.event.presenter"
           class="presenter"
         />
-        <rich-text :rich-text-content="page.event.eventDescription" />
-        <divider-general v-if="page.event.moreInformation" />
-        <rich-text
+        <RichText :rich-text-content="page.event.eventDescription" />
+        <DividerGeneral v-if="page.event.moreInformation" />
+        <RichText
           v-if="page.event.moreInformation"
           :rich-text-content="page.event.moreInformation"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="parsedAssociatedSeries.length"
         theme="divider"
       >
-        <divider-way-finder color="visit" />
-      </section-wrapper>
+        <DividerWayFinder color="visit" />
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="parsedAssociatedSeries.length"
         section-title="Related Series"
       >
-        <section-teaser-list :items="parsedAssociatedSeries" />
-      </section-wrapper>
-      <section-wrapper theme="divider">
-        <divider-way-finder color="visit" />
-      </section-wrapper>
+        <SectionTeaserList :items="parsedAssociatedSeries" />
+      </SectionWrapper>
+      <SectionWrapper theme="divider">
+        <DividerWayFinder color="visit" />
+      </SectionWrapper>
 
-      <block-call-to-action
+      <BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"
       />
@@ -431,13 +434,13 @@ onMounted(async () => {
 
     <!-- EVENT SERIES -->
     <div v-else-if="page.eventSeries">
-      <nav-breadcrumb
+      <NavBreadcrumb
         to="/visit/events-exhibitions"
         :title="page.eventSeries.title"
         parent-title="Events & Exhibitions"
       />
 
-      <banner-text
+      <BannerText
         v-if="page.eventSeries && !page.eventSeries.image[0]"
         :title="page.eventSeries.title"
         :text="page.eventSeries.summary"
@@ -447,11 +450,11 @@ onMounted(async () => {
         category="Event Series"
       />
 
-      <section-wrapper
+      <SectionWrapper
         v-if="page.eventSeries.image[0]"
         class="section-banner"
       >
-        <banner-header
+        <BannerHeader
           :media="page.eventSeries.image[0].image[0]"
           :title="page.eventSeries.title"
           :locations="parsedEventSeriesLocations"
@@ -461,80 +464,80 @@ onMounted(async () => {
           :end-date="page.eventSeries.endDate"
           :align-right="true"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper theme="divider">
-        <divider-way-finder
+      <SectionWrapper theme="divider">
+        <DividerWayFinder
           v-if="page.eventSeries.image"
           color="visit"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <flexible-blocks
+      <FlexibleBlocks
         class="content"
         :blocks="page.eventSeries.blocks"
       />
 
-      <section-wrapper
+      <SectionWrapper
         v-if="page.eventSeries.blocks.length > 0"
         theme="divider"
       >
-        <divider-way-finder
+        <DividerWayFinder
           class="divider-way-finder"
           color="visit"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="upcomingEvents.length"
         section-title="Upcoming Events in this Series"
       >
-        <section-teaser-list
+        <SectionTeaserList
           v-if="upcomingEvents"
           :items="upcomingEvents"
           class="section section-list"
         />
-        <divider-general v-if="pastEvents.length" />
-      </section-wrapper>
+        <DividerGeneral v-if="pastEvents.length" />
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="pastEvents.length"
         section-title="Past Events in this Series"
       >
-        <section-teaser-list
+        <SectionTeaserList
           v-if="pastEvents"
           :items="pastEvents"
           class="section section-list"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="page.eventSeries.associatedTopics.length > 0"
         theme="divider"
       >
-        <divider-way-finder
+        <DividerWayFinder
           class="divider-way-finder"
           color="visit"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper>
-        <section-cards-with-illustrations
+      <SectionWrapper>
+        <SectionCardsWithIllustrations
           v-if="parsedAssociatedTopics.length > 0"
           class="section-cards"
           :items="parsedAssociatedTopics"
           section-title="Associated Topics"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper theme="divider">
-        <divider-way-finder
+      <SectionWrapper theme="divider">
+        <DividerWayFinder
           class="divider-way-finder"
           color="visit"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <block-call-to-action
+      <BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"
       />
@@ -542,13 +545,13 @@ onMounted(async () => {
 
     <!-- EXHIBITION -->
     <div v-else>
-      <nav-breadcrumb
+      <NavBreadcrumb
         to="/visit/events-exhibitions"
         :title="page.exhibition.title"
         parent-title="Events & Exhibitions"
       />
 
-      <banner-text
+      <BannerText
         v-if="page.exhibition && !page.exhibition.image[0]"
         :title="page.exhibition.title"
         :text="page.exhibition.summary"
@@ -560,11 +563,11 @@ onMounted(async () => {
         category="Exhibition"
       />
 
-      <section-wrapper
+      <SectionWrapper
         v-if="page.exhibition.image[0]"
         class="section-banner"
       >
-        <banner-header
+        <BannerHeader
           :media="page.exhibition.image[0].image[0]"
           :title="page.exhibition.title"
           :locations="parsedExhibitionLocations"
@@ -576,62 +579,62 @@ onMounted(async () => {
           :prompt="parsedExhibitionBannerPrompt"
           :to="parsedExhibitionBannerTo"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper theme="divider">
-        <divider-way-finder color="visit" />
-      </section-wrapper>
+      <SectionWrapper theme="divider">
+        <DividerWayFinder color="visit" />
+      </SectionWrapper>
 
-      <flexible-blocks
+      <FlexibleBlocks
         class="content"
         :blocks="page.exhibition.blocks"
       />
 
-      <section-wrapper
+      <SectionWrapper
         v-if="page.exhibition.blocks.length > 0"
         theme="divider"
       >
-        <divider-way-finder color="visit" />
-      </section-wrapper>
+        <DividerWayFinder color="visit" />
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="associatedExhibitionEvents.length"
         section-title="Associated Events"
       >
-        <section-teaser-list
+        <SectionTeaserList
           v-if="associatedExhibitionEvents.length > 0"
           :items="associatedExhibitionEvents"
           class="section section-list"
         />
-      </section-wrapper>
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="associatedExhibitionEvents.length > 0"
         theme="divider"
       >
-        <divider-way-finder color="visit" />
-      </section-wrapper>
+        <DividerWayFinder color="visit" />
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="parsedAssociatedStaffMember.length > 0"
         section-title="Contact a Subject Specialist"
       >
-        <section-staff-list :items="parsedAssociatedStaffMember" />
-      </section-wrapper>
+        <SectionStaffList :items="parsedAssociatedStaffMember" />
+      </SectionWrapper>
 
-      <section-wrapper
+      <SectionWrapper
         v-if="parsedAssociatedStaffMember.length > 0"
         theme="divider"
       >
-        <divider-way-finder color="visit" />
-      </section-wrapper>
+        <DividerWayFinder color="visit" />
+      </SectionWrapper>
 
-      <section-wrapper :section-title="parsedAcknowledgementTitle">
-        <rich-text
+      <SectionWrapper :section-title="parsedAcknowledgementTitle">
+        <RichText
           :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
           "
         />
-      </section-wrapper>
+      </SectionWrapper>
     </div>
   </main>
 </template>

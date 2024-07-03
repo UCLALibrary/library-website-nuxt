@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { MastheadSecondary, SectionWrapper, DividerWayFinder, PageAnchor, FlexibleBlocks, RichText, SimpleCards, BlockCallToAction } from 'ucla-library-website-components'
+
 import { onMounted } from 'vue'
 
 // HELPERS
@@ -90,60 +93,60 @@ onMounted(() => {
     id="main"
     class="page page-help-topic"
   >
-    <mastheadSecondary
+    <MastheadSecondary
       :title="page.title"
       :text="page.text"
     />
 
-    <page-anchor
+    <PageAnchor
       v-if="h2Array.length >= 3"
       :section-titles="h2Array"
     />
 
-    <section-wrapper v-if="page.richText">
-      <rich-text :rich-text-content="page.richText" />
-    </section-wrapper>
+    <SectionWrapper v-if="page.richText">
+      <RichText :rich-text-content="page.richText" />
+    </SectionWrapper>
 
     <div
       v-for="(block, index) in parsedHelpTopicBlocks"
       :key="`HelpTopicBlocksKey-${block}-${index}`"
     >
-      <section-wrapper
+      <SectionWrapper
         :section-title="block.sectionTitle"
         :section-summary="block.sectionSummary"
       >
-        <simple-cards :items="block.parsedAssociatedEntries" />
-      </section-wrapper>
+        <SimpleCards :items="block.parsedAssociatedEntries" />
+      </SectionWrapper>
 
-      <section-wrapper theme="divider">
-        <divider-way-finder
+      <SectionWrapper theme="divider">
+        <DividerWayFinder
           class="divider-way-finder"
           color="help"
         />
-      </section-wrapper>
+      </SectionWrapper>
     </div>
 
-    <flexible-blocks
+    <FlexibleBlocks
       class="content"
       :blocks="page.blocks"
     />
 
-    <section-wrapper
+    <SectionWrapper
       v-if="page.blocks.length > 0"
       theme="divider"
     >
-      <divider-way-finder
+      <DividerWayFinder
         class="divider-way-finder"
         color="help"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper>
-      <block-call-to-action
+    <SectionWrapper>
+      <BlockCallToAction
         class="block-call-to-action"
         :is-global="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 

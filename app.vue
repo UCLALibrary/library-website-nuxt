@@ -1,4 +1,6 @@
 <script setup>
+import { provideTheme } from '@/composables/provideTheme'
+provideTheme()
 const { enabled, state } = usePreviewMode()
 </script>
 <template>

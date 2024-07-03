@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, BannerHeader, PageAnchor, SimpleCards, ButtonMore, BlockAmenities, SectionSpacesList, BlockHours, DividerGeneral, RichText, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionTeaserList } from 'ucla-library-website-components'
+
 import { onMounted } from 'vue'
 
 // HELPERS
@@ -189,13 +192,13 @@ onMounted(() => {
 
 <template lang="html">
   <main class="page page-location-detail">
-    <nav-breadcrumb
+    <NavBreadcrumb
       to="/visit/locations"
       :title="page.title"
       parent-title="Locations"
     />
 
-    <banner-text
+    <BannerText
       v-if="!page.heroImage || page.heroImage.length === 0"
       class="banner-text"
       :title="page.title"
@@ -207,11 +210,11 @@ onMounted(() => {
       :staff-directory-link="parsedStaffDirectory"
     />
 
-    <section-wrapper
+    <SectionWrapper
       v-if="page.heroImage && page.heroImage.length === 1"
       class="section-banner"
     >
-      <banner-header
+      <BannerHeader
         :media="page.heroImage[0].image[0]"
         :title="page.title"
         :text="page.text"
@@ -221,10 +224,10 @@ onMounted(() => {
         :staff-directory-link="parsedStaffDirectory"
         :address-link="addressLink"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         v-if="page.libcalLocationIdForHours ||
           page.amenitiesIcons.length ||
           parsedSpaces.length
@@ -232,128 +235,128 @@ onMounted(() => {
         class="divider-way-finder"
         color="visit"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <page-anchor
+    <PageAnchor
       v-if="h2Array.length >= 2"
       :section-titles="h2Array"
     />
 
     <!-- HOURS -->
-    <section-wrapper
+    <SectionWrapper
       v-if="page.libcalLocationIdForHours ||
         page.amenitiesIcons.length ||
         parsedSpaces.length"
       section-title="Using the Library"
       :section-summary="page.howToGetHere"
     >
-      <block-hours
+      <BlockHours
         v-if="page.libcalLocationIdForHours"
         :lid="page.libcalLocationIdForHours"
       />
 
       <!-- AMENITIES -->
-      <divider-general
+      <DividerGeneral
         v-if="page.amenitiesIcons.length"
         class="divider-general"
       />
 
-      <block-amenities
+      <BlockAmenities
         v-if="page.amenitiesIcons.length"
         :amenities="page.amenitiesIcons"
         class="amenities"
       />
 
       <!-- SPACES -->
-      <divider-general
+      <DividerGeneral
         v-if="parsedSpaces.length"
         class="divider-general"
       />
 
-      <section-spaces-list
+      <SectionSpacesList
         v-if="parsedSpaces.length"
         class="section-block-spaces"
         :items="parsedSpaces"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- SERVICES & RESOURCES -->
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         v-if="page.resourceServiceWorkshop.length"
         class="divider-way-finder"
         color="visit"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-if="page.resourceServiceWorkshop.length"
       class="services-and-resources"
       section-title="Services &amp; Resources"
     >
-      <simple-cards :items="parsedServicesAndResources" />
+      <SimpleCards :items="parsedServicesAndResources" />
       <nuxt-link
         v-if="page.resourceServiceWorkshop.length"
         class="button-more"
         to="/help/services-resources"
       >
-        <button-more text="See All Services & Resources" />
+        <ButtonMore text="See All Services & Resources" />
       </nuxt-link>
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- EXHIBITIONS -->
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         v-if="mergeSortEventsExhibitions.length"
         color="visit"
         class="divider-way-finder"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-if="mergeSortEventsExhibitions.length > 0"
       class="events-exhibitions"
       section-title="Events &amp; Exhibitions"
     >
-      <section-teaser-list
+      <SectionTeaserList
         class="section-teaser-list"
         :items="mergeSortEventsExhibitions"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- FPB - FLEXIBLE PAGE BLOCKS -->
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         v-if="page.blocks.length > 0"
         class="divider-way-finder"
         color="visit"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <flexible-blocks
+    <FlexibleBlocks
       class="content"
       :blocks="page.blocks"
     />
 
     <!-- ABOUT -->
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         v-if="page.about"
         color="visit"
         class="divider-way-finder"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-if="page.about"
       class="about"
       section-title="About"
     >
-      <rich-text
+      <RichText
         class="about-text"
         :rich-text-content="page.about"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 

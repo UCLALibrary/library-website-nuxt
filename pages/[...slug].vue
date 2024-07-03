@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, BannerHeader, PageAnchor, SectionWrapper, DividerWayFinder, FlexibleBlocks } from 'ucla-library-website-components'
+
 import { onMounted } from 'vue'
 
 // HELPERS
@@ -85,7 +88,7 @@ onMounted(() => {
     id="main"
     class="page page-general-content"
   >
-    <nav-breadcrumb
+    <NavBreadcrumb
       v-if="page"
       :title="page.title"
       class="breadcrumb"
@@ -93,7 +96,7 @@ onMounted(() => {
       :parent-title="parseParentTitle"
     />
 
-    <banner-text
+    <BannerText
       v-if="page && (!page.heroImage || page.heroImage.length == 0)"
       class="banner-text"
       :category="page.format"
@@ -103,8 +106,8 @@ onMounted(() => {
       :to="parsedButtonTo"
     />
 
-    <section-wrapper class="section-banner">
-      <banner-header
+    <SectionWrapper class="section-banner">
+      <BannerHeader
         v-if="page && page.heroImage && page.heroImage.length == 1"
         :media="page.heroImage[0].image[0]"
         :category="page.format"
@@ -113,18 +116,18 @@ onMounted(() => {
         :to="parsedButtonTo"
         :prompt="parsedButtonText"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper theme="divider">
-      <divider-way-finder class="divider-way-finder" />
-    </section-wrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder class="divider-way-finder" />
+    </SectionWrapper>
 
-    <page-anchor
+    <PageAnchor
       v-if="h2Array.length >= 3"
       :section-titles="h2Array"
     />
 
-    <flexible-blocks
+    <FlexibleBlocks
       v-if="page"
       class="flexible-content"
       :blocks="page.blocks"

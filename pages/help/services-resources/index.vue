@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, RichText, SectionCardsWithIllustrations, BlockCallToAction } from 'ucla-library-website-components'
+
 import { onMounted } from 'vue'
 
 // HELPERS
@@ -273,13 +276,13 @@ function getSearchData(data) {
     id="main"
     class="page page-help"
   >
-    <masthead-secondary
+    <MastheadSecondary
       v-show="summaryData"
       :title="summaryData.title || ''"
       :text="summaryData.text || ''"
     />
 
-    <search-generic
+    <SearchGeneric
       search-type="help"
       class="generic-search"
       :filters="searchFilters"
@@ -288,26 +291,26 @@ function getSearchData(data) {
       @search-ready="getSearchData"
     />
 
-    <section-wrapper theme="divider">
-      <divider-way-finder
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
         color="help"
         class="search-margin"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <!-- ALL RESULTS -->
-    <section-wrapper
+    <SectionWrapper
       v-show="(page.serviceOrResource || page.workshopseries) &&
         hits.length == 0 && !noResultsFound"
       class="section-no-top-margin"
     >
-      <section-cards-with-illustrations
+      <SectionCardsWithIllustrations
         :items="parsedServiceAndResourceList"
         :is-horizontal="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="hits && hits.length > 0"
       class="section-no-top-margin"
     >
@@ -324,18 +327,18 @@ function getSearchData(data) {
       >
         Displaying {{ hits.length }} results
       </h2>
-      <section-cards-with-illustrations
+      <SectionCardsWithIllustrations
         :items="parseHitsResults"
         :is-horizontal="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper
+    <SectionWrapper
       v-show="noResultsFound && route.query.q"
       class="section-no-top-margin"
     >
       <div class="error-text">
-        <rich-text>
+        <RichText>
           <h2>Search for “{{ route.query.q }}” not found.</h2>
           <p>
             We can’t find the term you are looking for on this page,
@@ -357,23 +360,23 @@ function getSearchData(data) {
                 Resources</a>
             </li>
           </ul>
-        </rich-text>
+        </RichText>
       </div>
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper>
-      <divider-way-finder
+    <SectionWrapper>
+      <DividerWayFinder
         class="divider-way-finder"
         color="help"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
-    <section-wrapper>
-      <block-call-to-action
+    <SectionWrapper>
+      <BlockCallToAction
         class="block-call-to-action"
         :is-global="true"
       />
-    </section-wrapper>
+    </SectionWrapper>
   </main>
 </template>
 
