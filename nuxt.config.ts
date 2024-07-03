@@ -11,6 +11,7 @@ export default defineNuxtConfig({
       alias: {
         'cross-fetch': 'cross-fetch/dist/browser-ponyfill.js',
         '~ucla-library-design-tokens': 'ucla-library-design-tokens',
+        // 'vue-router': 'vue-router'
       },
     },
     server: {
@@ -156,7 +157,7 @@ export default defineNuxtConfig({
   ], 'nuxt-graphql-request', '@nuxtjs/sitemap', '@zadigetvoltaire/nuxt-gtm'],
 
   build: {
-    transpile: ['nuxt-graphql-request'],
+    transpile: ['nuxt-graphql-request', 'ucla-library-website-components'],
   },
 
   site: {
@@ -212,8 +213,8 @@ export default defineNuxtConfig({
     // includeNodeModules: true,
   },
 
-  /* experimental: {
+  experimental: {
     payloadExtraction: true,
     sharedPrerenderData: true
-  } */
+  }
 })
