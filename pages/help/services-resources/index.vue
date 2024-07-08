@@ -46,11 +46,11 @@ if (!data.value.data && !data.value.helpTopicData) {
 // CHECK THAT NUXT IS RUNNING ON THE SERVER (process.server)
 // console.log('DATA-DATA-DATA-DATA' + data)
 if (
-  data.value.externalResource &&
-  data.value.externalResource.length > 0 &&
+  data.value.data.externalResource &&
+  data.value.data.externalResource.length > 0 &&
   process.server
 ) {
-  for (const externalResource of data.value.externalResource) {
+  for (const externalResource of data.value.data.externalResource) {
     await $elasticsearchplugin.index(
       { ...externalResource, serviceOrResourceType: 'external resource' },
       externalResource.slug
