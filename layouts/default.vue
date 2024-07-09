@@ -47,7 +47,7 @@ const classes = computed(() => [
 // const { $graphql } = useNuxtApp()
 const { $alerts } = useNuxtApp()
 onMounted(async () => {
-  console.log('onMounted in Default layout')
+  // console.log('onMounted in Default layout')
   /* document.addEventListener('visibilitychange', async () => {
     if (document.visibilityState === 'visible') {
       const data = await $graphql.default.request(Globals)

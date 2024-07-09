@@ -20,10 +20,6 @@ const { data, error } = await useAsyncData(`help-topic-detail-${route.params.slu
   })
   console.log('preview useasycdata $graphql called again', data.entry.title)
 
-  if (data.entry) {
-    data.entry.serviceOrResourceType = 'help topic'
-  }
-
   return data
 })
 
@@ -39,13 +35,19 @@ if (!data.value.entry) {
 
 if (route.params.slug !== undefined && data.value.entry.slug && process.server) {
   const { $elasticsearchplugin } = useNuxtApp()
+  console.log('data.value.entry.serviceOrResourceType', data.value.entry.serviceOrResourceType)
   await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
+}
+
+if (data.value.entry) {
+  data.value.entry.serviceOrResourceType = 'help topic'
 }
 
 const page = ref(_get(data.value, 'entry', {}))
 // Have to add a watcher for data when in preview mode as, page ref was not getting updated after the data was refetched from craft
 watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  if (newVal && newVal.entry) newVal.entry.serviceOrResourceType = 'help topic'
   page.value = _get(newVal, 'entry', {})
 })
 

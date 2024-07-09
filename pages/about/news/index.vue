@@ -19,8 +19,10 @@ import queryFilterHasValues from '../utils/queryFilterHasValues'
 const { $graphql, $dataApi } = useNuxtApp()
 const { data, error } = await useAsyncData('news', async () => {
   const data = await $graphql.default.request(ARTICLE_LIST)
+  console.log('data in useasync for news listing: ', data)
   return data
 })
+console.log('data: ', data.value, 'error: ', error.value)
 
 if (error.value) {
   throw createError({
@@ -28,7 +30,7 @@ if (error.value) {
   })
 }
 
-if (!data.value.entry && !data.value.entries) {
+if (!data.value?.entry && !data.value?.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 

@@ -25,6 +25,7 @@ const { data, error } = await useAsyncData('events-list', async () => {
 
   return { data, single }
 })
+console.log('Events and exhibition data: ', data.value, 'error: ', error.value)
 
 if (error.value) {
   throw createError({
@@ -32,7 +33,7 @@ if (error.value) {
   })
 }
 
-if (!data.value.data && !data.value.single) {
+if (!data.value?.data && !data.value?.single) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found'

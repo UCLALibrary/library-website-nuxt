@@ -39,6 +39,9 @@ if (!data.value.entry) {
 // console.log("process.server", process.server, process.client)
 
 if (data.value.entry.slug && process.server) {
+  console.log('News slug article category:', data.value.entry.category)
+  data.value.entry.articleCategory = data.value.entry.category
+
   const { $elasticsearchplugin } = useNuxtApp()
   // console.log("elasticsearchplugin", $elasticsearchplugin, data.value.entry.slug)
   await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
