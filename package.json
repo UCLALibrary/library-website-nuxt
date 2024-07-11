@@ -39,6 +39,6 @@
 		"nuxt-graphql-request": "^7.0.5",
 		"sass": "^1.66.1",
 		"ucla-library-design-tokens": "^5.12.6",
-		"ucla-library-website-components": "2.39.0-alpha.100"
+		"ucla-library-website-components": "2.39.0-alpha.102"
 	}
 }
