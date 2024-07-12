@@ -6,10 +6,12 @@
 
 function fixUri(uri = '') {
   if (typeof uri === 'string' || uri instanceof String) {
-    return uri.replace(/^(?=[^/])/, '/')
-      .replace(/^\/locations\//, '/visit/locations/')
-  }
-  else {
+    if (!uri.match(/^(http|https):\/\//)) {
+      uri = uri.replace(/^(?=[^/])/, '/')
+    }
+    uri = uri.replace(/^\/locations\//, '/visit/locations/')
+    return uri
+  } else {
     return ''
   }
 }

@@ -58,7 +58,7 @@ const parsedAcademicLibrarianJobs = computed(() => {
       associatedLocations: obj.associatedLocations.map((entry) => {
         return {
           ...entry,
-          uri: fixUri(entry.uri),
+          to: fixUri(entry.uri),
         }
       })
     }
@@ -77,7 +77,7 @@ const parsedStaffJobs = computed(() => {
       associatedLocations: obj.associatedLocations.map((entry) => {
         return {
           ...entry,
-          uri: fixUri(entry.uri),
+          to: fixUri(entry.uri),
         }
       })
     }

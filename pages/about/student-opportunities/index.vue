@@ -60,7 +60,7 @@ const parsedStudentJobs = computed(() => {
         (entry) => {
           return {
             ...entry,
-            uri: fixUri(entry.uri),
+            to: fixUri(entry.uri),
           }
         }
       ),
@@ -80,7 +80,7 @@ const parsedStudentInternships = computed(() => {
         (entry) => {
           return {
             ...entry,
-            uri: `${entry.uri}`,
+            to: `${entry.uri}`,
           }
         }
       ),
