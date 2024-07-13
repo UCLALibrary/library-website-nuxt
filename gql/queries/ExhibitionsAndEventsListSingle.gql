@@ -1,81 +1,81 @@
-#import "~/gql/fragments/Image"
+#import "../gql/fragments/Image.gql"
 
-query EventsExhibitionsList {
-    entry(section: "listingEventsExhibitions") {
-        ... on listingEventsExhibitions_listingEventsExhibitions_Entry {
-            title
-            text: summary
-            featuredEvents {
-                category
-                title
-                eventTitle
-                summary
-                sectionHandle
-                to: uri
-                eventType {
-                    title
-                }
-                eventDescription
-                ongoing
-                startDate
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i:s"
-                        timezone: "America/Los_Angeles"
-                    )
-                endDate
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i:s"
-                        timezone: "America/Los_Angeles"
-                    )
-                startDateWithTime
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                endDateWithTime
-                    @formatDateTime(
-                        format: "Y-m-d\\TH:i"
-                        timezone: "America/Los_Angeles"
-                    )
-                workshopOrEventSeriesType
-                typeHandle
-                eventLocation: location {
-                    title
-                }
-                associatedLocations {
-                    title
-                }
-                associatedLocationsAndPrograms {
-                    title
-                    to: uri
-                }
-                heroImage {
-                    ... on heroImage_heroImage_BlockType {
-                        id
-                        image {
-                            ...Image
-                        }
-                    }
-                }
-            }
-            featuredEventSeriesAndExhibitions {
-                title
-                typeHandle
-                uri
-                startDate
-                endDate
-                ongoing
-                text: summary
-                to: uri
-                heroImage {
-                    ... on heroImage_heroImage_BlockType {
-                        image {
-                            ...Image
-                        }
-                    }
-                }
-                workshopOrEventSeriesType
-            }
+query ExhibitionsAndEventsListSingle {
+  entry(section: "listingEventsExhibitions") {
+    ... on listingEventsExhibitions_listingEventsExhibitions_Entry {
+      title
+      text: summary
+      featuredEvents {
+        category
+        title
+        eventTitle
+        summary
+        sectionHandle
+        to: uri
+        eventType {
+          title
         }
+        eventDescription
+        ongoing
+        startDate
+          @formatDateTime(
+            format: "Y-m-d\\TH:i:s"
+            timezone: "America/Los_Angeles"
+          )
+        endDate
+          @formatDateTime(
+            format: "Y-m-d\\TH:i:s"
+            timezone: "America/Los_Angeles"
+          )
+        startDateWithTime
+          @formatDateTime(
+            format: "Y-m-d\\TH:i"
+            timezone: "America/Los_Angeles"
+          )
+        endDateWithTime
+          @formatDateTime(
+            format: "Y-m-d\\TH:i"
+            timezone: "America/Los_Angeles"
+          )
+        workshopOrEventSeriesType
+        typeHandle
+        eventLocation: location {
+          title
+        }
+        associatedLocations {
+          title
+        }
+        associatedLocationsAndPrograms {
+          title
+          to: uri
+        }
+        heroImage {
+          ... on heroImage_heroImage_BlockType {
+            id
+            image {
+              ...Image
+            }
+          }
+        }
+      }
+      featuredEventSeriesAndExhibitions {
+        title
+        typeHandle
+        uri
+        startDate
+        endDate
+        ongoing
+        text: summary
+        to: uri
+        heroImage {
+          ... on heroImage_heroImage_BlockType {
+            image {
+              ...Image
+            }
+          }
+        }
+        workshopOrEventSeriesType
+      }
     }
+  }
 }

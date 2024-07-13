@@ -1,178 +1,148 @@
-<template lang="html">
-    <div :class="classes">
-        <VueSkipTo
-            to="#main"
-            label="Skip to main content"
-        />
+<script setup>
+// components need to be imported for nitro crawling in static mode
+import { HeaderSmart, SectionWrapper, SiteNotificationAlert, FooterPrimary, FooterSock } from 'ucla-library-website-components'
+import { onMounted } from 'vue'
 
-        <header-smart />
+useHead({
+  titleTemplate: title =>
+    title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library',
+  script: [
+    {
+      hid: 'libanswers',
+      src: 'https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753',
+      defer: true
+    }
+  ]
+})
 
-        <section-wrapper
-            class="section-alert"
-            theme="divider"
-        >
-            <site-notification-alert
-                v-if="libraryAlert"
-                class="library-alert"
-                v-bind="libraryAlert"
-            />
-        </section-wrapper>
+const globalStore = useGlobalStore()
+// console.log('In default layout:', globalStore.header)
+const libraryAlert = computed(() => {
+  /* console.log(
+    'in library alert computed property',
+    globalStore.header,
+  ) */
+  if (globalStore.globals) {
+    const alert = globalStore.globals?.libraryAlert
+    if (
+      alert
+      && alert.title
+      && alert.title.length > 0
+      && alert.text
+      && alert.text.length > 0
+    )
+      return alert
+    else
+      return null
+  }
+})
+const classes = computed(() => [
+  'layout',
+  'layout-default',
+  { 'has-scrolled': globalStore.sTop },
+  { 'has-scrolled-past-header': globalStore.sTop >= 150 }
+])
+// on mounted I want to want to check if visiblity change event is triggered and use $fetch or $graghql to fetch data from api
+// I want to use this data to update the global store
+// const { $graphql } = useNuxtApp()
+const { $alerts } = useNuxtApp()
+onMounted(async () => {
+  // console.log('onMounted in Default layout')
+  /* document.addEventListener('visibilitychange', async () => {
+    if (document.visibilityState === 'visible') {
+      const data = await $graphql.default.request(Globals)
 
-        <nuxt class="page" />
-        <footer>
-            <footer-primary :form="true" />
-            <footer-sock />
-        </footer>
-        <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" />
-    </div>
-</template>
-
-<script>
-// HELPERS
-import kebabCase from "~/utils/kebabCase"
-
-export default {
-    components: {},
-    data() {
-        return {
-            pageMeta: {
-                title: "UCLA Library",
-            },
-        }
-    },
-    head: {
-        titleTemplate: (title) =>
-            title === "Homepage"
-                ? "UCLA Library"
-                : `${title}` + " | UCLA Library",
-        script: [
-            {
-                hid: "libanswers",
-                src: "https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753",
-                defer: true,
-            },
-        ],
-    },
-    computed: {
-        bodyClasses() {
-            const classes = ["body", "theme-default"]
-            classes.push(`route-${kebabCase(this.$route.name || "error")}`)
-            return classes.join(" ")
-        },
-        classes() {
-            return [
-                "layout",
-                "layout-default",
-                { "has-scrolled": this.$store.state.sTop },
-                { "has-scrolled-past-header": this.$store.state.sTop >= 150 },
-            ]
-        },
-        libraryAlert() {
-            var alert = this.$store.state.globals.libraryAlert
-            if (
-                alert &&
-                alert.title &&
-                alert.title.length > 0 &&
-                alert.text &&
-                alert.text.length > 0
-            ) {
-                return alert
-            } else {
-                return null
-            }
-        },
-    },
-    watch: {
-        $route() {
-            // this.$refs.skipLink.focus()
-        },
-    },
-    async mounted() {
-        console.log("In mounted for default layout")
-        await this.$updateSiteAlert.updateSiteAlert()
-    },
-
-    // meta: [
-    //     {
-    //         hid: "description",
-    //         name: "description",
-    //         property: "og:description",
-    //         content: this.pageMeta.description,
-    //     },
-    //     {
-    //         hid: "og:image",
-    //         property: "og:image",
-    //         content: this.pageMeta.socailShareUrl,
-    //     },
-    //     {
-    //         property: "og:url",
-    //         content: `${this.pageMeta.url}${this.$route.path}`,
-    //     },
-    //     {
-    //         property: "og:site_name",
-    //         content: this.pageMeta.title,
-    //     },
-    //     {
-    //         property: "og:type",
-    //         content: "website",
-    //     },
-    //     {
-    //         hid: "og:title",
-    //         property: "og:title",
-    //         content: this.pageMeta.title,
-    //     },
-    // ],
-    // },
-}
+      console.log('Pinia store Global Data object:' + JSON.stringify(data.value))
+      if (data.value) {
+        const globalData = removeEmpties(data.value?.globalSets || [])
+        // console.log("remove empties: " + JSON.stringify(globalData))
+        // Shape data from Craft
+        const craftData = Object.fromEntries(
+          globalData?.map(item => [item.handle, item])
+        )
+        globalStore.globals = craftData
+      }
+    }
+  }) */
+  await $alerts()
+})
 </script>
+
+<template>
+  <div :class="classes">
+    <HeaderSmart v-if="globalStore.header" />
+    <SectionWrapper
+      class="section-alert"
+      theme="divider"
+    >
+      <site-notification-alert
+        v-if="libraryAlert"
+        class="library-alert"
+        v-bind="libraryAlert"
+      />
+    </SectionWrapper>
+
+    <slot />
+
+    <footer>
+      <FooterPrimary
+        v-if="globalStore.footerPrimary"
+        :form="true"
+      />
+      <FooterSock v-if="globalStore.footerSock" />
+    </footer>
+    <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" />
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .layout-default {
-    min-height: 100vh;
+  min-height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
 
-    > * {
-        width: 100%;
+  :deep(>*) {
+    width: 100%;
+  }
+
+  .section-alert {
+    height: 0;
+    position: relative;
+
+    .library-alert {
+      position: absolute;
+      z-index: 100;
+      top: 32px;
+      right: var(--unit-gutter);
     }
+  }
 
-    .section-alert {
-        height: 0;
-        position: relative;
-
-        .library-alert {
-            position: absolute;
-            z-index: 100;
-            top: 32px;
-            right: var(--unit-gutter);
-        }
-    }
-
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .vue-skip-to {
-    z-index: 300;
+  z-index: 300;
 }
+
 .skip-link {
-    position: absolute;
-    transform: translateY(-100%);
-    display: inline-block;
-    background: var(--color-primary-yellow-01);
-    color: var(--color-black);
-    @include step-0;
-    padding: 4px 16px;
-    transition: transform 0.3s;
-    width: auto;
-    left: 0;
+  position: absolute;
+  transform: translateY(-100%);
+  display: inline-block;
+  background: var(--color-primary-yellow-01);
+  color: var(--color-black);
+  @include step-0;
+  padding: 4px 16px;
+  transition: transform 0.3s;
+  width: auto;
+  left: 0;
 }
 
 .skip-link:focus {
-    transform: translateY(0%);
+  transform: translateY(0%);
 }
 </style>
