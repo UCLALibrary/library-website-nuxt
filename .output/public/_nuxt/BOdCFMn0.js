@@ -1,1 +1,0 @@
-function t(e,s){if(!e)return!1;const r=typeof e=="string"||e instanceof String?JSON.parse(e):e;for(const a of s){if(Array.isArray(r[a.esFieldName])&&r[a.esFieldName].length>0)return!0;if(r[a.esFieldName]&&!Array.isArray(r[a.esFieldName])&&r[a.esFieldName]!=="")return!0}return!1}export{t as q};

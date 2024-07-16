@@ -1,1 +1,0 @@
-import{_ as p}from"./I9wROFQL.js";function s(t,n){return n.map(e=>({label:e.label,esFieldName:e.esFieldName,inputType:e.inputType,items:e.inputType!=="single-checkbox"?p(t,`${e.label}.buckets`,[]).map(a=>({name:a.key})):[]}))}export{s as g};
