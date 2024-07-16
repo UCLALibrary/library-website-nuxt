@@ -30,6 +30,11 @@ export default defineNuxtConfig({
       },
     }
   },
+  /*router: {
+    options: {
+      strict: true
+    }
+  },*/
 
   nitro: {
     prerender: {
@@ -215,6 +220,12 @@ export default defineNuxtConfig({
 
   experimental: {
     payloadExtraction: true,
-    sharedPrerenderData: true
+    sharedPrerenderData: true,
+    defaults: {
+      /*nuxtLink: {
+        activeClass: 'nuxt-link-active',
+        trailingSlash: 'append'
+      }*/
+    }
   }
 })

@@ -1,10 +1,10 @@
 describe('Collection Detail page', () => {
   it('Visits a Collection Detail Page', () => {
     cy.request({
-      url: '/collections/explore/halloween-costumes',
+      url: '/collections/explore/halloween-costumes/',
       timeout: 120000,
       retryOnStatusCodeFailure: true
-    }).visit('/collections/explore/halloween-costumes')
+    }).visit('/collections/explore/halloween-costumes/')
 
     // UCLA Library brand
     cy.get('.logo-ucla').should('be.visible')
