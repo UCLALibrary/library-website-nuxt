@@ -1,0 +1,1 @@
+const o=typeof WorkerGlobalScope<"u"&&self instanceof WorkerGlobalScope,e=o?self:typeof window<"u"?window:globalThis,n=e.fetch.bind(e),s=e.Headers,t=e.Request,c=e.Response;export{s as Headers,t as Request,c as Response,n as fetch};

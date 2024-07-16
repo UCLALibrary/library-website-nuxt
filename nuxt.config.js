@@ -143,9 +143,9 @@ export default {
      ** Nuxt router configuration. Used to define settingg for the router.
      */
     // TODO find out later why this causing the live preview to not work
-    /*router: {
+    router: {
         trailingSlash: false,
-    },*/
+    },
 
 
     /*
