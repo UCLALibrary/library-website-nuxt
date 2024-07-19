@@ -1,12 +1,12 @@
 describe('Impact Main Story page', () => {
   it('Visit the Impact Mainstory Page', () => {
-    cy.visit('/impact/2022/test-main-story')
+    cy.visit('/impact/2022/test-main-story/')
 
     // UCLA Library brand
     cy.get('.logo-ucla').should('be.visible')
     cy.get('h1.title').should(
       'contain',
-      'TEST_After Covid Triggered a Campus Closure, UCLA Library Reimagined Its Services'
+      'After Covid Triggered a Campus Closure'
     )
     cy.get('.media-video').should(
       'have.attr',
