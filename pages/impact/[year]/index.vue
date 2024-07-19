@@ -18,7 +18,7 @@ const { $graphql } = useNuxtApp()
 definePageMeta({
   layout: 'impact',
   path: '/impact/:year?',
-  alias: ['/impact'],
+  alias: ['/impact/'],
 })
 
 const route = useRoute()
@@ -164,12 +164,10 @@ const timelineSortedBySubtitle = computed(() => {
       />
     </SectionWrapper>
     <SectionWrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
-      <h2
-        :class="page.acknowledgements[0].displaySectionTitle === 'true'
-          ? ''
-          : 'visually-hidden'
-        "
-      >
+      <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
+        ? ''
+        : 'visually-hidden'
+        ">
         {{ page.acknowledgements[0].titleGeneral }}
       </h2>
       <RichText
