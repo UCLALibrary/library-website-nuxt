@@ -173,9 +173,9 @@ async function searchES() {
     }
     const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, ...filters } = routeFilters.value
     const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-      [
-        { term: { 'subjectLibrarian.keyword': 'yes' } }
-      ]
+        [
+          { term: { 'subjectLibrarian.keyword': 'yes' } }
+        ]
       : []
 
     // console.log('in router query in asyc data queryText', queryText)
@@ -333,16 +333,16 @@ async function setFilters() {
     config.staff.filters,
     'staffMember'
   )
-  /*console.log(
+  /* console.log(
     'Search Aggs Response: ' + JSON.stringify(searchAggsResponse)
-  )*/
+  ) */
   searchFilters.value = getListingFilters(
     searchAggsResponse,
     config.staff.filters
   )
-  /*console.log(
+  /* console.log(
     'searchFilters.value Response: ' + JSON.stringify(searchFilters.value)
-  )*/
+  ) */
 }
 onMounted(async () => {
   console.log('onMounted called')
@@ -406,9 +406,9 @@ onMounted(async () => {
             'subjectLibrarian.keyword'
           ][0] === '')) ||
           !searchGenericQuery.queryFilters[
-          'subjectLibrarian.keyword'
+            'subjectLibrarian.keyword'
           ])
-        "
+      "
       class="section-no-top-margin"
     >
       <AlphabeticalBrowseBy
@@ -469,7 +469,7 @@ onMounted(async () => {
         searchGenericQuery.queryFilters['subjectLibrarian.keyword'][0] ===
         'yes' &&
         groupByAcademicLibraries
-        "
+      "
       class="section-no-top-margin"
     >
       <h3 class="section-title subject-librarian">

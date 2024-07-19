@@ -168,7 +168,7 @@ onMounted(() => {
       <BlockHours
         v-if="
           page.uri ==
-          'about/programs/campus-library-instructional-computing-commons-clicc'
+            'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         lid="0"
         :is-clicc="true"
@@ -176,7 +176,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           page.uri ==
-          'about/programs/campus-library-instructional-computing-commons-clicc'
+            'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         class="divider"
         color="about"

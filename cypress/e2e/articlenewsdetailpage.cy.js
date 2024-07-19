@@ -1,6 +1,5 @@
 describe('Article Detail page', () => {
   it('Visits a News Detail Page', () => {
-    
     cy.request({
       url: '/about/news/turtles/',
       timeout: 120000,

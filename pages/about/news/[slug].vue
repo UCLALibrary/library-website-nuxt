@@ -27,7 +27,6 @@ if (error.value) {
 }
 
 if (!data.value.entry) {
-  // eslint-disable-next-line no-console
   // console.log('In news Slug page no data')
   throw createError({
     statusCode: 404,

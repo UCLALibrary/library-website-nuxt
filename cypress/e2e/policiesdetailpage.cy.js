@@ -4,9 +4,9 @@ describe('Policy Detail page', () => {
     cy.visit('/about/policies/shhh')
     cy.wait('@getPolicyDetailRoute').then(() => {
       cy.get('.logo-ucla').should('be.visible')
-      
-      cy.get(".page-anchor").scrollIntoView()
-      cy.get(".page-anchor").should('be.visible')
+
+      cy.get('.page-anchor').scrollIntoView()
+      cy.get('.page-anchor').should('be.visible')
       cy.percySnapshot({ widths: [768, 992, 1200] })
     })
   })

@@ -91,7 +91,7 @@ async function searchES() {
 
     // console.log('Search Response: ' + JSON.stringify(page.value))
   } catch (e) {
-    // console.log('Search Site Error found ' + JSON.stringify(e))
+    console.log('Search Site Error found ' + JSON.stringify(e))
     throw e
   }
 }

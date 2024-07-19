@@ -27,7 +27,7 @@ describe('Impact Report Page', () => {
     // cy.get('.grid-gallery').find('img').last().should('have.attr','src','https://static.library.ucla.edu/ucla-library_nakatani-bookplate-crop.jpg')
     // cy.get('.credits').should('be.visible')
 
-    cy.percySnapshot({ widths: [768, 992, 1200] }) 
+    cy.percySnapshot({ widths: [768, 992, 1200] })
   })
 
   context('When there isn\'t an entry in craft', () => {
