@@ -11,8 +11,8 @@ async function scrapeFormId(eventId = '') {
   const doc = parser.parseFromString(html, 'text/html')
   if (doc.querySelector("input[name='fid']")) {
     const formId = doc.querySelector("input[name='fid']").getAttribute('value')
-    console.log(formId)
-    console.log(doc)
+    // console.log(formId)
+    // console.log(doc)
     const formData = await fetchformData(formId)
     // console.log('form data in scarpe function is :' + JSON.stringify(formData))
     return formData

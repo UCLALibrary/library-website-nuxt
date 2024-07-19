@@ -36,19 +36,29 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.text,
+    uri: 'collections/access/'
+  }
+  await $elasticsearchplugin.index(doc, 'access-collection')
+}
+
 // only index on server
 // console.log("Access collections to be indexed are:", JSON.stringify(data.value.entry.accessCollections))
 if (
   data.value.entry.accessCollections &&
   data.value.entry.accessCollections.length > 0 &&
-  process.server
+  import.meta.server
 ) {
   for (const collection of data.value.entry.accessCollections) {
     collection.searchType = 'accessCollections'
     collection.to = collection.uri
       ? collection.uri
       : collection.externalResourceUrl
-    console.log('Index Access collections:', collection.slug)
+    // console.log('Index Access collections:', collection.slug)
     await $elasticsearchplugin.index(collection, collection.slug)
   }
 }
@@ -58,7 +68,7 @@ const page = ref(_get(data.value, 'entry', {}))
 // console.log('In page', page.value)
 
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled', newVal, oldVal)
+  // console.log('In watch preview enabled', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
 })
 
@@ -77,7 +87,7 @@ const searchGenericQuery = ref({
 // ES search function
 async function searchES() {
   if (route?.query && route?.query.q && route?.query.q !== '') {
-    console.log('searchES', route.query.q)
+    // console.log('searchES', route.query.q)
     const queryText = route.query.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
@@ -90,7 +100,7 @@ async function searchES() {
       []
     )
     if (results && results.hits && results.hits.total.value > 0) {
-      console.log('Search ES HITS,', results.hits.hits)
+      // console.log('Search ES HITS,', results.hits.hits)
       hits.value = results.hits.hits
       noResultsFound.value = false
     } else {
@@ -127,7 +137,7 @@ useHead({
 })
 
 function getCategory(obj) {
-  console.log('TypeHandle', obj.typeHandle)
+  // console.log('TypeHandle', obj.typeHandle)
   const category = obj.workshopOrEventSeriesType ===
     'help/services-resources'
     ? 'workshop'
@@ -219,10 +229,8 @@ function getSearchData(data) {
       <DividerWayFinder class="search-margin" />
     </SectionWrapper>
 
-    <SectionWrapper
-      v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <SectionWrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      ">
       <SectionCardsWithIllustrations
         class="section"
         :items="parsedAccessCollections"
@@ -270,7 +278,7 @@ function getSearchData(data) {
               <a href="https://www.library.ucla.edu/research-teaching-support/research-help">Research Help</a>
             </li>
             <li>
-              <a href="/help/services-resources/ask-us">Ask Us</a>
+              <a href="/help/services-resources/ask-us/">Ask Us</a>
             </li>
             <li>
               <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility

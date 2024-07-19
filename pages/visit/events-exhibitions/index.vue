@@ -25,7 +25,7 @@ const { data, error } = await useAsyncData('events-list', async () => {
 
   return { data, single }
 })
-console.log('Events and exhibition data: ', data.value, 'error: ', error.value)
+// console.log('Events and exhibition data: ', data.value, 'error: ', error.value)
 
 if (error.value) {
   throw createError({
@@ -39,6 +39,15 @@ if (!data.value?.data && !data.value?.single) {
     statusMessage: 'Page Not Found'
   })
 }
+if (data.value.single && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.single.title,
+    text: data.value.single.text,
+    uri: 'visit/events-exhibitions/'
+  }
+  await $elasticsearchplugin.index(doc, 'events-exhibition-list')
+}
 
 const route = useRoute()
 
@@ -49,7 +58,7 @@ const series = ref(_get(data.value.data, 'series', []))
 const exhibitions = ref(_get(data.value.data, 'exhibitions', []))
 
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal.single, 'entry', {})
   events.value = _get(newVal.data, 'events', [])
   series.value = _get(newVal.data, 'series', [])
@@ -193,7 +202,7 @@ const routeFilters = computed(() => {
   return parseFilters(_get(route, 'query.filters', ''))
 })
 
-console.log('route filter values: ', routeFilters.value)
+// console.log('route filter values: ', routeFilters.value)
 
 // ES search functionality
 const hits = ref([])
@@ -234,7 +243,7 @@ const hasSearchQuery = computed(() => {
 watch(
   () => route.query,
   (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', newVal, oldVal)
+    // console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
     searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
@@ -245,7 +254,7 @@ async function searchES() {
   // console.log("searchES route details", route.query.q, route.query.filters, routeFilters.value.past)
   // Followed what was done in Nuxt 2 https://github.com/UCLALibrary/library-website-nuxt/blob/main/pages/visit/events-exhibitions/index.vue#L221C19-L221C33
   if (hasSearchQuery.value) {
-    console.log('Search ES HITS query,', route.query.q)
+    // console.log('Search ES HITS query,', route.query.q)
 
     const queryText = route.query.q || '*'
 
@@ -254,14 +263,14 @@ async function searchES() {
     const extrafilters = (past && past.length > 0 && past[0] === 'yes')
       ? []
       : [
-          {
-            range: {
-              endDateWithTime: {
-                gte: 'now',
-              },
+        {
+          range: {
+            endDateWithTime: {
+              gte: 'now',
             },
           },
-        ]
+        },
+      ]
 
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
@@ -275,7 +284,7 @@ async function searchES() {
       extrafilters,
     )
     if (results && results.hits && results.hits.total.value > 0) {
-      console.log('Search ES HITS,', results.hits.hits)
+      // console.log('Search ES HITS,', results.hits.hits)
       hits.value = results.hits.hits
       noResultsFound.value = false
     } else {
@@ -348,7 +357,7 @@ function getSearchData(data) {
 
   // Use the router to navigate with the new query parameters
   useRouter().push({
-    path: '/visit/events-exhibitions',
+    path: '/visit/events-exhibitions/',
     query: {
       q: data.text,
       filters: filters.join(' AND ')
@@ -408,7 +417,7 @@ onMounted(async () => {
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -443,7 +452,7 @@ onMounted(async () => {
         parsedEvents.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="visit" />
@@ -455,7 +464,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Upcoming Events"
     >
       <SectionTeaserList :items="parsedEvents" />
@@ -466,7 +475,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="visit" />
@@ -478,7 +487,7 @@ onMounted(async () => {
         parsedSeriesAndExhibitions.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Event Series & Exhibitions"
     >
       <SectionTeaserCard :items="parsedSeriesAndExhibitions" />
@@ -525,7 +534,7 @@ onMounted(async () => {
                 Help</a>
             </li>
             <li>
-              <a href="/help/services-resources/ask-us">Ask Us</a>
+              <a href="/help/services-resources/ask-us/">Ask Us</a>
             </li>
             <li>
               <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility

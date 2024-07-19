@@ -34,7 +34,7 @@ if (!data.value.event && !data.value.eventSeries && !data.value.exhibition) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (process.server) {
+if (import.meta.server) {
   const { $elasticsearchplugin } = useNuxtApp()
   if (data.value.eventSeries) data.value.eventSeries.sectionHandle = 'eventSeries'
   if (data.value.event)
@@ -54,7 +54,7 @@ if (process.server) {
 
 const page = ref(data.value)
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = newVal
 })
 
@@ -82,16 +82,16 @@ const libcalEndpointProxy = ref(config.public.libcalProxy)
 // console.log('page variable:', page.value)
 // console.log('allEvents variable:', allEvents.value)
 
-console.log('eventId variable:', eventId.value)
-console.log('formData variable:', formData.value)
-console.log('formId variable:', formId.value)
-console.log('eventId variable:', eventId.value)
-console.log('inPersonEvent variable:', inPersonEvent.value)
-console.log('onlineEvent variable:', onlineEvent.value)
-console.log('libcalWaitlist variable:', libcalWaitlist.value)
-console.log('libcalEndpointProxy variable:', libcalEndpointProxy.value)
-console.log('in-person event', inPersonEvent.value)
-console.log('online event', onlineEvent.value)
+// console.log('eventId variable:', eventId.value)
+// console.log('formData variable:', formData.value)
+// console.log('formId variable:', formId.value)
+// console.log('eventId variable:', eventId.value)
+// console.log('inPersonEvent variable:', inPersonEvent.value)
+// console.log('onlineEvent variable:', onlineEvent.value)
+// console.log('libcalWaitlist variable:', libcalWaitlist.value)
+// console.log('libcalEndpointProxy variable:', libcalEndpointProxy.value)
+// console.log('in-person event', inPersonEvent.value)
+// console.log('online event', onlineEvent.value)
 const providerEventId = computed(() => {
   // console.log("In provder for event id is called")
   return eventId.value
@@ -321,7 +321,7 @@ const providedFormData = computed(() => formData.value)
 provide('blockFormData', providedFormData)
 const { $scrapeApi } = useNuxtApp()
 watch(formData, (newVal, oldVal) => {
-  console.log('formdata is updated', newVal, oldVal)
+  // console.log('formdata is updated', newVal, oldVal)
 })
 
 onMounted(async () => {
@@ -330,11 +330,11 @@ onMounted(async () => {
     page.value.event.requiresRegistration === '1' &&
     page.value.event.onlineProvider !== 'external'
   ) {
-    console.log('getting formid')
+    // console.log('getting formid')
     const formDataArray = await $scrapeApi.scrapeFormId(
       page.value.event.libcalId
     ) // please check the fieldname in the query
-    console.log('is this a promise:' + JSON.stringify(formDataArray))
+    // console.log('is this a promise:' + JSON.stringify(formDataArray))
     formData.value = formDataArray[0]
   }
 })
@@ -630,10 +630,8 @@ onMounted(async () => {
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText
-          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-          "
-        />
+        <RichText :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+          " />
       </SectionWrapper>
     </div>
   </main>

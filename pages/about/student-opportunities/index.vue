@@ -28,11 +28,23 @@ if (!data.value.entry && !data.value.allJobs) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.text,
+    email: data.value.entry.email,
+    phoneNumber: data.value.entry.phoneNumber,
+    uri: 'about/student-opportunities/'
+  }
+  await $elasticsearchplugin.index(doc, 'student-opportunities-list')
+}
+
 const page = ref(_get(data.value, 'entry', {}))
 const allJobs = ref(_get(data.value, 'allJobs', {}))
 
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
   allJobs.value = _get(newVal, 'allJobs', {})
 })
@@ -126,8 +138,8 @@ const parsedAssociatedTopics = computed(() => {
     <BannerText
       v-if="
         page.buttonUrl &&
-          page.buttonUrl[0] &&
-          page.buttonUrl[0].buttonText
+        page.buttonUrl[0] &&
+        page.buttonUrl[0].buttonText
       "
       class="banner-text"
       :title="page.title"

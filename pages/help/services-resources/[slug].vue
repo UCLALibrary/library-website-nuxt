@@ -30,7 +30,7 @@ if (!data.value.serviceOrResource && !data.value.workshopSeries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (process.server) {
+if (import.meta.server) {
   const { $elasticsearchplugin } = useNuxtApp()
   if (data.value.workshopSeries) {
     data.value.workshopSeries.sectionHandle = 'workshopSeries'
@@ -41,7 +41,7 @@ if (process.server) {
 
 const page = ref(data.value)
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = newVal
 })
 
@@ -190,9 +190,9 @@ onMounted(() => {
       <BannerText
         v-if="
           !page.serviceOrResource.heroImage ||
-            page.serviceOrResource.heroImage.length == 0 ||
-            !page.serviceOrResource.heroImage[0].image ||
-            page.serviceOrResource.heroImage[0].image.length == 0
+          page.serviceOrResource.heroImage.length == 0 ||
+          !page.serviceOrResource.heroImage[0].image ||
+          page.serviceOrResource.heroImage[0].image.length == 0
         "
         class="banner-text"
         :category="page.serviceOrResource.type"
@@ -205,9 +205,9 @@ onMounted(() => {
       <SectionWrapper
         v-if="
           page.serviceOrResource.heroImage &&
-            page.serviceOrResource.heroImage.length == 1 &&
-            page.serviceOrResource.heroImage[0].image &&
-            page.serviceOrResource.heroImage[0].image.length > 0
+          page.serviceOrResource.heroImage.length == 1 &&
+          page.serviceOrResource.heroImage[0].image &&
+          page.serviceOrResource.heroImage[0].image.length > 0
         "
         class="section-banner"
       >
@@ -282,9 +282,9 @@ onMounted(() => {
       <BannerText
         v-if="
           page.workshopSeries &&
-            (page.workshopSeries.image.length == 0 ||
-              !page.workshopSeries.image[0].image ||
-              page.workshopSeries.image[0].image.length == 0)
+          (page.workshopSeries.image.length == 0 ||
+            !page.workshopSeries.image[0].image ||
+            page.workshopSeries.image[0].image.length == 0)
         "
         :title="page.workshopSeries.title"
         :text="page.workshopSeries.summary"
@@ -297,9 +297,9 @@ onMounted(() => {
       <SectionWrapper
         v-if="
           page.workshopSeries.image &&
-            page.workshopSeries.image.length == 1 &&
-            page.workshopSeries.image[0].image &&
-            page.workshopSeries.image[0].image.length > 0
+          page.workshopSeries.image.length == 1 &&
+          page.workshopSeries.image[0].image &&
+          page.workshopSeries.image[0].image.length > 0
         "
         class="section-banner"
       >

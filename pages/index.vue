@@ -25,9 +25,20 @@ if (!data.value.entry) {
     fatal: true
   })
 }
+
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.summary,
+    searchLinks: data.value.entry.searchLinks,
+    uri: '/'
+  }
+  await $elasticsearchplugin.index(doc, 'home-page')
+}
 const page = ref(_get(data.value, 'entry', {}))
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
 })
 
@@ -231,7 +242,7 @@ useHead({
         :section-title="page.getHelpWith[0].titleGeneral"
         :section-summary="page.getHelpWith[0].sectionSummary"
         button-text="See All Services &amp; Resources"
-        to="/help/services-resources"
+        to="/help/services-resources/"
         :is-horizontal="false"
       />
     </SectionWrapper>
@@ -260,7 +271,7 @@ useHead({
       <SectionDualMasonry
         v-if="parsedDualMasonryEvents.length > 0"
         :items="parsedDualMasonryEvents"
-        to="/visit/events-exhibitions"
+        to="/visit/events-exhibitions/"
         text="See All Events &amp; Exhibitions"
       />
     </SectionWrapper>
@@ -290,7 +301,7 @@ useHead({
         :items="parsedSectionHighlightCollection"
       />
       <nuxt-link
-        to="/collections/explore"
+        to="/collections/explore/"
         class="button-more"
       >
         <ButtonMore text="See All Featured Collections" />
@@ -323,7 +334,7 @@ useHead({
         :items="parsedNewsList"
       />
       <nuxt-link
-        to="/about/news"
+        to="/about/news/"
         class="button-more"
       >
         <ButtonMore text="See All News" />

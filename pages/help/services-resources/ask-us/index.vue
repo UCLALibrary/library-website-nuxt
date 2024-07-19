@@ -27,9 +27,19 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.summary,
+    uri: 'help/'
+  }
+  await $elasticsearchplugin.index(doc, 'ask-us')
+}
+
 const page = ref(_get(data.value, 'entry', {}))
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
 })
 

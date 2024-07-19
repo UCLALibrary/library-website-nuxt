@@ -29,13 +29,24 @@ if (error.value) {
 if (!data.value.entry && !data.value.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
+
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.text,
+    uri: 'about/staff/'
+  }
+  await $elasticsearchplugin.index(doc, 'staff-list')
+}
+
 const route = useRoute()
 
 const page = ref(data.value)
 const summaryData = ref(_get(data.value, 'entry', {}))
 
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal)
   summaryData.value = _get(newVal, 'entry', {})
 })
@@ -52,7 +63,7 @@ useHead({
 })
 
 const parsedStaffList = computed(() => {
-  console.log('in parsedStaff')
+  // console.log('in parsedStaff')
   return (page.value.entries || []).map((obj) => {
     return {
       ...obj,
@@ -81,12 +92,12 @@ const parsedStaffList = computed(() => {
 
 // ELASTIC SEARCH FUNCTIONALITY
 function parseFilters(filtersString) {
-  console.log([parseFilters], filtersString)
+  // console.log([parseFilters], filtersString)
   if (!filtersString) return {}
 
   const filters = {}
   const conditions = filtersString.split(' AND ')
-  console.log('conditions', conditions)
+  // console.log('conditions', conditions)
 
   conditions.forEach((condition) => {
     const [key, value] = condition.split(':(')
@@ -127,7 +138,7 @@ const searchGenericQuery = ref({
 watch(
   () => route.query,
   (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', newVal, oldVal)
+    // console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
     searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     selectedLetterProp.value = route.query.lastNameLetter
@@ -146,7 +157,7 @@ async function searchES() {
       )) ||
     (route.query && route.query.lastNameLetter)
   ) {
-    console.log('Search ES HITS query,', route.query.q)
+    // console.log('Search ES HITS query,', route.query.q)
 
     let queryText = route.query.q || '*'
     if (
@@ -162,12 +173,12 @@ async function searchES() {
     }
     const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, ...filters } = routeFilters.value
     const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-        [
-          { term: { 'subjectLibrarian.keyword': 'yes' } }
-        ]
+      [
+        { term: { 'subjectLibrarian.keyword': 'yes' } }
+      ]
       : []
 
-    console.log('in router query in asyc data queryText', queryText)
+    // console.log('in router query in asyc data queryText', queryText)
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
       config.staff.searchFields,
@@ -181,7 +192,7 @@ async function searchES() {
     )
 
     if (results && results.hits && results.hits.total.value > 0) {
-      console.log('Search ES HITS,', results.hits.hits)
+      // console.log('Search ES HITS,', results.hits.hits)
 
       hits.value = results.hits.hits
       noResultsFound.value = false
@@ -276,7 +287,7 @@ function searchBySelectedLetter(data) {
     }
   }
   useRouter().push({
-    path: '/about/staff',
+    path: '/about/staff/',
     query: {
       q: searchGenericQuery.value.queryText,
       filters: filters.join(' AND '),
@@ -286,7 +297,7 @@ function searchBySelectedLetter(data) {
 }
 
 function getSearchData(data) {
-  console.log('On the page getsearchdata called')
+  // console.log('On the page getsearchdata called')
 
   // Create a URLSearchParams object
   const params = new URLSearchParams()
@@ -308,7 +319,7 @@ function getSearchData(data) {
   // https://uclalibrary-test-nuxt3x.netlify.app/about/staff?q=&departments=Software Development and Library Systems, Administration&locations=UCLA Film & Television Archive, Eugene and Maxine Rosenfeld Management Library&subjectLibrarian=yes&lastNameLetter=G
 
   useRouter().push({
-    path: '/about/staff',
+    path: '/about/staff/',
     query: {
       q: data.text,
       lastNameLetter: route.query.lastNameLetter,
@@ -322,16 +333,16 @@ async function setFilters() {
     config.staff.filters,
     'staffMember'
   )
-  console.log(
+  /*console.log(
     'Search Aggs Response: ' + JSON.stringify(searchAggsResponse)
-  )
+  )*/
   searchFilters.value = getListingFilters(
     searchAggsResponse,
     config.staff.filters
   )
-  console.log(
+  /*console.log(
     'searchFilters.value Response: ' + JSON.stringify(searchFilters.value)
-  )
+  )*/
 }
 onMounted(async () => {
   console.log('onMounted called')
@@ -395,9 +406,9 @@ onMounted(async () => {
             'subjectLibrarian.keyword'
           ][0] === '')) ||
           !searchGenericQuery.queryFilters[
-            'subjectLibrarian.keyword'
+          'subjectLibrarian.keyword'
           ])
-      "
+        "
       class="section-no-top-margin"
     >
       <AlphabeticalBrowseBy
@@ -441,7 +452,7 @@ onMounted(async () => {
               <a href="https://www.library.ucla.edu/research-teaching-support/research-help">Research Help</a>
             </li>
             <li>
-              <a href="/help/services-resources/ask-us">Ask Us</a>
+              <a href="/help/services-resources/ask-us/">Ask Us</a>
             </li>
             <li>
               <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility
@@ -458,7 +469,7 @@ onMounted(async () => {
         searchGenericQuery.queryFilters['subjectLibrarian.keyword'][0] ===
         'yes' &&
         groupByAcademicLibraries
-      "
+        "
       class="section-no-top-margin"
     >
       <h3 class="section-title subject-librarian">

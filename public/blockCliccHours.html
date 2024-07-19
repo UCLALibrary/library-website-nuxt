@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
     <title>Hours for Program</title>
     <!-- The following styles are optional, feel free to modify) -->
     <style lang="scss">
@@ -257,7 +260,10 @@
 </head>
 
 <body>
-    <div id="s-lc-whw" class="s-lc-whw">
+    <div
+        id="s-lc-whw"
+        class="s-lc-whw"
+    >
     </div>
     <!-- https://nuxtjs.org/docs/directory-structure/static/ -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -280,7 +286,7 @@
         // Iframe
         function resize() {
             var height = $(document).height();
-            console.log("Height iframe: " + height)
+            // console.log("Height iframe: " + height)
             // Backwards – send message to parent
             window.parent.postMessage(['setHeight', height], '*');
         }

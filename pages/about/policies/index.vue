@@ -15,7 +15,7 @@ const { $graphql, $getHeaders } = useNuxtApp()
 
 const route = useRoute()
 
-const { data, error } = await useAsyncData('policy-list', async () => {
+const { data, error } = await useAsyncData('policy-listing', async () => {
   const data = await $graphql.default.request(POLICIES_LIST, {
     uri: route.params.uri,
   })
@@ -33,10 +33,20 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.text,
+    uri: 'about/policies/'
+  }
+  await $elasticsearchplugin.index(doc, 'policy-listing')
+}
+
 const page = ref(_get(data.value, 'entry', {}))
 const policyBlock = ref(_get(data.value, 'entry.policyBlock', {}))
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
   policyBlock.value = _get(newVal, 'entry.policyBlock', [])
 })

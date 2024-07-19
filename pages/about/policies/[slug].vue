@@ -49,13 +49,13 @@ if (!data.value.entry) {
     statusMessage: 'Page Not Found'
   })
 }
-if (data.value.entry.slug && process.server) {
+if (data.value.entry.slug && import.meta.server) {
   await $elasticsearchplugin.index(data.value.entry, route.params.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
 })
 

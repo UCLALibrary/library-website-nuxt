@@ -19,7 +19,7 @@ import PROGRAMS_LIST from '../gql/queries/ProgramsList.gql'
 const { $graphql, $dataApi } = useNuxtApp()
 const route = useRoute()
 
-const { data, error } = await useAsyncData('programs-list', async () => {
+const { data, error } = await useAsyncData('program-listing', async () => {
   const data = await $graphql.default.request(PROGRAMS_LIST, {})
   return data
 }
@@ -33,6 +33,16 @@ if (error.value) {
 
 if (!data.value.entry && !data.value.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.text,
+    uri: 'about/programs/'
+  }
+  await $elasticsearchplugin.index(doc, 'program-listing')
 }
 // MAP DATA TO VARIABLES & WATCH
 const page = ref(_get(data.value, 'entry', {}))
@@ -139,7 +149,7 @@ const parsedSectionHighlight = computed(() => {
 const parsedProgramsList = computed(() => {
   return programs.value.map((obj) => {
     if (obj.programUrlBehavior === 'externalSite') {
-      console.log(obj.programUrlBehavior, obj)
+      // console.log(obj.programUrlBehavior, obj)
     }
     return {
       ...obj,
@@ -190,7 +200,7 @@ function getSearchData(data) {
     }
   }
   useRouter().push({
-    path: '/about/programs',
+    path: '/about/programs/',
     query: {
       q: data.text,
       filters: filters.join(' AND ')
@@ -243,7 +253,7 @@ onMounted(async () => {
         page.featuredPrograms.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder
@@ -258,7 +268,7 @@ onMounted(async () => {
         page.featuredPrograms.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -291,7 +301,7 @@ onMounted(async () => {
         parsedProgramsList.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Programs & Initiatives"
     >
       <SectionStaffArticleList :items="parsedProgramsList" />
@@ -339,7 +349,7 @@ onMounted(async () => {
               <a href="https://www.library.ucla.edu/research-teaching-support/research-help">Research Help</a>
             </li>
             <li>
-              <a href="/help/services-resources/ask-us">Ask Us</a>
+              <a href="/help/services-resources/ask-us/">Ask Us</a>
             </li>
             <li>
               <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility

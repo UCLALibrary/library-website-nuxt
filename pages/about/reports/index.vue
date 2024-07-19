@@ -24,6 +24,16 @@ if (!page.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.summary,
+    uri: 'about/reports/'
+  }
+  await $elasticsearchplugin.index(doc, 'impact-report-all-list')
+}
+
 useHead({
   title: page.value?.entry?.title || '... loading',
   meta: [

@@ -28,7 +28,7 @@ if (error.value) {
 
 if (!data.value.entry) {
   // eslint-disable-next-line no-console
-  console.log('In news Slug page no data')
+  // console.log('In news Slug page no data')
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found',
@@ -36,10 +36,10 @@ if (!data.value.entry) {
   })
 }
 
-// console.log("process.server", process.server, process.client)
+// console.log("import.meta.server", import.meta.server, process.client)
 
-if (data.value.entry.slug && process.server) {
-  console.log('News slug article category:', data.value.entry.category)
+if (data.value.entry.slug && import.meta.server) {
+  // console.log('News slug article category:', data.value.entry.category)
   data.value.entry.articleCategory = data.value.entry.category
 
   const { $elasticsearchplugin } = useNuxtApp()
@@ -49,7 +49,7 @@ if (data.value.entry.slug && process.server) {
 
 const page = ref(_get(data.value, 'entry', {}))
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
 })
 

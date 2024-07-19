@@ -33,7 +33,7 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (data.value.entry.slug && process.server) {
+if (data.value.entry.slug && import.meta.server) {
   await $elasticsearchplugin.index(data.value.entry, route.params.slug)
 }
 
@@ -42,7 +42,7 @@ const associatedArticles = ref(_get(data.value, 'associatedArticles', {}))
 const h2Array = ref([]) // anchor tags
 
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal.data, 'entry', {})
   associatedArticles.value = _get(newVal.data, 'associatedArticles', {})
 })
@@ -75,11 +75,11 @@ const parsedStaffDirectory = computed(() => {
     return ''
   } else if (staffDepartmentTitle !== null) {
     // else if true & department title exists, show the department title
-    return '/about/staff?q=&filters=departments.title.keyword:(' + staffDepartmentTitle.replaceAll(' ', '+') + ')'
+    return '/about/staff/?q=&filters=departments.title.keyword:(' + staffDepartmentTitle.replaceAll(' ', '+') + ')'
   } else {
     // else if true & department title does not exist, show the page title instead
     // (we implemented this fallback based on request from APPS-2159)
-    return '/about/staff?q=&filters=departments.title.keyword:(' + page.value.title.replaceAll(' ', '+') + ')'
+    return '/about/staff/?q=&filters=departments.title.keyword:(' + page.value.title.replaceAll(' ', '+') + ')'
   }
 })
 
@@ -102,9 +102,9 @@ const parsedArticles = computed(() => {
 
 const parsedSeeMore = computed(() => {
   if (page.value.slug === 'preservation-conservation-program') {
-    return '/about/blogs/listing-preservation-and-conservation-blog'
+    return '/about/blogs/listing-preservation-and-conservation-blog/'
   } else {
-    return '/about/news'
+    return '/about/news/'
   }
 })
 
@@ -168,7 +168,7 @@ onMounted(() => {
       <BlockHours
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         lid="0"
         :is-clicc="true"
@@ -176,7 +176,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         class="divider"
         color="about"

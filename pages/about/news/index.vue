@@ -17,12 +17,12 @@ import queryFilterHasValues from '../utils/queryFilterHasValues'
 // console.log('In news listing page')
 
 const { $graphql, $dataApi } = useNuxtApp()
-const { data, error } = await useAsyncData('news', async () => {
+const { data, error } = await useAsyncData('news-listing', async () => {
   const data = await $graphql.default.request(ARTICLE_LIST)
-  console.log('data in useasync for news listing: ', data)
+  // console.log('data in useasync for news listing: ', data)
   return data
 })
-console.log('data: ', data.value, 'error: ', error.value)
+// console.log('data: ', data.value, 'error: ', error.value)
 
 if (error.value) {
   throw createError({
@@ -32,6 +32,16 @@ if (error.value) {
 
 if (!data.value?.entry && !data.value?.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.text,
+    uri: 'about/news/'
+  }
+  await $elasticsearchplugin.index(doc, 'news-listing')
 }
 
 // console.log('In news listing page data.value: ', JSON.stringify(data.value))
@@ -44,7 +54,7 @@ const news = ref(_get(data.value, 'entries', []))
 
 // PREVIEW MODE
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
   news.value = _get(newVal, 'entries', [])
 })
@@ -167,7 +177,7 @@ const searchGenericQuery = ref({
 watch(
   () => route.query,
   (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', newVal, oldVal)
+    // console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
     searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
@@ -184,7 +194,7 @@ async function searchES() {
         config.newsIndex.filters
       ))
   ) {
-    console.log('Search ES HITS query,', route.query.q)
+    // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
@@ -198,7 +208,7 @@ async function searchES() {
     )
 
     if (results && results.hits && results.hits.total.value > 0) {
-      console.log('Search ES HITS,', results.hits.hits)
+      // console.log('Search ES HITS,', results.hits.hits)
       hits.value = results.hits.hits
       noResultsFound.value = false
     } else {
@@ -262,7 +272,7 @@ function getSearchData(data) {
 
   // Use the router to navigate with the new query parameters
   useRouter().push({
-    path: '/about/news',
+    path: '/about/news/',
     query: {
       q: data.text,
       filters: filters.join(' AND ')
@@ -287,7 +297,7 @@ async function setFilters() {
 }
 
 onMounted(async () => {
-  console.log('onMounted called')
+  // console.log('onMounted called')
   // console.log("ESREADkey:" + config.esReadKey)
   // console.log("ESURLkey:" + config.esURL)
   await setFilters()
@@ -323,7 +333,7 @@ onMounted(async () => {
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -339,14 +349,12 @@ onMounted(async () => {
         class="banner section-featured-banner"
       />
 
-      <DividerGeneral
-        v-show="page &&
-          page.featuredNews &&
-          page.featuredNews.length &&
-          hits.length === 0 &&
-          !noResultsFound
-        "
-      />
+      <DividerGeneral v-show="page &&
+        page.featuredNews &&
+        page.featuredNews.length &&
+        hits.length === 0 &&
+        !noResultsFound
+        " />
 
       <SectionTeaserHighlight
         v-show="parsedSectionHighlight.length > 0"
@@ -361,7 +369,7 @@ onMounted(async () => {
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="about" />
@@ -419,7 +427,7 @@ onMounted(async () => {
                 Help</a>
             </li>
             <li>
-              <a href="/help/services-resources/ask-us">Ask Us</a>
+              <a href="/help/services-resources/ask-us/">Ask Us</a>
             </li>
             <li>
               <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility

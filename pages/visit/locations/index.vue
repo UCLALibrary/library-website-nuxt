@@ -40,10 +40,19 @@ if (!data.value.entry) {
     statusMessage: 'Page Not Found'
   })
 }
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.text,
+    uri: 'visit/locations/'
+  }
+  await $elasticsearchplugin.index(doc, 'location-list')
+}
 
 // console.log('In endowment listing page data.value: ', JSON.stringify(data.value))
 // Index data on server only
-if (data?.value?.entry.affiliateLibraries && data.value.entry.affiliateLibraries.length > 0 && process.server) {
+if (data?.value?.entry.affiliateLibraries && data.value.entry.affiliateLibraries.length > 0 && import.meta.server) {
   const { $elasticsearchplugin } = useNuxtApp()
   for (const affiliateLibrary of data.value.entry.affiliateLibraries) {
     await $elasticsearchplugin.index(
@@ -188,9 +197,9 @@ async function setFilters() {
     config.locationsList.filters,
     'location'
   )
-  console.log(
+  /*console.log(
     'Search Aggs Response: ' + JSON.stringify(searchAggsResponse)
-  )
+  )*/
   searchFilters.value = getListingFilters(
     searchAggsResponse,
     config.locationsList.filters
@@ -232,7 +241,7 @@ function getSearchData(data) {
     }
   }
   useRouter().push({
-    path: '/visit/locations',
+    path: '/visit/locations/',
     query: {
       q: data.text,
       filters: filters.join(' AND ')
@@ -279,7 +288,7 @@ onMounted(async () => {
         parsedUclaLibraries.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
       section-title="UCLA Library Locations"
     >
@@ -301,7 +310,7 @@ onMounted(async () => {
         showOtherCampus &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Other Campus Libraries & Archives"
     >
       <SectionLocationList
@@ -356,7 +365,7 @@ onMounted(async () => {
                 Help</a>
             </li>
             <li>
-              <a href="/help/services-resources/ask-us">Ask Us</a>
+              <a href="/help/services-resources/ask-us/">Ask Us</a>
             </li>
             <li>
               <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility

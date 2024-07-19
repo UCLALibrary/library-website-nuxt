@@ -26,7 +26,7 @@ if (error.value) {
 }
 if (!data.value.entry) {
   // eslint-disable-next-line no-console
-  console.log('In staff Slug page no data')
+  // console.log('In staff Slug page no data')
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found',
@@ -34,7 +34,7 @@ if (!data.value.entry) {
   })
 }
 // ES Index
-if (route.params.slug && process.server) {
+if (route.params.slug && import.meta.server) {
   const { $elasticsearchplugin } = useNuxtApp()
   // console.log("elasticsearchplugin", $elasticsearchplugin, route.params.slug)
   await $elasticsearchplugin?.index(data.value.entry, route.params.slug)

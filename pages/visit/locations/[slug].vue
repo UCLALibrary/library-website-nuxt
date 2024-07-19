@@ -37,15 +37,15 @@ if (!data.value.entry) {
     fatal: true
   })
 }
-if (data.value.entry.slug && process.server) {
+if (data.value.entry.slug && import.meta.server) {
   const { $elasticsearchplugin } = useNuxtApp()
-  console.log('Indexing location', data.value.entry.slug)
+  // console.log('Indexing location', data.value.entry.slug)
   await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
 })
 
@@ -73,7 +73,7 @@ const parsedStaffDirectory = computed(() => {
   ) {
     const searchLibrary = page.value.title
     const libConcat =
-      '/about/staff?q=&filters=locations.title.keyword:(' +
+      '/about/staff/?q=&filters=locations.title.keyword:(' +
       searchLibrary.replaceAll(' ', '+') +
       ')'
 
@@ -193,7 +193,7 @@ onMounted(() => {
 <template lang="html">
   <main class="page page-location-detail">
     <NavBreadcrumb
-      to="/visit/locations"
+      to="/visit/locations/"
       :title="page.title"
       parent-title="Locations"
     />
@@ -298,7 +298,7 @@ onMounted(() => {
       <nuxt-link
         v-if="page.resourceServiceWorkshop.length"
         class="button-more"
-        to="/help/services-resources"
+        to="/help/services-resources/"
       >
         <ButtonMore text="See All Services & Resources" />
       </nuxt-link>

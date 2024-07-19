@@ -34,7 +34,7 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (data.value.entry.slug && process.server) {
+if (data.value.entry.slug && import.meta.server) {
   await $elasticsearchplugin.index(data.value.entry, route.params.slug)
 }
 
@@ -42,7 +42,7 @@ const page = ref(_get(data.value, 'entry', {}))
 const h2Array = ref([]) // anchor tags
 
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
 })
 
@@ -230,8 +230,8 @@ onMounted(() => {
     <SectionWrapper
       v-if="
         parsedServicesAndResources.length > 0 ||
-          parsedEndowments.length > 0 ||
-          parsedAssociatedStaffMember.length > 0
+        parsedEndowments.length > 0 ||
+        parsedAssociatedStaffMember.length > 0
       "
       theme="divider"
     >
@@ -254,7 +254,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           parsedEndowments.length > 0 ||
-            parsedAssociatedStaffMember.length > 0
+          parsedAssociatedStaffMember.length > 0
         "
         class="divider-way-finder"
         color="default"

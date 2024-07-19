@@ -5,6 +5,8 @@ import { MastheadSecondary, SearchGeneric, BlockCallToAction, SectionGenericList
 import _get from 'lodash/get'
 
 import config from '../utils/searchConfig'
+import queryFilterHasValues from '../utils/queryFilterHasValues'
+import parseFilters from '../utils/parseFilters'
 import fixUri from '../utils/fixUri'
 import removeTags from '../utils/removeTags'
 
@@ -29,12 +31,22 @@ if (!data.value.data.entry && !data.value.data.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
+if (data.value.data.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.data.entry.title,
+    text: data.value.data.entry.text,
+    uri: 'give/endowments/'
+  }
+  await $elasticsearchplugin.index(doc, 'endowments-list')
+}
+
 const page = ref(_get(data.value.data, 'entry', {}))
 const endowments = ref(_get(data.value.data, 'entries', []))
 const featuredEndowments = ref(_get(data.value.data, 'entry.featuredEndowments[0].featuredEndowments', []))
 
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal.data, 'entry', {})
   endowments.value = _get(newVal.data, 'entries', [])
   featuredEndowments.value = _get(newVal.data, 'entry.featuredEndowments[0].featuredEndowments', [])
@@ -110,38 +122,45 @@ const parseHitsResults = computed(() => {
 const hits = ref([])
 const title = ref('')
 const noResultsFound = ref(false)
+const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters: {} // queryFilters must be passed even if not used
+  queryFilters: parseFilters(route.query.filters || ''),
 })
 
 watch(() =>
   route.query,
-(newVal, oldVal) => {
-  console.log('ES newVal, oldVal', newVal, oldVal)
-  searchGenericQuery.value.queryText = route.query.q || ''
-  searchES()
-}, { deep: true, immediate: true }
+  (newVal, oldVal) => {
+    // console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
+    searchES()
+  }, { deep: true, immediate: true }
 )
 
 async function searchES() {
   if (
-    route.query.q && route.query.q !== ''
+    (route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
+      queryFilterHasValues(
+        parseFilters(route.query.filters || ''),
+        config.endowmentsList.filters
+      ))
   ) {
-    console.log('Search ES HITS query,', route.query.q)
+    // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
       config.endowmentsList.searchFields,
       'sectionHandle:endowment',
-      [],
+      parseFilters(route.query.filters || ''),
       config.endowmentsList.sortField,
       config.endowmentsList.orderBy,
       config.endowmentsList.resultFields,
-      []
+      config.endowmentsList.filters
     )
     if (results && results.hits && results.hits.total.value > 0) {
-      console.log('Search ES HITS,', results.hits.hits)
+      // console.log('Search ES HITS,', results.hits.hits)
       hits.value = results.hits.hits
       noResultsFound.value = false
     } else {
@@ -184,14 +203,42 @@ function parseHits(hits = []) {
 //  Event handler invoked by search-generic component selections
 function getSearchData(data) {
   // console.log('On the page getsearchdata called')
+  // Construct the filters parameter dynamically
+  const filters = []
+  for (const key in data.filters) {
+    if (data.filters[key].length > 0) {
+      filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+    }
+  }
 
   useRouter().push({
-    path: '/give/endowments',
+    path: '/give/endowments/',
     query: {
       q: data.text,
+      filters: filters.join(' AND ')
     },
   })
 }
+// fetch filters for the page from ES after page loads in Onmounted hook on the client side
+async function setFilters() {
+  const searchAggsResponse = await $dataApi.getAggregations(
+    config.endowmentsList.filters,
+    "endowment"
+  )
+  /* console.log(
+      "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+  ) */
+  searchFilters.value = getListingFilters(
+    searchAggsResponse,
+    config.endowmentsList.filters
+  )
+}
+onMounted(async () => {
+  // console.log('onMounted called')
+  // console.log("ESREADkey:" + config.esReadKey)
+  // console.log("ESURLkey:" + config.esURL)
+  await setFilters()
+})
 </script>
 
 <template lang="html">
@@ -208,6 +255,7 @@ function getSearchData(data) {
     <SearchGeneric
       search-type="about"
       class="generic-search"
+      :filters="searchFilters"
       :search-generic-query="searchGenericQuery"
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
@@ -226,7 +274,7 @@ function getSearchData(data) {
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
       :section-title="page.featuredEndowments[0].titleGeneral"
       :section-summary="page.featuredEndowments[0].sectionSummary"
@@ -244,7 +292,7 @@ function getSearchData(data) {
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="about" />
@@ -256,7 +304,7 @@ function getSearchData(data) {
         parsedEndowmentsList.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Collection Endowments"
     >
       <SectionGenericList :items="parsedEndowmentsList" />
@@ -301,7 +349,7 @@ function getSearchData(data) {
                 Help</a>
             </li>
             <li>
-              <a href="/help/services-resources/ask-us">Ask Us</a>
+              <a href="/help/services-resources/ask-us/">Ask Us</a>
             </li>
             <li>
               <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility

@@ -40,14 +40,14 @@ if (!data.value.entry) {
   })
 }
 
-if (data.value.entry.slug && process.server) {
+if (data.value.entry.slug && import.meta.server) {
   const { $elasticsearchplugin } = useNuxtApp()
   await $elasticsearchplugin.index(data.value.entry, path.replaceAll('/', '--'))
 }
 
 const page = ref(_get(data.value, 'entry', {}))
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
 })
 
@@ -164,12 +164,10 @@ const timelineSortedBySubtitle = computed(() => {
       />
     </SectionWrapper>
     <SectionWrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
-      <h2
-        :class="page.acknowledgements[0].displaySectionTitle === 'true'
-          ? ''
-          : 'visually-hidden'
-        "
-      >
+      <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
+        ? ''
+        : 'visually-hidden'
+        ">
         {{ page.acknowledgements[0].titleGeneral }}
       </h2>
       <RichText

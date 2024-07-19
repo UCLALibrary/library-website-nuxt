@@ -36,7 +36,7 @@ if (!data.value.entry) {
   })
 }
 
-if (data.value.entry.slug && process.server) {
+if (data.value.entry.slug && import.meta.server) {
   const { $elasticsearchplugin } = useNuxtApp()
   // console.log("elasticsearchplugin", $elasticsearchplugin, data.value.entry.slug)
   data.value.entry.donorNames = parsedDonorsForES(data.value.entry.donors)
@@ -45,7 +45,7 @@ if (data.value.entry.slug && process.server) {
 
 const page = ref(_get(data.value, 'entry', {}))
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
 })
 
@@ -80,7 +80,7 @@ const parsedAssociatedLocations = computed(() => {
 const parsedSubjectAreaLink = computed(() => {
   if (page.value.subjectAreas[0].title) {
     const searchLibrary = page.value.subjectAreas[0].title
-    const libConcat = `/give/endowments?q=&filters={subjectAreas.title.keyword:['${encodeURIComponent(searchLibrary)}']}`
+    const libConcat = `/give/endowments/?q=&filters={subjectAreas.title.keyword:['${encodeURIComponent(searchLibrary)}']}`
 
     // '/give/endowments?q=&filters={\"subjectAreas.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
 
@@ -155,12 +155,12 @@ function computeDonors(donors) {
         page.alternativeName[0] &&
         page.alternativeName[0].fullName) ||
         ''
-      "
+        "
       :language="(page.alternativeName &&
         page.alternativeName[0] &&
         page.alternativeName[0].languageAltName) ||
         ''
-      "
+        "
       button-text="Give Now"
       :to="page.to"
     />

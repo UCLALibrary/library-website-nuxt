@@ -105,6 +105,7 @@ onMounted(async () => {
   justify-content: space-between;
   align-content: center;
   align-items: center;
+  flex: 1 1 auto;
 
   :deep(>*) {
     width: 100%;
@@ -121,8 +122,6 @@ onMounted(async () => {
       right: var(--unit-gutter);
     }
   }
-
-  flex: 1 1 auto;
 }
 
 .vue-skip-to {

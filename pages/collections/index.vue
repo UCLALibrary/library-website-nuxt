@@ -28,13 +28,22 @@ if (error.value) {
 if (!data.value.data.entry && !data.value.data.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.text,
+    uri: 'collections/'
+  }
+  await $elasticsearchplugin.index(doc, 'collections-list')
+}
 
 const page = ref(_get(data.value.data, 'entry', {}))
 const pageArticles = ref(_get(data.value.data, 'entries', []))
 const pageArticleCount = ref(_get(data.value.data, 'entryCount', 0))
 
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal.data, 'entry', {})
   pageArticles.value = _get(newVal.data, 'entries', [])
   pageArticleCount.value = _get(newVal.data, 'entryCount', 0)
@@ -140,7 +149,7 @@ const parsedArticles = computed(() => {
 const allCollectionsNewsLink = computed(() => {
   if (page.value.locationType !== 'affiliateLibrary') {
     const searchLibrary = 'Collections'
-    const libConcat = '/about/news?q=&filters=articleCategory.title.keyword:(' + encodeURIComponent(searchLibrary) + ')'
+    const libConcat = '/about/news/?q=&filters=articleCategory.title.keyword:(' + encodeURIComponent(searchLibrary) + ')'
 
     return libConcat
   } else {
@@ -228,7 +237,7 @@ onMounted(() => {
       />
 
       <nuxt-link
-        to="/collections/explore"
+        to="/collections/explore/"
         class="button-more"
       >
         <ButtonMore text="Browse Collections" />

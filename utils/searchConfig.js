@@ -236,11 +236,11 @@ const config = {
         esFieldName: 'associatedLocations.title.keyword',
         inputType: 'checkbox',
       },
-      {
+      /*{
         label: 'Donor',
         esFieldName: 'donorNames.keyword',
         inputType: 'checkbox',
-      },
+      },*/
     ],
     resultFields: [
       'title',

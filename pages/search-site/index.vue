@@ -27,7 +27,7 @@ const { $dataApi } = useNuxtApp()
 watch(
   () => route.query,
   (newVal, oldVal) => {
-    console.log('Site search page ES newVal, oldVal', newVal, oldVal)
+    // console.log('Site search page ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
     searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
@@ -36,7 +36,7 @@ watch(
 
 async function searchES() {
   page.value = {}
-  console.log('In fetch start')
+  // console.log('In fetch start')
   try {
     if (
       (route.query.q && route.query.q !== '') ||
@@ -46,7 +46,7 @@ async function searchES() {
           config.siteSearch.filters
         ))
     ) {
-      console.log('Search site in router query in asyc data')
+      // console.log('Search site in router query in asyc data')
       page.value = await $dataApi.siteSearch(
         route.query.q || '*',
         route.query.from || from.value,
@@ -84,14 +84,14 @@ async function searchES() {
     }
     else {
       isSearching.value = false
-      console.log('No Search site in router query in asyc data')
+      // console.log('No Search site in router query in asyc data')
       noResultsFound.value = true
       page.value = {}
     }
 
-    console.log('Search Response: ' + JSON.stringify(page.value))
+    // console.log('Search Response: ' + JSON.stringify(page.value))
   } catch (e) {
-    console.log('Search Site Error found ' + JSON.stringify(e))
+    // console.log('Search Site Error found ' + JSON.stringify(e))
     throw e
   }
 }
@@ -167,7 +167,7 @@ function parseCategory(sectionHandle) {
 }
 
 onMounted(async () => {
-  console.log('onMounted called')
+  // console.log('onMounted called')
   // console.log("ESREADkey:" + config.esReadKey)
   // console.log("ESURLkey:" + config.esURL)
   await setFilters()
@@ -188,7 +188,7 @@ function setFilters() {
         []
       ) || [],
   }
-  console.log('getlisting obj:' + JSON.stringify(obj))
+  // console.log('getlisting obj:' + JSON.stringify(obj))
   filters.push(obj)
 
   searchFilters.value = filters
@@ -206,7 +206,7 @@ function getSearchData(data) {
   }
   try {
     useRouter().push({
-      path: route.path,
+      path: '/search-site/',
       query: {
         q: data.text,
         filters: filters.join(' AND ')
@@ -296,7 +296,7 @@ function getSearchData(data) {
               <a href="https://www.library.ucla.edu/research-teaching-support/research-help">Research Help</a>
             </li>
             <li>
-              <a href="/help/services-resources/ask-us">Ask Us</a>
+              <a href="/help/services-resources/ask-us/">Ask Us</a>
             </li>
             <li>
               <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility

@@ -28,7 +28,7 @@ definePageMeta({
 })
 
 // ASYNC DATA
-const { data, error } = await useAsyncData('collection', async () => {
+const { data, error } = await useAsyncData('explore-collection', async () => {
   const data = await $graphql.default.request(COLLECTIONS_EXPLORE_LIST)
   return data
 })
@@ -43,6 +43,16 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.text,
+    uri: 'collections/explore/'
+  }
+  await $elasticsearchplugin.index(doc, 'explore-collection')
+}
+
 // DATA
 const page = ref(_get(data.value, 'entry', {}))
 const collections = ref(_get(data.value, 'entries', []))
@@ -50,7 +60,7 @@ const title = ref('')
 
 // PREVIEW MODE
 watch(data, (newVal, oldVal) => {
-  console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
   collections.value = _get(newVal, 'entries', [])
 })
@@ -107,7 +117,7 @@ const searchGenericQuery = ref({
 watch(
   () => route.query,
   (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', newVal, oldVal)
+    // console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
     searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
@@ -124,7 +134,7 @@ async function searchES() {
         config.exploreCollection.filters
       ))
   ) {
-    console.log('Search ES HITS query,', route.query.q)
+    // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
     const results = await $dataApi.keywordSearchWithFilters(
       queryText,
@@ -139,7 +149,7 @@ async function searchES() {
 
     hits.value = []
     if (results && results.hits && results.hits.total.value > 0) {
-      console.log('Search ES HITS,', results.hits.hits)
+      // console.log('Search ES HITS,', results.hits.hits)
       hits.value = results.hits.hits
       noResultsFound.value = false
     } else {
@@ -171,7 +181,7 @@ const parseHitsResults = computed(() => {
 
 // This is event handler which is invoked by search-generic component selections
 function getSearchData(data) {
-  console.log('On the page getsearchdata called')
+  // console.log('On the page getsearchdata called')
 
   // Construct the filters parameter dynamically
   const filters = []
@@ -183,7 +193,7 @@ function getSearchData(data) {
 
   // Use the router to navigate with the new query parameters
   useRouter().push({
-    path: '/collections/explore',
+    path: '/collections/explore/',
     query: {
       q: data.text,
       filters: filters.join(' AND ')
@@ -207,7 +217,7 @@ async function setFilters() {
 }
 
 onMounted(async () => {
-  console.log('onMounted called')
+  // console.log('onMounted called')
   // console.log("ESREADkey:" + config.esReadKey)
   // console.log("ESURLkey:" + config.esURL)
   await setFilters()
@@ -251,7 +261,7 @@ onMounted(async () => {
         parsedCollectionList.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <SectionTeaserCard :items="parsedCollectionList" />
@@ -301,7 +311,7 @@ onMounted(async () => {
                 Help</a>
             </li>
             <li>
-              <a href="/help/services-resources/ask-us">Ask Us</a>
+              <a href="/help/services-resources/ask-us/">Ask Us</a>
             </li>
             <li>
               <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility

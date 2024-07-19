@@ -17,7 +17,7 @@ async function siteSearch(
         config.public.esAlias === ''
   )
     return
-  console.log('keyword:' + keyword)
+  // console.log('keyword:' + keyword)
   /* if(keyword && keyword !== "*:*") {
         keyword = keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"])/g, "\\$1")
     } */
@@ -131,7 +131,7 @@ async function siteSearch(
 }
 
 function parseFilterQuerySiteSearch(queryFilters, configMapping) {
-  console.log('In parseFilterQuerySiteSearch')
+  // console.log('In parseFilterQuerySiteSearch')
   if (!queryFilters || queryFilters.length === 0) return []
   const boolQuery = []
   /* this method will return data in this structure for ES
@@ -252,7 +252,7 @@ async function keywordSearchWithFilters(
   extraFilters = [],
 ) {
   // var data_url = new URL(`${ES_URL}/apps-dev-library-website/_search`)
-  console.log('In data api keywordsearchwithfilters')
+  // console.log('In data api keywordsearchwithfilters')
   const config = useRuntimeConfig()
   // console.log(config.public.esReadKey)
   // console.log(config.public.esURL)
@@ -262,9 +262,9 @@ async function keywordSearchWithFilters(
         config.public.esAlias === ''
   )
     return
-  console.log('keyword:' + keyword)
-  console.log('filters:' + filters)
-  console.log('sort:' + sort)
+  // console.log('keyword:' + keyword)
+  // console.log('filters:' + filters)
+  // console.log('sort:' + sort)
 
   const testquery = JSON.stringify({
     _source: [...source],
@@ -288,7 +288,7 @@ async function keywordSearchWithFilters(
       ...parseFieldNames(aggFields),
     },
   })
-  console.log('this is the query: ' + testquery)
+  // console.log('this is the query: ' + testquery)
 
   // need to know fields to boost on for listing pages when searching like title etc
   const responseAlias = await fetch(

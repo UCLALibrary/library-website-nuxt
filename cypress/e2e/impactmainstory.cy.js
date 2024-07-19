@@ -1,6 +1,6 @@
 describe('Impact Main Story page', () => {
   it('Visit the Impact Mainstory Page', () => {
-    /* cy.visit('/impact/2021/ucla-library-reimagined')
+    cy.visit('/impact/2021/ucla-library-reimagined')
 
     // UCLA Library brand
     cy.get('.logo-ucla').should('be.visible')
@@ -13,6 +13,6 @@ describe('Impact Main Story page', () => {
       'src',
       'https://static.library.ucla.edu/craftassetstest/images/ucla-impact-report-animation.mp4'
     )
-    cy.percySnapshot({ widths: [768, 992, 1200] }) */
+    cy.percySnapshot({ widths: [768, 992, 1200] })
   })
 })

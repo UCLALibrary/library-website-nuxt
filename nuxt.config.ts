@@ -30,11 +30,6 @@ export default defineNuxtConfig({
       },
     }
   },
-  /*router: {
-    options: {
-      strict: true
-    }
-  },*/
 
   nitro: {
     prerender: {
@@ -42,7 +37,8 @@ export default defineNuxtConfig({
       failOnError: false,
       concurrency: 250,
       interval: 100,
-      // routes: ['/', '/404.html', '/200.html'],
+      // ignore: ['/', '/about', '/help', '/impact']
+      routes: ['/'],
     },
     hooks: {
       'prerender:generate'(route) {
@@ -159,7 +155,7 @@ export default defineNuxtConfig({
     {
       autoImports: ['defineStore', 'acceptHMRUpdate'],
     },
-  ], 'nuxt-graphql-request', '@nuxtjs/sitemap', '@zadigetvoltaire/nuxt-gtm'],
+  ], 'nuxt-graphql-request', '@zadigetvoltaire/nuxt-gtm', '@nuxtjs/seo'],
 
   build: {
     transpile: ['nuxt-graphql-request', 'ucla-library-website-components'],
@@ -167,6 +163,7 @@ export default defineNuxtConfig({
 
   site: {
     url: process.env.SITEMAP_HOST || 'https://www.library.ucla.edu',
+    trailingSlash: true,
   },
 
   imports: {
@@ -221,11 +218,5 @@ export default defineNuxtConfig({
   experimental: {
     payloadExtraction: true,
     sharedPrerenderData: true,
-    defaults: {
-      /*nuxtLink: {
-        activeClass: 'nuxt-link-active',
-        trailingSlash: 'append'
-      }*/
-    }
   }
 })

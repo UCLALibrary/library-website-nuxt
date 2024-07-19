@@ -43,12 +43,12 @@ if (!data.value.data && !data.value.helpTopicData) {
 // ELASTIC SEARCH INDEX
 // GETS DATA FROM CRAFT
 // CREATES ES INDEX TO BE SEARCHED
-// CHECK THAT NUXT IS RUNNING ON THE SERVER (process.server)
+// CHECK THAT NUXT IS RUNNING ON THE SERVER (import.meta.server)
 // console.log('DATA-DATA-DATA-DATA' + data)
 if (
   data.value.data.externalResource &&
   data.value.data.externalResource.length > 0 &&
-  process.server
+  import.meta.server
 ) {
   for (const externalResource of data.value.data.externalResource) {
     await $elasticsearchplugin.index(
@@ -56,6 +56,16 @@ if (
       externalResource.slug
     )
   }
+}
+
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.text,
+    uri: 'help/services-resources/'
+  }
+  await $elasticsearchplugin.index(doc, 'services-resources-list')
 }
 
 const page = ref(data.value.data)
@@ -85,7 +95,7 @@ const searchGenericQuery = ref({
 watch(
   () => route.query,
   (newVal, oldVal) => {
-    console.log('ES newVal, oldVal', newVal, oldVal)
+    // console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
     searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
@@ -252,7 +262,7 @@ async function setFilters() {
 
 //  This event handler is invoked by the search-generic component (filtered search )selections
 function getSearchData(data) {
-  console.log('On the page getsearchdata called')
+  // console.log('On the page getsearchdata called')
   // Construct the filters parameter dynamically
   const filters = []
   for (const key in data.filters) {
@@ -262,7 +272,7 @@ function getSearchData(data) {
   }
   // Use the router to navigate with the new query parameters
   useRouter().push({
-    path: '/help/services-resources',
+    path: '/help/services-resources/',
     query: {
       q: data.text,
       filters: filters.join(' AND ')
@@ -353,7 +363,7 @@ function getSearchData(data) {
                 Help</a>
             </li>
             <li>
-              <a href="/help/services-resources/ask-us">Ask Us</a>
+              <a href="/help/services-resources/ask-us/">Ask Us</a>
             </li>
             <li>
               <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility
