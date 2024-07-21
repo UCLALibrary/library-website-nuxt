@@ -217,16 +217,16 @@ useHead({
     id="main"
     class="page page-home"
   >
-    <MastheadPrimary
-      :link-items="parsedSearchLinks"
-      :advanced-search-link="parsedAdvancedSearchLink"
-    />
-
     <!-- TODO elastic search testing -->
     <!-- h4>Mapping:</h4>
         <p>{{ mapping }}</p>
         <h4>Search Responsee</h4>
         <p>{{ searchResponse }}</p -->
+
+    <MastheadPrimary
+      :link-items="parsedSearchLinks"
+      :advanced-search-link="parsedAdvancedSearchLink"
+    />
 
     <SectionWrapper theme="divider">
       <DividerWayFinder
@@ -293,9 +293,8 @@ useHead({
         <HeadingArrow text="Featured Collections" />
       </BannerFeatured>
     </SectionWrapper>
-
+    <!-- fix card meta useroute add a check for route undefined-->
     <SectionWrapper>
-      <!-- fix card meta useroute add a check for route undefined-->
       <SectionTeaserHighlight
         v-if="parsedSectionHighlightCollection.length > 1"
         :items="parsedSectionHighlightCollection"

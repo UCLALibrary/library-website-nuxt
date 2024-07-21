@@ -24,13 +24,10 @@ const parsedPressItems = computed(() => {
     }
   })
 })
-const globalStore = useGlobalStore()
 
 const classes = computed(() => [
   'layout',
-  'layout-default',
-  { 'has-scrolled': globalStore.sTop },
-  { 'has-scrolled-past-header': globalStore.sTop >= 150 }
+  'layout-default'
 ])
 
 useHead({

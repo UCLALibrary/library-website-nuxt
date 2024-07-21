@@ -22,9 +22,12 @@ definePageMeta({
 })
 
 const route = useRoute()
+// console.log("Check route in impact report year index page: ", route.path, route.params)
 const path = route.params && route.params.year ? `impact/${route.params.year}` : '*'
+
 const variables = { path }
-const { data, error } = await useAsyncData('impact-report-index', async () => {
+// console.log("route path in impact report year index page: ", path, variables)
+const { data, error } = await useAsyncData(`impact-report-index-${path}`, async () => {
   const data = await $graphql.default.request(IMPACT_REPORT, variables)
   return data
 })
@@ -39,7 +42,7 @@ if (!data.value.entry) {
     statusMessage: 'Page Not Found'
   })
 }
-
+// console.log("impact report yesr inde page: data value: ", data.value.entry)
 if (data.value.entry.slug && import.meta.server) {
   const { $elasticsearchplugin } = useNuxtApp()
   await $elasticsearchplugin.index(data.value.entry, path.replaceAll('/', '--'))

@@ -1,6 +1,6 @@
 describe('Impact Main Story page', () => {
   it('Visit the Impact Mainstory Page', () => {
-    cy.visit('/impact/2022/test-main-story/')
+    cy.visit('/impact/2021/ucla-library-reimagined')
 
     // UCLA Library brand
     cy.get('.logo-ucla').should('be.visible')

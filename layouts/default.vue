@@ -38,9 +38,7 @@ const libraryAlert = computed(() => {
 })
 const classes = computed(() => [
   'layout',
-  'layout-default',
-  { 'has-scrolled': globalStore.sTop },
-  { 'has-scrolled-past-header': globalStore.sTop >= 150 }
+  'layout-default'
 ])
 // on mounted I want to want to check if visiblity change event is triggered and use $fetch or $graghql to fetch data from api
 // I want to use this data to update the global store
