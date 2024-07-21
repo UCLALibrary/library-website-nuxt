@@ -57,7 +57,7 @@ useHead({
 
 const parseParentPageURL = computed(() => {
   if (page.value.parent && page.value.parent.uri)
-    return `/${page.value.parent.uri}`
+    return `/${page.value.parent.uri}/`
 
   return '/'
 })
