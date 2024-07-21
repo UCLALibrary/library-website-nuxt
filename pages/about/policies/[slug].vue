@@ -85,7 +85,7 @@ onMounted(() => {
     class="page page-general-content"
   >
     <NavBreadcrumb
-      to="/about/policies"
+      to="/about/policies/"
       :title="page.title"
       parent-title="Policies"
     />

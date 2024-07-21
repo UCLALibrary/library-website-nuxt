@@ -120,7 +120,7 @@ onMounted(() => {
     class="page page-program-detail"
   >
     <NavBreadcrumb
-      to="/about/programs"
+      to="/about/programs/"
       :title="page.title"
       parent-title="Programs"
     />

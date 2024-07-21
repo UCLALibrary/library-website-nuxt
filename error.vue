@@ -50,13 +50,13 @@ const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
         </p>
         <ul>
           <li>
-            <a href="https://library.ucla.edu">UCLA Library Home</a>
+            <a href="https://library.ucla.edu/">UCLA Library Home</a>
           </li>
           <li>
-            <a href="https://library.ucla.edu/help/research-help">Research Help</a>
+            <a href="https://library.ucla.edu/help/research-help/">Research Help</a>
           </li>
           <li>
-            <a href="https://library.ucla.edu/help/services-resources/accessibility-resources">Accessibility
+            <a href="https://library.ucla.edu/help/services-resources/accessibility-resources/">Accessibility
               Resources</a>
           </li>
         </ul>

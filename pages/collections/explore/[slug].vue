@@ -164,7 +164,7 @@ onMounted(() => {
     class="page page-collection-detail"
   >
     <NavBreadcrumb
-      to="/collections/explore"
+      to="/collections/explore/"
       :title="page.title"
       parent-title="Explore Collections"
     />

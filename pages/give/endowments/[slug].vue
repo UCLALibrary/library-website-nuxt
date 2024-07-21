@@ -143,7 +143,7 @@ function computeDonors(donors) {
     class="page page-endowments-detail"
   >
     <NavBreadcrumb
-      to="/give/endowments"
+      to="/give/endowments/"
       :title="page.title"
       parent-title="Collection Endowments"
     />

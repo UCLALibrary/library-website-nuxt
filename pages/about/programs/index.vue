@@ -229,7 +229,7 @@ onMounted(async () => {
     class="page page-programs"
   >
     <NavBreadcrumb
-      to="/about"
+      to="/about/"
       :title="page.title"
       parent-title="About"
     />

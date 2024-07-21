@@ -182,7 +182,7 @@ onMounted(() => {
     <!-- ServiceOrResource Detail -->
     <div v-if="page.serviceOrResource">
       <NavBreadcrumb
-        to="/help/services-resources"
+        to="/help/services-resources/"
         :title="page.serviceOrResource.title"
         parent-title="Services & Resources"
       />
@@ -252,7 +252,7 @@ onMounted(() => {
           :items="parsedServiceResourceAssociatedTopics"
           section-title="Associated Topics"
           button-text="All Services and Resources"
-          to="/help/services-resources"
+          to="/"
         />
       </SectionWrapper>
 
@@ -274,7 +274,7 @@ onMounted(() => {
     <!-- WORKSHOP SERIES -->
     <div v-else>
       <NavBreadcrumb
-        to="/help/services-resources"
+        to="/help/services-resources/"
         :title="page.workshopSeries.title"
         parent-title="Services & Resources"
       />

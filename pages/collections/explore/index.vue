@@ -24,7 +24,7 @@ const route = useRoute()
 definePageMeta({
   layout: 'default',
   path: '/collections/explore',
-  alias: ['/listing-collections/explore'],
+  alias: ['/listing-collections/explore/'],
 })
 
 // ASYNC DATA
@@ -230,7 +230,7 @@ onMounted(async () => {
     class="page page-collections-explore"
   >
     <NavBreadcrumb
-      to="/collections"
+      to="/collections/"
       title="Explore Featured Collections"
       parent-title="Collections"
     />
@@ -301,20 +301,20 @@ onMounted(async () => {
             We can’t find the term you are looking for on this page,
             but we're here to help. <br>
             Try searching the whole site from
-            <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these
+            <a href="https://library.ucla.edu/">UCLA Library Home</a>, or try one of the these
             regularly visited
             links:
           </p>
           <ul>
             <li>
-              <a href="https://www.library.ucla.edu/research-teaching-support/research-help">Research
+              <a href="https://www.library.ucla.edu/research-teaching-support/research-help/">Research
                 Help</a>
             </li>
             <li>
               <a href="/help/services-resources/ask-us/">Ask Us</a>
             </li>
             <li>
-              <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility
+              <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources/">Accessibility
                 Resources</a>
             </li>
           </ul>
@@ -334,7 +334,7 @@ onMounted(async () => {
         class="section"
         :items="parsedAssociatedTopics"
         button-text="All services & resources"
-        to="/help/services-resources"
+        to="/help/services-resources/"
         section-title="Associated Topics"
       />
     </SectionWrapper>

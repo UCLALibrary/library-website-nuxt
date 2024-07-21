@@ -91,7 +91,7 @@ const parsedItems = computed(() => {
   >
     <!-- staff page here -->
     <NavBreadcrumb
-      to="/about/staff"
+      to="/about/staff/"
       :title="page.title"
       parent-title="Staff Directory"
     />

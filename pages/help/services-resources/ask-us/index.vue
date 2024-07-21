@@ -62,7 +62,7 @@ useHead({
 })
 
 definePageMeta({
-  alias: ['/help']
+  alias: ['/help/']
 })
 </script>
 
@@ -72,7 +72,7 @@ definePageMeta({
     class="page page-ask-us"
   >
     <NavBreadcrumb
-      to="/help/services-resources"
+      to="/help/services-resources/"
       title="Ask Us"
       parent-title="Services & Resources"
     />

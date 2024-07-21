@@ -349,7 +349,7 @@ onMounted(async () => {
     <!-- EVENT DETAIL -->
     <div v-if="page.event">
       <NavBreadcrumb
-        to="/visit/events-exhibitions"
+        to="/visit/events-exhibitions/"
         :title="page.event.title"
         parent-title="Events & Exhibitions"
       />
@@ -435,7 +435,7 @@ onMounted(async () => {
     <!-- EVENT SERIES -->
     <div v-else-if="page.eventSeries">
       <NavBreadcrumb
-        to="/visit/events-exhibitions"
+        to="/visit/events-exhibitions/"
         :title="page.eventSeries.title"
         parent-title="Events & Exhibitions"
       />
@@ -546,7 +546,7 @@ onMounted(async () => {
     <!-- EXHIBITION -->
     <div v-else>
       <NavBreadcrumb
-        to="/visit/events-exhibitions"
+        to="/visit/events-exhibitions/"
         :title="page.exhibition.title"
         parent-title="Events & Exhibitions"
       />

@@ -62,7 +62,7 @@ const parsedReportsList = computed(() => {
     class="page page-news"
   >
     <NavBreadcrumb
-      to="/about"
+      to="/about/"
       :title="page.entry.title"
       parent-title="About Us"
     />

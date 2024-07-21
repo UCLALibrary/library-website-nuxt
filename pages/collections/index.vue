@@ -205,7 +205,7 @@ onMounted(() => {
         :items="parsedResources[0].featuredResources"
         :is-horizontal="false"
         button-text="See More"
-        to="/collections/access"
+        to="/collections/access/"
       />
     </SectionWrapper>
 

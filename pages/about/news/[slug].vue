@@ -116,7 +116,7 @@ const parsedLocations = computed(() => {
     class="page page-news-detail"
   >
     <NavBreadcrumb
-      to="/about/news"
+      to="/about/news/"
       :title="page.title"
       parent-title="All Library News"
     />

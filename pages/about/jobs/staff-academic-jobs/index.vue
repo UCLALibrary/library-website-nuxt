@@ -112,7 +112,7 @@ const parsedAssociatedTopics = computed(() => {
     class="page page-job-opportunities"
   >
     <NavBreadcrumb
-      to="/about/jobs"
+      to="/about/jobs/"
       :title="page.title"
       parent-title="Jobs"
     />

@@ -290,16 +290,16 @@ function getSearchData(data) {
           </p>
           <ul>
             <li>
-              <a href="https://library.ucla.edu">UCLA Library Home</a>
+              <a href="https://library.ucla.edu/">UCLA Library Home</a>
             </li>
             <li>
-              <a href="https://www.library.ucla.edu/research-teaching-support/research-help">Research Help</a>
+              <a href="https://www.library.ucla.edu/research-teaching-support/research-help/">Research Help</a>
             </li>
             <li>
               <a href="/help/services-resources/ask-us/">Ask Us</a>
             </li>
             <li>
-              <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources">Accessibility
+              <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources/">Accessibility
                 Resources</a>
             </li>
           </ul>
