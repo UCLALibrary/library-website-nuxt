@@ -27,11 +27,11 @@ if (error.value) {
   })
 }
 
-if (!data.value.data.entry && !data.value.data.entries) {
+if (!data.value?.data && !data.value.data.entry && !data.value.data.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (data.value.data.entry && import.meta.server) {
+if (data.value?.data?.entry && import.meta.server) {
   const { $elasticsearchplugin } = useNuxtApp()
   const doc = {
     title: data.value.data.entry.title,
@@ -130,12 +130,12 @@ const searchGenericQuery = ref({
 
 watch(() =>
   route.query,
-(newVal, oldVal) => {
-  // console.log('ES newVal, oldVal', newVal, oldVal)
-  searchGenericQuery.value.queryText = route.query.q || ''
-  searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
-  searchES()
-}, { deep: true, immediate: true }
+  (newVal, oldVal) => {
+    // console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
+    searchES()
+  }, { deep: true, immediate: true }
 )
 
 async function searchES() {
@@ -274,7 +274,7 @@ onMounted(async () => {
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
       :section-title="page.featuredEndowments[0].titleGeneral"
       :section-summary="page.featuredEndowments[0].sectionSummary"
@@ -292,7 +292,7 @@ onMounted(async () => {
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="about" />
@@ -304,7 +304,7 @@ onMounted(async () => {
         parsedEndowmentsList.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Collection Endowments"
     >
       <SectionGenericList :items="parsedEndowmentsList" />
