@@ -36,14 +36,22 @@ const libraryAlert = computed(() => {
       return null
   }
 })
+const hasScrolled = ref(false)
+const hasScrolledPastHeader = ref(false)
+
+
 const classes = computed(() => [
   'layout',
-  'layout-default'
+  'layout-default',
+  { 'has-scrolled': hasScrolled.value },
+  { 'has-scrolled-past-header': hasScrolledPastHeader.value }
 ])
 // on mounted I want to want to check if visiblity change event is triggered and use $fetch or $graghql to fetch data from api
 // I want to use this data to update the global store
 // const { $graphql } = useNuxtApp()
 const { $alerts } = useNuxtApp()
+const { $hasScrolled, $hasScrolledPastHeader } = useNuxtApp()
+
 onMounted(async () => {
   // console.log('onMounted in Default layout')
   /* document.addEventListener('visibilitychange', async () => {
@@ -62,6 +70,9 @@ onMounted(async () => {
       }
     }
   }) */
+  console.log('Apps.vue, did this solve the hydration errors')
+  hasScrolled.value = $hasScrolled()
+  hasScrolledPastHeader.value = $hasScrolledPastHeader()
   await $alerts()
 })
 </script>

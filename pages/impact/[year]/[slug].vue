@@ -9,9 +9,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import IMPACT_REPORT_STORY from '../gql/queries/ImpactReportStory.gql'
 
-definePageMeta({
-  layout: 'impact'
-})
+
 const { $graphql } = useNuxtApp()
 const route = useRoute()
 
@@ -48,6 +46,7 @@ watch(data, (newVal, oldVal) => {
 useHead({
 
   title: page ? page.value?.title : '... loading',
+  titleTemplate: title => title + ' | UCLA Library',
   meta: [
     {
       hid: 'description',
@@ -58,6 +57,9 @@ useHead({
 
 })
 
+definePageMeta({
+  layout: false
+})
 const parsedByline = computed(() => {
   const bannerFeaturedByline = page.value.contributors.map((obj) => {
     if (obj.typeHandle === 'externalContributor')
@@ -69,50 +71,81 @@ const parsedByline = computed(() => {
   })
   return bannerFeaturedByline
 })
+const classes = computed(() => [
+  'layout',
+  'layout-impact'
+])
 </script>
 
 <template lang="html">
-  <main
-    id="main"
-    class="page page-impact-report"
-  >
-    <BannerText
-      v-if="page && (!page.heroImage || page.heroImage.length === 0)"
-      class="banner-text"
-      :title="page.title"
-      :text="page.text"
-      :byline="parsedByline"
-    />
+  <div :class="classes">
+    <NavPrimary class="primary" />
 
-    <SectionWrapper
-      v-if="page && page.heroImage && page.heroImage.length === 1"
-      class="section-banner"
+    <main
+      id="main"
+      class="page page-impact-report-story"
     >
-      <BannerHeader
+      <BannerText
+        v-if="page && (!page.heroImage || page.heroImage.length === 0)"
+        class="banner-text"
         :title="page.title"
         :text="page.text"
-        :align-right="true"
-        :media="page.heroImage[0].image[0]"
         :byline="parsedByline"
       />
-    </SectionWrapper>
 
-    <SectionWrapper theme="divider">
-      <DividerWayFinder
-        class="divider"
-        color="about"
+      <SectionWrapper
+        v-if="page && page.heroImage && page.heroImage.length === 1"
+        class="section-banner"
+      >
+        <BannerHeader
+          :title="page.title"
+          :text="page.text"
+          :align-right="true"
+          :media="page.heroImage[0].image[0]"
+          :byline="parsedByline"
+        />
+      </SectionWrapper>
+
+      <SectionWrapper theme="divider">
+        <DividerWayFinder
+          class="divider"
+          color="about"
+        />
+      </SectionWrapper>
+
+      <FlexibleBlocks
+        class="content"
+        :blocks="page.blocks"
       />
-    </SectionWrapper>
+    </main>
 
-    <FlexibleBlocks
-      class="content"
-      :blocks="page.blocks"
-    />
-  </main>
+    <footer>
+      <FooterPrimary :form="false" />
+    </footer>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.page-impact-report {
+.layout-impact {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+
+  >* {
+    width: 100%;
+  }
+
+  .page {
+    flex: 1 1 auto;
+  }
+}
+
+.page-impact-report-story {
   margin: 0 0 0 0;
 
   .section {

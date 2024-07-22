@@ -8,25 +8,19 @@ import _ from 'lodash'
 import removeTags from '../utils/removeTags'
 
 // GQL
-import IMPACT_REPORT from '../gql/queries/ImpactReport.gql'
+import ImpactReport from '../gql/queries/ImpactReport.gql'
 
 // UTILITIES
 import flattenTimeLineStructure from '../utils/flattenTimeLineStructure'
 
 const { $graphql } = useNuxtApp()
 
-definePageMeta({
-  layout: false,
-})
-
-const route = useRoute()
-// console.log("Check route in impact report year index page: ", route.path, route.params)
-const path = route.params && route.params.year ? `impact/${route.params.year}` : '*'
+const path = '*'
 
 const variables = { path }
 // console.log("route path in impact report year index page: ", path, variables)
-const { data, error } = await useAsyncData(`impact-report-index-${path}`, async () => {
-  const data = await $graphql.default.request(IMPACT_REPORT, variables)
+const { data, error } = await useAsyncData(`latest-impact-report`, async () => {
+  const data = await $graphql.default.request(ImpactReport, variables)
   return data
 })
 if (error.value) {
@@ -41,10 +35,7 @@ if (!data.value.entry) {
   })
 }
 // console.log("impact report yesr inde page: data value: ", data.value.entry)
-if (data.value.entry.slug && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
-  await $elasticsearchplugin.index(data.value.entry, path.replaceAll('/', '--'))
-}
+
 
 const page = ref(_get(data.value, 'entry', {}))
 watch(data, (newVal, oldVal) => {
@@ -78,6 +69,9 @@ const timelineSortedBySubtitle = computed(() => {
 
   return groupBySubtitle
 })
+definePageMeta({
+  layout: false,
+})
 const classes = computed(() => [
   'layout',
   'layout-impact'
@@ -87,10 +81,12 @@ const classes = computed(() => [
 <template lang="html">
   <div :class="classes">
     <NavPrimary class="primary" />
+
     <main
       id="main"
-      class="page page-impact-report"
+      class="page page-impact-report-index"
     >
+
       <!-- This is template for impact reports -->
       <div class="meta">
         <h1
@@ -211,7 +207,7 @@ const classes = computed(() => [
   }
 }
 
-.page-impact-report {
+.page-impact-report-index {
   .meta {
     padding: 0 var(--unit-gutter);
     margin: var(--space-xl) auto 0 auto;

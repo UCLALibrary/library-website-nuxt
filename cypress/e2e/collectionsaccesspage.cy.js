@@ -11,7 +11,7 @@ describe('Access Collection page', () => {
         'contain',
         'Listing - Collections > Access Collections'
       )
-      cy.percySnapshot({ widths: [768, 992, 1200] })
+      cy.percySnapshot("/collections/access/",{ widths: [768, 992, 1200] })
     })
   })
 
