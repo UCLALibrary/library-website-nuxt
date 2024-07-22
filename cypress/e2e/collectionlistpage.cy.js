@@ -6,6 +6,6 @@ describe('Collection Listing page', () => {
     cy.get('.logo-ucla').should('be.visible')
     cy.get('.page-anchor').scrollIntoView()
     cy.get('.page-anchor').should('be.visible')
-    cy.percySnapshot("collections",{ widths: [768, 992, 1200] })
+    cy.percySnapshot('collections', { widths: [768, 992, 1200] })
   })
 })

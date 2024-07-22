@@ -3,7 +3,6 @@ provide('theme', '')
 const { enabled, state } = usePreviewMode()
 const globalStore = useGlobalStore()
 
-
 </script>
 <template>
   <div>

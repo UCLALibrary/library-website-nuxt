@@ -39,7 +39,6 @@ const libraryAlert = computed(() => {
 const hasScrolled = ref(false)
 const hasScrolledPastHeader = ref(false)
 
-
 const classes = computed(() => [
   'layout',
   'layout-default',

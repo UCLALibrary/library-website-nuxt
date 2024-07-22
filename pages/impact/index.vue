@@ -19,7 +19,7 @@ const path = '*'
 
 const variables = { path }
 // console.log("route path in impact report year index page: ", path, variables)
-const { data, error } = await useAsyncData(`latest-impact-report`, async () => {
+const { data, error } = await useAsyncData('latest-impact-report', async () => {
   const data = await $graphql.default.request(ImpactReport, variables)
   return data
 })
@@ -35,7 +35,6 @@ if (!data.value.entry) {
   })
 }
 // console.log("impact report yesr inde page: data value: ", data.value.entry)
-
 
 const page = ref(_get(data.value, 'entry', {}))
 watch(data, (newVal, oldVal) => {
@@ -86,7 +85,6 @@ const classes = computed(() => [
       id="main"
       class="page page-impact-report-index"
     >
-
       <!-- This is template for impact reports -->
       <div class="meta">
         <h1
@@ -168,10 +166,12 @@ const classes = computed(() => [
         />
       </SectionWrapper>
       <SectionWrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
-        <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
-          ? ''
-          : 'visually-hidden'
-          ">
+        <h2
+          :class="page.acknowledgements[0].displaySectionTitle === 'true'
+            ? ''
+            : 'visually-hidden'
+          "
+        >
           {{ page.acknowledgements[0].titleGeneral }}
         </h2>
         <RichText

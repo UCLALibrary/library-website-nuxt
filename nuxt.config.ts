@@ -4,12 +4,12 @@ export default defineNuxtConfig({
   // debug: true,
   // sourcemap: true,
 
-  /*devtools: {
+  /* devtools: {
     enabled: true,
     timeline: {
       enabled: true
     }
-  },*/
+  }, */
   // when using local pnpm link with component library uncomment this line
   vite: {
     build: {
