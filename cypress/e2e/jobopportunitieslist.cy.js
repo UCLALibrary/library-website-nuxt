@@ -7,6 +7,6 @@ describe("Job Opportunities List page", () => {
         cy.get(".logo-ucla").should("be.visible")
         cy.get(".page-job-opportunities").should("be.visible")
         cy.get("h1.title").should("contain", "Job Opportunities")
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("jobopportunitieslist",{ widths: [768, 992, 1200] })
     })
 })

@@ -9,7 +9,7 @@ describe("Access Collection page", () => {
             "contain",
             "Listing - Collections > Access Collections"
         )
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("collectionaccesspage",{ widths: [768, 992, 1200] })
     })
     it("Search Found", () => {
         cy.visit("/collections/access?q=test")

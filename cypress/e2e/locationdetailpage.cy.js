@@ -9,7 +9,7 @@ describe("Location Detail page", () => {
             "Louise M. Darling Biomedical Library"
         )
         cy.get(".page-anchor").scrollIntoView().should('be.visible')
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("locationdetailpage",{ widths: [768, 992, 1200] })
     })
 
     context("When there isn't an entry in craft", () => {

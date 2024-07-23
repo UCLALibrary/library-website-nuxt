@@ -3,7 +3,7 @@ describe("Policy Detail page", () => {
         cy.visit("about/policies/shhh")
         cy.get(".logo-ucla").should("be.visible")
         cy.get(".page-anchor").scrollIntoView().should('be.visible')
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("policiesdetailpage",{ widths: [768, 992, 1200] })
     })
 
     context("When there isn't an entry in craft", () => {

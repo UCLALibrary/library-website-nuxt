@@ -9,7 +9,7 @@ describe("Help Topic page", () => {
             "Printing Practices - Simple Card 3 Up - Rich Text - Pull Quote"
         )
         cy.get(".page-anchor").scrollIntoView().should('be.visible')
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("helptopic",{ widths: [768, 992, 1200] })
     })
 
     context("When there isn't an entry in craft", () => {

@@ -13,6 +13,6 @@ describe("Impact Main Story page", () => {
             "src",
             "https://static.library.ucla.edu/craftassetstest/images/ucla-impact-report-animation.mp4"
         )
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("impactmainstory",{ widths: [768, 992, 1200] })
     })
 })

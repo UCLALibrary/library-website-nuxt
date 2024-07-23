@@ -9,7 +9,7 @@ describe("Service page", () => {
             `Service with all flexible page block types`
         )
         cy.get(".page-anchor").scrollIntoView().should('be.visible')
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("service",{ widths: [768, 992, 1200] })
     })
 
     context("When there isn't an entry in craft", () => {

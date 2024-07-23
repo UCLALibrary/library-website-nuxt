@@ -7,6 +7,6 @@ describe("Ask Us page", () => {
             "contain",
             "Ask Us"
         )
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("askuspage",{ widths: [768, 992, 1200] })
     })
 })

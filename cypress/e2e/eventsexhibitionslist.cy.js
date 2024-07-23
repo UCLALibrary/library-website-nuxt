@@ -6,7 +6,7 @@ describe("Events & Exhibitions List page", () => {
 
         cy.get(".page-events-exhibits").should("be.visible")
         cy.get("h1.title").should("contain", "Events & Exhibitions")
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("eventsexhibitionslist",{ widths: [768, 992, 1200] })
     })
     it("Visit Events & Exhibitions Listing page filter by event type", () => {
         cy.visit('/visit/events-exhibitions/?q&filters=%7B"eventType.title.keyword"%3A%5B"Workshop"%5D%7D')

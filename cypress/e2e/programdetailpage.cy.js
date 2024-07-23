@@ -9,7 +9,7 @@ describe("Program Detail page", () => {
             "Digital Library Program"
         )
         cy.get(".page-anchor").scrollIntoView().should('be.visible')
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("programdetailpage",{ widths: [768, 992, 1200] })
     })
 
     context("When there isn't an entry in craft", () => {
