@@ -1,4 +1,4 @@
-#import "~/gql/fragments/MenuItem"
+#import "~/gql/fragments/MenuItem.gql"
 
 query MenuItems($handle: String) {
     nodes(navHandle: $handle, level: 1) {

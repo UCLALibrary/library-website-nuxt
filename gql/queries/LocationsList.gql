@@ -1,4 +1,4 @@
-#import "~/gql/fragments/Image"
+#import "../gql/fragments/Image.gql"
 query LocationsList {
     entry(section: "listingLocationsHours") {
         title
@@ -62,13 +62,3 @@ query LocationsList {
         affiliateLibraryUrl
     }
 }
-
-# fragment Image on AssetInterface {
-#   id
-#   src: url(transform: "fullscreen")
-#   height(transform: "fullscreen")
-#   width(transform: "fullscreen")
-#   srcset(sizes: ["375", "960", "1280", "1920", "2560"])
-#   alt: title
-#   focalPoint
-# }

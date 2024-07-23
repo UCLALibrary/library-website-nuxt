@@ -2,9 +2,9 @@ name: Run CI Suite
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 concurrency:
   group: ci-${{ github.ref_name=='main' && github.sha || github.ref_name }} # Cancel runs for previous version of PR, but not main (after merge). For hacked ternary, see https://github.com/actions/runner/issues/409#issuecomment-727565588
@@ -15,16 +15,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-    - uses: actions/checkout@v3
-      with:
-        repository: ${{ github.event.pull_request.head.repo.full_name }}
-        ref: ${{ github.event.pull_request.head.ref }}
-    - uses: ./.github/workflows/setup-workspace
-    - run: npm run lint-fix
-    - uses: EndBug/add-and-commit@v9
-      with:
-        message: "chore: linter autofixes"
-        default_author: github_actions
+      - uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+      - uses: ./.github/workflows/setup-workspace
+      - run: pnpm run lint
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: 'chore: linter autofixes'
+          default_author: github_actions
 
   percy-instructions:
     if: github.event_name == 'pull_request'
@@ -40,7 +40,7 @@ jobs:
 
             In order to conserve our percy screenshot allowance, percy is not configured to run automatically. Please make sure the PR is ready and all other checks are passing, then start it manually:
             1. Visit https://github.com/UCLALibrary/library-website-nuxt/actions/workflows/percy.yml
-            2. Click the 'Run workflow' button in the blue bar. 
+            2. Click the 'Run workflow' button in the blue bar.
             3. Select the correct branch for this PR and click 'Run workflow' again to confirm.
 
   nuxt:
@@ -48,76 +48,79 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-    - uses: actions/checkout@v3
-    - uses: ./.github/workflows/setup-workspace
-    - name: Cache built static site
-      uses: actions/cache@v3
-      with:
-        path: ./dist
-        key: nuxt-site-${{ github.sha }}
-    - name: Sets env vars for PR preview
-      run: |
-        echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-deploy-preview" >> $GITHUB_ENV
-      if: github.ref_name!='main'
-    - name: Sets env vars for main merge
-      run: |
-        echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
-      if: github.ref_name=='main'
-    - run: npm run generate
-      env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
-        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
-        S3_BUCKET: "https://static.library.ucla.edu/"
-        SITEMAP_HOST: ${{ secrets.SITEMAP_URL_TEST }}
-        ES_URL: ${{ secrets.ES_URL }}
-        ESApiKey: ${{ secrets.ESApiKey }}
-        ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
-        ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
-        ES_INDEX: ${{ env.ES_INDEX }}-${{ github.event.pull_request.number }}
-        ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
-        ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}
-        LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
-    - name: Deploy to Netlify (preview)
-      if: github.ref_name!='main'
-      uses: nwtgck/actions-netlify@v2 #
-      with:
-        production-deploy: false
-        deploy-message: https://github.com/UCLALibrary/library-website-nuxt/pull/${{ github.event.pull_request.number }}
-        alias: deploy-preview-${{ github.event.pull_request.number }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        overwrites-pull-request-comment: true
-        publish-dir: './dist'
-        fails-without-credentials: true
-        github-deployment-environment: ${{ github.event_name }}-${{ github.event.number }}
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-    - uses: cypress-io/github-action@v3
-      with:
-        start: npm run start
-        wait-on: http://127.0.0.1:3000
-      env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
-        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
-        S3_BUCKET: "https://static.library.ucla.edu/"
-        SITEMAP_HOST: ${{ secrets.SITEMAP_URL_TEST }}
-        ESApiKey: ${{ secrets.ESApiKey }}
-        ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
-        ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
-        ES_INDEX: ${{ secrets.ES_INDEX_TEST }}
-        ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_TEST }}
-        ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}
-        LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
-    - name: Deploy to Netlify (merged)
-      if: github.ref_name=='main'
-      uses: nwtgck/actions-netlify@v2 #
-      with:
-        production-deploy: true
-        deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        publish-dir: './dist'
-        fails-without-credentials: true
-        github-deployment-environment: production
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup-workspace
+      - name: Cache built static site
+        uses: actions/cache@v3
+        with:
+          path: .output/public
+          key: nuxt-site-${{ github.sha }}
+      - name: Sets env vars for PR preview
+        run: |
+          echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-deploy-preview" >> $GITHUB_ENV
+          echo "ES_ALIAS=${{secrets.ES_ALIAS_TEST}}-deploy-preview" >> $GITHUB_ENV
+        if: github.ref_name!='main'
+      - name: Sets env vars for main merge
+        run: |
+          echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
+          echo "ES_ALIAS=${{secrets.ES_ALIAS_TEST}}" >> $GITHUB_ENV
+        if: github.ref_name=='main'
+      - run: pnpm run generate
+        env:
+          CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+          LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+          S3_BUCKET: 'https://static.library.ucla.edu/'
+          SITEMAP_HOST: ${{ secrets.SITEMAP_URL_TEST }}
+          ES_URL: ${{ secrets.ES_URL }}
+          ESApiKey: ${{ secrets.ESApiKey }}
+          ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
+          ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
+          ES_ALIAS: ${{ env.ES_ALIAS }}-${{ github.event.pull_request.number }}
+          ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
+          ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}
+          LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
+      - name: Deploy to Netlify (preview)
+        if: github.ref_name!='main'
+        uses: nwtgck/actions-netlify@v3 #
+        with:
+          production-deploy: false
+          deploy-message: https://github.com/UCLALibrary/library-website-nuxt/pull/${{ github.event.pull_request.number }}
+          alias: deploy-preview-${{ github.event.pull_request.number }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          overwrites-pull-request-comment: true
+          publish-dir: .output/public
+          fails-without-credentials: true
+          github-deployment-environment: ${{ github.event_name }}-${{ github.event.number }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - uses: cypress-io/github-action@v5
+        with:
+          start: pnpm dlx serve .output/public
+          wait-on: http://127.0.0.1:3000
+          wait-on-timeout: 110
+        env:
+          CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+          LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+          S3_BUCKET: 'https://static.library.ucla.edu/'
+          SITEMAP_HOST: ${{ secrets.SITEMAP_URL_TEST }}
+          ESApiKey: ${{ secrets.ESApiKey }}
+          ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
+          ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
+          ES_ALIAS: ${{ secrets.ES_ALIAS_TEST }}
+          ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_TEST }}
+          ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}
+          LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
+      - name: Deploy to Netlify (merged)
+        if: github.ref_name=='main'
+        uses: nwtgck/actions-netlify@v3 #
+        with:
+          production-deploy: true
+          deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          publish-dir: .output/public
+          fails-without-credentials: true
+          github-deployment-environment: production
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

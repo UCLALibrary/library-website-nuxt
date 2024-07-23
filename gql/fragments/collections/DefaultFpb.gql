@@ -1,10 +1,10 @@
-#import "~/gql/fragments/BlockMediaGalleryFragment"
-#import "~/gql/fragments/BlockMediaWithTextFragment"
-#import "~/gql/fragments/BlockPullQuoteFragment"
-#import "~/gql/fragments/BlockRichTextFragment"
-#import "~/gql/fragments/BlockSimpleCardsFragment"
-#import "~/gql/fragments/BlockCallToActionFragment"
-#import "~/gql/fragments/BlockFormFragment"
+#import "../gql/fragments/BlockMediaGalleryFragment.gql"
+#import "../gql/fragments/BlockMediaWithTextFragment.gql"
+#import "../gql/fragments/BlockPullQuoteFragment.gql"
+#import "../gql/fragments/BlockRichTextFragment.gql"
+#import "../gql/fragments/BlockSimpleCardsFragment.gql"
+#import "../gql/fragments/BlockCallToActionFragment.gql"
+#import "../gql/fragments/BlockFormFragment.gql"
 
 fragment DefaultFpb on ElementInterface {
     blocks: defaultFpb {
