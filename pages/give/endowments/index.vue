@@ -27,7 +27,7 @@ if (error.value) {
   })
 }
 
-if (!data.value?.data && !data.value.data.entry && !data.value.data.entries) {
+if (!data.value?.data || !data.value?.data?.entry || !data.value?.data?.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
