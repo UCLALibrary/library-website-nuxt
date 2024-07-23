@@ -15,7 +15,7 @@ describe("Collection Detail page", () => {
             "TEST - Collection - Halloween Costumes"
         )
         cy.get(".page-anchor").scrollIntoView().should('be.visible')
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("collectiondetailpage",{ widths: [768, 992, 1200] })
     })
 
     context("When there isn't an entry in craft", () => {

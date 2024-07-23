@@ -13,7 +13,7 @@ describe("Article News Listing page", () => {
             cy.get("fieldset.base-checkbox-group > ul.list > li.list-item").find("label").should("have.length.greaterThan",0)
         })
         cy.get('.search-generic-filter-buttons > div.single-checkbox').should('be.visible')
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("stafflistingpage",{ widths: [768, 992, 1200] })
     })
 
     it("Visit Subject Librarian Listing page", () => {

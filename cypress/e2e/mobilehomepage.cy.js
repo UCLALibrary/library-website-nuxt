@@ -6,6 +6,6 @@ describe("Mobile Website Homepage", () => {
         cy.get(".header-main-responsive").should("be.visible")
         // Not sure why this is failing all of a sudden 
         // cy.get(".svg__icon-menu").click({ force: true })
-        cy.percySnapshot({ widths: [768, 992, 1002] })
+        cy.percySnapshot("mobilehomepage",{ widths: [768, 992, 1002] })
     })
 })

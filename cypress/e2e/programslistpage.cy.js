@@ -11,7 +11,7 @@ describe("Program List page", () => {
         cy.get('.search-generic-filter-buttons > button').click()
         cy.get("fieldset.base-checkbox-group > ul.list > li.list-item").find("label").should("have.length.greaterThan",0)
     
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("programlistpage",{ widths: [768, 992, 1200] })
     })
 
     it("Visit Program Listing page filter by type", () => {

@@ -7,7 +7,7 @@ describe("Endowments Detail page", () => {
         cy.get(".logo-ucla").should("be.visible")
         cy.get(".page-endowments-detail").should("be.visible")
         cy.get("h1.title").should("contain", "Lifu Wang")
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("endowmentsdetail",{ widths: [768, 992, 1200] })
     })
 
     context("When there isn't an entry in craft", () => {

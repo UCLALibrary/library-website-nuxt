@@ -8,7 +8,7 @@ describe("Resource page", () => {
             "contain",
             `Animals are Excellent and Flowers are Fluffy`
         )
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("resource",{ widths: [768, 992, 1200] })
     })
 
     context("When there isn't an entry in craft", () => {

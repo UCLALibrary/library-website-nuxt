@@ -6,6 +6,6 @@ describe("Exhibition Detail page", () => {
         // UCLA Library brand
         cy.get(".logo-ucla").should("be.visible")
         cy.get("h1.title").should("contain", "Fante Asafo Flags")
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("exhibitiondetail",{ widths: [768, 992, 1200] })
     })
 })

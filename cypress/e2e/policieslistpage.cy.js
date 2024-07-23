@@ -8,6 +8,6 @@ describe("Policy List page", () => {
             "Policies"
         )
         cy.get(".page-anchor").scrollIntoView().should('be.visible')
-        cy.percySnapshot({ widths: [768, 992, 1200] })
+        cy.percySnapshot("policieslistpage",{ widths: [768, 992, 1200] })
     })
 })
