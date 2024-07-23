@@ -30,7 +30,7 @@ describe('Explore Collection page', () => {
         'test'
       )
       cy.get('h2.about-results').invoke('text').should('not.be.empty')
-      cy.percySnapshot({ widths: [768, 992, 1200] })
+      cy.percySnapshot('collectionsexplorepage', { widths: [768, 992, 1200] })
     })
   })
 
