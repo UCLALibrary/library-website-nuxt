@@ -1,5 +1,4 @@
-#import "../gql/fragments/collections/AllFpb.gql"
-
+#import "~/gql/fragments/collections/AllFpb"
 query CollectionsList {
     entry(section: "listingCollections") {
         ... on listingCollections_listingCollections_Entry {

@@ -1,5 +1,4 @@
-#import "../gql/fragments/Image.gql"
-
+#import "~/gql/fragments/Image"
 query StaffDetail($slug: [String]!) {
     entry(section: "staffMember", slug: $slug) {
         ... on staffMember_staffMember_Entry {

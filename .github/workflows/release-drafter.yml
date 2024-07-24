@@ -12,7 +12,7 @@ permissions:
 jobs:
   draft-release-notes:
     permissions:
-      contents: write # for release-drafter/release-drafter to create a github release
+      contents: write  # for release-drafter/release-drafter to create a github release
     runs-on: ubuntu-latest
     steps:
       - uses: release-drafter/release-drafter@4d1215c66d92eba9557a55da848b2281a1a19235 # v5.13.0

@@ -1,77 +1,102 @@
-#import "../gql/fragments/Image.gql"
+#import "~/gql/fragments/Image"
 
-query ExhibitionsAndEventsList {
-  events: entries(
-    section: "event"
-    orderBy: "startDateWithTime ASC"
-    startDateWithTime: ">= now"
-  ) {
-    ... on event_event_Entry {
-      title: eventTitle
-      to: uri
-      sectionHandle
-      eventType {
-        title
-      }
-      startDateWithTime
-        @formatDateTime(
-          format: "Y-m-d\\TH:i:s"
-          timezone: "America/Los_Angeles"
-        )
-      endDateWithTime
-        @formatDateTime(
-          format: "Y-m-d\\TH:i:s"
-          timezone: "America/Los_Angeles"
-        )
-      associatedLocations {
-        title
-      }
-      eventLocation: location {
-        title
-      }
-      image {
-        ...Image
-      }
-    }
-  }
-  series: entries(section: "workshopOrEventSeries", orderBy: "title") {
-    title
-    sectionHandle
-    startDate
-      @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
-    endDate
-      @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
-    ongoing
-    text: summary
-    to: uri
-    category: workshopOrEventSeriesType
-    heroImage {
-      ... on heroImage_heroImage_BlockType {
-        id
-        image {
-          ...Image
+query EventsExhibitionsList {
+    events: entries(
+        section: "event"
+        orderBy: "startDateWithTime ASC"
+        startDateWithTime: ">= now"
+    ) {
+        ... on event_event_Entry {
+            title: eventTitle
+            to: uri
+            sectionHandle
+            eventType {
+                title
+            }
+            startDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i:s"
+                    timezone: "America/Los_Angeles"
+                )
+            endDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i:s"
+                    timezone: "America/Los_Angeles"
+                )
+            startDate: startDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i:s"
+                    timezone: "America/Los_Angeles"
+                )
+            endDate: endDateWithTime
+                @formatDateTime(
+                    format: "Y-m-d\\TH:i:s"
+                    timezone: "America/Los_Angeles"
+                )
+            associatedLocations {
+                title
+            }
+            eventLocation: location {
+                title
+            }
+            image {
+                ...Image
+            }
         }
-      }
     }
-  }
-  exhibitions: entries(section: "exhibition", orderBy: "title") {
-    title
-    typeHandle
-    sectionHandle
-    startDate
-      @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
-    endDate
-      @formatDateTime(format: "Y-m-d\\TH:i:s", timezone: "America/Los_Angeles")
-    ongoing
-    text: summary
-    to: uri
-    heroImage {
-      ... on heroImage_heroImage_BlockType {
-        id
-        image {
-          ...Image
+    series: entries(
+        section: "workshopOrEventSeries"
+        orderBy: "title"
+    ) {
+        title
+        sectionHandle
+        startDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
+        endDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
+        ongoing
+        text: summary
+        to: uri
+        category: workshopOrEventSeriesType
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+            }
         }
-      }
     }
-  }
+    exhibitions: entries(section: "exhibition", orderBy: "title") {
+        title
+        typeHandle
+        sectionHandle
+        startDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
+        endDate
+            @formatDateTime(
+                format: "Y-m-d\\TH:i:s"
+                timezone: "America/Los_Angeles"
+            )
+        ongoing
+        text: summary
+        to: uri
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+            }
+        }
+    }
 }

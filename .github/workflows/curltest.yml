@@ -1,0 +1,30 @@
+name: Run Curl tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      indexname:
+        description: 'Add Index prefix'     
+        required: true
+        default: 'curl-test'
+
+concurrency:
+  group: ci-${{ github.ref_name=='main' && github.sha || github.ref_name }} # Cancel runs for previous version of PR, but not main (after merge). For hacked ternary, see https://github.com/actions/runner/issues/409#issuecomment-727565588
+  cancel-in-progress: true
+
+jobs:
+  test-curl-action:
+    name: "Perform REST API request"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Call API"
+        uses: indiesdev/curl@v1.1
+        with:
+          url: ${{ secrets.ES_URL }}/${{ secrets.ES_INDEX_PREFIX_TEST }}-${{ github.event.inputs.indexname }}?pretty
+          headers: '{ "Content-Type": "application/json", "Authorization": "ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}" }'
+          method: "PUT"
+          log-response: true
+      - name: "Use Run"
+        run:  |
+          curl -X POST "${{ secrets.ES_URL }}/_aliases?pretty" -H 'Content-Type: application/json' -H 'Authorization: ApiKey ${{ secrets.ES_WRITE_KEY_TEST }}' -d' { "actions": [ { "add": { "index": "${{ secrets.ES_INDEX_PREFIX_TEST }}-${{ github.event.inputs.indexname }}", "alias": "${{ secrets.ES_INDEX_TEST }}-deploy-preview" } } ] } '
+  

@@ -4,22 +4,20 @@
  * @returns {Array}
  */
 
-import _get from 'lodash/get'
+import _get from "lodash/get"
 
-function getListingFilters(searchAggsResponse, filterFields) {
-  return filterFields.map((field) => {
-    return {
-      label: field.label,
-      esFieldName: field.esFieldName,
-      inputType: field.inputType,
-      items: field.inputType !== 'single-checkbox'
-        ? _get(searchAggsResponse, `${field.label}.buckets`, []).map(
-          (value) => {
-            return { name: value.key }
-          })
-        : []
-    }
-  })
+function getListingFilters(searchAggsResponse,filterFields) {
+    return filterFields.map( field => {
+        return {
+            label: field.label,
+            esFieldName: field.esFieldName,
+            inputType: field.inputType,
+            items: _get(searchAggsResponse, `${field.label}.buckets`, []).map(
+                (value) => {
+                    return { name: value.key }
+                }),
+        }
+    })
 }
 
 export default getListingFilters
