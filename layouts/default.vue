@@ -14,6 +14,7 @@ useHead({
     }
   ]
 })
+const route = useRoute()
 
 const globalStore = useGlobalStore()
 // console.log('In default layout:', globalStore.header)
@@ -78,28 +79,41 @@ onMounted(async () => {
 
 <template>
   <div :class="classes">
-    <HeaderSmart v-if="globalStore.header" />
+    <HeaderSmart v-if="globalStore.header && !$route.path.includes('/impact/')" />
     <SectionWrapper
-      class="section-alert"
+      v-if="!$route.path.includes('/impact/')"
+      class="
+      section-alert"
       theme="divider"
     >
       <site-notification-alert
-        v-if="libraryAlert"
+        v-if="
+          libraryAlert"
         class="library-alert"
         v-bind="libraryAlert"
       />
     </SectionWrapper>
-
+    <nav-primary
+      v-if="globalStore.header && $route.path.includes('/impact/')"
+      class="primary"
+    />
     <slot />
 
     <footer>
       <FooterPrimary
-        v-if="globalStore.footerPrimary"
+        v-if="globalStore.footerPrimary && !$route.path.includes('/impact/')"
         :form="true"
       />
-      <FooterSock v-if="globalStore.footerSock" />
+      <FooterPrimary
+        v-if="globalStore.footerPrimary && $route.path.includes('/impact/')"
+        :form="false"
+      />
+      <FooterSock v-if="globalStore.footerSock && !$route.path.includes('/impact/')" />
     </footer>
-    <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" />
+    <div
+      v-if="!$route.path.includes('/impact/')"
+      id="libchat_5a44dfe7cc29aaee5bba635ab13fa753"
+    />
   </div>
 </template>
 

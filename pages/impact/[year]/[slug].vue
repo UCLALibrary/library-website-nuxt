@@ -56,9 +56,6 @@ useHead({
 
 })
 
-definePageMeta({
-  layout: false
-})
 const parsedByline = computed(() => {
   const bannerFeaturedByline = page.value.contributors.map((obj) => {
     if (obj.typeHandle === 'externalContributor')
@@ -70,80 +67,50 @@ const parsedByline = computed(() => {
   })
   return bannerFeaturedByline
 })
-const classes = computed(() => [
-  'layout',
-  'layout-impact'
-])
+
 </script>
 
 <template lang="html">
-  <div :class="classes">
-    <NavPrimary class="primary" />
+  <main
+    id="main"
+    class="page page-impact-report-story"
+  >
+    <BannerText
+      v-if="page && (!page.heroImage || page.heroImage.length === 0)"
+      class="banner-text"
+      :title="page.title"
+      :text="page.text"
+      :byline="parsedByline"
+    />
 
-    <main
-      id="main"
-      class="page page-impact-report-story"
+    <SectionWrapper
+      v-if="page && page.heroImage && page.heroImage.length === 1"
+      class="section-banner"
     >
-      <BannerText
-        v-if="page && (!page.heroImage || page.heroImage.length === 0)"
-        class="banner-text"
+      <BannerHeader
         :title="page.title"
         :text="page.text"
+        :align-right="true"
+        :media="page.heroImage[0].image[0]"
         :byline="parsedByline"
       />
+    </SectionWrapper>
 
-      <SectionWrapper
-        v-if="page && page.heroImage && page.heroImage.length === 1"
-        class="section-banner"
-      >
-        <BannerHeader
-          :title="page.title"
-          :text="page.text"
-          :align-right="true"
-          :media="page.heroImage[0].image[0]"
-          :byline="parsedByline"
-        />
-      </SectionWrapper>
-
-      <SectionWrapper theme="divider">
-        <DividerWayFinder
-          class="divider"
-          color="about"
-        />
-      </SectionWrapper>
-
-      <FlexibleBlocks
-        class="content"
-        :blocks="page.blocks"
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
+        class="divider"
+        color="about"
       />
-    </main>
+    </SectionWrapper>
 
-    <footer>
-      <FooterPrimary :form="false" />
-    </footer>
-  </div>
+    <FlexibleBlocks
+      class="content"
+      :blocks="page.blocks"
+    />
+  </main>
 </template>
 
 <style lang="scss" scoped>
-.layout-impact {
-  min-height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-content: center;
-  align-items: center;
-
-  >* {
-    width: 100%;
-  }
-
-  .page {
-    flex: 1 1 auto;
-  }
-}
-
 .page-impact-report-story {
   margin: 0 0 0 0;
 

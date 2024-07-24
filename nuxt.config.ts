@@ -2,14 +2,14 @@
 
 export default defineNuxtConfig({
   // debug: true,
-  // sourcemap: true,
+  sourcemap: true,
 
-  /* devtools: {
+  devtools: {
     enabled: true,
     timeline: {
       enabled: true
     }
-  }, */
+  },
   // when using local pnpm link with component library uncomment this line
   vite: {
     build: {
@@ -50,8 +50,7 @@ export default defineNuxtConfig({
       failOnError: false,
       concurrency: 250,
       interval: 100,
-      // ignore: ['/', '/about', '/help', '/impact']
-      routes: ['/'],
+      // routes: ['/'],
     },
     hooks: {
       'prerender:generate'(route) {
@@ -62,8 +61,8 @@ export default defineNuxtConfig({
         } */
         // console.log('prerender:generate', route)
       },
-      'prerender:routes'(routes) {
-        /* const allRoutes = []
+      async 'prerender:routes'(routes) {
+        const allRoutes = []
 
         const response = await fetch(process.env.CRAFT_ENDPOINT, {
           headers: {
@@ -89,7 +88,8 @@ export default defineNuxtConfig({
           for (const route of allRoutes) {
             routes.add(route)
           }
-        } */
+          routes.add('/about/reports')
+        }
         console.log('prerender:routes ctx.routes', routes)
       }
     },
@@ -168,7 +168,7 @@ export default defineNuxtConfig({
     {
       autoImports: ['defineStore', 'acceptHMRUpdate'],
     },
-  ], 'nuxt-graphql-request', '@zadigetvoltaire/nuxt-gtm', '@nuxtjs/seo'],
+  ], 'nuxt-graphql-request', '@zadigetvoltaire/nuxt-gtm', '@nuxtjs/sitemap'],
 
   build: {
     transpile: ['nuxt-graphql-request', 'ucla-library-website-components'],

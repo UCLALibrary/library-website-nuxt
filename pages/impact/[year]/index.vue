@@ -15,10 +15,6 @@ import flattenTimeLineStructure from '../utils/flattenTimeLineStructure'
 
 const { $graphql } = useNuxtApp()
 
-definePageMeta({
-  layout: false,
-})
-
 const route = useRoute()
 // console.log("Check route in impact report year index page: ", route.path, route.params)
 const path = route.params && route.params.year ? `impact/${route.params.year}` : '*'
@@ -65,7 +61,7 @@ useHead({
 })
 
 const timelineSortedBySubtitle = computed(() => {
-  const timelineData = flattenTimeLineStructure(page.timelineGallery)
+  const timelineData = flattenTimeLineStructure(page.value.timelineGallery)
 
   const groupBySubtitle = _.groupBy(timelineData, 'subtitle')
 
@@ -78,141 +74,112 @@ const timelineSortedBySubtitle = computed(() => {
 
   return groupBySubtitle
 })
-const classes = computed(() => [
-  'layout',
-  'layout-impact'
-])
+
 </script>
 
 <template lang="html">
-  <div :class="classes">
-    <NavPrimary class="primary" />
-    <main
-      id="main"
-      class="page page-impact-report"
-    >
-      <!-- This is template for impact reports -->
-      <div class="meta">
-        <h1
-          class="intro"
-          v-html="page.title"
-        />
-
-        <ResponsiveImage
-          v-if="page.portrait && page.portrait.length > 0"
-          :media="page.portrait[0]"
-          :aspect-ratio="60"
-          class="portrait-Ginny"
-          alt="Sketch of Ginny Steel wearing glasses and a grey blazer, with a yellow background"
-        />
-
-        <RichText
-          class="text"
-          :rich-text-content="page.text"
-        />
-      </div>
-      <SectionWrapper theme="divider">
-        <DividerWayFinder
-          class="divider"
-          color="about"
-        />
-      </SectionWrapper>
-      <h2 class="visually-hidden">
-        Main Story
-      </h2>
-      <BannerFeatured
-        v-if="page.keyArt && page.keyArt.length !== 0"
-        class="section-banner"
-        :media="page.keyArt[0].heroImage[0]"
-        :ratio="40"
-        :title="page.keyArt[0].titleGeneral"
-        :description="page.keyArt[0].summary"
-        :prompt="page.keyArt[0].buttonText"
-        :to="page.keyArt[0].buttonUrl"
-        :align-right="false"
+  <main
+    id="main"
+    class="page page-impact-report"
+  >
+    <!-- This is template for impact reports -->
+    <div class="meta">
+      <h1
+        class="intro"
+        v-html="page.title"
       />
-      <div v-if="page.blocks">
-        <FlexibleBlocks
-          v-if="page.blocks"
-          class="flexible-content"
-          :blocks="page.blocks"
+
+      <ResponsiveImage
+        v-if="page.portrait && page.portrait.length > 0"
+        :media="page.portrait[0]"
+        :aspect-ratio="60"
+        class="portrait-Ginny"
+        alt="Sketch of Ginny Steel wearing glasses and a grey blazer, with a yellow background"
+      />
+
+      <RichText
+        class="text"
+        :rich-text-content="page.text"
+      />
+    </div>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
+        class="divider"
+        color="about"
+      />
+    </SectionWrapper>
+    <h2 class="visually-hidden">
+      Main Story
+    </h2>
+    <BannerFeatured
+      v-if="page.keyArt && page.keyArt.length !== 0"
+      class="section-banner"
+      :media="page.keyArt[0].heroImage[0]"
+      :ratio="40"
+      :title="page.keyArt[0].titleGeneral"
+      :description="page.keyArt[0].summary"
+      :prompt="page.keyArt[0].buttonText"
+      :to="page.keyArt[0].buttonUrl"
+      :align-right="false"
+    />
+    <div v-if="page.blocks">
+      <FlexibleBlocks
+        v-if="page.blocks"
+        class="flexible-content"
+        :blocks="page.blocks"
+      />
+    </div>
+
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
+        class="divider"
+        color="about"
+      />
+    </SectionWrapper>
+
+    <SectionWrapper :section-title="page.timelineTitle">
+      <div
+        v-for="(value, propertyName) in timelineSortedBySubtitle"
+        :key="propertyName"
+        class="sub-section-grid"
+      >
+        <h3
+          class="grid-gallery-subtitle"
+          v-html="propertyName"
+        />
+
+        <GridGallery
+          v-for="(subValue, propertySubName) in value"
+          :key="propertySubName"
+          :section-summary="propertySubName"
+          :items="subValue"
         />
       </div>
-
-      <SectionWrapper theme="divider">
-        <DividerWayFinder
-          class="divider"
-          color="about"
-        />
-      </SectionWrapper>
-
-      <SectionWrapper :section-title="page.timelineTitle">
-        <div
-          v-for="(value, propertyName) in timelineSortedBySubtitle"
-          :key="propertyName"
-          class="sub-section-grid"
-        >
-          <h3
-            class="grid-gallery-subtitle"
-            v-html="propertyName"
-          />
-
-          <GridGallery
-            v-for="(subValue, propertySubName) in value"
-            :key="propertySubName"
-            :section-summary="propertySubName"
-            :items="subValue"
-          />
-        </div>
-      </SectionWrapper>
-      <SectionWrapper theme="divider">
-        <DividerWayFinder
-          class="divider"
-          color="about"
-        />
-      </SectionWrapper>
-      <SectionWrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
-        <h2
-          :class="page.acknowledgements[0].displaySectionTitle === 'true'
-            ? ''
-            : 'visually-hidden'
-          "
-        >
-          {{ page.acknowledgements[0].titleGeneral }}
-        </h2>
-        <RichText
-          class="credits"
-          :rich-text-content="page.acknowledgements[0].acknowledgements"
-        />
-      </SectionWrapper>
-    </main>
-
-    <footer>
-      <FooterPrimary :form="false" />
-    </footer>
-  </div>
+    </SectionWrapper>
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
+        class="divider"
+        color="about"
+      />
+    </SectionWrapper>
+    <SectionWrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
+      <h2
+        :class="page.acknowledgements[0].displaySectionTitle === 'true'
+          ? ''
+          : 'visually-hidden'
+        "
+      >
+        {{ page.acknowledgements[0].titleGeneral }}
+      </h2>
+      <RichText
+        class="credits"
+        :rich-text-content="page.acknowledgements[0].acknowledgements"
+      />
+    </SectionWrapper>
+  </main>
 </template>
 
 <style lang="scss" scoped>
-.layout-impact {
-  min-height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-content: center;
-  align-items: center;
-
-  >* {
-    width: 100%;
-  }
-
-  .page {
-    flex: 1 1 auto;
-  }
-}
-
 .page-impact-report {
   .meta {
     padding: 0 var(--unit-gutter);
