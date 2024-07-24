@@ -7,7 +7,9 @@
 // This used on impact report page to denormalized craft data structure
 function flattenTimeLineStructure(timeLineData = []) {
   const flattenedValues = []
+  // console.log("timeLineData",timeLineData)
   for (const item of timeLineData) {
+    // console.log("item FlattenTimeline:",item)
     for (const subitem of item.gridGalleryCards) {
       const obj = {}
       obj.subtitle = item.subtitle || ''

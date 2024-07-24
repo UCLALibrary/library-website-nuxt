@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { SectionWrapper, DividerWayFinder, RichText, GridGallery, ResponsiveImage, BannerFeatured, FlexibleBlocks } from 'ucla-library-website-components'
+import { SectionWrapper, DividerWayFinder, NavBreadcrumb, RichText, GridGallery, ResponsiveImage, BannerFeatured, FlexibleBlocks } from 'ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
@@ -55,7 +55,8 @@ useHead({
 })
 
 const timelineSortedBySubtitle = computed(() => {
-  const timelineData = flattenTimeLineStructure(page.timelineGallery)
+  // console.log("page.timelineGallery", page.value.timelineGallery)
+  const timelineData = flattenTimeLineStructure(page.value.timelineGallery)
 
   const groupBySubtitle = _.groupBy(timelineData, 'subtitle')
 
@@ -64,7 +65,7 @@ const timelineSortedBySubtitle = computed(() => {
   for (const key in groupBySubtitle)
     groupBySubtitle[key] = _.groupBy(groupBySubtitle[key], 'sectionSummary')
 
-  // console.log("parsed timeline by summary: " + JSON.stringify(groupBySubtitle[key]))
+  // console.log("parsed timeline by summary: " + JSON.stringify(groupBySubtitle))
 
   return groupBySubtitle
 })
@@ -85,6 +86,11 @@ const classes = computed(() => [
       id="main"
       class="page page-impact-report-index"
     >
+      <!--NavBreadcrumb
+        to="/about/reports/"
+        :title="page.title"
+        parent-title="All Reports"
+      /-->
       <!-- This is template for impact reports -->
       <div class="meta">
         <h1
@@ -166,12 +172,10 @@ const classes = computed(() => [
         />
       </SectionWrapper>
       <SectionWrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
-        <h2
-          :class="page.acknowledgements[0].displaySectionTitle === 'true'
-            ? ''
-            : 'visually-hidden'
-          "
-        >
+        <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
+          ? ''
+          : 'visually-hidden'
+          ">
           {{ page.acknowledgements[0].titleGeneral }}
         </h2>
         <RichText
