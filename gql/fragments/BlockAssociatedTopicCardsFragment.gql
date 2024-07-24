@@ -13,7 +13,6 @@ fragment BlockAssociatedTopicCardsFragment on ElementInterface {
                 uri
                 text: summary
                 uri
-                iconName: illustrationsResourcesAndServices
             }
         }
     }

@@ -1,4 +1,4 @@
-#import "../gql/fragments/Image.gql"
+#import "~/gql/fragments/Image"
 query StaffList {
     entry(section: "listingStaffDirectory") {
         title

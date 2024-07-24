@@ -1,5 +1,5 @@
-#import "../gql/fragments/Image.gql"
-#import "../gql/fragments/collections/AllFpb.gql"
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/collections/AllFpb"
 
 query PolicyDetail($slug: [String!]) {
     entry(section: "policy", slug: $slug) {

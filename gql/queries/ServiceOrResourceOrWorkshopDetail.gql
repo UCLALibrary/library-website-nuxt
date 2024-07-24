@@ -1,5 +1,5 @@
-#import "../gql/fragments/collections/DefaultFpbWithNoCta.gql"
-#import "../gql/fragments/collections/DefaultFpbWithCardsAndHighlight.gql"
+#import "~/gql/fragments/collections/DefaultFpbWithNoCta"
+#import "~/gql/fragments/collections/DefaultFpbWithCardsAndHighlight"
 
 query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
     serviceOrResource: entry(section: "serviceOrResource", slug: $slug) {
@@ -8,7 +8,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             sectionHandle
             slug
             uri
-            serviceOrResourceType # keep this field , used by ES
+            serviceOrResourceType
             buttonUrl {
                 ... on buttonUrl_button_BlockType {
                     buttonText

@@ -1,12 +1,12 @@
-#import "../gql/fragments/Image.gql"
-#import "../gql/fragments/BlockCardWithImageFragment.gql"
-#import "../gql/fragments/BlockHighlightFragment.gql"
-#import "../gql/fragments/BlockMediaGalleryFragment.gql"
-#import "../gql/fragments/BlockMediaWithTextFragment.gql"
-#import "../gql/fragments/BlockPullQuoteFragment.gql"
-#import "../gql/fragments/BlockRichTextFragment.gql"
-#import "../gql/fragments/BlockSimpleCardsFragment.gql"
-#import "../gql/fragments/BlockFormFragment.gql"
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/BlockCardWithImageFragment"
+#import "~/gql/fragments/BlockHighlightFragment"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaWithTextFragment"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/BlockFormFragment"
 
 fragment DefaultFpbWithCardsAndHighlight on ElementInterface {
     blocks: defaultFpbWithCardsAndHighlight {

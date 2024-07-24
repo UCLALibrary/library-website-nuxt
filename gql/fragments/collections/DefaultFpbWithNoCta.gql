@@ -1,10 +1,10 @@
-#import "../gql/fragments/Image.gql"
-#import "../gql/fragments/BlockSimpleCardsFragment.gql"
-#import "../gql/fragments/BlockRichTextFragment.gql"
-#import "../gql/fragments/BlockPullQuoteFragment.gql"
-#import "../gql/fragments/BlockMediaGalleryFragment.gql"
-#import "../gql/fragments/BlockMediaWithTextFragment.gql"
-#import "../gql/fragments/BlockFormFragment.gql"
+#import "~/gql/fragments/Image"
+#import "~/gql/fragments/BlockSimpleCardsFragment"
+#import "~/gql/fragments/BlockRichTextFragment"
+#import "~/gql/fragments/BlockPullQuoteFragment"
+#import "~/gql/fragments/BlockMediaGalleryFragment"
+#import "~/gql/fragments/BlockMediaWithTextFragment"
+#import "~/gql/fragments/BlockFormFragment"
 
 fragment DefaultFpbWithNoCta on ElementInterface {
     blocks: defaultFpbWithNoCta {

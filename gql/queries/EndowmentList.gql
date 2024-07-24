@@ -1,5 +1,4 @@
-#import "../gql/fragments/Image.gql"
-
+#import "~/gql/fragments/Image"
 query EndowmentsList {
     entry(section: "listingEndowments") {
         ... on listingEndowments_listingEndowments_Entry {

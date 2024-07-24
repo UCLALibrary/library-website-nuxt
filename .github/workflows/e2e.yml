@@ -1,0 +1,16 @@
+# .github/workflows/e2e.yml
+# test the deployed Netlify site
+name: e2e
+on:
+  deployment:
+jobs:
+  show-event:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: echo "Testing netlify url "
+      - name: Dump entire event
+        env:
+          EVENT: ${{ toJson(github.event) }}
+        run: echo "$EVENT"
+      - run: echo "{{ github.event.node.latestStatus.environmentUrl }}"
+
