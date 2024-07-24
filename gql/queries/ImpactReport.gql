@@ -1,5 +1,5 @@
-#import "~/gql/fragments/Image"
-#import "~/gql/fragments/collections/ImpactReportFpb"
+#import "../gql/fragments/Image.gql"
+#import "../gql/fragments/collections/ImpactReportFpb.gql"
 
 query ImpactReport($path: [String!]) {
   entry(section: "impactReport", uri: $path, orderBy:"postDate desc") {

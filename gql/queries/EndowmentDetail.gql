@@ -1,5 +1,5 @@
-#import "~/gql/fragments/Image"
-#import "~/gql/fragments/collections/AllFpbWithNoBanner"
+#import "../gql/fragments/Image.gql"
+#import "../gql/fragments/collections/AllFpbWithNoBanner.gql"
 
 query EndowmentDetail($slug: [String!]) {
   entry(section: "endowment", slug: $slug) {
@@ -40,4 +40,4 @@ query EndowmentDetail($slug: [String!]) {
     }
     ...AllFpbWithNoBanner
   }
-} 
+}

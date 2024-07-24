@@ -1,4 +1,4 @@
-#import "~/gql/fragments/collections/AllFpbWithNoBanner"
+#import "../gql/fragments/collections/AllFpbWithNoBanner.gql"
 
 query PoliciesList {
   entry(section: "listingPolicies") {

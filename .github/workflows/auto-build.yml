@@ -6,7 +6,7 @@ on:
   #   tags:
   #     - production
   schedule:
-    - cron:  '00 8,20 * * *' # 8,20 UTC = noon and midnight PST, 1am and 1pm PDT
+    - cron: '00 8,20 * * *' # 8,20 UTC = noon and midnight PST, 1am and 1pm PDT
 
 jobs:
   nuxt-prod:
@@ -14,33 +14,33 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: production
-    - uses: ./.github/workflows/setup-workspace
-    - run: npm run generate
-      env:
-        CRAFT_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
-        LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
-        S3_BUCKET: "https://static.library.ucla.edu/"
-        SITEMAP_HOST: ${{ secrets.SITEMAP_URL_PROD }}
-        ES_URL: ${{ secrets.ES_URL }}
-        ESApiKey: ${{ secrets.ESApiKey }}
-        ES_READ_KEY: ${{ secrets.ES_READ_KEY_PROD }}
-        ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_PROD }}
-        ES_INDEX: ${{ secrets.ES_INDEX_PROD }}
-        ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_PROD }}
-        ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_PROD}}
-        LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_PROD}}
-    - name: Deploy to Netlify on release
-      uses: nwtgck/actions-netlify@v2 #
-      with:
-        production-deploy: true
-        deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        publish-dir: './dist'
-        fails-without-credentials: true
-        github-deployment-environment: production
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_LIBRARY_SITE_ID }}
+      - uses: actions/checkout@v3
+        with:
+          ref: production
+      - uses: ./.github/workflows/setup-workspace
+      - run: npm run generate
+        env:
+          CRAFT_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
+          LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+          S3_BUCKET: 'https://static.library.ucla.edu/'
+          SITEMAP_HOST: ${{ secrets.SITEMAP_URL_PROD }}
+          ES_URL: ${{ secrets.ES_URL }}
+          ESApiKey: ${{ secrets.ESApiKey }}
+          ES_READ_KEY: ${{ secrets.ES_READ_KEY_PROD }}
+          ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_PROD }}
+          ES_ALIAS: ${{ secrets.ES_ALIAS_PROD }}
+          ES_INDEX_PREFIX: ${{ secrets.ES_INDEX_PREFIX_PROD }}
+          ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_PROD}}
+          LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_PROD}}
+      - name: Deploy to Netlify on release
+        uses: nwtgck/actions-netlify@v3 #
+        with:
+          production-deploy: true
+          deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          publish-dir: .output/public
+          fails-without-credentials: true
+          github-deployment-environment: production
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_LIBRARY_SITE_ID }}
