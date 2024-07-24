@@ -179,10 +179,12 @@ const classes = computed(() => [
         />
       </SectionWrapper>
       <SectionWrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
-        <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
-          ? ''
-          : 'visually-hidden'
-          ">
+        <h2
+          :class="page.acknowledgements[0].displaySectionTitle === 'true'
+            ? ''
+            : 'visually-hidden'
+          "
+        >
           {{ page.acknowledgements[0].titleGeneral }}
         </h2>
         <RichText
