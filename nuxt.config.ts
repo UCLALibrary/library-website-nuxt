@@ -89,6 +89,7 @@ export default defineNuxtConfig({
             routes.add(route)
           }
           routes.add('/about/reports')
+          routes.add('/help')
         }
         console.log('prerender:routes ctx.routes', routes)
       }
@@ -120,6 +121,10 @@ export default defineNuxtConfig({
         id: 'GTM-T2SXV2'
       }
     },
+  },
+
+  routeRules: {
+    '/impact/all': { redirect: '/about/reports' }
   },
 
   /*

@@ -54,14 +54,17 @@ useHead({
   ],
   script: [
     {
-      hid: 'libchat',
+      key: 'libchat',
       src: 'https://ucla.libanswers.com/load_chat.php?hash=e6e621712e7b0ed0193f065d84d4e0c9',
+      async: true,
       defer: true
     }
   ]
 })
 
 definePageMeta({
+  layout: 'default',
+  path: '/help/services-resources/ask-us',
   alias: ['/help/']
 })
 </script>
