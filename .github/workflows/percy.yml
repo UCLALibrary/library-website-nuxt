@@ -10,7 +10,7 @@ jobs:
   percy-integration:
     name: Percy - Nuxt3.x Site
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup-workspace
