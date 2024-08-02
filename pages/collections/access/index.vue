@@ -225,8 +225,10 @@ function getSearchData(data) {
       <DividerWayFinder class="search-margin" />
     </SectionWrapper>
 
-    <SectionWrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-      ">
+    <SectionWrapper
+      v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      "
+    >
       <SectionCardsWithIllustrations
         class="section"
         :items="parsedAccessCollections"
