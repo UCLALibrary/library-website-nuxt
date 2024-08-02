@@ -93,6 +93,7 @@ const parsedEndowmentsList = computed(() => {
       associatedLocations: _get(obj, 'associatedLocations', []).map((loc) => {
         return {
           ...loc,
+          to: fixUri(loc.uri),
           uri: fixUri(loc.uri),
         }
       }),
@@ -130,12 +131,12 @@ const searchGenericQuery = ref({
 
 watch(() =>
   route.query,
-(newVal, oldVal) => {
-  // console.log('ES newVal, oldVal', newVal, oldVal)
-  searchGenericQuery.value.queryText = route.query.q || ''
-  searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
-  searchES()
-}, { deep: true, immediate: true }
+  (newVal, oldVal) => {
+    // console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
+    searchES()
+  }, { deep: true, immediate: true }
 )
 
 async function searchES() {
@@ -193,6 +194,7 @@ function parseHits(hits = []) {
       associatedLocations: _get(obj._source, 'associatedLocations', []).map((loc) => {
         return {
           ...loc,
+          to: fixUri(loc.uri),
           uri: fixUri(loc.uri),
         }
       }),
@@ -274,7 +276,7 @@ onMounted(async () => {
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
       :section-title="page.featuredEndowments[0].titleGeneral"
       :section-summary="page.featuredEndowments[0].sectionSummary"
@@ -292,7 +294,7 @@ onMounted(async () => {
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="about" />
@@ -304,7 +306,7 @@ onMounted(async () => {
         parsedEndowmentsList.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Collection Endowments"
     >
       <SectionGenericList :items="parsedEndowmentsList" />

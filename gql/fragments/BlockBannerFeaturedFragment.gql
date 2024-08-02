@@ -58,6 +58,7 @@ fragment BlockBannerFeaturedFragment on ElementInterface {
                     id
                     title
                     to: uri
+                    uri
                 }
                 projectLocations: region {
                     ... on meapProjectRegion_Category {

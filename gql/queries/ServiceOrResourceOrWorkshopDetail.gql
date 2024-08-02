@@ -31,6 +31,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             locations: associatedLocations {
                 id
                 to: slug
+                uri
                 title
             }
             associatedTopics {
@@ -74,6 +75,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             ... on location_location_Entry {
                 id
                 to: uri
+                uri
                 title
                 summary
             }
@@ -118,6 +120,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
                 ... on location_location_Entry {
                     id
                     to: uri
+                    uri
                     title
                     summary
                 }

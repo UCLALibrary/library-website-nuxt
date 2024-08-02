@@ -28,6 +28,7 @@ query StaffDetail($slug: [String]!) {
             locations: staffAssociatedLocations {
                 title
                 to: uri
+                uri
                 id
             }
             pronouns
