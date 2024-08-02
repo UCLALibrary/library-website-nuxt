@@ -78,10 +78,7 @@ const hits = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
   // queryFilters must be passed even if not used
-  queryFilters:
-    (route.query.filters &&
-      JSON.parse(route.query.filters)) ||
-    {},
+  queryFilters: {},
 })
 
 // ES search function
@@ -93,7 +90,7 @@ async function searchES() {
       queryText,
       config.accessCollections.searchFields,
       'searchType:accessCollection',
-      [],
+      {},
       config.accessCollections.sortField,
       config.accessCollections.orderBy,
       config.accessCollections.resultFields,
@@ -192,7 +189,6 @@ function getSearchData(data) {
     path: '/collections/access',
     query: {
       q: data?.text,
-      filters: [],
     },
   })
 }
@@ -229,10 +225,8 @@ function getSearchData(data) {
       <DividerWayFinder class="search-margin" />
     </SectionWrapper>
 
-    <SectionWrapper
-      v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <SectionWrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      ">
       <SectionCardsWithIllustrations
         class="section"
         :items="parsedAccessCollections"

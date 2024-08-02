@@ -70,7 +70,7 @@ onMounted(async () => {
       }
     }
   }) */
-  console.log('Apps.vue, did this solve the hydration errors')
+  // console.log('Apps.vue, did this solve the hydration errors')
   hasScrolled.value = $hasScrolled()
   hasScrolledPastHeader.value = $hasScrolledPastHeader()
   await $alerts()
