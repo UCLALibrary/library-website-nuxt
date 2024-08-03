@@ -80,7 +80,7 @@ const parsedAssociatedLocations = computed(() => {
 const parsedSubjectAreaLink = computed(() => {
   if (page.value.subjectAreas[0].title) {
     const searchLibrary = page.value.subjectAreas[0].title
-    const libConcat = `/give/endowments/?q=&filters={subjectAreas.title.keyword:['${encodeURIComponent(searchLibrary)}']}`
+    const libConcat = `/give/endowments/?q=&filters=subjectAreas.title.keyword:('${encodeURIComponent(searchLibrary)}')`
 
     // '/give/endowments?q=&filters={\"subjectAreas.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
 
