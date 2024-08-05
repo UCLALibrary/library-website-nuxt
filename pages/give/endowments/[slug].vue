@@ -42,6 +42,7 @@ if (data.value.entry.slug && import.meta.server) {
   data.value.entry.donorNames = parsedDonorsForES(data.value.entry.donors)
   await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
 }
+// console.log("data.value.entry", data.value.entry)
 
 const page = ref(_get(data.value, 'entry', {}))
 watch(data, (newVal, oldVal) => {
@@ -80,7 +81,7 @@ const parsedAssociatedLocations = computed(() => {
 const parsedSubjectAreaLink = computed(() => {
   if (page.value.subjectAreas[0].title) {
     const searchLibrary = page.value.subjectAreas[0].title
-    const libConcat = `/give/endowments/?q=&filters=subjectAreas.title.keyword:('${encodeURIComponent(searchLibrary)}')`
+    const libConcat = `/give/endowments/?q=&filters=subjectAreas.title.keyword:(${encodeURIComponent(searchLibrary)})`
 
     // '/give/endowments?q=&filters={\"subjectAreas.title.keyword\":[\"' + encodeURIComponent(searchLibrary) + '\"]}'
 
