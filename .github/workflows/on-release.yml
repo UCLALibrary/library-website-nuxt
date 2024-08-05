@@ -22,7 +22,7 @@ jobs:
     name: Netlify deploy
     needs: set-tag
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 50
     steps:
     - uses: actions/checkout@v3
       with:
