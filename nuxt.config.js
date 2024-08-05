@@ -106,8 +106,8 @@ export default {
         // exclude is for npm run genereate uncomment for local builds
         // exclude:[/^\/help/,/^\/visit/,/^\/give/,/^\/help/,/^\/give/,/^\/impact/],
         fallback: "404.html",
-        interval: 500,
-        concurrency: 10,
+        interval: 1000,
+        concurrency: 50,
         async routes() {
             const result = await axios({
                 url: process.env.CRAFT_ENDPOINT,
