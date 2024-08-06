@@ -21,6 +21,7 @@ jobs:
   nuxt-deploy:
     name: Static Generation build
     runs-on: ubuntu-latest
+    # timeout-minutes: 50
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup-workspace
