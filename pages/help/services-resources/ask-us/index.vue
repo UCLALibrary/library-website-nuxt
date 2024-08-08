@@ -52,14 +52,6 @@ useHead({
       content: removeTags(page.value.text),
     },
   ],
-  script: [
-    {
-      key: 'libchat',
-      src: 'https://ucla.libanswers.com/load_chat.php?hash=e6e621712e7b0ed0193f065d84d4e0c9',
-      async: true,
-      defer: true
-    }
-  ]
 })
 
 definePageMeta({
@@ -67,6 +59,21 @@ definePageMeta({
   path: '/help/services-resources/ask-us',
   alias: ['/help/']
 })
+if (import.meta.client) {
+  const script = document.createElement('script')
+  script.src = 'https://ucla.libanswers.com/load_chat.php?hash=e6e621712e7b0ed0193f065d84d4e0c9'
+  script.async = true
+  script.defer = true
+  document.head.appendChild(script)
+}
+onMounted(() => {
+  const script = document.createElement('script')
+  script.src = 'https://ucla.libanswers.com/load_chat.php?hash=e6e621712e7b0ed0193f065d84d4e0c9'
+  script.async = true
+  script.defer = true
+  document.head.appendChild(script)
+})
+
 </script>
 
 <template lang="html">
@@ -85,9 +92,13 @@ definePageMeta({
       :text="page.summary"
     />
     <!-- LibChat Widget -->
-    <SectionWrapper class="section-ask-us">
+    <div
+      id="libchat_e6e621712e7b0ed0193f065d84d4e0c9"
+      class="section-ask-us"
+    />
+    <!--SectionWrapper class="section-ask-us">
       <div id="libchat_e6e621712e7b0ed0193f065d84d4e0c9" />
-    </SectionWrapper>
+    </SectionWrapper-->
 
     <SectionWrapper theme="divider">
       <DividerWayFinder
@@ -110,5 +121,21 @@ definePageMeta({
   .banner-text {
     margin-bottom: var(--space-l);
   }
+
+  .section-ask-us {
+    max-width: 928px;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media #{$medium} {
+    .section-ask-us {
+      padding: 0 var(--unit-gutter);
+      margin: var(--space-2xl) auto;
+      max-width: 928px;
+    }
+  }
+
 }
 </style>

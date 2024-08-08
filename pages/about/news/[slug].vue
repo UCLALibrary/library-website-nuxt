@@ -87,6 +87,13 @@ const parsedDate = computed(() => {
 
 const parsedAssociatedStaffMember = computed(() => {
   return page.value.associatedStaffMember.map((obj) => {
+    const fixUriLocations = (obj.locations || []).map((loc) => {
+      return {
+        title: loc.title,
+        uri: fixUri(loc.uri)
+      }
+    })
+    obj.locations = fixUriLocations
     return {
       ...obj,
       to: `/about/staff/${obj.to}`,
