@@ -1,5 +1,5 @@
-#import "~/gql/fragments/Image"
-#import "~/gql/fragments/collections/AllFpb"
+#import "../gql/fragments/Image.gql"
+#import "../gql/fragments/collections/AllFpb.gql"
 
 query ArticleNewsDetail($slug: [String!]) {
     entry(section: "article", slug: $slug) {
@@ -43,6 +43,7 @@ query ArticleNewsDetail($slug: [String!]) {
                 id
                 title
                 to: uri
+                uri
                 ... on location_location_Entry {
                     id
                     email
@@ -71,6 +72,7 @@ query ArticleNewsDetail($slug: [String!]) {
                         id
                         title
                         to: slug
+                        uri
                     }
                     image: staffPortrait {
                         ...Image

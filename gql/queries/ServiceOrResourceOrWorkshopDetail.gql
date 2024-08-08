@@ -1,5 +1,5 @@
-#import "~/gql/fragments/collections/DefaultFpbWithNoCta"
-#import "~/gql/fragments/collections/DefaultFpbWithCardsAndHighlight"
+#import "../gql/fragments/collections/DefaultFpbWithNoCta.gql"
+#import "../gql/fragments/collections/DefaultFpbWithCardsAndHighlight.gql"
 
 query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
     serviceOrResource: entry(section: "serviceOrResource", slug: $slug) {
@@ -8,7 +8,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             sectionHandle
             slug
             uri
-            serviceOrResourceType
+            serviceOrResourceType # keep this field , used by ES
             buttonUrl {
                 ... on buttonUrl_button_BlockType {
                     buttonText
@@ -31,6 +31,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             locations: associatedLocations {
                 id
                 to: slug
+                uri
                 title
             }
             associatedTopics {
@@ -74,6 +75,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
             ... on location_location_Entry {
                 id
                 to: uri
+                uri
                 title
                 summary
             }
@@ -118,6 +120,7 @@ query ServiceOrResourceOrWorkshopDetail($slug: [String!]) {
                 ... on location_location_Entry {
                     id
                     to: uri
+                    uri
                     title
                     summary
                 }

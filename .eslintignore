@@ -2,3 +2,6 @@
 .nuxt/
 node_modules/
 storybook-static/
+.output
+dist
+

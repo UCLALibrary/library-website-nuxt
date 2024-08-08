@@ -10,6 +10,11 @@ fragment BlockBannerFeaturedFragment on ElementInterface {
                 title
                 to: uri
                 summary
+                physicalDigital
+                workshopOrEventSeriesType
+                eventType {
+                    title
+                }
                 eventDescription
                 projectCategory: format
                 articleCategory: articleCategories {
@@ -53,6 +58,7 @@ fragment BlockBannerFeaturedFragment on ElementInterface {
                     id
                     title
                     to: uri
+                    uri
                 }
                 projectLocations: region {
                     ... on meapProjectRegion_Category {

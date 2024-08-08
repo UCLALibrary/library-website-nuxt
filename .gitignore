@@ -70,6 +70,7 @@ typings/
 
 # Nuxt generate
 dist
+.output
 
 # vuepress build output
 .vuepress/dist
@@ -79,7 +80,7 @@ dist
 
 # IDE
 .idea
-.vscode
+
 
 # Service worker
 sw.*
@@ -97,3 +98,10 @@ storybook-static
 # Cypress
 cypress/fixtures/example.json
 cypress/screenshots
+cypress/downloads
+
+# local component testing
+page/component.vue
+pages/components.vue
+data/mock
+data/db/tempIndex

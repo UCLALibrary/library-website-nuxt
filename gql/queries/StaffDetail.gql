@@ -1,4 +1,5 @@
-#import "~/gql/fragments/Image"
+#import "../gql/fragments/Image.gql"
+
 query StaffDetail($slug: [String]!) {
     entry(section: "staffMember", slug: $slug) {
         ... on staffMember_staffMember_Entry {
@@ -27,6 +28,7 @@ query StaffDetail($slug: [String]!) {
             locations: staffAssociatedLocations {
                 title
                 to: uri
+                uri
                 id
             }
             pronouns

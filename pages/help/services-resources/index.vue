@@ -1,375 +1,399 @@
-<template lang="html">
-    <!-- v-ifs working on section wrappers without v-show -->
-    <main
-        id="main"
-        class="page page-help"
-    >
-        <masthead-secondary
-            v-if="summaryData"
-            :title="summaryData.title || ''"
-            :text="summaryData.text || ''"
-        />
+<script setup>
+// COMPONENTS
+import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, RichText, SectionCardsWithIllustrations, BlockCallToAction } from 'ucla-library-website-components'
 
-        <search-generic
-            search-type="help"
-            class="generic-search"
-            :filters="searchFilters"
-            :search-generic-query="searchGenericQuery"
-            :placeholder="parsedPlaceholder"
-            @search-ready="getSearchData"
-        />
+import { onMounted } from 'vue'
 
-        <!--h4 style="margin: 30px 400px">
-            No of hits
-            {{ `from craft is ${parsedPages.length}` }}
-        </h4>
-        <h4 style="margin: 30px 400px">
-            No of hits from ES
-            {{
-                hits &&
-                    `calling parsedhitsresults length
-            ${hits.length}`
-            }}
-        </h4-->
-
-        <section-wrapper theme="divider">
-            <divider-way-finder
-                color="help"
-                class="search-margin"
-            />
-        </section-wrapper>
-
-        <section-wrapper
-            v-if="
-                (page.serviceOrResource || page.workshopseries) &&
-                    hits.length == 0
-            "
-            class="section-no-top-margin"
-        >
-            <section-cards-with-illustrations
-                :items="parsedServiceAndResourceList"
-                :is-horizontal="true"
-            />
-        </section-wrapper>
-        <section-wrapper
-            v-else-if="hits && hits.length > 0"
-            class="section-no-top-margin"
-        >
-            <h2
-                v-if="$route.query.q"
-                class="about-results"
-            >
-                Displaying {{ hits.length }} results for
-                <strong><em>“{{ $route.query.q }}”</em></strong>
-            </h2>
-            <h2
-                v-else
-                class="about-results"
-            >
-                Displaying {{ hits.length }} results
-            </h2>
-            <section-cards-with-illustrations
-                :items="parseHitsResults"
-                :is-horizontal="true"
-            />
-        </section-wrapper>
-
-        <section-wrapper
-            v-else-if="noResultsFound"
-            class="section-no-top-margin"
-        >
-            <div class="error-text">
-                <rich-text>
-                    <h2>Search for “{{ $route.query.q }}” not found.</h2>
-                    <p>
-                        We can’t find the term you are looking for on this page,
-                        but we're here to help. <br>
-                        Try searching the whole site from
-                        <a href="https://library.ucla.edu">UCLA Library Home</a>, or try one of the these regularly visited links:
-                    </p>
-                    <ul>
-                        <li>
-                            <a
-                                href="https://www.library.ucla.edu/research-teaching-support/research-help"
-                            >Research Help</a>
-                        </li>
-                        <li>
-                            <a href="/help/services-resources/ask-us">Ask Us</a>
-                        </li>
-                        <li>
-                            <a
-                                href="https://www.library.ucla.edu/use/access-privileges/disability-resources"
-                            >Accessibility Resources</a>
-                        </li>
-                    </ul>
-                </rich-text>
-            </div>
-        </section-wrapper>
-        <section-wrapper>
-            <divider-way-finder
-                class="divider-way-finder"
-                color="help"
-            />
-        </section-wrapper>
-
-        <section-wrapper>
-            <block-call-to-action
-                class="block-call-to-action"
-                :is-global="true"
-            />
-        </section-wrapper>
-    </main>
-</template>
-
-<script>
 // HELPERS
-import _get from "lodash/get"
-import getListingFilters from "~/utils/getListingFilters"
-import sortByTitle from "~/utils/sortByTitle"
-import queryFilterHasValues from "~/utils/queryFilterHasValues"
-import removeTags from "~/utils/removeTags"
-// GQL
-import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from "~/gql/queries/ServiceResourceWorkshopSeriesList"
-import HELP_TOPIC_LIST from "~/gql/queries/HelpTopicList"
-// UTILITIES
-import config from "~/utils/searchConfig"
-export default {
-    async asyncData({ $graphql, $elasticsearchplugin }) {
-        let pageAsyncData = await $graphql.default.request(
-            SERVICE_RESOURCE_WORKSHOPSERIES_LIST
-        )
-        if (
-            pageAsyncData.externalResource &&
-            pageAsyncData.externalResource.length > 0
-        ) {
-            for (let externalResource of pageAsyncData.externalResource) {
-                await $elasticsearchplugin.index(
-                    {...externalResource, serviceOrResourceType: "external resource"},
-                    externalResource.slug
-                )
-            }
-        }
+import _get from 'lodash/get'
 
-        let helpTopicAsyncData = await $graphql.default.request(HELP_TOPIC_LIST)
-        return {
-            page: pageAsyncData,
-            helpTopic: helpTopicAsyncData,
-            summaryData: _get(pageAsyncData, "entry", {}),
-        }
+// SEARCH UTILS
+import getListingFilters from '../utils/getListingFilters'
+import config from '../utils/searchConfig'
+import queryFilterHasValues from '../utils/queryFilterHasValues'
+import parseFilters from '../utils/parseFilters'
+
+// UTILITIES
+import removeTags from '../utils/removeTags'
+import sortByTitle from '../utils/sortByTitle'
+
+// GQL
+import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from '../gql/queries/ServiceResourceWorkshopSeriesList.gql'
+import HELP_TOPIC_LIST from '../gql/queries/HelpTopicList.gql'
+
+const { $graphql, $elasticsearchplugin, $dataApi } = useNuxtApp()
+const route = useRoute()
+
+const { data, error } = await useAsyncData('services-resources-list', async () => {
+  const data = await $graphql.default.request(SERVICE_RESOURCE_WORKSHOPSERIES_LIST)
+  const helpTopicData = await $graphql.default.request(HELP_TOPIC_LIST)
+  return { data, helpTopicData }
+})
+
+if (error.value) {
+  throw createError({
+    ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
+  })
+}
+
+if (!data.value.data && !data.value.helpTopicData) {
+  throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
+}
+
+// ELASTIC SEARCH INDEX
+// GETS DATA FROM CRAFT
+// CREATES ES INDEX TO BE SEARCHED
+// CHECK THAT NUXT IS RUNNING ON THE SERVER (import.meta.server)
+// console.log('DATA-DATA-DATA-DATA' + data)
+if (
+  data.value.data.externalResource &&
+  data.value.data.externalResource.length > 0 &&
+  import.meta.server
+) {
+  for (const externalResource of data.value.data.externalResource) {
+    await $elasticsearchplugin.index(
+      { ...externalResource, serviceOrResourceType: 'external resource' },
+      externalResource.slug
+    )
+  }
+}
+
+if (data.value.entry && import.meta.server) {
+  const { $elasticsearchplugin } = useNuxtApp()
+  const doc = {
+    title: data.value.entry.title,
+    text: data.value.entry.text,
+    uri: 'help/services-resources/'
+  }
+  await $elasticsearchplugin.index(doc, 'services-resources-list')
+}
+
+const page = ref(data.value.data)
+const helpTopic = ref(data.value.helpTopicData)
+const summaryData = ref(_get(data.value.data, 'entry', {}))
+
+// ENABLE PREVIEW
+watch(data, (newVal, oldVal) => {
+  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  page.value = newVal.data
+  helpTopic.value = newVal.helpTopicData
+  summaryData.value = _get(newVal.data, 'entry', {})
+})
+
+// ES SEARCH FUNCTIONALITY
+const hits = ref([])
+const noResultsFound = ref(false)
+const searchFilters = ref([])
+const searchGenericQuery = ref({
+  queryText: route.query.q || '',
+  queryFilters: parseFilters(route.query.filters || ''),
+})
+
+// THIS WATCHER IS CALLED WHEN THE ROUTER PUSHES UPDATES TO THE QUERY PARAM
+// ie: someone changes the query or starts viewing from a bookmarked page
+
+watch(
+  () => route.query,
+  (newVal, oldVal) => {
+    // console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
+    searchES()
+  }, { deep: true, immediate: true }
+)
+
+// ES search function
+async function searchES() {
+  if (
+    (route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
+      queryFilterHasValues(
+        parseFilters(route.query.filters || ''),
+        config.serviceOrResources.filters
+      ))
+  ) {
+    // console.log('Search ES HITS query,', route.query.q)
+    const queryText = route.query.q || '*'
+    const results = await $dataApi.keywordSearchWithFilters(
+      queryText,
+      config.serviceOrResources.searchFields,
+      '(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)',
+      parseFilters(route.query.filters || ''),
+      config.serviceOrResources.sortField,
+      config.serviceOrResources.orderBy,
+      config.serviceOrResources.resultFields,
+    )
+
+    if (results && results.hits && results.hits.total.value > 0) {
+      // console.log('Search ES HITS,', results.hits.hits)
+      hits.value = results.hits.hits
+      noResultsFound.value = false
+    } else {
+      noResultsFound.value = true
+      hits.value = []
+    }
+  } else {
+    // console.log('data.value', data.value)
+
+    hits.value = []
+    noResultsFound.value = false
+  }
+}
+
+// METADATA FOR THE TAB
+useHead({
+  title: page.value ? summaryData.value.title : '... loading',
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: removeTags(summaryData.value.text),
     },
-    data() {
-        return {
-            page: {},
-            noResultsFound: false,
-            summaryData: {},
-            helpTopic: {},
-            searchFilters: [],
-            hits: [],
-            searchGenericQuery: {
-                queryText: this.$route.query.q || "",
-                queryFilters:
-                    (this.$route.query.filters &&
-                        JSON.parse(this.$route.query.filters)) ||
-                    {},
-            },
-        }
-    },
-    async fetch() {
-        this.page = {}
-        this.hits = []
-        this.helptopic = {}
-        if (
-            (this.$route.query.q && this.$route.query.q !== "") ||
-            (this.$route.query.filters &&
-                queryFilterHasValues(
-                    this.$route.query.filters,
-                    config.serviceOrResources.filters
-                ))
-        ) {
-            this.page = {}
-            this.hits = []
-            this.helptopic = {}
-            const results = await this.$dataApi.keywordSearchWithFilters(
-                this.$route.query.q || "*",
-                config.serviceOrResources.searchFields,
-                "(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)",
-                (this.$route.query.filters &&
-                    JSON.parse(this.$route.query.filters)) ||
-                    {},
-                config.serviceOrResources.sortField,
-                config.serviceOrResources.orderBy,
-                config.serviceOrResources.resultFields,
-                []
-            )
-            if (results && results.hits && results.hits.total.value > 0) {
-                this.hits = results.hits.hits
-                this.noResultsFound = false
-            } else {
-                this.hits = []
-                this.noResultsFound = true
-            }
-            this.searchGenericQuery = {
-                queryText: this.$route.query.q || "",
-                queryFilters: (this.$route.query.filters && JSON.parse(this.$route.query.filters)) || {},
-            }
-            const getSummaryData = await this.$graphql.default.request(
-                SERVICE_RESOURCE_WORKSHOPSERIES_LIST
-            )
-            this.summaryData = _get(getSummaryData, "entry", {})
-        } else {
-            this.hits = []
-            this.noResultsFound = false
-            this.page = {}
-            this.helptopic = {}
-            this.page = await this.$graphql.default.request(
-                SERVICE_RESOURCE_WORKSHOPSERIES_LIST
-            )
-            this.helpTopic = await this.$graphql.default.request(
-                HELP_TOPIC_LIST
-            )
-            this.summaryData = _get(this.page, "entry", {})
-            this.hits = []
-            this.searchGenericQuery.queryText = ""
-        }
-    },
-    head() {
-        let title = this.page ? this.summaryData.title : "... loading"
-        let metaDescription = removeTags(this.summaryData.text)
-        return {
-            title: title,
-            meta: [
-                {
-                    hid: "description",
-                    name: "description",
-                    content: metaDescription,
-                },
-            ],
-        }
-    },
-    fetchOnServer: false,
-    // multiple components can return the same `fetchKey` and Nuxt will track them both separately
-    fetchKey: "services-resources-workshops",
-    computed: {
-        parseDisplayResultsText() {
-            if (this.hits.length > 1)
-                return `Displaying ${this.hits.length} results`
-            else return `Displaying ${this.hits.length} result`
-        },
-        parsedPages() {
-            if (
-                this.page &&
-                (this.page.serviceOrResource ||
-                    this.page.workshopseries ||
-                    this.page.externalResource ||
-                    this.helpTopic.entries)
-            ) {
-                return [
-                    ...(this.page.serviceOrResource || []),
-                    ...(this.page.workshopseries || []),
-                    ...(this.page.externalResource || []),
-                    ...(this.helpTopic.entries || []),
-                ]
-            } else {
-                return []
-            }
-        },
-        parsedServiceAndResourceList() {
-            let externalResourcesDisplay = (
-                this.page.externalResource || []
-            ).filter((obj) => obj.displayEntry === "yes")
-            return [
-                ...(this.page.serviceOrResource || []),
-                ...(this.page.workshopseries || []),
-                ...(externalResourcesDisplay || []),
-                ...(this.helpTopic.entries || []),
-            ]
-                .sort(sortByTitle)
-                .map((obj) => {
-                    return {
-                        ...obj,
-                        category:
-                            obj.category === "help/services-resources"
-                                ? "workshop series"
-                                : obj.typeHandle === "helpTopic"
-                                    ? "help topic"
-                                    : obj.typeHandle === "externalResource"
-                                        ? "resource"
-                                        : obj.category,
-                        to:
-                            obj.typeHandle === "externalResource"
-                                ? `${obj.to}`
-                                : `/${obj.to}`,
-                    }
-                })
-        },
-        parsedPlaceholder() {
-            return `Search ${this.summaryData.title}`
-        },
-        parseHitsResults() {
-            return this.parseHits()
-        },
-    },
-    watch: {
-        "$route.query": "$fetch",
-        "$route.query.q"(newValue) {
-            // if (newValue === "") this.hits = []
-        },
-    },
-    async mounted() {
-        this.setFilters()
-    },
-    methods: {
-        async setFilters() {
-            const searchAggsResponse = await this.$dataApi.getAggregations(
-                config.serviceOrResources.filters,
-                "serviceOrResource OR workshopSeries OR helpTopic OR externalResource",
-            )
-            this.searchFilters = getListingFilters(
-                searchAggsResponse,
-                config.serviceOrResources.filters
-            )
-        },
-        parseHits() {
-            return this.hits.map((obj) => {
-                return {
-                    title: obj["_source"].title,
-                    sectionHandle: obj["_source"].sectionHandle,
-                    to:
-                        obj["_source"].sectionHandle === "externalResource"
-                            ? `${obj["_source"].externalResourceUrl}`
-                            : `/${obj["_source"].uri}`,
-                    iconName:
-                        obj["_source"]["illustrationsResourcesAndServices"],
-                    text: obj["_source"].text || obj["_source"].summary,
-                    category:
-                        obj["_source"].sectionHandle === "workshopSeries"
-                            ? "workshop"
-                            : obj["_source"].sectionHandle === "helpTopic"
-                                ? "help topic"
-                                : obj["_source"].sectionHandle ===
-                              "externalResource"
-                                    ? "resource"
-                                    : obj["_source"].type,
-                }
-            })
-        },
-        async getSearchData(data) {
-            this.$router.push({
-                path: "/help/services-resources",
-                query: {
-                    q: data.text,
-                    filters: JSON.stringify(data.filters),
-                },
-            })
-        },
-    },
+  ],
+})
+
+// COMPUTED PROPERTIES
+
+// DATA FROM CRAFT
+const parsedPages = computed(() => {
+  if (
+    page.value &&
+    (page.value.serviceOrResource ||
+      page.value.workshopseries ||
+      page.value.externalResource ||
+      helpTopic.value.entries)
+  ) {
+    return [
+      ...(page.value.serviceOrResource || []),
+      ...(page.value.workshopseries || []),
+      ...(page.value.externalResource || []),
+      ...(helpTopic.value.entries || []),
+    ]
+  } else {
+    return []
+  }
+})
+
+const parsedServiceAndResourceList = computed(() => {
+  const externalResourcesDisplay = (
+    page.value.externalResource || []
+  ).filter(obj => obj.displayEntry === 'yes')
+  return [
+    ...(page.value.serviceOrResource || []),
+    ...(page.value.workshopseries || []),
+    ...(externalResourcesDisplay || []),
+    ...(helpTopic.value.entries || []),
+  ]
+    .sort(sortByTitle)
+    .map((obj) => {
+      return {
+        ...obj,
+        category:
+          obj.category === 'help/services-resources'
+            ? 'workshop series'
+            : obj.typeHandle === 'helpTopic'
+              ? 'help topic'
+              : obj.typeHandle === 'externalResource'
+                ? 'resource'
+                : obj.category,
+        to:
+          obj.typeHandle === 'externalResource'
+            ? `${obj.to}`
+            : `/${obj.to}`,
+      }
+    })
+})
+
+const parsedPlaceholder = computed(() => {
+  return `Search ${summaryData.value.title}`
+})
+
+// DATA FROM ELASTIC SEARCH
+const parseHitsResults = computed(() => {
+  return hits.value.map((obj) => {
+    return {
+      title: obj._source.title,
+      sectionHandle: obj._source.sectionHandle,
+      to:
+        obj._source.sectionHandle === 'externalResource'
+          ? `${obj._source.externalResourceUrl}`
+          : `/${obj._source.uri}`,
+      iconName:
+        obj._source.illustrationsResourcesAndServices,
+      text: obj._source.text || obj._source.summary,
+      category:
+        obj._source.sectionHandle === 'workshopSeries'
+          ? 'workshop'
+          : obj._source.sectionHandle === 'helpTopic'
+            ? 'help topic'
+            : obj._source.sectionHandle ===
+              'externalResource'
+              ? 'resource'
+              : obj._source.type,
+    }
+  })
+})
+
+// Not being used?
+// const parseDisplayResultsText = computed(() => {
+//   if (hits.value.length > 1)
+//     return `Displaying ${hits.value.length} results`
+//   else return `Displaying ${hits.value.length} result`
+// })
+
+// ES MOUNTED for FILTERS
+onMounted(async () => {
+  // console.log('onMounted called')
+  await setFilters()
+})
+
+// ELEASTIC SEARCH METHODS
+// FETCH FILTERS FROM ES
+async function setFilters() {
+  const searchAggsResponse = await $dataApi.getAggregations(
+    config.serviceOrResources.filters,
+    'serviceOrResource OR workshopSeries OR helpTopic OR externalResource',
+  )
+  searchFilters.value = getListingFilters(
+    searchAggsResponse,
+    config.serviceOrResources.filters
+  )
+}
+
+//  This event handler is invoked by the search-generic component (filtered search )selections
+function getSearchData(data) {
+  // console.log('On the page getsearchdata called')
+  // Construct the filters parameter dynamically
+  const filters = []
+  for (const key in data.filters) {
+    if (data.filters[key].length > 0) {
+      filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+    }
+  }
+  // Use the router to navigate with the new query parameters
+  useRouter().push({
+    path: '/help/services-resources/',
+    query: {
+      q: data.text,
+      filters: filters.join(' AND ')
+    }
+  })
 }
 </script>
 
+<template lang="html">
+  <main
+    id="main"
+    class="page page-help"
+  >
+    <MastheadSecondary
+      v-show="summaryData"
+      :title="summaryData.title || ''"
+      :text="summaryData.text || ''"
+    />
+
+    <SearchGeneric
+      search-type="help"
+      class="generic-search"
+      :filters="searchFilters"
+      :search-generic-query="searchGenericQuery"
+      :placeholder="parsedPlaceholder"
+      @search-ready="getSearchData"
+    />
+
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
+        color="help"
+        class="search-margin"
+      />
+    </SectionWrapper>
+
+    <!-- ALL RESULTS -->
+    <SectionWrapper
+      v-show="(page.serviceOrResource || page.workshopseries) &&
+        hits.length == 0 && !noResultsFound"
+      class="section-no-top-margin"
+    >
+      <SectionCardsWithIllustrations
+        :items="parsedServiceAndResourceList"
+        :is-horizontal="true"
+      />
+    </SectionWrapper>
+
+    <SectionWrapper
+      v-show="hits && hits.length > 0"
+      class="section-no-top-margin"
+    >
+      <h2
+        v-if="route.query && route.query.q"
+        class="about-results"
+      >
+        Displaying {{ hits.length }} results for
+        <strong><em>“{{ route.query.q }}”</em></strong>
+      </h2>
+      <h2
+        v-else
+        class="about-results"
+      >
+        Displaying {{ hits.length }} results
+      </h2>
+      <SectionCardsWithIllustrations
+        :items="parseHitsResults"
+        :is-horizontal="true"
+      />
+    </SectionWrapper>
+
+    <SectionWrapper
+      v-show="noResultsFound && route.query.q"
+      class="section-no-top-margin"
+    >
+      <div class="error-text">
+        <RichText>
+          <h2>Search for “{{ route.query.q }}” not found.</h2>
+          <p>
+            We can’t find the term you are looking for on this page,
+            but we're here to help. <br>
+            Try searching the whole site from
+            <a href="https://library.ucla.edu/">UCLA Library Home</a>, or try one of the these
+            regularly visited links:
+          </p>
+          <ul>
+            <li>
+              <a href="https://www.library.ucla.edu/research-teaching-support/research-help/">Research
+                Help</a>
+            </li>
+            <li>
+              <a href="/help/services-resources/ask-us/">Ask Us</a>
+            </li>
+            <li>
+              <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources/">Accessibility
+                Resources</a>
+            </li>
+          </ul>
+        </RichText>
+      </div>
+    </SectionWrapper>
+
+    <SectionWrapper>
+      <DividerWayFinder
+        class="divider-way-finder"
+        color="help"
+      />
+    </SectionWrapper>
+
+    <SectionWrapper>
+      <BlockCallToAction
+        class="block-call-to-action"
+        :is-global="true"
+      />
+    </SectionWrapper>
+  </main>
+</template>
+
 <style lang="scss" scoped>
 .page-help {
-        ::v-deep label.label {
-            text-transform: capitalize;
-        }
+  :deep(label.label) {
+    text-transform: capitalize;
+  }
 }
 </style>

@@ -1,4 +1,4 @@
-#import "~/gql/fragments/Image"
+#import "../gql/fragments/Image.gql"
 
 query Homepage {
     entry(section: "homepage") {
@@ -63,6 +63,7 @@ query Homepage {
                     ... on location_location_Entry {
                         id
                         to: uri
+                        uri
                         title
                         summary
                     }

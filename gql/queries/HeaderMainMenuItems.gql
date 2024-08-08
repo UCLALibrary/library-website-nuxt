@@ -1,4 +1,4 @@
-#import "~/gql/fragments/MenuItem"
+#import "../gql/fragments/MenuItem.gql"
 
 query HeaderMainMenuItems {
     secondary: nodes(navHandle: "secondaryMenu", level: 1) {

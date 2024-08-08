@@ -1,4 +1,4 @@
-query EventsExhibitionsList {
+query EventWorkshopList {
     entries(section: ["event", "exhibition"], orderBy: "postDate") {
         id
         title

@@ -1,5 +1,5 @@
-#import "~/gql/fragments/Image"
-#import "~/gql/fragments/collections/ExhibitionsAndCollectionsFpb"
+#import "../gql/fragments/Image.gql"
+#import "../gql/fragments/collections/ExhibitionsAndCollectionsFpb.gql"
 
 query CollectionDetail($slug: [String!]) {
   entry(section: "collection", slug: $slug) {
@@ -8,6 +8,7 @@ query CollectionDetail($slug: [String!]) {
     physicalDigital
     uri
     slug
+    typeHandle
     sectionHandle
     heroImage {
       ... on heroImage_heroImage_BlockType {

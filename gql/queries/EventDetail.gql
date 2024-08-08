@@ -1,6 +1,6 @@
-#import "~/gql/fragments/Image"
-#import "~/gql/fragments/collections/DefaultFpbWithCardsAndHighlight.gql"
-#import "~/gql/fragments/collections/ExhibitionsAndCollectionsFpb"
+#import "../gql/fragments/Image.gql"
+#import "../gql/fragments/collections/DefaultFpbWithCardsAndHighlight.gql"
+#import "../gql/fragments/collections/ExhibitionsAndCollectionsFpb.gql"
 query EventDetail($slug: [String!]) {
     event: entry(section: "event", slug: $slug) {
         ... on event_event_Entry {
@@ -34,16 +34,6 @@ query EventDetail($slug: [String!]) {
                     format: "Y-m-d\\TH:i"
                     timezone: "America/Los_Angeles"
                 )
-            startDate: startDateWithTime
-                @formatDateTime(
-                    format: "Y-m-d\\TH:i"
-                    timezone: "America/Los_Angeles"
-                )
-            endDate: endDateWithTime
-                @formatDateTime(
-                    format: "Y-m-d\\TH:i"
-                    timezone: "America/Los_Angeles"
-                )
             eventType {
                 ... on eventType_Category {
                     id
@@ -55,6 +45,7 @@ query EventDetail($slug: [String!]) {
                 ... on location_location_Entry {
                     id
                     to: uri
+                    uri
                     title
                     summary
                 }
@@ -139,6 +130,7 @@ query EventDetail($slug: [String!]) {
                 ... on location_location_Entry {
                     id
                     to: uri
+                    uri
                     title
                     summary
                 }
@@ -312,6 +304,7 @@ query EventDetail($slug: [String!]) {
                     ... on location_location_Entry {
                         id
                         to: uri
+                        uri
                         title
                         summary
                     }

@@ -1,4 +1,4 @@
-#import "~/gql/fragments/Image"
+#import "../gql/fragments/Image.gql"
 
 query ExploreCollectionsList {
     entry(section: "listingExploreCollections") {
