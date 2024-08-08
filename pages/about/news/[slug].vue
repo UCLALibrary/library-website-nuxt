@@ -93,9 +93,9 @@ const parsedAssociatedStaffMember = computed(() => {
         uri: fixUri(loc.uri)
       }
     })
-    obj.locations = fixUriLocations
     return {
       ...obj,
+      locations: fixUriLocations,
       to: `/about/staff/${obj.to}`,
       image: _get(obj, 'image[0]', null),
       staffName: `${obj.nameFirst} ${obj.nameLast}`,
