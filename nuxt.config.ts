@@ -103,6 +103,7 @@ export default defineNuxtConfig({
 
     // Public keys that are exposed to the client
     public: {
+      hostName: process.env.SITEMAP_HOST,
       craftGraphqlURL: process.env.CRAFT_ENDPOINT || '',
       s3Bucket: process.env.S3_BUCKET,
       esReadKey: process.env.ES_READ_KEY || '',

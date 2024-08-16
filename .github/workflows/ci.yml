@@ -57,11 +57,13 @@ jobs:
           key: nuxt-site-${{ github.sha }}
       - name: Sets env vars for PR preview
         run: |
+          echo "SITEMAP_HOST=deploy-preview-${{ github.event.pull_request.number }}-${{ secrets.SITEMAP_URL_TEST }}" >> $GITHUB_ENV
           echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-deploy-preview" >> $GITHUB_ENV
           echo "ES_ALIAS=${{secrets.ES_ALIAS_TEST}}-deploy-preview" >> $GITHUB_ENV
         if: github.ref_name!='main'
       - name: Sets env vars for main merge
         run: |
+          echo "SITEMAP_HOST=${{ secrets.SITEMAP_URL_TEST }}" >> $GITHUB_ENV
           echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}" >> $GITHUB_ENV
           echo "ES_ALIAS=${{secrets.ES_ALIAS_TEST}}" >> $GITHUB_ENV
         if: github.ref_name=='main'
@@ -70,7 +72,7 @@ jobs:
           CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
           LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
           S3_BUCKET: 'https://static.library.ucla.edu/'
-          SITEMAP_HOST: ${{ secrets.SITEMAP_URL_TEST }}
+          SITEMAP_HOST: ${{ env.SITEMAP_URL_TEST }}
           ES_URL: ${{ secrets.ES_URL }}
           ESApiKey: ${{ secrets.ESApiKey }}
           ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}

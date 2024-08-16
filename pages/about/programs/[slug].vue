@@ -14,6 +14,8 @@ import PROGRAM_DETAIL from '../gql/queries/ProgramDetail.gql'
 const { $graphql, $getHeaders, $elasticsearchplugin } = useNuxtApp()
 
 const route = useRoute()
+const hostname = useRuntimeConfig().public.hostName
+console.log("hostname", hostname)
 
 const { data, error } = await useAsyncData(`program-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(PROGRAM_DETAIL, {
@@ -165,19 +167,15 @@ onMounted(() => {
     />
 
     <SectionWrapper>
-      <ClientOnly
-        fallback-tag="span"
-        fallback="Loading hours..."
-      >
-        <TheHours
-          v-if="
-            page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
-          "
-          lid="0"
-          :is-clicc="true"
-        />
-      </ClientOnly>
+
+      <TheHours
+        v-if="
+          page.uri ==
+          'about/programs/campus-library-instructional-computing-commons-clicc'
+        "
+        :src="`${hostname}/blockCliccHours.html?lid=0`"
+      />
+
       <DividerWayFinder
         v-if="
           page.uri ==

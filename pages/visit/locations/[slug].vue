@@ -12,9 +12,11 @@ import removeTags from '../utils/removeTags'
 import LOCATION_DETAIL from '../gql/queries/LocationDetail.gql'
 
 const { $graphql, $getHeaders } = useNuxtApp()
+const hostname = useRuntimeConfig().public.hostName
+console.log("hostname", hostname)
 
 const route = useRoute()
-const url = useRequestURL()
+
 
 const { data, error } = await useAsyncData(`locations-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(LOCATION_DETAIL, {
@@ -253,7 +255,7 @@ onMounted(() => {
     >
       <TheHours
         v-if="page.libcalLocationIdForHours"
-        :src="`${url.protocol}//${url.hostname}:${url.port}/blockHours.html?lid=${page.libcalLocationIdForHours}`"
+        :src="`${hostname}/blockHours.html?lid=${page.libcalLocationIdForHours}`"
       />
 
       <!-- AMENITIES -->
