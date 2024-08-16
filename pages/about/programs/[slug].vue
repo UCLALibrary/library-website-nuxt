@@ -15,7 +15,7 @@ const { $graphql, $getHeaders, $elasticsearchplugin } = useNuxtApp()
 
 const route = useRoute()
 const hostname = useRuntimeConfig().public.hostName
-console.log("hostname", hostname)
+console.log('hostname', hostname)
 
 const { data, error } = await useAsyncData(`program-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(PROGRAM_DETAIL, {
@@ -167,11 +167,10 @@ onMounted(() => {
     />
 
     <SectionWrapper>
-
       <TheHours
         v-if="
           page.uri ==
-          'about/programs/campus-library-instructional-computing-commons-clicc'
+            'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         :src="`${hostname}/blockCliccHours.html?lid=0`"
       />
@@ -179,7 +178,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           page.uri ==
-          'about/programs/campus-library-instructional-computing-commons-clicc'
+            'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         class="divider"
         color="about"

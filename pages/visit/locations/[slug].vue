@@ -13,10 +13,9 @@ import LOCATION_DETAIL from '../gql/queries/LocationDetail.gql'
 
 const { $graphql, $getHeaders } = useNuxtApp()
 const hostname = useRuntimeConfig().public.hostName
-console.log("hostname", hostname)
+console.log('hostname', hostname)
 
 const route = useRoute()
-
 
 const { data, error } = await useAsyncData(`locations-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(LOCATION_DETAIL, {
