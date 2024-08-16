@@ -68,8 +68,8 @@ devDependencies:
     specifier: ^5.19.0
     version: 5.19.0
   ucla-library-website-components:
-    specifier: ^3.8.1
-    version: 3.8.1(typescript@5.5.3)(vue@3.4.32)
+    specifier: ^3.8.5
+    version: 3.8.5(typescript@5.5.3)(vue@3.4.32)
 
 packages:
 
@@ -371,8 +371,8 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@babel/runtime@7.24.8:
-    resolution: {integrity: sha512-5F7SDGs1T72ZczbRwbGO9lQi0NLjQxzl6i4lJxLxfW9U5UluCSyEJeniWvnhl3/euNiqQVbo8zruhsDfid0esA==}
+  /@babel/runtime@7.25.0:
+    resolution: {integrity: sha512-7dRy4DwXwtzBrPbZflqxnvfxLF8kdZXPkhymtDeFoFqE6ldzjQFgYTtYIFARcLEYDrqfBfYcZt1WqFxRoyC9Rw==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
@@ -3641,7 +3641,7 @@ packages:
     resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
     engines: {node: '>=0.11'}
     dependencies:
-      '@babel/runtime': 7.24.8
+      '@babel/runtime': 7.25.0
     dev: true
 
   /date-fns@3.6.0:
@@ -7827,8 +7827,8 @@ packages:
     resolution: {integrity: sha512-kybTsDIiyGcg1xTJqPZWrkv1+NThfXj26oJYar/oeHN9MqR36qO6B0M9JYNcWEp6AvrgrX0aH2wilstlndj0fw==}
     dev: true
 
-  /ucla-library-website-components@3.8.1(typescript@5.5.3)(vue@3.4.32):
-    resolution: {integrity: sha512-6TjvsS1pAjHYeb9CrVNhSd1vUfAGwk7DJ6ZQduxqePg5VTONkqwT7gFQ8KkJdgGEx+HI1986fQEUXZXEhZQ3zg==}
+  /ucla-library-website-components@3.8.5(typescript@5.5.3)(vue@3.4.32):
+    resolution: {integrity: sha512-SXl9rKf2a8oV44Fvq59aZcYqwewPI/7FVsmooJSZwJHTlFhTb5PfP/e2Kady5A4QKY8LsoBnRp6oBXC09lJVeA==}
     peerDependencies:
       vue: ^3.4.29
     dependencies:

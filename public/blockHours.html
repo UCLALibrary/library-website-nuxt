@@ -263,9 +263,23 @@
         // Iframe
         function resize() {
             var height = $(document).height();
-            // console.log("Height iframe: " + height)
+            console.log("Height iframe: " + height)
             // Backwards – send message to parent
             window.parent.postMessage(['setHeight', height], '*');
+            adjustHeight()
+        }
+        function adjustHeight() {
+            var height = document.body.scrollHeight;
+            console.log("Height of iframe content: " + height);
+
+            // Adjust height directly within the iframe itself
+            if (window !== window.parent) {
+                // We're inside an iframe, notify parent (as a fallback)
+                window.parent.postMessage(['setHeight', height], '*');
+            } else {
+                // Standalone window handling, adjust the window height
+                document.body.style.height = `${height}px`;
+            }
         }
         window.onload = () => resize();
         window.onresize = () => resize();

@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, PageAnchor, SimpleCards, ButtonMore, BlockAmenities, SectionSpacesList, BlockHours, DividerGeneral, RichText, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionTeaserList } from 'ucla-library-website-components'
+import { NavBreadcrumb, BannerText, BannerHeader, PageAnchor, SimpleCards, ButtonMore, BlockAmenities, SectionSpacesList, DividerGeneral, RichText, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionTeaserList } from 'ucla-library-website-components'
 
 import { onMounted } from 'vue'
 
@@ -14,6 +14,7 @@ import LOCATION_DETAIL from '../gql/queries/LocationDetail.gql'
 const { $graphql, $getHeaders } = useNuxtApp()
 
 const route = useRoute()
+const url = useRequestURL()
 
 const { data, error } = await useAsyncData(`locations-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(LOCATION_DETAIL, {
@@ -250,9 +251,9 @@ onMounted(() => {
       section-title="Using the Library"
       :section-summary="page.howToGetHere"
     >
-      <BlockHours
+      <TheHours
         v-if="page.libcalLocationIdForHours"
-        :lid="page.libcalLocationIdForHours"
+        :src="`${url.protocol}//${url.hostname}:${url.port}/blockHours.html?lid=${page.libcalLocationIdForHours}`"
       />
 
       <!-- AMENITIES -->

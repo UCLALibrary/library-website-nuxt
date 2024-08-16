@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFinder, PageAnchor, FlexibleBlocks, BlockHours, ButtonMore, SectionTeaserCard } from 'ucla-library-website-components'
+import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFinder, PageAnchor, FlexibleBlocks, ButtonMore, SectionTeaserCard } from 'ucla-library-website-components'
 
 import { onMounted } from 'vue'
 
@@ -165,18 +165,23 @@ onMounted(() => {
     />
 
     <SectionWrapper>
-      <BlockHours
-        v-if="
-          page.uri ==
+      <ClientOnly
+        fallback-tag="span"
+        fallback="Loading hours..."
+      >
+        <TheHours
+          v-if="
+            page.uri ==
             'about/programs/campus-library-instructional-computing-commons-clicc'
-        "
-        lid="0"
-        :is-clicc="true"
-      />
+          "
+          lid="0"
+          :is-clicc="true"
+        />
+      </ClientOnly>
       <DividerWayFinder
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         class="divider"
         color="about"
