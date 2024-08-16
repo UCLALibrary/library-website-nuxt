@@ -250,8 +250,10 @@
     <script>
         $(function () {
             const queryString = window.location.search;
+            console.log("block hours queryString: ", queryString)
             const urlParams = new URLSearchParams(queryString);
             const lid = urlParams.get('lid')
+            console.log("block hours lid: ", lid)
             const week = new $.LibCalWeeklyGrid($("#s-lc-whw"),
                 {
                     iid: 3244,

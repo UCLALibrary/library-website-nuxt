@@ -125,7 +125,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/impact/all': { redirect: '/about/reports' }
+    '/impact/all': { redirect: '/about/reports' },
   },
 
   /*

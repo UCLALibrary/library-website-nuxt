@@ -14,8 +14,9 @@ import PROGRAM_DETAIL from '../gql/queries/ProgramDetail.gql'
 const { $graphql, $getHeaders, $elasticsearchplugin } = useNuxtApp()
 
 const route = useRoute()
-const hostname = useRuntimeConfig().public.hostName
-console.log('hostname', hostname)
+const hostname = ref('')
+hostname.value = useRuntimeConfig().public.hostName
+console.log('hostname', hostname.value)
 
 const { data, error } = await useAsyncData(`program-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(PROGRAM_DETAIL, {
@@ -111,6 +112,10 @@ const parsedSeeMore = computed(() => {
 })
 
 onMounted(() => {
+  // for different environments iframe and parent page url should have the same hostname
+  const url = new URL(window.location.href)
+  hostname.value = `${url.protocol}//${url.hostname}:${url.port}`
+  console.log('In mounted: hostname.value:  ', hostname.value)
   // Call the plugin method to get the .section-header2 and .section-header3 elements
   h2Array.value = $getHeaders.getHeadersMethod()
 })

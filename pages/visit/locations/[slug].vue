@@ -12,8 +12,9 @@ import removeTags from '../utils/removeTags'
 import LOCATION_DETAIL from '../gql/queries/LocationDetail.gql'
 
 const { $graphql, $getHeaders } = useNuxtApp()
-const hostname = useRuntimeConfig().public.hostName
-console.log('hostname', hostname)
+const hostname = ref('')
+hostname.value = useRuntimeConfig().public.hostName
+console.log('hostname', hostname.value)
 
 const route = useRoute()
 
@@ -187,6 +188,10 @@ const mergeSortEventsExhibitions = computed(() => {
 })
 
 onMounted(() => {
+  // for different environments iframe and parent page url should have the same hostname
+  const url = new URL(window.location.href)
+  hostname.value = `${url.protocol}//${url.hostname}:${url.port}`
+  console.log('In mounted: hostname.value:  ', hostname.value)
   // Call the plugin method to get the .section-header2 and .section-header3 elements
   h2Array.value = $getHeaders.getHeadersMethod()
 })
