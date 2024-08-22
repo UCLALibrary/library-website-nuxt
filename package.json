@@ -1,50 +1,45 @@
 {
-    "name": "library-website-nuxt",
-    "engines": {
-        "npm": "8.5.5",
-        "node": "16.15.0"
-    },
-    "scripts": {
-        "dev": "nuxt",
-        "build": "nuxt build",
-        "generate": "nuxt generate",
-        "start": "nuxt start",
-        "cypress": "cypress open",
-        "cypress-run": "cypress run",
-        "lint": "eslint ./",
-        "lint-fix": "eslint --fix ./"
-    },
-    "dependencies": {
-        "@nuxtjs/gtm": "^2.4.0",
-        "@nuxtjs/sitemap": "^2.4.0",
-        "@vue-a11y/skip-to": "^2.1.2",
-        "consola": "^2.15.3",
-        "nuxt": "^2.15.8",
-        "nuxt-robots-module": "^1.5.1"
-    },
-    "devDependencies": {
-        "@nuxtjs/axios": "^5.13.6",
-        "@nuxtjs/router-extras": "^1.1.1",
-        "@nuxtjs/style-resources": "^1.0.0",
-        "@percy/cli": "^1.0.0-beta.67",
-        "@percy/cypress": "^3.1.2",
-        "core-js": "^3.11.0",
-        "cypress": "^12.5.1",
-        "date-fns": "^2.22.1",
-        "eslint": "^7.25.0",
-        "eslint-plugin-cypress": "^2.12.1",
-        "eslint-plugin-vue": "^7.9.0",
-        "graphql": "^15.5.1",
-        "graphql-tag": "^2.12.5",
-        "lodash": "^4.17.21",
-        "nuxt-graphql-request": "^4.0.0",
-        "prettier": "^2.2.1",
-        "prettier-eslint": "^12.0.0",
-        "sass": "^1.45.2",
-        "sass-loader": "^10.1.1",
-        "ucla-library-design-tokens": "^5.5.1",
-        "ucla-library-website-components": "^2.41.6",
-        "vue-svg-loader": "^0.16.0",
-        "vue-template-compiler": "^2.6.12"
-    }
+	"name": "library-website-nuxt",
+	"type": "module",
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev --log-level verbose",
+		"generate": "node --max-old-space-size=8096 node_modules/nuxi/bin/nuxi.mjs generate",
+		"prerender": "nuxt build --prerender --log-level verbose",
+		"start": "pnpm dlx serve .output/public",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare",
+		"cypress": "cypress open",
+		"cypress-run": "cypress run",
+		"lint": "eslint . --ext .vue,.js,.ts --ignore-path .gitignore",
+		"lint:fix": "eslint --fix . --ext .vue,.js,.ts --ignore-path .gitignore",
+		"typecheck": "nuxi typecheck",
+		"test": "pnpm lint && pnpm typecheck",
+		"library": ""
+	},
+	"dependencies": {
+		"@pinia/nuxt": "^0.5.1",
+		"@vue-a11y/skip-to": "^3.0.3",
+		"@nuxtjs/sitemap": "^5.1.1",
+		"nuxt": "^3.12.2",
+		"vue": "^3.4.29",
+		"vue-router": "^4.3.3"
+	},
+	"devDependencies": {
+		"@nuxt/eslint-config": "^0.2.0",
+		"@nuxtjs/eslint-config-typescript": "^12.1.0",
+		"@percy/cli": "^1.27.0",
+		"@percy/cypress": "^3.1.2",
+		"@types/node": "^18.17.3",
+		"@zadigetvoltaire/nuxt-gtm": "^0.0.13",
+		"cypress": "^12.17.4",
+		"date-fns": "^3.6.0",
+		"eslint": "^8.56.0",
+		"eslint-plugin-cypress": "^2.15.1",
+		"lodash": "^4.17.21",
+		"nuxt-graphql-request": "^7.0.5",
+		"sass": "^1.66.1",
+		"ucla-library-design-tokens": "^5.19.0",
+		"ucla-library-website-components": "^3.8.5"
+	}
 }

@@ -1,4 +1,4 @@
-#import "~/gql/fragments/collections/DefaultFpb"
+#import "../gql/fragments/collections/DefaultFpb.gql"
 
 query HelpTopicDetail($slug: [String!]) {
     entry(section: "helpTopic", slug: $slug) {

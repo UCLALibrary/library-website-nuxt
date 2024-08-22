@@ -1,10 +1,11 @@
-#import "~/gql/fragments/collections/AllFpb"
-#import "~/gql/fragments/Image"
+#import "../gql/fragments/collections/AllFpb.gql"
+#import "../gql/fragments/Image.gql"
 
 query LocationDetail($slug: [String!]) {
     entry(section: "location", slug: $slug) {
         ... on location_location_Entry {
             id
+            typehandle
             sectionHandle
             slug
             uri
@@ -94,6 +95,7 @@ query LocationDetail($slug: [String!]) {
                     altText
                 }
             }
+
             authors: staffMember {
                 id
                 slug
@@ -152,14 +154,14 @@ query LocationDetail($slug: [String!]) {
             }
             requiresRegistration
             eventDescription
-            heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    id
-                    image {
-                        ...Image
-                    }
-                }
-            }
+            #heroImage {
+            #   ... on heroImage_heroImage_BlockType {
+            #      id
+            #     image {
+            #        ...Image
+            #   }
+            #}
+            #}
             eventType {
                 title
             }
@@ -184,6 +186,7 @@ query LocationDetail($slug: [String!]) {
             title
             summary
             dateUpdated
+
             ongoing
             heroImage {
                 ... on heroImage_heroImage_BlockType {
@@ -207,6 +210,7 @@ query LocationDetail($slug: [String!]) {
                 id
                 title
                 to: uri
+                uri
             }
         }
     }
