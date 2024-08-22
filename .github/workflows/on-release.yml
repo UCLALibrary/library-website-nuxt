@@ -27,7 +27,7 @@ jobs:
         with:
           ref: production
       - uses: ./.github/workflows/setup-workspace
-      - run: npm run generate
+      - run: pnpm run generate
         env:
           CRAFT_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
           LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
