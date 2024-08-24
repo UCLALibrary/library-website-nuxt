@@ -86,7 +86,10 @@ jobs:
         uses: nwtgck/actions-netlify@v3 #
         with:
           production-deploy: false
-          deploy-message: https://github.com/UCLALibrary/library-website-nuxt/pull/${{ github.event.pull_request.number }}
+          deploy-message: |
+            Deploy preview for PR #${{ github.event.pull_request.number }}:
+            Commit ${{ github.event.pull_request.head.sha }} - https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.event.pull_request.head.sha }}
+            Pull Request: https://github.com/UCLALibrary/library-website-nuxt/pull/${{ github.event.pull_request.number }}
           alias: deploy-preview-${{ github.event.pull_request.number }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           overwrites-pull-request-comment: true
@@ -96,6 +99,8 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        retry: 3
+        retry-delay: 10
       - uses: cypress-io/github-action@v5
         with:
           start: pnpm dlx serve .output/public
@@ -118,7 +123,7 @@ jobs:
         uses: nwtgck/actions-netlify@v3 #
         with:
           production-deploy: true
-          deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
+          deploy-message: "Deploy to test on merge to main for commit ${{ github.sha }}: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}"
           github-token: ${{ secrets.GITHUB_TOKEN }}
           publish-dir: .output/public
           fails-without-credentials: true
@@ -126,3 +131,5 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        retry: 3
+        retry-delay: 10
