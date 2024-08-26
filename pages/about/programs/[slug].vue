@@ -48,8 +48,8 @@ const h2Array = ref([]) // anchor tags
 
 watch(data, (newVal, oldVal) => {
   // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
-  page.value = _get(newVal.data, 'entry', {})
-  associatedArticles.value = _get(newVal.data, 'associatedArticles', {})
+  page.value = _get(newVal, 'entry', {})
+  associatedArticles.value = _get(newVal, 'associatedArticles', {})
 })
 
 useHead({
@@ -177,7 +177,7 @@ onMounted(() => {
       <TheHours
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         :src="`${hostname}/blockCliccHours.html?lid=0`"
       />
@@ -185,7 +185,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         class="divider"
         color="about"
