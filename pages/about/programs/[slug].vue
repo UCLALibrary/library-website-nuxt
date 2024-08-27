@@ -26,6 +26,8 @@ const { data, error } = await useAsyncData(`program-detail-${route.params.slug}`
   return data
 })
 
+console.log('Program preview test', data)
+
 if (error.value) {
   throw createError({
     ...error.value, statusMessage: 'Page not found.' + error.value, fatal: true
@@ -46,8 +48,8 @@ const h2Array = ref([]) // anchor tags
 
 watch(data, (newVal, oldVal) => {
   // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
-  page.value = _get(newVal.data, 'entry', {})
-  associatedArticles.value = _get(newVal.data, 'associatedArticles', {})
+  page.value = _get(newVal, 'entry', {})
+  associatedArticles.value = _get(newVal, 'associatedArticles', {})
 })
 
 useHead({
@@ -71,7 +73,7 @@ const parsedButtonTo = computed(() => {
 
 const parsedStaffDirectory = computed(() => {
   const showStaffDirectory = page.value.viewStaffDirectory
-  const staffDepartmentTitle = page.value.department[0]?.title ? page.value.department[0].title : null
+  const staffDepartmentTitle = page.value.department && page.value.department.length > 0 && page.value.department[0]?.title ? page.value.department[0].title : null
 
   if (showStaffDirectory === 'false') {
     // if the showStaffDirectory is false, show nothing
@@ -175,7 +177,7 @@ onMounted(() => {
       <TheHours
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         :src="`${hostname}/blockCliccHours.html?lid=0`"
       />
@@ -183,7 +185,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         class="divider"
         color="about"

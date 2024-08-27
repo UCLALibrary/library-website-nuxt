@@ -27,6 +27,10 @@ jobs:
         with:
           ref: production
       - uses: ./.github/workflows/setup-workspace
+       # Step to generate the current date and time
+      - name: Set deployment date
+        id: set-deploy-date
+        run: echo "DEPLOY_DATE=$(date '+%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_ENV
       - run: pnpm run generate
         env:
           CRAFT_ENDPOINT: ${{ secrets.CRAFT_PROD_ENDPOINT }}
@@ -42,10 +46,10 @@ jobs:
           ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_PROD}}
           LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_PROD}}
       - name: Deploy to Netlify on release
-        uses: nwtgck/actions-netlify@v3 #
+        uses: nwtgck/actions-netlify@v3
         with:
           production-deploy: true
-          deploy-message: https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.sha }}
+          deploy-message: "Deployment triggered by release ${{ github.event.release.tag_name }}. Date ${{ env.DEPLOY_DATE }}"
           github-token: ${{ secrets.GITHUB_TOKEN }}
           publish-dir: .output/public
           fails-without-credentials: true
@@ -53,3 +57,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_LIBRARY_SITE_ID }}
+        
