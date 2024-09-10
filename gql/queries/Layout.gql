@@ -1,0 +1,24 @@
+#import "../gql/fragments/MenuItem.gql"
+
+query Layout {
+  secondary: nodes(navHandle: "secondaryMenu", level: 1) {
+        ...MenuItem
+    }
+    primary: nodes(navHandle: "primaryMenu", level: 1) {
+        ...MenuItem
+        children {
+            ...MenuItem
+        }
+    }
+  footerPrimary: nodes(navHandle: "footerPrimary", level: 1) {
+      ...MenuItem
+      children {
+          ...MenuItem
+      }
+  }
+    
+  footerSock: nodes(navHandle: "footerSockLinks") {
+    ...MenuItem
+  }
+
+}

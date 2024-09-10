@@ -14,7 +14,6 @@ useHead({
     }
   ]
 })
-const route = useRoute()
 
 const globalStore = useGlobalStore()
 // console.log('In default layout:', globalStore.header)
@@ -37,20 +36,21 @@ const libraryAlert = computed(() => {
       return null
   }
 })
-const hasScrolled = ref(false)
-const hasScrolledPastHeader = ref(false)
+const { header, footerPrimary, footerSock, setLayoutData } = useLayoutState()
+setLayoutData(globalStore)
 
 const classes = computed(() => [
   'layout',
   'layout-default',
-  { 'has-scrolled': hasScrolled.value },
-  { 'has-scrolled-past-header': hasScrolledPastHeader.value }
 ])
 // on mounted I want to want to check if visiblity change event is triggered and use $fetch or $graghql to fetch data from api
 // I want to use this data to update the global store
 // const { $graphql } = useNuxtApp()
 const { $alerts } = useNuxtApp()
-const { $hasScrolled, $hasScrolledPastHeader } = useNuxtApp()
+const { $layoutData } = useNuxtApp()
+watch(globalStore.header, (newVal, oldVal) => {
+  console.log('Global store changed for draft previews', newVal, oldVal)
+})
 
 onMounted(async () => {
   // console.log('onMounted in Default layout')
@@ -70,16 +70,21 @@ onMounted(async () => {
       }
     }
   }) */
-  // console.log('Apps.vue, did this solve the hydration errors')
-  hasScrolled.value = $hasScrolled()
-  hasScrolledPastHeader.value = $hasScrolledPastHeader()
+  console.log('In default layout', enabled.value, state?.token)
+
+  if (process.env.NODE_ENV !== 'development' && layoutCustomProps['is-error']) {
+    console.log('In SSG refresh layout data as state is not maintained after an error response')
+    await $layoutData()
+  }
+  classes.value.push({ 'has-scrolled': globalStore.sTop })
+  classes.value.push({ 'has-scrolled-past-header': globalStore.sTop >= 150 })
   await $alerts()
 })
 </script>
 
 <template>
   <div :class="classes">
-    <HeaderSmart v-if="globalStore.header && !$route.path.includes('/impact/')" />
+    <HeaderSmart v-if="header && !$route.path.includes('/impact/')" />
     <SectionWrapper
       v-if="!$route.path.includes('/impact/')"
       class="
@@ -94,21 +99,21 @@ onMounted(async () => {
       />
     </SectionWrapper>
     <nav-primary
-      v-if="globalStore.header && $route.path.includes('/impact/')"
+      v-if="header && $route.path.includes('/impact/')"
       class="primary"
     />
     <slot />
 
     <footer>
       <FooterPrimary
-        v-if="globalStore.footerPrimary && !$route.path.includes('/impact/')"
+        v-if="footerPrimary && !$route.path.includes('/impact/')"
         :form="true"
       />
       <FooterPrimary
-        v-if="globalStore.footerPrimary && $route.path.includes('/impact/')"
+        v-if="footerPrimary && $route.path.includes('/impact/')"
         :form="false"
       />
-      <FooterSock v-if="globalStore.footerSock && !$route.path.includes('/impact/')" />
+      <FooterSock v-if="footerSock && !$route.path.includes('/impact/')" />
     </footer>
     <div
       v-if="!$route.path.includes('/impact/')"
