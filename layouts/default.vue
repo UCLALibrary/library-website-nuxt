@@ -15,6 +15,7 @@ useHead({
   ]
 })
 
+const layoutCustomProps = useAttrs()
 const globalStore = useGlobalStore()
 // console.log('In default layout:', globalStore.header)
 const libraryAlert = computed(() => {
@@ -70,7 +71,6 @@ onMounted(async () => {
       }
     }
   }) */
-  console.log('In default layout', enabled.value, state?.token)
 
   if (process.env.NODE_ENV !== 'development' && layoutCustomProps['is-error']) {
     console.log('In SSG refresh layout data as state is not maintained after an error response')
