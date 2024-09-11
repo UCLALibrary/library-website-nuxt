@@ -3,8 +3,8 @@ export const useLayoutState = () => {
   const footerSock = useState('footerSock', () => {})
   const header = useState('header', () => {})
   const setLayoutData = (store) => {
-    console.log('set footer', import.meta.server)
-    console.log('setFooter', store, footerPrimary.value || 'None!')
+    // console.log('set footer', import.meta.server)
+    // console.log('setFooter', store, footerPrimary.value || 'None!')
     if (!footerPrimary.value) {
       footerPrimary.value = store.footerPrimary
     }

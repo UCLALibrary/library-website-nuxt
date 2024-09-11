@@ -85,12 +85,13 @@ jobs:
       - name: Set deployment date
         id: set-deploy-date
         run: echo "DEPLOY_DATE=$(date '+%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_ENV
-
+      - name: Install Netlify CLI globally
+        run: pnpm add -g netlify-cli
       - name: Deploy to Netlify (preview)
         if: "github.ref_name != 'main'"  # Ensure this condition is properly quoted
         run: |
           for i in {1..3}; do
-            deployOutput=$(pnpx netlify deploy --dir=.output/public --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --alias=deploy-preview-${{ github.event.pull_request.number }} --message="Date ${{ env.DEPLOY_DATE }}: Deploy preview for PR #${{ github.event.pull_request.number }}: Commit ${{ github.event.pull_request.head.sha }} - https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.event.pull_request.head.sha }}")
+            deployOutput=$(netlify deploy --dir=.output/public --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --alias=deploy-preview-${{ github.event.pull_request.number }} --message="Date ${{ env.DEPLOY_DATE }}: Deploy preview for PR #${{ github.event.pull_request.number }}: Commit ${{ github.event.pull_request.head.sha }} - https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.event.pull_request.head.sha }}")
             if [ $? -eq 0 ]; then
               echo "$deployOutput"
               deployUrl=$(echo "$deployOutput" | grep -o 'https://[^\"]*')
