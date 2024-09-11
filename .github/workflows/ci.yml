@@ -114,7 +114,7 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      - name: Create  Pull Request GitHub Deployment
+      - name: Create  Pull Request GitHub Deployment and Set Pull Request Deployment Status to Success
         if: github.ref_name!='main'
         id: create_deployment
         uses: actions/github-script@v6
@@ -128,17 +128,10 @@ jobs:
               description: 'Pull Request deployment',
               required_contexts: []
             });
-            core.setOutput('id', deployment.id);  # Correctly setting the deployment ID output
-      - name: Set Pull Request Deployment Status to Success
-        if: github.ref_name!='main'
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const deployUrl = process.env.NETLIFY_DEPLOY_URL;
             await github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              deployment_id: ${{ steps.create_deployment.outputs.id }},
+              deployment_id: deployment.id,
               state: 'success',
               environment_url: deployUrl,
               description: 'Deployment successful'
