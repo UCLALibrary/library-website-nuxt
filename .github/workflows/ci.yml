@@ -128,6 +128,7 @@ jobs:
               description: 'Pull Request deployment',
               required_contexts: []
             });
+            const deployUrl = process.env.NETLIFY_DEPLOY_URL;
             await github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
