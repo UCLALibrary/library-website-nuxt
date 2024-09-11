@@ -14,7 +14,7 @@ import LOCATION_DETAIL from '../gql/queries/LocationDetail.gql'
 const { $graphql, $getHeaders } = useNuxtApp()
 const hostname = ref('')
 hostname.value = useRuntimeConfig().public.hostName
-console.log('hostname', hostname.value)
+// console.log('hostname', hostname.value)
 
 const route = useRoute()
 

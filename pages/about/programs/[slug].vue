@@ -16,7 +16,8 @@ const { $graphql, $getHeaders, $elasticsearchplugin } = useNuxtApp()
 const route = useRoute()
 const hostname = ref('')
 hostname.value = useRuntimeConfig().public.hostName
-console.log('hostname', useRuntimeConfig().public.hostName)
+if (route.params.slug.indexOf('clicc') > 0)
+  console.log('hostname', useRuntimeConfig().public.hostName)
 
 const { data, error } = await useAsyncData(`program-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(PROGRAM_DETAIL, {
@@ -26,7 +27,7 @@ const { data, error } = await useAsyncData(`program-detail-${route.params.slug}`
   return data
 })
 
-console.log('Program preview test', data)
+// console.log('Program preview test', data)
 
 if (error.value) {
   throw createError({
