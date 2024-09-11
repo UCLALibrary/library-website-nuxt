@@ -94,7 +94,7 @@ jobs:
             deployOutput=$(netlify deploy --dir=.output/public --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --alias=deploy-preview-${{ github.event.pull_request.number }} --message="Date ${{ env.DEPLOY_DATE }}: Deploy preview for PR #${{ github.event.pull_request.number }}: Commit ${{ github.event.pull_request.head.sha }} - https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.event.pull_request.head.sha }}")
             if [ $? -eq 0 ]; then
               echo "$deployOutput"
-              deployUrl=$(echo "$deployOutput" | grep -o 'https://[^\"]*')
+              deployUrl=$(echo "$deployOutput" | grep -o 'https://deploy-preview-[^ ]*')
               echo "NETLIFY_DEPLOY_URL=$deployUrl" >> $GITHUB_ENV
               echo "Deployment succeeded on attempt $i"
               # Construct message and echo it
@@ -114,8 +114,6 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
-
       - uses: cypress-io/github-action@v5
         with:
           start: pnpm dlx serve .output/public
