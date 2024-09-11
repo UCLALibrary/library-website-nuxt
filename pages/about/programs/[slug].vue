@@ -16,7 +16,7 @@ const { $graphql, $getHeaders, $elasticsearchplugin } = useNuxtApp()
 const route = useRoute()
 const hostname = ref('')
 hostname.value = useRuntimeConfig().public.hostName
-console.log('hostname', hostname.value)
+console.log('hostname', useRuntimeConfig().public.hostName)
 
 const { data, error } = await useAsyncData(`program-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(PROGRAM_DETAIL, {
