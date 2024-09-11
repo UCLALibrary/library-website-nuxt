@@ -52,6 +52,29 @@ onMounted(async () => {
   classes.value.push({ 'has-scrolled-past-header': globalStore.sTop >= 150 })
   await $alerts()
 })
+
+const shouldIncludeExtraScript = computed(() => {
+  if (useRuntimeConfig().public.hostName.indexOf('stage') > 0)
+    return true
+  return false
+})
+useHead({
+  titleTemplate: title =>
+    title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library',
+  script: [
+    {
+      hid: 'libanswers',
+      src: 'https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753',
+      defer: true
+    },
+    ...(shouldIncludeExtraScript.value ? [{
+      hid: 'gsurvey',
+      src: 'https://test-librarystudy.library.ucla.edu/gsurvey.js',
+      defer: true
+    }
+    ] : [])
+  ]
+})
 </script>
 <template>
   <div>

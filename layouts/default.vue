@@ -1,17 +1,28 @@
 <script setup>
 // components need to be imported for nitro crawling in static mode
 import { HeaderSmart, SectionWrapper, SiteNotificationAlert, FooterPrimary, FooterSock } from 'ucla-library-website-components'
-import { onMounted } from 'vue'
+
+const shouldIncludeExtraScript = computed(() => {
+  if (useRuntimeConfig().public.hostName.indexOf('stage') > 0)
+    return true
+  return false
+})
 
 useHead({
   titleTemplate: title =>
-    title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library',
+    title === 'Homepage' ? 'UCLA Library' : `${title || 'Error'}` + ' | UCLA Library',
   script: [
     {
       hid: 'libanswers',
       src: 'https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753',
       defer: true
+    },
+    ...(shouldIncludeExtraScript.value ? [{
+      hid: 'gsurvey',
+      src: 'https://test-librarystudy.library.ucla.edu/gsurvey.js',
+      defer: true
     }
+    ] : [])
   ]
 })
 
