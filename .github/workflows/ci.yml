@@ -85,33 +85,6 @@ jobs:
       - name: Set deployment date
         id: set-deploy-date
         run: echo "DEPLOY_DATE=$(date '+%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_ENV
-      - name: Deploy to Netlify (preview)
-        if: github.ref_name!='main'
-        run: |
-          for i in {1..3}; do
-            deployOutput=$(pnpx netlify deploy --dir=.output/public --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --alias=deploy-preview-${{ github.event.pull_request.number }} --message="Date ${{ env.DEPLOY_DATE }}: Deploy preview for PR #${{ github.event.pull_request.number }}: Commit ${{ github.event.pull_request.head.sha }} - https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.event.pull_request.head.sha }}")
-            if [ $? -eq 0 ]; then
-              echo "$deployOutput"
-              deployUrl=$(echo "$deployOutput" | grep -o 'https://[^\"]*')
-              echo "NETLIFY_DEPLOY_URL=$deployUrl" >> $GITHUB_ENV
-              echo "Deployment succeeded on attempt $i"
-              # Construct message and echo it
-              deployMessage="🚀 Preview deployment available at: [Netlify Preview]($deployUrl)"
-              echo "$deployMessage"
-
-              # Set the deploy message as output for future steps
-              echo "deploy-message=$deployMessage" >> $GITHUB_OUTPUT
-              break
-            elif [ $i -eq 3 ]; then
-              echo "Deployment failed after 3 attempts"
-              exit 1
-            fi
-            echo "Retrying in 10 seconds..."
-            sleep 10
-          done
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       - uses: cypress-io/github-action@v5
         with:
