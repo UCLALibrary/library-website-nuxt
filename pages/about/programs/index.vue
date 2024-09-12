@@ -149,7 +149,7 @@ const parsedSectionHighlight = computed(() => {
 const parsedProgramsList = computed(() => {
   return programs.value.map((obj) => {
     if (obj.programUrlBehavior === 'externalSite') {
-      // console.log(obj.programUrlBehavior, obj)
+      console.log(obj.programUrlBehavior, obj)
     }
     return {
       ...obj,

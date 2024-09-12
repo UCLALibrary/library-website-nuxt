@@ -57,7 +57,7 @@ jobs:
           key: nuxt-site-${{ github.sha }}
       - name: Sets env vars for PR preview
         run: |
-          echo "SITEMAP_HOST=deploy-preview-${{ github.event.pull_request.number }}-${{ secrets.SITEMAP_URL_TEST }}" >> $GITHUB_ENV
+          echo "SITEMAP_HOST=deploy-preview-${{ github.event.pull_request.number }}-uclalibrary-test.netlify.app" >> $GITHUB_ENV
           echo "ES_INDEX=${{secrets.ES_INDEX_TEST}}-deploy-preview" >> $GITHUB_ENV
           echo "ES_ALIAS=${{secrets.ES_ALIAS_TEST}}-deploy-preview" >> $GITHUB_ENV
         if: github.ref_name!='main'
@@ -72,7 +72,7 @@ jobs:
           CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
           LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
           S3_BUCKET: 'https://static.library.ucla.edu/'
-          SITEMAP_HOST: ${{ env.SITEMAP_URL_TEST }}
+          SITEMAP_HOST: ${{ env.SITEMAP_HOST }}
           ES_URL: ${{ secrets.ES_URL }}
           ESApiKey: ${{ secrets.ESApiKey }}
           ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
@@ -81,25 +81,112 @@ jobs:
           ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
           ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}
           LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
+      # Step to generate the current date and time
+      - name: Set deployment date
+        id: set-deploy-date
+        run: echo "DEPLOY_DATE=$(date '+%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_ENV
+      - name: Install Netlify CLI globally
+        run: pnpm add -g netlify-cli
       - name: Deploy to Netlify (preview)
-        if: github.ref_name!='main'
-        uses: nwtgck/actions-netlify@v3
-        with:
-          production-deploy: false
-          deploy-message: |
-            Deploy preview for PR #${{ github.event.pull_request.number }}:
-            Commit ${{ github.event.pull_request.head.sha }} - https://github.com/UCLALibrary/library-website-nuxt/commit/${{ github.event.pull_request.head.sha }}
-            Pull Request: https://github.com/UCLALibrary/library-website-nuxt/pull/${{ github.event.pull_request.number }}
-          alias: deploy-preview-${{ github.event.pull_request.number }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          overwrites-pull-request-comment: true
-          publish-dir: .output/public
-          fails-without-credentials: true
-          github-deployment-environment: ${{ github.event_name }}-${{ github.event.number }}
+        if: "github.ref_name != 'main'"
+        run: |
+          for i in {1..3}; do
+            echo "Attempt $i to deploy to Netlify..."
+            deployOutput=$(netlify deploy --debug --dir=.output/public --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --alias=deploy-preview-${{ github.event.pull_request.number }} --message="Date: ${{ env.DEPLOY_DATE }} | PR: #${{ github.event.pull_request.number }} | Commit: ${{ github.event.pull_request.head.sha }}")
+            
+            if [ $? -eq 0 ]; then
+              echo "Deployment succeeded on attempt $i"
+              echo "Netlify deploy output: $deployOutput"
+              
+              # Extract the deploy URL
+              deployUrl=$(echo "$deployOutput" | grep -o 'https://deploy-preview-[^ ]*')
+              echo "NETLIFY_DEPLOY_URL=$deployUrl" >> $GITHUB_ENV
+
+              # Construct a success message
+              deployMessage="🚀 Preview deployment available at: [Netlify Preview]($deployUrl)"
+              echo "$deployMessage"
+
+              # Set the deploy message as output for future steps
+              echo "deploy-message=$deployMessage" >> $GITHUB_OUTPUT
+              break
+            else
+              echo "Deployment failed on attempt $i with error: $deployOutput"
+              if [ $i -eq 3 ]; then
+                echo "Deployment failed after 3 attempts. Exiting..."
+                exit 1
+              fi
+              echo "Retrying in 10 seconds..."
+              sleep 10
+            fi
+          done
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        
+      - name: Create  Pull Request GitHub Deployment and Set Pull Request Deployment Status to Success
+        if: github.ref_name!='main'
+        id: create_deployment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: deployment } = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.sha,
+              environment: 'pull_request-${{ github.event.pull_request.number }}',  // Ensures each PR gets a unique environment
+              description: 'Pull Request deployment',
+              required_contexts: [],
+              auto_inactive: true   // Ensure only one active deployment
+            });
+
+            const deployUrl = process.env.NETLIFY_DEPLOY_URL;
+
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: deployment.id,
+              state: 'success',
+              environment_url: deployUrl,
+              description: 'Deployment successful'
+            });
+
+      - name: Comment on Pull Request with Netlify URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const deployUrl = process.env.NETLIFY_DEPLOY_URL;
+            const siteId = '${{ secrets.NETLIFY_SITE_ID }}';
+            const markdownComment = `🚀 Preview deployment available at: [Netlify Preview](${deployUrl})`;
+
+            // Function to find an existing comment with a specific identifier
+            async function findIssueComment(githubClient, siteId) {
+              const { data: comments } = await githubClient.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number
+              });
+              const commentIdentifier = `<!-- NETLIFY DEPLOY COMMENT GENERATED BY ACTIONS_NETLIFY - SITE ID: ${siteId} -->`;
+              return comments.find(comment => comment.body.includes(commentIdentifier));
+            }
+
+            const existingComment = await findIssueComment(github, siteId);
+            if (existingComment) {
+              // Update the existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: `${markdownComment}\n<!-- NETLIFY DEPLOY COMMENT GENERATED BY ACTIONS_NETLIFY - SITE ID: ${siteId} -->`
+              });
+            } else {
+              // Create a new comment
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `${markdownComment}\n<!-- NETLIFY DEPLOY COMMENT GENERATED BY ACTIONS_NETLIFY - SITE ID: ${siteId} -->`
+              });
+            }
       - uses: cypress-io/github-action@v5
         with:
           start: pnpm dlx serve .output/public
@@ -109,7 +196,7 @@ jobs:
           CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
           LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
           S3_BUCKET: 'https://static.library.ucla.edu/'
-          SITEMAP_HOST: ${{ secrets.SITEMAP_URL_TEST }}
+          SITEMAP_HOST: ${{ env.SITEMAP_HOST }}
           ESApiKey: ${{ secrets.ESApiKey }}
           ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
           ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
