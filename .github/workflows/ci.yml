@@ -132,12 +132,14 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: context.sha,
-              environment: '${{ github.event_name }}-${{ github.event.number }}',
+              environment: 'pull_request-${{ github.event.pull_request.number }}',  // Ensures each PR gets a unique environment
               description: 'Pull Request deployment',
               required_contexts: [],
-              auto_inactive: true   # This will ensure only one active deployment
+              auto_inactive: true   // Ensure only one active deployment
             });
+
             const deployUrl = process.env.NETLIFY_DEPLOY_URL;
+
             await github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -146,6 +148,7 @@ jobs:
               environment_url: deployUrl,
               description: 'Deployment successful'
             });
+
       - name: Comment on Pull Request with Netlify URL
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
