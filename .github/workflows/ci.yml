@@ -127,7 +127,8 @@ jobs:
               ref: context.sha,
               environment: '${{ github.event_name }}-${{ github.event.number }}',
               description: 'Pull Request deployment',
-              required_contexts: []
+              required_contexts: [],
+              auto_inactive: true   # This will ensure only one active deployment
             });
             const deployUrl = process.env.NETLIFY_DEPLOY_URL;
             await github.rest.repos.createDeploymentStatus({
