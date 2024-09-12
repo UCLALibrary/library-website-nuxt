@@ -21,7 +21,7 @@
 		"@nuxtjs/sitemap": "^5.1.1",
 		"@pinia/nuxt": "^0.5.1",
 		"@vue-a11y/skip-to": "^3.0.3",
-		"nuxt": "^3.12.2",
+		"nuxt": "^3.12.4",
 		"vue": "^3.4.29",
 		"vue-router": "^4.3.3"
 	},
