@@ -70,9 +70,6 @@ devDependencies:
   ucla-library-design-tokens:
     specifier: ^5.22.0
     version: 5.22.0
-  ucla-library-website-components:
-    specifier: ^3.14.1
-    version: 3.14.1(typescript@5.5.3)(vue@3.4.32)
 
 packages:
 
@@ -112,7 +109,7 @@ packages:
       '@babel/traverse': 7.24.8
       '@babel/types': 7.24.9
       convert-source-map: 2.0.0
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -374,13 +371,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@babel/runtime@7.25.0:
-    resolution: {integrity: sha512-7dRy4DwXwtzBrPbZflqxnvfxLF8kdZXPkhymtDeFoFqE6ldzjQFgYTtYIFARcLEYDrqfBfYcZt1WqFxRoyC9Rw==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      regenerator-runtime: 0.14.1
-    dev: true
-
   /@babel/standalone@7.24.10:
     resolution: {integrity: sha512-nGC37EKfmelpyCXto1pw6SBkD5ZQRdMbL6WISi28xWit9dtiy9dChU1WgEfzturUTxrmOGkMDRrCydFMA7uOaQ==}
     engines: {node: '>=6.9.0'}
@@ -405,7 +395,7 @@ packages:
       '@babel/helper-split-export-declaration': 7.24.7
       '@babel/parser': 7.24.8
       '@babel/types': 7.24.9
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -1550,7 +1540,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       ajv: 6.12.6
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       espree: 9.6.1
       globals: 13.24.0
       ignore: 5.3.1
@@ -1648,7 +1638,7 @@ packages:
     deprecated: Use @eslint/config-array instead
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -1740,7 +1730,7 @@ packages:
   /@kwsites/file-exists@1.1.1:
     resolution: {integrity: sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==}
     dependencies:
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -1751,23 +1741,6 @@ packages:
     resolution: {integrity: sha512-9I2Zn6+NJLfaGoz9jN3lpwDgAYvfGeNYdbAIjJOqzs4Tpc+VU3Jqq4IofSUBKajiDS8k9fZIg18/z13mpk1bsA==}
     engines: {node: '>=8'}
     dev: true
-
-  /@mapbox/node-pre-gyp@1.0.11:
-    resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
-    hasBin: true
-    dependencies:
-      detect-libc: 2.0.3
-      https-proxy-agent: 5.0.1
-      make-dir: 3.1.0
-      node-fetch: 2.7.0
-      nopt: 5.0.0
-      npmlog: 5.0.1
-      rimraf: 3.0.2
-      semver: 7.6.3
-      tar: 6.2.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
 
   /@mapbox/node-pre-gyp@1.0.11(supports-color@9.4.0):
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
@@ -1785,7 +1758,6 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
-    dev: true
 
   /@netlify/binary-info@1.0.0:
     resolution: {integrity: sha512-4wMPu9iN3/HL97QblBsBay3E1etIciR84izI3U+4iALY+JHCrI+a2jO0qbAZ/nxKoegypYEaiiqWXylm+/zfrw==}
@@ -1938,38 +1910,6 @@ packages:
       tomlify-j0.4: 3.0.0
       validate-npm-package-name: 4.0.0
       yargs: 17.7.2
-    dev: true
-
-  /@netlify/edge-bundler@12.2.3:
-    resolution: {integrity: sha512-o/Od4gvGT2qPSjJ1TSh8KYDJHfzxW4iemA5DiZtXIDgaIvWgvehZKDROp9wJ2FseP2F83y4ZDmt5xFfBSD9IYQ==}
-    engines: {node: ^14.16.0 || >=16.0.0}
-    dependencies:
-      '@import-maps/resolve': 1.0.1
-      '@vercel/nft': 0.27.4
-      ajv: 8.17.1
-      ajv-errors: 3.0.0(ajv@8.17.1)
-      better-ajv-errors: 1.2.0(ajv@8.17.1)
-      common-path-prefix: 3.0.0
-      env-paths: 3.0.0
-      esbuild: 0.21.2
-      execa: 6.1.0
-      find-up: 6.3.0
-      get-package-name: 2.2.0
-      get-port: 6.1.2
-      is-path-inside: 4.0.0
-      jsonc-parser: 3.3.1
-      node-fetch: 3.3.2
-      node-stream-zip: 1.15.0
-      p-retry: 5.1.2
-      p-wait-for: 4.1.0
-      path-key: 4.0.0
-      semver: 7.6.3
-      tmp-promise: 3.0.3
-      urlpattern-polyfill: 8.0.2
-      uuid: 9.0.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
     dev: true
 
   /@netlify/edge-bundler@12.2.3(supports-color@9.4.0):
@@ -2221,50 +2161,6 @@ packages:
     dependencies:
       '@netlify/node-cookies': 0.1.0
       urlpattern-polyfill: 8.0.2
-    dev: true
-
-  /@netlify/zip-it-and-ship-it@9.38.0:
-    resolution: {integrity: sha512-xQK4O0rhAbzboKod/Dw7EwzwDKLki8ui+zTpA8iS5RtLMRtRUPI8P+aSScafwrt3HL3NHmNe8Pdd+0RYSTGQDQ==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    dependencies:
-      '@babel/parser': 7.24.8
-      '@babel/types': 7.25.2
-      '@netlify/binary-info': 1.0.0
-      '@netlify/serverless-functions-api': 1.23.0
-      '@vercel/nft': 0.27.4
-      archiver: 7.0.1
-      common-path-prefix: 3.0.0
-      cp-file: 10.0.0
-      es-module-lexer: 1.5.4
-      esbuild: 0.19.11
-      execa: 6.1.0
-      fast-glob: 3.3.2
-      filter-obj: 5.1.0
-      find-up: 6.3.0
-      glob: 8.1.0
-      is-builtin-module: 3.2.1
-      is-path-inside: 4.0.0
-      junk: 4.0.1
-      locate-path: 7.2.0
-      merge-options: 3.0.4
-      minimatch: 9.0.5
-      normalize-path: 3.0.0
-      p-map: 5.5.0
-      path-exists: 5.0.0
-      precinct: 11.0.5(supports-color@9.4.0)
-      require-package-name: 2.0.1
-      resolve: 2.0.0-next.5
-      semver: 7.6.3
-      tmp-promise: 3.0.3
-      toml: 3.0.0
-      unixify: 1.0.0
-      urlpattern-polyfill: 8.0.2
-      yargs: 17.7.2
-      zod: 3.23.8
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
     dev: true
 
   /@netlify/zip-it-and-ship-it@9.38.0(supports-color@9.4.0):
@@ -3110,7 +3006,7 @@ packages:
       '@percy/webdriver-utils': 1.28.9(typescript@5.5.3)
       content-disposition: 0.5.4
       cross-spawn: 7.0.3
-      extract-zip: 2.0.1(supports-color@8.1.1)
+      extract-zip: 2.0.1
       fast-glob: 3.3.2
       micromatch: 4.0.7
       mime-types: 2.1.35
@@ -3588,10 +3484,6 @@ packages:
     resolution: {integrity: sha512-6WaYesThRMCl19iryMYP7/x2OVgCtbIVflDGFpWnb9irXI3UjYE4AzmYuiUKY1AJstGijoY+MgUszMgRxIYTYw==}
     dev: true
 
-  /@types/web-bluetooth@0.0.20:
-    resolution: {integrity: sha512-g9gZnnXVq7gM7v3tJCWV/qw7w+KeOlSHAhgF9RytFyifW6AF61hdT2ucrYhPq9hLs5JIryeupHV3qGk95dH9ow==}
-    dev: true
-
   /@types/yargs-parser@21.0.3:
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
     dev: true
@@ -3627,7 +3519,7 @@ packages:
       '@typescript-eslint/type-utils': 6.21.0(eslint@8.57.0)(typescript@5.5.3)
       '@typescript-eslint/utils': 6.21.0(eslint@8.57.0)(typescript@5.5.3)
       '@typescript-eslint/visitor-keys': 6.21.0
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       eslint: 8.57.0
       graphemer: 1.4.0
       ignore: 5.3.1
@@ -3653,7 +3545,7 @@ packages:
       '@typescript-eslint/types': 6.21.0
       '@typescript-eslint/typescript-estree': 6.21.0(typescript@5.5.3)
       '@typescript-eslint/visitor-keys': 6.21.0
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       eslint: 8.57.0
       typescript: 5.5.3
     transitivePeerDependencies:
@@ -3680,7 +3572,7 @@ packages:
     dependencies:
       '@typescript-eslint/typescript-estree': 6.21.0(typescript@5.5.3)
       '@typescript-eslint/utils': 6.21.0(eslint@8.57.0)(typescript@5.5.3)
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       eslint: 8.57.0
       ts-api-utils: 1.3.0(typescript@5.5.3)
       typescript: 5.5.3
@@ -3730,7 +3622,7 @@ packages:
     dependencies:
       '@typescript-eslint/types': 6.21.0
       '@typescript-eslint/visitor-keys': 6.21.0
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
@@ -3818,7 +3710,7 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      '@mapbox/node-pre-gyp': 1.0.11
+      '@mapbox/node-pre-gyp': 1.0.11(supports-color@9.4.0)
       '@rollup/pluginutils': 4.2.1
       acorn: 8.12.0
       acorn-import-attributes: 1.9.5(acorn@8.12.0)
@@ -3833,28 +3725,6 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
-
-  /@vercel/nft@0.27.4:
-    resolution: {integrity: sha512-Rioz3LJkEKicKCi9BSyc1RXZ5R6GmXosFMeBSThh6msWSOiArKhb7c75MiWwZEgPL7x0/l3TAfH/l0cxKNuUFA==}
-    engines: {node: '>=16'}
-    hasBin: true
-    dependencies:
-      '@mapbox/node-pre-gyp': 1.0.11
-      '@rollup/pluginutils': 4.2.1
-      acorn: 8.12.1
-      acorn-import-attributes: 1.9.5(acorn@8.12.1)
-      async-sema: 3.1.1
-      bindings: 1.5.0
-      estree-walker: 2.0.2
-      glob: 7.2.3
-      graceful-fs: 4.2.11
-      micromatch: 4.0.7
-      node-gyp-build: 4.8.1
-      resolve-from: 5.0.0
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-    dev: true
 
   /@vercel/nft@0.27.4(supports-color@9.4.0):
     resolution: {integrity: sha512-Rioz3LJkEKicKCi9BSyc1RXZ5R6GmXosFMeBSThh6msWSOiArKhb7c75MiWwZEgPL7x0/l3TAfH/l0cxKNuUFA==}
@@ -4064,51 +3934,6 @@ packages:
   /@vue/shared@3.4.32:
     resolution: {integrity: sha512-ep4mF1IVnX/pYaNwxwOpJHyBtOMKWoKZMbnUyd+z0udqIxLUh7YCCd/JfDna8aUrmnG9SFORyIq2HzEATRrQsg==}
 
-  /@vuepic/vue-datepicker@8.8.1(vue@3.4.32):
-    resolution: {integrity: sha512-8ehfUz1m69Vuc16Pm4ukgb3Mg1VT14x4EsG1ag4O/qbSNRWztTo+pUV4JnFt0FGLl5gGb6NXlxIvR7EjLgD7Gg==}
-    peerDependencies:
-      vue: '>=3.2.0'
-    dependencies:
-      date-fns: 3.6.0
-      vue: 3.4.32(typescript@5.5.3)
-    dev: true
-
-  /@vueuse/components@10.11.1(vue@3.4.32):
-    resolution: {integrity: sha512-ThcreQCX/eq61sLkLKjigD4PQvs3Wy4zglICvQH9tP6xl87y5KsQEoizn6OI+R3hrOgwQHLJe7Y0wLLh3fBKcg==}
-    dependencies:
-      '@vueuse/core': 10.11.1(vue@3.4.32)
-      '@vueuse/shared': 10.11.1(vue@3.4.32)
-      vue-demi: 0.14.8(vue@3.4.32)
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-    dev: true
-
-  /@vueuse/core@10.11.1(vue@3.4.32):
-    resolution: {integrity: sha512-guoy26JQktXPcz+0n3GukWIy/JDNKti9v6VEMu6kV2sYBsWuGiTU8OWdg+ADfUbHg3/3DlqySDe7JmdHrktiww==}
-    dependencies:
-      '@types/web-bluetooth': 0.0.20
-      '@vueuse/metadata': 10.11.1
-      '@vueuse/shared': 10.11.1(vue@3.4.32)
-      vue-demi: 0.14.8(vue@3.4.32)
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-    dev: true
-
-  /@vueuse/metadata@10.11.1:
-    resolution: {integrity: sha512-IGa5FXd003Ug1qAZmyE8wF3sJ81xGLSqTqtQ6jaVfkeZ4i5kS2mwQF61yhVqojRnenVew5PldLyRgvdl4YYuSw==}
-    dev: true
-
-  /@vueuse/shared@10.11.1(vue@3.4.32):
-    resolution: {integrity: sha512-LHpC8711VFZlDaYUXEBbFBCQ7GS3dVU9mjOhhMhXP6txTV4EhYQg/KGnQuvt/sPAtoUKq7VVUnL6mVtFoL42sA==}
-    dependencies:
-      vue-demi: 0.14.8(vue@3.4.32)
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-    dev: true
-
   /@xhmikosr/archive-type@6.0.1:
     resolution: {integrity: sha512-PB3NeJL8xARZt52yDBupK0dNPn8uIVQDe15qNehUpoeeLWCZyAOam4vGXnoZGz2N9D1VXtjievJuCsXam2TmbQ==}
     engines: {node: ^14.14.0 || >=16.0.0}
@@ -4260,21 +4085,6 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
-  /add-to-calendar-button@2.6.18:
-    resolution: {integrity: sha512-GFQma8kcmE50fGXh1P5yv1MyILa8MJj/Wvr8w9y9JsDqVXPUAYjOP0c3AvENzKOSV2HgxtKxwSUfub8odklKhQ==}
-    engines: {node: '>=18.17.0', npm: '>=9.6.7'}
-    dependencies:
-      timezones-ical-library: 1.8.3
-    dev: true
-
-  /agent-base@6.0.2:
-    resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
-    engines: {node: '>= 6.0.0'}
-    dependencies:
-      debug: 4.3.5(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
   /agent-base@6.0.2(supports-color@9.4.0):
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
     engines: {node: '>= 6.0.0'}
@@ -4282,7 +4092,6 @@ packages:
       debug: 4.3.5(supports-color@9.4.0)
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /agent-base@7.1.1:
     resolution: {integrity: sha512-H0TSyFNDMomMNJQBn8wFV5YC/2eJ+VXECwOadZJT554xP6cODZHPX3H9QMQECxvrgiSOP1pHjy1sMWQVYJOUOA==}
@@ -5758,13 +5567,6 @@ packages:
       is-data-view: 1.0.1
     dev: true
 
-  /date-fns@2.30.0:
-    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
-    engines: {node: '>=0.11'}
-    dependencies:
-      '@babel/runtime': 7.25.0
-    dev: true
-
   /date-fns@3.6.0:
     resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
     dev: true
@@ -5827,6 +5629,7 @@ packages:
     dependencies:
       ms: 2.1.2
       supports-color: 8.1.1
+    dev: true
 
   /debug@4.3.5(supports-color@9.4.0):
     resolution: {integrity: sha512-pt0bNEmneDIvdL1Xsd9oDQ/wrQRkXDT4AUWlNZNPKvW5x/jyO9VFXkJUP07vQ2upmw5PlaITaPKc31jK13V+jg==}
@@ -5839,7 +5642,6 @@ packages:
     dependencies:
       ms: 2.1.2
       supports-color: 9.4.0
-    dev: true
 
   /debug@4.3.6(supports-color@9.4.0):
     resolution: {integrity: sha512-O/09Bd4Z1fBrU4VzkhFqVgpPzaGbw6Sm9FEkBT1A/YBXQFGuuSxa1dN2nxgxS34JmKXqYx8CZAwEVoJFImUXIg==}
@@ -6546,7 +6348,7 @@ packages:
       eslint: '*'
       eslint-plugin-import: '*'
     dependencies:
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       enhanced-resolve: 5.17.0
       eslint: 8.57.0
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0)(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
@@ -6795,7 +6597,7 @@ packages:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.3
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
       eslint-scope: 7.2.2
@@ -7057,6 +6859,20 @@ packages:
       mlly: 1.7.1
       pathe: 1.1.2
       ufo: 1.5.4
+
+  /extract-zip@2.0.1:
+    resolution: {integrity: sha512-GDhU9ntwuKyGXdZBUgTIe+vXnWj0fppUEtMDL0+idd5Sta8TGpHssn/eusA9mrPr9qNDym6SxAYZjNvCn/9RBg==}
+    engines: {node: '>= 10.17.0'}
+    hasBin: true
+    dependencies:
+      debug: 4.3.5(supports-color@9.4.0)
+      get-stream: 5.2.0
+      yauzl: 2.10.0
+    optionalDependencies:
+      '@types/yauzl': 2.10.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
 
   /extract-zip@2.0.1(supports-color@8.1.1):
     resolution: {integrity: sha512-GDhU9ntwuKyGXdZBUgTIe+vXnWj0fppUEtMDL0+idd5Sta8TGpHssn/eusA9mrPr9qNDym6SxAYZjNvCn/9RBg==}
@@ -8079,15 +7895,6 @@ packages:
       resolve-alpn: 1.2.1
     dev: true
 
-  /https-proxy-agent@5.0.1:
-    resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
-    engines: {node: '>= 6'}
-    dependencies:
-      agent-base: 6.0.2
-      debug: 4.3.5(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
   /https-proxy-agent@5.0.1(supports-color@9.4.0):
     resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
     engines: {node: '>= 6'}
@@ -8096,7 +7903,6 @@ packages:
       debug: 4.3.5(supports-color@9.4.0)
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /https-proxy-agent@7.0.5:
     resolution: {integrity: sha512-1e4Wqeblerz+tMKPIq2EMGiiWW1dIjZOksyHWSUm1rmuvw/how9hBHZ38lAGj5ID4Ik6EdkOw7NmWPy6LAwalw==}
@@ -8269,7 +8075,7 @@ packages:
     dependencies:
       '@ioredis/commands': 1.2.0
       cluster-key-slot: 1.1.2
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       denque: 2.1.0
       lodash.defaults: 4.2.0
       lodash.isarguments: 3.1.0
@@ -9525,10 +9331,10 @@ packages:
       '@netlify/build': 29.54.0(@opentelemetry/api@1.8.0)(@types/node@18.19.40)
       '@netlify/build-info': 7.14.1
       '@netlify/config': 20.19.0
-      '@netlify/edge-bundler': 12.2.3
+      '@netlify/edge-bundler': 12.2.3(supports-color@9.4.0)
       '@netlify/edge-functions': 2.9.0
       '@netlify/local-functions-proxy': 1.1.1
-      '@netlify/zip-it-and-ship-it': 9.38.0
+      '@netlify/zip-it-and-ship-it': 9.38.0(supports-color@9.4.0)
       '@octokit/rest': 20.1.1
       '@opentelemetry/api': 1.8.0
       ansi-escapes: 7.0.0
@@ -9559,7 +9365,7 @@ packages:
       execa: 5.1.1
       express: 4.19.2
       express-logging: 1.1.1
-      extract-zip: 2.0.1(supports-color@8.1.1)
+      extract-zip: 2.0.1
       fastest-levenshtein: 1.0.16
       fastify: 4.28.1
       find-up: 7.0.0
@@ -10688,6 +10494,7 @@ packages:
       typescript: 5.5.3
       vue: 3.4.32(typescript@5.5.3)
       vue-demi: 0.14.8(vue@3.4.32)
+    dev: false
 
   /pino-abstract-transport@1.2.0:
     resolution: {integrity: sha512-Guhh8EZfPCfH+PMXAb6rKOjGQEoy0xlAIn+irODG5kgfYV+BQ0rGYYWTIel3P5mmyXqkYkPmdIkywsn6QKUR1Q==}
@@ -11395,10 +11202,6 @@ packages:
     dependencies:
       redis-errors: 1.2.0
 
-  /regenerator-runtime@0.14.1:
-    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
-    dev: true
-
   /regexp-tree@0.1.27:
     resolution: {integrity: sha512-iETxpjK6YoRWJG5o6hXLwvjYAoW+FEZn9os0PD/b6AP6xQwsa/Y7lCVgIixBbUPMfhu+i2LtdeAqVTgGlQarfA==}
     hasBin: true
@@ -11862,7 +11665,7 @@ packages:
     dependencies:
       '@kwsites/file-exists': 1.1.1
       '@kwsites/promise-deferred': 1.1.1
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -12276,6 +12079,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       has-flag: 4.0.0
+    dev: true
 
   /supports-color@9.4.0:
     resolution: {integrity: sha512-VL+lNrEoIXww1coLPOmiEmK/0sGigko5COxI09KzHc2VJXJsQ37UaQ+8quuxjDeA7+KnLGTWRyOXSLLR2Wb4jw==}
@@ -12467,11 +12271,6 @@ packages:
   /time-zone@1.0.0:
     resolution: {integrity: sha512-TIsDdtKo6+XrPtiTm1ssmMngN1sAhyKnTO2kunQWqNPWIVvCm15Wmw4SWInwTVgJ5u/Tr04+8Ei9TNcw4x4ONA==}
     engines: {node: '>=4'}
-    dev: true
-
-  /timezones-ical-library@1.8.3:
-    resolution: {integrity: sha512-aXpr/l5Vxfrpf2s9OUoS8Qoj+DG9ykq1YWMzWk4tG1TwxKLnrFWiAgOKrQbBtPEynVtkU1aB1TftTX/SkvSzdQ==}
-    engines: {node: '>=18.17.0', npm: '>=9.6.7'}
     dev: true
 
   /tiny-invariant@1.3.3:
@@ -12744,25 +12543,6 @@ packages:
 
   /ucla-library-design-tokens@5.22.0:
     resolution: {integrity: sha512-HudkrR/TMd5FTV1VGqOrYLg4bsDgb8kgml6rtDF3NgS9vf0hfQyVipxjbEHlfvuPHtQ7RZcn6ftdJHi92JqfSw==}
-    dev: true
-
-  /ucla-library-website-components@3.14.1(typescript@5.5.3)(vue@3.4.32):
-    resolution: {integrity: sha512-VMfo6qJq0zCGCrSnw+OVJae5Gmnn3zu7zKYi9F87IEaqbGbN5O+EQhuS8j/zuceRiX50eI+EAcsJrpav287z1Q==}
-    peerDependencies:
-      vue: ^3.4.29
-    dependencies:
-      '@vuepic/vue-datepicker': 8.8.1(vue@3.4.32)
-      '@vueuse/components': 10.11.1(vue@3.4.32)
-      '@vueuse/core': 10.11.1(vue@3.4.32)
-      add-to-calendar-button: 2.6.18
-      date-fns: 2.30.0
-      lodash: 4.17.21
-      pinia: 2.1.7(typescript@5.5.3)(vue@3.4.32)
-      vue: 3.4.32(typescript@5.5.3)
-      vue3-carousel: 0.3.3(vue@3.4.32)
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - typescript
     dev: true
 
   /ufo@1.5.4:
@@ -13213,7 +12993,7 @@ packages:
     hasBin: true
     dependencies:
       cac: 6.7.14
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       pathe: 1.1.2
       picocolors: 1.0.1
       vite: 5.3.4(@types/node@18.19.40)(sass@1.77.8)
@@ -13292,7 +13072,7 @@ packages:
       '@antfu/utils': 0.7.10
       '@nuxt/kit': 3.12.3(magicast@0.3.4)
       '@rollup/pluginutils': 5.1.0(rollup@4.18.1)
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       error-stack-parser-es: 0.1.5
       fs-extra: 11.2.0
       open: 10.1.0
@@ -13409,6 +13189,7 @@ packages:
         optional: true
     dependencies:
       vue: 3.4.32(typescript@5.5.3)
+    dev: false
 
   /vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
@@ -13419,7 +13200,7 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
     dependencies:
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@9.4.0)
       eslint: 8.57.0
       eslint-scope: 7.2.2
       eslint-visitor-keys: 3.4.3
@@ -13438,14 +13219,6 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.6.3
       vue: 3.4.32(typescript@5.5.3)
-
-  /vue3-carousel@0.3.3(vue@3.4.32):
-    resolution: {integrity: sha512-VsuOBE4LG9lxAiYGR9U7ps4RyJ4oFQGzk79/49ybvoxzNpahPAVWIDHKK3a1lOv0CSplFq6u4FvaFLZ8x3FgWg==}
-    peerDependencies:
-      vue: ^3.2.0
-    dependencies:
-      vue: 3.4.32(typescript@5.5.3)
-    dev: true
 
   /vue@3.4.32(typescript@5.5.3):
     resolution: {integrity: sha512-9mCGIAi/CAq7GtaLLLp2J92pEic+HArstG+pq6F+H7+/jB9a0Z7576n4Bh4k79/50L1cKMIhZC3MC0iGpl+1IA==}

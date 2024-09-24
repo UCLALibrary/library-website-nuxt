@@ -15,7 +15,7 @@
 		"lint:fix": "eslint --fix . --ext .vue,.js,.ts --ignore-path .gitignore",
 		"typecheck": "nuxi typecheck",
 		"test": "pnpm lint && pnpm typecheck",
-		"library": ""
+		"ucla-library-website-components": "^3.14.1"
 	},
 	"dependencies": {
 		"@nuxtjs/sitemap": "^5.1.1",
@@ -40,7 +40,6 @@
 		"netlify-cli": "^17.36.0",
 		"nuxt-graphql-request": "^7.0.5",
 		"sass": "^1.66.1",
-		"ucla-library-design-tokens": "^5.22.0",
-		"ucla-library-website-components": "^3.14.1"
+		"ucla-library-design-tokens": "^5.22.0"
 	}
 }
