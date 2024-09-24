@@ -3,7 +3,12 @@
 import { HeaderSmart, SectionWrapper, SiteNotificationAlert, FooterPrimary, FooterSock } from 'ucla-library-website-components'
 
 const shouldIncludeExtraScript = computed(() => {
-  if (useRuntimeConfig().public.hostName.indexOf('stage') > 0)
+  if (useRuntimeConfig().public.hostName.indexOf('stage') !== -1)
+    return true
+  return false
+})
+const shouldIncludeProductionScript = computed(() => {
+  if (useRuntimeConfig().public.hostName.indexOf('stage') === -1 && useRuntimeConfig().public.hostName.indexOf('test') === -1)
     return true
   return false
 })
@@ -19,11 +24,19 @@ useHead({
     },
     ...(shouldIncludeExtraScript.value
       ? [{
-          hid: 'gsurvey',
-          src: 'https://test-librarystudy.library.ucla.edu/gsurvey.js',
-          defer: true
-        }
-        ]
+        hid: 'gsurvey',
+        src: 'https://test-librarystudy.library.ucla.edu/gsurvey.js',
+        defer: true
+      }
+      ]
+      : []),
+    ...(shouldIncludeProductionScript.value
+      ? [{
+        hid: 'gsurvey',
+        src: 'https://librarystudy.library.ucla.edu/gsurvey.js',
+        defer: true
+      }
+      ]
       : [])
   ]
 })
