@@ -2,6 +2,7 @@
 // components need to be imported for nitro crawling in static mode
 import { HeaderSmart, SectionWrapper, SiteNotificationAlert, FooterPrimary, FooterSock } from 'ucla-library-website-components'
 
+provide('theme', computed(() => ''))
 const shouldIncludeExtraScript = computed(() => {
   if (useRuntimeConfig().public.hostName.includes('stage'))
     return true
@@ -40,7 +41,7 @@ useHead({
       : [])
   ]
 })
-
+const { enabled, state } = usePreviewMode()
 const layoutCustomProps = useAttrs()
 const globalStore = useGlobalStore()
 // console.log('In default layout:', globalStore.header)
@@ -80,7 +81,7 @@ watch(globalStore.header, (newVal, oldVal) => {
 })
 
 onMounted(async () => {
-  // console.log('onMounted in Default layout')
+  console.log('In default layout', enabled.value, state?.token)
   /* document.addEventListener('visibilitychange', async () => {
     if (document.visibilityState === 'visible') {
       const data = await $graphql.default.request(Globals)
@@ -102,8 +103,6 @@ onMounted(async () => {
     console.log('In SSG refresh layout data as state is not maintained after an error response')
     await $layoutData()
   }
-  classes.value.push({ 'has-scrolled': globalStore.sTop })
-  classes.value.push({ 'has-scrolled-past-header': globalStore.sTop >= 150 })
   await $alerts()
 })
 </script>

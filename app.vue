@@ -3,7 +3,7 @@ import { useLayoutState } from './composables/useLayoutState'
 
 provide('theme', computed(() => ''))
 const { enabled, state } = usePreviewMode()
-// console.log('App.vue', enabled.value, state.token)
+console.log('App.vue', enabled.value, state.token)
 const route = useRoute()
 
 const globalStore = useGlobalStore()
@@ -40,6 +40,7 @@ const { $alerts } = useNuxtApp()
 const { $layoutData } = useNuxtApp()
 watch(globalStore.header, (newVal, oldVal) => {
   console.log('Global store changed for draft previews', newVal, oldVal)
+  setLayoutData(globalStore)
 })
 
 onMounted(async () => {
@@ -48,8 +49,6 @@ onMounted(async () => {
   if (process.env.NODE_ENV !== 'development' && (route.query?.preview === 'true' || enabled.value) && (route.query?.token !== undefined || state?.token !== undefined)) {
     await $layoutData()
   }
-  classes.value.push({ 'has-scrolled': globalStore.sTop })
-  classes.value.push({ 'has-scrolled-past-header': globalStore.sTop >= 150 })
   await $alerts()
 })
 
