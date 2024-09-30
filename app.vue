@@ -3,7 +3,7 @@ import { useLayoutState } from './composables/useLayoutState'
 
 provide('theme', computed(() => ''))
 const { enabled, state } = usePreviewMode()
-console.log('App.vue', enabled.value, state.token)
+// console.log('App.vue', enabled.value, state.token)
 const route = useRoute()
 
 const globalStore = useGlobalStore()

@@ -38,6 +38,7 @@ export default defineNuxtConfig({
                         @import "ucla-library-design-tokens/scss/fonts.scss";
                         @import "ucla-library-design-tokens/scss/app.scss";
                     `,
+          api: 'modern-compiler', // or 'modern'
         },
       },
     }
