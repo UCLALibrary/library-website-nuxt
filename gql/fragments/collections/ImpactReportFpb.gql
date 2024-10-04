@@ -9,6 +9,7 @@
 #import "../gql/fragments/BlockHighlightFragment.gql"
 #import "../gql/fragments/BlockImpactNumberCardsFragment.gql"
 #import "../gql/fragments/BlockGridGalleryCardsFragment.gql"
+#import "../gql/fragments/BlockRichTextFragment.gql"
 
 fragment ImpactReportFpb on ElementInterface {
     blocks: impactReportFpb {
@@ -47,6 +48,9 @@ fragment ImpactReportFpb on ElementInterface {
         }
         ... on impactReportFpb_cardWithImage_BlockType {
             ...BlockCardWithImageFragment
+        }
+        ... on impactReportFpb_richText_BlockType {
+            ...BlockRichTextFragment
         }
     }
 }
