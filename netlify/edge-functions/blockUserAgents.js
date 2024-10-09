@@ -3,15 +3,12 @@ const blockedUserAgents = [
   'claudebot'
 ]
 
-export default async (request) => {
+export default (request) => {
   const userAgent = request.headers.get('user-agent')
-
 
   if (blockedUserAgents.includes(userAgent)) {
     return new Response('Access Denied', { status: 403 }) // Forbidden
   }
 
-
   // Continue with the request as normal
-  return
 }
