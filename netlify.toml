@@ -1,16 +1,3 @@
-[build]
-  command = "pnpm run generate" # Ensure this runs to generate static pages
-  publish = ".output/public"    # Ensure the static files are published
-
 [[edge_functions]]
   path = "/*"
   function = "blockUserAgents"
-
-[[edge_functions]]
-  path = "/api/get-iframe-content" # Path for serverless functions
-  function = "libguides" # Nitro-generated function
-
-[[redirects]]
-  from = "/api/get-iframe-content"
-  to = "/.netlify/functions/libguides"
-  status = 200

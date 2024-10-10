@@ -45,11 +45,6 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: 'netlify-edge',
-    output: {
-      publicDir: '.output/public', // Static assets
-      serverDir: '.output/server', // Server-side logic (including Netlify functions)
-    },
     minify: false,
     prerender: {
       crawlLinks: true,
