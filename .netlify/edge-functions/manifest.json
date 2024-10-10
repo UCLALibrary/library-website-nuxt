@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "functions": [
+    {
+      "path": "/*",
+      "name": "nitro server handler",
+      "function": "server",
+      "generator": "nitropack@2.9.7"
+    }
+  ]
+}
