@@ -1,7 +1,3 @@
-[build]
-  command = "pnpm run generate" # Ensure this runs to generate static pages
-  publish = ".output/public"    # Ensure the static files are published
-
 [[edge_functions]]
 path = "/*"
 function = "blockUserAgents"

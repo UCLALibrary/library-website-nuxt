@@ -2,8 +2,10 @@
 const iframeContent = ref(null)
 
 onMounted(async () => {
+  // console.log("fetching data in onmounted from libguides proxy service")
   try {
-    const response = await $fetch('/api/get-iframe-content')
+    const response = await $fetch('https://libguides-proxy.library.ucla.edu/api/libguides-proxy')
+    // console.log("Response from libguides proxy:", response)
     iframeContent.value = response
   } catch (error) {
     console.error('Error fetching iframe content:', error)
