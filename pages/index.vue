@@ -186,16 +186,31 @@ const bannerFeaturedNews = computed(() => {
 const parsedNewsList = computed(() => {
   const newsList = page.value.featuredNews.slice(1)
   return newsList.map((obj) => {
+    // console.log({
+    //   ...obj,
+    //   to:
+    //     obj.externalResourceUrl != null
+    //       ? _get(obj, 'externalResourceUrl', '')
+    //       : `/${obj.to}`,
+    //   image: _get(obj, 'heroImage[0].image[0]', ''),
+    //   category: parseArticleCategory(obj.articleCategories),
+    //   startDate: _get(obj, 'postDate', ''),
+    //   endDate: _get(obj, 'postDate', ''),
+    //   postDate: null
+    // })
     return {
-      ...obj,
-      to:
-        obj.externalResourceUrl != null
-          ? _get(obj, 'externalResourceUrl', '')
-          : `/${obj.to}`,
-      image: _get(obj, 'heroImage[0].image[0]', ''),
-      category: parseArticleCategory(obj.articleCategories),
-      startDate: _get(obj, 'postDate', ''),
-      endDate: _get(obj, 'postDate', ''),
+      // ...obj,
+      to: 'https://www.library.ucla.edu',
+      sectionHandle: 'news',
+      // obj.externalResourceUrl != null
+      //   ? _get(obj, 'externalResourceUrl', '')
+      //   : `/${obj.to}`,
+      // image: _get(obj, 'heroImage[0].image[0]', ''),
+      // category: parseArticleCategory(obj.articleCategories),
+      startDate: '2023-02-07T15:54:00-08:00',
+      endDate: '2023-02-07T15:54:00-08:00' // _get(obj, 'postDate', ''),
+      // endDate: _get(obj, 'postDate', ''),
+      // postDate: null
     }
   })
 })
