@@ -1,7 +1,7 @@
 export default async (request, context) => {
-  const url = new URL(request.url)
-  const params = url.searchParams
-  const filters = params.get('filters')
+  const url = await new URL(request.url)
+  const params = await url.searchParams
+  const filters = await params.get('filters')
 
   if (filters && filters === '{"subjectLibrarian.keyword":"yes"}') {
     // Modify the query parameters
