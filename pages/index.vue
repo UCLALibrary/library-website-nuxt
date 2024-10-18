@@ -188,15 +188,14 @@ const parsedNewsList = computed(() => {
   return newsList.map((obj) => {
     return {
       ...obj,
-      to: 'https://www.library.ucla.edu',
-      sectionHandle: 'news',
-      externalResourceUrl: obj.externalResourceUrl != null
-        ? _get(obj, 'externalResourceUrl', '')
-        : `/${obj.to}`,
+      to:
+        obj.externalResourceUrl != null
+          ? _get(obj, 'externalResourceUrl', '')
+          : `/${obj.to}`,
       image: _get(obj, 'heroImage[0].image[0]', ''),
       category: parseArticleCategory(obj.articleCategories),
       startDate: _get(obj, 'postDate', ''),
-      endDate: _get(obj, 'postDate', '')
+      endDate: _get(obj, 'postDate', ''),
     }
   })
 })
