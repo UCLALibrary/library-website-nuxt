@@ -332,12 +332,12 @@ useHead({
         v-if="parsedNewsList.length > 1"
         :items="parsedNewsList"
       />
-      <!-- <nuxt-link
+      <nuxt-link
         to="/about/news/"
         class="button-more"
       >
         <ButtonMore text="See All News" />
-      </nuxt-link> -->
+      </nuxt-link>
     </SectionWrapper>
   </main>
 </template>
