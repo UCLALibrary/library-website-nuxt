@@ -3,5 +3,5 @@ path = "/*"
 function = "blockUserAgents"
 
 [[edge_functions]]
-function = "redirect"
 path = "/about/staff"
+function = "redirect"
