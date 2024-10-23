@@ -17,12 +17,12 @@
 		"test": "pnpm lint && pnpm typecheck"
 	},
 	"dependencies": {
-		"@nuxtjs/sitemap": "^5.1.1",
-		"@pinia/nuxt": "^0.5.1",
+		"@nuxtjs/sitemap": "^5.3.5",
+		"@pinia/nuxt": "^0.5.5",
 		"@vue-a11y/skip-to": "^3.0.3",
-		"nuxt": "^3.12.2",
-		"vue": "^3.4.29",
-		"vue-router": "^4.3.3"
+		"nuxt": "^3.13.2",
+		"vue": "^3.5.12",
+		"vue-router": "^4.4.5"
 	},
 	"devDependencies": {
 		"@nuxt/eslint-config": "^0.2.0",
@@ -40,6 +40,6 @@
 		"nuxt-graphql-request": "^7.0.5",
 		"sass": "^1.66.1",
 		"ucla-library-design-tokens": "^5.27.0",
-		"ucla-library-website-components": "^3.29.5"
+		"ucla-library-website-components": "^3.31.0"
 	}
 }
