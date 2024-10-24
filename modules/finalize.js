@@ -76,39 +76,88 @@ export default defineNuxtModule({
       }
     }
 
-    async function updateAliases(tempLibGuideIndex) {
-      const response = await fetch(`${nuxt.options.runtimeConfig.public.esURL}/_aliases`, {
-        headers: {
-          Authorization: `ApiKey ${nuxt.options.runtimeConfig.esWriteKey}`,
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({
-          actions: [
-            {
-              remove: {
-                index: '*',
-                alias: nuxt.options.runtimeConfig.public.esAlias,
-              },
-            },
-            {
-              add: {
-                indices: [nuxt.options.runtimeConfig.public.esTempIndex, tempLibGuideIndex],
-                alias: nuxt.options.runtimeConfig.public.esAlias,
-              },
-            },
-          ],
-        }),
-      })
-
-      const body = await response.text()
+    async function fetchAliasIndices(alias) {
       try {
-        const jsonData = JSON.parse(body)
-        logger.warn('Alias updated: ', JSON.stringify(jsonData), nuxt.options.runtimeConfig.public.esAlias)
+        const aliasResponse = await fetch(`${nuxt.options.runtimeConfig.public.esURL}/_alias/${alias}`, {
+          headers: {
+            Authorization: `ApiKey ${nuxt.options.runtimeConfig.esWriteKey}`,
+            'Content-Type': 'application/json',
+          },
+          method: 'GET',
+        })
+        const aliasData = await aliasResponse.json()
+        return Object.keys(aliasData) // Return array of indices associated with the alias
       } catch (err) {
-        logger.error('Error:', err)
-        logger.error('Response body:', body)
+        logger.error('Error fetching alias indices:', err)
         throw err
+      }
+    }
+
+    async function updateAliasWithNewIndices(alias, tempLibGuideIndex) {
+      try {
+        const response = await fetch(`${nuxt.options.runtimeConfig.public.esURL}/_aliases`, {
+          headers: {
+            Authorization: `ApiKey ${nuxt.options.runtimeConfig.esWriteKey}`,
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+          body: JSON.stringify({
+            actions: [
+              { remove: { index: '*', alias } },
+              { add: { indices: [nuxt.options.runtimeConfig.public.esTempIndex, tempLibGuideIndex], alias } },
+            ],
+          }),
+        })
+        const body = await response.text()
+        const jsonData = JSON.parse(body)
+        logger.warn('Alias updated:', JSON.stringify(jsonData), alias)
+      } catch (err) {
+        logger.error('Error updating alias:', err)
+        throw err
+      }
+    }
+
+    async function deleteOldIndices(indicesToDelete, tempLibGuideIndex) {
+      try {
+        for (const index of indicesToDelete) {
+          if (index === tempLibGuideIndex || index === nuxt.options.runtimeConfig.public.esTempIndex) {
+            continue // Skip the new indices
+          }
+
+          logger.warn(`Deleting index: ${index}`)
+          const deleteResponse = await fetch(`${nuxt.options.runtimeConfig.public.esURL}/${index}`, {
+            headers: {
+              Authorization: `ApiKey ${nuxt.options.runtimeConfig.esWriteKey}`,
+              'Content-Type': 'application/json',
+            },
+            method: 'DELETE',
+          })
+
+          const deleteBody = await deleteResponse.text()
+          logger.warn(`Deleted index ${index}: ${deleteBody}`)
+        }
+      } catch (err) {
+        logger.error('Error deleting old indices:', err)
+        throw err
+      }
+    }
+
+    // Refactored alias update and cleanup function
+    async function updateAliasesAndCleanup(tempLibGuideIndex) {
+      try {
+        const alias = nuxt.options.runtimeConfig.public.esAlias
+
+        // Step 1: Fetch current indices associated with the alias
+        const indicesToDelete = await fetchAliasIndices(alias)
+        logger.warn('Indices associated with alias:', indicesToDelete)
+
+        // Step 2: Update alias with new indices
+        await updateAliasWithNewIndices(alias, tempLibGuideIndex)
+
+        // Step 3: Clean up old indices
+        await deleteOldIndices(indicesToDelete, tempLibGuideIndex)
+      } catch (err) {
+        logger.error('Error during alias update and cleanup:', err)
       }
     }
 
@@ -120,7 +169,7 @@ export default defineNuxtModule({
       try {
         const tempLibGuideIndex = await createTempLibGuideIndex(now)
         await reindexContent(tempLibGuideIndex)
-        await updateAliases(tempLibGuideIndex)
+        await updateAliasesAndCleanup(tempLibGuideIndex)
       } catch (err) {
         logger.error('An error occurred:', err)
       }
