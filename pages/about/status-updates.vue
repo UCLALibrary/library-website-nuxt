@@ -1,4 +1,7 @@
 <script setup>
+// COMPONENTS
+import { NavBreadcrumb, BannerText, BannerHeader, PageAnchor, SectionWrapper, DividerWayFinder, FlexibleBlocks } from 'ucla-library-website-components'
+
 const iframeContent = ref(null)
 const page = ref({})
 const h2Array = ref([]) // anchor tags
