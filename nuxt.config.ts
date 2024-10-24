@@ -127,7 +127,6 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/impact/all': { redirect: '/about/reports' },
-    '/about/staff/?q=&filters={%22subjectLibrarian.keyword%22:%22yes%22}': { redirect: '/about/staff/?q=&filters=subjectLibrarian.keyword:(yes)' },
   },
 
   /*
