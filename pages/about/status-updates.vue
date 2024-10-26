@@ -2,45 +2,41 @@
 // COMPONENTS
 import { NavBreadcrumb, BannerText, BannerHeader, PageAnchor, SectionWrapper, DividerWayFinder, FlexibleBlocks } from 'ucla-library-website-components'
 
-const iframeContent = ref(null)
+const content = ref(null)
 const page = ref({})
 const h2Array = ref([]) // anchor tags
 const { $getHeaders } = useNuxtApp()
 useHead({
-  title: page.value ? page.value.title : '... loading'
+  title: ''
 })
-const parseParentPageURL = computed(() => {
-  if (page.value.parent && page.value.parent.uri)
-    return `/${page.value.parent.uri}/`
+const bannerSummary = ref("")
+// Define options for formatting
+const options = {
+  weekday: 'long', // Full name of the day
+  year: 'numeric', // Full numeric year
+  month: 'long',   // Full name of the month
+  day: 'numeric'   // Numeric day of the month
+}
 
-  return '/'
-})
-
-const parseParentTitle = computed(() => {
-  if (page.value.parent && page.value.parent.title)
-    return page.value.parent.title
-
-  return 'Home'
-})
-
-const parsedButtonText = computed(() => {
-  return _get(page.value, 'button[0].buttonText', '')
-})
-
-const parsedButtonTo = computed(() => {
-  return _get(page.value, 'button[0].buttonUrl', '')
-})
 onMounted(async () => {
 
   // console.log("fetching data in onmounted from libguides proxy service")
   try {
-    const response = await $fetch('https://libguides-proxy.library.ucla.edu/api/libguides-proxy')
+    const response = await $fetch('https://libguides-proxy.library.ucla.edu/api/libguides/library/status/updates/proxy')
+
+    // const response = await $fetch('http://localhost:8888/api/libguides/library/status/updates/proxy')
     // console.log("Response from libguides proxy:", response)
-    iframeContent.value = response
+    content.value = response
+    page.value.blocks = response
+    const today = new Date()
+    // Format the date with options
+    const formattedDate = today.toLocaleDateString('en-US', options)
+    bannerSummary.value = `Last updated ${formattedDate}.`
+
     // Call the plugin method to get the .section-header2 and .section-header3 elements
     h2Array.value = $getHeaders.getHeadersMethod()
   } catch (error) {
-    console.error('Error fetching iframe content:', error)
+    console.error('Error fetching libguides content:', error)
   }
 })
 </script>
@@ -51,34 +47,19 @@ onMounted(async () => {
     class="page page-general-content"
   >
     <NavBreadcrumb
-      v-if="page"
-      :title="page.title"
+      title="Library Status Updates"
       class="breadcrumb"
-      :to="parseParentPageURL"
-      :parent-title="parseParentTitle"
+      to="/about"
+      parent-title="About Us"
     />
 
     <BannerText
-      v-if="page && (!page.heroImage || page.heroImage.length == 0)"
       class="banner-text"
-      :category="page.format"
-      :title="page.title"
-      :text="page.summary"
-      :button-text="parsedButtonText"
-      :to="parsedButtonTo"
+      title="Library Status Updates"
+      :text="bannerSummary"
     />
 
-    <SectionWrapper class="section-banner">
-      <BannerHeader
-        v-if="page && page.heroImage && page.heroImage.length == 1"
-        :media="page.heroImage[0].image[0]"
-        :category="page.format"
-        :title="page.title"
-        :text="page.summary"
-        :to="parsedButtonTo"
-        :prompt="parsedButtonText"
-      />
-    </SectionWrapper>
+
 
     <SectionWrapper theme="divider">
       <DividerWayFinder class="divider-way-finder" />
@@ -86,20 +67,12 @@ onMounted(async () => {
     <div>
       <h1>Status Updates</h1>
       <hr>
-      <h3> Remove this iframe later</h3>
-      <iframe
-        id="s-lg-widget-frame-1727199122170"
-        title="Content Box frame"
-        width="100%"
-        height="250"
-        scrolling="yes"
-        style="border: 1px solid #bbb; border-radius: 4px;"
-        src="//lgapi-us.libapps.com/widget_box.php?site_id=705&widget_type=8&output_format=2&widget_title=Library+Alert&widget_height=250&widget_width=100%25&widget_embed_type=1&guide_id=1427138&box_id=33325708&map_id=39190263&content_only=0&include_jquery=1&config_id=1727199122170"
-      />
+      <h3> Remove this later</h3>
 
-      <div v-if="iframeContent">
-        <h2>Extracted Content:</h2>
-        <pre class="styled-pre">{{ iframeContent }} </pre>
+
+      <div v-if="content">
+        <h2>Proxy Content:</h2>
+        <pre class="styled-pre">{{ content }} </pre>
       </div>
     </div>
 
@@ -109,7 +82,7 @@ onMounted(async () => {
     />
 
     <FlexibleBlocks
-      v-if="page"
+      v-if="page && page.blocks"
       class="flexible-content"
       :blocks="page.blocks"
     />
