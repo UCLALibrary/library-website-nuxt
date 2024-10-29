@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, PageAnchor, SectionWrapper, DividerWayFinder, FlexibleBlocks } from 'ucla-library-website-components'
+import { NavBreadcrumb, BannerText, PageAnchor, SectionWrapper, DividerWayFinder, FlexibleBlocks } from 'ucla-library-website-components'
 
 const content = ref(null)
 const page = ref({})
