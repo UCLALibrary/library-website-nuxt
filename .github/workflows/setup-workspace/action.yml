@@ -22,4 +22,5 @@ runs:
           ${{ runner.os }}-pnpm-store-
 
     - name: Install Global Packages
+      shell: bash
       run: pnpm add -g gulp prettier typescript
