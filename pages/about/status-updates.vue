@@ -60,7 +60,7 @@ onMounted(async () => {
     <SectionWrapper theme="divider">
       <DividerWayFinder class="divider-way-finder" />
     </SectionWrapper>
-    <div>
+    <!--div>
       <h1>Status Updates</h1>
       <hr>
       <h3> Remove this later</h3>
@@ -69,7 +69,7 @@ onMounted(async () => {
         <h2>Proxy Content:</h2>
         <pre class="styled-pre">{{ content }} </pre>
       </div>
-    </div>
+    </div-->
 
     <PageAnchor
       v-if="h2Array.length >= 3"
