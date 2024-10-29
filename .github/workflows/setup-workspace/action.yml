@@ -16,6 +16,7 @@ runs:
       with:
         version: 8
         run_install: |
+          - args: [--frozen-lockfile, --strict-peer-dependencies]
           - recursive: true
           - args: [--global, gulp, prettier, typescript]
     - name: Get pnpm store directory
