@@ -1,24 +1,13 @@
 name: Set up Workspace
 description: 'Checks out repository, installs correct version of node and npm dependencies.'
-# inputs:
-#   who-to-greet:  # id of input
-#     description: 'Who to greet'
-#     required: true
-#     default: 'World'
-# outputs:
-#   random-number:
-#     description: "Random number"
-#     value: ${{ steps.random-number-generator.outputs.random-id }}
 runs:
   using: composite
   steps:
     - uses: pnpm/action-setup@v2
       with:
         version: 8
-        run_install: |
-          - args: [--frozen-lockfile, --strict-peer-dependencies]
-          - recursive: true
-          - args: [--global, gulp, prettier, typescript]
+        run_install: pnpm install --frozen-lockfile --strict-peer-dependencies
+
     - name: Get pnpm store directory
       shell: bash
       run: |
@@ -28,10 +17,9 @@ runs:
       name: Setup pnpm cache
       with:
         path: ${{ env.STORE_PATH }}
-        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.ref }}
         restore-keys: |
           ${{ runner.os }}-pnpm-store-
 
-    - name: Install dependencies
-      shell: bash
-      run: pnpm install
+    - name: Install Global Packages
+      run: pnpm add -g gulp prettier typescript
