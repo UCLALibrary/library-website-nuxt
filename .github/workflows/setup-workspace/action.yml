@@ -6,7 +6,7 @@ runs:
     - uses: pnpm/action-setup@v2
       with:
         version: 8
-        run_install: pnpm install --frozen-lockfile --strict-peer-dependencies
+        run_install: false  # Disable automatic install in this action
 
     - name: Get pnpm store directory
       shell: bash
@@ -20,6 +20,10 @@ runs:
         key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.ref }}
         restore-keys: |
           ${{ runner.os }}-pnpm-store-
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
     - name: Install Global Packages
       shell: bash
