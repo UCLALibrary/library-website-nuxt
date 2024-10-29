@@ -3,23 +3,20 @@ description: 'Checks out repository, installs correct version of node and npm de
 runs:
   using: composite
   steps:
-    - uses: pnpm/action-setup@v2
-      with:
-        version: 8
-        run_install: false  # Disable automatic install in this action
+    - name: Checkout
+      uses: actions/checkout@v4
 
-    - name: Get pnpm store directory
-      shell: bash
-      run: |
-        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-    - uses: actions/cache@v3
-      name: Setup pnpm cache
+    - uses: pnpm/action-setup@v4
+      name: Install pnpm
       with:
-        path: ${{ env.STORE_PATH }}
-        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.ref }}
-        restore-keys: |
-          ${{ runner.os }}-pnpm-store-
+        version: 9
+        run_install: false
+
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+        cache: 'pnpm'
 
     - name: Install dependencies
       shell: bash
