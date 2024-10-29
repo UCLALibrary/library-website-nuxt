@@ -43,6 +43,6 @@
 		"ucla-library-website-components": "^3.31.0"
 	},
 	"engines": {
-		"pnpm": "9.12.1"
+		"pnpm": "^9.12.1"
 	}
 }
