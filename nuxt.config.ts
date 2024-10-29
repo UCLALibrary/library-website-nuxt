@@ -91,6 +91,7 @@ export default defineNuxtConfig({
           }
           routes.add('/about/reports')
           routes.add('/help')
+          routes.add('/about/status-updates')
         }
         console.log('prerender:routes ctx.routes', routes)
       }

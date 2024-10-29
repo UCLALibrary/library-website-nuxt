@@ -41,5 +41,8 @@
 		"sass": "^1.66.1",
 		"ucla-library-design-tokens": "^5.27.0",
 		"ucla-library-website-components": "^3.31.0"
+	},
+	"engines": {
+		"pnpm": "^9.12.1"
 	}
 }
