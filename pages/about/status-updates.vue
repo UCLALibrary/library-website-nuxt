@@ -9,17 +9,16 @@ const { $getHeaders } = useNuxtApp()
 useHead({
   title: ''
 })
-const bannerSummary = ref("")
+const bannerSummary = ref('')
 // Define options for formatting
 const options = {
   weekday: 'long', // Full name of the day
   year: 'numeric', // Full numeric year
-  month: 'long',   // Full name of the month
-  day: 'numeric'   // Numeric day of the month
+  month: 'long', // Full name of the month
+  day: 'numeric' // Numeric day of the month
 }
 
 onMounted(async () => {
-
   // console.log("fetching data in onmounted from libguides proxy service")
   try {
     const response = await $fetch('https://libguides-proxy.library.ucla.edu/api/libguides/library/status/updates/proxy')
@@ -41,7 +40,6 @@ onMounted(async () => {
 })
 </script>
 <template>
-
   <main
     id="main"
     class="page page-general-content"
@@ -59,8 +57,6 @@ onMounted(async () => {
       :text="bannerSummary"
     />
 
-
-
     <SectionWrapper theme="divider">
       <DividerWayFinder class="divider-way-finder" />
     </SectionWrapper>
@@ -68,7 +64,6 @@ onMounted(async () => {
       <h1>Status Updates</h1>
       <hr>
       <h3> Remove this later</h3>
-
 
       <div v-if="content">
         <h2>Proxy Content:</h2>
