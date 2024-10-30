@@ -13,13 +13,17 @@ const globalsQuery = `
                     }
                 }
 
-                ... on libraryAlert_GlobalSet {
-                    title: entryTitle
-                    text: richTextAlertBox
-                }
+                
             }
         }
     `
+
+    /*
+    ... on libraryAlert_GlobalSet {
+                    title: entryTitle
+                    text: richTextAlertBox
+                }
+    */
 export default cachedEventHandler(async (event) => {
   const endpoint = useRuntimeConfig().public.craftGraphqlURL
 
