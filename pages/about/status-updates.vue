@@ -6,10 +6,18 @@ const content = ref(null)
 const page = ref({})
 const h2Array = ref([]) // anchor tags
 const { $getHeaders } = useNuxtApp()
-useHead({
-  title: ''
-})
 const bannerSummary = ref('')
+useHead({
+  title: 'Library Status Updates',
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: removeTags(bannerSummary.value)
+    },
+  ]
+})
+
 // Define options for formatting
 const options = {
   weekday: 'long', // Full name of the day
@@ -26,12 +34,15 @@ onMounted(async () => {
     // const response = await $fetch('http://localhost:8888/api/libguides/library/status/updates/proxy')
     // console.log("Response from libguides proxy:", response)
     content.value = response
-    page.value.blocks = response
-    const today = new Date()
+    page.value.blocks = response.blocks
+
     // Format the date with options
+    /*
+    const today = new Date()
     const formattedDate = today.toLocaleDateString('en-US', options)
     bannerSummary.value = `Last updated ${formattedDate}.`
-
+    */
+    bannerSummary.value = response.summary
     // Call the plugin method to get the .section-header2 and .section-header3 elements
     h2Array.value = $getHeaders.getHeadersMethod()
   } catch (error) {

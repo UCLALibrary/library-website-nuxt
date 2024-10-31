@@ -1,4 +1,3 @@
-
 export default defineNuxtPlugin((nuxtApp) => { //
   const globalStore = useGlobalStore()
   // console.log('Nuxt plugin client side called from Default layout')
@@ -8,7 +7,6 @@ export default defineNuxtPlugin((nuxtApp) => { //
 
     // console.log('Pinia store Global Data object:' + JSON.stringify(data))
     if (response) {
-   
       globalStore.globals.libraryAlert = response.libraryAlert
     }
   }

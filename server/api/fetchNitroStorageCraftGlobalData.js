@@ -18,7 +18,7 @@ const globalsQuery = `
         }
     `
 
-    /*
+/*
     ... on libraryAlert_GlobalSet {
                     title: entryTitle
                     text: richTextAlertBox
