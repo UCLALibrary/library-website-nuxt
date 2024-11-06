@@ -3,7 +3,10 @@
 export default defineNuxtConfig({
   // debug: true,
   sourcemap: true,
-
+  // General stuff
+  future: {
+    compatibilityVersion: 4,
+  },
   devtools: {
     enabled: true,
     timeline: {
