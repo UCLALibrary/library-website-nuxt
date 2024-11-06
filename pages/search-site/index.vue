@@ -2,6 +2,9 @@
 // COMPONENTS
 import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, RichText, SectionCardsWithIllustrations, SearchResult, SectionPagination } from 'ucla-library-website-components'
 
+// HELPERS
+import _get from 'lodash/get'
+
 // UTILITIES
 import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
@@ -109,7 +112,17 @@ const parsedSearchResults = computed(() => {
         ...obj._source,
         to: obj._source.uri ? obj._source.uri : obj._source.to,
       }
-    } else {
+    } else if (obj._source.externalResourceUrl != null) {
+      return {
+        ...obj._source,
+        to: obj._source.externalResourceUrl != null
+          ? _get(obj._source, 'externalResourceUrl', '')
+          : obj._source.uri
+            ? `/${obj._source.uri}`
+            : `/${obj._source.to}`,
+      }
+    }
+    else {
       return {
         ...obj._source,
         to: obj._source.uri
