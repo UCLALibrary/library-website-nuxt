@@ -405,7 +405,6 @@ onMounted(async () => {
       >
         Displaying {{ hits.length }} results
       </h2>
-      <div>{{ parseHitsResults }}</div>
       <SectionStaffArticleList :items="parseHitsResults" />
     </SectionWrapper>
 
