@@ -211,6 +211,7 @@ const config = {
       'postDate',
       'category',
       'contributors',
+      'externalResourceUrl',
     ],
     sortField: 'postDate',
     orderBy: 'desc',

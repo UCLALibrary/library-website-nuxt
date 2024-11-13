@@ -247,7 +247,9 @@ function parseHits(hits = []) {
       description: obj._source.text,
       date: obj._source.postDate,
       articleCategories: obj._source.category,
-      to: `/${obj._source.uri}`,
+      to: obj._source.externalResourceUrl != null
+        ? _get(obj._source, 'externalResourceUrl', '')
+        : `/${obj._source.uri}`,
       image: _get(obj._source, 'heroImage[0].image[0]', null),
       staffName: obj._source.fullName,
       // category: _get(obj["_source"], "category[0].title", null),
@@ -333,7 +335,7 @@ onMounted(async () => {
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -349,14 +351,12 @@ onMounted(async () => {
         class="banner section-featured-banner"
       />
 
-      <DividerGeneral
-        v-show="page &&
-          page.featuredNews &&
-          page.featuredNews.length &&
-          hits.length === 0 &&
-          !noResultsFound
-        "
-      />
+      <DividerGeneral v-show="page &&
+        page.featuredNews &&
+        page.featuredNews.length &&
+        hits.length === 0 &&
+        !noResultsFound
+        " />
 
       <SectionTeaserHighlight
         v-show="parsedSectionHighlight.length > 0"
@@ -371,7 +371,7 @@ onMounted(async () => {
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="about" />
