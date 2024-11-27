@@ -25,3 +25,15 @@ runs:
     - name: Install Global Packages
       shell: bash
       run: pnpm add -g gulp prettier typescript
+      
+    - name: Install Cypress Binary
+      shell: bash
+      run: pnpm exec cypress install
+
+    - name: Cache Cypress Binary
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/Cypress
+        key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          cypress-${{ runner.os }}-
