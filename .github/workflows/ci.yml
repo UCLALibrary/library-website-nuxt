@@ -85,6 +85,8 @@ jobs:
       - name: Set deployment date
         id: set-deploy-date
         run: echo "DEPLOY_DATE=$(date '+%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_ENV
+      - name: Verify Cypress Installation
+        run: pnpm exec cypress verify
       - name: Install Netlify CLI globally
         run: pnpm add -g netlify-cli
       - name: Deploy to Netlify (preview)

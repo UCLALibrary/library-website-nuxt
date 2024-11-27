@@ -120,7 +120,8 @@ const parsedByline = computed(() => {
 
   :deep(.section-wrapper.top-level.theme-gray) {
     --color-theme: var(--color-white);
-    padding: 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   // refactor when option to turn off overlays is available in craft
