@@ -405,7 +405,7 @@
 /search/eresources.cfm	/collections/access
 /search/journals	/collections/access
 /search/search-find	/collections/access
-/sel	/visit/locations/science-engineering-library/
+/sel	/visit/locations/science-engineering-library
 /sel-ems	/visit/locations/science-engineering-library
 /sel-geology	/visit/locations/science-engineering-library
 /sel/about/staff-directory	/visit/locations/science-engineering-library
@@ -638,4 +638,4 @@ https://www.clicc.ucla.edu/about/staff/abigail-connick/	/about/staff/abigail-con
 https://www.clicc.ucla.edu/about/staff/alice-hunt/	/about/staff/alice-hunt/
 https://www.clicc.ucla.edu/about/staff/charlie-h-castro/	/about/staff/charlie-h-castro/
 https://www.clicc.ucla.edu/about/staff/jonathan-fahn/	/about/staff/jonathan-fahn/
-https://library.ucla.edu/givemusic  https://giving.ucla.edu/campaign/?&OrgType=C&OrgNum=10100&fund=61516O
+
