@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, AlphabeticalBrowseBy, SectionStaffList, RichText, SectionStaffSubjectLibrarian } from 'ucla-library-website-components'
+import { IconWithLink, MastheadSecondary, SearchGeneric, SectionWrapper, SmartLink, DividerWayFinder, AlphabeticalBrowseBy, SectionStaffList, RichText, TableComponent, TableRow } from 'ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
@@ -173,9 +173,9 @@ async function searchES() {
     }
     const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, ...filters } = routeFilters.value
     const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-        [
-          { term: { 'subjectLibrarian.keyword': 'yes' } }
-        ]
+      [
+        { term: { 'subjectLibrarian.keyword': 'yes' } }
+      ]
       : []
 
     // console.log('in router query in asyc data queryText', queryText)
@@ -406,9 +406,9 @@ onMounted(async () => {
             'subjectLibrarian.keyword'
           ][0] === '')) ||
           !searchGenericQuery.queryFilters[
-            'subjectLibrarian.keyword'
+          'subjectLibrarian.keyword'
           ])
-      "
+        "
       class="section-no-top-margin"
     >
       <AlphabeticalBrowseBy
@@ -469,17 +469,94 @@ onMounted(async () => {
         searchGenericQuery.queryFilters['subjectLibrarian.keyword'][0] ===
         'yes' &&
         groupByAcademicLibraries
-      "
+        "
       class="section-no-top-margin"
     >
       <h3 class="section-title subject-librarian">
         Contact a Subject Librarian
       </h3>
 
-      <SectionStaffSubjectLibrarian
-        :items="groupByAcademicLibraries"
-        :table-headers="tableHeaders"
-      />
+      <TableComponent
+        :tableHeaders="tableHeaders"
+        tableCaption="Subject Librarians"
+      >
+        <TableRow
+          v-for="item, index in groupByAcademicLibraries"
+          :key="index"
+          :num-cells="3"
+          class="subject-librarian-item"
+        >
+          <template v-slot:column1>
+            {{ item.subjectArea }}
+          </template>
+          <template v-slot:column2>
+            <SmartLink
+              :to="item.to"
+              class="staff-name"
+            >
+              {{ item.nameFirst }} {{ item.nameLast }}
+              <span
+                v-if="item.alternativeName && item.alternativeName.length !== 0"
+                :lang="item.alternativeName[0].languageAltName"
+              >
+                {{ item.alternativeName[0].fullName }}
+              </span>
+            </SmartLink>
+            <div
+              class="job-title"
+              v-html="item.jobTitle"
+            />
+            <ul
+              v-if="item.departments.length"
+              class="departments"
+            >
+              <li class="department">
+                {{ item.departments[item.departments.length - 1].title }}
+              </li>
+            </ul>
+            <div v-if="item.locations && item.locations.length !== 0">
+              <IconWithLink
+                v-for="location in item.locations "
+                :key="'location-' + location.id"
+                :text="location.title ?? ''"
+                icon-name="svg-icon-location"
+                :to="'/' + location.to"
+              />
+            </div>
+          </template>
+          <template v-slot:column3>
+            <div class="email">
+              <IconWithLink
+                :text="item.email"
+                icon-name="svg-icon-email"
+                :to="'mailto:' + item.email"
+              />
+            </div>
+
+            <div
+              v-if="item.phone"
+              class="phone"
+            >
+              <IconWithLink
+                :text="item.phone"
+                icon-name="svg-icon-phone"
+                :to="'tel:' + item.phone"
+              />
+            </div>
+            <div
+              v-if="item.consultation"
+              class="consultation"
+            >
+              <IconWithLink
+                text="Book a consultation"
+                icon-name="svg-icon-consultation"
+                :to="item.consultation"
+              />
+            </div>
+          </template>
+        </TableRow>
+      </TableComponent>
+
     </SectionWrapper>
   </main>
 </template>
