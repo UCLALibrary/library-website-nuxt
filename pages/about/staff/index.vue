@@ -173,9 +173,9 @@ async function searchES() {
     }
     const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, ...filters } = routeFilters.value
     const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-      [
-        { term: { 'subjectLibrarian.keyword': 'yes' } }
-      ]
+        [
+          { term: { 'subjectLibrarian.keyword': 'yes' } }
+        ]
       : []
 
     // console.log('in router query in asyc data queryText', queryText)
@@ -406,9 +406,9 @@ onMounted(async () => {
             'subjectLibrarian.keyword'
           ][0] === '')) ||
           !searchGenericQuery.queryFilters[
-          'subjectLibrarian.keyword'
+            'subjectLibrarian.keyword'
           ])
-        "
+      "
       class="section-no-top-margin"
     >
       <AlphabeticalBrowseBy
@@ -469,7 +469,7 @@ onMounted(async () => {
         searchGenericQuery.queryFilters['subjectLibrarian.keyword'][0] ===
         'yes' &&
         groupByAcademicLibraries
-        "
+      "
       class="section-no-top-margin"
     >
       <h3 class="section-title subject-librarian">
@@ -477,8 +477,8 @@ onMounted(async () => {
       </h3>
 
       <TableComponent
-        :tableHeaders="tableHeaders"
-        tableCaption="Subject Librarians"
+        :table-headers="tableHeaders"
+        table-caption="Subject Librarians"
       >
         <TableRow
           v-for="item, index in groupByAcademicLibraries"
@@ -486,10 +486,10 @@ onMounted(async () => {
           :num-cells="3"
           class="subject-librarian-item"
         >
-          <template v-slot:column1>
+          <template #column1>
             {{ item.subjectArea }}
           </template>
-          <template v-slot:column2>
+          <template #column2>
             <SmartLink
               :to="item.to"
               class="staff-name"
@@ -524,7 +524,7 @@ onMounted(async () => {
               />
             </div>
           </template>
-          <template v-slot:column3>
+          <template #column3>
             <div class="email">
               <IconWithLink
                 :text="item.email"
@@ -556,7 +556,6 @@ onMounted(async () => {
           </template>
         </TableRow>
       </TableComponent>
-
     </SectionWrapper>
   </main>
 </template>
