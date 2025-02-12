@@ -22,7 +22,7 @@ describe('Article News Listing page', () => {
     cy.intercept('/about/staff/*').as('getStaffRoutes')
     cy.visit('/about/staff?q=&filters=subjectLibrarian.keyword:(yes)', { timeout: 30000 })
     cy.wait('@getStaffRoutes').then(() => {
-      cy.get('td.academic-department').should('be.visible')
+      cy.get('td.column-1').should('be.visible')
     })
   })
 })
