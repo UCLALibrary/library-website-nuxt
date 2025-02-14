@@ -73,8 +73,8 @@ importers:
         specifier: ^5.27.0
         version: 5.27.1
       ucla-library-website-components:
-        specifier: ^3.32.1
-        version: 3.32.1(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))
+        specifier: ^3.47.0
+        version: 3.47.0(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.11(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3)))
 
 packages:
 
@@ -6873,11 +6873,12 @@ packages:
   ucla-library-design-tokens@5.27.1:
     resolution: {integrity: sha512-ITiA/3ZGiH0y2Jt8KIhOqLt5FEX53Zhmp+h6CvxGmu3dmzNZArh2NdP/EDw4QyHRYJibOWKyudGObyyJS6BBsA==}
 
-  ucla-library-website-components@3.32.1:
-    resolution: {integrity: sha512-HaFJ7cVCCvPSRNcIiJvz15UAblTGAyWL3rBjoSyrbxfLFB9BLI2h9dWhQFYZZJ21ArdXShjcpwGx9lSPoTjoTw==}
+  ucla-library-website-components@3.47.0:
+    resolution: {integrity: sha512-PWNGKpvcgVs0qT+euo5KINiKBI5XFqEeu6lubj8a3FOi9ywneCCl1B93eTkOtgjzHZrhiTGuQBoEX9x2YkEV7w==}
     engines: {pnpm: ^9.12.1}
     peerDependencies:
       vue: ^3.5.12
+      vuetify: ^3.7.4
 
   ufo@1.5.4:
     resolution: {integrity: sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==}
@@ -7243,6 +7244,22 @@ packages:
       typescript: '*'
     peerDependenciesMeta:
       typescript:
+        optional: true
+
+  vuetify@3.7.11:
+    resolution: {integrity: sha512-50Z2SNwPXbkGmve4CwxOs4sySZGgLwQYIDsKx+coSrfIBqz8IyXgxRFQdrvgoehIwUjGTNqaPZymuK5rMFkfHA==}
+    engines: {node: ^12.20 || >=14.13}
+    peerDependencies:
+      typescript: '>=4.7'
+      vite-plugin-vuetify: '>=1.0.0'
+      vue: ^3.3.0
+      webpack-plugin-vuetify: '>=2.0.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      vite-plugin-vuetify:
+        optional: true
+      webpack-plugin-vuetify:
         optional: true
 
   wait-port@1.1.0:
@@ -15407,7 +15424,7 @@ snapshots:
 
   ucla-library-design-tokens@5.27.1: {}
 
-  ucla-library-website-components@3.32.1(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3)):
+  ucla-library-website-components@3.47.0(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.11(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))):
     dependencies:
       '@vuepic/vue-datepicker': 8.8.1(vue@3.5.12(typescript@5.6.3))
       '@vueuse/components': 11.1.0(vue@3.5.12(typescript@5.6.3))
@@ -15418,6 +15435,7 @@ snapshots:
       pinia: 2.2.4(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))
       vue: 3.5.12(typescript@5.6.3)
       vue3-carousel: 0.3.4(vue@3.5.12(typescript@5.6.3))
+      vuetify: 3.7.11(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - typescript
@@ -15813,6 +15831,12 @@ snapshots:
       '@vue/runtime-dom': 3.5.12
       '@vue/server-renderer': 3.5.12(vue@3.5.12(typescript@5.6.3))
       '@vue/shared': 3.5.12
+    optionalDependencies:
+      typescript: 5.6.3
+
+  vuetify@3.7.11(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3)):
+    dependencies:
+      vue: 3.5.12(typescript@5.6.3)
     optionalDependencies:
       typescript: 5.6.3
 
