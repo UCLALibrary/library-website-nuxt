@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       enabled: true
     }
   },
+
   // when using local pnpm link with component library uncomment this line
   vite: {
     build: {
@@ -237,7 +238,8 @@ export default defineNuxtConfig({
   },
 
   experimental: {
-    payloadExtraction: true,
     sharedPrerenderData: true,
-  }
+  },
+
+  compatibilityDate: '2025-02-21'
 })
