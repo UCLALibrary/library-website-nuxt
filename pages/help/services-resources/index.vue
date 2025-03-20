@@ -52,7 +52,7 @@ if (
 ) {
   for (const externalResource of data.value.data.externalResource) {
     await $elasticsearchplugin.index(
-      { ...externalResource, serviceOrResourceType: 'external resource' },
+      { ...externalResource, serviceOrResourceType: 'resource' },
       externalResource.slug
     )
   }
