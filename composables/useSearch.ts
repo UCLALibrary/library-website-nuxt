@@ -75,11 +75,11 @@ async function siteSearch(
 
   const responseAlias = await fetch(
     `${config.public.esURL}/_alias/${config.public.esAlias}`, {
-    headers: {
-      Authorization: `ApiKey ${config.public.esReadKey}`,
-      'Content-Type': 'application/json',
-    },
-  }
+      headers: {
+        Authorization: `ApiKey ${config.public.esReadKey}`,
+        'Content-Type': 'application/json',
+      },
+    }
   )
   const dataAlias = await responseAlias.json()
 
@@ -89,46 +89,46 @@ async function siteSearch(
 
   const response = await fetch(
     `${config.public.esURL}/${config.public.esAlias}/_search`, {
-    headers: {
-      Authorization: `ApiKey ${config.public.esReadKey}`,
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify({
-      from,
-      indices_boost: [{
-        [libraryIndex]: 3.0
+      headers: {
+        Authorization: `ApiKey ${config.public.esReadKey}`,
+        'Content-Type': 'application/json',
       },
-      {
-        [libguideIndex]: 1.3
-      }
-      ],
-      query: {
-        bool: {
-          must: [{
-            query_string: {
-              query: '(' +
+      method: 'POST',
+      body: JSON.stringify({
+        from,
+        indices_boost: [{
+          [libraryIndex]: 3.0
+        },
+        {
+          [libguideIndex]: 1.3
+        }
+        ],
+        query: {
+          bool: {
+            must: [{
+              query_string: {
+                query: '(' +
                 keyword +
                 ' AND NOT(sectionHandle:event)) OR (' +
                 keyword +
                 ' AND startDateWithTime:[now TO *] AND sectionHandle:event)',
-              fields: [
-                'title^4',
-                'summary^3',
-                'text^3',
-                'fullText^2',
-                'richText^2',
-                'sectionHandle',
-                'sectionHandleDisplayName'
-              ],
-              fuzziness: 'auto',
-            },
-          },],
-          filter: [...parseFilterQuerySiteSearch(queryFilters, configMapping)],
+                fields: [
+                  'title^4',
+                  'summary^3',
+                  'text^3',
+                  'fullText^2',
+                  'richText^2',
+                  'sectionHandle',
+                  'sectionHandleDisplayName'
+                ],
+                fuzziness: 'auto',
+              },
+            },],
+            filter: [...parseFilterQuerySiteSearch(queryFilters, configMapping)],
+          },
         },
-      },
-    }),
-  }
+      }),
+    }
   )
   const data = await response.json()
   return data
@@ -179,11 +179,11 @@ async function getMapping() {
     return
   const response = await fetch(
     `${config.public.esURL}/${config.public.esAlias}/_mapping`, {
-    headers: {
-      Authorization: `ApiKey ${config.public.esReadKey}`,
+      headers: {
+        Authorization: `ApiKey ${config.public.esReadKey}`,
       // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  }
+      },
+    }
   )
   const data = await response.json()
   return data
@@ -195,21 +195,21 @@ async function getAggregationsForSiteSearch(fields) {
   if (!fields || fields.length === 0) return
   const response = await fetch(
     `${config.public.esURL}/${config.public.esAlias}/_search`, {
-    headers: {
-      Authorization: `ApiKey ${config.public.esReadKey}`,
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify({
-      size: 0,
-      query: {
-        match_all: {},
+      headers: {
+        Authorization: `ApiKey ${config.public.esReadKey}`,
+        'Content-Type': 'application/json',
       },
-      aggs: {
-        ...parseFieldNames(fields),
-      },
-    }),
-  }
+      method: 'POST',
+      body: JSON.stringify({
+        size: 0,
+        query: {
+          match_all: {},
+        },
+        aggs: {
+          ...parseFieldNames(fields),
+        },
+      }),
+    }
   )
   const data = await response.json()
   return data.aggregations
@@ -221,24 +221,24 @@ async function getAggregations(fields, sectionHandle) {
   if (!fields || fields.length === 0) return
   const response = await fetch(
     `${config.public.esURL}/${config.public.esAlias}/_search`, {
-    headers: {
-      Authorization: `ApiKey ${config.public.esReadKey}`,
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify({
-      size: 0,
-      query: {
-        query_string: {
-          query: sectionHandle,
-          default_field: 'sectionHandle'
+      headers: {
+        Authorization: `ApiKey ${config.public.esReadKey}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        size: 0,
+        query: {
+          query_string: {
+            query: sectionHandle,
+            default_field: 'sectionHandle'
+          },
         },
-      },
-      aggs: {
-        ...parseFieldNames(fields),
-      },
-    }),
-  }
+        aggs: {
+          ...parseFieldNames(fields),
+        },
+      }),
+    }
   )
   const data = await response.json()
   return data.aggregations
@@ -297,11 +297,11 @@ async function keywordSearchWithFilters(
   // need to know fields to boost on for listing pages when searching like title etc
   const responseAlias = await fetch(
     `${config.public.esURL}/_alias/${config.public.esAlias}`, {
-    headers: {
-      Authorization: `ApiKey ${config.public.esReadKey}`,
-      'Content-Type': 'application/json',
-    },
-  }
+      headers: {
+        Authorization: `ApiKey ${config.public.esReadKey}`,
+        'Content-Type': 'application/json',
+      },
+    }
   )
   const dataAlias = await responseAlias.json()
 

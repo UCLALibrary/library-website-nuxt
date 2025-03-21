@@ -179,7 +179,7 @@ onMounted(() => {
       <TheHours
         v-if="
           page.uri ==
-          'about/programs/campus-library-instructional-computing-commons-clicc'
+            'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         :src="`${hostname}/blockCliccHours.html?lid=0`"
       />
@@ -187,7 +187,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           page.uri ==
-          'about/programs/campus-library-instructional-computing-commons-clicc'
+            'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         class="divider"
         color="about"

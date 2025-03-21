@@ -26,7 +26,6 @@ const searchGenericQuery = ref({
 })
 const isSearching = ref(true)
 
-
 // This watcher is called when router push updates the query params
 watch(
   () => route.query,

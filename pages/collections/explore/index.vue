@@ -263,7 +263,7 @@ onMounted(async () => {
         parsedCollectionList.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <SectionTeaserCard :items="parsedCollectionList" />
