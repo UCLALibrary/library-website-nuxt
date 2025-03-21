@@ -38,7 +38,7 @@ if (!data.value.entry) {
   })
 }
 
-if (data.value.entry.slug && import.meta.server) {
+if (data.value.entry.slug && import.meta.prerender) {
   const { index } = useIndexer()
   await index(data.value.entry, path.replaceAll('/', '--'))
 }

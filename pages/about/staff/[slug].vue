@@ -33,7 +33,7 @@ if (!data.value.entry) {
   })
 }
 // ES Index
-if (route.params.slug && import.meta.server) {
+if (route.params.slug && import.meta.prerender) {
   const { index } = useIndexer()
   // console.log("elasticsearchplugin", index, route.params.slug)
   await index(data.value.entry, route.params.slug)

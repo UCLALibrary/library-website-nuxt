@@ -37,7 +37,7 @@ if (!data.value.entry) {
   })
 }
 // console.log("impact report yesr inde page: data value: ", data.value.entry)
-if (data.value.entry.slug && import.meta.server) {
+if (data.value.entry.slug && import.meta.prerender) {
   const { index } = useIndexer()
   await index(data.value.entry, path.replaceAll('/', '--'))
 }

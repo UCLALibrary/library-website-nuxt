@@ -34,7 +34,7 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (data.value.entry.slug && import.meta.server) {
+if (data.value.entry.slug && import.meta.prerender) {
   const { index } = useIndexer()
   await index(data.value.entry, route.params.slug)
 }

@@ -35,9 +35,9 @@ if (!data.value.entry) {
   })
 }
 
-// console.log("import.meta.server", import.meta.server, process.client)
+// console.log("import.meta.prerender", import.meta.prerender, process.client)
 
-if (data.value.entry.slug && import.meta.server) {
+if (data.value.entry.slug && import.meta.prerender) {
   // console.log('News slug article category:', data.value.entry.category)
   data.value.entry.articleCategory = data.value.entry.category
 

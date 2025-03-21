@@ -43,23 +43,23 @@ if (!data.value.data && !data.value.helpTopicData) {
 // ELASTIC SEARCH INDEX
 // GETS DATA FROM CRAFT
 // CREATES ES INDEX TO BE SEARCHED
-// CHECK THAT NUXT IS RUNNING ON THE SERVER (import.meta.server)
+// CHECK THAT NUXT IS RUNNING ON THE SERVER (import.meta.prerender)
 // console.log('DATA-DATA-DATA-DATA' + data)
 if (
   data.value.data.externalResource &&
   data.value.data.externalResource.length > 0 &&
-  import.meta.server
+  import.meta.prerender
 ) {
   const { index } = useIndexer()
   for (const externalResource of data.value.data.externalResource) {
     await index(
-      { ...externalResource, serviceOrResourceType: 'external resource' },
+      { ...externalResource, serviceOrResourceType: 'resource' },
       externalResource.slug
     )
   }
 }
 
-if (data.value.entry && import.meta.server) {
+if (data.value.entry && import.meta.prerender) {
   const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,

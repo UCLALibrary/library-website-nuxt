@@ -31,7 +31,7 @@ if (!data.value?.data || !data.value?.data?.entry || !data.value?.data?.entries)
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (data.value?.data?.entry && import.meta.server) {
+if (data.value?.data?.entry && import.meta.prerender) {
   const { index } = useIndexer()
   const doc = {
     title: data.value.data.entry.title,

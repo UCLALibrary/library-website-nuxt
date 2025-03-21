@@ -49,7 +49,7 @@ if (!data.value.entry) {
     statusMessage: 'Page Not Found'
   })
 }
-if (data.value.entry.slug && import.meta.server) {
+if (data.value.entry.slug && import.meta.prerender) {
   const { index } = useIndexer()
   await index(data.value.entry, route.params.slug)
 }

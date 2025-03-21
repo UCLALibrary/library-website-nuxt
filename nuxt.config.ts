@@ -81,7 +81,7 @@ export default defineNuxtConfig({
         })
 
         const postPages = await response.json()
-        console.log('All pages', JSON.stringify(postPages))
+        // console.log('All pages', JSON.stringify(postPages?.data?.entries))
         if (postPages && postPages.data && postPages.data.entries) {
           const postWithoutPayloadRoutes = postPages.data.entries.filter(item =>
             !item.sectionHandle.includes('meap') && !item.sectionHandle.includes('ftva')
@@ -136,7 +136,9 @@ export default defineNuxtConfig({
   routeRules: {
     '/impact/all': { redirect: '/about/reports' },
   },
-
+  features: {
+    inlineStyles: false,
+  },
   /*
      ** Required charset and viewport meta tags
      */

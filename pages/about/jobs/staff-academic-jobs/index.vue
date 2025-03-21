@@ -26,7 +26,7 @@ if (error.value) {
 if (!data.value.entry && !data.value.allJobs) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
-if (data.value.entry && import.meta.server) {
+if (data.value.entry && import.meta.prerender) {
   const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,

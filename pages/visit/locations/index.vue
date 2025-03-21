@@ -40,7 +40,7 @@ if (!data.value.entry) {
     statusMessage: 'Page Not Found'
   })
 }
-if (data.value.entry && import.meta.server) {
+if (data.value.entry && import.meta.prerender) {
   const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
@@ -52,7 +52,7 @@ if (data.value.entry && import.meta.server) {
 
 // console.log('In endowment listing page data.value: ', JSON.stringify(data.value))
 // Index data on server only
-if (data?.value?.entry.affiliateLibraries && data.value.entry.affiliateLibraries.length > 0 && import.meta.server) {
+if (data?.value?.entry.affiliateLibraries && data.value.entry.affiliateLibraries.length > 0 && import.meta.prerender) {
   const { index } = useIndexer()
   for (const affiliateLibrary of data.value.entry.affiliateLibraries) {
     await index(

@@ -26,7 +26,7 @@ if (!data.value.entry) {
   })
 }
 
-if (data.value.entry && import.meta.server) {
+if (data.value.entry && import.meta.prerender) {
   const { index } = useIndexer()
 
   const doc = {

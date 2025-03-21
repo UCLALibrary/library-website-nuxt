@@ -39,7 +39,7 @@ if (!data.value?.data && !data.value?.single) {
     statusMessage: 'Page Not Found'
   })
 }
-if (data.value.single && import.meta.server) {
+if (data.value.single && import.meta.prerender) {
   const { index } = useIndexer()
   const doc = {
     title: data.value.single.title,

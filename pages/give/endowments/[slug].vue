@@ -36,7 +36,7 @@ if (!data.value.entry) {
   })
 }
 
-if (data.value.entry.slug && import.meta.server) {
+if (data.value.entry.slug && import.meta.prerender) {
   const { index } = useIndexer()
   // console.log("elasticsearchplugin", index, data.value.entry.slug)
   data.value.entry.donorNames = parsedDonorsForES(data.value.entry.donors)

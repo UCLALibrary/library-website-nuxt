@@ -34,7 +34,7 @@ if (!data.value.event && !data.value.eventSeries && !data.value.exhibition) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (import.meta.server) {
+if (import.meta.prerender) {
   const { index } = useIndexer()
   if (data.value.eventSeries) data.value.eventSeries.sectionHandle = 'eventSeries'
   if (data.value.event)

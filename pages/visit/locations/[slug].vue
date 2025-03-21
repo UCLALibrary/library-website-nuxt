@@ -40,7 +40,7 @@ if (!data.value.entry) {
     fatal: true
   })
 }
-if (data.value.entry.slug && import.meta.server) {
+if (data.value.entry.slug && import.meta.prerender) {
   const { index } = useIndexer()
   // console.log('Indexing location', data.value.entry.slug)
   await index(data.value.entry, data.value.entry.slug)

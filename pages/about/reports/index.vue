@@ -24,7 +24,7 @@ if (!page.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (page.value.entry && import.meta.server) {
+if (page.value.entry && import.meta.prerender) {
   const { index } = useIndexer()
   const doc = {
     title: page.value.entry.title,
