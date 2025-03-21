@@ -48,11 +48,17 @@ export default defineNuxtConfig({
   nitro: {
     minify: false,
     prerender: {
-      crawlLinks: true,
+      crawlLinks: false,
       failOnError: false,
       concurrency: 50,
       interval: 1000,
-      // routes: ['/'],
+      routes: ['/', '/about/jobs/staff-academic-jobs/', '/about/news/',
+        '/about/polices/', '/about/programs/',
+        '/about/staff/', '/about/student-opportunities/', '/about/status-updates/',
+        '/collections/', '/collections/access/', '/collections/explore/',
+        '/give/endowments/', '/help/services-resources/', '/help/services-resources/ask-us/',
+        '/impact/', '/search-site/', '/visit/events-exhibition/', '/visit/location/'
+      ],
     },
     hooks: {
       'prerender:generate'(route) {
