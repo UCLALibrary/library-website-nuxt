@@ -53,6 +53,7 @@ if (
   data.value.entry.accessCollections.length > 0 &&
   import.meta.prerender
 ) {
+  const { index } = useIndexer()
   for (const collection of data.value.entry.accessCollections) {
     collection.searchType = 'accessCollections'
     collection.to = collection.uri
@@ -226,10 +227,8 @@ function getSearchData(data) {
       <DividerWayFinder class="search-margin" />
     </SectionWrapper>
 
-    <SectionWrapper
-      v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <SectionWrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      ">
       <SectionCardsWithIllustrations
         class="section"
         :items="parsedAccessCollections"
