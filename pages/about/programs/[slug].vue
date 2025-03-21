@@ -11,7 +11,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import PROGRAM_DETAIL from '../gql/queries/ProgramDetail.gql'
 
-const { $graphql, $getHeaders, $elasticsearchplugin } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 
 const route = useRoute()
 const hostname = ref('')
@@ -39,8 +39,9 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (data.value.entry.slug && import.meta.server) {
-  await $elasticsearchplugin.index(data.value.entry, route.params.slug)
+if (data.value.entry.slug && import.meta.prerender) {
+  const { index } = useIndexer()
+  await index(data.value.entry, route.params.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))

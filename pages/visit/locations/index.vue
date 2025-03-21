@@ -19,7 +19,7 @@ import parseAmenities from '../utils/parseAmenities'
 // GQL
 import LOCATIONS_LIST from '../gql/queries/LocationsList.gql'
 
-const { $graphql, $dataApi } = useNuxtApp()
+const { $graphql } = useNuxtApp()
 
 const route = useRoute()
 
@@ -40,22 +40,22 @@ if (!data.value.entry) {
     statusMessage: 'Page Not Found'
   })
 }
-if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+if (data.value.entry && import.meta.prerender) {
+  const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.text,
     uri: 'visit/locations/'
   }
-  await $elasticsearchplugin.index(doc, 'location-list')
+  await index(doc, 'location-list')
 }
 
 // console.log('In endowment listing page data.value: ', JSON.stringify(data.value))
 // Index data on server only
-if (data?.value?.entry.affiliateLibraries && data.value.entry.affiliateLibraries.length > 0 && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+if (data?.value?.entry.affiliateLibraries && data.value.entry.affiliateLibraries.length > 0 && import.meta.prerender) {
+  const { index } = useIndexer()
   for (const affiliateLibrary of data.value.entry.affiliateLibraries) {
-    await $elasticsearchplugin.index(
+    await index(
       affiliateLibrary,
       affiliateLibrary.slug
     )
@@ -93,7 +93,8 @@ async function searchES() {
   ) {
     // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
-    const results = await $dataApi.keywordSearchWithFilters(
+    const { keywordSearchWithFilters } = useSearch()
+    const results = await keywordSearchWithFilters(
       queryText,
       config.locationsList.searchFields,
       'sectionHandle:location OR sectionHandle:affiliateLibrary',
@@ -193,7 +194,8 @@ function showMoreOtherCampusLibrary() {
 }
 
 async function setFilters() {
-  const searchAggsResponse = await $dataApi.getAggregations(
+  const { getAggregations } = useSearch()
+  const searchAggsResponse = await getAggregations(
     config.locationsList.filters,
     'location'
   )

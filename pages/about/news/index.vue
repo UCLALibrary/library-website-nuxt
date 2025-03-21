@@ -14,9 +14,10 @@ import ARTICLE_LIST from '../gql/queries/ArticleList.gql'
 import getListingFilters from '../utils/getListingFilters'
 import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
+import useSearch from '~/composables/useSearch'
 // console.log('In news listing page')
 
-const { $graphql, $dataApi } = useNuxtApp()
+const { $graphql } = useNuxtApp()
 const { data, error } = await useAsyncData('news-listing', async () => {
   const data = await $graphql.default.request(ARTICLE_LIST)
   // console.log('data in useasync for news listing: ', data)
@@ -34,14 +35,14 @@ if (!data.value?.entry && !data.value?.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+if (data.value.entry && import.meta.prerender) {
+  const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.text,
     uri: 'about/news/'
   }
-  await $elasticsearchplugin.index(doc, 'news-listing')
+  await index(doc, 'news-listing')
 }
 
 // console.log('In news listing page data.value: ', JSON.stringify(data.value))
@@ -196,7 +197,8 @@ async function searchES() {
   ) {
     // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
-    const results = await $dataApi.keywordSearchWithFilters(
+    const { keywordSearchWithFilters } = useSearch()
+    const results = await keywordSearchWithFilters(
       queryText,
       config.newsIndex.searchFields,
       'sectionHandle:article',
@@ -284,7 +286,8 @@ function getSearchData(data) {
 
 // fetch filters for the page from ES after page loads in Onmounted hook on the client side
 async function setFilters() {
-  const searchAggsResponse = await $dataApi.getAggregations(
+  const { getAggregations } = useSearch()
+  const searchAggsResponse = await getAggregations(
     config.newsIndex.filters,
     'article'
   )

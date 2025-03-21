@@ -14,7 +14,7 @@ import config from '../utils/searchConfig'
 import removeTags from '../utils/removeTags'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
 
-const { $graphql, $dataApi } = useNuxtApp()
+const { $graphql } = useNuxtApp()
 const { data, error } = await useAsyncData('staff-list', async () => {
   const data = await $graphql.default.request(STAFF_LIST)
   return data
@@ -30,14 +30,14 @@ if (!data.value.entry && !data.value.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+if (data.value.entry && import.meta.prerender) {
+  const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.text,
     uri: 'about/staff/'
   }
-  await $elasticsearchplugin.index(doc, 'staff-list')
+  await index(doc, 'staff-list')
 }
 
 const route = useRoute()
@@ -179,7 +179,8 @@ async function searchES() {
       : []
 
     // console.log('in router query in asyc data queryText', queryText)
-    const results = await $dataApi.keywordSearchWithFilters(
+    const { keywordSearchWithFilters } = useSearch()
+    const results = await keywordSearchWithFilters(
       queryText,
       config.staff.searchFields,
       'sectionHandle:staffMember',
@@ -329,7 +330,8 @@ function getSearchData(data) {
 }
 
 async function setFilters() {
-  const searchAggsResponse = await $dataApi.getAggregations(
+  const { getAggregations } = useSearch()
+  const searchAggsResponse = await getAggregations(
     config.staff.filters,
     'staffMember'
   )
@@ -516,7 +518,7 @@ onMounted(async () => {
             </ul>
             <div v-if="item.locations && item.locations.length !== 0">
               <IconWithLink
-                v-for="location in item.locations "
+                v-for="location in item.locations"
                 :key="'location-' + location.id"
                 :text="location.title ?? ''"
                 icon-name="svg-icon-location"

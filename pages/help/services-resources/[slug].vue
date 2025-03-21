@@ -30,13 +30,13 @@ if (!data.value.serviceOrResource && !data.value.workshopSeries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+if (import.meta.prerender) {
+  const { index } = useIndexer()
   if (data.value.workshopSeries) {
     data.value.workshopSeries.sectionHandle = 'workshopSeries'
     data.value.workshopSeries.serviceOrResourceType = 'workshop series'
   }
-  await $elasticsearchplugin?.index(data.value.serviceOrResource || data.value.workshopSeries, route.params.slug)
+  await index(data.value.serviceOrResource || data.value.workshopSeries, route.params.slug)
 }
 
 const page = ref(data.value)

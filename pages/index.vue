@@ -26,15 +26,16 @@ if (!data.value.entry) {
   })
 }
 
-if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+if (data.value.entry && import.meta.prerender) {
+  const { index } = useIndexer()
+
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.summary,
     searchLinks: data.value.entry.searchLinks,
     uri: '/'
   }
-  await $elasticsearchplugin.index(doc, 'home-page')
+  await index(doc, 'home-page')
 }
 const page = ref(_get(data.value, 'entry', {}))
 watch(data, (newVal, oldVal) => {

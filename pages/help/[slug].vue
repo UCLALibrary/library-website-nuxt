@@ -33,10 +33,10 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (route.params.slug !== undefined && data.value.entry.slug && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+if (route.params.slug !== undefined && data.value.entry.slug && import.meta.prerender) {
+  const { index } = useIndexer()
   // console.log('data.value.entry.serviceOrResourceType', data.value.entry.serviceOrResourceType)
-  await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
+  await index(data.value.entry, data.value.entry.slug)
 }
 
 if (data.value.entry) {

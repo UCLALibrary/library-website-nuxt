@@ -36,11 +36,11 @@ if (!data.value.entry) {
   })
 }
 
-if (data.value.entry.slug && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
-  // console.log("elasticsearchplugin", $elasticsearchplugin, data.value.entry.slug)
+if (data.value.entry.slug && import.meta.prerender) {
+  const { index } = useIndexer()
+  // console.log("elasticsearchplugin", index, data.value.entry.slug)
   data.value.entry.donorNames = parsedDonorsForES(data.value.entry.donors)
-  await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
+  await index(data.value.entry, data.value.entry.slug)
 }
 // console.log("data.value.entry", data.value.entry)
 

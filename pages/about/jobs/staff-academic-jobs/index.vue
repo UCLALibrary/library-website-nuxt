@@ -26,8 +26,8 @@ if (error.value) {
 if (!data.value.entry && !data.value.allJobs) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
-if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+if (data.value.entry && import.meta.prerender) {
+  const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.text,
@@ -35,7 +35,7 @@ if (data.value.entry && import.meta.server) {
     phoneNumber: data.value.entry.phoneNumber,
     uri: 'about/jobs/staff-academic-jobs/'
   }
-  await $elasticsearchplugin.index(doc, 'job-opportunities-list')
+  await index(doc, 'job-opportunities-list')
 }
 const page = ref(_get(data.value, 'entry', {}))
 const allJobs = ref(_get(data.value, 'allJobs', {}))

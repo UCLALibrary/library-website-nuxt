@@ -33,14 +33,14 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+if (data.value.entry && import.meta.prerender) {
+  const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.text,
     uri: 'about/policies/'
   }
-  await $elasticsearchplugin.index(doc, 'policy-listing')
+  await index(doc, 'policy-listing')
 }
 
 const page = ref(_get(data.value, 'entry', {}))

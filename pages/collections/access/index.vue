@@ -11,7 +11,7 @@ import ACCESS_COLLECTIONS from '../gql/queries/CollectionsAccessList.gql'
 
 // UTILITIES & PLUGINS
 import config from '../utils/searchConfig'
-const { $graphql, $elasticsearchplugin, $dataApi } = useNuxtApp()
+const { $graphql } = useNuxtApp()
 
 // ROUTING
 const route = useRoute()
@@ -36,14 +36,14 @@ if (!data.value.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
-if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+if (data.value.entry && import.meta.prerender) {
+  const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.text,
     uri: 'collections/access/'
   }
-  await $elasticsearchplugin.index(doc, 'access-collection')
+  await index(doc, 'access-collection')
 }
 
 // only index on server
@@ -51,15 +51,16 @@ if (data.value.entry && import.meta.server) {
 if (
   data.value.entry.accessCollections &&
   data.value.entry.accessCollections.length > 0 &&
-  import.meta.server
+  import.meta.prerender
 ) {
+  const { index } = useIndexer()
   for (const collection of data.value.entry.accessCollections) {
     collection.searchType = 'accessCollections'
     collection.to = collection.uri
       ? collection.uri
       : collection.externalResourceUrl
     // console.log('Index Access collections:', collection.slug)
-    await $elasticsearchplugin.index(collection, collection.slug)
+    await index(collection, collection.slug)
   }
 }
 // end indexing
@@ -86,7 +87,8 @@ async function searchES() {
   if (route?.query && route?.query.q && route?.query.q !== '') {
     // console.log('searchES', route.query.q)
     const queryText = route.query.q || '*'
-    const results = await $dataApi.keywordSearchWithFilters(
+    const { keywordSearchWithFilters } = useSearch()
+    const results = await keywordSearchWithFilters(
       queryText,
       config.accessCollections.searchFields,
       'searchType:accessCollection',
@@ -225,10 +227,8 @@ function getSearchData(data) {
       <DividerWayFinder class="search-margin" />
     </SectionWrapper>
 
-    <SectionWrapper
-      v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <SectionWrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      ">
       <SectionCardsWithIllustrations
         class="section"
         :items="parsedAccessCollections"

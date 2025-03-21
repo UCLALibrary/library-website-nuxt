@@ -40,10 +40,10 @@ if (!data.value.entry) {
     fatal: true
   })
 }
-if (data.value.entry.slug && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+if (data.value.entry.slug && import.meta.prerender) {
+  const { index } = useIndexer()
   // console.log('Indexing location', data.value.entry.slug)
-  await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
+  await index(data.value.entry, data.value.entry.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))
