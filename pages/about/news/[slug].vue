@@ -41,9 +41,9 @@ if (data.value.entry.slug && import.meta.server) {
   // console.log('News slug article category:', data.value.entry.category)
   data.value.entry.articleCategory = data.value.entry.category
 
-  const { $elasticsearchplugin } = useNuxtApp()
-  // console.log("elasticsearchplugin", $elasticsearchplugin, data.value.entry.slug)
-  await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
+  const { index } = useIndexer()
+  // console.log("elasticsearchplugin", index, data.value.entry.slug)
+  await index(data.value.entry, data.value.entry.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))

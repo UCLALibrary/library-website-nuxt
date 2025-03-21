@@ -17,7 +17,7 @@ import queryFilterHasValues from '../utils/queryFilterHasValues'
 import removeTags from '../utils/removeTags'
 import sortByTitle from '../utils/sortByTitle'
 
-const { $graphql, $dataApi } = useNuxtApp()
+const { $graphql } = useNuxtApp()
 
 const { data, error } = await useAsyncData('events-list', async () => {
   const data = await $graphql.default.request(EXHIBITIONS_AND_EVENTS_LIST)
@@ -40,13 +40,13 @@ if (!data.value?.data && !data.value?.single) {
   })
 }
 if (data.value.single && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+  const { index } = useIndexer()
   const doc = {
     title: data.value.single.title,
     text: data.value.single.text,
     uri: 'visit/events-exhibitions/'
   }
-  await $elasticsearchplugin.index(doc, 'events-exhibition-list')
+  await index(doc, 'events-exhibition-list')
 }
 
 const route = useRoute()
@@ -263,16 +263,17 @@ async function searchES() {
     const extrafilters = (past && past.length > 0 && past[0] === 'yes')
       ? []
       : [
-          {
-            range: {
-              endDateWithTime: {
-                gte: 'now',
-              },
+        {
+          range: {
+            endDateWithTime: {
+              gte: 'now',
             },
           },
-        ]
+        },
+      ]
 
-    const results = await $dataApi.keywordSearchWithFilters(
+    const { keywordSearchWithFilters } = useSearch()
+    const results = await keywordSearchWithFilters(
       queryText,
       config.eventsExhibitionsList.searchFields,
       'sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries',
@@ -366,7 +367,8 @@ function getSearchData(data) {
 }
 
 async function setFilters() {
-  const searchAggsResponse = await $dataApi.getAggregations(
+  const { getAggregations } = useSearch()
+  const searchAggsResponse = await getAggregations(
     config.eventsExhibitionsList.filters,
     'event'
   )
@@ -417,7 +419,7 @@ onMounted(async () => {
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -452,7 +454,7 @@ onMounted(async () => {
         parsedEvents.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="visit" />
@@ -464,7 +466,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Upcoming Events"
     >
       <SectionTeaserList :items="parsedEvents" />
@@ -475,7 +477,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="visit" />
@@ -487,7 +489,7 @@ onMounted(async () => {
         parsedSeriesAndExhibitions.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Event Series & Exhibitions"
     >
       <SectionTeaserCard :items="parsedSeriesAndExhibitions" />

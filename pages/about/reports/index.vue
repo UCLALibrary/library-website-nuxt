@@ -25,13 +25,13 @@ if (!page.value.entry) {
 }
 
 if (page.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+  const { index } = useIndexer()
   const doc = {
     title: page.value.entry.title,
     text: page.value.entry.summary,
     uri: 'about/reports/'
   }
-  await $elasticsearchplugin.index(doc, 'impact-report-all-list')
+  await index(doc, 'impact-report-all-list')
 }
 
 useHead({

@@ -11,7 +11,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import POLICY_DETAIL from '../gql/queries/PolicyDetail.gql'
 
-const { $graphql, $getHeaders, $elasticsearchplugin } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
 const config = useRuntimeConfig()
 
@@ -50,7 +50,8 @@ if (!data.value.entry) {
   })
 }
 if (data.value.entry.slug && import.meta.server) {
-  await $elasticsearchplugin.index(data.value.entry, route.params.slug)
+  const { index } = useIndexer()
+  await index(data.value.entry, route.params.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))

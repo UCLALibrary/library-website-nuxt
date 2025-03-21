@@ -1,3 +1,7 @@
+export default function useSearch() {
+  return { siteSearch, getMapping, getAggregationsForSiteSearch, getAggregations, keywordSearchWithFilters }
+}
+
 /*
     {"id":"j6tUj4IBzYVXfPB9-JvU","name":"dev-es-key","api_key":"N_f0_5WSSae3QOvm4hlq0g","encoded":"ajZ0VWo0SUJ6WVZYZlBCOS1KdlU6Tl9mMF81V1NTYWUzUU92bTRobHEwZw=="}
 */
@@ -13,8 +17,8 @@ async function siteSearch(
   // https://www.elastic.co/guide/en/elasticsearch/reference/current/flattened.html
   if (
     config.public.esReadKey === '' ||
-        config.public.esURL === '' ||
-        config.public.esAlias === ''
+    config.public.esURL === '' ||
+    config.public.esAlias === ''
   )
     return
   // console.log('keyword:' + keyword)
@@ -36,10 +40,10 @@ async function siteSearch(
           must: [{
             query_string: {
               query: '(' +
-                                keyword +
-                                ' AND NOT(sectionHandle:event)) OR (' +
-                                keyword +
-                                ' AND startDateWithTime:[now TO *] AND sectionHandle:event)',
+                keyword +
+                ' AND NOT(sectionHandle:event)) OR (' +
+                keyword +
+                ' AND startDateWithTime:[now TO *] AND sectionHandle:event)',
               fields: [
                 'title^4',
                 'summary^3',
@@ -70,12 +74,12 @@ async function siteSearch(
   //   }
 
   const responseAlias = await fetch(
-        `${config.public.esURL}/_alias/${config.public.esAlias}`, {
-          headers: {
-            Authorization: `ApiKey ${config.public.esReadKey}`,
-            'Content-Type': 'application/json',
-          },
-        }
+    `${config.public.esURL}/_alias/${config.public.esAlias}`, {
+    headers: {
+      Authorization: `ApiKey ${config.public.esReadKey}`,
+      'Content-Type': 'application/json',
+    },
+  }
   )
   const dataAlias = await responseAlias.json()
 
@@ -84,47 +88,47 @@ async function siteSearch(
   const libguideIndex = Object.keys(dataAlias)[1].includes('libguides') ? Object.keys(dataAlias)[1] : Object.keys(dataAlias)[0]
 
   const response = await fetch(
-        `${config.public.esURL}/${config.public.esAlias}/_search`, {
-          headers: {
-            Authorization: `ApiKey ${config.public.esReadKey}`,
-            'Content-Type': 'application/json',
-          },
-          method: 'POST',
-          body: JSON.stringify({
-            from,
-            indices_boost: [{
-              [libraryIndex]: 3.0
+    `${config.public.esURL}/${config.public.esAlias}/_search`, {
+    headers: {
+      Authorization: `ApiKey ${config.public.esReadKey}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      from,
+      indices_boost: [{
+        [libraryIndex]: 3.0
+      },
+      {
+        [libguideIndex]: 1.3
+      }
+      ],
+      query: {
+        bool: {
+          must: [{
+            query_string: {
+              query: '(' +
+                keyword +
+                ' AND NOT(sectionHandle:event)) OR (' +
+                keyword +
+                ' AND startDateWithTime:[now TO *] AND sectionHandle:event)',
+              fields: [
+                'title^4',
+                'summary^3',
+                'text^3',
+                'fullText^2',
+                'richText^2',
+                'sectionHandle',
+                'sectionHandleDisplayName'
+              ],
+              fuzziness: 'auto',
             },
-            {
-              [libguideIndex]: 1.3
-            }
-            ],
-            query: {
-              bool: {
-                must: [{
-                  query_string: {
-                    query: '(' +
-                                    keyword +
-                                    ' AND NOT(sectionHandle:event)) OR (' +
-                                    keyword +
-                                    ' AND startDateWithTime:[now TO *] AND sectionHandle:event)',
-                    fields: [
-                      'title^4',
-                      'summary^3',
-                      'text^3',
-                      'fullText^2',
-                      'richText^2',
-                      'sectionHandle',
-                      'sectionHandleDisplayName'
-                    ],
-                    fuzziness: 'auto',
-                  },
-                },],
-                filter: [...parseFilterQuerySiteSearch(queryFilters, configMapping)],
-              },
-            },
-          }),
-        }
+          },],
+          filter: [...parseFilterQuerySiteSearch(queryFilters, configMapping)],
+        },
+      },
+    }),
+  }
   )
   const data = await response.json()
   return data
@@ -169,17 +173,17 @@ async function getMapping() {
   const config = useRuntimeConfig()
   if (
     config.public.esReadKey === '' ||
-        config.public.esURL === '' ||
-        config.public.esAlias === ''
+    config.public.esURL === '' ||
+    config.public.esAlias === ''
   )
     return
   const response = await fetch(
-        `${config.public.esURL}/${config.public.esAlias}/_mapping`, {
-          headers: {
-            Authorization: `ApiKey ${config.public.esReadKey}`,
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        }
+    `${config.public.esURL}/${config.public.esAlias}/_mapping`, {
+    headers: {
+      Authorization: `ApiKey ${config.public.esReadKey}`,
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  }
   )
   const data = await response.json()
   return data
@@ -190,22 +194,22 @@ async function getAggregationsForSiteSearch(fields) {
   const config = useRuntimeConfig()
   if (!fields || fields.length === 0) return
   const response = await fetch(
-        `${config.public.esURL}/${config.public.esAlias}/_search`, {
-          headers: {
-            Authorization: `ApiKey ${config.public.esReadKey}`,
-            'Content-Type': 'application/json',
-          },
-          method: 'POST',
-          body: JSON.stringify({
-            size: 0,
-            query: {
-              match_all: {},
-            },
-            aggs: {
-              ...parseFieldNames(fields),
-            },
-          }),
-        }
+    `${config.public.esURL}/${config.public.esAlias}/_search`, {
+    headers: {
+      Authorization: `ApiKey ${config.public.esReadKey}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      size: 0,
+      query: {
+        match_all: {},
+      },
+      aggs: {
+        ...parseFieldNames(fields),
+      },
+    }),
+  }
   )
   const data = await response.json()
   return data.aggregations
@@ -216,25 +220,25 @@ async function getAggregations(fields, sectionHandle) {
   const config = useRuntimeConfig()
   if (!fields || fields.length === 0) return
   const response = await fetch(
-        `${config.public.esURL}/${config.public.esAlias}/_search`, {
-          headers: {
-            Authorization: `ApiKey ${config.public.esReadKey}`,
-            'Content-Type': 'application/json',
-          },
-          method: 'POST',
-          body: JSON.stringify({
-            size: 0,
-            query: {
-              query_string: {
-                query: sectionHandle,
-                default_field: 'sectionHandle'
-              },
-            },
-            aggs: {
-              ...parseFieldNames(fields),
-            },
-          }),
-        }
+    `${config.public.esURL}/${config.public.esAlias}/_search`, {
+    headers: {
+      Authorization: `ApiKey ${config.public.esReadKey}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      size: 0,
+      query: {
+        query_string: {
+          query: sectionHandle,
+          default_field: 'sectionHandle'
+        },
+      },
+      aggs: {
+        ...parseFieldNames(fields),
+      },
+    }),
+  }
   )
   const data = await response.json()
   return data.aggregations
@@ -258,8 +262,8 @@ async function keywordSearchWithFilters(
   // console.log(config.public.esURL)
   if (
     config.public.esReadKey === '' ||
-        config.public.esURL === '' ||
-        config.public.esAlias === ''
+    config.public.esURL === '' ||
+    config.public.esAlias === ''
   )
     return
   // console.log('keyword:' + keyword)
@@ -292,12 +296,12 @@ async function keywordSearchWithFilters(
 
   // need to know fields to boost on for listing pages when searching like title etc
   const responseAlias = await fetch(
-        `${config.public.esURL}/_alias/${config.public.esAlias}`, {
-          headers: {
-            Authorization: `ApiKey ${config.public.esReadKey}`,
-            'Content-Type': 'application/json',
-          },
-        }
+    `${config.public.esURL}/_alias/${config.public.esAlias}`, {
+    headers: {
+      Authorization: `ApiKey ${config.public.esReadKey}`,
+      'Content-Type': 'application/json',
+    },
+  }
   )
   const dataAlias = await responseAlias.json()
 
@@ -305,37 +309,37 @@ async function keywordSearchWithFilters(
   const libraryIndex = !Object.keys(dataAlias)[0].includes('libguides') ? Object.keys(dataAlias)[0] : Object.keys(dataAlias)[1]
 
   const response = await fetch(
-        `${config.public.esURL}/${libraryIndex}/_search`, // replace alias with indexname
-        {
-          headers: {
-            Authorization: `ApiKey ${config.public.esReadKey}`,
-            'Content-Type': 'application/json',
-          },
-          method: 'POST',
-          body: JSON.stringify({
-            size: '1000',
-            _source: [...source],
-            query: {
-              bool: {
-                must: [{
-                  query_string: {
-                    query: keyword,
-                    fields: [...searchFields],
-                    fuzziness: 'auto',
-                  },
-                },
-                ...parseSectionHandle(sectionHandle),
-                ...parseFilterQuery(filters),
-                ...extraFilters,
-                ],
+    `${config.public.esURL}/${libraryIndex}/_search`, // replace alias with indexname
+    {
+      headers: {
+        Authorization: `ApiKey ${config.public.esReadKey}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        size: '1000',
+        _source: [...source],
+        query: {
+          bool: {
+            must: [{
+              query_string: {
+                query: keyword,
+                fields: [...searchFields],
+                fuzziness: 'auto',
               },
             },
-            ...parseSort(sort, orderBy),
-            aggs: {
-              ...parseFieldNames(aggFields),
-            },
-          }),
-        }
+            ...parseSectionHandle(sectionHandle),
+            ...parseFilterQuery(filters),
+            ...extraFilters,
+            ],
+          },
+        },
+        ...parseSort(sort, orderBy),
+        aggs: {
+          ...parseFieldNames(aggFields),
+        },
+      }),
+    }
   )
   const data = await response.json()
   return data
@@ -413,17 +417,3 @@ function parseFieldNames(fields) {
   // console.log("aggsFields:" + JSON.stringify(aggsFields))
   return aggsFields
 }
-
-export default defineNuxtPlugin((nuxtApp) => {
-  return {
-    provide: {
-      dataApi: {
-        getMapping,
-        siteSearch,
-        keywordSearchWithFilters,
-        getAggregations,
-        getAggregationsForSiteSearch
-      }
-    }
-  }
-})

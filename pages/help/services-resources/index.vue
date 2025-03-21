@@ -21,7 +21,7 @@ import sortByTitle from '../utils/sortByTitle'
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from '../gql/queries/ServiceResourceWorkshopSeriesList.gql'
 import HELP_TOPIC_LIST from '../gql/queries/HelpTopicList.gql'
 
-const { $graphql, $elasticsearchplugin, $dataApi } = useNuxtApp()
+const { $graphql } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData('services-resources-list', async () => {
@@ -50,8 +50,9 @@ if (
   data.value.data.externalResource.length > 0 &&
   import.meta.server
 ) {
+  const { index } = useIndexer()
   for (const externalResource of data.value.data.externalResource) {
-    await $elasticsearchplugin.index(
+    await index(
       { ...externalResource, serviceOrResourceType: 'external resource' },
       externalResource.slug
     )
@@ -59,13 +60,13 @@ if (
 }
 
 if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+  const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.text,
     uri: 'help/services-resources/'
   }
-  await $elasticsearchplugin.index(doc, 'services-resources-list')
+  await index(doc, 'services-resources-list')
 }
 
 const page = ref(data.value.data)
@@ -114,7 +115,8 @@ async function searchES() {
   ) {
     // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
-    const results = await $dataApi.keywordSearchWithFilters(
+    const { keywordSearchWithFilters } = useSearch()
+    const results = await keywordSearchWithFilters(
       queryText,
       config.serviceOrResources.searchFields,
       '(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)',
@@ -250,7 +252,8 @@ onMounted(async () => {
 // ELEASTIC SEARCH METHODS
 // FETCH FILTERS FROM ES
 async function setFilters() {
-  const searchAggsResponse = await $dataApi.getAggregations(
+  const { getAggregations } = useSearch()
+  const searchAggsResponse = await getAggregations(
     config.serviceOrResources.filters,
     'serviceOrResource OR workshopSeries OR helpTopic OR externalResource',
   )

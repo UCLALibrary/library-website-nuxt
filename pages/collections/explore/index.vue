@@ -17,7 +17,7 @@ import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
 import parseFilters from '../utils/parseFilters'
 
-const { $graphql, $dataApi } = useNuxtApp()
+const { $graphql } = useNuxtApp()
 
 // ROUTING
 const route = useRoute()
@@ -44,13 +44,13 @@ if (!data.value.entry) {
 }
 
 if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+  const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.text,
     uri: 'collections/explore/'
   }
-  await $elasticsearchplugin.index(doc, 'explore-collection')
+  await index(doc, 'explore-collection')
 }
 
 // DATA
@@ -136,7 +136,8 @@ async function searchES() {
   ) {
     // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
-    const results = await $dataApi.keywordSearchWithFilters(
+    const { keywordSearchWithFilters } = useSearch()
+    const results = await keywordSearchWithFilters(
       queryText,
       config.exploreCollection.searchFields,
       'sectionHandle:collection',
@@ -203,7 +204,8 @@ function getSearchData(data) {
 
 // fetch filters for the page from ES after page loads in Onmounted hook on the client side
 async function setFilters() {
-  const searchAggsResponse = await $dataApi.getAggregations(
+  const { getAggregations } = useSearch()
+  const searchAggsResponse = await getAggregations(
     config.exploreCollection.filters,
     'collection'
   )
@@ -261,7 +263,7 @@ onMounted(async () => {
         parsedCollectionList.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <SectionTeaserCard :items="parsedCollectionList" />

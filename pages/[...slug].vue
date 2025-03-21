@@ -39,8 +39,8 @@ if (!data.value.entry) {
 }
 
 if (data.value.entry.slug && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
-  await $elasticsearchplugin.index(data.value.entry, path.replaceAll('/', '--'))
+  const { index } = useIndexer()
+  await index(data.value.entry, path.replaceAll('/', '--'))
 }
 
 const page = ref(_get(data.value, 'entry', {}))

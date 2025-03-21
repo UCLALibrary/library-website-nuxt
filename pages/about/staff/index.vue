@@ -14,7 +14,7 @@ import config from '../utils/searchConfig'
 import removeTags from '../utils/removeTags'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
 
-const { $graphql, $dataApi } = useNuxtApp()
+const { $graphql } = useNuxtApp()
 const { data, error } = await useAsyncData('staff-list', async () => {
   const data = await $graphql.default.request(STAFF_LIST)
   return data
@@ -31,13 +31,13 @@ if (!data.value.entry && !data.value.entries) {
 }
 
 if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+  const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.text,
     uri: 'about/staff/'
   }
-  await $elasticsearchplugin.index(doc, 'staff-list')
+  await index(doc, 'staff-list')
 }
 
 const route = useRoute()
@@ -173,13 +173,14 @@ async function searchES() {
     }
     const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, ...filters } = routeFilters.value
     const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-        [
-          { term: { 'subjectLibrarian.keyword': 'yes' } }
-        ]
+      [
+        { term: { 'subjectLibrarian.keyword': 'yes' } }
+      ]
       : []
 
     // console.log('in router query in asyc data queryText', queryText)
-    const results = await $dataApi.keywordSearchWithFilters(
+    const { keywordSearchWithFilters } = useSearch()
+    const results = await keywordSearchWithFilters(
       queryText,
       config.staff.searchFields,
       'sectionHandle:staffMember',
@@ -329,7 +330,8 @@ function getSearchData(data) {
 }
 
 async function setFilters() {
-  const searchAggsResponse = await $dataApi.getAggregations(
+  const { getAggregations } = useSearch()
+  const searchAggsResponse = await getAggregations(
     config.staff.filters,
     'staffMember'
   )
@@ -406,9 +408,9 @@ onMounted(async () => {
             'subjectLibrarian.keyword'
           ][0] === '')) ||
           !searchGenericQuery.queryFilters[
-            'subjectLibrarian.keyword'
+          'subjectLibrarian.keyword'
           ])
-      "
+        "
       class="section-no-top-margin"
     >
       <AlphabeticalBrowseBy
@@ -469,7 +471,7 @@ onMounted(async () => {
         searchGenericQuery.queryFilters['subjectLibrarian.keyword'][0] ===
         'yes' &&
         groupByAcademicLibraries
-      "
+        "
       class="section-no-top-margin"
     >
       <h3 class="section-title subject-librarian">
@@ -516,7 +518,7 @@ onMounted(async () => {
             </ul>
             <div v-if="item.locations && item.locations.length !== 0">
               <IconWithLink
-                v-for="location in item.locations "
+                v-for="location in item.locations"
                 :key="'location-' + location.id"
                 :text="location.title ?? ''"
                 icon-name="svg-icon-location"

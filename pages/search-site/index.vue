@@ -25,7 +25,8 @@ const searchGenericQuery = ref({
   queryFilters: parseFilters(route.query.filters || '')
 })
 const isSearching = ref(true)
-const { $dataApi } = useNuxtApp()
+
+
 // This watcher is called when router push updates the query params
 watch(
   () => route.query,
@@ -50,7 +51,8 @@ async function searchES() {
         ))
     ) {
       // console.log('Search site in router query in asyc data')
-      page.value = await $dataApi.siteSearch(
+      const { siteSearch } = useSearch()
+      page.value = await siteSearch(
         route.query.q || '*',
         route.query.from || from.value,
         parseFilters(route.query.filters || ''),

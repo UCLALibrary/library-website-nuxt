@@ -13,7 +13,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import ENDOWMENTS_LIST from '../gql/queries/EndowmentList.gql'
 
-const { $graphql, $dataApi } = useNuxtApp()
+const { $graphql } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData('endowments-list', async () => {
@@ -32,13 +32,13 @@ if (!data.value?.data || !data.value?.data?.entry || !data.value?.data?.entries)
 }
 
 if (data.value?.data?.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+  const { index } = useIndexer()
   const doc = {
     title: data.value.data.entry.title,
     text: data.value.data.entry.text,
     uri: 'give/endowments/'
   }
-  await $elasticsearchplugin.index(doc, 'endowments-list')
+  await index(doc, 'endowments-list')
 }
 
 const page = ref(_get(data.value.data, 'entry', {}))
@@ -131,12 +131,12 @@ const searchGenericQuery = ref({
 
 watch(() =>
   route.query,
-(newVal, oldVal) => {
-  // console.log('ES newVal, oldVal', newVal, oldVal)
-  searchGenericQuery.value.queryText = route.query.q || ''
-  searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
-  searchES()
-}, { deep: true, immediate: true }
+  (newVal, oldVal) => {
+    // console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
+    searchES()
+  }, { deep: true, immediate: true }
 )
 
 async function searchES() {
@@ -150,7 +150,8 @@ async function searchES() {
   ) {
     // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
-    const results = await $dataApi.keywordSearchWithFilters(
+    const { keywordSearchWithFilters } = useSearch()
+    const results = await keywordSearchWithFilters(
       queryText,
       config.endowmentsList.searchFields,
       'sectionHandle:endowment',
@@ -223,7 +224,8 @@ function getSearchData(data) {
 }
 // fetch filters for the page from ES after page loads in Onmounted hook on the client side
 async function setFilters() {
-  const searchAggsResponse = await $dataApi.getAggregations(
+  const { getAggregations } = useSearch()
+  const searchAggsResponse = await getAggregations(
     config.endowmentsList.filters,
     'endowment'
   )
@@ -276,7 +278,7 @@ onMounted(async () => {
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
       :section-title="page.featuredEndowments[0].titleGeneral"
       :section-summary="page.featuredEndowments[0].sectionSummary"
@@ -294,7 +296,7 @@ onMounted(async () => {
         parsedFeaturedEndowments.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="about" />
@@ -306,7 +308,7 @@ onMounted(async () => {
         parsedEndowmentsList.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Collection Endowments"
     >
       <SectionGenericList :items="parsedEndowmentsList" />

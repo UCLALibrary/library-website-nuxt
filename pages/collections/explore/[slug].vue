@@ -12,7 +12,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import COLLECTION_DETAIL from '../gql/queries/CollectionDetail.gql'
 
-const { $graphql, $getHeaders, $elasticsearchplugin } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 
 const route = useRoute()
 
@@ -35,7 +35,8 @@ if (!data.value.entry) {
 }
 
 if (data.value.entry.slug && import.meta.server) {
-  await $elasticsearchplugin.index(data.value.entry, route.params.slug)
+  const { index } = useIndexer()
+  await index(data.value.entry, route.params.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))
@@ -230,8 +231,8 @@ onMounted(() => {
     <SectionWrapper
       v-if="
         parsedServicesAndResources.length > 0 ||
-          parsedEndowments.length > 0 ||
-          parsedAssociatedStaffMember.length > 0
+        parsedEndowments.length > 0 ||
+        parsedAssociatedStaffMember.length > 0
       "
       theme="divider"
     >
@@ -254,7 +255,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           parsedEndowments.length > 0 ||
-            parsedAssociatedStaffMember.length > 0
+          parsedAssociatedStaffMember.length > 0
         "
         class="divider-way-finder"
         color="default"

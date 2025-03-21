@@ -1,14 +1,15 @@
-export default defineNuxtPlugin((nuxtApp) => {
-  // console.log("elastic search plugin index  :")
+export default function useSearch() {
   const esIndex = useRuntimeConfig().public.esTempIndex
   const esURL = useRuntimeConfig().public.esURL
   const esReadKey = useRuntimeConfig().public.esReadKey
   const esWriteKey = useRuntimeConfig().esWriteKey
   async function index(data, slug) {
+    // console.log("elastic search plugin index  :")
+
     // console.log('elastic search plugin index function :', esIndex)
 
     try {
-      if (process.env.NODE_ENV !== 'development' && data && slug && esIndex) {
+      if (data && slug && esIndex) {
         /* console.log(
                 "this is the elasticsearch plugin: " + JSON.stringify(data)
             ) */
@@ -47,7 +48,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           )
           // console.log('Update document in ES', updateResponse)
           const updateJson = await updateResponse.text()
-          console.log('Update in ES', updateJson)
+          // console.log('Update in ES', updateJson)
         } else {
           const response = await fetch(
                     `${esURL}/${esIndex}/_doc/${slug}`,
@@ -72,13 +73,8 @@ export default defineNuxtPlugin((nuxtApp) => {
       throw new Error('Elastic Search Indexing failed ' + e) // TODO uncomment when cause is clear
     }
   }
+  return { index }
+}
 
-  return {
-    provide: {
-      elasticsearchplugin: {
-        index
-        // Make plugin available to all components
-      }
-    }
-  }
-})
+
+

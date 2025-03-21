@@ -34,13 +34,13 @@ if (!data.value.entry) {
 }
 
 if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+  const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.text,
     uri: 'about/policies/'
   }
-  await $elasticsearchplugin.index(doc, 'policy-listing')
+  await index(doc, 'policy-listing')
 }
 
 const page = ref(_get(data.value, 'entry', {}))

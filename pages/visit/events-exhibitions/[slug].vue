@@ -35,7 +35,7 @@ if (!data.value.event && !data.value.eventSeries && !data.value.exhibition) {
 }
 
 if (import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+  const { index } = useIndexer()
   if (data.value.eventSeries) data.value.eventSeries.sectionHandle = 'eventSeries'
   if (data.value.event)
     data.value.event.locations = data.value.event.associatedLocations
@@ -45,7 +45,7 @@ if (import.meta.server) {
   if (data.value.exhibition)
     data.value.exhibition.locations =
       data.value.exhibition.associatedLocationsAndPrograms
-  await $elasticsearchplugin?.index(data.value.event || data.value.eventSeries || data.value.exhibition, route.params.slug)
+  await index(data.value.event || data.value.eventSeries || data.value.exhibition, route.params.slug)
 }
 
 // console.log('test:', data.value.event.libcalOnlineSeats, data.value.event.libcalOnlineSeatsTaken)
@@ -630,10 +630,8 @@ onMounted(async () => {
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText
-          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-          "
-        />
+        <RichText :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+          " />
       </SectionWrapper>
     </div>
   </main>

@@ -16,7 +16,7 @@ import removeTags from '../utils/removeTags'
 import PROGRAMS_LIST from '../gql/queries/ProgramsList.gql'
 
 // GET DATA-
-const { $graphql, $dataApi } = useNuxtApp()
+const { $graphql } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData('program-listing', async () => {
@@ -36,13 +36,13 @@ if (!data.value.entry && !data.value.entries) {
 }
 
 if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+  const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.text,
     uri: 'about/programs/'
   }
-  await $elasticsearchplugin.index(doc, 'program-listing')
+  await index(doc, 'program-listing')
 }
 // MAP DATA TO VARIABLES & WATCH
 const page = ref(_get(data.value, 'entry', {}))
@@ -83,7 +83,8 @@ async function searchES() {
       ))
   ) {
     const queryText = route.query?.q || '*'
-    const results = await $dataApi.keywordSearchWithFilters(
+    const { keywordSearchWithFilters } = useSearch()
+    const results = await keywordSearchWithFilters(
       queryText as string,
       config.programsList.searchFields,
       'sectionHandle:program',
@@ -209,7 +210,8 @@ function getSearchData(data) {
 }
 // fetch filters for the page from ES after page loads in Onmounted hook on the client side
 async function setFilters() {
-  const searchAggsResponse = await $dataApi.getAggregations(
+  const { getAggregations } = useSearch()
+  const searchAggsResponse = await getAggregations(
     config.programsList.filters,
     'program'
   )
@@ -253,7 +255,7 @@ onMounted(async () => {
         page.featuredPrograms.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder
@@ -268,7 +270,7 @@ onMounted(async () => {
         page.featuredPrograms.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -301,7 +303,7 @@ onMounted(async () => {
         parsedProgramsList.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Programs & Initiatives"
     >
       <SectionStaffArticleList :items="parsedProgramsList" />

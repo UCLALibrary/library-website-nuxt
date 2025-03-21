@@ -37,10 +37,10 @@ if (!data.value.entry) {
 }
 
 if (data.value.entry.slug && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
-  // console.log("elasticsearchplugin", $elasticsearchplugin, data.value.entry.slug)
+  const { index } = useIndexer()
+  // console.log("elasticsearchplugin", index, data.value.entry.slug)
   data.value.entry.donorNames = parsedDonorsForES(data.value.entry.donors)
-  await $elasticsearchplugin?.index(data.value.entry, data.value.entry.slug)
+  await index(data.value.entry, data.value.entry.slug)
 }
 // console.log("data.value.entry", data.value.entry)
 
@@ -156,12 +156,12 @@ function computeDonors(donors) {
         page.alternativeName[0] &&
         page.alternativeName[0].fullName) ||
         ''
-      "
+        "
       :language="(page.alternativeName &&
         page.alternativeName[0] &&
         page.alternativeName[0].languageAltName) ||
         ''
-      "
+        "
       button-text="Give Now"
       :to="page.to"
     />
@@ -194,7 +194,7 @@ function computeDonors(donors) {
           <ul v-if="parsedAssociatedLocations.length > 0">
             <li
               v-for="(
-                location, index
+location, index
               ) in parsedAssociatedLocations"
               :key="`AssociatedLocation-${location}-${index}`"
             >

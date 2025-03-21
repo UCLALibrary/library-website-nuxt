@@ -10,7 +10,7 @@ import removeTags from '../utils/removeTags'
 import STAFF_DETAIL from '../gql/queries/StaffDetail.gql'
 
 const route = useRoute()
-const { $graphql, $elasticsearchplugin } = useNuxtApp()
+const { $graphql } = useNuxtApp()
 
 // ASYNC DATA into PAGE const
 const { data, error } = await useAsyncData(`staff/${route.params.slug}`, async () => {
@@ -34,9 +34,9 @@ if (!data.value.entry) {
 }
 // ES Index
 if (route.params.slug && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
-  // console.log("elasticsearchplugin", $elasticsearchplugin, route.params.slug)
-  await $elasticsearchplugin?.index(data.value.entry, route.params.slug)
+  const { index } = useIndexer()
+  // console.log("elasticsearchplugin", index, route.params.slug)
+  await index(data.value.entry, route.params.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))

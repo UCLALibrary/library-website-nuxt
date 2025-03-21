@@ -11,7 +11,7 @@ import removeTags from '../utils/removeTags'
 // GQL
 import PROGRAM_DETAIL from '../gql/queries/ProgramDetail.gql'
 
-const { $graphql, $getHeaders, $elasticsearchplugin } = useNuxtApp()
+const { $graphql, $getHeaders } = useNuxtApp()
 
 const route = useRoute()
 const hostname = ref('')
@@ -40,7 +40,8 @@ if (!data.value.entry) {
 }
 
 if (data.value.entry.slug && import.meta.server) {
-  await $elasticsearchplugin.index(data.value.entry, route.params.slug)
+  const { index } = useIndexer()
+  await index(data.value.entry, route.params.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))
@@ -178,7 +179,7 @@ onMounted(() => {
       <TheHours
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         :src="`${hostname}/blockCliccHours.html?lid=0`"
       />
@@ -186,7 +187,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         class="divider"
         color="about"

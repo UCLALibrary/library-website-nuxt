@@ -29,7 +29,7 @@ if (!data.value.entry && !data.value.allJobs) {
 }
 
 if (data.value.entry && import.meta.server) {
-  const { $elasticsearchplugin } = useNuxtApp()
+  const { index } = useIndexer()
   const doc = {
     title: data.value.entry.title,
     text: data.value.entry.text,
@@ -37,7 +37,7 @@ if (data.value.entry && import.meta.server) {
     phoneNumber: data.value.entry.phoneNumber,
     uri: 'about/student-opportunities/'
   }
-  await $elasticsearchplugin.index(doc, 'student-opportunities-list')
+  await index(doc, 'student-opportunities-list')
 }
 
 const page = ref(_get(data.value, 'entry', {}))
@@ -138,8 +138,8 @@ const parsedAssociatedTopics = computed(() => {
     <BannerText
       v-if="
         page.buttonUrl &&
-          page.buttonUrl[0] &&
-          page.buttonUrl[0].buttonText
+        page.buttonUrl[0] &&
+        page.buttonUrl[0].buttonText
       "
       class="banner-text"
       :title="page.title"
