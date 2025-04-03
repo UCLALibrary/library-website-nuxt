@@ -41,11 +41,9 @@ if (data.value.entry && import.meta.prerender) {
 
 const route = useRoute()
 
-
 const summaryData = ref(_get(data.value, 'entry', {}))
 
 watch(data, (newVal, oldVal) => {
-
   summaryData.value = _get(newVal, 'entry', {})
 })
 
@@ -59,7 +57,6 @@ useHead({
     }
   ]
 })
-
 
 // ELASTIC SEARCH FUNCTIONALITY
 function parseFilters(filtersString) {
@@ -116,22 +113,20 @@ watch(
     // console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
     searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
-    selectedLetterProp.value = searchGenericQuery.value.queryFilters['lastNameLetter'] ? searchGenericQuery.value.queryFilters['lastNameLetter'][0].split(':')[1].trim() : ''
+    selectedLetterProp.value = searchGenericQuery.value.queryFilters.lastNameLetter ? searchGenericQuery.value.queryFilters.lastNameLetter[0].split(':')[1].trim() : ''
     searchES()
   }, { deep: true, immediate: true }
 )
 
 // ELASTIC SEARCH FUNCTION
 async function searchES() {
+  const queryText = route.query.q || '*'
 
-
-  let queryText = route.query.q || '*'
-
-  const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, 'lastNameLetter': lastNameLetter, ...filters } = routeFilters.value
+  const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, lastNameLetter, ...filters } = routeFilters.value
   const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-    [
-      { term: { 'subjectLibrarian.keyword': 'yes' } }
-    ]
+      [
+        { term: { 'subjectLibrarian.keyword': 'yes' } }
+      ]
     : []
   if (lastNameLetter && lastNameLetter.length > 0)
     extrafilters.push({ wildcard: { 'nameLast.keyword': `${lastNameLetter[0].split(':')[1].trim()}*` } })
@@ -161,7 +156,6 @@ async function searchES() {
     hits.value = []
   }
 }
-
 
 const groupByAcademicLibraries = computed(() => {
   const parseResults = parseHitsResults.value
@@ -246,7 +240,7 @@ function searchBySelectedLetter(data) {
 
   if (data && data !== '') {
     filters.push(`lastNameLetter:(${data})`)
-    console.log("searchBySelectedLetter filters", filters.join(' AND '))
+    console.log('searchBySelectedLetter filters', filters.join(' AND '))
   }
   useRouter().push({
     path: '/about/staff/',
@@ -276,16 +270,14 @@ function getSearchData(data) {
         if (data.filters[key].length > 0) {
           filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
         }
-      } else {
-        if (data.filters[key].length > 0) {
-          // console.log("in searhc data for last name", data.filters[key][0].split(':')[1].trim())
-          filters.push(`lastNameLetter:(${data.filters[key][0].split(':')[1].trim()})`)
-        }
+      } else if (data.filters[key].length > 0) {
+        // console.log("in searhc data for last name", data.filters[key][0].split(':')[1].trim())
+        filters.push(`lastNameLetter:(${data.filters[key][0].split(':')[1].trim()})`)
       }
     }
   }
 
-  console.log("getSearchData filters", filters)
+  console.log('getSearchData filters', filters)
   // Add the filters query parameter
 
   // Use the router to navigate with the new query parameters
@@ -352,7 +344,6 @@ onMounted(async () => {
       <DividerWayFinder class="search-margin" />
     </SectionWrapper>
 
-
     <!-- FILTERS -->
     <SectionWrapper
       v-show="hits &&
@@ -362,16 +353,16 @@ onMounted(async () => {
             'subjectLibrarian.keyword'
           ][0] === '')) ||
           !searchGenericQuery.queryFilters[
-          'subjectLibrarian.keyword'
+            'subjectLibrarian.keyword'
           ])
-        "
+      "
       class="section-no-top-margin"
     >
       <AlphabeticalBrowseBy
         class="browse-margin"
         :selected-letter-prop="selectedLetterProp"
-        @selected-letter="searchBySelectedLetter"
         :display-all="false"
+        @selected-letter="searchBySelectedLetter"
       />
       <h2
         v-if="route.query.q"
@@ -426,7 +417,7 @@ onMounted(async () => {
         searchGenericQuery.queryFilters['subjectLibrarian.keyword'][0] ===
         'yes' &&
         groupByAcademicLibraries
-        "
+      "
       class="section-no-top-margin"
     >
       <h3 class="section-title subject-librarian">

@@ -338,7 +338,7 @@ onMounted(async () => {
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -354,12 +354,14 @@ onMounted(async () => {
         class="banner section-featured-banner"
       />
 
-      <DividerGeneral v-show="page &&
-        page.featuredNews &&
-        page.featuredNews.length &&
-        hits.length === 0 &&
-        !noResultsFound
-        " />
+      <DividerGeneral
+        v-show="page &&
+          page.featuredNews &&
+          page.featuredNews.length &&
+          hits.length === 0 &&
+          !noResultsFound
+        "
+      />
 
       <SectionTeaserHighlight
         v-show="parsedSectionHighlight.length > 0"
@@ -374,7 +376,7 @@ onMounted(async () => {
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <DividerWayFinder color="about" />

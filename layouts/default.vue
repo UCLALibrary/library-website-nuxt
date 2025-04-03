@@ -25,19 +25,19 @@ useHead({
     },
     ...(shouldIncludeExtraScript.value
       ? [{
-        hid: 'gsurvey',
-        src: 'https://test-librarystudy.library.ucla.edu/gsurvey.js',
-        defer: true
-      }
-      ]
+          hid: 'gsurvey',
+          src: 'https://test-librarystudy.library.ucla.edu/gsurvey.js',
+          defer: true
+        }
+        ]
       : []),
     ...(shouldIncludeProductionScript.value
       ? [{
-        hid: 'gsurvey',
-        src: 'https://librarystudy.library.ucla.edu/gsurvey.js',
-        defer: true
-      }
-      ]
+          hid: 'gsurvey',
+          src: 'https://librarystudy.library.ucla.edu/gsurvey.js',
+          defer: true
+        }
+        ]
       : [])
   ]
 })
