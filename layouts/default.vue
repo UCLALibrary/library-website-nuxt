@@ -1,6 +1,6 @@
 <script setup>
 // components need to be imported for nitro crawling in static mode
-import { HeaderSmart, SectionWrapper, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
+import { HeaderSmart, SectionWrapper, NavPrimary, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
 
 provide('theme', computed(() => ''))
 const shouldIncludeExtraScript = computed(() => {

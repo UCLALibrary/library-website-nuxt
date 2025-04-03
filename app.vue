@@ -1,6 +1,6 @@
 <script setup>
 import { useLayoutState } from './composables/useLayoutState'
-import { HeaderSmart, SectionWrapper, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
+import { HeaderSmart, SectionWrapper, NavPrimary, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
 
 provide('theme', computed(() => ''))
 const { enabled, state } = usePreviewMode()

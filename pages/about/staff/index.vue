@@ -12,7 +12,6 @@ import fixUri from '../utils/fixUri'
 import getListingFilters from '../utils/getListingFilters'
 import config from '../utils/searchConfig'
 import removeTags from '../utils/removeTags'
-import queryFilterHasValues from '../utils/queryFilterHasValues'
 
 const { $graphql } = useNuxtApp()
 const { data, error } = await useAsyncData('staff-list', async () => {
@@ -42,17 +41,16 @@ if (data.value.entry && import.meta.prerender) {
 
 const route = useRoute()
 
-const page = ref(data.value)
+
 const summaryData = ref(_get(data.value, 'entry', {}))
 
 watch(data, (newVal, oldVal) => {
-  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
-  page.value = _get(newVal)
+
   summaryData.value = _get(newVal, 'entry', {})
 })
 
 useHead({
-  title: page.value ? summaryData.value.title : '... loading',
+  title: summaryData ? summaryData.value.title : '... loading',
   meta: [
     {
       hid: 'description',
@@ -62,33 +60,6 @@ useHead({
   ]
 })
 
-const parsedStaffList = computed(() => {
-  // console.log('in parsedStaff')
-  return (page.value.entries || []).map((obj) => {
-    return {
-      ...obj,
-      to: `/about/staff/${obj.to}`,
-      image: _get(obj, 'image[0]', null),
-      staffName: `${obj.nameFirst} ${obj.nameLast}`,
-      language: _get(
-        obj,
-        'alternativeName[0].languageAltName',
-        null
-      ),
-      alternativeFullName: _get(
-        obj,
-        'alternativeName[0].fullName',
-        null
-      ),
-      locations: _get(obj, 'locations', []).map((loc) => {
-        return {
-          ...loc,
-          uri: fixUri(loc.uri),
-        }
-      }),
-    }
-  })
-})
 
 // ELASTIC SEARCH FUNCTIONALITY
 function parseFilters(filtersString) {
@@ -103,8 +74,11 @@ function parseFilters(filtersString) {
     const [key, value] = condition.split(':(')
     const cleanedKey = key.trim()
     const values = value.replace(')', '').split(' OR ').map(v => v.trim())
-
-    filters[cleanedKey] = values
+    if (cleanedKey === 'lastNameLetter') {
+      filters[cleanedKey] = [`LastName: ${values[0]}`]
+    } else {
+      filters[cleanedKey] = values
+    }
   })
 
   return filters
@@ -121,6 +95,7 @@ const tableHeaders = ref([
 // })
 
 const routeFilters = computed(() => {
+  // console.log('routeFilters', _get(route, 'query.filters', ''))
   return parseFilters(_get(route, 'query.filters', ''))
 })
 
@@ -141,71 +116,52 @@ watch(
     // console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
     searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
-    selectedLetterProp.value = route.query.lastNameLetter
+    selectedLetterProp.value = searchGenericQuery.value.queryFilters['lastNameLetter'] ? searchGenericQuery.value.queryFilters['lastNameLetter'][0].split(':')[1].trim() : ''
     searchES()
   }, { deep: true, immediate: true }
 )
 
 // ELASTIC SEARCH FUNCTION
 async function searchES() {
-  if (
-    (route.query.q && route.query.q !== '') ||
-    (route.query.filters &&
-      queryFilterHasValues(
-        parseFilters(route.query.filters || ''),
-        config.staff.filters
-      )) ||
-    (route.query && route.query.lastNameLetter)
-  ) {
-    // console.log('Search ES HITS query,', route.query.q)
 
-    let queryText = route.query.q || '*'
-    if (
-      route.query.lastNameLetter &&
-      route.query.lastNameLetter !== 'All'
-    ) {
-      queryText = queryText + ` AND nameLast:${route.query.lastNameLetter}*`
-    } else if (
-      route.query.lastNameLetter &&
-      route.query.lastNameLetter === 'All'
-    ) {
-      queryText = queryText + ' AND nameLast:*'
-    }
-    const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, ...filters } = routeFilters.value
-    const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-      [
-        { term: { 'subjectLibrarian.keyword': 'yes' } }
-      ]
-      : []
 
-    // console.log('in router query in asyc data queryText', queryText)
-    const { keywordSearchWithFilters } = useSearch()
-    const results = await keywordSearchWithFilters(
-      queryText,
-      config.staff.searchFields,
-      'sectionHandle:staffMember',
-      filters,
-      config.staff.sortField,
-      config.staff.orderBy,
-      config.staff.resultFields,
-      config.staff.filters,
-      extrafilters
-    )
+  let queryText = route.query.q || '*'
 
-    if (results && results.hits && results.hits.total.value > 0) {
-      // console.log('Search ES HITS,', results.hits.hits)
+  const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, 'lastNameLetter': lastNameLetter, ...filters } = routeFilters.value
+  const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
+    [
+      { term: { 'subjectLibrarian.keyword': 'yes' } }
+    ]
+    : []
+  if (lastNameLetter && lastNameLetter.length > 0)
+    extrafilters.push({ wildcard: { 'nameLast.keyword': `${lastNameLetter[0].split(':')[1].trim()}*` } })
+  // console.log('extrafilters', extrafilters, lastNameLetter)
 
-      hits.value = results.hits.hits
-      noResultsFound.value = false
-    } else {
-      noResultsFound.value = true
-      hits.value = []
-    }
-  } else {
-    hits.value = []
+  // console.log('in router query in asyc data queryText', queryText)
+  const { keywordSearchWithFilters } = useSearch()
+  const results = await keywordSearchWithFilters(
+    queryText,
+    config.staff.searchFields,
+    'sectionHandle:staffMember',
+    filters,
+    config.staff.sortField,
+    config.staff.orderBy,
+    config.staff.resultFields,
+    config.staff.filters,
+    extrafilters
+  )
+
+  if (results && results.hits && results.hits.total.value > 0) {
+    // console.log('Search ES HITS,', results.hits.hits)
+
+    hits.value = results.hits.hits
     noResultsFound.value = false
+  } else {
+    noResultsFound.value = true
+    hits.value = []
   }
 }
+
 
 const groupByAcademicLibraries = computed(() => {
   const parseResults = parseHitsResults.value
@@ -276,23 +232,28 @@ const parseHitsResults = computed(() => {
 })
 
 function searchBySelectedLetter(data) {
-  // console.log("On the page searchBySelectedLetter called")
-  /* this.page = {}
-  this.hits = [] */
+  // console.log("On the page searchBySelectedLetter called", data)
   const filters = []
-  if (data.filters) {
-    for (const key in data.filters) {
-      if (data.filters[key].length > 0) {
-        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+  if (searchGenericQuery.value.queryFilters) {
+    for (const key in searchGenericQuery.value.queryFilters) {
+      if (key !== 'lastNameLetter') {
+        if (searchGenericQuery.value.queryFilters[key].length > 0) {
+          filters.push(`${key}:(${searchGenericQuery.value.queryFilters[key].join(' OR ')})`)
+        }
       }
     }
+  }
+
+  if (data && data !== '') {
+    filters.push(`lastNameLetter:(${data})`)
+    console.log("searchBySelectedLetter filters", filters.join(' AND '))
   }
   useRouter().push({
     path: '/about/staff/',
     query: {
       q: searchGenericQuery.value.queryText,
       filters: filters.join(' AND '),
-      lastNameLetter: data,
+      // lastNameLetter: data,
     },
   })
 }
@@ -309,12 +270,23 @@ function getSearchData(data) {
   // Construct the filters parameter dynamically
   const filters = []
   if (data.filters) {
+    // console.log('getSearchData filters', JSON.stringify(data.filters))
     for (const key in data.filters) {
-      if (data.filters[key].length > 0) {
-        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      if (key !== 'lastNameLetter') {
+        if (data.filters[key].length > 0) {
+          filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+        }
+      } else {
+        if (data.filters[key].length > 0) {
+          // console.log("in searhc data for last name", data.filters[key][0].split(':')[1].trim())
+          filters.push(`lastNameLetter:(${data.filters[key][0].split(':')[1].trim()})`)
+        }
       }
     }
   }
+
+  console.log("getSearchData filters", filters)
+  // Add the filters query parameter
 
   // Use the router to navigate with the new query parameters
   // https://uclalibrary-test-nuxt3x.netlify.app/about/staff?q=&departments=Software Development and Library Systems, Administration&locations=UCLA Film & Television Archive, Eugene and Maxine Rosenfeld Management Library&subjectLibrarian=yes&lastNameLetter=G
@@ -323,7 +295,6 @@ function getSearchData(data) {
     path: '/about/staff/',
     query: {
       q: data.text,
-      lastNameLetter: route.query.lastNameLetter,
       filters: filters.join(' AND ')
     }
   })
@@ -347,10 +318,11 @@ async function setFilters() {
   ) */
 }
 onMounted(async () => {
-  console.log('onMounted called')
+  // console.log('onMounted called')
   // console.log("ESREADkey:" + config.esReadKey)
   // console.log("ESURLkey:" + config.esURL)
   await setFilters()
+  await searchES()
 })
 
 </script>
@@ -375,29 +347,11 @@ onMounted(async () => {
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
     />
-    <!--div>
-      searchFilters: {{ searchFilters }}
-    </div>
-    <div>
-      {{ searchGenericQuery }}
-    </div-->
 
     <SectionWrapper theme="divider">
       <DividerWayFinder class="search-margin" />
     </SectionWrapper>
 
-    <!-- ALL STAFF -->
-    <SectionWrapper
-      v-show="page.entries && hits.length == 0 && !noResultsFound"
-      class="section-no-top-margin"
-    >
-      <AlphabeticalBrowseBy
-        class="browse-margin"
-        :selected-letter-prop="selectedLetterProp"
-        @selected-letter="searchBySelectedLetter"
-      />
-      <SectionStaffList :items="parsedStaffList" />
-    </SectionWrapper>
 
     <!-- FILTERS -->
     <SectionWrapper
@@ -417,6 +371,7 @@ onMounted(async () => {
         class="browse-margin"
         :selected-letter-prop="selectedLetterProp"
         @selected-letter="searchBySelectedLetter"
+        :display-all="false"
       />
       <h2
         v-if="route.query.q"
