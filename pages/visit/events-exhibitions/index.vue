@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, BannerFeatured, SectionTeaserHighlight, SectionTeaserCard, SectionTeaserList, RichText, BlockCallToAction } from 'ucla-library-website-components'
+import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, BannerFeatured, SectionTeaserHighlight, SectionTeaserCard, SectionTeaserList, RichText, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // UTILITIES
 import _get from 'lodash/get'
@@ -263,14 +263,14 @@ async function searchES() {
     const extrafilters = (past && past.length > 0 && past[0] === 'yes')
       ? []
       : [
-          {
-            range: {
-              endDateWithTime: {
-                gte: 'now',
-              },
+        {
+          range: {
+            endDateWithTime: {
+              gte: 'now',
             },
           },
-        ]
+        },
+      ]
 
     const { keywordSearchWithFilters } = useSearch()
     const results = await keywordSearchWithFilters(
@@ -419,7 +419,7 @@ onMounted(async () => {
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -454,7 +454,7 @@ onMounted(async () => {
         parsedEvents.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="visit" />
@@ -466,7 +466,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Upcoming Events"
     >
       <SectionTeaserList :items="parsedEvents" />
@@ -477,7 +477,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="visit" />
@@ -489,7 +489,7 @@ onMounted(async () => {
         parsedSeriesAndExhibitions.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Event Series & Exhibitions"
     >
       <SectionTeaserCard :items="parsedSeriesAndExhibitions" />

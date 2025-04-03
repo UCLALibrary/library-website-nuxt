@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { MastheadPrimary, SectionWrapper, DividerWayFinder, ButtonMore, SectionTeaserCard, SectionTeaserHighlight, SectionDualMasonry, SectionCardsWithIllustrations, BannerFeatured, HeadingArrow, } from 'ucla-library-website-components'
+import { MastheadPrimary, SectionWrapper, DividerWayFinder, ButtonMore, SectionTeaserCard, SectionTeaserHighlight, SectionDualMasonry, SectionCardsWithIllustrations, BannerFeatured, HeadingArrow, } from '@ucla-library-monorepo/ucla-library-website-components'
 // HELPERS
 import _get from 'lodash/get'
 

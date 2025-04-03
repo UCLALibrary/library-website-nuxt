@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, SectionTeaserCard, SectionWrapper, DividerWayFinder, RichText, SectionCardsWithIllustrations } from 'ucla-library-website-components'
+import { MastheadSecondary, SearchGeneric, SectionTeaserCard, SectionWrapper, DividerWayFinder, RichText, SectionCardsWithIllustrations } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // LODASH
 import _get from 'lodash/get'
@@ -263,7 +263,7 @@ onMounted(async () => {
         parsedCollectionList.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <SectionTeaserCard :items="parsedCollectionList" />

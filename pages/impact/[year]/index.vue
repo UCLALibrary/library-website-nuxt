@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { SectionWrapper, DividerWayFinder, RichText, GridGallery, ResponsiveImage, BannerFeatured, FlexibleBlocks } from 'ucla-library-website-components'
+import { SectionWrapper, DividerWayFinder, RichText, GridGallery, ResponsiveImage, BannerFeatured, FlexibleBlocks } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
@@ -163,12 +163,10 @@ const timelineSortedBySubtitle = computed(() => {
       />
     </SectionWrapper>
     <SectionWrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
-      <h2
-        :class="page.acknowledgements[0].displaySectionTitle === 'true'
-          ? ''
-          : 'visually-hidden'
-        "
-      >
+      <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
+        ? ''
+        : 'visually-hidden'
+        ">
         {{ page.acknowledgements[0].titleGeneral }}
       </h2>
       <RichText

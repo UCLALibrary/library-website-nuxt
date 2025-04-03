@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, SectionWrapper, DividerWayFinder, SectionGenericList, SectionCardsWithIllustrations } from 'ucla-library-website-components'
+import { NavBreadcrumb, BannerText, SectionWrapper, DividerWayFinder, SectionGenericList, SectionCardsWithIllustrations } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
@@ -138,8 +138,8 @@ const parsedAssociatedTopics = computed(() => {
     <BannerText
       v-if="
         page.buttonUrl &&
-          page.buttonUrl[0] &&
-          page.buttonUrl[0].buttonText
+        page.buttonUrl[0] &&
+        page.buttonUrl[0].buttonText
       "
       class="banner-text"
       :title="page.title"

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // COMPONENTS
-import { NavBreadcrumb, SectionWrapper, DividerWayFinder, BlockStaffDetail, SectionStaffOrcidPublications, SectionStaffArticleList, BlockCallToAction } from 'ucla-library-website-components'
+import { NavBreadcrumb, SectionWrapper, DividerWayFinder, BlockStaffDetail, SectionStaffOrcidPublications, SectionStaffArticleList, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'

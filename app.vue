@@ -1,5 +1,6 @@
 <script setup>
 import { useLayoutState } from './composables/useLayoutState'
+import { HeaderSmart, SectionWrapper, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
 
 provide('theme', computed(() => ''))
 const { enabled, state } = usePreviewMode()
@@ -73,19 +74,19 @@ useHead({
     },
     ...(shouldIncludeExtraScript.value
       ? [{
-          hid: 'gsurvey',
-          src: 'https://test-librarystudy.library.ucla.edu/gsurvey.js',
-          defer: true
-        }
-        ]
+        hid: 'gsurvey',
+        src: 'https://test-librarystudy.library.ucla.edu/gsurvey.js',
+        defer: true
+      }
+      ]
       : []),
     ...(shouldIncludeProductionScript.value
       ? [{
-          hid: 'gsurvey',
-          src: 'https://librarystudy.library.ucla.edu/gsurvey.js',
-          defer: true
-        }
-        ]
+        hid: 'gsurvey',
+        src: 'https://librarystudy.library.ucla.edu/gsurvey.js',
+        defer: true
+      }
+      ]
       : [])
   ]
 })

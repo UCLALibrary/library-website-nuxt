@@ -1,6 +1,6 @@
 <script setup>
 // components need to be imported for nitro crawling in static mode
-import { HeaderSmart, SectionWrapper, SiteNotificationAlert, FooterPrimary, FooterSock } from 'ucla-library-website-components'
+import { HeaderSmart, SectionWrapper, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
 
 provide('theme', computed(() => ''))
 const shouldIncludeExtraScript = computed(() => {
@@ -25,19 +25,19 @@ useHead({
     },
     ...(shouldIncludeExtraScript.value
       ? [{
-          hid: 'gsurvey',
-          src: 'https://test-librarystudy.library.ucla.edu/gsurvey.js',
-          defer: true
-        }
-        ]
+        hid: 'gsurvey',
+        src: 'https://test-librarystudy.library.ucla.edu/gsurvey.js',
+        defer: true
+      }
+      ]
       : []),
     ...(shouldIncludeProductionScript.value
       ? [{
-          hid: 'gsurvey',
-          src: 'https://librarystudy.library.ucla.edu/gsurvey.js',
-          defer: true
-        }
-        ]
+        hid: 'gsurvey',
+        src: 'https://librarystudy.library.ucla.edu/gsurvey.js',
+        defer: true
+      }
+      ]
       : [])
   ]
 })

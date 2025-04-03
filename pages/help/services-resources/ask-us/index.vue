@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, FlexibleBlocks, SectionWrapper, DividerWayFinder } from 'ucla-library-website-components'
+import { NavBreadcrumb, BannerText, FlexibleBlocks, SectionWrapper, DividerWayFinder } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'

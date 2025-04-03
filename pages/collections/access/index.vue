@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, SectionCardsWithIllustrations, RichText } from 'ucla-library-website-components'
+import { NavBreadcrumb, MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, SectionCardsWithIllustrations, RichText } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'

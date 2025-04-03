@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, DividerGeneral, SectionCardsWithIllustrations, RichText, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionStaffList, SectionTeaserList, BlockCallToAction } from 'ucla-library-website-components'
+import { NavBreadcrumb, BannerText, BannerHeader, DividerGeneral, SectionCardsWithIllustrations, RichText, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionStaffList, SectionTeaserList, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
@@ -630,10 +630,8 @@ onMounted(async () => {
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText
-          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-          "
-        />
+        <RichText :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+          " />
       </SectionWrapper>
     </div>
   </main>

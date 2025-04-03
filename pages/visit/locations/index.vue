@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, SectionLocationList, ButtonMore, SectionWrapper, DividerWayFinder, RichText, BlockCallToAction } from 'ucla-library-website-components'
+import { MastheadSecondary, SearchGeneric, SectionLocationList, ButtonMore, SectionWrapper, DividerWayFinder, RichText, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
 import { onMounted } from 'vue'
 
@@ -290,7 +290,7 @@ onMounted(async () => {
         parsedUclaLibraries.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
       section-title="UCLA Library Locations"
     >
@@ -312,7 +312,7 @@ onMounted(async () => {
         showOtherCampus &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Other Campus Libraries & Archives"
     >
       <SectionLocationList
