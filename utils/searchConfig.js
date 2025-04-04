@@ -88,12 +88,12 @@ const config = {
   },
   staff: {
     searchFields: [
-      'nameFirst^6',
-      'nameLast^6',
+      'nameFirst.autocomplete^6',
+      'nameLast.autocomplete^6',
       'jobTitle^5',
       'departments.title^5',
       'email^4',
-      'academicDepartments.title^3',
+      'academicDepartments.title.autocomplete^3',
       'topics.title^3',
       'publications^3',
       'biography^2',

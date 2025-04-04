@@ -114,6 +114,8 @@ async function siteSearch(
                 ' AND startDateWithTime:[now TO *] AND sectionHandle:event)',
                 fields: [
                   'title^4',
+                  'nameFirst.autocomplete^3',
+                  'nameLast.autocomplete^3',
                   'summary^3',
                   'text^3',
                   'fullText^2',
