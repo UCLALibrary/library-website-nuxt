@@ -32,16 +32,25 @@ export default defineNuxtModule({
               settings: {
                 'index.mapping.total_fields.limit': 1500, // Or a suitable limit
                 analysis: {
+                  char_filter: {
+                    remove_hyphen: {
+                      type: 'pattern_replace',
+                      pattern: '-',
+                      replacement: ''
+                    }
+                  },
                   analyzer: {
                     default: {
                       type: 'custom',
                       tokenizer: 'standard',
-                      filter: ['stemmer', 'lowercase', 'stop', 'asciifolding'],
+                      char_filter: ['remove_hyphen'],
+                      filter: ['lowercase', 'stop', 'asciifolding', 'stemmer'],
                     },
                     default_search: {
                       type: 'custom',
                       tokenizer: 'standard',
-                      filter: ['stemmer', 'lowercase', 'stop', 'asciifolding'],
+                      char_filter: ['remove_hyphen'],
+                      filter: ['lowercase', 'stop', 'asciifolding', 'stemmer'],
                     }
                   },
                 }
