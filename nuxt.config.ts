@@ -98,7 +98,7 @@ export default defineNuxtConfig({
           }
           routes.add('/about/reports')
           routes.add('/help')
-          routes.add('/about/status-updates')
+          // routes.add('/about/status-updates')
         }
         console.log('prerender:routes ctx.routes', routes)
       }
@@ -173,7 +173,7 @@ export default defineNuxtConfig({
     '~/assets/styles/global.scss',
 
     // use the following line when using pnpm link --global ucla-library-website-components-vue
-    'ucla-library-website-components/dist/style.css',
+    '@ucla-library-monorepo/ucla-library-website-components/style.css',
   ],
 
   typescript: {

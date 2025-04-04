@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import { ButtonLink } from 'ucla-library-website-components'
+import { ButtonLink } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // Props
 defineProps({

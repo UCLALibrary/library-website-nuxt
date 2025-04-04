@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, SectionWrapper, RichText, ResponsiveImage, DividerWayFinder, IconWithLink, BlockCallToAction } from 'ucla-library-website-components'
+import { NavBreadcrumb, BannerText, SectionWrapper, RichText, ResponsiveImage, DividerWayFinder, IconWithLink, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'

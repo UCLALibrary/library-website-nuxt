@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, SectionLocationList, ButtonMore, SectionWrapper, DividerWayFinder, RichText, BlockCallToAction } from 'ucla-library-website-components'
+import { MastheadSecondary, SearchGeneric, SectionLocationList, ButtonMore, SectionWrapper, DividerWayFinder, RichText, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
 import { onMounted } from 'vue'
 

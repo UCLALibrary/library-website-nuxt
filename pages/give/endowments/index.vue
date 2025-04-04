@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, BlockCallToAction, SectionGenericList, SectionTeaserCard, SectionWrapper, DividerWayFinder, RichText } from 'ucla-library-website-components'
+import { MastheadSecondary, SearchGeneric, BlockCallToAction, SectionGenericList, SectionTeaserCard, SectionWrapper, DividerWayFinder, RichText } from '@ucla-library-monorepo/ucla-library-website-components'
 
 import _get from 'lodash/get'
 

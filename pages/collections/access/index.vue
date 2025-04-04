@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, SectionCardsWithIllustrations, RichText } from 'ucla-library-website-components'
+import { NavBreadcrumb, MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, SectionCardsWithIllustrations, RichText } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
@@ -227,8 +227,10 @@ function getSearchData(data) {
       <DividerWayFinder class="search-margin" />
     </SectionWrapper>
 
-    <SectionWrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-      ">
+    <SectionWrapper
+      v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      "
+    >
       <SectionCardsWithIllustrations
         class="section"
         :items="parsedAccessCollections"

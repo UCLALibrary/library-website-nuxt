@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RichText, DividerWayFinder } from 'ucla-library-website-components'
+import { RichText, DividerWayFinder } from '@ucla-library-monorepo/ucla-library-website-components'
 import type { NuxtError } from '#app'
 
 const props = defineProps({

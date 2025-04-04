@@ -1,4 +1,5 @@
 <script setup>
+import { HeaderSmart, SectionWrapper, NavPrimary, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
 import { useLayoutState } from './composables/useLayoutState'
 
 provide('theme', computed(() => ''))

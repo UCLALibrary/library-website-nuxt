@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, BannerFeatured, SectionTeaserHighlight, SectionTeaserCard, SectionTeaserList, RichText, BlockCallToAction } from 'ucla-library-website-components'
+import { MastheadSecondary, DividerGeneral, SearchGeneric, SectionWrapper, DividerWayFinder, BannerFeatured, SectionTeaserHighlight, SectionTeaserCard, SectionTeaserList, RichText, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // UTILITIES
 import _get from 'lodash/get'

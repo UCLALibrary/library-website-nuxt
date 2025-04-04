@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFinder, PageAnchor, FlexibleBlocks, SimpleCards, SectionStaffArticleList, SectionStaffList } from 'ucla-library-website-components'
+import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFinder, PageAnchor, FlexibleBlocks, SimpleCards, SectionStaffArticleList, SectionStaffList } from '@ucla-library-monorepo/ucla-library-website-components'
 
 import { onMounted } from 'vue'
 

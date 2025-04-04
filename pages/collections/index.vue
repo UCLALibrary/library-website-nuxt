@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { BannerText, PageAnchor, BannerFeatured, FlexibleBlocks, ButtonMore, SectionWrapper, SectionTeaserHighlight, SectionTeaserCard, DividerWayFinder, SectionCardsWithIllustrations } from 'ucla-library-website-components'
+import { BannerText, PageAnchor, BannerFeatured, FlexibleBlocks, ButtonMore, SectionWrapper, SectionTeaserHighlight, SectionTeaserCard, DividerWayFinder, SectionCardsWithIllustrations } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
