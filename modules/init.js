@@ -26,22 +26,103 @@ export default defineNuxtModule({
                 properties: {
                   blocks: { // TODO Making all flexible blocks flattened in ES to avoid any performnce issues further
                     type: 'flattened'
-                  }
-                }
+                  },
+                  nameFirst: {
+                    type: 'text',
+                    fields: {
+                      keyword: {
+                        type: 'keyword',
+                        ignore_above: 256
+                      },
+                      autocomplete: {
+                        type: 'text',
+                        analyzer: 'name_autocomplete',
+                        search_analyzer: 'name_search'
+                      }
+                    }
+                  },
+                  nameLast: {
+                    type: 'text',
+                    fields: {
+                      keyword: {
+                        type: 'keyword',
+                        ignore_above: 256
+                      },
+                      autocomplete: {
+                        type: 'text',
+                        analyzer: 'name_autocomplete',
+                        search_analyzer: 'name_search'
+                      }
+                    }
+                  },
+                  academicDepartments: {
+                    properties: {
+                      id: {
+                        type: 'text',
+                        fields: {
+                          keyword: {
+                            type: 'keyword',
+                            ignore_above: 256
+                          },
+                        },
+                        analyzer: 'default'
+                      },
+                      title: {
+                        type: 'text',
+                        fields: {
+                          keyword: {
+                            type: 'keyword',
+                            ignore_above: 256
+                          },
+                          autocomplete: {
+                            type: 'text',
+                            analyzer: 'name_autocomplete',
+                            search_analyzer: 'name_search'
+                          }
+                        },
+                      }
+                    }
+                  },
+                },
               },
               settings: {
                 'index.mapping.total_fields.limit': 1500, // Or a suitable limit
                 analysis: {
+                  char_filter: {
+                    remove_hyphen: {
+                      type: 'pattern_replace',
+                      pattern: '-',
+                      replacement: ''
+                    }
+                  },
+                  tokenizer: {
+                    edge_ngram_tokenizer: {
+                      type: 'edge_ngram',
+                      min_gram: 2,
+                      max_gram: 20,
+                      token_chars: ['letter', 'digit']
+                    }
+                  },
                   analyzer: {
+                    name_autocomplete: {
+                      tokenizer: 'edge_ngram_tokenizer',
+                      filter: ['lowercase']
+                    },
+                    name_search: {
+                      tokenizer: 'standard',
+                      filter: ['lowercase']
+                    },
                     default: {
                       type: 'custom',
                       tokenizer: 'standard',
-                      filter: ['stemmer', 'lowercase', 'stop', 'asciifolding'],
+                      char_filter: ['remove_hyphen'],
+                      filter: ['lowercase', 'stop', 'asciifolding', 'stemmer'],
                     },
                     default_search: {
                       type: 'custom',
                       tokenizer: 'standard',
-                      filter: ['stemmer', 'lowercase', 'stop', 'asciifolding'],
+                      char_filter: ['remove_hyphen'],
+                      filter: ['lowercase', 'stop', 'asciifolding', 'stemmer'],
                     }
                   },
                 }
