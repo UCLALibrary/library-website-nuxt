@@ -107,11 +107,7 @@ async function siteSearch(
           bool: {
             must: [{
               query_string: {
-                query: '(' +
-                keyword +
-                ' AND NOT(sectionHandle:event)) OR (' +
-                keyword +
-                ' AND startDateWithTime:[now TO *] AND sectionHandle:event)',
+                query: keyword,
                 fields: [
                   'title^4',
                   'nameFirst.autocomplete^3',

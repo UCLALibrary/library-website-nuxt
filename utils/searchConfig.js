@@ -23,7 +23,7 @@ const config = {
       },
       {
         key: 'Events & Exhibitions',
-        terms: ['event', 'workshopOrEventSeries', 'exhibition'],
+        terms: ['event', 'workshopSeries', 'eventSeries', 'exhibition'],
       },
       {
         key: 'Featured Collection',

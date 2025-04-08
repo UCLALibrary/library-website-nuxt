@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, RichText, SectionCardsWithIllustrations, SearchResult, SectionPagination } from '@ucla-library-monorepo/ucla-library-website-components'
+import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, DividerGeneral, RichText, SectionCardsWithIllustrations, SearchResult, SectionPagination } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
@@ -9,6 +9,8 @@ import _get from 'lodash/get'
 import config from '../utils/searchConfig'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
 import parseFilters from '../utils/parseFilters'
+import formatDates from '../utils/formatDates'
+import formatTimes from '../utils/formatTimes'
 
 const route = useRoute()
 const page = ref({})
@@ -22,7 +24,7 @@ const noResultsFound = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
-  queryFilters: parseFilters(route.query.filters || '')
+  queryFilters: route.query.filters ? parseFilters(decodeURIComponent(route.query.filters)) : {},
 })
 const isSearching = ref(true)
 
@@ -32,7 +34,7 @@ watch(
   (newVal, oldVal) => {
     // console.log('Site search page ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
+    searchGenericQuery.value.queryFilters = route.query.filters ? parseFilters(decodeURIComponent(route.query?.filters)) : {}
     searchES()
   }, { deep: true, immediate: true }
 )
@@ -45,16 +47,16 @@ async function searchES() {
       (route.query.q && route.query.q !== '') ||
       (route.query.filters &&
         queryFilterHasValues(
-          parseFilters(route.query.filters || ''),
+          parseFilters(decodeURIComponent(route.query.filters) || ''),
           config.siteSearch.filters
         ))
     ) {
-      // console.log('Search site in router query in asyc data')
+      // console.log('Search site in router query in asyc data', decodeURIComponent(route.query.filters))
       const { siteSearch } = useSearch()
       page.value = await siteSearch(
         route.query.q || '*',
         route.query.from || from.value,
-        parseFilters(route.query.filters || ''),
+        parseFilters(decodeURIComponent(route.query.filters || '')),
         config.siteSearch.sectionHandleMapping
       )
       if (
@@ -123,9 +125,22 @@ const parsedSearchResults = computed(() => {
             : `/${obj._source.to}`,
       }
     }
+
     else {
       return {
         ...obj._source,
+        startDate: obj._source.sectionHandle === 'event'
+          ? _get(
+            obj._source,
+            'startDateWithTime',
+            null
+          )
+          : _get(
+            obj._source,
+            'startDate',
+            null
+          ),
+        endDate: obj._source.sectionHandle === 'event' ? _get(obj._source, 'endDateWithTime', null) : _get(obj._source, 'endDate', null),
         to: obj._source.uri
           ? `/${obj._source.uri}`
           : `/${obj._source.to}`,
@@ -135,12 +150,12 @@ const parsedSearchResults = computed(() => {
 })
 const parsePrev = computed(() => {
   if (previous.value)
-    return `${route.path}?q=${route.query.q}&from=${prevFrom.value}`
+    return `${route.path}?q=${route.query.q}&filters=${encodeURIComponent(route.query.filters)}&from=${prevFrom.value}`
   return ''
 })
 const parseNext = computed(() => {
   if (next.value)
-    return `${route.path}?q=${route.query.q}&from=${nextFrom.value}`
+    return `${route.path}?q=${route.query.q}&filters=${encodeURIComponent(route.query.filters)}&from=${nextFrom.value}`
   return ''
 })
 const searchAdditionalResources = computed(() => {
@@ -223,12 +238,22 @@ function getSearchData(data) {
       path: '/search-site/',
       query: {
         q: data.text,
-        filters: filters.join(' AND ')
+        filters: encodeURIComponent(filters.join(' AND '))
       },
     })
   } catch (e) {
     throw new Error('ES error maybe: ' + e)
   }
+}
+
+const parsedDate = (props) => {
+  if (props.startDate) {
+    return props.endDate ? formatDates(props.startDate, props.endDate, props.dateFormat) : formatDates(props.startDate, props.startDate, props.dateFormat)
+  }
+  return ''
+}
+const parsedTime = (props) => {
+  return formatTimes(props.startDate, props.endDate)
 }
 
 </script>
@@ -281,7 +306,26 @@ function getSearchData(data) {
             :summary="result.summary || result.text"
             :to="result.to"
             class="search-result-item"
-          />
+          >
+            <template #mid>
+              <div class="date-time">
+                <time
+                  v-if="result.startDate"
+                  class="schedule-item"
+                >{{ parsedDate(result) }}</time>
+                <time
+                  v-if="result.startDate && result.sectionHandle === 'event'"
+                  class="schedule-item"
+                >{{ parsedTime(result) }}</time>
+                <div
+                  v-if="result.ongoing"
+                  class="ongoing-item"
+                >
+                  Ongoing
+                </div>
+              </div>
+            </template>
+          </SearchResult>
           <DividerGeneral class="divider-general" />
         </SectionWrapper>
         <SectionWrapper v-if="page?.hits?.total?.value > 10">
@@ -340,5 +384,14 @@ function getSearchData(data) {
   .divider-general {
     display: none;
   }
+}
+
+.date-time {
+  display: flex;
+  flex-direction: column;
+
+  @include step-0;
+  color: var(--color-secondary-grey-05);
+  // margin: $component-02 + px 0 var(--space-s);
 }
 </style>
