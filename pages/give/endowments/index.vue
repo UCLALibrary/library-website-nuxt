@@ -154,7 +154,7 @@ async function searchES() {
     const results = await keywordSearchWithFilters(
       queryText,
       config.endowmentsList.searchFields,
-      'sectionHandle:endowment',
+      ['endowment'],
       parseFilters(route.query.filters || ''),
       config.endowmentsList.sortField,
       config.endowmentsList.orderBy,

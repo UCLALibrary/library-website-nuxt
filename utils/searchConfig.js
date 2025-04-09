@@ -74,7 +74,7 @@ const config = {
       'sectionHandle',
       'illustrationsResourcesAndServices',
       'uri',
-      'type',
+      'type'
     ],
     filters: [
       {
@@ -186,7 +186,7 @@ const config = {
   },
   newsIndex: {
     searchFields: [
-      'title^3',
+      'title^6',
       'text^3',
       'contributors*^2'
     ],
@@ -269,7 +269,7 @@ const config = {
     orderBy: 'asc',
   },
   programsList: {
-    searchFields: ['title^3', 'text^3'],
+    searchFields: ['title^6', 'text^3'],
     filters: [
       {
         label: 'Type',
@@ -283,8 +283,8 @@ const config = {
   },
   eventsExhibitionsList: {
     searchFields: [
-      'title^3',
-      'eventDescription^3',
+      'title^6',
+      'eventDescription^2',
       'summary^3',
       'text^3',
       'sectionHandle',

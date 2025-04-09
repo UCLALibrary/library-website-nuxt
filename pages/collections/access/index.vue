@@ -86,12 +86,13 @@ const searchGenericQuery = ref({
 async function searchES() {
   if (route?.query && route?.query.q && route?.query.q !== '') {
     // console.log('searchES', route.query.q)
-    const queryText = route.query.q || '*'
+    let queryText = route.query.q || '*'
+    queryText = queryText + ' AND searchType:accessCollection'
     const { keywordSearchWithFilters } = useSearch()
     const results = await keywordSearchWithFilters(
       queryText,
       config.accessCollections.searchFields,
-      'searchType:accessCollection',
+      [],
       {},
       config.accessCollections.sortField,
       config.accessCollections.orderBy,

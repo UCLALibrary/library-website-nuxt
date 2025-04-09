@@ -137,7 +137,7 @@ async function searchES() {
   const results = await keywordSearchWithFilters(
     queryText,
     config.staff.searchFields,
-    'sectionHandle:staffMember',
+    ['staffMember'],
     filters,
     config.staff.sortField,
     config.staff.orderBy,

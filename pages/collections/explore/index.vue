@@ -140,7 +140,7 @@ async function searchES() {
     const results = await keywordSearchWithFilters(
       queryText,
       config.exploreCollection.searchFields,
-      'sectionHandle:collection',
+      ['collection'],
       parseFilters(route.query.filters || ''),
       config.exploreCollection.sortField,
       config.exploreCollection.orderBy,

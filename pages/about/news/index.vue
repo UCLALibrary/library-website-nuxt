@@ -201,7 +201,7 @@ async function searchES() {
     const results = await keywordSearchWithFilters(
       queryText,
       config.newsIndex.searchFields,
-      'sectionHandle:article',
+      ['article'],
       parseFilters(route.query.filters || ''),
       config.newsIndex.sortField,
       config.newsIndex.orderBy,
