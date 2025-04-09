@@ -256,6 +256,17 @@ const parsedTime = (props) => {
   return formatTimes(props.startDate, props.endDate)
 }
 
+useHead({
+  title: 'Search Site',
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: 'The UCLA Library creates a vibrant nexus of ideas, collections, expertise, and spaces in which users illuminate solutions for local and global challenges. We constantly evolve to advance UCLA’s research, education, and public service mission by empowering and inspiring communities of scholars and learners to discover, access, create, share, and preserve knowledge.',
+    },
+  ],
+})
+
 </script>
 <template lang="html">
   <main

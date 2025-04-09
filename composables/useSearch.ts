@@ -92,7 +92,6 @@ async function siteSearch(
                   'sectionHandle',
                   'sectionHandleDisplayName'
                 ],
-                fuzziness: 'AUTO',
                 type: 'best_fields',
               },
             },],
@@ -105,7 +104,10 @@ async function siteSearch(
       }),
     }
   )
-  const data = await response.json()
+  let data = await response.json()
+  if (data.hits.total.value === 0) {
+    data = performFuzzySearch(keyword, searchFields, queryFilters, configMapping)
+  }
   return data
 }
 
@@ -290,7 +292,10 @@ async function keywordSearchWithFilters(
       }),
     }
   )
-  const data = await response.json()
+  let data = await response.json()
+  if (data.hits.total.value === 0) {
+    data = await performFuzzySearchForListing(keyword, source, searchFields, filters, extraFilters, sort, orderBy)
+  }
   return data
 }
 
@@ -458,8 +463,8 @@ function parseMultiMatchQueryOrQueryString(keyword: string, searchFields: any) {
               },
             },
   */
-  console.log('In parseMultiMatchQuery')
-  console.log(keyword, searchFields)
+  // console.log('In parseMultiMatchQuery')
+  // console.log(keyword, searchFields)
   if (keyword.includes('searchType:accessCollection')) {
     return [{
       query_string: {
@@ -476,7 +481,6 @@ function parseMultiMatchQueryOrQueryString(keyword: string, searchFields: any) {
         multi_match: {
           query: keyword,
           fields: [...searchFields],
-          fuzziness: 'AUTO',
           type: 'best_fields',
         },
       },
@@ -519,4 +523,122 @@ function parseShouldQuery(keyword: string, searchFields: any) {
         }
       },
     ]
+}
+async function performFuzzySearch(keyword: string, searchFields: string[], queryFilters: any, configMapping: any): Promise<any> {
+  const config = useRuntimeConfig()
+
+  if (
+    config.public.esReadKey === '' ||
+    config.public.esURL === '' ||
+    config.public.esAlias === ''
+  ) {
+    return
+  }
+
+  const responseAlias = await fetch(
+    `${config.public.esURL}/_alias/${config.public.esAlias}`, {
+      headers: {
+        Authorization: `ApiKey ${config.public.esReadKey}`,
+        'Content-Type': 'application/json',
+      },
+    })
+
+  const dataAlias = await responseAlias.json()
+  const libraryIndex = !Object.keys(dataAlias)[0].includes('libguides') ? Object.keys(dataAlias)[0] : Object.keys(dataAlias)[1]
+  const libguideIndex = Object.keys(dataAlias)[1].includes('libguides') ? Object.keys(dataAlias)[1] : Object.keys(dataAlias)[0]
+
+  const response = await fetch(
+    `${config.public.esURL}/${config.public.esAlias}/_search`, {
+      headers: {
+        Authorization: `ApiKey ${config.public.esReadKey}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        from: 0,
+        indices_boost: [
+          { [libraryIndex]: 3.0 },
+          { [libguideIndex]: 1.3 }
+        ],
+        query: {
+          bool: {
+            must: [
+              {
+                multi_match: {
+                  query: keyword,
+                  fields: searchFields,
+                  fuzziness: 'AUTO',
+                },
+              },
+            ],
+            filter: [...parseFilterQuerySiteSearch(queryFilters, configMapping)],
+          },
+        },
+      }),
+    })
+
+  const data = await response.json()
+  return data
+}
+async function performFuzzySearchForListing(
+  keyword: string,
+  source: string[],
+  searchFields: any,
+  filters: any,
+  extraFilters: any[],
+  sort: any,
+  orderBy: any
+): Promise<any> {
+  const config = useRuntimeConfig()
+
+  if (
+    config.public.esReadKey === '' ||
+    config.public.esURL === '' ||
+    config.public.esAlias === ''
+  ) {
+    return
+  }
+
+  const responseAlias = await fetch(
+    `${config.public.esURL}/_alias/${config.public.esAlias}`, {
+      headers: {
+        Authorization: `ApiKey ${config.public.esReadKey}`,
+        'Content-Type': 'application/json',
+      },
+    })
+
+  const dataAlias = await responseAlias.json()
+  const libraryIndex = !Object.keys(dataAlias)[0].includes('libguides') ? Object.keys(dataAlias)[0] : Object.keys(dataAlias)[1]
+
+  const response = await fetch(
+    `${config.public.esURL}/${libraryIndex}/_search`, {
+      headers: {
+        Authorization: `ApiKey ${config.public.esReadKey}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        size: '1000',
+        _source: [...source],
+        query: {
+          bool: {
+            must: [
+              {
+                multi_match: {
+                  query: keyword,
+                  fields: searchFields,
+                  fuzziness: 'AUTO',
+                },
+              },
+              ...parseFilterQuery(filters),
+              ...extraFilters,
+            ],
+          },
+        },
+        ...parseSort(sort, orderBy),
+      }),
+    })
+
+  const data = await response.json()
+  return data
 }
