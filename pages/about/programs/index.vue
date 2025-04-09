@@ -87,7 +87,7 @@ async function searchES() {
     const results = await keywordSearchWithFilters(
       queryText as string,
       config.programsList.searchFields,
-      'sectionHandle:program',
+      ['program'],
       parseFilters(route.query.filters || ''),
       config.programsList.sortField,
       config.programsList.orderBy,

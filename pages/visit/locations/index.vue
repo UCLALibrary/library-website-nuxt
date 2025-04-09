@@ -97,7 +97,7 @@ async function searchES() {
     const results = await keywordSearchWithFilters(
       queryText,
       config.locationsList.searchFields,
-      'sectionHandle:location OR sectionHandle:affiliateLibrary',
+      ['location', 'affiliateLibrary'],
       parseFilters(route.query.filters || ''),
       config.locationsList.sortField,
       config.locationsList.orderBy,

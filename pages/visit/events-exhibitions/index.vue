@@ -276,9 +276,9 @@ async function searchES() {
     const results = await keywordSearchWithFilters(
       queryText,
       config.eventsExhibitionsList.searchFields,
-      'sectionHandle:event OR sectionHandle:exhibition OR sectionHandle:eventSeries',
+      ['event', 'exhibition', 'eventSeries'],
       filters, // following this line in nuxt 2 https://github.com/UCLALibrary/library-website-nuxt/blob/main/pages/visit/events-exhibitions/index.vue#L245C19-L245C24
-      config.eventsExhibitionsList.sortField,
+      queryText === '*' ? config.eventsExhibitionsList.sortField : '',
       config.eventsExhibitionsList.orderBy,
       config.eventsExhibitionsList.resultFields,
       config.eventsExhibitionsList.filters,

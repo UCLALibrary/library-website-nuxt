@@ -119,7 +119,9 @@ async function searchES() {
     const results = await keywordSearchWithFilters(
       queryText,
       config.serviceOrResources.searchFields,
-      '(sectionHandle:serviceOrResource OR sectionHandle:workshopSeries OR sectionHandle:helpTopic) OR (sectionHandle:externalResource AND displayEntry:yes)',
+      ['serviceOrResource',
+        'workshopSeries',
+        'helpTopic'],
       parseFilters(route.query.filters || ''),
       config.serviceOrResources.sortField,
       config.serviceOrResources.orderBy,
