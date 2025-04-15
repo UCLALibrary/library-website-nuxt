@@ -260,17 +260,19 @@ async function searchES() {
 
     const { past, ...filters } = routeFilters.value
 
-    const extrafilters = (past && past.length > 0 && past[0] === 'yes')
+    // TODO CHECK IF THE BELOW LOGIC FOR SEARCHING EVENT SERIES IS CORRECT
+
+    /* const extrafilters = (past && past.length > 0 && past[0] === 'yes')
       ? []
       : [
-          {
-            range: {
-              endDateWithTime: {
-                gte: 'now',
-              },
+        {
+          range: {
+            endDateWithTime: {
+              gte: 'now',
             },
           },
-        ]
+        },
+      ] */
 
     const { keywordSearchWithFilters } = useSearch()
     const results = await keywordSearchWithFilters(
@@ -282,7 +284,7 @@ async function searchES() {
       config.eventsExhibitionsList.orderBy,
       config.eventsExhibitionsList.resultFields,
       config.eventsExhibitionsList.filters,
-      extrafilters,
+      [],
     )
     if (results && results.hits && results.hits.total.value > 0) {
       // console.log('Search ES HITS,', results.hits.hits)
@@ -380,11 +382,11 @@ async function setFilters() {
       searchAggsResponse,
       config.eventsExhibitionsList.filters
     ),
-    {
+    /* {
       esFieldName: 'past',
       inputType: 'single-checkbox',
       label: 'Include Past Events',
-    }
+    } */
   ]
 }
 
