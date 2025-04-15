@@ -286,9 +286,9 @@ async function keywordSearchWithFilters(
           },
         },
         ...parseSort(sort, orderBy),
-        aggs: {
+        /* aggs: {
           ...parseFieldNames(aggFields),
-        },
+        }, */
       }),
     }
   )
