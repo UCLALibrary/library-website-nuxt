@@ -136,12 +136,11 @@ export default defineNuxtModule({
             }),
           })
           const body = await response.text()
-          if(body){
+          if (body) {
             const testJson = JSON.parse(body)
             console.log('Index created:' + JSON.stringify(testJson))
             console.log('Elastic Search index created succesfully!')
           }
-
         } catch (err) {
           console.error('Error:', err)
           if (typeof body !== 'undefined') {
