@@ -14,7 +14,7 @@ export default defineNuxtModule({
         const esLibraryIndexTemp = nuxt.options.runtimeConfig.public.esTempIndex
         console.log('Index named:' + esLibraryIndexTemp)
         if (!nuxt.options.runtimeConfig.public.esURL || !esLibraryIndexTemp) {
-          throw new Error('Invalid configuration: esURL or esLibraryIndexTemp is missing.')
+          throw new Error('Invalid configuration: esURL or esLibraryIndexTemp is missing.', nuxt.options.runtimeConfig.public.esURL, esLibraryIndexTemp)
         }
         const url = `${nuxt.options.runtimeConfig.public.esURL}/${esLibraryIndexTemp}`
         console.log('Constructed URL:', url)
