@@ -95,11 +95,11 @@ jobs:
           for i in {1..3}; do
             echo "Attempt $i to deploy to Netlify..."
             deployOutput=$(netlify deploy --debug --dir=.output/public --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --alias=deploy-preview-${{ github.event.pull_request.number }} --message="Date: ${{ env.DEPLOY_DATE }} | PR: #${{ github.event.pull_request.number }} | Commit: ${{ github.event.pull_request.head.sha }}")
-            
+
             if [ $? -eq 0 ]; then
               echo "Deployment succeeded on attempt $i"
               echo "Netlify deploy output: $deployOutput"
-              
+
               # Extract the deploy URL
               deployUrl=$(echo "$deployOutput" | grep -o 'https://deploy-preview-[^ ]*')
               echo "NETLIFY_DEPLOY_URL=$deployUrl" >> $GITHUB_ENV
@@ -124,6 +124,18 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+          LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+          S3_BUCKET: 'https://static.library.ucla.edu/'
+          SITEMAP_HOST: ${{ env.SITEMAP_HOST }}
+          ES_URL: ${{ secrets.ES_URL }}
+          ESApiKey: ${{ secrets.ESApiKey }}
+          ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
+          ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
+          ES_ALIAS: ${{ env.ES_ALIAS }}-${{ github.event.pull_request.number }}
+          ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
+          ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}
+          LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
       - name: Create  Pull Request GitHub Deployment and Set Pull Request Deployment Status to Success
         if: github.ref_name!='main'
         id: create_deployment
@@ -219,4 +231,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        
+
