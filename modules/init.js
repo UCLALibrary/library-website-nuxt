@@ -13,9 +13,15 @@ export default defineNuxtModule({
 
         const esLibraryIndexTemp = nuxt.options.runtimeConfig.public.esTempIndex
         console.log('Index named:' + esLibraryIndexTemp)
+        if (!nuxt.options.runtimeConfig.public.esURL || !esLibraryIndexTemp) {
+          throw new Error('Invalid configuration: esURL or esLibraryIndexTemp is missing.' + nuxt.options.runtimeConfig.public.esURL + ' ' + esLibraryIndexTemp)
+        }
+        const url = `${nuxt.options.runtimeConfig.public.esURL}/${esLibraryIndexTemp}`
+        console.log('Constructed URL:', url)
+
         // https://www.elastic.co/guide/en/elasticsearch/reference/current/flattened.html
         try {
-          const response = await fetch(`${nuxt.options.runtimeConfig.public.esURL}/${esLibraryIndexTemp}`, {
+          const response = await fetch(url, {
             headers: {
               Authorization: `ApiKey ${nuxt.options.runtimeConfig.esWriteKey}`,
               'Content-Type': 'application/json',
@@ -130,12 +136,18 @@ export default defineNuxtModule({
             }),
           })
           const body = await response.text()
-          const testJson = JSON.parse(body)
-          console.log('Index created:' + JSON.stringify(testJson))
-          console.log('Elastic Search index created succesfully!')
+          if (body) {
+            const testJson = JSON.parse(body)
+            console.log('Index created:' + JSON.stringify(testJson))
+            console.log('Elastic Search index created succesfully!')
+          }
         } catch (err) {
           console.error('Error:', err)
-          console.error('Response body:', body)
+          if (typeof body !== 'undefined') {
+            console.error('Response body:', body)
+          } else {
+            console.error('Response body is undefined')
+          }
           throw err
         }
       })

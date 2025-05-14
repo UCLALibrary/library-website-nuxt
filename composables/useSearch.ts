@@ -105,7 +105,7 @@ async function siteSearch(
     }
   )
   let data = await response.json()
-  if (data.hits.total.value === 0) {
+  if (data?.hits?.total.value === 0) {
     data = performFuzzySearch(keyword, searchFields, queryFilters, configMapping)
   }
   return data
@@ -293,7 +293,7 @@ async function keywordSearchWithFilters(
     }
   )
   let data = await response.json()
-  if (data.hits.total.value === 0) {
+  if (data?.hits?.total.value === 0) {
     data = await performFuzzySearchForListing(keyword, source, searchFields, filters, extraFilters, sort, orderBy)
   }
   return data

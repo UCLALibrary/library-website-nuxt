@@ -34,6 +34,7 @@ watch(
   (newVal, oldVal) => {
     // console.log('Site search page ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
+    // console.log('Site search page ES queryText updated', searchGenericQuery.value.queryText)
     searchGenericQuery.value.queryFilters = route.query.filters ? parseFilters(decodeURIComponent(route.query?.filters)) : {}
     searchES()
   }, { deep: true, immediate: true }
