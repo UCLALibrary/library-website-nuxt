@@ -286,7 +286,7 @@ const parsedAssociatedStaffMember = computed(() => {
   return page.value.exhibition.associatedStaffMember.map((obj) => {
     return {
       ...obj,
-      to: `/about/staff/${obj.to}`,
+      to: `/${obj.uri}`,
       image: _get(obj, 'image[0]', null),
       staffName: `${obj.nameFirst} ${obj.nameLast}`,
     }
