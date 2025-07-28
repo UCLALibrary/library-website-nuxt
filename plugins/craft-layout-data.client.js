@@ -25,6 +25,13 @@ export default defineNuxtPlugin((nuxtApp) => { //
           }
         ]
       }
+      const globalData = removeEmpties(data?.globalSets || [])
+      // console.log("remove empties: " + JSON.stringify(globalData))
+      // Shape data from Craft
+      const craftData = Object.fromEntries(
+        globalData?.map(item => [item.handle, item])
+      )
+      globalStore.globals = craftData
 
       console.log('globalStore.footerPrimary', JSON.stringify(globalStore.footerPrimary))
     }

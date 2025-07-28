@@ -1,6 +1,19 @@
 #import "../gql/fragments/MenuItem.gql"
 
 query Layout {
+  globalSets {
+        dataId: id
+        handle
+
+         ... on askALibrarian_GlobalSet {
+            askALibrarianTitle: titleGeneral
+            askALibrarianText: summary
+            buttonUrl {
+                buttonText
+                buttonUrl
+            }
+        }
+  }
   secondary: nodes(navHandle: "secondaryMenu", level: 1) {
         ...MenuItem
     }
@@ -16,7 +29,7 @@ query Layout {
           ...MenuItem
       }
   }
-    
+
   footerSock: nodes(navHandle: "footerSockLinks") {
     ...MenuItem
   }

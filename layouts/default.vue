@@ -44,6 +44,10 @@ useHead({
 const { enabled, state } = usePreviewMode()
 const layoutCustomProps = useAttrs()
 const globalStore = useGlobalStore()
+const isApiLocked = computed(() => {
+  const host = useRuntimeConfig().public.hostName
+  return host.includes('test')
+})
 // console.log('In default layout:', globalStore.header)
 const libraryAlert = computed(() => {
   /* console.log(
@@ -101,7 +105,11 @@ onMounted(async () => {
 
   if (process.env.NODE_ENV !== 'development' && layoutCustomProps['is-error']) {
     console.log('In SSG refresh layout data as state is not maintained after an error response')
-    await $layoutData()
+    if (isApiLocked.value) {
+      console.log('API is locked, not fetching layout data')
+    } else {
+      await $layoutData()
+    }
   }
   await $alerts()
 })
