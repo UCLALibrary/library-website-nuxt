@@ -6,6 +6,7 @@ const props = defineProps({
   error: Object as () => NuxtError
 })
 const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
+console.log('Error page props:', props?.error?.message)
 </script>
 
 <template>
