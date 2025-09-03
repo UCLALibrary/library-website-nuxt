@@ -19,7 +19,7 @@ const route = useRoute()
 const { data, error } = await useAsyncData(`events-listing-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(EVENT_DETAIL, { slug: route.params.slug })
 
-  // console.log('test:', data)
+  console.log('test event exhibition:', data)
 
   return data
 })
@@ -53,8 +53,9 @@ if (import.meta.prerender) {
 // Data
 
 const page = ref(data.value)
+console.log('page data for events exhibition slug template:', page.value)
 watch(data, (newVal, oldVal) => {
-  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  console.log('In watch preview enabled, newVal, oldVal Events and Series error issue debug', newVal, oldVal)
   page.value = newVal
 })
 
@@ -79,19 +80,19 @@ const onlineEvent = ref(!!(page.value &&
 const libcalWaitlist = ref(page.value && page.value.event && page.value.event.libcalWaitlist)
 const libcalEndpointProxy = ref(config.public.libcalProxy)
 
-// console.log('page variable:', page.value)
-// console.log('allEvents variable:', allEvents.value)
+console.log('page variable:', page.value)
+console.log('allEvents variable:', allEvents.value)
 
-// console.log('eventId variable:', eventId.value)
-// console.log('formData variable:', formData.value)
-// console.log('formId variable:', formId.value)
-// console.log('eventId variable:', eventId.value)
-// console.log('inPersonEvent variable:', inPersonEvent.value)
-// console.log('onlineEvent variable:', onlineEvent.value)
-// console.log('libcalWaitlist variable:', libcalWaitlist.value)
-// console.log('libcalEndpointProxy variable:', libcalEndpointProxy.value)
-// console.log('in-person event', inPersonEvent.value)
-// console.log('online event', onlineEvent.value)
+console.log('eventId variable:', eventId.value)
+console.log('formData variable:', formData.value)
+console.log('formId variable:', formId.value)
+console.log('eventId variable:', eventId.value)
+console.log('inPersonEvent variable:', inPersonEvent.value)
+console.log('onlineEvent variable:', onlineEvent.value)
+console.log('libcalWaitlist variable:', libcalWaitlist.value)
+console.log('libcalEndpointProxy variable:', libcalEndpointProxy.value)
+console.log('in-person event', inPersonEvent.value)
+console.log('online event', onlineEvent.value)
 const providerEventId = computed(() => {
   // console.log("In provder for event id is called")
   return eventId.value
@@ -350,14 +351,15 @@ onMounted(async () => {
     <div v-if="page.event">
       <NavBreadcrumb
         to="/visit/events-exhibitions/"
-        :title="page.event.title"
+        :title="page?.event?.title"
         parent-title="Events & Exhibitions"
       />
+      {{ page.event }}
 
-      <BannerText
-        v-if="page.event &&
-          (!page.event.image || !page.event.image[0] || !page.event.image[0].image || !page.event.image[0].image[0] ||
-            page.event.image[0].image[0].length == 0)
+      <!--BannerText
+        v-if="page?.event &&
+          (!page?.event?.image || !page?.event?.image[0] || !page?.event?.image[0].image || !page.event.image[0].image[0] ||
+            page?.event?.image[0].image[0].length == 0)
         "
         :title="page.event.title"
         :locations="page.event.eventLocation"
@@ -429,7 +431,7 @@ onMounted(async () => {
       <BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"
-      />
+      /-->
     </div>
 
     <!-- EVENT SERIES -->
@@ -439,8 +441,9 @@ onMounted(async () => {
         :title="page.eventSeries.title"
         parent-title="Events & Exhibitions"
       />
+      {{ page.eventSeries }}
 
-      <BannerText
+      <!--BannerText
         v-if="page.eventSeries && !page.eventSeries.image[0]"
         :title="page.eventSeries.title"
         :text="page.eventSeries.summary"
@@ -540,7 +543,7 @@ onMounted(async () => {
       <BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"
-      />
+      /-->
     </div>
 
     <!-- EXHIBITION -->
@@ -630,10 +633,8 @@ onMounted(async () => {
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText
-          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-          "
-        />
+        <RichText :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+          " />
       </SectionWrapper>
     </div>
   </main>
