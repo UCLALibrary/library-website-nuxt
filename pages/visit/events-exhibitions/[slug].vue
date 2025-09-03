@@ -354,11 +354,10 @@ onMounted(async () => {
         :title="page?.event?.title"
         parent-title="Events & Exhibitions"
       />
-      {{ page.event }}
 
-      <!--BannerText
+      <BannerText
         v-if="page?.event &&
-          (!page?.event?.image || !page?.event?.image[0] || !page?.event?.image[0].image || !page.event.image[0].image[0] ||
+          (!page?.event?.image || page?.event?.image?.length === 0 || !page?.event?.image[0] || !page?.event?.image[0].image || page.event.image[0].image.length === 0 || !page.event.image[0].image[0] ||
             page?.event?.image[0].image[0].length == 0)
         "
         :title="page.event.title"
@@ -431,7 +430,7 @@ onMounted(async () => {
       <BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"
-      /-->
+      />
     </div>
 
     <!-- EVENT SERIES -->
@@ -441,10 +440,9 @@ onMounted(async () => {
         :title="page.eventSeries.title"
         parent-title="Events & Exhibitions"
       />
-      {{ page.eventSeries }}
 
-      <!--BannerText
-        v-if="page.eventSeries && !page.eventSeries.image[0]"
+      <BannerText
+        v-if="page.eventSeries && page.eventSeries.image.length === 0 && !page.eventSeries.image[0]"
         :title="page.eventSeries.title"
         :text="page.eventSeries.summary"
         :locations="parsedEventSeriesLocations"
@@ -454,11 +452,11 @@ onMounted(async () => {
       />
 
       <SectionWrapper
-        v-if="page.eventSeries.image[0]"
+        v-if="page.eventSeries && page.eventSeries.image.length > 0 && page.eventSeries.image[0] && page.eventSeries.image[0].image && page.eventSeries.image[0].image.length > 0 && page.eventSeries.image[0].image[0]"
         class="section-banner"
       >
         <BannerHeader
-          :media="page.eventSeries.image[0].image[0]"
+          :media="page.eventSeries.image[0]?.image[0]"
           :title="page.eventSeries.title"
           :locations="parsedEventSeriesLocations"
           category="Event Series"
@@ -543,7 +541,7 @@ onMounted(async () => {
       <BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"
-      /-->
+      />
     </div>
 
     <!-- EXHIBITION -->
@@ -555,7 +553,7 @@ onMounted(async () => {
       />
 
       <BannerText
-        v-if="page.exhibition && !page.exhibition.image[0]"
+        v-if="page.exhibition && page.exhibition.image && page.exhibition.image.length === 0 && !page.exhibition.image[0]"
         :title="page.exhibition.title"
         :text="page.exhibition.summary"
         :locations="parsedExhibitionLocations"
@@ -567,7 +565,7 @@ onMounted(async () => {
       />
 
       <SectionWrapper
-        v-if="page.exhibition.image[0]"
+        v-if="page.exhibition && page.exhibition.image && page.exhibition.image.length > 0 && page.exhibition.image[0] && page.exhibition.image[0].image && page.exhibition.image[0].image.length > 0 && page.exhibition.image[0].image[0]"
         class="section-banner"
       >
         <BannerHeader
@@ -633,8 +631,10 @@ onMounted(async () => {
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-          " />
+        <RichText
+          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+          "
+        />
       </SectionWrapper>
     </div>
   </main>
