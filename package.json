@@ -39,8 +39,8 @@
     "netlify-cli": "^17.36.0",
     "nuxt-graphql-request": "^7.0.5",
     "sass": "^1.66.1",
-    "ucla-library-design-tokens": "^5.27.0",
-    "@ucla-library-monorepo/ucla-library-website-components": "^1.16.9"
+    "ucla-library-design-tokens": "^5.42.0",
+    "@ucla-library-monorepo/ucla-library-website-components": "^1.29.0"
   },
   "engines": {
     "pnpm": "^9.12.1"

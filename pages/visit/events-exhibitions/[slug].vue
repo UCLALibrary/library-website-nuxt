@@ -19,7 +19,7 @@ const route = useRoute()
 const { data, error } = await useAsyncData(`events-listing-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(EVENT_DETAIL, { slug: route.params.slug })
 
-  // console.log('test:', data)
+  console.log('test event exhibition:', data)
 
   return data
 })
@@ -53,8 +53,9 @@ if (import.meta.prerender) {
 // Data
 
 const page = ref(data.value)
+console.log('page data for events exhibition slug template:', page.value)
 watch(data, (newVal, oldVal) => {
-  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
+  console.log('In watch preview enabled, newVal, oldVal Events and Series error issue debug', newVal, oldVal)
   page.value = newVal
 })
 
@@ -79,19 +80,19 @@ const onlineEvent = ref(!!(page.value &&
 const libcalWaitlist = ref(page.value && page.value.event && page.value.event.libcalWaitlist)
 const libcalEndpointProxy = ref(config.public.libcalProxy)
 
-// console.log('page variable:', page.value)
-// console.log('allEvents variable:', allEvents.value)
+console.log('page variable:', page.value)
+console.log('allEvents variable:', allEvents.value)
 
-// console.log('eventId variable:', eventId.value)
-// console.log('formData variable:', formData.value)
-// console.log('formId variable:', formId.value)
-// console.log('eventId variable:', eventId.value)
-// console.log('inPersonEvent variable:', inPersonEvent.value)
-// console.log('onlineEvent variable:', onlineEvent.value)
-// console.log('libcalWaitlist variable:', libcalWaitlist.value)
-// console.log('libcalEndpointProxy variable:', libcalEndpointProxy.value)
-// console.log('in-person event', inPersonEvent.value)
-// console.log('online event', onlineEvent.value)
+console.log('eventId variable:', eventId.value)
+console.log('formData variable:', formData.value)
+console.log('formId variable:', formId.value)
+console.log('eventId variable:', eventId.value)
+console.log('inPersonEvent variable:', inPersonEvent.value)
+console.log('onlineEvent variable:', onlineEvent.value)
+console.log('libcalWaitlist variable:', libcalWaitlist.value)
+console.log('libcalEndpointProxy variable:', libcalEndpointProxy.value)
+console.log('in-person event', inPersonEvent.value)
+console.log('online event', onlineEvent.value)
 const providerEventId = computed(() => {
   // console.log("In provder for event id is called")
   return eventId.value
@@ -350,14 +351,14 @@ onMounted(async () => {
     <div v-if="page.event">
       <NavBreadcrumb
         to="/visit/events-exhibitions/"
-        :title="page.event.title"
+        :title="page?.event?.title"
         parent-title="Events & Exhibitions"
       />
 
       <BannerText
-        v-if="page.event &&
-          (!page.event.image || !page.event.image[0] || !page.event.image[0].image || !page.event.image[0].image[0] ||
-            page.event.image[0].image[0].length == 0)
+        v-if="page?.event &&
+          (!page?.event?.image || page?.event?.image?.length === 0 || !page?.event?.image[0] || !page?.event?.image[0].image || page.event.image[0].image.length === 0 || !page.event.image[0].image[0] ||
+            page?.event?.image[0].image[0].length == 0)
         "
         :title="page.event.title"
         :locations="page.event.eventLocation"
@@ -441,7 +442,7 @@ onMounted(async () => {
       />
 
       <BannerText
-        v-if="page.eventSeries && !page.eventSeries.image[0]"
+        v-if="page.eventSeries && page.eventSeries.image.length === 0 && !page.eventSeries.image[0]"
         :title="page.eventSeries.title"
         :text="page.eventSeries.summary"
         :locations="parsedEventSeriesLocations"
@@ -451,11 +452,11 @@ onMounted(async () => {
       />
 
       <SectionWrapper
-        v-if="page.eventSeries.image[0]"
+        v-if="page.eventSeries && page.eventSeries.image.length > 0 && page.eventSeries.image[0] && page.eventSeries.image[0].image && page.eventSeries.image[0].image.length > 0 && page.eventSeries.image[0].image[0]"
         class="section-banner"
       >
         <BannerHeader
-          :media="page.eventSeries.image[0].image[0]"
+          :media="page.eventSeries.image[0]?.image[0]"
           :title="page.eventSeries.title"
           :locations="parsedEventSeriesLocations"
           category="Event Series"
@@ -552,7 +553,7 @@ onMounted(async () => {
       />
 
       <BannerText
-        v-if="page.exhibition && !page.exhibition.image[0]"
+        v-if="page.exhibition && page.exhibition.image && page.exhibition.image.length === 0 && !page.exhibition.image[0]"
         :title="page.exhibition.title"
         :text="page.exhibition.summary"
         :locations="parsedExhibitionLocations"
@@ -564,7 +565,7 @@ onMounted(async () => {
       />
 
       <SectionWrapper
-        v-if="page.exhibition.image[0]"
+        v-if="page.exhibition && page.exhibition.image && page.exhibition.image.length > 0 && page.exhibition.image[0] && page.exhibition.image[0].image && page.exhibition.image[0].image.length > 0 && page.exhibition.image[0].image[0]"
         class="section-banner"
       >
         <BannerHeader
