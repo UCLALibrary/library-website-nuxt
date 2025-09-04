@@ -439,50 +439,50 @@ onMounted(async () => {
     <div v-else-if="page.eventSeries">
       <NavBreadcrumb
         to="/visit/events-exhibitions/"
-        :title="page.eventSeries.title"
+        :title="page?.eventSeries?.title"
         parent-title="Events & Exhibitions"
       />
 
       <BannerText
-        v-if="page.eventSeries && page.eventSeries.image.length === 0 && !page.eventSeries.image[0]"
-        :title="page.eventSeries.title"
-        :text="page.eventSeries.summary"
+        v-if="page?.eventSeries && page?.eventSeries?.image.length === 0 && !page.eventSeries.image[0]"
+        :title="page?.eventSeries?.title"
+        :text="page?.eventSeries?.summary"
         :locations="parsedEventSeriesLocations"
-        :start-date="page.eventSeries.startDate"
-        :end-date="page.eventSeries.endDate"
+        :start-date="page?.eventSeries?.startDate"
+        :end-date="page?.eventSeries?.endDate"
         category="Event Series"
       />
 
       <SectionWrapper
-        v-if="page.eventSeries && page.eventSeries.image.length > 0 && page.eventSeries.image[0] && page.eventSeries.image[0].image && page.eventSeries.image[0].image.length > 0 && page.eventSeries.image[0].image[0]"
+        v-if="page?.eventSeries && page?.eventSeries?.image.length > 0 && page.eventSeries.image[0] && page.eventSeries.image[0].image && page.eventSeries.image[0].image.length > 0 && page.eventSeries.image[0].image[0]"
         class="section-banner"
       >
         <BannerHeader
-          :media="page.eventSeries.image[0]?.image[0]"
-          :title="page.eventSeries.title"
+          :media="page?.eventSeries?.image[0]?.image[0]"
+          :title="page?.eventSeries?.title"
           :locations="parsedEventSeriesLocations"
           category="Event Series"
-          :text="page.eventSeries.summary"
-          :start-date="page.eventSeries.startDate"
-          :end-date="page.eventSeries.endDate"
+          :text="page?.eventSeries?.summary"
+          :start-date="page?.eventSeries?.startDate"
+          :end-date="page?.eventSeries?.endDate"
           :align-right="true"
         />
       </SectionWrapper>
 
       <SectionWrapper theme="divider">
         <DividerWayFinder
-          v-if="page.eventSeries.image"
+          v-if="page?.eventSeries?.image"
           color="visit"
         />
       </SectionWrapper>
 
       <FlexibleBlocks
         class="content"
-        :blocks="page.eventSeries.blocks"
+        :blocks="page?.eventSeries?.blocks"
       />
 
       <SectionWrapper
-        v-if="page.eventSeries.blocks.length > 0"
+        v-if="page?.eventSeries?.blocks?.length > 0"
         theme="divider"
       >
         <DividerWayFinder
@@ -633,10 +633,8 @@ onMounted(async () => {
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText
-          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-          "
-        />
+        <RichText :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+          " />
       </SectionWrapper>
     </div>
   </main>
