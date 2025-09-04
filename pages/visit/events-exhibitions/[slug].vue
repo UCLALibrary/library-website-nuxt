@@ -115,13 +115,13 @@ provide('libcalEndpoint', libcalEndpointProxy.value)
 if (page.value) {
   if (page.value.event) {
     useHead({
-      title: page.value ? page.value.event.title : '... loading',
+      title: page.value ? page.value?.event?.title : '... loading',
       meta: [
         {
           hid: 'description',
           name: 'description',
           content: removeTags(
-            page.value.event.eventDescription
+            page.value?.event?.eventDescription
           )
         }
       ]
@@ -131,13 +131,13 @@ if (page.value) {
   if (page.value.eventSeries) {
     useHead({
       title: page.value
-        ? page.value.eventSeries.title
+        ? page.value?.eventSeries?.title
         : '... loading',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: removeTags(page.value.eventSeries.summary)
+          content: removeTags(page.value?.eventSeries?.summary)
         }
       ]
     })
@@ -146,13 +146,13 @@ if (page.value) {
   if (page.value.exhibition) {
     useHead({
       title: page.value
-        ? page.value.exhibition.title
+        ? page.value?.exhibition?.title
         : '... loading',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: removeTags(page.value.exhibition.summary)
+          content: removeTags(page.value?.exhibition?.summary)
         }
       ]
     })
@@ -162,7 +162,7 @@ if (page.value) {
 // Computed
 const promptName = computed(() => {
   if (parseRegistration.value) return 'Register'
-  else if (page.value.event && page.value.event.onlineJoinURL)
+  else if (page.value?.event && page.value?.event.onlineJoinURL)
     return 'More Details'
   return null
 })
@@ -170,7 +170,7 @@ const promptName = computed(() => {
 const parseURL = computed(() => {
   return parseRegistration.value
     ? null
-    : page.value.event.onlineJoinURL
+    : page.value?.event.onlineJoinURL
 })
 // //console.log(
 //     "In parse registration:" + this.page.event.requiresRegistration
@@ -181,10 +181,10 @@ const parseURL = computed(() => {
 //
 const parseRegistration = computed(() => {
   if (
-    page.value.event &&
-    page.value.event.requiresRegistration === '1' &&
-    page.value.event.libcalRegistrationOpened === '1' &&
-    !page.value.event.libcalRegistrationClosed
+    page.value?.event &&
+    page.value?.event.requiresRegistration === '1' &&
+    page.value?.event.libcalRegistrationOpened === '1' &&
+    !page.value?.event.libcalRegistrationClosed
   ) {
     return true
   }
@@ -192,14 +192,14 @@ const parseRegistration = computed(() => {
 })
 
 const parseEventType = computed(() => {
-  return page.value.event.eventType.length &&
-    page.value.event.eventType[0].title
-    ? page.value.event.eventType[0].title
+  return page.value?.event?.eventType?.length &&
+    page.value?.event?.eventType[0].title
+    ? page.value?.event?.eventType[0].title
     : ''
 })
 
 const parsedAssociatedSeries = computed(() => {
-  return page.value.associatedSeries.map((obj) => {
+  return page.value?.associatedSeries.map((obj) => {
     return {
       ...obj,
       to: `/${obj.to}`,
@@ -213,7 +213,7 @@ const parsedAssociatedSeries = computed(() => {
 })
 
 const upcomingEvents = computed(() => {
-  return page.value.upcomingEvents.map((obj) => {
+  return page.value?.upcomingEvents?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.uri}`,
@@ -231,7 +231,7 @@ const upcomingEvents = computed(() => {
 })
 
 const pastEvents = computed(() => {
-  return page.value.pastEvents.map((obj) => {
+  return page.value?.pastEvents?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.uri}`,
@@ -261,14 +261,14 @@ const parsedAssociatedTopics = computed(() => {
 })
 
 const parsedExhibitionBannerPrompt = computed(() => {
-  return page.value.exhibition.buttonUrl.length
-    ? page.value.exhibition.buttonUrl[0].buttonText
+  return page.value.exhibition?.buttonUrl.length
+    ? page.value.exhibition?.buttonUrl[0].buttonText
     : ''
 })
 
 const parsedExhibitionBannerTo = computed(() => {
-  return page.value.exhibition.buttonUrl.length
-    ? page.value.exhibition.buttonUrl[0].buttonUrl
+  return page.value.exhibition?.buttonUrl.length
+    ? page.value.exhibition?.buttonUrl[0].buttonUrl
     : ''
 })
 
@@ -492,7 +492,7 @@ onMounted(async () => {
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="upcomingEvents.length"
+        v-if="upcomingEvents?.length"
         section-title="Upcoming Events in this Series"
       >
         <SectionTeaserList
@@ -500,11 +500,11 @@ onMounted(async () => {
           :items="upcomingEvents"
           class="section section-list"
         />
-        <DividerGeneral v-if="pastEvents.length" />
+        <DividerGeneral v-if="pastEvents?.length" />
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="pastEvents.length"
+        v-if="pastEvents?.length"
         section-title="Past Events in this Series"
       >
         <SectionTeaserList
@@ -515,7 +515,7 @@ onMounted(async () => {
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="page.eventSeries.associatedTopics.length > 0"
+        v-if="page.eventSeries?.associatedTopics?.length > 0"
         theme="divider"
       >
         <DividerWayFinder
@@ -526,7 +526,7 @@ onMounted(async () => {
 
       <SectionWrapper>
         <SectionCardsWithIllustrations
-          v-if="parsedAssociatedTopics.length > 0"
+          v-if="parsedAssociatedTopics?.length > 0"
           class="section-cards"
           :items="parsedAssociatedTopics"
           section-title="Associated Topics"
