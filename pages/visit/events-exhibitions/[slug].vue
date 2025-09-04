@@ -101,7 +101,7 @@ const providerEventId = computed(() => {
 })
 provide('eventId', providerEventId)
 const injectEventId = inject('eventId')
-// console.log("injectEventId", injectEventId)
+console.log("injectEventId", injectEventId)
 provide('registrationType', computed(() => {
   if (inPersonEvent.value && !onlineEvent.value) return 'in-person'
   else if (!inPersonEvent.value && onlineEvent.value)
@@ -261,14 +261,15 @@ const parsedAssociatedTopics = computed(() => {
 })
 
 const parsedExhibitionBannerPrompt = computed(() => {
-  return page.value.exhibition?.buttonUrl.length
-    ? page.value.exhibition?.buttonUrl[0].buttonText
+  console.log('page value exhibition button url:', page.value.exhibition?.buttonUrl)
+  return page.value.exhibition?.buttonUrl?.length > 0
+    ? page.value.exhibition?.buttonUrl[0]?.buttonText
     : ''
 })
 
 const parsedExhibitionBannerTo = computed(() => {
-  return page.value.exhibition?.buttonUrl.length
-    ? page.value.exhibition?.buttonUrl[0].buttonUrl
+  return page.value.exhibition?.buttonUrl?.length > 0
+    ? page.value.exhibition?.buttonUrl[0]?.buttonUrl
     : ''
 })
 
@@ -468,9 +469,8 @@ onMounted(async () => {
           :end-date="page?.eventSeries?.endDate"
           :align-right="true"
         />
-      </SectionWrapper -->
+      </SectionWrapper >
 
-      {{ page?.eventSeries ? }}
 
       <SectionWrapper theme="divider">
         <DividerWayFinder
@@ -541,7 +541,9 @@ onMounted(async () => {
           class="divider-way-finder"
           color="visit"
         />
-      </SectionWrapper>
+      </SectionWrapper-->
+      {{ page?.eventSeries ? }}
+
 
       <BlockCallToAction
         class="section block-call-to-action"
