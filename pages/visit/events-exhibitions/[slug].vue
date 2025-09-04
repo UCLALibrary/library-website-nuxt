@@ -443,7 +443,8 @@ onMounted(async () => {
         parent-title="Events & Exhibitions"
       />
 
-      <BannerText
+
+      <!-- BannerText
         v-if="page?.eventSeries && page?.eventSeries?.image.length === 0 && !page.eventSeries.image[0]"
         :title="page?.eventSeries?.title"
         :text="page?.eventSeries?.summary"
@@ -467,7 +468,9 @@ onMounted(async () => {
           :end-date="page?.eventSeries?.endDate"
           :align-right="true"
         />
-      </SectionWrapper>
+      </SectionWrapper -->
+
+      {{ page?.eventSeries ? }}
 
       <SectionWrapper theme="divider">
         <DividerWayFinder
@@ -633,10 +636,8 @@ onMounted(async () => {
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText
-          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-          "
-        />
+        <RichText :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+          " />
       </SectionWrapper>
     </div>
   </main>
