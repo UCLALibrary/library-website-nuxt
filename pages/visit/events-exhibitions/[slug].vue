@@ -17,6 +17,8 @@ const { $graphql } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData(`events-listing-detail-${route.params.slug}`, async () => {
+  console.log('In async data for events and exhibitions detail slug template')
+  console.log('route params slug:', route.params.slug)
   const data = await $graphql.default.request(EVENT_DETAIL, { slug: route.params.slug })
 
   console.log('test event exhibition:', data)
