@@ -601,36 +601,36 @@ const globalStore = useGlobalStore()
 
       <FlexibleBlocks
         class="content"
-        :blocks="page.exhibition.blocks"
+        :blocks="page?.exhibition?.blocks"
       />
 
       <SectionWrapper
-        v-if="page.exhibition.blocks.length > 0"
+        v-if="page?.exhibition?.blocks?.length > 0"
         theme="divider"
       >
         <DividerWayFinder color="visit" />
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="associatedExhibitionEvents.length"
+        v-if="associatedExhibitionEvents?.length"
         section-title="Associated Events"
       >
         <SectionTeaserList
-          v-if="associatedExhibitionEvents.length > 0"
+          v-if="associatedExhibitionEvents?.length > 0"
           :items="associatedExhibitionEvents"
           class="section section-list"
         />
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="associatedExhibitionEvents.length > 0"
+        v-if="associatedExhibitionEvents?.length > 0"
         theme="divider"
       >
         <DividerWayFinder color="visit" />
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="parsedAssociatedStaffMember.length > 0"
+        v-if="parsedAssociatedStaffMember?.length > 0"
         section-title="Contact a Subject Specialist"
       >
         <SectionStaffList :items="parsedAssociatedStaffMember" />
@@ -644,10 +644,8 @@ const globalStore = useGlobalStore()
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText
-          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-          "
-        />
+        <RichText :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
+          " />
       </SectionWrapper>
     </div>
     <div>
