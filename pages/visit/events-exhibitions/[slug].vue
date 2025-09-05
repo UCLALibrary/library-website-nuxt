@@ -60,7 +60,7 @@ watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal Events and Series error issue debug', newVal, oldVal)
   page.value = newVal
 })
-/*
+
 const allEvents = ref([])
 // console.log('online?', Number(page.value.event.libcalOnlineSeats) - Number(page.value.event.libcalOnlineSeatsTaken))
 
@@ -100,10 +100,7 @@ const providerEventId = computed(() => {
   return eventId.value
 })
 provide('eventId', providerEventId)
-/*const injectEventId = inject('eventId')
-console.log('injectEventId', injectEventId)*/
 
-/*
 provide('registrationType', computed(() => {
   if (inPersonEvent.value && !onlineEvent.value) return 'in-person'
   else if (!inPersonEvent.value && onlineEvent.value)
@@ -327,6 +324,7 @@ const parsedExhibitionLocations = computed(() => {
     }
   })
 })
+
 const providedFormData = computed(() => formData.value)
 provide('blockFormData', providedFormData)
 const { $scrapeApi } = useNuxtApp()
@@ -348,7 +346,9 @@ onMounted(async () => {
     formData.value = formDataArray[0]
   }
 })
-*/
+
+const globalStore = useGlobalStore()
+
 </script>
 
 <template lang="html">
@@ -358,8 +358,7 @@ onMounted(async () => {
   >
     <!-- EVENT DETAIL -->
     <div v-show="page.event">
-      Event
-      <!--NavBreadcrumb
+      <NavBreadcrumb
         to="/visit/events-exhibitions/"
         :title="page?.event?.title"
         parent-title="Events & Exhibitions"
@@ -382,41 +381,41 @@ onMounted(async () => {
       />
 
       <SectionWrapper
-        v-if="page.event.image && page.event.image.length > 0 && page.event.image[0].image && page.event.image[0].image.length > 0 && page.event.image[0].image[0]"
+        v-if="page?.event?.image && page?.event?.image?.length > 0 && page?.event?.image[0]?.image && page?.event?.image[0]?.image?.length > 0 && page?.event?.image[0]?.image[0]"
         class="section-banner"
       >
         <BannerHeader
-          :media="page.event.image[0].image[0]"
-          :title="page.event.title"
-          :locations="page.event.eventLocation"
-          :start-date="page.event.startDateWithTime"
-          :end-date="page.event.endDateWithTime"
+          :media="page?.event?.image[0]?.image[0]"
+          :title="page?.event?.title"
+          :locations="page?.event?.eventLocation"
+          :start-date="page?.event?.startDateWithTime"
+          :end-date="page?.event?.endDateWithTime"
           :category="parseEventType"
           :to="parseURL"
           :align-right="true"
           :prompt="promptName"
           :register-event="parseRegistration"
-          :section-handle="page.event.sectionHandle"
+          :section-handle="page?.event?.sectionHandle"
         />
       </SectionWrapper>
 
       <SectionWrapper theme="divider">
         <DividerWayFinder
-          v-if="page.event.image && page.event.image.length > 0 && page.event.image[0].image && page.event.image[0].image[0]"
+          v-if="page?.event?.image && page?.event?.image?.length > 0 && page?.event?.image[0]?.image && page?.event?.image[0]?.image[0]"
           color="visit"
         />
       </SectionWrapper>
-      <SectionWrapper v-if="page.event || page.event.eventDescription">
+      <SectionWrapper v-if="page?.event || page?.event?.eventDescription">
         <RichText
-          v-if="page.event.presenter"
-          :rich-text-content="page.event.presenter"
+          v-if="page?.event?.presenter"
+          :rich-text-content="page?.event?.presenter"
           class="presenter"
         />
-        <RichText :rich-text-content="page.event.eventDescription" />
-        <DividerGeneral v-if="page.event.moreInformation" />
+        <RichText :rich-text-content="page?.event?.eventDescription" />
+        <DividerGeneral v-if="page?.event?.moreInformation" />
         <RichText
-          v-if="page.event.moreInformation"
-          :rich-text-content="page.event.moreInformation"
+          v-if="page?.event?.moreInformation"
+          :rich-text-content="page?.event?.moreInformation"
         />
       </SectionWrapper>
 
@@ -435,18 +434,20 @@ onMounted(async () => {
       </SectionWrapper>
       <SectionWrapper theme="divider">
         <DividerWayFinder color="visit" />
-      </SectionWrapper-->
+      </SectionWrapper>
 
-      <!--BlockCallToAction
-        class="section block-call-to-action"
+      <BlockCallToAction
+        v-if="globalStore.globals && globalStore.globals.askALibrarian && globalStore.globals.askALibrarian.buttonUrl && globalStore.globals.askALibrarian.buttonUrl.length > 0 && globalStore.globals.askALibrarian.buttonUrl[0].buttonText && globalStore.globals.askALibrarian.buttonUrl[0].buttonUrl"
+        class="
+        section
+        block-call-to-action"
         :is-global="true"
-      /-->
+      />
     </div>
 
     <!-- EVENT SERIES -->
     <div v-show="page.eventSeries">
-      EVENT SERIES
-      <!-- NavBreadcrumb
+      <NavBreadcrumb
         to="/visit/events-exhibitions/"
         :title="page?.eventSeries?.title"
         parent-title="Events & Exhibitions"
@@ -476,7 +477,7 @@ onMounted(async () => {
           :end-date="page?.eventSeries?.endDate"
           :align-right="true"
         />
-      </SectionWrapper >
+      </SectionWrapper>
 
       <SectionWrapper theme="divider">
         <DividerWayFinder
@@ -547,18 +548,18 @@ onMounted(async () => {
           class="divider-way-finder"
           color="visit"
         />
-      </SectionWrapper-->
+      </SectionWrapper>
 
-      <!--BlockCallToAction
+      <BlockCallToAction
+        v-if="globalStore.globals && globalStore.globals.askALibrarian && globalStore.globals.askALibrarian.buttonUrl && globalStore.globals.askALibrarian.buttonUrl.length > 0 && globalStore.globals.askALibrarian.buttonUrl[0].buttonText && globalStore.globals.askALibrarian.buttonUrl[0].buttonUrl"
         class="section block-call-to-action"
         :is-global="true"
-      /-->
+      />
     </div>
 
     <!-- EXHIBITION -->
     <div v-show="page.exhibition">
-      EXHIBITION
-      <!--NavBreadcrumb
+      <NavBreadcrumb
         to="/visit/events-exhibitions/"
         :title="page?.exhibition?.title"
         parent-title="Events & Exhibitions"
@@ -643,9 +644,11 @@ onMounted(async () => {
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
-          " />
-      </SectionWrapper -->
+        <RichText
+          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+          "
+        />
+      </SectionWrapper>
     </div>
     <div>
       {{ page }}
