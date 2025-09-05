@@ -351,14 +351,15 @@ onMounted(async () => {
     class="page page-event-detail"
   >
     <!-- EVENT DETAIL -->
-    <div v-if="page.event">
+    <div v-show="page.event">
       <NavBreadcrumb
         to="/visit/events-exhibitions/"
         :title="page?.event?.title"
         parent-title="Events & Exhibitions"
       />
 
-      <BannerText
+
+      <!--BannerText
         v-if="page?.event &&
           (!page?.event?.image || page?.event?.image?.length === 0 || !page?.event?.image[0] || !page?.event?.image[0].image || page.event.image[0].image.length === 0 || !page.event.image[0].image[0] ||
             page?.event?.image[0].image[0].length == 0)
@@ -428,7 +429,7 @@ onMounted(async () => {
       </SectionWrapper>
       <SectionWrapper theme="divider">
         <DividerWayFinder color="visit" />
-      </SectionWrapper>
+      </SectionWrapper-->
 
       <BlockCallToAction
         class="section block-call-to-action"
@@ -437,7 +438,7 @@ onMounted(async () => {
     </div>
 
     <!-- EVENT SERIES -->
-    <div v-else-if="page.eventSeries">
+    <div v-show="page.eventSeries">
       <NavBreadcrumb
         to="/visit/events-exhibitions/"
         :title="page?.eventSeries?.title"
@@ -542,7 +543,7 @@ onMounted(async () => {
           color="visit"
         />
       </SectionWrapper-->
-      {{ page?.eventSeries ? }}
+
 
 
       <BlockCallToAction
@@ -552,14 +553,14 @@ onMounted(async () => {
     </div>
 
     <!-- EXHIBITION -->
-    <div v-else>
+    <div v-show="page.exhibition">
       <NavBreadcrumb
         to="/visit/events-exhibitions/"
         :title="page.exhibition.title"
         parent-title="Events & Exhibitions"
       />
 
-      <BannerText
+      <!-- BannerText
         v-if="page.exhibition && page.exhibition.image && page.exhibition.image.length === 0 && !page.exhibition.image[0]"
         :title="page.exhibition.title"
         :text="page.exhibition.summary"
@@ -640,7 +641,10 @@ onMounted(async () => {
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
         <RichText :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
           " />
-      </SectionWrapper>
+      </SectionWrapper -->
+    </div>
+    <div>
+      {{ page }}
     </div>
   </main>
 </template>
