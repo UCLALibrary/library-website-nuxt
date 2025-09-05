@@ -60,7 +60,7 @@ watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal Events and Series error issue debug', newVal, oldVal)
   page.value = newVal
 })
-
+/*
 const allEvents = ref([])
 // console.log('online?', Number(page.value.event.libcalOnlineSeats) - Number(page.value.event.libcalOnlineSeatsTaken))
 
@@ -100,8 +100,10 @@ const providerEventId = computed(() => {
   return eventId.value
 })
 provide('eventId', providerEventId)
-const injectEventId = inject('eventId')
-console.log('injectEventId', injectEventId)
+/*const injectEventId = inject('eventId')
+console.log('injectEventId', injectEventId)*/
+
+/*
 provide('registrationType', computed(() => {
   if (inPersonEvent.value && !onlineEvent.value) return 'in-person'
   else if (!inPersonEvent.value && onlineEvent.value)
@@ -346,7 +348,7 @@ onMounted(async () => {
     formData.value = formDataArray[0]
   }
 })
-
+*/
 </script>
 
 <template lang="html">
@@ -435,10 +437,10 @@ onMounted(async () => {
         <DividerWayFinder color="visit" />
       </SectionWrapper-->
 
-      <BlockCallToAction
+      <!--BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"
-      />
+      /-->
     </div>
 
     <!-- EVENT SERIES -->
@@ -547,10 +549,10 @@ onMounted(async () => {
         />
       </SectionWrapper-->
 
-      <BlockCallToAction
+      <!--BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"
-      />
+      /-->
     </div>
 
     <!-- EXHIBITION -->
