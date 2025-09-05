@@ -202,7 +202,7 @@ const parseEventType = computed(() => {
 })
 
 const parsedAssociatedSeries = computed(() => {
-  return page.value?.associatedSeries.map((obj) => {
+  return page.value?.associatedSeries?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.to}`,
@@ -637,17 +637,15 @@ const globalStore = useGlobalStore()
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="parsedAssociatedStaffMember.length > 0"
+        v-if="parsedAssociatedStaffMember?.length > 0"
         theme="divider"
       >
         <DividerWayFinder color="visit" />
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText
-          :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
-          "
-        />
+        <RichText :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
+          " />
       </SectionWrapper>
     </div>
     <div>
