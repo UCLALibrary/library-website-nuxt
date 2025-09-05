@@ -101,7 +101,7 @@ const providerEventId = computed(() => {
 })
 provide('eventId', providerEventId)
 const injectEventId = inject('eventId')
-console.log("injectEventId", injectEventId)
+console.log('injectEventId', injectEventId)
 provide('registrationType', computed(() => {
   if (inPersonEvent.value && !onlineEvent.value) return 'in-person'
   else if (!inPersonEvent.value && onlineEvent.value)
@@ -113,7 +113,9 @@ provide('libcalWaitlist', computed(() => libcalWaitlist.value))
 provide('libcalEndpoint', libcalEndpointProxy.value)
 
 if (page.value) {
+  console.log('Setting head for events and exhibitions detail page')
   if (page.value.event) {
+    console.log('Setting head for event')
     useHead({
       title: page.value ? page.value?.event?.title : '... loading',
       meta: [
@@ -129,6 +131,7 @@ if (page.value) {
   }
 
   if (page.value.eventSeries) {
+    console.log('Setting head for event series')
     useHead({
       title: page.value
         ? page.value?.eventSeries?.title
@@ -144,6 +147,7 @@ if (page.value) {
   }
 
   if (page.value.exhibition) {
+    console.log('Setting head for exhibition')
     useHead({
       title: page.value
         ? page.value?.exhibition?.title
@@ -352,14 +356,14 @@ onMounted(async () => {
   >
     <!-- EVENT DETAIL -->
     <div v-show="page.event">
-      <NavBreadcrumb
+      Event
+      <!--NavBreadcrumb
         to="/visit/events-exhibitions/"
         :title="page?.event?.title"
         parent-title="Events & Exhibitions"
       />
 
-
-      <!--BannerText
+      <BannerText
         v-if="page?.event &&
           (!page?.event?.image || page?.event?.image?.length === 0 || !page?.event?.image[0] || !page?.event?.image[0].image || page.event.image[0].image.length === 0 || !page.event.image[0].image[0] ||
             page?.event?.image[0].image[0].length == 0)
@@ -439,14 +443,14 @@ onMounted(async () => {
 
     <!-- EVENT SERIES -->
     <div v-show="page.eventSeries">
-      <NavBreadcrumb
+      EVENT SERIES
+      <!-- NavBreadcrumb
         to="/visit/events-exhibitions/"
         :title="page?.eventSeries?.title"
         parent-title="Events & Exhibitions"
       />
 
-
-      <!-- BannerText
+      <BannerText
         v-if="page?.eventSeries && page?.eventSeries?.image.length === 0 && !page.eventSeries.image[0]"
         :title="page?.eventSeries?.title"
         :text="page?.eventSeries?.summary"
@@ -471,7 +475,6 @@ onMounted(async () => {
           :align-right="true"
         />
       </SectionWrapper >
-
 
       <SectionWrapper theme="divider">
         <DividerWayFinder
@@ -544,8 +547,6 @@ onMounted(async () => {
         />
       </SectionWrapper-->
 
-
-
       <BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"
@@ -554,13 +555,14 @@ onMounted(async () => {
 
     <!-- EXHIBITION -->
     <div v-show="page.exhibition">
-      <NavBreadcrumb
+      EXHIBITION
+      <!--NavBreadcrumb
         to="/visit/events-exhibitions/"
-        :title="page.exhibition.title"
+        :title="page?.exhibition?.title"
         parent-title="Events & Exhibitions"
       />
 
-      <!-- BannerText
+      <BannerText
         v-if="page.exhibition && page.exhibition.image && page.exhibition.image.length === 0 && !page.exhibition.image[0]"
         :title="page.exhibition.title"
         :text="page.exhibition.summary"

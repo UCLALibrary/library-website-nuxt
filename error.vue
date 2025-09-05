@@ -25,8 +25,10 @@ console.log('Error page props:', props?.error?.message)
 
       <DividerWayFinder />
 
-      <RichText class="
-        error-text">
+      <RichText
+        class="
+        error-text"
+      >
         <h1
           v-if="error?.statusCode === 404"
           class="error-title"
