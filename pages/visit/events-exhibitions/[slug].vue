@@ -252,8 +252,8 @@ const pastEvents = computed(() => {
 })
 
 const parsedAssociatedTopics = computed(() => {
-  if (!page.value.eventSeries.associatedTopics) return []
-  return page.value.eventSeries.associatedTopics.map((obj) => {
+  if (!page.value?.eventSeries?.associatedTopics) return []
+  return page.value?.eventSeries?.associatedTopics?.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
@@ -265,19 +265,19 @@ const parsedAssociatedTopics = computed(() => {
 
 const parsedExhibitionBannerPrompt = computed(() => {
   console.log('page value exhibition button url:', page.value.exhibition?.buttonUrl)
-  return page.value.exhibition?.buttonUrl?.length > 0
+  return page.value?.exhibition?.buttonUrl?.length > 0
     ? page.value.exhibition?.buttonUrl[0]?.buttonText
     : ''
 })
 
 const parsedExhibitionBannerTo = computed(() => {
-  return page.value.exhibition?.buttonUrl?.length > 0
+  return page.value?.exhibition?.buttonUrl?.length > 0
     ? page.value.exhibition?.buttonUrl[0]?.buttonUrl
     : ''
 })
 
 const associatedExhibitionEvents = computed(() => {
-  return page.value.exhibition.exhibitsAndEvents.map((obj) => {
+  return page.value?.exhibition?.exhibitsAndEvents?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.uri}`,
@@ -290,7 +290,7 @@ const associatedExhibitionEvents = computed(() => {
 })
 
 const parsedAssociatedStaffMember = computed(() => {
-  return page.value.exhibition.associatedStaffMember.map((obj) => {
+  return page.value?.exhibition?.associatedStaffMember?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.uri}`,
@@ -301,14 +301,14 @@ const parsedAssociatedStaffMember = computed(() => {
 })
 
 const parsedAcknowledgementTitle = computed(() => {
-  return page.value.exhibition.acknowledgements[0]
+  return page.value?.exhibition?.acknowledgements[0]
     .displaySectionTitle === 'true'
     ? page.value.exhibition.acknowledgements[0].titleGeneral
     : ''
 })
 
 const parsedEventSeriesLocations = computed(() => {
-  return page.value.eventSeries.associatedLocations.map((obj) => {
+  return page.value?.eventSeries?.associatedLocations?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.to}`,
@@ -317,7 +317,7 @@ const parsedEventSeriesLocations = computed(() => {
 })
 
 const parsedExhibitionLocations = computed(() => {
-  return page.value.exhibition.associatedLocationsAndPrograms.map((obj) => {
+  return page.value?.exhibition?.associatedLocationsAndPrograms?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.to}`,
@@ -644,8 +644,10 @@ const globalStore = useGlobalStore()
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
-          " />
+        <RichText
+          :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
+          "
+        />
       </SectionWrapper>
     </div>
     <div>
