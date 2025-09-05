@@ -650,8 +650,5 @@ const globalStore = useGlobalStore()
         />
       </SectionWrapper>
     </div>
-    <div>
-      {{ page }}
-    </div>
   </main>
 </template>
