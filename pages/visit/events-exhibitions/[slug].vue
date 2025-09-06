@@ -17,6 +17,8 @@ const { $graphql } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData(`events-listing-detail-${route.params.slug}`, async () => {
+  console.log('In async data for events and exhibitions detail slug template')
+  console.log('route params slug:', route.params.slug)
   const data = await $graphql.default.request(EVENT_DETAIL, { slug: route.params.slug })
 
   console.log('test event exhibition:', data)
@@ -98,8 +100,7 @@ const providerEventId = computed(() => {
   return eventId.value
 })
 provide('eventId', providerEventId)
-const injectEventId = inject('eventId')
-// console.log("injectEventId", injectEventId)
+
 provide('registrationType', computed(() => {
   if (inPersonEvent.value && !onlineEvent.value) return 'in-person'
   else if (!inPersonEvent.value && onlineEvent.value)
@@ -111,15 +112,17 @@ provide('libcalWaitlist', computed(() => libcalWaitlist.value))
 provide('libcalEndpoint', libcalEndpointProxy.value)
 
 if (page.value) {
+  console.log('Setting head for events and exhibitions detail page')
   if (page.value.event) {
+    console.log('Setting head for event')
     useHead({
-      title: page.value ? page.value.event.title : '... loading',
+      title: page.value ? page.value?.event?.title : '... loading',
       meta: [
         {
           hid: 'description',
           name: 'description',
           content: removeTags(
-            page.value.event.eventDescription
+            page.value?.event?.eventDescription
           )
         }
       ]
@@ -127,30 +130,32 @@ if (page.value) {
   }
 
   if (page.value.eventSeries) {
+    console.log('Setting head for event series')
     useHead({
       title: page.value
-        ? page.value.eventSeries.title
+        ? page.value?.eventSeries?.title
         : '... loading',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: removeTags(page.value.eventSeries.summary)
+          content: removeTags(page.value?.eventSeries?.summary)
         }
       ]
     })
   }
 
   if (page.value.exhibition) {
+    console.log('Setting head for exhibition')
     useHead({
       title: page.value
-        ? page.value.exhibition.title
+        ? page.value?.exhibition?.title
         : '... loading',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: removeTags(page.value.exhibition.summary)
+          content: removeTags(page.value?.exhibition?.summary)
         }
       ]
     })
@@ -160,7 +165,7 @@ if (page.value) {
 // Computed
 const promptName = computed(() => {
   if (parseRegistration.value) return 'Register'
-  else if (page.value.event && page.value.event.onlineJoinURL)
+  else if (page.value?.event && page.value?.event.onlineJoinURL)
     return 'More Details'
   return null
 })
@@ -168,7 +173,7 @@ const promptName = computed(() => {
 const parseURL = computed(() => {
   return parseRegistration.value
     ? null
-    : page.value.event.onlineJoinURL
+    : page.value?.event.onlineJoinURL
 })
 // //console.log(
 //     "In parse registration:" + this.page.event.requiresRegistration
@@ -179,10 +184,10 @@ const parseURL = computed(() => {
 //
 const parseRegistration = computed(() => {
   if (
-    page.value.event &&
-    page.value.event.requiresRegistration === '1' &&
-    page.value.event.libcalRegistrationOpened === '1' &&
-    !page.value.event.libcalRegistrationClosed
+    page.value?.event &&
+    page.value?.event.requiresRegistration === '1' &&
+    page.value?.event.libcalRegistrationOpened === '1' &&
+    !page.value?.event.libcalRegistrationClosed
   ) {
     return true
   }
@@ -190,14 +195,14 @@ const parseRegistration = computed(() => {
 })
 
 const parseEventType = computed(() => {
-  return page.value.event.eventType.length &&
-    page.value.event.eventType[0].title
-    ? page.value.event.eventType[0].title
+  return page.value?.event?.eventType?.length &&
+    page.value?.event?.eventType[0].title
+    ? page.value?.event?.eventType[0].title
     : ''
 })
 
 const parsedAssociatedSeries = computed(() => {
-  return page.value.associatedSeries.map((obj) => {
+  return page.value?.associatedSeries?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.to}`,
@@ -211,7 +216,7 @@ const parsedAssociatedSeries = computed(() => {
 })
 
 const upcomingEvents = computed(() => {
-  return page.value.upcomingEvents.map((obj) => {
+  return page.value?.upcomingEvents?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.uri}`,
@@ -229,7 +234,7 @@ const upcomingEvents = computed(() => {
 })
 
 const pastEvents = computed(() => {
-  return page.value.pastEvents.map((obj) => {
+  return page.value?.pastEvents?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.uri}`,
@@ -247,8 +252,8 @@ const pastEvents = computed(() => {
 })
 
 const parsedAssociatedTopics = computed(() => {
-  if (!page.value.eventSeries.associatedTopics) return []
-  return page.value.eventSeries.associatedTopics.map((obj) => {
+  if (!page.value?.eventSeries?.associatedTopics) return []
+  return page.value?.eventSeries?.associatedTopics?.map((obj) => {
     return {
       ...obj,
       to: obj.externalResourceUrl
@@ -259,19 +264,20 @@ const parsedAssociatedTopics = computed(() => {
 })
 
 const parsedExhibitionBannerPrompt = computed(() => {
-  return page.value.exhibition.buttonUrl.length
-    ? page.value.exhibition.buttonUrl[0].buttonText
+  console.log('page value exhibition button url:', page.value.exhibition?.buttonUrl)
+  return page.value?.exhibition?.buttonUrl?.length > 0
+    ? page.value.exhibition?.buttonUrl[0]?.buttonText
     : ''
 })
 
 const parsedExhibitionBannerTo = computed(() => {
-  return page.value.exhibition.buttonUrl.length
-    ? page.value.exhibition.buttonUrl[0].buttonUrl
+  return page.value?.exhibition?.buttonUrl?.length > 0
+    ? page.value.exhibition?.buttonUrl[0]?.buttonUrl
     : ''
 })
 
 const associatedExhibitionEvents = computed(() => {
-  return page.value.exhibition.exhibitsAndEvents.map((obj) => {
+  return page.value?.exhibition?.exhibitsAndEvents?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.uri}`,
@@ -284,7 +290,7 @@ const associatedExhibitionEvents = computed(() => {
 })
 
 const parsedAssociatedStaffMember = computed(() => {
-  return page.value.exhibition.associatedStaffMember.map((obj) => {
+  return page.value?.exhibition?.associatedStaffMember?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.uri}`,
@@ -295,14 +301,14 @@ const parsedAssociatedStaffMember = computed(() => {
 })
 
 const parsedAcknowledgementTitle = computed(() => {
-  return page.value.exhibition.acknowledgements[0]
+  return page.value?.exhibition?.acknowledgements[0]
     .displaySectionTitle === 'true'
     ? page.value.exhibition.acknowledgements[0].titleGeneral
     : ''
 })
 
 const parsedEventSeriesLocations = computed(() => {
-  return page.value.eventSeries.associatedLocations.map((obj) => {
+  return page.value?.eventSeries?.associatedLocations?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.to}`,
@@ -311,13 +317,14 @@ const parsedEventSeriesLocations = computed(() => {
 })
 
 const parsedExhibitionLocations = computed(() => {
-  return page.value.exhibition.associatedLocationsAndPrograms.map((obj) => {
+  return page.value?.exhibition?.associatedLocationsAndPrograms?.map((obj) => {
     return {
       ...obj,
       to: `/${obj.to}`,
     }
   })
 })
+
 const providedFormData = computed(() => formData.value)
 provide('blockFormData', providedFormData)
 const { $scrapeApi } = useNuxtApp()
@@ -340,6 +347,8 @@ onMounted(async () => {
   }
 })
 
+const globalStore = useGlobalStore()
+
 </script>
 
 <template lang="html">
@@ -348,7 +357,7 @@ onMounted(async () => {
     class="page page-event-detail"
   >
     <!-- EVENT DETAIL -->
-    <div v-if="page.event">
+    <div v-show="page.event">
       <NavBreadcrumb
         to="/visit/events-exhibitions/"
         :title="page?.event?.title"
@@ -372,41 +381,41 @@ onMounted(async () => {
       />
 
       <SectionWrapper
-        v-if="page.event.image && page.event.image.length > 0 && page.event.image[0].image && page.event.image[0].image.length > 0 && page.event.image[0].image[0]"
+        v-if="page?.event?.image && page?.event?.image?.length > 0 && page?.event?.image[0]?.image && page?.event?.image[0]?.image?.length > 0 && page?.event?.image[0]?.image[0]"
         class="section-banner"
       >
         <BannerHeader
-          :media="page.event.image[0].image[0]"
-          :title="page.event.title"
-          :locations="page.event.eventLocation"
-          :start-date="page.event.startDateWithTime"
-          :end-date="page.event.endDateWithTime"
+          :media="page?.event?.image[0]?.image[0]"
+          :title="page?.event?.title"
+          :locations="page?.event?.eventLocation"
+          :start-date="page?.event?.startDateWithTime"
+          :end-date="page?.event?.endDateWithTime"
           :category="parseEventType"
           :to="parseURL"
           :align-right="true"
           :prompt="promptName"
           :register-event="parseRegistration"
-          :section-handle="page.event.sectionHandle"
+          :section-handle="page?.event?.sectionHandle"
         />
       </SectionWrapper>
 
       <SectionWrapper theme="divider">
         <DividerWayFinder
-          v-if="page.event.image && page.event.image.length > 0 && page.event.image[0].image && page.event.image[0].image[0]"
+          v-if="page?.event?.image && page?.event?.image?.length > 0 && page?.event?.image[0]?.image && page?.event?.image[0]?.image[0]"
           color="visit"
         />
       </SectionWrapper>
-      <SectionWrapper v-if="page.event || page.event.eventDescription">
+      <SectionWrapper v-if="page?.event || page?.event?.eventDescription">
         <RichText
-          v-if="page.event.presenter"
-          :rich-text-content="page.event.presenter"
+          v-if="page?.event?.presenter"
+          :rich-text-content="page?.event?.presenter"
           class="presenter"
         />
-        <RichText :rich-text-content="page.event.eventDescription" />
-        <DividerGeneral v-if="page.event.moreInformation" />
+        <RichText :rich-text-content="page?.event?.eventDescription" />
+        <DividerGeneral v-if="page?.event?.moreInformation" />
         <RichText
-          v-if="page.event.moreInformation"
-          :rich-text-content="page.event.moreInformation"
+          v-if="page?.event?.moreInformation"
+          :rich-text-content="page?.event?.moreInformation"
         />
       </SectionWrapper>
 
@@ -428,59 +437,62 @@ onMounted(async () => {
       </SectionWrapper>
 
       <BlockCallToAction
-        class="section block-call-to-action"
+        v-if="globalStore.globals && globalStore.globals.askALibrarian && globalStore.globals.askALibrarian.buttonUrl && globalStore.globals.askALibrarian.buttonUrl.length > 0 && globalStore.globals.askALibrarian.buttonUrl[0].buttonText && globalStore.globals.askALibrarian.buttonUrl[0].buttonUrl"
+        class="
+        section
+        block-call-to-action"
         :is-global="true"
       />
     </div>
 
     <!-- EVENT SERIES -->
-    <div v-else-if="page.eventSeries">
+    <div v-show="page.eventSeries">
       <NavBreadcrumb
         to="/visit/events-exhibitions/"
-        :title="page.eventSeries.title"
+        :title="page?.eventSeries?.title"
         parent-title="Events & Exhibitions"
       />
 
       <BannerText
-        v-if="page.eventSeries && page.eventSeries.image.length === 0 && !page.eventSeries.image[0]"
-        :title="page.eventSeries.title"
-        :text="page.eventSeries.summary"
+        v-if="page?.eventSeries && page?.eventSeries?.image.length === 0 && !page.eventSeries.image[0]"
+        :title="page?.eventSeries?.title"
+        :text="page?.eventSeries?.summary"
         :locations="parsedEventSeriesLocations"
-        :start-date="page.eventSeries.startDate"
-        :end-date="page.eventSeries.endDate"
+        :start-date="page?.eventSeries?.startDate"
+        :end-date="page?.eventSeries?.endDate"
         category="Event Series"
       />
 
       <SectionWrapper
-        v-if="page.eventSeries && page.eventSeries.image.length > 0 && page.eventSeries.image[0] && page.eventSeries.image[0].image && page.eventSeries.image[0].image.length > 0 && page.eventSeries.image[0].image[0]"
+        v-if="page?.eventSeries && page?.eventSeries?.image.length > 0 && page.eventSeries.image[0] && page.eventSeries.image[0].image && page.eventSeries.image[0].image.length > 0 && page.eventSeries.image[0].image[0]"
         class="section-banner"
       >
         <BannerHeader
-          :media="page.eventSeries.image[0]?.image[0]"
-          :title="page.eventSeries.title"
+          :media="page?.eventSeries?.image[0]?.image[0]"
+          :title="page?.eventSeries?.title"
           :locations="parsedEventSeriesLocations"
           category="Event Series"
-          :text="page.eventSeries.summary"
-          :start-date="page.eventSeries.startDate"
-          :end-date="page.eventSeries.endDate"
+          :text="page?.eventSeries?.summary"
+          :start-date="page?.eventSeries?.startDate"
+          :end-date="page?.eventSeries?.endDate"
           :align-right="true"
         />
       </SectionWrapper>
 
       <SectionWrapper theme="divider">
         <DividerWayFinder
-          v-if="page.eventSeries.image"
+          v-if="page?.eventSeries?.image"
           color="visit"
         />
       </SectionWrapper>
 
       <FlexibleBlocks
         class="content"
-        :blocks="page.eventSeries.blocks"
+        :blocks="page?.eventSeries?.blocks"
       />
 
       <SectionWrapper
-        v-if="page.eventSeries.blocks.length > 0"
+        v-if="page?.eventSeries?.blocks?.length > 0"
         theme="divider"
       >
         <DividerWayFinder
@@ -490,7 +502,7 @@ onMounted(async () => {
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="upcomingEvents.length"
+        v-if="upcomingEvents?.length"
         section-title="Upcoming Events in this Series"
       >
         <SectionTeaserList
@@ -498,11 +510,11 @@ onMounted(async () => {
           :items="upcomingEvents"
           class="section section-list"
         />
-        <DividerGeneral v-if="pastEvents.length" />
+        <DividerGeneral v-if="pastEvents?.length" />
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="pastEvents.length"
+        v-if="pastEvents?.length"
         section-title="Past Events in this Series"
       >
         <SectionTeaserList
@@ -513,7 +525,7 @@ onMounted(async () => {
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="page.eventSeries.associatedTopics.length > 0"
+        v-if="page.eventSeries?.associatedTopics?.length > 0"
         theme="divider"
       >
         <DividerWayFinder
@@ -524,7 +536,7 @@ onMounted(async () => {
 
       <SectionWrapper>
         <SectionCardsWithIllustrations
-          v-if="parsedAssociatedTopics.length > 0"
+          v-if="parsedAssociatedTopics?.length > 0"
           class="section-cards"
           :items="parsedAssociatedTopics"
           section-title="Associated Topics"
@@ -539,16 +551,17 @@ onMounted(async () => {
       </SectionWrapper>
 
       <BlockCallToAction
+        v-if="globalStore.globals && globalStore.globals.askALibrarian && globalStore.globals.askALibrarian.buttonUrl && globalStore.globals.askALibrarian.buttonUrl.length > 0 && globalStore.globals.askALibrarian.buttonUrl[0].buttonText && globalStore.globals.askALibrarian.buttonUrl[0].buttonUrl"
         class="section block-call-to-action"
         :is-global="true"
       />
     </div>
 
     <!-- EXHIBITION -->
-    <div v-else>
+    <div v-show="page.exhibition">
       <NavBreadcrumb
         to="/visit/events-exhibitions/"
-        :title="page.exhibition.title"
+        :title="page?.exhibition?.title"
         parent-title="Events & Exhibitions"
       />
 
@@ -588,43 +601,43 @@ onMounted(async () => {
 
       <FlexibleBlocks
         class="content"
-        :blocks="page.exhibition.blocks"
+        :blocks="page?.exhibition?.blocks"
       />
 
       <SectionWrapper
-        v-if="page.exhibition.blocks.length > 0"
+        v-if="page?.exhibition?.blocks?.length > 0"
         theme="divider"
       >
         <DividerWayFinder color="visit" />
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="associatedExhibitionEvents.length"
+        v-if="associatedExhibitionEvents?.length"
         section-title="Associated Events"
       >
         <SectionTeaserList
-          v-if="associatedExhibitionEvents.length > 0"
+          v-if="associatedExhibitionEvents?.length > 0"
           :items="associatedExhibitionEvents"
           class="section section-list"
         />
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="associatedExhibitionEvents.length > 0"
+        v-if="associatedExhibitionEvents?.length > 0"
         theme="divider"
       >
         <DividerWayFinder color="visit" />
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="parsedAssociatedStaffMember.length > 0"
+        v-if="parsedAssociatedStaffMember?.length > 0"
         section-title="Contact a Subject Specialist"
       >
         <SectionStaffList :items="parsedAssociatedStaffMember" />
       </SectionWrapper>
 
       <SectionWrapper
-        v-if="parsedAssociatedStaffMember.length > 0"
+        v-if="parsedAssociatedStaffMember?.length > 0"
         theme="divider"
       >
         <DividerWayFinder color="visit" />
@@ -632,7 +645,7 @@ onMounted(async () => {
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
         <RichText
-          :rich-text-content="page.exhibition.acknowledgements[0].acknowledgements
+          :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
           "
         />
       </SectionWrapper>
