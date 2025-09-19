@@ -18,11 +18,11 @@ console.log('Error page props:', props?.error?.message)
       <p class="error">
         {{ error?.statusCode }}
       </p>
-      <pre v-if="isDevelopment">
-        {{ error?.message }}
-        <br>
-        {{ error }}
-      </pre>
+      <!--pre v-if="isDevelopment"-->
+      {{ error?.message }}
+      <br>
+      {{ error }}
+      <!--/pre-->
       <DividerWayFinder />
 
       <RichText

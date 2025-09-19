@@ -398,6 +398,7 @@ onMounted(() => {
 
       <SectionWrapper>
         <BlockCallToAction
+          v-if="globalStore.globals && globalStore.globals.askALibrarian && globalStore.globals.askALibrarian.buttonUrl && globalStore.globals.askALibrarian.buttonUrl.length > 0 && globalStore.globals.askALibrarian.buttonUrl[0].buttonText && globalStore.globals.askALibrarian.buttonUrl[0].buttonUrl"
           class="block-call-to-action"
           :is-global="true"
         />
