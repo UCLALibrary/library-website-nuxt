@@ -52,7 +52,13 @@ export default defineNuxtConfig({
       failOnError: false,
       concurrency: 50,
       interval: 1000,
-      routes: ['/help/services-resources/', '/help/services-resources/ask-us/',],
+      routes: ['/', '/about/jobs/staff-academic-jobs/', '/about/news/',
+        '/about/polices/', '/about/programs/',
+        '/about/staff/', '/about/student-opportunities/', '/about/status-updates/',
+        '/collections/', '/collections/access/', '/collections/explore/',
+        '/give/endowments/', '/help/services-resources/', '/help/services-resources/ask-us/',
+        '/impact/', '/search-site/', '/visit/events-exhibition/', '/visit/location/'
+      ],
     },
     hooks: {
       'prerender:generate'(route) {
@@ -88,10 +94,9 @@ export default defineNuxtConfig({
 
         if (allRoutes.length) {
           for (const route of allRoutes) {
-            if (route.includes('help/services-resources'))
-              routes.add(route)
+            routes.add(route)
           }
-          // routes.add('/about/reports')
+          routes.add('/about/reports')
           routes.add('/help')
           // routes.add('/about/status-updates')
         }
