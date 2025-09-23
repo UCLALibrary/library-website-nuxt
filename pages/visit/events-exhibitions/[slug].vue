@@ -347,7 +347,7 @@ onMounted(async () => {
   }
 })
 
-const globalStore = useGlobalStore()
+const { hasCTA } = useAskALibrarianCTA()
 
 </script>
 
@@ -437,7 +437,7 @@ const globalStore = useGlobalStore()
       </SectionWrapper>
 
       <BlockCallToAction
-        v-if="globalStore.globals && globalStore.globals.askALibrarian && globalStore.globals.askALibrarian.buttonUrl && globalStore.globals.askALibrarian.buttonUrl.length > 0 && globalStore.globals.askALibrarian.buttonUrl[0].buttonText && globalStore.globals.askALibrarian.buttonUrl[0].buttonUrl"
+        v-if="hasCTA"
         class="
         section
         block-call-to-action"
@@ -551,7 +551,7 @@ const globalStore = useGlobalStore()
       </SectionWrapper>
 
       <BlockCallToAction
-        v-if="globalStore.globals && globalStore.globals.askALibrarian && globalStore.globals.askALibrarian.buttonUrl && globalStore.globals.askALibrarian.buttonUrl.length > 0 && globalStore.globals.askALibrarian.buttonUrl[0].buttonText && globalStore.globals.askALibrarian.buttonUrl[0].buttonUrl"
+        v-if="hasCTA"
         class="section block-call-to-action"
         :is-global="true"
       />
@@ -644,10 +644,8 @@ const globalStore = useGlobalStore()
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText
-          :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
-          "
-        />
+        <RichText :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
+          " />
       </SectionWrapper>
     </div>
   </main>

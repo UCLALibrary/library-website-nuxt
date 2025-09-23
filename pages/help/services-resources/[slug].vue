@@ -13,7 +13,7 @@ import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from '../gql/queries/Service
 
 const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
-const globalStore = useGlobalStore()
+const { hasCTA } = useAskALibrarianCTA()
 
 const { data, error } = await useAsyncData(`services-resources-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL, { slug: route.params.slug, })
@@ -191,9 +191,9 @@ onMounted(() => {
       <BannerText
         v-if="
           !page.serviceOrResource.heroImage ||
-            page.serviceOrResource.heroImage.length == 0 ||
-            !page.serviceOrResource.heroImage[0].image ||
-            page.serviceOrResource.heroImage[0].image.length == 0
+          page.serviceOrResource.heroImage.length == 0 ||
+          !page.serviceOrResource.heroImage[0].image ||
+          page.serviceOrResource.heroImage[0].image.length == 0
         "
         class="banner-text"
         :category="page.serviceOrResource.type"
@@ -206,9 +206,9 @@ onMounted(() => {
       <SectionWrapper
         v-if="
           page.serviceOrResource.heroImage &&
-            page.serviceOrResource.heroImage.length == 1 &&
-            page.serviceOrResource.heroImage[0].image &&
-            page.serviceOrResource.heroImage[0].image.length > 0
+          page.serviceOrResource.heroImage.length == 1 &&
+          page.serviceOrResource.heroImage[0].image &&
+          page.serviceOrResource.heroImage[0].image.length > 0
         "
         class="section-banner"
       >
@@ -266,7 +266,7 @@ onMounted(() => {
 
       <SectionWrapper>
         <BlockCallToAction
-          v-if="globalStore.globals && globalStore.globals.askALibrarian && globalStore.globals.askALibrarian.buttonUrl && globalStore.globals.askALibrarian.buttonUrl.length > 0 && globalStore.globals.askALibrarian.buttonUrl[0].buttonText && globalStore.globals.askALibrarian.buttonUrl[0].buttonUrl"
+          v-if="hasCTA"
           class="block-call-to-action"
           :is-global="true"
         />
@@ -284,9 +284,9 @@ onMounted(() => {
       <BannerText
         v-if="
           page.workshopSeries &&
-            (page.workshopSeries.image.length == 0 ||
-              !page.workshopSeries.image[0].image ||
-              page.workshopSeries.image[0].image.length == 0)
+          (page.workshopSeries.image.length == 0 ||
+            !page.workshopSeries.image[0].image ||
+            page.workshopSeries.image[0].image.length == 0)
         "
         :title="page.workshopSeries.title"
         :text="page.workshopSeries.summary"
@@ -299,9 +299,9 @@ onMounted(() => {
       <SectionWrapper
         v-if="
           page.workshopSeries.image &&
-            page.workshopSeries.image.length == 1 &&
-            page.workshopSeries.image[0].image &&
-            page.workshopSeries.image[0].image.length > 0
+          page.workshopSeries.image.length == 1 &&
+          page.workshopSeries.image[0].image &&
+          page.workshopSeries.image[0].image.length > 0
         "
         class="section-banner"
       >
@@ -398,7 +398,7 @@ onMounted(() => {
 
       <SectionWrapper>
         <BlockCallToAction
-          v-if="globalStore.globals && globalStore.globals.askALibrarian && globalStore.globals.askALibrarian.buttonUrl && globalStore.globals.askALibrarian.buttonUrl.length > 0 && globalStore.globals.askALibrarian.buttonUrl[0].buttonText && globalStore.globals.askALibrarian.buttonUrl[0].buttonUrl"
+          v-if="hasCTA"
           class="block-call-to-action"
           :is-global="true"
         />
