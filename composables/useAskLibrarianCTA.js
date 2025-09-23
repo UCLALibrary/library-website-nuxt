@@ -8,7 +8,7 @@ export function useAskALibrarianCTA() {
   })
 
   const ctaText = computed(() => button.value?.buttonText || '')
-  const ctaUrl  = computed(() => button.value?.buttonUrl  || '')
+  const ctaUrl = computed(() => button.value?.buttonUrl || '')
 
   return {
     hasCTA,
