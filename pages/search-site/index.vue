@@ -151,12 +151,12 @@ const parsedSearchResults = computed(() => {
 })
 const parsePrev = computed(() => {
   if (previous.value)
-    return `${route.path}?q=${route.query.q}&filters=${encodeURIComponent(route.query.filters)}&from=${prevFrom.value}`
+    return `${route.path}?q=${route.query.q}&filters=${encodeURIComponent(route.query.filters || '')}&from=${prevFrom.value}`
   return ''
 })
 const parseNext = computed(() => {
   if (next.value)
-    return `${route.path}?q=${route.query.q}&filters=${encodeURIComponent(route.query.filters)}&from=${nextFrom.value}`
+    return `${route.path}?q=${route.query.q}&filters=${encodeURIComponent(route.query.filters || '')}&from=${nextFrom.value}`
   return ''
 })
 const searchAdditionalResources = computed(() => {
