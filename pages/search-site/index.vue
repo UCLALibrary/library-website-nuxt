@@ -303,10 +303,22 @@ useHead({
         v-show="page && page?.hits && page?.hits?.hits?.length > 0"
         class="meta section-no-top-margin"
       >
-        <h2 class="about-results">
+        <h2
+          v-show="!page.fuzzySearchPerformed"
+          class="about-results"
+        >
           Displaying {{ page?.hits?.total?.value }} results for
           <strong><em>“{{ route.query.q }}”</em></strong>
         </h2>
+        <h2
+          v-show="page.fuzzySearchPerformed"
+          class="about-results"
+        >
+          Displaying {{ page?.hits?.total?.value }} results for misspelled search
+          Term
+          <strong><em>“{{ route.query.q }}”</em></strong>
+        </h2>
+
         <SectionWrapper
           v-for="(result, index) in parsedSearchResults"
           :key="`SearchResultBlock${index}`"
