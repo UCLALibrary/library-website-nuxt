@@ -105,8 +105,18 @@ async function siteSearch(
     }
   )
   let data = await response.json()
-  if (data?.hits?.total.value === 0) {
-    data = performFuzzySearch(keyword, searchFields, queryFilters, configMapping)
+  if (data?.hits?.total.value === 0 || data?.hits?.hits.length === 0) {
+    data = await performFuzzySearch(keyword, searchFields, queryFilters, configMapping)
+    // console.log("Fuzzy search performed")
+    // console.log("Fuzzy search performed", data)
+    if (data?.hits?.total.value > 10)
+      if (data && data.hits && data.hits.total) {
+        data.hits.total.value = 10
+      }
+    data.fuzzySearchPerformed = true
+  } else {
+    // console.log("Fuzzy search not performed")
+    data.fuzzySearchPerformed = false
   }
   return data
 }
@@ -295,6 +305,7 @@ async function keywordSearchWithFilters(
   let data = await response.json()
   if (data?.hits?.total.value === 0) {
     data = await performFuzzySearchForListing(keyword, source, searchFields, filters, extraFilters, sort, orderBy)
+    data.fuzzySearchPerformed = true
   }
   return data
 }
@@ -556,6 +567,7 @@ async function performFuzzySearch(keyword: string, searchFields: string[], query
       method: 'POST',
       body: JSON.stringify({
         from: 0,
+        size: '10',
         indices_boost: [
           { [libraryIndex]: 3.0 },
           { [libguideIndex]: 1.3 }
