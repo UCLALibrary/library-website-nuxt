@@ -30,7 +30,7 @@ if (!data.value?.data) {
   })
 }
 
-if (data.value.data && import.meta.prerender) {
+if (data.value?.data && import.meta.prerender) {
   const { index } = useIndexer()
   const doc = {
     title: data.value.data.title,
@@ -61,9 +61,6 @@ useHead({
     },
   ],
 })
-
-// ES search functionality
-
 </script>
 
 <template lang="html">
@@ -99,8 +96,6 @@ useHead({
     <SectionWrapper section-title="CTA">
       <pre style="text-wrap: auto;">{{ page.callToAction2Up }}</pre>
     </SectionWrapper>
-
-
   </main>
 </template>
 
