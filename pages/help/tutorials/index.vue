@@ -44,7 +44,7 @@ const route = useRoute()
 
 // Data
 const page = ref(_get(data.value.data, 'entry', {}))
-console.log('Page Data: ', page.value) // Delete after page implementation
+console.log('Page Data: ', page.value)
 
 watch(data, (newVal, oldVal) => {
   // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
@@ -57,7 +57,7 @@ useHead({
     {
       hid: 'description',
       name: 'description',
-      content: removeTags(page.value.text),
+      content: removeTags(page.value.summary),
     },
   ],
 })
@@ -87,6 +87,20 @@ useHead({
     <SectionWrapper theme="divider">
       <DividerWayFinder color="help" />
     </SectionWrapper>
+
+    <SectionWrapper :section-title="page.featuredResourcesSection[0].titleGeneral">
+      <pre style="text-wrap: auto;">{{ page.featuredResourcesSection[0].featuredResources }}</pre>
+    </SectionWrapper>
+
+    <SectionWrapper theme="divider">
+      <DividerWayFinder color="help" />
+    </SectionWrapper>
+
+    <SectionWrapper section-title="CTA">
+      <pre style="text-wrap: auto;">{{ page.callToAction2Up }}</pre>
+    </SectionWrapper>
+
+
   </main>
 </template>
 
