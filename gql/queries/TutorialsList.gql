@@ -1,0 +1,10 @@
+query TutorialsListing {
+  entry(section: "listingTutorials") {
+    title
+    summary
+    sectionTitle
+    richTextDefault
+    featuredResourcesSection
+    callToAction2Up
+  }
+}
