@@ -9,6 +9,13 @@ import _get from 'lodash/get'
 // GQL
 import TUTORIALS_LIST from '../gql/queries/TutorialsList.gql'
 
+// HELPERS
+import config from '../utils/searchConfig'
+import getListingFilters from '../utils/getListingFilters'
+import queryFilterHasValues from '../utils/queryFilterHasValues'
+import removeTags from '../utils/removeTags'
+// import sortByTitle from '../utils/sortByTitle'
+
 const { $graphql } = useNuxtApp()
 
 const { data, error } = await useAsyncData('tutorials-list', async () => {
@@ -61,6 +68,135 @@ useHead({
     },
   ],
 })
+
+// ES Functionality Test Start
+const routeFilters = computed(() => {
+  return parseFilters(_get(route, 'query.filters', ''))
+})
+
+const hits = ref([])
+const title = ref('')
+const searchFilters = ref([])
+const noResultsFound = ref(false)
+
+const searchGenericQuery = ref({
+  queryText: route.query.q || '',
+  queryFilters: parseFilters(route.query.filters || ''),
+})
+
+function parseFilters(filtersString) {
+  if (!filtersString) return {}
+
+  const filters = {}
+  const conditions = filtersString.split(' AND ')
+
+  conditions.forEach((condition) => {
+    const [key, value] = condition.split(':(')
+    const cleanedKey = key.trim()
+    const values = value.replace(')', '').split(' OR ').map(v => v.trim())
+
+    filters[cleanedKey] = values
+  })
+
+  return filters
+}
+
+const hasSearchQuery = computed(() => {
+  // console.log("hasSearchQuery", (route.query.q !== undefined && route.query.q !== ''), (route.query.filters && queryFilterHasValues(routeFilters.value, config.tutorialsList.filters)), (routeFilters.value.past[0] === 'yes'))
+  return (route.query.q !== undefined && route.query.q !== '')
+    || (route.query.filters && queryFilterHasValues(routeFilters.value, config.tutorialsList.filters))
+    || (routeFilters.value.past && routeFilters.value.past.length > 0 && routeFilters.value.past[0] === 'yes')
+})
+
+// This watcher is called when router push updates the query params
+watch(
+  () => route.query,
+  (newVal, oldVal) => {
+    // console.log('ES newVal, oldVal', newVal, oldVal)
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
+    searchES()
+  }, { deep: true, immediate: true }
+)
+
+async function searchES() {
+
+
+  // if (hasSearchQuery.value)
+
+  if (
+    (route.query.q && route.query.q !== '') ||
+    (route.query.filters &&
+      queryFilterHasValues(
+        parseFilters(route.query.filters || ''),
+        config.tutorialsList.filters
+      ))
+  ) {
+    // console.log('Search ES HITS query,', route.query.q)
+
+    const queryText = route.query.q || '*'
+
+    const { past, ...filters } = routeFilters.value
+
+    const { keywordSearchWithFilters } = useSearch()
+
+    const results = await keywordSearchWithFilters(
+      queryText,
+      config.tutorialsList.searchFields,
+      ['tutorial', 'tutorials', 'tutorialsDetail'],
+      filters,
+      // queryText === '*' ? config.tutorialsList.sortField : '',
+      parseFilters(route.query.filters || ''),
+      config.tutorialsList.orderBy,
+      config.tutorialsList.resultFields,
+      config.tutorialsList.filters,
+      [],
+    )
+    if (results && results.hits && results.hits.total.value > 0) {
+      // console.log('Search ES HITS,', results.hits.hits)
+      hits.value = results.hits.hits
+      noResultsFound.value = false
+    } else {
+      noResultsFound.value = true
+      hits.value = []
+    }
+  } else {
+    hits.value = []
+    noResultsFound.value = false
+  }
+}
+
+function parseHits(hits = []) {
+  return hits.value
+}
+
+const parseHitsResults = computed(() => {
+  return parseHits(hits.value)
+})
+
+console.log('Hits: ', parseHitsResults.value)
+
+async function setFilters() {
+  const { getAggregations } = useSearch()
+  const searchAggsResponse = await getAggregations(
+    config.tutorialsList.filters,
+    'tutorials'
+  )
+
+  console.log(
+    "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+  )
+  searchFilters.value = getListingFilters(
+    searchAggsResponse,
+    config.tutorialsList.filters
+  )
+}
+
+onMounted(async () => {
+  // await setFilters()
+})
+// ES Functionality Test End
+
 </script>
 
 <template lang="html">
@@ -86,7 +222,15 @@ useHead({
     </SectionWrapper>
 
     <SectionWrapper :section-title="page.featuredResourcesSection[0].titleGeneral">
-      <pre style="text-wrap: auto;">{{ page.featuredResourcesSection[0].featuredResources }}</pre>
+      <!-- <pre style="text-wrap: auto;">{{ page.featuredResourcesSection[0].featuredResources }}</pre> -->
+    </SectionWrapper>
+
+    <SectionWrapper theme="divider">
+      <DividerWayFinder color="help" />
+    </SectionWrapper>
+
+    <SectionWrapper theme="divider">
+      {{ parseHitsResults }}
     </SectionWrapper>
 
     <SectionWrapper theme="divider">
@@ -94,7 +238,7 @@ useHead({
     </SectionWrapper>
 
     <SectionWrapper section-title="CTA">
-      <pre style="text-wrap: auto;">{{ page.callToAction2Up }}</pre>
+      <!-- <pre style="text-wrap: auto;">{{ page.callToAction2Up }}</pre> -->
     </SectionWrapper>
   </main>
 </template>
