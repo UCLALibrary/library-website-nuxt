@@ -58,6 +58,10 @@ const config = {
         key: 'Staff Directory',
         terms: ['staffMember'],
       },
+      {
+        key: 'Tutorials',
+        terms: ['tutorial', 'tutorials', 'listingTutorials'] // Confirm
+      }
     ],
   },
   serviceOrResources: {
@@ -312,6 +316,38 @@ const config = {
     resultFields: ['*'],
     sortField: 'startDateWithTime',
     orderBy: 'asc',
+  },
+  //
+  //
+  tutorials: { // Confirm
+    searchFields: [
+      'title^6', // Confirm
+      'text^3', // Confirm
+    ],
+    filters: [
+      {
+        label: 'Category',
+        // esFieldName: 'locations.title.keyword', // Confirm what this should be ?
+        inputType: 'checkbox',
+      },
+      {
+        label: 'Type',
+        // esFieldName: 'articleCategory.title.keyword',
+        inputType: 'checkbox',
+      },
+    ],
+    resultFields: [ // Confirm
+      'title',
+      'text',
+      'articleType',
+      'uri',
+      'heroImage',
+      'postDate',
+      'category',
+      'contributors',
+    ],
+    sortField: 'postDate', // Confirm? Title?
+    orderBy: 'desc', // Confirm
   },
 }
 

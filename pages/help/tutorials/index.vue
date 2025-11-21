@@ -120,8 +120,6 @@ watch(
 )
 
 async function searchES() {
-
-
   // if (hasSearchQuery.value)
 
   if (
@@ -132,7 +130,7 @@ async function searchES() {
         config.tutorialsList.filters
       ))
   ) {
-    // console.log('Search ES HITS query,', route.query.q)
+    console.log('Search ES HITS query,', route.query.q)
 
     const queryText = route.query.q || '*'
 
@@ -145,7 +143,7 @@ async function searchES() {
       config.tutorialsList.searchFields,
       ['tutorial', 'tutorials', 'tutorialsDetail'],
       filters,
-      // queryText === '*' ? config.tutorialsList.sortField : '',
+      queryText === '*' ? config.tutorialsList.sortField : '',
       parseFilters(route.query.filters || ''),
       config.tutorialsList.orderBy,
       config.tutorialsList.resultFields,
@@ -184,7 +182,7 @@ async function setFilters() {
   )
 
   console.log(
-    "Search Aggs Response: " + JSON.stringify(searchAggsResponse)
+    'Search Aggs Response: ' + JSON.stringify(searchAggsResponse)
   )
   searchFilters.value = getListingFilters(
     searchAggsResponse,
