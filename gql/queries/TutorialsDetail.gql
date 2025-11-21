@@ -3,6 +3,11 @@
 
 query TutorialDetail($slug: [String!]) {
   entry(section: "tutorial", slug: $slug) {
+    id
+    slug
+    uri
+    typeHandle
+    sectionHandle
     title
     summary
     buttonText
