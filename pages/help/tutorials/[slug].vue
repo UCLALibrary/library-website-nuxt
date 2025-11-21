@@ -99,4 +99,3 @@ const parsedTutorialType = computed(() => {
 
 }
 </style>
-
