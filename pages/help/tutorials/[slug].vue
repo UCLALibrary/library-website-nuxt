@@ -17,14 +17,15 @@ const route = useRoute()
 const { data, error } = await useAsyncData(`tutorials-${route.params.slug}`, async () => {
   const detail = await $graphql.default.request(TUTORIALS_DETAIL, { slug: route.params.slug })
   const cta = await $graphql.default.request(TUTORIALS_CTA)
-  return {detail, cta}
+  return { detail, cta }
 })
 
 // handle network / graphql error
 if (error.value) {
   throw createError({
     ...error.value,
-    statusMessage: 'Page not found.' + error.value, fatal: true
+    statusMessage: 'Page not found.' + error.value,
+    fatal: true
   })
 }
 
@@ -77,20 +78,18 @@ const parsedTutorialType = computed(() => {
     id="main"
     class="page page-news-detail"
   >
-
     <h3>
-      <br/>
+      <br>
       <strong>PAGE DATA</strong>
-      <br/>
-      <pre>{{page}}</pre>
+      <br>
+      <pre>{{ page }}</pre>
     </h3>
-    <hr />
+    <hr>
     <h3>
       <strong>CALL TO ACTION DATA</strong>
-      <br/>
-      <pre>{{cta}}</pre>
+      <br>
+      <pre>{{ cta }}</pre>
     </h3>
-
   </main>
 </template>
 
