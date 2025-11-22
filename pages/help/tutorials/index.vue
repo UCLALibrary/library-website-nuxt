@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, DividerWayFinder, RichText, SectionWrapper } from '@ucla-library-monorepo/ucla-library-website-components'
+import { MastheadSecondary, DividerWayFinder, RichText, SearchGeneric, SectionWrapper } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // UTILITIES
 import _get from 'lodash/get'
@@ -69,116 +69,91 @@ useHead({
   ],
 })
 
-// ES Functionality Test Start
-const routeFilters = computed(() => {
-  return parseFilters(_get(route, 'query.filters', ''))
-})
-
+// ES Functionality
 const hits = ref([])
 const title = ref('')
 const searchFilters = ref([])
 const noResultsFound = ref(false)
-
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
   queryFilters: parseFilters(route.query.filters || ''),
 })
 
-function parseFilters(filtersString) {
-  if (!filtersString) return {}
-
-  const filters = {}
-  const conditions = filtersString.split(' AND ')
-
-  conditions.forEach((condition) => {
-    const [key, value] = condition.split(':(')
-    const cleanedKey = key.trim()
-    const values = value.replace(')', '').split(' OR ').map(v => v.trim())
-
-    filters[cleanedKey] = values
-  })
-
-  return filters
+// ES
+async function searchES() {
+  const queryText = route.query.q || '*'
+  const { keywordSearchWithFilters } = useSearch()
+  const results = await keywordSearchWithFilters(
+    queryText,
+    config.tutorialsList.searchFields,
+    ['tutorial'],
+    // parseFilters(route.query.filters || ''),
+    // config.tutorialsList.sortField,
+    // config.tutorialsList.orderBy,
+    // config.tutorialsList.resultFields,
+    []
+  )
+  if (results && results.hits && results.hits.total.value > 0) {
+    console.log('Search ES HITS,', results.hits.hits)
+    hits.value = results.hits.hits
+    noResultsFound.value = false
+  } else {
+    noResultsFound.value = true
+    hits.value = []
+  }
 }
 
-const hasSearchQuery = computed(() => {
-  // console.log("hasSearchQuery", (route.query.q !== undefined && route.query.q !== ''), (route.query.filters && queryFilterHasValues(routeFilters.value, config.tutorialsList.filters)), (routeFilters.value.past[0] === 'yes'))
-  return (route.query.q !== undefined && route.query.q !== '')
-    || (route.query.filters && queryFilterHasValues(routeFilters.value, config.tutorialsList.filters))
-    || (routeFilters.value.past && routeFilters.value.past.length > 0 && routeFilters.value.past[0] === 'yes')
-})
-
-// This watcher is called when router push updates the query params
 watch(
   () => route.query,
   (newVal, oldVal) => {
     // console.log('ES newVal, oldVal', newVal, oldVal)
-    searchGenericQuery.value.queryText = route.query.q || ''
-    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
+    // searchGenericQuery.value.queryText = route.query.q || ''
+    // searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
+    console.log('On page load?')
   }, { deep: true, immediate: true }
 )
-
-async function searchES() {
-  // if (hasSearchQuery.value)
-
-  if (
-    (route.query.q && route.query.q !== '') ||
-    (route.query.filters &&
-      queryFilterHasValues(
-        parseFilters(route.query.filters || ''),
-        config.tutorialsList.filters
-      ))
-  ) {
-    console.log('Search ES HITS query,', route.query.q)
-
-    const queryText = route.query.q || '*'
-
-    const { past, ...filters } = routeFilters.value
-
-    const { keywordSearchWithFilters } = useSearch()
-
-    const results = await keywordSearchWithFilters(
-      queryText,
-      config.tutorialsList.searchFields,
-      ['tutorial', 'tutorials', 'tutorialsDetail'],
-      filters,
-      queryText === '*' ? config.tutorialsList.sortField : '',
-      parseFilters(route.query.filters || ''),
-      config.tutorialsList.orderBy,
-      config.tutorialsList.resultFields,
-      config.tutorialsList.filters,
-      [],
-    )
-    if (results && results.hits && results.hits.total.value > 0) {
-      // console.log('Search ES HITS,', results.hits.hits)
-      hits.value = results.hits.hits
-      noResultsFound.value = false
-    } else {
-      noResultsFound.value = true
-      hits.value = []
-    }
-  } else {
-    hits.value = []
-    noResultsFound.value = false
-  }
-}
-
-function parseHits(hits = []) {
-  return hits.value
-}
 
 const parseHitsResults = computed(() => {
   return parseHits(hits.value)
 })
+console.log('Parse Hits Results: ', parseHitsResults.value)
 
-console.log('Hits: ', parseHitsResults.value)
+function parseHits(hits = []) {
+  return hits?.map((obj) => {
+    return {
+      ...obj._source
+    }
+  })
+}
+
+// Event handler invoked by search-generic component selections
+function getSearchData(data) {
+  // Construct the filters parameter dynamically
+  const filters = []
+  if (data.filters) {
+    for (const key in data.filters) {
+      if (data.filters[key].length > 0) {
+        filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
+      }
+    }
+  }
+
+  // Use the router to navigate with the new query parameters
+  useRouter().push({
+    path: '/help/tutorials/',
+    query: {
+      q: data.text,
+      filters: filters.join(' AND ')
+    }
+  })
+}
 
 async function setFilters() {
   const { getAggregations } = useSearch()
   const searchAggsResponse = await getAggregations(
     config.tutorialsList.filters,
-    'tutorials'
+    'tutorial'
   )
 
   console.log(
@@ -190,8 +165,12 @@ async function setFilters() {
   )
 }
 
+const parsedPlaceholder = computed(() => {
+  return `Search ${page.value.title}`
+})
+
 onMounted(async () => {
-  // await setFilters()
+  await setFilters()
 })
 
 </script>
@@ -206,8 +185,20 @@ onMounted(async () => {
       :text="page.summary"
     />
 
+    <SearchGeneric
+      search-type="about"
+      class="generic-search"
+      :filters="searchFilters"
+      :search-generic-query="searchGenericQuery"
+      :placeholder="parsedPlaceholder"
+      @search-ready="getSearchData"
+    />
+
     <SectionWrapper theme="divider">
-      <DividerWayFinder color="help" />
+      <DividerWayFinder
+        color="help"
+        class="search-margin"
+      />
     </SectionWrapper>
 
     <SectionWrapper :section-title="page.sectionTitle">

@@ -60,7 +60,7 @@ const config = {
       },
       {
         key: 'Tutorials',
-        terms: ['tutorial', 'tutorials', 'listingTutorials'] // Confirm
+        terms: ['tutorial'] // Confirm
       }
     ],
   },
@@ -317,37 +317,30 @@ const config = {
     sortField: 'startDateWithTime',
     orderBy: 'asc',
   },
-  //
-  //
-  tutorials: { // Confirm
-    searchFields: [
-      'title^6', // Confirm
-      'text^3', // Confirm
-    ],
+  tutorialsList: { // To Confirm
+    searchFields: ['title^6'], // , 'summary^3'
     filters: [
       {
         label: 'Category',
-        // esFieldName: 'locations.title.keyword', // Confirm what this should be ?
+        esFieldName: 'tutorialCategory.title.keyword', // To Confirm
         inputType: 'checkbox',
       },
       {
         label: 'Type',
-        // esFieldName: 'articleCategory.title.keyword',
+        esFieldName: 'tutorialType.title.keyword', // To Confirm
         inputType: 'checkbox',
       },
     ],
-    resultFields: [ // Confirm
+    resultFields: [ // To Confirm
       'title',
-      'text',
-      'articleType',
+      'summary', // text or summary
       'uri',
-      'heroImage',
-      'postDate',
-      'category',
-      'contributors',
+      'tutorialImage', // To Confirm
+      'tutorialType',
+      'tutorialCategory'
     ],
-    sortField: 'postDate', // Confirm? Title?
-    orderBy: 'desc', // Confirm
+    sortField: 'title', // To Confirm
+    orderBy: 'asc', // To Confirm
   },
 }
 
