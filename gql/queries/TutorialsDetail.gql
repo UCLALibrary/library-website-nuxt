@@ -32,43 +32,51 @@ query TutorialDetail($slug: [String!]) {
     resourceServiceWorkshop {
       ... on collection_collection_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
       ... on endowment_endowments_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
       ... on externalResource_externalResource_Entry {
         title
-        uri: externalResourceUrl
-        summary
+        text: summary
+        slug
+        externalResourceUrl
       }
       ... on generalContentPage_generalContentPage_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
       ... on helpTopic_helpTopic_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
       ... on serviceOrResource_serviceOrResource_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
       ... on tutorial_tutorial_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
       ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
     }
 
@@ -97,7 +105,6 @@ query TutorialDetail($slug: [String!]) {
       }
       ... on contributorsNoMax_externalContributor_BlockType {
         contributor
-
       }
     }
   }

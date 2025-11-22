@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, SectionHeader, SectionWrapper, DividerWayFinder, RichText, FlexibleBlocks, BlockCallToActionTwoUp } from '@ucla-library-monorepo/ucla-library-website-components'
+import { NavBreadcrumb, BannerText, BannerHeader, SectionHeader, SectionWrapper, DividerWayFinder, RichText, FlexibleBlocks, SimpleCards, BlockCallToActionTwoUp } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
@@ -68,9 +68,23 @@ useHead({
   ]
 })
 
-const parsedTutorialType = computed(() => {
-  return page.value.tutorialType.title ? page.value.tutorialType.title : ''
+// const parsedTutorialType = computed(() => {
+//   return page.value.tutorialType.title ? page.value.tutorialType.title : ''
+// })
+
+const parsedRelatedResources = computed(() => {
+  return (page.value.resourceServiceWorkshop || []).map((obj) => {
+    return {
+      ...obj,
+      to: obj.externalResourceUrl
+        ? obj.externalResourceUrl
+        : obj.uri
+          ? `/${obj.uri}`
+          : null,
+    }
+  })
 })
+
 </script>
 
 <template>
@@ -78,6 +92,76 @@ const parsedTutorialType = computed(() => {
     id="main"
     class="page page-news-detail"
   >
+
+    <NavBreadcrumb
+      to="/help/"
+      :title="page.title"
+      parent-title="Tutorials"
+    />
+
+    <BannerText
+      v-if="page.tutorialType"
+      class="banner-text"
+      :category="page.tutorialType[0].title"
+      :title="page.title"
+      :text="page.summary"
+      :button-text="page.buttonUrl[0].buttonText"
+      :to="page.buttonUrl[0].buttonUrl"
+    />
+
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
+        class="divider"
+        color="help"
+      />
+    </SectionWrapper>
+
+    <SectionWrapper
+      v-if="page.learningOutcomes"
+      section-title="Learning Outcomes"
+    >
+      <RichText
+        v-if="page.learningOutcomes"
+        class="learning-outcomes"
+        :rich-text-content="page.learningOutcomes"
+      />
+    </SectionWrapper>
+
+    <FlexibleBlocks
+      class="flexible-content"
+      :blocks="page.blocks"
+    />
+
+    <SectionWrapper
+      v-if="page.resourceServiceWorkshop.length"
+      class="related-resources"
+      section-title="Related Resources"
+    >
+      <SimpleCards
+        :items="parsedRelatedResources"
+      />
+    </SectionWrapper>
+
+    <SectionWrapper class="about-this-tutorial" theme="divider" section-title="About this Tutorial">
+
+      <SectionHeader level="3">Awards and Recognition</SectionHeader>
+
+      <SectionHeader level="3">Authors</SectionHeader>
+
+      <SectionHeader level="3">Contributors</SectionHeader>
+
+    </SectionWrapper>
+
+    <SectionWrapper>
+      <BlockCallToActionTwoUp
+        :items="cta"
+      />
+    </SectionWrapper>
+
+    <SectionWrapper theme="divider">
+      <DividerWayFinder class="divider" />
+    </SectionWrapper>
+
     <h3>
       <br>
       <strong>PAGE DATA</strong>
