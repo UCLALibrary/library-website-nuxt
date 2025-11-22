@@ -1,0 +1,16 @@
+query TutorialCTA {
+  entry(section: "listingTutorials") {
+    ... on listingTutorials_listingTutorials_Entry {
+      callToAction2Up {
+        ... on callToAction2Up_callToAction_BlockType {
+          titleCta
+          summary
+          icon
+          buttonText
+          buttonLink
+          backgroundColor
+        }
+      }
+    }
+  }
+}

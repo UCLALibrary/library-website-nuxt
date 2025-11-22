@@ -1,0 +1,104 @@
+#import "../gql/fragments/Image.gql"
+#import "../gql/fragments/collections/AllFpb.gql"
+
+query TutorialDetail($slug: [String!]) {
+  entry(section: "tutorial", slug: $slug) {
+    id
+    slug
+    uri
+    typeHandle
+    sectionHandle
+    title
+    summary
+    buttonText
+    buttonUrl {
+        ... on buttonUrl_button_BlockType {
+            buttonText
+            buttonUrl
+        }
+    }
+    heroImage {
+      image
+    }
+    tutorialType {
+      title
+    }
+    tutorialCategory {
+      title
+    }
+    learningOutcomes: richTextDefault
+    ...AllFpb
+
+    resourceServiceWorkshop {
+      ... on collection_collection_Entry {
+        title
+        uri
+        summary
+      }
+      ... on endowment_endowments_Entry {
+        title
+        uri
+        summary
+      }
+      ... on externalResource_externalResource_Entry {
+        title
+        uri: externalResourceUrl
+        summary
+      }
+      ... on generalContentPage_generalContentPage_Entry {
+        title
+        uri
+        summary
+      }
+      ... on helpTopic_helpTopic_Entry {
+        title
+        uri
+        summary
+      }
+      ... on serviceOrResource_serviceOrResource_Entry {
+        title
+        uri
+        summary
+      }
+      ... on tutorial_tutorial_Entry {
+        title
+        uri
+        summary
+      }
+      ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
+        title
+        uri
+        summary
+      }
+    }
+
+    awardsAndRecognition {
+      text
+      uri
+      image {
+          ...Image
+      }
+    }
+    authors {
+      ... on authors_staffMember_BlockType {
+        staffMember {
+          title
+        }
+      }
+      ... on authors_externalContributor_BlockType {
+        contributor
+      }
+    }
+    contributorsNoMax {
+      ... on contributorsNoMax_staffMember_BlockType {
+        staffMember {
+          title
+        }
+      }
+      ... on contributorsNoMax_externalContributor_BlockType {
+        contributor
+
+      }
+    }
+  }
+}
