@@ -14,7 +14,7 @@ import config from '../utils/searchConfig'
 import getListingFilters from '../utils/getListingFilters'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
 import removeTags from '../utils/removeTags'
-// import sortByTitle from '../utils/sortByTitle'
+import sortByTitle from '../utils/sortByTitle'
 
 const { $graphql } = useNuxtApp()
 
@@ -193,7 +193,6 @@ async function setFilters() {
 onMounted(async () => {
   // await setFilters()
 })
-// ES Functionality Test End
 
 </script>
 
