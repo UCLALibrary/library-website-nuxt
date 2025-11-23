@@ -14,7 +14,6 @@ import config from '../utils/searchConfig'
 import getListingFilters from '../utils/getListingFilters'
 import queryFilterHasValues from '../utils/queryFilterHasValues'
 import removeTags from '../utils/removeTags'
-import sortByTitle from '../utils/sortByTitle'
 
 const { $graphql } = useNuxtApp()
 
@@ -101,13 +100,40 @@ const parsedBlockCTA2Up = computed(() => {
 })
 
 const hits = ref([])
-const title = ref('')
-const searchFilters = ref([])
+const searchInitiated = ref(false)
 const noResultsFound = ref(false)
+const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
   queryFilters: parseFilters(route.query.filters || ''),
 })
+
+const routeFilters = computed(() => {
+  return parseFilters(_get(route, 'query.filters', ''))
+})
+
+const hasSearchQuery = computed(() => {
+  return (route.query.q !== undefined && route.query.q !== '')
+    || (route.query.filters && queryFilterHasValues(routeFilters.value, config.tutorialsList.filters))
+    || (routeFilters.value.past && routeFilters.value.past.length > 0 && routeFilters.value.past[0] === 'yes')
+})
+
+function parseFilters(filtersString) {
+  if (!filtersString) return {}
+
+  const filters = {}
+  const conditions = filtersString.split(' AND ')
+
+  conditions.forEach((condition) => {
+    const [key, value] = condition.split(':(')
+    const cleanedKey = key.trim()
+    const values = value.replace(')', '').split(' OR ').map(v => v.trim())
+
+    filters[cleanedKey] = values
+  })
+
+  return filters
+}
 
 // ES
 async function searchES() {
@@ -117,12 +143,19 @@ async function searchES() {
     queryText,
     config.tutorialsList.searchFields,
     ['tutorial'],
-    // parseFilters(route.query.filters || ''),
-    // config.tutorialsList.sortField,
-    // config.tutorialsList.orderBy,
-    // config.tutorialsList.resultFields,
+    parseFilters(route.query.filters || ''),
+    config.tutorialsList.sortField,
+    config.tutorialsList.orderBy,
+    config.tutorialsList.resultFields,
     []
   )
+
+  console.log('parsed filters inner: ', parseFilters(route.query.filters || ''))
+
+  if (hasSearchQuery.value) {
+    searchInitiated.value = true
+  }
+
   if (results && results.hits && results.hits.total.value > 0) {
     console.log('Search ES HITS,', results.hits.hits)
     hits.value = results.hits.hits
@@ -133,24 +166,30 @@ async function searchES() {
   }
 }
 
+console.log('route: ', route)
+console.log('route query: ', route.query)
+console.log('route query q: ', route.query.q)
+console.log('route query filters: ', route.query.filters)
+console.log('hasSearchQuery: ', hasSearchQuery.value)
+console.log('search filters: ', searchFilters.value)
+console.log('search generic query: ', searchGenericQuery.value)
+console.log('parsed filters: ', parseFilters(route.query.filters || ''))
+console.log('initiated search: ', searchInitiated.value)
+
 watch(
-  () => route.query,
+  () => [route.query, searchInitiated.value],
   (newVal, oldVal) => {
     // console.log('ES newVal, oldVal', newVal, oldVal)
-    // searchGenericQuery.value.queryText = route.query.q || ''
-    // searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
+    searchGenericQuery.value.queryText = route.query.q || ''
+    searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
-    console.log('On page load?')
   }, { deep: true, immediate: true }
 )
 
-const parseHitsResults = computed(() => {
-  return parseHits(hits.value)
-})
-
 function parseHits(hits = []) {
+  console.log('parse hits: ', hits)
   return hits?.map((obj) => {
-    const getTutorialType = obj._source.tutorialType.map(item => item.title).join(', ')
+    const getTutorialType = obj._source?.tutorialType?.map(item => item.title).join(', ')
 
     return {
       ...obj._source,
@@ -163,7 +202,15 @@ function parseHits(hits = []) {
   })
 }
 
+const parseHitsResults = computed(() => {
+  return parseHits(hits.value)
+})
+
 const parsedTutorialsList = computed(() => {
+  if (searchInitiated.value) {
+    return null // []
+  }
+
   const tutorialGrouping = []
 
   parseHitsResults.value.forEach((obj) => {
@@ -214,28 +261,23 @@ const parsedTutorialsList = computed(() => {
   })
 
   return tutorialGrouping
-  // return parseHitsResults.value.map((obj) => {
-  //   return {
-  //     ...obj,
-  //     to: obj.to,
-  //     // image: obj.image, // Confirm
-  //     category: obj.category,
-  //     title: obj.title,
-  //     text: obj.text,
-  //   }
-  // })
 })
 
 // Event handler invoked by search-generic component selections
 function getSearchData(data) {
   // Construct the filters parameter dynamically
   const filters = []
-  if (data.filters) {
+
+  // if (data.filters) {
+  if (Object.keys(data.filters).length) {
+    searchInitiated.value = true
     for (const key in data.filters) {
       if (data.filters[key].length > 0) {
         filters.push(`${key}:(${data.filters[key].join(' OR ')})`)
       }
     }
+  } else {
+    searchInitiated.value = false
   }
 
   // Use the router to navigate with the new query parameters
@@ -255,9 +297,9 @@ async function setFilters() {
     'tutorial'
   )
 
-  console.log(
-    'Search Aggs Response: ' + JSON.stringify(searchAggsResponse)
-  )
+  // console.log(
+  //   'Search Aggs Response: ' + JSON.stringify(searchAggsResponse)
+  // )
   searchFilters.value = getListingFilters(
     searchAggsResponse,
     config.tutorialsList.filters
@@ -300,12 +342,13 @@ onMounted(async () => {
 
     <!-- FEATURED TUTORIALS -->
     <SectionWrapper
+      v-show="parsedTutorialsList && !hasSearchQuery"
       class="section-no-top-margin"
       :section-title="page.sectionTitle"
     >
       <RichText :rich-text-content="page.richTextDefault" />
       <DividerWayFinder color="help" />
-      <SectionHeader class="featured-tutorial-header">
+      <SectionHeader class="section-header__featured-tutorials">
         {{ page.featuredResourcesSection[0].titleGeneral }}
       </SectionHeader>
       <BannerFeatured
@@ -323,21 +366,19 @@ onMounted(async () => {
         class="section"
         :items="parsedSecondaryTutorials"
       />
-    </SectionWrapper>
-
-    <SectionWrapper theme="divider">
       <DividerWayFinder color="help" />
     </SectionWrapper>
 
     <!-- TUTORIALS LISTING -->
     <SectionWrapper
       v-for="category in parsedTutorialsList"
+      v-show="parsedTutorialsList && !hasSearchQuery"
       :key="category.title"
       theme="divider"
     >
       <SectionHeader
         :level="3"
-        class="listings-header"
+        class="section-header_tutorials-listings"
       >
         {{ category.title }}
       </SectionHeader>
@@ -350,6 +391,64 @@ onMounted(async () => {
       <DividerWayFinder color="help" />
     </SectionWrapper>
 
+    <!-- SEARCH RESULTS -->
+    <SectionWrapper
+      v-show="hasSearchQuery && searchInitiated"
+      class="section-no-top-margin"
+    >
+      <h2
+        v-if="route.query.q"
+        class="about-results"
+      >
+        Displaying {{ hits.length }} results for
+        <strong><em>“{{ route.query.q }}</em></strong>”
+      </h2>
+      <h2
+        v-else
+        class="about-results"
+      >
+        Displaying {{ hits.length }} results
+      </h2>
+
+      <SectionTeaserCard
+        class="section-teaser-card"
+        :items="parseHitsResults"
+      />
+    </SectionWrapper>
+
+    <!-- NO RESULTS -->
+    <SectionWrapper
+      v-show="noResultsFound"
+      class="section-no-top-margin"
+    >
+      <div class="error-text">
+        <RichText>
+          <h2>Search for “{{ route.query.q }}” not found.</h2>
+          <p>
+            We can’t find the term you are looking for on this page,
+            but we're here to help. <br>
+            Try searching the whole site from
+            <a href="https://library.ucla.edu/">UCLA Library Home</a>, or try one of the these
+            regularly visited links:
+          </p>
+          <ul>
+            <li>
+              <a href="https://www.library.ucla.edu/research-teaching-support/research-help/">Research
+                Help</a>
+            </li>
+            <li>
+              <a href="/help/services-resources/ask-us/">Ask Us</a>
+            </li>
+            <li>
+              <a href="https://www.library.ucla.edu/use/access-privileges/disability-resources/">Accessibility
+                Resources</a>
+            </li>
+          </ul>
+        </RichText>
+      </div>
+      <DividerWayFinder color="help" />
+    </SectionWrapper>
+
     <!-- CALL TO ACTION -->
     <SectionWrapper>
       <BlockCallToActionTwoUp :items="parsedBlockCTA2Up" />
@@ -358,11 +457,11 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
-.featured-tutorial-header {
+.section-header__featured-tutorials {
   margin-bottom: 24px;
 }
 
-.listings-header {
+.section-header_tutorials-listings {
   margin-bottom: 48px;
 }
 </style>
