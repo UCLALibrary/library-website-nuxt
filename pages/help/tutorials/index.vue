@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, DividerWayFinder, RichText, SearchGeneric, SectionWrapper } from '@ucla-library-monorepo/ucla-library-website-components'
+import { BannerFeatured, BlockCallToActionTwoUp, MastheadSecondary, DividerGeneral, DividerWayFinder, RichText, SearchGeneric, SectionHeader, SectionTeaserCard, SectionTeaserHighlight, SectionWrapper } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // UTILITIES
 import _get from 'lodash/get'
@@ -51,7 +51,6 @@ const route = useRoute()
 
 // Data
 const page = ref(_get(data.value.data, 'entry', {}))
-console.log('Page Data: ', page.value)
 
 watch(data, (newVal, oldVal) => {
   // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
@@ -69,7 +68,38 @@ useHead({
   ],
 })
 
-// ES Functionality
+const parsedFeaturedTutorial = computed(() => {
+  const obj = page?.value.featuredResourcesSection[0].featuredResources[0]
+  return {
+    ...obj,
+    to: `/${obj.to}`
+  }
+})
+
+const parsedSecondaryTutorials = computed(() => {
+  return page?.value.featuredResourcesSection[0].featuredResources.slice(1).map((obj) => {
+    return {
+      ...obj,
+      to: `/${obj.to}`,
+      image: obj.image[0],
+      // category: obj.tutorialType // TBD
+    }
+  })
+})
+
+const parsedBlockCTA2Up = computed(() => {
+  return page?.value.callToAction2Up.map((obj) => {
+    return {
+      svgName: obj.icon,
+      title: obj.titleCta,
+      text: obj.summary,
+      name: obj.buttonText,
+      to: obj.buttonLink,
+      isDark: obj.backgroundColor === 'true'
+    }
+  })
+})
+
 const hits = ref([])
 const title = ref('')
 const searchFilters = ref([])
@@ -117,15 +147,84 @@ watch(
 const parseHitsResults = computed(() => {
   return parseHits(hits.value)
 })
-console.log('Parse Hits Results: ', parseHitsResults.value)
 
 function parseHits(hits = []) {
   return hits?.map((obj) => {
+    const getTutorialType = obj._source.tutorialType.map(item => item.title).join(', ')
+
     return {
-      ...obj._source
+      ...obj._source,
+      to: `/${obj._source.uri}`,
+      image: _get(obj._source, 'image[0].image[0]', null),
+      category: getTutorialType,
+      title: _get(obj._source, 'title', null),
+      text: _get(obj._source, 'summary', null)
     }
   })
 }
+
+const parsedTutorialsList = computed(() => {
+  const tutorialGrouping = []
+
+  parseHitsResults.value.forEach((obj) => {
+    // Get the category titles
+    if (obj.tutorialCategory && obj.tutorialCategory.length > 1) {
+      const catTitle = obj.tutorialCategory.map(item => item.title)
+
+      catTitle.forEach((title) => {
+        const categoryExists = tutorialGrouping.some(item =>
+          item.title === title
+        )
+        if (!categoryExists) {
+          const testObj = {
+            title: obj.tutorialCategory[0].title,
+            // tutorials: [obj.title]
+            tutorials: [obj]
+          }
+          tutorialGrouping.push(testObj)
+        } else {
+          const categoryIndex = tutorialGrouping.findIndex(item =>
+            item.title === title
+          )
+          // tutorialGrouping[categoryIndex].tutorials.push(obj.title)
+          tutorialGrouping[categoryIndex].tutorials.push(obj)
+        }
+      })
+    } else {
+      const categoryExists = tutorialGrouping.some(item =>
+        item.title === obj.tutorialCategory[0].title
+      )
+      if (!categoryExists) {
+        const testObj = {
+          title: obj.tutorialCategory[0].title,
+          // tutorials: [obj.title]
+          tutorials: [obj]
+        }
+        tutorialGrouping.push(testObj)
+      } else {
+        // find index and push title there
+        const categoryIndex = tutorialGrouping.findIndex(item =>
+          item.title === obj.tutorialCategory[0].title
+        )
+        // console.log('Index is: ', categoryIndex)
+        // tutorialGrouping[categoryIndex].tutorials.push(obj.title)
+        tutorialGrouping[categoryIndex].tutorials.push(obj)
+      }
+    }
+  })
+
+  return tutorialGrouping
+  // return parseHitsResults.value.map((obj) => {
+  //   return {
+  //     ...obj,
+  //     to: obj.to,
+  //     // image: obj.image, // Confirm
+  //     category: obj.category,
+  //     title: obj.title,
+  //     text: obj.text,
+  //   }
+  // })
+})
 
 // Event handler invoked by search-generic component selections
 function getSearchData(data) {
@@ -184,7 +283,6 @@ onMounted(async () => {
       :title="page.title"
       :text="page.summary"
     />
-
     <SearchGeneric
       search-type="about"
       class="generic-search"
@@ -193,7 +291,6 @@ onMounted(async () => {
       :placeholder="parsedPlaceholder"
       @search-ready="getSearchData"
     />
-
     <SectionWrapper theme="divider">
       <DividerWayFinder
         color="help"
@@ -201,34 +298,71 @@ onMounted(async () => {
       />
     </SectionWrapper>
 
-    <SectionWrapper :section-title="page.sectionTitle">
+    <!-- FEATURED TUTORIALS -->
+    <SectionWrapper
+      class="section-no-top-margin"
+      :section-title="page.sectionTitle"
+    >
       <RichText :rich-text-content="page.richTextDefault" />
+      <DividerWayFinder color="help" />
+      <SectionHeader class="featured-tutorial-header">
+        {{ page.featuredResourcesSection[0].titleGeneral }}
+      </SectionHeader>
+      <BannerFeatured
+        :media="parsedFeaturedTutorial.image[0]"
+        :title="parsedFeaturedTutorial.title"
+        breadcrumb="Featured"
+        :align-right="true"
+        :text="parsedFeaturedTutorial.text"
+        :to="parsedFeaturedTutorial.to"
+        prompt="View Tutorial"
+        class="banner section-featured-banner"
+      />
+      <DividerGeneral />
+      <SectionTeaserHighlight
+        class="section"
+        :items="parsedSecondaryTutorials"
+      />
     </SectionWrapper>
 
     <SectionWrapper theme="divider">
       <DividerWayFinder color="help" />
     </SectionWrapper>
 
-    <SectionWrapper :section-title="page.featuredResourcesSection[0].titleGeneral">
-      <!-- <pre style="text-wrap: auto;">{{ page.featuredResourcesSection[0].featuredResources }}</pre> -->
-    </SectionWrapper>
+    <!-- TUTORIALS LISTING -->
+    <SectionWrapper
+      v-for="category in parsedTutorialsList"
+      :key="category.title"
+      theme="divider"
+    >
+      <SectionHeader
+        :level="3"
+        class="listings-header"
+      >
+        {{ category.title }}
+      </SectionHeader>
 
-    <SectionWrapper theme="divider">
+      <SectionTeaserCard
+        class="section-teaser-card"
+        :items="category.tutorials"
+      />
+
       <DividerWayFinder color="help" />
     </SectionWrapper>
 
-    <SectionWrapper theme="divider">
-      {{ parseHitsResults }}
-    </SectionWrapper>
-
-    <SectionWrapper theme="divider">
-      <DividerWayFinder color="help" />
-    </SectionWrapper>
-
-    <SectionWrapper section-title="CTA">
-      <!-- <pre style="text-wrap: auto;">{{ page.callToAction2Up }}</pre> -->
+    <!-- CALL TO ACTION -->
+    <SectionWrapper>
+      <BlockCallToActionTwoUp :items="parsedBlockCTA2Up" />
     </SectionWrapper>
   </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.featured-tutorial-header {
+  margin-bottom: 24px;
+}
+
+.listings-header {
+  margin-bottom: 48px;
+}
+</style>

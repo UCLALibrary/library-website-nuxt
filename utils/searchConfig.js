@@ -332,6 +332,7 @@ const config = {
       },
     ],
     resultFields: [ // To Confirm
+      // '*', // TEST
       'title',
       'summary', // text or summary
       'uri',
