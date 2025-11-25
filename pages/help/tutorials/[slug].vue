@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, SectionHeader, SectionWrapper, DividerWayFinder, RichText, FlexibleBlocks, SimpleCards, IconWithLink, BlockCallToActionTwoUp } from '@ucla-library-monorepo/ucla-library-website-components'
+import { NavBreadcrumb, BannerText, BannerHeader, SectionHeader, SectionWrapper, DividerWayFinder, RichText, FlexibleBlocks, SimpleCards, IconWithLink, BlockSponsor, BlockCallToActionTwoUp } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
@@ -20,7 +20,7 @@ const { data, error } = await useAsyncData(`tutorials-${route.params.slug}`, asy
   return { detail, cta }
 })
 
-// handle network / graphql error
+// HANDLE NETWORK/GRAPHQL ERROR
 if (error.value) {
   throw createError({
     ...error.value,
@@ -29,7 +29,7 @@ if (error.value) {
   })
 }
 
-// Ensure the detail entry exists, using the correct path
+// CHECKS THAT THE TUTORIAL DETAIL EXISTS & USES THE CORRECT PATH
 if (!data.value?.detail?.entry) {
   throw createError({
     statusCode: 404,
@@ -38,17 +38,17 @@ if (!data.value?.detail?.entry) {
   })
 }
 
-// Indexing during prerender
+// INDEXING DURING PRERENDER
 if (data.value.detail.entry.slug && import.meta.prerender) {
   const { index } = useIndexer()
   await index(data.value.detail.entry, route.params.slug)
 }
 
-// Create reactive refs for template usage
+// CREATE REACTIVE REFS FOR TEMPLATE
 const page = ref(_get(data.value, 'detail.entry', {}))
 const cta = ref(_get(data.value, 'cta.entry.callToAction2Up', []))
 
-// Update refs when previewing / data changes
+// UPDATE REFS WHEN PREVIEWING/DATA CHANGES
 watch(data, (newVal, oldVal) => {
   // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'detail.entry', {})
@@ -68,10 +68,6 @@ useHead({
   ]
 })
 
-// const parsedTutorialType = computed(() => {
-//   return page.value.tutorialType.title ? page.value.tutorialType.title : ''
-// })
-
 const parsedRelatedResources = computed(() => {
   return (page.value.resourceServiceWorkshop || []).map((obj) => {
     return {
@@ -90,8 +86,33 @@ const parsedAwardsAndRecognitions = computed(() => {
     return {
       ...obj,
       to: `/${obj.uri}`,
+      image: _get(obj, 'image[0]', null),
     }
   })
+})
+
+const parsedAuthors = computed(() => {
+  const authorNames = page.value.authors.flatMap(author =>
+    author.contributor
+      ? author.contributor
+      : author.staffMember
+        ? author.staffMember.map(staff => staff.title)
+        : []
+  )
+
+  return authorNames.join(', ')
+})
+
+const parsedContributors = computed(() => {
+  const authorNames = page.value.contributorsNoMax.flatMap(author =>
+    author.contributor
+      ? author.contributor
+      : author.staffMember
+        ? author.staffMember.map(staff => staff.title)
+        : []
+  )
+
+  return authorNames.join(', ')
 })
 </script>
 
@@ -166,93 +187,47 @@ const parsedAwardsAndRecognitions = computed(() => {
 
     <SectionWrapper class="about-this-tutorial" theme="divider" section-title="About this Tutorial">
 
+      <SectionWrapper class="about">
+        <SectionHeader level="3">Awards and Recognition</SectionHeader>
+        <BlockSponsor
+          v-for="item in parsedAwardsAndRecognitions"
+          :key="`footer-sponsor-${item.funderName}`"
+          class="sponsor-item"
+          :funder-logo="item.funderLogo"
+          :funder-name="item.funderName"
+          :funder-url="item.funderUrl"
+        />
+      </SectionWrapper>
 
-       <!-- TODO Write the 3 computed properties for these sections -->
-      <SectionHeader level="3">Awards and Recognition</SectionHeader>
-      <pre>{{parsedAwardsAndRecognitions}}</pre>
+      <SectionWrapper class="about">
+        <SectionHeader level="3">Authors</SectionHeader>
+        <p>{{parsedAuthors}}</p>
+      </SectionWrapper>
 
-        <!-- <ul v-if="parsedAwardsAndRecognitions.length > 0">
-          <li
-            v-for="(
-              location, index
-            ) in parsedAwardsAndRecognitions"
-            :key="`AwardsAndRecognitions-${location}-${index}`"
-          >
-            <IconWithLink
-              class="awardsAndRecognitions"
-              icon-name="svg-icon-location"
-              :text="location.title"
-              :to="location.to"
-            />
-          </li>
-        </ul> -->
+      <SectionWrapper class="about">
+        <SectionHeader level="3">Contributors</SectionHeader>
+        <p>{{parsedContributors}}</p>
+      </SectionWrapper>
 
-
-
-      <!-- <SectionHeader level="3">Authors</SectionHeader>
-        <pre>{{parsedAuthors}}</pre>
-
-        <ul v-if="parsedAwardsAndRecognitions.length > 0">
-          <li
-            v-for="(
-              location, index
-            ) in parsedAwardsAndRecognitions"
-            :key="`AwardsAndRecognitions-${location}-${index}`"
-          >
-            <IconWithLink
-              class="awardsAndRecognitions"
-              icon-name="svg-icon-location"
-              :text="location.title"
-              :to="location.to"
-            />
-          </li>
-        </ul> -->
-      <!-- <SectionHeader level="3">Contributors</SectionHeader>
-        <pre>{{parsedContributors}}</pre>
-
-        <ul v-if="parsedContributors.length > 0">
-          <li
-            v-for="(
-              location, index
-            ) in parsedContributors"
-            :key="`AwardsAndRecognitions-${location}-${index}`"
-          >
-            <IconWithLink
-              class="contributors"
-              icon-name="svg-icon-location"
-              :text="location.title"
-              :to="location.to"
-            />
-          </li>
-        </ul> -->
     </SectionWrapper>
-
 
     <SectionWrapper>
       <BlockCallToActionTwoUp
         :items="cta"
       />
     </SectionWrapper>
-
-
-
-    <h3>
-      <br>
-      <strong>PAGE DATA</strong>
-      <br>
-      <pre>{{ page }}</pre>
-    </h3>
-    <hr>
-    <h3>
-      <strong>CALL TO ACTION DATA</strong>
-      <br>
-      <pre>{{ cta }}</pre>
-    </h3>
   </main>
 </template>
 
 <style lang="scss" scoped>
 .page-news-detail {
+  .section-wrapper>.section-header {
+    margin-bottom: 0;
+  }
+
+  .about {
+    margin-bottom: 20px;
+  }
 
 }
 </style>

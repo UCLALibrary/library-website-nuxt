@@ -81,15 +81,12 @@ query TutorialDetail($slug: [String!]) {
     }
 
     awardsAndRecognition {
-      text
-      uri
-      heroImage {
-          ... on heroImage_heroImage_BlockType {
-              id
-              image {
-                  ...Image
-              }
-          }
+      ... on awardsAndRecognition_awardRecognition_BlockType {
+        funderName: text
+        funderUrl: urlLink
+        funderLogo: image {
+          ...Image
+        }
       }
     }
     authors {
