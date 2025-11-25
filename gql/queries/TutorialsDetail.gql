@@ -83,8 +83,13 @@ query TutorialDetail($slug: [String!]) {
     awardsAndRecognition {
       text
       uri
-      image {
-          ...Image
+      heroImage {
+          ... on heroImage_heroImage_BlockType {
+              id
+              image {
+                  ...Image
+              }
+          }
       }
     }
     authors {

@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, SectionHeader, SectionWrapper, DividerWayFinder, RichText, FlexibleBlocks, SimpleCards, BlockCallToActionTwoUp } from '@ucla-library-monorepo/ucla-library-website-components'
+import { NavBreadcrumb, BannerText, BannerHeader, SectionHeader, SectionWrapper, DividerWayFinder, RichText, FlexibleBlocks, SimpleCards, IconWithLink, BlockCallToActionTwoUp } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
@@ -85,6 +85,14 @@ const parsedRelatedResources = computed(() => {
   })
 })
 
+const parsedAwardsAndRecognitions = computed(() => {
+  return page.value.awardsAndRecognition.map((obj) => {
+    return {
+      ...obj,
+      to: `/${obj.uri}`,
+    }
+  })
+})
 </script>
 
 <template>
@@ -132,6 +140,13 @@ const parsedRelatedResources = computed(() => {
       :blocks="page.blocks"
     />
 
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
+        class="divider"
+        color="help"
+      />
+    </SectionWrapper>
+
     <SectionWrapper
       v-if="page.resourceServiceWorkshop.length"
       class="related-resources"
@@ -142,15 +157,76 @@ const parsedRelatedResources = computed(() => {
       />
     </SectionWrapper>
 
+    <SectionWrapper theme="divider">
+      <DividerWayFinder
+        class="divider"
+        color="help"
+      />
+    </SectionWrapper>
+
     <SectionWrapper class="about-this-tutorial" theme="divider" section-title="About this Tutorial">
 
+
+       <!-- TODO Write the 3 computed properties for these sections -->
       <SectionHeader level="3">Awards and Recognition</SectionHeader>
+      <pre>{{parsedAwardsAndRecognitions}}</pre>
 
-      <SectionHeader level="3">Authors</SectionHeader>
+        <!-- <ul v-if="parsedAwardsAndRecognitions.length > 0">
+          <li
+            v-for="(
+              location, index
+            ) in parsedAwardsAndRecognitions"
+            :key="`AwardsAndRecognitions-${location}-${index}`"
+          >
+            <IconWithLink
+              class="awardsAndRecognitions"
+              icon-name="svg-icon-location"
+              :text="location.title"
+              :to="location.to"
+            />
+          </li>
+        </ul> -->
 
-      <SectionHeader level="3">Contributors</SectionHeader>
 
+
+      <!-- <SectionHeader level="3">Authors</SectionHeader>
+        <pre>{{parsedAuthors}}</pre>
+
+        <ul v-if="parsedAwardsAndRecognitions.length > 0">
+          <li
+            v-for="(
+              location, index
+            ) in parsedAwardsAndRecognitions"
+            :key="`AwardsAndRecognitions-${location}-${index}`"
+          >
+            <IconWithLink
+              class="awardsAndRecognitions"
+              icon-name="svg-icon-location"
+              :text="location.title"
+              :to="location.to"
+            />
+          </li>
+        </ul> -->
+      <!-- <SectionHeader level="3">Contributors</SectionHeader>
+        <pre>{{parsedContributors}}</pre>
+
+        <ul v-if="parsedContributors.length > 0">
+          <li
+            v-for="(
+              location, index
+            ) in parsedContributors"
+            :key="`AwardsAndRecognitions-${location}-${index}`"
+          >
+            <IconWithLink
+              class="contributors"
+              icon-name="svg-icon-location"
+              :text="location.title"
+              :to="location.to"
+            />
+          </li>
+        </ul> -->
     </SectionWrapper>
+
 
     <SectionWrapper>
       <BlockCallToActionTwoUp
@@ -158,9 +234,7 @@ const parsedRelatedResources = computed(() => {
       />
     </SectionWrapper>
 
-    <SectionWrapper theme="divider">
-      <DividerWayFinder class="divider" />
-    </SectionWrapper>
+
 
     <h3>
       <br>
