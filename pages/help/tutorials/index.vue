@@ -100,8 +100,8 @@ const parsedBlockCTA2Up = computed(() => {
 })
 
 const hits = ref([])
-const searchInitiated = ref(false)
 const noResultsFound = ref(false)
+const searchInitiated = ref(false)
 const searchFilters = ref([])
 const searchGenericQuery = ref({
   queryText: route.query.q || '',
@@ -115,7 +115,6 @@ const routeFilters = computed(() => {
 const hasSearchQuery = computed(() => {
   return (route.query.q !== undefined && route.query.q !== '')
     || (route.query.filters && queryFilterHasValues(routeFilters.value, config.tutorialsList.filters))
-  // || (routeFilters.value.past && routeFilters.value.past.length > 0 && routeFilters.value.past[0] === 'yes')
 })
 
 function parseFilters(filtersString) {
@@ -154,11 +153,8 @@ async function searchES() {
     searchInitiated.value = true
   }
 
-  console.log('hasSearchQuery: ', hasSearchQuery.value)
-  console.log('initiated search: ', searchInitiated.value)
-
   if (results && results.hits && results.hits.total.value > 0) {
-    console.log('Search ES HITS,', results.hits.hits)
+    // console.log('Search ES HITS,', results.hits.hits)
     hits.value = results.hits.hits
     noResultsFound.value = false
   } else {
@@ -166,16 +162,6 @@ async function searchES() {
     hits.value = []
   }
 }
-
-// console.log('route: ', route)
-// console.log('route query: ', route.query)
-// console.log('route query q: ', route.query.q)
-// console.log('route query filters: ', route.query.filters)
-// console.log('hasSearchQuery: ', hasSearchQuery.value)
-// console.log('search filters: ', searchFilters.value)
-// console.log('search generic query: ', searchGenericQuery.value)
-// console.log('parsed filters: ', parseFilters(route.query.filters || ''))
-// console.log('initiated search: ', searchInitiated.value)
 
 watch(
   () => route.query,
@@ -189,14 +175,14 @@ watch(
 
 function parseHits(hits = []) {
   return hits?.filter(obj => obj._source.typeHandle === 'tutorial').map((obj) => {
-    const getTutorialType = obj._source?.tutorialType?.map(item => item.title).join(', ')
+    const parseTutorialType = obj._source?.tutorialType?.map(item => item.title).join(', ')
 
-    const getTutorialCategory = obj._source?.tutorialCategory?.map(item => item.title)
+    const parseTutorialCategory = obj._source?.tutorialCategory?.map(item => item.title)
 
     const cleanedHits = {
-      category: getTutorialType, // For SectionTeaserCard; although we're parsing the tutorial types, the component expects a category field'
+      category: parseTutorialType, // For SectionTeaserCard; although we're parsing the tutorial types, the component expects a category field'
       image: _get(obj._source, 'image[0]', null),
-      tutorialCategory: getTutorialCategory,
+      tutorialCategory: parseTutorialCategory,
       title: _get(obj._source, 'title', null),
       text: _get(obj._source, 'summary', null),
       to: `/${obj._source.uri}`,
@@ -218,19 +204,19 @@ const parsedTutorialsList = computed(() => {
 
   const grouping = []
 
-  // Get the category titles to create tutorial grouping
+  // Get the category titles to create tutorial grouping / headings
   parseHitsResults.value.forEach((tutorial) => {
-    // Check if each category already exists in the grouping array
     tutorial.tutorialCategory.forEach((category) => {
+      // Check if each category already exists in the grouping array
       const categoryExists = grouping.some(obj =>
         obj.groupTitle === category
       )
 
-      // If category does not exist, create the category object
+      // If category does not exist, create category grouping object
       if (!categoryExists) {
         const groupingObj = {
-          groupTitle: category,
-          groupTutorials: [tutorial]
+          groupTitle: category, // new category title
+          groupTutorials: [tutorial] // tutorial in that category
         }
         grouping.push(groupingObj)
       } else {
@@ -243,7 +229,7 @@ const parsedTutorialsList = computed(() => {
     })
   })
 
-  // Sort groupings alphabetically
+  // Sort final grouping alphabetically
   const sortedGrouping = grouping.sort((a, b) => a.groupTitle.localeCompare(b.groupTitle))
 
   return sortedGrouping
