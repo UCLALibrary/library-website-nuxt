@@ -17,8 +17,8 @@ query TutorialDetail($slug: [String!]) {
             buttonUrl
         }
     }
-    heroImage {
-      image
+    image {
+      ...Image
     }
     tutorialType {
       title
