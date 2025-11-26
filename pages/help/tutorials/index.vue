@@ -180,7 +180,7 @@ function parseHits(hits = []) {
     const parseTutorialCategory = obj._source?.tutorialCategory?.map(item => item.title)
 
     const cleanedHits = {
-      category: parseTutorialType, // For SectionTeaserCard; although we're parsing the tutorial types, the component expects a category field'
+      category: parseTutorialType, // For SectionTeaserCard; the component expects a category field for labels
       image: _get(obj._source, 'image[0]', null),
       tutorialCategory: parseTutorialCategory,
       title: _get(obj._source, 'title', null),
@@ -205,16 +205,15 @@ const parsedTutorialsList = computed(() => {
 
   // Get the category titles to create tutorial grouping / headings
   parseHitsResults.value.forEach((tutorial) => {
-    //
+    // If the tutorial has a category or categories...
     if (tutorial.tutorialCategory.length > 0) {
       tutorial.tutorialCategory.forEach((category) => {
-        console.log(category)
         // Check if each category already exists in the grouping array
         const categoryExists = grouping.some(obj =>
           obj.groupTitle === category
         )
 
-        // If category does not exist in the grouping array, create category grouping object
+        // If the category does not exist in the grouping array, create a category grouping object
         if (!categoryExists && category) {
           const groupingObj = {
             groupTitle: category, // new category title
@@ -229,7 +228,10 @@ const parsedTutorialsList = computed(() => {
           grouping[categoryIndex].groupTutorials.push(tutorial)
         }
       })
-    } else { // If no category in the data, group tutorial to have no category title
+    }
+    // If the tutorial has no category at all...
+    else {
+      // Group the tutorial to have no category title
       const groupingObj = {
         groupTitle: '',
         groupTutorials: [tutorial]
