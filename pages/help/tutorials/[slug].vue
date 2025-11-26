@@ -189,14 +189,16 @@ const parsedContributors = computed(() => {
 
       <SectionWrapper class="about">
         <SectionHeader level="3">Awards and Recognition</SectionHeader>
-        <BlockSponsor
-          v-for="item in parsedAwardsAndRecognitions"
-          :key="`footer-sponsor-${item.funderName}`"
-          class="sponsor-item"
-          :funder-logo="item.funderLogo"
-          :funder-name="item.funderName"
-          :funder-url="item.funderUrl"
-        />
+        <div class="awards-list">
+            <BlockSponsor
+              v-for="item in parsedAwardsAndRecognitions"
+              :key="`footer-sponsor-${item.funderName}`"
+              class="sponsor-item"
+              :funder-logo="item.funderLogo"
+              :funder-name="item.funderName"
+              :funder-url="item.funderUrl"
+            />
+        </div>
       </SectionWrapper>
 
       <SectionWrapper class="about">
@@ -221,12 +223,23 @@ const parsedContributors = computed(() => {
 
 <style lang="scss" scoped>
 .page-news-detail {
-  .section-wrapper>.section-header {
+
+  .about-this-tutorial.section-wrapper > :deep(.section-header) {
     margin-bottom: 0;
   }
 
   .about {
-    margin-bottom: 20px;
+    margin-bottom: var(--space-m);
+
+    p {
+      @include step-0;
+    }
+
+    .awards-list {
+      display: flex;
+      flex-direction: row;
+      gap: var(--space-m);
+    }
   }
 
 }
