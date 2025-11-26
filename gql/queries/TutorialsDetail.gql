@@ -11,7 +11,7 @@ query TutorialDetail($slug: [String!]) {
     title
     summary
     buttonText
-    buttonUrl {
+    button: buttonUrl {
         ... on buttonUrl_button_BlockType {
             buttonText
             buttonUrl
