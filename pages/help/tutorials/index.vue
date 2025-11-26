@@ -154,8 +154,11 @@ async function searchES() {
     searchInitiated.value = true
   }
 
+  console.log('hasSearchQuery: ', hasSearchQuery.value)
+  console.log('initiated search: ', searchInitiated.value)
+
   if (results && results.hits && results.hits.total.value > 0) {
-    // console.log('Search ES HITS,', results.hits.hits)
+    console.log('Search ES HITS,', results.hits.hits)
     hits.value = results.hits.hits
     noResultsFound.value = false
   } else {
@@ -270,9 +273,6 @@ function getSearchData(data) {
       filters: filters.join(' AND ')
     }
   })
-
-  console.log('hasSearchQuery: ', hasSearchQuery.value)
-  console.log('initiated search: ', searchInitiated.value)
 }
 
 async function setFilters() {
@@ -326,7 +326,8 @@ onMounted(async () => {
     </SectionWrapper>
 
     <!-- FEATURED TUTORIALS -->
-    <!-- <SectionWrapper
+    <SectionWrapper
+      v-show="parsedTutorialsList && !hasSearchQuery"
       class="section-no-top-margin"
       :section-title="page.sectionTitle"
     >
@@ -351,12 +352,12 @@ onMounted(async () => {
         :items="parsedSecondaryTutorials"
       />
       <DividerWayFinder color="help" />
-    </SectionWrapper> -->
+    </SectionWrapper>
 
     <!-- TUTORIALS LISTING -->
-    <!-- <SectionWrapper
+    <SectionWrapper
       v-for="category in parsedTutorialsList"
-      v-show="parsedTutorialsList"
+      v-show="parsedTutorialsList && !hasSearchQuery"
       :key="category.groupTitle"
       theme="divider"
     >
@@ -373,24 +374,25 @@ onMounted(async () => {
       />
 
       <DividerWayFinder color="help" />
-    </SectionWrapper> -->
+    </SectionWrapper>
 
-    <!-- hasSearchQuery && searchInitiated -->
-    <!-- v-show="hasSearchQuery && searchInitiated" -->
     <!-- SEARCH RESULTS -->
-    <SectionWrapper class="section-no-top-margin">
+    <SectionWrapper
+      v-show="hasSearchQuery && searchInitiated"
+      class="section-no-top-margin"
+    >
       <h2
         v-if="route.query.q"
         class="about-results"
       >
-        Displaying {{ hits.length }} results for
+        Displaying {{ parseHitsResults.length }} results for
         <strong><em>“{{ route.query.q }}</em></strong>”
       </h2>
       <h2
         v-else
         class="about-results"
       >
-        Displaying {{ hits.length }} results
+        Displaying {{ parseHitsResults.length }} results
       </h2>
 
       <SectionTeaserCard
