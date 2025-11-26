@@ -188,7 +188,6 @@ function parseHits(hits = []) {
       to: `/${obj._source.uri}`,
       typeHandle: obj._source.typeHandle
     }
-
     return cleanedHits
   })
 }
@@ -206,27 +205,37 @@ const parsedTutorialsList = computed(() => {
 
   // Get the category titles to create tutorial grouping / headings
   parseHitsResults.value.forEach((tutorial) => {
-    tutorial.tutorialCategory.forEach((category) => {
-      // Check if each category already exists in the grouping array
-      const categoryExists = grouping.some(obj =>
-        obj.groupTitle === category
-      )
-
-      // If category does not exist, create category grouping object
-      if (!categoryExists) {
-        const groupingObj = {
-          groupTitle: category, // new category title
-          groupTutorials: [tutorial] // tutorial in that category
-        }
-        grouping.push(groupingObj)
-      } else {
-        // If the category exists, find the index and push tutorial there
-        const categoryIndex = grouping.findIndex(obj =>
+    //
+    if (tutorial.tutorialCategory.length > 0) {
+      tutorial.tutorialCategory.forEach((category) => {
+        console.log(category)
+        // Check if each category already exists in the grouping array
+        const categoryExists = grouping.some(obj =>
           obj.groupTitle === category
         )
-        grouping[categoryIndex].groupTutorials.push(tutorial)
+
+        // If category does not exist in the grouping array, create category grouping object
+        if (!categoryExists && category) {
+          const groupingObj = {
+            groupTitle: category, // new category title
+            groupTutorials: [tutorial] // tutorials
+          }
+          grouping.push(groupingObj)
+        } else {
+          // If the category exists in the grouping array, find the index in the grouping array and push tutorial there
+          const categoryIndex = grouping.findIndex(obj =>
+            obj.groupTitle === category
+          )
+          grouping[categoryIndex].groupTutorials.push(tutorial)
+        }
+      })
+    } else { // If no category in the data, group tutorial to have no category title
+      const groupingObj = {
+        groupTitle: '',
+        groupTutorials: [tutorial]
       }
-    })
+      grouping.push(groupingObj)
+    }
   })
 
   // Sort final grouping alphabetically
@@ -341,25 +350,29 @@ onMounted(async () => {
     </SectionWrapper>
 
     <!-- TUTORIALS LISTING -->
-    <SectionWrapper
-      v-for="category in parsedTutorialsList"
-      v-show="parsedTutorialsList && !hasSearchQuery"
-      :key="category.groupTitle"
-      theme="divider"
-    >
-      <SectionHeader
-        :level="3"
-        class="section-header_tutorials-listings"
-      >
-        {{ category.groupTitle }}
+    <SectionWrapper v-show="parsedTutorialsList && !hasSearchQuery">
+      <SectionHeader :level="2">
+        All Tutorials
       </SectionHeader>
+      <SectionWrapper
+        v-for="category in parsedTutorialsList"
+        :key="category.groupTitle"
+        theme="divider"
+      >
+        <SectionHeader
+          :level="3"
+          class="section-header_tutorials-listings"
+        >
+          {{ category.groupTitle }}
+        </SectionHeader>
 
-      <SectionTeaserCard
-        class="section-teaser-card"
-        :items="category.groupTutorials"
-      />
+        <SectionTeaserCard
+          class="section-teaser-card"
+          :items="category.groupTutorials"
+        />
 
-      <DividerWayFinder color="help" />
+        <DividerWayFinder color="help" />
+      </SectionWrapper>
     </SectionWrapper>
 
     <!-- SEARCH RESULTS -->
