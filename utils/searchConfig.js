@@ -336,6 +336,7 @@ const config = {
       'summary',
       'uri',
       'image',
+      'typeHandle',
       'tutorialType',
       'tutorialCategory'
     ],

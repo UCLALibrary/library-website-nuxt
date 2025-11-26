@@ -115,7 +115,7 @@ const routeFilters = computed(() => {
 const hasSearchQuery = computed(() => {
   return (route.query.q !== undefined && route.query.q !== '')
     || (route.query.filters && queryFilterHasValues(routeFilters.value, config.tutorialsList.filters))
-    || (routeFilters.value.past && routeFilters.value.past.length > 0 && routeFilters.value.past[0] === 'yes')
+  // || (routeFilters.value.past && routeFilters.value.past.length > 0 && routeFilters.value.past[0] === 'yes')
 })
 
 function parseFilters(filtersString) {
@@ -150,14 +150,12 @@ async function searchES() {
     []
   )
 
-  console.log('parsed filters inner: ', parseFilters(route.query.filters || ''))
-
   if (hasSearchQuery.value) {
     searchInitiated.value = true
   }
 
   if (results && results.hits && results.hits.total.value > 0) {
-    console.log('Search ES HITS,', results.hits.hits)
+    // console.log('Search ES HITS,', results.hits.hits)
     hits.value = results.hits.hits
     noResultsFound.value = false
   } else {
@@ -166,18 +164,18 @@ async function searchES() {
   }
 }
 
-console.log('route: ', route)
-console.log('route query: ', route.query)
-console.log('route query q: ', route.query.q)
-console.log('route query filters: ', route.query.filters)
-console.log('hasSearchQuery: ', hasSearchQuery.value)
-console.log('search filters: ', searchFilters.value)
-console.log('search generic query: ', searchGenericQuery.value)
-console.log('parsed filters: ', parseFilters(route.query.filters || ''))
-console.log('initiated search: ', searchInitiated.value)
+// console.log('route: ', route)
+// console.log('route query: ', route.query)
+// console.log('route query q: ', route.query.q)
+// console.log('route query filters: ', route.query.filters)
+// console.log('hasSearchQuery: ', hasSearchQuery.value)
+// console.log('search filters: ', searchFilters.value)
+// console.log('search generic query: ', searchGenericQuery.value)
+// console.log('parsed filters: ', parseFilters(route.query.filters || ''))
+// console.log('initiated search: ', searchInitiated.value)
 
 watch(
-  () => [route.query, searchInitiated.value],
+  () => route.query,
   (newVal, oldVal) => {
     // console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
@@ -187,18 +185,22 @@ watch(
 )
 
 function parseHits(hits = []) {
-  console.log('parse hits: ', hits)
-  return hits?.map((obj) => {
+  return hits?.filter(obj => obj._source.typeHandle === 'tutorial').map((obj) => {
     const getTutorialType = obj._source?.tutorialType?.map(item => item.title).join(', ')
 
-    return {
-      ...obj._source,
-      to: `/${obj._source.uri}`,
-      image: _get(obj._source, 'image[0].image[0]', null),
-      category: getTutorialType,
+    const getTutorialCategory = obj._source?.tutorialCategory?.map(item => item.title)
+
+    const cleanedHits = {
+      category: getTutorialType, // For SectionTeaserCard; although we're parsing the tutorial types, the component expects a category field'
+      image: _get(obj._source, 'image[0]', null),
+      tutorialCategory: getTutorialCategory,
       title: _get(obj._source, 'title', null),
-      text: _get(obj._source, 'summary', null)
+      text: _get(obj._source, 'summary', null),
+      to: `/${obj._source.uri}`,
+      typeHandle: obj._source.typeHandle
     }
+
+    return cleanedHits
   })
 }
 
@@ -207,60 +209,41 @@ const parseHitsResults = computed(() => {
 })
 
 const parsedTutorialsList = computed(() => {
-  if (searchInitiated.value) {
-    return null // []
+  if (parseHitsResults.value.length === 0) {
+    return null
   }
 
-  const tutorialGrouping = []
+  const grouping = []
 
-  parseHitsResults.value.forEach((obj) => {
-    // Get the category titles
-    if (obj.tutorialCategory && obj.tutorialCategory.length > 1) {
-      const catTitle = obj.tutorialCategory.map(item => item.title)
-
-      catTitle.forEach((title) => {
-        const categoryExists = tutorialGrouping.some(item =>
-          item.title === title
-        )
-        if (!categoryExists) {
-          const testObj = {
-            title: obj.tutorialCategory[0].title,
-            // tutorials: [obj.title]
-            tutorials: [obj]
-          }
-          tutorialGrouping.push(testObj)
-        } else {
-          const categoryIndex = tutorialGrouping.findIndex(item =>
-            item.title === title
-          )
-          // tutorialGrouping[categoryIndex].tutorials.push(obj.title)
-          tutorialGrouping[categoryIndex].tutorials.push(obj)
-        }
-      })
-    } else {
-      const categoryExists = tutorialGrouping.some(item =>
-        item.title === obj.tutorialCategory[0].title
+  // Get the category titles to create tutorial grouping
+  parseHitsResults.value.forEach((tutorial) => {
+    // Check if each category already exists in the grouping array
+    tutorial.tutorialCategory.forEach((category) => {
+      const categoryExists = grouping.some(obj =>
+        obj.groupTitle === category
       )
+
+      // If category does not exist, create the category object
       if (!categoryExists) {
-        const testObj = {
-          title: obj.tutorialCategory[0].title,
-          // tutorials: [obj.title]
-          tutorials: [obj]
+        const groupingObj = {
+          groupTitle: category,
+          groupTutorials: [tutorial]
         }
-        tutorialGrouping.push(testObj)
+        grouping.push(groupingObj)
       } else {
-        // find index and push title there
-        const categoryIndex = tutorialGrouping.findIndex(item =>
-          item.title === obj.tutorialCategory[0].title
+        // If the category exists, find the index and push tutorial there
+        const categoryIndex = grouping.findIndex(obj =>
+          obj.groupTitle === category
         )
-        // console.log('Index is: ', categoryIndex)
-        // tutorialGrouping[categoryIndex].tutorials.push(obj.title)
-        tutorialGrouping[categoryIndex].tutorials.push(obj)
+        grouping[categoryIndex].groupTutorials.push(tutorial)
       }
-    }
+    })
   })
 
-  return tutorialGrouping
+  // Sort groupings alphabetically
+  const sortedGrouping = grouping.sort((a, b) => a.groupTitle.localeCompare(b.groupTitle))
+
+  return sortedGrouping
 })
 
 // Event handler invoked by search-generic component selections
@@ -268,7 +251,6 @@ function getSearchData(data) {
   // Construct the filters parameter dynamically
   const filters = []
 
-  // if (data.filters) {
   if (Object.keys(data.filters).length) {
     searchInitiated.value = true
     for (const key in data.filters) {
@@ -288,6 +270,9 @@ function getSearchData(data) {
       filters: filters.join(' AND ')
     }
   })
+
+  console.log('hasSearchQuery: ', hasSearchQuery.value)
+  console.log('initiated search: ', searchInitiated.value)
 }
 
 async function setFilters() {
@@ -341,8 +326,7 @@ onMounted(async () => {
     </SectionWrapper>
 
     <!-- FEATURED TUTORIALS -->
-    <SectionWrapper
-      v-show="parsedTutorialsList && !hasSearchQuery"
+    <!-- <SectionWrapper
       class="section-no-top-margin"
       :section-title="page.sectionTitle"
     >
@@ -367,35 +351,34 @@ onMounted(async () => {
         :items="parsedSecondaryTutorials"
       />
       <DividerWayFinder color="help" />
-    </SectionWrapper>
+    </SectionWrapper> -->
 
     <!-- TUTORIALS LISTING -->
-    <SectionWrapper
+    <!-- <SectionWrapper
       v-for="category in parsedTutorialsList"
-      v-show="parsedTutorialsList && !hasSearchQuery"
-      :key="category.title"
+      v-show="parsedTutorialsList"
+      :key="category.groupTitle"
       theme="divider"
     >
       <SectionHeader
         :level="3"
         class="section-header_tutorials-listings"
       >
-        {{ category.title }}
+        {{ category.groupTitle }}
       </SectionHeader>
 
       <SectionTeaserCard
         class="section-teaser-card"
-        :items="category.tutorials"
+        :items="category.groupTutorials"
       />
 
       <DividerWayFinder color="help" />
-    </SectionWrapper>
+    </SectionWrapper> -->
 
+    <!-- hasSearchQuery && searchInitiated -->
+    <!-- v-show="hasSearchQuery && searchInitiated" -->
     <!-- SEARCH RESULTS -->
-    <SectionWrapper
-      v-show="hasSearchQuery && searchInitiated"
-      class="section-no-top-margin"
-    >
+    <SectionWrapper class="section-no-top-margin">
       <h2
         v-if="route.query.q"
         class="about-results"
