@@ -147,8 +147,7 @@ const parsedContributors = computed(() => {
     />
 
     <SectionWrapper
-      v-if="page.learningOutcomes
-      page.learningOutcomes
+      v-if="page.learningOutcomes"
       theme="divider"
     >
       <DividerWayFinder
