@@ -131,7 +131,7 @@ const parsedContributors = computed(() => {
   >
 
     <NavBreadcrumb
-      to="/help/"
+      to="/help/tutorials"
       :title="page.title"
       parent-title="Tutorials"
     />
