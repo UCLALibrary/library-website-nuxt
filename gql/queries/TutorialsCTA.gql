@@ -5,7 +5,7 @@ query TutorialCTA {
         ... on callToAction2Up_callToAction_BlockType {
           title: titleCta
           text: summary
-          svgName icon
+          svgName: icon
           name: buttonText
           to: buttonLink
           backgroundColor

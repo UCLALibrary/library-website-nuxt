@@ -122,6 +122,15 @@ const parsedContributors = computed(() => {
 
   return authorNames.join(', ')
 })
+
+const parsedBlockCTA2Up = computed(() => {
+  return cta?.value.map((obj) => {
+    return {
+      ...obj,
+      isDark: obj.backgroundColor === 'true'
+    }
+  })
+})
 </script>
 
 <template>
@@ -246,7 +255,7 @@ const parsedContributors = computed(() => {
 
     <SectionWrapper v-if="cta">
       <BlockCallToActionTwoUp
-        :items="cta"
+        :items="parsedBlockCTA2Up"
       />
     </SectionWrapper>
   </main>
