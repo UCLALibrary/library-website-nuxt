@@ -33,4 +33,26 @@ query TutorialsListing {
       }
     }
   }
+  entries(
+    section: "tutorial"
+    orderBy: "title ASC"
+    ) {
+    ... on tutorial_tutorial_Entry {
+      title
+      summary
+      uri
+      image {
+        ...Image
+      }
+      typeHandle
+      tutorialType {
+        id
+        title
+      }
+      tutorialCategory {
+        id
+        title
+      }
+    }
+  }
 }
