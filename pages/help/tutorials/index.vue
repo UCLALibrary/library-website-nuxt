@@ -19,7 +19,6 @@ const { $graphql } = useNuxtApp()
 
 const { data, error } = await useAsyncData('tutorials-list', async () => {
   const data = await $graphql.default.request(TUTORIALS_LIST)
-  console.log('data: ', data)
   return { data }
 })
 // console.log('Tutorials data: ', data.value, 'error: ', error.value)
@@ -70,6 +69,10 @@ useHead({
   ],
 })
 
+const parsedPlaceholder = computed(() => {
+  return `Search ${page.value.title}`
+})
+
 const parsedFeaturedTutorial = computed(() => {
   const obj = page?.value.featuredResourcesSection[0].featuredResources[0]
   return [{
@@ -88,6 +91,7 @@ const parsedSecondaryTutorials = computed(() => {
   })
 })
 
+// Tutorials listing from Craft for initial display
 const parsedTutorialsList = computed(() => {
   if (tutorials.value.length === 0) {
     return null
@@ -96,13 +100,13 @@ const parsedTutorialsList = computed(() => {
   const data = tutorials.value.map((obj) => {
     const stringifyTutorialTypes = obj.tutorialType?.map(item => item.title).join(', ')
 
-    const getTutorialCategories = obj.tutorialCategory?.map(item => item.title)
+    const groupTutorialCategoryTitles = obj.tutorialCategory?.map(item => item.title)
 
     return {
       ...obj,
-      image: obj.image[0],
-      category: stringifyTutorialTypes,
-      tutorialCategory: getTutorialCategories
+      image: _get(obj, 'image[0]', null),
+      category: stringifyTutorialTypes, // For SectionTeaserCard field
+      tutorialCategory: groupTutorialCategoryTitles
     }
   })
 
@@ -149,8 +153,6 @@ const parsedTutorialsList = computed(() => {
   const sortedGrouping = grouping.sort((a, b) => a.groupTitle.localeCompare(b.groupTitle))
 
   return sortedGrouping
-  // return grouping
-  // return data
 })
 
 const parsedBlockCTA2Up = computed(() => {
@@ -200,7 +202,7 @@ function parseFilters(filtersString) {
   return filters
 }
 
-// ES
+// ES - Tutorials listing for search
 async function searchES() {
   if (hasSearchQuery.value) {
     const queryText = route.query.q || '*'
@@ -245,22 +247,18 @@ function parseHits(hits = []) {
   return hits?.filter(obj => obj._source.typeHandle === 'tutorial').map((obj) => {
     const parseTutorialType = obj._source?.tutorialType?.map(item => item.title).join(', ')
 
-    const parseTutorialCategory = obj._source?.tutorialCategory?.map(item => item.title)
-
     const cleanedHits = {
-      category: parseTutorialType, // For SectionTeaserCard; the component expects a category field for labels
+      category: parseTutorialType, // For SectionTeaserCard field
       image: _get(obj._source, 'image[0]', null),
-      tutorialCategory: parseTutorialCategory,
       title: _get(obj._source, 'title', null),
       text: _get(obj._source, 'summary', null),
       to: `/${obj._source.uri}`,
-      typeHandle: obj._source.typeHandle
     }
     return cleanedHits
   })
 }
 
-const parseHitsResults = computed(() => {
+const parsedSearchResults = computed(() => {
   return parseHits(hits.value)
 })
 
@@ -302,10 +300,6 @@ async function setFilters() {
     config.tutorialsList.filters
   )
 }
-
-const parsedPlaceholder = computed(() => {
-  return `Search ${page.value.title}`
-})
 
 onMounted(async () => {
   await setFilters()
@@ -406,19 +400,19 @@ onMounted(async () => {
         v-if="route.query.q"
         class="about-results"
       >
-        Displaying {{ parseHitsResults.length }} results for
+        Displaying {{ parsedSearchResults.length }} results for
         <strong><em>“{{ route.query.q }}</em></strong>”
       </h2>
       <h2
         v-else
         class="about-results"
       >
-        Displaying {{ parseHitsResults.length }} results
+        Displaying {{ parsedSearchResults.length }} results
       </h2>
 
       <SectionTeaserCard
         class="section-teaser-card"
-        :items="parseHitsResults"
+        :items="parsedSearchResults"
       />
     </SectionWrapper>
 
