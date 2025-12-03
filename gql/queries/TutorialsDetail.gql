@@ -11,14 +11,14 @@ query TutorialDetail($slug: [String!]) {
     title
     summary
     buttonText
-    buttonUrl {
+    button: buttonUrl {
         ... on buttonUrl_button_BlockType {
             buttonText
             buttonUrl
         }
     }
-    heroImage {
-      image
+    image {
+      ...Image
     }
     tutorialType {
       title
@@ -32,51 +32,61 @@ query TutorialDetail($slug: [String!]) {
     resourceServiceWorkshop {
       ... on collection_collection_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
       ... on endowment_endowments_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
       ... on externalResource_externalResource_Entry {
         title
-        uri: externalResourceUrl
-        summary
+        text: summary
+        slug
+        externalResourceUrl
       }
       ... on generalContentPage_generalContentPage_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
       ... on helpTopic_helpTopic_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
       ... on serviceOrResource_serviceOrResource_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
       ... on tutorial_tutorial_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
       ... on workshopOrEventSeries_workshopOrEventSeries_Entry {
         title
+        text: summary
+        slug
         uri
-        summary
       }
     }
 
     awardsAndRecognition {
-      text
-      uri
-      image {
+      ... on awardsAndRecognition_awardRecognition_BlockType {
+        funderName: text
+        funderUrl: urlLink
+        funderLogo: image {
           ...Image
+        }
       }
     }
     authors {
@@ -97,7 +107,6 @@ query TutorialDetail($slug: [String!]) {
       }
       ... on contributorsNoMax_externalContributor_BlockType {
         contributor
-
       }
     }
   }
