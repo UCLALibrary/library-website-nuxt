@@ -39,18 +39,16 @@ query TutorialsListing {
     ) {
     ... on tutorial_tutorial_Entry {
       title
-      summary
-      uri
+      text: summary
+      to: uri
       image {
         ...Image
       }
       typeHandle
       tutorialType {
-        id
         title
       }
       tutorialCategory {
-        id
         title
       }
     }
