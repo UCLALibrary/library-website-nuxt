@@ -56,7 +56,7 @@ export default defineNuxtConfig({
         '/about/polices/', '/about/programs/',
         '/about/staff/', '/about/student-opportunities/', '/about/status-updates/',
         '/collections/', '/collections/access/', '/collections/explore/',
-        '/give/endowments/', '/help/services-resources/', '/help/services-resources/ask-us/',
+        '/give/endowments/', '/help/services-resources/', '/help/services-resources/ask-us/', '/help/tutorials/',
         '/impact/', '/search-site/', '/visit/events-exhibition/', '/visit/location/'
       ],
     },

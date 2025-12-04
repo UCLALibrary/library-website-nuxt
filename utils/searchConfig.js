@@ -58,6 +58,10 @@ const config = {
         key: 'Staff Directory',
         terms: ['staffMember'],
       },
+      {
+        key: 'Tutorials',
+        terms: ['tutorial']
+      }
     ],
   },
   serviceOrResources: {
@@ -312,6 +316,32 @@ const config = {
     resultFields: ['*'],
     sortField: 'startDateWithTime',
     orderBy: 'asc',
+  },
+  tutorialsList: {
+    searchFields: ['title^6', 'summary^3'],
+    filters: [
+      {
+        label: 'Category',
+        esFieldName: 'tutorialCategory.title.keyword',
+        inputType: 'checkbox',
+      },
+      {
+        label: 'Type',
+        esFieldName: 'tutorialType.title.keyword',
+        inputType: 'checkbox',
+      },
+    ],
+    resultFields: [
+      'title',
+      'summary',
+      'uri',
+      'image',
+      'typeHandle',
+      'tutorialType',
+      'tutorialCategory'
+    ],
+    sortField: 'title.keyword',
+    orderBy: 'asc'
   },
 }
 

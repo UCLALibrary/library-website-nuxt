@@ -14,6 +14,8 @@ query TutorialsListing {
           text: summary
           to: uri
           externalResourceUrl
+          tutorialType
+          tutorialCategory
           image {
           ...Image
           }
@@ -28,6 +30,26 @@ query TutorialsListing {
         buttonText
         buttonLink
         backgroundColor
+      }
+    }
+  }
+  entries(
+    section: "tutorial"
+    orderBy: "title ASC"
+    ) {
+    ... on tutorial_tutorial_Entry {
+      title
+      text: summary
+      to: uri
+      image {
+        ...Image
+      }
+      typeHandle
+      tutorialType {
+        title
+      }
+      tutorialCategory {
+        title
       }
     }
   }
