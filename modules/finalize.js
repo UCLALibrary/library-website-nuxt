@@ -117,6 +117,119 @@ export default defineNuxtModule({
       }
     }
 
+    // ----- ORPHAN CLEANUP (indices with no alias) --------------------------
+
+    async function findOrphanIndices() {
+      const esURL = nuxt.options.runtimeConfig.public.esURL
+      const esWriteKey = nuxt.options.runtimeConfig.esWriteKey
+      // 1) all aliases
+      const aliasesRes = await fetch(`${esURL}/_cat/aliases?format=json`, {
+        headers: {
+          Authorization: `ApiKey ${esWriteKey}`
+        }
+      })
+      const aliasesText = await aliasesRes.text()
+      let aliasesJson = []
+
+      try {
+        aliasesJson = aliasesText ? JSON.parse(aliasesText) : []
+      } catch (err) {
+        logger.error('[finalize-module] Error parsing aliases JSON', err)
+        throw err
+      }
+
+      const indicesWithAliases = new Set()
+      aliasesJson.forEach(function (row) {
+        if (row && row.index) {
+          indicesWithAliases.add(row.index)
+        }
+      })
+
+      // 2) all indices
+      const indicesRes = await fetch(`${esURL}/_cat/indices?format=json`, {
+        headers: {
+          Authorization: `ApiKey ${esWriteKey}`
+        }
+      })
+      const indicesText = await indicesRes.text()
+      let indicesJson = []
+
+      try {
+        indicesJson = indicesText ? JSON.parse(indicesText) : []
+      } catch (err) {
+        logger.error('[finalize-module] Error parsing indices JSON', err)
+        throw err
+      }
+
+      // 3) orphans = no alias, not system, match our temp prefix
+      const orphanIndices = indicesJson
+        .map(function (row) {
+          return row.index
+        })
+        .filter(function (indexName) {
+          if (!indexName) return false
+
+          // skip system indices
+          if (indexName.startsWith('.')) return false
+
+          // skip indices already in any alias
+          if (indicesWithAliases.has(indexName)) return false
+
+          return true
+        })
+
+      logger.warn(
+        '[finalize-module] Orphan Libguides indices detected:',
+        orphanIndices
+      )
+
+      return orphanIndices
+    }
+    // ----- GENERIC DELETE HELPER -------------------------------------------
+
+    async function deleteIndices(indices, label) {
+      const esURL = nuxt.options.runtimeConfig.public.esURL
+      const esWriteKey = nuxt.options.runtimeConfig.esWriteKey
+      for (const index of indices) {
+        logger.warn(`[finalize-module] [${label}] Deleting index: ${index}`)
+
+        const deleteResponse = await fetch(`${esURL}/${index}`, {
+          headers: {
+            Authorization: `ApiKey ${esWriteKey}`,
+            'Content-Type': 'application/json'
+          },
+          method: 'DELETE'
+        })
+
+        const deleteBody = await deleteResponse.text()
+        let deleteJson = null
+        try {
+          deleteJson = deleteBody ? JSON.parse(deleteBody) : null
+        } catch (err) {
+          // ignore non-JSON body
+        }
+
+        if (!deleteResponse.ok) {
+          logger.error(
+            `[finalize-module] [${label}] Failed to delete index`,
+            {
+              index,
+              status: deleteResponse.status,
+              body: deleteJson || deleteBody
+            }
+          )
+        } else {
+          logger.warn(
+            `[finalize-module] [${label}] Deleted index successfully`,
+            {
+              index,
+              body: deleteJson || deleteBody
+            }
+          )
+        }
+      }
+    }
+
     async function deleteOldIndices(indicesToDelete, tempLibGuideIndex) {
       try {
         for (const index of indicesToDelete) {
@@ -156,6 +269,16 @@ export default defineNuxtModule({
 
         // Step 3: Clean up old indices
         await deleteOldIndices(indicesToDelete, tempLibGuideIndex)
+
+        // Step 4: extra cleanup — remove orphan indices
+        const orphanIndices = await findOrphanIndices()
+        if (orphanIndices && orphanIndices.length) {
+          await deleteIndices(orphanIndices, 'orphan-indices-cleanup')
+        } else {
+          logger.warn(
+            '[finalize-module] No orphan indices to delete'
+          )
+        }
       } catch (err) {
         logger.error('Error during alias update and cleanup:', err)
       }
