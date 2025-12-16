@@ -92,7 +92,16 @@ export default defineNuxtModule({
                 },
               },
               settings: {
-                'index.mapping.total_fields.limit': 1500, // Or a suitable limit
+                index: {
+                  // 🔹 Keep shard usage low for temp index
+                  number_of_shards: 1,
+                  number_of_replicas: 0,
+                  mapping: {
+                    total_fields: {
+                      limit: 1500
+                    }
+                  }
+                },
                 analysis: {
                   char_filter: {
                     remove_hyphen: {

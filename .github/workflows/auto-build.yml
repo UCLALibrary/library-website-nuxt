@@ -18,6 +18,8 @@ jobs:
         with:
           ref: production
       - uses: ./.github/workflows/setup-workspace
+        with:
+          ref: production
 
       # Step to generate the current date and time
       - name: Set deployment date
@@ -50,4 +52,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_LIBRARY_SITE_ID }}
-        
+

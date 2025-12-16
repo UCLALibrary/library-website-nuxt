@@ -138,7 +138,6 @@ const parsedBlockCTA2Up = computed(() => {
     id="main"
     class="page page-news-detail"
   >
-
     <NavBreadcrumb
       to="/help/tutorials"
       :title="page.title"
@@ -217,21 +216,22 @@ const parsedBlockCTA2Up = computed(() => {
       theme="divider"
       section-title="About this Tutorial"
     >
-
       <SectionWrapper
         v-if="page.awardsAndRecognition.length"
         class="about"
       >
-        <SectionHeader level="3">Awards and Recognition</SectionHeader>
+        <SectionHeader level="3">
+          Awards and Recognition
+        </SectionHeader>
         <div class="awards-list">
-            <BlockSponsor
-              v-for="item in parsedAwardsAndRecognitions"
-              :key="`footer-sponsor-${item.funderName}`"
-              class="sponsor-item"
-              :funder-logo="item.funderLogo"
-              :funder-name="item.funderName"
-              :funder-url="item.funderUrl"
-            />
+          <BlockSponsor
+            v-for="item in parsedAwardsAndRecognitions"
+            :key="`footer-sponsor-${item.funderName}`"
+            class="sponsor-item"
+            :funder-logo="item.funderLogo"
+            :funder-name="item.funderName"
+            :funder-url="item.funderUrl"
+          />
         </div>
       </SectionWrapper>
 
@@ -239,18 +239,21 @@ const parsedBlockCTA2Up = computed(() => {
         v-if="page.authors.length"
         class="about"
       >
-        <SectionHeader level="3">Authors</SectionHeader>
-        <p>{{parsedAuthors}}</p>
+        <SectionHeader level="3">
+          Authors
+        </SectionHeader>
+        <p>{{ parsedAuthors }}</p>
       </SectionWrapper>
 
       <SectionWrapper
         v-if="page.contributorsNoMax.length"
         class="about"
       >
-        <SectionHeader level="3">Contributors</SectionHeader>
-        <p>{{parsedContributors}}</p>
+        <SectionHeader level="3">
+          Contributors
+        </SectionHeader>
+        <p>{{ parsedContributors }}</p>
       </SectionWrapper>
-
     </SectionWrapper>
 
     <SectionWrapper v-if="cta">

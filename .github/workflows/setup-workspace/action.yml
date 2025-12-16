@@ -1,10 +1,20 @@
 name: Set up Workspace
 description: 'Checks out repository, installs correct version of node and npm dependencies.'
+
+inputs:
+  ref:
+    description: 'Git ref (tag/branch/commit) to checkout. Defaults to github.ref if not set.'
+    required: false
+    default: ''
+
 runs:
   using: composite
   steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.ref != '' && inputs.ref || github.ref }}
+        fetch-depth: 0
 
     - uses: pnpm/action-setup@v4
       name: Install pnpm
