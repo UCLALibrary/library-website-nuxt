@@ -25,7 +25,7 @@ runs:
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 18.18.2
+        node-version: 20.18.3
         cache: 'pnpm'
 
     - name: Install dependencies

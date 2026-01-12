@@ -1,0 +1,80 @@
+name: Submit screenshots to Chromatic for visual regression testing (Cypress)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  chromatic:
+    name: Chromatic - Nuxt3 Site (Cypress E2E)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/workflows/setup-workspace
+      - name: Sets env vars for PR preview
+        run: |
+          echo "ES_ALIAS=${{secrets.ES_ALIAS_TEST}}-chromatic-tests-${{ github.head_ref || github.ref_name }}" >> $GITHUB_ENV
+        if: github.ref_name!='main'
+      - name: Sets env vars for main merge
+        run: |
+          echo "ES_ALIAS=${{secrets.ES_ALIAS_TEST}}" >> $GITHUB_ENV
+        if: github.ref_name=='main'
+      - run: pnpm run generate
+        if: steps.cache-nuxt.outputs.cache-hit != 'true'
+        env:
+          CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+          LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+          S3_BUCKET: 'https://static.library.ucla.edu/'
+          ES_URL: ${{ secrets.ES_URL }}
+          ESApiKey: ${{ secrets.ESApiKey }}
+          ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
+          ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
+          ES_ALIAS: ${{ env.ES_ALIAS }}
+          ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
+          ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}
+          LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
+
+      - uses: cypress-io/github-action@v3
+        with:
+          start: pnpm dlx serve .output/public
+          install: false
+          wait-on: http://127.0.0.1:3000
+          wait-on-timeout: 110
+          command: pnpm exec cypress run --browser electron
+        env:
+            CRAFT_ENDPOINT: ${{ secrets.CRAFT_ENDPOINT }}
+            LIBCAL_ENDPOINT: ${{ secrets.LIBCAL_ENDPOINT }}
+            S3_BUCKET: 'https://static.library.ucla.edu/'
+            ES_URL: ${{ secrets.ES_URL }}
+            ESApiKey: ${{ secrets.ESApiKey }}
+            ES_READ_KEY: ${{ secrets.ES_READ_KEY_TEST }}
+            ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
+            ES_ALIAS: ${{ env.ES_ALIAS }}
+            ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
+            ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}
+            LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
+            ELECTRON_EXTRA_LAUNCH_ARGS: --remote-debugging-port=9222
+            CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
+      # Manual runs: fail if there are diffs (forces review in Chromatic UI)
+      - name: Run Chromatic (manual / PR-style)
+        if: github.ref_name != 'main'
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          ELECTRON_EXTRA_LAUNCH_ARGS: --remote-debugging-port=9222
+        run: pnpm exec chromatic --cypress --project-token=$CHROMATIC_PROJECT_TOKEN
+
+      # Main branch runs: auto-accept changes to update baseline (Percy-like behavior)
+      - name: Run Chromatic (main baseline)
+        if: github.ref_name == 'main'
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          ELECTRON_EXTRA_LAUNCH_ARGS: --remote-debugging-port=9222
+        run: pnpm exec chromatic --cypress --project-token=$CHROMATIC_PROJECT_TOKEN --auto-accept-changes
+
