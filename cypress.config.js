@@ -5,7 +5,20 @@ export default defineConfig({
   video: false,
   e2e: {
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      // ✅ Only enable Chromatic when token is present
+      if (process.env.CHROMATIC_PROJECT_TOKEN) {
+        installPlugin(on, config)
+      } else {
+        // ✅ Register the task Chromatic support expects
+        on('task', {
+          prepareArchives() {
+            // If you don't need it, no-op is fine
+            return null
+          },
+        })
+      }
+
+      return config
     },
     baseUrl: 'http://localhost:3000'
   },

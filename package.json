@@ -14,7 +14,9 @@
     "lint": "eslint . --ext .vue,.js,.ts --ignore-path .gitignore",
     "lint:fix": "eslint --fix . --ext .vue,.js,.ts --ignore-path .gitignore",
     "typecheck": "nuxi typecheck",
-    "test": "pnpm lint && pnpm typecheck"
+    "test": "pnpm lint && pnpm typecheck",
+    "chromatic:cypress": "dotenv -e .env.chromatic -- chromatic --cypress",
+    "cypress:chromatic": "ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 cypress run"
   },
   "dependencies": {
     "@nuxtjs/sitemap": "^5.3.5",
@@ -25,14 +27,17 @@
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
+    "@chromatic-com/cypress": "^0.11.8",
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@percy/cli": "^1.27.0",
     "@percy/cypress": "^3.1.2",
     "@types/node": "^18.17.3",
     "@zadigetvoltaire/nuxt-gtm": "^0.0.13",
+    "chromatic": "^13.3.5",
     "cypress": "^12.17.4",
     "date-fns": "^3.6.0",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^8.56.0",
     "eslint-plugin-cypress": "^2.15.1",
     "lodash": "^4.17.21",
