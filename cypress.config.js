@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress'
+import { installPlugin } from '@chromatic-com/cypress'
 
 export default defineConfig({
   defaultCommandTimeout: 60000,
