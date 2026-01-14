@@ -2,6 +2,10 @@ import { defineConfig } from 'cypress'
 import { installPlugin } from '@chromatic-com/cypress'
 
 export default defineConfig({
+  // For chtomatic tests, we disable auto snapshots at the end and use the 3 viewport snapshots instead
+  env: {
+    disableAutoSnapshot: true,
+  },
   defaultCommandTimeout: 60000,
   video: false,
   e2e: {

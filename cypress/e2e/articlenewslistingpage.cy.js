@@ -14,7 +14,7 @@ describe('Article News Listing page', () => {
         cy.get('fieldset.base-checkbox-group > ul.list > li.list-item').find('label').should('have.length.greaterThan', 0)
       })
 
-      cy.percySnapshot('articlenewslistingpage', { widths: [768, 992, 1200] })
+      cy.visualSnapshot('articlenewslistingpage', { widths: [768, 992, 1200] })
     })
   })
 

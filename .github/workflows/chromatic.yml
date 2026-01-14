@@ -61,6 +61,7 @@ jobs:
             LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
             ELECTRON_EXTRA_LAUNCH_ARGS: --remote-debugging-port=9222
             CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+            CYPRESS_VISUAL_PROVIDER: chromatic
 
       # Manual runs: fail if there are diffs (forces review in Chromatic UI)
       - name: Run Chromatic (manual / PR-style)
@@ -68,6 +69,7 @@ jobs:
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           ELECTRON_EXTRA_LAUNCH_ARGS: --remote-debugging-port=9222
+          CYPRESS_VISUAL_PROVIDER: chromatic
         run: pnpm exec chromatic --cypress --project-token=$CHROMATIC_PROJECT_TOKEN
 
       # Main branch runs: auto-accept changes to update baseline (Percy-like behavior)
@@ -76,5 +78,6 @@ jobs:
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           ELECTRON_EXTRA_LAUNCH_ARGS: --remote-debugging-port=9222
+          CYPRESS_VISUAL_PROVIDER: chromatic
         run: pnpm exec chromatic --cypress --project-token=$CHROMATIC_PROJECT_TOKEN --auto-accept-changes
 

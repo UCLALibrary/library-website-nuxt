@@ -7,7 +7,7 @@ describe('Events & Exhibitions List page', () => {
       cy.get('.logo-ucla').should('be.visible')
       cy.get('.page-events-exhibits').should('be.visible')
       cy.get('h1.title').should('contain', 'Events & Exhibitions')
-      cy.percySnapshot('eventsexhibitionslist', { widths: [768, 992, 1200] })
+      cy.visualSnapshot('eventsexhibitionslist', { widths: [768, 992, 1200] })
     })
   })
   it('Visit Events & Exhibitions Listing page filter by event type', () => {
