@@ -11,7 +11,7 @@ describe('Access Collection page', () => {
         'contain',
         'Listing - Collections > Access Collections'
       )
-      cy.visualSnapshot('collectionaccesspage', { widths: [768, 992, 1200] })
+      cy.visualSnapshot('collectionaccesspage')
     })
   })
 

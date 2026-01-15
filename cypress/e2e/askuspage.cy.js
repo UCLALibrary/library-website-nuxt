@@ -7,6 +7,6 @@ describe('Ask Us page', () => {
       'contain',
       'Ask Us'
     )
-    cy.visualSnapshot('askuspage', { widths: [768, 992, 1200] })
+    cy.visualSnapshot('askuspage')
   })
 })

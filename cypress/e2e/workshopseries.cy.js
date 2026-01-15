@@ -6,7 +6,7 @@ describe('Services & Resources page', () => {
       'contain',
       'A Test Workshop with a "Pull Quote" FPB'
     )
-    cy.visualSnapshot('workshopseries', { widths: [768, 992, 1200] })
+    cy.visualSnapshot('workshopseries')
   })
 
   context("When there isn't an entry in craft", () => {

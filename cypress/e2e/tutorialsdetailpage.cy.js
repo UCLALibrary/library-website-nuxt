@@ -8,7 +8,7 @@ describe('Tutorials Detail page', () => {
       'contain',
       'Electron Configurations'
     )
-    cy.visualSnapshot('tutorialsdetailpage', { widths: [768, 992, 1200] })
+    cy.visualSnapshot('tutorialsdetailpage')
   })
 
   context("When there isn't an entry in craft", () => {

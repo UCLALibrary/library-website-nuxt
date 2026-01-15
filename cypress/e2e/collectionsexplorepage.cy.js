@@ -16,7 +16,7 @@ describe('Explore Collection page', () => {
         cy.wrap($el).click()
         cy.get('fieldset.base-checkbox-group > ul.list > li.list-item').find('label').should('have.length.greaterThan', 0)
       })
-      cy.visualSnapshot('collectionsexplorepage', { widths: [768, 992, 1200] })
+      cy.visualSnapshot('collectionsexplorepage')
     })
   })
 
@@ -30,7 +30,7 @@ describe('Explore Collection page', () => {
         'test'
       )
       cy.get('h2.about-results').invoke('text').should('not.be.empty')
-      cy.visualSnapshot('collectionsexplorepage', { widths: [768, 992, 1200] })
+      cy.visualSnapshot('collectionsexplorepage')
     })
   })
 

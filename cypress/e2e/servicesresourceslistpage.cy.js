@@ -4,7 +4,7 @@ describe('All Services & Resources Listing page', () => {
     cy.visit('/help/services-resources')
     cy.wait('@getHelpRoutes').then(() => {
       cy.get('.logo-ucla').should('be.visible')
-      cy.visualSnapshot('servicesresourceslistpage', { widths: [768, 992, 1200] })
+      cy.visualSnapshot('servicesresourceslistpage')
     })
   })
 
@@ -18,7 +18,7 @@ describe('All Services & Resources Listing page', () => {
         'test'
       )
       cy.get('h2.about-results').invoke('text').should('not.be.empty')
-      cy.visualSnapshot('servicesresourcessearch', { widths: [768, 992, 1200] })
+      cy.visualSnapshot('servicesresourcessearch')
     })
   })
 

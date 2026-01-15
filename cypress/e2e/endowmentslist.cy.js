@@ -7,7 +7,7 @@ describe('Endowments Listing page', () => {
     cy.get('.logo-ucla').should('be.visible')
     cy.get('.page-endowment-listing').should('be.visible')
     cy.get('h1.title').should('contain', 'Endowments')
-    cy.visualSnapshot('endowmentslist', { widths: [768, 992, 1200] })
+    cy.visualSnapshot('endowmentslist')
   })
   it('Search Found', () => {
     cy.visit('/give/endowments?q=lifu')

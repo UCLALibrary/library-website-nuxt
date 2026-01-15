@@ -7,7 +7,7 @@ describe('Policy Detail page', () => {
 
       cy.get('.page-anchor').scrollIntoView()
       cy.get('.page-anchor').should('be.visible')
-      cy.visualSnapshot('policiesdetailpage', { widths: [768, 992, 1200] })
+      cy.visualSnapshot('policiesdetailpage')
     })
   })
 

@@ -16,7 +16,7 @@ Cypress.Commands.add('visualSnapshot', (name) => {
   }
 
   if (provider === 'percy') {
-    cy.percySnapshot(name)
+    cy.percySnapshot(name, { widths: [768, 992, 1200] })
   }
 
   // else: do nothing locally

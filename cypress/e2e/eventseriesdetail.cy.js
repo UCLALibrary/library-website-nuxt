@@ -10,7 +10,7 @@ describe('Event Series Detail page', () => {
     // UCLA Library brand
     cy.get('.logo-ucla').should('be.visible')
     cy.get('h1.title').should('contain', 'Test - Event Series - Side Pie')
-    cy.visualSnapshot('eventseriesdetail', { widths: [768, 992, 1200] })
+    cy.visualSnapshot('eventseriesdetail')
   })
 
   context("When there isn't an entry in craft", () => {

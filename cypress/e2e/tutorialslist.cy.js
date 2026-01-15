@@ -6,7 +6,7 @@ describe('Tutorials Listing page', () => {
     cy.get('.logo-ucla').should('be.visible')
     cy.get('.page-tutorials-listing').should('be.visible')
     cy.get('h1.title').should('contain', 'Tutorials')
-    cy.visualSnapshot('tutorialslist', { widths: [768, 992, 1200] })
+    cy.visualSnapshot('tutorialslist')
   })
 
   it('Searches Tutorials Listing', () => {
