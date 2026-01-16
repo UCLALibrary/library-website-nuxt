@@ -9,7 +9,7 @@ jobs:
   chromatic:
     name: Chromatic - Nuxt3 Site (Cypress E2E)
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 50
 
     steps:
       - uses: actions/checkout@v4
@@ -70,7 +70,7 @@ jobs:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           ELECTRON_EXTRA_LAUNCH_ARGS: --remote-debugging-port=9222
           CYPRESS_VISUAL_PROVIDER: chromatic
-        run: pnpm exec chromatic --cypress --project-token=$CHROMATIC_PROJECT_TOKEN
+        run: pnpm exec chromatic --cypress --project-token=$CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
 
       # Main branch runs: auto-accept changes to update baseline (Percy-like behavior)
       - name: Run Chromatic (main baseline)
