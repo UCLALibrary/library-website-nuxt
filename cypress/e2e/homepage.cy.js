@@ -61,6 +61,6 @@ describe('Website Homepage', () => {
 
     cy.get('[aria-label="Ask Us: Online Chat"]').click({ force: true })
 
-    cy.percySnapshot({ widths: [768, 992, 1200] })
+    cy.visualSnapshot('HomePage')
   })
 })

@@ -12,7 +12,7 @@ describe('Article Detail page', () => {
       'contain',
       'I Like Turtles'
     )
-    cy.percySnapshot('articlenewsdetailpage', { widths: [768, 992, 1200] })
+    cy.visualSnapshot('articlenewsdetailpage')
   })
 
   context("When there isn't an entry in craft", () => {

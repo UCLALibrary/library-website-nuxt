@@ -10,7 +10,7 @@ describe('Help Topic page', () => {
     )
     cy.get('.page-anchor').scrollIntoView()
     cy.get('.page-anchor').should('be.visible')
-    cy.percySnapshot('helptopic', { widths: [768, 992, 1200] })
+    cy.visualSnapshot('helptopic')
   })
 
   context("When there isn't an entry in craft", () => {
