@@ -84,11 +84,11 @@ if (isChromatic) {
     })
   })
 } else if (isPercy) {
-  describe('Website Homepage',{ viewportWidth, viewportHeight }, () => {
+  describe('Website Homepage', { viewportWidth: 1200, viewportHeight: 1200 }, () => {
     runHomepageTests({ withSnapshot: true })
   })
 } else {
-  describe('Website Homepage',{ viewportWidth, viewportHeight }, () => {
+  describe('Website Homepage', { viewportWidth: 1200, viewportHeight: 1200 }, () => {
     runHomepageTests({ withSnapshot: false })
   })
 }
