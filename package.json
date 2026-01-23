@@ -45,7 +45,7 @@
     "nuxt-graphql-request": "^7.0.5",
     "sass": "^1.66.1",
     "ucla-library-design-tokens": "^5.42.0",
-    "@ucla-library-monorepo/ucla-library-website-components": "^1.31.3"
+    "@ucla-library-monorepo/ucla-library-website-components": "^1.61.0"
   },
   "engines": {
     "pnpm": "^9.12.1"
