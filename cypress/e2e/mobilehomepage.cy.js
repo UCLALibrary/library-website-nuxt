@@ -26,4 +26,3 @@ if (isPercy) {
     runMobileHomepageTests({ withSnapshot: false })
   })
 }
-

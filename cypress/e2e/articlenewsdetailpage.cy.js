@@ -4,7 +4,6 @@ const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
 const isPercy = provider === 'percy'
 
-
 function runArticleDetailTests({ withSnapshot = false } = {}) {
   it('Visits a News Detail Page', () => {
     cy.request({

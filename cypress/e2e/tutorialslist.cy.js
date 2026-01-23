@@ -17,7 +17,7 @@ function runTutorialsListingTests({ withSnapshot = false } = {}) {
       cy.visualSnapshot('tutorialslist')
     }
   })
-  if(!isChromatic && !isPercy) {
+  if (!isChromatic && !isPercy) {
     it('Searches Tutorials Listing', () => {
       cy.visit('/help/tutorials/?q=tutorial&filters=', { timeout: 60000 })
 

@@ -32,7 +32,7 @@ function runStaffListingTests({ withSnapshot = false } = {}) {
       cy.visualSnapshot('stafflistingpage')
     }
   })
-  if(!isChromatic && !isPercy) {
+  if (!isChromatic && !isPercy) {
     it('Visit Subject Librarian Listing page', () => {
       cy.intercept('/about/staff/*').as('getStaffRoutes')
       cy.visit('/about/staff?q=&filters=subjectLibrarian.keyword:(yes)', { timeout: 30000 })

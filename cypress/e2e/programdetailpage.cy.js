@@ -3,7 +3,6 @@ import { viewports } from '../support/viewports'
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
 const isPercy = provider === 'percy'
-const isLocal =
 
 function runProgramDetailTests({ withSnapshot = false } = {}) {
   it('Visit a Program Detail Page', () => {

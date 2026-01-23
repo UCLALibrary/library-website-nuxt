@@ -18,7 +18,7 @@ function runEndowmentsListingTests({ withSnapshot = false } = {}) {
       cy.visualSnapshot('endowmentslist')
     }
   })
-  if(!isChromatic && !isPercy) {
+  if (!isChromatic && !isPercy) {
     it('Search Found', () => {
       cy.visit('/give/endowments?q=lifu')
 

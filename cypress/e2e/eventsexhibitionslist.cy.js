@@ -20,7 +20,7 @@ function runEventsExhibitionsListTests({ withSnapshot = false } = {}) {
       }
     })
   })
-  if(!isChromatic && !isPercy) {
+  if (!isChromatic && !isPercy) {
     it('Visit Events & Exhibitions Listing page filter by event type', () => {
       cy.intercept('/visit/events-exhibitions/*').as('getEventsSearchRoutes')
 

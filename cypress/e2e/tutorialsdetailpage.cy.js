@@ -46,4 +46,7 @@ if (isChromatic) {
     runTutorialsDetailTests({ withSnapshot: true })
   })
 } else {
-  des
+  describe('Tutorials Detail Page', () => {
+    runTutorialsDetailTests({ withSnapshot: false })
+  })
+}

@@ -31,7 +31,7 @@ function runProgramListTests({ withSnapshot = false } = {}) {
       cy.visualSnapshot('programlistpage')
     }
   })
-  if(!isChromatic && !isPercy) {
+  if (!isChromatic && !isPercy) {
     it('Visit Program Listing page filter by type', () => {
       cy.visit('/about/programs?q=&filters=programType.title.keyword:(Collections)', {
         timeout: 60000

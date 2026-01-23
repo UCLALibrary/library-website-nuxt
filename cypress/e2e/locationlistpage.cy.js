@@ -30,7 +30,7 @@ function runLocationListingTests({ withSnapshot = false } = {}) {
       cy.visualSnapshot('locationlistpage')
     }
   })
-  if(!isChromatic && !isPercy) {
+  if (!isChromatic && !isPercy) {
     it('Visit Locations Listing page filter by type', () => {
       cy.visit('/visit/locations?q&filters=amenities.keyword:(Lockers)', {
         timeout: 60000

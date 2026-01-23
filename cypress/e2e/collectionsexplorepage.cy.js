@@ -55,7 +55,7 @@ function runExploreCollectionTests({ withSnapshot = false } = {}) {
       }
     })
   })
-  if(!isChromatic && !isPercy) {
+  if (!isChromatic && !isPercy) {
     it('Visit Collections Explore Listing page filter by category', () => {
       cy.visit('/collections/explore?q=spool&filters=physicalDigital.keyword:(physical)')
       cy.get('h2.about-results').should('be.visible')

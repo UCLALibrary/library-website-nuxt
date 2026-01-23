@@ -24,7 +24,7 @@ function runAccessCollectionTests({ withSnapshot = false } = {}) {
       }
     })
   })
-  if(!isChromatic && !isPercy) {
+  if (!isChromatic && !isPercy) {
     it('Search Found', () => {
       cy.visit('/collections/access?q=test')
 

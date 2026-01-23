@@ -15,7 +15,7 @@ function runHomepageTests({ withSnapshot = false, label = 'Desktop' } = {}) {
       .parent()
       .should('have.attr', 'href', 'https://www.ucla.edu')
 
-    if(label === 'Desktop') {
+    if (label === 'Desktop') {
       // NavSecondary
       cy.get('.nav-secondary')
         .should('contain', 'Locations & Hours')
@@ -27,7 +27,7 @@ function runHomepageTests({ withSnapshot = false, label = 'Desktop' } = {}) {
         .should('contain', 'Get help with...')
         .and('contain', 'Visit')
         .and('contain', 'About')
-    }else if(label === 'Mobile') {
+    } else if (label === 'Mobile') {
       cy.get('.header-main-responsive').should('be.visible')
     }
 
@@ -80,15 +80,15 @@ function runHomepageTests({ withSnapshot = false, label = 'Desktop' } = {}) {
 if (isChromatic) {
   viewports.forEach(({ label, viewportWidth, viewportHeight }) => {
     describe(`Website Homepage - ${label}`, { viewportWidth, viewportHeight }, () => {
-      runHomepageTests({ withSnapshot: true, label: label })
+      runHomepageTests({ withSnapshot: true, label })
     })
   })
 } else if (isPercy) {
-  describe('Website Homepage', () => {
+  describe('Website Homepage',{ viewportWidth, viewportHeight }, () => {
     runHomepageTests({ withSnapshot: true })
   })
 } else {
-  describe('Website Homepage', () => {
+  describe('Website Homepage',{ viewportWidth, viewportHeight }, () => {
     runHomepageTests({ withSnapshot: false })
   })
 }

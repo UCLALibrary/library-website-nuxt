@@ -13,7 +13,7 @@ function runSiteSearchTests({ withSnapshot = false } = {}) {
 
     // no snapshot for empty state
   })
-  if(!isChromatic && !isPercy) {
+  if (!isChromatic && !isPercy) {
     it('Search all', () => {
       cy.intercept('/search-site/*').as('getSearchRoutes')
       cy.visit('/search-site/?q=*', { timeout: 30000 })

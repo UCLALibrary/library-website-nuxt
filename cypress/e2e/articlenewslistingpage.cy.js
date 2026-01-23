@@ -30,7 +30,7 @@ function runArticleNewsListingTests({ withSnapshot = false } = {}) {
       }
     })
   })
-  if(!isChromatic && !isPercy) {
+  if (!isChromatic && !isPercy) {
     it('Visit News Article Listing page filter by category', () => {
       cy.visit('/about/news?q=&filters=articleCategory.title.keyword:(Featured)')
       cy.get('h2.about-results').should('be.visible')

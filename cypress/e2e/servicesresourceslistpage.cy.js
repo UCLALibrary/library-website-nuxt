@@ -39,7 +39,7 @@ function runServicesResourcesListingTests({ withSnapshot = false } = {}) {
       }
     })
   })
-  if(!isChromatic && !isPercy) {
+  if (!isChromatic && !isPercy) {
     it('Visit Services Listing page filter by category', () => {
       cy.visit('/help/services-resources?q=Radical&filters=serviceOrResourceType.keyword:(workshop+series)')
       cy.get('h2.about-results').should('be.visible')
