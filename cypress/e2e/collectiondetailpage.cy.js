@@ -4,7 +4,7 @@ const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
 const isPercy = provider === 'percy'
 
-function runCollectionDetailTests({ withSnapshot = false } = {}) {
+function runCollectionDetailTests({ withSnapshot = false, label = 'Desktop' } = {}) {
   it('Visits a Collection Detail Page', () => {
     cy.request({
       url: '/collections/explore/halloween-costumes/',
@@ -24,7 +24,17 @@ function runCollectionDetailTests({ withSnapshot = false } = {}) {
     cy.get('.page-anchor').scrollIntoView()
     cy.get('.page-anchor').should('be.visible')
 
-    if (withSnapshot) {
+    if (withSnapshot && label === 'Tablet') {
+      /*
+      Your story couldn’t be captured because it exceeds our
+      25,000,000px limit.
+      Its dimensions are 1,280x21,630px.
+      Possible ways to resolve:
+
+      Separate pages into components
+      Minimize the number of very large elements in a story
+      */
+
       cy.visualSnapshot('collectiondetailpage')
     }
   })
