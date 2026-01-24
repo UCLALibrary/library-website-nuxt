@@ -1,24 +1,17 @@
-const viewports = [
-  { name: 'Mobile', width: 375, height: 667 },
-  { name: 'Tablet', width: 768, height: 1024 },
-  { name: 'Desktop', width: 1280, height: 800 },
-]
-
 Cypress.Commands.add('visualSnapshot', (name) => {
-  const provider = Cypress.env('VISUAL_PROVIDER')
+  const provider = Cypress.env('VISUAL_PROVIDER') // "chromatic" | "percy" | undefined
 
   if (provider === 'chromatic') {
-    viewports.forEach(({ name: vpName, width, height }) => {
-      cy.viewport(width, height)
-      cy.takeSnapshot(`${name} - ${vpName}`)
-    })
+    // Chromatic snapshot at the CURRENT test viewport (set by describe/it config)
+    const w = Cypress.config('viewportWidth')
+    const h = Cypress.config('viewportHeight')
+    cy.takeSnapshot(`${name} - ${w}x${h}`)
     return
   }
 
   if (provider === 'percy') {
-    cy.percySnapshot(name, { widths: [768, 992, 1200] })
+    cy.percySnapshot(name)
   }
-
   // else: do nothing locally
 })
 

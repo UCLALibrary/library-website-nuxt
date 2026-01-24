@@ -1,24 +1,53 @@
-describe('Location Detail page', () => {
+import { viewports } from '../support/viewports'
+
+const provider = Cypress.env('VISUAL_PROVIDER')
+const isChromatic = provider === 'chromatic'
+const isPercy = provider === 'percy'
+
+function runLocationDetailTests({ withSnapshot = false } = {}) {
   it('Visit a Location Detail Page', () => {
     cy.visit('/visit/locations/biomed')
 
-    // UCLA Library brand
-    // cy.get(".logo-ucla").should("be.visible")
+    // UCLA Library brand (intentionally omitted on this page)
     cy.get('h1.title').should(
       'contain',
       'Louise M. Darling Biomedical Library'
     )
+
     cy.get('.page-anchor').scrollIntoView()
     cy.get('.page-anchor').should('be.visible')
-    cy.visualSnapshot('locationdetailpage')
+
+    if (withSnapshot) {
+      cy.visualSnapshot('locationdetailpage')
+    }
   })
 
-  context("When there isn't an entry in craft", () => {
-    it('Raises a 404 error', () => {
-      cy.request({ url: '/visit/locations/no_entry', failOnStatusCode: false }).its('status').should('equal', 404)
-      // cy.visit("/visit/locations/no_entry")
-      // cy.get("p.error").should("contain","404")
-      // cy.get("h1.error-title").should("contain","Page not found")
+  if (!isChromatic && !isPercy) {
+    context("When there isn't an entry in craft", () => {
+      it('Raises a 404 error', () => {
+        cy.request({
+          url: '/visit/locations/no_entry',
+          failOnStatusCode: false
+        })
+          .its('status')
+          .should('equal', 404)
+      })
+    })
+  }
+}
+
+if (isChromatic) {
+  viewports.forEach(({ label, viewportWidth, viewportHeight }) => {
+    describe(`Location Detail Page - ${label}`, { viewportWidth, viewportHeight }, () => {
+      runLocationDetailTests({ withSnapshot: true })
     })
   })
-})
+} else if (isPercy) {
+  describe('Location Detail Page', () => {
+    runLocationDetailTests({ withSnapshot: true })
+  })
+} else {
+  describe('Location Detail Page', () => {
+    runLocationDetailTests({ withSnapshot: false })
+  })
+}

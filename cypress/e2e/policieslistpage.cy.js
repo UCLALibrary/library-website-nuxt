@@ -1,14 +1,43 @@
-describe('Policy List page', () => {
+import { viewports } from '../support/viewports'
+
+const provider = Cypress.env('VISUAL_PROVIDER')
+const isChromatic = provider === 'chromatic'
+const isPercy = provider === 'percy'
+
+function runPolicyListTests({ withSnapshot = false } = {}) {
   it('Visits a Policy List Page', () => {
-    cy.visit('about/policies')
+    cy.visit('/about/policies')
+
+    // UCLA Library brand
     cy.get('.logo-ucla').should('be.visible')
     cy.get('.page-policies').should('be.visible')
+
     cy.get('h1.title').should(
       'contain',
       'Policies'
     )
+
     cy.get('.page-anchor').scrollIntoView()
     cy.get('.page-anchor').should('be.visible')
-    cy.visualSnapshot('policieslistpage')
+
+    if (withSnapshot) {
+      cy.visualSnapshot('policieslistpage')
+    }
   })
-})
+}
+
+if (isChromatic) {
+  viewports.forEach(({ label, viewportWidth, viewportHeight }) => {
+    describe(`Policy List Page - ${label}`, { viewportWidth, viewportHeight }, () => {
+      runPolicyListTests({ withSnapshot: true })
+    })
+  })
+} else if (isPercy) {
+  describe('Policy List Page', () => {
+    runPolicyListTests({ withSnapshot: true })
+  })
+} else {
+  describe('Policy List Page', () => {
+    runPolicyListTests({ withSnapshot: false })
+  })
+}

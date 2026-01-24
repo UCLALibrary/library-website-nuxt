@@ -1,7 +1,13 @@
-describe('Website Homepage', () => {
+import { viewports } from '../support/viewports'
+
+const provider = Cypress.env('VISUAL_PROVIDER')
+const isChromatic = provider === 'chromatic'
+const isPercy = provider === 'percy'
+
+function runHomepageTests({ withSnapshot = false, label = 'Desktop' } = {}) {
   it('Visit the Homepage', () => {
     cy.visit('/')
-    cy.viewport(1200, 1200)
+
     // UCLA brand
     cy.get('.site-brand-bar').should('be.visible')
     cy.get('.visually-hidden').should('contain', 'UCLA Home')
@@ -9,17 +15,21 @@ describe('Website Homepage', () => {
       .parent()
       .should('have.attr', 'href', 'https://www.ucla.edu')
 
-    // NavSecondary
-    cy.get('.nav-secondary')
-      .should('contain', 'Locations & Hours')
-      .and('contain', 'Ask Us')
-      .and('contain', 'My Account')
+    if (label === 'Desktop') {
+      // NavSecondary
+      cy.get('.nav-secondary')
+        .should('contain', 'Locations & Hours')
+        .and('contain', 'Ask Us')
+        .and('contain', 'My Account')
 
-    // NavPrimary
-    cy.get('.nav-primary')
-      .should('contain', 'Get help with...')
-      .and('contain', 'Visit')
-      .and('contain', 'About')
+      // NavPrimary
+      cy.get('.nav-primary')
+        .should('contain', 'Get help with...')
+        .and('contain', 'Visit')
+        .and('contain', 'About')
+    } else if (label === 'Mobile') {
+      cy.get('.header-main-responsive').should('be.visible')
+    }
 
     // MastheadPrimary
     cy.get('.masthead-primary').find('.logo').should('be.visible')
@@ -28,6 +38,7 @@ describe('Website Homepage', () => {
       .should('be.visible')
       .and('contain', 'Site Search')
       .and('contain', 'UC Library Search')
+
     cy.get('.masthead-primary')
       .find("input[type='search']")
       .should(
@@ -35,6 +46,7 @@ describe('Website Homepage', () => {
         'placeholder',
         'Search articles, books and more'
       )
+
     cy.get('.masthead-primary')
       .contains('a', 'Databases A-Z')
       .should(
@@ -42,6 +54,7 @@ describe('Website Homepage', () => {
         'href',
         'https://guides.library.ucla.edu/az.php?&_ga=2.194620910.2109030156.1663611669-236460657.1661379075'
       )
+
     cy.get('.masthead-primary')
       .contains('a', 'Course Reserves')
       .should(
@@ -49,9 +62,6 @@ describe('Website Homepage', () => {
         'href',
         'https://www.library.ucla.edu/borrow-renew-return/course-reserves'
       )
-    // cy.get(".masthead-primary")
-    //     .contains("a", "Advanced Search")
-    //     .should("have.attr", "href", "http://www.primo.com")
 
     // Get help with
     cy.get('.section-cards-with-illustrations').should(
@@ -61,6 +71,24 @@ describe('Website Homepage', () => {
 
     cy.get('[aria-label="Ask Us: Online Chat"]').click({ force: true })
 
-    cy.visualSnapshot('HomePage')
+    if (withSnapshot) {
+      cy.visualSnapshot('HomePage')
+    }
   })
-})
+}
+
+if (isChromatic) {
+  viewports.forEach(({ label, viewportWidth, viewportHeight }) => {
+    describe(`Website Homepage - ${label}`, { viewportWidth, viewportHeight }, () => {
+      runHomepageTests({ withSnapshot: true, label })
+    })
+  })
+} else if (isPercy) {
+  describe('Website Homepage', { viewportWidth: 1200, viewportHeight: 1200 }, () => {
+    runHomepageTests({ withSnapshot: true })
+  })
+} else {
+  describe('Website Homepage', { viewportWidth: 1200, viewportHeight: 1200 }, () => {
+    runHomepageTests({ withSnapshot: false })
+  })
+}
