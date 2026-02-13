@@ -46,8 +46,8 @@ importers:
         specifier: ^18.17.3
         version: 18.19.76
       '@ucla-library-monorepo/ucla-library-website-components':
-        specifier: ^1.61.0
-        version: 1.62.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(vuetify@3.7.13(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)))
+        specifier: ^1.64.3
+        version: 1.64.3(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(vuetify@3.7.13(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)))
       '@zadigetvoltaire/nuxt-gtm':
         specifier: ^0.0.13
         version: 0.0.13(magicast@0.3.5)(nuxt@3.15.4(@netlify/blobs@8.1.0)(@parcel/watcher@2.5.1)(@types/node@18.19.76)(db0@0.2.4)(eslint@8.57.1)(ioredis@5.5.0)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.34.8)(sass@1.85.0)(terser@5.39.0)(typescript@5.7.3)(vite@6.1.1(@types/node@18.19.76)(jiti@2.4.2)(sass@1.85.0)(terser@5.39.0)(yaml@2.7.0))(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
@@ -1948,8 +1948,8 @@ packages:
     resolution: {integrity: sha512-JJtkDduxLi9bivAB+cYOVMtbkqdPOhZ+ZI5LC47MIRrDV4Yn2o+ZnW10Nkmr28xRpSpdJ6Sm42Hjf2+REYXm0A==}
     engines: {node: ^16.0.0 || >=18.0.0}
 
-  '@ucla-library-monorepo/ucla-library-website-components@1.62.0':
-    resolution: {integrity: sha512-d/+hYM7B8oVolWSJlf7oB4yJOEF1l2PxqiPv0VSDuMIZzhdknHf/JY8zPTvCd8+cpHLMzzPIi0Ry3vV9F9lU1g==}
+  '@ucla-library-monorepo/ucla-library-website-components@1.64.3':
+    resolution: {integrity: sha512-rh/CDkQvdZhfQRkJEjW+H6GsVtjY/WgY5OAGH8cQzEOUOrBj8Y+X34QTBLGgjVQJpVJ/ayrf5fapn2BT6HqyuQ==}
     engines: {pnpm: ^9.12.1}
     peerDependencies:
       vue: ^3.5.12
@@ -10623,7 +10623,7 @@ snapshots:
       '@typescript-eslint/types': 6.21.0
       eslint-visitor-keys: 3.4.3
 
-  '@ucla-library-monorepo/ucla-library-website-components@1.62.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(vuetify@3.7.13(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)))':
+  '@ucla-library-monorepo/ucla-library-website-components@1.64.3(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(vuetify@3.7.13(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)))':
     dependencies:
       '@vuepic/vue-datepicker': 8.8.1(vue@3.5.13(typescript@5.7.3))
       '@vueuse/components': 11.3.0(vue@3.5.13(typescript@5.7.3))
