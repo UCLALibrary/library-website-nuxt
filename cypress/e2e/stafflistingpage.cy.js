@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runStaffListingTests({ withSnapshot = false } = {}) {
   it('Visit the Staff Listing Page', () => {
@@ -32,7 +31,7 @@ function runStaffListingTests({ withSnapshot = false } = {}) {
       cy.visualSnapshot('stafflistingpage')
     }
   })
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     it('Visit Subject Librarian Listing page', () => {
       cy.intercept('/about/staff/*').as('getStaffRoutes')
       cy.visit('/about/staff?q=&filters=subjectLibrarian.keyword:(yes)', { timeout: 30000 })
@@ -49,10 +48,6 @@ if (isChromatic) {
     describe(`Staff Listing Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runStaffListingTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Staff Listing Page', () => {
-    runStaffListingTests({ withSnapshot: true })
   })
 } else {
   describe('Staff Listing Page', () => {

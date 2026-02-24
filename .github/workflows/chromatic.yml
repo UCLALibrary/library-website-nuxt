@@ -72,7 +72,7 @@ jobs:
           CYPRESS_VISUAL_PROVIDER: chromatic
         run: pnpm exec chromatic --cypress --project-token=$CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
 
-      # Main branch runs: auto-accept changes to update baseline (Percy-like behavior)
+      # Main branch runs: auto-accept changes to update baseline
       - name: Run Chromatic (main baseline)
         if: github.ref_name == 'main'
         env:

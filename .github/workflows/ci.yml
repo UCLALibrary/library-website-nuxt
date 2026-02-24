@@ -26,23 +26,6 @@ jobs:
           message: 'chore: linter autofixes'
           default_author: github_actions
 
-  percy-instructions:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - name: Comment with percy instructions
-        uses: bubkoo/auto-comment@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          pullRequestOpened: >
-            # Percy Screenshots
-
-            In order to conserve our percy screenshot allowance, percy is not configured to run automatically. Please make sure the PR is ready and all other checks are passing, then start it manually:
-            1. Visit https://github.com/UCLALibrary/library-website-nuxt/actions/workflows/percy.yml
-            2. Click the 'Run workflow' button in the blue bar.
-            3. Select the correct branch for this PR and click 'Run workflow' again to confirm.
-
   chromatic-instructions:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest

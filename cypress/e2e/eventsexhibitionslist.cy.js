@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runEventsExhibitionsListTests({ withSnapshot = false } = {}) {
   it('Visits the Events & Exhibitions List Page', () => {
@@ -20,7 +19,7 @@ function runEventsExhibitionsListTests({ withSnapshot = false } = {}) {
       }
     })
   })
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     it('Visit Events & Exhibitions Listing page filter by event type', () => {
       cy.intercept('/visit/events-exhibitions/*').as('getEventsSearchRoutes')
 
@@ -44,10 +43,6 @@ if (isChromatic) {
     describe(`Events & Exhibitions List Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runEventsExhibitionsListTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Events & Exhibitions List Page', () => {
-    runEventsExhibitionsListTests({ withSnapshot: true })
   })
 } else {
   describe('Events & Exhibitions List Page', () => {

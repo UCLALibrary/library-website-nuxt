@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runJobOpportunitiesListTests({ withSnapshot = false } = {}) {
   it('Visits the Job Opportunities List Page', () => {
@@ -25,10 +24,6 @@ if (isChromatic) {
     describe(`Job Opportunities List Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runJobOpportunitiesListTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Job Opportunities List Page', () => {
-    runJobOpportunitiesListTests({ withSnapshot: true })
   })
 } else {
   describe('Job Opportunities List Page', () => {
