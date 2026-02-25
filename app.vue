@@ -52,17 +52,6 @@ onMounted(async () => {
   }
   await $alerts()
 })
-
-const shouldIncludeExtraScript = computed(() => {
-  if (useRuntimeConfig().public.hostName.includes('stage'))
-    return true
-  return false
-})
-const shouldIncludeProductionScript = computed(() => {
-  if (!useRuntimeConfig().public.hostName.includes('stage') && !useRuntimeConfig().public.hostName.includes('test'))
-    return true
-  return false
-})
 useHead({
   titleTemplate: title =>
     title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library',
@@ -72,22 +61,6 @@ useHead({
       src: 'https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753',
       defer: true
     },
-    ...(shouldIncludeExtraScript.value
-      ? [{
-          hid: 'gsurvey',
-          src: 'https://test-librarystudy.library.ucla.edu/gsurvey.js',
-          defer: true
-        }
-        ]
-      : []),
-    ...(shouldIncludeProductionScript.value
-      ? [{
-          hid: 'gsurvey',
-          src: 'https://librarystudy.library.ucla.edu/gsurvey.js',
-          defer: true
-        }
-        ]
-      : [])
   ]
 })
 </script>
