@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runLocationDetailTests({ withSnapshot = false } = {}) {
   it('Visit a Location Detail Page', () => {
@@ -22,7 +21,7 @@ function runLocationDetailTests({ withSnapshot = false } = {}) {
     }
   })
 
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     context("When there isn't an entry in craft", () => {
       it('Raises a 404 error', () => {
         cy.request({
@@ -41,10 +40,6 @@ if (isChromatic) {
     describe(`Location Detail Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runLocationDetailTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Location Detail Page', () => {
-    runLocationDetailTests({ withSnapshot: true })
   })
 } else {
   describe('Location Detail Page', () => {

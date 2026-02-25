@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runServicesResourcesListingTests({ withSnapshot = false } = {}) {
   it('Visits the All Services & Resources Listing Page', () => {
@@ -39,7 +38,7 @@ function runServicesResourcesListingTests({ withSnapshot = false } = {}) {
       }
     })
   })
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     it('Visit Services Listing page filter by category', () => {
       cy.visit('/help/services-resources?q=Radical&filters=serviceOrResourceType.keyword:(workshop+series)')
       cy.get('h2.about-results').should('be.visible')
@@ -52,10 +51,6 @@ if (isChromatic) {
     describe(`All Services & Resources Listing Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runServicesResourcesListingTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('All Services & Resources Listing Page', () => {
-    runServicesResourcesListingTests({ withSnapshot: true })
   })
 } else {
   describe('All Services & Resources Listing Page', () => {

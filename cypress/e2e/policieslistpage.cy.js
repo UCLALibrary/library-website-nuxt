@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runPolicyListTests({ withSnapshot = false } = {}) {
   it('Visits a Policy List Page', () => {
@@ -31,10 +30,6 @@ if (isChromatic) {
     describe(`Policy List Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runPolicyListTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Policy List Page', () => {
-    runPolicyListTests({ withSnapshot: true })
   })
 } else {
   describe('Policy List Page', () => {

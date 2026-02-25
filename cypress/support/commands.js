@@ -6,12 +6,8 @@ Cypress.Commands.add('visualSnapshot', (name) => {
     const w = Cypress.config('viewportWidth')
     const h = Cypress.config('viewportHeight')
     cy.takeSnapshot(`${name} - ${w}x${h}`)
-    return
   }
 
-  if (provider === 'percy') {
-    cy.percySnapshot(name)
-  }
   // else: do nothing locally
 })
 

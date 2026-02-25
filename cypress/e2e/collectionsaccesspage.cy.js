@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runAccessCollectionTests({ withSnapshot = false } = {}) {
   it('Visit an Access Collection Page', () => {
@@ -24,7 +23,7 @@ function runAccessCollectionTests({ withSnapshot = false } = {}) {
       }
     })
   })
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     it('Search Found', () => {
       cy.visit('/collections/access?q=test')
 
@@ -46,10 +45,6 @@ if (isChromatic) {
     describe(`Access Collection Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runAccessCollectionTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Access Collection Page', () => {
-    runAccessCollectionTests({ withSnapshot: true })
   })
 } else {
   describe('Access Collection Page', () => {

@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runPolicyDetailTests({ withSnapshot = false } = {}) {
   it('Visits a Policy Detail Page', () => {
@@ -22,7 +21,7 @@ function runPolicyDetailTests({ withSnapshot = false } = {}) {
     })
   })
 
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     context("When there isn't an entry in craft", () => {
       it('Raises a 404 error', () => {
         // TODO COMMENT THIS LINE later if static page 404 starts working
@@ -49,10 +48,6 @@ if (isChromatic) {
     describe(`Policy Detail Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runPolicyDetailTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Policy Detail Page', () => {
-    runPolicyDetailTests({ withSnapshot: true })
   })
 } else {
   describe('Policy Detail Page', () => {

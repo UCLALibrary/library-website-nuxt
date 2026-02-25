@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runAskUsTests({ withSnapshot = false } = {}) {
   it('Visits the Ask Us Page', () => {
@@ -24,10 +23,6 @@ if (isChromatic) {
     describe(`Ask Us Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runAskUsTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Ask Us Page', () => {
-    runAskUsTests({ withSnapshot: true })
   })
 } else {
   describe('Ask Us Page', () => {

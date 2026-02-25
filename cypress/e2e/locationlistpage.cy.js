@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runLocationListingTests({ withSnapshot = false } = {}) {
   it('Visit a Location Listing Page', () => {
@@ -30,7 +29,7 @@ function runLocationListingTests({ withSnapshot = false } = {}) {
       cy.visualSnapshot('locationlistpage')
     }
   })
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     it('Visit Locations Listing page filter by type', () => {
       cy.visit('/visit/locations?q&filters=amenities.keyword:(Lockers)', {
         timeout: 60000
@@ -48,10 +47,6 @@ if (isChromatic) {
     describe(`Location Listing Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runLocationListingTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Location Listing Page', () => {
-    runLocationListingTests({ withSnapshot: true })
   })
 } else {
   describe('Location Listing Page', () => {

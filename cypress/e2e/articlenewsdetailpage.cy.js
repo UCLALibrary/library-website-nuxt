@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runArticleDetailTests({ withSnapshot = false } = {}) {
   it('Visits a News Detail Page', () => {
@@ -25,7 +24,7 @@ function runArticleDetailTests({ withSnapshot = false } = {}) {
     }
   })
 
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     context("When there isn't an entry in craft", () => {
       it('Raises a 404 error', () => {
         cy.request({
@@ -44,10 +43,6 @@ if (isChromatic) {
     describe(`Article Detail Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runArticleDetailTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Article Detail Page', () => {
-    runArticleDetailTests({ withSnapshot: true })
   })
 } else {
   describe('Article Detail Page', () => {
