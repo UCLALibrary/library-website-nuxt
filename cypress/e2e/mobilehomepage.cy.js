@@ -1,6 +1,3 @@
-const provider = Cypress.env('VISUAL_PROVIDER')
-const isPercy = provider === 'percy'
-
 function runMobileHomepageTests({ withSnapshot = false } = {}) {
   it('Visit the Mobile Homepage', () => {
     cy.visit('/')
@@ -17,12 +14,7 @@ function runMobileHomepageTests({ withSnapshot = false } = {}) {
     }
   })
 }
-if (isPercy) {
-  describe('Mobile Website Homepage', () => {
-    runMobileHomepageTests({ withSnapshot: true })
-  })
-} else {
-  describe('Mobile Website Homepage', () => {
-    runMobileHomepageTests({ withSnapshot: false })
-  })
-}
+
+describe('Mobile Website Homepage', () => {
+  runMobileHomepageTests({ withSnapshot: false })
+})

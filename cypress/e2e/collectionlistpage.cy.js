@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runCollectionListingTests({ withSnapshot = false } = {}) {
   it('Visit the Collection Listing Page', () => {
@@ -25,10 +24,6 @@ if (isChromatic) {
     describe(`Collection Listing Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runCollectionListingTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Collection Listing Page', () => {
-    runCollectionListingTests({ withSnapshot: true })
   })
 } else {
   describe('Collection Listing Page', () => {

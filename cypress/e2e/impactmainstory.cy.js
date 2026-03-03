@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runImpactMainStoryTests({ withSnapshot = false } = {}) {
   it('Visit the Impact Mainstory Page', () => {
@@ -33,10 +32,6 @@ if (isChromatic) {
     describe(`Impact Main Story Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runImpactMainStoryTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Impact Main Story Page', () => {
-    runImpactMainStoryTests({ withSnapshot: true })
   })
 } else {
   describe('Impact Main Story Page', () => {
