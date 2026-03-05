@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "CRAFT_ENDPOINT=${{secrets.CRAFT_TEST_ENDPOINT}} " >> $GITHUB_ENV
           echo "SITEMAP_HOST=${{secrets.SITEMAP_URL_TEST}}" >> $GITHUB_ENV
-          echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_SITE_ID_MEAP_TEST}}" >> $GITHUB_ENV
+          echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_SITE_ID_MEAP_TEST_NUXT3X}}" >> $GITHUB_ENV
           echo "ES_READ_KEY=${{secrets.ES_READ_KEY_TEST}}" >> $GITHUB_ENV
           echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_TEST}}" >> $GITHUB_ENV
           echo "ES_ALIAS=${{secrets.ES_ALIAS_TEST}}" >> $GITHUB_ENV
@@ -43,7 +43,7 @@ jobs:
         run: |
           echo "CRAFT_ENDPOINT=${{secrets.CRAFT_PROD_ENDPOINT}}" >> $GITHUB_ENV
           echo "SITEMAP_HOST=${{secrets.SITEMAP_URL_STAGE}}" >> $GITHUB_ENV
-          echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_SITE_ID_MEAP_TEST_NUXT3X}}" >> $GITHUB_ENV
+          echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_SITE_ID_MEAP_STAGE_NUXT3X}}" >> $GITHUB_ENV
           echo "ES_READ_KEY=${{secrets.ES_READ_KEY_STAGE}}" >> $GITHUB_ENV
           echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_STAGE}}" >> $GITHUB_ENV
           echo "ES_ALIAS=${{secrets.ES_ALIAS_STAGE}}" >> $GITHUB_ENV
@@ -64,7 +64,7 @@ jobs:
           production-deploy: true
           deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          publish-dir: "./dist"
+          publish-dir: .output/public
           fails-without-credentials: true
           github-deployment-environment: production
         env:
