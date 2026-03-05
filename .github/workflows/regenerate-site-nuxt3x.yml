@@ -1,0 +1,72 @@
+name: Regenerate static site manually for nuxt3 branch.
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment(test/stage)"
+        required: true
+        type: choice
+        options:
+          - test
+          - stage
+        default: "test"
+
+concurrency:
+  group: deploy-${{ github.event.inputs.environment }}
+  cancel-in-progress: true
+
+jobs:
+  nuxt-deploy:
+    name: Netlify deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: ./.github/workflows/setup-workspace
+      - name: Cache built static site
+        uses: actions/cache@v3
+        with:
+          path: ./dist
+          key: nuxt-site-${{ github.sha }}
+      - name: Sets env vars for test
+        run: |
+          echo "CRAFT_ENDPOINT=${{secrets.CRAFT_TEST_ENDPOINT}} " >> $GITHUB_ENV
+          echo "SITEMAP_HOST=${{secrets.SITEMAP_URL_TEST}}" >> $GITHUB_ENV
+          echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_SITE_ID_MEAP_TEST}}" >> $GITHUB_ENV
+          echo "ES_READ_KEY=${{secrets.ES_READ_KEY_TEST}}" >> $GITHUB_ENV
+          echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_TEST}}" >> $GITHUB_ENV
+          echo "ES_ALIAS=${{secrets.ES_ALIAS_TEST}}" >> $GITHUB_ENV
+          echo "ES_INDEX_PREFIX=${{secrets.ES_INDEX_PREFIX_TEST}}" >> $GITHUB_ENV
+        if: github.event.inputs.environment == 'test'
+      - name: Sets env vars for stage
+        run: |
+          echo "CRAFT_ENDPOINT=${{secrets.CRAFT_PROD_ENDPOINT}}" >> $GITHUB_ENV
+          echo "SITEMAP_HOST=${{secrets.SITEMAP_URL_STAGE}}" >> $GITHUB_ENV
+          echo "NETLIFY_SITE_ID=${{secrets.NETLIFY_SITE_ID_MEAP_TEST_NUXT3X}}" >> $GITHUB_ENV
+          echo "ES_READ_KEY=${{secrets.ES_READ_KEY_STAGE}}" >> $GITHUB_ENV
+          echo "ES_WRITE_KEY=${{secrets.ES_WRITE_KEY_STAGE}}" >> $GITHUB_ENV
+          echo "ES_ALIAS=${{secrets.ES_ALIAS_STAGE}}" >> $GITHUB_ENV
+          echo "ES_INDEX_PREFIX=${{secrets.ES_INDEX_PREFIX_STAGE}}" >> $GITHUB_ENV
+        if: github.event.inputs.environment == 'stage'
+      - run: npm run generate
+        env:
+          CRAFT_ENDPOINT: ${{env.CRAFT_ENDPOINT}}
+          SITEMAP_HOST: ${{env.SITEMAP_HOST}}
+          ES_URL: ${{ secrets.ES_URL }}
+          ES_READ_KEY: ${{env.ES_READ_KEY}}
+          ES_WRITE_KEY: ${{env.ES_WRITE_KEY}}
+          ES_ALIAS: ${{env.ES_ALIAS}}
+          ES_INDEX_PREFIX: ${{env.ES_INDEX_PREFIX}}
+      - name: Deploy to Netlify on release
+        uses: nwtgck/actions-netlify@v2 #
+        with:
+          production-deploy: true
+          deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          publish-dir: "./dist"
+          fails-without-credentials: true
+          github-deployment-environment: production
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{env.NETLIFY_SITE_ID}}
