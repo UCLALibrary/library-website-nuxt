@@ -275,7 +275,7 @@
 /about/news/awards-empower-ucla-members-to-expand-universitys-global-reach/	https://newsroom.ucla.edu/stories/education-research-awards-empower-members-to-expand-universitys-global-reach	301!
 /about/policies/appropriate-use-of-licensed-electronic-resources	https://www.whitehouse.gov/ostp/news-updates/2022/08/25/ostp-issues-guidance-to
 /about/policies/appropriate-use-of-licensed-electronic-resources/	https://www.whitehouse.gov/ostp/news-updates/2022/08/25/ostp-issues-guidance-to	301!
-/about/programs/books-open-access-boa-pilot-program	/about/programs/books-open-access-boa-pilot-program /about/programs/open-books-pilot-project
+/about/programs/books-open-access-boa-pilot-program	 /about/programs/open-books-pilot-project
 /about/programs/library-special-collections-lsc-research-fellowships-2023	/about/programs/library-special-collections-lsc-research-fellowships
 /about/staff/chen-gao-%E9%AB%98%E6%99%A8	/about/staff/chen-gao/
 /about/staff/hui-li-%E6%9D%8E%E6%85%A7	/about/staff/hui-li/
@@ -454,7 +454,7 @@
 /events/writing-literature-review-2421	/visit/events-exhibitions/
 /file/kristian-allen	/about/staff/kristian-allen/
 /get-help	/help/services-resources/ask-us
-/givemusic	/givemusic  https://giving.ucla.edu/campaign/?&OrgType=C&OrgNum=10100&fund=61516O
+/givemusic	 https://giving.ucla.edu/campaign/?&OrgType=C&OrgNum=10100&fund=61516O
 /help/services-resources	/help/services-resources
 /help/services-resources/	/help/services-resources	301!
 /help/services-resources/ask-us	/help/services-resources/ask-us
@@ -637,7 +637,7 @@
 /powell/cluster-program-support	/help/services-resources/cluster-program-support
 /powell/staff	/about/staff?q=&filters=locations.title.keyword:(Powell+Library)
 /questions	/help/services-resources/ask-us
-/questions/questions-ask-us	/questions/questions-ask-us /help/services-resources/ask-us
+/questions/questions-ask-us	 /help/services-resources/ask-us
 /research-data-services	/help/services-resources/data-services/
 /research-teaching-support	/help/teaching
 /research-teaching-support/pilot-emergency-temporary-digitization-request-petdor-service-ucla-researchers	/help/services-resources
@@ -690,7 +690,7 @@
 /special-collections	/visit/locations/library-special-collections/
 /special-collections/at-this-location/center-primary-research-training-cfprt	/about/programs/center-for-primary-research-and-training-cfprt
 /special-collections/discover-collections/online-exhibits	/collections/explore/
-/special-collections/discover-collections/online-exhibits/bloodletting-exhibit	/special-collections/discover-collections/online-exhibits/bloodletting-exhibit https://guides.library.ucla.edu/c.php?g=390460&p=10130567#s-lg-box-wrapper-39819540
+/special-collections/discover-collections/online-exhibits/bloodletting-exhibit https://guides.library.ucla.edu/c.php?g=390460&p=10130567#s-lg-box-wrapper-39819540
 /special-collections/medicine-sciences-biomedical-library/baby-books-collection	/visit/locations/library-special-collections
 /special-collections/plan-visit	/visit/locations/library-special-collections
 /special-collections/plan-visit/directions-parking	/visit/locations/library-special-collections
@@ -791,7 +791,7 @@
 /staff/victoria-puente	/about/staff/tori-puente
 /staff/wil-william-lin	/about/staff/wil-lin
 /staff/zhiyuan-yao-spatial-data-science	/about/staff/zhiyuan-yao
-/staff/*	/staff/* /about/staff/:splat  # MUST come after any individual staff member redirects
+/staff/*	 /about/staff/:splat  # MUST come after any individual staff member redirects
 /stafffield_staff_is_subject_librarian=1search_api_views_fulltextf%5B0%5D=field_staff_glossary_index%3ASpage=9	/about/staff?q=&filters=subjectLibrarian.keyword:(yes)
 /stafffield_staff_is_subject_librarian=1search_api_views_fulltextf%5B0%5D=field_staff_location%3A409	/about/staff?q=&filters=subjectLibrarian.keyword:(yes)&lastNameLetter=M
 /support/copyright-data-publishing	/help/copyright-data-publishing/
