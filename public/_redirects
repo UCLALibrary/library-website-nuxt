@@ -1,3 +1,6 @@
+# Suggested redirects (original + trailing-slash entries where Netlify redirects to slash)
+# Generated: Wed Mar 18 18:54:34 UTC 2026
+
 /about-ucla-library/about-collections/ucla-library-digital-collections	/about/programs/digital-library-program/
 /about-ucla-library/anti-racism-initiative	/about/programs/anti-racism-initiative-ari
 /about-ucla-library/giving-library	/give/
@@ -23,133 +26,256 @@
 /about/lauc-la/about-lauc-la/lauc-la-librarian-year	https://guides.library.ucla.edu/lauc-la/librarian-of-the-year
 /about/music-library-hours	/visit/locations/music-library
 /about/news/international-education-week-students-in-the-hearst-newsreels	https://cinema.ucla.edu/blogs/archive-blog/international-education-week-students-newsreels-2024-11-18
+/about/news/international-education-week-students-in-the-hearst-newsreels/	https://cinema.ucla.edu/blogs/archive-blog/international-education-week-students-newsreels-2024-11-18	301!
 /about/news/l-a-labor-leaders-link-the-past-and-future-during-visit-to-ucla-campus	https://irle.ucla.edu/2025/10/30/huerta-melendrez-visit/
+/about/news/l-a-labor-leaders-link-the-past-and-future-during-visit-to-ucla-campus/	https://irle.ucla.edu/2025/10/30/huerta-melendrez-visit/	301!
 /about/news/applications-open-for-2026-ucla-library-special-collections-research-fellowships	/about/programs/library-special-collections-lsc-research-fellowships
+/about/news/applications-open-for-2026-ucla-library-special-collections-research-fellowships/	/about/programs/library-special-collections-lsc-research-fellowships	301!
 /about/news/pbs-socal-lost-la-how-this-contraption-at-ucla-sent-the-first-dm	https://www.pbssocal.org/shows/lost-la/clip/how-this-contraption-at-ucla-sent-the-first-dm
+/about/news/pbs-socal-lost-la-how-this-contraption-at-ucla-sent-the-first-dm/	https://www.pbssocal.org/shows/lost-la/clip/how-this-contraption-at-ucla-sent-the-first-dm	301!
 /about/news/restoring-collective-memory-through-television-reparative-description-in-the-reflecciones-collection	https://www.cinema.ucla.edu/blogs/archive-blog/restoring-collective-memory-through-television-2025-10-27
+/about/news/restoring-collective-memory-through-television-reparative-description-in-the-reflecciones-collection/	https://www.cinema.ucla.edu/blogs/archive-blog/restoring-collective-memory-through-television-2025-10-27	301!
 /about/news/ucla-library-acquires-papers-of-natural-foods-pioneer-and-educator-sandy-gooch	https://newsroom.ucla.edu/releases/ucla-library-acquires-sandy-gooch-papers-natural-foods-pioneer-educator
+/about/news/ucla-library-acquires-papers-of-natural-foods-pioneer-and-educator-sandy-gooch/	https://newsroom.ucla.edu/releases/ucla-library-acquires-sandy-gooch-papers-natural-foods-pioneer-educator	301!
 /about/news/ucla-library-funds-34-international-cultural-preservation-projects	https://newsroom.ucla.edu/stories/ucla-library-funds-34-international-cultural-preservation-projects
+/about/news/ucla-library-funds-34-international-cultural-preservation-projects/	https://newsroom.ucla.edu/stories/ucla-library-funds-34-international-cultural-preservation-projects	301!
 /about/news/applications-open-for-the-2026-ucla-film-television-artist-in-residence-program	/about/programs/ucla-film-and-television-archive-artist-in-residence-program/
+/about/news/applications-open-for-the-2026-ucla-film-television-artist-in-residence-program/	/about/programs/ucla-film-and-television-archive-artist-in-residence-program/	301!
 /about/news/tcm-presents-60-years-of-the-ucla-film-television-archive	https://cinema.ucla.edu/blogs/archive-blog/tcm-presents-60-years-of-the-ucla-film-and-television-archive-2025-09-08
+/about/news/tcm-presents-60-years-of-the-ucla-film-television-archive/	https://cinema.ucla.edu/blogs/archive-blog/tcm-presents-60-years-of-the-ucla-film-and-television-archive-2025-09-08	301!
 /about/news/ucla-film-television-archive-presents-fall-2025-lineup	https://newsroom.ucla.edu/releases/ucla-film-television-archive-fall-2025-lineup
+/about/news/ucla-film-television-archive-presents-fall-2025-lineup/	https://newsroom.ucla.edu/releases/ucla-film-television-archive-fall-2025-lineup	301!
 /about/news/ucla-librarians-advance-the-teaching-research-and-patient-care-needs-of-the-ucla-health-enterprise	http://library.ucla.edu/impact/2024/ucla-librarians-advance-the-teaching-research-and-patient-care-needs-of-the-ucla-health-enterprise/
+/about/news/ucla-librarians-advance-the-teaching-research-and-patient-care-needs-of-the-ucla-health-enterprise/	http://library.ucla.edu/impact/2024/ucla-librarians-advance-the-teaching-research-and-patient-care-needs-of-the-ucla-health-enterprise/	301!
 /about/news/in-the-company-of-hollywood-and-lgbtq-trailblazer-dorothy-arzner-a-personal-encounter	https://newsroom.ucla.edu/stories/in-the-company-of-dorothy-arzner
+/about/news/in-the-company-of-hollywood-and-lgbtq-trailblazer-dorothy-arzner-a-personal-encounter/	https://newsroom.ucla.edu/stories/in-the-company-of-dorothy-arzner	301!
 /about/news/paromita-biswas-named-uclas-2025-librarian-of-the-year	https://newsroom.ucla.edu/stories/paromita-biswas-named-uclas-2025-librarian-of-the-year
+/about/news/paromita-biswas-named-uclas-2025-librarian-of-the-year/	https://newsroom.ucla.edu/stories/paromita-biswas-named-uclas-2025-librarian-of-the-year	301!
 /about/news/ucla-film-television-archive-welcomes-ariel-west-as-2025-artist-in-residence	https://www.cinema.ucla.edu/sites/default/files/UCLAFTVA_Artist-in-Residence_PressRelease_June2025.pdf
+/about/news/ucla-film-television-archive-welcomes-ariel-west-as-2025-artist-in-residence/	https://www.cinema.ucla.edu/sites/default/files/UCLAFTVA_Artist-in-Residence_PressRelease_June2025.pdf	301!
 /about/news/ucla-film-television-archives-summer-screenings-celebrate-cinematic-art-and-community	https://newsroom.ucla.edu/stories/ucla-film-television-archives-summer-screenings-2025
+/about/news/ucla-film-television-archives-summer-screenings-celebrate-cinematic-art-and-community/	https://newsroom.ucla.edu/stories/ucla-film-television-archives-summer-screenings-2025	301!
 /about/news/world-war-ii-ends-in-europe-allied-victory-in-the-hearst-newsreels	https://cinema.ucla.edu/blogs/archive-blog/world-war-II-ends-in-europe-allied-victory-in-the-hearst-newsreels
+/about/news/world-war-ii-ends-in-europe-allied-victory-in-the-hearst-newsreels/	https://cinema.ucla.edu/blogs/archive-blog/world-war-II-ends-in-europe-allied-victory-in-the-hearst-newsreels	301!
 /about/news/reflecciones-chicana-o-x-views-on-1970s-television-now-online	https://cinema.ucla.edu/blogs/archive-blog/reflecciones-chicanaox-views-2025-04-22
+/about/news/reflecciones-chicana-o-x-views-on-1970s-television-now-online/	https://cinema.ucla.edu/blogs/archive-blog/reflecciones-chicanaox-views-2025-04-22	301!
 /about/news/2025-ucla-celebration-of-iranian-cinema-presents-thought-provoking-stories	https://newsroom.ucla.edu/releases/2025-ucla-celebration-of-iranian-cinema-presents-thought-provoking-stories
+/about/news/2025-ucla-celebration-of-iranian-cinema-presents-thought-provoking-stories/	https://newsroom.ucla.edu/releases/2025-ucla-celebration-of-iranian-cinema-presents-thought-provoking-stories	301!
 /about/news/ucla-film-television-archive-spring-2025-presents-vibrant-free-cinema	https://newsroom.ucla.edu/releases/ucla-film-television-archive-spring-2025-presents-vibrant-free-cinema
+/about/news/ucla-film-television-archive-spring-2025-presents-vibrant-free-cinema/	https://newsroom.ucla.edu/releases/ucla-film-television-archive-spring-2025-presents-vibrant-free-cinema	301!
 /about/news/past-present-and-future-collide-in-ucla-labor-studies-sci-fi-class	https://irle.ucla.edu/2025/02/25/labor-studies-science-fiction-class/
+/about/news/past-present-and-future-collide-in-ucla-labor-studies-sci-fi-class/	https://irle.ucla.edu/2025/02/25/labor-studies-science-fiction-class/	301!
 /about/news/the-past-is-present	https://newsroom.ucla.edu/magazine/preservation-culture-film-television-languages-music
+/about/news/the-past-is-present/	https://newsroom.ucla.edu/magazine/preservation-culture-film-television-languages-music	301!
 /about/news/history-in-your-hands	https://newsroom.ucla.edu/magazine/campus-history-students-library-yearbook-archive
+/about/news/history-in-your-hands/	https://newsroom.ucla.edu/magazine/campus-history-students-library-yearbook-archive	301!
 /about/news/25-films-named-to-the-library-of-congress-national-film-registry-for-preservation	https://newsroom.loc.gov/news/25-films-named-to-national-film-registry-for-preservation/s/55d5285d-916f-4105-b7d4-7fc3ba8664e3
+/about/news/25-films-named-to-the-library-of-congress-national-film-registry-for-preservation/	https://newsroom.loc.gov/news/25-films-named-to-national-film-registry-for-preservation/s/55d5285d-916f-4105-b7d4-7fc3ba8664e3	301!
 /about/news/2023-2024-ucla-library-impact-report-community-of-care	/impact/2024
+/about/news/2023-2024-ucla-library-impact-report-community-of-care/	/impact/2024	301!
 /about/news/ucla-film-television-archive-welcomes-2025-with-free-winter-cinema	https://newsroom.ucla.edu/releases/film-television-archive-welcomes-2025-free-winter-cinema
+/about/news/ucla-film-television-archive-welcomes-2025-with-free-winter-cinema/	https://newsroom.ucla.edu/releases/film-television-archive-welcomes-2025-free-winter-cinema	301!
 /about/news/indigenous-knowledge-histories-and-futures-are-woven-throughout-pst-art-projects-at-ucla-and-beyond	https://newsroom.ucla.edu/releases/indigenous-knowledge-histories-futures-woven-throughout-pst-art-ucla-beyond
+/about/news/indigenous-knowledge-histories-and-futures-are-woven-throughout-pst-art-projects-at-ucla-and-beyond/	https://newsroom.ucla.edu/releases/indigenous-knowledge-histories-futures-woven-throughout-pst-art-ucla-beyond	301!
 /about/news/applications-open-for-2025-ucla-film-television-artist-in-residence-program	https://cinema.ucla.edu/blogs/archive-blog/2025-artist-in-residence-program
+/about/news/applications-open-for-2025-ucla-film-television-artist-in-residence-program/	https://cinema.ucla.edu/blogs/archive-blog/2025-artist-in-residence-program	301!
 /about/news/ucla-film-television-archive-presents-fall-2024-lineup-of-cinematic-and-tv-treasures	https://newsroom.ucla.edu/releases/ucla-film-television-archive-fall-2024-lineup
+/about/news/ucla-film-television-archive-presents-fall-2024-lineup-of-cinematic-and-tv-treasures/	https://newsroom.ucla.edu/releases/ucla-film-television-archive-fall-2024-lineup	301!
 /about/news/preserving-a-different-kind-of-dental-record	https://newsroom.ucla.edu/stories/ucla-dentistry-and-ucla-library-unique-archiving-project
+/about/news/preserving-a-different-kind-of-dental-record/	https://newsroom.ucla.edu/stories/ucla-dentistry-and-ucla-library-unique-archiving-project	301!
 /about/news/ucla-library-announces-winning-composition-for-resonate-2024	https://newsroom.ucla.edu/stories/ucla-library-winning-composition-resonate-2024-scores
+/about/news/ucla-library-announces-winning-composition-for-resonate-2024/	https://newsroom.ucla.edu/stories/ucla-library-winning-composition-resonate-2024-scores	301!
 /about/news/ucla-library-funds-26-international-cultural-preservation-projects	https://newsroom.ucla.edu/stories/ucla-library-funds-26-international-cultural-preservation-projects
+/about/news/ucla-library-funds-26-international-cultural-preservation-projects/	https://newsroom.ucla.edu/stories/ucla-library-funds-26-international-cultural-preservation-projects	301!
 /about/news/robert-gore-named-uclas-2024-librarian-of-the-year	https://newsroom.ucla.edu/stories/robert-gore-named-2024-ucla-librarian-of-the-year
+/about/news/robert-gore-named-uclas-2024-librarian-of-the-year/	https://newsroom.ucla.edu/stories/robert-gore-named-2024-ucla-librarian-of-the-year	301!
 /about/news/bruins-going-green-library-edition	https://www.sustain.ucla.edu/2024/07/30/bruins-going-green-library-edition/
+/about/news/bruins-going-green-library-edition/	https://www.sustain.ucla.edu/2024/07/30/bruins-going-green-library-edition/	301!
 /about/news/a-legacy-for-the-library	https://philanthropy.ucla.edu/stories/a-legacy-for-the-library/
+/about/news/a-legacy-for-the-library/	https://philanthropy.ucla.edu/stories/a-legacy-for-the-library/	301!
 /about/news/ucla-plays-a-pivotal-role-in-getty-pst-art-the-nations-largest-art-event	https://newsroom.ucla.edu/releases/ucla-plays-pivotal-role-getty-pst-art-nations-largest-art-event
+/about/news/ucla-plays-a-pivotal-role-in-getty-pst-art-the-nations-largest-art-event/	https://newsroom.ucla.edu/releases/ucla-plays-pivotal-role-getty-pst-art-nations-largest-art-event	301!
 /about/news/ucla-library-announces-new-senior-fellows-cohort	https://newsroom.ucla.edu/releases/ucla-library-announces-2024-senior-fellows-cohort
+/about/news/ucla-library-announces-new-senior-fellows-cohort/	https://newsroom.ucla.edu/releases/ucla-library-announces-2024-senior-fellows-cohort	301!
 /about/news/celebrating-40-years-of-empowerment-a-womens-history-month-collaboration	https://csw.ucla.edu/2024/03/04/celebrating-40-years-of-empowerment-a-womens-history-month-collaboration/
+/about/news/celebrating-40-years-of-empowerment-a-womens-history-month-collaboration/	https://csw.ucla.edu/2024/03/04/celebrating-40-years-of-empowerment-a-womens-history-month-collaboration/	301!
 /about/news/ucla-festival-of-preservation-celebrates-moving-image-history-on-april-5-7	https://newsroom.ucla.edu/releases/2024-ucla-festival-of-preservation-april-5-7
+/about/news/ucla-festival-of-preservation-celebrates-moving-image-history-on-april-5-7/	https://newsroom.ucla.edu/releases/2024-ucla-festival-of-preservation-april-5-7	301!
 /about/news/free-winter-cinema-welcome-2024-with-screenings-from-ucla-film-television-archive	https://newsroom.ucla.edu/releases/film-archive-schedule-winter-2024
+/about/news/free-winter-cinema-welcome-2024-with-screenings-from-ucla-film-television-archive/	https://newsroom.ucla.edu/releases/film-archive-schedule-winter-2024	301!
 /about/news/materials-from-legendary-hollywood-production-house-mirisch-corp-now-at-ucla-library	https://newsroom.ucla.edu/stories/hollywood-production-house-mirisch-materials-ucla-library
+/about/news/materials-from-legendary-hollywood-production-house-mirisch-corp-now-at-ucla-library/	https://newsroom.ucla.edu/stories/hollywood-production-house-mirisch-materials-ucla-library	301!
 /about/news/ucla-film-television-archive-announces-2024-artist-in-residence-program	https://cinema.ucla.edu/blogs/archive-blog/2023/12/04/artist-in-residence-program
+/about/news/ucla-film-television-archive-announces-2024-artist-in-residence-program/	https://cinema.ucla.edu/blogs/archive-blog/2023/12/04/artist-in-residence-program	301!
 /about/news/2022-2023-library-impact-report-focus-on-preservation-conservation	/impact/2023
+/about/news/2022-2023-library-impact-report-focus-on-preservation-conservation/	/impact/2023	301!
 /about/news/ginny-steel-elected-chair-of-the-oclc-board-of-trustees	https://www.oclc.org/en/news/releases/2023/20231113-board-of-trustees-november-update.html
+/about/news/ginny-steel-elected-chair-of-the-oclc-board-of-trustees/	https://www.oclc.org/en/news/releases/2023/20231113-board-of-trustees-november-update.html	301!
 /about/news/ucla-library-receives-4-2-million-political-cartoon-collection-spanning-centuries	https://newsroom.ucla.edu/releases/ucla-library-michael-susan-kahn-political-cartoon-collection
+/about/news/ucla-library-receives-4-2-million-political-cartoon-collection-spanning-centuries/	https://newsroom.ucla.edu/releases/ucla-library-michael-susan-kahn-political-cartoon-collection	301!
 /about/news/ucla-library-funds-30-international-cultural-preservation-projects	https://newsroom.ucla.edu/releases/modern-endangered-archives-program-2023-grants
+/about/news/ucla-library-funds-30-international-cultural-preservation-projects/	https://newsroom.ucla.edu/releases/modern-endangered-archives-program-2023-grants	301!
 /about/news/personal-archive-of-composer-james-horner-donated-to-ucla-library/	https://newsroom.ucla.edu/stories/james-horner-archive-ucla-library
 /about/news/carlo-medina-to-lead-uc-wide-southern-regional-library-facility-ucla-library-unified-access-services	https://newsroom.ucla.edu/stories/carlo-medina-southern-regional-library-facility-library-access-services
+/about/news/carlo-medina-to-lead-uc-wide-southern-regional-library-facility-ucla-library-unified-access-services/	https://newsroom.ucla.edu/stories/carlo-medina-southern-regional-library-facility-library-access-services	301!
 /about/news/job-announcement-university-librarian	https://evcp.ucla.edu/executive-searches/detail/job-announcement-university-librarian-2/
+/about/news/job-announcement-university-librarian/	https://evcp.ucla.edu/executive-searches/detail/job-announcement-university-librarian-2/	301!
 /about/news/ucla-library-awards-grants-to-10-school-of-music-projects	https://newsroom.ucla.edu/stories/ucla-library-awards-grants-10-contemporary-music-projects
+/about/news/ucla-library-awards-grants-to-10-school-of-music-projects/	https://newsroom.ucla.edu/stories/ucla-library-awards-grants-10-contemporary-music-projects	301!
 /about/news/3-short-films-pull-back-the-curtain-on-ucla-film-television-archives-work	https://newsroom.ucla.edu/releases/see-the-bigger-picture-film-television-archive
+/about/news/3-short-films-pull-back-the-curtain-on-ucla-film-television-archives-work/	https://newsroom.ucla.edu/releases/see-the-bigger-picture-film-television-archive	301!
 /about/news/courtney-hoffner-and-sangeeta-pal-named-2023-ucla-librarians-of-the-year	https://newsroom.ucla.edu/stories/courtney-hoffner-sangeeta-pal-2023-librarians-of-year
+/about/news/courtney-hoffner-and-sangeeta-pal-named-2023-ucla-librarians-of-the-year/	https://newsroom.ucla.edu/stories/courtney-hoffner-sangeeta-pal-2023-librarians-of-year	301!
 /about/news/ucla-library-preserves-the-legacy-of-jazz-pianist-composer-horace-tapscott	https://newsroom.ucla.edu/stories/ucla-library-horace-tapscott-archive-jazz-pianist-composer
+/about/news/ucla-library-preserves-the-legacy-of-jazz-pianist-composer-horace-tapscott/	https://newsroom.ucla.edu/stories/ucla-library-horace-tapscott-archive-jazz-pianist-composer	301!
 /about/news/injustice-remains-48-year-old-womens-prison-documentary-shows-how-little-has-changed	https://newsroom.ucla.edu/stories/injustice-remains-48-year-old-womens-prison-documentary-shows-how-little-has-changed
+/about/news/injustice-remains-48-year-old-womens-prison-documentary-shows-how-little-has-changed/	https://newsroom.ucla.edu/stories/injustice-remains-48-year-old-womens-prison-documentary-shows-how-little-has-changed	301!
 /about/news/five-decades-on-miki-goral-helps-keep-researchers-moving-forward	https://newsroom.ucla.edu/stories/librarian-miki-goral-moves-researchers-forward
+/about/news/five-decades-on-miki-goral-helps-keep-researchers-moving-forward/	https://newsroom.ucla.edu/stories/librarian-miki-goral-moves-researchers-forward	301!
 /about/news/arts-library-reopens-with-a-fresh-new-look	https://newsroom.ucla.edu/stories/ucla-library-arts-library-reopening
+/about/news/arts-library-reopens-with-a-fresh-new-look/	https://newsroom.ucla.edu/stories/ucla-library-arts-library-reopening	301!
 /about/news/revamped-ucla-library-website-offers-more-user-friendly-experience	https://newsroom.ucla.edu/stories/ucla-library-launches-new-website
+/about/news/revamped-ucla-library-website-offers-more-user-friendly-experience/	https://newsroom.ucla.edu/stories/ucla-library-launches-new-website	301!
 /about/news/histories-of-black-owned-businesses-in-los-angeles-preserved-by-ucla-library	https://newsroom.ucla.edu/stories/ucla-oral-histories-black-businesses-los-angeles
+/about/news/histories-of-black-owned-businesses-in-los-angeles-preserved-by-ucla-library/	https://newsroom.ucla.edu/stories/ucla-oral-histories-black-businesses-los-angeles	301!
 /about/news/remembering-a-true-br	/about/news/remembering-norman-j-powell-ucla-alumnus-and-visionary-ucla-library-donor/
 /about/news/2024-2025-ucla-library-impact-report-intersections-of-knowledge	/impact/2025
+/about/news/2024-2025-ucla-library-impact-report-intersections-of-knowledge/	/impact/2025	301!
 /about/news/a-los-angeles-communitys-century-of-memory-preserved	/impact/2025/a-los-angeles-communitys-century-of-memory-preserved/
+/about/news/a-los-angeles-communitys-century-of-memory-preserved/	/impact/2025/a-los-angeles-communitys-century-of-memory-preserved/	301!
 /about/news/faculty-library-partnership-boosts-student-achievement	/impact/2025/faculty-library-partnership-boosts-student-achievement/
+/about/news/faculty-library-partnership-boosts-student-achievement/	/impact/2025/faculty-library-partnership-boosts-student-achievement/	301!
 /about/news/ucla-library-enriches-creative-activity-across-los-angeles-through-region-wide-getty-initiative	/impact/2025/ucla-library-enriches-creative-activity-across-los-angeles-through-region-wide-getty-initiative/
+/about/news/ucla-library-enriches-creative-activity-across-los-angeles-through-region-wide-getty-initiative/	/impact/2025/ucla-library-enriches-creative-activity-across-los-angeles-through-region-wide-getty-initiative/	301!
 /about/news/awards-empower-ucla-members-to-expand-universitys-global-reach	https://newsroom.ucla.edu/stories/education-research-awards-empower-members-to-expand-universitys-global-reach
+/about/news/awards-empower-ucla-members-to-expand-universitys-global-reach/	https://newsroom.ucla.edu/stories/education-research-awards-empower-members-to-expand-universitys-global-reach	301!
 /about/news/international-education-week-students-in-the-hearst-newsreels	https://cinema.ucla.edu/blogs/archive-blog/international-education-week-students-newsreels-2024-11-18
+/about/news/international-education-week-students-in-the-hearst-newsreels/	https://cinema.ucla.edu/blogs/archive-blog/international-education-week-students-newsreels-2024-11-18	301!
 /about/news/l-a-labor-leaders-link-the-past-and-future-during-visit-to-ucla-campus	https://irle.ucla.edu/2025/10/30/huerta-melendrez-visit/
+/about/news/l-a-labor-leaders-link-the-past-and-future-during-visit-to-ucla-campus/	https://irle.ucla.edu/2025/10/30/huerta-melendrez-visit/	301!
 /about/news/applications-open-for-2026-ucla-library-special-collections-research-fellowships	/about/programs/library-special-collections-lsc-research-fellowships
+/about/news/applications-open-for-2026-ucla-library-special-collections-research-fellowships/	/about/programs/library-special-collections-lsc-research-fellowships	301!
 /about/news/pbs-socal-lost-la-how-this-contraption-at-ucla-sent-the-first-dm	https://www.pbssocal.org/shows/lost-la/clip/how-this-contraption-at-ucla-sent-the-first-dm
+/about/news/pbs-socal-lost-la-how-this-contraption-at-ucla-sent-the-first-dm/	https://www.pbssocal.org/shows/lost-la/clip/how-this-contraption-at-ucla-sent-the-first-dm	301!
 /about/news/restoring-collective-memory-through-television-reparative-description-in-the-reflecciones-collection	https://www.cinema.ucla.edu/blogs/archive-blog/restoring-collective-memory-through-television-2025-10-27
+/about/news/restoring-collective-memory-through-television-reparative-description-in-the-reflecciones-collection/	https://www.cinema.ucla.edu/blogs/archive-blog/restoring-collective-memory-through-television-2025-10-27	301!
 /about/news/ucla-library-acquires-papers-of-natural-foods-pioneer-and-educator-sandy-gooch	https://newsroom.ucla.edu/releases/ucla-library-acquires-sandy-gooch-papers-natural-foods-pioneer-educator
+/about/news/ucla-library-acquires-papers-of-natural-foods-pioneer-and-educator-sandy-gooch/	https://newsroom.ucla.edu/releases/ucla-library-acquires-sandy-gooch-papers-natural-foods-pioneer-educator	301!
 /about/news/ucla-library-funds-34-international-cultural-preservation-projects	https://newsroom.ucla.edu/stories/ucla-library-funds-34-international-cultural-preservation-projects
+/about/news/ucla-library-funds-34-international-cultural-preservation-projects/	https://newsroom.ucla.edu/stories/ucla-library-funds-34-international-cultural-preservation-projects	301!
 /about/news/applications-open-for-the-2026-ucla-film-television-artist-in-residence-program	/about/programs/ucla-film-and-television-archive-artist-in-residence-program/
+/about/news/applications-open-for-the-2026-ucla-film-television-artist-in-residence-program/	/about/programs/ucla-film-and-television-archive-artist-in-residence-program/	301!
 /about/news/tcm-presents-60-years-of-the-ucla-film-television-archive	https://cinema.ucla.edu/blogs/archive-blog/tcm-presents-60-years-of-the-ucla-film-and-television-archive-2025-09-08
+/about/news/tcm-presents-60-years-of-the-ucla-film-television-archive/	https://cinema.ucla.edu/blogs/archive-blog/tcm-presents-60-years-of-the-ucla-film-and-television-archive-2025-09-08	301!
 /about/news/ucla-film-television-archive-presents-fall-2025-lineup	https://newsroom.ucla.edu/releases/ucla-film-television-archive-fall-2025-lineup
+/about/news/ucla-film-television-archive-presents-fall-2025-lineup/	https://newsroom.ucla.edu/releases/ucla-film-television-archive-fall-2025-lineup	301!
 /about/news/ucla-librarians-advance-the-teaching-research-and-patient-care-needs-of-the-ucla-health-enterprise	http://library.ucla.edu/impact/2024/ucla-librarians-advance-the-teaching-research-and-patient-care-needs-of-the-ucla-health-enterprise/
+/about/news/ucla-librarians-advance-the-teaching-research-and-patient-care-needs-of-the-ucla-health-enterprise/	http://library.ucla.edu/impact/2024/ucla-librarians-advance-the-teaching-research-and-patient-care-needs-of-the-ucla-health-enterprise/	301!
 /about/news/in-the-company-of-hollywood-and-lgbtq-trailblazer-dorothy-arzner-a-personal-encounter	https://newsroom.ucla.edu/stories/in-the-company-of-dorothy-arzner
+/about/news/in-the-company-of-hollywood-and-lgbtq-trailblazer-dorothy-arzner-a-personal-encounter/	https://newsroom.ucla.edu/stories/in-the-company-of-dorothy-arzner	301!
 /about/news/paromita-biswas-named-uclas-2025-librarian-of-the-year	https://newsroom.ucla.edu/stories/paromita-biswas-named-uclas-2025-librarian-of-the-year
+/about/news/paromita-biswas-named-uclas-2025-librarian-of-the-year/	https://newsroom.ucla.edu/stories/paromita-biswas-named-uclas-2025-librarian-of-the-year	301!
 /about/news/ucla-film-television-archive-welcomes-ariel-west-as-2025-artist-in-residence	https://www.cinema.ucla.edu/sites/default/files/UCLAFTVA_Artist-in-Residence_PressRelease_June2025.pdf
+/about/news/ucla-film-television-archive-welcomes-ariel-west-as-2025-artist-in-residence/	https://www.cinema.ucla.edu/sites/default/files/UCLAFTVA_Artist-in-Residence_PressRelease_June2025.pdf	301!
 /about/news/ucla-film-television-archives-summer-screenings-celebrate-cinematic-art-and-community	https://newsroom.ucla.edu/stories/ucla-film-television-archives-summer-screenings-2025
+/about/news/ucla-film-television-archives-summer-screenings-celebrate-cinematic-art-and-community/	https://newsroom.ucla.edu/stories/ucla-film-television-archives-summer-screenings-2025	301!
 /about/news/world-war-ii-ends-in-europe-allied-victory-in-the-hearst-newsreels	https://cinema.ucla.edu/blogs/archive-blog/world-war-II-ends-in-europe-allied-victory-in-the-hearst-newsreels
+/about/news/world-war-ii-ends-in-europe-allied-victory-in-the-hearst-newsreels/	https://cinema.ucla.edu/blogs/archive-blog/world-war-II-ends-in-europe-allied-victory-in-the-hearst-newsreels	301!
 /about/news/reflecciones-chicana-o-x-views-on-1970s-television-now-online	https://cinema.ucla.edu/blogs/archive-blog/reflecciones-chicanaox-views-2025-04-22
+/about/news/reflecciones-chicana-o-x-views-on-1970s-television-now-online/	https://cinema.ucla.edu/blogs/archive-blog/reflecciones-chicanaox-views-2025-04-22	301!
 /about/news/2025-ucla-celebration-of-iranian-cinema-presents-thought-provoking-stories	https://newsroom.ucla.edu/releases/2025-ucla-celebration-of-iranian-cinema-presents-thought-provoking-stories
+/about/news/2025-ucla-celebration-of-iranian-cinema-presents-thought-provoking-stories/	https://newsroom.ucla.edu/releases/2025-ucla-celebration-of-iranian-cinema-presents-thought-provoking-stories	301!
 /about/news/ucla-film-television-archive-spring-2025-presents-vibrant-free-cinema	https://newsroom.ucla.edu/releases/ucla-film-television-archive-spring-2025-presents-vibrant-free-cinema
+/about/news/ucla-film-television-archive-spring-2025-presents-vibrant-free-cinema/	https://newsroom.ucla.edu/releases/ucla-film-television-archive-spring-2025-presents-vibrant-free-cinema	301!
 /about/news/past-present-and-future-collide-in-ucla-labor-studies-sci-fi-class	https://irle.ucla.edu/2025/02/25/labor-studies-science-fiction-class/
+/about/news/past-present-and-future-collide-in-ucla-labor-studies-sci-fi-class/	https://irle.ucla.edu/2025/02/25/labor-studies-science-fiction-class/	301!
 /about/news/the-past-is-present	https://newsroom.ucla.edu/magazine/preservation-culture-film-television-languages-music
+/about/news/the-past-is-present/	https://newsroom.ucla.edu/magazine/preservation-culture-film-television-languages-music	301!
 /about/news/history-in-your-hands	https://newsroom.ucla.edu/magazine/campus-history-students-library-yearbook-archive
+/about/news/history-in-your-hands/	https://newsroom.ucla.edu/magazine/campus-history-students-library-yearbook-archive	301!
 /about/news/25-films-named-to-the-library-of-congress-national-film-registry-for-preservation	https://newsroom.loc.gov/news/25-films-named-to-national-film-registry-for-preservation/s/55d5285d-916f-4105-b7d4-7fc3ba8664e3
+/about/news/25-films-named-to-the-library-of-congress-national-film-registry-for-preservation/	https://newsroom.loc.gov/news/25-films-named-to-national-film-registry-for-preservation/s/55d5285d-916f-4105-b7d4-7fc3ba8664e3	301!
 /about/news/2023-2024-ucla-library-impact-report-community-of-care	/impact/2024
+/about/news/2023-2024-ucla-library-impact-report-community-of-care/	/impact/2024	301!
 /about/news/ucla-film-television-archive-welcomes-2025-with-free-winter-cinema	https://newsroom.ucla.edu/releases/film-television-archive-welcomes-2025-free-winter-cinema
+/about/news/ucla-film-television-archive-welcomes-2025-with-free-winter-cinema/	https://newsroom.ucla.edu/releases/film-television-archive-welcomes-2025-free-winter-cinema	301!
 /about/news/indigenous-knowledge-histories-and-futures-are-woven-throughout-pst-art-projects-at-ucla-and-beyond	https://newsroom.ucla.edu/releases/indigenous-knowledge-histories-futures-woven-throughout-pst-art-ucla-beyond
+/about/news/indigenous-knowledge-histories-and-futures-are-woven-throughout-pst-art-projects-at-ucla-and-beyond/	https://newsroom.ucla.edu/releases/indigenous-knowledge-histories-futures-woven-throughout-pst-art-ucla-beyond	301!
 /about/news/applications-open-for-2025-ucla-film-television-artist-in-residence-program	https://cinema.ucla.edu/blogs/archive-blog/2025-artist-in-residence-program
+/about/news/applications-open-for-2025-ucla-film-television-artist-in-residence-program/	https://cinema.ucla.edu/blogs/archive-blog/2025-artist-in-residence-program	301!
 /about/news/ucla-film-television-archive-presents-fall-2024-lineup-of-cinematic-and-tv-treasures	https://newsroom.ucla.edu/releases/ucla-film-television-archive-fall-2024-lineup
+/about/news/ucla-film-television-archive-presents-fall-2024-lineup-of-cinematic-and-tv-treasures/	https://newsroom.ucla.edu/releases/ucla-film-television-archive-fall-2024-lineup	301!
 /about/news/preserving-a-different-kind-of-dental-record	https://newsroom.ucla.edu/stories/ucla-dentistry-and-ucla-library-unique-archiving-project
+/about/news/preserving-a-different-kind-of-dental-record/	https://newsroom.ucla.edu/stories/ucla-dentistry-and-ucla-library-unique-archiving-project	301!
 /about/news/ucla-library-announces-winning-composition-for-resonate-2024	https://newsroom.ucla.edu/stories/ucla-library-winning-composition-resonate-2024-scores
+/about/news/ucla-library-announces-winning-composition-for-resonate-2024/	https://newsroom.ucla.edu/stories/ucla-library-winning-composition-resonate-2024-scores	301!
 /about/news/ucla-library-funds-26-international-cultural-preservation-projects	https://newsroom.ucla.edu/stories/ucla-library-funds-26-international-cultural-preservation-projects
+/about/news/ucla-library-funds-26-international-cultural-preservation-projects/	https://newsroom.ucla.edu/stories/ucla-library-funds-26-international-cultural-preservation-projects	301!
 /about/news/robert-gore-named-uclas-2024-librarian-of-the-year	https://newsroom.ucla.edu/stories/robert-gore-named-2024-ucla-librarian-of-the-year
+/about/news/robert-gore-named-uclas-2024-librarian-of-the-year/	https://newsroom.ucla.edu/stories/robert-gore-named-2024-ucla-librarian-of-the-year	301!
 /about/news/bruins-going-green-library-edition	https://www.sustain.ucla.edu/2024/07/30/bruins-going-green-library-edition/
+/about/news/bruins-going-green-library-edition/	https://www.sustain.ucla.edu/2024/07/30/bruins-going-green-library-edition/	301!
 /about/news/a-legacy-for-the-library	https://philanthropy.ucla.edu/stories/a-legacy-for-the-library/
+/about/news/a-legacy-for-the-library/	https://philanthropy.ucla.edu/stories/a-legacy-for-the-library/	301!
 /about/news/ucla-plays-a-pivotal-role-in-getty-pst-art-the-nations-largest-art-event	https://newsroom.ucla.edu/releases/ucla-plays-pivotal-role-getty-pst-art-nations-largest-art-event
+/about/news/ucla-plays-a-pivotal-role-in-getty-pst-art-the-nations-largest-art-event/	https://newsroom.ucla.edu/releases/ucla-plays-pivotal-role-getty-pst-art-nations-largest-art-event	301!
 /about/news/ucla-library-announces-new-senior-fellows-cohort	https://newsroom.ucla.edu/releases/ucla-library-announces-2024-senior-fellows-cohort
+/about/news/ucla-library-announces-new-senior-fellows-cohort/	https://newsroom.ucla.edu/releases/ucla-library-announces-2024-senior-fellows-cohort	301!
 /about/news/celebrating-40-years-of-empowerment-a-womens-history-month-collaboration	https://csw.ucla.edu/2024/03/04/celebrating-40-years-of-empowerment-a-womens-history-month-collaboration/
+/about/news/celebrating-40-years-of-empowerment-a-womens-history-month-collaboration/	https://csw.ucla.edu/2024/03/04/celebrating-40-years-of-empowerment-a-womens-history-month-collaboration/	301!
 /about/news/ucla-festival-of-preservation-celebrates-moving-image-history-on-april-5-7	https://newsroom.ucla.edu/releases/2024-ucla-festival-of-preservation-april-5-7
+/about/news/ucla-festival-of-preservation-celebrates-moving-image-history-on-april-5-7/	https://newsroom.ucla.edu/releases/2024-ucla-festival-of-preservation-april-5-7	301!
 /about/news/free-winter-cinema-welcome-2024-with-screenings-from-ucla-film-television-archive	https://newsroom.ucla.edu/releases/film-archive-schedule-winter-2024
+/about/news/free-winter-cinema-welcome-2024-with-screenings-from-ucla-film-television-archive/	https://newsroom.ucla.edu/releases/film-archive-schedule-winter-2024	301!
 /about/news/materials-from-legendary-hollywood-production-house-mirisch-corp-now-at-ucla-library	https://newsroom.ucla.edu/stories/hollywood-production-house-mirisch-materials-ucla-library
+/about/news/materials-from-legendary-hollywood-production-house-mirisch-corp-now-at-ucla-library/	https://newsroom.ucla.edu/stories/hollywood-production-house-mirisch-materials-ucla-library	301!
 /about/news/ucla-film-television-archive-announces-2024-artist-in-residence-program	https://cinema.ucla.edu/blogs/archive-blog/2023/12/04/artist-in-residence-program
+/about/news/ucla-film-television-archive-announces-2024-artist-in-residence-program/	https://cinema.ucla.edu/blogs/archive-blog/2023/12/04/artist-in-residence-program	301!
 /about/news/2022-2023-library-impact-report-focus-on-preservation-conservation	/impact/2023
+/about/news/2022-2023-library-impact-report-focus-on-preservation-conservation/	/impact/2023	301!
 /about/news/ginny-steel-elected-chair-of-the-oclc-board-of-trustees	https://www.oclc.org/en/news/releases/2023/20231113-board-of-trustees-november-update.html
+/about/news/ginny-steel-elected-chair-of-the-oclc-board-of-trustees/	https://www.oclc.org/en/news/releases/2023/20231113-board-of-trustees-november-update.html	301!
 /about/news/ucla-library-receives-4-2-million-political-cartoon-collection-spanning-centuries	https://newsroom.ucla.edu/releases/ucla-library-michael-susan-kahn-political-cartoon-collection
+/about/news/ucla-library-receives-4-2-million-political-cartoon-collection-spanning-centuries/	https://newsroom.ucla.edu/releases/ucla-library-michael-susan-kahn-political-cartoon-collection	301!
 /about/news/ucla-library-funds-30-international-cultural-preservation-projects	https://newsroom.ucla.edu/releases/modern-endangered-archives-program-2023-grants
+/about/news/ucla-library-funds-30-international-cultural-preservation-projects/	https://newsroom.ucla.edu/releases/modern-endangered-archives-program-2023-grants	301!
 /about/news/personal-archive-of-composer-james-horner-donated-to-ucla-library/	https://newsroom.ucla.edu/stories/james-horner-archive-ucla-library
 /about/news/carlo-medina-to-lead-uc-wide-southern-regional-library-facility-ucla-library-unified-access-services	https://newsroom.ucla.edu/stories/carlo-medina-southern-regional-library-facility-library-access-services
+/about/news/carlo-medina-to-lead-uc-wide-southern-regional-library-facility-ucla-library-unified-access-services/	https://newsroom.ucla.edu/stories/carlo-medina-southern-regional-library-facility-library-access-services	301!
 /about/news/job-announcement-university-librarian	https://evcp.ucla.edu/executive-searches/detail/job-announcement-university-librarian-2/
+/about/news/job-announcement-university-librarian/	https://evcp.ucla.edu/executive-searches/detail/job-announcement-university-librarian-2/	301!
 /about/news/ucla-library-awards-grants-to-10-school-of-music-projects	https://newsroom.ucla.edu/stories/ucla-library-awards-grants-10-contemporary-music-projects
+/about/news/ucla-library-awards-grants-to-10-school-of-music-projects/	https://newsroom.ucla.edu/stories/ucla-library-awards-grants-10-contemporary-music-projects	301!
 /about/news/3-short-films-pull-back-the-curtain-on-ucla-film-television-archives-work	https://newsroom.ucla.edu/releases/see-the-bigger-picture-film-television-archive
+/about/news/3-short-films-pull-back-the-curtain-on-ucla-film-television-archives-work/	https://newsroom.ucla.edu/releases/see-the-bigger-picture-film-television-archive	301!
 /about/news/courtney-hoffner-and-sangeeta-pal-named-2023-ucla-librarians-of-the-year	https://newsroom.ucla.edu/stories/courtney-hoffner-sangeeta-pal-2023-librarians-of-year
+/about/news/courtney-hoffner-and-sangeeta-pal-named-2023-ucla-librarians-of-the-year/	https://newsroom.ucla.edu/stories/courtney-hoffner-sangeeta-pal-2023-librarians-of-year	301!
 /about/news/ucla-library-preserves-the-legacy-of-jazz-pianist-composer-horace-tapscott	https://newsroom.ucla.edu/stories/ucla-library-horace-tapscott-archive-jazz-pianist-composer
+/about/news/ucla-library-preserves-the-legacy-of-jazz-pianist-composer-horace-tapscott/	https://newsroom.ucla.edu/stories/ucla-library-horace-tapscott-archive-jazz-pianist-composer	301!
 /about/news/injustice-remains-48-year-old-womens-prison-documentary-shows-how-little-has-changed	https://newsroom.ucla.edu/stories/injustice-remains-48-year-old-womens-prison-documentary-shows-how-little-has-changed
+/about/news/injustice-remains-48-year-old-womens-prison-documentary-shows-how-little-has-changed/	https://newsroom.ucla.edu/stories/injustice-remains-48-year-old-womens-prison-documentary-shows-how-little-has-changed	301!
 /about/news/five-decades-on-miki-goral-helps-keep-researchers-moving-forward	https://newsroom.ucla.edu/stories/librarian-miki-goral-moves-researchers-forward
+/about/news/five-decades-on-miki-goral-helps-keep-researchers-moving-forward/	https://newsroom.ucla.edu/stories/librarian-miki-goral-moves-researchers-forward	301!
 /about/news/arts-library-reopens-with-a-fresh-new-look	https://newsroom.ucla.edu/stories/ucla-library-arts-library-reopening
+/about/news/arts-library-reopens-with-a-fresh-new-look/	https://newsroom.ucla.edu/stories/ucla-library-arts-library-reopening	301!
 /about/news/revamped-ucla-library-website-offers-more-user-friendly-experience	https://newsroom.ucla.edu/stories/ucla-library-launches-new-website
+/about/news/revamped-ucla-library-website-offers-more-user-friendly-experience/	https://newsroom.ucla.edu/stories/ucla-library-launches-new-website	301!
 /about/news/histories-of-black-owned-businesses-in-los-angeles-preserved-by-ucla-library	https://newsroom.ucla.edu/stories/ucla-oral-histories-black-businesses-los-angeles
+/about/news/histories-of-black-owned-businesses-in-los-angeles-preserved-by-ucla-library/	https://newsroom.ucla.edu/stories/ucla-oral-histories-black-businesses-los-angeles	301!
 /about/news/remembering-a-true-br	/about/news/remembering-norman-j-powell-ucla-alumnus-and-visionary-ucla-library-donor/
 /about/news/2024-2025-ucla-library-impact-report-intersections-of-knowledge	/impact/2025
+/about/news/2024-2025-ucla-library-impact-report-intersections-of-knowledge/	/impact/2025	301!
 /about/news/a-los-angeles-communitys-century-of-memory-preserved	/impact/2025/a-los-angeles-communitys-century-of-memory-preserved/
+/about/news/a-los-angeles-communitys-century-of-memory-preserved/	/impact/2025/a-los-angeles-communitys-century-of-memory-preserved/	301!
 /about/news/faculty-library-partnership-boosts-student-achievement	/impact/2025/faculty-library-partnership-boosts-student-achievement/
+/about/news/faculty-library-partnership-boosts-student-achievement/	/impact/2025/faculty-library-partnership-boosts-student-achievement/	301!
 /about/news/ucla-library-enriches-creative-activity-across-los-angeles-through-region-wide-getty-initiative	/impact/2025/ucla-library-enriches-creative-activity-across-los-angeles-through-region-wide-getty-initiative/
+/about/news/ucla-library-enriches-creative-activity-across-los-angeles-through-region-wide-getty-initiative/	/impact/2025/ucla-library-enriches-creative-activity-across-los-angeles-through-region-wide-getty-initiative/	301!
 /about/news/awards-empower-ucla-members-to-expand-universitys-global-reach	https://newsroom.ucla.edu/stories/education-research-awards-empower-members-to-expand-universitys-global-reach
+/about/news/awards-empower-ucla-members-to-expand-universitys-global-reach/	https://newsroom.ucla.edu/stories/education-research-awards-empower-members-to-expand-universitys-global-reach	301!
 /about/policies/appropriate-use-of-licensed-electronic-resources	https://www.whitehouse.gov/ostp/news-updates/2022/08/25/ostp-issues-guidance-to
-/about/programs/books-open-access-boa-pilot-program /about/programs/open-books-pilot-project
+/about/policies/appropriate-use-of-licensed-electronic-resources/	https://www.whitehouse.gov/ostp/news-updates/2022/08/25/ostp-issues-guidance-to	301!
+/about/programs/books-open-access-boa-pilot-program	/about/programs/books-open-access-boa-pilot-program /about/programs/open-books-pilot-project
 /about/programs/library-special-collections-lsc-research-fellowships-2023	/about/programs/library-special-collections-lsc-research-fellowships
 /about/staff/chen-gao-%E9%AB%98%E6%99%A8	/about/staff/chen-gao/
 /about/staff/hui-li-%E6%9D%8E%E6%85%A7	/about/staff/hui-li/
@@ -190,6 +316,7 @@
 /clicc/study-rooms-collaboration-pods	https://calendar.library.ucla.edu/r/?_ga=2.216054357.217153963.1675357688-1491196333.1675357688
 /clicc/young-research-library-yrl-0	/visit/locations/research-library
 /collections	/collections
+/collections/	/collections	301!
 /community-commerce-oral-histories-african-american-businesses-los-angeles	https://sites.google.com/view/ucla-library-blackbusinesses/home?pli=1
 /computers-computing-services	/about/programs/campus-library-instructional-computing-commons-clicc
 /computers-computing-services/connect-campus	/help/services-resources/connecting-from-off-campus
@@ -327,18 +454,22 @@
 /events/writing-literature-review-2421	/visit/events-exhibitions/
 /file/kristian-allen	/about/staff/kristian-allen/
 /get-help	/help/services-resources/ask-us
-/givemusic  https://giving.ucla.edu/campaign/?&OrgType=C&OrgNum=10100&fund=61516O
+/givemusic	/givemusic  https://giving.ucla.edu/campaign/?&OrgType=C&OrgNum=10100&fund=61516O
 /help/services-resources	/help/services-resources
+/help/services-resources/	/help/services-resources	301!
 /help/services-resources/ask-us	/help/services-resources/ask-us
+/help/services-resources/ask-us/	/help/services-resources/ask-us	301!
 /help/services-resources/borrowing-special-collections-items-for-exhibition	/help/services-resources/lsc-exhibition-lending
 /help/services-resources/connect-from-off-campus	/help/services-resources/connecting-from-off-campus
 /help/services-resources/data-science-center-partners	/visit/locations/data-science-center
 /help/services-resources/paying-for-fines-and-fees	/about/policies/fines-and-fees-for-borrowed-materials
+/help/services-resources/paying-for-fines-and-fees/	/about/policies/fines-and-fees-for-borrowed-materials	301!
 /help/services-resources/research-and-writing-help-space	/help/research-help
 /help/services-resources/research-data-services/	/help/services-resources/data-services
 /help/services-resources/teaching-with-special-collections	/help/services-resources/teaching-with-library-special-collections
 /hours	/visit/locations
 /impact/all	/about/reports
+/impact/all/	/about/reports	301!
 /la-stories	/about/news/la-stories
 /lauc-la-affiliate-libraries-centers	/visit/locations
 /lauc-la-librarian-year-marjorie-lee	https://guides.library.ucla.edu/lauc-la/librarian-of-the-year#Marjorie
@@ -506,7 +637,7 @@
 /powell/cluster-program-support	/help/services-resources/cluster-program-support
 /powell/staff	/about/staff?q=&filters=locations.title.keyword:(Powell+Library)
 /questions	/help/services-resources/ask-us
-/questions/questions-ask-us /help/services-resources/ask-us
+/questions/questions-ask-us	/questions/questions-ask-us /help/services-resources/ask-us
 /research-data-services	/help/services-resources/data-services/
 /research-teaching-support	/help/teaching
 /research-teaching-support/pilot-emergency-temporary-digitization-request-petdor-service-ucla-researchers	/help/services-resources
@@ -559,7 +690,7 @@
 /special-collections	/visit/locations/library-special-collections/
 /special-collections/at-this-location/center-primary-research-training-cfprt	/about/programs/center-for-primary-research-and-training-cfprt
 /special-collections/discover-collections/online-exhibits	/collections/explore/
-/special-collections/discover-collections/online-exhibits/bloodletting-exhibit https://guides.library.ucla.edu/c.php?g=390460&p=10130567#s-lg-box-wrapper-39819540
+/special-collections/discover-collections/online-exhibits/bloodletting-exhibit	/special-collections/discover-collections/online-exhibits/bloodletting-exhibit https://guides.library.ucla.edu/c.php?g=390460&p=10130567#s-lg-box-wrapper-39819540
 /special-collections/medicine-sciences-biomedical-library/baby-books-collection	/visit/locations/library-special-collections
 /special-collections/plan-visit	/visit/locations/library-special-collections
 /special-collections/plan-visit/directions-parking	/visit/locations/library-special-collections
@@ -660,7 +791,7 @@
 /staff/victoria-puente	/about/staff/tori-puente
 /staff/wil-william-lin	/about/staff/wil-lin
 /staff/zhiyuan-yao-spatial-data-science	/about/staff/zhiyuan-yao
-/staff/* /about/staff/:splat  # MUST come after any individual staff member redirects
+/staff/*	/staff/* /about/staff/:splat  # MUST come after any individual staff member redirects
 /stafffield_staff_is_subject_librarian=1search_api_views_fulltextf%5B0%5D=field_staff_glossary_index%3ASpage=9	/about/staff?q=&filters=subjectLibrarian.keyword:(yes)
 /stafffield_staff_is_subject_librarian=1search_api_views_fulltextf%5B0%5D=field_staff_location%3A409	/about/staff?q=&filters=subjectLibrarian.keyword:(yes)&lastNameLetter=M
 /support/copyright-data-publishing	/help/copyright-data-publishing/
@@ -743,7 +874,7 @@
 /visit	/visit/events-exhibitions
 /wire	/help/services-resources/writing-instruction-research-education-wi-re/
 /yrl/about	/visit/locations/research-library
-https://clicc.ucla.edu  /about/programs/campus-library-instructional-computing-commons-clicc
+https://clicc.ucla.edu	https://clicc.ucla.edu  /about/programs/campus-library-instructional-computing-commons-clicc
 https://docs.library.ucla.edu/display/WCE/Featured+Collection%3A+Caro+Minasian+Collection+of+Armenian+Material	/collections/caro-minasian-collection-of-armenian-material-circa-1600-1968/
 https://docs.library.ucla.edu/display/WCE/Featured+Collection%3A+Contemporary+Music+Score+Collection	/collections/neutra-richard-and-dion-papers/
 https://docs.library.ucla.edu/display/WCE/Featured+Collection%3A+Golden+State+Mutual+Life+Insurance+Company+Records	/collections/golden-state-mutual-life-insurance-company-records/
@@ -756,14 +887,13 @@ https://docs.library.ucla.edu/display/WCE/Featured+Collection%3A+Sleepy+Lagoon+D
 https://docs.library.ucla.edu/display/WCE/Featured+Collections%3A+Barbados+Ephemera+Collection	https://meap.library.ucla.edu/projects/barbadian-voices
 https://docs.library.ucla.edu/display/WCE/Featured+Collections%3A+Get+Used+to+It	/collections/get-used-to-it/
 https://docs.library.ucla.edu/display/WCE/Featured+Collections%3A+Ramakatane	https://meap.library.ucla.edu/projects/the-photographer-who-woke-up-from-the-dead/
-https://help.library.ucla.edu   /help/services-resources/ask-us
-https://hours.library.ucla.edu  /visit/locations
+https://help.library.ucla.edu	https://help.library.ucla.edu   /help/services-resources/ask-us
+https://hours.library.ucla.edu	https://hours.library.ucla.edu  /visit/locations
 https://hours.library.ucla.edu/about/staff/amanda-salazar/	/about/staff/amanda-salazar
 https://hours.library.ucla.edu/about/staff/carlos-diaz/	/about/staff/carlos-diaz
 https://hours.library.ucla.edu/about/staff/sally-m%C3%A1rquez/	/about/staff/sally-m%C3%A1rquez
-https://www.clicc.ucla.edu  /about/programs/campus-library-instructional-computing-commons-clicc
+https://www.clicc.ucla.edu	https://www.clicc.ucla.edu  /about/programs/campus-library-instructional-computing-commons-clicc
 https://www.clicc.ucla.edu/about/staff/abigail-connick/	/about/staff/abigail-connick
 https://www.clicc.ucla.edu/about/staff/alice-hunt/	/about/staff/alice-hunt/
 https://www.clicc.ucla.edu/about/staff/charlie-h-castro/	/about/staff/charlie-h-castro/
 https://www.clicc.ucla.edu/about/staff/jonathan-fahn/	/about/staff/jonathan-fahn/
-
