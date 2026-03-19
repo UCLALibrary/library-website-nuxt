@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-const legacyPrerenderIgnores = [
+const legacyPrerenderIgnores: string[] = [
   '/about/news/international-education-week-students-in-the-hearst-newsreels',
   '/about/news/l-a-labor-leaders-link-the-past-and-future-during-visit-to-ucla-campus',
   '/about/news/applications-open-for-2026-ucla-library-special-collections-research-fellowships',
