@@ -136,7 +136,8 @@ const timelineSortedBySubtitle = computed(() => {
         color="about"
       />
     </SectionWrapper>
-
+    JENEJENJEN
+<h3>page.propertyName<pre>{{page.propertyName}}</pre></h3>
     <SectionWrapper :section-title="page.timelineTitle">
       <div
         v-for="(value, propertyName) in timelineSortedBySubtitle"
