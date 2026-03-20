@@ -138,6 +138,7 @@ const timelineSortedBySubtitle = computed(() => {
         class="sub-section-grid"
       >
         <h3
+          v-if="propertyName"
           class="grid-gallery-subtitle"
           v-html="propertyName"
         />
