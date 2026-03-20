@@ -130,14 +130,14 @@ const timelineSortedBySubtitle = computed(() => {
         color="about"
       />
     </SectionWrapper>
-    JENEJENJEN
-<h3>page.propertyName<pre>{{page.propertyName}}</pre></h3>
+
     <SectionWrapper :section-title="page.timelineTitle">
       <div
         v-for="(value, propertyName) in timelineSortedBySubtitle"
         :key="propertyName"
         class="sub-section-grid"
       >
+
         <h3
           v-if="propertyName"
           class="grid-gallery-subtitle"
