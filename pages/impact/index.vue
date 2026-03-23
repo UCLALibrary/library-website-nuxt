@@ -145,14 +145,17 @@ const timelineSortedBySubtitle = computed(() => {
         />
 
         <GridGallery
+          v-if="propertySubName"
           v-for="(subValue, propertySubName) in value"
           :key="propertySubName"
           :section-summary="propertySubName"
           :items="subValue"
         />
       </div>
+
+      <SectionWrapper theme="divider">
     </SectionWrapper>
-    <SectionWrapper theme="divider">
+
       <DividerWayFinder
         class="divider"
         color="about"
