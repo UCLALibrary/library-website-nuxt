@@ -16,10 +16,17 @@ function runHomepageTests({ withSnapshot = false, label = 'Desktop' } = {}) {
 
     if (label === 'Desktop') {
       // NavSecondary
-      cy.get('.nav-secondary')
-        .should('contain', 'Locations & Hours')
-        .and('contain', 'Ask Us')
-        .and('contain', 'My Account')
+      // use then to wait for the header to be visible
+      cy.get('header').then(($header) => {
+        const secondaryNav = $header.find('.nav-secondary')
+        secondaryNav.should('contain', 'Locations & Hours')
+        secondaryNav.should('contain', 'Ask Us')
+        secondaryNav.should('contain', 'My Account')
+      })
+      // cy.get('.nav-secondary')
+      //   .should('contain', 'Locations & Hours')
+      //   .and('contain', 'Ask Us')
+      //   .and('contain', 'My Account')
 
       // NavPrimary
       cy.get('.nav-primary')
