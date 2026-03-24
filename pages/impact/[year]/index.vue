@@ -157,6 +157,7 @@ const timelineSortedBySubtitle = computed(() => {
         />
       </div>
     </SectionWrapper>
+
     <SectionWrapper theme="divider">
       <DividerWayFinder
         class="divider"
