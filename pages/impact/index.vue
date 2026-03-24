@@ -182,6 +182,7 @@ const timelineSortedBySubtitle = computed(() => {
 
     .intro {
       @include step-5;
+      line-height: 1.5;
       margin-bottom: var(--space-xl);
       color: var(--color-primary-blue-03);
     }
