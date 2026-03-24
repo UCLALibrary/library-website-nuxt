@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runProgramListTests({ withSnapshot = false } = {}) {
   it('Visits the Program List Page', () => {
@@ -31,7 +30,7 @@ function runProgramListTests({ withSnapshot = false } = {}) {
       cy.visualSnapshot('programlistpage')
     }
   })
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     it('Visit Program Listing page filter by type', () => {
       cy.visit('/about/programs?q=&filters=programType.title.keyword:(Collections)', {
         timeout: 60000
@@ -47,10 +46,6 @@ if (isChromatic) {
     describe(`Program List Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runProgramListTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Program List Page', () => {
-    runProgramListTests({ withSnapshot: true })
   })
 } else {
   describe('Program List Page', () => {

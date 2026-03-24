@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runEndowmentsListingTests({ withSnapshot = false } = {}) {
   it('Visits the Endowments Listing Page', () => {
@@ -18,7 +17,7 @@ function runEndowmentsListingTests({ withSnapshot = false } = {}) {
       cy.visualSnapshot('endowmentslist')
     }
   })
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     it('Search Found', () => {
       cy.visit('/give/endowments?q=lifu')
 
@@ -40,10 +39,6 @@ if (isChromatic) {
     describe(`Endowments Listing Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runEndowmentsListingTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Endowments Listing Page', () => {
-    runEndowmentsListingTests({ withSnapshot: true })
   })
 } else {
   describe('Endowments Listing Page', () => {

@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runArticleNewsListingTests({ withSnapshot = false } = {}) {
   it('Visit the Article News Listing Page', () => {
@@ -30,7 +29,7 @@ function runArticleNewsListingTests({ withSnapshot = false } = {}) {
       }
     })
   })
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     it('Visit News Article Listing page filter by category', () => {
       cy.visit('/about/news?q=&filters=articleCategory.title.keyword:(Featured)')
       cy.get('h2.about-results').should('be.visible')
@@ -43,10 +42,6 @@ if (isChromatic) {
     describe(`Article News Listing Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runArticleNewsListingTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Article News Listing Page', () => {
-    runArticleNewsListingTests({ withSnapshot: true })
   })
 } else {
   describe('Article News Listing Page', () => {

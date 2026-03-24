@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runExploreCollectionTests({ withSnapshot = false } = {}) {
   it('Visit an Explore Collection Page', () => {
@@ -55,7 +54,7 @@ function runExploreCollectionTests({ withSnapshot = false } = {}) {
       }
     })
   })
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     it('Visit Collections Explore Listing page filter by category', () => {
       cy.visit('/collections/explore?q=spool&filters=physicalDigital.keyword:(physical)')
       cy.get('h2.about-results').should('be.visible')
@@ -68,10 +67,6 @@ if (isChromatic) {
     describe(`Explore Collection Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runExploreCollectionTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Explore Collection Page', () => {
-    runExploreCollectionTests({ withSnapshot: true })
   })
 } else {
   describe('Explore Collection Page', () => {

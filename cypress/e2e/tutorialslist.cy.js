@@ -2,7 +2,6 @@ import { viewports } from '../support/viewports'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
-const isPercy = provider === 'percy'
 
 function runTutorialsListingTests({ withSnapshot = false } = {}) {
   it('Visits the Tutorials Listing Page', () => {
@@ -17,7 +16,7 @@ function runTutorialsListingTests({ withSnapshot = false } = {}) {
       cy.visualSnapshot('tutorialslist')
     }
   })
-  if (!isChromatic && !isPercy) {
+  if (!isChromatic) {
     it('Searches Tutorials Listing', () => {
       cy.visit('/help/tutorials/?q=tutorial&filters=', { timeout: 60000 })
 
@@ -38,10 +37,6 @@ if (isChromatic) {
     describe(`Tutorials Listing Page - ${label}`, { viewportWidth, viewportHeight }, () => {
       runTutorialsListingTests({ withSnapshot: true })
     })
-  })
-} else if (isPercy) {
-  describe('Tutorials Listing Page', () => {
-    runTutorialsListingTests({ withSnapshot: true })
   })
 } else {
   describe('Tutorials Listing Page', () => {
