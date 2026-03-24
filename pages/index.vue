@@ -224,7 +224,7 @@ useHead({
         <h4>Search Responsee</h4>
         <p>{{ searchResponse }}</p -->
 
-    <h1 class=”sr-only”>UCLA Library</h1>
+    <h1 class="sr-only">UCLA Library</h1>
 
     <MastheadPrimary
       :link-items="parsedSearchLinks"
