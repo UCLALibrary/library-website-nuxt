@@ -200,6 +200,7 @@ const timelineSortedBySubtitle = computed(() => {
 
       :deep(p) {
         @include step-3;
+        line-height: 1.5;
       }
     }
   }
