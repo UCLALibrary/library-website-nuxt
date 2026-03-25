@@ -59,7 +59,7 @@ useHead(() => {
         hid: 'description',
         name: 'description',
         content: name && job
-          ? `Learn more about ${name}, ${job}, at UCLA Library`
+          ? `Learn more about ${name}, ${job} at UCLA Library`
           : removeTags(page.value?.text || '')
       }
     ]
