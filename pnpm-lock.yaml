@@ -40,7 +40,7 @@ importers:
         specifier: ^18.17.3
         version: 18.19.76
       '@ucla-library-monorepo/ucla-library-website-components':
-        specifier: ^1.68.7
+        specifier: ^1.61.0
         version: 1.68.7(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))(vuetify@3.7.13(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)))
       '@zadigetvoltaire/nuxt-gtm':
         specifier: ^0.0.13
