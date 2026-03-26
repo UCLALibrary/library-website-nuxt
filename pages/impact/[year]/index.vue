@@ -144,6 +144,7 @@ const timelineSortedBySubtitle = computed(() => {
         class="sub-section-grid"
       >
         <h3
+          v-if="propertyName && propertyName.trim() !== ''"
           class="grid-gallery-subtitle"
           v-html="propertyName"
         />
@@ -156,6 +157,7 @@ const timelineSortedBySubtitle = computed(() => {
         />
       </div>
     </SectionWrapper>
+
     <SectionWrapper theme="divider">
       <DividerWayFinder
         class="divider"
