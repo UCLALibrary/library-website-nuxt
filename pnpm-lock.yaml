@@ -76,7 +76,7 @@ importers:
         specifier: ^1.66.1
         version: 1.85.0
       ucla-library-design-tokens:
-        specifier: ^5.56.0
+        specifier: ^5.42.0
         version: 5.56.0
 
 packages:
