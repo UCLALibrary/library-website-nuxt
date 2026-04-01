@@ -198,15 +198,17 @@ const timelineSortedBySubtitle = computed(() => {
       margin: 0;
       padding-right: 0;
       margin-right: 0;
+      color: gold;
       max-width: $container-xl-banner + px;
     }
 
     .text {
       @include step-3;
-      line-height: 120%;
+      line-height: 1.5;
 
       :deep(p) {
         @include step-3;
+        line-height: 1.5;
       }
     }
   }
