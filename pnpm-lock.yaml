@@ -76,8 +76,8 @@ importers:
         specifier: ^1.66.1
         version: 1.85.0
       ucla-library-design-tokens:
-        specifier: ^5.42.0
-        version: 5.42.0
+        specifier: ^5.56.0
+        version: 5.56.0
 
 packages:
 
@@ -7379,8 +7379,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  ucla-library-design-tokens@5.42.0:
-    resolution: {integrity: sha512-AALROXBb4dNsqA7dLRTDxnzM4U7caFwnrK1sxruT/Gtn5d2NmdZPJDqwShxDYoXiyxcEGEiyY8EHZY3roP3zng==}
+  ucla-library-design-tokens@5.56.0:
+    resolution: {integrity: sha512-J7047TOVuuI56n3Grrw0Ja/4zNl7BmYhu0HRGjbVeH2ryeNfsVpImsVuYYDCIktuF7bKbSChu24peFIH/ijgbg==}
 
   ufo@1.5.4:
     resolution: {integrity: sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==}
@@ -16952,7 +16952,7 @@ snapshots:
 
   typescript@5.7.3: {}
 
-  ucla-library-design-tokens@5.42.0: {}
+  ucla-library-design-tokens@5.56.0: {}
 
   ufo@1.5.4: {}
 
