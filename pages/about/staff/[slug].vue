@@ -48,15 +48,22 @@ watch(data, (newVal, oldVal) => {
   entries.value = _get(newVal, 'entries', {})
 })
 
-useHead({
-  title: page.value ? page.value.title : '... loading',
-  meta: [
-    {
-      hid: 'description',
-      name: 'description',
-      content: removeTags(page.value.text)
-    }
-  ]
+useHead(() => {
+  const name = `${page.value?.nameFirst || ''} ${page.value?.nameLast || ''}`.trim()
+  const job = page.value?.jobTitle || ''
+
+  return {
+    title: page.value ? page.value.title : '... loading',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: name && job
+          ? `Learn more about ${name}, ${job}, at UCLA Library`
+          : removeTags(page.value?.text || '')
+      }
+    ]
+  }
 })
 
 // COMPUTED
