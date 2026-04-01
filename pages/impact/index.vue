@@ -184,6 +184,7 @@ const timelineSortedBySubtitle = computed(() => {
 
     .intro {
       @include step-5;
+      line-height: 1.5;
       margin-bottom: var(--space-xl);
       color: var(--color-primary-blue-03);
     }
@@ -197,10 +198,11 @@ const timelineSortedBySubtitle = computed(() => {
 
     .text {
       @include step-3;
-      line-height: 120%;
+      line-height: 1.5;
 
       :deep(p) {
         @include step-3;
+        line-height: 1.5;
       }
     }
   }
