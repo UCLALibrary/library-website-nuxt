@@ -2,9 +2,10 @@ import { defineConfig } from 'cypress'
 import { installPlugin } from '@chromatic-com/cypress'
 
 export default defineConfig({
-  // For chtomatic tests, we disable auto snapshots at the end and use the 3 viewport snapshots instead
+  // For chromatic tests, we disable auto snapshots at the end and use the 3 viewport snapshots instead
   env: {
     disableAutoSnapshot: true,
+    delay: 500, // delay in ms before taking snapshot to allow for animations to complete
   },
   defaultCommandTimeout: 60000,
   video: false,
