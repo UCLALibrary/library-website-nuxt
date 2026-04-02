@@ -224,6 +224,8 @@ useHead({
         <h4>Search Responsee</h4>
         <p>{{ searchResponse }}</p -->
 
+    <h1 class="sr-only">UCLA Library</h1>
+
     <MastheadPrimary
       :link-items="parsedSearchLinks"
       :advanced-search-link="parsedAdvancedSearchLink"
@@ -347,6 +349,10 @@ useHead({
 .page-home {
   .button-more {
     margin: var(--space-2xl) auto;
+  }
+
+  .sr-only {
+    @include visually-hidden;
   }
 }
 </style>
