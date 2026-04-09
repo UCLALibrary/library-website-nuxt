@@ -161,7 +161,7 @@ const parsedProgramsList = computed(() => {
       image: _get(obj, 'heroImage[0].image[0]', null),
       staffName: `${obj.fullName}`,
       category: _get(obj, 'programType[0].title', null),
-      description: _get(obj, 'text', null),
+      description: truncateProgramText(_get(obj, 'text', null)),
     }
   })
 })
@@ -208,6 +208,21 @@ function getSearchData(data) {
     },
   })
 }
+
+function truncateProgramText(str, max = 220) {
+  // Preserve original behavior: if it's null, return null.
+  if (str == null) return null
+
+  // Remove HTML tags (your site already uses removeTags elsewhere)
+  const clean = removeTags(str)
+
+  // If clean text is short, return as is
+  if (clean.length <= max) return clean
+
+  // Otherwise truncate at a word break
+  return clean.slice(0, max).split(' ').slice(0, -1).join(' ') + '…'
+}
+
 // fetch filters for the page from ES after page loads in Onmounted hook on the client side
 async function setFilters() {
   const { getAggregations } = useSearch()
