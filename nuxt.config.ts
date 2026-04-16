@@ -100,11 +100,17 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `
+          api: 'modern-compiler',
+          // FUNCTION CAN BE REMOVED AFTER REFACTOR TO REMOVE @IMPORTS
+          // app-global.scss starts with @forward; Sass requires @forward before any @import.
+          // A string additionalData would prepend @imports and break that file.
+          additionalData: (source: string, filename: string) => {
+            if (filename.includes('app-global.scss')) return source
+            return `
                         @import "ucla-library-design-tokens/scss/fonts.scss";
                         @import "ucla-library-design-tokens/scss/app.scss";
-                    `,
-          api: 'modern-compiler', // or 'modern'
+                    ${source}`
+          },
         },
       },
     }
