@@ -1,4 +1,4 @@
-#import "~/gql/fragments/Image"
+#import "../gql/fragments/Image.gql"
 
 fragment FlexibleBlocks on ElementInterface {
     blocks: allFlexiblePageBlocks {

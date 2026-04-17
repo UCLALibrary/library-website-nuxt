@@ -1,34 +1,6 @@
-#import "~/gql/fragments/Image"
+#import "../gql/fragments/Image.gql"
 
 query ArticleNewsList {
-    entries(section: "meapArticle", orderBy: "dateCreated desc") {
-        ... on meapArticle_meapArticle_Entry {
-            id
-            articleCategories {
-                title
-            }
-            title
-            uri
-            to: slug
-            heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    id
-                    image {
-                        ...Image
-                    }
-                }
-            }
-            category: articleCategories {
-                title
-            }
-            description: summary
-            authors: staffMember {
-                id
-                title
-            }
-            date: dateCreated
-        }
-    }
     entry(section: "meapListingNews") {
         ... on meapListingNews_meapListingNews_Entry {
             id

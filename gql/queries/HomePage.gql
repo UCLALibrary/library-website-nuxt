@@ -1,4 +1,4 @@
-#import "~/gql/fragments/Image"
+#import "../gql/fragments/Image.gql"
 
 query MeapHomePage {
     entries(section: "meapHomepage", slug: "homepage-meap") {

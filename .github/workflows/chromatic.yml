@@ -1,6 +1,8 @@
 name: Submit screenshots to Chromatic for visual regression testing (Cypress)
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs: {}
 

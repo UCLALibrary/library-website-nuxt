@@ -18,7 +18,7 @@ jobs:
               id: cache-nuxt
               uses: actions/cache@v3
               with:
-                  path: ./dist
+                  path: .output/public
                   key: nuxt-site-${{ github.sha }}
             - run: npm run generate
               if: steps.cache-nuxt.outputs.cache-hit != 'true'
@@ -31,10 +31,17 @@ jobs:
                   ES_WRITE_KEY: ${{ secrets.ES_WRITE_KEY_TEST }}
                   ES_ALIAS: ${{ env.ES_ALIAS }}-${{ github.event.pull_request.number }}
                   ES_INDEX_PREFIX: ${{secrets.ES_INDEX_PREFIX_TEST}}
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                version: 10
             - uses: cypress-io/github-action@v3
               with:
-                  start: npx http-server ./dist -p 3000
-                  command-prefix: "percy exec -- npx"
+                  start: pnpm dlx serve .output/public
+                  command-prefix: "percy exec -- pnpx"
+                  install: false
                   wait-on: http://localhost:3000
+                  wait-on-timeout: 110
               env:
                   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+                  CYPRESS_VISUAL_PROVIDER: percy

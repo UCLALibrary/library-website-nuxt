@@ -1,4 +1,4 @@
-#import "~/gql/fragments/collections/MEAPDefaultFpb"
+#import "../gql/fragments/collections/MEAPDefaultFpb.gql"
 
 query HelpTopicDetail($slug: [String!]) {
     entry(section: "meapHelpTopic", slug: $slug) {

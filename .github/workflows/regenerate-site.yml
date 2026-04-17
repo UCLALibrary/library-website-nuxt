@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment(test/prod)'     
+        description: 'Environment(test/prod)'
         required: true
         type: choice
         options:
@@ -27,7 +27,7 @@ jobs:
       - name: Cache built static site
         uses: actions/cache@v3
         with:
-          path: ./dist
+          path: .output/public
           key: nuxt-site-${{ github.sha }}
       - run: npm run generate
         env:
@@ -45,7 +45,7 @@ jobs:
           production-deploy: true
           deploy-message: https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          publish-dir: "./dist"
+          publish-dir: .output/public
           fails-without-credentials: true
           github-deployment-environment: production
         env:

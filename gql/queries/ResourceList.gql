@@ -1,4 +1,4 @@
-#import "~/gql/fragments/Image"
+#import "../gql/fragments/Image.gql"
 
 query ResourceList {
     entries(section: "meapResource", orderBy: "title asc") {
@@ -25,5 +25,12 @@ query ResourceList {
             title: titleGeneral
             text: summary
         }
+    }
+    externalResources: entries(section: "externalResourceMeap") {
+        id
+        title
+        text: summary
+        externalResourceUrl
+        iconName: illustrationsResourcesAndServices
     }
 }

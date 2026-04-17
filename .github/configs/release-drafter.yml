@@ -1,47 +1,47 @@
 categories:
-  - title: '🚀 Features and Improvements'
+  - title: 🚀 Features and Improvements
     labels:
-      - 'feature'
-      - 'enhancement'
-      - 'performance'
-      - 'refactor'
-  - title: '🌈 Chore and Updates'
+      - feature
+      - enhancement
+      - performance
+      - refactor
+  - title: 🌈 Chore and Updates
     labels:
-      - 'documentation'
-      - 'chore'
-      - 'test'
-      - 'ci'
-  - title: '🐛 Bug Fixes'
+      - documentation
+      - chore
+      - test
+      - ci
+  - title: 🐛 Bug Fixes
     labels:
-      - 'bugfix'
-      - 'fix'
-  - title: '🧰 Breaking Changes'
-    label: 'breaking'
+      - bugfix
+      - fix
+  - title: 🧰 Breaking Changes
+    label: breaking
 version-resolver:
   major:
     labels:
-      - 'breaking'
+      - breaking
   minor:
     labels:
-      - 'enhancement'
-      - 'feature'
-      - 'performance'
-      - 'refactor'
+      - enhancement
+      - feature
+      - performance
+      - refactor
   patch:
     labels:
-      - 'bugfix'
-      - 'documentation'
-      - 'fix'
-      - 'chore'
-      - 'test'
-      - 'ci'
+      - bugfix
+      - documentation
+      - fix
+      - chore
+      - test
+      - ci
   default: patch
-tag-template: '$RESOLVED_VERSION'
-name-template: 'v$RESOLVED_VERSION'
+tag-template: $RESOLVED_VERSION
+name-template: v$RESOLVED_VERSION
 change-template: '* $TITLE (#$NUMBER)'
 change-title-escapes: ''
 exclude-labels:
-  - 'skip-changelog'
+  - skip-changelog
 template: |
   ## What’s Changed
 

@@ -13,39 +13,54 @@ jobs:
   nuxt-prod:
     name: Netlify deploy
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+
     steps:
-      # Initial checkout to fetch repository content and tags
-      - uses: actions/checkout@v3
-        if: ${{ github.event_name != 'release' }}
+      # Step 1: Always checkout repo so local actions and tags are available
+      - name: Checkout repo (for local actions and tags)
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetch all history for all tags and branches
+          fetch-depth: 0
 
-      # Determine the latest tag; this step will be skipped for direct release triggers
-      - name: Get Latest Tag
+      # Step 2: Discover latest tag for schedule/manual builds
+      - name: Get Latest Tag (schedule/manual)
         if: ${{ github.event_name != 'release' }}
-        id: latesttag
-        run: echo "LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+        run: |
+          LATEST_TAG=$(git describe --tags "$(git rev-list --tags --max-count=1)")
+          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
+          echo "CURRENT_REF=$LATEST_TAG" >> $GITHUB_ENV
+          echo "Latest tag is: $LATEST_TAG"
 
-      # Conditionally checkout the latest tag for non-release events
-      - name: Checkout Latest Tag
-        if: ${{ github.event_name != 'release' }}
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ env.LATEST_TAG }}
-
-      # For release events, GitHub Actions automatically checks out the commit of the release.
-      # Additional steps remain unchanged.
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # Step 3: For release builds, CURRENT_REF = release tag
+      - name: Set CURRENT_REF for release
         if: ${{ github.event_name == 'release' }}
-      - uses: ./.github/workflows/setup-workspace
+        run: |
+          echo "CURRENT_REF=${GITHUB_REF_NAME}" >> $GITHUB_ENV
+          echo "Release tag ref: ${GITHUB_REF_NAME}"
 
+      # Step 4: Checkout the ref we want and install deps (handled by composite)
+      - name: Set up workspace (checkout ref + install deps)
+        uses: ./.github/workflows/setup-workspace
+        with:
+          ref: ${{ env.CURRENT_REF }}
+
+      # Step 5: Capture real ref for labeling + caching
+      - name: Capture current ref info
+        run: |
+          echo "CURRENT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+          echo "CURRENT_SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "CURRENT_REF=$(git describe --tags --always)" >> $GITHUB_ENV
+
+          echo "Building ref: $(git describe --tags --always)"
+          echo "Commit: $(git rev-parse HEAD)"
+          echo "Short:  $(git rev-parse --short HEAD)"
+
+      # Step 6: Cache build
       - name: Cache built static site
+        id: cache-nuxt3
         uses: actions/cache@v3
         with:
-          path: ./dist
-          key: nuxt-site-${{ github.sha }}
+          path: .output/public
+          key: nuxt3-site-${{ env.CURRENT_SHORT_SHA || github.sha }}
 
       - run: npm run generate
         env:
@@ -64,7 +79,7 @@ jobs:
           production-deploy: true
           deploy-message: "https://github.com/UCLALibrary/meap-website-nuxt/commit/${{ github.sha }}"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          publish-dir: './dist'
+          publish-dir: .output/public
           fails-without-credentials: true
           github-deployment-environment: production
         env:

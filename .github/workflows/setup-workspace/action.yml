@@ -1,25 +1,48 @@
-name: 'Set up Workspace'
-description: 'Checks out repository, installs correct version of node and npm dependencies.'
-# inputs:
-#   who-to-greet:  # id of input
-#     description: 'Who to greet'
-#     required: true
-#     default: 'World'
-# outputs:
-#   random-number:
-#     description: "Random number"
-#     value: ${{ steps.random-number-generator.outputs.random-id }}
+name: Set up Workspace
+description: 'Checks out repository, installs correct version of node and pnpm dependencies.'
+
+inputs:
+  ref:
+    description: 'Git ref (tag/branch/commit) to checkout. Defaults to github.ref if not set.'
+    required: false
+    default: ''
 runs:
-  using: "composite"
+  using: composite
   steps:
-    - uses: actions/setup-node@v3
+    - name: Checkout
+      uses: actions/checkout@v4
       with:
-        node-version: '16.15.0'
-    - name: Persist npm cache
+        # If caller passes a ref, use that; otherwise fall back to the event’s ref
+        ref: ${{ inputs.ref != '' && inputs.ref || github.ref }}
+        fetch-depth: 0
+
+    - uses: pnpm/action-setup@v4
+      name: Install pnpm
+      with:
+        version: 10
+        run_install: false
+
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.22.0
+        cache: 'pnpm'
+
+    - name: Cache pnpm store
       uses: actions/cache@v3
       with:
-        path: ~/.npm
-        key: npm-${{ hashFiles('package-lock.json') }}
-        restore-keys: npm-
-    - run: npm ci
+        path: ~/.pnpm-store
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+
+    - name: Install dependencies
       shell: bash
+      env:
+        PNPM_HOME: ~/.pnpm-store
+      run: pnpm install --frozen-lockfile --strict-peer-dependencies
+
+    - name: Install Global Packages
+      shell: bash
+      run: pnpm add -g gulp prettier typescript
