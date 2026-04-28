@@ -198,10 +198,7 @@ onMounted(() => {
 </script>
 
 <template lang="html">
-  <main
-    id="main"
-    class="page page-location-detail"
-  >
+  <main id="main" class="page page-location-detail">
     <NavBreadcrumb
       to="/visit/locations/"
       :title="page.title"
