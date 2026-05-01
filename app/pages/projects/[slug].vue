@@ -71,6 +71,7 @@ const parsedButtonTo = computed(() => {
     )
 })
 const { hasCTA } = useGlobalCallToAction()
+const filteredBlocks = useFlexibleBlocks(computed(() => page.value?.blocks))
 </script>
 <template lang="html">
   <main
@@ -179,7 +180,7 @@ const { hasCTA } = useGlobalCallToAction()
     <flexible-blocks
       v-if="page.blocks && page.blocks.length"
       class="content"
-      :blocks="page.blocks"
+      :blocks="filteredBlocks"
     />
 
     <section-wrapper theme="divider">
