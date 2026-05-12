@@ -82,10 +82,10 @@ const meapNews = computed(() => {
 })
 </script>
 <template>
-  <main
-    id="main"
-    class="page page-home"
-  >
+    <main
+      id="main"
+      class="page page-home"
+    >
     <masthead-secondary
       :title="homePage.titleGeneral"
       :text="homePage.summary"

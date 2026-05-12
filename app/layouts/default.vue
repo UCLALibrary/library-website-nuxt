@@ -97,6 +97,24 @@ const classes = computed(() => {
   z-index: 300;
 }
 
+.skip-link {
+  position: absolute;
+  transform: translateY(-100%);
+  display: inline-block;
+  background: var(--color-primary-yellow-01);
+  // color: var(--color-black);
+  color: yellow;
+  @include step-0;
+  padding: 4px 16px;
+  transition: transform 0.3s;
+  width: auto;
+  left: 0;
+}
+
+.skip-link:focus {
+  transform: translateY(0%);
+}
+
 .header-main {
   z-index: 200;
 
