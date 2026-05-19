@@ -19,6 +19,21 @@
             overflow: hidden;
         }
 
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #0B6AB7;
+            color: #fff;
+            padding: 8px 16px;
+            z-index: 1000;
+            text-decoration: none;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
         .s-lc-whw {
             border-collapse: collapse;
             width: 100%;
@@ -237,11 +252,21 @@
 </head>
 
 <body>
-    <div
-        id="s-lc-whw"
-        class="s-lc-whw"
+    <a
+        href="#main"
+        class="skip-link"
+    >Skip to main content</a>
+
+    <main
+        id="main"
+        tabindex="-1"
     >
-    </div>
+        <div
+            id="s-lc-whw"
+            class="s-lc-whw"
+        ></div>
+    </main>
+
     <!-- https://nuxtjs.org/docs/directory-structure/static/ -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
