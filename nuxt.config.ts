@@ -101,8 +101,8 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           additionalData: `
-                        @import "ucla-library-design-tokens/scss/fonts.scss";
-                        @import "ucla-library-design-tokens/scss/app.scss";
+                        @use "ucla-library-design-tokens/scss/fonts.scss" as *;
+                        @use "ucla-library-design-tokens/scss/app.scss" as *;
                     `,
           api: 'modern-compiler', // or 'modern'
         },
