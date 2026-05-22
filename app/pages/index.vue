@@ -30,6 +30,10 @@ console.log(data.value)
 
 const page = ref(_get(data.value, 'entries', {}))
 
+useHead({
+  title: 'Homepage'
+})
+
 watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
