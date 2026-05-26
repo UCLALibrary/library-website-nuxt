@@ -30,10 +30,11 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
+          api: 'modern-compiler',
           additionalData: `
-                        @import "ucla-library-design-tokens/scss/fonts.scss";
-                        @import "ucla-library-design-tokens/scss/_tokens-ftva";
-                        @import "ucla-library-design-tokens/scss/app.scss";
+                        @use "ucla-library-design-tokens/scss/fonts.scss" as *;
+                        @use "ucla-library-design-tokens/scss/_tokens-ftva" as ftvaTokens;
+                        @use "ucla-library-design-tokens/scss/app.scss" as *;
                     `,
         },
       },
