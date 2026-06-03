@@ -1,5 +1,5 @@
 // GQL
-import Layout from '../gql/queries/Layout.gql'
+import Layout from '../../gql/queries/Layout.gql'
 
 export default defineNuxtPlugin((nuxtApp) => { //
   const { $graphql } = useNuxtApp()

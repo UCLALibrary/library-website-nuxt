@@ -1,9 +1,9 @@
 allowBuilds:
-  '@parcel/watcher': set this to true or false
-  cypress: set this to true or false
-  esbuild: set this to true or false
-  netlify-cli: set this to true or false
-  sharp: set this to true or false
-  unix-dgram: set this to true or false
-  unrs-resolver: set this to true or false
-  vue-demi: set this to true or false
+  '@parcel/watcher': true
+  cypress: true
+  esbuild: true
+  netlify-cli: true
+  sharp: true
+  unix-dgram: true
+  unrs-resolver: true
+  vue-demi: true
