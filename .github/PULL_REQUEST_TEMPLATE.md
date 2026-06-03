@@ -1,22 +1,45 @@
-Connected to [APPS-](https://jira.library.ucla.edu/browse/APPS-)
+Connected to [LADI-](https://jira.library.ucla.edu/browse/LADI-)
 
-**Page/Pages Created/updated:** {filename}.vue from #{issue number}
+Deployed on https://deploy-preview-xxx--test-ftva.netlify.app
 
 **Notes:**
 
-{Any notes about what you built. How does it work? Anything missing?}
-
-**Time Report:**
-
-This took me {x} hours to build this.
+**Screenshot:**
 
 **Checklist:**
-
--   [ ] I added github label for semantic versioning
--   [ ] I double checked it looks like the designs
--   [ ] I completed any required mobile breakpoint styling
--   [ ] I completed any required hover state styling
--   [ ] I included a working spec file
--   [ ] I added notes above about how long it took to build this component
--   [ ] UX has reviewed this PR
--   [ ] I assigned this PR to someone to review
+- [ ] I checked this PR in Chrome
+    - [ ] I checked this PR in desktop view
+    - [ ] I checked this PR in tablet view
+    - [ ] I checked this PR in mobile view
+    - [ ] I zoomed the site to 200%
+    - [ ] I checked for keyboard traps
+    - [ ] I double checked it looks like the designs
+- [ ] I checked this PR in Firefox
+    - [ ] I checked this PR in desktop view
+    - [ ] I checked this PR in tablet view
+    - [ ] I checked this PR in desktop view
+    - [ ] I zoomed the site to 200%
+    - [ ] I checked for keyboard traps
+    - [ ] I double checked it looks like the designs
+- [ ] I checked this PR in Safari
+    - [ ] I checked this PR in desktop view
+    - [ ] I checked this PR in tablet view
+    - [ ] I checked this PR in tablet view
+    - [ ] I zoomed the site to 200%
+    - [ ] I checked for keyboard traps
+    - [ ] I double checked it looks like the designs
+- [ ] I checked this PR in Edge
+    - [ ] I checked this PR in desktop view
+    - [ ] I checked this PR in tablet view
+    - [ ] I checked this PR in mobile view
+    - [ ] I zoomed the site to 200%
+    - [ ] I checked for keyboard traps
+    - [ ] I double checked it looks like the designs
+- [ ] I included a working / updated spec file
+- [ ] I reviewed the Chromatic
+- [ ] UX has reviewed the deploy preview
+- [ ] UX has reviewed the Chromatic
+- [ ] Another Dev has reviewed the Chromatic
+- [ ] Another Dev has reviewed the deploy preview
+- [ ] Another Dev has reviewed the code
+- [ ] Another Dev has reviewed the PR
