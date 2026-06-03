@@ -42,4 +42,3 @@ Deployed on https://deploy-preview-xxx--test-ftva.netlify.app
 - [ ] Another Dev has reviewed the Chromatic
 - [ ] Another Dev has reviewed the deploy preview
 - [ ] Another Dev has reviewed the code
-- [ ] Another Dev has reviewed the PR
