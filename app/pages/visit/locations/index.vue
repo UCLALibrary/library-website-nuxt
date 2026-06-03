@@ -6,15 +6,15 @@ import { onMounted } from 'vue'
 
 // UTILITIES
 import _get from 'lodash/get'
-import getListingFilters from '../utils/getListingFilters'
-import config from '../utils/searchConfig'
-import queryFilterHasValues from '../utils/queryFilterHasValues'
-import parseFilters from '../utils/parseFilters'
+import getListingFilters from '@/utilsgetListingFilters'
+import config from '@/utilssearchConfig'
+import queryFilterHasValues from '@/utilsqueryFilterHasValues'
+import parseFilters from '@/utilsparseFilters'
 
 // HELPERS
-import removeTags from '../utils/removeTags'
-import parseAddress from '../utils/parseAddress'
-import parseAmenities from '../utils/parseAmenities'
+import removeTags from '@/utilsremoveTags'
+import parseAddress from '@/utilsparseAddress'
+import parseAmenities from '@/utilsparseAmenities'
 
 // GQL
 import LOCATIONS_LIST from '../gql/queries/LocationsList.gql'
@@ -290,7 +290,7 @@ onMounted(async () => {
         parsedUclaLibraries.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
       section-title="UCLA Library Locations"
     >
@@ -312,7 +312,7 @@ onMounted(async () => {
         showOtherCampus &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Other Campus Libraries & Archives"
     >
       <SectionLocationList

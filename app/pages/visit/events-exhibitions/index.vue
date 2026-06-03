@@ -11,11 +11,11 @@ import EXHIBITIONS_AND_EVENTS_LIST from '../gql/queries/ExhibitionsAndEventsList
 import EXHIBITIONS_AND_EVENTS_LIST_SINGLE from '../gql/queries/ExhibitionsAndEventsListSingle.gql'
 
 // HELPERS
-import config from '../utils/searchConfig'
-import getListingFilters from '../utils/getListingFilters'
-import queryFilterHasValues from '../utils/queryFilterHasValues'
-import removeTags from '../utils/removeTags'
-import sortByTitle from '../utils/sortByTitle'
+import config from '@/utilssearchConfig'
+import getListingFilters from '@/utilsgetListingFilters'
+import queryFilterHasValues from '@/utilsqueryFilterHasValues'
+import removeTags from '@/utilsremoveTags'
+import sortByTitle from '@/utilssortByTitle'
 
 const { $graphql } = useNuxtApp()
 
@@ -421,7 +421,7 @@ onMounted(async () => {
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -456,7 +456,7 @@ onMounted(async () => {
         parsedEvents.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="visit" />
@@ -468,7 +468,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Upcoming Events"
     >
       <SectionTeaserList :items="parsedEvents" />
@@ -479,7 +479,7 @@ onMounted(async () => {
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="visit" />
@@ -491,7 +491,7 @@ onMounted(async () => {
         parsedSeriesAndExhibitions.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Event Series & Exhibitions"
     >
       <SectionTeaserCard :items="parsedSeriesAndExhibitions" />

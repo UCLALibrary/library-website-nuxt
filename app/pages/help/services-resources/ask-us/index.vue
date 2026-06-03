@@ -4,7 +4,7 @@ import { NavBreadcrumb, BannerText, FlexibleBlocks, SectionWrapper, DividerWayFi
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import ASK_US from '../gql/queries/AskUs.gql'

@@ -8,14 +8,14 @@ import { onMounted } from 'vue'
 import _get from 'lodash/get'
 
 // SEARCH UTILS
-import getListingFilters from '../utils/getListingFilters'
-import config from '../utils/searchConfig'
-import queryFilterHasValues from '../utils/queryFilterHasValues'
-import parseFilters from '../utils/parseFilters'
+import getListingFilters from '@/utilsgetListingFilters'
+import config from '@/utilssearchConfig'
+import queryFilterHasValues from '@/utilsqueryFilterHasValues'
+import parseFilters from '@/utilsparseFilters'
 
 // UTILITIES
-import removeTags from '../utils/removeTags'
-import sortByTitle from '../utils/sortByTitle'
+import removeTags from '@/utilsremoveTags'
+import sortByTitle from '@/utilssortByTitle'
 
 // GQL
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from '../gql/queries/ServiceResourceWorkshopSeriesList.gql'

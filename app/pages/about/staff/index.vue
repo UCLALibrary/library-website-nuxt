@@ -8,10 +8,10 @@ import _ from 'lodash'
 // GQL
 import STAFF_LIST from '../gql/queries/StaffList.gql'
 // UTILITIES
-import fixUri from '../utils/fixUri'
-import getListingFilters from '../utils/getListingFilters'
-import config from '../utils/searchConfig'
-import removeTags from '../utils/removeTags'
+import fixUri from '@/utilsfixUri'
+import getListingFilters from '@/utilsgetListingFilters'
+import config from '@/utilssearchConfig'
+import removeTags from '@/utilsremoveTags'
 
 const { $graphql } = useNuxtApp()
 const { data, error } = await useAsyncData('staff-list', async () => {
@@ -124,9 +124,9 @@ async function searchES() {
 
   const { 'subjectLibrarian.keyword': subjectLibrarianKeyword, lastNameLetter, ...filters } = routeFilters.value
   const extrafilters = (subjectLibrarianKeyword && subjectLibrarianKeyword.length > 0 && subjectLibrarianKeyword[0] === 'yes') ?
-      [
-        { term: { 'subjectLibrarian.keyword': 'yes' } }
-      ]
+    [
+      { term: { 'subjectLibrarian.keyword': 'yes' } }
+    ]
     : []
   if (lastNameLetter && lastNameLetter.length > 0)
     extrafilters.push({ wildcard: { 'nameLast.keyword': `${lastNameLetter[0].split(':')[1].trim()}*` } })
@@ -353,9 +353,9 @@ onMounted(async () => {
             'subjectLibrarian.keyword'
           ][0] === '')) ||
           !searchGenericQuery.queryFilters[
-            'subjectLibrarian.keyword'
+          'subjectLibrarian.keyword'
           ])
-      "
+        "
       class="section-no-top-margin"
     >
       <AlphabeticalBrowseBy
@@ -417,7 +417,7 @@ onMounted(async () => {
         searchGenericQuery.queryFilters['subjectLibrarian.keyword'][0] ===
         'yes' &&
         groupByAcademicLibraries
-      "
+        "
       class="section-no-top-margin"
     >
       <h3 class="section-title subject-librarian">

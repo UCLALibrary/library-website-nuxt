@@ -4,7 +4,7 @@ import { NavBreadcrumb, BannerText, BannerHeader, SectionHeader, SectionWrapper,
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import TUTORIALS_DETAIL from '../gql/queries/TutorialsDetail.gql'
@@ -195,9 +195,7 @@ const parsedBlockCTA2Up = computed(() => {
       class="related-resources"
       section-title="Related Resources"
     >
-      <SimpleCards
-        :items="parsedRelatedResources"
-      />
+      <SimpleCards :items="parsedRelatedResources" />
     </SectionWrapper>
 
     <SectionWrapper
@@ -257,9 +255,7 @@ const parsedBlockCTA2Up = computed(() => {
     </SectionWrapper>
 
     <SectionWrapper v-if="cta">
-      <BlockCallToActionTwoUp
-        :items="parsedBlockCTA2Up"
-      />
+      <BlockCallToActionTwoUp :items="parsedBlockCTA2Up" />
     </SectionWrapper>
   </main>
 </template>
@@ -267,7 +263,7 @@ const parsedBlockCTA2Up = computed(() => {
 <style lang="scss" scoped>
 .page-news-detail {
 
-  .about-this-tutorial.section-wrapper > :deep(.section-header) {
+  .about-this-tutorial.section-wrapper> :deep(.section-header) {
     margin-bottom: 0;
   }
 

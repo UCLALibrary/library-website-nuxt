@@ -4,7 +4,7 @@ import { NavBreadcrumb, SectionWrapper, DividerWayFinder, BlockStaffDetail, Sect
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import STAFF_DETAIL from '../gql/queries/StaffDetail.gql'

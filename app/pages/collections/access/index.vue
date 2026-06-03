@@ -4,13 +4,13 @@ import { NavBreadcrumb, MastheadSecondary, SearchGeneric, SectionWrapper, Divide
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import ACCESS_COLLECTIONS from '../gql/queries/CollectionsAccessList.gql'
 
 // UTILITIES & PLUGINS
-import config from '../utils/searchConfig'
+import config from '@/utilssearchConfig'
 const { $graphql } = useNuxtApp()
 
 // ROUTING
@@ -228,10 +228,8 @@ function getSearchData(data) {
       <DividerWayFinder class="search-margin" />
     </SectionWrapper>
 
-    <SectionWrapper
-      v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
-      "
-    >
+    <SectionWrapper v-show="page && page.accessCollections && hits.length == 0 && !noResultsFound
+      ">
       <SectionCardsWithIllustrations
         class="section"
         :items="parsedAccessCollections"

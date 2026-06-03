@@ -4,8 +4,8 @@ import { NavBreadcrumb, BannerText, SectionWrapper, DividerWayFinder, SectionSta
 
 // HELPERS
 import _get from 'lodash/get'
-import fixUri from '../utils/fixUri'
-import removeTags from '../utils/removeTags'
+import fixUri from '@/utilsfixUri'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import IMPACT_REPORTS_LIST from '../gql/queries/ImpactReportsList.gql'

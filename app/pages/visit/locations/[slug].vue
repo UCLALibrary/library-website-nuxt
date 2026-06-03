@@ -6,7 +6,7 @@ import { onMounted } from 'vue'
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import LOCATION_DETAIL from '../gql/queries/LocationDetail.gql'
@@ -198,7 +198,10 @@ onMounted(() => {
 </script>
 
 <template lang="html">
-  <main id="main" class="page page-location-detail">
+  <main
+    id="main"
+    class="page page-location-detail"
+  >
     <NavBreadcrumb
       to="/visit/locations/"
       :title="page.title"

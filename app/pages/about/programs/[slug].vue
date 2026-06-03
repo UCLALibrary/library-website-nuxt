@@ -6,7 +6,7 @@ import { onMounted } from 'vue'
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import PROGRAM_DETAIL from '../gql/queries/ProgramDetail.gql'
@@ -179,7 +179,7 @@ onMounted(() => {
       <TheHours
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         :src="`${hostname}/blockCliccHours.html?lid=0`"
       />
@@ -187,7 +187,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           page.uri ==
-            'about/programs/campus-library-instructional-computing-commons-clicc'
+          'about/programs/campus-library-instructional-computing-commons-clicc'
         "
         class="divider"
         color="about"

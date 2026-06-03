@@ -4,7 +4,7 @@ import { BannerText, BannerHeader, SectionWrapper, DividerWayFinder, FlexibleBlo
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import IMPACT_REPORT_STORY from '../gql/queries/ImpactReportStory.gql'

@@ -6,8 +6,8 @@ import { onMounted } from 'vue'
 
 // HELPERS
 import _get from 'lodash/get'
-import fixUri from '../utils/fixUri'
-import removeTags from '../utils/removeTags'
+import fixUri from '@/utilsfixUri'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import COLLECTION_DETAIL from '../gql/queries/CollectionDetail.gql'
@@ -231,8 +231,8 @@ onMounted(() => {
     <SectionWrapper
       v-if="
         parsedServicesAndResources.length > 0 ||
-          parsedEndowments.length > 0 ||
-          parsedAssociatedStaffMember.length > 0
+        parsedEndowments.length > 0 ||
+        parsedAssociatedStaffMember.length > 0
       "
       theme="divider"
     >
@@ -255,7 +255,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           parsedEndowments.length > 0 ||
-            parsedAssociatedStaffMember.length > 0
+          parsedAssociatedStaffMember.length > 0
         "
         class="divider-way-finder"
         color="default"

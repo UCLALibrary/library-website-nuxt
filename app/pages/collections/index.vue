@@ -6,7 +6,7 @@ import { BannerText, PageAnchor, BannerFeatured, FlexibleBlocks, ButtonMore, Sec
 import _get from 'lodash/get'
 import format from 'date-fns/format'
 import { onMounted } from 'vue'
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import COLLECTIONS_LIST from '../gql/queries/CollectionsList.gql'

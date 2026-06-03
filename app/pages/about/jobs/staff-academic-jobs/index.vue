@@ -4,8 +4,8 @@ import { NavBreadcrumb, BannerText, SectionWrapper, DividerWayFinder, SectionGen
 
 // HELPERS
 import _get from 'lodash/get'
-import fixUri from '../utils/fixUri'
-import removeTags from '../utils/removeTags'
+import fixUri from '@/utilsfixUri'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import JOB_OPPORTUNITIES_LIST from '../gql/queries/JobOpportunitiesList.gql'

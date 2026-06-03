@@ -4,7 +4,7 @@ import { NavBreadcrumb, BannerText, SectionWrapper, RichText, ResponsiveImage, D
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import ENDOWMENT_DETAIL from '../gql/queries/EndowmentDetail.gql'
@@ -156,12 +156,12 @@ function computeDonors(donors) {
         page.alternativeName[0] &&
         page.alternativeName[0].fullName) ||
         ''
-      "
+        "
       :language="(page.alternativeName &&
         page.alternativeName[0] &&
         page.alternativeName[0].languageAltName) ||
         ''
-      "
+        "
       button-text="Give Now"
       :to="page.to"
     />
@@ -194,7 +194,7 @@ function computeDonors(donors) {
           <ul v-if="parsedAssociatedLocations.length > 0">
             <li
               v-for="(
-                location, index
+location, index
               ) in parsedAssociatedLocations"
               :key="`AssociatedLocation-${location}-${index}`"
             >

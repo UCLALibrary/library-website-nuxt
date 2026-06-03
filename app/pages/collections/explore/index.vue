@@ -6,16 +6,16 @@ import { MastheadSecondary, SearchGeneric, SectionTeaserCard, SectionWrapper, Di
 import _get from 'lodash/get'
 
 // UTILITIES
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import COLLECTIONS_EXPLORE_LIST from '../gql/queries/CollectionsExploreList.gql'
 
 // ELASTIC SEARCH UTILITIES
-import getListingFilters from '../utils/getListingFilters'
-import config from '../utils/searchConfig'
-import queryFilterHasValues from '../utils/queryFilterHasValues'
-import parseFilters from '../utils/parseFilters'
+import getListingFilters from '@/utilsgetListingFilters'
+import config from '@/utilssearchConfig'
+import queryFilterHasValues from '@/utilsqueryFilterHasValues'
+import parseFilters from '@/utilsparseFilters'
 
 const { $graphql } = useNuxtApp()
 
@@ -263,7 +263,7 @@ onMounted(async () => {
         parsedCollectionList.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <SectionTeaserCard :items="parsedCollectionList" />

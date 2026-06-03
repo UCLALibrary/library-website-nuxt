@@ -4,13 +4,13 @@ import { MastheadSecondary, SearchGeneric, BannerFeatured, SectionTeaserHighligh
 
 // UTILITIES
 import _get from 'lodash/get'
-import getListingFilters from '../utils/getListingFilters'
-import config from '../utils/searchConfig'
-import queryFilterHasValues from '../utils/queryFilterHasValues'
-import parseFilters from '../utils/parseFilters'
+import getListingFilters from '@/utilsgetListingFilters'
+import config from '@/utilssearchConfig'
+import queryFilterHasValues from '@/utilsqueryFilterHasValues'
+import parseFilters from '@/utilsparseFilters'
 
 // HELPERS
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import PROGRAMS_LIST from '../gql/queries/ProgramsList.gql'
@@ -255,7 +255,7 @@ onMounted(async () => {
         page.featuredPrograms.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder
@@ -270,7 +270,7 @@ onMounted(async () => {
         page.featuredPrograms.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -303,7 +303,7 @@ onMounted(async () => {
         parsedProgramsList.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="All Programs & Initiatives"
     >
       <SectionStaffArticleList :items="parsedProgramsList" />

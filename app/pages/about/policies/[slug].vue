@@ -6,7 +6,7 @@ import { onMounted } from 'vue'
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import POLICY_DETAIL from '../gql/queries/PolicyDetail.gql'

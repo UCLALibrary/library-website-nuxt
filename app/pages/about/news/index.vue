@@ -5,15 +5,15 @@ import { MastheadSecondary, SearchGeneric, BannerFeatured, SectionTeaserHighligh
 // HELPERS
 import _get from 'lodash/get'
 import { format } from 'date-fns'
-import removeTags from '../utils/removeTags'
-import parseFilters from '../utils/parseFilters'
+import removeTags from '@/utilsremoveTags'
+import parseFilters from '@/utilsparseFilters'
 
 // GQL
 import ARTICLE_LIST from '../gql/queries/ArticleList.gql'
 
-import getListingFilters from '../utils/getListingFilters'
-import config from '../utils/searchConfig'
-import queryFilterHasValues from '../utils/queryFilterHasValues'
+import getListingFilters from '@/utilsgetListingFilters'
+import config from '@/utilssearchConfig'
+import queryFilterHasValues from '@/utilsqueryFilterHasValues'
 import useSearch from '~/composables/useSearch'
 // console.log('In news listing page')
 
@@ -338,7 +338,7 @@ onMounted(async () => {
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -354,14 +354,12 @@ onMounted(async () => {
         class="banner section-featured-banner"
       />
 
-      <DividerGeneral
-        v-show="page &&
-          page.featuredNews &&
-          page.featuredNews.length &&
-          hits.length === 0 &&
-          !noResultsFound
-        "
-      />
+      <DividerGeneral v-show="page &&
+        page.featuredNews &&
+        page.featuredNews.length &&
+        hits.length === 0 &&
+        !noResultsFound
+        " />
 
       <SectionTeaserHighlight
         v-show="parsedSectionHighlight.length > 0"
@@ -376,7 +374,7 @@ onMounted(async () => {
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="about" />

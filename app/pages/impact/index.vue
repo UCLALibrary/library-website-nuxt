@@ -5,13 +5,13 @@ import { SectionWrapper, DividerWayFinder, RichText, GridGallery, ResponsiveImag
 // HELPERS
 import _get from 'lodash/get'
 import _ from 'lodash'
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import ImpactReport from '../gql/queries/ImpactReport.gql'
 
 // UTILITIES
-import flattenTimeLineStructure from '../utils/flattenTimeLineStructure'
+import flattenTimeLineStructure from '@/utilsflattenTimeLineStructure'
 
 const { $graphql } = useNuxtApp()
 
@@ -138,7 +138,7 @@ const timelineSortedBySubtitle = computed(() => {
         class="sub-section-grid"
       >
         <h3
-        v-if="propertyName && propertyName.trim() !== ''"
+          v-if="propertyName && propertyName.trim() !== ''"
           class="grid-gallery-subtitle"
           v-html="propertyName"
         />
@@ -159,12 +159,10 @@ const timelineSortedBySubtitle = computed(() => {
       />
     </SectionWrapper>
     <SectionWrapper v-if="page.acknowledgements && page.acknowledgements.length === 1">
-      <h2
-        :class="page.acknowledgements[0].displaySectionTitle === 'true'
-          ? ''
-          : 'visually-hidden'
-        "
-      >
+      <h2 :class="page.acknowledgements[0].displaySectionTitle === 'true'
+        ? ''
+        : 'visually-hidden'
+        ">
         {{ page.acknowledgements[0].titleGeneral }}
       </h2>
       <RichText

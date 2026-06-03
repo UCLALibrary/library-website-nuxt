@@ -5,7 +5,7 @@ import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFind
 // HELPERS
 import _get from 'lodash/get'
 import { format } from 'date-fns'
-import removeTags from '../utils/removeTags'
+import removeTags from '@/utilsremoveTags'
 
 // GQL
 import ARTICLE_DETAIL from '../gql/queries/ArticleDetail.gql'

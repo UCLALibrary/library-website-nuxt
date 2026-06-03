@@ -6,11 +6,11 @@ import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, Div
 import _get from 'lodash/get'
 
 // UTILITIES
-import config from '../utils/searchConfig'
-import queryFilterHasValues from '../utils/queryFilterHasValues'
-import parseFilters from '../utils/parseFilters'
-import formatDates from '../utils/formatDates'
-import formatTimes from '../utils/formatTimes'
+import config from '@/utilssearchConfig'
+import queryFilterHasValues from '@/utilsqueryFilterHasValues'
+import parseFilters from '@/utilsparseFilters'
+import formatDates from '@/utilsformatDates'
+import formatTimes from '@/utilsformatTimes'
 
 const route = useRoute()
 const page = ref({})
