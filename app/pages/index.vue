@@ -15,7 +15,7 @@ const { data, error } = await useAsyncData('home-page', async () => {
 })
 if (error.value) {
   throw createError({
-    statusCode: error.value.statusCode, statusMessage: error.value.statusMessage + error.value, fatal: true
+    statusCode: error.value.status, statusMessage: error.value.statusText + error.value, fatal: true
   })
 }
 if (!data.value.entry) {
