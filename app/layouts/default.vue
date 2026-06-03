@@ -1,6 +1,6 @@
 <script setup>
 // components need to be imported for nitro crawling in static mode
-import { HeaderSmart, SectionWrapper, NavPrimary, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
+// import { HeaderSmart, SectionWrapper, NavPrimary, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
 
 provide('theme', computed(() => ''))
 
@@ -16,12 +16,11 @@ useHead({
   ]
 })
 const { enabled, state } = usePreviewMode()
-const layoutCustomProps = useAttrs()
+
 const globalStore = useGlobalStore()
-const isApiLocked = computed(() => {
-  const host = useRuntimeConfig().public.hostName
-  return host.includes('test')
-})
+// ✅ Fetch + hydrate Pinia (SSR + client)
+useHydrateGlobalStore()
+
 // console.log('In default layout:', globalStore.header)
 const libraryAlert = computed(() => {
   /* console.log(
@@ -49,42 +48,11 @@ const classes = computed(() => [
   'layout',
   'layout-default',
 ])
-// on mounted I want to want to check if visiblity change event is triggered and use $fetch or $graghql to fetch data from api
-// I want to use this data to update the global store
-// const { $graphql } = useNuxtApp()
+
 const { $alerts } = useNuxtApp()
-const { $layoutData } = useNuxtApp()
-watch(globalStore.header, (newVal, oldVal) => {
-  console.log('Global store changed for draft previews', newVal, oldVal)
-})
 
 onMounted(async () => {
   console.log('In default layout', enabled.value, state?.token)
-  /* document.addEventListener('visibilitychange', async () => {
-    if (document.visibilityState === 'visible') {
-      const data = await $graphql.default.request(Globals)
-
-      console.log('Pinia store Global Data object:' + JSON.stringify(data.value))
-      if (data.value) {
-        const globalData = removeEmpties(data.value?.globalSets || [])
-        // console.log("remove empties: " + JSON.stringify(globalData))
-        // Shape data from Craft
-        const craftData = Object.fromEntries(
-          globalData?.map(item => [item.handle, item])
-        )
-        globalStore.globals = craftData
-      }
-    }
-  }) */
-
-  if (process.env.NODE_ENV !== 'development' && layoutCustomProps['is-error']) {
-    console.log('In SSG refresh layout data as state is not maintained after an error response')
-    if (isApiLocked.value) {
-      console.log('API is locked, not fetching layout data')
-    } else {
-      await $layoutData()
-    }
-  }
   await $alerts()
 })
 </script>

@@ -10,27 +10,25 @@ console.log('Error page props:', props?.error?.message)
 </script>
 
 <template>
-  <NuxtLayout :is-error="true">
+  <NuxtLayout>
     <main
       id="main"
       class="page page-error"
     >
       <p class="error">
-        {{ error?.statusCode }}
+        {{ error?.status || 'Error' }}
       </p>
-      <!--pre v-if="isDevelopment"-->
+      <pre v-if="isDevelopment">
       {{ error?.message }}
       <br>
       {{ error }}
-      <!--/pre-->
+      </pre>
       <DividerWayFinder />
 
-      <RichText
-        class="
-        error-text"
-      >
+      <RichText class="
+        error-text">
         <h1
-          v-if="error?.statusCode === 404"
+          v-if="error?.status === 404"
           class="error-title"
         >
           Page not found
