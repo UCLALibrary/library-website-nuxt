@@ -196,10 +196,15 @@ export default defineNuxtConfig({
         || 'https://proxy.calendar.library.ucla.edu/',
       esTempIndexPrefixLibguides: process.env.ES_TEMP_INDEX_PREFIX_LIBGUIDES || '',
       esTempIndexLibguides: '',
-      gtm: {
+    },
+  },
+
+  scripts: {
+    registry: {
+      googleTagManager: {
         id: 'GTM-T2SXV2'
       }
-    },
+    }
   },
 
   routeRules: {
@@ -254,7 +259,7 @@ export default defineNuxtConfig({
     {
       autoImports: ['defineStore', 'acceptHMRUpdate'],
     },
-  ], 'nuxt-graphql-request', '@zadigetvoltaire/nuxt-gtm', '@nuxtjs/sitemap'],
+  ], 'nuxt-graphql-request', '@nuxtjs/sitemap', '@nuxt/scripts'],
 
   build: {
     transpile: ['nuxt-graphql-request', 'ucla-library-website-components'],
