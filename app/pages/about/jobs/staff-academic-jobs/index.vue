@@ -4,11 +4,11 @@
 
 // HELPERS
 import _get from 'lodash/get'
+import JOB_OPPORTUNITIES_LIST from '../gql/queries/JobOpportunitiesList.gql'
 import fixUri from '@/utils/fixUri'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import JOB_OPPORTUNITIES_LIST from '../gql/queries/JobOpportunitiesList.gql'
 
 const { $graphql } = useNuxtApp()
 

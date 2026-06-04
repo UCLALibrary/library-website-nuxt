@@ -4,11 +4,11 @@
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '@/utils/removeTags'
 
 // GQL
 import TUTORIALS_DETAIL from '../gql/queries/TutorialsDetail.gql'
 import TUTORIALS_CTA from '../gql/queries/TutorialsCTA.gql'
+import removeTags from '@/utils/removeTags'
 
 const { $graphql } = useNuxtApp()
 const route = useRoute()

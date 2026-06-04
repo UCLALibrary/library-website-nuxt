@@ -6,10 +6,10 @@
 
 // HELPERS
 import _get from 'lodash/get'
+import POLICIES_LIST from '../gql/queries/PoliciesList.gql'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import POLICIES_LIST from '../gql/queries/PoliciesList.gql'
 
 const { $graphql, $getHeaders } = useNuxtApp()
 

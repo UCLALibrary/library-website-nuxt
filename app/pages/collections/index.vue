@@ -6,10 +6,10 @@
 import _get from 'lodash/get'
 import format from 'date-fns/format'
 //  import { onMounted } from 'vue'
+import COLLECTIONS_LIST from '../gql/queries/CollectionsList.gql'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import COLLECTIONS_LIST from '../gql/queries/CollectionsList.gql'
 
 // GET DATA-
 const { $graphql, $getHeaders } = useNuxtApp()

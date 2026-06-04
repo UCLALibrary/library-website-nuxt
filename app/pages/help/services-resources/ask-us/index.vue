@@ -4,10 +4,10 @@
 
 // HELPERS
 import _get from 'lodash/get'
+import ASK_US from '../gql/queries/AskUs.gql'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import ASK_US from '../gql/queries/AskUs.gql'
 
 const { $graphql } = useNuxtApp()
 

@@ -6,11 +6,11 @@
 
 // HELPERS
 import _get from 'lodash/get'
+import COLLECTION_DETAIL from '../gql/queries/CollectionDetail.gql'
 import fixUri from '@/utils/fixUri'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import COLLECTION_DETAIL from '../gql/queries/CollectionDetail.gql'
 
 const { $graphql, $getHeaders } = useNuxtApp()
 
@@ -231,8 +231,8 @@ onMounted(() => {
     <SectionWrapper
       v-if="
         parsedServicesAndResources.length > 0 ||
-        parsedEndowments.length > 0 ||
-        parsedAssociatedStaffMember.length > 0
+          parsedEndowments.length > 0 ||
+          parsedAssociatedStaffMember.length > 0
       "
       theme="divider"
     >
@@ -255,7 +255,7 @@ onMounted(() => {
       <DividerWayFinder
         v-if="
           parsedEndowments.length > 0 ||
-          parsedAssociatedStaffMember.length > 0
+            parsedAssociatedStaffMember.length > 0
         "
         class="divider-way-finder"
         color="default"

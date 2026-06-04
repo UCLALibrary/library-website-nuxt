@@ -6,6 +6,7 @@
 
 // UTILITIES
 import _get from 'lodash/get'
+import LOCATIONS_LIST from '../gql/queries/LocationsList.gql'
 import getListingFilters from '@/utils/getListingFilters'
 import config from '@/utils/searchConfig'
 import queryFilterHasValues from '@/utils/queryFilterHasValues'
@@ -17,7 +18,6 @@ import parseAddress from '@/utils/parseAddress'
 import parseAmenities from '@/utils/parseAmenities'
 
 // GQL
-import LOCATIONS_LIST from '../gql/queries/LocationsList.gql'
 
 const { $graphql } = useNuxtApp()
 
@@ -291,7 +291,7 @@ const { hasCTA } = useAskALibrarianCTA()
         parsedUclaLibraries.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
       section-title="UCLA Library Locations"
     >
@@ -313,7 +313,7 @@ const { hasCTA } = useAskALibrarianCTA()
         showOtherCampus &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="Other Campus Libraries & Archives"
     >
       <SectionLocationList

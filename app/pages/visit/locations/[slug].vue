@@ -6,10 +6,10 @@
 
 // HELPERS
 import _get from 'lodash/get'
+import LOCATION_DETAIL from '../gql/queries/LocationDetail.gql'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import LOCATION_DETAIL from '../gql/queries/LocationDetail.gql'
 
 const { $graphql, $getHeaders } = useNuxtApp()
 const hostname = ref('')

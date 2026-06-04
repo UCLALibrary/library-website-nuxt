@@ -8,6 +8,8 @@
 import _get from 'lodash/get'
 
 // SEARCH UTILS
+import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from '../gql/queries/ServiceResourceWorkshopSeriesList.gql'
+import HELP_TOPIC_LIST from '../gql/queries/HelpTopicList.gql'
 import getListingFilters from '@/utils/getListingFilters'
 import config from '@/utils/searchConfig'
 import queryFilterHasValues from '@/utils/queryFilterHasValues'
@@ -18,8 +20,6 @@ import removeTags from '@/utils/removeTags'
 import sortByTitle from '@/utils/sortByTitle'
 
 // GQL
-import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from '../gql/queries/ServiceResourceWorkshopSeriesList.gql'
-import HELP_TOPIC_LIST from '../gql/queries/HelpTopicList.gql'
 
 const { $graphql } = useNuxtApp()
 const route = useRoute()

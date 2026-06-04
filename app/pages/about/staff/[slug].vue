@@ -4,10 +4,10 @@
 
 // HELPERS
 import _get from 'lodash/get'
+import STAFF_DETAIL from '../gql/queries/StaffDetail.gql'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import STAFF_DETAIL from '../gql/queries/StaffDetail.gql'
 
 const route = useRoute()
 const { $graphql } = useNuxtApp()

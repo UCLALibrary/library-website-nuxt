@@ -35,7 +35,7 @@ const libraryAlert = computed(() => {
 // on mounted I want to want to check if visiblity change event is triggered and use $fetch or $graghql to fetch data from api
 // I want to use this data to update the global store
 // const { $graphql } = useNuxtApp()
-/*const { $alerts } = useNuxtApp()
+/* const { $alerts } = useNuxtApp()
 const { $layoutData } = useNuxtApp()
 watch(globalStore.header, (newVal, oldVal) => {
   console.log('Global store changed for draft previews', newVal, oldVal)
@@ -49,7 +49,7 @@ onMounted(async () => {
     await $layoutData()
   }
   await $alerts()
-})*/
+}) */
 useHead({
   titleTemplate: title =>
     title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library',

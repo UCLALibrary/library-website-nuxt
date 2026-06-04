@@ -4,6 +4,7 @@
 
 // UTILITIES
 import _get from 'lodash/get'
+import PROGRAMS_LIST from '../gql/queries/ProgramsList.gql'
 import getListingFilters from '@/utils/getListingFilters'
 import config from '@/utils/searchConfig'
 import queryFilterHasValues from '@/utils/queryFilterHasValues'
@@ -13,7 +14,6 @@ import parseFilters from '@/utils/parseFilters'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import PROGRAMS_LIST from '../gql/queries/ProgramsList.gql'
 
 // GET DATA-
 const { $graphql } = useNuxtApp()
@@ -256,7 +256,7 @@ const { hasCTA } = useAskALibrarianCTA()
         page.featuredPrograms.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <DividerWayFinder
@@ -271,7 +271,7 @@ const { hasCTA } = useAskALibrarianCTA()
         page.featuredPrograms.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -304,7 +304,7 @@ const { hasCTA } = useAskALibrarianCTA()
         parsedProgramsList.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="All Programs & Initiatives"
     >
       <SectionStaffArticleList :items="parsedProgramsList" />

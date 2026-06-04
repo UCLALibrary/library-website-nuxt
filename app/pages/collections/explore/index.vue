@@ -6,10 +6,10 @@
 import _get from 'lodash/get'
 
 // UTILITIES
+import COLLECTIONS_EXPLORE_LIST from '../gql/queries/CollectionsExploreList.gql'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import COLLECTIONS_EXPLORE_LIST from '../gql/queries/CollectionsExploreList.gql'
 
 // ELASTIC SEARCH UTILITIES
 import getListingFilters from '@/utils/getListingFilters'
@@ -263,7 +263,7 @@ onMounted(async () => {
         parsedCollectionList.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <SectionTeaserCard :items="parsedCollectionList" />

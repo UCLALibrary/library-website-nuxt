@@ -42,7 +42,6 @@ const libraryAlert = computed(() => {
   }
 })
 
-
 const classes = computed(() => [
   'layout',
   'layout-default',

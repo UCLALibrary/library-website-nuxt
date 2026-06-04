@@ -5,10 +5,10 @@
 
 // HELPERS
 import _get from 'lodash/get'
+import EVENT_DETAIL from '../gql/queries/EventDetail.gql'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import EVENT_DETAIL from '../gql/queries/EventDetail.gql'
 
 const config = useRuntimeConfig()
 
@@ -644,8 +644,10 @@ const { hasCTA } = useAskALibrarianCTA()
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
-          " />
+        <RichText
+          :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
+          "
+        />
       </SectionWrapper>
     </div>
   </main>

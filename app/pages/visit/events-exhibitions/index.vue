@@ -423,7 +423,7 @@ const { hasCTA } = useAskALibrarianCTA()
       v-show="parsedFeaturedEventsAndExhibits.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -458,7 +458,7 @@ const { hasCTA } = useAskALibrarianCTA()
         parsedEvents.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <DividerWayFinder color="visit" />
@@ -470,7 +470,7 @@ const { hasCTA } = useAskALibrarianCTA()
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="All Upcoming Events"
     >
       <SectionTeaserList :items="parsedEvents" />
@@ -481,7 +481,7 @@ const { hasCTA } = useAskALibrarianCTA()
         parsedEvents.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <DividerWayFinder color="visit" />
@@ -493,7 +493,7 @@ const { hasCTA } = useAskALibrarianCTA()
         parsedSeriesAndExhibitions.length > 0 &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="Event Series & Exhibitions"
     >
       <SectionTeaserCard :items="parsedSeriesAndExhibitions" />

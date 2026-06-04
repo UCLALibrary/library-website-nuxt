@@ -4,10 +4,10 @@
 
 // HELPERS
 import _get from 'lodash/get'
+import IMPACT_REPORT_STORY from '../gql/queries/ImpactReportStory.gql'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import IMPACT_REPORT_STORY from '../gql/queries/ImpactReportStory.gql'
 
 const { $graphql } = useNuxtApp()
 const route = useRoute()

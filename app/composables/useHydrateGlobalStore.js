@@ -64,7 +64,6 @@ export function useHydrateGlobalStore() {
     if (footerSock.data.value && Object.keys(store.footerSock || {}).length === 0) {
       store.footerSock = footerSock.data.value
     }
-
   })
 
   const pending = computed(() =>

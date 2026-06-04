@@ -4,11 +4,11 @@
 
 // HELPERS
 import _get from 'lodash/get'
+import STUDENT_OPPORTUNITIES_LIST from '../gql/queries/JobStudentOpportunitiesList.gql'
 import fixUri from '@/utils/fixUri'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import STUDENT_OPPORTUNITIES_LIST from '../gql/queries/JobStudentOpportunitiesList.gql'
 
 const { $graphql } = useNuxtApp()
 
@@ -138,8 +138,8 @@ const parsedAssociatedTopics = computed(() => {
     <BannerText
       v-if="
         page.buttonUrl &&
-        page.buttonUrl[0] &&
-        page.buttonUrl[0].buttonText
+          page.buttonUrl[0] &&
+          page.buttonUrl[0].buttonText
       "
       class="banner-text"
       :title="page.title"

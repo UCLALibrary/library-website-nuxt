@@ -4,11 +4,11 @@
 
 // HELPERS
 import _get from 'lodash/get'
+import IMPACT_REPORTS_LIST from '../gql/queries/ImpactReportsList.gql'
 import fixUri from '@/utils/fixUri'
 import removeTags from '@/utils/removeTags'
 
 // GQL
-import IMPACT_REPORTS_LIST from '../gql/queries/ImpactReportsList.gql'
 
 const { $graphql } = useNuxtApp()
 const { data: page, error } = await useAsyncData('impact-report-all-list', async () => {
