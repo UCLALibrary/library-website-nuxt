@@ -18,6 +18,8 @@ runs:
 
     - uses: pnpm/action-setup@v4
       name: Install pnpm
+      with:
+        run_install: false
 
     - name: Install Node.js
       uses: actions/setup-node@v4
@@ -28,10 +30,6 @@ runs:
     - name: Install dependencies
       shell: bash
       run: pnpm install --frozen-lockfile --strict-peer-dependencies
-
-    - name: Install Global Packages
-      shell: bash
-      run: pnpm add -g gulp prettier typescript
 
     - name: Install Cypress Binary
       shell: bash
