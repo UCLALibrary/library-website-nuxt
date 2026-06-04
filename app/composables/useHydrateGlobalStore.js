@@ -36,12 +36,12 @@ export function useHydrateGlobalStore() {
   // Hydrate Pinia once data arrives (SSR + client).
   // Only set if empty so you don't overwrite client state.
   watchEffect(() => {
-    console.log('Watching global data for hydration...')
-    console.log('Header data:' + JSON.stringify(header.data.value))
-    console.log(Object.keys(store.header || {}).length === 0 ? 'Store header is empty' : 'Store header already has data')
+    // console.log('Watching global data for hydration...')
+    // console.log('Header data:' + JSON.stringify(header.data.value))
+    // console.log(Object.keys(store.header || {}).length === 0 ? 'Store header is empty' : 'Store header already has data')
     if (header.data.value && Object.keys(store.header || {}).length === 0) {
       store.header = header.data.value
-      console.log('Header set in store:' + JSON.stringify(store.header))
+      // console.log('Header set in store:' + JSON.stringify(store.header))
     }
 
     if (globals.data.value && Object.keys(store.globals || {}).length === 0) {

@@ -4,7 +4,7 @@
 
 // HELPERS
 import _get from 'lodash/get'
-//  import { format } from 'date-fns'
+import { format } from 'date-fns'
 import ARTICLE_DETAIL from '../gql/queries/ArticleDetail.gql'
 import removeTags from '@/utils/removeTags'
 
