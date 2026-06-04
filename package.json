@@ -3,8 +3,8 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev --log-level verbose",
-    "generate": "node --max-old-space-size=8096 node_modules/nuxt/bin/nuxt.mjs generate",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
     "prerender": "nuxt build --prerender --log-level verbose",
     "start": "pnpm dlx serve .output/public",
     "preview": "nuxt preview",
