@@ -1,21 +1,21 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, RichText, SectionCardsWithIllustrations, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, RichText, SectionCardsWithIllustrations, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
-import { onMounted } from 'vue'
+//  import { onMounted } from 'vue'
 
 // HELPERS
 import _get from 'lodash/get'
 
 // SEARCH UTILS
-import getListingFilters from '@/utilsgetListingFilters'
-import config from '@/utilssearchConfig'
-import queryFilterHasValues from '@/utilsqueryFilterHasValues'
-import parseFilters from '@/utilsparseFilters'
+import getListingFilters from '@/utils/getListingFilters'
+import config from '@/utils/searchConfig'
+import queryFilterHasValues from '@/utils/queryFilterHasValues'
+import parseFilters from '@/utils/parseFilters'
 
 // UTILITIES
-import removeTags from '@/utilsremoveTags'
-import sortByTitle from '@/utilssortByTitle'
+import removeTags from '@/utils/removeTags'
+import sortByTitle from '@/utils/sortByTitle'
 
 // GQL
 import SERVICE_RESOURCE_WORKSHOPSERIES_LIST from '../gql/queries/ServiceResourceWorkshopSeriesList.gql'
@@ -284,6 +284,8 @@ function getSearchData(data) {
     }
   })
 }
+
+const { hasCTA } = useAskALibrarianCTA()
 </script>
 
 <template lang="html">
@@ -386,7 +388,7 @@ function getSearchData(data) {
       />
     </SectionWrapper>
 
-    <SectionWrapper>
+    <SectionWrapper v-if="hasCTA">
       <BlockCallToAction
         class="block-call-to-action"
         :is-global="true"

@@ -1,10 +1,10 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, FlexibleBlocks, SectionWrapper, DividerWayFinder } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { NavBreadcrumb, BannerText, FlexibleBlocks, SectionWrapper, DividerWayFinder } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '@/utilsremoveTags'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import ASK_US from '../gql/queries/AskUs.gql'

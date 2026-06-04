@@ -1,19 +1,19 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, BannerFeatured, SectionTeaserHighlight, SectionWrapper, DividerGeneral, DividerWayFinder, SectionStaffArticleList, RichText, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { MastheadSecondary, SearchGeneric, BannerFeatured, SectionTeaserHighlight, SectionWrapper, DividerGeneral, DividerWayFinder, SectionStaffArticleList, RichText, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
-import { format } from 'date-fns'
-import removeTags from '@/utilsremoveTags'
-import parseFilters from '@/utilsparseFilters'
+//  import { format } from 'date-fns'
+import removeTags from '@/utils/removeTags'
+import parseFilters from '@/utils/parseFilters'
 
 // GQL
 import ARTICLE_LIST from '../gql/queries/ArticleList.gql'
 
-import getListingFilters from '@/utilsgetListingFilters'
-import config from '@/utilssearchConfig'
-import queryFilterHasValues from '@/utilsqueryFilterHasValues'
+import getListingFilters from '@/utils/getListingFilters'
+import config from '@/utils/searchConfig'
+import queryFilterHasValues from '@/utils/queryFilterHasValues'
 import useSearch from '~/composables/useSearch'
 // console.log('In news listing page')
 
@@ -307,6 +307,7 @@ onMounted(async () => {
   // console.log("ESURLkey:" + config.esURL)
   await setFilters()
 })
+const { hasCTA } = useAskALibrarianCTA()
 </script>
 
 <template>
@@ -447,7 +448,7 @@ onMounted(async () => {
       <DividerWayFinder color="about" />
     </SectionWrapper>
 
-    <SectionWrapper>
+    <SectionWrapper v-if="hasCTA">
       <BlockCallToAction
         class="block-call-to-action"
         :is-global="true"

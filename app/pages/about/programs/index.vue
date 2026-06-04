@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, BannerFeatured, SectionTeaserHighlight, SectionWrapper, DividerWayFinder, SectionStaffArticleList, RichText, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { MastheadSecondary, SearchGeneric, BannerFeatured, SectionTeaserHighlight, SectionWrapper, DividerWayFinder, SectionStaffArticleList, RichText, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // UTILITIES
 import _get from 'lodash/get'
-import getListingFilters from '@/utilsgetListingFilters'
-import config from '@/utilssearchConfig'
-import queryFilterHasValues from '@/utilsqueryFilterHasValues'
-import parseFilters from '@/utilsparseFilters'
+import getListingFilters from '@/utils/getListingFilters'
+import config from '@/utils/searchConfig'
+import queryFilterHasValues from '@/utils/queryFilterHasValues'
+import parseFilters from '@/utils/parseFilters'
 
 // HELPERS
-import removeTags from '@/utilsremoveTags'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import PROGRAMS_LIST from '../gql/queries/ProgramsList.gql'
@@ -224,6 +224,7 @@ async function setFilters() {
 onMounted(async () => {
   await setFilters()
 })
+const { hasCTA } = useAskALibrarianCTA()
 </script>
 <template>
   <main
@@ -366,7 +367,7 @@ onMounted(async () => {
       <DividerWayFinder color="about" />
     </SectionWrapper>
 
-    <SectionWrapper>
+    <SectionWrapper v-if="hasCTA">
       <BlockCallToAction
         class="block-call-to-action"
         :is-global="true"

@@ -1,13 +1,13 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFinder, PageAnchor, FlexibleBlocks, SimpleCards, SectionStaffArticleList, SectionStaffList } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFinder, PageAnchor, FlexibleBlocks, SimpleCards, SectionStaffArticleList, SectionStaffList } from '@ucla-library-monorepo/ucla-library-website-components'
 
-import { onMounted } from 'vue'
+//  import { onMounted } from 'vue'
 
 // HELPERS
 import _get from 'lodash/get'
-import fixUri from '@/utilsfixUri'
-import removeTags from '@/utilsremoveTags'
+import fixUri from '@/utils/fixUri'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import COLLECTION_DETAIL from '../gql/queries/CollectionDetail.gql'

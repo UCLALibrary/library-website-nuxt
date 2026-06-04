@@ -1,16 +1,16 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, SectionCardsWithIllustrations, RichText } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { NavBreadcrumb, MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, SectionCardsWithIllustrations, RichText } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '@/utilsremoveTags'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import ACCESS_COLLECTIONS from '../gql/queries/CollectionsAccessList.gql'
 
 // UTILITIES & PLUGINS
-import config from '@/utilssearchConfig'
+import config from '@/utils/searchConfig'
 const { $graphql } = useNuxtApp()
 
 // ROUTING

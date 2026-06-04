@@ -1,12 +1,12 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SectionWrapper, DividerWayFinder, PageAnchor, FlexibleBlocks, RichText, SimpleCards, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { MastheadSecondary, SectionWrapper, DividerWayFinder, PageAnchor, FlexibleBlocks, RichText, SimpleCards, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
-import { onMounted } from 'vue'
+//  import { onMounted } from 'vue'
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '@/utilsremoveTags'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import HELP_TOPIC_DETAIL from '../gql/queries/HelpTopicDetail.gql'
@@ -87,7 +87,7 @@ onMounted(() => {
   // Call plugin method to get the .section-header2 and .section-header3 elements
   h2Array.value = $getHeaders.getHeadersMethod()
 })
-
+const { hasCTA } = useAskALibrarianCTA()
 </script>
 
 <template lang="html">
@@ -143,7 +143,7 @@ onMounted(() => {
       />
     </SectionWrapper>
 
-    <SectionWrapper>
+    <SectionWrapper v-if="hasCTA">
       <BlockCallToAction
         class="block-call-to-action"
         :is-global="true"

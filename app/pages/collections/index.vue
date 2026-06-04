@@ -1,12 +1,12 @@
 <script setup>
 // COMPONENTS
-import { BannerText, PageAnchor, BannerFeatured, FlexibleBlocks, ButtonMore, SectionWrapper, SectionTeaserHighlight, SectionTeaserCard, DividerWayFinder, SectionCardsWithIllustrations } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { BannerText, PageAnchor, BannerFeatured, FlexibleBlocks, ButtonMore, SectionWrapper, SectionTeaserHighlight, SectionTeaserCard, DividerWayFinder, SectionCardsWithIllustrations } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
 import format from 'date-fns/format'
-import { onMounted } from 'vue'
-import removeTags from '@/utilsremoveTags'
+//  import { onMounted } from 'vue'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import COLLECTIONS_LIST from '../gql/queries/CollectionsList.gql'

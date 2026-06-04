@@ -1,11 +1,11 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, SectionWrapper, DividerWayFinder, SectionGenericList, SectionCardsWithIllustrations } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { NavBreadcrumb, BannerText, SectionWrapper, DividerWayFinder, SectionGenericList, SectionCardsWithIllustrations } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
-import fixUri from '@/utilsfixUri'
-import removeTags from '@/utilsremoveTags'
+import fixUri from '@/utils/fixUri'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import STUDENT_OPPORTUNITIES_LIST from '../gql/queries/JobStudentOpportunitiesList.gql'

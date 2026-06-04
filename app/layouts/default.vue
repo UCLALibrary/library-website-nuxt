@@ -1,6 +1,6 @@
 <script setup>
 // components need to be imported for nitro crawling in static mode
-// import { HeaderSmart, SectionWrapper, NavPrimary, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
+// //  import { HeaderSmart, SectionWrapper, NavPrimary, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
 
 provide('theme', computed(() => ''))
 
@@ -41,8 +41,7 @@ const libraryAlert = computed(() => {
       return null
   }
 })
-const { header, footerPrimary, footerSock, setLayoutData } = useLayoutState()
-setLayoutData(globalStore)
+
 
 const classes = computed(() => [
   'layout',
@@ -59,7 +58,7 @@ onMounted(async () => {
 
 <template>
   <div :class="classes">
-    <HeaderSmart v-if="header && !$route.path.includes('/impact/')" />
+    <HeaderSmart v-if="globalStore.header && !$route.path.includes('/impact/')" />
     <SectionWrapper
       v-if="!$route.path.includes('/impact/')"
       class="
@@ -74,21 +73,21 @@ onMounted(async () => {
       />
     </SectionWrapper>
     <nav-primary
-      v-if="header && $route.path.includes('/impact/')"
+      v-if="globalStore.header && $route.path.includes('/impact/')"
       class="primary"
     />
     <slot />
 
     <footer>
       <FooterPrimary
-        v-if="footerPrimary && !$route.path.includes('/impact/')"
+        v-if="globalStore.footerPrimary && !$route.path.includes('/impact/')"
         :form="true"
       />
       <FooterPrimary
-        v-if="footerPrimary && $route.path.includes('/impact/')"
+        v-if="globalStore.footerPrimary && $route.path.includes('/impact/')"
         :form="false"
       />
-      <FooterSock v-if="footerSock && !$route.path.includes('/impact/')" />
+      <FooterSock v-if="globalStore.footerSock && !$route.path.includes('/impact/')" />
     </footer>
     <div
       v-if="!$route.path.includes('/impact/')"

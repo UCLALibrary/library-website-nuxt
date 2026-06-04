@@ -1,6 +1,6 @@
 <script setup>
-import { HeaderSmart, SectionWrapper, NavPrimary, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
-import { useLayoutState } from './composables/useLayoutState'
+//  import { HeaderSmart, SectionWrapper, NavPrimary, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { useLayoutState } from './composables/useLayoutState'
 
 provide('theme', computed(() => ''))
 const { enabled, state } = usePreviewMode()
@@ -8,8 +8,6 @@ const { enabled, state } = usePreviewMode()
 const route = useRoute()
 
 const globalStore = useGlobalStore()
-const { header, footerPrimary, footerSock, setLayoutData } = useLayoutState()
-setLayoutData(globalStore)
 
 const classes = ref(['layout',
   'layout-default'])

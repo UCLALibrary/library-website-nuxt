@@ -1,11 +1,11 @@
 <!-- eslint-disable no-console -->
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, DividerGeneral, SectionCardsWithIllustrations, RichText, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionStaffList, SectionTeaserList, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { NavBreadcrumb, BannerText, BannerHeader, DividerGeneral, SectionCardsWithIllustrations, RichText, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionStaffList, SectionTeaserList, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '@/utilsremoveTags'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import EVENT_DETAIL from '../gql/queries/EventDetail.gql'

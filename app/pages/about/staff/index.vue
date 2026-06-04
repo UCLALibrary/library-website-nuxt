@@ -1,6 +1,6 @@
 <script setup>
 // COMPONENTS
-import { IconWithLink, MastheadSecondary, SearchGeneric, SectionWrapper, SmartLink, DividerWayFinder, AlphabeticalBrowseBy, SectionStaffList, RichText, TableComponent, TableRow } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { IconWithLink, MastheadSecondary, SearchGeneric, SectionWrapper, SmartLink, DividerWayFinder, AlphabeticalBrowseBy, SectionStaffList, RichText, TableComponent, TableRow } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
@@ -8,10 +8,10 @@ import _ from 'lodash'
 // GQL
 import STAFF_LIST from '../gql/queries/StaffList.gql'
 // UTILITIES
-import fixUri from '@/utilsfixUri'
-import getListingFilters from '@/utilsgetListingFilters'
-import config from '@/utilssearchConfig'
-import removeTags from '@/utilsremoveTags'
+import fixUri from '@/utils/fixUri'
+import getListingFilters from '@/utils/getListingFilters'
+import config from '@/utils/searchConfig'
+import removeTags from '@/utils/removeTags'
 
 const { $graphql } = useNuxtApp()
 const { data, error } = await useAsyncData('staff-list', async () => {

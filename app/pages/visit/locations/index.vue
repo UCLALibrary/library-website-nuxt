@@ -1,20 +1,20 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, SectionLocationList, ButtonMore, SectionWrapper, DividerWayFinder, RichText, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { MastheadSecondary, SearchGeneric, SectionLocationList, ButtonMore, SectionWrapper, DividerWayFinder, RichText, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
-import { onMounted } from 'vue'
+//  import { onMounted } from 'vue'
 
 // UTILITIES
 import _get from 'lodash/get'
-import getListingFilters from '@/utilsgetListingFilters'
-import config from '@/utilssearchConfig'
-import queryFilterHasValues from '@/utilsqueryFilterHasValues'
-import parseFilters from '@/utilsparseFilters'
+import getListingFilters from '@/utils/getListingFilters'
+import config from '@/utils/searchConfig'
+import queryFilterHasValues from '@/utils/queryFilterHasValues'
+import parseFilters from '@/utils/parseFilters'
 
 // HELPERS
-import removeTags from '@/utilsremoveTags'
-import parseAddress from '@/utilsparseAddress'
-import parseAmenities from '@/utilsparseAmenities'
+import removeTags from '@/utils/removeTags'
+import parseAddress from '@/utils/parseAddress'
+import parseAmenities from '@/utils/parseAmenities'
 
 // GQL
 import LOCATIONS_LIST from '../gql/queries/LocationsList.gql'
@@ -254,6 +254,7 @@ function getSearchData(data) {
 onMounted(async () => {
   await setFilters()
 })
+const { hasCTA } = useAskALibrarianCTA()
 </script>
 
 <template lang="html">
@@ -385,7 +386,7 @@ onMounted(async () => {
       />
     </SectionWrapper>
 
-    <SectionWrapper>
+    <SectionWrapper v-if="hasCTA">
       <BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"

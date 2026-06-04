@@ -1,17 +1,17 @@
 <script setup>
 // COMPONENTS
-import { SectionWrapper, DividerWayFinder, RichText, GridGallery, ResponsiveImage, BannerFeatured, FlexibleBlocks } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { SectionWrapper, DividerWayFinder, RichText, GridGallery, ResponsiveImage, BannerFeatured, FlexibleBlocks } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
 import _ from 'lodash'
-import removeTags from '@/utilsremoveTags'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import IMPACT_REPORT from '../gql/queries/ImpactReport.gql'
 
 // UTILITIES
-import flattenTimeLineStructure from '@/utilsflattenTimeLineStructure'
+import flattenTimeLineStructure from '@/utils/flattenTimeLineStructure'
 
 const { $graphql } = useNuxtApp()
 

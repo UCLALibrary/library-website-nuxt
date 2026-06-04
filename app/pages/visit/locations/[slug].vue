@@ -1,12 +1,12 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, PageAnchor, SimpleCards, ButtonMore, BlockAmenities, SectionSpacesList, DividerGeneral, RichText, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionTeaserList } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { NavBreadcrumb, BannerText, BannerHeader, PageAnchor, SimpleCards, ButtonMore, BlockAmenities, SectionSpacesList, DividerGeneral, RichText, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionTeaserList } from '@ucla-library-monorepo/ucla-library-website-components'
 
-import { onMounted } from 'vue'
+//  import { onMounted } from 'vue'
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '@/utilsremoveTags'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import LOCATION_DETAIL from '../gql/queries/LocationDetail.gql'

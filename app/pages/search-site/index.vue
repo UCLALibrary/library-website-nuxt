@@ -1,16 +1,16 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, DividerGeneral, RichText, SectionCardsWithIllustrations, SearchResult, SectionPagination } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { MastheadSecondary, SearchGeneric, SectionWrapper, DividerWayFinder, DividerGeneral, RichText, SectionCardsWithIllustrations, SearchResult, SectionPagination } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
 
 // UTILITIES
-import config from '@/utilssearchConfig'
-import queryFilterHasValues from '@/utilsqueryFilterHasValues'
-import parseFilters from '@/utilsparseFilters'
-import formatDates from '@/utilsformatDates'
-import formatTimes from '@/utilsformatTimes'
+import config from '@/utils/searchConfig'
+import queryFilterHasValues from '@/utils/queryFilterHasValues'
+import parseFilters from '@/utils/parseFilters'
+import formatDates from '@/utils/formatDates'
+import formatTimes from '@/utils/formatTimes'
 
 const route = useRoute()
 const page = ref({})

@@ -1,12 +1,12 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, PageAnchor, SimpleCards, FlexibleBlocks, SectionWrapper, DividerWayFinder } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { MastheadSecondary, PageAnchor, SimpleCards, FlexibleBlocks, SectionWrapper, DividerWayFinder } from '@ucla-library-monorepo/ucla-library-website-components'
 
-import { onMounted } from 'vue'
+//  import { onMounted } from 'vue'
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '@/utilsremoveTags'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import POLICIES_LIST from '../gql/queries/PoliciesList.gql'

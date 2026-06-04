@@ -1,21 +1,21 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, SectionTeaserCard, SectionWrapper, DividerWayFinder, RichText, SectionCardsWithIllustrations } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { MastheadSecondary, SearchGeneric, SectionTeaserCard, SectionWrapper, DividerWayFinder, RichText, SectionCardsWithIllustrations } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // LODASH
 import _get from 'lodash/get'
 
 // UTILITIES
-import removeTags from '@/utilsremoveTags'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import COLLECTIONS_EXPLORE_LIST from '../gql/queries/CollectionsExploreList.gql'
 
 // ELASTIC SEARCH UTILITIES
-import getListingFilters from '@/utilsgetListingFilters'
-import config from '@/utilssearchConfig'
-import queryFilterHasValues from '@/utilsqueryFilterHasValues'
-import parseFilters from '@/utilsparseFilters'
+import getListingFilters from '@/utils/getListingFilters'
+import config from '@/utils/searchConfig'
+import queryFilterHasValues from '@/utils/queryFilterHasValues'
+import parseFilters from '@/utils/parseFilters'
 
 const { $graphql } = useNuxtApp()
 

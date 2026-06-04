@@ -1,8 +1,8 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, PageAnchor, SectionWrapper, DividerWayFinder, FlexibleBlocks } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { NavBreadcrumb, BannerText, BannerHeader, PageAnchor, SectionWrapper, DividerWayFinder, FlexibleBlocks } from '@ucla-library-monorepo/ucla-library-website-components'
 
-import { onMounted } from 'vue'
+//  import { onMounted } from 'vue'
 
 // HELPERS
 import _get from 'lodash/get'

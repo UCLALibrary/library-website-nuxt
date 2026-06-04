@@ -1,14 +1,14 @@
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, SearchGeneric, BlockCallToAction, SectionGenericList, SectionTeaserCard, SectionWrapper, DividerWayFinder, RichText } from '@ucla-library-monorepo/ucla-library-website-components'
+// //  import { MastheadSecondary, SearchGeneric, BlockCallToAction, SectionGenericList, SectionTeaserCard, SectionWrapper, DividerWayFinder, RichText } from '@ucla-library-monorepo/ucla-library-website-components'
 
 import _get from 'lodash/get'
 
-import config from '@/utilssearchConfig'
-import queryFilterHasValues from '@/utilsqueryFilterHasValues'
-import parseFilters from '@/utilsparseFilters'
-import fixUri from '@/utilsfixUri'
-import removeTags from '@/utilsremoveTags'
+import config from '@/utils/searchConfig'
+import queryFilterHasValues from '@/utils/queryFilterHasValues'
+import parseFilters from '@/utils/parseFilters'
+import fixUri from '@/utils/fixUri'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import ENDOWMENTS_LIST from '../gql/queries/EndowmentList.gql'

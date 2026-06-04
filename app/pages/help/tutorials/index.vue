@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script setup>
 // COMPONENTS
-import { BannerFeatured, BlockCallToActionTwoUp, MastheadSecondary, DividerGeneral, DividerWayFinder, RichText, SearchGeneric, SectionHeader, SectionTeaserCard, SectionTeaserHighlight, SectionWrapper } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { BannerFeatured, BlockCallToActionTwoUp, MastheadSecondary, DividerGeneral, DividerWayFinder, RichText, SearchGeneric, SectionHeader, SectionTeaserCard, SectionTeaserHighlight, SectionWrapper } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // UTILITIES
 import _get from 'lodash/get'
@@ -10,10 +10,10 @@ import _get from 'lodash/get'
 import TUTORIALS_LIST from '../gql/queries/TutorialsList.gql'
 
 // HELPERS
-import config from '@/utilssearchConfig'
-import getListingFilters from '@/utilsgetListingFilters'
-import queryFilterHasValues from '@/utilsqueryFilterHasValues'
-import removeTags from '@/utilsremoveTags'
+import config from '@/utils/searchConfig'
+import getListingFilters from '@/utils/getListingFilters'
+import queryFilterHasValues from '@/utils/queryFilterHasValues'
+import removeTags from '@/utils/removeTags'
 
 const { $graphql } = useNuxtApp()
 

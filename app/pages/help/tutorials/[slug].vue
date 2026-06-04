@@ -1,10 +1,10 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, SectionHeader, SectionWrapper, DividerWayFinder, RichText, FlexibleBlocks, SimpleCards, IconWithLink, BlockSponsor, BlockCallToActionTwoUp } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { NavBreadcrumb, BannerText, BannerHeader, SectionHeader, SectionWrapper, DividerWayFinder, RichText, FlexibleBlocks, SimpleCards, IconWithLink, BlockSponsor, BlockCallToActionTwoUp } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '@/utilsremoveTags'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import TUTORIALS_DETAIL from '../gql/queries/TutorialsDetail.gql'

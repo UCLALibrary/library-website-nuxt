@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 // COMPONENTS
-import { NavBreadcrumb, SectionWrapper, DividerWayFinder, BlockStaffDetail, SectionStaffOrcidPublications, SectionStaffArticleList, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { NavBreadcrumb, SectionWrapper, DividerWayFinder, BlockStaffDetail, SectionStaffOrcidPublications, SectionStaffArticleList, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
-import removeTags from '@/utilsremoveTags'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import STAFF_DETAIL from '../gql/queries/StaffDetail.gql'
@@ -90,6 +90,7 @@ const parsedItems = computed(() => {
     }
   })
 })
+const { hasCTA } = useAskALibrarianCTA()
 </script>
 <template>
   <main
@@ -177,7 +178,7 @@ const parsedItems = computed(() => {
         color="about"
       />
     </SectionWrapper>
-    <SectionWrapper>
+    <SectionWrapper v-if="hasCTA">
       <BlockCallToAction
         class="block-call-to-action"
         :is-global="true"

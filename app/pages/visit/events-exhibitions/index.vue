@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script setup>
 // COMPONENTS
-import { MastheadSecondary, DividerGeneral, SearchGeneric, SectionWrapper, DividerWayFinder, BannerFeatured, SectionTeaserHighlight, SectionTeaserCard, SectionTeaserList, RichText, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { MastheadSecondary, DividerGeneral, SearchGeneric, SectionWrapper, DividerWayFinder, BannerFeatured, SectionTeaserHighlight, SectionTeaserCard, SectionTeaserList, RichText, BlockCallToAction } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // UTILITIES
 import _get from 'lodash/get'
@@ -11,11 +11,11 @@ import EXHIBITIONS_AND_EVENTS_LIST from '../gql/queries/ExhibitionsAndEventsList
 import EXHIBITIONS_AND_EVENTS_LIST_SINGLE from '../gql/queries/ExhibitionsAndEventsListSingle.gql'
 
 // HELPERS
-import config from '@/utilssearchConfig'
-import getListingFilters from '@/utilsgetListingFilters'
-import queryFilterHasValues from '@/utilsqueryFilterHasValues'
-import removeTags from '@/utilsremoveTags'
-import sortByTitle from '@/utilssortByTitle'
+import config from '@/utils/searchConfig'
+import getListingFilters from '@/utils/getListingFilters'
+import queryFilterHasValues from '@/utils/queryFilterHasValues'
+import removeTags from '@/utils/removeTags'
+import sortByTitle from '@/utils/sortByTitle'
 
 const { $graphql } = useNuxtApp()
 
@@ -393,6 +393,8 @@ async function setFilters() {
 onMounted(async () => {
   await setFilters()
 })
+
+const { hasCTA } = useAskALibrarianCTA()
 </script>
 
 <template lang="html">
@@ -552,7 +554,7 @@ onMounted(async () => {
     <SectionWrapper>
       <DividerWayFinder color="visit" />
     </SectionWrapper>
-    <SectionWrapper>
+    <SectionWrapper v-if="hasCTA">
       <BlockCallToAction
         class="section block-call-to-action"
         :is-global="true"

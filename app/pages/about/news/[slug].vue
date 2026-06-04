@@ -1,11 +1,11 @@
 <script setup>
 // COMPONENTS
-import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionStaffList } from '@ucla-library-monorepo/ucla-library-website-components'
+//  import { NavBreadcrumb, BannerText, BannerHeader, SectionWrapper, DividerWayFinder, FlexibleBlocks, SectionStaffList } from '@ucla-library-monorepo/ucla-library-website-components'
 
 // HELPERS
 import _get from 'lodash/get'
-import { format } from 'date-fns'
-import removeTags from '@/utilsremoveTags'
+//  import { format } from 'date-fns'
+import removeTags from '@/utils/removeTags'
 
 // GQL
 import ARTICLE_DETAIL from '../gql/queries/ArticleDetail.gql'

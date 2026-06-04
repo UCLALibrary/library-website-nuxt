@@ -7,7 +7,7 @@ export const useGlobalStore = defineStore('GlobalStore', {
   }),
 
   actions: {
-    async fetchGlobals() {
+    /*async fetchGlobals() {
       try {
         const data = await $fetch('/api/fetchNitroStorageCraftGlobalData')
         // console.log('Pinia store Global Data object:' + JSON.stringify(data.value))
@@ -55,7 +55,7 @@ export const useGlobalStore = defineStore('GlobalStore', {
       catch (e) {
         throw new Error(`Craft API error, trying to set globals FooterSockData. ${e}`)
       }
-    }
+    }*/
 
   }
 })
