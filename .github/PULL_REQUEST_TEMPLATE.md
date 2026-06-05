@@ -1,33 +1,37 @@
-**Connected to** [LADI-](https://jira.library.ucla.edu/browse/LADI-)
+#### Connected to [LADI-5199](https://jira.library.ucla.edu/browse/LADI-5199)
 
-**Deployed on** https://deploy-preview-xxx--test-ftva.netlify.app
+#### Deployed on https://deploy-preview-353--test-ftva.netlify.app
 
 ---
 
-**Notes**
+### Notes
 
 {add notes about your PR}
 
-**Screenshot**
+### Screenshot
 
 {add a screenshot if applicable}
 
 ---
 
-**Checklist**
-- [ ] I checked this PR in Chrome
-- [ ] I checked this PR in Firefox
-- [ ] I checked this PR in Safari
-- [ ] I checked this PR in Edge
-    - [ ] I checked this PR in desktop view
-    - [ ] I checked this PR in tablet view
-    - [ ] I checked this PR in mobile view
-    - [ ] I zoomed the site to 200%
-    - [ ] I checked for keyboard traps
-    - [ ] I double checked it looks like the designs
-- [ ] I included a working / updated spec file
-- [ ] I reviewed the Chromatic
-- [ ] UX has reviewed
-- [ ] Another Dev has reviewed the Chromatic
-- [ ] Another Dev has reviewed the deploy preview
-- [ ] Another Dev has reviewed the code
+## Checklist
+
+### Author
+- [ ] Browsers
+    - [ ] Review PR in Chrome, Firefox, Safari, Edge
+    - [ ] Review PR in desktop view, tablet view, mobile view
+- [ ] A11Y
+    - [ ] Zoom the site to 200%
+    - [ ] Check for keyboard traps
+- [ ] Design & Code
+    - [ ] Check that looks like the designs _(if applicable)_
+    - [ ] Include a working / updated spec file _(if applicable)_
+    - [ ] Review the Chromatic
+
+### UX Review
+- [ ] UX has reviewed and approved
+
+### Dev Review
+  - [ ] Review Chromatic
+  - [ ] Review the deploy preview
+  - [ ] Review the code
