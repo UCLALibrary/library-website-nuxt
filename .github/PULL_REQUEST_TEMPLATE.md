@@ -1,6 +1,6 @@
-#### Connected to [LADI-5199](https://jira.library.ucla.edu/browse/LADI-5199)
+#### Connected to [LADI-](https://jira.library.ucla.edu/browse/LADI-)
 
-#### Deployed on https://deploy-preview-353--test-ftva.netlify.app
+#### Deployed on https://deploy-preview-xxx--test-ftva.netlify.app
 
 ---
 
