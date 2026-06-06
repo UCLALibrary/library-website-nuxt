@@ -5,51 +5,7 @@
 provide('theme', computed(() => ''))
 const { enabled, state } = usePreviewMode()
 // console.log('App.vue', enabled.value, state.token)
-const route = useRoute()
 
-const globalStore = useGlobalStore()
-
-const classes = ref(['layout',
-  'layout-default'])
-
-const libraryAlert = computed(() => {
-  /* console.log(
-    'in library alert computed property',
-    globalStore.header,
-  ) */
-  if (globalStore.globals) {
-    const alert = globalStore.globals?.libraryAlert
-    if (
-      alert
-      && alert.title
-      && alert.title.length > 0
-      && alert.text
-      && alert.text.length > 0
-    )
-      return alert
-    else
-      return null
-  }
-})
-
-// on mounted I want to want to check if visiblity change event is triggered and use $fetch or $graghql to fetch data from api
-// I want to use this data to update the global store
-// const { $graphql } = useNuxtApp()
-/* const { $alerts } = useNuxtApp()
-const { $layoutData } = useNuxtApp()
-watch(globalStore.header, (newVal, oldVal) => {
-  console.log('Global store changed for draft previews', newVal, oldVal)
-  setLayoutData(globalStore)
-})
-
-onMounted(async () => {
-  // globalstore state is lost due to 404 error for draft previews, this is hack to repopulate state on client side
-  console.log('No layout query', route.query, 'preview enabled', enabled.value, 'state?.token', state?.token)
-  if (process.env.NODE_ENV !== 'development' && (route.query?.preview === 'true' || enabled.value) && (route.query?.token !== undefined || state?.token !== undefined)) {
-    await $layoutData()
-  }
-  await $alerts()
-}) */
 useHead({
   titleTemplate: title =>
     title === 'Homepage' ? 'UCLA Library' : `${title}` + ' | UCLA Library',
@@ -72,43 +28,7 @@ useHead({
       to="#main"
       label="Skip to main content"
     />
-    <!-- div :class="classes">
-      <HeaderSmart v-if="header && !$route.path.includes('/impact/')" />
-      <SectionWrapper
-        v-if="!$route.path.includes('/impact/')"
-        class="
-      section-alert"
-        theme="divider"
-      >
-        <site-notification-alert
-          v-if="
-            libraryAlert"
-          class="library-alert"
-          v-bind="libraryAlert"
-        />
-      </SectionWrapper>
-      <nav-primary
-        v-if="header && $route.path.includes('/impact/')"
-        class="primary"
-      />
-      <NuxtPage />
 
-      <footer>
-        <FooterPrimary
-          v-if="footerPrimary && !$route.path.includes('/impact/')"
-          :form="true"
-        />
-        <FooterPrimary
-          v-if="footerPrimary && $route.path.includes('/impact/')"
-          :form="false"
-        />
-        <FooterSock v-if="footerSock && !$route.path.includes('/impact/')" />
-      </footer>
-      <div
-        v-if="!$route.path.includes('/impact/')"
-        id="libchat_5a44dfe7cc29aaee5bba635ab13fa753"
-      />
-    </div-->
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

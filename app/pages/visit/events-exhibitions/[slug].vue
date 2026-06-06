@@ -55,7 +55,7 @@ if (import.meta.prerender) {
 // Data
 
 const page = ref(data.value)
-console.log('page data for events exhibition slug template:', page.value)
+// console.log('page data for events exhibition slug template:', page.value)
 watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal Events and Series error issue debug', newVal, oldVal)
   page.value = newVal

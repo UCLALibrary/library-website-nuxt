@@ -22,25 +22,6 @@ const globalStore = useGlobalStore()
 useHydrateGlobalStore()
 
 // console.log('In default layout:', globalStore.header)
-const libraryAlert = computed(() => {
-  /* console.log(
-    'in library alert computed property',
-    globalStore.header,
-  ) */
-  if (globalStore.globals) {
-    const alert = globalStore.globals?.libraryAlert
-    if (
-      alert
-      && alert.title
-      && alert.title.length > 0
-      && alert.text
-      && alert.text.length > 0
-    )
-      return alert
-    else
-      return null
-  }
-})
 
 const classes = computed(() => [
   'layout',
