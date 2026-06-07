@@ -19,22 +19,17 @@ runs:
     - uses: pnpm/action-setup@v4
       name: Install pnpm
       with:
-        version: 9
         run_install: false
 
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 20.18.3
+        node-version: 24.16.0
         cache: 'pnpm'
 
     - name: Install dependencies
       shell: bash
       run: pnpm install --frozen-lockfile --strict-peer-dependencies
-
-    - name: Install Global Packages
-      shell: bash
-      run: pnpm add -g gulp prettier typescript
 
     - name: Install Cypress Binary
       shell: bash

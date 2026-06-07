@@ -11,10 +11,5 @@ query Globals {
                 buttonUrl
             }
         }
-
-        ... on libraryAlert_GlobalSet {
-            title: entryTitle
-            text: richTextAlertBox
-        }
     }
 }
