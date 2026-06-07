@@ -449,9 +449,9 @@ const { hasCTA } = useAskALibrarianCTA()
     <SectionWrapper theme="divider">
       <DividerWayFinder color="about" />
     </SectionWrapper>
-
-    <SectionWrapper v-if="hasCTA">
+    <SectionWrapper>
       <BlockCallToAction
+        v-if="hasCTA"
         class="block-call-to-action"
         :is-global="true"
       />

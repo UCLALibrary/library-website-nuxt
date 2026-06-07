@@ -2,18 +2,18 @@
 // GQL
 import FooterPrimaryItems from '../../gql/queries/FooterPrimaryItems.gql'
 import FooterSockItems from '../../gql/queries/FooterSockItems.gql'
-// import Globals from '../../gql/queries/Globals.gql'
+import Globals from '../../gql/queries/Globals.gql'
 import HeaderMainMenuItems from '../../gql/queries/HeaderMainMenuItems.gql'
 export function useHydrateGlobalStore() {
   const { $graphql } = useNuxtApp()
   const store = useGlobalStore()
 
   // Fixed keys => Nuxt can reuse/dedupe across prerendered routes
-  /* const globals = useAsyncData('global-globals', async () => {
+  const globals = useAsyncData('global-globals', async () => {
     const data = await $graphql.default.request(Globals)
     // console.log('Globals GQL response:' + JSON.stringify(data))
     return data
-  }) */
+  })
 
   const header = useAsyncData('global-header', async () => {
     const data = await $graphql.default.request(HeaderMainMenuItems)
@@ -44,7 +44,7 @@ export function useHydrateGlobalStore() {
       // console.log('Header set in store:' + JSON.stringify(store.header))
     }
 
-    /* if (globals.data.value && Object.keys(store.globals || {}).length === 0) {
+    if (globals.data.value && Object.keys(store.globals || {}).length === 0) {
       // If your API already returns the shaped object, assign directly.
       // If it returns { globalSets: [...] }, shape it here to match your components.
       const globalData = removeEmpties(globals.data.value?.globalSets || [])
@@ -55,7 +55,7 @@ export function useHydrateGlobalStore() {
       )
 
       store.globals = craftData
-    } */
+    }
 
     if (footerPrimary.data.value && Object.keys(store.footerPrimary || {}).length === 0) {
       store.footerPrimary = footerPrimary.data.value
