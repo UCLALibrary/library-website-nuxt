@@ -1,0 +1,9 @@
+allowBuilds:
+  '@parcel/watcher': true
+  cypress: true
+  esbuild: true
+  netlify-cli: true
+  sharp: true
+  unix-dgram: true
+  unrs-resolver: true
+  vue-demi: true
