@@ -24,7 +24,7 @@
     - [ ] Zoom the site to 200%
     - [ ] Check for keyboard traps
 - [ ] Design & Code
-    - [ ] Check that looks like the designs _(if applicable)_
+    - [ ] Check that it looks like the design(s) _(if applicable)_
     - [ ] Include a working / updated spec file _(if applicable)_
     - [ ] Review the Chromatic
 
