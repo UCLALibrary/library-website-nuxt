@@ -237,14 +237,13 @@ onMounted(async () => {
   await setFilters()
 })
 
-
 const { hasCTA } = useGlobalCallToAction()
-
 </script>
 
 <template>
   <main
     id="main"
+    tabindex="-1"
     class="page page-news"
   >
     <masthead-secondary

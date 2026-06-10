@@ -73,9 +73,11 @@ const parsedButtonTo = computed(() => {
 const { hasCTA } = useGlobalCallToAction()
 const filteredBlocks = useFlexibleBlocks(computed(() => page.value?.blocks))
 </script>
+
 <template lang="html">
   <main
     id="main"
+    tabindex="-1"
     class="page page-project-detail"
   >
     <nav-breadcrumb
@@ -201,8 +203,6 @@ const filteredBlocks = useFlexibleBlocks(computed(() => page.value?.blocks))
     </client-only>
   </main>
 </template>
-
-
 
 <style lang="scss" scoped>
 .page-project-detail {

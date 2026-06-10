@@ -47,7 +47,6 @@ useHead({
   title: summaryData.value ? summaryData.value.title : '... loading',
 })
 
-
 const resourceList = computed(() => {
   return page.value.map((obj) => {
     return {
@@ -57,6 +56,7 @@ const resourceList = computed(() => {
     }
   })
 })
+
 // merge external & internal meap resource entries
 const allData = computed(() => {
   const allResources = [...page.value, ...externalResourceData.value]
@@ -69,15 +69,18 @@ const allData = computed(() => {
     }
   })
 })
+
 const sortedData = computed(() => {
   return allData.value.slice().sort(sortByTitle)
 })
+
 const { hasCTA } = useGlobalCallToAction()
 </script>
 
 <template lang="html">
   <main
     id="main"
+    tabindex="-1"
     class="page page-resources-list"
   >
     <masthead-secondary
@@ -105,6 +108,7 @@ const { hasCTA } = useGlobalCallToAction()
         color="about"
       />
     </section-wrapper>
+
     <client-only>
       <section-wrapper>
         <block-call-to-action
@@ -116,8 +120,6 @@ const { hasCTA } = useGlobalCallToAction()
     </client-only>
   </main>
 </template>
-
-
 
 <style lang="scss" scoped>
 .page-resources-list {

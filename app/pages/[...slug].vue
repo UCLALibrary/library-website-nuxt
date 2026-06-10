@@ -59,9 +59,11 @@ const parseParentTitle = computed(() => {
   return 'Modern Endangered Archives Program'
 })
 </script>
+
 <template lang="html">
   <main
     id="main"
+    tabindex="-1"
     class="page page-general-content"
   >
     <nav-breadcrumb

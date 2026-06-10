@@ -64,12 +64,12 @@ const parsedHelpTopicBlocks = computed(() => {
 
   return []
 })
-
 </script>
 
 <template lang="html">
   <main
     id="main"
+    tabindex="-1"
     class="page page-help-topic"
   >
     <nav-breadcrumb

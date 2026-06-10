@@ -189,13 +189,12 @@ onMounted(async () => {
   // console.log("ESURLkey:" + config.esURL)
   await setFilters()
 })
-
-
 </script>
 
 <template lang="html">
   <main
     id="main"
+    tabindex="-1"
     class="page page-project-list"
   >
     <masthead-secondary
@@ -292,8 +291,6 @@ onMounted(async () => {
     </section-wrapper>
   </main>
 </template>
-
-
 
 <style lang="scss" scoped>
 .generic-search {

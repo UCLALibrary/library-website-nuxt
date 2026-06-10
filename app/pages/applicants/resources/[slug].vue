@@ -62,9 +62,11 @@ useHead({
 const { hasCTA } = useGlobalCallToAction()
 console.log('hasCTA', hasCTA.value)
 </script>
+
 <template lang="html">
   <main
     id="main"
+    tabindex="-1"
     class="page page-resource-detail"
   >
     <nav-breadcrumb
@@ -129,8 +131,6 @@ v-if="
     </client-only>
   </main>
 </template>
-
-
 
 <style lang="scss" scoped>
 .page-resource-detail {

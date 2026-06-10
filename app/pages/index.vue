@@ -85,9 +85,11 @@ const meapNews = computed(() => {
   })
 })
 </script>
+
 <template>
     <main
       id="main"
+      tabindex="-1"
       class="page page-home"
     >
     <masthead-secondary
@@ -202,6 +204,7 @@ const meapNews = computed(() => {
     </section-wrapper>
   </main>
 </template>
+
 <style lang="scss" scoped>
 .page-home {
   .meap-masthead-secondary {
