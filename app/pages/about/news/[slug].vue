@@ -73,7 +73,6 @@ watch(data, (newVal, oldVal) => {
 useHead({
   title: page.value ? page.value.title : '... loading',
 })
-
 </script>
 
 <template lang="html">
