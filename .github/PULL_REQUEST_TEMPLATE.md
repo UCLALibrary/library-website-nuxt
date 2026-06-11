@@ -1,22 +1,37 @@
-Connected to [APPS-](https://jira.library.ucla.edu/browse/APPS-)
+#### Connected to [LADI-](https://jira.library.ucla.edu/browse/LADI-)
 
-**Page/Pages Created/updated:** {filename}.vue from #{issue number}
+#### Deployed on https://deploy-preview-xxx--test-ftva.netlify.app
 
-**Notes:**
+---
 
-{Any notes about what you built. How does it work? Anything missing?}
+### Notes
 
-**Time Report:**
+{add notes about your PR}
 
-This took me {x} hours to build this.
+### Screenshot
 
-**Checklist:**
+{add a screenshot if applicable}
 
--   [ ] I added github label for semantic versioning
--   [ ] I double checked it looks like the designs
--   [ ] I completed any required mobile breakpoint styling
--   [ ] I completed any required hover state styling
--   [ ] I included a working spec file
--   [ ] I added notes above about how long it took to build this component
--   [ ] UX has reviewed this PR
--   [ ] I assigned this PR to someone to review
+---
+
+## Checklist
+
+### Author
+- [ ] Browsers
+    - [ ] Review PR in Chrome, Firefox, Safari, Edge
+    - [ ] Review PR in desktop view, tablet view, mobile view
+- [ ] A11Y
+    - [ ] Zoom the site to 200%
+    - [ ] Check for keyboard traps
+- [ ] Design & Code
+    - [ ] Check that it looks like the design(s) _(if applicable)_
+    - [ ] Include a working / updated spec file _(if applicable)_
+    - [ ] Review the Chromatic
+
+### UX Review
+- [ ] UX has reviewed and approved
+
+### Dev Review
+  - [ ] Review Chromatic
+  - [ ] Review the deploy preview
+  - [ ] Review the code
