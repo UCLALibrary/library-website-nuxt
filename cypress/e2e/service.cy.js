@@ -16,9 +16,18 @@ function runServicePageTests({ withSnapshot = false } = {}) {
     cy.get('.page-anchor').scrollIntoView()
     cy.get('.page-anchor').should('be.visible')
 
+    // should not have a CLICC table
+    cy.get('.clicc-table').should('not.exist')
+
     if (withSnapshot) {
       cy.visualSnapshot('service')
     }
+  })
+
+  it('the equipment-lending page should have a CLICC table', () => {
+    cy.visit('/help/services-resources/equipment-lending')
+
+    cy.get('.clicc-table').should('exist')
   })
 
   if (!isChromatic) {

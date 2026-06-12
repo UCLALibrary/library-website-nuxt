@@ -191,9 +191,9 @@ onMounted(() => {
       <BannerText
         v-if="
           !page.serviceOrResource.heroImage ||
-            page.serviceOrResource.heroImage.length == 0 ||
-            !page.serviceOrResource.heroImage[0].image ||
-            page.serviceOrResource.heroImage[0].image.length == 0
+          page.serviceOrResource.heroImage.length == 0 ||
+          !page.serviceOrResource.heroImage[0].image ||
+          page.serviceOrResource.heroImage[0].image.length == 0
         "
         class="banner-text"
         :category="page.serviceOrResource.type"
@@ -206,9 +206,9 @@ onMounted(() => {
       <SectionWrapper
         v-if="
           page.serviceOrResource.heroImage &&
-            page.serviceOrResource.heroImage.length == 1 &&
-            page.serviceOrResource.heroImage[0].image &&
-            page.serviceOrResource.heroImage[0].image.length > 0
+          page.serviceOrResource.heroImage.length == 1 &&
+          page.serviceOrResource.heroImage[0].image &&
+          page.serviceOrResource.heroImage[0].image.length > 0
         "
         class="section-banner"
       >
@@ -231,8 +231,21 @@ onMounted(() => {
         :section-titles="h2Array"
       />
 
+      <!-- TODO: CLICC table here only on /help/services-resources/equipment-lending/ route -->
+      <!-- TODO: needs to match with or without the / at the end of the route -->
+      <template
+        v-if="route.path === '/help/services-resources/equipment-lending' || route.path === '/help/services-resources/equipment-lending/'"
+      >
+        <!-- <CLICCTable /> -->
+        <div class="clicc-table">
+          <h2>CLICC Table</h2>
+          <p>This is a table of CLICC equipment.</p>
+        </div>
+      </template>
+
       <FlexibleBlocks
-        class="content"
+        class="
+        content"
         :blocks="page.serviceOrResource.blocks"
       />
 
@@ -284,9 +297,9 @@ onMounted(() => {
       <BannerText
         v-if="
           page.workshopSeries &&
-            (page.workshopSeries.image.length == 0 ||
-              !page.workshopSeries.image[0].image ||
-              page.workshopSeries.image[0].image.length == 0)
+          (page.workshopSeries.image.length == 0 ||
+            !page.workshopSeries.image[0].image ||
+            page.workshopSeries.image[0].image.length == 0)
         "
         :title="page.workshopSeries.title"
         :text="page.workshopSeries.summary"
@@ -299,9 +312,9 @@ onMounted(() => {
       <SectionWrapper
         v-if="
           page.workshopSeries.image &&
-            page.workshopSeries.image.length == 1 &&
-            page.workshopSeries.image[0].image &&
-            page.workshopSeries.image[0].image.length > 0
+          page.workshopSeries.image.length == 1 &&
+          page.workshopSeries.image[0].image &&
+          page.workshopSeries.image[0].image.length > 0
         "
         class="section-banner"
       >
