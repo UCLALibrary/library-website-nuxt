@@ -85,6 +85,10 @@ const classes = computed(() => {
     display: none;
   }
 
+  :deep(.header-main-responsive:not(.dlc) .search-box) {
+    display: none;
+  }
+
 }
 
 .layout-content {
@@ -109,6 +113,8 @@ const classes = computed(() => {
 
   // TODO nav on smaller viewports
 }
+
+
 
 @media #{$small} {
   :deep(.more-menu .search-button) {
