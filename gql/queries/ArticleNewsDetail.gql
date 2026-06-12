@@ -46,7 +46,7 @@ query ArticleNewsDetail($slug: [String!]) {
                 slug
                 title
             }
-            date: dateUpdated
+            date: dateCreated
         }
 
         ...MEAPAllFpb
