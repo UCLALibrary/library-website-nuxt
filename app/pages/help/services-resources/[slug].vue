@@ -512,6 +512,7 @@ onMounted(() => {
     tr {
       &:first-child td {
         padding: .75em;
+        padding-left: 0;
       }
 
       th {
