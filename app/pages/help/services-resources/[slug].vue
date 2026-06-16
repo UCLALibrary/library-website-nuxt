@@ -6,9 +6,9 @@
 
 // HELPERS
 import _get from 'lodash/get'
+import { useWindowSize } from '@vueuse/core'
 import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from '../gql/queries/ServiceOrResourceOrWorkshopDetail.gql'
 import removeTags from '@/utils/removeTags'
-import { useWindowSize } from '@vueuse/core'
 
 // GQL
 
@@ -57,8 +57,8 @@ const cliccSectionSummary = 'Is my CLICC device available? Current availability 
 const cliccDevicesTableHeaders = ['Locations', 'Chromebook', 'iPad', 'Macbook']
 const { data: cliccDevicesData, error: cliccDevicesError } = await useFetch('https://clicc-devices.library.ucla.edu/devices/')
 const clickLocationURLLookup = {
-  'Powell': { displayName: 'Powell Library', url: '/visit/locations/powell-library/' },
-  'YRL': { displayName: 'Young Research Library', url: '/visit/locations/research-library/' },
+  Powell: { displayName: 'Powell Library', url: '/visit/locations/powell-library/' },
+  YRL: { displayName: 'Young Research Library', url: '/visit/locations/research-library/' },
 }
 // reformat data when on mobile
 const mobileBreakpoint = 750
@@ -224,9 +224,9 @@ onMounted(() => {
       <BannerText
         v-if="
           !page.serviceOrResource.heroImage ||
-          page.serviceOrResource.heroImage.length == 0 ||
-          !page.serviceOrResource.heroImage[0].image ||
-          page.serviceOrResource.heroImage[0].image.length == 0
+            page.serviceOrResource.heroImage.length == 0 ||
+            !page.serviceOrResource.heroImage[0].image ||
+            page.serviceOrResource.heroImage[0].image.length == 0
         "
         class="banner-text"
         :category="page.serviceOrResource.type"
@@ -239,9 +239,9 @@ onMounted(() => {
       <SectionWrapper
         v-if="
           page.serviceOrResource.heroImage &&
-          page.serviceOrResource.heroImage.length == 1 &&
-          page.serviceOrResource.heroImage[0].image &&
-          page.serviceOrResource.heroImage[0].image.length > 0
+            page.serviceOrResource.heroImage.length == 1 &&
+            page.serviceOrResource.heroImage[0].image &&
+            page.serviceOrResource.heroImage[0].image.length > 0
         "
         class="section-banner"
       >
@@ -273,23 +273,23 @@ onMounted(() => {
       >
         <TableComponent
           class="clicc-table"
-          :tableHeaders="cliccDevicesTableHeaders"
+          :table-headers="cliccDevicesTableHeaders"
         >
           <TableRow
             v-for="value, keyname in cliccDevicesData"
             :key="keyname"
             :num-cells="4"
           >
-            <template v-slot:column1>
+            <template #column1>
               <a :href="clickLocationURLLookup[keyname].url">{{ clickLocationURLLookup[keyname].displayName }}</a>
             </template>
-            <template v-slot:column2>
+            <template #column2>
               {{ value.Chromebook }} {{ isMobile ? 'chromebooks' : '' }}
             </template>
-            <template v-slot:column3>
+            <template #column3>
               {{ value.iPad }} {{ isMobile ? 'iPads' : '' }}
             </template>
-            <template v-slot:column4>
+            <template #column4>
               {{ value.Macbook }} {{ isMobile ? 'Macbooks' : '' }}
             </template>
           </TableRow>
@@ -350,9 +350,9 @@ onMounted(() => {
       <BannerText
         v-if="
           page.workshopSeries &&
-          (page.workshopSeries.image.length == 0 ||
-            !page.workshopSeries.image[0].image ||
-            page.workshopSeries.image[0].image.length == 0)
+            (page.workshopSeries.image.length == 0 ||
+              !page.workshopSeries.image[0].image ||
+              page.workshopSeries.image[0].image.length == 0)
         "
         :title="page.workshopSeries.title"
         :text="page.workshopSeries.summary"
@@ -365,9 +365,9 @@ onMounted(() => {
       <SectionWrapper
         v-if="
           page.workshopSeries.image &&
-          page.workshopSeries.image.length == 1 &&
-          page.workshopSeries.image[0].image &&
-          page.workshopSeries.image[0].image.length > 0
+            page.workshopSeries.image.length == 1 &&
+            page.workshopSeries.image[0].image &&
+            page.workshopSeries.image[0].image.length > 0
         "
         class="section-banner"
       >
