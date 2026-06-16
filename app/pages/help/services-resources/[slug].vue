@@ -8,12 +8,17 @@
 import _get from 'lodash/get'
 import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from '../gql/queries/ServiceOrResourceOrWorkshopDetail.gql'
 import removeTags from '@/utils/removeTags'
+import { useWindowSize } from '@vueuse/core'
 
 // GQL
 
 const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
 const { hasCTA } = useAskALibrarianCTA()
+const isEquipmentLendingRoute = computed(() => {
+  return route.path === '/help/services-resources/equipment-lending'
+    || route.path === '/help/services-resources/equipment-lending/'
+})
 
 const { data, error } = await useAsyncData(`services-resources-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL, { slug: route.params.slug, })
@@ -45,6 +50,34 @@ watch(data, (newVal, oldVal) => {
   // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = newVal
 })
+
+// START CLICC TABLE DATA
+const cliccSectionTitle = 'CLICC Device Availability'
+const cliccSectionSummary = 'Is my CLICC device available? Current availability of devices. Every location also has various accessories.'
+const cliccDevicesTableHeaders = ['Locations', 'Chromebook', 'iPad', 'Macbook']
+const { data: cliccDevicesData, error: cliccDevicesError } = await useFetch('https://clicc-devices.library.ucla.edu/devices/')
+const clickLocationURLLookup = {
+  'Powell': { displayName: 'Powell Library', url: '/visit/locations/powell-library/' },
+  'YRL': { displayName: 'Young Research Library', url: '/visit/locations/research-library/' },
+}
+// reformat data when on mobile
+const mobileBreakpoint = 750
+const { width, height } = useWindowSize()
+const isMobile = computed(() => {
+  if (!width.value) return false
+  return width.value < mobileBreakpoint
+})
+
+watch(cliccDevicesData, (newVal) => {
+  if (!newVal || !import.meta.client) return
+  console.log('CLICC devices data:', newVal)
+}, { immediate: true })
+
+watch(cliccDevicesError, (newVal) => {
+  if (!newVal || !import.meta.client) return
+  console.error('Failed to load CLICC devices data:', newVal)
+}, { immediate: true })
+// END CLICC TABLE DATA
 
 const h2Array = ref([]) // anchor tags
 
@@ -233,15 +266,35 @@ onMounted(() => {
 
       <!-- TODO: CLICC table here only on /help/services-resources/equipment-lending/ route -->
       <!-- TODO: needs to match with or without the / at the end of the route -->
-      <template
-        v-if="route.path === '/help/services-resources/equipment-lending' || route.path === '/help/services-resources/equipment-lending/'"
+      <SectionWrapper
+        v-if="isEquipmentLendingRoute && cliccDevicesData"
+        :section-title="cliccSectionTitle"
+        :section-summary="cliccSectionSummary"
       >
-        <!-- <CLICCTable /> -->
-        <div class="clicc-table">
-          <h2>CLICC Table</h2>
-          <p>This is a table of CLICC equipment.</p>
-        </div>
-      </template>
+        <TableComponent
+          class="clicc-table"
+          :tableHeaders="cliccDevicesTableHeaders"
+        >
+          <TableRow
+            v-for="value, keyname in cliccDevicesData"
+            :key="keyname"
+            :num-cells="4"
+          >
+            <template v-slot:column1>
+              <a :href="clickLocationURLLookup[keyname].url">{{ clickLocationURLLookup[keyname].displayName }}</a>
+            </template>
+            <template v-slot:column2>
+              {{ value.Chromebook }} {{ isMobile ? 'chromebooks' : '' }}
+            </template>
+            <template v-slot:column3>
+              {{ value.iPad }} {{ isMobile ? 'iPads' : '' }}
+            </template>
+            <template v-slot:column4>
+              {{ value.Macbook }} {{ isMobile ? 'Macbooks' : '' }}
+            </template>
+          </TableRow>
+        </TableComponent>
+      </SectionWrapper>
 
       <FlexibleBlocks
         class="
@@ -424,6 +477,50 @@ onMounted(() => {
 .page-service-detail {
   .more-info {
     @include visually-hidden;
+  }
+}
+
+.clicc-table {
+  a {
+    text-decoration: underline;
+    text-decoration-color: var(--color-secondary-blue-02);
+    padding-left: 5px;
+
+    &:hover,
+    &:focus {
+      color: var(--color-primary-blue-03);
+    }
+  }
+
+  :deep(td) {
+    display: table-cell;
+    padding: .75em;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:not(:first-child) {
+      align-items: center;
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.6;
+    }
+  }
+
+  :deep(table.table-component) {
+    tr>th {
+      width: auto;
+      padding: .75em;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:not(:first-child) {
+        text-align: center;
+      }
+    }
   }
 }
 </style>

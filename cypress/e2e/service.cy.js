@@ -26,7 +26,8 @@ function runServicePageTests({ withSnapshot = false } = {}) {
 
   it('the equipment-lending page should have a CLICC table', () => {
     cy.visit('/help/services-resources/equipment-lending')
-
+    
+    // should have a CLICC table
     cy.get('.clicc-table').should('exist')
   })
 
