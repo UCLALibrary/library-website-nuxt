@@ -284,7 +284,7 @@ onMounted(() => {
               <a :href="clickLocationURLLookup[keyname].url">{{ clickLocationURLLookup[keyname].displayName }}</a>
             </template>
             <template #column2>
-              {{ value.Chromebook }} {{ isMobile ? 'chromebooks' : '' }}
+              {{ value.Chromebook }} {{ isMobile ? 'Chromebooks' : '' }}
             </template>
             <template #column3>
               {{ value.iPad }} {{ isMobile ? 'iPads' : '' }}
