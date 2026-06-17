@@ -1,135 +1,210 @@
-# Nuxt 3 Main Library Website
+# Nuxt 4 Main Library Website
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This repository powers the UCLA Library main website.
+
+## Project Tooling
+
+This project is configured to use:
+
+- **Node.js 24.16.0**
+- **pnpm 11.5.1**
+
+The repo pins pnpm through the `packageManager` field in `package.json`, so pnpm will be selected automatically when **Corepack** is enabled.
 
 ## Setup
 
-:exclamation: Verify that your development environment runs the Node and PNPM versions referenced in the project's [`actions.yml` file](https://github.com/UCLALibrary/library-website-nuxt/blob/main/.github/workflows/setup-workspace/action.yml)
+### Prerequisites
+
+This repository uses:
+
+- Node.js `24.16.0`
+- pnpm `11.5.1`
+
+The repository includes:
+
+- `.nvmrc` for Node.js version management
+- `packageManager` in `package.json` for pnpm version management
+
+With `nvm` and Corepack configured, developers can switch between repositories without manually managing Node.js or pnpm versions.
+
+### First-Time Setup
+
+If you do not already have Node.js `24.16.0` installed:
 
 ```bash
-# node
+nvm install 24.16.0
+```
+
+#### Enable Corepack (one-time setup):
+
+```bash
+corepack enable
+```
+
+#### Switch to the project's Node.js version:
+
+```bash
+nvm use
+```
+
+Install dependencies:
+
+```bash
+pnpm install
+```
+### Environment variables
+
+Make sure your local `.env` file is up to date before running the app locally. Request the latest values from the team if needed.
+
+
+## Running the App
+
+### Start the development server
+
+```bash
+pnpm dev
+```
+
+The app will run at:
+
+```text
+http://localhost:3000
+```
+
+### Generate static output
+
+```bash
+pnpm generate
+```
+
+### Preview a production build locally
+
+```bash
+pnpm start
+```
+
+## Quality Checks
+
+### Lint the project
+
+```bash
+pnpm lint
+```
+
+### Auto-fix lint issues
+
+```bash
+pnpm lint:fix
+```
+
+### Type-check the project
+
+```bash
+pnpm typecheck
+```
+
+### Run the main test command
+
+```bash
+pnpm test
+```
+
+## Cypress Commands
+
+### Open Cypress in interactive mode
+
+```bash
+pnpm cypress
+```
+
+### Run Cypress headlessly
+
+```bash
+pnpm cypress-run
+```
+
+
+## Switching Between Repositories
+
+Different UCLA Library repositories may use different Node versions.
+
+When you switch repositories:
+
+```bash
+cd <repository>
+nvm use
+pnpm install
+```
+
+- `nvm use` reads the Node version from `.nvmrc` when present.
+- pnpm is selected automatically through Corepack and the repo’s `packageManager` field.
+
+## Troubleshooting
+
+### Wrong Node version
+
+Check your active Node version:
+
+```bash
 node -v
 ```
 
+Check installed Node versions:
+
 ```bash
-# pnpm
+nvm ls
+```
+
+Switch to the project version:
+
+```bash
+nvm use 24.16.0
+```
+
+### Wrong pnpm version
+
+Check the active pnpm version:
+
+```bash
 pnpm -v
 ```
 
-If your global Node or PNPM version is different, use the respective version setup steps:
-- [Node version setup](#node-version-setup)
-- [PNPM version setup](#pnpm-version-setup)
-
-Install the project dependencies:
+Enable Corepack if needed:
 
 ```bash
+corepack enable
+```
 
-# pnpm
+Refresh your shell cache if pnpm still looks wrong:
+
+```bash
+hash -r
+```
+
+Check which pnpm is being used:
+
+```bash
+which -a pnpm
+```
+
+If a globally installed pnpm is interfering, remove it:
+
+```bash
+npm uninstall -g pnpm
+hash -r
+```
+
+### Clean reinstall
+
+If dependencies look broken or stale:
+
+```bash
+rm -rf node_modules .nuxt
 pnpm install
-
 ```
 
-:exclamation: Make sure local `.env` is updated before running dev server *(Request .env settings from team)*
+## Deployment
 
-## Development Server
+See the Nuxt deployment documentation for more details:
 
-Start the development server on `http://localhost:3000`:
-
-```bash
-
-# pnpm
-pnpm run dev
-
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-
-# pnpm
-pnpm run build
-
-```
-
-Locally preview production build:
-
-```bash
-
-# pnpm
-pnpm run preview
-
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-
-## Addendum
-
-### Node Version Setup
-
-- Verify current version: `node -v`
-
-- If the current node verison is different from the project node version, check for other existing versions: `nvm list` or `nvm ls`
-
-- You should/may see an output such as this:
-
-```bash
--> v20.18.3
-   v22.22.0
-   v26.2.0
-default -> 20.18.3 (-> v20.18.3 *)
-```
-
-- Install the project node version if it is not listed: `nvm install version-number` (Example: `nvm install 20.20.2`)
-
-- Verify project version is installed: `nvm list` or `nvm ls`
-
-- Switch to use project node version: `nvm use version-number` (Example: `nvm use 20.20.2`)
-
-- Verify the project version: `node -v`
-
-:bulb: **To set specific node version as the global default:** `nvm alias default version-number`
-
-### PNPM Version Setup
-
-If you are using a different global pnpm version (for example, v10+), you may see this type of error:
-
-    ERR_PNPM_UNSUPPORTED_ENGINE
-    Expected version: ^9.12.1
-    Got: 10.x.x
-
-#### Recommended setup: use Corepack
-
-Node.js includes Corepack, which lets different projects use different pnpm versions.
-
-1. Enable Corepack: `corepack enable`
-
-2. Set the correct pnpm version for the project: `corepack use pnpm@version-number` (Example: `corepack use pnpm@9.12.1`)
-
-3. Verify the version: `pnpm -v`
-
-4. Run commands as usual:
-
-    `pnpm install`
-
-    `pnpm lint`
-
-#### Important notes
-
-- Do not downgrade your global pnpm version.
-- Do not remove the `engines` field.
-- This setup allows different repos to use different pnpm versions safely.
-
-#### Troubleshooting
-
-If `pnpm -v` still shows the wrong version, run:
-
-    hash -r
-    which -a pnpm
-
-If a global pnpm is overriding Corepack, remove it:
-
-    npm uninstall -g pnpm
-    hash -r
-
+https://nuxt.com/docs/getting-started/deployment
