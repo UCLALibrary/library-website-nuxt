@@ -1,3 +1,5 @@
+import { a11yIt } from '../support/a11y'
+
 function runMobileHomepageTests({ withSnapshot = false } = {}) {
   it('Visit the Mobile Homepage', () => {
     cy.visit('/')
@@ -17,4 +19,6 @@ function runMobileHomepageTests({ withSnapshot = false } = {}) {
 
 describe('Mobile Website Homepage', () => {
   runMobileHomepageTests({ withSnapshot: false })
+
+  a11yIt('/')
 })

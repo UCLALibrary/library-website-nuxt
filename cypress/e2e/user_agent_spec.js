@@ -1,3 +1,5 @@
+import { a11yIt } from '../support/a11y'
+
 describe('User-Agent Blocking', () => {
   it('blocks requests from a specific user-agent', () => {
     cy.request({
@@ -21,4 +23,6 @@ describe('User-Agent Blocking', () => {
       expect(response.status).to.eq(403)
     })
   })
+
+  a11yIt('/')
 })
