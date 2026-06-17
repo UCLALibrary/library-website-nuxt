@@ -65,7 +65,7 @@ const clickLocationURLLookup = {
 const refreshCliccDevicesData = async () => {
   try {
     cliccDevicesError.value = null
-    cliccDevicesData.value = await $fetch('https://clicc-devices.library.ucla.edu/devices/', {
+    cliccDevicesData.value = await $fetch('/api/clicc-devices', {
       cache: 'no-store',
       headers: {
         'cache-control': 'no-cache',
