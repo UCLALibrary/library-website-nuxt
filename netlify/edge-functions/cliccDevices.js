@@ -1,6 +1,6 @@
 const CLICC_DEVICES_ENDPOINT = 'https://clicc-devices.library.ucla.edu/devices/'
 
-export default async () => {
+export default async (_request, _context) => {
   try {
     const upstreamResponse = await fetch(CLICC_DEVICES_ENDPOINT, {
       headers: {

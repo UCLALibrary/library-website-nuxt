@@ -1,5 +1,5 @@
 [[edge_functions]]
-path = "/api/clicc-devices"
+path = "/api/clicc-devices/*"
 function = "cliccDevices"
 
 [[edge_functions]]
