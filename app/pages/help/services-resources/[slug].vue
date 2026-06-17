@@ -480,11 +480,11 @@ onMounted(() => {
   }
 }
 
+// CLICC TABLE STYLES
 .clicc-table {
   a {
     text-decoration: underline;
     text-decoration-color: var(--color-secondary-blue-02);
-    padding-left: 5px;
 
     &:hover,
     &:focus {
@@ -494,7 +494,7 @@ onMounted(() => {
 
   :deep(td) {
     display: table-cell;
-    padding: .75em;
+    padding: .75em 0;
 
     &:first-child {
       padding-left: 0;
@@ -511,8 +511,7 @@ onMounted(() => {
   :deep(table.table-component) {
     tr {
       &:first-child td {
-        padding: .75em;
-        padding-left: 0;
+        padding: .75em 0;
       }
 
       th {
