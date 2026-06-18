@@ -3,7 +3,7 @@ const blockedUserAgents = [
   'claudebot'
 ]
 
-export default (request, context) => {
+export default (request) => {
   const userAgent = request.headers.get('user-agent')
 
   if (blockedUserAgents.includes(userAgent)) {
@@ -11,5 +11,4 @@ export default (request, context) => {
   }
 
   // Continue with the request as normal
-  return context.next()
 }

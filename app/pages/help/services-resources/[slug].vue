@@ -56,26 +56,25 @@ const cliccSectionTitle = 'CLICC Device Availability'
 const cliccSectionSummary = 'Is my CLICC device available? Current availability of devices. Every location also has various accessories.'
 const cliccDevicesTableHeaders = ['Locations', 'Chromebook', 'iPad', 'Macbook']
 const cliccDevicesData = ref(null)
-const cliccDevicesError = ref(null)
 const clickLocationURLLookup = {
   Powell: { displayName: 'Powell Library', url: '/visit/locations/powell-library/' },
   YRL: { displayName: 'Young Research Library', url: '/visit/locations/research-library/' },
 }
 // fetch data from the CLICC devices API
-const refreshCliccDevicesData = async () => {
-  try {
-    cliccDevicesError.value = null
-    cliccDevicesData.value = await $fetch('/api/clicc-devices', {
-      cache: 'no-store',
-      headers: {
-        'cache-control': 'no-cache',
-      },
-    })
-  }
-  catch (err) {
-    cliccDevicesError.value = err
-  }
-}
+// const refreshCliccDevicesData = async () => {
+//   try {
+//     cliccDevicesError.value = null
+//     cliccDevicesData.value = await $fetch('/api/clicc-devices', {
+//       cache: 'no-store',
+//       headers: {
+//         'cache-control': 'no-cache',
+//       },
+//     })
+//   }
+//   catch (err) {
+//     cliccDevicesError.value = err
+//   }
+// }
 // reformat data when on mobile
 const mobileBreakpoint = 750
 const { width, height } = useWindowSize()
@@ -210,7 +209,11 @@ const parsedAssociatedSeries = computed(() => {
 onMounted(() => {
   // Call the plugin method to get the .section-header2 and .section-header3 elements
   h2Array.value = $getHeaders.getHeadersMethod()
-  refreshCliccDevicesData()
+
+  $fetch('https://clicc-devices.library.ucla.edu/devices/').then((data) => {
+    console.log('cliccDevicesData', data)
+    cliccDevicesData.value = data
+  })
 })
 
 </script>

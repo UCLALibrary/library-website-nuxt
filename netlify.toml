@@ -1,7 +1,3 @@
 [[edge_functions]]
-path = "/api/clicc-devices/*"
-function = "cliccDevices"
-
-[[edge_functions]]
 path = "/*"
 function = "blockUserAgents"
