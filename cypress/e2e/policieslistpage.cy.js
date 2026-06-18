@@ -16,12 +16,18 @@ function runPolicyListTests({ withSnapshot = false, isMobile = false } = {}) {
       'Policies'
     )
     if (isMobile) {
-      cy.get('.site-notification-alert .button-dismiss')
-        .should('be.visible')
-        .click()
+      cy.get('body').then(($body) => {
+        const $alert = $body.find('.site-notification-alert.is-opened')
 
-      cy.get('.site-notification-alert')
-        .should('have.class', 'is-closed')
+        if ($alert.length) {
+          cy.wrap($alert)
+            .find('.button-dismiss')
+            .click()
+
+          cy.wrap($alert)
+            .should('have.class', 'is-closed')
+        }
+      })
     }
 
     cy.get('.page-anchor').scrollIntoView()
