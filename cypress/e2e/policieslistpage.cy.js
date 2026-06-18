@@ -27,11 +27,13 @@ function runPolicyListTests({ withSnapshot = false, isMobile = false } = {}) {
           cy.wrap($alert)
             .should('have.class', 'is-closed')
         }
+        cy.get('.page-anchor').scrollIntoView()
+        cy.get('.page-anchor').should('be.visible')
       })
+    } else {
+      cy.get('.page-anchor').scrollIntoView()
+      cy.get('.page-anchor').should('be.visible')
     }
-
-    cy.get('.page-anchor').scrollIntoView()
-    cy.get('.page-anchor').should('be.visible')
 
     if (withSnapshot) {
       cy.visualSnapshot('policieslistpage')
