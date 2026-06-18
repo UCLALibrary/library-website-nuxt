@@ -1,18 +1,18 @@
 name: Set up Workspace
-description: 'Checks out repository, installs correct version of node and npm dependencies.'
+description: 'Checks out repository, installs correct version of node and pnpm dependencies.'
 
 inputs:
   ref:
     description: 'Git ref (tag/branch/commit) to checkout. Defaults to github.ref if not set.'
     required: false
     default: ''
-
 runs:
   using: composite
   steps:
     - name: Checkout
       uses: actions/checkout@v4
       with:
+        # If caller passes a ref, use that; otherwise fall back to the event’s ref
         ref: ${{ inputs.ref != '' && inputs.ref || github.ref }}
         fetch-depth: 0
 
@@ -27,18 +27,21 @@ runs:
         node-version: 24.16.0
         cache: 'pnpm'
 
-    - name: Install dependencies
-      shell: bash
-      run: pnpm install --frozen-lockfile --strict-peer-dependencies
-
-    - name: Install Cypress Binary
-      shell: bash
-      run: pnpm exec cypress install
-
-    - name: Cache Cypress Binary
+    - name: Cache pnpm store
       uses: actions/cache@v3
       with:
-        path: ~/.cache/Cypress
-        key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+        path: ~/.pnpm-store
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
-          cypress-${{ runner.os }}-
+          ${{ runner.os }}-pnpm-store-
+
+
+    - name: Install dependencies
+      shell: bash
+      env:
+        PNPM_HOME: ~/.pnpm-store
+      run: pnpm install --frozen-lockfile --strict-peer-dependencies
+
+    - name: Install Global Packages
+      shell: bash
+      run: pnpm add -g gulp prettier typescript
