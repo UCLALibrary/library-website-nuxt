@@ -3,7 +3,7 @@ import { viewports } from '../support/viewports'
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
 
-function runPolicyListTests({ withSnapshot = false } = {}) {
+function runPolicyListTests({ withSnapshot = false, isMobile = false } = {}) {
   it('Visits a Policy List Page', () => {
     cy.visit('/about/policies')
 
@@ -15,6 +15,14 @@ function runPolicyListTests({ withSnapshot = false } = {}) {
       'contain',
       'Policies'
     )
+    if (isMobile) {
+      cy.get('.site-notification-alert .button-dismiss')
+        .should('be.visible')
+        .click()
+
+      cy.get('.site-notification-alert')
+        .should('have.class', 'is-closed')
+    }
 
     cy.get('.page-anchor').scrollIntoView()
     cy.get('.page-anchor').should('be.visible')
@@ -28,11 +36,11 @@ function runPolicyListTests({ withSnapshot = false } = {}) {
 if (isChromatic) {
   viewports.forEach(({ label, viewportWidth, viewportHeight }) => {
     describe(`Policy List Page - ${label}`, { viewportWidth, viewportHeight }, () => {
-      runPolicyListTests({ withSnapshot: true })
+      runPolicyListTests({ withSnapshot: true, isMobile: label === 'Mobile' })
     })
   })
 } else {
   describe('Policy List Page', () => {
-    runPolicyListTests({ withSnapshot: false })
+    runPolicyListTests({ withSnapshot: false, isMobile: false })
   })
 }
