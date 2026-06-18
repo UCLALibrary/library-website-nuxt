@@ -7,3 +7,4 @@ allowBuilds:
   unix-dgram: true
   unrs-resolver: true
   vue-demi: true
+engineStrict: true
