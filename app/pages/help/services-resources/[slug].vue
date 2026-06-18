@@ -210,7 +210,7 @@ onMounted(() => {
   // Call the plugin method to get the .section-header2 and .section-header3 elements
   h2Array.value = $getHeaders.getHeadersMethod()
 
-  $fetch('https://clicc-devices.library.ucla.edu/devices/').then((data) => {
+  $fetch('/api/clicc-devices').then((data) => {
     console.log('cliccDevicesData', data)
     cliccDevicesData.value = data
   })
