@@ -206,11 +206,11 @@ const parsedAssociatedSeries = computed(() => {
   })
 })
 
-onMounted(() => {
+onMounted(async () => {
   // Call the plugin method to get the .section-header2 and .section-header3 elements
   h2Array.value = $getHeaders.getHeadersMethod()
 
-  $fetch('/api/clicc-devices').then((data) => {
+  await $fetch('https://clicc-devices.library.ucla.edu/devices/').then((data) => {
     console.log('cliccDevicesData', data)
     cliccDevicesData.value = data
   })
