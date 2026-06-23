@@ -47,7 +47,7 @@ export function useHydrateGlobalStore() {
     if (globals.data.value && Object.keys(store.globals || {}).length === 0) {
       // If your API already returns the shaped object, assign directly.
       // If it returns { globalSets: [...] }, shape it here to match your components.
-      const globalData = removeEmpties(globals.data.value?.globalSets || [])
+      const globalData = removeEmpties(globals.data.value?.globalSets || []).filter(item => item.handle !== 'libraryAlert')
       // console.log("remove empties: " + JSON.stringify(globalData))
       // Shape data from Craft
       const craftData = Object.fromEntries(
