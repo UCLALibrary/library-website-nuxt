@@ -50,33 +50,31 @@ query StaffDetail($slug: [String]!) {
         }
     }
     entries(
-        section: "article"
+        section: ["article", "externalArticle"]
         relatedToEntries: { section: "staffMember", slug: $slug }
     ) {
-        ... on article_article_Entry {
-            id
-            title
-            to: uri
-            externalResourceUrl
-            heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    id
-                    image {
-                        ...Image
-                    }
-                    altText
-                }
-            }
-
-            authors: staffMember {
+        id
+        title
+        to: uri
+        externalResourceUrl
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
                 id
-                slug
-                to: uri
-                title
+                image {
+                    ...Image
+                }
+                altText
             }
-            description: summary
-            category: typeHandle
-            date: dateUpdated
         }
+
+        authors: staffMember {
+            id
+            slug
+            to: uri
+            title
+        }
+        description: summary
+        category: typeHandle
+        date: dateUpdated
     }
 }
