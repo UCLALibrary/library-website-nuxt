@@ -25,7 +25,7 @@ Cypress.Commands.add(
     const excludeList = Array.isArray(exclude) ? exclude : [exclude]
     const normalizedExclude = excludeList
       .filter(Boolean)
-      .map((entry) => (Array.isArray(entry) ? entry : [entry]))
+      .map(entry => (Array.isArray(entry) ? entry : [entry]))
 
     cy.checkA11y(
       {
@@ -34,12 +34,12 @@ Cypress.Commands.add(
       },
       { includedImpacts: impacts },
       (violations) => {
-      violations.forEach((violation) => {
-        cy.log(`Accessibility Violation: ${violation.id} ${violation.impact}
+        violations.forEach((violation) => {
+          cy.log(`Accessibility Violation: ${violation.id} ${violation.impact}
 Description: ${violation.description}
 Help: ${violation.help} ${violation.helpUrl}
 HTML hint: ${violation.nodes.length} ${violation.nodes[0].html}`)
-      })
+        })
       }
     )
   }

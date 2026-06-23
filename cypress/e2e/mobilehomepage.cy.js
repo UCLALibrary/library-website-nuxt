@@ -20,9 +20,9 @@ function runMobileHomepageTests({ withSnapshot = false } = {}) {
 describe('Mobile Website Homepage', () => {
   runMobileHomepageTests({ withSnapshot: false })
 
-    // re-enable when LADI-5226 is merged and test if fixed
-    // Set selector to null to ccheck the header and footer for accessibility violations as well on the homepage
-    // Exclude SectionDualMasonry images for now as axe-core flags their structure as a violation, 
-    // but siteImprove and screen readers seem to handle them just fine.
-    a11yIt.skip('/', { selector: null, exclude: '.link .brick .brick-image' })
+  // re-enable when LADI-5226 is merged and test if fixed
+  // Set selector to null to ccheck the header and footer for accessibility violations as well on the homepage
+  // Exclude SectionDualMasonry images for now as axe-core flags their structure as a violation,
+  // but siteImprove and screen readers seem to handle them just fine.
+  a11yIt.skip('/', { selector: null, exclude: '.link .brick .brick-image' })
 })
