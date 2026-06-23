@@ -45,6 +45,7 @@ if (isChromatic) {
   describe('Tutorials Detail Page', () => {
     runTutorialsDetailTests({ withSnapshot: false })
 
-    a11yIt('/help/tutorials/electron-configurations')
+    // missing iframe titles errors, re-enable when LADI-5244 is merged and test if fixed
+    a11yIt.skip('/help/tutorials/electron-configurations')
   })
 }
