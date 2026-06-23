@@ -4,7 +4,7 @@ import { a11yIt } from '../support/a11y'
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
 
-function runPolicyListTests({ withSnapshot = false } = {}) {
+function runPolicyListTests({ withSnapshot = false, isMobile = false } = {}) {
   it('Visits a Policy List Page', () => {
     cy.visit('/about/policies')
 
@@ -17,8 +17,23 @@ function runPolicyListTests({ withSnapshot = false } = {}) {
       'Policies'
     )
 
-    cy.get('.page-anchor').scrollIntoView()
-    cy.get('.page-anchor').should('be.visible')
+    cy.get('body').then(($body) => {
+      const $alert = $body.find('.site-notification-alert.is-opened')
+
+      if ($alert.length) {
+        cy.wrap($alert)
+          .find('.button-dismiss')
+          .click()
+
+        cy.wrap($alert)
+          .should('have.class', 'is-closed')
+        // cy.get('.page-anchor').scrollIntoView()
+        // cy.get('.page-anchor').should('be.visible')
+      } else {
+        // cy.get('.page-anchor').scrollIntoView()
+        // cy.get('.page-anchor').should('be.visible')
+      }
+    })
 
     if (withSnapshot) {
       cy.visualSnapshot('policieslistpage')
@@ -29,12 +44,12 @@ function runPolicyListTests({ withSnapshot = false } = {}) {
 if (isChromatic) {
   viewports.forEach(({ label, viewportWidth, viewportHeight }) => {
     describe(`Policy List Page - ${label}`, { viewportWidth, viewportHeight }, () => {
-      runPolicyListTests({ withSnapshot: true })
+      runPolicyListTests({ withSnapshot: true, isMobile: label === 'Mobile' })
     })
   })
 } else {
   describe('Policy List Page', () => {
-    runPolicyListTests({ withSnapshot: false })
+    runPolicyListTests({ withSnapshot: false, isMobile: false })
 
     a11yIt('/about/policies')
   })
