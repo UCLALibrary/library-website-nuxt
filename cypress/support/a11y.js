@@ -3,9 +3,12 @@ const A11Y_TEST_RETRIES = {
   openMode: 0,
 }
 
-function runA11yTest(url, { selector = '#main', impacts, visitOptions = {} } = {}) {
+function runA11yTest(
+  url,
+  { selector = '#main', impacts, exclude = [], visitOptions = {} } = {}
+) {
   cy.visit(url, { failOnStatusCode: false, ...visitOptions })
-  cy.checkCriticalA11y(selector, impacts)
+  cy.checkCriticalA11y(selector, impacts, exclude)
 }
 
 function registerA11yTest(url, options = {}, register) {
@@ -17,6 +20,9 @@ function registerA11yTest(url, options = {}, register) {
 }
 
 export function a11yIt(url, options = {}) {
+  // Usage examples:
+  // a11yIt('/', { selector: null, exclude: '.chat-widget' })
+  // a11yIt('/', { exclude: ['.chat-widget', '#third-party-banner'] })
   if (options.skip) {
     a11yIt.skip(url, options)
     return

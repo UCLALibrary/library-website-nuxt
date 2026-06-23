@@ -16,16 +16,32 @@ const DEFAULT_A11Y_IMPACTS = ['critical', 'serious']
 
 Cypress.Commands.add(
   'checkCriticalA11y',
-  (selector = '#main', impacts = [...DEFAULT_A11Y_IMPACTS]) => {
+  (
+    selector = '#main',
+    impacts = [...DEFAULT_A11Y_IMPACTS],
+    exclude = []
+  ) => {
     cy.injectAxe()
-    cy.checkA11y(selector, { includedImpacts: impacts }, (violations) => {
+    const excludeList = Array.isArray(exclude) ? exclude : [exclude]
+    const normalizedExclude = excludeList
+      .filter(Boolean)
+      .map((entry) => (Array.isArray(entry) ? entry : [entry]))
+
+    cy.checkA11y(
+      {
+        include: selector ? [[selector]] : undefined,
+        exclude: normalizedExclude,
+      },
+      { includedImpacts: impacts },
+      (violations) => {
       violations.forEach((violation) => {
         cy.log(`Accessibility Violation: ${violation.id} ${violation.impact}
 Description: ${violation.description}
 Help: ${violation.help} ${violation.helpUrl}
 HTML hint: ${violation.nodes.length} ${violation.nodes[0].html}`)
       })
-    })
+      }
+    )
   }
 )
 
