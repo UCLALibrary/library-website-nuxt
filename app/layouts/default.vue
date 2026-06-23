@@ -47,9 +47,9 @@ onMounted(async () => {
     >
       <site-notification-alert
         v-if="
-          libraryAlert"
+          globalStore.globals.libraryAlert"
         class="library-alert"
-        v-bind="libraryAlert"
+        v-bind="globalStore.globals.libraryAlert"
       />
     </SectionWrapper>
     <nav-primary
