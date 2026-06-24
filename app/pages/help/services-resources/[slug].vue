@@ -60,21 +60,6 @@ const clickLocationURLLookup = {
   Powell: { displayName: 'Powell Library', url: '/visit/locations/powell-library/' },
   YRL: { displayName: 'Young Research Library', url: '/visit/locations/research-library/' },
 }
-// fetch data from the CLICC devices API
-// const refreshCliccDevicesData = async () => {
-//   try {
-//     cliccDevicesError.value = null
-//     cliccDevicesData.value = await $fetch('/api/clicc-devices', {
-//       cache: 'no-store',
-//       headers: {
-//         'cache-control': 'no-cache',
-//       },
-//     })
-//   }
-//   catch (err) {
-//     cliccDevicesError.value = err
-//   }
-// }
 // reformat data when on mobile
 const mobileBreakpoint = 750
 const { width, height } = useWindowSize()
@@ -211,7 +196,6 @@ onMounted(async () => {
   h2Array.value = $getHeaders.getHeadersMethod()
 
   await $fetch('https://clicc-devices.library.ucla.edu/devices/').then((data) => {
-    console.log('cliccDevicesData', data)
     cliccDevicesData.value = data
   })
 })
@@ -277,11 +261,13 @@ onMounted(async () => {
       <!-- TODO: CLICC table here only on /help/services-resources/equipment-lending/ route -->
       <!-- TODO: needs to match with or without the / at the end of the route -->
       <SectionWrapper
-        v-if="isEquipmentLendingRoute && cliccDevicesData"
+        v-if="isEquipmentLendingRoute"
+        class="clicc-table-section"
         :section-title="cliccSectionTitle"
         :section-summary="cliccSectionSummary"
       >
         <TableComponent
+          v-if="cliccDevicesData"
           class="clicc-table"
           :table-headers="cliccDevicesTableHeaders"
         >
@@ -304,6 +290,10 @@ onMounted(async () => {
             </template>
           </TableRow>
         </TableComponent>
+        <div v-else>
+          Loading devices data...
+        </div>
+
       </SectionWrapper>
 
       <FlexibleBlocks
