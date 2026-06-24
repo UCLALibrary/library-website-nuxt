@@ -16,7 +16,7 @@ function runServicePageTests({ withSnapshot = false } = {}) {
     cy.get('.page-anchor').scrollIntoView()
     cy.get('.page-anchor').should('be.visible')
 
-    // should not have a CLICC table
+    // it should not have a CLICC table
     cy.get('.clicc-table').should('not.exist')
 
     if (withSnapshot) {
