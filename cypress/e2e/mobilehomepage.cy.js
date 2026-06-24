@@ -24,5 +24,5 @@ describe('Mobile Website Homepage', () => {
   // Set selector to null to ccheck the header and footer for accessibility violations as well on the homepage
   // Exclude SectionDualMasonry images for now as axe-core flags their structure as a violation,
   // but siteImprove and screen readers seem to handle them just fine.
-  a11yIt.skip('/', { selector: null, exclude: '.brick .brick-image' })
+  a11yIt.skip('/', { selector: null, exclude: '.brick-image' })
 })
