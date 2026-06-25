@@ -918,12 +918,16 @@ https://www.clicc.ucla.edu/about/staff/jonathan-fahn/	/about/staff/jonathan-fahn
 /help/services-resources/outreach/	/help/services-resources/information-for-new-students-and-families/
 /ucla-dataverse	/help/services-resources/what-is-ucla-dataverse/
 /yrl	/visit/locations/research-library/
+/yrl/	/visit/locations/research-library/
 /help/services-resources/construction-closures-at-powell-library/	/about/status-updates/
 /location/library-special-collections/location/center-oral-history-research/resources/conducting-oral-histories-family-members	/about/programs/center-for-oral-history-research/
 /destination/stacks	/
-/about/policies/toward-ethical-and-inclusive-descriptive-practices-in-ucla-library-special-collections	/about/policies/ethical-description/
+/about/policies/
+toward-ethical-and-inclusive-descriptive-practices-in-ucla-library-special-collections	/about/policies/ethical-description/
+/about/policies/toward-ethical-and-inclusive-descriptive-practices-in-ucla-library-special-collections/	/about/policies/ethical-description/
+/location/library-special-collections/toward-ethical-inclusive-descriptive-practices-ucla-library-special-collections	/about/policies/ethical-description/
 /pinyin-wade-giles-zhuyin-conversion-table	/visit/locations/east-asian-library/
-/yrl/	/visit/locations/research-library/
+/wade-giles-zhuyin-pinyin-conversion-table	/visit/locations/east-asian-library/
 /yrl/reference/maps/blaeu/index.htm	/visit/locations/research-library/
 /special-collections/short-term-research-fellowships	/about/programs/library-special-collections-lsc-research-fellowships/
 /visit/locations/library-special-collections/null	/visit/locations/library-special-collections/
@@ -931,13 +935,9 @@ https://www.clicc.ucla.edu/about/staff/jonathan-fahn/	/about/staff/jonathan-fahn
 /libraries/biomed/louise-m-darling-biomedical-library	/visit/locations/biomed/
 /location/biomedical-library-louise-m-darling/key-resources	/visit/locations/biomed/
 /sites/default/files/Mapping%20Your%20Research%20Ideas_final.pdf	/
-/wade-giles-zhuyin-pinyin-conversion-table	/visit/locations/east-asian-library/
 /libraries/college/help/critical/index.htm	/
 /about/programs/resonate-an-open-access-call-for-scores/	/about/programs/resonate/
 /help/services-resources/equipment-lending/null	/help/services-resources/equipment-lending/
-/libraries/biomed/louise-m-darling-biomedical-library	/visit/locations/biomed/
-/location/library-special-collections/toward-ethical-inclusive-descriptive-practices-ucla-library-special-collections	/about/policies/ethical-description/
-/about/policies/toward-ethical-and-inclusive-descriptive-practices-in-ucla-library-special-collections/	/about/policies/ethical-description/
 /blog/preservation/2020/09/29/thoughts-on-conserving-racist-materials-in-libraries	/about/news/thoughts-on-conserving-racist-materials-in-libraries/
 /blog/special/2017/05/12/for-mothers-day-in-appreciation-of-ruth-strout-mccandless-and-nyogen-senzaki	/about/news/
 /use/computers-computing-services/lux-lab	/help/services-resources/yrl-lux-lab/
