@@ -7,7 +7,7 @@ export default defineNuxtPlugin((nuxtApp) => { //
       const response = await $fetch('https://libguides-proxy.library.ucla.edu/api/libguides/global/proxy')
 
       if (response) {
-        globalStore.globals.libraryAlert = response.libraryAlert
+        globalStore.globals.libraryAlert = removeObjectsWithEmptyValues([response.libraryAlert]).length > 0 ? removeObjectsWithEmptyValues([response.libraryAlert])[0] : null
       }
     } catch (error) {
       console.error('Error fetching alerts:', error)
