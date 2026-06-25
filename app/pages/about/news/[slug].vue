@@ -35,6 +35,13 @@ if (!data.value.entry) {
   })
 }
 
+if (data.value.entry.externalResourceUrl?.trim()) {
+  await navigateTo(data.value.entry.externalResourceUrl, {
+    external: true,
+    redirectCode: 301
+  })
+}
+
 // console.log("import.meta.prerender", import.meta.prerender, process.client)
 
 if (data.value.entry.slug && import.meta.prerender) {
