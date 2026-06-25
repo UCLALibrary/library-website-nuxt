@@ -258,8 +258,6 @@ onMounted(async () => {
         :section-titles="h2Array"
       />
 
-      <!-- TODO: CLICC table here only on /help/services-resources/equipment-lending/ route -->
-      <!-- TODO: needs to match with or without the / at the end of the route -->
       <SectionWrapper
         v-if="isEquipmentLendingRoute"
         class="clicc-table-section"
