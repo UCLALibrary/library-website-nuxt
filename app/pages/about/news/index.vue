@@ -40,6 +40,7 @@ if (data.value.entries && import.meta.prerender) {
     if (entry.externalResourceUrl?.trim() !== '') {
       entry.articleCategory = entry.category
       const { index } = useIndexer()
+      console.log('External Articles Indexing', entry, entry.slug)
       await index(entry, entry.slug)
     }
   }
