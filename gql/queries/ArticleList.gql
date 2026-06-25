@@ -2,7 +2,7 @@
 
 query ArticleList {
   entries(
-    ["article", "externalArticle"]
+    section: ["article", "externalArticle"]
     orderBy: "postDate DESC"
   ) {
     title
