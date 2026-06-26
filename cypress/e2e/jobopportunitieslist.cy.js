@@ -1,4 +1,5 @@
 import { viewports } from '../support/viewports'
+import { a11yIt } from '../support/a11y'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
@@ -28,5 +29,7 @@ if (isChromatic) {
 } else {
   describe('Job Opportunities List Page', () => {
     runJobOpportunitiesListTests({ withSnapshot: false })
+
+    a11yIt('/about/jobs/staff-academic-jobs/')
   })
 }
