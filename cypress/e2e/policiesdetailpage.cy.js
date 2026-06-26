@@ -1,4 +1,5 @@
 import { viewports } from '../support/viewports'
+import { a11yIt } from '../support/a11y'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
@@ -52,5 +53,7 @@ if (isChromatic) {
 } else {
   describe('Policy Detail Page', () => {
     runPolicyDetailTests({ withSnapshot: false })
+
+    a11yIt('/about/policies/shhh')
   })
 }
