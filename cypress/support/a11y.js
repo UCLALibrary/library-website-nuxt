@@ -23,7 +23,10 @@ export function a11yIt(url, options = {}) {
   // Usage examples:
   // a11yIt('/', { selector: null, exclude: '.chat-widget' })
   // a11yIt('/', { exclude: ['.chat-widget', '#third-party-banner'] })
-  if (options.skip) {
+  const isChromatic = Cypress.env('VISUAL_PROVIDER') === 'chromatic'
+  const shouldSkip = options.skip || isChromatic
+
+  if (shouldSkip) {
     a11yIt.skip(url, options)
     return
   }

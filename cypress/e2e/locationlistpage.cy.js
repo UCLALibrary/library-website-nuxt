@@ -52,7 +52,6 @@ if (isChromatic) {
 } else {
   describe('Location Listing Page', () => {
     runLocationListingTests({ withSnapshot: false })
-
     a11yIt('/visit/locations')
   })
 }
