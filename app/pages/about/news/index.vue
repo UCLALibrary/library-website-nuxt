@@ -35,6 +35,17 @@ if (!data.value?.entry && !data.value?.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 
+if (data.value.entries && import.meta.prerender) {
+  for (const entry of data.value.entries) {
+    if (entry.externalResourceUrl?.trim() !== '') {
+      entry.articleCategory = entry.category
+      const { index } = useIndexer()
+      console.log('External Articles Indexing', entry, entry.slug)
+      await index(entry, entry.slug)
+    }
+  }
+}
+
 if (data.value.entry && import.meta.prerender) {
   const { index } = useIndexer()
   const doc = {
