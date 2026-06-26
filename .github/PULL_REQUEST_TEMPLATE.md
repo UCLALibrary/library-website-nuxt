@@ -1,6 +1,6 @@
 #### Connected to [LADI-](https://jira.library.ucla.edu/browse/LADI-)
 
-#### Deployed on https://deploy-preview-xxx--test-ftva.netlify.app
+#### Deployed on https://deploy-preview-xxx--uclalibrary-test.netlify.app/
 
 ---
 
@@ -26,7 +26,7 @@
 - [ ] Design & Code
     - [ ] Check that it looks like the design(s) _(if applicable)_
     - [ ] Include a working / updated spec file _(if applicable)_
-    - [ ] Review the Chromatic
+    - [ ] Review the Chromatic _(if the PR is large and requires it)_
 
 ### UX Review
 - [ ] UX has reviewed and approved
