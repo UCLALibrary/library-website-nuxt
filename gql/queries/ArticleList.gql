@@ -8,6 +8,8 @@ query ArticleList {
     ... on article_article_Entry {
       title
       to: uri
+      slug
+      sectionHandle
       externalResourceUrl
       heroImage {
         ... on heroImage_heroImage_BlockType {
@@ -46,6 +48,7 @@ query ArticleList {
             text: summary
             to: uri
             externalResourceUrl
+            sectionHandle
             heroImage {
               ... on heroImage_heroImage_BlockType {
                 id

@@ -146,7 +146,7 @@ export default defineNuxtConfig({
             'Content-Type': 'application/json'
           },
           method: 'POST',
-          body: JSON.stringify({ query: 'query AllPages { entries { uri, sectionHandle } }' })
+          body: JSON.stringify({ query: 'query AllPages { entries { uri, sectionHandle, externalResourceUrl } }' })
         })
 
         const postPages = await response.json()
@@ -156,9 +156,11 @@ export default defineNuxtConfig({
             !item.sectionHandle.includes('meap') && !item.sectionHandle.includes('ftva')
             && !item.sectionHandle.includes('organization') && !item.sectionHandle.includes('/__home__')
             && !item.sectionHandle.includes('visit/spaces') && !item.sectionHandle.includes('null')
+            && !(item.sectionHandle === 'article' && item.externalResourceUrl?.trim())
           ).map(entry => '/' + entry.uri)
 
           allRoutes.push(...postWithoutPayloadRoutes)
+          // console.log('prerender:routes postWithoutPayloadRoutes', postWithoutPayloadRoutes)
         }
 
         if (allRoutes.length) {
