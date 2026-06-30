@@ -7,7 +7,7 @@ This repository powers the UCLA Library main website.
 This project is configured to use:
 
 - **Node.js 24.16.0**
-- **pnpm 11.5.1**
+- **pnpm 11.9.0**
 
 The repo pins pnpm through the `packageManager` field in `package.json`, so pnpm will be selected automatically when **Corepack** is enabled.
 
@@ -18,7 +18,7 @@ The repo pins pnpm through the `packageManager` field in `package.json`, so pnpm
 This repository uses:
 
 - Node.js `24.16.0`
-- pnpm `11.5.1`
+- pnpm `11.9.0`
 
 The repository includes:
 
@@ -208,3 +208,77 @@ pnpm install
 See the Nuxt deployment documentation for more details:
 
 https://nuxt.com/docs/getting-started/deployment
+
+## Global pnpm and Corepack
+
+### If you use a global pnpm (for example, pnpm 9)
+
+If you have pnpm installed globally (for example, via Homebrew) and want to use that version for a repository:
+
+1. Disable Corepack:
+
+   ```bash
+   corepack disable
+   ```
+
+2. Run your pnpm commands as usual:
+
+   ```bash
+   pnpm install
+   ```
+
+Corepack will no longer intercept the `pnpm` command, so your globally installed pnpm will be used.
+
+---
+
+### Switching back to a repository that pins its own pnpm version
+
+If you later switch to a repository that uses the `packageManager` field to pin a specific pnpm version:
+
+1. Enable Corepack:
+
+   ```bash
+   corepack enable
+   ```
+
+2. Verify the active pnpm version:
+
+   ```bash
+   pnpm --version
+   ```
+
+3. If the version does not match the one pinned in the repository's `package.json`, run:
+
+   ```bash
+   corepack use pnpm@<version>
+   ```
+
+   Replace `<version>` with the version specified in the repository's `packageManager` field.
+
+4. Run your pnpm commands again:
+
+   ```bash
+   pnpm install
+   ```
+
+---
+
+### If you do **not** have a global pnpm installation
+
+If you do not have pnpm installed globally (for example, via Homebrew), keep Corepack enabled.
+
+When switching between repositories (and Node.js versions managed by `nvm`), Corepack will automatically use the pnpm version pinned in each repository's `packageManager` field.
+
+If the required pnpm version is not available locally, run:
+
+```bash
+corepack use pnpm@<version>
+```
+
+where `<version>` is the version specified in the repository's `packageManager` field.
+
+Then continue using pnpm normally:
+
+```bash
+pnpm install
+```
