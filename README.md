@@ -133,7 +133,7 @@ When you switch repositories:
 ```bash
 cd <repository>
 nvm use
-pnpm install
+"Run pnpm commands as usual"
 ```
 
 - `nvm use` reads the Node version from `.nvmrc` when present.
