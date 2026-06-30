@@ -1,4 +1,5 @@
 import { viewports } from '../support/viewports'
+import { a11yIt } from '../support/a11y'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
@@ -49,5 +50,7 @@ if (isChromatic) {
 } else {
   describe('Services & Resources Page', () => {
     runServicesResourcesPageTests({ withSnapshot: false })
+
+    a11yIt('/help/services-resources/a-test-workshop-with-a-pull-quote-fpb')
   })
 }

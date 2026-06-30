@@ -6,6 +6,7 @@
 
 // HELPERS
 import _get from 'lodash/get'
+import { useWindowSize } from '@vueuse/core'
 import SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL from '../gql/queries/ServiceOrResourceOrWorkshopDetail.gql'
 import removeTags from '@/utils/removeTags'
 
@@ -14,6 +15,10 @@ import removeTags from '@/utils/removeTags'
 const { $graphql, $getHeaders } = useNuxtApp()
 const route = useRoute()
 const { hasCTA } = useAskALibrarianCTA()
+const isEquipmentLendingRoute = computed(() => {
+  return route.path === '/help/services-resources/equipment-lending'
+    || route.path === '/help/services-resources/equipment-lending/'
+})
 
 const { data, error } = await useAsyncData(`services-resources-detail-${route.params.slug}`, async () => {
   const data = await $graphql.default.request(SERVICE_OR_RESOURCE_OR_WORKSHOPSERIES_DETAIL, { slug: route.params.slug, })
@@ -45,6 +50,24 @@ watch(data, (newVal, oldVal) => {
   // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = newVal
 })
+
+// START CLICC TABLE DATA
+const cliccSectionTitle = 'CLICC Device Availability'
+const cliccSectionSummary = 'Is my CLICC device available? Current availability of devices. Every location also has various accessories.'
+const cliccDevicesTableHeaders = ['Locations', 'Chromebook', 'iPad', 'Macbook']
+const cliccDevicesData = ref(null)
+const clickLocationURLLookup = {
+  Powell: { displayName: 'Powell Library', url: '/visit/locations/powell-library/' },
+  YRL: { displayName: 'Young Research Library', url: '/visit/locations/research-library/' },
+}
+// reformat data when on mobile
+const mobileBreakpoint = 750
+const { width, height } = useWindowSize()
+const isMobile = computed(() => {
+  if (!width.value) return false
+  return width.value < mobileBreakpoint
+})
+// END CLICC TABLE DATA
 
 const h2Array = ref([]) // anchor tags
 
@@ -168,9 +191,13 @@ const parsedAssociatedSeries = computed(() => {
   })
 })
 
-onMounted(() => {
+onMounted(async () => {
   // Call the plugin method to get the .section-header2 and .section-header3 elements
   h2Array.value = $getHeaders.getHeadersMethod()
+
+  await $fetch('https://clicc-devices.library.ucla.edu/devices/').then((data) => {
+    cliccDevicesData.value = data
+  })
 })
 
 </script>
@@ -231,8 +258,44 @@ onMounted(() => {
         :section-titles="h2Array"
       />
 
+      <SectionWrapper
+        v-if="isEquipmentLendingRoute"
+        class="clicc-table-section"
+        :section-title="cliccSectionTitle"
+        :section-summary="cliccSectionSummary"
+      >
+        <TableComponent
+          v-if="cliccDevicesData"
+          class="clicc-table"
+          :table-headers="cliccDevicesTableHeaders"
+        >
+          <TableRow
+            v-for="value, keyname in cliccDevicesData"
+            :key="keyname"
+            :num-cells="4"
+          >
+            <template #column1>
+              <a :href="clickLocationURLLookup[keyname].url">{{ clickLocationURLLookup[keyname].displayName }}</a>
+            </template>
+            <template #column2>
+              {{ value.Chromebook }} {{ isMobile ? 'Chromebooks' : '' }}
+            </template>
+            <template #column3>
+              {{ value.iPad }} {{ isMobile ? 'iPads' : '' }}
+            </template>
+            <template #column4>
+              {{ value.Macbook }} {{ isMobile ? 'Macbooks' : '' }}
+            </template>
+          </TableRow>
+        </TableComponent>
+        <div v-else>
+          Loading devices data...
+        </div>
+      </SectionWrapper>
+
       <FlexibleBlocks
-        class="content"
+        class="
+        content"
         :blocks="page.serviceOrResource.blocks"
       />
 
@@ -411,6 +474,56 @@ onMounted(() => {
 .page-service-detail {
   .more-info {
     @include visually-hidden;
+  }
+}
+
+// CLICC TABLE STYLES
+.clicc-table {
+  a {
+    text-decoration: underline;
+    text-decoration-color: var(--color-secondary-blue-02);
+
+    &:hover,
+    &:focus {
+      color: var(--color-primary-blue-03);
+    }
+  }
+
+  :deep(td) {
+    display: table-cell;
+    padding: .75em 0;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:not(:first-child) {
+      align-items: center;
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.6;
+    }
+  }
+
+  :deep(table.table-component) {
+    tr {
+      &:first-child td {
+        padding: .75em 0;
+      }
+
+      th {
+        width: auto;
+        padding: .75em;
+
+        &:first-child {
+          padding-left: 0;
+        }
+
+        &:not(:first-child) {
+          text-align: center;
+        }
+      }
+    }
   }
 }
 </style>

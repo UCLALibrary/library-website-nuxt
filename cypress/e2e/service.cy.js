@@ -1,4 +1,5 @@
 import { viewports } from '../support/viewports'
+import { a11yIt } from '../support/a11y'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
@@ -16,9 +17,19 @@ function runServicePageTests({ withSnapshot = false } = {}) {
     cy.get('.page-anchor').scrollIntoView()
     cy.get('.page-anchor').should('be.visible')
 
+    // it should not have a CLICC table
+    cy.get('.clicc-table-section').should('not.exist')
+
     if (withSnapshot) {
       cy.visualSnapshot('service')
     }
+  })
+
+  it('the equipment-lending page should have a CLICC table', () => {
+    cy.visit('/help/services-resources/equipment-lending')
+
+    // should have a CLICC table
+    cy.get('.clicc-table-section').should('exist')
   })
 
   if (!isChromatic) {
@@ -44,5 +55,7 @@ if (isChromatic) {
 } else {
   describe('Service Page', () => {
     runServicePageTests({ withSnapshot: false })
+
+    a11yIt('/help/services-resources/service-with-all-flexible-page-block-types')
   })
 }
