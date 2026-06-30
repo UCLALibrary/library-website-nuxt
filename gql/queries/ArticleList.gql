@@ -2,29 +2,33 @@
 
 query ArticleList {
   entries(
-    section: ["article", "externalArticle"]
+    section: "article"
     orderBy: "postDate DESC"
   ) {
-    title
-    to: uri
-    externalResourceUrl
-    heroImage {
-      ... on heroImage_heroImage_BlockType {
-        id
-        image {
-          ...Image
+    ... on article_article_Entry {
+      title
+      to: uri
+      slug
+      sectionHandle
+      externalResourceUrl
+      heroImage {
+        ... on heroImage_heroImage_BlockType {
+          id
+          image {
+            ...Image
+          }
         }
       }
-    }
-    description: summary
-    authors: staffMember {
-      title
-    }
-    date: postDate
-    articleCategories {
-      id
-      title
-      uri
+      description: summary
+      authors: staffMember {
+        title
+      }
+      date: postDate
+      articleCategories {
+        id
+        title
+        uri
+      }
     }
   }
 
@@ -34,24 +38,27 @@ query ArticleList {
       text: summary
       ... on listingNews_listingNews_Entry {
         featuredNews {
-          title
-          articleCategories {
-            id
+          ... on article_article_Entry {
             title
-            uri
-          }
-          text: summary
-          to: uri
-          externalResourceUrl
-          heroImage {
-            ... on heroImage_heroImage_BlockType {
+            articleCategories {
               id
-              image {
-                ...Image
+              title
+              uri
+            }
+            text: summary
+            to: uri
+            externalResourceUrl
+            sectionHandle
+            heroImage {
+              ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                  ...Image
+                }
               }
             }
+            postDate
           }
-          postDate
         }
       }
     }

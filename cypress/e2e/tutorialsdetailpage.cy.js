@@ -1,4 +1,5 @@
 import { viewports } from '../support/viewports'
+import { a11yIt } from '../support/a11y'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
@@ -43,5 +44,8 @@ if (isChromatic) {
 } else {
   describe('Tutorials Detail Page', () => {
     runTutorialsDetailTests({ withSnapshot: false })
+
+    // missing iframe titles errors, re-enable when LADI-5244 is merged and test if fixed
+    a11yIt.skip('/help/tutorials/electron-configurations')
   })
 }

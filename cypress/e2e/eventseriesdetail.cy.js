@@ -1,4 +1,5 @@
 import { viewports } from '../support/viewports'
+import { a11yIt } from '../support/a11y'
 
 const provider = Cypress.env('VISUAL_PROVIDER')
 const isChromatic = provider === 'chromatic'
@@ -44,5 +45,6 @@ if (isChromatic) {
 } else {
   describe('Event Series Detail Page', () => {
     runEventSeriesDetailTests({ withSnapshot: false })
+    a11yIt('/visit/events-exhibitions/test-event-series')
   })
 }

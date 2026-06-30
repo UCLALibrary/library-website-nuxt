@@ -17,6 +17,12 @@ export default defineConfig({
       } else {
         // ✅ Register the task Chromatic support expects
         on('task', {
+          // Overwrite the log command so we can log axe-core violations to the console
+          log(message) {
+            // eslint-disable-next-line no-console
+            console.log(message)
+            return null
+          },
           prepareArchives() {
             // If you don't need it, no-op is fine
             return null
