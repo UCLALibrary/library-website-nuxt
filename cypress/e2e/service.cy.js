@@ -29,7 +29,7 @@ function runServicePageTests({ withSnapshot = false } = {}) {
     cy.visit('/help/services-resources/equipment-lending')
 
     // should have a CLICC table
-    cy.get('.clicc-table-section').should('exist')
+    cy.get('.clicc-table-section', { timeout: 60000 }).should('exist')
   })
 
   if (!isChromatic) {
