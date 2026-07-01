@@ -7,7 +7,7 @@ This repository powers the UCLA Library main website.
 This project is configured to use:
 
 - **Node.js 24.16.0**
-- **pnpm 11.9.0**
+- **pnpm 11.5.1**
 
 The repo pins pnpm through the `packageManager` field in `package.json`, so pnpm will be selected automatically when **Corepack** is enabled.
 
@@ -18,7 +18,7 @@ The repo pins pnpm through the `packageManager` field in `package.json`, so pnpm
 This repository uses:
 
 - Node.js `24.16.0`
-- pnpm `11.9.0`
+- pnpm `11.5.1`
 
 The repository includes:
 
