@@ -212,7 +212,7 @@ async function searchES() {
     const results = await keywordSearchWithFilters(
       queryText,
       config.newsIndex.searchFields,
-      ['article'],
+      ['article', 'externalArticle'],
       parseFilters(route.query.filters || ''),
       config.newsIndex.sortField,
       config.newsIndex.orderBy,
@@ -257,8 +257,12 @@ function parseHits(hits = []) {
     // //console.log(obj["_source"]["image"])
     return {
       ...obj._source,
-      description: obj._source.text,
-      date: obj._source.postDate,
+      description: obj._source.text === null || obj._source.text === undefined
+        ? obj._source.description
+        : obj._source.text,
+      date: obj._source.postDate === null || obj._source.postDate === undefined
+        ? obj._source.date
+        : obj._source.postDate,
       articleCategories: obj._source.category,
       to: obj._source.externalResourceUrl != null
         ? _get(obj._source, 'externalResourceUrl', '')
@@ -267,7 +271,7 @@ function parseHits(hits = []) {
       staffName: obj._source.fullName,
       // category: _get(obj["_source"], "category[0].title", null),
       category: parseArticleCategory(
-        obj._source.category
+        obj._source.category || obj._source.articleCategories
       ),
     }
   })
