@@ -37,33 +37,31 @@ query ProgramDetail($slug: [String!]) {
         ...AllFpb
     }
     associatedArticles: entries(
-        section: "article"
+        section: ["article", "externalArticle"]
         relatedToEntries: { section: "program", slug: $slug }
         orderBy: "dateUpdated desc"
         limit: 3
     ) {
-        ... on article_article_Entry {
+        id
+        title
+        associatedArticles {
             id
             title
-            associatedArticles {
-                id
-                title
-            }
-            to: uri
-            externalResourceUrl
-            heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    id
-                    image {
-                        ...Image
-                    }
-                    altText
-                }
-            }
-            description: summary
-            category: typeHandle
-            startDate: dateCreated
-            endDate: dateCreated
         }
+        to: uri
+        externalResourceUrl
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+                altText
+            }
+        }
+        description: summary
+        category: typeHandle
+        startDate: dateCreated
+        endDate: dateCreated
     }
 }

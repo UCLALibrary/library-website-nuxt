@@ -73,39 +73,37 @@ query LocationDetail($slug: [String!]) {
         }
     }
     associatedArticles: entries(
-        section: "article"
+        section: ["article", "externalArticle"]
         relatedToEntries: { section: "location", slug: $slug }
         orderBy: "dateUpdated desc"
         limit: 3
     ) {
-        ... on article_article_Entry {
+        id
+        title
+        associatedLocations {
             id
             title
-            associatedLocations {
-                id
-                title
-            }
-            to: slug
-            heroImage {
-                ... on heroImage_heroImage_BlockType {
-                    id
-                    image {
-                        ...Image
-                    }
-                    altText
-                }
-            }
-
-            authors: staffMember {
-                id
-                slug
-                title
-            }
-            description: summary
-            category: typeHandle
-            startDate: dateUpdated
-            endDate: dateUpdated
         }
+        to: slug
+        heroImage {
+            ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                    ...Image
+                }
+                altText
+            }
+        }
+
+        authors: staffMember {
+            id
+            slug
+            title
+        }
+        description: summary
+        category: typeHandle
+        startDate: dateUpdated
+        endDate: dateUpdated
     }
     associatedEndowments: entries(
         section: "endowments"

@@ -2,33 +2,31 @@
 
 query ArticleList {
   entries(
-    section: "article"
+    section: ["article", "externalArticle"]
     orderBy: "postDate DESC"
   ) {
-    ... on article_article_Entry {
-      title
-      to: uri
-      slug
-      sectionHandle
-      externalResourceUrl
-      heroImage {
-        ... on heroImage_heroImage_BlockType {
-          id
-          image {
-            ...Image
-          }
+    title
+    to: uri
+    slug
+    sectionHandle
+    externalResourceUrl
+    heroImage {
+      ... on heroImage_heroImage_BlockType {
+        id
+        image {
+          ...Image
         }
       }
-      description: summary
-      authors: staffMember {
-        title
-      }
-      date: postDate
-      articleCategories {
-        id
-        title
-        uri
-      }
+    }
+    description: summary
+    authors: staffMember {
+      title
+    }
+    date: postDate
+    articleCategories {
+      id
+      title
+      uri
     }
   }
 

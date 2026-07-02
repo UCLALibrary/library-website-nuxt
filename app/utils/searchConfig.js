@@ -35,7 +35,7 @@ const config = {
       },
       {
         key: 'News',
-        terms: ['article'],
+        terms: ['article', 'externalArticle'],
       },
       {
         key: 'Policies',
@@ -209,11 +209,14 @@ const config = {
     resultFields: [
       'title',
       'text',
+      'description',
       'articleType',
       'uri',
       'heroImage',
       'postDate',
+      'date',
       'category',
+      'articleCategories',
       'contributors',
       'externalResourceUrl',
     ],
