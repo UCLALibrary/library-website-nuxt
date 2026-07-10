@@ -74,7 +74,6 @@ const parsedPlaceholder = computed(() => {
 })
 
 const parsedFeaturedTutorial = computed(() => {
-  console.log('page featured tutorial', page?.value.featuredResourcesSection[0].featuredResources[0])
   const obj = page?.value.featuredResourcesSection[0].featuredResources[0]
   return [{
     ...obj,
@@ -82,9 +81,7 @@ const parsedFeaturedTutorial = computed(() => {
   }]
 })
 const parsedFeaturedTutorialDescription = computed(() => {
-  const featuredTutorial = parsedFeaturedTutorial.value?.[0] || {}
-  console.log('parsedFeaturedTutorial', parsedFeaturedTutorial.value)
-  return parsedFeaturedTutorial.summary || parsedFeaturedTutorial.description
+  return parsedFeaturedTutorial.value?.[0]?.summary || parsedFeaturedTutorial.value?.[0]?.description || parsedFeaturedTutorial.value?.[0]?.text || ''
 })
 
 const parsedSecondaryTutorials = computed(() => {
