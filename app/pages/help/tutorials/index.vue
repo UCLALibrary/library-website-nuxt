@@ -101,12 +101,13 @@ const parsedTutorialsList = computed(() => {
     const stringifyTutorialTypes = obj.tutorialType?.map(item => item.title).join(', ')
 
     const groupTutorialCategoryTitles = obj.tutorialCategory?.map(item => item.title)
-
+    const tutorialPath = obj.to || obj.uri
     return {
       ...obj,
       image: _get(obj, 'image[0]', null),
       category: stringifyTutorialTypes, // For SectionTeaserCard field
-      tutorialCategory: groupTutorialCategoryTitles
+      tutorialCategory: groupTutorialCategoryTitles,
+      to: tutorialPath ? `/${tutorialPath.replace(/^\/+/, '')}` : ''
     }
   })
 
