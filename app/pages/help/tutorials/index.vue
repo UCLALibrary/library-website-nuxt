@@ -107,7 +107,7 @@ const parsedTutorialsList = computed(() => {
       image: _get(obj, 'image[0]', null),
       category: stringifyTutorialTypes, // For SectionTeaserCard field
       tutorialCategory: groupTutorialCategoryTitles,
-      to: tutorialPath ? `/${tutorialPath.replace(/^\/+/, '')}` : ''
+      to: tutorialPath ? `/${tutorialPath.replace(/^\/+/, '')}` : '' // normalize links by adding '/' before the path
     }
   })
 
