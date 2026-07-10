@@ -74,11 +74,17 @@ const parsedPlaceholder = computed(() => {
 })
 
 const parsedFeaturedTutorial = computed(() => {
+  console.log('page featured tutorial', page?.value.featuredResourcesSection[0].featuredResources[0])
   const obj = page?.value.featuredResourcesSection[0].featuredResources[0]
   return [{
     ...obj,
     to: `/${obj.to}`
   }]
+})
+const parsedFeaturedTutorialDescription = computed(() => {
+  const featuredTutorial = parsedFeaturedTutorial.value?.[0] || {}
+  console.log('parsedFeaturedTutorial', parsedFeaturedTutorial.value)
+  return parsedFeaturedTutorial.summary || parsedFeaturedTutorial.description
 })
 
 const parsedSecondaryTutorials = computed(() => {
@@ -351,6 +357,7 @@ onMounted(async () => {
           :align-right="true"
           :text="parsedFeaturedTutorial[0].text"
           :to="parsedFeaturedTutorial[0].to"
+          :description="parsedFeaturedTutorialDescription"
           prompt="View Tutorial"
           class="banner section-featured-banner"
         />
