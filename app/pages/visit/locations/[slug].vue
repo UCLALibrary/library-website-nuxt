@@ -85,7 +85,6 @@ const parsedStaffDirectory = computed(() => {
     return ''
   }
 })
-console.log('parsedStaffDirectory: ', parsedStaffDirectory.value)
 
 const parsedAddress = computed(() => {
   if (page.value.address.length && page.value.address[0].addressLine2) {
