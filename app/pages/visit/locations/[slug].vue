@@ -77,7 +77,7 @@ const parsedStaffDirectory = computed(() => {
     const searchLibrary = page.value.title
     const libConcat =
       '/about/staff/?q=&filters=locations.title.keyword:(' +
-      searchLibrary.replaceAll(' ', '+') +
+      searchLibrary.replaceAll(' ', '+').replaceAll('&', '%26') +
       ')'
 
     return libConcat
