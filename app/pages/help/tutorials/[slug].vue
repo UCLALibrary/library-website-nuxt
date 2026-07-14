@@ -65,7 +65,8 @@ useHead({
       name: 'description',
       content: metaDescription.value
     }
-  ]
+  ],
+  script: [{ src: "https://uclabruinlearn.h5p.com/js/h5p-resizer.js", defer: true }],
 })
 
 const parsedButtonText = computed(() => {
