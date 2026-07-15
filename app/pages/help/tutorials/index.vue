@@ -80,6 +80,9 @@ const parsedFeaturedTutorial = computed(() => {
     to: `/${obj.to}`
   }]
 })
+const parsedFeaturedTutorialDescription = computed(() => {
+  return parsedFeaturedTutorial.value?.[0]?.summary || parsedFeaturedTutorial.value?.[0]?.description || parsedFeaturedTutorial.value?.[0]?.text || ''
+})
 
 const parsedSecondaryTutorials = computed(() => {
   return page?.value.featuredResourcesSection[0].featuredResources.slice(1).map((obj) => {
@@ -352,6 +355,7 @@ onMounted(async () => {
           :align-right="true"
           :text="parsedFeaturedTutorial[0].text"
           :to="parsedFeaturedTutorial[0].to"
+          :description="parsedFeaturedTutorialDescription"
           prompt="View Tutorial"
           class="banner section-featured-banner"
         />
