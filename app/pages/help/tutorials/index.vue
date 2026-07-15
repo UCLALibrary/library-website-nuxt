@@ -351,7 +351,6 @@ onMounted(async () => {
         <BannerFeatured
           :media="parsedFeaturedTutorial[0].image[0]"
           :title="parsedFeaturedTutorial[0].title"
-          breadcrumb="Featured"
           :align-right="true"
           :text="parsedFeaturedTutorial[0].text"
           :to="parsedFeaturedTutorial[0].to"
