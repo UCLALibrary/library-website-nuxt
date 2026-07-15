@@ -150,7 +150,7 @@ button {
 
 // Only the library site removes spacing around videos inside Rich-Text (LADI-5261)
 :deep(.rich-text) {
-    video {
+    figure:has(video){
         margin: 0;
     }
 }
