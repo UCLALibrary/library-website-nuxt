@@ -147,3 +147,10 @@ button {
 .visually-hidden {
     @include visually-hidden;
 }
+
+// Only the library site removes spacing around videos inside Rich-Text (LADI-5261)
+:deep(.rich-text) {
+    video {
+        margin: 0;
+    }
+}
