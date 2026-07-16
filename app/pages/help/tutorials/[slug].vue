@@ -155,26 +155,6 @@ const parsedBlockCTA2Up = computed(() => {
       :to="parsedButtonTo"
     />
 
-    <SectionWrapper
-      v-if="page.learningOutcomes"
-      theme="divider"
-    >
-      <DividerWayFinder
-        class="divider"
-        color="help"
-      />
-    </SectionWrapper>
-
-    <SectionWrapper
-      v-if="page.learningOutcomes"
-      section-title="Learning Outcomes"
-    >
-      <RichText
-        class="learning-outcomes"
-        :rich-text-content="page.learningOutcomes"
-      />
-    </SectionWrapper>
-
     <FlexibleBlocks
       v-if="page && page.blocks"
       class="flexible-content"
