@@ -8,7 +8,7 @@ function getHeadersMethod() {
   const h2Array = []
 
   elements.forEach((element) => {
-    if (element.textContent !== 'More Information') {
+    if (element.textContent.trim() !== 'More Information') {
       h2Array.push(element.textContent)
     }
   })
