@@ -26,7 +26,6 @@ query TutorialDetail($slug: [String!]) {
     tutorialCategory {
       title
     }
-    learningOutcomes: richTextDefault
     ...AllFpb
 
     resourceServiceWorkshop {
