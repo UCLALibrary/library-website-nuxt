@@ -458,9 +458,13 @@ function parseFieldNames(fields) {
       terms: {
         field: element.esFieldName,
         size: 25,
-      },
+        order: {
+          _key: 'asc',
+        }
+      }
     }
   }
+
   // console.log("aggsFields:" + JSON.stringify(aggsFields))
   return aggsFields
 }

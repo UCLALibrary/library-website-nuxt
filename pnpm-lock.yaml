@@ -43,8 +43,8 @@ importers:
         specifier: ^18.17.3
         version: 18.19.130
       '@ucla-library/component-library-nuxt-module':
-        specifier: 1.3.51
-        version: 1.3.51(magicast@0.5.3)(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3))(vuetify@3.12.8(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3)))
+        specifier: 1.4.1
+        version: 1.4.1(magicast@0.5.3)(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3))(vuetify@3.7.4(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3)))
       '@unhead/vue':
         specifier: ^2.1.15
         version: 2.1.15(vue@3.5.39(typescript@5.9.3))
@@ -2992,16 +2992,16 @@ packages:
     resolution: {integrity: sha512-JJtkDduxLi9bivAB+cYOVMtbkqdPOhZ+ZI5LC47MIRrDV4Yn2o+ZnW10Nkmr28xRpSpdJ6Sm42Hjf2+REYXm0A==}
     engines: {node: ^16.0.0 || >=18.0.0}
 
-  '@ucla-library-monorepo/ucla-library-website-components@1.78.3':
-    resolution: {integrity: sha512-OT29JmjCr7+tkaFxOLNi9M604bXMfj3ckolNfTjY/a/x9PYBmIWvD0UIJX0n5zsnx/OOfxL4lpUDXOyJyziDIg==}
-    engines: {pnpm: ^9.12.1}
+  '@ucla-library-monorepo/ucla-library-website-components@1.79.1':
+    resolution: {integrity: sha512-3tZCZf9wB51ZTruRerOTw4Fnbfs/Pk+SuFiWBCrWRG4SkxdllLEf66tZNV6x2P2vP4X66ISwOHcPPMvtj5lMFA==}
+    engines: {node: ^24.16.0, pnpm: ^11.5.1}
     peerDependencies:
       vue: ^3.5.12
-      vuetify: ^3.7.4
+      vuetify: 3.7.4
 
-  '@ucla-library/component-library-nuxt-module@1.3.51':
-    resolution: {integrity: sha512-7v6QuovdagfIBwxKD1W8o1Tt2/k1dvx6qMNbzrTCIygvp6NRSg1uRFzlLc5jZDPR8wNouAKcsWqH7lFb6YHnWw==}
-    engines: {pnpm: ^9.12.1}
+  '@ucla-library/component-library-nuxt-module@1.4.1':
+    resolution: {integrity: sha512-LWbTcdgClGJligJ5lRTiMtSQ44/pFFUGDWUdpEYEy/4TBIcRhxBLVmHGPTEY7HSujSrJ3tZL1qMOmJwj61gi7w==}
+    engines: {node: ^24.16.0, pnpm: ^11.5.1}
 
   '@ungap/structured-clone@1.3.2':
     resolution: {integrity: sha512-5jsZFwgR5rTdKwidH9Qmat75RKwqfpKlWWB1frDkljN127mwqBu8K0PYo7/hFpF03IEJpfVPpCQDY/eDx3iHvA==}
@@ -9470,13 +9470,14 @@ packages:
       typescript:
         optional: true
 
-  vuetify@3.12.8:
-    resolution: {integrity: sha512-gvmOWeLd6CG7LVh2Qonft5YrIb7MpbKZglRjg0ItEloSbu6hfUII2RZmRSVxGKYdiXTf7J1hI3BRSHr8J9LkxA==}
+  vuetify@3.7.4:
+    resolution: {integrity: sha512-Y8UU5wUDQXC3oz2uumPb8IOdvB4XMCxtxnmqdOc+LihNuPlkSgxIwf92ndRzbOtJFKHsggFUxpyLqpQp+A+5kg==}
+    engines: {node: ^12.20 || >=14.13}
     peerDependencies:
       typescript: '>=4.7'
-      vite-plugin-vuetify: '>=2.1.0'
-      vue: ^3.5.0
-      webpack-plugin-vuetify: '>=3.1.0'
+      vite-plugin-vuetify: '>=1.0.0'
+      vue: ^3.3.0
+      webpack-plugin-vuetify: '>=2.0.0'
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -10080,7 +10081,7 @@ snapshots:
   '@dxup/nuxt@0.3.2(magicast@0.5.3)':
     dependencies:
       '@dxup/unimport': 0.1.2
-      '@nuxt/kit': 4.3.1(magicast@0.5.3)
+      '@nuxt/kit': 4.4.8(magicast@0.5.3)
       chokidar: 5.0.0
       pathe: 2.0.3
       tinyglobby: 0.2.17
@@ -10709,7 +10710,7 @@ snapshots:
       nopt: 5.0.0
       npmlog: 5.0.1
       rimraf: 3.0.2
-      semver: 7.6.3
+      semver: 7.8.5
       tar: 6.2.1
     transitivePeerDependencies:
       - encoding
@@ -10929,7 +10930,7 @@ snapshots:
       p-filter: 4.1.0
       p-locate: 6.0.0
       read-pkg-up: 9.1.0
-      semver: 7.6.3
+      semver: 7.8.5
 
   '@netlify/functions-utils@5.3.18(rollup@4.62.2)(supports-color@9.4.0)':
     dependencies:
@@ -11060,7 +11061,7 @@ snapshots:
       precinct: 11.0.5(supports-color@9.4.0)
       require-package-name: 2.0.1
       resolve: 2.0.0-next.7
-      semver: 7.6.3
+      semver: 7.8.5
       tmp-promise: 3.0.3
       toml: 3.0.0
       unixify: 1.0.0
@@ -12672,7 +12673,7 @@ snapshots:
       debug: 4.3.7(supports-color@9.4.0)
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.6.3
+      semver: 7.8.5
       tsutils: 3.21.0(typescript@5.9.3)
     optionalDependencies:
       typescript: 5.9.3
@@ -12718,7 +12719,7 @@ snapshots:
       '@typescript-eslint/types': 6.21.0
       eslint-visitor-keys: 3.4.3
 
-  '@ucla-library-monorepo/ucla-library-website-components@1.78.3(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3))(vuetify@3.12.8(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3)))':
+  '@ucla-library-monorepo/ucla-library-website-components@1.79.1(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3))(vuetify@3.7.4(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3)))':
     dependencies:
       '@vuepic/vue-datepicker': 8.8.1(vue@3.5.39(typescript@5.9.3))
       '@vueuse/components': 11.3.0(vue@3.5.39(typescript@5.9.3))
@@ -12729,15 +12730,15 @@ snapshots:
       pinia: 2.3.1(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3))
       vue: 3.5.39(typescript@5.9.3)
       vue3-carousel: 0.3.4(vue@3.5.39(typescript@5.9.3))
-      vuetify: 3.12.8(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3))
+      vuetify: 3.7.4(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - typescript
 
-  '@ucla-library/component-library-nuxt-module@1.3.51(magicast@0.5.3)(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3))(vuetify@3.12.8(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3)))':
+  '@ucla-library/component-library-nuxt-module@1.4.1(magicast@0.5.3)(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3))(vuetify@3.7.4(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3)))':
     dependencies:
       '@nuxt/kit': 3.21.8(magicast@0.5.3)
-      '@ucla-library-monorepo/ucla-library-website-components': 1.78.3(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3))(vuetify@3.12.8(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3)))
+      '@ucla-library-monorepo/ucla-library-website-components': 1.79.1(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3))(vuetify@3.7.4(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3)))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - magicast
@@ -16885,7 +16886,7 @@ snapshots:
       jest-validate: 27.5.1
       map-obj: 5.0.2
       moize: 6.1.7
-      semver: 7.6.3
+      semver: 7.8.5
 
   log-symbols@4.1.0:
     dependencies:
@@ -16990,7 +16991,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.6.3
+      semver: 7.8.5
 
   make-error@1.3.6: {}
 
@@ -17480,7 +17481,7 @@ snapshots:
 
   node-abi@3.93.0:
     dependencies:
-      semver: 7.6.3
+      semver: 7.8.5
 
   node-abort-controller@3.1.1: {}
 
@@ -17557,13 +17558,13 @@ snapshots:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.16.2
-      semver: 7.6.3
+      semver: 7.8.5
       validate-npm-package-license: 3.0.4
 
   normalize-package-data@6.0.2:
     dependencies:
       hosted-git-info: 7.0.2
-      semver: 7.6.3
+      semver: 7.8.5
       validate-npm-package-license: 3.0.4
 
   normalize-path@2.1.1:
@@ -18152,7 +18153,7 @@ snapshots:
       ky: 1.14.3
       registry-auth-token: 5.1.1
       registry-url: 6.0.1
-      semver: 7.6.3
+      semver: 7.8.5
 
   parallel-transform@1.2.0:
     dependencies:
@@ -20334,7 +20335,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  vuetify@3.12.8(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3)):
+  vuetify@3.7.4(typescript@5.9.3)(vue@3.5.39(typescript@5.9.3)):
     dependencies:
       vue: 3.5.39(typescript@5.9.3)
     optionalDependencies:
