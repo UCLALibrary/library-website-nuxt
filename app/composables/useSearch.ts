@@ -199,7 +199,7 @@ async function getAggregationsForSiteSearch(fields) {
   }
   )
   const data = await response.json()
-  return addDefaultOptions(data.aggregations)
+  return data.aggregations
 }
 
 async function getAggregations(fields, sectionHandle) {
@@ -228,78 +228,7 @@ async function getAggregations(fields, sectionHandle) {
   }
   )
   const data = await response.json()
-  return addDefaultOptions(data.aggregations)
-}
-/*
-// Title case the aggregation buckets, except for excluded values like "yes" and "no"
-type TermsBucket = {
-  key: string
-  doc_count: number
-}
-
-type TermsAggregation = {
-  doc_count_error_upper_bound: number
-  sum_other_doc_count: number
-  buckets: TermsBucket[]
-}
-
-type Aggregations = Record<string, TermsAggregation>
-const excludedValues = new Set(['yes', 'no'])
-
-function toTitleCase(value: string): string {
-  if (excludedValues.has(value.toLowerCase())) {
-    return value
-  }
-
-  return value.replace(/\b\w/g, char => char.toUpperCase())
-}
-
-function titleCaseAggregations(aggregations: Aggregations): Aggregations {
-  return Object.fromEntries(
-    Object.entries(aggregations).map(([aggName, agg]) => [
-      aggName,
-      {
-        ...agg,
-        buckets: agg.buckets.map(bucket => ({
-          ...bucket,
-          key: toTitleCase(bucket.key),
-        })),
-      },
-    ])
-  )
-}*/
-
-type TermsBucket = {
-  key: string
-  doc_count: number
-}
-
-type TermsAggregation = {
-  buckets: TermsBucket[]
-  [key: string]: unknown
-}
-
-type Aggregations = Record<string, TermsAggregation>
-
-const defaultOptionBucket: TermsBucket = {
-  key: 'All',
-  doc_count: 0,
-}
-
-function addDefaultOption(buckets: TermsBucket[]): TermsBucket[] {
-  return [defaultOptionBucket, ...buckets]
-}
-
-function addDefaultOptions(aggregations: Aggregations): Aggregations {
-  return Object.fromEntries(
-    Object.entries(aggregations).map(([name, agg]) => [
-      name,
-      {
-        ...agg,
-        buckets: addDefaultOption(agg.buckets),
-      },
-    ])
-  )
+  return data.aggregations
 }
 
 async function keywordSearchWithFilters(
