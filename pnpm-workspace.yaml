@@ -9,12 +9,5 @@ allowBuilds:
   vue-demi: true
 engineStrict: true
 minimumReleaseAgeExclude:
-<<<<<<< HEAD
   - '@ucla-library-monorepo/ucla-library-website-components@1.79.1'
   - '@ucla-library/component-library-nuxt-module@1.4.1'
-=======
-  - '@ucla-library-monorepo/ucla-library-website-components@1.78.2'
-  - '@ucla-library/component-library-nuxt-module@1.3.50'
-  - '@ucla-library-monorepo/ucla-library-website-components@1.79.0'
-  - '@ucla-library/component-library-nuxt-module@1.4.0'
->>>>>>> c2be5475 (feat: update component-library-nuxt-module to 1.4.0)
