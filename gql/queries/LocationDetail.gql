@@ -85,6 +85,7 @@ query LocationDetail($slug: [String!]) {
             title
         }
         to: slug
+        externalResourceUrl
         heroImage {
             ... on heroImage_heroImage_BlockType {
                 id

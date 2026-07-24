@@ -12,6 +12,7 @@ fragment BlockHighlightFragment on ElementInterface {
                 # category: typeHandle
                 contentType: sectionHandle
                 to: uri
+                externalResourceUrl
                 title
                 text: summary
                 eventDescription
