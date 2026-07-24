@@ -32,7 +32,11 @@
     "@nuxt/scripts": "1.2.1",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@types/node": "^18.17.3",
+<<<<<<< HEAD
     "@ucla-library/component-library-nuxt-module": "1.4.1",
+=======
+    "@ucla-library/component-library-nuxt-module": "1.4.0",
+>>>>>>> c2be5475 (feat: update component-library-nuxt-module to 1.4.0)
     "@unhead/vue": "^2.1.15",
     "axe-core": "^4.12.1",
     "chromatic": "^13.3.5",
