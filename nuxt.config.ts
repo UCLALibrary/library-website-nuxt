@@ -19,9 +19,6 @@ export default defineNuxtConfig({
         '~ucla-library-design-tokens': 'ucla-library-design-tokens',
       },
     },
-    ssr: {
-      noExternal: ['vuetify'], // Include Vuetify in the server-side bundle
-    },
     server: {
       fs: {
         strict: false,
@@ -180,7 +177,7 @@ export default defineNuxtConfig({
   },
 
   build: {
-    transpile: ['nuxt-graphql-request', 'vuetify'],
+    transpile: ['nuxt-graphql-request'],
   },
 
   eslint: {
