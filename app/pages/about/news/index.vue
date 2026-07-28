@@ -429,9 +429,6 @@ const { hasCTA } = useAskALibrarianCTA()
       <SectionStaffArticleList :items="parseHitsResults" />
     </SectionWrapper>
 
-<h3>NEWS</br><pre>{{news}}</pre></h3>
-<h3>HITS</br><pre>{{hits}}</pre></h3>
-
     <!-- NO RESULTS -->
     <SectionWrapper
       v-show="noResultsFound"
