@@ -50,7 +50,7 @@ query CollectionsList {
         }
     }
     entries(
-        section: "article"
+        section: ["article", "externalArticle"]
         relatedToCategories: [{ title: "collections" }]
         orderBy: "postDate DESC"
         limit: 3

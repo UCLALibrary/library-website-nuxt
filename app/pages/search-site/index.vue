@@ -327,7 +327,7 @@ useHead({
           <SearchResult
             :title="result.title"
             :category="parseCategory(result.sectionHandle)"
-            :summary="result.summary || result.text"
+            :summary="result.summary || result.text || result.description"
             :to="result.to"
             class="search-result-item"
           >

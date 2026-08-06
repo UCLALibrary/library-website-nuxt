@@ -9,6 +9,7 @@ fragment BlockBannerFeaturedFragment on ElementInterface {
                 contentType: sectionHandle
                 title
                 to: uri
+                externalResourceUrl
                 summary
                 physicalDigital
                 workshopOrEventSeriesType

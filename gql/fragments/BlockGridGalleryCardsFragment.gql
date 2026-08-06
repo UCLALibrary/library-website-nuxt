@@ -11,6 +11,7 @@ fragment BlockGridGalleryCardsFragment on ElementInterface {
                     headlineText: title
                     snippet: summary
                     to: uri
+                    externalResourceUrl
                     heroImage {
                         ... on heroImage_heroImage_BlockType {
                             image {
@@ -45,6 +46,7 @@ fragment BlockGridGalleryCardsFragment on ElementInterface {
                     headlineText: title
                     snippet: summary
                     to: uri
+                    externalResourceUrl
                     heroImage {
                         ... on heroImage_heroImage_BlockType {
                             image {
