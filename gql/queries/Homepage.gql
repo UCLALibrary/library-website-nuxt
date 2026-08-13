@@ -68,6 +68,14 @@ query Homepage {
                         summary
                     }
                 }
+                associatedLocationsAndPrograms {
+                    ... on location_location_Entry {
+                        id
+                        to: uri
+                        uri
+                        title
+                    }
+                }
                 heroImage {
                     ... on heroImage_heroImage_BlockType {
                         id

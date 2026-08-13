@@ -64,6 +64,20 @@ const parsedGetHelpWith = computed(() => {
     }
   })
 })
+
+const parsedLocations = computed(() => {
+  const featuredEvent = page.value.featuredEvents?.[0]
+
+  if (!featuredEvent)
+    return []
+
+  return featuredEvent.associatedLocations?.[0] != null
+    ? featuredEvent.associatedLocations
+    : featuredEvent.associatedLocationsAndPrograms?.[0] != null
+      ? featuredEvent.associatedLocationsAndPrograms
+      : featuredEvent.eventLocation
+})
+
 const bannerFeaturedEvent = computed(() => {
   const bannerFeaturedEvent = page.value.featuredEvents[0]
   return {
@@ -93,10 +107,7 @@ const bannerFeaturedEvent = computed(() => {
       bannerFeaturedEvent.sectionHandle === 'event'
         ? _get(bannerFeaturedEvent, 'eventDescription', '')
         : _get(bannerFeaturedEvent, 'summary', ''),
-    locations:
-      bannerFeaturedEvent.associatedLocations?.[0] != null
-        ? bannerFeaturedEvent.associatedLocations
-        : bannerFeaturedEvent.eventLocation,
+    locations: "parsedLocations",
   }
 })
 // TO DO need to update dates on component
@@ -257,7 +268,10 @@ useHead({
       <DividerWayFinder color="visit" />
     </SectionWrapper>
 
-    <SectionWrapper class="section-banner">
+    <SectionWrapper
+      v-if="page.featuredEvents?.length > 0"
+      class="section-banner"
+    >
       <BannerFeatured
         :media="bannerFeaturedEvent.image"
         :to="bannerFeaturedEvent.to"
@@ -265,7 +279,7 @@ useHead({
         :title="bannerFeaturedEvent.title"
         :start-date="bannerFeaturedEvent.startDate"
         :end-date="bannerFeaturedEvent.endDate"
-        :locations="bannerFeaturedEvent.associatedLocations"
+        :locations="parsedLocations"
         :align-right="false"
         :category="bannerFeaturedEvent.category"
       >
@@ -273,9 +287,11 @@ useHead({
       </BannerFeatured>
     </SectionWrapper>
 
-    <SectionWrapper class="section-dual-masonry">
+    <SectionWrapper
+      v-if="parsedDualMasonryEvents.length > 0"
+      class="section-dual-masonry"
+      >
       <SectionDualMasonry
-        v-if="parsedDualMasonryEvents.length > 0"
         :items="parsedDualMasonryEvents"
         to="/visit/events-exhibitions/"
         text="See All Events &amp; Exhibitions"
