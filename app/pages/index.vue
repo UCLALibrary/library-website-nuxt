@@ -107,7 +107,7 @@ const bannerFeaturedEvent = computed(() => {
       bannerFeaturedEvent.sectionHandle === 'event'
         ? _get(bannerFeaturedEvent, 'eventDescription', '')
         : _get(bannerFeaturedEvent, 'summary', ''),
-    locations: "parsedLocations",
+    locations: 'parsedLocations',
   }
 })
 // TO DO need to update dates on component
@@ -290,7 +290,7 @@ useHead({
     <SectionWrapper
       v-if="parsedDualMasonryEvents.length > 0"
       class="section-dual-masonry"
-      >
+    >
       <SectionDualMasonry
         :items="parsedDualMasonryEvents"
         to="/visit/events-exhibitions/"
