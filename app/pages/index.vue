@@ -70,8 +70,8 @@ const bannerFeaturedEvent = computed(() => {
     ...bannerFeaturedEvent,
     to: `/${bannerFeaturedEvent.uri}`,
     title:
-      bannerFeaturedEvent.sectionHandle
-        === 'workshopOrEventSeries'
+      bannerFeaturedEvent.sectionHandle === 'workshopOrEventSeries'
+      || bannerFeaturedEvent.sectionHandle === 'exhibition'
         ? bannerFeaturedEvent.title
         : bannerFeaturedEvent.eventTitle,
     prompt:
@@ -94,7 +94,7 @@ const bannerFeaturedEvent = computed(() => {
         ? _get(bannerFeaturedEvent, 'eventDescription', '')
         : _get(bannerFeaturedEvent, 'summary', ''),
     locations:
-      bannerFeaturedEvent.associatedLocations[0] != null
+      bannerFeaturedEvent.associatedLocations?.[0] != null
         ? bannerFeaturedEvent.associatedLocations
         : bannerFeaturedEvent.eventLocation,
   }
@@ -108,6 +108,7 @@ const parsedDualMasonryEvents = computed(() => {
       to: `/${obj.uri}`,
       title:
         obj.sectionHandle === 'workshopOrEventSeries'
+        || obj.sectionHandle === 'exhibition'
           ? obj.title
           : obj.eventTitle,
       image: _get(obj, 'heroImage[0].image[0]', null),
