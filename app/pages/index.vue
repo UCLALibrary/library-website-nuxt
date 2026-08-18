@@ -65,17 +65,27 @@ const parsedGetHelpWith = computed(() => {
   })
 })
 
-const parsedLocations = computed(() => {
+const parsedFeaturedEventLocations = computed(() => {
   const featuredEvent = page.value.featuredEvents?.[0]
 
   if (!featuredEvent)
     return []
 
-  return featuredEvent.associatedLocations?.[0] != null
-    ? featuredEvent.associatedLocations
-    : featuredEvent.associatedLocationsAndPrograms?.[0] != null
-      ? featuredEvent.associatedLocationsAndPrograms
-      : featuredEvent.eventLocation
+  if (
+    featuredEvent.associatedLocations?.[0] !== undefined
+    && featuredEvent.associatedLocations?.[0] !== null
+  ) {
+    return featuredEvent.associatedLocations
+  }
+
+  if (
+    featuredEvent.associatedLocationsAndPrograms?.[0] !== undefined
+    && featuredEvent.associatedLocationsAndPrograms?.[0] !== null
+  ) {
+    return featuredEvent.associatedLocationsAndPrograms
+  }
+
+  return featuredEvent.eventLocation
 })
 
 const bannerFeaturedEvent = computed(() => {
@@ -107,7 +117,7 @@ const bannerFeaturedEvent = computed(() => {
       bannerFeaturedEvent.sectionHandle === 'event'
         ? _get(bannerFeaturedEvent, 'eventDescription', '')
         : _get(bannerFeaturedEvent, 'summary', ''),
-    locations: 'parsedLocations',
+    locations: 'parsedFeaturedEventLocations',
   }
 })
 // TO DO need to update dates on component
@@ -279,7 +289,7 @@ useHead({
         :title="bannerFeaturedEvent.title"
         :start-date="bannerFeaturedEvent.startDate"
         :end-date="bannerFeaturedEvent.endDate"
-        :locations="parsedLocations"
+        :locations="parsedFeaturedEventLocations"
         :align-right="false"
         :category="bannerFeaturedEvent.category"
       >
