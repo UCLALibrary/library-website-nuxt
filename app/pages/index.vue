@@ -73,14 +73,14 @@ const parsedFeaturedEventLocations = computed(() => {
 
   if (
     featuredEvent.associatedLocations?.[0] !== undefined
-    && featuredEvent.associatedLocations?.[0] !== null
+    || featuredEvent.associatedLocations?.[0] !== null
   ) {
     return featuredEvent.associatedLocations
   }
 
   if (
     featuredEvent.associatedLocationsAndPrograms?.[0] !== undefined
-    && featuredEvent.associatedLocationsAndPrograms?.[0] !== null
+    || featuredEvent.associatedLocationsAndPrograms?.[0] !== null
   ) {
     return featuredEvent.associatedLocationsAndPrograms
   }
