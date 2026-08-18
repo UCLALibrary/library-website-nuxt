@@ -68,14 +68,6 @@ query Homepage {
                         summary
                     }
                 }
-                associatedLocationsAndPrograms {
-                    ... on location_location_Entry {
-                        id
-                        to: uri
-                        uri
-                        title
-                    }
-                }
                 ... on exhibition_exhibition_Entry {
                     associatedLocationsAndPrograms {
                         ... on location_location_Entry {

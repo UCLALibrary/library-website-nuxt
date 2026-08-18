@@ -65,27 +65,35 @@ const parsedGetHelpWith = computed(() => {
   })
 })
 
+// The location for the BannerFeatured event may come from:
+// associatedLocations for Events, Workshops, or Event Series
+// associatedLocationsAndPrograms for Exhibitions
+// eventLocation as a fallback
 const parsedFeaturedEventLocations = computed(() => {
+  // Get the first featured event for the BannerFeatured component
   const featuredEvent = page.value.featuredEvents?.[0]
 
+  // Return an empty array if there is no featured event
   if (!featuredEvent)
     return []
 
-  if (
-    featuredEvent.associatedLocations?.[0] !== undefined
-    || featuredEvent.associatedLocations?.[0] !== null
-  ) {
-    return featuredEvent.associatedLocations
-  }
+  // Explicitly check that the first location is neither undefined nor null
+  // If it exists, return all associatedLocations
+  return featuredEvent.associatedLocations?.[0] !== undefined
+    && featuredEvent.associatedLocations?.[0] !== null
+    ? featuredEvent.associatedLocations
 
-  if (
-    featuredEvent.associatedLocationsAndPrograms?.[0] !== undefined
-    || featuredEvent.associatedLocationsAndPrograms?.[0] !== null
-  ) {
-    return featuredEvent.associatedLocationsAndPrograms
-  }
+    // Exhibitions use associatedLocationsAndPrograms
+    // Explicitly check that the first location is neither undefined nor null
+    // If it exists, return all associatedLocationsAndPrograms
+    : featuredEvent.associatedLocationsAndPrograms?.[0] !== undefined
+      && featuredEvent.associatedLocationsAndPrograms?.[0] !== null
+      ? featuredEvent.associatedLocationsAndPrograms
 
-  return featuredEvent.eventLocation
+      // Fall back to eventLocation
+      // If it is null or undefined, return an empty array
+      // so locations always has a safe value.
+      : featuredEvent.eventLocation ?? []
 })
 
 const bannerFeaturedEvent = computed(() => {
@@ -117,9 +125,9 @@ const bannerFeaturedEvent = computed(() => {
       bannerFeaturedEvent.sectionHandle === 'event'
         ? _get(bannerFeaturedEvent, 'eventDescription', '')
         : _get(bannerFeaturedEvent, 'summary', ''),
-    locations: 'parsedFeaturedEventLocations',
   }
 })
+
 // TO DO need to update dates on component
 const parsedDualMasonryEvents = computed(() => {
   const masonaryEvents = page.value.featuredEvents.slice(1, 3)
