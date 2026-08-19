@@ -64,6 +64,38 @@ const parsedGetHelpWith = computed(() => {
     }
   })
 })
+
+// The location for the BannerFeatured event may come from:
+// associatedLocations for Events, Workshops, or Event Series
+// associatedLocationsAndPrograms for Exhibitions
+// eventLocation as a fallback
+const parsedFeaturedEventLocations = computed(() => {
+  // Get the first featured event for the BannerFeatured component
+  const featuredEvent = page.value.featuredEvents?.[0]
+
+  // Return an empty array if there is no featured event
+  if (!featuredEvent)
+    return []
+
+  // Explicitly check that the first location is neither undefined nor null
+  // If it exists, return all associatedLocations
+  return featuredEvent.associatedLocations?.[0] !== undefined
+    && featuredEvent.associatedLocations?.[0] !== null
+    ? featuredEvent.associatedLocations
+
+    // Exhibitions use associatedLocationsAndPrograms
+    // Explicitly check that the first location is neither undefined nor null
+    // If it exists, return all associatedLocationsAndPrograms
+    : featuredEvent.associatedLocationsAndPrograms?.[0] !== undefined
+      && featuredEvent.associatedLocationsAndPrograms?.[0] !== null
+      ? featuredEvent.associatedLocationsAndPrograms
+
+      // Fall back to eventLocation
+      // If it is null or undefined, return an empty array
+      // so locations always has a safe value.
+      : featuredEvent.eventLocation ?? []
+})
+
 const bannerFeaturedEvent = computed(() => {
   const bannerFeaturedEvent = page.value.featuredEvents[0]
   return {
@@ -93,12 +125,9 @@ const bannerFeaturedEvent = computed(() => {
       bannerFeaturedEvent.sectionHandle === 'event'
         ? _get(bannerFeaturedEvent, 'eventDescription', '')
         : _get(bannerFeaturedEvent, 'summary', ''),
-    locations:
-      bannerFeaturedEvent.associatedLocations?.[0] != null
-        ? bannerFeaturedEvent.associatedLocations
-        : bannerFeaturedEvent.eventLocation,
   }
 })
+
 // TO DO need to update dates on component
 const parsedDualMasonryEvents = computed(() => {
   const masonaryEvents = page.value.featuredEvents.slice(1, 3)
@@ -257,7 +286,10 @@ useHead({
       <DividerWayFinder color="visit" />
     </SectionWrapper>
 
-    <SectionWrapper class="section-banner">
+    <SectionWrapper
+      v-if="page.featuredEvents?.length > 0"
+      class="section-banner"
+    >
       <BannerFeatured
         :media="bannerFeaturedEvent.image"
         :to="bannerFeaturedEvent.to"
@@ -265,7 +297,7 @@ useHead({
         :title="bannerFeaturedEvent.title"
         :start-date="bannerFeaturedEvent.startDate"
         :end-date="bannerFeaturedEvent.endDate"
-        :locations="bannerFeaturedEvent.associatedLocations"
+        :locations="parsedFeaturedEventLocations"
         :align-right="false"
         :category="bannerFeaturedEvent.category"
       >
@@ -273,9 +305,11 @@ useHead({
       </BannerFeatured>
     </SectionWrapper>
 
-    <SectionWrapper class="section-dual-masonry">
+    <SectionWrapper
+      v-if="parsedDualMasonryEvents.length > 0"
+      class="section-dual-masonry"
+    >
       <SectionDualMasonry
-        v-if="parsedDualMasonryEvents.length > 0"
         :items="parsedDualMasonryEvents"
         to="/visit/events-exhibitions/"
         text="See All Events &amp; Exhibitions"
