@@ -100,6 +100,20 @@ const parsedAwardsAndRecognitions = computed(() => {
   })
 })
 
+const parsedCategories = computed(() => {
+  const categories = page.value.tutorialCategory?.map(category => ({
+    title: category.title,
+    to: {
+      path: '/help/tutorials/',
+      query: {
+        filters: `tutorialCategory.title.keyword:(${category.title})`,
+      },
+    },
+  }))
+
+  return categories ?? []
+})
+
 const parsedAuthors = computed(() => {
   const authorNames = page.value.authors.flatMap(author =>
     author.contributor
@@ -195,6 +209,27 @@ const parsedBlockCTA2Up = computed(() => {
       theme="divider"
       section-title="About this Tutorial"
     >
+
+      <SectionWrapper
+        v-if="page.tutorialCategory.length"
+        class="about"
+      >
+        <SectionHeader level="3">
+          Categories
+        </SectionHeader>
+
+        <ul class="category-links">
+          <li
+            v-for="category in parsedCategories"
+            :key="category.title"
+          >
+            <NuxtLink :to="category.to">
+              {{ category.title }}
+            </NuxtLink>
+          </li>
+        </ul>
+      </SectionWrapper>
+
       <SectionWrapper
         v-if="page.awardsAndRecognition.length"
         class="about"
@@ -233,6 +268,7 @@ const parsedBlockCTA2Up = computed(() => {
         </SectionHeader>
         <p>{{ parsedContributors }}</p>
       </SectionWrapper>
+
     </SectionWrapper>
 
     <SectionWrapper v-if="cta">
@@ -253,6 +289,34 @@ const parsedBlockCTA2Up = computed(() => {
 
     p {
       @include step-0;
+    }
+
+    .category-links {
+      font-family: var(--font-secodary);
+      font-size: 20px;
+      @include link-default;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        margin: 0;
+      }
+
+      a {
+        @include link-default;
+        &:hover {
+          color: $black;
+        }
+      }
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
     }
 
     .awards-list {
