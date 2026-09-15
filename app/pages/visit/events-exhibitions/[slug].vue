@@ -55,7 +55,7 @@ if (import.meta.prerender) {
 // Data
 
 const page = ref(data.value)
-// console.log('page data for events exhibition slug template:', page.value)
+console.log('page data for events exhibition slug template:', page.value)
 watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal Events and Series error issue debug', newVal, oldVal)
   page.value = newVal
@@ -82,19 +82,6 @@ const onlineEvent = ref(!!(page.value &&
 const libcalWaitlist = ref(page.value && page.value.event && page.value.event.libcalWaitlist)
 const libcalEndpointProxy = ref(config.public.libcalProxy)
 
-console.log('page variable:', page.value)
-console.log('allEvents variable:', allEvents.value)
-
-console.log('eventId variable:', eventId.value)
-console.log('formData variable:', formData.value)
-console.log('formId variable:', formId.value)
-console.log('eventId variable:', eventId.value)
-console.log('inPersonEvent variable:', inPersonEvent.value)
-console.log('onlineEvent variable:', onlineEvent.value)
-console.log('libcalWaitlist variable:', libcalWaitlist.value)
-console.log('libcalEndpointProxy variable:', libcalEndpointProxy.value)
-console.log('in-person event', inPersonEvent.value)
-console.log('online event', onlineEvent.value)
 const providerEventId = computed(() => {
   // console.log("In provder for event id is called")
   return eventId.value
@@ -112,9 +99,7 @@ provide('libcalWaitlist', computed(() => libcalWaitlist.value))
 provide('libcalEndpoint', libcalEndpointProxy.value)
 
 if (page.value) {
-  console.log('Setting head for events and exhibitions detail page')
   if (page.value.event) {
-    console.log('Setting head for event')
     useHead({
       title: page.value ? page.value?.event?.title : '... loading',
       meta: [
@@ -278,6 +263,7 @@ const parsedExhibitionBannerTo = computed(() => {
 
 const associatedExhibitionEvents = computed(() => {
   return page.value?.exhibition?.exhibitsAndEvents?.map((obj) => {
+    console.log(obj)
     return {
       ...obj,
       to: `/${obj.uri}`,
@@ -644,10 +630,8 @@ const { hasCTA } = useAskALibrarianCTA()
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText
-          :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
-          "
-        />
+        <RichText :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
+          " />
       </SectionWrapper>
     </div>
   </main>
