@@ -17,12 +17,7 @@ const { $graphql } = useNuxtApp()
 const route = useRoute()
 
 const { data, error } = await useAsyncData(`events-listing-detail-${route.params.slug}`, async () => {
-  console.log('In async data for events and exhibitions detail slug template')
-  console.log('route params slug:', route.params.slug)
   const data = await $graphql.default.request(EVENT_DETAIL, { slug: route.params.slug })
-
-  console.log('test event exhibition:', data)
-
   return data
 })
 
@@ -50,20 +45,15 @@ if (import.meta.prerender) {
   await index(data.value.event || data.value.eventSeries || data.value.exhibition, route.params.slug)
 }
 
-// console.log('test:', data.value.event.libcalOnlineSeats, data.value.event.libcalOnlineSeatsTaken)
-
 // Data
 
 const page = ref(data.value)
-console.log('page data for events exhibition slug template:', page.value)
 watch(data, (newVal, oldVal) => {
   console.log('In watch preview enabled, newVal, oldVal Events and Series error issue debug', newVal, oldVal)
   page.value = newVal
 })
 
 const allEvents = ref([])
-// console.log('online?', Number(page.value.event.libcalOnlineSeats) - Number(page.value.event.libcalOnlineSeatsTaken))
-
 const formData = ref({})
 const formId = ref('')
 const eventId = ref(page.value && page.value.event ? page.value.event.libcalId : '')
@@ -83,7 +73,6 @@ const libcalWaitlist = ref(page.value && page.value.event && page.value.event.li
 const libcalEndpointProxy = ref(config.public.libcalProxy)
 
 const providerEventId = computed(() => {
-  // console.log("In provder for event id is called")
   return eventId.value
 })
 provide('eventId', providerEventId)
@@ -115,7 +104,6 @@ if (page.value) {
   }
 
   if (page.value.eventSeries) {
-    console.log('Setting head for event series')
     useHead({
       title: page.value
         ? page.value?.eventSeries?.title
@@ -131,7 +119,6 @@ if (page.value) {
   }
 
   if (page.value.exhibition) {
-    console.log('Setting head for exhibition')
     useHead({
       title: page.value
         ? page.value?.exhibition?.title
@@ -160,9 +147,6 @@ const parseURL = computed(() => {
     ? null
     : page.value?.event.onlineJoinURL
 })
-// //console.log(
-//     "In parse registration:" + this.page.event.requiresRegistration
-// )
 
 //  if requiresRegistration = 1 & libcalRegistrationOpened = 1 & libcalRegistrationClosed = null
 //     then show registration button/form
@@ -249,7 +233,6 @@ const parsedAssociatedTopics = computed(() => {
 })
 
 const parsedExhibitionBannerPrompt = computed(() => {
-  console.log('page value exhibition button url:', page.value.exhibition?.buttonUrl)
   return page.value?.exhibition?.buttonUrl?.length > 0
     ? page.value.exhibition?.buttonUrl[0]?.buttonText
     : ''
@@ -263,9 +246,9 @@ const parsedExhibitionBannerTo = computed(() => {
 
 const associatedExhibitionEvents = computed(() => {
   return page.value?.exhibition?.exhibitsAndEvents?.map((obj) => {
-    console.log(obj)
     return {
       ...obj,
+      title: obj.eventTitle || obj.title || null, // title field has dates at the end for some objects, prefer eventTitle if available
       to: `/${obj.uri}`,
       image: _get(obj, 'image[0].image[0]', null),
       category: _get(obj, 'category[0].title', ''),
@@ -324,11 +307,9 @@ onMounted(async () => {
     page.value.event.requiresRegistration === '1' &&
     page.value.event.onlineProvider !== 'external'
   ) {
-    // console.log('getting formid')
     const formDataArray = await $scrapeApi.scrapeFormId(
       page.value.event.libcalId
     ) // please check the fieldname in the query
-    // console.log('is this a promise:' + JSON.stringify(formDataArray))
     formData.value = formDataArray[0]
   }
 })
