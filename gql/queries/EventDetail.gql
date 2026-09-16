@@ -280,6 +280,7 @@ query EventDetail($slug: [String!]) {
             }
             exhibitsAndEvents {
                 title
+                eventTitle
                 uri
                 sectionHandle
                 startDateWithTime
