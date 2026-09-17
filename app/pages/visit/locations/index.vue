@@ -150,7 +150,7 @@ const parsedUclaLibraries = computed(() => {
       to: obj.uri ? `/${obj.uri}` : null,
       image: _get(obj, 'heroImage[0].image[0]', null),
       address: parseAddress(obj)[0],
-      addressLink: `https://map.ucla.edu/?id=${obj.campusMapId}&e=true`,
+      addressLink: `https://www.maps.ucla.edu/?id=2043#!m/${obj.campusMapId}?s/`,
       amenities:
         obj.amenitiesIcons.length > 0
           ? parseAmenities(obj)
@@ -169,7 +169,7 @@ const parsedAffiliateLibraries = computed(() => {
         : null,
       image: _get(obj, 'heroImage[0].image[0]', null),
       address: parseAddress(obj)[0],
-      addressLink: `https://map.ucla.edu/?id=${obj.campusMapId}&e=true`,
+      addressLink: `https://www.maps.ucla.edu/?id=2043#!m/${obj.campusMapId}?s/`,
       amenities:
         obj.amenitiesIcons.length !== 0
           ? parseAmenities(obj)
@@ -219,7 +219,7 @@ function parseHits(hits = []) {
           : `/${obj._source.uri}`,
       image: _get(obj._source, 'heroImage[0].image[0]', null),
       address: parseAddress(obj._source)[0],
-      addressLink: `https://map.ucla.edu/?id=${obj._source.campusMapId}&e=true`,
+      addressLink: `https://www.maps.ucla.edu/?id=2043#!m/${obj._source.campusMapId}?s/`,
       amenities:
         obj._source.amenitiesIcons.length !== 0
           ? parseAmenities(obj._source)
@@ -291,7 +291,7 @@ const { hasCTA } = useAskALibrarianCTA()
         parsedUclaLibraries.length &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
       section-title="UCLA Library Locations"
     >
@@ -313,7 +313,7 @@ const { hasCTA } = useAskALibrarianCTA()
         showOtherCampus &&
         hits.length == 0 &&
         !noResultsFound
-      "
+        "
       section-title="Other Campus Libraries & Archives"
     >
       <SectionLocationList

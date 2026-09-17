@@ -115,9 +115,8 @@ const parsedAddress = computed(() => {
 })
 
 const addressLink = computed(() => {
-  return `https://map.ucla.edu/?id=${page.value.campusMapId}&e=true`
+  return `https://www.maps.ucla.edu/?id=2043#!m/${page.value.campusMapId}?s/`
 })
-
 const parsedSpaces = computed(() => {
   return page.value.space.map((obj) => {
     return {
