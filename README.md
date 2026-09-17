@@ -279,6 +279,6 @@ where `<version>` is the version specified in the repository's `packageManager` 
 
 Then continue using pnpm normally:
 
-```bash 
+```bash
 pnpm install
 ```
