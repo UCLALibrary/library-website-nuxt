@@ -14,7 +14,6 @@ import removeTags from '@/utils/removeTags'
 const { $graphql, $getHeaders } = useNuxtApp()
 const hostname = ref('')
 hostname.value = useRuntimeConfig().public.hostName
-// console.log('hostname', hostname.value)
 
 const route = useRoute()
 
@@ -33,7 +32,6 @@ if (error.value) {
 }
 
 if (!data.value.entry) {
-  // console.log('no data')
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found',
@@ -42,13 +40,11 @@ if (!data.value.entry) {
 }
 if (data.value.entry.slug && import.meta.prerender) {
   const { index } = useIndexer()
-  // console.log('Indexing location', data.value.entry.slug)
   await index(data.value.entry, data.value.entry.slug)
 }
 
 const page = ref(_get(data.value, 'entry', {}))
 watch(data, (newVal, oldVal) => {
-  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
 })
 
@@ -190,7 +186,6 @@ onMounted(() => {
   // for different environments iframe and parent page url should have the same hostname
   const url = new URL(window.location.href)
   hostname.value = `${url.protocol}//${url.hostname}:${url.port}`
-  console.log('In mounted: hostname.value:  ', hostname.value)
   // Call the plugin method to get the .section-header2 and .section-header3 elements
   h2Array.value = $getHeaders.getHeadersMethod()
 })

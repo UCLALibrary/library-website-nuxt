@@ -50,7 +50,6 @@ if (data.value.entry && import.meta.prerender) {
   await index(doc, 'location-list')
 }
 
-// console.log('In endowment listing page data.value: ', JSON.stringify(data.value))
 // Index data on server only
 if (data?.value?.entry.affiliateLibraries && data.value.entry.affiliateLibraries.length > 0 && import.meta.prerender) {
   const { index } = useIndexer()
@@ -66,7 +65,6 @@ const page = ref(_get(data.value, 'entry', {}))
 const uclaLibraries = ref(_get(data.value, 'uclaLibraries', []))
 const affiliateLibraries = ref(_get(data.value, 'affiliateLibraries', []))
 watch(data, (newVal, oldVal) => {
-  // console.log('In watch preview enabled, newVal, oldVal', newVal, oldVal)
   page.value = _get(newVal, 'entry', {})
   uclaLibraries.value = _get(newVal, 'uclaLibraries', [])
   affiliateLibraries.value = _get(newVal, 'affiliateLibraries', [])
@@ -91,7 +89,6 @@ async function searchES() {
         config.locationsList.filters
       ))
   ) {
-    // console.log('Search ES HITS query,', route.query.q)
     const queryText = route.query.q || '*'
     const { keywordSearchWithFilters } = useSearch()
     const results = await keywordSearchWithFilters(
@@ -105,7 +102,6 @@ async function searchES() {
       []
     )
     if (results && results.hits && results.hits.total.value > 0) {
-      // console.log('Search ES HITS,', results.hits.hits)
       hits.value = results.hits.hits
       noResultsFound.value = false
     } else {
@@ -113,7 +109,6 @@ async function searchES() {
       hits.value = []
     }
   } else {
-    // console.log('data.value', data.value)
     hits.value = []
     noResultsFound.value = false
   }
@@ -123,9 +118,7 @@ async function searchES() {
 watch(
   () => route.query,
   (newVal, oldVal) => {
-    // console.log('ES newVal, oldVal', newVal, oldVal)
     searchGenericQuery.value.queryText = route.query.q || ''
-    // TODO is the line correct? empty object not array?
     searchGenericQuery.value.queryFilters = parseFilters(route.query.filters || '')
     searchES()
   }, { deep: true, immediate: true }
@@ -199,9 +192,7 @@ async function setFilters() {
     config.locationsList.filters,
     'location'
   )
-  /* console.log(
-    'Search Aggs Response: ' + JSON.stringify(searchAggsResponse)
-  ) */
+
   searchFilters.value = getListingFilters(
     searchAggsResponse,
     config.locationsList.filters
@@ -210,7 +201,6 @@ async function setFilters() {
 
 function parseHits(hits = []) {
   return hits?.map((obj) => {
-    // //console.log(obj["_source"]["_source"]["image"])
     return {
       ...obj._source,
       to:
@@ -229,7 +219,6 @@ function parseHits(hits = []) {
     }
   })
 }
-// console.log('parseHits: ', parseHits())
 
 /* TODO: Refactor when search functionality is ready */
 function getSearchData(data) {
