@@ -204,7 +204,8 @@ export default defineNuxtConfig({
   scripts: {
     registry: {
       googleTagManager: {
-        id: 'GTM-T2SXV2'
+        id: 'GTM-T2SXV2',
+        trigger: 'onNuxtReady'
       }
     }
   },
