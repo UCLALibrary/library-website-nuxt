@@ -85,35 +85,49 @@ useHead({
 
 // COMPUTED
 const parsedFeaturedNews = computed(() => {
-  return page.value?.featuredNews?.map((obj) => {
-    return {
-      ...obj,
-      to:
-        obj.externalResourceUrl != null
-          ? _get(obj, 'externalResourceUrl', '')
-          : `/${obj.to}`,
-      image: _get(obj, 'heroImage[0].image[0]', null),
-      category: _get(obj, 'articleCategories[0].title', ''),
-      dateCreated: _get(obj, 'postDate', ''),
-      byline: _get(obj, 'articleStaff', []),
-      bylineOne: _get(obj, 'articleStaff[0].title', ''),
-      bylineTwo: _get(obj, 'postDate', ''),
-    }
-  })
+  const featuredNews = page.value?.featuredNews
+
+  if (!Array.isArray(featuredNews)) return []
+
+  return featuredNews
+    .filter((obj) => {
+      return (
+        obj &&
+        typeof obj === 'object' &&
+        Object.keys(obj).length > 0 &&
+        obj.title &&
+        (obj.to || obj.externalResourceUrl)
+      )
+    })
+    .map((obj) => {
+      return {
+        ...obj,
+        to: obj.externalResourceUrl || `/${obj.to}`,
+        image: _get(obj, 'heroImage[0].image[0]', null),
+        category: _get(obj, 'articleCategories[0].title', ''),
+        dateCreated: _get(obj, 'postDate', ''),
+        byline: _get(obj, 'articleStaff', []),
+        bylineOne: _get(obj, 'articleStaff[0].title', ''),
+        bylineTwo: _get(obj, 'postDate', ''),
+      }
+    })
 })
 
 const parsedBannerHeader = computed(() => {
-  // console.log('parsedBannerHeader', parsedFeaturedNews.value)
-  return parsedFeaturedNews.value ? parsedFeaturedNews.value[0] : {}
+  return parsedFeaturedNews.value[0] || null
 })
 
 const parsedSectionHighlight = computed(() => {
-  return parsedFeaturedNews.value?.slice(1, 3).map((obj) => {
+  return parsedFeaturedNews.value.slice(1, 3).map((obj) => {
+    const date = obj.bylineTwo
+      ? new Date(obj.bylineTwo)
+      : null
+
     return {
       ...obj,
       bylineTwo:
-        obj.bylineTwo != null
-          ? format(new Date(obj.bylineTwo), 'MMMM d, yyyy')
+        date && !Number.isNaN(date.getTime())
+          ? format(date, 'MMMM d, yyyy')
           : '',
     }
   })
@@ -358,10 +372,11 @@ const { hasCTA } = useAskALibrarianCTA()
       class="section-no-top-margin"
     >
       <BannerFeatured
+        v-if="parsedBannerHeader"
         :media="parsedBannerHeader.image"
         :title="parsedBannerHeader.title"
         breadcrumb="Featured"
-        :byline="parsedByline"
+        :byline="parsedBannerHeader.bylineOne"
         :description="parsedBannerHeader.text"
         :date-created="parsedBannerHeader.postDate"
         :to="parsedBannerHeader.to"
@@ -375,7 +390,7 @@ const { hasCTA } = useAskALibrarianCTA()
           page.featuredNews &&
           page.featuredNews.length &&
           hits.length === 0 &&
-          !noResultsFound
+          !noResultsFound && parsedSectionHighlight.length > 0
         "
       />
 

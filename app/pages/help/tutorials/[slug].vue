@@ -209,7 +209,6 @@ const parsedBlockCTA2Up = computed(() => {
       theme="divider"
       section-title="About this Tutorial"
     >
-
       <SectionWrapper
         v-if="page.tutorialCategory.length"
         class="about"
@@ -268,7 +267,6 @@ const parsedBlockCTA2Up = computed(() => {
         </SectionHeader>
         <p>{{ parsedContributors }}</p>
       </SectionWrapper>
-
     </SectionWrapper>
 
     <SectionWrapper v-if="cta">

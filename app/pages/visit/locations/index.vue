@@ -280,7 +280,7 @@ const { hasCTA } = useAskALibrarianCTA()
         parsedUclaLibraries.length &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
       section-title="UCLA Library Locations"
     >
@@ -302,7 +302,7 @@ const { hasCTA } = useAskALibrarianCTA()
         showOtherCampus &&
         hits.length == 0 &&
         !noResultsFound
-        "
+      "
       section-title="Other Campus Libraries & Archives"
     >
       <SectionLocationList
