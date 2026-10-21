@@ -85,8 +85,7 @@ useHead({
 
 // COMPUTED
 const parsedFeaturedNews = computed(() => {
-
-  const validContent = page.value?.featuredNews.filter(obj => {
+  const validContent = page.value?.featuredNews.filter((obj) => {
     return Object.keys(obj).length !== 0
   })
 
@@ -365,7 +364,7 @@ const { hasCTA } = useAskALibrarianCTA()
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-        "
+      "
       class="section-no-top-margin"
     >
       <BannerFeatured
@@ -382,12 +381,14 @@ const { hasCTA } = useAskALibrarianCTA()
         class="banner section-featured-banner"
       />
 
-      <DividerGeneral v-show="page &&
-        page.featuredNews &&
-        parsedSectionHighlight.length &&
-        hits.length === 0 &&
-        !noResultsFound
-        " />
+      <DividerGeneral
+        v-show="page &&
+          page.featuredNews &&
+          parsedSectionHighlight.length &&
+          hits.length === 0 &&
+          !noResultsFound
+        "
+      />
 
       <SectionTeaserHighlight
         v-if="parsedSectionHighlight.length > 0"
@@ -402,7 +403,7 @@ const { hasCTA } = useAskALibrarianCTA()
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-        "
+      "
       theme="divider"
     >
       <DividerWayFinder color="about" />
