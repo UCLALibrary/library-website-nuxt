@@ -57,6 +57,27 @@ query ArticleList {
             }
             postDate
           }
+          ... on externalArticle_externalArticle_Entry {
+            title
+            articleCategories {
+              id
+              title
+              uri
+            }
+            text: summary
+            to: uri
+            externalResourceUrl
+            sectionHandle
+            heroImage {
+              ... on heroImage_heroImage_BlockType {
+                id
+                image {
+                  ...Image
+                }
+              }
+            }
+            postDate
+          }
         }
       }
     }
