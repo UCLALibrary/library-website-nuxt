@@ -85,7 +85,15 @@ useHead({
 
 // COMPUTED
 const parsedFeaturedNews = computed(() => {
-  return page.value?.featuredNews?.map((obj) => {
+
+  const validContent = page.value?.featuredNews.filter(obj => {
+    return Object.keys(obj).length !== 0
+  })
+
+  if (validContent.length === 0)
+    return []
+
+  return validContent.map((obj) => {
     return {
       ...obj,
       to:
@@ -104,10 +112,13 @@ const parsedFeaturedNews = computed(() => {
 
 const parsedBannerHeader = computed(() => {
   // console.log('parsedBannerHeader', parsedFeaturedNews.value)
-  return parsedFeaturedNews.value ? parsedFeaturedNews.value[0] : {}
+  return parsedFeaturedNews?.value?.[0] ?? {}
 })
 
 const parsedSectionHighlight = computed(() => {
+  if (parsedFeaturedNews.value.length === 0)
+    return []
+
   return parsedFeaturedNews.value?.slice(1, 3).map((obj) => {
     return {
       ...obj,
@@ -354,10 +365,11 @@ const { hasCTA } = useAskALibrarianCTA()
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       class="section-no-top-margin"
     >
       <BannerFeatured
+        v-if="parsedBannerHeader"
         :media="parsedBannerHeader.image"
         :title="parsedBannerHeader.title"
         breadcrumb="Featured"
@@ -370,17 +382,15 @@ const { hasCTA } = useAskALibrarianCTA()
         class="banner section-featured-banner"
       />
 
-      <DividerGeneral
-        v-show="page &&
-          page.featuredNews &&
-          page.featuredNews.length &&
-          hits.length === 0 &&
-          !noResultsFound
-        "
-      />
+      <DividerGeneral v-show="page &&
+        page.featuredNews &&
+        parsedSectionHighlight.length &&
+        hits.length === 0 &&
+        !noResultsFound
+        " />
 
       <SectionTeaserHighlight
-        v-show="parsedSectionHighlight.length > 0"
+        v-if="parsedSectionHighlight.length > 0"
         class="section"
         :items="parsedSectionHighlight"
       />
@@ -392,7 +402,7 @@ const { hasCTA } = useAskALibrarianCTA()
         page.featuredNews.length > 0 &&
         hits.length === 0 &&
         !noResultsFound
-      "
+        "
       theme="divider"
     >
       <DividerWayFinder color="about" />
