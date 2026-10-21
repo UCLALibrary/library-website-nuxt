@@ -611,8 +611,10 @@ const { hasCTA } = useAskALibrarianCTA()
       </SectionWrapper>
 
       <SectionWrapper :section-title="parsedAcknowledgementTitle">
-        <RichText :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
-          " />
+        <RichText
+          :rich-text-content="page?.exhibition?.acknowledgements[0]?.acknowledgements
+          "
+        />
       </SectionWrapper>
     </div>
   </main>
