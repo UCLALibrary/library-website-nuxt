@@ -40,7 +40,7 @@ jobs:
           ES_TEMP_INDEX_PREFIX_LIBGUIDES: ${{secrets.ES_TEMP_INDEX_PREFIX_LIBGUIDES_TEST}}
           LIBGUIDES_ES_INDEX: ${{secrets.LIBGUIDES_ES_INDEX_TEST}}
 
-      - uses: cypress-io/github-action@v5
+      - uses: cypress-io/github-action@v7.4.6
         with:
           start: pnpm dlx serve .output/public
           install: false
