@@ -108,7 +108,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-      - uses: cypress-io/github-action@v5
+      - uses: cypress-io/github-action@v7.4.6
         with:
           start: pnpm dlx serve .output/public
           wait-on: http://127.0.0.1:3000
