@@ -63,15 +63,17 @@ useHead({
 })
 
 const parsedResources = computed(() => {
-  return page.value.featuredResourcesSection.map((obj) => {
+  return (page.value?.featuredResourcesSection ?? []).map((obj) => {
     return {
       ...obj,
-      featuredResources: obj.featuredResources.map((item) => {
+      featuredResources: (obj.featuredResources ?? []).map((item) => {
         return {
           ...item,
           to: item.externalResourceUrl
             ? item.externalResourceUrl
-            : `/${item.to}`,
+            : item.to
+              ?`/${item.to}`
+              : '',
         }
       }),
     }
@@ -197,11 +199,11 @@ onMounted(() => {
     />
 
     <SectionWrapper
+      v-if="parsedResources.length"
       :section-title="parsedResources[0].titleGeneral"
       :section-summary="parsedResources[0].sectionSummary"
     >
       <SectionCardsWithIllustrations
-        v-if="parsedResources.length"
         :items="parsedResources[0].featuredResources"
         :is-horizontal="false"
         button-text="See More"
