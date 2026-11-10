@@ -90,10 +90,10 @@ const parsedBannerFeatured = computed(() => {
   return meta.map((obj) => {
     return {
       ...obj,
-      media: obj.heroImage[0].image[0],
+      media: obj.heroImage?.[0]?.image?.[0] ?? null,
       title: _get(obj, 'title', ''),
       titleLink: `/${obj.titleLink}`,
-      description: (obj, 'summary', ''),
+      description: _get(obj, 'summary', ''),
       category: obj.category
         ? obj.category.join(', ')
         : '',
