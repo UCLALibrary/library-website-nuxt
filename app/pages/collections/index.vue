@@ -5,6 +5,7 @@
 // HELPERS
 import _get from 'lodash/get'
 import format from 'date-fns/format'
+import isValid from 'date-fns/isValid'
 //  import { onMounted } from 'vue'
 import COLLECTIONS_LIST from '../gql/queries/CollectionsList.gql'
 import removeTags from '@/utils/removeTags'
@@ -158,7 +159,10 @@ const allCollectionsNewsLink = computed(() => {
 
 // METHODS
 function parsedDate(postDate) {
-  return format(new Date(postDate), 'MMMM d, Y')
+  if (!postDate) return ''
+
+  const date = new Date(postDate)
+  return isValid(date) ? format(date, 'MMMM d, Y') : ''
 }
 
 function parseArticleCategory(categories) {
