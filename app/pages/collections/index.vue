@@ -72,7 +72,7 @@ const parsedResources = computed(() => {
           to: item.externalResourceUrl
             ? item.externalResourceUrl
             : item.to
-              ?`/${item.to}`
+              ? `/${item.to}`
               : '',
         }
       }),
