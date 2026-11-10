@@ -104,17 +104,16 @@ const parsedBannerFeatured = computed(() => {
 })
 
 const parsedSectionHighlight = computed(() => {
-  if (
-    page.value.featuredCollectionsSection[0].featuredCollections
-      .length > 1
-  ) {
-    return page.value.featuredCollectionsSection[0].featuredCollections
+  const collections = page.value?.featuredCollectionsSection?.[0]?.featuredCollections ?? []
+
+  if (collections.length > 1) {
+    return collections
       .slice(1)
       .map((obj) => {
         return {
           ...obj,
           image: _get(obj, 'heroImage[0].image[0]', ''),
-          category: obj.category.join(', '),
+          category: obj.category?.join(', ') ?? '',
           to: `/${obj.uri}`,
           text: obj.summary
         }
