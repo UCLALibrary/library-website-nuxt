@@ -26,7 +26,7 @@ if (error.value) {
   })
 }
 
-if (!data.value?.data?.entry) {
+if (!data.value.data.entry && !data.value.data.entries) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 if (data.value.entry && import.meta.prerender) {
@@ -36,9 +36,6 @@ if (data.value.entry && import.meta.prerender) {
     text: data.value.entry.text,
     uri: 'collections/'
   }
-
-  console.log('Indexing Collections page:', doc)
-
   await index(doc, 'collections-list')
 }
 
