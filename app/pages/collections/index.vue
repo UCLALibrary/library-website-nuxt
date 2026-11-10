@@ -26,7 +26,7 @@ if (error.value) {
   })
 }
 
-if (!data.value.data.entry && !data.value.data.entries) {
+if (!data.value?.data?.entry) {
   throw createError({ statusCode: 404, message: 'Page not found', fatal: true })
 }
 if (data.value.entry && import.meta.prerender) {
