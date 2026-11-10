@@ -93,7 +93,7 @@ const parsedBannerFeatured = computed(() => {
       ...obj,
       media: obj.heroImage?.[0]?.image?.[0] ?? null,
       title: _get(obj, 'title', ''),
-      titleLink: `/${obj.titleLink}`,
+      titleLink: obj.titleLink ? `/${obj.titleLink}` : '',
       description: _get(obj, 'summary', ''),
       category: obj.category
         ? obj.category.join(', ')
@@ -234,7 +234,7 @@ onMounted(() => {
       />
 
       <SectionTeaserHighlight
-        v-if="parsedCollections.featuredCollections.length > 1"
+        v-if="parsedSectionHighlight.length"
         class="section-teaser-highlight"
         :items="parsedSectionHighlight"
       />
