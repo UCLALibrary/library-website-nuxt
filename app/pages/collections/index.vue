@@ -36,6 +36,9 @@ if (data.value.entry && import.meta.prerender) {
     text: data.value.entry.text,
     uri: 'collections/'
   }
+
+  console.log('Indexing Collections page:', doc)
+
   await index(doc, 'collections-list')
 }
 
