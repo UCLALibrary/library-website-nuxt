@@ -85,7 +85,7 @@ const parsedCollections = computed(() => {
 })
 
 const parsedBannerFeatured = computed(() => {
-  const meta = page.value.featuredCollectionsSection[0].featuredCollections
+  const meta = page.value?.featuredCollectionsSection?.[0]?.featuredCollections ?? []
 
   return meta.map((obj) => {
     return {
