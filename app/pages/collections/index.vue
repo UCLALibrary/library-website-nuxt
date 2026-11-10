@@ -127,7 +127,7 @@ const parsedArticles = computed(() => {
   if (pageArticles.value) {
     return pageArticles.value.map((obj) => {
       const parsedCategories = parseArticleCategory(
-        obj.articleCategories
+        obj.articleCategories ?? []
       )
       return {
         ...obj,
