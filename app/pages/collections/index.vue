@@ -218,8 +218,8 @@ onMounted(() => {
 
     <!-- FEATURED & HIGHLIGHTED -->
     <SectionWrapper
-      :section-title="page.parsedCollections.titleGeneral"
-      :section-summary="page.parsedCollections.sectionSummary"
+      :section-title="parsedCollections.titleGeneral"
+      :section-summary="parsedCollections.sectionSummary"
     >
       <BannerFeatured
         v-if="page.featuredCollectionsSection.length > 0"
