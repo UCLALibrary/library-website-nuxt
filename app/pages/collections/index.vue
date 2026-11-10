@@ -222,7 +222,6 @@ onMounted(() => {
       :section-summary="parsedCollections.sectionSummary"
     >
       <BannerFeatured
-        v-if="page.featuredCollectionsSection.length > 0"
         v-if="parsedBannerFeatured.length"
         class="banner banner-about"
         :media="parsedBannerFeatured[0].media"
