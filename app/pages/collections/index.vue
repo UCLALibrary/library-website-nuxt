@@ -5,6 +5,7 @@
 // HELPERS
 import _get from 'lodash/get'
 import format from 'date-fns/format'
+import isValid from 'date-fns/isValid'
 //  import { onMounted } from 'vue'
 import COLLECTIONS_LIST from '../gql/queries/CollectionsList.gql'
 import removeTags from '@/utils/removeTags'
@@ -63,15 +64,17 @@ useHead({
 })
 
 const parsedResources = computed(() => {
-  return page.value.featuredResourcesSection.map((obj) => {
+  return (page.value?.featuredResourcesSection ?? []).map((obj) => {
     return {
       ...obj,
-      featuredResources: obj.featuredResources.map((item) => {
+      featuredResources: (obj.featuredResources ?? []).map((item) => {
         return {
           ...item,
           to: item.externalResourceUrl
             ? item.externalResourceUrl
-            : `/${item.to}`,
+            : item.to
+              ? `/${item.to}`
+              : '',
         }
       }),
     }
@@ -79,21 +82,19 @@ const parsedResources = computed(() => {
 })
 
 const parsedCollections = computed(() => {
-  return page.value.featuredCollectionsSection[0]
-    ? page.value.featuredCollectionsSection[0]
-    : {}
+  return page.value?.featuredCollectionsSection?.[0] ?? {}
 })
 
 const parsedBannerFeatured = computed(() => {
-  const meta = page.value.featuredCollectionsSection[0].featuredCollections
+  const meta = page.value?.featuredCollectionsSection?.[0]?.featuredCollections ?? []
 
   return meta.map((obj) => {
     return {
       ...obj,
-      media: obj.heroImage[0].image[0],
+      media: obj.heroImage?.[0]?.image?.[0] ?? null,
       title: _get(obj, 'title', ''),
-      titleLink: `/${obj.titleLink}`,
-      description: (obj, 'summary', ''),
+      titleLink: obj.titleLink ? `/${obj.titleLink}` : '',
+      description: _get(obj, 'summary', ''),
       category: obj.category
         ? obj.category.join(', ')
         : '',
@@ -104,17 +105,16 @@ const parsedBannerFeatured = computed(() => {
 })
 
 const parsedSectionHighlight = computed(() => {
-  if (
-    page.value.featuredCollectionsSection[0].featuredCollections
-      .length > 1
-  ) {
-    return page.value.featuredCollectionsSection[0].featuredCollections
+  const collections = page.value?.featuredCollectionsSection?.[0]?.featuredCollections ?? []
+
+  if (collections.length > 1) {
+    return collections
       .slice(1)
       .map((obj) => {
         return {
           ...obj,
           image: _get(obj, 'heroImage[0].image[0]', ''),
-          category: obj.category.join(', '),
+          category: obj.category?.join(', ') ?? '',
           to: `/${obj.uri}`,
           text: obj.summary
         }
@@ -128,7 +128,7 @@ const parsedArticles = computed(() => {
   if (pageArticles.value) {
     return pageArticles.value.map((obj) => {
       const parsedCategories = parseArticleCategory(
-        obj.articleCategories
+        obj.articleCategories ?? []
       )
       return {
         ...obj,
@@ -159,7 +159,10 @@ const allCollectionsNewsLink = computed(() => {
 
 // METHODS
 function parsedDate(postDate) {
-  return format(new Date(postDate), 'MMMM d, Y')
+  if (!postDate) return ''
+
+  const date = new Date(postDate)
+  return isValid(date) ? format(date, 'MMMM d, Y') : ''
 }
 
 function parseArticleCategory(categories) {
@@ -197,11 +200,11 @@ onMounted(() => {
     />
 
     <SectionWrapper
+      v-if="parsedResources.length"
       :section-title="parsedResources[0].titleGeneral"
       :section-summary="parsedResources[0].sectionSummary"
     >
       <SectionCardsWithIllustrations
-        v-if="parsedResources.length"
         :items="parsedResources[0].featuredResources"
         :is-horizontal="false"
         button-text="See More"
@@ -215,15 +218,15 @@ onMounted(() => {
 
     <!-- FEATURED & HIGHLIGHTED -->
     <SectionWrapper
-      :section-title="page.featuredCollectionsSection[0].titleGeneral"
-      :section-summary="page.featuredCollectionsSection[0].sectionSummary"
+      :section-title="parsedCollections.titleGeneral"
+      :section-summary="parsedCollections.sectionSummary"
     >
       <BannerFeatured
-        v-if="page.featuredCollectionsSection.length > 0"
+        v-if="parsedBannerFeatured.length"
         class="banner banner-about"
         :media="parsedBannerFeatured[0].media"
         :title="parsedBannerFeatured[0].title"
-        :description="parsedBannerFeatured[0].summary"
+        :description="parsedBannerFeatured[0].description"
         :category="parsedBannerFeatured[0].category"
         :to="parsedBannerFeatured[0].to"
         :prompt="parsedBannerFeatured[0].prompt"
@@ -231,7 +234,7 @@ onMounted(() => {
       />
 
       <SectionTeaserHighlight
-        v-if="parsedCollections.featuredCollections.length > 1"
+        v-if="parsedSectionHighlight.length"
         class="section-teaser-highlight"
         :items="parsedSectionHighlight"
       />
