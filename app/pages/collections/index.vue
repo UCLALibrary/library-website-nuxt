@@ -81,9 +81,7 @@ const parsedResources = computed(() => {
 })
 
 const parsedCollections = computed(() => {
-  return page.value.featuredCollectionsSection[0]
-    ? page.value.featuredCollectionsSection[0]
-    : {}
+  return page.value?.featuredCollectionsSection?.[0] ?? {}
 })
 
 const parsedBannerFeatured = computed(() => {
