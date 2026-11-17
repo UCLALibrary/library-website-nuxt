@@ -35,7 +35,7 @@ const classes = computed(() => [
 onMounted(async () => {
   console.log('In default layout', enabled.value, state?.token)
   // await $alerts()
-  refresh()
+  await refresh()
 })
 
 const parsedSiteNotificationBanner = computed(() => {
@@ -54,11 +54,11 @@ const parsedSiteNotificationBanner = computed(() => {
 
 <template>
   <div :class="classes">
-    <site-notification-banner
+    <!--site-notification-banner
       v-if="parsedSiteNotificationBanner"
       class="site-notification-banner"
       :text="parsedSiteNotificationBanner.text"
-    />
+    /-->
     <HeaderSmart v-if="globalStore.header && !$route.path.includes('/impact/')" />
     <SectionWrapper
       v-if="!$route.path.includes('/impact/')"

@@ -1,5 +1,5 @@
 export default defineNuxtPlugin((nuxtApp) => { //
-  /*const globalStore = useGlobalStore()
+  /* const globalStore = useGlobalStore()
   // console.log('Nuxt plugin client side called from Default layout')
   const alerts = async () => {
     try {
@@ -17,5 +17,5 @@ export default defineNuxtPlugin((nuxtApp) => { //
     provide: {
       alerts,
     },
-  }*/
+  } */
 })
