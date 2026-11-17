@@ -18,8 +18,7 @@ console.log('Error page props:', props?.error?.message)
       <p class="error">
         {{ error?.status || 'Error' }}
       </p>
-      <!-- <pre v-if="isDevelopment"> -->
-        <pre>
+      <pre v-if="isDevelopment">
       {{ error?.message }}
       <br>
       {{ error }}
