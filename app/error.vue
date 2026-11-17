@@ -1,108 +1,149 @@
-<script setup lang="ts">
-//  import { RichText, DividerWayFinder } from '@ucla-library-monorepo/ucla-library-website-components'
-import type { NuxtError } from '#app'
+<script setup>
+// components need to be imported for nitro crawling in static mode
+// //  import { HeaderSmart, SectionWrapper, NavPrimary, SiteNotificationAlert, FooterPrimary, FooterSock } from '@ucla-library-monorepo/ucla-library-website-components'
 
-const props = defineProps({
-  error: Object as () => NuxtError
+provide('theme', computed(() => ''))
+
+useHead({
+  titleTemplate: title =>
+    title === 'Homepage' ? 'UCLA Library' : `${title || 'Error'}` + ' | UCLA Library',
+  script: [
+    {
+      hid: 'libanswers',
+      src: 'https://ucla.libanswers.com/load_chat.php?hash=5a44dfe7cc29aaee5bba635ab13fa753',
+      defer: true
+    },
+  ]
 })
-const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
-console.log('Error page props:', props?.error?.message)
+const { enabled, state } = usePreviewMode()
+
+const globalStore = useGlobalStore()
+// ✅ Fetch + hydrate Pinia (SSR + client)
+useHydrateGlobalStore()
+
+const { refresh } = useAlerts()
+
+// console.log('In default layout:', globalStore.header)
+
+const classes = computed(() => [
+  'layout',
+  'layout-default',
+])
+
+// const { $alerts } = useNuxtApp()
+
+onMounted(async () => {
+  console.log('In default layout', enabled.value, state?.token)
+  // await $alerts()
+  await refresh()
+})
+
+const parsedSiteNotificationBanner = computed(() => {
+  const banner = globalStore.globals.bannerAlert
+
+  if (!banner) {
+    return null
+  }
+
+  return {
+    ...banner,
+    text: banner.text?.trim() ?? '',
+  }
+})
 </script>
 
 <template>
-  <NuxtLayout>
-    <main
-      id="main"
-      class="page page-error"
+  <div :class="classes">
+    <SiteNotificationBanner
+      v-if="parsedSiteNotificationBanner"
+      class="site-notification-banner"
+      :text="parsedSiteNotificationBanner.text"
+    />
+    <HeaderSmart v-if="globalStore.header && !$route.path.includes('/impact/')" />
+    <SectionWrapper
+      v-if="!$route.path.includes('/impact/')"
+      class="
+      section-alert"
+      theme="divider"
     >
-      <p class="error">
-        {{ error?.status || 'Error' }}
-      </p>
-      <pre v-if="isDevelopment">
-      {{ error?.message }}
-      <br>
-      {{ error }}
-      </pre>
-      <DividerWayFinder />
+      <site-notification-alert
+        v-if="
+          globalStore.globals.dismissibleAlert"
+        class="library-alert"
+        v-bind="globalStore.globals.dismissibleAlert"
+      />
+    </SectionWrapper>
+    <nav-primary
+      v-if="globalStore.header && $route.path.includes('/impact/')"
+      class="primary"
+    />
+    <slot />
 
-      <RichText
-        class="
-        error-text"
-      >
-        <h1
-          v-if="error?.status === 404"
-          class="error-title"
-        >
-          Page not found
-        </h1>
-        <h1
-          v-else
-          class="error-title"
-        >
-          An error occurred
-        </h1>
-
-        <p>
-          We can’t find the page you are looking for, but we're here to
-          help. <nuxt-link to="/">
-            Go back to home page
-          </nuxt-link> or
-          try these regularly visited links:
-        </p>
-        <ul>
-          <li>
-            <a href="https://library.ucla.edu/">UCLA Library Home</a>
-          </li>
-          <li>
-            <a href="https://library.ucla.edu/help/research-help/">Research Help</a>
-          </li>
-          <li>
-            <a href="https://library.ucla.edu/help/services-resources/accessibility-resources/">Accessibility
-              Resources</a>
-          </li>
-        </ul>
-      </RichText>
-    </main>
-  </NuxtLayout>
+    <footer>
+      <FooterPrimary
+        v-if="globalStore.footerPrimary && !$route.path.includes('/impact/')"
+        :form="true"
+      />
+      <FooterPrimary
+        v-if="globalStore.footerPrimary && $route.path.includes('/impact/')"
+        :form="false"
+      />
+      <FooterSock v-if="globalStore.footerSock && !$route.path.includes('/impact/')" />
+    </footer>
+    <div
+      v-if="!$route.path.includes('/impact/')"
+      id="libchat_5a44dfe7cc29aaee5bba635ab13fa753"
+    />
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.page-error {
-  padding: var(--space-3xl) var(--unit-gutter);
+.layout-default {
+  min-height: 100vh;
 
-  .error {
-    font-family: var(--font-secondary);
-    font-size: 248px;
-    font-weight: 600;
-    line-height: 1;
-    background: linear-gradient(20deg,
-        #fd9be0 10.99%,
-        #e29aee 23.02%,
-        #c099ff 32.91%,
-        #8ba0ef 42.44%,
-        #0aa5ff 56.68%,
-        #06bef2 73.09%,
-        #00e0e0 89.01%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  flex: 1 1 auto;
+
+  :deep(>*) {
+    width: 100%;
   }
 
-  .error-title {
-    @include step-5;
-    margin-bottom: 32px;
+  .section-alert {
+    height: 0;
+    position: relative;
 
-    p {
-      margin-bottom: var(--space-xl);
+    .library-alert {
+      position: absolute;
+      z-index: 100;
+      top: 32px;
+      right: var(--unit-gutter);
     }
   }
+}
 
-  @media #{$small} {
-    .error {
-      font-size: 128px;
-    }
-  }
+.vue-skip-to {
+  z-index: 300;
+}
+
+.skip-link {
+  position: absolute;
+  transform: translateY(-100%);
+  display: inline-block;
+  background: var(--color-primary-yellow-01);
+  color: var(--color-black);
+  @include step-0;
+  padding: 4px 16px;
+  transition: transform 0.3s;
+  width: auto;
+  left: 0;
+}
+
+.skip-link:focus {
+  transform: translateY(0%);
 }
 </style>
