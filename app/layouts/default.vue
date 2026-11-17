@@ -33,7 +33,7 @@ const classes = computed(() => [
 // const { $alerts } = useNuxtApp()
 
 onMounted(async () => {
-  console.log('In default layout', enabled.value, state?.token)
+  // console.log('In default layout', enabled.value, state?.token)
   // await $alerts()
   await refresh()
 })
