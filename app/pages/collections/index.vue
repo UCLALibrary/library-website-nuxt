@@ -162,7 +162,7 @@ function parsedDate(postDate) {
   if (!postDate) return ''
 
   const date = new Date(postDate)
-  return isValid(date) ? format(date, 'MMMM d, Y') : ''
+  return isValid(date) ? format(date, 'MMMM d, yyyy') : ''
 }
 
 function parseArticleCategory(categories) {
