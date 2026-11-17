@@ -21,6 +21,8 @@ const globalStore = useGlobalStore()
 // ✅ Fetch + hydrate Pinia (SSR + client)
 useHydrateGlobalStore()
 
+const { refresh } = useAlerts()
+
 // console.log('In default layout:', globalStore.header)
 
 const classes = computed(() => [
@@ -28,16 +30,35 @@ const classes = computed(() => [
   'layout-default',
 ])
 
-const { $alerts } = useNuxtApp()
+// const { $alerts } = useNuxtApp()
 
 onMounted(async () => {
   console.log('In default layout', enabled.value, state?.token)
-  await $alerts()
+  // await $alerts()
+  refresh()
+})
+
+const parsedSiteNotificationBanner = computed(() => {
+  const banner = globalStore.globals.bannerAlert
+
+  if (!banner) {
+    return null
+  }
+
+  return {
+    ...banner,
+    text: banner.text?.trim() ?? '',
+  }
 })
 </script>
 
 <template>
   <div :class="classes">
+    <site-notification-banner
+      v-if="parsedSiteNotificationBanner"
+      class="site-notification-banner"
+      :text="parsedSiteNotificationBanner.text"
+    />
     <HeaderSmart v-if="globalStore.header && !$route.path.includes('/impact/')" />
     <SectionWrapper
       v-if="!$route.path.includes('/impact/')"
@@ -47,9 +68,9 @@ onMounted(async () => {
     >
       <site-notification-alert
         v-if="
-          globalStore.globals.libraryAlert"
+          globalStore.globals.dismissibleAlert"
         class="library-alert"
-        v-bind="globalStore.globals.libraryAlert"
+        v-bind="globalStore.globals.dismissibleAlert"
       />
     </SectionWrapper>
     <nav-primary
