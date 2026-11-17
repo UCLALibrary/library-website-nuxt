@@ -32,6 +32,11 @@ const classes = computed(() => [
 
 // const { $alerts } = useNuxtApp()
 
+onMounted(async () => {
+  console.log('In default layout', enabled.value, state?.token)
+  // await $alerts()
+  await refresh()
+})
 
 const parsedSiteNotificationBanner = computed(() => {
   const banner = globalStore.globals.bannerAlert
@@ -44,12 +49,6 @@ const parsedSiteNotificationBanner = computed(() => {
     ...banner,
     text: banner.text?.trim() ?? '',
   }
-})
-
-onMounted(async () => {
-  console.log('In default layout', enabled.value, state?.token)
-  // await $alerts()
-  await refresh()
 })
 </script>
 
