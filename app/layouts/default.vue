@@ -33,7 +33,7 @@ const classes = computed(() => [
 // const { $alerts } = useNuxtApp()
 
 onMounted(async () => {
-  console.log('In default layout', enabled.value, state?.token)
+  // console.log('In default layout', enabled.value, state?.token)
   // await $alerts()
   await refresh()
 })
@@ -54,11 +54,10 @@ const parsedSiteNotificationBanner = computed(() => {
 
 <template>
   <div :class="classes">
-    <!--site-notification-banner
+    <SiteNotificationBanner
       v-if="parsedSiteNotificationBanner"
-      class="site-notification-banner"
       :text="parsedSiteNotificationBanner.text"
-    /-->
+    />
     <HeaderSmart v-if="globalStore.header && !$route.path.includes('/impact/')" />
     <SectionWrapper
       v-if="!$route.path.includes('/impact/')"
