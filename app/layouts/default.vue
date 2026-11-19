@@ -56,7 +56,6 @@ const parsedSiteNotificationBanner = computed(() => {
   <div :class="classes">
     <SiteNotificationBanner
       v-if="parsedSiteNotificationBanner"
-      class="site-notification-banner"
       :text="parsedSiteNotificationBanner.text"
     />
     <HeaderSmart v-if="globalStore.header && !$route.path.includes('/impact/')" />
