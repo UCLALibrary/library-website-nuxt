@@ -6,7 +6,7 @@ export function useAlerts() {
       const response = await $fetch('https://libguides-proxy.library.ucla.edu/api/libguides/global/proxy')
 
       if (response) {
-        store.globals.dismissibleAlert = removeObjectsWithEmptyValues([response.libraryAlert]).length > 0 ? removeObjectsWithEmptyValues([response.infoAlert])[0] : null
+        store.globals.dismissibleAlert = removeObjectsWithEmptyValues([response.libraryAlert]).length > 0 ? removeObjectsWithEmptyValues([response.libraryAlert])[0] : null
         store.globals.bannerAlert = removeObjectsWithEmptyValues([response.fullBannerAlert]).length > 0 ? removeObjectsWithEmptyValues([response.fullBannerAlert])[0] : null
       }
     } catch (error) {
